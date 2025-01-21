@@ -72,7 +72,6 @@
     <Compile Include="Classes\CLog.cs" />
     <Compile Include="Classes\CRegistrySettings.cs" />
     <Compile Include="Classes\ListViewColumnSorterExt.cs" />
-    <Compile Include="Classes\CRadioChannel.cs" />
     <Compile Include="Classes\CSettingsIO.cs" />
     <Compile Include="Forms\FormEventViewer.cs">
       <SubType>Form</SubType>

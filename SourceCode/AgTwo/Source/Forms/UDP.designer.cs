@@ -38,26 +38,33 @@ namespace AgTwo
         private Socket loopBackSocket;
         private EndPoint endPointLoopBack = new IPEndPoint(IPAddress.Loopback, 0);
 
-        // UDP Socket
-        public Socket UDPSocket;
-        private EndPoint endPointUDP = new IPEndPoint(IPAddress.Any, 0);
-        
-        public bool isUDPNetworkConnected;
-
         //2 endpoints for local and 2 udp
 
         private IPEndPoint epAgOpen = new IPEndPoint(IPAddress.Parse(
             Properties.Settings.Default.eth_loopOne.ToString() + "." +
             Properties.Settings.Default.eth_loopTwo.ToString() + "." +
             Properties.Settings.Default.eth_loopThree.ToString() + "." +
-            Properties.Settings.Default.eth_loopFour.ToString()), 15555);
-        
+            Properties.Settings.Default.eth_loopFour.ToString()), 25555);
+
+        // UDP Sockets
+        public Socket UDPSocket;
+        private EndPoint endPointUDP = new IPEndPoint(IPAddress.Any, 0);
+
+        public bool isUDPNetworkConnected;
+
+        //UDP Endpoints
         public IPEndPoint epModule = new IPEndPoint(IPAddress.Parse(
                 Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
                 Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
-                Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 8888);
+                Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 28888);
 
-        public IPEndPoint epModuleSet = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 8888);
+        public IPEndPoint epHello = new IPEndPoint(IPAddress.Parse(
+                Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
+                Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
+                Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 27777);
+
+        public IPEndPoint epModuleSet = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 27777);
+
         public byte[] ipAutoSet = { 192, 168, 5 };
 
         //class for counting bytes
@@ -66,15 +73,14 @@ namespace AgTwo
 
         //scan results placed here
         public string scanReturn = "Scanning...";
-        
+
         // Data stream
         private byte[] buffer = new byte[1024];
 
         //used to send communication check pgn= C8 or 200
         private byte[] helloFromAgTwo = { 0x80, 0x81, 0x7F, 200, 3, 56, 0, 0, 0x47 };
 
-        public IPAddress ipCurrent;
-        //initialize loopback and udp network
+        public IPAddress ipCurrent;        //initialize loopback and udp network
         public void LoadUDPNetwork()
         {
             helloFromAgTwo[5] = 56;
@@ -94,7 +100,7 @@ namespace AgTwo
                 // Initialise the socket
                 UDPSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 UDPSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
-                UDPSocket.Bind(new IPEndPoint(IPAddress.Any, 9999));
+                UDPSocket.Bind(new IPEndPoint(IPAddress.Any, 29999));
                 UDPSocket.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref endPointUDP,
                     new AsyncCallback(ReceiveDataUDPAsync), null);
 
@@ -136,10 +142,10 @@ namespace AgTwo
             {
                 loopBackSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 loopBackSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
-                loopBackSocket.Bind(new IPEndPoint(IPAddress.Loopback, 17777));
+                loopBackSocket.Bind(new IPEndPoint(IPAddress.Loopback, 27777));
                 loopBackSocket.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref endPointLoopBack, 
                     new AsyncCallback(ReceiveDataLoopAsync), null);
-                Log.EventWriter("Loopback is Connected: " + IPAddress.Loopback.ToString() + ":17777");
+                Log.EventWriter("Loopback is Connected: " + IPAddress.Loopback.ToString() + ":27777");
 
             }
             catch (Exception ex)
@@ -322,7 +328,9 @@ namespace AgTwo
                     }
 
                     else if (data[3] == 121 && data.Length == 11)
+                    {
                         traffic.helloFromIMU = 0;
+                    }
 
                     //scan Reply
                     else if (data[3] == 203 && data.Length == 13) //

@@ -3178,5 +3178,17 @@ namespace AgOpenGPS.Properties {
                 this["setWindow_tramLineSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool setGPS_isGPSTwoActive {
+            get {
+                return ((bool)(this["setGPS_isGPSTwoActive"]));
+            }
+            set {
+                this["setGPS_isGPSTwoActive"] = value;
+            }
+        }
     }
 }

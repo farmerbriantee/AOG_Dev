@@ -416,6 +416,7 @@ namespace AgOpenGPS
             }
         }
 
+        //flyout form
         #region Tab Sensors
 
         private void EnableAlert_Click(object sender, EventArgs e)
@@ -732,7 +733,25 @@ namespace AgOpenGPS
 
         #endregion Tab On the Line
 
+        #region Tab Tool Steer
+
+        private void tabTool_Enter(object sender, EventArgs e)
+        {
+            cboxGPSTwo.Checked = mf.isGPSTwoActive;
+        }
+
+        private void cboxGPSTwo_Click(object sender, EventArgs e)
+        {
+            mf.isGPSTwoActive = cboxGPSTwo.Checked;
+            mf.YesMessageBox("You must restart AgOpenGPS to make changes to the networking");
+            Log.EventWriter("GPS Two set to: " + cboxGPSTwo.Checked.ToString());
+            Settings.Default.setGPS_isGPSTwoActive = mf.isGPSTwoActive;
+        }
+
+        #endregion
+
         //main first tabform
+
         #region Gain
 
         private void hsbarMinPWM_ValueChanged(object sender, EventArgs e)
@@ -907,7 +926,7 @@ namespace AgOpenGPS
             if (windowSizeState++ > 0) windowSizeState = 0;
             if (windowSizeState == 1)
             {
-                this.Size = new System.Drawing.Size(918, 673);
+                this.Size = new System.Drawing.Size(1002, 673);
                 btnExpand.Image = Properties.Resources.ArrowLeft;
             }
             else if (windowSizeState == 0)
@@ -970,6 +989,7 @@ namespace AgOpenGPS
 
         #endregion
 
+        #region bottom buttons of flyout
         private void btnSendSteerConfigPGN_Click(object sender, EventArgs e)
         {
             SaveSettings();
@@ -1179,5 +1199,7 @@ namespace AgOpenGPS
                 tabSteerSettings.SelectTab(0);
             }
         }
+
+        #endregion
     }
 }

@@ -574,6 +574,8 @@ namespace AgOpenGPS
                     lbl_Volume.Text = "App " + nozz.unitsApplied;
             }
 
+            //Tool GPS on
+            isGPSTwoActive = Properties.Settings.Default.setGPS_isGPSTwoActive;
 
             udpWatchLimit = Properties.Settings.Default.SetGPS_udpWatchMsec;
             pn.headingTrueDualOffset = Properties.Settings.Default.setGPS_dualHeadingOffset;

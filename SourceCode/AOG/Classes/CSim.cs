@@ -98,6 +98,15 @@ namespace AgOpenGPS
             mf.pn.satellitesTracked = 12;
 
             mf.sentenceCounter = 0;
+
+            if (mf.isGPSTwoActive && mf.isGPSPositionInitialized)
+            {
+                mf.pnTwo.fix.easting = mf.toolPivotPos.easting;
+                mf.pnTwo.fix.northing = mf.toolPivotPos.northing;
+
+                mf.pnTwo.ConvertLocalToWGS84(mf.pnTwo.fix.northing, mf.pnTwo.fix.easting, out mf.pnTwo.latitude, out mf.pnTwo.longitude);
+            }
+
             mf.UpdateFixPosition();
 
             if (isAccelForward)

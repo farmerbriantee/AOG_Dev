@@ -425,6 +425,23 @@ namespace AgOpenGPS
 
                     if (camera.camSetDistance > -250)
                     {
+
+                        //Draw Tool antenna
+                        if (isGPSTwoActive)
+                        {
+                            GL.PointSize(16);
+                            GL.Begin(PrimitiveType.Points);
+                            GL.Color3(0.0, 0.0, 0.0);
+                            GL.Vertex3(pnTwo.fix.easting, pnTwo.fix.northing, 0.0);
+                            GL.End();
+
+                            GL.PointSize(10);
+                            GL.Begin(PrimitiveType.Points);
+                            GL.Color3(0.20, 0.78, 0.98);
+                            GL.Vertex3(pnTwo.fix.easting, pnTwo.fix.northing, 0.0);
+                            GL.End();
+                        }
+
                         if (trk.idx > -1)
                         {
                             if (trk.gArr[trk.idx].mode == TrackMode.AB)

@@ -46,19 +46,12 @@ namespace AgTwo
 
         public bool isKeyboardOn = true;
 
-        public bool isSendToSerial = true, isSendToUDP = false;
-
         public bool isGPSSentencesOn = false, isSendNMEAToUDP;
 
         //timer variables
         public double secondsSinceStart, twoSecondTimer, tenSecondTimer, threeMinuteTimer, pingSecondsStart;
 
         public string lastSentence;
-
-        public bool isNTRIPToggle;
-
-        //usually 256 - send ntrip to serial in chunks
-        public int packetSizeNTRIP;
 
         public bool lastHelloGPS, lastHelloAutoSteer, lastHelloMachine, lastHelloIMU;
         public bool isConnectedIMU, isConnectedSteer, isConnectedMachine;
@@ -112,80 +105,6 @@ namespace AgTwo
 
             isSendNMEAToUDP = Properties.Settings.Default.setUDP_isSendNMEAToUDP;
 
-            packetSizeNTRIP = Properties.Settings.Default.setNTRIP_packetSize;
-
-            isSendToSerial = Settings.Default.setNTRIP_sendToSerial;
-            isSendToUDP = Settings.Default.setNTRIP_sendToUDP;
-
-            //lblMount.Text = Properties.Settings.Default.setNTRIP_mount;
-
-            lblGPS1Comm.Text = "";
-            lblIMUComm.Text = "";
-            lblMod1Comm.Text = "";
-            lblMod2Comm.Text = "";
-
-            //set baud and port from last time run
-            baudRateGPS = Settings.Default.setPort_baudRateGPS;
-            portNameGPS = Settings.Default.setPort_portNameGPS;
-            wasGPSConnectedLastRun = Settings.Default.setPort_wasGPSConnected;
-            if (wasGPSConnectedLastRun)
-            {
-                OpenGPSPort();
-                if (spGPS.IsOpen) lblGPS1Comm.Text = portNameGPS;
-            }
-
-            // set baud and port for rtcm from last time run
-            baudRateRtcm = Settings.Default.setPort_baudRateRtcm;
-            portNameRtcm = Settings.Default.setPort_portNameRtcm;
-            wasRtcmConnectedLastRun = Settings.Default.setPort_wasRtcmConnected;
-
-            if (wasRtcmConnectedLastRun)
-            {
-                OpenRtcmPort();
-            }
-
-            //Open IMU
-            portNameIMU = Settings.Default.setPort_portNameIMU;
-            wasIMUConnectedLastRun = Settings.Default.setPort_wasIMUConnected;
-            if (wasIMUConnectedLastRun)
-            {
-                OpenIMUPort();
-                if (spIMU.IsOpen) lblIMUComm.Text = portNameIMU;
-            }
-
-            //same for SteerModule port
-            portNameSteerModule = Settings.Default.setPort_portNameSteer;
-            wasSteerModuleConnectedLastRun = Settings.Default.setPort_wasSteerModuleConnected;
-            if (wasSteerModuleConnectedLastRun)
-            {
-                OpenSteerModulePort();
-                if (spSteerModule.IsOpen) lblMod1Comm.Text = portNameSteerModule;
-            }
-
-            //same for MachineModule port
-            portNameMachineModule = Settings.Default.setPort_portNameMachine;
-            wasMachineModuleConnectedLastRun = Settings.Default.setPort_wasMachineModuleConnected;
-            if (wasMachineModuleConnectedLastRun)
-            {
-                OpenMachineModulePort();
-                if (spMachineModule.IsOpen) lblMod2Comm.Text = portNameMachineModule;
-            }
-
-            ConfigureNTRIP();
-
-            string[] ports = System.IO.Ports.SerialPort.GetPortNames();
-
-            if (ports.Length == 0)
-            {
-                lblSerialPorts.Text = "None";
-            }
-            else
-            {
-                for (int i = 0; i < ports.Length; i++)
-                {
-                    lblSerialPorts.Text = ports[i] + "\r\n";
-                }
-            }
 
             isConnectedIMU = cboxIsIMUModule.Checked = Properties.Settings.Default.setMod_isIMUConnected;
             isConnectedSteer = cboxIsSteerModule.Checked = Properties.Settings.Default.setMod_isSteerConnected;
@@ -204,59 +123,6 @@ namespace AgTwo
 
             //On or off the module rows
             SetModulesOnOff();
-
-            //update Caster IP from URL, just use the old one if can't find
-            if (isNTRIP_RequiredOn)
-            {
-                //broadCasterIP = Properties.Settings.Default.setNTRIP_casterIP; //Select correct Address
-                broadCasterIP = null;
-                string actualIP = Properties.Settings.Default.setNTRIP_casterURL.Trim();
-
-                try
-                {
-                    IPAddress[] addresslist = Dns.GetHostAddresses(actualIP);
-                    foreach (IPAddress address in addresslist)
-                    {
-                        if (address.AddressFamily == AddressFamily.InterNetwork)
-                        {
-                            broadCasterIP = address.ToString().Trim();
-                            Properties.Settings.Default.setNTRIP_casterIP = broadCasterIP;
-
-                            break;
-                        }
-                    }
-
-                    if (broadCasterIP == null) throw new NullReferenceException();
-                }
-                catch (Exception ex)
-                {
-                    Log.EventWriter(ex.ToString());
-                    TimedMessageBox(1500, "URL Not Located, Network Down?", "Cannot Find: " + Properties.Settings.Default.setNTRIP_casterURL);
-                    //if we had a timer already, kill it
-                    tmr?.Dispose();
-
-                    //use last known
-                    broadCasterIP = Properties.Settings.Default.setNTRIP_casterIP; //Select correct Address
-
-                    // Close the socket if it is still open
-                    if (clientSocket != null && clientSocket.Connected)
-                    {
-                        clientSocket.Shutdown(SocketShutdown.Both);
-                        System.Threading.Thread.Sleep(100);
-                        clientSocket.Close();
-                    }
-
-                    //TimedMessageBox(2000, "NTRIP Not Connected", " Reconnect Request");
-                    ntripCounter = 15;
-                    isNTRIP_Connected = false;
-                    isNTRIP_Starting = false;
-                    isNTRIP_Connecting = false;
-                    return;
-                }
-            }
-
-            //run gps_out or not
-            cboxAutoRunGPS_Out.Checked = Properties.Settings.Default.setDisplay_isAutoRunGPS_Out;
 
             this.Text =
             "AgTwo  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + " Profile: " + RegistrySettings.profileName;
@@ -292,12 +158,6 @@ namespace AgTwo
 
         private void FormLoop_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Settings.Default.setPort_wasGPSConnected = wasGPSConnectedLastRun;
-            Settings.Default.setPort_wasIMUConnected = wasIMUConnectedLastRun;
-            Settings.Default.setPort_wasSteerModuleConnected = wasSteerModuleConnectedLastRun;
-            Settings.Default.setPort_wasMachineModuleConnected = wasMachineModuleConnectedLastRun;
-            Settings.Default.setPort_wasRtcmConnected = wasRtcmConnectedLastRun;
-
             if (RegistrySettings.profileName != "Default Profile")
                 RegistrySettings.Save();
             else
@@ -364,9 +224,6 @@ namespace AgTwo
                 lblCurrentLat.Text = latitude.ToString("N7");
             }
 
-            //do all the NTRIP routines
-            DoNTRIPSecondRoutine();
-
             #region Sleep
 
             //is this the active window
@@ -417,30 +274,6 @@ namespace AgTwo
             {
                 ThreeMinuteLoop();
                 threeMinuteTimer = secondsSinceStart;
-            }
-
-            // 1 Second Loop Part2
-            if (isViewAdvanced)
-            {
-                if (isNTRIP_RequiredOn)
-                {
-                    sbRTCM.Append(".");
-                    lblMessages.Text = sbRTCM.ToString();
-                }
-            }
-
-            if (focusSkipCounter != 0)
-            {
-                if (ntripCounter > 30)
-                {
-                    isNTRIPToggle = !isNTRIPToggle;
-                    if (isNTRIPToggle) lblNTRIPBytes.BackColor = Color.CornflowerBlue;
-                    else lblNTRIPBytes.BackColor = Color.DarkOrange;
-                }
-                else
-                {
-                    lblNTRIPBytes.BackColor = Color.Transparent;
-                }
             }
         }
 
@@ -493,96 +326,6 @@ namespace AgTwo
                         lblIP.Text += IPA.ToString() + "\r\n";
                     }
                 }
-
-                if (isViewAdvanced && isNTRIP_RequiredOn)
-                {
-                    try
-                    {
-                        //add the uniques messages to all the new ones
-                        foreach (var item in aList)
-                        {
-                            rList.Add(item);
-                        }
-
-                        //sort and group using Linq
-                        sbRTCM.Clear();
-
-                        var g = rList.GroupBy(i => i)
-                            .OrderBy(grp => grp.Key);
-                        int count = 0;
-                        aList.Clear();
-
-                        //Create the text box of unique message numbers
-                        foreach (var grp in g)
-                        {
-                            aList.Add(grp.Key);
-                            sbRTCM.AppendLine(grp.Key + " - " + (grp.Count() - 1));
-                            count++;
-                        }
-
-                        rList?.Clear();
-
-                        //too many messages or trash
-                        if (count > 25)
-                        {
-                            aList?.Clear();
-                            sbRTCM.Clear();
-                            sbRTCM.Append("Reset..");
-                        }
-
-                        lblMessagesFound.Text = count.ToString();
-                    }
-                    catch
-                    {
-                        sbRTCM.Clear();
-                        sbRTCM.Append("Error");
-                        Log.EventWriter("RTCM List compilation error");
-                    }
-                }
-
-                #region Serial update
-
-                if (wasIMUConnectedLastRun)
-                {
-                    if (!spIMU.IsOpen)
-                    {
-                        byte[] imuClose = new byte[] { 0x80, 0x81, 0x7C, 0xD4, 2, 1, 0, 83 };
-
-                        //tell AgOpenGPS IMU is disconnected
-                        SendToLoopBackMessageAOG(imuClose);
-                        wasIMUConnectedLastRun = false;
-                        lblIMUComm.Text = "";
-                    }
-                }
-
-                if (wasGPSConnectedLastRun)
-                {
-                    if (!spGPS.IsOpen)
-                    {
-                        wasGPSConnectedLastRun = false;
-                        lblGPS1Comm.Text = "";
-                    }
-                }
-
-                if (wasSteerModuleConnectedLastRun)
-                {
-                    if (!spSteerModule.IsOpen)
-                    {
-                        wasSteerModuleConnectedLastRun = false;
-                        lblMod1Comm.Text = "";
-                    }
-                }
-
-                if (wasMachineModuleConnectedLastRun)
-                {
-                    if (!spMachineModule.IsOpen)
-                    {
-                        wasMachineModuleConnectedLastRun = false;
-                        lblMod2Comm.Text = "";
-                    }
-                }
-
-                #endregion Serial update
             }
         }
 
@@ -695,39 +438,33 @@ namespace AgTwo
             if (isConnectedIMU)
             {
                 btnIMU.Visible = true;
-                lblIMUComm.Visible = true;
                 cboxIsIMUModule.BackgroundImage = Properties.Resources.Cancel64;
             }
             else
             {
                 btnIMU.Visible = false;
-                lblIMUComm.Visible = false;
                 cboxIsIMUModule.BackgroundImage = Properties.Resources.AddNew;
             }
 
             if (isConnectedMachine)
             {
                 btnMachine.Visible = true;
-                lblMod2Comm.Visible = true;
                 cboxIsMachineModule.BackgroundImage = Properties.Resources.Cancel64;
             }
             else
             {
                 btnMachine.Visible = false;
-                lblMod2Comm.Visible = false;
                 cboxIsMachineModule.BackgroundImage = Properties.Resources.AddNew;
             }
 
             if (isConnectedSteer)
             {
                 btnSteer.Visible = true;
-                lblMod1Comm.Visible = true;
                 cboxIsSteerModule.BackgroundImage = Properties.Resources.Cancel64;
             }
             else
             {
                 btnSteer.Visible = false;
-                lblMod1Comm.Visible = false;
                 cboxIsSteerModule.BackgroundImage = Properties.Resources.AddNew;
             }
 
@@ -751,25 +488,6 @@ namespace AgTwo
 
                 lblCurentLon.Text = longitude.ToString("N7");
                 lblCurrentLat.Text = latitude.ToString("N7");
-            }
-        }
-
-        // Buttons, Checkboxes and Clicks  ***************************************************
-
-        private void RescanPorts()
-        {
-            string[] ports = System.IO.Ports.SerialPort.GetPortNames();
-
-            if (ports.Length == 0)
-            {
-                lblSerialPorts.Text = "None";
-            }
-            else
-            {
-                for (int i = 0; i < ports.Length; i++)
-                {
-                    lblSerialPorts.Text = ports[i] + " ";
-                }
             }
         }
     }

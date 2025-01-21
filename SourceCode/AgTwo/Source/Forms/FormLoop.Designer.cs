@@ -39,34 +39,18 @@ namespace AgTwo
             this.label8 = new System.Windows.Forms.Label();
             this.lblCurentLon = new System.Windows.Forms.Label();
             this.lblCurrentLat = new System.Windows.Forms.Label();
-            this.lblWatch = new System.Windows.Forms.Label();
-            this.lblNTRIPBytes = new System.Windows.Forms.Label();
-            this.lblMod2Comm = new System.Windows.Forms.Label();
-            this.lblMod1Comm = new System.Windows.Forms.Label();
-            this.lblIMUComm = new System.Windows.Forms.Label();
             this.lblFromGPS = new System.Windows.Forms.Label();
-            this.lblGPS1Comm = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripMenuProfiles = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripLogViewer = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripUDPMonitor = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSerialMonitor = new System.Windows.Forms.ToolStripMenuItem();
             this.modSimToolStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripEthernet = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsMenuStrip = new System.Windows.Forms.ToolStripDropDownButton();
-            this.saveToolStrip = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadToolStrip = new System.Windows.Forms.ToolStripMenuItem();
-            this.serialPassThroughToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblSteerAngle = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblNTRIP_IP = new System.Windows.Forms.Label();
-            this.lblSerialPorts = new System.Windows.Forms.Label();
-            this.lblMount = new System.Windows.Forms.Label();
             this.lblIP = new System.Windows.Forms.Label();
             this.ntripMeterTimer = new System.Windows.Forms.Timer(this.components);
-            this.lblMessages = new System.Windows.Forms.Label();
             this.lblWASCounts = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -74,24 +58,16 @@ namespace AgTwo
             this.lblSwitchStatus = new System.Windows.Forms.Label();
             this.lblWorkSwitchStatus = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.btnStartStopNtrip = new System.Windows.Forms.Button();
-            this.lblMessagesFound = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.lbl1To8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.lbl9To16 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.lblStationID = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.lblCount = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lblToGPS = new System.Windows.Forms.Label();
             this.lblPing = new System.Windows.Forms.Label();
             this.lblPingMachine = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.btnMinimizeMainForm = new System.Windows.Forms.Button();
-            this.cboxAutoRunGPS_Out = new System.Windows.Forms.CheckBox();
-            this.btnGPS_Out = new System.Windows.Forms.Button();
             this.cboxIsSteerModule = new System.Windows.Forms.CheckBox();
             this.cboxIsIMUModule = new System.Windows.Forms.CheckBox();
             this.cboxIsMachineModule = new System.Windows.Forms.CheckBox();
@@ -119,7 +95,7 @@ namespace AgTwo
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(6, 9);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
@@ -132,7 +108,7 @@ namespace AgTwo
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(3, 31);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
@@ -145,7 +121,7 @@ namespace AgTwo
             this.lblCurentLon.AutoSize = true;
             this.lblCurentLon.BackColor = System.Drawing.Color.Transparent;
             this.lblCurentLon.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurentLon.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblCurentLon.ForeColor = System.Drawing.Color.White;
             this.lblCurentLon.Location = new System.Drawing.Point(30, 30);
             this.lblCurentLon.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCurentLon.Name = "lblCurentLon";
@@ -158,76 +134,13 @@ namespace AgTwo
             this.lblCurrentLat.AutoSize = true;
             this.lblCurrentLat.BackColor = System.Drawing.Color.Transparent;
             this.lblCurrentLat.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentLat.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblCurrentLat.ForeColor = System.Drawing.Color.White;
             this.lblCurrentLat.Location = new System.Drawing.Point(30, 8);
             this.lblCurrentLat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCurrentLat.Name = "lblCurrentLat";
             this.lblCurrentLat.Size = new System.Drawing.Size(90, 18);
             this.lblCurrentLat.TabIndex = 153;
             this.lblCurrentLat.Text = "-53.1234567";
-            // 
-            // lblWatch
-            // 
-            this.lblWatch.BackColor = System.Drawing.Color.Transparent;
-            this.lblWatch.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWatch.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblWatch.Location = new System.Drawing.Point(14, 96);
-            this.lblWatch.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblWatch.Name = "lblWatch";
-            this.lblWatch.Size = new System.Drawing.Size(105, 18);
-            this.lblWatch.TabIndex = 146;
-            this.lblWatch.Text = "Watch";
-            this.lblWatch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblNTRIPBytes
-            // 
-            this.lblNTRIPBytes.BackColor = System.Drawing.Color.Transparent;
-            this.lblNTRIPBytes.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNTRIPBytes.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblNTRIPBytes.Location = new System.Drawing.Point(14, 72);
-            this.lblNTRIPBytes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblNTRIPBytes.Name = "lblNTRIPBytes";
-            this.lblNTRIPBytes.Size = new System.Drawing.Size(105, 18);
-            this.lblNTRIPBytes.TabIndex = 148;
-            this.lblNTRIPBytes.Text = "999,999,999";
-            this.lblNTRIPBytes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblNTRIPBytes.Click += new System.EventHandler(this.lblNTRIPBytes_Click);
-            // 
-            // lblMod2Comm
-            // 
-            this.lblMod2Comm.BackColor = System.Drawing.Color.Transparent;
-            this.lblMod2Comm.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMod2Comm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblMod2Comm.Location = new System.Drawing.Point(167, 342);
-            this.lblMod2Comm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblMod2Comm.Name = "lblMod2Comm";
-            this.lblMod2Comm.Size = new System.Drawing.Size(64, 25);
-            this.lblMod2Comm.TabIndex = 178;
-            this.lblMod2Comm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblMod1Comm
-            // 
-            this.lblMod1Comm.BackColor = System.Drawing.Color.Transparent;
-            this.lblMod1Comm.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMod1Comm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblMod1Comm.Location = new System.Drawing.Point(167, 170);
-            this.lblMod1Comm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblMod1Comm.Name = "lblMod1Comm";
-            this.lblMod1Comm.Size = new System.Drawing.Size(64, 25);
-            this.lblMod1Comm.TabIndex = 177;
-            this.lblMod1Comm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblIMUComm
-            // 
-            this.lblIMUComm.BackColor = System.Drawing.Color.Transparent;
-            this.lblIMUComm.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIMUComm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblIMUComm.Location = new System.Drawing.Point(167, 86);
-            this.lblIMUComm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblIMUComm.Name = "lblIMUComm";
-            this.lblIMUComm.Size = new System.Drawing.Size(64, 25);
-            this.lblIMUComm.TabIndex = 175;
-            this.lblIMUComm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblFromGPS
             // 
@@ -243,18 +156,6 @@ namespace AgTwo
             this.lblFromGPS.Text = "---";
             this.lblFromGPS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // lblGPS1Comm
-            // 
-            this.lblGPS1Comm.BackColor = System.Drawing.Color.Transparent;
-            this.lblGPS1Comm.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGPS1Comm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblGPS1Comm.Location = new System.Drawing.Point(167, 257);
-            this.lblGPS1Comm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblGPS1Comm.Name = "lblGPS1Comm";
-            this.lblGPS1Comm.Size = new System.Drawing.Size(64, 25);
-            this.lblGPS1Comm.TabIndex = 176;
-            this.lblGPS1Comm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // statusStrip1
             // 
             this.statusStrip1.AutoSize = false;
@@ -262,8 +163,7 @@ namespace AgTwo
             this.statusStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(64, 64);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripDropDownButton1,
-            this.settingsMenuStrip});
+            this.toolStripDropDownButton1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 412);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 11, 0);
@@ -281,7 +181,6 @@ namespace AgTwo
             this.toolStripMenuProfiles,
             this.toolStripLogViewer,
             this.toolStripUDPMonitor,
-            this.toolStripSerialMonitor,
             this.modSimToolStrip,
             this.toolStripEthernet,
             this.deviceManagerToolStripMenuItem});
@@ -319,15 +218,6 @@ namespace AgTwo
             this.toolStripUDPMonitor.Text = "UDP Monitor";
             this.toolStripUDPMonitor.Click += new System.EventHandler(this.toolStripUDPMonitor_Click);
             // 
-            // toolStripSerialMonitor
-            // 
-            this.toolStripSerialMonitor.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripSerialMonitor.Image = global::AgTwo.Properties.Resources.SerialMonitor;
-            this.toolStripSerialMonitor.Name = "toolStripSerialMonitor";
-            this.toolStripSerialMonitor.Size = new System.Drawing.Size(348, 70);
-            this.toolStripSerialMonitor.Text = "Serial Monitor";
-            this.toolStripSerialMonitor.Click += new System.EventHandler(this.toolStripSerialMonitor_Click);
-            // 
             // modSimToolStrip
             // 
             this.modSimToolStrip.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -355,55 +245,12 @@ namespace AgTwo
             this.deviceManagerToolStripMenuItem.Text = "Device Manager";
             this.deviceManagerToolStripMenuItem.Click += new System.EventHandler(this.deviceManagerToolStripMenuItem_Click);
             // 
-            // settingsMenuStrip
-            // 
-            this.settingsMenuStrip.AutoSize = false;
-            this.settingsMenuStrip.BackColor = System.Drawing.Color.Transparent;
-            this.settingsMenuStrip.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.settingsMenuStrip.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveToolStrip,
-            this.loadToolStrip,
-            this.serialPassThroughToolStripMenuItem});
-            this.settingsMenuStrip.Image = global::AgTwo.Properties.Resources.NtripSettings;
-            this.settingsMenuStrip.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.settingsMenuStrip.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.settingsMenuStrip.Name = "settingsMenuStrip";
-            this.settingsMenuStrip.ShowDropDownArrow = false;
-            this.settingsMenuStrip.Size = new System.Drawing.Size(110, 68);
-            // 
-            // saveToolStrip
-            // 
-            this.saveToolStrip.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.saveToolStrip.Image = global::AgTwo.Properties.Resources.NTRIP_Client;
-            this.saveToolStrip.Name = "saveToolStrip";
-            this.saveToolStrip.Size = new System.Drawing.Size(338, 70);
-            this.saveToolStrip.Text = "NTRIP";
-            this.saveToolStrip.Click += new System.EventHandler(this.btnNTRIP_Click);
-            // 
-            // loadToolStrip
-            // 
-            this.loadToolStrip.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loadToolStrip.Image = global::AgTwo.Properties.Resources.RadioSettings;
-            this.loadToolStrip.Name = "loadToolStrip";
-            this.loadToolStrip.Size = new System.Drawing.Size(338, 70);
-            this.loadToolStrip.Text = "Radio (Not XBee)";
-            this.loadToolStrip.Click += new System.EventHandler(this.btnRadio_Click);
-            // 
-            // serialPassThroughToolStripMenuItem
-            // 
-            this.serialPassThroughToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.serialPassThroughToolStripMenuItem.Image = global::AgTwo.Properties.Resources.NTRIP_Serial;
-            this.serialPassThroughToolStripMenuItem.Name = "serialPassThroughToolStripMenuItem";
-            this.serialPassThroughToolStripMenuItem.Size = new System.Drawing.Size(338, 70);
-            this.serialPassThroughToolStripMenuItem.Text = "Serial Port";
-            this.serialPassThroughToolStripMenuItem.Click += new System.EventHandler(this.serialPassThroughToolStripMenuItem_Click);
-            // 
             // lblSteerAngle
             // 
             this.lblSteerAngle.AutoSize = true;
             this.lblSteerAngle.BackColor = System.Drawing.Color.Transparent;
             this.lblSteerAngle.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSteerAngle.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblSteerAngle.ForeColor = System.Drawing.Color.White;
             this.lblSteerAngle.Location = new System.Drawing.Point(549, 124);
             this.lblSteerAngle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSteerAngle.Name = "lblSteerAngle";
@@ -411,66 +258,11 @@ namespace AgTwo
             this.lblSteerAngle.TabIndex = 473;
             this.lblSteerAngle.Text = "UDP";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label1.Location = new System.Drawing.Point(15, 387);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 15);
-            this.label1.TabIndex = 470;
-            this.label1.Text = "Com Ports:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblNTRIP_IP
-            // 
-            this.lblNTRIP_IP.BackColor = System.Drawing.Color.Transparent;
-            this.lblNTRIP_IP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNTRIP_IP.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblNTRIP_IP.Location = new System.Drawing.Point(480, 41);
-            this.lblNTRIP_IP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblNTRIP_IP.Name = "lblNTRIP_IP";
-            this.lblNTRIP_IP.Size = new System.Drawing.Size(133, 18);
-            this.lblNTRIP_IP.TabIndex = 468;
-            this.lblNTRIP_IP.Text = "--";
-            this.lblNTRIP_IP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblSerialPorts
-            // 
-            this.lblSerialPorts.AutoSize = true;
-            this.lblSerialPorts.BackColor = System.Drawing.Color.Transparent;
-            this.lblSerialPorts.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSerialPorts.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblSerialPorts.Location = new System.Drawing.Point(90, 388);
-            this.lblSerialPorts.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblSerialPorts.Name = "lblSerialPorts";
-            this.lblSerialPorts.Size = new System.Drawing.Size(45, 14);
-            this.lblSerialPorts.TabIndex = 467;
-            this.lblSerialPorts.Text = "Com12";
-            this.lblSerialPorts.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // lblMount
-            // 
-            this.lblMount.BackColor = System.Drawing.Color.Transparent;
-            this.lblMount.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMount.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblMount.Location = new System.Drawing.Point(480, 62);
-            this.lblMount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMount.Name = "lblMount";
-            this.lblMount.Size = new System.Drawing.Size(133, 18);
-            this.lblMount.TabIndex = 465;
-            this.lblMount.Text = "--";
-            this.lblMount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // lblIP
             // 
             this.lblIP.BackColor = System.Drawing.Color.Transparent;
             this.lblIP.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIP.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblIP.ForeColor = System.Drawing.Color.White;
             this.lblIP.Location = new System.Drawing.Point(10, 161);
             this.lblIP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblIP.Name = "lblIP";
@@ -480,31 +272,12 @@ namespace AgTwo
             this.lblIP.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.lblIP.Click += new System.EventHandler(this.lblIP_Click);
             // 
-            // ntripMeterTimer
-            // 
-            this.ntripMeterTimer.Interval = 50;
-            this.ntripMeterTimer.Tick += new System.EventHandler(this.ntripMeterTimer_Tick);
-            // 
-            // lblMessages
-            // 
-            this.lblMessages.BackColor = System.Drawing.Color.Transparent;
-            this.lblMessages.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblMessages.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMessages.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblMessages.Location = new System.Drawing.Point(643, 97);
-            this.lblMessages.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMessages.Name = "lblMessages";
-            this.lblMessages.Size = new System.Drawing.Size(88, 298);
-            this.lblMessages.TabIndex = 474;
-            this.lblMessages.Text = "1888 - 18";
-            this.lblMessages.Click += new System.EventHandler(this.lblMessages_Click);
-            // 
             // lblWASCounts
             // 
             this.lblWASCounts.AutoSize = true;
             this.lblWASCounts.BackColor = System.Drawing.Color.Transparent;
             this.lblWASCounts.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWASCounts.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblWASCounts.ForeColor = System.Drawing.Color.White;
             this.lblWASCounts.Location = new System.Drawing.Point(549, 147);
             this.lblWASCounts.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWASCounts.Name = "lblWASCounts";
@@ -517,7 +290,7 @@ namespace AgTwo
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(496, 123);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
@@ -530,7 +303,7 @@ namespace AgTwo
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(488, 146);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
@@ -543,7 +316,7 @@ namespace AgTwo
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(488, 187);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
@@ -556,7 +329,7 @@ namespace AgTwo
             this.lblSwitchStatus.AutoSize = true;
             this.lblSwitchStatus.BackColor = System.Drawing.Color.Transparent;
             this.lblSwitchStatus.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSwitchStatus.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblSwitchStatus.ForeColor = System.Drawing.Color.White;
             this.lblSwitchStatus.Location = new System.Drawing.Point(549, 188);
             this.lblSwitchStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSwitchStatus.Name = "lblSwitchStatus";
@@ -569,7 +342,7 @@ namespace AgTwo
             this.lblWorkSwitchStatus.AutoSize = true;
             this.lblWorkSwitchStatus.BackColor = System.Drawing.Color.Transparent;
             this.lblWorkSwitchStatus.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWorkSwitchStatus.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblWorkSwitchStatus.ForeColor = System.Drawing.Color.White;
             this.lblWorkSwitchStatus.Location = new System.Drawing.Point(549, 211);
             this.lblWorkSwitchStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWorkSwitchStatus.Name = "lblWorkSwitchStatus";
@@ -582,7 +355,7 @@ namespace AgTwo
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label9.ForeColor = System.Drawing.Color.White;
             this.label9.Location = new System.Drawing.Point(497, 210);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
@@ -590,56 +363,12 @@ namespace AgTwo
             this.label9.TabIndex = 483;
             this.label9.Text = "Work:";
             // 
-            // btnStartStopNtrip
-            // 
-            this.btnStartStopNtrip.BackColor = System.Drawing.Color.LightGray;
-            this.btnStartStopNtrip.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.btnStartStopNtrip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStartStopNtrip.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStartStopNtrip.ForeColor = System.Drawing.Color.Black;
-            this.btnStartStopNtrip.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnStartStopNtrip.Location = new System.Drawing.Point(25, 121);
-            this.btnStartStopNtrip.Margin = new System.Windows.Forms.Padding(4);
-            this.btnStartStopNtrip.Name = "btnStartStopNtrip";
-            this.btnStartStopNtrip.Size = new System.Drawing.Size(80, 27);
-            this.btnStartStopNtrip.TabIndex = 147;
-            this.btnStartStopNtrip.Text = "StartStop";
-            this.btnStartStopNtrip.UseVisualStyleBackColor = false;
-            this.btnStartStopNtrip.Click += new System.EventHandler(this.btnStartStopNtrip_Click);
-            // 
-            // lblMessagesFound
-            // 
-            this.lblMessagesFound.AutoSize = true;
-            this.lblMessagesFound.BackColor = System.Drawing.Color.Transparent;
-            this.lblMessagesFound.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMessagesFound.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblMessagesFound.Location = new System.Drawing.Point(695, 75);
-            this.lblMessagesFound.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMessagesFound.Name = "lblMessagesFound";
-            this.lblMessagesFound.Size = new System.Drawing.Size(18, 18);
-            this.lblMessagesFound.TabIndex = 491;
-            this.lblMessagesFound.Text = "0";
-            this.lblMessagesFound.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label5.Location = new System.Drawing.Point(643, 69);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 18);
-            this.label5.TabIndex = 492;
-            this.label5.Text = "Found:";
-            // 
             // lbl1To8
             // 
             this.lbl1To8.AutoSize = true;
             this.lbl1To8.BackColor = System.Drawing.Color.Transparent;
             this.lbl1To8.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl1To8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lbl1To8.ForeColor = System.Drawing.Color.White;
             this.lbl1To8.Location = new System.Drawing.Point(486, 262);
             this.lbl1To8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl1To8.Name = "lbl1To8";
@@ -652,7 +381,7 @@ namespace AgTwo
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label10.ForeColor = System.Drawing.Color.White;
             this.label10.Location = new System.Drawing.Point(486, 242);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
@@ -665,7 +394,7 @@ namespace AgTwo
             this.lbl9To16.AutoSize = true;
             this.lbl9To16.BackColor = System.Drawing.Color.Transparent;
             this.lbl9To16.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl9To16.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lbl9To16.ForeColor = System.Drawing.Color.White;
             this.lbl9To16.Location = new System.Drawing.Point(486, 314);
             this.lbl9To16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl9To16.Name = "lbl9To16";
@@ -678,7 +407,7 @@ namespace AgTwo
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label12.ForeColor = System.Drawing.Color.White;
             this.label12.Location = new System.Drawing.Point(486, 293);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
@@ -686,52 +415,12 @@ namespace AgTwo
             this.label12.TabIndex = 501;
             this.label12.Text = "16    <<     9";
             // 
-            // lblStationID
-            // 
-            this.lblStationID.AutoSize = true;
-            this.lblStationID.BackColor = System.Drawing.Color.Transparent;
-            this.lblStationID.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStationID.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblStationID.Location = new System.Drawing.Point(671, 48);
-            this.lblStationID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblStationID.Name = "lblStationID";
-            this.lblStationID.Size = new System.Drawing.Size(18, 18);
-            this.lblStationID.TabIndex = 507;
-            this.lblStationID.Text = "0";
-            this.lblStationID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.BackColor = System.Drawing.Color.Transparent;
-            this.label13.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label13.Location = new System.Drawing.Point(642, 48);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(29, 18);
-            this.label13.TabIndex = 508;
-            this.label13.Text = "ID:";
-            // 
-            // lblCount
-            // 
-            this.lblCount.BackColor = System.Drawing.Color.Transparent;
-            this.lblCount.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCount.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblCount.Location = new System.Drawing.Point(513, 86);
-            this.lblCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblCount.Name = "lblCount";
-            this.lblCount.Size = new System.Drawing.Size(69, 18);
-            this.lblCount.TabIndex = 510;
-            this.lblCount.Text = "-";
-            this.lblCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(489, 349);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
@@ -758,7 +447,7 @@ namespace AgTwo
             this.lblPing.AutoSize = true;
             this.lblPing.BackColor = System.Drawing.Color.Transparent;
             this.lblPing.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPing.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblPing.ForeColor = System.Drawing.Color.White;
             this.lblPing.Location = new System.Drawing.Point(558, 349);
             this.lblPing.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPing.Name = "lblPing";
@@ -772,7 +461,7 @@ namespace AgTwo
             this.lblPingMachine.AutoSize = true;
             this.lblPingMachine.BackColor = System.Drawing.Color.Transparent;
             this.lblPingMachine.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPingMachine.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblPingMachine.ForeColor = System.Drawing.Color.White;
             this.lblPingMachine.Location = new System.Drawing.Point(558, 374);
             this.lblPingMachine.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPingMachine.Name = "lblPingMachine";
@@ -786,7 +475,7 @@ namespace AgTwo
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label11.ForeColor = System.Drawing.Color.White;
             this.label11.Location = new System.Drawing.Point(495, 374);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
@@ -813,43 +502,6 @@ namespace AgTwo
             this.btnMinimizeMainForm.TabIndex = 529;
             this.btnMinimizeMainForm.UseVisualStyleBackColor = false;
             this.btnMinimizeMainForm.Click += new System.EventHandler(this.btnMinimizeMainForm_Click);
-            // 
-            // cboxAutoRunGPS_Out
-            // 
-            this.cboxAutoRunGPS_Out.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxAutoRunGPS_Out.BackColor = System.Drawing.Color.Transparent;
-            this.cboxAutoRunGPS_Out.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cboxAutoRunGPS_Out.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(255)))), ((int)(((byte)(180)))));
-            this.cboxAutoRunGPS_Out.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxAutoRunGPS_Out.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxAutoRunGPS_Out.Image = global::AgTwo.Properties.Resources.GPS_Out;
-            this.cboxAutoRunGPS_Out.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cboxAutoRunGPS_Out.Location = new System.Drawing.Point(609, 415);
-            this.cboxAutoRunGPS_Out.Name = "cboxAutoRunGPS_Out";
-            this.cboxAutoRunGPS_Out.Size = new System.Drawing.Size(122, 69);
-            this.cboxAutoRunGPS_Out.TabIndex = 528;
-            this.cboxAutoRunGPS_Out.Text = "Auto\r\nRun";
-            this.cboxAutoRunGPS_Out.UseVisualStyleBackColor = false;
-            this.cboxAutoRunGPS_Out.Click += new System.EventHandler(this.cboxAutoRunGPS_Out_Click);
-            // 
-            // btnGPS_Out
-            // 
-            this.btnGPS_Out.BackColor = System.Drawing.Color.Transparent;
-            this.btnGPS_Out.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnGPS_Out.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.btnGPS_Out.FlatAppearance.BorderSize = 0;
-            this.btnGPS_Out.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGPS_Out.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGPS_Out.ForeColor = System.Drawing.Color.Black;
-            this.btnGPS_Out.Image = global::AgTwo.Properties.Resources.GPS_Out;
-            this.btnGPS_Out.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnGPS_Out.Location = new System.Drawing.Point(474, 415);
-            this.btnGPS_Out.Margin = new System.Windows.Forms.Padding(4);
-            this.btnGPS_Out.Name = "btnGPS_Out";
-            this.btnGPS_Out.Size = new System.Drawing.Size(89, 65);
-            this.btnGPS_Out.TabIndex = 523;
-            this.btnGPS_Out.UseVisualStyleBackColor = false;
-            this.btnGPS_Out.Click += new System.EventHandler(this.btnGPS_Out_Click);
             // 
             // cboxIsSteerModule
             // 
@@ -1089,38 +741,25 @@ namespace AgTwo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Gainsboro;
+            this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(734, 486);
             this.ControlBox = false;
             this.Controls.Add(this.btnMinimizeMainForm);
-            this.Controls.Add(this.cboxAutoRunGPS_Out);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.lblPingMachine);
             this.Controls.Add(this.lblPing);
-            this.Controls.Add(this.btnGPS_Out);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.lblCount);
-            this.Controls.Add(this.lblStationID);
-            this.Controls.Add(this.label13);
             this.Controls.Add(this.lbl9To16);
             this.Controls.Add(this.lbl1To8);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.btnStartStopNtrip);
             this.Controls.Add(this.cboxIsSteerModule);
-            this.Controls.Add(this.lblWatch);
             this.Controls.Add(this.cboxIsIMUModule);
-            this.Controls.Add(this.lblNTRIPBytes);
             this.Controls.Add(this.cboxIsMachineModule);
-            this.Controls.Add(this.lblMount);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.lblNTRIP_IP);
-            this.Controls.Add(this.lblSerialPorts);
             this.Controls.Add(this.btnIMU);
             this.Controls.Add(this.btnSteer);
             this.Controls.Add(this.btnMachine);
             this.Controls.Add(this.btnGPS);
-            this.Controls.Add(this.lblMessagesFound);
             this.Controls.Add(this.lblWorkSwitchStatus);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.lblSwitchStatus);
@@ -1132,13 +771,7 @@ namespace AgTwo
             this.Controls.Add(this.btnSlide);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.lblGPS1Comm);
-            this.Controls.Add(this.lblMod2Comm);
-            this.Controls.Add(this.lblMod1Comm);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.lblIMUComm);
-            this.Controls.Add(this.lblMessages);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnRunAOG);
             this.Controls.Add(this.statusStrip1);
@@ -1178,29 +811,14 @@ namespace AgTwo
         private System.Windows.Forms.Label lblCurentLon;
         private System.Windows.Forms.Label lblCurrentLat;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label lblWatch;
-        private System.Windows.Forms.Button btnStartStopNtrip;
-        private System.Windows.Forms.Label lblNTRIPBytes;
-        private System.Windows.Forms.Label lblMod2Comm;
-        private System.Windows.Forms.Label lblMod1Comm;
-        private System.Windows.Forms.Label lblIMUComm;
         private System.Windows.Forms.Label lblFromGPS;
-        private System.Windows.Forms.Label lblGPS1Comm;
-        private System.Windows.Forms.ToolStripDropDownButton settingsMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStrip;
-        private System.Windows.Forms.ToolStripMenuItem loadToolStrip;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Button btnUDP;
         private System.Windows.Forms.Button btnRunAOG;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Timer ntripMeterTimer;
-        private System.Windows.Forms.Label lblMount;
         private System.Windows.Forms.Label lblIP;
-        private System.Windows.Forms.Label lblSerialPorts;
-        private System.Windows.Forms.Label lblNTRIP_IP;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblSteerAngle;
-        private System.Windows.Forms.Label lblMessages;
         private System.Windows.Forms.Button btnSlide;
         private System.Windows.Forms.Label lblWASCounts;
         private System.Windows.Forms.Label label3;
@@ -1209,8 +827,6 @@ namespace AgTwo
         private System.Windows.Forms.Label lblSwitchStatus;
         private System.Windows.Forms.Label lblWorkSwitchStatus;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label lblMessagesFound;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox cboxIsMachineModule;
         private System.Windows.Forms.CheckBox cboxIsIMUModule;
         private System.Windows.Forms.CheckBox cboxIsSteerModule;
@@ -1218,10 +834,6 @@ namespace AgTwo
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lbl9To16;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label lblStationID;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ToolStripMenuItem serialPassThroughToolStripMenuItem;
-        private System.Windows.Forms.Label lblCount;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblToGPS;
         private System.Windows.Forms.Button btnGPSData;
@@ -1230,13 +842,10 @@ namespace AgTwo
         public System.Windows.Forms.Button btnMachine;
         public System.Windows.Forms.Button btnSteer;
         private System.Windows.Forms.ToolStripMenuItem toolStripEthernet;
-        private System.Windows.Forms.ToolStripMenuItem toolStripSerialMonitor;
         private System.Windows.Forms.ToolStripMenuItem toolStripUDPMonitor;
-        private System.Windows.Forms.Button btnGPS_Out;
         private System.Windows.Forms.Label lblPing;
         private System.Windows.Forms.Label lblPingMachine;
         private System.Windows.Forms.Label label11;
-        private CheckBox cboxAutoRunGPS_Out;
         private Button btnMinimizeMainForm;
         private ToolStripMenuItem modSimToolStrip;
         private ToolStripMenuItem toolStripLogViewer;

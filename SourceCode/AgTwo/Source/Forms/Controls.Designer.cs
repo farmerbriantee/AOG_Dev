@@ -38,52 +38,13 @@ namespace AgTwo
                 isViewAdvanced = true;
                 btnSlide.BackgroundImage = Properties.Resources.ArrowGrnLeft;
                 sbRTCM.Clear();
-                lblMessages.Text = "Reading...";
                 threeMinuteTimer = secondsSinceStart;
-                lblMessagesFound.Text = "-";
-                aList.Clear();
-                rList.Clear();
             }
             else
             {
                 this.Width = 428;
                 isViewAdvanced = false;
                 btnSlide.BackgroundImage = Properties.Resources.ArrowGrnRight;
-                aList.Clear();
-                rList.Clear();
-                lblMessages.Text = "Reading...";
-                lblMessagesFound.Text = "-";
-                aList.Clear();
-                rList.Clear();
-            }
-        }
-
-        private void btnStartStopNtrip_Click(object sender, EventArgs e)
-        {
-            if (Properties.Settings.Default.setNTRIP_isOn || Properties.Settings.Default.setRadio_isOn)
-            {
-                if (isNTRIP_RequiredOn || isRadio_RequiredOn)
-                {
-                    ShutDownNTRIP();
-                    lblWatch.Text = "Stopped";
-                    btnStartStopNtrip.Text = "OffLine";
-                    isNTRIP_RequiredOn = false;
-                    isRadio_RequiredOn = false;
-                    lblNTRIP_IP.Text = "--";
-                    lblMount.Text = "--";
-                }
-                else
-                {
-                    isNTRIP_RequiredOn = Properties.Settings.Default.setNTRIP_isOn;
-                    isRadio_RequiredOn = Properties.Settings.Default.setRadio_isOn;
-                    lblWatch.Text = "Waiting";
-                    lblNTRIP_IP.Text = "--";
-                    lblMount.Text= "--";
-                }
-            }
-            else
-            {
-                TimedMessageBox(2000, "Turn on NTRIP", "NTRIP Client Not Set Up");
             }
         }
 
@@ -112,8 +73,6 @@ namespace AgTwo
 
         private void btnBringUpCommSettings_Click(object sender, EventArgs e)
         {
-            SettingsCommunicationGPS();
-            RescanPorts();
         }
 
         private void btnUDP_Click(object sender, EventArgs e)
@@ -132,31 +91,9 @@ namespace AgTwo
             StartAby();
         }
 
-        private void btnNTRIP_Click(object sender, EventArgs e)
-        {
-            if (RegistrySettings.profileName == "Default Profile")
-            {
-                TimedMessageBox(3000, "Using Default Profile", "Choose Existing or Create New Profile");
-                return;
-            }
-
-            SettingsNTRIP();
-        }
-
         private void btnExit_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void btnRadio_Click(object sender, EventArgs e)
-        {
-            if (RegistrySettings.profileName == "Default Profile")
-            {
-                TimedMessageBox(3000, "Using Default Profile", "Choose Existing or Create New Profile");
-                return;
-            }
-
-            SettingsRadio();
         }
 
         #endregion
@@ -174,26 +111,10 @@ namespace AgTwo
                 }
             }
         }
-        private void lblMessages_Click(object sender, EventArgs e)
-        {
-            aList?.Clear();
-            sbRTCM.Clear();
-            sbRTCM.Append("Reset..");
-        }
-
-        private void lblNTRIPBytes_Click(object sender, EventArgs e)
-        {
-            tripBytes = 0;
-        }
 
         #endregion
 
         #region CheckBoxes
-        private void cboxAutoRunGPS_Out_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.setDisplay_isAutoRunGPS_Out = cboxAutoRunGPS_Out.Checked;
-            
-        }
 
         private void cboxIsSteerModule_Click(object sender, EventArgs e)
         {
@@ -229,45 +150,9 @@ namespace AgTwo
             ShowUDPMonitor();
         }
 
-        private void toolStripSerialMonitor_Click(object sender, EventArgs e)
-        {
-            ShowSerialMonitor();
-        }
-
         private void deviceManagerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("devmgmt.msc");
-        }
-
-        private void serialPassThroughToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (RegistrySettings.profileName == "Default Profile")
-            {
-                TimedMessageBox(3000, "Using Default Profile", "Choose Existing or Create New Profile");
-                return;
-            }
-
-            if (isRadio_RequiredOn)
-            {
-                TimedMessageBox(2000, "Radio NTRIP ON", "Turn it off before using Serial Pass Thru");
-                return;
-            }
-
-            if (isNTRIP_RequiredOn)
-            {
-                TimedMessageBox(2000, "Air NTRIP ON", "Turn it off before using Serial Pass Thru");
-                return;
-            }
-
-            using (var form = new FormSerialPass(this))
-            {
-                if (form.ShowDialog(this) == DialogResult.OK)
-                {
-                    ////Clicked Save
-                    //Application.Restart();
-                    //Environment.Exit(0);
-                }
-            }
         }
 
         private void toolStripMenuProfiles_Click(object sender, EventArgs e)
@@ -328,24 +213,6 @@ namespace AgTwo
             SettingsEthernet();
         }
 
-        private void toolStripGPSData_Click(object sender, EventArgs e)
-        {
-            Form f = Application.OpenForms["FormGPSData"];
-
-            if (f != null)
-            {
-                f.Focus();
-                f.Close();
-                isGPSSentencesOn = false;
-                return;
-            }
-
-            isGPSSentencesOn = true;
-
-            Form form = new FormGPSData(this);
-            form.Show(this);
-        }
-
         #endregion
 
         public void ShowUDPMonitor()
@@ -354,81 +221,9 @@ namespace AgTwo
             form.Show(this);
         }
 
-        public void ShowSerialMonitor()
-        {
-            var form = new FormSerialMonitor(this);
-            form.Show(this);
-        }
-
-        private void SettingsCommunicationGPS()
-        {
-            isGPSCommOpen = true;
-
-            using (FormCommSetGPS form = new FormCommSetGPS(this))
-            {
-                form.ShowDialog(this);
-            }
-            isGPSCommOpen = false;
-        }
-
         private void SettingsEthernet()
         {
             using (FormEthernet form = new FormEthernet(this))
-            {
-                form.ShowDialog(this);
-            }
-        }
-
-        private void SettingsNTRIP()
-        {
-            if (isRadio_RequiredOn)
-            {
-                TimedMessageBox(2000, "Radio NTRIP ON", "Turn it off before using NTRIP");
-                return;
-            }
-
-            if (isSerialPass_RequiredOn)
-            {
-                TimedMessageBox(2000, "Serial NTRIP ON", "Turn it off before using NTRIP");
-                return;
-            }
-
-
-            using (var form = new FormNtrip(this))
-            {
-                if (form.ShowDialog(this) == DialogResult.OK)
-                {
-                    if (isNTRIP_Connected)
-                    {
-                        SettingsShutDownNTRIP();
-                    }
-                }
-            }
-        }
-
-        private void SettingsRadio()
-        {
-            if (isSerialPass_RequiredOn)
-            {
-                TimedMessageBox(2000, "Serial Pass NTRIP ON", "Turn it off before using Radio NTRIP");
-                return;
-            }
-
-            if (isNTRIP_RequiredOn)
-            {
-                TimedMessageBox(2000, "Air NTRIP ON", "Turn it off before using Radio NTRIP");
-                return;
-            }
-
-            if (isRadio_RequiredOn && isNTRIP_Connected)
-            {
-                ShutDownNTRIP();
-                lblWatch.Text = "Stopped";
-                btnStartStopNtrip.Text = "OffLine";
-                isRadio_RequiredOn = false;
-            }
-
-            using (var form = new FormRadio(this))
             {
                 form.ShowDialog(this);
             }

@@ -1,0 +1,56 @@
+** Drc report for C:/Users/Grizs/Desktop/RC17-8/RC17.kicad_pcb **
+** Created on 2024-11-08 07:27:31 **
+
+** Found 12 DRC violations **
+[footprint_type_mismatch]: Footprint component type doesn't match footprint pads (expected 'Through hole'; actual 'SMD')
+    Local override; Severity: error
+    @(59.1450 mm, 54.4250 mm): Footprint J1
+[footprint_type_mismatch]: Footprint component type doesn't match footprint pads (expected 'Through hole'; actual 'SMD')
+    Local override; Severity: error
+    @(63.7260 mm, 36.5240 mm): Footprint U15
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(66.9774 mm, 32.9758 mm): Zone [GND] on F.Cu
+    @(66.4710 mm, 37.3590 mm): Pad G.1 [GND] of U15 on F.Cu
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(66.9774 mm, 32.9758 mm): Zone [GND] on F.Cu
+    @(66.4710 mm, 33.6890 mm): Pad G.4 [GND] of U15 on F.Cu
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(66.9774 mm, 32.9758 mm): Zone [GND] on F.Cu
+    @(62.8010 mm, 37.3590 mm): Pad G.8 [GND] of U15 on F.Cu
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(66.9774 mm, 32.9758 mm): Zone [GND] on F.Cu
+    @(62.8010 mm, 33.6890 mm): Pad G.10 [GND] of U15 on F.Cu
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(66.9774 mm, 32.9758 mm): Zone [GND] on F.Cu
+    @(66.4710 mm, 36.4415 mm): PTH pad G.11 [GND] of U15
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(66.9774 mm, 32.9758 mm): Zone [GND] on F.Cu
+    @(66.4710 mm, 34.6065 mm): PTH pad G.12 [GND] of U15
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(66.9774 mm, 32.9758 mm): Zone [GND] on F.Cu
+    @(64.6360 mm, 36.4415 mm): PTH pad G.16 [GND] of U15
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(66.9774 mm, 32.9758 mm): Zone [GND] on F.Cu
+    @(64.6360 mm, 34.6065 mm): PTH pad G.17 [GND] of U15
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(66.9774 mm, 32.9758 mm): Zone [GND] on F.Cu
+    @(62.8010 mm, 36.4415 mm): PTH pad G.21 [GND] of U15
+[starved_thermal]: Thermal relief connection to zone incomplete (zone min spoke count 2; actual 1)
+    Local override; Severity: error
+    @(66.9774 mm, 32.9758 mm): Zone [GND] on F.Cu
+    @(62.8010 mm, 34.6065 mm): PTH pad G.22 [GND] of U15
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** End of Report **

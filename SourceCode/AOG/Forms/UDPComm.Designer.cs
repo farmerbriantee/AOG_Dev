@@ -15,20 +15,80 @@ namespace AgOpenGPS
     {
         // - App Sockets  -----------------------------------------------------
         private Socket loopBackSocket;
+        private Socket loopBackSocket2;
 
         //endpoints of modules
         private EndPoint epAgOne = new IPEndPoint(IPAddress.Parse("127.255.255.255"), 17777);
         private EndPoint endPointLoopBack = new IPEndPoint(IPAddress.Loopback, 0);
 
+        //second AgIO
+        private EndPoint epAgTwo = new IPEndPoint(IPAddress.Parse("127.255.255.255"), 27777);
+        private EndPoint endPointLoopBack2 = new IPEndPoint(IPAddress.Loopback, 0);
+
         // Data stream
         private byte[] loopBuffer = new byte[1024];
+        private byte[] loopBuffer2 = new byte[1024];
 
         // Status delegate
         public int missedSentenceCount = 0;
         public int udpWatchLimit = 70;
 
+        public bool isGPSTwoActive = true;
+
         private readonly Stopwatch udpWatch = new Stopwatch();
 
+        //start the UDP server
+        public void StartLoopbackServer()
+        {
+            try
+            {
+                // Initialise the socket
+                loopBackSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                loopBackSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
+                loopBackSocket.Bind(new IPEndPoint(IPAddress.Loopback, 15555));
+                loopBackSocket.BeginReceiveFrom(loopBuffer, 0, loopBuffer.Length, SocketFlags.None,
+                    ref endPointLoopBack, new AsyncCallback(ReceiveAppData), null);
+                Log.EventWriter("UDP Loopback network started: " + IPAddress.Loopback.ToString() + ":" + "15555");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Load Error: " + ex.Message, "UDP Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Log.EventWriter("Catch -> Load UDP Loopback Error: " + ex.ToString());
+            }
+
+            //AgTwo
+            try
+            {
+                // Initialise the socket
+                loopBackSocket2 = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                loopBackSocket2.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
+                loopBackSocket2.Bind(new IPEndPoint(IPAddress.Loopback, 25555));
+                loopBackSocket2.BeginReceiveFrom(loopBuffer2, 0, loopBuffer2.Length, SocketFlags.None,
+                    ref endPointLoopBack2, new AsyncCallback(ReceiveAppDataTwo), null);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Load Error: " + ex.Message, "UDP Server AgTwo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Log.EventWriter("Catch -> Load UDP for AgTwo Loopback Error: " + ex.ToString());
+            }
+
+        }
+
+        private void DisableSim()
+        {
+            isFirstFixPositionSet = false;
+            isGPSPositionInitialized = false;
+            isFirstHeadingSet = false;
+            startCounter = 0;
+            panelSim.Visible = false;
+            timerSim.Enabled = false;
+            simulatorOnToolStripMenuItem.Checked = false;
+            Properties.Settings.Default.setMenu_isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
+            
+            return;
+        }
+
+        #region AgOne First GPS
         private void ReceiveFromAgOne(byte[] data)
         {
             if (data.Length > 4 && data[0] == 0x80 && data[1] == 0x81)
@@ -316,40 +376,6 @@ namespace AgOpenGPS
             }
         }
 
-        //start the UDP server
-        public void StartLoopbackServer()
-        {
-            try
-            {
-                // Initialise the socket
-                loopBackSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                loopBackSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
-                loopBackSocket.Bind(new IPEndPoint(IPAddress.Loopback, 15555));
-                loopBackSocket.BeginReceiveFrom(loopBuffer, 0, loopBuffer.Length, SocketFlags.None,
-                    ref endPointLoopBack, new AsyncCallback(ReceiveAppData), null);
-                Log.EventWriter("UDP Loopback network started: " + IPAddress.Loopback.ToString() + ":" + "15555");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Load Error: " + ex.Message, "UDP Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Log.EventWriter("Catch -> Load UDP Loopback Error: " + ex.ToString());
-            }
-        }
-
-        private void DisableSim()
-        {
-            isFirstFixPositionSet = false;
-            isGPSPositionInitialized = false;
-            isFirstHeadingSet = false;
-            startCounter = 0;
-            panelSim.Visible = false;
-            timerSim.Enabled = false;
-            simulatorOnToolStripMenuItem.Checked = false;
-            Properties.Settings.Default.setMenu_isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
-            
-            return;
-        }
-
         private void ReceiveAppData(IAsyncResult asyncResult)
         {
             try
@@ -407,6 +433,232 @@ namespace AgOpenGPS
                 //MessageBox.Show("SendData Error: " + ex.Message, "UDP Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        #endregion
+
+        #region AgTwo Second GPS
+        public void SendPgnToLoopTwo(byte[] byteData)
+        {
+            if (loopBackSocket2 != null && byteData.Length > 2)
+            {
+                try
+                {
+                    int crc = 0;
+                    for (int i = 2; i + 1 < byteData.Length; i++)
+                    {
+                        crc += byteData[i];
+                    }
+                    byteData[byteData.Length - 1] = (byte)crc;
+
+                    loopBackSocket2.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None,
+                        epAgTwo, new AsyncCallback(SendAsyncLoopDataTwo), null);
+                }
+                catch (Exception)
+                {
+                    //WriteErrorLog("Sending UDP Message" + e.ToString());
+                    //MessageBox.Show("Send Error: " + e.Message, "UDP Client", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void ReceiveFromAgTwo(byte[] data)
+        {
+            if (data.Length > 4 && data[0] == 0x80 && data[1] == 0x81)
+            {
+                int Length = Math.Max((data[4]) + 5, 5);
+                if (data.Length > Length)
+                {
+                    byte CK_A = 0;
+                    for (int j = 2; j < Length; j++)
+                    {
+                        CK_A += data[j];
+                    }
+
+                    if (data[Length] != (byte)CK_A)
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+
+                switch (data[3])
+                {
+                    case 0xD6:
+                        {
+                            double Lon = BitConverter.ToDouble(data, 5);
+                            double Lat = BitConverter.ToDouble(data, 13);
+
+                            if (Lon != double.MaxValue && Lat != double.MaxValue)
+                            {
+                                if (timerSim.Enabled)
+                                    DisableSim();
+
+                                pnTwo.longitude = Lon;
+                                pnTwo.latitude = Lat;
+
+                                pnTwo.ConvertWGS84ToLocal(Lat, Lon, out pnTwo.fix.northing, out pnTwo.fix.easting);
+
+                                //From dual antenna heading sentences
+                                float temp = BitConverter.ToSingle(data, 21);
+                                if (temp != float.MaxValue)
+                                {
+                                    pnTwo.headingTrueDual = temp + pnTwo.headingTrueDualOffset;
+                                    if (pnTwo.headingTrueDual < 0) pnTwo.headingTrueDual += 360;
+                                }
+
+                                //from single antenna sentences (VTG,RMC)
+                                pnTwo.headingTrue = BitConverter.ToSingle(data, 25);
+
+                                //always save the speed_KMH.
+                                temp = BitConverter.ToSingle(data, 29);
+                                if (temp != float.MaxValue)
+                                {
+                                    pnTwo.vtgSpeed = temp;
+                                }
+
+                                //roll in degrees
+                                temp = BitConverter.ToSingle(data, 33);
+                                if (temp != float.MaxValue)
+                                {
+                                    if (ahrsTwo.isRollInvert) temp *= -1;
+                                    ahrsTwo.imuRoll = temp - ahrsTwo.rollZero;
+                                }
+                                if (temp == float.MinValue)
+                                    ahrsTwo.imuRoll = 0;
+
+                                //altitude in meters
+                                temp = BitConverter.ToSingle(data, 37);
+                                if (temp != float.MaxValue)
+                                    pnTwo.altitude = temp;
+
+                                ushort sats = BitConverter.ToUInt16(data, 41);
+                                if (sats != ushort.MaxValue)
+                                    pnTwo.satellitesTracked = sats;
+
+                                byte fix = data[43];
+                                if (fix != byte.MaxValue)
+                                    pnTwo.fixQuality = fix;
+
+                                ushort hdop = BitConverter.ToUInt16(data, 44);
+                                if (hdop != ushort.MaxValue)
+                                    pnTwo.hdop = hdop * 0.01;
+
+                                ushort age = BitConverter.ToUInt16(data, 46);
+                                if (age != ushort.MaxValue)
+                                    pnTwo.age = age * 0.01;
+
+                                ushort imuHead = BitConverter.ToUInt16(data, 48);
+                                if (imuHead != ushort.MaxValue)
+                                {
+                                    ahrsTwo.imuHeading = imuHead;
+                                    ahrsTwo.imuHeading *= 0.1;
+                                }
+
+                                short imuRol = BitConverter.ToInt16(data, 50);
+                                if (imuRol != short.MaxValue)
+                                {
+                                    double rollK = imuRol;
+                                    if (ahrsTwo.isRollInvert) rollK *= -0.1;
+                                    else rollK *= 0.1;
+                                    rollK -= ahrsTwo.rollZero;
+                                    ahrsTwo.imuRoll = ahrsTwo.imuRoll * ahrsTwo.rollFilter + rollK * (1 - ahrsTwo.rollFilter);
+                                }
+
+                                short imuPich = BitConverter.ToInt16(data, 52);
+                                if (imuPich != short.MaxValue)
+                                {
+                                    ahrsTwo.imuPitch = imuPich;
+                                }
+
+                                short imuYaw = BitConverter.ToInt16(data, 54);
+                                if (imuYaw != short.MaxValue)
+                                {
+                                    ahrsTwo.imuYawRate = imuYaw;
+                                }
+
+                                sentenceCounter = 0;
+                            }
+                        }
+                        break;
+
+                    case 253: //return from autosteer module
+                        {
+                            //Steer angle actual
+                            if (data.Length != 14)
+                                break;
+                            mc.actualSteerAngleChart = (Int16)((data[6] << 8) + data[5]);
+                            mc.actualSteerAngleDegrees = (double)mc.actualSteerAngleChart * 0.01;
+
+                            //Heading
+                            //double head253 = (Int16)((data[8] << 8) + data[7]);
+                            //if (head253 != 9999)
+                            //{
+                            //    ahrs.imuHeading = head253 * 0.1;
+                            //}
+
+                            ////Roll
+                            //double rollK = (Int16)((data[10] << 8) + data[9]);
+                            //if (rollK != 8888)
+                            //{
+                            //    if (ahrs.isRollInvert) rollK *= -0.1;
+                            //    else rollK *= 0.1;
+                            //    rollK -= ahrs.rollZero;
+                            //    ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
+                            //}
+
+                            //switch status
+                            mc.workSwitchHigh = (data[11] & 1) == 1;
+                            mc.steerSwitchHigh = (data[11] & 2) == 2;
+
+                            //the pink steer dot reset
+                            steerModuleConnectedCounter = 0;
+
+                            //Actual PWM
+                            mc.pwmDisplay = data[12];
+                            break;
+                        }
+                }
+            }
+        }
+
+        private void ReceiveAppDataTwo(IAsyncResult asyncResult)
+        {
+            try
+            {
+                // Receive all data
+                int msgLen = loopBackSocket2.EndReceiveFrom(asyncResult, ref endPointLoopBack2);
+
+                byte[] localMsg = new byte[msgLen];
+                Array.Copy(loopBuffer2, localMsg, msgLen);
+
+                // Listen for more connections again...
+                loopBackSocket2.BeginReceiveFrom(loopBuffer2, 0, loopBuffer2.Length, SocketFlags.None,
+                    ref endPointLoopBack2, new AsyncCallback(ReceiveAppDataTwo), null);
+
+                BeginInvoke((MethodInvoker)(() => ReceiveFromAgTwo(localMsg)));
+            }
+            catch (Exception)
+            {
+                // MessageBox.Show("ReceiveData Error: " + ex.Message, "UDP Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void SendAsyncLoopDataTwo(IAsyncResult asyncResult)
+        {
+            try
+            {
+                loopBackSocket2.EndSend(asyncResult);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SendData Error: " + ex.Message, "UDP Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        #endregion
 
         //for moving and sizing borderless window
         protected override void WndProc(ref Message m)

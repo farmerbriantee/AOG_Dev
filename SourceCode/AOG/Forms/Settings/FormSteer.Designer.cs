@@ -231,12 +231,14 @@
             this.nudLineWidth = new AgOpenGPS.NudlessNumericUpDown();
             this.nudSnapDistance = new AgOpenGPS.NudlessNumericUpDown();
             this.nudGuidanceLookAhead = new AgOpenGPS.NudlessNumericUpDown();
+            this.tabTool = new System.Windows.Forms.TabPage();
+            this.cboxGPSTwo = new System.Windows.Forms.CheckBox();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.label35 = new System.Windows.Forms.Label();
             this.btnSteerWizard = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.pboxSendSteer = new System.Windows.Forms.PictureBox();
             this.btnSendSteerConfigPGN = new System.Windows.Forms.Button();
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPP.SuspendLayout();
             this.tabStan.SuspendLayout();
@@ -269,6 +271,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudLineWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSnapDistance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGuidanceLookAhead)).BeginInit();
+            this.tabTool.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxSendSteer)).BeginInit();
             this.SuspendLayout();
             // 
@@ -528,9 +531,9 @@
             this.tabPP.Controls.Add(this.lblPureIntegral);
             this.tabPP.ForeColor = System.Drawing.Color.Black;
             this.tabPP.ImageIndex = 0;
-            this.tabPP.Location = new System.Drawing.Point(4, 52);
+            this.tabPP.Location = new System.Drawing.Point(4, 56);
             this.tabPP.Name = "tabPP";
-            this.tabPP.Size = new System.Drawing.Size(365, 346);
+            this.tabPP.Size = new System.Drawing.Size(365, 342);
             this.tabPP.TabIndex = 16;
             // 
             // label16
@@ -741,9 +744,9 @@
             this.tabStan.Controls.Add(this.hsbarStanleyGain);
             this.tabStan.Controls.Add(this.hsbarHeadingErrorGain);
             this.tabStan.ImageIndex = 3;
-            this.tabStan.Location = new System.Drawing.Point(4, 52);
+            this.tabStan.Location = new System.Drawing.Point(4, 56);
             this.tabStan.Name = "tabStan";
-            this.tabStan.Size = new System.Drawing.Size(365, 346);
+            this.tabStan.Size = new System.Drawing.Size(365, 342);
             this.tabStan.TabIndex = 15;
             // 
             // label74
@@ -920,9 +923,9 @@
             this.tabGain.Controls.Add(this.lblMinPWM);
             this.tabGain.Controls.Add(this.hsbarHighSteerPWM);
             this.tabGain.ImageIndex = 1;
-            this.tabGain.Location = new System.Drawing.Point(4, 52);
+            this.tabGain.Location = new System.Drawing.Point(4, 56);
             this.tabGain.Name = "tabGain";
-            this.tabGain.Size = new System.Drawing.Size(365, 346);
+            this.tabGain.Size = new System.Drawing.Size(365, 342);
             this.tabGain.TabIndex = 13;
             // 
             // label75
@@ -1113,9 +1116,9 @@
             this.tabSteer.Controls.Add(this.lblSteerAngleSensorZero);
             this.tabSteer.Controls.Add(this.label81);
             this.tabSteer.ImageIndex = 4;
-            this.tabSteer.Location = new System.Drawing.Point(4, 52);
+            this.tabSteer.Location = new System.Drawing.Point(4, 56);
             this.tabSteer.Name = "tabSteer";
-            this.tabSteer.Size = new System.Drawing.Size(365, 346);
+            this.tabSteer.Size = new System.Drawing.Size(365, 342);
             this.tabSteer.TabIndex = 5;
             // 
             // label80
@@ -2211,13 +2214,14 @@
             this.tabSteerSettings.Controls.Add(this.tabSettings);
             this.tabSteerSettings.Controls.Add(this.tabAlarm);
             this.tabSteerSettings.Controls.Add(this.tabOnTheLine);
+            this.tabSteerSettings.Controls.Add(this.tabTool);
             this.tabSteerSettings.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabSteerSettings.ImageList = this.imageList2;
-            this.tabSteerSettings.ItemSize = new System.Drawing.Size(100, 54);
+            this.tabSteerSettings.ItemSize = new System.Drawing.Size(97, 54);
             this.tabSteerSettings.Location = new System.Drawing.Point(373, 5);
             this.tabSteerSettings.Name = "tabSteerSettings";
             this.tabSteerSettings.SelectedIndex = 0;
-            this.tabSteerSettings.Size = new System.Drawing.Size(520, 525);
+            this.tabSteerSettings.Size = new System.Drawing.Size(604, 525);
             this.tabSteerSettings.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabSteerSettings.TabIndex = 528;
             // 
@@ -2237,10 +2241,10 @@
             this.tabSensors.Controls.Add(this.cboxEncoder);
             this.tabSensors.Controls.Add(this.cboxPressureSensor);
             this.tabSensors.ImageIndex = 4;
-            this.tabSensors.Location = new System.Drawing.Point(4, 52);
+            this.tabSensors.Location = new System.Drawing.Point(4, 58);
             this.tabSensors.Name = "tabSensors";
             this.tabSensors.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSensors.Size = new System.Drawing.Size(512, 469);
+            this.tabSensors.Size = new System.Drawing.Size(596, 463);
             this.tabSensors.TabIndex = 0;
             // 
             // nudMaxCounts
@@ -2344,10 +2348,10 @@
             this.tabConfig.Controls.Add(this.chkSteerInvertRelays);
             this.tabConfig.Controls.Add(this.cboxDanfoss);
             this.tabConfig.ImageIndex = 3;
-            this.tabConfig.Location = new System.Drawing.Point(4, 52);
+            this.tabConfig.Location = new System.Drawing.Point(4, 58);
             this.tabConfig.Name = "tabConfig";
             this.tabConfig.Padding = new System.Windows.Forms.Padding(3);
-            this.tabConfig.Size = new System.Drawing.Size(512, 469);
+            this.tabConfig.Size = new System.Drawing.Size(596, 463);
             this.tabConfig.TabIndex = 1;
             // 
             // chkInvertWAS
@@ -2444,10 +2448,10 @@
             this.tabSettings.Controls.Add(this.cboxSteerInReverse);
             this.tabSettings.Controls.Add(this.btnStanleyPure);
             this.tabSettings.ImageIndex = 2;
-            this.tabSettings.Location = new System.Drawing.Point(4, 52);
+            this.tabSettings.Location = new System.Drawing.Point(4, 58);
             this.tabSettings.Name = "tabSettings";
             this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSettings.Size = new System.Drawing.Size(512, 469);
+            this.tabSettings.Size = new System.Drawing.Size(596, 463);
             this.tabSettings.TabIndex = 2;
             this.tabSettings.Enter += new System.EventHandler(this.tabSettings_Enter);
             this.tabSettings.Leave += new System.EventHandler(this.tabSettings_Leave);
@@ -2581,9 +2585,9 @@
             this.tabAlarm.Controls.Add(this.nudMaxSteerSpeed);
             this.tabAlarm.Controls.Add(this.nudGuidanceSpeedLimit);
             this.tabAlarm.ImageIndex = 0;
-            this.tabAlarm.Location = new System.Drawing.Point(4, 52);
+            this.tabAlarm.Location = new System.Drawing.Point(4, 58);
             this.tabAlarm.Name = "tabAlarm";
-            this.tabAlarm.Size = new System.Drawing.Size(512, 469);
+            this.tabAlarm.Size = new System.Drawing.Size(596, 463);
             this.tabAlarm.TabIndex = 3;
             this.tabAlarm.Enter += new System.EventHandler(this.tabAlarm_Enter);
             this.tabAlarm.Leave += new System.EventHandler(this.tabAlarm_Leave);
@@ -2793,7 +2797,7 @@
             this.tabOnTheLine.Location = new System.Drawing.Point(4, 58);
             this.tabOnTheLine.Name = "tabOnTheLine";
             this.tabOnTheLine.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOnTheLine.Size = new System.Drawing.Size(512, 463);
+            this.tabOnTheLine.Size = new System.Drawing.Size(596, 463);
             this.tabOnTheLine.TabIndex = 4;
             this.tabOnTheLine.Enter += new System.EventHandler(this.tabOnTheLine_Enter);
             this.tabOnTheLine.Leave += new System.EventHandler(this.tabOnTheLine_Leave);
@@ -3161,6 +3165,47 @@
             0});
             this.nudGuidanceLookAhead.Click += new System.EventHandler(this.nudGuidanceLookAhead_Click);
             // 
+            // tabTool
+            // 
+            this.tabTool.Controls.Add(this.cboxGPSTwo);
+            this.tabTool.ImageIndex = 5;
+            this.tabTool.Location = new System.Drawing.Point(4, 58);
+            this.tabTool.Name = "tabTool";
+            this.tabTool.Size = new System.Drawing.Size(596, 463);
+            this.tabTool.TabIndex = 5;
+            this.tabTool.UseVisualStyleBackColor = true;
+            this.tabTool.Enter += new System.EventHandler(this.tabTool_Enter);
+            // 
+            // cboxGPSTwo
+            // 
+            this.cboxGPSTwo.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cboxGPSTwo.BackColor = System.Drawing.Color.AliceBlue;
+            this.cboxGPSTwo.Checked = true;
+            this.cboxGPSTwo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cboxGPSTwo.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
+            this.cboxGPSTwo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboxGPSTwo.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxGPSTwo.ForeColor = System.Drawing.Color.Black;
+            this.cboxGPSTwo.Location = new System.Drawing.Point(424, 43);
+            this.cboxGPSTwo.Name = "cboxGPSTwo";
+            this.cboxGPSTwo.Size = new System.Drawing.Size(137, 52);
+            this.cboxGPSTwo.TabIndex = 485;
+            this.cboxGPSTwo.Text = "Tool GPS";
+            this.cboxGPSTwo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cboxGPSTwo.UseVisualStyleBackColor = false;
+            this.cboxGPSTwo.Click += new System.EventHandler(this.cboxGPSTwo_Click);
+            // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "ConS_Alarm.png");
+            this.imageList2.Images.SetKeyName(1, "ConS_ImplementConfig.png");
+            this.imageList2.Images.SetKeyName(2, "ConS_ModulesSteer.png");
+            this.imageList2.Images.SetKeyName(3, "ConS_Pins.png");
+            this.imageList2.Images.SetKeyName(4, "Sensors.png");
+            this.imageList2.Images.SetKeyName(5, "Con_ImplementMenu.png");
+            // 
             // label35
             // 
             this.label35.BackColor = System.Drawing.Color.Transparent;
@@ -3231,22 +3276,12 @@
             this.btnSendSteerConfigPGN.UseVisualStyleBackColor = false;
             this.btnSendSteerConfigPGN.Click += new System.EventHandler(this.btnSendSteerConfigPGN_Click);
             // 
-            // imageList2
-            // 
-            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
-            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList2.Images.SetKeyName(0, "ConS_Alarm.png");
-            this.imageList2.Images.SetKeyName(1, "ConS_ImplementConfig.png");
-            this.imageList2.Images.SetKeyName(2, "ConS_ModulesSteer.png");
-            this.imageList2.Images.SetKeyName(3, "ConS_Pins.png");
-            this.imageList2.Images.SetKeyName(4, "Sensors.png");
-            // 
             // FormSteer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(898, 628);
+            this.ClientSize = new System.Drawing.Size(982, 628);
             this.Controls.Add(this.label35);
             this.Controls.Add(this.btnSteerWizard);
             this.Controls.Add(this.tabSteerSettings);
@@ -3260,7 +3295,7 @@
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(918, 673);
+            this.MaximumSize = new System.Drawing.Size(1002, 673);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(387, 478);
             this.Name = "FormSteer";
@@ -3314,6 +3349,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudLineWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSnapDistance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGuidanceLookAhead)).EndInit();
+            this.tabTool.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pboxSendSteer)).EndInit();
             this.ResumeLayout(false);
 
@@ -3527,5 +3563,7 @@
         private System.Windows.Forms.Label lblAcquirePP;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ImageList imageList2;
+        private System.Windows.Forms.TabPage tabTool;
+        private System.Windows.Forms.CheckBox cboxGPSTwo;
     }
 }

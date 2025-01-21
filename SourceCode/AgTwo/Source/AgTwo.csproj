@@ -74,12 +74,6 @@
     <Compile Include="Classes\ListViewColumnSorterExt.cs" />
     <Compile Include="Classes\CRadioChannel.cs" />
     <Compile Include="Classes\CSettingsIO.cs" />
-    <Compile Include="Forms\FormCommSetGPS.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormCommSetGPS.Designer.cs">
-      <DependentUpon>FormCommSetGPS.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FormEventViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,12 +85,6 @@
     </Compile>
     <Compile Include="Forms\FormProfiles.designer.cs">
       <DependentUpon>FormProfiles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormSerialMonitor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormSerialMonitor.designer.cs">
-      <DependentUpon>FormSerialMonitor.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormGPSData.cs">
       <SubType>Form</SubType>
@@ -115,24 +103,6 @@
     </Compile>
     <Compile Include="Forms\FormLoop.Designer.cs">
       <DependentUpon>FormLoop.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormRadio.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormRadio.Designer.cs">
-      <DependentUpon>FormRadio.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormRadioChannel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormRadioChannel.Designer.cs">
-      <DependentUpon>FormRadioChannel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormSerialPass.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormSerialPass.designer.cs">
-      <DependentUpon>FormSerialPass.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormEthernet.cs">
       <SubType>Form</SubType>
@@ -167,23 +137,11 @@
     <Compile Include="Forms\NMEA.Designer.cs">
       <DependentUpon>FormLoop.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormNtrip.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormNtrip.Designer.cs">
-      <DependentUpon>FormNtrip.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FormNumeric.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FormNumeric.designer.cs">
       <DependentUpon>FormNumeric.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormSource.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormSource.designer.cs">
-      <DependentUpon>FormSource.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormTimedMessage.cs">
       <SubType>Form</SubType>
@@ -199,18 +157,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\FormCommSetGPS.resx">
-      <DependentUpon>FormCommSetGPS.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormEventViewer.resx">
       <DependentUpon>FormEventViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormProfiles.resx">
       <DependentUpon>FormProfiles.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormSerialMonitor.resx">
-      <DependentUpon>FormSerialMonitor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormGPSData.resx">
       <DependentUpon>FormGPSData.cs</DependentUpon>
@@ -224,23 +175,8 @@
       <DependentUpon>FormLoop.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormNtrip.resx">
-      <DependentUpon>FormNtrip.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormNumeric.resx">
       <DependentUpon>FormNumeric.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormRadio.resx">
-      <DependentUpon>FormRadio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormRadioChannel.resx">
-      <DependentUpon>FormRadioChannel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormSource.resx">
-      <DependentUpon>FormSource.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormSerialPass.resx">
-      <DependentUpon>FormSerialPass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormEthernet.resx">
       <DependentUpon>FormEthernet.cs</DependentUpon>
@@ -273,14 +209,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Forms\SerialComm.Designer.cs">
-      <SubType>Form</SubType>
-      <DependentUpon>FormLoop.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\NTRIPComm.Designer.cs">
-      <SubType>Form</SubType>
-      <DependentUpon>FormLoop.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Controls.Designer.cs">
       <SubType>Form</SubType>
       <DependentUpon>FormLoop.cs</DependentUpon>

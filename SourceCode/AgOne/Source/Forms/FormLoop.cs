@@ -39,8 +39,8 @@ namespace AgOne
         [DllImport("user32.dll")]
         static extern bool MoveWindow(IntPtr Handle, int x, int y, int w, int h, bool repaint);
 
-        static readonly int GWL_STYLE = -16;
-        static readonly int WS_VISIBLE = 0x10000000;
+        //static readonly int GWL_STYLE = -16;
+        //static readonly int WS_VISIBLE = 0x10000000;
         //key event to restore window
         private const int ALT = 0xA4;
 

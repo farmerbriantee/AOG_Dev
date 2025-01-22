@@ -219,20 +219,20 @@ namespace AgOpenGPS
 
                                     if (isDirectionMarkers)
                                     {
-                                        if (triList.Count > 42)
+                                        if (triList.Count > 31)
                                         {
                                             double headz =
-                                                Math.Atan2(triList[39].easting - triList[37].easting, triList[39].northing - triList[37].northing);
+                                                Math.Atan2(triList[29].easting - triList[27].easting, triList[29].northing - triList[27].northing);
 
                                             left = new vec2(
-                                                (triList[37].easting + factor * (triList[38].easting - triList[37].easting)),
-                                                (triList[37].northing + factor * (triList[38].northing - triList[37].northing)));
+                                                (triList[27].easting + factor * (triList[28].easting - triList[27].easting)),
+                                                (triList[27].northing + factor * (triList[28].northing - triList[27].northing)));
 
                                             factor = 1 - factor;
 
                                             right = new vec2(
-                                                (triList[37].easting + factor * (triList[38].easting - triList[37].easting)),
-                                                (triList[37].northing + factor * (triList[38].northing - triList[37].northing)));
+                                                (triList[27].easting + factor * (triList[28].easting - triList[27].easting)),
+                                                (triList[27].northing + factor * (triList[28].northing - triList[27].northing)));
 
                                             double disst = glm.Distance(left, right);
                                             disst *= 1.5;

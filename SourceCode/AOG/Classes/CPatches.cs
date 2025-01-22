@@ -46,7 +46,7 @@ namespace AgOpenGPS
                 isDrawing = true;
 
                 //starting a new patch chunk so create a new triangle list
-                triangleList = new List<vec3>(64);
+                triangleList = new List<vec3>(32);
 
                 patchList.Add(triangleList);
 
@@ -135,14 +135,14 @@ namespace AgOpenGPS
                 }
             }
 
-            if (numTriangles > 61)
+            if (numTriangles > 29)
             {
                 numTriangles = 0;
 
                 //save the cutoff patch to be saved later
                 mf.patchSaveList.Add(triangleList);
 
-                triangleList = new List<vec3>(64);
+                triangleList = new List<vec3>(32);
 
                 patchList.Add(triangleList);
 

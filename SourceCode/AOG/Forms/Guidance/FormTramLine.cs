@@ -223,7 +223,7 @@ namespace AgOpenGPS
             if (gTemp[indx].mode == TrackMode.Curve)
             {
                 //if (Dist != 0)
-                //mf.trk.NudgeRefCurve(Dist);
+                //mf.trk.NudgeRefTrack(Dist);
                 BuildCurveTram();
             }
             else if (gTemp[indx].mode == TrackMode.AB)

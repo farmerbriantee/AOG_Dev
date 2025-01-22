@@ -25,15 +25,15 @@ namespace AgOpenGPS
 
         private void bntOK_Click(object sender, EventArgs e)
         {
-            mf.curve.isSmoothWindowOpen = false;
-            mf.curve.SaveSmoothList();
-            mf.curve.smooList?.Clear();
+            mf.trk.isSmoothWindowOpen = false;
+            mf.trk.SaveSmoothList();
+            mf.trk.smooList?.Clear();
             Close();
         }
 
         private void FormSmoothAB_Load(object sender, EventArgs e)
         {
-            mf.curve.isSmoothWindowOpen = true;
+            mf.trk.isSmoothWindowOpen = true;
             smoothCount = 20;
             lblSmooth.Text = "**";
 
@@ -46,15 +46,15 @@ namespace AgOpenGPS
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            mf.curve.isSmoothWindowOpen = false;
-            mf.curve.smooList?.Clear();
+            mf.trk.isSmoothWindowOpen = false;
+            mf.trk.smooList?.Clear();
             Close();
         }
 
         private void btnNorth_MouseDown(object sender, MouseEventArgs e)
         {
             if (smoothCount++ > 100) smoothCount = 100;
-            mf.curve.SmoothAB(smoothCount * 2);
+            mf.trk.SmoothAB(smoothCount * 2);
             lblSmooth.Text = smoothCount.ToString();
         }
 
@@ -62,15 +62,15 @@ namespace AgOpenGPS
         {
             smoothCount--;
             if (smoothCount < 2) smoothCount = 2;
-            mf.curve.SmoothAB(smoothCount * 2);
+            mf.trk.SmoothAB(smoothCount * 2);
             lblSmooth.Text = smoothCount.ToString();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            mf.curve.isSmoothWindowOpen = false;
-            mf.curve.SaveSmoothList();
-            mf.curve.smooList?.Clear();
+            mf.trk.isSmoothWindowOpen = false;
+            mf.trk.SaveSmoothList();
+            mf.trk.smooList?.Clear();
 
             //save entire list
             mf.FileSaveTracks();

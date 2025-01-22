@@ -219,20 +219,20 @@ namespace AgOpenGPS
 
                                     if (isDirectionMarkers)
                                     {
-                                        if (triList.Count > 42)
+                                        if (triList.Count > 31)
                                         {
                                             double headz =
-                                                Math.Atan2(triList[39].easting - triList[37].easting, triList[39].northing - triList[37].northing);
+                                                Math.Atan2(triList[29].easting - triList[27].easting, triList[29].northing - triList[27].northing);
 
                                             left = new vec2(
-                                                (triList[37].easting + factor * (triList[38].easting - triList[37].easting)),
-                                                (triList[37].northing + factor * (triList[38].northing - triList[37].northing)));
+                                                (triList[27].easting + factor * (triList[28].easting - triList[27].easting)),
+                                                (triList[27].northing + factor * (triList[28].northing - triList[27].northing)));
 
                                             factor = 1 - factor;
 
                                             right = new vec2(
-                                                (triList[37].easting + factor * (triList[38].easting - triList[37].easting)),
-                                                (triList[37].northing + factor * (triList[38].northing - triList[37].northing)));
+                                                (triList[27].easting + factor * (triList[28].easting - triList[27].easting)),
+                                                (triList[27].northing + factor * (triList[28].northing - triList[27].northing)));
 
                                             double disst = glm.Distance(left, right);
                                             disst *= 1.5;
@@ -812,13 +812,13 @@ namespace AgOpenGPS
                             break;
                         }
 
-                        //if (isDraw)
-                        //{
-                        //    //draw the triangles in each triangle strip
-                        //    GL.Begin(PrimitiveType.TriangleStrip);
-                        //    for (int i = 1; i < count2; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0);
-                        //    GL.End();
-                        //}
+                        if (isDraw)
+                        {
+                            //draw the triangles in each triangle strip
+                            GL.Begin(PrimitiveType.TriangleStrip);
+                            for (int i = 1; i < count2; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0);
+                            GL.End();
+                        }
                     }
                 }
             }
@@ -1054,109 +1054,35 @@ namespace AgOpenGPS
 
 
                 //AutoSection - If any nowhere applied, send OnRequest, if its all green send an offRequest
-                section[j].isSectionRequiredOn = true;
+                section[j].isSectionRequiredOn = false;
 
-                ////calculate the slopes of the lines
-                //mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
-                //mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
+                //calculate the slopes of the lines
+                mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
+                mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
 
-                //start = section[j].rpSectionPosition - section[0].rpSectionPosition;
-                //end = section[j].rpSectionWidth - 1 + start;
+                start = section[j].rpSectionPosition - section[0].rpSectionPosition;
+                end = section[j].rpSectionWidth - 1 + start;
 
-                //if (end >= tool.rpWidth)
-                //    end = tool.rpWidth - 1;
+                if (end >= tool.rpWidth)
+                    end = tool.rpWidth - 1;
 
-                //totalPixel = 1;
-                //tagged = 0;
+                totalPixel = 1;
+                tagged = 0;
 
-                //for (int pos = start; pos <= end; pos++)
-                //{
-                //    startHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
-                //    endHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
-
-                //    for (int a = startHeight; a <= endHeight; a += tool.rpWidth)
-                //    {
-                //        totalPixel++;
-                //        if (grnPixels[a] == 0) tagged++;
-                //    }
-                //}
-
-                ////determine if meeting minimum coverage
-                //section[j].isSectionRequiredOn = ((tagged * 100) / totalPixel > (100 - tool.minCoverage));
-
-                //to draw or not the triangle patch
-                pivEplus = pivotAxlePos.easting + 50;
-                pivEminus = pivotAxlePos.easting - 50;
-                pivNplus = pivotAxlePos.northing + 50;
-                pivNminus = pivotAxlePos.northing - 50;
-
-                int bob = 0;
-                //draw patches j= # of sections
-                for (int k = 0; k < triStrip.Count; k++)
+                for (int pos = start; pos <= end; pos++)
                 {
-                    //every time the section turns off and on is a new patch
-                    int patchCount = triStrip[k].patchList.Count;
+                    startHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
+                    endHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
 
-                    if (patchCount > 0)
+                    for (int a = startHeight; a <= endHeight; a += tool.rpWidth)
                     {
-                        //for every new chunk of patch
-                        foreach (var triList in triStrip[k].patchList)
-                        {
-                            isDraw = false;
-                            int count2 = triList.Count;
-                            for (int i = 1; i < count2; i += 3)
-                            {
-                                //determine if point is in frustum or not
-                                if (triList[i].easting > pivEplus)
-                                    continue;
-                                if (triList[i].easting < pivEminus)
-                                    continue;
-                                if (triList[i].northing > pivNplus)
-                                    continue;
-                                if (triList[i].northing < pivNminus)
-                                    continue;
-
-                                //point is in frustum so draw the entire patch
-                                isDraw = true;
-                                break;
-                            }
-
-                            if (isDraw)
-                            {
-                                ////draw the triangles in each triangle strip
-                                //GL.Begin(PrimitiveType.TriangleStrip);
-                                for (int i = 1; i < count2-3; i+=2)
-                                {
-                                    // D = (x2 - x1) * (yp - y1) - (xp - x1) * (y2 - y1)
-
-                                    double D = (triList[i + 1].easting - triList[i].easting) * (pivotAxlePos.northing - triList[i].northing)
-                                        - (pivotAxlePos.easting - triList[i].easting) * (triList[i + 1].northing - triList[i].northing);
-                                    if (D < 0) continue;
-
-                                        D = (triList[i + 3].easting - triList[i + 1].easting) * (pivotAxlePos.northing - triList[i + 1].northing)
-                                        - (pivotAxlePos.easting - triList[i + 1].easting) * (triList[i + 3].northing - triList[i + 1].northing);
-                                    if (D < 0) continue;
-
-                                    D = (triList[i + 2].easting - triList[i + 3].easting) * (pivotAxlePos.northing - triList[i + 3].northing)
-                                        - (pivotAxlePos.easting - triList[i + 3].easting) * (triList[i + 2].northing - triList[i + 3].northing);
-                                    if (D < 0) continue;
-
-                                    D = (triList[i].easting - triList[i + 2].easting) * (pivotAxlePos.northing - triList[i + 2].northing)
-                                        - (pivotAxlePos.easting - triList[i + 2].easting) * (triList[i].northing - triList[i + 2].northing);
-                                    if (D < 0) continue;
-
-                                    bob++;
-                                    section[j].isSectionRequiredOn = false;
-                                }
-                                //GL.End();
-                            }
-                        }
+                        totalPixel++;
+                        if (grnPixels[a] == 0) tagged++;
                     }
                 }
 
-
-                label1.Text = bob.ToString();
-
+                //determine if meeting minimum coverage
+                section[j].isSectionRequiredOn = ((tagged * 100) / totalPixel > (100 - tool.minCoverage));
 
                 //logic if in or out of boundaries or headland
                 if (bnd.bndList.Count > 0)
@@ -3034,3 +2960,79 @@ namespace AgOpenGPS
         }
     }
 }
+
+//in section patch math code
+/*
+ *                 //to draw or not the triangle patch
+                pivEplus = pivotAxlePos.easting + 50;
+                pivEminus = pivotAxlePos.easting - 50;
+                pivNplus = pivotAxlePos.northing + 50;
+                pivNminus = pivotAxlePos.northing - 50;
+
+                int bob = 0;
+                //draw patches j= # of sections
+                for (int k = 0; k < triStrip.Count; k++)
+                {
+                    //every time the section turns off and on is a new patch
+                    int patchCount = triStrip[k].patchList.Count;
+
+                    if (patchCount > 0)
+                    {
+                        //for every new chunk of patch
+                        foreach (var triList in triStrip[k].patchList)
+                        {
+                            isDraw = false;
+                            int count2 = triList.Count;
+                            for (int i = 1; i < count2; i += 3)
+                            {
+                                //determine if point is in frustum or not
+                                if (triList[i].easting > pivEplus)
+                                    continue;
+                                if (triList[i].easting < pivEminus)
+                                    continue;
+                                if (triList[i].northing > pivNplus)
+                                    continue;
+                                if (triList[i].northing < pivNminus)
+                                    continue;
+
+                                //point is in frustum so draw the entire patch
+                                isDraw = true;
+                                break;
+                            }
+
+                            if (isDraw)
+                            {
+                                ////draw the triangles in each triangle strip
+                                //GL.Begin(PrimitiveType.TriangleStrip);
+                                for (int i = 1; i < count2-3; i+=2)
+                                {
+                                    // D = (x2 - x1) * (yp - y1) - (xp - x1) * (y2 - y1)
+
+                                    double D = (triList[i + 1].easting - triList[i].easting) * (pivotAxlePos.northing - triList[i].northing)
+                                        - (pivotAxlePos.easting - triList[i].easting) * (triList[i + 1].northing - triList[i].northing);
+                                    if (D < 0) continue;
+
+                                        D = (triList[i + 3].easting - triList[i + 1].easting) * (pivotAxlePos.northing - triList[i + 1].northing)
+                                        - (pivotAxlePos.easting - triList[i + 1].easting) * (triList[i + 3].northing - triList[i + 1].northing);
+                                    if (D < 0) continue;
+
+                                    D = (triList[i + 2].easting - triList[i + 3].easting) * (pivotAxlePos.northing - triList[i + 3].northing)
+                                        - (pivotAxlePos.easting - triList[i + 3].easting) * (triList[i + 2].northing - triList[i + 3].northing);
+                                    if (D < 0) continue;
+
+                                    D = (triList[i].easting - triList[i + 2].easting) * (pivotAxlePos.northing - triList[i + 2].northing)
+                                        - (pivotAxlePos.easting - triList[i + 2].easting) * (triList[i].northing - triList[i + 2].northing);
+                                    if (D < 0) continue;
+
+                                    bob++;
+                                    section[j].isSectionRequiredOn = false;
+                                }
+                                //GL.End();
+                            }
+                        }
+                    }
+                }
+
+
+                label1.Text = bob.ToString();
+*/

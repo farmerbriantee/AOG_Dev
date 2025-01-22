@@ -146,12 +146,12 @@ namespace AgTwo
             // 
             this.lblFromGPS.AutoSize = true;
             this.lblFromGPS.BackColor = System.Drawing.Color.Transparent;
-            this.lblFromGPS.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFromGPS.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblFromGPS.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFromGPS.ForeColor = System.Drawing.Color.White;
             this.lblFromGPS.Location = new System.Drawing.Point(330, 273);
             this.lblFromGPS.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFromGPS.Name = "lblFromGPS";
-            this.lblFromGPS.Size = new System.Drawing.Size(26, 18);
+            this.lblFromGPS.Size = new System.Drawing.Size(34, 23);
             this.lblFromGPS.TabIndex = 130;
             this.lblFromGPS.Text = "---";
             this.lblFromGPS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -432,12 +432,12 @@ namespace AgTwo
             // 
             this.lblToGPS.AutoSize = true;
             this.lblToGPS.BackColor = System.Drawing.Color.Transparent;
-            this.lblToGPS.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblToGPS.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblToGPS.Location = new System.Drawing.Point(330, 246);
+            this.lblToGPS.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblToGPS.ForeColor = System.Drawing.Color.White;
+            this.lblToGPS.Location = new System.Drawing.Point(330, 243);
             this.lblToGPS.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblToGPS.Name = "lblToGPS";
-            this.lblToGPS.Size = new System.Drawing.Size(26, 18);
+            this.lblToGPS.Size = new System.Drawing.Size(34, 23);
             this.lblToGPS.TabIndex = 512;
             this.lblToGPS.Text = "---";
             this.lblToGPS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -689,7 +689,7 @@ namespace AgTwo
             this.btnRunAOG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRunAOG.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRunAOG.ForeColor = System.Drawing.Color.White;
-            this.btnRunAOG.Image = global::AgTwo.Properties.Resources.Edit;
+            this.btnRunAOG.Image = global::AgTwo.Properties.Resources.AgIOBtn;
             this.btnRunAOG.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnRunAOG.Location = new System.Drawing.Point(227, 415);
             this.btnRunAOG.Margin = new System.Windows.Forms.Padding(4);

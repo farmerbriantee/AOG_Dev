@@ -516,6 +516,32 @@ namespace AgOpenGPS
                         Log.EventWriter("Can't Find AgOne, File not Found");
                     }
                 }
+
+                if (isGPSTwoActive)
+                {
+                    //Start AgTwo process
+                    Process[] processNam = Process.GetProcessesByName("AgTwo");
+                    if (processNam.Length == 0)
+                    {
+                        //Start application here
+                        string strPath = Path.Combine(Application.StartupPath, "AgTwo.exe");
+                        try
+                        {
+                            ProcessStartInfo processInfo = new ProcessStartInfo
+                            {
+                                FileName = strPath,
+                                WorkingDirectory = Path.GetDirectoryName(strPath)
+                            };
+                            Process proc = Process.Start(processInfo);
+                            Log.EventWriter("AgTwo Started");
+                        }
+                        catch
+                        {
+                            TimedMessageBox(2000, "No File Found", "Can't Find AgTwo");
+                            Log.EventWriter("Can't Find AgTwo, File not Found");
+                        }
+                    }
+                }
             }
 
             //nmea limiter

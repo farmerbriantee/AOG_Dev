@@ -330,8 +330,8 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    mf.pn.latStart = latK;
-                    mf.pn.lonStart = lonK;
+                    CNMEA.latStart = latK;
+                    CNMEA.lonStart = lonK;
 
                     if (mf.timerSim.Enabled)
                     {
@@ -382,7 +382,7 @@ namespace AgOpenGPS
                         writer.WriteLine("0");
 
                         writer.WriteLine("StartFix");
-                        writer.WriteLine(mf.pn.latStart.ToString(CultureInfo.InvariantCulture) + "," + mf.pn.lonStart.ToString(CultureInfo.InvariantCulture));
+                        writer.WriteLine(CNMEA.latStart.ToString(CultureInfo.InvariantCulture) + "," + CNMEA.lonStart.ToString(CultureInfo.InvariantCulture));
                     }
 
                     mf.FileCreateSections();

@@ -259,6 +259,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AgTwo_ico.ico" />
+    <None Include="btnImages\AgIOBtn.png" />
     <None Include="btnImages\ModuleSim2.png" />
     <None Include="btnImages\EthernetOff.png" />
     <None Include="btnImages\WindowMinimize.png" />

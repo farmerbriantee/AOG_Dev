@@ -777,10 +777,10 @@ namespace AgOpenGPS
             //to draw or not the triangle patch
             bool isDraw;
 
-            double pivEplus = pivotAxlePos.easting + 50;
-            double pivEminus = pivotAxlePos.easting - 50;
-            double pivNplus = pivotAxlePos.northing + 50;
-            double pivNminus = pivotAxlePos.northing - 50;
+            double pivEplus = toolPivotPos.easting + 50;
+            double pivEminus = toolPivotPos.easting - 50;
+            double pivNplus = toolPivotPos.northing + 50;
+            double pivNminus = toolPivotPos.northing - 50;
 
             //draw patches j= # of sections
             for (int j = 0; j < triStrip.Count; j++)
@@ -812,13 +812,13 @@ namespace AgOpenGPS
                             break;
                         }
 
-                        if (isDraw)
-                        {
-                            //draw the triangles in each triangle strip
-                            GL.Begin(PrimitiveType.TriangleStrip);
-                            for (int i = 1; i < count2; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0);
-                            GL.End();
-                        }
+                        //if (isDraw)
+                        //{
+                        //    //draw the triangles in each triangle strip
+                        //    GL.Begin(PrimitiveType.TriangleStrip);
+                        //    for (int i = 1; i < count2; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0);
+                        //    GL.End();
+                        //}
                     }
                 }
             }
@@ -1054,35 +1054,109 @@ namespace AgOpenGPS
 
 
                 //AutoSection - If any nowhere applied, send OnRequest, if its all green send an offRequest
-                section[j].isSectionRequiredOn = false;
+                section[j].isSectionRequiredOn = true;
 
-                //calculate the slopes of the lines
-                mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
-                mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
+                ////calculate the slopes of the lines
+                //mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
+                //mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
 
-                start = section[j].rpSectionPosition - section[0].rpSectionPosition;
-                end = section[j].rpSectionWidth - 1 + start;
+                //start = section[j].rpSectionPosition - section[0].rpSectionPosition;
+                //end = section[j].rpSectionWidth - 1 + start;
 
-                if (end >= tool.rpWidth)
-                    end = tool.rpWidth - 1;
+                //if (end >= tool.rpWidth)
+                //    end = tool.rpWidth - 1;
 
-                totalPixel = 1;
-                tagged = 0;
+                //totalPixel = 1;
+                //tagged = 0;
 
-                for (int pos = start; pos <= end; pos++)
+                //for (int pos = start; pos <= end; pos++)
+                //{
+                //    startHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
+                //    endHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
+
+                //    for (int a = startHeight; a <= endHeight; a += tool.rpWidth)
+                //    {
+                //        totalPixel++;
+                //        if (grnPixels[a] == 0) tagged++;
+                //    }
+                //}
+
+                ////determine if meeting minimum coverage
+                //section[j].isSectionRequiredOn = ((tagged * 100) / totalPixel > (100 - tool.minCoverage));
+
+                //to draw or not the triangle patch
+                pivEplus = pivotAxlePos.easting + 50;
+                pivEminus = pivotAxlePos.easting - 50;
+                pivNplus = pivotAxlePos.northing + 50;
+                pivNminus = pivotAxlePos.northing - 50;
+
+                int bob = 0;
+                //draw patches j= # of sections
+                for (int k = 0; k < triStrip.Count; k++)
                 {
-                    startHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
-                    endHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
+                    //every time the section turns off and on is a new patch
+                    int patchCount = triStrip[k].patchList.Count;
 
-                    for (int a = startHeight; a <= endHeight; a += tool.rpWidth)
+                    if (patchCount > 0)
                     {
-                        totalPixel++;
-                        if (grnPixels[a] == 0) tagged++;
+                        //for every new chunk of patch
+                        foreach (var triList in triStrip[k].patchList)
+                        {
+                            isDraw = false;
+                            int count2 = triList.Count;
+                            for (int i = 1; i < count2; i += 3)
+                            {
+                                //determine if point is in frustum or not
+                                if (triList[i].easting > pivEplus)
+                                    continue;
+                                if (triList[i].easting < pivEminus)
+                                    continue;
+                                if (triList[i].northing > pivNplus)
+                                    continue;
+                                if (triList[i].northing < pivNminus)
+                                    continue;
+
+                                //point is in frustum so draw the entire patch
+                                isDraw = true;
+                                break;
+                            }
+
+                            if (isDraw)
+                            {
+                                ////draw the triangles in each triangle strip
+                                //GL.Begin(PrimitiveType.TriangleStrip);
+                                for (int i = 1; i < count2-3; i+=2)
+                                {
+                                    // D = (x2 - x1) * (yp - y1) - (xp - x1) * (y2 - y1)
+
+                                    double D = (triList[i + 1].easting - triList[i].easting) * (pivotAxlePos.northing - triList[i].northing)
+                                        - (pivotAxlePos.easting - triList[i].easting) * (triList[i + 1].northing - triList[i].northing);
+                                    if (D < 0) continue;
+
+                                        D = (triList[i + 3].easting - triList[i + 1].easting) * (pivotAxlePos.northing - triList[i + 1].northing)
+                                        - (pivotAxlePos.easting - triList[i + 1].easting) * (triList[i + 3].northing - triList[i + 1].northing);
+                                    if (D < 0) continue;
+
+                                    D = (triList[i + 2].easting - triList[i + 3].easting) * (pivotAxlePos.northing - triList[i + 3].northing)
+                                        - (pivotAxlePos.easting - triList[i + 3].easting) * (triList[i + 2].northing - triList[i + 3].northing);
+                                    if (D < 0) continue;
+
+                                    D = (triList[i].easting - triList[i + 2].easting) * (pivotAxlePos.northing - triList[i + 2].northing)
+                                        - (pivotAxlePos.easting - triList[i + 2].easting) * (triList[i].northing - triList[i + 2].northing);
+                                    if (D < 0) continue;
+
+                                    bob++;
+                                    section[j].isSectionRequiredOn = false;
+                                }
+                                //GL.End();
+                            }
+                        }
                     }
                 }
 
-                //determine if meeting minimum coverage
-                section[j].isSectionRequiredOn = ((tagged * 100) / totalPixel > (100 - tool.minCoverage));
+
+                label1.Text = bob.ToString();
+
 
                 //logic if in or out of boundaries or headland
                 if (bnd.bndList.Count > 0)

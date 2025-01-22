@@ -19,9 +19,6 @@ namespace AgOpenGPS
 
         public bool isLine, isAutoTrack = false, isAutoSnapToPivot = false, isAutoSnapped;
 
-
-        //from curve
-
         //flag for starting stop adding points
         public bool isBtnTrackOn, isMakingCurve, isRecordingCurve;
 

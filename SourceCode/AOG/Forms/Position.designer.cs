@@ -830,7 +830,7 @@ namespace AgOpenGPS
                     trk.idx = trk.FindClosestRefTrack(steerAxlePos);
                     if (lastIndex != trk.idx)
                     {
-                        curve.isCurveValid = false;
+                        trk.isTrackValid = false;
                         ABLine.isABValid = false;
                     }
                 }
@@ -847,9 +847,9 @@ namespace AgOpenGPS
                     else
                     {
                         //build new current ref line if required
-                        curve.BuildCurveCurrentList(pivotAxlePos);
+                        trk.BuildTrackCurrentList(pivotAxlePos);
 
-                        curve.GetCurrentCurveLine(pivotAxlePos, steerAxlePos);
+                        trk.GetCurrentTrackLine(pivotAxlePos, steerAxlePos);
                     }
                 }
             }
@@ -1343,7 +1343,7 @@ namespace AgOpenGPS
             //if (sectionTriggerStepDistance > 5) sectionTriggerStepDistance = 5;
 
             //finally fixed distance for making a curve line
-            if (curve.isRecordingCurve) sectionTriggerStepDistance *= 0.5;
+            if (trk.isRecordingCurve) sectionTriggerStepDistance *= 0.5;
 
             //precalc the sin and cos of heading * -1
             sinSectionHeading = Math.Sin(-toolPivotPos.heading);
@@ -1534,7 +1534,7 @@ namespace AgOpenGPS
             //else
             //{
             //    if ((ABLine.isBtnABLineOn && !ct.isContourBtnOn && ABLine.isABLineSet && isBtnAutoSteerOn) ||
-            //                (!ct.isContourBtnOn && curve.isBtnTrackOn && curve.isCurveSet && isBtnAutoSteerOn))
+            //                (!ct.isContourBtnOn && trk.isBtnTrackOn && trk.isCurveSet && isBtnAutoSteerOn))
             //    {
             //        //no contour recorded
             //        if (ct.isContourOn) { ct.StopContourLine(); }
@@ -1579,9 +1579,9 @@ namespace AgOpenGPS
                 recPath.recList.Add(new CRecPathPt(pivotAxlePos.easting, pivotAxlePos.northing, pivotAxlePos.heading, speed, autoBtn));
             }
 
-            if (curve.isRecordingCurve)
+            if (trk.isRecordingCurve)
             {
-                curve.desList.Add(new vec3(pivotAxlePos.easting, pivotAxlePos.northing, pivotAxlePos.heading));
+                trk.desList.Add(new vec3(pivotAxlePos.easting, pivotAxlePos.northing, pivotAxlePos.heading));
             }
 
             //save the north & east as previous

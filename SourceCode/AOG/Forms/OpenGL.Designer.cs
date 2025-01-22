@@ -383,12 +383,12 @@ namespace AgOpenGPS
                             if (trk.gArr[trk.idx].mode == TrackMode.AB)
                                 ABLine.DrawABLines();
                             else
-                                curve.DrawCurve();
+                                trk.DrawTrack();
                         }
                     }
 
                     //draw line creations
-                    if (curve.isMakingCurve) curve.DrawCurveNew();
+                    if (trk.isMakingCurve) trk.DrawNewTrack();
 
                     if (ABLine.isMakingABLine) ABLine.DrawABLineNew();
 
@@ -463,13 +463,13 @@ namespace AgOpenGPS
                                 GL.PointSize(12);
                                 GL.Begin(PrimitiveType.Points);
                                 GL.Color3(0, 0, 0);
-                                GL.Vertex3(curve.goalPointCu.easting, curve.goalPointCu.northing, 0.0);
+                                GL.Vertex3(trk.goalPointCu.easting, trk.goalPointCu.northing, 0.0);
                                 GL.End();
 
                                 GL.PointSize(6);
                                 GL.Begin(PrimitiveType.Points);
                                 GL.Color3(0.98, 0.98, 0.098);
-                                GL.Vertex3(curve.goalPointCu.easting, curve.goalPointCu.northing, 0.0);
+                                GL.Vertex3(trk.goalPointCu.easting, trk.goalPointCu.northing, 0.0);
                                 GL.End();
                             }
                         }
@@ -1703,15 +1703,15 @@ namespace AgOpenGPS
                 //    }
 
                 //    //draw curve if there is one
-                //    if (curve.isCurveSet && curve.isBtnTrackOn)
+                //    if (trk.isCurveSet && trk.isBtnTrackOn)
                 //    {
-                //        int ptC = curve.curList.Count;
+                //        int ptC = trk.curList.Count;
                 //        if (ptC > 0)
                 //        {
                 //            GL.LineWidth(2);
                 //            GL.Color3(0.925f, 0.2f, 0.90f);
                 //            GL.Begin(PrimitiveType.LineStrip);
-                //            for (int h = 0; h < ptC; h++) GL.Vertex3(curve.curList[h].easting, curve.curList[h].northing, 0);
+                //            for (int h = 0; h < ptC; h++) GL.Vertex3(trk.curList[h].easting, trk.curList[h].northing, 0);
                 //            GL.End();
                 //        }
                 //    }
@@ -2568,14 +2568,14 @@ namespace AgOpenGPS
             }
             else
             {
-                if (curve.isHeadingSameWay) dire = "{";
+                if (trk.isHeadingSameWay) dire = "{";
                 else dire = "}";
 
                 GL.Color4(1.269, 1.25, 1.2510, 0.87);
-                if (curve.howManyPathsAway > -1) 
-                    dire = dire + (curve.howManyPathsAway + 1).ToString() + "R " + offs;
+                if (trk.howManyPathsAway > -1) 
+                    dire = dire + (trk.howManyPathsAway + 1).ToString() + "R " + offs;
                 else 
-                    dire = dire + (-curve.howManyPathsAway).ToString() + "L " + offs;
+                    dire = dire + (-trk.howManyPathsAway).ToString() + "L " + offs;
             }
 
             int start = -(int)(((double)(dire.Length) * 0.45) * (20 * (1.0)));

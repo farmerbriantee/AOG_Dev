@@ -904,7 +904,7 @@ namespace AgOpenGPS
             {
                 sim.headingTrue += Math.PI;
                 ABLine.isABValid = false;
-                curve.isCurveValid = false;
+                trk.isTrackValid = false;
                 if (isBtnAutoSteerOn)
                 {
                     btnAutoYouTurn.PerformClick();

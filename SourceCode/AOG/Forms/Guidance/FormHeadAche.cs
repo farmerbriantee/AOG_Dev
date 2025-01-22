@@ -334,7 +334,7 @@ namespace AgOpenGPS
                     }
 
                     //who knows which way it actually goes
-                    mf.curve.CalculateHeadings(ref mf.hdl.tracksArr[mf.hdl.idx].trackPts);
+                    mf.trk.CalculateHeadings(ref mf.hdl.tracksArr[mf.hdl.idx].trackPts);
 
                     int ptCnt = mf.hdl.tracksArr[mf.hdl.idx].trackPts.Count - 1;
 
@@ -934,7 +934,7 @@ namespace AgOpenGPS
             start = 99999; end = 99999;
             isA = true;
             FixLabelsCurve();
-            mf.curve.desList?.Clear();
+            mf.trk.desList?.Clear();
             zoom = 1;
             sX = 0;
             sY = 0;

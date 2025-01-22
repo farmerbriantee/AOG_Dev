@@ -122,8 +122,8 @@ namespace AgOpenGPS
             if (isCurve)
             {
                 //if (Dist != 0)
-                //mf.trk.NudgeRefCurve(Dist);
-                mf.curve.BuildTram();
+                //mf.trk.NudgeRefTrack(Dist);
+                mf.trk.BuildTram();
             }
             else
             {

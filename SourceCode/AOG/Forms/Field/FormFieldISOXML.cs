@@ -494,7 +494,7 @@ namespace AgOpenGPS
                                     }
 
                                     //build the boundary, make sure is clockwise for outer counter clockwise for inner
-                                    mf.curve.CalculateHeadings(ref desList);
+                                    mf.trk.CalculateHeadings(ref desList);
 
                                     //write out the Curve Points
                                     foreach (vec3 item in desList)
@@ -514,7 +514,7 @@ namespace AgOpenGPS
             }
 
             mf.bnd.isOkToAddPoints = false;
-            mf.curve.desList?.Clear();
+            mf.trk.desList?.Clear();
 
             //load lines GGC ------------------------------------------------------------------------
             /*
@@ -591,7 +591,7 @@ namespace AgOpenGPS
                                 if (nodePart.ChildNodes[0].ChildNodes[0].Attributes["A"].Value == "5") //Guidance Pattern
                                 {
                                     //get the name
-                                    mf.curve.desName = nodePart.ChildNodes[0].Attributes["B"].Value;
+                                    mf.trk.desName = nodePart.ChildNodes[0].Attributes["B"].Value;
 
                                     double.TryParse(nodePart.ChildNodes[0].ChildNodes[0].ChildNodes[0].Attributes["C"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
                                     double.TryParse(nodePart.ChildNodes[0].ChildNodes[0].ChildNodes[0].Attributes["D"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
@@ -600,7 +600,7 @@ namespace AgOpenGPS
 
                                     if (nodePart.ChildNodes[0].ChildNodes[0].ChildNodes.Count > 2)
                                     {
-                                        mf.curve.desList?.Clear();
+                                        mf.trk.desList?.Clear();
                                         //GGP / GPN / LSG / PNT
                                         int cnt = nodePart.ChildNodes[0].ChildNodes[0].ChildNodes.Count;
 
@@ -616,37 +616,37 @@ namespace AgOpenGPS
                                             pt3.northing = norting;
                                             pt3.heading = 0;
 
-                                            mf.curve.desList.Add(pt3);
+                                            mf.trk.desList.Add(pt3);
                                         }
 
-                                        cnt = mf.curve.desList.Count;
+                                        cnt = mf.trk.desList.Count;
                                         if (cnt > 3)
                                         {
                                             mf.trk.gArr.Add(new CTrk());
                                             int idx = mf.trk.gArr.Count - 1;
 
                                             //make sure point distance isn't too big
-                                            mf.curve.MakePointMinimumSpacing(ref mf.curve.desList, 1.6);
-                                            mf.curve.CalculateHeadings(ref mf.curve.desList);
+                                            mf.trk.MakePointMinimumSpacing(ref mf.trk.desList, 1.6);
+                                            mf.trk.CalculateHeadings(ref mf.trk.desList);
 
                                             //calculate average heading of line
                                             double x = 0, y = 0;
 
-                                            foreach (vec3 pt in mf.curve.desList)
+                                            foreach (vec3 pt in mf.trk.desList)
                                             {
                                                 x += Math.Cos(pt.heading);
                                                 y += Math.Sin(pt.heading);
                                             }
-                                            x /= mf.curve.desList.Count;
-                                            y /= mf.curve.desList.Count;
+                                            x /= mf.trk.desList.Count;
+                                            y /= mf.trk.desList.Count;
                                             mf.trk.gArr[idx].heading = Math.Atan2(y, x);
                                             if (mf.trk.gArr[idx].heading < 0) mf.trk.gArr[idx].heading += glm.twoPI;
 
                                             //build the tail extensions
-                                            mf.curve.AddFirstLastPoints(ref mf.curve.desList);
-                                            mf.curve.CalculateHeadings(ref mf.curve.desList);
+                                            mf.trk.AddFirstLastPoints(ref mf.trk.desList);
+                                            mf.trk.CalculateHeadings(ref mf.trk.desList);
 
-                                            if (string.IsNullOrEmpty(mf.curve.desName))
+                                            if (string.IsNullOrEmpty(mf.trk.desName))
                                             {
                                                 //create a name
                                                 mf.trk.gArr[idx].name = (Math.Round(glm.toDegrees(mf.trk.gArr[idx].heading), 1)).ToString(CultureInfo.InvariantCulture)
@@ -654,13 +654,13 @@ namespace AgOpenGPS
                                             }
                                             else
                                             {
-                                                mf.trk.gArr[idx].name = mf.curve.desName;
+                                                mf.trk.gArr[idx].name = mf.trk.desName;
                                             }
 
                                             mf.trk.gArr[idx].mode = TrackMode.Curve;
 
                                             //write out the Curve Points
-                                            foreach (vec3 item in mf.curve.desList)
+                                            foreach (vec3 item in mf.trk.desList)
                                             {
                                                 mf.trk.gArr[idx].curvePts.Add(item);
                                             }
@@ -740,7 +740,7 @@ namespace AgOpenGPS
 
                         {
                             //get the name
-                            mf.curve.desName = nodePart.Attributes["B"].Value;
+                            mf.trk.desName = nodePart.Attributes["B"].Value;
 
                             double.TryParse(nodePart.ChildNodes[0].Attributes["C"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
                             double.TryParse(nodePart.ChildNodes[0].Attributes["D"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
@@ -749,7 +749,7 @@ namespace AgOpenGPS
 
                             if (nodePart.ChildNodes.Count > 2)
                             {
-                                mf.curve.desList?.Clear();
+                                mf.trk.desList?.Clear();
                                 //GGP / GPN / LSG / PNT
                                 int cnt = nodePart.ChildNodes.Count;
 
@@ -765,41 +765,41 @@ namespace AgOpenGPS
                                     pt3.northing = norting;
                                     pt3.heading = 0;
 
-                                    mf.curve.desList.Add(pt3);
+                                    mf.trk.desList.Add(pt3);
                                 }
 
-                                cnt = mf.curve.desList.Count;
+                                cnt = mf.trk.desList.Count;
                                 if (cnt > 3)
                                 {
                                     mf.trk.gArr.Add(new CTrk());
                                     int idx = mf.trk.gArr.Count - 1;
 
                                     //make sure point distance isn't too big
-                                    mf.curve.MakePointMinimumSpacing(ref mf.curve.desList, 1.6);
-                                    mf.curve.CalculateHeadings(ref mf.curve.desList);
+                                    mf.trk.MakePointMinimumSpacing(ref mf.trk.desList, 1.6);
+                                    mf.trk.CalculateHeadings(ref mf.trk.desList);
 
                                     //calculate average heading of line
                                     double x = 0, y = 0;
 
-                                    foreach (vec3 pt in mf.curve.desList)
+                                    foreach (vec3 pt in mf.trk.desList)
                                     {
                                         x += Math.Cos(pt.heading);
                                         y += Math.Sin(pt.heading);
                                     }
-                                    x /= mf.curve.desList.Count;
-                                    y /= mf.curve.desList.Count;
+                                    x /= mf.trk.desList.Count;
+                                    y /= mf.trk.desList.Count;
                                     mf.trk.gArr[idx].heading = Math.Atan2(y, x);
                                     if (mf.trk.gArr[idx].heading < 0) mf.trk.gArr[idx].heading += glm.twoPI;
 
                                     //build the tail extensions
-                                    mf.curve.AddFirstLastPoints(ref mf.curve.desList);
-                                    mf.curve.CalculateHeadings(ref mf.curve.desList);
+                                    mf.trk.AddFirstLastPoints(ref mf.trk.desList);
+                                    mf.trk.CalculateHeadings(ref mf.trk.desList);
 
                                     //array number is 1 less since it starts at zero
 
                                     //create a name
-                                    if (!string.IsNullOrEmpty(mf.curve.desName))
-                                        mf.trk.gArr[idx].name = mf.curve.desName;
+                                    if (!string.IsNullOrEmpty(mf.trk.desName))
+                                        mf.trk.gArr[idx].name = mf.trk.desName;
                                     else mf.trk.gArr[idx].name =
                                             (Math.Round(glm.toDegrees(mf.trk.gArr[idx].heading), 1)).ToString(CultureInfo.InvariantCulture)
                                             + "\u00B0"
@@ -808,7 +808,7 @@ namespace AgOpenGPS
                                     mf.trk.gArr[idx].mode = TrackMode.Curve;
 
                                     //write out the Curve Points
-                                    foreach (vec3 item in mf.curve.desList)
+                                    foreach (vec3 item in mf.trk.desList)
                                     {
                                         mf.trk.gArr[idx].curvePts.Add(new vec3(item));
                                     }

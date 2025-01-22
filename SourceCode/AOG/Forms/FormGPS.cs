@@ -156,11 +156,6 @@ namespace AgOpenGPS
         public CTrack trk;
 
         /// <summary>
-        /// ABCurve instance
-        /// </summary>
-        public CABCurve curve;
-
-        /// <summary>
         /// Auto Headland YouTurn
         /// </summary>
         public CYouTurn yt;
@@ -324,9 +319,6 @@ namespace AgOpenGPS
 
             //new instance of contour mode
             ct = new CContour(this);
-
-            //new instance of contour mode
-            curve = new CABCurve(this);
 
             //new track instance
             trk = new CTrack(this);
@@ -1168,7 +1160,7 @@ namespace AgOpenGPS
             tram.tramList?.Clear();
 
             //curve line
-            curve.ResetCurveLine();
+            trk.ResetTrack();
 
             //tracks
             trk.gArr?.Clear();

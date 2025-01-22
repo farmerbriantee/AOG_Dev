@@ -21,9 +21,6 @@ namespace AgOpenGPS
         //pure pursuit values
         public vec2 goalPointAB = new vec2(0, 0);
 
-        //List of all available ABLines
-        public CTrk refLine = new CTrk();
-
         public double howManyPathsAway, lastHowManyPathsAway;
         public bool isMakingABLine;
         public bool isHeadingSameWay = true, lastIsHeadingSameWay;
@@ -32,7 +29,6 @@ namespace AgOpenGPS
         //public int tramBasedOn;
         public double ppRadiusAB;
 
-        public vec2 radiusPointAB = new vec2(0, 0);
         public double rEastAB, rNorthAB;
 
         public double snapDistance, lastSecond = 0;
@@ -168,8 +164,6 @@ namespace AgOpenGPS
                 distanceFromCurrentLinePivot = mf.yt.distanceFromCurrentLine;
 
                 goalPointAB = mf.yt.goalPointYT;
-                radiusPointAB.easting = mf.yt.radiusPointYT.easting;
-                radiusPointAB.northing = mf.yt.radiusPointYT.northing;
                 ppRadiusAB = mf.yt.ppRadiusYT;
 
                 mf.vehicle.modeTimeCounter = 0;
@@ -291,9 +285,6 @@ namespace AgOpenGPS
                 //limit circle size for display purpose
                 if (ppRadiusAB < -500) ppRadiusAB = -500;
                 if (ppRadiusAB > 500) ppRadiusAB = 500;
-
-                radiusPointAB.easting = pivot.easting + (ppRadiusAB * Math.Cos(localHeading));
-                radiusPointAB.northing = pivot.northing + (ppRadiusAB * Math.Sin(localHeading));
 
                 //if (mf.isConstantContourOn)
                 //{

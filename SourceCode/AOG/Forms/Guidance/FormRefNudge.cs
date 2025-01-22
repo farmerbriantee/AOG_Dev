@@ -124,7 +124,7 @@ namespace AgOpenGPS
             }
 
             mf.ABLine.isABValid = false;
-            mf.curve.isCurveValid = false;
+            mf.trk.isTrackValid = false;
 
             //mf.FileSaveTracks();
             Close();

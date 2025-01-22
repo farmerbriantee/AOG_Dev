@@ -56,7 +56,7 @@ namespace AgOpenGPS
 
         private void FormABDraw_FormClosing(object sender, FormClosingEventArgs e)
         {
-            mf.curve.isCurveValid = false;
+            mf.trk.isTrackValid = false;
             mf.ABLine.isABValid = false;
 
             mf.twoSecondCounter = 100;
@@ -82,7 +82,7 @@ namespace AgOpenGPS
             start = 99999; end = 99999;
             isA = true;
 
-            mf.curve.desList?.Clear();
+            mf.trk.desList?.Clear();
 
             zoom = 1;
             sX = 0;

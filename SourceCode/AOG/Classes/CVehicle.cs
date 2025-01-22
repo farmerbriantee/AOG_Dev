@@ -516,7 +516,7 @@ namespace AgOpenGPS
             //Svenn Arrow
             if (mf.isSvennArrowOn && mf.camera.camSetDistance > -1000)
             {
-                //double offs = mf.curve.distanceFromCurrentLinePivot * 0.3;
+                //double offs = mf.trk.distanceFromCurrentLinePivot * 0.3;
                 double svennDist = mf.camera.camSetDistance * -0.07;
                 double svennWidth = svennDist * 0.22;
                 GL.LineWidth(mf.ABLine.lineWidth);

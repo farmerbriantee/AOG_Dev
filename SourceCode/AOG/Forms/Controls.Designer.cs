@@ -174,7 +174,7 @@ namespace AgOpenGPS
             {
                 EnableYouTurnButtons();
                 ABLine.isABValid = false;
-                curve.isCurveValid = false;
+                trk.isTrackValid = false;
                 ct.isLocked = false;
                 guidanceLookAheadTime = Properties.Settings.Default.setAS_guidanceLookAheadTime;
                 btnContourLock.Image = Resources.ColorUnlocked;
@@ -402,7 +402,7 @@ namespace AgOpenGPS
             twoSecondCounter = 100;
 
             ABLine.isABValid = false;
-            curve.isCurveValid = false;
+            trk.isTrackValid = false;
         }
 
         private void btnCycleLinesBk_Click(object sender, EventArgs e)
@@ -442,7 +442,7 @@ namespace AgOpenGPS
             }
 
             ABLine.isABValid = false;
-            curve.isCurveValid = false;
+            trk.isTrackValid = false;
 
             twoSecondCounter = 100;
         }
@@ -2414,7 +2414,7 @@ namespace AgOpenGPS
         {
             sim.headingTrue += Math.PI;
             ABLine.isABValid = false;
-            curve.isCurveValid = false;
+            trk.isTrackValid = false;
             if (isBtnAutoSteerOn)
             {
                 btnAutoSteer.PerformClick();

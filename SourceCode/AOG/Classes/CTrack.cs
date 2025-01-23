@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace AgOpenGPS
 {
@@ -875,6 +876,8 @@ namespace AgOpenGPS
                     double minDistB;
                     //close call hit
 
+                    bool isAddStart = false, isAddEnd = false;
+
                     //If is a curve
                     if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
                     {
@@ -929,6 +932,13 @@ namespace AgOpenGPS
 
                         if (A > curList.Count - 1 || B > curList.Count - 1)
                             return;
+
+                        if (A > curList.Count - 50)
+                            isAddEnd = true;
+
+                        else if (A < 50)
+                            isAddStart = true;
+
                     }
                     else
                     {
@@ -1142,6 +1152,16 @@ namespace AgOpenGPS
                     //Convert to centimeters
                     mf.guidanceLineDistanceOff = (short)Math.Round(distanceFromCurrentLinePivot * 1000.0, MidpointRounding.AwayFromZero);
                     mf.guidanceLineSteerAngle = (short)(steerAngleCu * 100);
+                    
+                    if (isAddStart)
+                    {
+                        AddStartPoints(ref curList);
+                    }
+
+                    if (isAddEnd)
+                    {
+                        AddEndPoints(ref curList);
+                    }
                 }
             }
             else
@@ -1634,7 +1654,7 @@ namespace AgOpenGPS
 
             if (mf.bnd.bndList.Count > 0)
             {
-                for (int i = 1; i < 100; i++)
+                for (int i = 1; i < 10; i++)
                 {
                     vec3 pt = new vec3(xList[ptCnt]);
                     pt.easting += (Math.Sin(pt.heading) * i);
@@ -1645,7 +1665,7 @@ namespace AgOpenGPS
                 //and the beginning
                 start = new vec3(xList[0]);
 
-                for (int i = 1; i < 100; i++)
+                for (int i = 1; i < 10; i++)
                 {
                     vec3 pt = new vec3(start);
                     pt.easting -= (Math.Sin(pt.heading) * i);
@@ -1655,7 +1675,7 @@ namespace AgOpenGPS
             }
             else
             {
-                for (int i = 1; i < 300; i++)
+                for (int i = 1; i < 30; i++)
                 {
                     vec3 pt = new vec3(xList[ptCnt]);
                     pt.easting += (Math.Sin(pt.heading) * i);
@@ -1666,13 +1686,42 @@ namespace AgOpenGPS
                 //and the beginning
                 start = new vec3(xList[0]);
 
-                for (int i = 1; i < 300; i++)
+                for (int i = 1; i < 30; i++)
                 {
                     vec3 pt = new vec3(start);
                     pt.easting -= (Math.Sin(pt.heading) * i);
                     pt.northing -= (Math.Cos(pt.heading) * i);
                     xList.Insert(0, pt);
                 }
+            }
+        }
+
+        public void AddStartPoints(ref List<vec3> xList)
+        {
+            int ptCnt = xList.Count - 1;
+            vec3 start;
+
+            start = new vec3(xList[0]);
+
+            for (int i = 1; i < 200; i++)
+            {
+                vec3 pt = new vec3(start);
+                pt.easting -= (Math.Sin(pt.heading) * i);
+                pt.northing -= (Math.Cos(pt.heading) * i);
+                xList.Insert(0, pt);
+            }
+        }
+
+        private void AddEndPoints(ref List<vec3> xList)
+        {
+            int ptCnt = xList.Count - 1;
+
+            for (int i = 1; i < 200; i++)
+            {
+                vec3 pt = new vec3(xList[ptCnt]);
+                pt.easting += (Math.Sin(pt.heading) * i);
+                pt.northing += (Math.Cos(pt.heading) * i);
+                xList.Add(pt);
             }
         }
 

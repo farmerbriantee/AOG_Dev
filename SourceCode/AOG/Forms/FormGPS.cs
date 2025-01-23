@@ -1007,8 +1007,6 @@ namespace AgOpenGPS
             fileSaveCounter = 25;
             lblGuidanceLine.Visible = false;
             lblHardwareMessage.Visible = false;
-            btnAutoTrack.Image = Resources.AutoTrackOff;
-            trk.isAutoTrack = false;
         }
 
         //close the current job

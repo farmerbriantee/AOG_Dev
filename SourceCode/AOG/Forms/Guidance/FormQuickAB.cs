@@ -119,7 +119,7 @@ namespace AgOpenGPS
 
         private void btnACurve_Click(object sender, System.EventArgs e)
         {
-            if (mf.trk.isMakingCurve)
+            if (mf.trk.isMakingTrack)
             {
                 mf.trk.desList.Add(new vec3(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing, mf.pivotAxlePos.heading));
                 btnBCurve.Enabled = mf.trk.desList.Count > 3;
@@ -137,8 +137,8 @@ namespace AgOpenGPS
                 btnPausePlay.Enabled = true;
                 btnPausePlay.Visible = true;
 
-                mf.trk.isMakingCurve = true;
-                mf.trk.isRecordingCurve = true;
+                mf.trk.isMakingTrack = true;
+                mf.trk.isRecordingTrack = true;
             }
             mf.Activate();
         }
@@ -146,8 +146,8 @@ namespace AgOpenGPS
         private void btnBCurve_Click(object sender, System.EventArgs e)
         {
             aveLineHeading = 0;
-            mf.trk.isMakingCurve = false;
-            mf.trk.isRecordingCurve = false;
+            mf.trk.isMakingTrack = false;
+            mf.trk.isRecordingTrack = false;
             panelCurve.Visible = false;
             panelName.Visible = true;
 
@@ -230,16 +230,16 @@ namespace AgOpenGPS
 
         private void btnPausePlayCurve_Click(object sender, EventArgs e)
         {
-            if (mf.trk.isRecordingCurve)
+            if (mf.trk.isRecordingTrack)
             {
-                mf.trk.isRecordingCurve = false;
+                mf.trk.isRecordingTrack = false;
                 btnPausePlay.Image = Properties.Resources.BoundaryRecord;
                 //btnPausePlay.Text = gStr.gsRecord;
                 btnACurve.Enabled = true;
             }
             else
             {
-                mf.trk.isRecordingCurve = true;
+                mf.trk.isRecordingTrack = true;
                 btnPausePlay.Image = Properties.Resources.boundaryPause;
                 //btnPausePlay.Text = gStr.gsPause;
                 btnACurve.Enabled = false;
@@ -469,8 +469,8 @@ namespace AgOpenGPS
             mf.trk.desList?.Clear();
 
             mf.ABLine.isMakingABLine = false;
-            mf.trk.isMakingCurve = false;
-            mf.trk.isRecordingCurve = false;
+            mf.trk.isMakingTrack = false;
+            mf.trk.isRecordingTrack = false;
 
             Close();
             mf.Activate();

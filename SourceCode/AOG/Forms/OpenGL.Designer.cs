@@ -388,7 +388,7 @@ namespace AgOpenGPS
                     }
 
                     //draw line creations
-                    if (trk.isMakingCurve) trk.DrawNewTrack();
+                    if (trk.isMakingTrack) trk.DrawNewTrack();
 
                     if (ABLine.isMakingABLine) ABLine.DrawABLineNew();
 
@@ -1876,21 +1876,14 @@ namespace AgOpenGPS
             if (mc.steerSwitchHigh)
             {
                 GL.Color4(0.9752f, 0.0f, 0.03f, 0.98);
-                trk.isAutoSnapped = false;
             }
             else if (isBtnAutoSteerOn)
             {
                 GL.Color4(0.052f, 0.970f, 0.03f, 0.97);
-                if (trk.isAutoSnapToPivot && !trk.isAutoSnapped)
-                {
-                    trk.SnapToPivot();
-                    trk.isAutoSnapped = true;
-                }
             }
             else
             {
                 GL.Color4(0.952f, 0.750f, 0.03f, 0.97);
-                trk.isAutoSnapped = false;
             }
 
             //we have lost connection to steer module

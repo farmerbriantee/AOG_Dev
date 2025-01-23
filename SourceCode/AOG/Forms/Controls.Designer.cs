@@ -154,9 +154,6 @@ namespace AgOpenGPS
         public bool isABCyled = false;
         private void btnContour_Click(object sender, EventArgs e)
         {
-            trk.isAutoTrack = false;
-            btnAutoTrack.Image = Resources.AutoTrackOff;
-
             ct.isContourBtnOn = !ct.isContourBtnOn;
             btnContour.Image = ct.isContourBtnOn ? Properties.Resources.ContourOn : Properties.Resources.ContourOff;
 
@@ -250,13 +247,13 @@ namespace AgOpenGPS
                 flp1.Controls[3].Visible = true;
 
                 //auto snap to pivot
-                flp1.Controls[4].Visible = tracksVisible > 0;
+                //flp1.Controls[4].Visible = tracksVisible > 0;
 
                 //off button
-                flp1.Controls[5].Visible = tracksVisible > 0;
+                flp1.Controls[4].Visible = tracksVisible > 0;
 
                 //ref nudge
-                flp1.Controls[6].Visible = tracksVisible > 0;
+                flp1.Controls[5].Visible = tracksVisible > 0;
 
                 for (int i = 0; i < flp1.Controls.Count; i++)
                 {
@@ -367,9 +364,6 @@ namespace AgOpenGPS
         }
         private void btnCycleLines_Click(object sender, EventArgs e)
         {
-            trk.isAutoTrack = false;
-            btnAutoTrack.Image = Resources.AutoTrackOff;
-
             if (trk.gArr.Count > 1)
             {
                 while (true)
@@ -410,9 +404,6 @@ namespace AgOpenGPS
                 ct.SetLockToLine();
                 return;
             }
-
-            trk.isAutoTrack = false;
-            btnAutoTrack.Image = Resources.AutoTrackOff;
 
             if (trk.gArr.Count > 1)
             {
@@ -588,11 +579,7 @@ namespace AgOpenGPS
 
             PanelUpdateRightAndBottom();
         }
-        private void cboxAutoSnapToPivot_Click(object sender, EventArgs e)
-        {
-            trk.isAutoSnapToPivot = cboxAutoSnapToPivot.Checked;
-            trackMethodPanelCounter = 1;
-        }
+
         #endregion
 
         #region Field Menu
@@ -1700,11 +1687,7 @@ namespace AgOpenGPS
             }
 
         }
-        private void btnAutoTrack_Click(object sender, EventArgs e)
-        {
-            trk.isAutoTrack = !trk.isAutoTrack;
-            btnAutoTrack.Image = trk.isAutoTrack ? Resources.AutoTrack : Resources.AutoTrackOff;            
-        }
+
         private void btnResetToolHeading_Click(object sender, EventArgs e)
         {
             tankPos.heading = fixHeading;

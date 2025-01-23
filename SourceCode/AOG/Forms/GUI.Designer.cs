@@ -273,8 +273,6 @@ namespace AgOpenGPS
                 twoSecondCounter++;
                 fourSecondCounter++;
 
-                //keeps autoTrack from changing too fast
-                trk.autoTrack3SecTimer++;
                 vehicle.deadZoneDelayCounter++;
 
                 lblFix.Text = FixQuality + "Age: " + pn.age.ToString("N1");
@@ -927,10 +925,6 @@ namespace AgOpenGPS
 
                 cboxIsSectionControlled.Visible = isHdl;
 
-                //btnResetToolHeading.Visible = this.Width > 1190;
-
-                btnAutoTrack.Visible = tracksVisible > 1 && trk.idx > -1 && !ct.isContourBtnOn;
-
                 if (trk.idx > -1 && trk.gArr.Count > 0 && !ct.isContourBtnOn)
                 {
                     lblNumCu.Visible = true;
@@ -971,18 +965,14 @@ namespace AgOpenGPS
                         break;
 
                     case 4:
-                        panelRight.Controls.Add(btnAutoTrack);
-                        break;
-
-                    case 5:
                         panelRight.Controls.Add(btnCycleLinesBk);
                         break;
 
-                    case 6:
+                    case 5:
                         panelRight.Controls.Add(btnCycleLines);
                         break;
 
-                    case 7:
+                    case 6:
                         panelRight.Controls.Add(btnContour);
                         panelRight.Controls.Add(btnContourLock);
                         break;

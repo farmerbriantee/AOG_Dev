@@ -16,12 +16,10 @@ namespace AgOpenGPS
 
         public List<CTrk> gArr = new List<CTrk>();
 
-        public int idx, autoTrack3SecTimer;
-
-        public bool isLine, isAutoTrack = false, isAutoSnapToPivot = false, isAutoSnapped;
+        public int idx;
 
         //flag for starting stop adding points
-        public bool isBtnTrackOn, isMakingCurve, isRecordingCurve;
+        public bool isBtnTrackOn, isMakingTrack, isRecordingTrack;
 
         public double distanceFromCurrentLinePivot;
         public double distanceFromRefLine;
@@ -75,102 +73,6 @@ namespace AgOpenGPS
             //constructor
             mf = _f;
             idx = -1;
-        }
-
-        public int FindClosestRefTrack(vec3 pivot)
-        {
-            if (idx < 0 || gArr.Count == 0) return -1;
-
-            //only 1 track
-            if (gArr.Count == 1) return idx;
-
-            int trak = -1;
-            int cntr = 0;
-
-            //Count visible
-            for (int i = 0; i < gArr.Count; i++)
-            {
-                if (gArr[i].isVisible)
-                {
-                    cntr++;
-                    trak = i;
-                }
-            }
-
-            //only 1 track visible of the group
-            if (cntr == 1) return trak;
-
-            //no visible tracks
-            if (cntr == 0) return -1;
-
-            //determine if any aligned reasonably close
-            bool[] isAlignedArr = new bool[gArr.Count];
-            for (int i = 0; i < gArr.Count; i++)
-            {
-                if (gArr[i].mode == TrackMode.Curve) isAlignedArr[i] = true;
-                else
-                {
-                    double diff = Math.PI - Math.Abs(Math.Abs(pivot.heading - gArr[i].heading) - Math.PI);
-                    if (diff < 1 || diff > 2.14)
-                        isAlignedArr[i] = true;
-                    else
-                        isAlignedArr[i] = false;
-                }
-            }
-
-            double minDistA = double.MaxValue;
-            double dist;
-
-            vec2 endPtA, endPtB;
-
-            for (int i = 0; i < gArr.Count; i++)
-            {
-                if (!isAlignedArr[i]) continue;
-                if (!gArr[i].isVisible) continue;
-
-                if (gArr[i].mode == TrackMode.AB)
-                {
-                    double abHeading = mf.trk.gArr[i].heading;
-
-                    endPtA.easting = mf.trk.gArr[i].ptA.easting - (Math.Sin(abHeading) * 2000);
-                    endPtA.northing = mf.trk.gArr[i].ptA.northing - (Math.Cos(abHeading) * 2000);
-
-                    endPtB.easting = mf.trk.gArr[i].ptB.easting + (Math.Sin(abHeading) * 2000);
-                    endPtB.northing = mf.trk.gArr[i].ptB.northing + (Math.Cos(abHeading) * 2000);
-
-                    //x2-x1
-                    double dx = endPtB.easting - endPtA.easting;
-                    //z2-z1
-                    double dy = endPtB.northing - endPtA.northing;
-
-                    dist = ((dy * mf.steerAxlePos.easting) - (dx * mf.steerAxlePos.northing) + (endPtB.easting
-                                            * endPtA.northing) - (endPtB.northing * endPtA.easting))
-                                                / Math.Sqrt((dy * dy) + (dx * dx));
-
-                    dist *= dist;
-
-                    if (dist < minDistA)
-                    {
-                        minDistA = dist;
-                        trak = i;
-                    }
-                }
-                else
-                {
-                    for (int j = 0; j < gArr[i].curvePts.Count; j++)
-                    {
-                        dist = glm.DistanceSquared(gArr[i].curvePts[j], pivot);
-
-                        if (dist < minDistA)
-                        {
-                            minDistA = dist;
-                            trak = i;
-                        }
-                    }
-                }
-            }
-
-            return trak;
         }
 
         public void NudgeTrack(double dist)

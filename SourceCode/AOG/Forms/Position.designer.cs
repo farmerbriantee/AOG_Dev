@@ -822,19 +822,6 @@ namespace AgOpenGPS
             }
             else
             {
-                //auto track routine
-                if (trk.isAutoTrack && !isBtnAutoSteerOn && trk.autoTrack3SecTimer >= 1)
-                {
-                    trk.autoTrack3SecTimer = 0;
-                    int lastIndex = trk.idx;
-                    trk.idx = trk.FindClosestRefTrack(steerAxlePos);
-                    if (lastIndex != trk.idx)
-                    {
-                        trk.isTrackValid = false;
-                        ABLine.isABValid = false;
-                    }
-                }
-
                 //like normal
                 if (trk.gArr.Count > 0 && trk.idx > -1)
                 {
@@ -1338,7 +1325,7 @@ namespace AgOpenGPS
             //if (sectionTriggerStepDistance > 5) sectionTriggerStepDistance = 5;
 
             //finally fixed distance for making a curve line
-            if (trk.isRecordingCurve) sectionTriggerStepDistance *= 0.5;
+            if (trk.isRecordingTrack) sectionTriggerStepDistance *= 0.5;
 
             //precalc the sin and cos of heading * -1
             sinSectionHeading = Math.Sin(-toolPivotPos.heading);
@@ -1564,7 +1551,7 @@ namespace AgOpenGPS
         //add the points for section, contour line points, Area Calc feature
         private void AddSectionOrPathPoints()
         {
-            if (trk.isRecordingCurve)
+            if (trk.isRecordingTrack)
             {
                 trk.desList.Add(new vec3(pivotAxlePos.easting, pivotAxlePos.northing, pivotAxlePos.heading));
             }

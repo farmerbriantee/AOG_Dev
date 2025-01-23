@@ -11,8 +11,6 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using AgOpenGPS.Culture;
-using AgOpenGPS.Forms;
-using AgOpenGPS.Forms.Pickers;
 using AgOpenGPS.Properties;
 using Microsoft.Win32;
 using OpenTK.Input;
@@ -899,181 +897,6 @@ namespace AgOpenGPS
             }
 
             PanelUpdateRightAndBottom();
-        }
-
-        #endregion
-
-        #region Recorded Path
-        private void btnPathGoStop_Click(object sender, EventArgs e)
-        {
-            #region Turn off Guidance
-            //if contour is on, turn it off
-            if (ct.isContourBtnOn) { if (ct.isContourBtnOn) btnContour.PerformClick(); }
-            //btnContourPriority.Enabled = true;
-
-            if (yt.isYouTurnBtnOn) btnAutoYouTurn.PerformClick();
-            if (isBtnAutoSteerOn)
-            {
-                btnAutoSteer.PerformClick();
-                TimedMessageBox(2000, gStr.gsGuidanceStopped, "Paths Enabled");
-                Log.EventWriter("Autosteer On While Enable Paths");
-            }
-
-            DisableYouTurnButtons();
-
-            if (trk.idx > -1)
-            {
-                trk.idx = -1;
-            }
-
-            PanelUpdateRightAndBottom();
-
-            #endregion
-
-            //already running?
-            if (recPath.isDrivingRecordedPath)
-            {
-                recPath.StopDrivingRecordedPath();
-                btnPathGoStop.Image = Properties.Resources.boundaryPlay;
-                btnPathRecordStop.Enabled = true;
-                btnPickPath.Enabled = true;
-                btnResumePath.Enabled = true;   
-                return;
-            }
-
-            //start the recorded path driving process
-            if (!recPath.StartDrivingRecordedPath())
-            {
-                //Cancel the recPath - something went seriously wrong
-                recPath.StopDrivingRecordedPath();
-                TimedMessageBox(1500, gStr.gsProblemMakingPath, gStr.gsCouldntGenerateValidPath);
-                btnPathGoStop.Image = Properties.Resources.boundaryPlay;
-                btnPathRecordStop.Enabled = true;
-                btnPickPath.Enabled = true;
-                btnResumePath.Enabled = true;
-                return;
-            }
-            else
-            {
-                btnPathGoStop.Image = Properties.Resources.boundaryStop;
-                btnPathRecordStop.Enabled = false;
-                btnPickPath.Enabled = false;
-                btnResumePath.Enabled = false;
-            }
-        }
-        private void btnPathRecordStop_Click(object sender, EventArgs e)
-        {
-            if (recPath.isRecordOn)
-            {
-                recPath.isRecordOn = false;
-                btnPathRecordStop.Image = Properties.Resources.BoundaryRecord;
-                btnPathGoStop.Enabled = true;
-                btnPickPath.Enabled = true;
-                btnResumePath.Enabled = true;
-
-                using (var form = new FormRecordName(this))
-                {
-                    form.ShowDialog(this);
-                    if(form.DialogResult == DialogResult.OK) 
-                    {
-                        String filename = form.filename + ".rec";
-                        FileSaveRecPath();
-                        FileSaveRecPath(filename);
-                    }
-                    else
-                    {
-                        recPath.recList.Clear();
-                    }
-                }                
-            }
-            else if (isJobStarted)
-            {
-                recPath.recList.Clear();
-                recPath.isRecordOn = true;
-                btnPathRecordStop.Image = Properties.Resources.boundaryStop;
-                btnPathGoStop.Enabled = false;
-                btnPickPath.Enabled = false;
-                btnResumePath.Enabled = false;
-            }
-        }
-        private void btnResumePath_Click(object sender, EventArgs e)
-        {
-            if (recPath.resumeState == 0)
-            {
-                recPath.resumeState++;
-                btnResumePath.Image = Properties.Resources.pathResumeLast;
-                TimedMessageBox(1500, "Resume Style", "Last Stopped Position");
-            }
-
-            else if (recPath.resumeState == 1)
-            {
-                recPath.resumeState++;
-                btnResumePath.Image = Properties.Resources.pathResumeClose; 
-                TimedMessageBox(1500, "Resume Style", "Closest Point");
-            }
-            else
-            {
-                recPath.resumeState = 0;
-                btnResumePath.Image = Properties.Resources.pathResumeStart;
-                TimedMessageBox(1500, "Resume Style", "Start At Beginning");
-            }
-        }
-        private void btnSwapABRecordedPath_Click(object sender, EventArgs e)
-        {
-            int cnt = recPath.recList.Count;
-            List<CRecPathPt> _recList = new List<CRecPathPt>();
-
-            for (int i = cnt - 1; i > -1; i--)
-            {
-                recPath.recList[i].heading += (glm.PIBy2) + (glm.PIBy2);
-                if (recPath.recList[i].heading < -glm.twoPI) recPath.recList[i].heading += glm.twoPI;
-
-                _recList.Add(recPath.recList[i]);
-            }
-            recPath.recList.Clear();
-            for (int i = 0; i < cnt; i++)
-            {
-                recPath.recList.Add(_recList[i]);
-            }
-        }
-        private void btnPickPath_Click(object sender, EventArgs e)
-        {
-            recPath.resumeState = 0;
-            btnResumePath.Image = Properties.Resources.pathResumeStart;
-            recPath.currentPositonIndex = 0;
-
-            using (FormRecordPicker form = new FormRecordPicker(this))
-            {
-                //returns full field.txt file dir name
-                if (form.ShowDialog(this) == DialogResult.Yes)
-                {
-                }
-            }
-        }
-        private void recordedPathStripMenu_Click(object sender, EventArgs e)
-        {
-            recPath.resumeState = 0;
-            btnResumePath.Image = Properties.Resources.pathResumeStart;
-            recPath.currentPositonIndex = 0;
-
-            if (isJobStarted)
-            {
-                if (panelDrag.Visible)
-                {
-                    panelDrag.Visible = false;
-                    recPath.recList.Clear();
-                    recPath.StopDrivingRecordedPath();
-                }
-                else
-                {
-                    FileLoadRecPath();
-                    panelDrag.Visible = true;
-                }
-            }
-            else
-            {
-                TimedMessageBox(3000, gStr.gsFieldNotOpen, gStr.gsStartNewField);
-            }
         }
 
         #endregion
@@ -2396,7 +2219,7 @@ namespace AgOpenGPS
         double lastSimGuidanceAngle = 0;
         private void timerSim_Tick(object sender, EventArgs e)
         {
-            if (recPath.isDrivingRecordedPath || isBtnAutoSteerOn && (guidanceLineDistanceOff != 32000))
+            if (isBtnAutoSteerOn && (guidanceLineDistanceOff != 32000))
             {
                 if (vehicle.isInDeadZone)
                 {

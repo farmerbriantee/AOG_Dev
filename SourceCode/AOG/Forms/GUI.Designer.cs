@@ -637,7 +637,6 @@ namespace AgOpenGPS
             isDirectionMarkers = Settings.Default.setTool_isDirectionMarkers;
 
             panelNavigation.Location = new System.Drawing.Point(90, 100);
-            panelDrag.Location = new System.Drawing.Point(87, 268);
 
             vehicleOpacity = ((double)(Properties.Settings.Default.setDisplay_vehicleOpacity) * 0.01);
             vehicleOpacityByte = (byte)(255 * ((double)(Properties.Settings.Default.setDisplay_vehicleOpacity) * 0.01));

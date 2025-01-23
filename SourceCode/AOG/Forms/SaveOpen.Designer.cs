@@ -1704,51 +1704,6 @@ namespace AgOpenGPS
             //    }
             //}
 
-            //Recorded Path
-            fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "RecPath.txt");
-            if (File.Exists(fileAndDirectory))
-            {
-                using (StreamReader reader = new StreamReader(fileAndDirectory))
-                {
-                    try
-                    {
-                        //read header
-                        line = reader.ReadLine();
-                        line = reader.ReadLine();
-                        int numPoints = int.Parse(line);
-                        recPath.recList.Clear();
-
-                        while (!reader.EndOfStream)
-                        {
-                            for (int v = 0; v < numPoints; v++)
-                            {
-                                line = reader.ReadLine();
-                                string[] words = line.Split(',');
-                                CRecPathPt point = new CRecPathPt(
-                                    double.Parse(words[0], CultureInfo.InvariantCulture),
-                                    double.Parse(words[1], CultureInfo.InvariantCulture),
-                                    double.Parse(words[2], CultureInfo.InvariantCulture),
-                                    double.Parse(words[3], CultureInfo.InvariantCulture),
-                                    bool.Parse(words[4]));
-
-                                //add the point
-                                recPath.recList.Add(point);
-                            }
-                        }
-
-                        if (recPath.recList.Count > 0) panelDrag.Visible = true;
-                        else panelDrag.Visible = false;
-                    }
-
-                    catch (Exception e)
-                    {
-                        TimedMessageBox(2000, gStr.gsRecordedPathFileIsCorrupt, gStr.gsButFieldIsLoaded);
-                        
-                        Log.EventWriter("Load Recorded Path" + e.ToString());
-                    }
-                }
-            }
-
             worldGrid.isGeoMap = false;
 
             //Back Image
@@ -2220,86 +2175,6 @@ namespace AgOpenGPS
             }
         }
 
-        //save the recorded path
-        public void FileSaveRecPath(string name = "RecPath.Txt")
-        {
-            //get the directory and make sure it exists, create if not
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
-
-            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
-            { Directory.CreateDirectory(directoryName); }
-
-            //string fileAndDirectory = RegistrySettings.fieldsDirectory + currentFieldDirectory + "\\RecPath.txt";
-            //if (!File.Exists(fileAndDirectory)) FileCreateRecPath();
-
-            //write out the file
-            using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, name)))
-            {
-                writer.WriteLine("$RecPath");
-                writer.WriteLine(recPath.recList.Count.ToString(CultureInfo.InvariantCulture));
-                if (recPath.recList.Count > 0)
-                {
-                    for (int j = 0; j < recPath.recList.Count; j++)
-                        writer.WriteLine(
-                            Math.Round(recPath.recList[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                            Math.Round(recPath.recList[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                            Math.Round(recPath.recList[j].heading, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                            Math.Round(recPath.recList[j].speed, 1).ToString(CultureInfo.InvariantCulture) + "," +
-                            (recPath.recList[j].autoBtnState).ToString());
-
-                    //Clear list
-                    //recPath.recList.Clear();
-                }
-            }
-        }
-
-        //load Recpath.txt
-        public void FileLoadRecPath()
-        {
-            string line;
-            //Recorded Path
-            string fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "RecPath.txt");
-            if (File.Exists(fileAndDirectory))
-            {
-                using (StreamReader reader = new StreamReader(fileAndDirectory))
-                {
-                    try
-                    {
-                        //read header
-                        line = reader.ReadLine();
-                        line = reader.ReadLine();
-                        int numPoints = int.Parse(line);
-                        recPath.recList.Clear();
-
-                        while (!reader.EndOfStream)
-                        {
-                            for (int v = 0; v < numPoints; v++)
-                            {
-                                line = reader.ReadLine();
-                                string[] words = line.Split(',');
-                                CRecPathPt point = new CRecPathPt(
-                                    double.Parse(words[0], CultureInfo.InvariantCulture),
-                                    double.Parse(words[1], CultureInfo.InvariantCulture),
-                                    double.Parse(words[2], CultureInfo.InvariantCulture),
-                                    double.Parse(words[3], CultureInfo.InvariantCulture),
-                                    bool.Parse(words[4]));
-
-                                //add the point
-                                recPath.recList.Add(point);
-                            }
-                        }
-                    }
-
-                    catch (Exception e)
-                    {
-                        TimedMessageBox(2000, gStr.gsRecordedPathFileIsCorrupt, gStr.gsButFieldIsLoaded);
-                        
-                        Log.EventWriter("Load Recorded Path" + e.ToString());
-                    }
-                }
-            }
-        }
-
         //save all the flag markers
         public void FileSaveFlags()
         {
@@ -2675,10 +2550,6 @@ namespace AgOpenGPS
             kml.WriteElementString("tessellate", "1");
             kml.WriteStartElement("coordinates");
 
-            for (int j = 0; j < recPath.recList.Count; j++)
-            {
-                linePts += pn.GetLocalToWSG84_KML(recPath.recList[j].easting, recPath.recList[j].northing);
-            }
             kml.WriteRaw(linePts);
 
             kml.WriteEndElement(); // <coordinates>

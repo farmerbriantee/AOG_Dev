@@ -392,9 +392,6 @@ namespace AgOpenGPS
 
                     if (ABLine.isMakingABLine) ABLine.DrawABLineNew();
 
-                    recPath.DrawRecordedLine();
-                    recPath.DrawDubins();
-
                     if (flagPts.Count > 0) DrawFlags();
 
                     //Direct line to flag if flag selected
@@ -2220,7 +2217,7 @@ namespace AgOpenGPS
         {
             GL.Disable(EnableCap.DepthTest);
 
-            if (ct.isContourBtnOn || trk.idx > -1 || recPath.isDrivingRecordedPath)
+            if (ct.isContourBtnOn || trk.idx > -1 )
             {
 
                 // in millimeters
@@ -2306,7 +2303,7 @@ namespace AgOpenGPS
         private void DrawSteerBarText()
         {
 
-            if (ct.isContourBtnOn || trk.idx > -1 || recPath.isDrivingRecordedPath)
+            if (ct.isContourBtnOn || trk.idx > -1 )
             {
                 GL.Disable(EnableCap.DepthTest);
                 int spacing = oglMain.Width / 50;

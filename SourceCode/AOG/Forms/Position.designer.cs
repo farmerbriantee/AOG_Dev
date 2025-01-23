@@ -856,9 +856,6 @@ namespace AgOpenGPS
 
             // autosteer at full speed of updates
 
-            //if the whole path driving driving process is green
-            if (recPath.isDrivingRecordedPath) recPath.UpdatePosition();
-
             // If Drive button off - normal autosteer 
             if (!vehicle.isInFreeDriveMode)
             {
@@ -877,8 +874,6 @@ namespace AgOpenGPS
                 }
 
                 else p_254.pgn[p_254.status] = 1;
-
-                if (recPath.isDrivingRecordedPath || recPath.isFollowingDubinsToPath) p_254.pgn[p_254.status] = 1;
 
                 //mc.autoSteerData[7] = unchecked((byte)(guidanceLineDistanceOff >> 8));
                 //mc.autoSteerData[8] = unchecked((byte)(guidanceLineDistanceOff));
@@ -1569,16 +1564,6 @@ namespace AgOpenGPS
         //add the points for section, contour line points, Area Calc feature
         private void AddSectionOrPathPoints()
         {
-            if (recPath.isRecordOn)
-            {
-                //keep minimum speed of 1.0
-                double speed = avgSpeed;
-                if (avgSpeed < 1.0) speed = 1.0;
-                bool autoBtn = (autoBtnState == btnStates.Auto);
-
-                recPath.recList.Add(new CRecPathPt(pivotAxlePos.easting, pivotAxlePos.northing, pivotAxlePos.heading, speed, autoBtn));
-            }
-
             if (trk.isRecordingCurve)
             {
                 trk.desList.Add(new vec3(pivotAxlePos.easting, pivotAxlePos.northing, pivotAxlePos.heading));

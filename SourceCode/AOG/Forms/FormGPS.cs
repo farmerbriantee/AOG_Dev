@@ -206,11 +206,6 @@ namespace AgOpenGPS
         public CAHRS ahrsTwo;
 
         /// <summary>
-        /// Recorded Path
-        /// </summary>
-        public CRecordedPath recPath;
-
-        /// <summary>
         /// Most of the displayed field data for GUI
         /// </summary>
         public CFieldData fd;
@@ -343,9 +338,6 @@ namespace AgOpenGPS
 
             ////all the attitude, heading, roll, pitch reference system GPS2
             ahrsTwo = new CAHRS();
-
-            //A recorded path
-            recPath = new CRecordedPath(this);
 
             //fieldData all in one place
             fd = new CFieldData(this);
@@ -538,8 +530,6 @@ namespace AgOpenGPS
 
             //nmea limiter
             udpWatch.Start();
-
-            ControlExtension.Draggable(panelDrag, true);
 
             enterSimCoordsToolStripMenuItem.Text = gStr.gsEnterSimCoords;
             menustripLanguage.Text = gStr.gsLanguage;
@@ -1024,10 +1014,6 @@ namespace AgOpenGPS
         //close the current job
         public void JobClose()
         {
-            recPath.resumeState = 0;
-            btnResumePath.Image = Properties.Resources.pathResumeStart;
-            recPath.currentPositonIndex = 0;
-
             sbGrid.Clear();
 
             //reset field offsets
@@ -1041,10 +1027,6 @@ namespace AgOpenGPS
             bnd.isHeadlandOn = false;
 
             btnFieldStats.Visible = false;
-
-            recPath.recList.Clear();
-            recPath.StopDrivingRecordedPath();
-            panelDrag.Visible = false;
 
             //make sure hydraulic lift is off
             p_239.pgn[p_239.hydLift] = 0;
@@ -1208,10 +1190,6 @@ namespace AgOpenGPS
             fd.UpdateFieldBoundaryGUIAreas();
 
             displayFieldName = gStr.gsNone;
-
-            recPath.recList?.Clear();
-            recPath.shortestDubinsList?.Clear();
-            recPath.shuttleDubinsList?.Clear();
 
             isPanelBottomHidden = false;
 

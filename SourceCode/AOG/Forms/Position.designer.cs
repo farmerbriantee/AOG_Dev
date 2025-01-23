@@ -1325,7 +1325,7 @@ namespace AgOpenGPS
             //if (sectionTriggerStepDistance > 5) sectionTriggerStepDistance = 5;
 
             //finally fixed distance for making a curve line
-            if (trk.isRecordingTrack) sectionTriggerStepDistance *= 0.5;
+            if (trk.isRecordingCurveTrack) sectionTriggerStepDistance *= 0.5;
 
             //precalc the sin and cos of heading * -1
             sinSectionHeading = Math.Sin(-toolPivotPos.heading);
@@ -1551,9 +1551,9 @@ namespace AgOpenGPS
         //add the points for section, contour line points, Area Calc feature
         private void AddSectionOrPathPoints()
         {
-            if (trk.isRecordingTrack)
+            if (trk.isRecordingCurveTrack)
             {
-                trk.desList.Add(new vec3(pivotAxlePos.easting, pivotAxlePos.northing, pivotAxlePos.heading));
+                trk.designPtsList.Add(new vec3(pivotAxlePos.easting, pivotAxlePos.northing, pivotAxlePos.heading));
             }
 
             //save the north & east as previous

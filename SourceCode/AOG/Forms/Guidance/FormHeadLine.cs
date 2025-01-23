@@ -863,7 +863,7 @@ namespace AgOpenGPS
                     mf.hdl.desList.Add(sliceArr[i]);
                 }
 
-                //build headline from desList
+                //build headline from designPtsList
                 mf.bnd.bndList[0].hdLine.Clear();
 
                 foreach (var item in mf.hdl.desList)
@@ -899,7 +899,7 @@ namespace AgOpenGPS
                     mf.hdl.desList.Add(mf.bnd.bndList[0].hdLine[i]);
                 }
 
-                //build headline from desList
+                //build headline from designPtsList
                 mf.bnd.bndList[0].hdLine.Clear();
 
                 foreach (var item in mf.hdl.desList)

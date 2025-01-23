@@ -617,7 +617,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(763, 654);
+            this.ClientSize = new System.Drawing.Size(757, 654);
             this.ControlBox = false;
             this.Controls.Add(this.panelAPlus);
             this.Controls.Add(this.panelABLine);

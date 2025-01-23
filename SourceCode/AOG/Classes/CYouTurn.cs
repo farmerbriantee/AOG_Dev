@@ -2426,8 +2426,8 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    rEastYT = mf.trk.rEastCu;
-                    rNorthYT = mf.trk.rNorthCu;
+                    rEastYT = mf.trk.rEastTrk;
+                    rNorthYT = mf.trk.rNorthTrk;
                     isHeadingSameWay = mf.trk.isHeadingSameWay;
                     head = mf.trk.manualUturnHeading;
                 }

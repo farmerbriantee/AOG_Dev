@@ -388,7 +388,7 @@ namespace AgOpenGPS
                     }
 
                     //draw line creations
-                    if (trk.isMakingTrack) trk.DrawNewTrack();
+                    if (trk.isMakingCurveTrack) trk.DrawNewTrack();
 
                     if (ABLine.isMakingABLine) ABLine.DrawABLineNew();
 
@@ -460,13 +460,13 @@ namespace AgOpenGPS
                                 GL.PointSize(12);
                                 GL.Begin(PrimitiveType.Points);
                                 GL.Color3(0, 0, 0);
-                                GL.Vertex3(trk.goalPointCu.easting, trk.goalPointCu.northing, 0.0);
+                                GL.Vertex3(trk.goalPointTrk.easting, trk.goalPointTrk.northing, 0.0);
                                 GL.End();
 
                                 GL.PointSize(6);
                                 GL.Begin(PrimitiveType.Points);
                                 GL.Color3(0.98, 0.98, 0.098);
-                                GL.Vertex3(trk.goalPointCu.easting, trk.goalPointCu.northing, 0.0);
+                                GL.Vertex3(trk.goalPointTrk.easting, trk.goalPointTrk.northing, 0.0);
                                 GL.End();
                             }
                         }

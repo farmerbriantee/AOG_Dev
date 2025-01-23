@@ -63,8 +63,7 @@ namespace AgOpenGPS
         public vec2 designLineEndA = new vec2(0.2, 0.15);
         public vec2 designLineEndB = new vec2(0.3, 0.3);
 
-
-        public double desHeading = 0;
+        public double designHeading = 0;
 
         //flag for starting stop adding points for curve
         public bool isMakingCurveTrack, isRecordingCurveTrack;
@@ -72,6 +71,7 @@ namespace AgOpenGPS
         //to fake the user into thinking they are making a line - but is a curve
         public bool isMakingABLine;
 
+        public int lineWidth = 2, numGuideLines;
 
         public double pivotDistanceError, pivotDistanceErrorLast, pivotDerivative, pivotDerivativeSmoothed, lastTrackDistance = 10000;
 
@@ -88,6 +88,21 @@ namespace AgOpenGPS
             //constructor
             mf = _f;
             idx = -1;
+        }
+
+        public void DrawABLineNew()
+        {
+            //ABLine currently being designed
+            GL.LineWidth(lineWidth);
+            GL.Begin(PrimitiveType.Lines);
+            GL.Color3(0.95f, 0.70f, 0.50f);
+            GL.Vertex3(designLineEndA.easting, designLineEndA.northing, 0.0);
+            GL.Vertex3(designLineEndB.easting, designLineEndB.northing, 0.0);
+            GL.End();
+
+            GL.Color3(0.2f, 0.950f, 0.20f);
+            mf.font.DrawText3D(designPtA.easting, designPtA.northing, "&A");
+            mf.font.DrawText3D(designPtB.easting, designPtB.northing, "&B");
         }
 
         public void NudgeTrack(double dist)

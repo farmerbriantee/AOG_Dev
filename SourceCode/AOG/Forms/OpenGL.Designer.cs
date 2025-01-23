@@ -390,7 +390,8 @@ namespace AgOpenGPS
                     //draw line creations
                     if (trk.isMakingCurveTrack) trk.DrawNewTrack();
 
-                    if (ABLine.isMakingABLine) ABLine.DrawABLineNew();
+                    if (trk.isMakingABLine) 
+                        trk.DrawABLineNew();
 
                     if (flagPts.Count > 0) DrawFlags();
 

@@ -159,7 +159,6 @@
     <Compile Include="Classes\CTram.cs" />
     <Compile Include="Classes\CYouTurn.cs" />
     <Compile Include="Classes\CFlag.cs" />
-    <Compile Include="Classes\CABLine.cs" />
     <Compile Include="Classes\CCamera.cs" />
     <Compile Include="Classes\CContour.cs" />
     <Compile Include="Classes\CModuleComm.cs" />

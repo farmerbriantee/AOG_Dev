@@ -64,9 +64,6 @@ namespace AgOpenGPS
             //constructor
             mf = _f;
             //isOnTramLine = true;
-            mf.trk.lineWidth = Properties.Settings.Default.setDisplay_lineWidth;
-            abLength = 2000;
-            mf.trk.numGuideLines = Properties.Settings.Default.setAS_numGuideLines;
         }
 
         public void BuildTram()

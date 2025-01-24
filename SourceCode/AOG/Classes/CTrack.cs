@@ -90,154 +90,8 @@ namespace AgOpenGPS
             //constructor
             mf = _f;
             idx = -1;
-        }
-
-        public void NudgeTrack(double dist)
-        {
-            if (idx > -1)
-            {
-                isTrackValid = false;
-                gArr[idx].nudgeDistance += isHeadingSameWay ? dist : -dist;
-            }
-        }
-
-        public void NudgeDistanceReset()
-        {
-            if (idx > -1 && gArr.Count > 0)
-            {
-                isTrackValid = false;
-                gArr[idx].nudgeDistance = 0;
-            }
-        }
-
-        public void SnapToPivot()
-        {
-            if (idx > -1)
-            {
-                NudgeTrack(distanceFromCurrentLinePivot);
-            }
-        }
-
-        //public void NudgeRefTrack(double dist)
-        //{
-        //    if (idx > -1)
-        //    {
-        //        if (gArr[idx].mode == TrackMode.AB)
-        //        {
-        //            mf.ABLine.isABValid = false;
-        //            NudgeRefABLine(mf.ABLine.isHeadingSameWay ? dist : -dist);
-        //        }
-        //        else
-        //        {
-        //            isTrackValid = false;
-        //            NudgeRefTrack(isHeadingSameWay ? dist : -dist);
-        //        }
-        //    }
-        //}
-
-        public void NudgeRefTrack(double distAway)
-        {
-            isTrackValid = false;
-
-            List<vec3> curList = new List<vec3>();
-
-            double distSqAway = (distAway * distAway) - 0.01;
-            vec3 point;
-
-            for (int i = 0; i < gArr[idx].curvePts.Count; i++)
-            {
-                point = new vec3(
-                gArr[idx].curvePts[i].easting + (Math.Sin(glm.PIBy2 + gArr[idx].curvePts[i].heading) * distAway),
-                gArr[idx].curvePts[i].northing + (Math.Cos(glm.PIBy2 + gArr[idx].curvePts[i].heading) * distAway),
-                gArr[idx].curvePts[i].heading);
-                bool Add = true;
-
-                for (int t = 0; t < gArr[idx].curvePts.Count; t++)
-                {
-                    double dist = ((point.easting - gArr[idx].curvePts[t].easting) * (point.easting - gArr[idx].curvePts[t].easting))
-                        + ((point.northing - gArr[idx].curvePts[t].northing) * (point.northing - gArr[idx].curvePts[t].northing));
-                    if (dist < distSqAway)
-                    {
-                        Add = false;
-                        break;
-                    }
-                }
-
-                if (Add)
-                {
-                    if (curList.Count > 0)
-                    {
-                        double dist = ((point.easting - curList[curList.Count - 1].easting) * (point.easting - curList[curList.Count - 1].easting))
-                            + ((point.northing - curList[curList.Count - 1].northing) * (point.northing - curList[curList.Count - 1].northing));
-                        if (dist > 1.0)
-                            curList.Add(point);
-                    }
-                    else curList.Add(point);
-                }
-            }
-
-            int cnt = curList.Count;
-            if (cnt > 6)
-            {
-                vec3[] arr = new vec3[cnt];
-                curList.CopyTo(arr);
-
-                curList.Clear();
-
-                for (int i = 0; i < (arr.Length - 1); i++)
-                {
-                    arr[i].heading = Math.Atan2(arr[i + 1].easting - arr[i].easting, arr[i + 1].northing - arr[i].northing);
-                    if (arr[i].heading < 0) arr[i].heading += glm.twoPI;
-                    if (arr[i].heading >= glm.twoPI) arr[i].heading -= glm.twoPI;
-                }
-
-                arr[arr.Length - 1].heading = arr[arr.Length - 2].heading;
-
-                //replace the array
-                cnt = arr.Length;
-                double distance;
-                double spacing = 2;
-
-                //add the first point of loop - it will be p1
-                curList.Add(arr[0]);
-
-                for (int i = 0; i < cnt - 3; i++)
-                {
-                    // add p2
-                    curList.Add(arr[i + 1]);
-
-                    distance = glm.Distance(arr[i + 1], arr[i + 2]);
-
-                    if (distance > spacing)
-                    {
-                        int loopTimes = (int)(distance / spacing + 1);
-                        for (int j = 1; j < loopTimes; j++)
-                        {
-                            vec3 pos = new vec3(glm.Catmull(j / (double)(loopTimes), arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
-                            curList.Add(pos);
-                        }
-                    }
-                }
-
-                curList.Add(arr[cnt - 2]);
-                curList.Add(arr[cnt - 1]);
-
-                CalculateHeadings(ref curList);
-
-                gArr[idx].curvePts.Clear();
-
-                foreach (var item in curList)
-                {
-                    gArr[idx].curvePts.Add(new vec3(item));
-                }
-
-                //for (int i = 0; i < cnt; i++)
-                //{
-                //    arr[i].easting += Math.Cos(arr[i].heading) * (dist);
-                //    arr[i].northing -= Math.Sin(arr[i].heading) * (dist);
-                //    gArr[idx].curvePts.Add(arr[i]);
-                //}
-            }
+            lineWidth = Properties.Settings.Default.setDisplay_lineWidth;
+            numGuideLines = Properties.Settings.Default.setAS_numGuideLines;
         }
 
         public async void BuildTrackCurrentList(vec3 pivot)
@@ -1031,6 +885,104 @@ namespace AgOpenGPS
             }
         }
 
+        // Searches for the nearest "global" curve point to the refPoint by checking all points of the trk.
+        // Parameter "increment" added here to give possibility to make a "sparser" search (to speed it up?)
+        // Return: index to the nearest point
+        private int findNearestGlobalCurvePoint(vec3 refPoint, int increment = 1)
+        {
+            double minDist = double.MaxValue;
+            int minDistIndex = 0;
+
+            for (int i = 0; i < curList.Count; i += increment)
+            {
+                double dist = glm.DistanceSquared(refPoint, curList[i]);
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    minDistIndex = i;
+                }
+            }
+            return minDistIndex;
+        }
+
+        // Searches for the nearest "local" curve point to the refPoint by traversing forward and backward on the curve
+        // startIndex means the starting point (index to curList) of the search.
+        // Return: index to the nearest (local) point
+        private int findNearestLocalCurvePoint(vec3 refPoint, int startIndex, double minSearchDistance, bool reverseSearchDirection)
+        {
+            double minDist = glm.DistanceSquared(refPoint, curList[(startIndex + curList.Count) % curList.Count]);
+            int minDistIndex = startIndex;
+
+            int directionMultiplier = reverseSearchDirection ? 1 : -1;
+            double distSoFar = 0;
+            vec3 start = curList[startIndex];
+
+            // Check all points' distances from the pivot inside the "look ahead"-distance and find the nearest
+            int offset = 1;
+
+            while (offset < curList.Count)
+            {
+                int pointIndex = (startIndex + (offset * directionMultiplier) + curList.Count) % curList.Count;  // Wrap around
+                double dist = glm.DistanceSquared(refPoint, curList[pointIndex]);
+
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    minDistIndex = pointIndex;
+                }
+
+                distSoFar += glm.Distance(start, curList[pointIndex]);
+                start = curList[pointIndex];
+
+                offset++;
+
+                if (distSoFar > minSearchDistance)
+                {
+                    break;
+                }
+            }
+
+            // Continue traversing until the distance starts growing
+            while (offset < curList.Count)
+            {
+                int pointIndex = (startIndex + (offset * directionMultiplier) + curList.Count) % curList.Count;  // Wrap around
+                double dist = glm.DistanceSquared(refPoint, curList[pointIndex]);
+                if (dist < minDist)
+                {
+                    // Getting closer
+                    minDist = dist;
+                    minDistIndex = pointIndex;
+                }
+                else
+                {
+                    // Getting farther, no point to continue
+                    break;
+                }
+                offset++;
+            }
+
+            // Traverse from the start point also into another direction to be sure we choose the minimum local distance.
+            // (This is also needed due to the way AB-curve is handled (the search may start one off from the last known nearest point)).
+            for (offset = 1; offset < curList.Count; offset++)
+            {
+                int pointIndex = (startIndex + (offset * (-directionMultiplier)) + curList.Count) % curList.Count;  // Wrap around
+                double dist = glm.DistanceSquared(refPoint, curList[pointIndex]);
+                if (dist < minDist)
+                {
+                    // Getting closer
+                    minDist = dist;
+                    minDistIndex = pointIndex;
+                }
+                else
+                {
+                    // Getting farther, no point to continue
+                    break;
+                }
+            }
+
+            return minDistIndex;
+        }
+
         public void DrawNewTrack()
         {
             if (designPtsList.Count > 0)
@@ -1225,195 +1177,7 @@ namespace AgOpenGPS
             mf.font.DrawText3D(designPtB.easting, designPtB.northing, "&B");
         }
 
-        public void BuildTram()
-        {
-            //if all or bnd only then make outer loop pass
-            if (mf.tram.generateMode != 1)
-            {
-                mf.tram.BuildTramBnd();
-            }
-            else
-            {
-                mf.tram.tramBndOuterArr?.Clear();
-                mf.tram.tramBndInnerArr?.Clear();
-            }
-
-            mf.tram.tramList?.Clear();
-            mf.tram.tramArr?.Clear();
-
-            if (mf.tram.generateMode == 2) return;
-
-            bool isBndExist = mf.bnd.bndList.Count != 0;
-
-            int refCount = gArr[idx].curvePts.Count;
-
-            int cntr = 0;
-            if (isBndExist)
-            {
-                if (mf.tram.generateMode == 1)
-                    cntr = 0;
-                else
-                    cntr = 1;
-            }
-
-            double widd;
-
-            for (int i = cntr; i <= mf.tram.passes; i++)
-            {
-                mf.tram.tramArr = new List<vec2>
-                {
-                    Capacity = 128
-                };
-
-                mf.tram.tramList.Add(mf.tram.tramArr);
-
-                widd = (mf.tram.tramWidth * 0.5) - mf.tram.halfWheelTrack;
-                widd += (mf.tram.tramWidth * i);
-
-                double distSqAway = widd * widd * 0.999999;
-
-                for (int j = 0; j < refCount; j += 1)
-                {
-                    vec2 point = new vec2(
-                    (Math.Sin(glm.PIBy2 + gArr[idx].curvePts[j].heading) *
-                        widd) + gArr[idx].curvePts[j].easting,
-                    (Math.Cos(glm.PIBy2 + gArr[idx].curvePts[j].heading) *
-                        widd) + gArr[idx].curvePts[j].northing
-                        );
-
-                    bool Add = true;
-                    for (int t = 0; t < refCount; t++)
-                    {
-                        //distance check to be not too close to ref line
-                        double dist = ((point.easting - gArr[idx].curvePts[t].easting) * (point.easting - gArr[idx].curvePts[t].easting))
-                            + ((point.northing - gArr[idx].curvePts[t].northing) * (point.northing - gArr[idx].curvePts[t].northing));
-                        if (dist < distSqAway)
-                        {
-                            Add = false;
-                            break;
-                        }
-                    }
-                    if (Add)
-                    {
-                        //a new point only every 2 meters
-                        double dist = mf.tram.tramArr.Count > 0 ? ((point.easting - mf.tram.tramArr[mf.tram.tramArr.Count - 1].easting) * (point.easting - mf.tram.tramArr[mf.tram.tramArr.Count - 1].easting))
-                            + ((point.northing - mf.tram.tramArr[mf.tram.tramArr.Count - 1].northing) * (point.northing - mf.tram.tramArr[mf.tram.tramArr.Count - 1].northing)) : 3.0;
-                        if (dist > 2)
-                        {
-                            //if inside the boundary, add
-                            if (!isBndExist || mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(point))
-                            {
-                                mf.tram.tramArr.Add(point);
-                            }
-                        }
-                    }
-                }
-            }
-
-            for (int i = cntr; i <= mf.tram.passes; i++)
-            {
-                mf.tram.tramArr = new List<vec2>
-                {
-                    Capacity = 128
-                };
-
-                mf.tram.tramList.Add(mf.tram.tramArr);
-
-                widd = (mf.tram.tramWidth * 0.5) + mf.tram.halfWheelTrack;
-                widd += (mf.tram.tramWidth * i);
-                double distSqAway = widd * widd * 0.999999;
-
-                for (int j = 0; j < refCount; j += 1)
-                {
-                    vec2 point = new vec2(
-                    Math.Sin(glm.PIBy2 + gArr[idx].curvePts[j].heading) *
-                        widd + gArr[idx].curvePts[j].easting,
-                    Math.Cos(glm.PIBy2 + gArr[idx].curvePts[j].heading) *
-                        widd + gArr[idx].curvePts[j].northing
-                        );
-
-                    bool Add = true;
-                    for (int t = 0; t < refCount; t++)
-                    {
-                        //distance check to be not too close to ref line
-                        double dist = ((point.easting - gArr[idx].curvePts[t].easting) * (point.easting - gArr[idx].curvePts[t].easting))
-                            + ((point.northing - gArr[idx].curvePts[t].northing) * (point.northing - gArr[idx].curvePts[t].northing));
-                        if (dist < distSqAway)
-                        {
-                            Add = false;
-                            break;
-                        }
-                    }
-                    if (Add)
-                    {
-                        //a new point only every 2 meters
-                        double dist = mf.tram.tramArr.Count > 0 ? ((point.easting - mf.tram.tramArr[mf.tram.tramArr.Count - 1].easting) * (point.easting - mf.tram.tramArr[mf.tram.tramArr.Count - 1].easting))
-                            + ((point.northing - mf.tram.tramArr[mf.tram.tramArr.Count - 1].northing) * (point.northing - mf.tram.tramArr[mf.tram.tramArr.Count - 1].northing)) : 3.0;
-                        if (dist > 2)
-                        {
-                            //if inside the boundary, add
-                            if (!isBndExist || mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(point))
-                            {
-                                mf.tram.tramArr.Add(point);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         //for calculating for display the averaged new line
-        public void SmoothAB(int smPts)
-        {
-            //countExit the reference list of original curve
-            int cnt = gArr[idx].curvePts.Count;
-
-            //just go back if not very long
-            if (cnt < 100) return;
-
-            //the temp array
-            vec3[] arr = new vec3[cnt];
-
-            //read the points before and after the setpoint
-            for (int s = 0; s < smPts / 2; s++)
-            {
-                arr[s].easting = gArr[idx].curvePts[s].easting;
-                arr[s].northing = gArr[idx].curvePts[s].northing;
-                arr[s].heading = gArr[idx].curvePts[s].heading;
-            }
-
-            for (int s = cnt - (smPts / 2); s < cnt; s++)
-            {
-                arr[s].easting = gArr[idx].curvePts[s].easting;
-                arr[s].northing = gArr[idx].curvePts[s].northing;
-                arr[s].heading = gArr[idx].curvePts[s].heading;
-            }
-
-            //average them - center weighted average
-            for (int i = smPts / 2; i < cnt - (smPts / 2); i++)
-            {
-                for (int j = -smPts / 2; j < smPts / 2; j++)
-                {
-                    arr[i].easting += gArr[idx].curvePts[j + i].easting;
-                    arr[i].northing += gArr[idx].curvePts[j + i].northing;
-                }
-                arr[i].easting /= smPts;
-                arr[i].northing /= smPts;
-                arr[i].heading = gArr[idx].curvePts[i].heading;
-            }
-
-            //make a list to draw
-            smooList?.Clear();
-
-            if (arr == null || cnt < 1) return;
-            if (smooList == null) return;
-
-            for (int i = 0; i < cnt; i++)
-            {
-                smooList.Add(arr[i]);
-            }
-        }
-
         public void CalculateHeadings(ref List<vec3> xList)
         {
             //to calc heading based on next and previous points to give an average heading.
@@ -1496,28 +1260,55 @@ namespace AgOpenGPS
             }
         }
 
-        public bool PointOnLine(vec3 pt1, vec3 pt2, vec3 pt)
+        public void SmoothAB(int smPts)
         {
-            vec2 r = new vec2(0, 0);
-            if (pt1.northing == pt2.northing && pt1.easting == pt2.easting) { pt1.northing -= 0.00001; }
+            //countExit the reference list of original curve
+            int cnt = gArr[idx].curvePts.Count;
 
-            double U = ((pt.northing - pt1.northing) * (pt2.northing - pt1.northing)) + ((pt.easting - pt1.easting) * (pt2.easting - pt1.easting));
+            //just go back if not very long
+            if (cnt < 100) return;
 
-            double Udenom = Math.Pow(pt2.northing - pt1.northing, 2) + Math.Pow(pt2.easting - pt1.easting, 2);
+            //the temp array
+            vec3[] arr = new vec3[cnt];
 
-            U /= Udenom;
+            //read the points before and after the setpoint
+            for (int s = 0; s < smPts / 2; s++)
+            {
+                arr[s].easting = gArr[idx].curvePts[s].easting;
+                arr[s].northing = gArr[idx].curvePts[s].northing;
+                arr[s].heading = gArr[idx].curvePts[s].heading;
+            }
 
-            r.northing = pt1.northing + (U * (pt2.northing - pt1.northing));
-            r.easting = pt1.easting + (U * (pt2.easting - pt1.easting));
+            for (int s = cnt - (smPts / 2); s < cnt; s++)
+            {
+                arr[s].easting = gArr[idx].curvePts[s].easting;
+                arr[s].northing = gArr[idx].curvePts[s].northing;
+                arr[s].heading = gArr[idx].curvePts[s].heading;
+            }
 
-            double minx, maxx, miny, maxy;
+            //average them - center weighted average
+            for (int i = smPts / 2; i < cnt - (smPts / 2); i++)
+            {
+                for (int j = -smPts / 2; j < smPts / 2; j++)
+                {
+                    arr[i].easting += gArr[idx].curvePts[j + i].easting;
+                    arr[i].northing += gArr[idx].curvePts[j + i].northing;
+                }
+                arr[i].easting /= smPts;
+                arr[i].northing /= smPts;
+                arr[i].heading = gArr[idx].curvePts[i].heading;
+            }
 
-            minx = Math.Min(pt1.northing, pt2.northing);
-            maxx = Math.Max(pt1.northing, pt2.northing);
+            //make a list to draw
+            smooList?.Clear();
 
-            miny = Math.Min(pt1.easting, pt2.easting);
-            maxy = Math.Max(pt1.easting, pt2.easting);
-            return _ = r.northing >= minx && r.northing <= maxx && (r.easting >= miny && r.easting <= maxy);
+            if (arr == null || cnt < 1) return;
+            if (smooList == null) return;
+
+            for (int i = 0; i < cnt; i++)
+            {
+                smooList.Add(arr[i]);
+            }
         }
 
         public void CreateDesignedABTrack(bool isRefRightSide)
@@ -1629,109 +1420,167 @@ namespace AgOpenGPS
             }
         }
 
+        public void NudgeTrack(double dist)
+        {
+            if (idx > -1)
+            {
+                isTrackValid = false;
+                gArr[idx].nudgeDistance += isHeadingSameWay ? dist : -dist;
+            }
+        }
+
+        public void NudgeDistanceReset()
+        {
+            if (idx > -1 && gArr.Count > 0)
+            {
+                isTrackValid = false;
+                gArr[idx].nudgeDistance = 0;
+            }
+        }
+
+        public void SnapToPivot()
+        {
+            if (idx > -1)
+            {
+                NudgeTrack(distanceFromCurrentLinePivot);
+            }
+        }
+
+        public void NudgeRefTrack(double distAway)
+        {
+            isTrackValid = false;
+
+            List<vec3> curList = new List<vec3>();
+
+            double distSqAway = (distAway * distAway) - 0.01;
+            vec3 point;
+
+            for (int i = 0; i < gArr[idx].curvePts.Count; i++)
+            {
+                point = new vec3(
+                gArr[idx].curvePts[i].easting + (Math.Sin(glm.PIBy2 + gArr[idx].curvePts[i].heading) * distAway),
+                gArr[idx].curvePts[i].northing + (Math.Cos(glm.PIBy2 + gArr[idx].curvePts[i].heading) * distAway),
+                gArr[idx].curvePts[i].heading);
+                bool Add = true;
+
+                for (int t = 0; t < gArr[idx].curvePts.Count; t++)
+                {
+                    double dist = ((point.easting - gArr[idx].curvePts[t].easting) * (point.easting - gArr[idx].curvePts[t].easting))
+                        + ((point.northing - gArr[idx].curvePts[t].northing) * (point.northing - gArr[idx].curvePts[t].northing));
+                    if (dist < distSqAway)
+                    {
+                        Add = false;
+                        break;
+                    }
+                }
+
+                if (Add)
+                {
+                    if (curList.Count > 0)
+                    {
+                        double dist = ((point.easting - curList[curList.Count - 1].easting) * (point.easting - curList[curList.Count - 1].easting))
+                            + ((point.northing - curList[curList.Count - 1].northing) * (point.northing - curList[curList.Count - 1].northing));
+                        if (dist > 1.0)
+                            curList.Add(point);
+                    }
+                    else curList.Add(point);
+                }
+            }
+
+            int cnt = curList.Count;
+            if (cnt > 6)
+            {
+                vec3[] arr = new vec3[cnt];
+                curList.CopyTo(arr);
+
+                curList.Clear();
+
+                for (int i = 0; i < (arr.Length - 1); i++)
+                {
+                    arr[i].heading = Math.Atan2(arr[i + 1].easting - arr[i].easting, arr[i + 1].northing - arr[i].northing);
+                    if (arr[i].heading < 0) arr[i].heading += glm.twoPI;
+                    if (arr[i].heading >= glm.twoPI) arr[i].heading -= glm.twoPI;
+                }
+
+                arr[arr.Length - 1].heading = arr[arr.Length - 2].heading;
+
+                //replace the array
+                cnt = arr.Length;
+                double distance;
+                double spacing = 2;
+
+                //add the first point of loop - it will be p1
+                curList.Add(arr[0]);
+
+                for (int i = 0; i < cnt - 3; i++)
+                {
+                    // add p2
+                    curList.Add(arr[i + 1]);
+
+                    distance = glm.Distance(arr[i + 1], arr[i + 2]);
+
+                    if (distance > spacing)
+                    {
+                        int loopTimes = (int)(distance / spacing + 1);
+                        for (int j = 1; j < loopTimes; j++)
+                        {
+                            vec3 pos = new vec3(glm.Catmull(j / (double)(loopTimes), arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
+                            curList.Add(pos);
+                        }
+                    }
+                }
+
+                curList.Add(arr[cnt - 2]);
+                curList.Add(arr[cnt - 1]);
+
+                CalculateHeadings(ref curList);
+
+                gArr[idx].curvePts.Clear();
+
+                foreach (var item in curList)
+                {
+                    gArr[idx].curvePts.Add(new vec3(item));
+                }
+
+                //for (int i = 0; i < cnt; i++)
+                //{
+                //    arr[i].easting += Math.Cos(arr[i].heading) * (dist);
+                //    arr[i].northing -= Math.Sin(arr[i].heading) * (dist);
+                //    gArr[idx].curvePts.Add(arr[i]);
+                //}
+            }
+        }
+
         public void ResetTrack()
         {
             curList?.Clear();
             idx = -1;
         }
 
-        // Searches for the nearest "global" curve point to the refPoint by checking all points of the trk.
-        // Parameter "increment" added here to give possibility to make a "sparser" search (to speed it up?)
-        // Return: index to the nearest point
-        private int findNearestGlobalCurvePoint(vec3 refPoint, int increment = 1)
+        public bool PointOnLine(vec3 pt1, vec3 pt2, vec3 pt)
         {
-            double minDist = double.MaxValue;
-            int minDistIndex = 0;
+            vec2 r = new vec2(0, 0);
+            if (pt1.northing == pt2.northing && pt1.easting == pt2.easting) { pt1.northing -= 0.00001; }
 
-            for (int i = 0; i < curList.Count; i += increment)
-            {
-                double dist = glm.DistanceSquared(refPoint, curList[i]);
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    minDistIndex = i;
-                }
-            }
-            return minDistIndex;
+            double U = ((pt.northing - pt1.northing) * (pt2.northing - pt1.northing)) + ((pt.easting - pt1.easting) * (pt2.easting - pt1.easting));
+
+            double Udenom = Math.Pow(pt2.northing - pt1.northing, 2) + Math.Pow(pt2.easting - pt1.easting, 2);
+
+            U /= Udenom;
+
+            r.northing = pt1.northing + (U * (pt2.northing - pt1.northing));
+            r.easting = pt1.easting + (U * (pt2.easting - pt1.easting));
+
+            double minx, maxx, miny, maxy;
+
+            minx = Math.Min(pt1.northing, pt2.northing);
+            maxx = Math.Max(pt1.northing, pt2.northing);
+
+            miny = Math.Min(pt1.easting, pt2.easting);
+            maxy = Math.Max(pt1.easting, pt2.easting);
+            return _ = r.northing >= minx && r.northing <= maxx && (r.easting >= miny && r.easting <= maxy);
         }
 
-        // Searches for the nearest "local" curve point to the refPoint by traversing forward and backward on the curve
-        // startIndex means the starting point (index to curList) of the search.
-        // Return: index to the nearest (local) point
-        private int findNearestLocalCurvePoint(vec3 refPoint, int startIndex, double minSearchDistance, bool reverseSearchDirection)
-        {
-            double minDist = glm.DistanceSquared(refPoint, curList[(startIndex + curList.Count) % curList.Count]);
-            int minDistIndex = startIndex;
-
-            int directionMultiplier = reverseSearchDirection ? 1 : -1;
-            double distSoFar = 0;
-            vec3 start = curList[startIndex];
-
-            // Check all points' distances from the pivot inside the "look ahead"-distance and find the nearest
-            int offset = 1;
-
-            while (offset < curList.Count)
-            {
-                int pointIndex = (startIndex + (offset * directionMultiplier) + curList.Count) % curList.Count;  // Wrap around
-                double dist = glm.DistanceSquared(refPoint, curList[pointIndex]);
-
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    minDistIndex = pointIndex;
-                }
-
-                distSoFar += glm.Distance(start, curList[pointIndex]);
-                start = curList[pointIndex];
-
-                offset++;
-
-                if (distSoFar > minSearchDistance)
-                {
-                    break;
-                }
-            }
-
-            // Continue traversing until the distance starts growing
-            while (offset < curList.Count)
-            {
-                int pointIndex = (startIndex + (offset * directionMultiplier) + curList.Count) % curList.Count;  // Wrap around
-                double dist = glm.DistanceSquared(refPoint, curList[pointIndex]);
-                if (dist < minDist)
-                {
-                    // Getting closer
-                    minDist = dist;
-                    minDistIndex = pointIndex;
-                }
-                else
-                {
-                    // Getting farther, no point to continue
-                    break;
-                }
-                offset++;
-            }
-
-            // Traverse from the start point also into another direction to be sure we choose the minimum local distance.
-            // (This is also needed due to the way AB-curve is handled (the search may start one off from the last known nearest point)).
-            for (offset = 1; offset < curList.Count; offset++)
-            {
-                int pointIndex = (startIndex + (offset * (-directionMultiplier)) + curList.Count) % curList.Count;  // Wrap around
-                double dist = glm.DistanceSquared(refPoint, curList[pointIndex]);
-                if (dist < minDist)
-                {
-                    // Getting closer
-                    minDist = dist;
-                    minDistIndex = pointIndex;
-                }
-                else
-                {
-                    // Getting farther, no point to continue
-                    break;
-                }
-            }
-
-            return minDistIndex;
-        }
     }
 
     public class CTrk

@@ -168,7 +168,7 @@ namespace AgOpenGPS
             else
             {
                 EnableYouTurnButtons();
-                ABLine.isABValid = false;
+
                 trk.isTrackValid = false;
                 ct.isLocked = false;
                 guidanceLookAheadTime = Properties.Settings.Default.setAS_guidanceLookAheadTime;
@@ -392,8 +392,6 @@ namespace AgOpenGPS
             }
 
             twoSecondCounter = 100;
-
-            ABLine.isABValid = false;
             trk.isTrackValid = false;
         }
 
@@ -430,7 +428,6 @@ namespace AgOpenGPS
                 lblNumCu.Text = (trk.idx + 1).ToString() + "/" + trk.gArr.Count.ToString();
             }
 
-            ABLine.isABValid = false;
             trk.isTrackValid = false;
 
             twoSecondCounter = 100;
@@ -2206,7 +2203,6 @@ namespace AgOpenGPS
         private void btnSimReverseDirection_Click(object sender, EventArgs e)
         {
             sim.headingTrue += Math.PI;
-            ABLine.isABValid = false;
             trk.isTrackValid = false;
             if (isBtnAutoSteerOn)
             {

@@ -123,7 +123,6 @@ namespace AgOpenGPS
                 mf.trk.gArr.Add(new CTrk(item));
             }
 
-            mf.ABLine.isABValid = false;
             mf.trk.isTrackValid = false;
 
             //mf.FileSaveTracks();

@@ -185,8 +185,6 @@ namespace AgOpenGPS
             }
 
             mf.trk.isTrackValid = false;
-            mf.ABLine.isABValid = false;
-
             mf.twoSecondCounter = 100;
 
             Properties.Settings.Default.setWindow_abDrawSize = Size;

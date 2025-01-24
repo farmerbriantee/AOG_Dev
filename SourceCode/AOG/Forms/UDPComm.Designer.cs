@@ -903,7 +903,7 @@ namespace AgOpenGPS
             if (keyData == Keys.U)
             {
                 sim.headingTrue += Math.PI;
-                ABLine.isABValid = false;
+
                 trk.isTrackValid = false;
                 if (isBtnAutoSteerOn)
                 {

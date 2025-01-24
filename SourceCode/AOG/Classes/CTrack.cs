@@ -98,7 +98,6 @@ namespace AgOpenGPS
         {
             double minDistA = 1000000, minDistB;
 
-            //move the ABLine over based on the overlap amount set in vehicle
             double widthMinusOverlap = mf.tool.width - mf.tool.overlap;
 
             CTrk track = gArr[idx];
@@ -764,7 +763,7 @@ namespace AgOpenGPS
                     }
                     else inty = 0;
 
-                    // ** Pure pursuit ** - calc point on ABLine closest to current position
+                    // ** Pure pursuit ** - calc point on AB Line closest to current position
                     double U = (((pivot.easting - curList[A].easting) * dx)
                                 + ((pivot.northing - curList[A].northing) * dz))
                                 / ((dx * dx) + (dz * dz));
@@ -1164,7 +1163,7 @@ namespace AgOpenGPS
 
         public void DrawABLineNew()
         {
-            //ABLine currently being designed
+            //AB Line currently being designed
             GL.LineWidth(lineWidth);
             GL.Begin(PrimitiveType.Lines);
             GL.Color3(0.95f, 0.70f, 0.50f);

@@ -57,8 +57,6 @@ namespace AgOpenGPS
         private void FormABDraw_FormClosing(object sender, FormClosingEventArgs e)
         {
             mf.trk.isTrackValid = false;
-            mf.ABLine.isABValid = false;
-
             mf.twoSecondCounter = 100;
 
             Properties.Settings.Default.setWindow_gridSize = Size;

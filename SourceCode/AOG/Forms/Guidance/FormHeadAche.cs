@@ -797,18 +797,18 @@ namespace AgOpenGPS
 
             //for (int i = 0; i < mf.hdl.tracksArr.Count; i++)
             //{
-            //    mf.hdl.desList?.Clear();
+            //    mf.hdl.designPtsList?.Clear();
 
             //    int low = crossings[i * 2];
             //    int high = crossings[i * 2 + 1];
             //    for (int k = low; k < high; k++)
             //    {
-            //        mf.hdl.desList.Add(mf.hdl.tracksArr[i].trackPts[k]);
+            //        mf.hdl.designPtsList.Add(mf.hdl.tracksArr[i].trackPts[k]);
             //    }
 
             //    mf.hdl.tracksArr[i].trackPts?.Clear();
 
-            //    foreach (var item in mf.hdl.desList)
+            //    foreach (var item in mf.hdl.designPtsList)
             //    {
             //        mf.hdl.tracksArr[i].trackPts.Add(new vec3(item));
             //    }
@@ -934,7 +934,7 @@ namespace AgOpenGPS
             start = 99999; end = 99999;
             isA = true;
             FixLabelsCurve();
-            mf.trk.desList?.Clear();
+            mf.trk.designPtsList?.Clear();
             zoom = 1;
             sX = 0;
             sY = 0;

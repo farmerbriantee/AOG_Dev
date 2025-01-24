@@ -130,6 +130,9 @@
             this.btnCancel_Pivot = new System.Windows.Forms.Button();
             this.btnEnter_Pivot = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
             this.panelName.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.panelCurve.SuspendLayout();
@@ -1195,6 +1198,7 @@
             // panelLatLonPlus
             // 
             this.panelLatLonPlus.BackColor = System.Drawing.Color.Gainsboro;
+            this.panelLatLonPlus.Controls.Add(this.label28);
             this.panelLatLonPlus.Controls.Add(this.btnFillLatLonPlus);
             this.panelLatLonPlus.Controls.Add(this.label17);
             this.panelLatLonPlus.Controls.Add(this.label16);
@@ -1384,6 +1388,7 @@
             // panelLatLonLatLon
             // 
             this.panelLatLonLatLon.BackColor = System.Drawing.Color.Gainsboro;
+            this.panelLatLonLatLon.Controls.Add(this.label29);
             this.panelLatLonLatLon.Controls.Add(this.btnFillLatLonLatLonB);
             this.panelLatLonLatLon.Controls.Add(this.btnFillLatLonLatLonA);
             this.panelLatLonLatLon.Controls.Add(this.label24);
@@ -1664,6 +1669,7 @@
             // panelPivot
             // 
             this.panelPivot.BackColor = System.Drawing.Color.Gainsboro;
+            this.panelPivot.Controls.Add(this.label27);
             this.panelPivot.Controls.Add(this.btnFillLAtLonPivot);
             this.panelPivot.Controls.Add(this.label25);
             this.panelPivot.Controls.Add(this.label26);
@@ -1814,6 +1820,45 @@
             // 
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // label27
+            // 
+            this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.ForeColor = System.Drawing.Color.Black;
+            this.label27.Location = new System.Drawing.Point(7, 2);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(34, 16);
+            this.label27.TabIndex = 462;
+            this.label27.Text = "Pivot";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label28
+            // 
+            this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.ForeColor = System.Drawing.Color.Black;
+            this.label28.Location = new System.Drawing.Point(10, 6);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(23, 16);
+            this.label28.TabIndex = 455;
+            this.label28.Text = "A+";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label29
+            // 
+            this.label29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.ForeColor = System.Drawing.Color.Black;
+            this.label29.Location = new System.Drawing.Point(6, 6);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(49, 16);
+            this.label29.TabIndex = 461;
+            this.label29.Text = "AB Line";
+            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormBuildTracks
             // 
@@ -1980,5 +2025,8 @@
         private System.Windows.Forms.Button btnFillLAtLonPivot;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label27;
     }
 }

@@ -458,7 +458,6 @@
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.nudTramWidth = new AgOpenGPS.NudlessNumericUpDown();
             this.tabBtns = new System.Windows.Forms.TabPage();
-            this.label110 = new System.Windows.Forms.Label();
             this.label109 = new System.Windows.Forms.Label();
             this.label108 = new System.Windows.Forms.Label();
             this.label91 = new System.Windows.Forms.Label();
@@ -500,7 +499,6 @@
             this.cboxFeatureWebcam = new System.Windows.Forms.CheckBox();
             this.cboxFeatureHideContour = new System.Windows.Forms.CheckBox();
             this.cboxFeatureABSmooth = new System.Windows.Forms.CheckBox();
-            this.cboxFeatureRecPath = new System.Windows.Forms.CheckBox();
             this.cboxFeatureBoundary = new System.Windows.Forms.CheckBox();
             this.cboxFeatureHeadland = new System.Windows.Forms.CheckBox();
             this.cboxFeatureTram = new System.Windows.Forms.CheckBox();
@@ -8178,7 +8176,6 @@
             // tabBtns
             // 
             this.tabBtns.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabBtns.Controls.Add(this.label110);
             this.tabBtns.Controls.Add(this.label109);
             this.tabBtns.Controls.Add(this.label108);
             this.tabBtns.Controls.Add(this.label91);
@@ -8220,7 +8217,6 @@
             this.tabBtns.Controls.Add(this.cboxFeatureWebcam);
             this.tabBtns.Controls.Add(this.cboxFeatureHideContour);
             this.tabBtns.Controls.Add(this.cboxFeatureABSmooth);
-            this.tabBtns.Controls.Add(this.cboxFeatureRecPath);
             this.tabBtns.Controls.Add(this.cboxFeatureBoundary);
             this.tabBtns.Controls.Add(this.cboxFeatureHeadland);
             this.tabBtns.Controls.Add(this.cboxFeatureTram);
@@ -8231,18 +8227,6 @@
             this.tabBtns.Text = "fBtns";
             this.tabBtns.Enter += new System.EventHandler(this.tabBtns_Enter);
             this.tabBtns.Leave += new System.EventHandler(this.tabBtns_Leave);
-            // 
-            // label110
-            // 
-            this.label110.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label110.AutoSize = true;
-            this.label110.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label110.ForeColor = System.Drawing.Color.Black;
-            this.label110.Location = new System.Drawing.Point(560, 476);
-            this.label110.Name = "label110";
-            this.label110.Size = new System.Drawing.Size(123, 16);
-            this.label110.TabIndex = 533;
-            this.label110.Text = "Hardware Messages";
             // 
             // label109
             // 
@@ -8901,28 +8885,6 @@
             this.cboxFeatureABSmooth.TabIndex = 469;
             this.cboxFeatureABSmooth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxFeatureABSmooth.UseVisualStyleBackColor = false;
-            // 
-            // cboxFeatureRecPath
-            // 
-            this.cboxFeatureRecPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cboxFeatureRecPath.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxFeatureRecPath.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cboxFeatureRecPath.Checked = true;
-            this.cboxFeatureRecPath.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cboxFeatureRecPath.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.cboxFeatureRecPath.FlatAppearance.BorderSize = 2;
-            this.cboxFeatureRecPath.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.cboxFeatureRecPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxFeatureRecPath.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxFeatureRecPath.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureRecPath.Image = global::AgOpenGPS.Properties.Resources.RecPath;
-            this.cboxFeatureRecPath.Location = new System.Drawing.Point(33, 371);
-            this.cboxFeatureRecPath.Name = "cboxFeatureRecPath";
-            this.cboxFeatureRecPath.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cboxFeatureRecPath.Size = new System.Drawing.Size(77, 77);
-            this.cboxFeatureRecPath.TabIndex = 467;
-            this.cboxFeatureRecPath.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cboxFeatureRecPath.UseVisualStyleBackColor = false;
             // 
             // cboxFeatureBoundary
             // 
@@ -10037,7 +9999,6 @@
         private System.Windows.Forms.Label label80;
         private System.Windows.Forms.CheckBox cboxFeatureABSmooth;
         private System.Windows.Forms.Label label71;
-        private System.Windows.Forms.CheckBox cboxFeatureRecPath;
         private System.Windows.Forms.CheckBox cboxFeatureOffsetFix;
         private System.Windows.Forms.CheckBox cboxFeatureWebcam;
         private System.Windows.Forms.CheckBox cboxFeatureHideContour;
@@ -10348,7 +10309,6 @@
         private System.Windows.Forms.CheckBox cboxAutoOffAgOne;
         private System.Windows.Forms.Label label109;
         private System.Windows.Forms.CheckBox cboxShutdownWhenNoPower;
-        private System.Windows.Forms.Label label110;
         private System.Windows.Forms.CheckBox cboxHardwareMessages;
         private System.Windows.Forms.Label label113;
         private NudlessNumericUpDown nudFixJumpDistance;

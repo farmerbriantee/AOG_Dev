@@ -141,7 +141,6 @@
     <Compile Include="Classes\CLog.cs" />
     <Compile Include="Classes\CNozzle.cs" />
     <Compile Include="Classes\CPolygon.cs" />
-    <Compile Include="Classes\CRecordedPath.cs" />
     <Compile Include="Classes\CPatches.cs" />
     <Compile Include="Classes\CRegistrySettings.cs" />
     <Compile Include="Classes\CSettings.cs" />
@@ -199,12 +198,6 @@
     <Compile Include="Forms\FormPan.Designer.cs">
       <DependentUpon>FormPan.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Field\FormFieldISOXML.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Field\FormFieldISOXML.Designer.cs">
-      <DependentUpon>FormFieldISOXML.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Field\FormFieldKML.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -252,12 +245,6 @@
     </Compile>
     <Compile Include="Forms\Guidance\FormQuickAB.Designer.cs">
       <DependentUpon>FormQuickAB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Guidance\FormRecordName.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Guidance\FormRecordName.Designer.cs">
-      <DependentUpon>FormRecordName.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Field\FormFieldExisting.cs">
       <SubType>Form</SubType>
@@ -336,12 +323,6 @@
     </Compile>
     <Compile Include="Forms\Pickers\FormDrivePicker.Designer.cs">
       <DependentUpon>FormDrivePicker.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Pickers\FormRecordPicker.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Pickers\FormRecordPicker.Designer.cs">
-      <DependentUpon>FormRecordPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Pickers\FormFilePicker.cs">
       <SubType>Form</SubType>
@@ -697,9 +678,6 @@
       <DependentUpon>FormPan.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Field\FormFieldISOXML.resx">
-      <DependentUpon>FormFieldISOXML.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Field\FormFieldKML.resx">
       <DependentUpon>FormFieldKML.cs</DependentUpon>
     </EmbeddedResource>
@@ -725,9 +703,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Guidance\FormQuickAB.resx">
       <DependentUpon>FormQuickAB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Guidance\FormRecordName.resx">
-      <DependentUpon>FormRecordName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Field\FormFieldExisting.resx">
       <DependentUpon>FormFieldExisting.cs</DependentUpon>
@@ -768,9 +743,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pickers\FormDrivePicker.resx">
       <DependentUpon>FormDrivePicker.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Pickers\FormRecordPicker.resx">
-      <DependentUpon>FormRecordPicker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pickers\FormFilePicker.resx">
       <DependentUpon>FormFilePicker.cs</DependentUpon>

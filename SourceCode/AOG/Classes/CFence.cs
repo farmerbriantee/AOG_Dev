@@ -72,7 +72,7 @@ namespace AgOpenGPS
                 }
 
                 GL.Color4(0.95f, 0.5f, 0.50f, 1.0f);
-                GL.LineWidth(mf.ABLine.lineWidth * 2);
+                GL.LineWidth(mf.trk.lineWidth * 2);
 
                 for (int i = 0; i < bndList.Count; i++)
                 {
@@ -82,7 +82,7 @@ namespace AgOpenGPS
             }
             else
             {
-                GL.LineWidth(mf.ABLine.lineWidth * 3);
+                GL.LineWidth(mf.trk.lineWidth * 3);
                 GL.Color3(0.95f, 0.25f, 0.250f);
 
                 for (int i = 0; i < bndList.Count; i++)
@@ -102,7 +102,7 @@ namespace AgOpenGPS
             {
                 //the boundary so far
                 vec3 pivot = mf.pivotAxlePos;
-                GL.LineWidth(mf.ABLine.lineWidth);
+                GL.LineWidth(mf.trk.lineWidth);
                 GL.Color3(0.825f, 0.22f, 0.90f);
                 GL.Begin(PrimitiveType.LineStrip);
                 for (int h = 0; h < bndBeingMadePts.Count; h++) GL.Vertex3(bndBeingMadePts[h].easting, bndBeingMadePts[h].northing, 0);

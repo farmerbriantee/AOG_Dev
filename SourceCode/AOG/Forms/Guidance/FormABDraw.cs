@@ -226,7 +226,7 @@ namespace AgOpenGPS
 
             FixLabelsCurve();
 
-            mf.trk.desList?.Clear();
+            mf.trk.designPtsList?.Clear();
 
             zoom = 1;
             sX = 0;
@@ -378,34 +378,34 @@ namespace AgOpenGPS
             for (int q = 0; q < mf.bnd.bndList.Count; q++)
             {
                 vec3 pt3;
-                mf.trk.desList?.Clear();
+                mf.trk.designPtsList?.Clear();
                 for (int i = 0; i < mf.bnd.bndList[bndSelect].fenceLine.Count; i++)
                 {
                     //calculate the point inside the boundary
                     pt3 = new vec3(mf.bnd.bndList[bndSelect].fenceLine[i]);
 
-                    mf.trk.desList.Add(new vec3(pt3));
+                    mf.trk.designPtsList.Add(new vec3(pt3));
                 }
 
                 gTemp.Add(new CTrk());
                 //array number is 1 less since it starts at zero
                 indx = gTemp.Count - 1;
 
-                gTemp[indx].ptA = new vec2(mf.trk.desList[0].easting, mf.trk.desList[0].northing);
-                gTemp[indx].ptB = new vec2(mf.trk.desList[mf.trk.desList.Count - 1].easting, mf.trk.desList[mf.trk.desList.Count - 1].northing);
+                gTemp[indx].ptA = new vec2(mf.trk.designPtsList[0].easting, mf.trk.designPtsList[0].northing);
+                gTemp[indx].ptB = new vec2(mf.trk.designPtsList[mf.trk.designPtsList.Count - 1].easting, mf.trk.designPtsList[mf.trk.designPtsList.Count - 1].northing);
 
-                pt3 = new vec3(mf.trk.desList[0]);
-                mf.trk.desList.Add(pt3);
+                pt3 = new vec3(mf.trk.designPtsList[0]);
+                mf.trk.designPtsList.Add(pt3);
 
-                int cnt = mf.trk.desList.Count;
+                int cnt = mf.trk.designPtsList.Count;
                 if (cnt > 3)
                 {
-                    pt3 = new vec3(mf.trk.desList[0]);
-                    mf.trk.desList.Add(pt3);
+                    pt3 = new vec3(mf.trk.designPtsList[0]);
+                    mf.trk.designPtsList.Add(pt3);
 
                     //make sure point distance isn't too big
-                    mf.trk.MakePointMinimumSpacing(ref mf.trk.desList, 1.6);
-                    mf.trk.CalculateHeadings(ref mf.trk.desList);
+                    mf.trk.MakePointMinimumSpacing(ref mf.trk.designPtsList, 1.6);
+                    mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
 
                     //create a name
                     gTemp[indx].name = "Boundary Curve";
@@ -416,7 +416,7 @@ namespace AgOpenGPS
                     gTemp[indx].mode = TrackMode.bndCurve;
 
                     //write out the Curve Points
-                    foreach (vec3 item in mf.trk.desList)
+                    foreach (vec3 item in mf.trk.designPtsList)
                     {
                         gTemp[indx].curvePts.Add(item);
                     }
@@ -430,7 +430,7 @@ namespace AgOpenGPS
 
             FixLabelsCurve();
 
-            mf.trk.desList?.Clear();
+            mf.trk.designPtsList?.Clear();
 
             btnExit.Focus();
         }
@@ -459,7 +459,7 @@ namespace AgOpenGPS
                 }
             }
 
-            mf.trk.desList?.Clear();
+            mf.trk.designPtsList?.Clear();
             vec3 pt3;
 
             for (int i = start; i < end; i++)
@@ -467,7 +467,7 @@ namespace AgOpenGPS
                 //calculate the point inside the boundary
                 pt3 = new vec3(mf.bnd.bndList[bndSelect].fenceLine[i]);
 
-                mf.trk.desList.Add(new vec3(pt3));
+                mf.trk.designPtsList.Add(new vec3(pt3));
 
                 if (isLoop && i == mf.bnd.bndList[bndSelect].fenceLine.Count - 1)
                 {
@@ -482,35 +482,35 @@ namespace AgOpenGPS
             indx = gTemp.Count - 1;
 
             gTemp[indx].ptA =
-                new vec2(mf.trk.desList[0].easting, mf.trk.desList[0].northing);
+                new vec2(mf.trk.designPtsList[0].easting, mf.trk.designPtsList[0].northing);
             gTemp[indx].ptB =
-                new vec2(mf.trk.desList[mf.trk.desList.Count - 1].easting,
-                mf.trk.desList[mf.trk.desList.Count - 1].northing);
+                new vec2(mf.trk.designPtsList[mf.trk.designPtsList.Count - 1].easting,
+                mf.trk.designPtsList[mf.trk.designPtsList.Count - 1].northing);
 
-            int cnt = mf.trk.desList.Count;
+            int cnt = mf.trk.designPtsList.Count;
             if (cnt > 3)
             {
                 //make sure point distance isn't too big
-                mf.trk.MakePointMinimumSpacing(ref mf.trk.desList, 1.6);
-                mf.trk.CalculateHeadings(ref mf.trk.desList);
+                mf.trk.MakePointMinimumSpacing(ref mf.trk.designPtsList, 1.6);
+                mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
 
                 //calculate average heading of line
                 double x = 0, y = 0;
 
-                foreach (vec3 pt in mf.trk.desList)
+                foreach (vec3 pt in mf.trk.designPtsList)
                 {
                     x += Math.Cos(pt.heading);
                     y += Math.Sin(pt.heading);
                 }
-                x /= mf.trk.desList.Count;
-                y /= mf.trk.desList.Count;
+                x /= mf.trk.designPtsList.Count;
+                y /= mf.trk.designPtsList.Count;
                 gTemp[indx].heading = Math.Atan2(y, x);
                 if (gTemp[indx].heading < 0) gTemp[indx].heading += glm.twoPI;
 
                 //build the tail extensions
-                mf.trk.AddFirstLastPoints(ref mf.trk.desList);
+                mf.trk.AddFirstLastPoints(ref mf.trk.designPtsList, 100);
                 //mf.trk.SmoothAB(2);
-                mf.trk.CalculateHeadings(ref mf.trk.desList);
+                mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
 
                 //array number is 1 less since it starts at zero
                 indx = gTemp.Count - 1;
@@ -523,7 +523,7 @@ namespace AgOpenGPS
                 gTemp[indx].mode = TrackMode.Curve;
 
                 //write out the Curve Points
-                foreach (vec3 item in mf.trk.desList)
+                foreach (vec3 item in mf.trk.designPtsList)
                 {
                     gTemp[indx].curvePts.Add(item);
                 }
@@ -539,7 +539,7 @@ namespace AgOpenGPS
             {
             }
             btnExit.Focus();
-            mf.trk.desList?.Clear();
+            mf.trk.designPtsList?.Clear();
         }
 
         private void BtnMakeABLine_Click(object sender, EventArgs e)

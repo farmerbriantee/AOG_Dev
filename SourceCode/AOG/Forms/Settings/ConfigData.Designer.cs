@@ -298,7 +298,6 @@ namespace AgOpenGPS
             //the nudge controls at bottom menu
             cboxFeatureNudge.Checked = Properties.Settings.Default.setFeatures.isABLineOn;
             //cboxFeatureBoundaryContour.Checked = Properties.Settings.Default.setFeatures.isBndContourOn;
-            cboxFeatureRecPath.Checked = Properties.Settings.Default.setFeatures.isRecPathOn;
             cboxFeatureABSmooth.Checked = Properties.Settings.Default.setFeatures.isABSmoothOn;
             cboxFeatureHideContour.Checked = Properties.Settings.Default.setFeatures.isHideContourOn;
             cboxFeatureWebcam.Checked = Properties.Settings.Default.setFeatures.isWebCamOn;
@@ -326,8 +325,6 @@ namespace AgOpenGPS
             Properties.Settings.Default.setFeatures.isABLineOn = cboxFeatureNudge.Checked;
 
             Properties.Settings.Default.setFeatures.isBoundaryOn = cboxFeatureBoundary.Checked;
-            //Properties.Settings.Default.setFeatures.isBndContourOn = cboxFeatureBoundaryContour.Checked;
-            Properties.Settings.Default.setFeatures.isRecPathOn = cboxFeatureRecPath.Checked;
             Properties.Settings.Default.setFeatures.isABSmoothOn = cboxFeatureABSmooth.Checked;
             Properties.Settings.Default.setFeatures.isHideContourOn = cboxFeatureHideContour.Checked;
             Properties.Settings.Default.setFeatures.isWebCamOn = cboxFeatureWebcam.Checked;
@@ -352,9 +349,7 @@ namespace AgOpenGPS
 
             Properties.Settings.Default.setDisplay_isShutdownWhenNoPower = cboxShutdownWhenNoPower.Checked;
 
-            Properties.Settings.Default.setDisplay_isHardwareMessages = cboxHardwareMessages.Checked;
-
-            
+            Properties.Settings.Default.setDisplay_isHardwareMessages = cboxHardwareMessages.Checked;            
         }
 
         private void btnRightMenuOrder_Click(object sender, EventArgs e)

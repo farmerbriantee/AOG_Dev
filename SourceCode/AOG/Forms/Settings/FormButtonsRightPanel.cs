@@ -78,7 +78,7 @@ namespace AgOpenGPS
             flpRight.Controls.Add(manualSection);
             flpRight.Controls.Add(skipPrev);
             flpRight.Controls.Add(skipNext);
-            flpRight.Controls.Add(track);
+            //flpRight.Controls.Add(track);
             flpRight.Controls.Add(contour);
 
             mf.buttonOrder?.Clear();
@@ -93,16 +93,16 @@ namespace AgOpenGPS
             btnSectionMasterAuto.Enabled = false;
             btnCycleLinesBk.Enabled = false;
             btnCycleLines.Enabled = false;
-            btnTrack.Enabled = false;
+            //btnTrack.Enabled = false;
             btnContour.Enabled = false;
         }
-        private void btnTrack_Click(object sender, EventArgs e)
-        {
-            flpRight.Controls.Add(track);
-            btnTrack.Enabled = false;
-            mf.buttonOrder.Add(4);
-            btnCounter++;
-        }
+        //private void btnTrack_Click(object sender, EventArgs e)
+        //{
+        //    flpRight.Controls.Add(track);
+        //    btnTrack.Enabled = false;
+        //    mf.buttonOrder.Add(4);
+        //    btnCounter++;
+        //}
 
         private void btnCycleLinesBk_Click(object sender, EventArgs e)
         {
@@ -136,7 +136,7 @@ namespace AgOpenGPS
             btnSectionMasterAuto.Enabled = true;
             btnCycleLinesBk.Enabled = true;
             btnCycleLines.Enabled = true;
-            btnTrack.Enabled = true;
+            //btnTrack.Enabled = true;
             btnContour.Enabled = true;
 
             btnCounter = 0;

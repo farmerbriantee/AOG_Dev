@@ -332,8 +332,8 @@ namespace AgOpenGPS
                 rEastPivot = pivA.easting + (U * dx);
                 rNorthPivot = pivA.northing + (U * dz);
 
-                mf.trk.rEastCu = rEastPivot;
-                mf.trk.rNorthCu = rNorthPivot;
+                mf.trk.rEastTrk = rEastPivot;
+                mf.trk.rNorthTrk = rNorthPivot;
 
                 mf.trk.currentLocationIndex = pA;
 

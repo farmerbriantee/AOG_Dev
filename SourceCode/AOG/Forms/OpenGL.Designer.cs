@@ -335,12 +335,12 @@ namespace AgOpenGPS
                         //draw Boundaries
                         bnd.DrawFenceLines();
 
-                        GL.LineWidth(ABLine.lineWidth);
+                        GL.LineWidth(trk.lineWidth);
 
                         //draw the turnLines
                         if (yt.isYouTurnBtnOn && !ct.isContourBtnOn)
                         {
-                            GL.LineWidth(ABLine.lineWidth * 3);
+                            GL.LineWidth(trk.lineWidth * 3);
                             GL.Color4(0, 0, 0, 0.80f);
 
                             for (int i = 0; i < bnd.bndList.Count; i++)
@@ -349,7 +349,7 @@ namespace AgOpenGPS
                             }
 
                             GL.Color3(0.76f, 0.6f, 0.95f);
-                            GL.LineWidth(ABLine.lineWidth);
+                            GL.LineWidth(trk.lineWidth);
                             for (int i = 0; i < bnd.bndList.Count; i++)
                             {
                                 bnd.bndList[i].turnLine.DrawPolygon();
@@ -359,12 +359,12 @@ namespace AgOpenGPS
                         //Draw headland
                         if (bnd.isHeadlandOn)
                         {
-                            GL.LineWidth(ABLine.lineWidth*3);
+                            GL.LineWidth(trk.lineWidth*3);
 
                             GL.Color4(0,0,0, 0.80f);
                             bnd.bndList[0].hdLine.DrawPolygon();
 
-                            GL.LineWidth(ABLine.lineWidth);
+                            GL.LineWidth(trk.lineWidth);
                             GL.Color4(0.960f, 0.96232f, 0.30f, 1.0f);
                             bnd.bndList[0].hdLine.DrawPolygon();
                         }
@@ -380,20 +380,15 @@ namespace AgOpenGPS
                         //when switching lines, draw the ghost
                         if (trk.idx > -1)
                         {
-                            if (trk.gArr[trk.idx].mode == TrackMode.AB)
-                                ABLine.DrawABLines();
-                            else
-                                trk.DrawTrack();
+                            trk.DrawTrack();
                         }
                     }
 
                     //draw line creations
-                    if (trk.isMakingCurve) trk.DrawNewTrack();
+                    if (trk.isMakingCurveTrack) trk.DrawNewTrack();
 
-                    if (ABLine.isMakingABLine) ABLine.DrawABLineNew();
-
-                    recPath.DrawRecordedLine();
-                    recPath.DrawDubins();
+                    if (trk.isMakingABLine)
+                        trk.DrawABLineNew();
 
                     if (flagPts.Count > 0) DrawFlags();
 
@@ -402,7 +397,7 @@ namespace AgOpenGPS
                     {
                         if (flagNumberPicked > 0)
                         {
-                            GL.LineWidth(ABLine.lineWidth);
+                            GL.LineWidth(trk.lineWidth);
                             GL.Enable(EnableCap.LineStipple);
                             GL.LineStipple(1, 0x0707);
                             GL.Begin(PrimitiveType.Lines);
@@ -444,34 +439,17 @@ namespace AgOpenGPS
 
                         if (trk.idx > -1)
                         {
-                            if (trk.gArr[trk.idx].mode == TrackMode.AB)
-                            {
-                                GL.PointSize(12);
-                                GL.Begin(PrimitiveType.Points);
-                                GL.Color3(0, 0, 0);
-                                GL.Vertex3(ABLine.goalPointAB.easting, ABLine.goalPointAB.northing, 0.0);
-                                GL.End();
+                            GL.PointSize(12);
+                            GL.Begin(PrimitiveType.Points);
+                            GL.Color3(0, 0, 0);
+                            GL.Vertex3(trk.goalPointTrk.easting, trk.goalPointTrk.northing, 0.0);
+                            GL.End();
 
-                                GL.PointSize(6);
-                                GL.Begin(PrimitiveType.Points);
-                                GL.Color3(0.98, 0.98, 0.098);
-                                GL.Vertex3(ABLine.goalPointAB.easting, ABLine.goalPointAB.northing, 0.0);
-                                GL.End();
-                            }
-                            else
-                            {
-                                GL.PointSize(12);
-                                GL.Begin(PrimitiveType.Points);
-                                GL.Color3(0, 0, 0);
-                                GL.Vertex3(trk.goalPointCu.easting, trk.goalPointCu.northing, 0.0);
-                                GL.End();
-
-                                GL.PointSize(6);
-                                GL.Begin(PrimitiveType.Points);
-                                GL.Color3(0.98, 0.98, 0.098);
-                                GL.Vertex3(trk.goalPointCu.easting, trk.goalPointCu.northing, 0.0);
-                                GL.End();
-                            }
+                            GL.PointSize(6);
+                            GL.Begin(PrimitiveType.Points);
+                            GL.Color3(0.98, 0.98, 0.098);
+                            GL.Vertex3(trk.goalPointTrk.easting, trk.goalPointTrk.northing, 0.0);
+                            GL.End();
                         }
                     }
 
@@ -1585,144 +1563,6 @@ namespace AgOpenGPS
                 {
                     fd.actualAreaCovered = fd.overlapPercent = 0;
                 }
-
-                //GL.Flush();
-                ////oglZoom.MakeCurrent();
-                ////oglZoom.SwapBuffers();
-
-                //if (oglZoom.Width != 400)
-                //{
-                //    oglZoom.MakeCurrent();
-
-                //    GL.Disable(EnableCap.Blend);
-
-                //    GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
-                //    GL.LoadIdentity();                  // Reset The View
-
-                //    //back the camera up
-                //    GL.Translate(0, 0, -maxFieldDistance*0.92);
-
-                //    //translate to that spot in the world 
-                //    GL.Translate(-fieldCenterX, -fieldCenterY, 0);
-
-                //    //draw the ABLine
-                //    if ((ABLine.isABLineSet | ABLine.isMakingABLine) && ABLine.isBtnABLineOn)
-                //    {
-                //        //Draw reference AB line
-                //        GL.LineWidth(1);
-                //        GL.Enable(EnableCap.LineStipple);
-                //        GL.LineStipple(1, 0x00F0);
-
-                //        GL.Begin(PrimitiveType.Lines);
-                //        GL.Color3(0.9f, 0.2f, 0.2f);
-                //        GL.Vertex3(ABLine.refLineEndA.easting, ABLine.refLineEndA.northing, 0);
-                //        GL.Vertex3(ABLine.refLineEndB.easting, ABLine.refLineEndB.northing, 0);
-                //        GL.End();
-                //        GL.Disable(EnableCap.LineStipple);
-
-                //        //raw current AB Line
-                //        GL.Begin(PrimitiveType.Lines);
-                //        GL.Color3(0.9f, 0.20f, 0.90f);
-                //        GL.Vertex3(ABLine.currentLinePtA.easting, ABLine.currentLinePtA.northing, 0.0);
-                //        GL.Vertex3(ABLine.currentLinePtB.easting, ABLine.currentLinePtB.northing, 0.0);
-                //        GL.End();
-                //    }
-
-                //    //draw curve if there is one
-                //    if (trk.isCurveSet && trk.isBtnTrackOn)
-                //    {
-                //        int ptC = trk.curList.Count;
-                //        if (ptC > 0)
-                //        {
-                //            GL.LineWidth(2);
-                //            GL.Color3(0.925f, 0.2f, 0.90f);
-                //            GL.Begin(PrimitiveType.LineStrip);
-                //            for (int h = 0; h < ptC; h++) GL.Vertex3(trk.curList[h].easting, trk.curList[h].northing, 0);
-                //            GL.End();
-                //        }
-                //    }
-
-                //    //draw all the fences
-                //    bnd.DrawFenceLines();
-
-                //    GL.PointSize(8.0f);
-                //    GL.Begin(PrimitiveType.Points);
-                //    GL.Color3(0.95f, 0.90f, 0.0f);
-                //    GL.Vertex3(pivotAxlePos.easting, pivotAxlePos.northing, 0.0);
-                //    GL.End();
-
-                //    GL.PointSize(1.0f);
-
-                //    if (isDay) GL.Color3(sectionColorDay.R, sectionColorDay.G, sectionColorDay.B);
-                //    else GL.Color3(sectionColorDay.R, sectionColorDay.G, sectionColorDay.B);
-
-                //    //GL.Color3((byte)0, (byte)200, (byte)0);
-                //    int cnt, step, patchCount;
-                //    int mipmap = 8;
-
-                //    //draw patches j= # of sections
-                //    for (int j = 0; j < triStrip.Count; j++)
-                //    {
-                //        //every time the section turns off and on is a new patch
-                //        patchCount = triStrip[j].patchList.Count;
-
-                //        if (patchCount > 0)
-                //        {
-                //            //for every new chunk of patch
-                //            foreach (var triList in triStrip[j].patchList)
-                //            {
-                //                //draw the triangle in each triangle strip
-                //                GL.Begin(PrimitiveType.TriangleStrip);
-                //                cnt = triList.Count;
-
-                //                //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
-                //                if (cnt >= (mipmap))
-                //                {
-                //                    step = mipmap;
-                //                    for (int i = 1; i < cnt; i += step)
-                //                    {
-                //                        GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
-                //                        GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
-
-                //                        //too small to mipmap it
-                //                        if (cnt - i <= (mipmap + 2))
-                //                            step = 0;
-                //                    }
-                //                }
-
-                //                else
-                //                {
-                //                    for (int i = 1; i < cnt; i++)
-                //                        GL.Vertex3(triList[i].easting, triList[i].northing, 0);
-                //                }
-                //                GL.End();
-
-                //            }
-                //        }
-                //    } //end of section patches
-
-                //    GL.Flush();
-
-                //    //byte[] overPix = new byte[oglZoom.Height * oglZoom.Width + 1];
-
-                //    //GL.ReadPixels(0, 0, oglZoom.Width, oglZoom.Width, OpenTK.Graphics.OpenGL.PixelFormat.Green, PixelType.UnsignedByte, overPix);
-
-                //    //int more = 0;
-
-                //    //for (int i = 0; i < oglZoom.Width * oglZoom.Width; i++)
-                //    //{
-
-                //    //    if (overPix[i] == 200)
-                //    //    {
-                //    //        more++;
-                //    //    }
-                //    //}
-
-                //    //double scale = ((maxFieldDistance * maxFieldDistance) / (oglZoom.Height * oglZoom.Width) * (double)more)/10000;
-
-                //    oglZoom.MakeCurrent();
-                //    oglZoom.SwapBuffers();
-                //}
             }
         }
 
@@ -1879,21 +1719,14 @@ namespace AgOpenGPS
             if (mc.steerSwitchHigh)
             {
                 GL.Color4(0.9752f, 0.0f, 0.03f, 0.98);
-                trk.isAutoSnapped = false;
             }
             else if (isBtnAutoSteerOn)
             {
                 GL.Color4(0.052f, 0.970f, 0.03f, 0.97);
-                if (trk.isAutoSnapToPivot && !trk.isAutoSnapped)
-                {
-                    trk.SnapToPivot();
-                    trk.isAutoSnapped = true;
-                }
             }
             else
             {
                 GL.Color4(0.952f, 0.750f, 0.03f, 0.97);
-                trk.isAutoSnapped = false;
             }
 
             //we have lost connection to steer module
@@ -2220,7 +2053,7 @@ namespace AgOpenGPS
         {
             GL.Disable(EnableCap.DepthTest);
 
-            if (ct.isContourBtnOn || trk.idx > -1 || recPath.isDrivingRecordedPath)
+            if (ct.isContourBtnOn || trk.idx > -1 )
             {
 
                 // in millimeters
@@ -2306,7 +2139,7 @@ namespace AgOpenGPS
         private void DrawSteerBarText()
         {
 
-            if (ct.isContourBtnOn || trk.idx > -1 || recPath.isDrivingRecordedPath)
+            if (ct.isContourBtnOn || trk.idx > -1 )
             {
                 GL.Disable(EnableCap.DepthTest);
                 int spacing = oglMain.Width / 50;
@@ -2479,30 +2312,17 @@ namespace AgOpenGPS
 
             if (trk.gArr[trk.idx].nudgeDistance != 0)
                 offs = ((int)(trk.gArr[trk.idx].nudgeDistance * m2InchOrCm)).ToString() + unitsInCmNS;
-            
+
             string dire;
 
-            if (trk.gArr[trk.idx].mode == TrackMode.AB)
-            {
-                if (ABLine.isHeadingSameWay) dire = "{";
-                else dire = "}";
+            if (trk.isHeadingSameWay) dire = "{";
+            else dire = "}";
 
-                if (ABLine.howManyPathsAway > -1)
-                    dire = dire + (ABLine.howManyPathsAway + 1).ToString() + "R " + offs;
-                else
-                    dire = dire + (-ABLine.howManyPathsAway).ToString() + "L " + offs;
-            }
+            GL.Color4(1.269, 1.25, 1.2510, 0.87);
+            if (trk.howManyPathsAway > -1)
+                dire = dire + (trk.howManyPathsAway + 1).ToString() + "R " + offs;
             else
-            {
-                if (trk.isHeadingSameWay) dire = "{";
-                else dire = "}";
-
-                GL.Color4(1.269, 1.25, 1.2510, 0.87);
-                if (trk.howManyPathsAway > -1) 
-                    dire = dire + (trk.howManyPathsAway + 1).ToString() + "R " + offs;
-                else 
-                    dire = dire + (-trk.howManyPathsAway).ToString() + "L " + offs;
-            }
+                dire = dire + (-trk.howManyPathsAway).ToString() + "L " + offs;
 
             int start = -(int)(((double)(dire.Length) * 0.45) * (20 * (1.0)));
             int down = 68 + (int)((double)(oglMain.Height - 600) / 12);

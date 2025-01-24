@@ -48,6 +48,7 @@ namespace AgOpenGPS
         private void FormBoundaryLines_Load(object sender, EventArgs e)
         {
             LoadAndSegmentABLines();
+            if (gTemp.Count < 2) return;
 
             CalculateMinMax();
 
@@ -251,8 +252,9 @@ namespace AgOpenGPS
 
             if (gTemp.Count < 2)
             {
-                mf.YesMessageBox(gStr.gsNoGuidanceLines + "\r\n\r\n  Exiting");
+                mf.YesMessageBox("Need at least 2 Guidance lines" + "\r\n\r\n  Exiting");
                 Close();
+                return;
             }
             else
             {

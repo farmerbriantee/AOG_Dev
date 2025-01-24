@@ -82,7 +82,7 @@ namespace AgOpenGPS
             start = 99999; end = 99999;
             isA = true;
 
-            mf.trk.desList?.Clear();
+            mf.trk.designPtsList?.Clear();
 
             zoom = 1;
             sX = 0;

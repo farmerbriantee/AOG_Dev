@@ -947,7 +947,6 @@ namespace AgOpenGPS
             trk.gArr?.Clear();
 
             FileLoadTracks();
-
             
             //section patches
             fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Sections.txt");

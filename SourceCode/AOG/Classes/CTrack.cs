@@ -96,19 +96,8 @@ namespace AgOpenGPS
         {
             if (idx > -1)
             {
-                if (gArr[idx].mode == TrackMode.AB)
-                {
-                    mf.ABLine.isABValid = false;
-                    gArr[idx].nudgeDistance += mf.ABLine.isHeadingSameWay ? dist : -dist;
-                }
-                else
-                {
-                    isTrackValid = false;
-                    gArr[idx].nudgeDistance += isHeadingSameWay ? dist : -dist;
-                }
-
-                //if (gArr[idx].nudgeDistance > 0.5 * mf.tool.width) gArr[idx].nudgeDistance -= mf.tool.width;
-                //else if (gArr[idx].nudgeDistance < -0.5 * mf.tool.width) gArr[idx].nudgeDistance += mf.tool.width;
+                isTrackValid = false;
+                gArr[idx].nudgeDistance += isHeadingSameWay ? dist : -dist;
             }
         }
 
@@ -116,15 +105,7 @@ namespace AgOpenGPS
         {
             if (idx > -1 && gArr.Count > 0)
             {
-                if (gArr[idx].mode == TrackMode.AB)
-                {
-                    mf.ABLine.isABValid = false;
-                }
-                else
-                {
-                    isTrackValid = false;
-                }
-
+                isTrackValid = false;
                 gArr[idx].nudgeDistance = 0;
             }
         }
@@ -133,7 +114,7 @@ namespace AgOpenGPS
         {
             if (idx > -1)
             {
-                NudgeTrack(gArr[idx].mode == TrackMode.AB ? mf.ABLine.distanceFromCurrentLinePivot : distanceFromCurrentLinePivot);
+                NudgeTrack(distanceFromCurrentLinePivot);
             }
         }
 
@@ -385,7 +366,7 @@ namespace AgOpenGPS
                     if (mf.isSideGuideLines && mf.camera.camSetDistance > mf.tool.width * -400)
                     {
                         //build the list list of guide lines
-                        guideArr = await Task.Run(() => BuildTrackGuidelines(distAway, mf.ABLine.numGuideLines, track));
+                        guideArr = await Task.Run(() => BuildTrackGuidelines(distAway, mf.trk.numGuideLines, track));
                     }
                 }
             }

@@ -819,65 +819,15 @@ namespace AgOpenGPS
             timer1.Enabled = false;
             mf.trk.isMakingABLine = false;
 
-            mf.trk.gArr.Add(new CTrk());
-
-            idx = mf.trk.gArr.Count - 1;
-
-            mf.trk.gArr[idx].mode = TrackMode.AB;
-
-            double hsin = Math.Sin(mf.trk.designHeading);
-            double hcos = Math.Cos(mf.trk.designHeading);
-
-            //fill in the dots between A and B
-            double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
-            if (len < 20)
-            {
-                mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
-                mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
-            }
-            len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
-
-            vec3 P1 = new vec3();
-            for (int i = 0; i < (int)len; i += 1)
-            {
-                P1.easting = (hsin * i) + mf.trk.designPtA.easting;
-                P1.northing = (hcos * i) + mf.trk.designPtA.northing;
-                P1.heading = mf.trk.designHeading;
-                mf.trk.gArr[idx].curvePts.Add(P1);
-            }
+            mf.trk.CreateDesignedABTrack(isRefRightSide);
 
             mf.trk.designName = "AB: " +
                 (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.trk.designName;
 
-            mf.trk.gArr[idx].heading = mf.trk.designHeading;
-
-            double dist;
-            if (isRefRightSide)
-            {
-                dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
-                mf.trk.idx = idx;
-                mf.trk.NudgeRefTrack(dist);
-            }
-            else
-            {
-                dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
-                mf.trk.idx = idx;
-                mf.trk.NudgeRefTrack(dist);
-            }
-
-            mf.trk.gArr[idx].ptA.easting = (mf.trk.gArr[idx].curvePts[0].easting);
-            mf.trk.gArr[idx].ptA.northing = (mf.trk.gArr[idx].curvePts[0].northing);
-            mf.trk.gArr[idx].ptB.easting = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].easting);
-            mf.trk.gArr[idx].ptB.northing = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].northing);
-
-            //build the tail extensions
-            mf.trk.AddFirstLastPoints(ref mf.trk.gArr[idx].curvePts, 100);
-
             panelABLine.Visible = false;
             panelName.Visible = true;
             mf.Activate();
-
         }
 
         #endregion AB Line
@@ -944,61 +894,13 @@ namespace AgOpenGPS
             timer1.Enabled = false;
 
             mf.trk.isMakingABLine = false;
-            mf.trk.gArr.Add(new CTrk());
 
-            idx = mf.trk.gArr.Count - 1;
-
-            mf.trk.gArr[idx].mode = TrackMode.Curve;
-
-            double hsin = Math.Sin(mf.trk.designHeading);
-            double hcos = Math.Cos(mf.trk.designHeading);
-
-            //make sure line is long enough
-            double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
-            if (len < 20)
-            {
-                mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
-                mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
-            }
-            len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
-
-            vec3 P1 = new vec3();
-            for (int i = 0; i < (int)len; i += 1)
-            {
-                P1.easting = (hsin * i) + mf.trk.designPtA.easting;
-                P1.northing = (hcos * i) + mf.trk.designPtA.northing;
-                P1.heading = mf.trk.designHeading;
-                mf.trk.gArr[idx].curvePts.Add(P1);
-            }
+            mf.trk.CreateDesignedABTrack(isRefRightSide);
 
             mf.trk.designName = "A+" +
                 (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.trk.designName;
-
-            mf.trk.gArr[idx].heading = mf.trk.designHeading;
-
-            double dist;
-            if (isRefRightSide)
-            {
-                dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
-                mf.trk.idx = idx;
-                mf.trk.NudgeRefTrack(dist);
-            }
-            else
-            {
-                dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
-                mf.trk.idx = idx;
-                mf.trk.NudgeRefTrack(dist);
-            }
-
-            mf.trk.gArr[idx].ptA.easting = (mf.trk.gArr[idx].curvePts[0].easting);
-            mf.trk.gArr[idx].ptA.northing = (mf.trk.gArr[idx].curvePts[0].northing);
-            mf.trk.gArr[idx].ptB.easting = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].easting);
-            mf.trk.gArr[idx].ptB.northing = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].northing);
-
-            //build the tail extensions
-            mf.trk.AddFirstLastPoints(ref mf.trk.gArr[idx].curvePts, 100);
-
+            
             panelAPlus.Visible = false;
             panelName.Visible = true;
             mf.Activate();
@@ -1117,50 +1019,7 @@ namespace AgOpenGPS
                         else mf.trk.designName = "AB: " +
                             (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
 
-                        mf.trk.gArr.Add(new CTrk());
-
-                        idx = mf.trk.gArr.Count - 1;
-
-                        mf.trk.gArr[idx].mode = TrackMode.Curve;
-
-                        double hsin = Math.Sin(mf.trk.designHeading);
-                        double hcos = Math.Cos(mf.trk.designHeading);
-
-                        //fill in the dots between A and B
-                        double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
-
-                        vec3 P1 = new vec3();
-                        for (int k = 0; k < (int)len; k += 1)
-                        {
-                            P1.easting = (hsin * k) + mf.trk.designPtA.easting;
-                            P1.northing = (hcos * k) + mf.trk.designPtA.northing;
-                            P1.heading = mf.trk.designHeading;
-                            mf.trk.gArr[idx].curvePts.Add(P1);
-                        }
-
-                        mf.trk.gArr[idx].heading = mf.trk.designHeading;
-
-                        double dist;
-                        if (isRefRightSide)
-                        {
-                            dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
-                            mf.trk.idx = idx;
-                            mf.trk.NudgeRefTrack(dist);
-                        }
-                        else
-                        {
-                            dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
-                            mf.trk.idx = idx;
-                            mf.trk.NudgeRefTrack(dist);
-                        }
-
-                        mf.trk.gArr[idx].ptA.easting = (mf.trk.gArr[idx].curvePts[0].easting);
-                        mf.trk.gArr[idx].ptA.northing = (mf.trk.gArr[idx].curvePts[0].northing);
-                        mf.trk.gArr[idx].ptB.easting = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].easting);
-                        mf.trk.gArr[idx].ptB.northing = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].northing);
-
-                        //build the tail extensions
-                        mf.trk.AddFirstLastPoints(ref mf.trk.gArr[idx].curvePts, 100);
+                        mf.trk.CreateDesignedABTrack(isRefRightSide);
 
                         //create a name
                         mf.trk.gArr[idx].name = mf.trk.designName;
@@ -1270,71 +1129,16 @@ namespace AgOpenGPS
             mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
         }
 
-        private void btnEnter_LatLonLatLon_Click(object sender, EventArgs e)
+        private void btnFillLatLonLatLonA_Click(object sender, EventArgs e)
         {
-            CalcHeadingAB();
+            nudLatitudeA.Value = (decimal)mf.pn.latitude;
+            nudLongitudeA.Value = (decimal)mf.pn.longitude;
+        }
 
-            mf.trk.isMakingABLine = false;
-
-            mf.trk.gArr.Add(new CTrk());
-
-            idx = mf.trk.gArr.Count - 1;
-
-            mf.trk.gArr[idx].mode = TrackMode.AB;
-
-            double hsin = Math.Sin(mf.trk.designHeading);
-            double hcos = Math.Cos(mf.trk.designHeading);
-
-            //fill in the dots between A and B
-            double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
-            if (len < 20)
-            {
-                mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
-                mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
-            }
-            len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
-
-            vec3 P1 = new vec3();
-            for (int i = 0; i < (int)len; i += 1)
-            {
-                P1.easting = (hsin * i) + mf.trk.designPtA.easting;
-                P1.northing = (hcos * i) + mf.trk.designPtA.northing;
-                P1.heading = mf.trk.designHeading;
-                mf.trk.gArr[idx].curvePts.Add(P1);
-            }
-
-            mf.trk.designName = "AB: " +
-                (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
-            textBox1.Text = mf.trk.designName;
-
-            mf.trk.gArr[idx].heading = mf.trk.designHeading;
-
-            double dist;
-            if (isRefRightSide)
-            {
-                dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
-                mf.trk.idx = idx;
-                mf.trk.NudgeRefTrack(dist);
-            }
-            else
-            {
-                dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
-                mf.trk.idx = idx;
-                mf.trk.NudgeRefTrack(dist);
-            }
-
-            mf.trk.gArr[idx].ptA.easting = (mf.trk.gArr[idx].curvePts[0].easting);
-            mf.trk.gArr[idx].ptA.northing = (mf.trk.gArr[idx].curvePts[0].northing);
-            mf.trk.gArr[idx].ptB.easting = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].easting);
-            mf.trk.gArr[idx].ptB.northing = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].northing);
-
-            //build the tail extensions
-            mf.trk.AddFirstLastPoints(ref mf.trk.gArr[idx].curvePts, 100);
-
-            panelLatLonLatLon.Visible = false;
-            panelName.Visible = true;
-
-            this.Size = new System.Drawing.Size(270, 360);
+        private void btnFillLatLonLatLonB_Click(object sender, EventArgs e)
+        {
+            nudLatitudeB.Value = (decimal)mf.pn.latitude;
+            nudLongitudeB.Value = (decimal)mf.pn.longitude;
         }
 
         public void CalcHeadingAB()
@@ -1362,16 +1166,22 @@ namespace AgOpenGPS
             }
         }
 
-        private void btnFillLatLonLatLonA_Click(object sender, EventArgs e)
+        private void btnEnter_LatLonLatLon_Click(object sender, EventArgs e)
         {
-            nudLatitudeA.Value = (decimal)mf.pn.latitude;
-            nudLongitudeA.Value = (decimal)mf.pn.longitude;
-        }
+            CalcHeadingAB();
 
-        private void btnFillLatLonLatLonB_Click(object sender, EventArgs e)
-        {
-            nudLatitudeB.Value = (decimal)mf.pn.latitude;
-            nudLongitudeB.Value = (decimal)mf.pn.longitude;
+            mf.trk.isMakingABLine = false;
+
+            mf.trk.CreateDesignedABTrack(isRefRightSide);
+
+            mf.trk.designName = "AB: " +
+                (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+            textBox1.Text = mf.trk.designName;
+
+            panelLatLonLatLon.Visible = false;
+            panelName.Visible = true;
+
+            this.Size = new System.Drawing.Size(270, 360);
         }
 
         #endregion LatLon LatLon
@@ -1393,73 +1203,6 @@ namespace AgOpenGPS
             mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
         }
 
-        private void btnEnter_LatLonPlus_Click(object sender, EventArgs e)
-        {
-            CalcHeadingAPlus();
-
-            mf.trk.isMakingABLine = false;
-            mf.trk.gArr.Add(new CTrk());
-
-            idx = mf.trk.gArr.Count - 1;
-
-            mf.trk.gArr[idx].mode = TrackMode.AB;
-
-            double hsin = Math.Sin(mf.trk.designHeading);
-            double hcos = Math.Cos(mf.trk.designHeading);
-
-            //fill in the dots between A and B
-            double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
-            if (len < 20)
-            {
-                mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
-                mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
-            }
-            len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
-
-            vec3 P1 = new vec3();
-            for (int i = 0; i < (int)len; i += 1)
-            {
-                P1.easting = (hsin * i) + mf.trk.designPtA.easting;
-                P1.northing = (hcos * i) + mf.trk.designPtA.northing;
-                P1.heading = mf.trk.designHeading;
-                mf.trk.gArr[idx].curvePts.Add(P1);
-            }
-
-            mf.trk.designName = "A+" +
-                (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
-            textBox1.Text = mf.trk.designName;
-
-            mf.trk.gArr[idx].heading = mf.trk.designHeading;
-
-            double dist;
-            if (isRefRightSide)
-            {
-                dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
-                mf.trk.idx = idx;
-                mf.trk.NudgeRefTrack(dist);
-            }
-            else
-            {
-                dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
-                mf.trk.idx = idx;
-                mf.trk.NudgeRefTrack(dist);
-            }
-
-            mf.trk.gArr[idx].ptA.easting = (mf.trk.gArr[idx].curvePts[0].easting);
-            mf.trk.gArr[idx].ptA.northing = (mf.trk.gArr[idx].curvePts[0].northing);
-            mf.trk.gArr[idx].ptB.easting = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].easting);
-            mf.trk.gArr[idx].ptB.northing = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].northing);
-
-            //build the tail extensions
-            mf.trk.AddFirstLastPoints(ref mf.trk.gArr[idx].curvePts, 100);
-
-
-            panelLatLonPlus.Visible = false;
-            panelName.Visible = true;
-
-            this.Size = new System.Drawing.Size(270, 360);
-        }
-
         private void btnFillLatLonPlus_Click(object sender, EventArgs e)
         {
             nudLatitudePlus.Value = (decimal)mf.pn.latitude;
@@ -1476,6 +1219,25 @@ namespace AgOpenGPS
 
             mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.pivotAxlePos.heading) * 30);
             mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.pivotAxlePos.heading) * 30);
+        }
+
+        private void btnEnter_LatLonPlus_Click(object sender, EventArgs e)
+        {
+            CalcHeadingAPlus();
+
+            mf.trk.isMakingABLine = false;
+
+            mf.trk.CreateDesignedABTrack(isRefRightSide);
+
+            mf.trk.designName = "A+" +
+                (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+            textBox1.Text = mf.trk.designName;
+
+
+            panelLatLonPlus.Visible = false;
+            panelName.Visible = true;
+
+            this.Size = new System.Drawing.Size(270, 360);
         }
 
         #endregion LatLon +

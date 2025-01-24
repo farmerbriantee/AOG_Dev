@@ -506,12 +506,6 @@
       <SubType>Form</SubType>
       <DependentUpon>FormGPS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Guidance\FormTram.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Guidance\FormTram.Designer.cs">
-      <DependentUpon>FormTram.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Settings\FormSteerWiz.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -826,9 +820,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormWebCam.resx">
       <DependentUpon>FormWebCam.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Guidance\FormTram.resx">
-      <DependentUpon>FormTram.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Culture\gStr.da.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -553,7 +553,6 @@ namespace AgOpenGPS
             headlandBuildToolStripMenuItem.Text = gStr.gsHeadland + " Builder";
             deleteContourPathsToolStripMenuItem.Text = gStr.gsDeleteContourPaths;
             deleteAppliedToolStripMenuItem.Text = gStr.gsDeleteAppliedArea;
-            tramLinesMenuField.Text = gStr.gsTramLines;
             tramsMultiMenuField.Text = gStr.gsTramLines + " Multi";
 
             recordedPathStripMenu.Text = gStr.gsRecordedPathMenu;
@@ -1224,7 +1223,6 @@ namespace AgOpenGPS
             headlandToolStripMenuItem.Enabled = isOn;
             headlandBuildToolStripMenuItem.Enabled = isOn;
             flagByLatLonToolStripMenuItem.Enabled = isOn;
-            tramLinesMenuField.Enabled = tramsMultiMenuField.Enabled = isOn;
             recordedPathStripMenu.Enabled = isOn;
         }
 

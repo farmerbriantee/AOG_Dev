@@ -37,7 +37,7 @@ namespace AgOpenGPS
             oglMain.MakeCurrent();
             LoadGLTextures();
             GL.ClearColor(0.14f, 0.14f, 0.37f, 1.0f);
-            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
             GL.CullFace(CullFaceMode.Back);
             SetZoom();
             tmrWatchdog.Enabled = true;
@@ -1435,7 +1435,7 @@ namespace AgOpenGPS
             GL.CullFace(CullFaceMode.Back);
             GL.PixelStore(PixelStoreParameter.PackAlignment, 1);
 
-            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
             GL.ClearColor(0, 0, 0, 1.0f);
         }
 

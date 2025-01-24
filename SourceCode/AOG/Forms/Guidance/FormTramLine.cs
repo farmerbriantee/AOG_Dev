@@ -134,10 +134,7 @@ namespace AgOpenGPS
                 {
                     //default side assuming built in AB Draw - isVisible is used for side to draw
                     gTemp.Add(new CTrk(item));
-                    if (item.mode == TrackMode.AB)
-                        gTemp[gTemp.Count - 1].isVisible = false;
-                    else
-                        gTemp[gTemp.Count - 1].isVisible = true;
+                    gTemp[gTemp.Count - 1].isVisible = true;
                 }
             }
 

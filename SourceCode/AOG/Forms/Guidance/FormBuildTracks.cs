@@ -830,6 +830,12 @@ namespace AgOpenGPS
 
             //fill in the dots between A and B
             double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
+            if (len < 20)
+            {
+                mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
+                mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
+            }
+            len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
 
             vec3 P1 = new vec3();
             for (int i = 0; i < (int)len; i += 1)
@@ -942,13 +948,19 @@ namespace AgOpenGPS
 
             idx = mf.trk.gArr.Count - 1;
 
-            mf.trk.gArr[idx].mode = TrackMode.AB;
+            mf.trk.gArr[idx].mode = TrackMode.Curve;
 
             double hsin = Math.Sin(mf.trk.designHeading);
             double hcos = Math.Cos(mf.trk.designHeading);
 
-            //fill in the dots between A and B
+            //make sure line is long enough
             double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
+            if (len < 20)
+            {
+                mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
+                mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
+            }
+            len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
 
             vec3 P1 = new vec3();
             for (int i = 0; i < (int)len; i += 1)
@@ -986,6 +998,11 @@ namespace AgOpenGPS
 
             //build the tail extensions
             mf.trk.AddFirstLastPoints(ref mf.trk.gArr[idx].curvePts, 100);
+
+            panelAPlus.Visible = false;
+            panelName.Visible = true;
+            mf.Activate();
+
         }
 
         #endregion A Plus
@@ -1270,6 +1287,12 @@ namespace AgOpenGPS
 
             //fill in the dots between A and B
             double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
+            if (len < 20)
+            {
+                mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
+                mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
+            }
+            len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
 
             vec3 P1 = new vec3();
             for (int i = 0; i < (int)len; i += 1)
@@ -1386,6 +1409,12 @@ namespace AgOpenGPS
 
             //fill in the dots between A and B
             double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
+            if (len < 20)
+            {
+                mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
+                mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
+            }
+            len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
 
             vec3 P1 = new vec3();
             for (int i = 0; i < (int)len; i += 1)

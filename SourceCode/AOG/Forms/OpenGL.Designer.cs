@@ -387,6 +387,9 @@ namespace AgOpenGPS
                     //draw line creations
                     if (trk.isMakingCurveTrack) trk.DrawNewTrack();
 
+                    if (trk.isMakingABLine)
+                        trk.DrawABLineNew();
+
                     if (flagPts.Count > 0) DrawFlags();
 
                     //Direct line to flag if flag selected

@@ -168,7 +168,7 @@ namespace AgOpenGPS
             else
             {
                 EnableYouTurnButtons();
-                ABLine.isABValid = false;
+
                 trk.isTrackValid = false;
                 ct.isLocked = false;
                 guidanceLookAheadTime = Properties.Settings.Default.setAS_guidanceLookAheadTime;
@@ -392,8 +392,6 @@ namespace AgOpenGPS
             }
 
             twoSecondCounter = 100;
-
-            ABLine.isABValid = false;
             trk.isTrackValid = false;
         }
 
@@ -430,7 +428,6 @@ namespace AgOpenGPS
                 lblNumCu.Text = (trk.idx + 1).ToString() + "/" + trk.gArr.Count.ToString();
             }
 
-            ABLine.isABValid = false;
             trk.isTrackValid = false;
 
             twoSecondCounter = 100;
@@ -720,6 +717,15 @@ namespace AgOpenGPS
             trk.idx = -1;
 
             PanelUpdateRightAndBottom();
+
+            if (trk.gArr.Count > 0)
+            {
+                trk.idx = 0;
+                EnableYouTurnButtons();
+                PanelUpdateRightAndBottom();
+                twoSecondCounter = 100;
+            }
+
         }
         public void FileSaveEverythingBeforeClosingField()
         {
@@ -768,20 +774,6 @@ namespace AgOpenGPS
             JobClose();
 
             this.Text = "AgOpenGPS";
-        }
-        private void tramLinesMenuField_Click(object sender, EventArgs e)
-        {
-            if (ct.isContourBtnOn) btnContour.PerformClick();
-
-            if (trk.idx == -1)
-            {
-                TimedMessageBox(1500, gStr.gsNoABLineActive, gStr.gsPleaseEnterABLine);
-                panelRight.Enabled = true;
-                return;
-            }
-
-            Form form99 = new FormTram(this, trk.gArr[trk.idx].mode != TrackMode.AB);
-            form99.Show(this);
         }
 
         private void tramLinesMenuMulti_Click(object sender, EventArgs e)
@@ -2211,7 +2203,6 @@ namespace AgOpenGPS
         private void btnSimReverseDirection_Click(object sender, EventArgs e)
         {
             sim.headingTrue += Math.PI;
-            ABLine.isABValid = false;
             trk.isTrackValid = false;
             if (isBtnAutoSteerOn)
             {

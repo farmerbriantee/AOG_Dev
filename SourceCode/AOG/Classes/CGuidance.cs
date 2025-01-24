@@ -109,91 +109,6 @@ namespace AgOpenGPS
         }
 
         /// <summary>
-        /// Function to calculate steer angle for AB Line Segment only
-        /// No curvature calc on straight line
-        /// </summary>
-        /// <param name="curPtA"></param>
-        /// <param name="curPtB"></param>
-        /// <param name="pivot"></param>
-        /// <param name="steer"></param>
-        /// <param name="isValid"></param>
-        public void StanleyGuidanceABLine(vec3 curPtA, vec3 curPtB, vec3 pivot, vec3 steer)
-        {
-            //get the pivot distance from currently active AB segment   ///////////  Pivot  ////////////
-            double dx = curPtB.easting - curPtA.easting;
-            double dy = curPtB.northing - curPtA.northing;
-            if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dy) < Double.Epsilon) return;
-
-            //how far from current AB Line is fix
-            distanceFromCurrentLinePivot = ((dy * pivot.easting) - (dx * pivot.northing) + (curPtB.easting
-                        * curPtA.northing) - (curPtB.northing * curPtA.easting))
-                            / Math.Sqrt((dy * dy) + (dx * dx));
-
-            if (!mf.ABLine.isHeadingSameWay)
-                distanceFromCurrentLinePivot *= -1.0;
-
-            mf.ABLine.distanceFromCurrentLinePivot = distanceFromCurrentLinePivot;
-            double U = (((pivot.easting - curPtA.easting) * dx)
-                            + ((pivot.northing - curPtA.northing) * dy))
-                            / ((dx * dx) + (dy * dy));
-
-            rEastPivot = curPtA.easting + (U * dx);
-            rNorthPivot = curPtA.northing + (U * dy);
-
-            mf.ABLine.rEastAB = rEastPivot;
-            mf.ABLine.rNorthAB = rNorthPivot;
-
-            //get the distance from currently active AB segment of steer axle //////// steer /////////////
-            vec3 steerA = new vec3(curPtA);
-            vec3 steerB = new vec3(curPtB);
-
-            //create the AB segment to offset
-            steerA.easting += (Math.Sin(steerA.heading + glm.PIBy2) * (inty));
-            steerA.northing += (Math.Cos(steerA.heading + glm.PIBy2) * (inty));
-
-            steerB.easting += (Math.Sin(steerB.heading + glm.PIBy2) * (inty));
-            steerB.northing += (Math.Cos(steerB.heading + glm.PIBy2) * (inty));
-
-            dx = steerB.easting - steerA.easting;
-            dy = steerB.northing - steerA.northing;
-
-            if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dy) < Double.Epsilon) return;
-
-            //how far from current AB Line is fix
-            distanceFromCurrentLineSteer = ((dy * steer.easting) - (dx * steer.northing) + (steerB.easting
-                        * steerA.northing) - (steerB.northing * steerA.easting))
-                            / Math.Sqrt((dy * dy) + (dx * dx));
-
-            if (!mf.ABLine.isHeadingSameWay)
-                distanceFromCurrentLineSteer *= -1.0;
-
-            // calc point on ABLine closest to current position - for display only
-            U = (((steer.easting - steerA.easting) * dx)
-                            + ((steer.northing - steerA.northing) * dy))
-                            / ((dx * dx) + (dy * dy));
-
-            rEastSteer = steerA.easting + (U * dx);
-            rNorthSteer = steerA.northing + (U * dy);
-
-            double steerErr = Math.Atan2(rEastSteer - rEastPivot, rNorthSteer - rNorthPivot);
-            steerHeadingError = (steer.heading - steerErr);
-            //Fix the circular error
-            if (steerHeadingError > Math.PI)
-                steerHeadingError -= Math.PI;
-            else if (steerHeadingError < -Math.PI)
-                steerHeadingError += Math.PI;
-
-            if (steerHeadingError > glm.PIBy2)
-                steerHeadingError -= Math.PI;
-            else if (steerHeadingError < -glm.PIBy2)
-                steerHeadingError += Math.PI;
-
-            mf.vehicle.modeActualHeadingError = glm.toDegrees(steerHeadingError);
-
-            DoSteerAngleCalc();
-        }
-
-        /// <summary>
         /// Find the steer angle for a curve list, curvature and integral
         /// </summary>
         /// <param name="pivot">Pivot position vector</param>
@@ -378,7 +293,7 @@ namespace AgOpenGPS
                             * steerA.northing) - (steerB.northing * steerA.easting))
                                 / Math.Sqrt((dz * dz) + (dx * dx));
 
-                // calc point on ABLine closest to current position - for display only
+                // calc point on AB Line closest to current position - for display only
                 U = (((steer.easting - steerA.easting) * dx)
                                 + ((steer.northing - steerA.northing) * dz))
                                 / ((dx * dx) + (dz * dz));

@@ -136,11 +136,6 @@ namespace AgOpenGPS
         public List<CPatches> triStrip;
 
         /// <summary>
-        /// AB Line object
-        /// </summary>
-        public CABLine ABLine;
-
-        /// <summary>
         /// TramLine class for boundary and settings
         /// </summary>
         public CTram tram;
@@ -308,9 +303,6 @@ namespace AgOpenGPS
 
             //our NMEA parser for GPS 2
             pnTwo = new CNMEA(this);
-
-            //create the ABLine instance
-            ABLine = new CABLine(this);
 
             //new instance of contour mode
             ct = new CContour(this);
@@ -553,7 +545,6 @@ namespace AgOpenGPS
             headlandBuildToolStripMenuItem.Text = gStr.gsHeadland + " Builder";
             deleteContourPathsToolStripMenuItem.Text = gStr.gsDeleteContourPaths;
             deleteAppliedToolStripMenuItem.Text = gStr.gsDeleteAppliedArea;
-            tramLinesMenuField.Text = gStr.gsTramLines;
             tramsMultiMenuField.Text = gStr.gsTramLines + " Multi";
 
             recordedPathStripMenu.Text = gStr.gsRecordedPathMenu;
@@ -978,7 +969,6 @@ namespace AgOpenGPS
             btnCycleLines.Image = Properties.Resources.ABLineCycle;
             btnCycleLinesBk.Image = Properties.Resources.ABLineCycleBk;
 
-            ABLine.abHeading = 0.00;
             btnAutoSteer.Enabled = true;
 
             DisableYouTurnButtons();
@@ -1224,7 +1214,6 @@ namespace AgOpenGPS
             headlandToolStripMenuItem.Enabled = isOn;
             headlandBuildToolStripMenuItem.Enabled = isOn;
             flagByLatLonToolStripMenuItem.Enabled = isOn;
-            tramLinesMenuField.Enabled = tramsMultiMenuField.Enabled = isOn;
             recordedPathStripMenu.Enabled = isOn;
         }
 

@@ -1013,11 +1013,7 @@ namespace AgOpenGPS
                             }
                             else
                             {
-                                if (trk.gArr[trk.idx].mode == TrackMode.AB)
-                                {
-                                    yt.BuildABLineDubinsYouTurn();
-                                }
-                                else yt.BuildCurveDubinsYouTurn();
+                                yt.BuildCurveDubinsYouTurn();
                             }
 
                             if (yt.uTurnStyle == 0 && yt.youTurnPhase == 10)

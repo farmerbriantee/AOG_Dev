@@ -800,6 +800,34 @@ namespace AgOpenGPS
                                     trk.gArr[trk.idx].curvePts.Add(vecPtt);
                                 }
                             }
+
+                            if (trk.gArr[trk.idx].mode == TrackMode.AB && trk.gArr[trk.idx].curvePts.Count == 0)
+                            {
+                                double designHeading = trk.gArr[trk.idx].heading;
+
+                                double hsin = Math.Sin(designHeading);
+                                double hcos = Math.Cos(designHeading);
+
+                                //fill in the dots between A and B
+                                double len = glm.Distance(trk.gArr[trk.idx].ptA, trk.gArr[trk.idx].ptB);
+                                if (len < 30)
+                                {
+                                    trk.gArr[trk.idx].ptB.easting = trk.gArr[trk.idx].ptA.easting + (Math.Sin(designHeading) * 30);
+                                    trk.gArr[trk.idx].ptB.northing = trk.gArr[trk.idx].ptA.northing + (Math.Cos(designHeading) * 30);
+                                }
+                                len = glm.Distance(trk.gArr[trk.idx].ptA, trk.gArr[trk.idx].ptB);
+
+                                vec3 P1 = new vec3();
+                                for (int i = 0; i < (int)len; i += 1)
+                                {
+                                    P1.easting = (hsin * i) + trk.gArr[trk.idx].ptA.easting;
+                                    P1.northing = (hcos * i) + trk.gArr[trk.idx].ptA.northing;
+                                    P1.heading = designHeading;
+                                    trk.gArr[trk.idx].curvePts.Add(P1);
+                                }
+
+                                trk.AddFirstLastPoints(ref trk.gArr[trk.idx].curvePts, 50);
+                            }
                         }
                     }
                     catch (Exception er)
@@ -947,7 +975,6 @@ namespace AgOpenGPS
             trk.gArr?.Clear();
 
             FileLoadTracks();
-
             
             //section patches
             fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Sections.txt");
@@ -2204,11 +2231,14 @@ namespace AgOpenGPS
                 kml.WriteElementString("tessellate", "1");
                 kml.WriteStartElement("coordinates");
 
-                linePts = pn.GetLocalToWSG84_KML(trk.gArr[i].ptA.easting - (Math.Sin(trk.gArr[i].heading) * ABLine.abLength),
-                    trk.gArr[i].ptA.northing - (Math.Cos(trk.gArr[i].heading) * ABLine.abLength));
-                linePts += pn.GetLocalToWSG84_KML(trk.gArr[i].ptA.easting + (Math.Sin(trk.gArr[i].heading) * ABLine.abLength),
-                    trk.gArr[i].ptA.northing + (Math.Cos(trk.gArr[i].heading) * ABLine.abLength));
-                kml.WriteRaw(linePts);
+                if (trk.gArr[i].mode == TrackMode.AB)
+                {
+                    for (int j = 0; j < trk.gArr[i].curvePts.Count; j++)
+                    {
+                        linePts += pn.GetLocalToWSG84_KML(trk.gArr[i].curvePts[j].easting, trk.gArr[i].curvePts[j].northing);
+                    }
+                    kml.WriteRaw(linePts);
+                }
 
                 kml.WriteEndElement(); // <coordinates>
                 kml.WriteEndElement(); // <LineString>
@@ -2242,11 +2272,14 @@ namespace AgOpenGPS
                 kml.WriteElementString("tessellate", "1");
                 kml.WriteStartElement("coordinates");
 
-                for (int j = 0; j < trk.gArr[i].curvePts.Count; j++)
+                if (trk.gArr[i].mode != TrackMode.AB)
                 {
-                    linePts += pn.GetLocalToWSG84_KML(trk.gArr[i].curvePts[j].easting, trk.gArr[i].curvePts[j].northing);
+                    for (int j = 0; j < trk.gArr[i].curvePts.Count; j++)
+                    {
+                        linePts += pn.GetLocalToWSG84_KML(trk.gArr[i].curvePts[j].easting, trk.gArr[i].curvePts[j].northing);
+                    }
+                    kml.WriteRaw(linePts);
                 }
-                kml.WriteRaw(linePts);
 
                 kml.WriteEndElement(); // <coordinates>
                 kml.WriteEndElement(); // <LineString>

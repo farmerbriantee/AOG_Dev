@@ -268,7 +268,7 @@ namespace AgOpenGPS
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;
             else rbtnDisplayImperial.Checked = true;
 
-            nudNumGuideLines.Value = mf.ABLine.numGuideLines;
+            nudNumGuideLines.Value = mf.trk.numGuideLines;
         }
 
         private void tabDisplay_Leave(object sender, EventArgs e)
@@ -305,7 +305,7 @@ namespace AgOpenGPS
         {
             if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
             {
-                mf.ABLine.numGuideLines = (int)nudNumGuideLines.Value;
+                mf.trk.numGuideLines = (int)nudNumGuideLines.Value;
             }
         }
     }

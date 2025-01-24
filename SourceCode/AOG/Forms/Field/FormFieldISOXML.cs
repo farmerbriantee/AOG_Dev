@@ -643,7 +643,7 @@ namespace AgOpenGPS
                                             if (mf.trk.gArr[idx].heading < 0) mf.trk.gArr[idx].heading += glm.twoPI;
 
                                             //build the tail extensions
-                                            mf.trk.AddFirstLastPoints(ref mf.trk.designPtsList);
+                                            mf.trk.AddFirstLastPoints(ref mf.trk.designPtsList, 100);
                                             mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
 
                                             if (string.IsNullOrEmpty(mf.trk.designName))
@@ -792,7 +792,7 @@ namespace AgOpenGPS
                                     if (mf.trk.gArr[idx].heading < 0) mf.trk.gArr[idx].heading += glm.twoPI;
 
                                     //build the tail extensions
-                                    mf.trk.AddFirstLastPoints(ref mf.trk.designPtsList);
+                                    mf.trk.AddFirstLastPoints(ref mf.trk.designPtsList, 100);
                                     mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
 
                                     //array number is 1 less since it starts at zero

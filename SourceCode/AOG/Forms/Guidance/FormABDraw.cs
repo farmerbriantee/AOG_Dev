@@ -508,7 +508,7 @@ namespace AgOpenGPS
                 if (gTemp[indx].heading < 0) gTemp[indx].heading += glm.twoPI;
 
                 //build the tail extensions
-                mf.trk.AddFirstLastPoints(ref mf.trk.designPtsList);
+                mf.trk.AddFirstLastPoints(ref mf.trk.designPtsList, 100);
                 //mf.trk.SmoothAB(2);
                 mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
 

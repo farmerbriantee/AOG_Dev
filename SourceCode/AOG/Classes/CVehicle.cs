@@ -519,7 +519,7 @@ namespace AgOpenGPS
                 //double offs = mf.trk.distanceFromCurrentLinePivot * 0.3;
                 double svennDist = mf.camera.camSetDistance * -0.07;
                 double svennWidth = svennDist * 0.22;
-                GL.LineWidth(mf.ABLine.lineWidth);
+                GL.LineWidth(mf.trk.lineWidth);
                 GL.Color3(1.2, 1.25, 0.10);
                 GL.Begin(PrimitiveType.LineStrip);
                 {

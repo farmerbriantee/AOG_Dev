@@ -7,7 +7,8 @@ using System.Collections;
 
 namespace AgOpenGPS
 {
-    public enum TrackMode { None = 0, AB = 2, Curve = 4, bndTrackOuter = 8, bndTrackInner = 16, bndCurve = 32, waterPivot = 64 };//, Heading, Circle, Spiral
+    public enum TrackMode
+    { None = 0, AB = 2, Curve = 4, bndTrackOuter = 8, bndTrackInner = 16, bndCurve = 32, waterPivot = 64 };//, Heading, Circle, Spiral
 
     public class CTrack
     {
@@ -55,7 +56,7 @@ namespace AgOpenGPS
 
         //design a new track
         public List<vec3> designPtsList = new List<vec3>();
-        
+
         public string designName = "**";
 
         public vec2 designPtA = new vec2(0.2, 0.15);
@@ -524,30 +525,7 @@ namespace AgOpenGPS
 
             try
             {
-                if (track.mode == TrackMode.AB)
-                {
-                    //move the curline as well.
-                    vec2 nudgePtA = new vec2(track.ptA);
-                    vec2 nudgePtB = new vec2(track.ptB);
-
-                    //depending which way you are going, the offset can be either side
-                    vec2 point1 = new vec2((Math.Cos(-track.heading) * distAway) + nudgePtA.easting,
-                    (Math.Sin(-track.heading) * distAway) + nudgePtA.northing);
-
-                    vec2 point2 = new vec2((Math.Cos(-track.heading) * distAway) + nudgePtB.easting,
-                    (Math.Sin(-track.heading) * distAway) + nudgePtB.northing);
-
-                    //create the new line extent points for current ABLine based on original heading of AB line
-                    double easting1 = point1.easting - (Math.Sin(track.heading) * mf.ABLine.abLength);
-                    double northing1 = point1.northing - (Math.Cos(track.heading) * mf.ABLine.abLength);
-
-                    newCurList.Add(new vec3(easting1, northing1, track.heading));
-
-                    double easting2 = point2.easting + (Math.Sin(track.heading) * mf.ABLine.abLength);
-                    double northing2 = point2.northing + (Math.Cos(track.heading) * mf.ABLine.abLength);
-                    newCurList.Add(new vec3(easting2, northing2, track.heading));
-                }
-                else if (track.mode == TrackMode.waterPivot)
+                if (track.mode == TrackMode.waterPivot)
                 {
                     //max 2 cm offset from correct circle or limit to 500 points
                     double Angle = glm.twoPI / Math.Min(Math.Max(Math.Ceiling(glm.twoPI / (2 * Math.Acos(1 - (0.02 / Math.Abs(distAway))))), 50), 500);//limit between 50 and 500 points
@@ -807,7 +785,7 @@ namespace AgOpenGPS
 
                     bool isAddStart = false, isAddEnd = false;
 
-                    //If is a curve
+                    //If is a curve or an AB made into curve
                     if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
                     {
                         minDistB = double.MaxValue;
@@ -864,10 +842,8 @@ namespace AgOpenGPS
 
                         if (A > curList.Count - 50)
                             isAddEnd = true;
-
                         else if (A < 50)
                             isAddStart = true;
-
                     }
                     else
                     {
@@ -1079,15 +1055,15 @@ namespace AgOpenGPS
                     //Convert to centimeters
                     mf.guidanceLineDistanceOff = (short)Math.Round(distanceFromCurrentLinePivot * 1000.0, MidpointRounding.AwayFromZero);
                     mf.guidanceLineSteerAngle = (short)(steerAngleTrk * 100);
-                    
+
                     if (isAddStart)
                     {
-                        AddStartPoints(ref curList);
+                        AddStartPoints(ref curList, 100);
                     }
 
                     if (isAddEnd)
                     {
-                        AddEndPoints(ref curList);
+                        AddEndPoints(ref curList, 100);
                     }
                 }
             }
@@ -1127,7 +1103,7 @@ namespace AgOpenGPS
 
             if (guideArr.Count > 0)
             {
-                GL.LineWidth(mf.ABLine.lineWidth * 3);
+                GL.LineWidth(mf.trk.lineWidth * 3);
                 GL.Color3(0, 0, 0);
 
                 if (mf.trk.gArr[mf.trk.idx].mode != TrackMode.bndCurve)
@@ -1144,7 +1120,7 @@ namespace AgOpenGPS
                 }
                 GL.End();
 
-                GL.LineWidth(mf.ABLine.lineWidth);
+                GL.LineWidth(mf.trk.lineWidth);
                 GL.Color4(0.2, 0.75, 0.2, 0.6);
 
                 if (mf.trk.gArr[mf.trk.idx].mode != TrackMode.bndCurve)
@@ -1191,7 +1167,7 @@ namespace AgOpenGPS
                 {
                     if (smooList == null || smooList.Count == 0) return;
 
-                    GL.LineWidth(mf.ABLine.lineWidth);
+                    GL.LineWidth(mf.trk.lineWidth);
                     GL.Color3(0.930f, 0.92f, 0.260f);
                     GL.Begin(PrimitiveType.Lines);
                     for (int h = 0; h < smooList.Count; h++) GL.Vertex3(smooList[h].easting, smooList[h].northing, 0);
@@ -1202,7 +1178,7 @@ namespace AgOpenGPS
             {
                 if (curList.Count > 0)
                 {
-                    GL.LineWidth(mf.ABLine.lineWidth * 3);
+                    GL.LineWidth(mf.trk.lineWidth * 3);
                     GL.Color3(0, 0, 0);
 
                     //GL.Enable(EnableCap.LineSmooth);
@@ -1228,7 +1204,7 @@ namespace AgOpenGPS
                     for (int h = 0; h < curList.Count; h++) GL.Vertex3(curList[h].easting, curList[h].northing, 0);
                     GL.End();
 
-                    GL.LineWidth(mf.ABLine.lineWidth);
+                    GL.LineWidth(mf.trk.lineWidth);
                     GL.Color3(0.95f, 0.2f, 0.95f);
 
                     //ablines and curves are a line - the rest a loop
@@ -1574,59 +1550,37 @@ namespace AgOpenGPS
         }
 
         //add extensons
-        public void AddFirstLastPoints(ref List<vec3> xList)
+        public void AddFirstLastPoints(ref List<vec3> xList, int ptsToAdd)
         {
             int ptCnt = xList.Count - 1;
             vec3 start;
+            ptsToAdd *= 2;
 
-            if (mf.bnd.bndList.Count > 0)
+            for (int i = 1; i < ptsToAdd; i += 2)
             {
-                for (int i = 1; i < 10; i++)
-                {
-                    vec3 pt = new vec3(xList[ptCnt]);
-                    pt.easting += (Math.Sin(pt.heading) * i);
-                    pt.northing += (Math.Cos(pt.heading) * i);
-                    xList.Add(pt);
-                }
-
-                //and the beginning
-                start = new vec3(xList[0]);
-
-                for (int i = 1; i < 10; i++)
-                {
-                    vec3 pt = new vec3(start);
-                    pt.easting -= (Math.Sin(pt.heading) * i);
-                    pt.northing -= (Math.Cos(pt.heading) * i);
-                    xList.Insert(0, pt);
-                }
+                vec3 pt = new vec3(xList[ptCnt]);
+                pt.easting += (Math.Sin(pt.heading) * i);
+                pt.northing += (Math.Cos(pt.heading) * i);
+                xList.Add(pt);
             }
-            else
+
+            //and the beginning
+            start = new vec3(xList[0]);
+
+            for (int i = 1; i < ptsToAdd; i += 2)
             {
-                for (int i = 1; i < 30; i++)
-                {
-                    vec3 pt = new vec3(xList[ptCnt]);
-                    pt.easting += (Math.Sin(pt.heading) * i);
-                    pt.northing += (Math.Cos(pt.heading) * i);
-                    xList.Add(pt);
-                }
-
-                //and the beginning
-                start = new vec3(xList[0]);
-
-                for (int i = 1; i < 30; i++)
-                {
-                    vec3 pt = new vec3(start);
-                    pt.easting -= (Math.Sin(pt.heading) * i);
-                    pt.northing -= (Math.Cos(pt.heading) * i);
-                    xList.Insert(0, pt);
-                }
+                vec3 pt = new vec3(start);
+                pt.easting -= (Math.Sin(pt.heading) * i);
+                pt.northing -= (Math.Cos(pt.heading) * i);
+                xList.Insert(0, pt);
             }
         }
 
-        public void AddStartPoints(ref List<vec3> xList)
+        public void AddStartPoints(ref List<vec3> xList, int ptsToAdd)
         {
             int ptCnt = xList.Count - 1;
             vec3 start;
+            ptsToAdd *= 2;
 
             start = new vec3(xList[0]);
 
@@ -1639,9 +1593,10 @@ namespace AgOpenGPS
             }
         }
 
-        private void AddEndPoints(ref List<vec3> xList)
+        private void AddEndPoints(ref List<vec3> xList, int ptsToAdd)
         {
             int ptCnt = xList.Count - 1;
+            ptsToAdd *= 2;
 
             for (int i = 1; i < 200; i++)
             {
@@ -1755,7 +1710,6 @@ namespace AgOpenGPS
 
             return minDistIndex;
         }
-
     }
 
     public class CTrk

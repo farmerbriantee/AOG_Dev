@@ -24,7 +24,6 @@ namespace AgOpenGPS
 
         private bool isOn = true;
 
-        private vec2 ptAa = new vec2();
         private vec2 ptBb = new vec2();
 
         //used throughout to acces the master Track list
@@ -146,7 +145,6 @@ namespace AgOpenGPS
             mf.trk.idx = originalLine;
 
             mf.trk.isTrackValid = false;
-            mf.ABLine.isABValid = false;
 
             mf.twoSecondCounter = 100;
 
@@ -158,7 +156,6 @@ namespace AgOpenGPS
             isClosing = true;
             //reset to generate new reference
             mf.trk.isTrackValid = false;
-            mf.ABLine.isABValid = false;
             mf.trk.designPtsList?.Clear();
 
             if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
@@ -718,7 +715,7 @@ namespace AgOpenGPS
                 mf.trk.gArr[idx].ptB.northing = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].northing);
 
                 //build the tail extensions
-                mf.trk.AddFirstLastPoints(ref mf.trk.gArr[idx].curvePts);
+                mf.trk.AddFirstLastPoints(ref mf.trk.gArr[idx].curvePts, 100);
             }
             else
             {
@@ -768,17 +765,20 @@ namespace AgOpenGPS
 
         private void btnALine_Click(object sender, EventArgs e)
         {
-            mf.ABLine.isMakingABLine = true;
+            mf.trk.isMakingABLine = true;
             btnALine.Enabled = false;
 
-            mf.ABLine.desPtA = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
+            mf.trk.designPtA = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
 
-            mf.ABLine.desLineEndA.easting = mf.ABLine.desPtA.easting - (Math.Sin(mf.pivotAxlePos.heading) * 1000);
-            mf.ABLine.desLineEndA.northing = mf.ABLine.desPtA.northing - (Math.Cos(mf.pivotAxlePos.heading) * 1000);
+            mf.trk.designPtB.easting = mf.trk.designPtA.easting - (Math.Sin(mf.pivotAxlePos.heading) * 1);
+            mf.trk.designPtB.northing = mf.trk.designPtA.northing - (Math.Cos(mf.pivotAxlePos.heading) * 1);
 
-            mf.ABLine.desLineEndB.easting = mf.ABLine.desPtA.easting + (Math.Sin(mf.pivotAxlePos.heading) * 1000);
-            mf.ABLine.desLineEndB.northing = mf.ABLine.desPtA.northing + (Math.Cos(mf.pivotAxlePos.heading) * 1000);
+            mf.trk.designLineEndA.easting = mf.trk.designPtA.easting - (Math.Sin(mf.pivotAxlePos.heading) * 1000);
+            mf.trk.designLineEndA.northing = mf.trk.designPtA.northing - (Math.Cos(mf.pivotAxlePos.heading) * 1000);
 
+            mf.trk.designLineEndB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.pivotAxlePos.heading) * 1000);
+            mf.trk.designLineEndB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.pivotAxlePos.heading) * 1000);
+            
             btnBLine.Enabled = true;
             btnALine.Enabled = false;
 
@@ -791,61 +791,87 @@ namespace AgOpenGPS
         private void btnBLine_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
-
-            mf.ABLine.desPtB = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
-
+            mf.trk.designPtB = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
             btnBLine.BackColor = System.Drawing.Color.Teal;
 
-            mf.ABLine.desHeading = Math.Atan2(mf.ABLine.desPtB.easting - mf.ABLine.desPtA.easting,
-               mf.ABLine.desPtB.northing - mf.ABLine.desPtA.northing);
-            if (mf.ABLine.desHeading < 0) mf.ABLine.desHeading += glm.twoPI;
+            mf.trk.designHeading = Math.Atan2(mf.trk.designPtB.easting - mf.trk.designPtA.easting,
+               mf.trk.designPtB.northing - mf.trk.designPtA.northing);
+            if (mf.trk.designHeading < 0) mf.trk.designHeading += glm.twoPI;
 
-            mf.ABLine.desLineEndA.easting = mf.ABLine.desPtA.easting - (Math.Sin(mf.ABLine.desHeading) * 1000);
-            mf.ABLine.desLineEndA.northing = mf.ABLine.desPtA.northing - (Math.Cos(mf.ABLine.desHeading) * 1000);
+            //make sure line is long enough
+            double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
+            if (len < 20)
+            {
+                mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
+                mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
+            }
 
-            mf.ABLine.desLineEndB.easting = mf.ABLine.desPtA.easting + (Math.Sin(mf.ABLine.desHeading) * 1000);
-            mf.ABLine.desLineEndB.northing = mf.ABLine.desPtA.northing + (Math.Cos(mf.ABLine.desHeading) * 1000);
+            mf.trk.designLineEndA.easting = mf.trk.designPtA.easting - (Math.Sin(mf.trk.designHeading) * 1000);
+            mf.trk.designLineEndA.northing = mf.trk.designPtA.northing - (Math.Cos(mf.trk.designHeading) * 1000);
+
+            mf.trk.designLineEndB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 1000);
+            mf.trk.designLineEndB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 1000);
             mf.Activate();
         }
 
         private void btnEnter_AB_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
+            mf.trk.isMakingABLine = false;
 
-            mf.ABLine.isMakingABLine = false;
             mf.trk.gArr.Add(new CTrk());
 
             idx = mf.trk.gArr.Count - 1;
 
-            mf.trk.gArr[idx].ptA = new vec2(mf.ABLine.desPtA);
-            mf.trk.gArr[idx].ptB = new vec2(mf.ABLine.desPtB);
-
             mf.trk.gArr[idx].mode = TrackMode.AB;
 
-            mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
+            double hsin = Math.Sin(mf.trk.designHeading);
+            double hcos = Math.Cos(mf.trk.designHeading);
 
-            mf.ABLine.desName = "AB " +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
-            textBox1.Text = mf.ABLine.desName;
+            //fill in the dots between A and B
+            double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
+
+            vec3 P1 = new vec3();
+            for (int i = 0; i < (int)len; i += 1)
+            {
+                P1.easting = (hsin * i) + mf.trk.designPtA.easting;
+                P1.northing = (hcos * i) + mf.trk.designPtA.northing;
+                P1.heading = mf.trk.designHeading;
+                mf.trk.gArr[idx].curvePts.Add(P1);
+            }
+
+            mf.trk.designName = "AB: " +
+                (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+            textBox1.Text = mf.trk.designName;
+
+            mf.trk.gArr[idx].heading = mf.trk.designHeading;
 
             double dist;
             if (isRefRightSide)
             {
                 dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
                 mf.trk.idx = idx;
-                mf.trk.NudgeRefABLine(dist);
+                mf.trk.NudgeRefTrack(dist);
             }
             else
             {
                 dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
                 mf.trk.idx = idx;
-                mf.trk.NudgeRefABLine(dist);
+                mf.trk.NudgeRefTrack(dist);
             }
+
+            mf.trk.gArr[idx].ptA.easting = (mf.trk.gArr[idx].curvePts[0].easting);
+            mf.trk.gArr[idx].ptA.northing = (mf.trk.gArr[idx].curvePts[0].northing);
+            mf.trk.gArr[idx].ptB.easting = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].easting);
+            mf.trk.gArr[idx].ptB.northing = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].northing);
+
+            //build the tail extensions
+            mf.trk.AddFirstLastPoints(ref mf.trk.gArr[idx].curvePts, 100);
 
             panelABLine.Visible = false;
             panelName.Visible = true;
-
             mf.Activate();
+
         }
 
         #endregion AB Line
@@ -862,26 +888,25 @@ namespace AgOpenGPS
 
         private void btnAPlus_Click(object sender, EventArgs e)
         {
-            mf.ABLine.isMakingABLine = true;
+            mf.trk.isMakingABLine = true;
 
-            mf.ABLine.desPtA = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
+            mf.trk.designPtA = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
 
-            mf.ABLine.desPtB.easting = mf.ABLine.desPtA.easting + (Math.Sin(mf.pivotAxlePos.heading) * 1);
-            mf.ABLine.desPtB.northing = mf.ABLine.desPtA.northing + (Math.Cos(mf.pivotAxlePos.heading) * 1);
+            mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.pivotAxlePos.heading) * 30);
+            mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.pivotAxlePos.heading) * 30);
 
-            mf.ABLine.desLineEndA.easting = mf.ABLine.desPtA.easting - (Math.Sin(mf.pivotAxlePos.heading) * 1000);
-            mf.ABLine.desLineEndA.northing = mf.ABLine.desPtA.northing - (Math.Cos(mf.pivotAxlePos.heading) * 1000);
+            mf.trk.designLineEndA.easting = mf.trk.designPtA.easting - (Math.Sin(mf.pivotAxlePos.heading) * 1000);
+            mf.trk.designLineEndA.northing = mf.trk.designPtA.northing - (Math.Cos(mf.pivotAxlePos.heading) * 1000);
 
-            mf.ABLine.desLineEndB.easting = mf.ABLine.desPtA.easting + (Math.Sin(mf.pivotAxlePos.heading) * 1000);
-            mf.ABLine.desLineEndB.northing = mf.ABLine.desPtA.northing + (Math.Cos(mf.pivotAxlePos.heading) * 1000);
+            mf.trk.designLineEndB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.pivotAxlePos.heading) * 1000);
+            mf.trk.designLineEndB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.pivotAxlePos.heading) * 1000);
 
-            mf.ABLine.desHeading = mf.pivotAxlePos.heading;
+            mf.trk.designHeading = mf.pivotAxlePos.heading;
 
             btnEnter_AB.Enabled = true;
             nudHeading.Enabled = true;
 
-            nudHeading.Value = (decimal)(glm.toDegrees(mf.ABLine.desHeading));
-
+            nudHeading.Value = (decimal)(glm.toDegrees(mf.trk.designHeading));
             timer1.Enabled = true;
             mf.Activate();
         }
@@ -893,17 +918,17 @@ namespace AgOpenGPS
             if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
             {
                 //original A pt.
-                mf.ABLine.desHeading = glm.toRadians((double)nudHeading.Value);
+                mf.trk.designHeading = glm.toRadians((double)nudHeading.Value);
 
                 //start end of line
-                mf.ABLine.desPtB.easting = mf.ABLine.desPtA.easting + (Math.Sin(mf.ABLine.desHeading) * 200);
-                mf.ABLine.desPtB.northing = mf.ABLine.desPtA.northing + (Math.Cos(mf.ABLine.desHeading) * 200);
+                mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
+                mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
 
-                mf.ABLine.desLineEndA.easting = mf.ABLine.desPtA.easting - (Math.Sin(mf.ABLine.desHeading) * 1000);
-                mf.ABLine.desLineEndA.northing = mf.ABLine.desPtA.northing - (Math.Cos(mf.ABLine.desHeading) * 1000);
+                mf.trk.designLineEndA.easting = mf.trk.designPtA.easting - (Math.Sin(mf.trk.designHeading) * 1000);
+                mf.trk.designLineEndA.northing = mf.trk.designPtA.northing - (Math.Cos(mf.trk.designHeading) * 1000);
 
-                mf.ABLine.desLineEndB.easting = mf.ABLine.desPtA.easting + (Math.Sin(mf.ABLine.desHeading) * 1000);
-                mf.ABLine.desLineEndB.northing = mf.ABLine.desPtA.northing + (Math.Cos(mf.ABLine.desHeading) * 1000);
+                mf.trk.designLineEndB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 1000);
+                mf.trk.designLineEndB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 1000);
             }
             mf.Activate();
         }
@@ -912,56 +937,72 @@ namespace AgOpenGPS
         {
             timer1.Enabled = false;
 
-            mf.ABLine.isMakingABLine = false;
+            mf.trk.isMakingABLine = false;
             mf.trk.gArr.Add(new CTrk());
 
             idx = mf.trk.gArr.Count - 1;
 
-            mf.trk.gArr[idx].ptA = new vec2(mf.ABLine.desPtA);
-            mf.trk.gArr[idx].ptB = new vec2(mf.ABLine.desPtB);
-
             mf.trk.gArr[idx].mode = TrackMode.AB;
 
-            mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
+            double hsin = Math.Sin(mf.trk.designHeading);
+            double hcos = Math.Cos(mf.trk.designHeading);
 
-            mf.ABLine.desName = "A+" +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
-            textBox1.Text = mf.ABLine.desName;
+            //fill in the dots between A and B
+            double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
+
+            vec3 P1 = new vec3();
+            for (int i = 0; i < (int)len; i += 1)
+            {
+                P1.easting = (hsin * i) + mf.trk.designPtA.easting;
+                P1.northing = (hcos * i) + mf.trk.designPtA.northing;
+                P1.heading = mf.trk.designHeading;
+                mf.trk.gArr[idx].curvePts.Add(P1);
+            }
+
+            mf.trk.designName = "A+" +
+                (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+            textBox1.Text = mf.trk.designName;
+
+            mf.trk.gArr[idx].heading = mf.trk.designHeading;
 
             double dist;
             if (isRefRightSide)
             {
                 dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
                 mf.trk.idx = idx;
-                mf.trk.NudgeRefABLine(dist);
+                mf.trk.NudgeRefTrack(dist);
             }
             else
             {
                 dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
                 mf.trk.idx = idx;
-                mf.trk.NudgeRefABLine(dist);
+                mf.trk.NudgeRefTrack(dist);
             }
 
-            panelAPlus.Visible = false;
-            panelName.Visible = true;
-            mf.Activate();
+            mf.trk.gArr[idx].ptA.easting = (mf.trk.gArr[idx].curvePts[0].easting);
+            mf.trk.gArr[idx].ptA.northing = (mf.trk.gArr[idx].curvePts[0].northing);
+            mf.trk.gArr[idx].ptB.easting = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].easting);
+            mf.trk.gArr[idx].ptB.northing = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].northing);
+
+            //build the tail extensions
+            mf.trk.AddFirstLastPoints(ref mf.trk.gArr[idx].curvePts, 100);
         }
 
         #endregion A Plus
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            mf.ABLine.desPtB = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
+            mf.trk.designPtB = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
 
-            mf.ABLine.desHeading = Math.Atan2(mf.ABLine.desPtB.easting - mf.ABLine.desPtA.easting,
-               mf.ABLine.desPtB.northing - mf.ABLine.desPtA.northing);
-            if (mf.ABLine.desHeading < 0) mf.ABLine.desHeading += glm.twoPI;
+            mf.trk.designHeading = Math.Atan2(mf.trk.designPtB.easting - mf.trk.designPtA.easting,
+               mf.trk.designPtB.northing - mf.trk.designPtA.northing);
+            if (mf.trk.designHeading < 0) mf.trk.designHeading += glm.twoPI;
 
-            mf.ABLine.desLineEndA.easting = mf.ABLine.desPtA.easting - (Math.Sin(mf.ABLine.desHeading) * 1000);
-            mf.ABLine.desLineEndA.northing = mf.ABLine.desPtA.northing - (Math.Cos(mf.ABLine.desHeading) * 1000);
+            mf.trk.designLineEndA.easting = mf.trk.designPtA.easting - (Math.Sin(mf.trk.designHeading) * 1000);
+            mf.trk.designLineEndA.northing = mf.trk.designPtA.northing - (Math.Cos(mf.trk.designHeading) * 1000);
 
-            mf.ABLine.desLineEndB.easting = mf.ABLine.desPtA.easting + (Math.Sin(mf.ABLine.desHeading) * 1000);
-            mf.ABLine.desLineEndB.northing = mf.ABLine.desPtA.northing + (Math.Cos(mf.ABLine.desHeading) * 1000);
+            mf.trk.designLineEndB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 1000);
+            mf.trk.designLineEndB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 1000);
         }
 
         #region KML Curve and line
@@ -1041,37 +1082,71 @@ namespace AgOpenGPS
                     //2 points
                     if (mf.trk.designPtsList.Count == 2)
                     {
-                        mf.ABLine.desPtA.easting = mf.trk.designPtsList[0].easting;
-                        mf.ABLine.desPtA.northing = mf.trk.designPtsList[0].northing;
+                        mf.trk.designPtA.easting = mf.trk.designPtsList[0].easting;
+                        mf.trk.designPtA.northing = mf.trk.designPtsList[0].northing;
 
-                        mf.ABLine.desPtB.easting = mf.trk.designPtsList[1].easting;
-                        mf.ABLine.desPtB.northing = mf.trk.designPtsList[1].northing;
+                        mf.trk.designPtB.easting = mf.trk.designPtsList[1].easting;
+                        mf.trk.designPtB.northing = mf.trk.designPtsList[1].northing;
 
-                        // heading based on AB points
-                        mf.ABLine.desHeading = Math.Atan2(mf.ABLine.desPtB.easting - mf.ABLine.desPtA.easting,
-                            mf.ABLine.desPtB.northing - mf.ABLine.desPtA.northing);
-                        if (mf.ABLine.desHeading < 0) mf.ABLine.desHeading += glm.twoPI;
+                        mf.trk.designHeading = Math.Atan2(mf.trk.designPtB.easting - mf.trk.designPtA.easting,
+                           mf.trk.designPtB.northing - mf.trk.designPtA.northing);
+                        if (mf.trk.designHeading < 0) mf.trk.designHeading += glm.twoPI;
 
                         if (namelist.Count > i)
                         {
                             trackName = namelist[i + 1].InnerText;
-                            mf.ABLine.desName = trackName;
+                            mf.trk.designName = trackName;
                         }
-                        else mf.ABLine.desName = "AB " +
-                            (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                        else mf.trk.designName = "AB: " +
+                            (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
 
                         mf.trk.gArr.Add(new CTrk());
 
                         idx = mf.trk.gArr.Count - 1;
 
-                        mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
-                        mf.trk.gArr[idx].mode = TrackMode.AB;
+                        mf.trk.gArr[idx].mode = TrackMode.Curve;
 
-                        mf.trk.gArr[idx].ptA = new vec2(mf.ABLine.desPtA);
-                        mf.trk.gArr[idx].ptB = new vec2(mf.ABLine.desPtB);
+                        double hsin = Math.Sin(mf.trk.designHeading);
+                        double hcos = Math.Cos(mf.trk.designHeading);
+
+                        //fill in the dots between A and B
+                        double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
+
+                        vec3 P1 = new vec3();
+                        for (int k = 0; k < (int)len; k += 1)
+                        {
+                            P1.easting = (hsin * k) + mf.trk.designPtA.easting;
+                            P1.northing = (hcos * k) + mf.trk.designPtA.northing;
+                            P1.heading = mf.trk.designHeading;
+                            mf.trk.gArr[idx].curvePts.Add(P1);
+                        }
+
+                        mf.trk.gArr[idx].heading = mf.trk.designHeading;
+
+                        double dist;
+                        if (isRefRightSide)
+                        {
+                            dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
+                            mf.trk.idx = idx;
+                            mf.trk.NudgeRefTrack(dist);
+                        }
+                        else
+                        {
+                            dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
+                            mf.trk.idx = idx;
+                            mf.trk.NudgeRefTrack(dist);
+                        }
+
+                        mf.trk.gArr[idx].ptA.easting = (mf.trk.gArr[idx].curvePts[0].easting);
+                        mf.trk.gArr[idx].ptA.northing = (mf.trk.gArr[idx].curvePts[0].northing);
+                        mf.trk.gArr[idx].ptB.easting = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].easting);
+                        mf.trk.gArr[idx].ptB.northing = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].northing);
+
+                        //build the tail extensions
+                        mf.trk.AddFirstLastPoints(ref mf.trk.gArr[idx].curvePts, 100);
 
                         //create a name
-                        mf.trk.gArr[idx].name = mf.ABLine.desName;
+                        mf.trk.gArr[idx].name = mf.trk.designName;
 
                         mf.trk.designPtsList?.Clear();
                     }
@@ -1109,7 +1184,7 @@ namespace AgOpenGPS
                         mf.trk.gArr[idx].heading = aveLineHeading;
 
                         //build the tail extensions
-                        mf.trk.AddFirstLastPoints(ref mf.trk.designPtsList);
+                        mf.trk.AddFirstLastPoints(ref mf.trk.designPtsList, 100);
                         //SmoothAB(4);
                         mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
 
@@ -1138,7 +1213,7 @@ namespace AgOpenGPS
             }
             catch (Exception ed)
             {
-                Log.EventWriter("Tracks from KML " + ed.ToString());
+                Log.EventWriter("Catch Error: Tracks from KML " + ed.ToString());
                 return;
             }
 
@@ -1182,21 +1257,56 @@ namespace AgOpenGPS
         {
             CalcHeadingAB();
 
-            mf.ABLine.isMakingABLine = false;
+            mf.trk.isMakingABLine = false;
+
             mf.trk.gArr.Add(new CTrk());
 
             idx = mf.trk.gArr.Count - 1;
 
-            mf.trk.gArr[idx].ptA = new vec2(mf.ABLine.desPtA);
-            mf.trk.gArr[idx].ptB = new vec2(mf.ABLine.desPtB);
-
             mf.trk.gArr[idx].mode = TrackMode.AB;
 
-            mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
+            double hsin = Math.Sin(mf.trk.designHeading);
+            double hcos = Math.Cos(mf.trk.designHeading);
 
-            mf.ABLine.desName = "AB " +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
-            textBox1.Text = mf.ABLine.desName;
+            //fill in the dots between A and B
+            double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
+
+            vec3 P1 = new vec3();
+            for (int i = 0; i < (int)len; i += 1)
+            {
+                P1.easting = (hsin * i) + mf.trk.designPtA.easting;
+                P1.northing = (hcos * i) + mf.trk.designPtA.northing;
+                P1.heading = mf.trk.designHeading;
+                mf.trk.gArr[idx].curvePts.Add(P1);
+            }
+
+            mf.trk.designName = "AB: " +
+                (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+            textBox1.Text = mf.trk.designName;
+
+            mf.trk.gArr[idx].heading = mf.trk.designHeading;
+
+            double dist;
+            if (isRefRightSide)
+            {
+                dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
+                mf.trk.idx = idx;
+                mf.trk.NudgeRefTrack(dist);
+            }
+            else
+            {
+                dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
+                mf.trk.idx = idx;
+                mf.trk.NudgeRefTrack(dist);
+            }
+
+            mf.trk.gArr[idx].ptA.easting = (mf.trk.gArr[idx].curvePts[0].easting);
+            mf.trk.gArr[idx].ptA.northing = (mf.trk.gArr[idx].curvePts[0].northing);
+            mf.trk.gArr[idx].ptB.easting = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].easting);
+            mf.trk.gArr[idx].ptB.northing = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].northing);
+
+            //build the tail extensions
+            mf.trk.AddFirstLastPoints(ref mf.trk.gArr[idx].curvePts, 100);
 
             panelLatLonLatLon.Visible = false;
             panelName.Visible = true;
@@ -1208,17 +1318,25 @@ namespace AgOpenGPS
         {
             mf.pn.ConvertWGS84ToLocal((double)nudLatitudeA.Value, (double)nudLongitudeA.Value, out double nort, out double east);
 
-            mf.ABLine.desPtA.easting = east;
-            mf.ABLine.desPtA.northing = nort;
+            mf.trk.designPtA.easting = east;
+            mf.trk.designPtA.northing = nort;
 
             mf.pn.ConvertWGS84ToLocal((double)nudLatitudeB.Value, (double)nudLongitudeB.Value, out nort, out east);
-            mf.ABLine.desPtB.easting = east;
-            mf.ABLine.desPtB.northing = nort;
+            mf.trk.designPtB.easting = east;
+            mf.trk.designPtB.northing = nort;
 
-            // heading based on AB points
-            mf.ABLine.desHeading = Math.Atan2(mf.ABLine.desPtB.easting - mf.ABLine.desPtA.easting,
-                mf.ABLine.desPtB.northing - mf.ABLine.desPtA.northing);
-            if (mf.ABLine.desHeading < 0) mf.ABLine.desHeading += glm.twoPI;
+            //calc heading
+            mf.trk.designHeading = Math.Atan2(mf.trk.designPtB.easting - mf.trk.designPtA.easting,
+               mf.trk.designPtB.northing - mf.trk.designPtA.northing);
+            if (mf.trk.designHeading < 0) mf.trk.designHeading += glm.twoPI;
+
+            //make sure line is long enough
+            double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
+            if (len < 20)
+            {
+                mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
+                mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
+            }
         }
 
         private void btnFillLatLonLatLonA_Click(object sender, EventArgs e)
@@ -1256,25 +1374,56 @@ namespace AgOpenGPS
         {
             CalcHeadingAPlus();
 
-            mf.ABLine.isMakingABLine = false;
+            mf.trk.isMakingABLine = false;
             mf.trk.gArr.Add(new CTrk());
 
             idx = mf.trk.gArr.Count - 1;
 
-            //start end of line
-            mf.ABLine.desPtB.easting = mf.ABLine.desPtA.easting + (Math.Sin(mf.ABLine.desHeading) * 200);
-            mf.ABLine.desPtB.northing = mf.ABLine.desPtA.northing + (Math.Cos(mf.ABLine.desHeading) * 200);
-
-            mf.trk.gArr[idx].ptA = new vec2(mf.ABLine.desPtA);
-            mf.trk.gArr[idx].ptB = new vec2(mf.ABLine.desPtB);
-
             mf.trk.gArr[idx].mode = TrackMode.AB;
 
-            mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
+            double hsin = Math.Sin(mf.trk.designHeading);
+            double hcos = Math.Cos(mf.trk.designHeading);
 
-            mf.ABLine.desName = "A+ " +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
-            textBox1.Text = mf.ABLine.desName;
+            //fill in the dots between A and B
+            double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
+
+            vec3 P1 = new vec3();
+            for (int i = 0; i < (int)len; i += 1)
+            {
+                P1.easting = (hsin * i) + mf.trk.designPtA.easting;
+                P1.northing = (hcos * i) + mf.trk.designPtA.northing;
+                P1.heading = mf.trk.designHeading;
+                mf.trk.gArr[idx].curvePts.Add(P1);
+            }
+
+            mf.trk.designName = "A+" +
+                (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+            textBox1.Text = mf.trk.designName;
+
+            mf.trk.gArr[idx].heading = mf.trk.designHeading;
+
+            double dist;
+            if (isRefRightSide)
+            {
+                dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
+                mf.trk.idx = idx;
+                mf.trk.NudgeRefTrack(dist);
+            }
+            else
+            {
+                dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
+                mf.trk.idx = idx;
+                mf.trk.NudgeRefTrack(dist);
+            }
+
+            mf.trk.gArr[idx].ptA.easting = (mf.trk.gArr[idx].curvePts[0].easting);
+            mf.trk.gArr[idx].ptA.northing = (mf.trk.gArr[idx].curvePts[0].northing);
+            mf.trk.gArr[idx].ptB.easting = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].easting);
+            mf.trk.gArr[idx].ptB.northing = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].northing);
+
+            //build the tail extensions
+            mf.trk.AddFirstLastPoints(ref mf.trk.gArr[idx].curvePts, 100);
+
 
             panelLatLonPlus.Visible = false;
             panelName.Visible = true;
@@ -1292,9 +1441,12 @@ namespace AgOpenGPS
         {
             mf.pn.ConvertWGS84ToLocal((double)nudLatitudePlus.Value, (double)nudLongitudePlus.Value, out double nort, out double east);
 
-            mf.ABLine.desHeading = glm.toRadians((double)nudHeadingLatLonPlus.Value);
-            mf.ABLine.desPtA.easting = east;
-            mf.ABLine.desPtA.northing = nort;
+            mf.trk.designHeading = glm.toRadians((double)nudHeadingLatLonPlus.Value);
+            mf.trk.designPtA.easting = east;
+            mf.trk.designPtA.northing = nort;
+
+            mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.pivotAxlePos.heading) * 30);
+            mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.pivotAxlePos.heading) * 30);
         }
 
         #endregion LatLon +
@@ -1323,8 +1475,8 @@ namespace AgOpenGPS
             mf.trk.gArr[idx].ptA.northing = nort;
             mf.trk.gArr[idx].mode = TrackMode.waterPivot;
 
-            mf.ABLine.desName = "Piv";
-            textBox1.Text = mf.ABLine.desName;
+            mf.trk.designName = "Piv";
+            textBox1.Text = mf.trk.designName;
 
             panelPivot.Visible = false;
             panelName.Visible = true;
@@ -1346,7 +1498,7 @@ namespace AgOpenGPS
             mf.trk.isMakingCurveTrack = false;
             mf.trk.isRecordingCurveTrack = false;
             mf.trk.designPtsList?.Clear();
-            mf.ABLine.isMakingABLine = false;
+            mf.trk.isMakingABLine = false;
 
             panelMain.Visible = true;
             panelEditName.Visible = false;

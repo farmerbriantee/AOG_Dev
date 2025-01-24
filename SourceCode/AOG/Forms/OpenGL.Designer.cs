@@ -380,7 +380,7 @@ namespace AgOpenGPS
                         //when switching lines, draw the ghost
                         if (trk.idx > -1)
                         {
-                            if (trk.gArr[trk.idx].mode <= TrackMode.Curve) trk.DrawTrack();
+                            trk.DrawTrack();
                         }
                     }
 

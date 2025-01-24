@@ -91,21 +91,6 @@ namespace AgOpenGPS
             idx = -1;
         }
 
-        public void DrawABLineNew()
-        {
-            //ABLine currently being designed
-            GL.LineWidth(lineWidth);
-            GL.Begin(PrimitiveType.Lines);
-            GL.Color3(0.95f, 0.70f, 0.50f);
-            GL.Vertex3(designLineEndA.easting, designLineEndA.northing, 0.0);
-            GL.Vertex3(designLineEndB.easting, designLineEndB.northing, 0.0);
-            GL.End();
-
-            GL.Color3(0.2f, 0.950f, 0.20f);
-            mf.font.DrawText3D(designPtA.easting, designPtA.northing, "&A");
-            mf.font.DrawText3D(designPtB.easting, designPtB.northing, "&B");
-        }
-
         public void NudgeTrack(double dist)
         {
             if (idx > -1)
@@ -168,17 +153,6 @@ namespace AgOpenGPS
         //    }
         //}
 
-        public void NudgeRefABLine(double dist)
-        {
-            double head = gArr[idx].heading;
-
-            gArr[idx].ptA.easting += (Math.Sin(head + glm.PIBy2) * (dist));
-            gArr[idx].ptA.northing += (Math.Cos(head + glm.PIBy2) * (dist));
-
-            gArr[idx].ptB.easting += (Math.Sin(head + glm.PIBy2) * (dist));
-            gArr[idx].ptB.northing += (Math.Cos(head + glm.PIBy2) * (dist));
-        }
-
         public void NudgeRefTrack(double distAway)
         {
             isTrackValid = false;
@@ -240,7 +214,7 @@ namespace AgOpenGPS
                 //replace the array
                 cnt = arr.Length;
                 double distance;
-                double spacing = 1.2;
+                double spacing = 2;
 
                 //add the first point of loop - it will be p1
                 curList.Add(arr[0]);
@@ -1252,6 +1226,21 @@ namespace AgOpenGPS
 
                 GL.PointSize(1.0f);
             }
+        }
+
+        public void DrawABLineNew()
+        {
+            //ABLine currently being designed
+            GL.LineWidth(lineWidth);
+            GL.Begin(PrimitiveType.Lines);
+            GL.Color3(0.95f, 0.70f, 0.50f);
+            GL.Vertex3(designLineEndA.easting, designLineEndA.northing, 0.0);
+            GL.Vertex3(designLineEndB.easting, designLineEndB.northing, 0.0);
+            GL.End();
+
+            GL.Color3(0.2f, 0.950f, 0.20f);
+            mf.font.DrawText3D(designPtA.easting, designPtA.northing, "&A");
+            mf.font.DrawText3D(designPtB.easting, designPtB.northing, "&B");
         }
 
         public void BuildTram()

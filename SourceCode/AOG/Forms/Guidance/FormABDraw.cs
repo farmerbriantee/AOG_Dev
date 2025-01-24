@@ -45,20 +45,10 @@ namespace AgOpenGPS
 
         private void FormABDraw_Load(object sender, EventArgs e)
         {
-            originalLine = mf.trk.idx;
-
-            gTemp.Clear();
-
-            foreach (var item in mf.trk.gArr)
-            {
-                gTemp.Add(new CTrk(item));
-            }
-
-            //nudDistance.Value = (decimal)Math.Round(((mf.tool.width * mf.m2InchOrCm) * 0.5), 0); //
-            FixLabelsCurve();
-
             if (isDrawSections) btnDrawSections.Image = Properties.Resources.MappingOn;
             else btnDrawSections.Image = Properties.Resources.MappingOff;
+
+            originalLine = mf.trk.idx;
 
             gTemp.Clear();
 
@@ -197,6 +187,7 @@ namespace AgOpenGPS
             sY = 0;
             zoomToggle = false;
         }
+
         private void cboxIsZoom_CheckedChanged(object sender, EventArgs e)
         {
             zoomToggle = false;
@@ -560,8 +551,8 @@ namespace AgOpenGPS
 
             //calculate the AB Heading
             double abHead = Math.Atan2(
-                mf.bnd.bndList[bndSelect].fenceLine[end].easting - mf.bnd.bndList[bndSelect].fenceLine[start].easting,
-                mf.bnd.bndList[bndSelect].fenceLine[end].northing - mf.bnd.bndList[bndSelect].fenceLine[start].northing);
+                mf.bnd.bndList[bndSelect].fenceLine[start].easting - mf.bnd.bndList[bndSelect].fenceLine[end].easting,
+                mf.bnd.bndList[bndSelect].fenceLine[start].northing - mf.bnd.bndList[bndSelect].fenceLine[end].northing);
             if (abHead < 0) abHead += glm.twoPI;
 
             gTemp.Add(new CTrk());
@@ -569,17 +560,41 @@ namespace AgOpenGPS
             indx = gTemp.Count - 1;
 
             gTemp[indx].heading = abHead;
+            double hsin = Math.Sin(abHead);
+            double hcos = Math.Cos(abHead);
+
             gTemp[indx].mode = TrackMode.AB;
 
             //calculate the new points for the reference line and points
-            gTemp[indx].ptA.easting = mf.bnd.bndList[bndSelect].fenceLine[start].easting;
-            gTemp[indx].ptA.northing = mf.bnd.bndList[bndSelect].fenceLine[start].northing;
+            gTemp[indx].ptA.easting = mf.bnd.bndList[bndSelect].fenceLine[end].easting;
+            gTemp[indx].ptA.northing = mf.bnd.bndList[bndSelect].fenceLine[end].northing;
 
-            gTemp[indx].ptB.easting = mf.bnd.bndList[bndSelect].fenceLine[end].easting;
-            gTemp[indx].ptB.northing = mf.bnd.bndList[bndSelect].fenceLine[end].northing;
+            gTemp[indx].ptB.easting = mf.bnd.bndList[bndSelect].fenceLine[start].easting;
+            gTemp[indx].ptB.northing = mf.bnd.bndList[bndSelect].fenceLine[start].northing;
+
+            //fill in the dots between A and B
+            double len = glm.Distance(gTemp[indx].ptA, gTemp[indx].ptB);
+            if (len < 20)
+            {
+                gTemp[indx].ptB.easting = gTemp[indx].ptA.easting + (Math.Sin(abHead) * 30);
+                gTemp[indx].ptB.northing = gTemp[indx].ptA.northing + (Math.Cos(abHead) * 30);
+            }
+            len = glm.Distance(gTemp[indx].ptA, gTemp[indx].ptB);
+
+            vec3 P1 = new vec3();
+            for (int i = 0; i < (int)len; i += 1)
+            {
+                P1.easting = (hsin * i) + gTemp[indx].ptA.easting;
+                P1.northing = (hcos * i) + gTemp[indx].ptA.northing;
+                P1.heading = abHead;
+                gTemp[indx].curvePts.Add(P1);
+            }
+
+            //build the tail extensions
+            mf.trk.AddFirstLastPoints(ref gTemp[indx].curvePts, 50);
 
             //create a name
-            gTemp[indx].name = "AB " +
+            gTemp[indx].name = "AB: " +
                 (Math.Round(glm.toDegrees(gTemp[indx].heading), 1)).ToString(CultureInfo.InvariantCulture) + "\u00B0";
 
             //clean up gui
@@ -741,85 +756,47 @@ namespace AgOpenGPS
             GL.LineStipple(1, 0x0707);
             for (int i = 0; i < gTemp.Count; i++)
             {
-                //AB Lines
-                if (gTemp[i].mode == TrackMode.AB)
+
+                GL.Enable(EnableCap.LineStipple);
+                GL.LineWidth(5);
+
+                if (gTemp[i].mode == TrackMode.bndCurve) GL.LineStipple(1, 0x0007);
+                else GL.LineStipple(1, 0x0707);
+
+                if (i == indx)
                 {
-                    GL.Enable(EnableCap.LineStipple);
-                    GL.LineWidth(4);
-
-                    if (i == indx)
-                    {
-                        GL.LineWidth(8);
-                        GL.Disable(EnableCap.LineStipple);
-                    }
-
-                    GL.Color3(1.0f, 0.20f, 0.20f);
-
-                    GL.Begin(PrimitiveType.Lines);
-
-                    GL.Vertex3(gTemp[i].ptA.easting - (Math.Sin(gTemp[i].heading) * mf.ABLine.abLength), gTemp[i].ptA.northing - (Math.Cos(gTemp[i].heading) * mf.ABLine.abLength), 0);
-                    GL.Vertex3(gTemp[i].ptB.easting + (Math.Sin(gTemp[i].heading) * mf.ABLine.abLength), gTemp[i].ptB.northing + (Math.Cos(gTemp[i].heading) * mf.ABLine.abLength), 0);
-
-                    GL.End();
-
+                    GL.LineWidth(8);
                     GL.Disable(EnableCap.LineStipple);
-
-                    //if (mf.ABLine.numABLineSelected > 0)
-                    //{
-                    //    GL.Color3(1.0f, 0.0f, 0.0f);
-
-                    //    GL.LineWidth(4);
-                    //    GL.Begin(PrimitiveType.Lines);
-
-                    //    GL.Vertex3(gTemp[mf.ABLine.numABLineSelected - 1].ptA.easting - (Math.Sin(gTemp[mf.ABLine.numABLineSelected - 1].heading) * mf.ABLine.abLength),
-                    //        gTemp[mf.ABLine.numABLineSelected - 1].ptA.northing - (Math.Cos(gTemp[mf.ABLine.numABLineSelected - 1].heading) * mf.ABLine.abLength), 0);
-                    //    GL.Vertex3(gTemp[mf.ABLine.numABLineSelected - 1].ptA.easting + (Math.Sin(gTemp[mf.ABLine.numABLineSelected - 1].heading) * mf.ABLine.abLength),
-                    //        gTemp[mf.ABLine.numABLineSelected - 1].ptA.northing + (Math.Cos(gTemp[mf.ABLine.numABLineSelected - 1].heading) * mf.ABLine.abLength), 0);
-
-                    //    GL.End();
-                    //}
                 }
-                else if (gTemp[i].mode == TrackMode.Curve || gTemp[i].mode == TrackMode.bndCurve)
+
+                GL.Color3(0.30f, 0.97f, 0.30f);
+                if (gTemp[i].mode == TrackMode.AB) GL.Color3(1.0f, 0.20f, 0.20f);
+                if (gTemp[i].mode == TrackMode.bndCurve) GL.Color3(0.70f, 0.5f, 0.2f);
+
+                GL.Begin(PrimitiveType.LineStrip);
+                foreach (vec3 pts in gTemp[i].curvePts)
                 {
-                    GL.Enable(EnableCap.LineStipple);
-                    GL.LineWidth(5);
-
-                    if (gTemp[i].mode == TrackMode.bndCurve) GL.LineStipple(1, 0x0007);
-                    else GL.LineStipple(1, 0x0707);
-
-                    if (i == indx)
-                    {
-                        GL.LineWidth(8);
-                        GL.Disable(EnableCap.LineStipple);
-                    }
-
-                    GL.Color3(0.30f, 0.97f, 0.30f);
-                    if (gTemp[i].mode == TrackMode.bndCurve) GL.Color3(0.70f, 0.5f, 0.2f);
-                    GL.Begin(PrimitiveType.LineStrip);
-                    foreach (vec3 pts in gTemp[i].curvePts)
-                    {
-                        GL.Vertex3(pts.easting, pts.northing, 0);
-                    }
-                    GL.End();
-
-                    GL.Disable(EnableCap.LineStipple);
-
-                    if (i == indx) GL.PointSize(16);
-                    else GL.PointSize(8);
-
-                    GL.Color3(1.0f, 0.75f, 0.350f);
-                    GL.Begin(PrimitiveType.Points);
-
-                    GL.Vertex3(gTemp[i].curvePts[0].easting,
-                                gTemp[i].curvePts[0].northing,
-                                0);
-
-                    GL.Color3(0.5f, 0.5f, 1.0f);
-                    GL.Vertex3(gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].easting,
-                                gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].northing,
-                                0);
-                    GL.End();
+                    GL.Vertex3(pts.easting, pts.northing, 0);
                 }
+                GL.End();
+
+                GL.Disable(EnableCap.LineStipple);
+
+                if (i == indx) GL.PointSize(16);
+                else GL.PointSize(8);
+
+                GL.Color3(1.0f, 0.75f, 0.350f);
+                GL.Begin(PrimitiveType.Points);
+
+                GL.Vertex3(gTemp[i].curvePts[0].easting,
+                            gTemp[i].curvePts[0].northing,
+                            0);
+
+                GL.Color3(0.5f, 0.5f, 1.0f);
+                GL.Vertex3(gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].easting,
+                            gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].northing,
+                            0);
+                GL.End();
             }
         }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 using System.Threading.Tasks;
 using System.Collections;
+using System.Globalization;
 
 namespace AgOpenGPS
 {
@@ -265,9 +266,9 @@ namespace AgOpenGPS
             //move the ABLine over based on the overlap amount set in vehicle
             double widthMinusOverlap = mf.tool.width - mf.tool.overlap;
 
-            CTrk track = mf.trk.gArr[mf.trk.idx];
+            CTrk track = gArr[idx];
 
-            if (!isTrackValid || ((mf.secondsSinceStart - lastSecond) > 0.66 && (!mf.isBtnAutoSteerOn || mf.mc.steerSwitchHigh)))
+            if (!isTrackValid || ((mf.secondsSinceStart - lastSecond) > 1 && (!mf.isBtnAutoSteerOn || mf.mc.steerSwitchHigh)))
             {
                 lastSecond = mf.secondsSinceStart;
                 findGlobalNearestTrackPoint = true;
@@ -721,9 +722,9 @@ namespace AgOpenGPS
 
         public void GetCurrentTrackLine(vec3 pivot, vec3 steer)
         {
-            if (mf.trk.gArr[mf.trk.idx].curvePts == null || mf.trk.gArr[mf.trk.idx].curvePts.Count < 5)
+            if (gArr[idx].curvePts == null || gArr[idx].curvePts.Count < 5)
             {
-                if (mf.trk.gArr[mf.trk.idx].mode != TrackMode.waterPivot)
+                if (gArr[idx].mode != TrackMode.waterPivot)
                 {
                     return;
                 }
@@ -760,7 +761,7 @@ namespace AgOpenGPS
                     bool isAddStart = false, isAddEnd = false;
 
                     //If is a curve or an AB made into curve
-                    if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
+                    if (gArr[idx].mode <= TrackMode.Curve)
                     {
                         minDistB = double.MaxValue;
                         //close call hit
@@ -962,7 +963,7 @@ namespace AgOpenGPS
                         if (i > curList.Count - 1) i = 0;
                     }
 
-                    if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
+                    if (gArr[idx].mode <= TrackMode.Curve)
                     {
                         if (mf.isBtnAutoSteerOn && !mf.isReverse)
                         {
@@ -1073,14 +1074,14 @@ namespace AgOpenGPS
 
         public void DrawTrack()
         {
-            if (mf.trk.idx == -1) return;
+            if (idx == -1) return;
 
             if (guideArr.Count > 0)
             {
-                GL.LineWidth(mf.trk.lineWidth * 3);
+                GL.LineWidth(lineWidth * 3);
                 GL.Color3(0, 0, 0);
 
-                if (mf.trk.gArr[mf.trk.idx].mode != TrackMode.bndCurve)
+                if (gArr[idx].mode != TrackMode.bndCurve)
                     GL.Begin(PrimitiveType.LineStrip);
                 else
                     GL.Begin(PrimitiveType.LineLoop);
@@ -1094,10 +1095,10 @@ namespace AgOpenGPS
                 }
                 GL.End();
 
-                GL.LineWidth(mf.trk.lineWidth);
+                GL.LineWidth(lineWidth);
                 GL.Color4(0.2, 0.75, 0.2, 0.6);
 
-                if (mf.trk.gArr[mf.trk.idx].mode != TrackMode.bndCurve)
+                if (gArr[idx].mode != TrackMode.bndCurve)
                     GL.Begin(PrimitiveType.LineStrip);
                 else
                     GL.Begin(PrimitiveType.LineLoop);
@@ -1112,19 +1113,19 @@ namespace AgOpenGPS
                 GL.End();
             }
 
-            int ptCount = mf.trk.gArr[mf.trk.idx].curvePts.Count;
+            int ptCount = gArr[idx].curvePts.Count;
 
-            if (mf.trk.gArr[mf.trk.idx].mode != TrackMode.waterPivot)
+            if (gArr[idx].mode != TrackMode.waterPivot)
             {
-                if (mf.trk.gArr[mf.trk.idx].curvePts == null || mf.trk.gArr[mf.trk.idx].curvePts.Count == 0) return;
+                if (gArr[idx].curvePts == null || gArr[idx].curvePts.Count == 0) return;
 
                 GL.LineWidth(4);
                 GL.Color3(0.96, 0.2f, 0.2f);
                 GL.Begin(PrimitiveType.Lines);
 
                 for (int h = 0; h < ptCount; h++) GL.Vertex3(
-                    mf.trk.gArr[mf.trk.idx].curvePts[h].easting,
-                    mf.trk.gArr[mf.trk.idx].curvePts[h].northing,
+                    gArr[idx].curvePts[h].easting,
+                    gArr[idx].curvePts[h].northing,
                     0);
 
                 GL.End();
@@ -1132,8 +1133,8 @@ namespace AgOpenGPS
                 if (mf.font.isFontOn)
                 {
                     GL.Color3(0.40f, 0.90f, 0.95f);
-                    mf.font.DrawText3D(mf.trk.gArr[mf.trk.idx].ptA.easting, mf.trk.gArr[mf.trk.idx].ptA.northing, "&A");
-                    mf.font.DrawText3D(mf.trk.gArr[mf.trk.idx].ptB.easting, mf.trk.gArr[mf.trk.idx].ptB.northing, "&B");
+                    mf.font.DrawText3D(gArr[idx].ptA.easting, gArr[idx].ptA.northing, "&A");
+                    mf.font.DrawText3D(gArr[idx].ptB.easting, gArr[idx].ptB.northing, "&B");
                 }
 
                 //just draw ref and smoothed line if smoothing window is open
@@ -1141,7 +1142,7 @@ namespace AgOpenGPS
                 {
                     if (smooList == null || smooList.Count == 0) return;
 
-                    GL.LineWidth(mf.trk.lineWidth);
+                    GL.LineWidth(lineWidth);
                     GL.Color3(0.930f, 0.92f, 0.260f);
                     GL.Begin(PrimitiveType.Lines);
                     for (int h = 0; h < smooList.Count; h++) GL.Vertex3(smooList[h].easting, smooList[h].northing, 0);
@@ -1152,23 +1153,23 @@ namespace AgOpenGPS
             {
                 if (curList.Count > 0)
                 {
-                    GL.LineWidth(mf.trk.lineWidth * 3);
+                    GL.LineWidth(lineWidth * 3);
                     GL.Color3(0, 0, 0);
 
                     //GL.Enable(EnableCap.LineSmooth);
 
                     //ablines and curves are a line - the rest a loop
-                    if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
+                    if (gArr[idx].mode <= TrackMode.Curve)
                     {
                         GL.Begin(PrimitiveType.LineStrip);
                     }
                     else
                     {
-                        if (mf.trk.gArr[mf.trk.idx].mode == TrackMode.waterPivot)
+                        if (gArr[idx].mode == TrackMode.waterPivot)
                         {
                             GL.PointSize(15.0f);
                             GL.Begin(PrimitiveType.Points);
-                            GL.Vertex3(mf.trk.gArr[mf.trk.idx].ptA.easting, mf.trk.gArr[mf.trk.idx].ptA.northing, 0);
+                            GL.Vertex3(gArr[idx].ptA.easting, gArr[idx].ptA.northing, 0);
                             GL.End();
                         }
 
@@ -1178,21 +1179,21 @@ namespace AgOpenGPS
                     for (int h = 0; h < curList.Count; h++) GL.Vertex3(curList[h].easting, curList[h].northing, 0);
                     GL.End();
 
-                    GL.LineWidth(mf.trk.lineWidth);
+                    GL.LineWidth(lineWidth);
                     GL.Color3(0.95f, 0.2f, 0.95f);
 
                     //ablines and curves are a line - the rest a loop
-                    if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
+                    if (gArr[idx].mode <= TrackMode.Curve)
                     {
                         GL.Begin(PrimitiveType.LineStrip);
                     }
                     else
                     {
-                        if (mf.trk.gArr[mf.trk.idx].mode == TrackMode.waterPivot)
+                        if (gArr[idx].mode == TrackMode.waterPivot)
                         {
                             GL.PointSize(15.0f);
                             GL.Begin(PrimitiveType.Points);
-                            GL.Vertex3(mf.trk.gArr[mf.trk.idx].ptA.easting, mf.trk.gArr[mf.trk.idx].ptA.northing, 0);
+                            GL.Vertex3(gArr[idx].ptA.easting, gArr[idx].ptA.northing, 0);
                             GL.End();
                         }
 
@@ -1263,7 +1264,7 @@ namespace AgOpenGPS
 
             bool isBndExist = mf.bnd.bndList.Count != 0;
 
-            int refCount = mf.trk.gArr[mf.trk.idx].curvePts.Count;
+            int refCount = gArr[idx].curvePts.Count;
 
             int cntr = 0;
             if (isBndExist)
@@ -1293,18 +1294,18 @@ namespace AgOpenGPS
                 for (int j = 0; j < refCount; j += 1)
                 {
                     vec2 point = new vec2(
-                    (Math.Sin(glm.PIBy2 + mf.trk.gArr[mf.trk.idx].curvePts[j].heading) *
-                        widd) + mf.trk.gArr[mf.trk.idx].curvePts[j].easting,
-                    (Math.Cos(glm.PIBy2 + mf.trk.gArr[mf.trk.idx].curvePts[j].heading) *
-                        widd) + mf.trk.gArr[mf.trk.idx].curvePts[j].northing
+                    (Math.Sin(glm.PIBy2 + gArr[idx].curvePts[j].heading) *
+                        widd) + gArr[idx].curvePts[j].easting,
+                    (Math.Cos(glm.PIBy2 + gArr[idx].curvePts[j].heading) *
+                        widd) + gArr[idx].curvePts[j].northing
                         );
 
                     bool Add = true;
                     for (int t = 0; t < refCount; t++)
                     {
                         //distance check to be not too close to ref line
-                        double dist = ((point.easting - mf.trk.gArr[mf.trk.idx].curvePts[t].easting) * (point.easting - mf.trk.gArr[mf.trk.idx].curvePts[t].easting))
-                            + ((point.northing - mf.trk.gArr[mf.trk.idx].curvePts[t].northing) * (point.northing - mf.trk.gArr[mf.trk.idx].curvePts[t].northing));
+                        double dist = ((point.easting - gArr[idx].curvePts[t].easting) * (point.easting - gArr[idx].curvePts[t].easting))
+                            + ((point.northing - gArr[idx].curvePts[t].northing) * (point.northing - gArr[idx].curvePts[t].northing));
                         if (dist < distSqAway)
                         {
                             Add = false;
@@ -1344,18 +1345,18 @@ namespace AgOpenGPS
                 for (int j = 0; j < refCount; j += 1)
                 {
                     vec2 point = new vec2(
-                    Math.Sin(glm.PIBy2 + mf.trk.gArr[mf.trk.idx].curvePts[j].heading) *
-                        widd + mf.trk.gArr[mf.trk.idx].curvePts[j].easting,
-                    Math.Cos(glm.PIBy2 + mf.trk.gArr[mf.trk.idx].curvePts[j].heading) *
-                        widd + mf.trk.gArr[mf.trk.idx].curvePts[j].northing
+                    Math.Sin(glm.PIBy2 + gArr[idx].curvePts[j].heading) *
+                        widd + gArr[idx].curvePts[j].easting,
+                    Math.Cos(glm.PIBy2 + gArr[idx].curvePts[j].heading) *
+                        widd + gArr[idx].curvePts[j].northing
                         );
 
                     bool Add = true;
                     for (int t = 0; t < refCount; t++)
                     {
                         //distance check to be not too close to ref line
-                        double dist = ((point.easting - mf.trk.gArr[mf.trk.idx].curvePts[t].easting) * (point.easting - mf.trk.gArr[mf.trk.idx].curvePts[t].easting))
-                            + ((point.northing - mf.trk.gArr[mf.trk.idx].curvePts[t].northing) * (point.northing - mf.trk.gArr[mf.trk.idx].curvePts[t].northing));
+                        double dist = ((point.easting - gArr[idx].curvePts[t].easting) * (point.easting - gArr[idx].curvePts[t].easting))
+                            + ((point.northing - gArr[idx].curvePts[t].northing) * (point.northing - gArr[idx].curvePts[t].northing));
                         if (dist < distSqAway)
                         {
                             Add = false;
@@ -1384,7 +1385,7 @@ namespace AgOpenGPS
         public void SmoothAB(int smPts)
         {
             //countExit the reference list of original curve
-            int cnt = mf.trk.gArr[mf.trk.idx].curvePts.Count;
+            int cnt = gArr[idx].curvePts.Count;
 
             //just go back if not very long
             if (cnt < 100) return;
@@ -1395,16 +1396,16 @@ namespace AgOpenGPS
             //read the points before and after the setpoint
             for (int s = 0; s < smPts / 2; s++)
             {
-                arr[s].easting = mf.trk.gArr[mf.trk.idx].curvePts[s].easting;
-                arr[s].northing = mf.trk.gArr[mf.trk.idx].curvePts[s].northing;
-                arr[s].heading = mf.trk.gArr[mf.trk.idx].curvePts[s].heading;
+                arr[s].easting = gArr[idx].curvePts[s].easting;
+                arr[s].northing = gArr[idx].curvePts[s].northing;
+                arr[s].heading = gArr[idx].curvePts[s].heading;
             }
 
             for (int s = cnt - (smPts / 2); s < cnt; s++)
             {
-                arr[s].easting = mf.trk.gArr[mf.trk.idx].curvePts[s].easting;
-                arr[s].northing = mf.trk.gArr[mf.trk.idx].curvePts[s].northing;
-                arr[s].heading = mf.trk.gArr[mf.trk.idx].curvePts[s].heading;
+                arr[s].easting = gArr[idx].curvePts[s].easting;
+                arr[s].northing = gArr[idx].curvePts[s].northing;
+                arr[s].heading = gArr[idx].curvePts[s].heading;
             }
 
             //average them - center weighted average
@@ -1412,12 +1413,12 @@ namespace AgOpenGPS
             {
                 for (int j = -smPts / 2; j < smPts / 2; j++)
                 {
-                    arr[i].easting += mf.trk.gArr[mf.trk.idx].curvePts[j + i].easting;
-                    arr[i].northing += mf.trk.gArr[mf.trk.idx].curvePts[j + i].northing;
+                    arr[i].easting += gArr[idx].curvePts[j + i].easting;
+                    arr[i].northing += gArr[idx].curvePts[j + i].northing;
                 }
                 arr[i].easting /= smPts;
                 arr[i].northing /= smPts;
-                arr[i].heading = mf.trk.gArr[mf.trk.idx].curvePts[i].heading;
+                arr[i].heading = gArr[idx].curvePts[i].heading;
             }
 
             //make a list to draw
@@ -1499,7 +1500,7 @@ namespace AgOpenGPS
             if (cnt == 0) return;
 
             //eek
-            mf.trk.gArr[mf.trk.idx].curvePts?.Clear();
+            gArr[idx].curvePts?.Clear();
 
             //copy to an array to calculate all the new headings
             vec3[] arr = new vec3[cnt];
@@ -1510,7 +1511,7 @@ namespace AgOpenGPS
             {
                 arr[i].heading = Math.Atan2(arr[i + 1].easting - arr[i].easting, arr[i + 1].northing - arr[i].northing);
                 if (arr[i].heading < 0) arr[i].heading += glm.twoPI;
-                mf.trk.gArr[mf.trk.idx].curvePts.Add(arr[i]);
+                gArr[idx].curvePts.Add(arr[i]);
             }
         }
 
@@ -1538,6 +1539,57 @@ namespace AgOpenGPS
             return _ = r.northing >= minx && r.northing <= maxx && (r.easting >= miny && r.easting <= maxy);
         }
 
+        public void CreateDesignedABTrack(bool isRefRightSide)
+        {
+            gArr.Add(new CTrk());
+
+            idx = gArr.Count - 1;
+
+            gArr[idx].mode = TrackMode.AB;
+
+            double hsin = Math.Sin(designHeading);
+            double hcos = Math.Cos(designHeading);
+
+            //fill in the dots between A and B
+            double len = glm.Distance(designPtA, designPtB);
+            if (len < 20)
+            {
+                designPtB.easting = designPtA.easting + (Math.Sin(designHeading) * 30);
+                designPtB.northing = designPtA.northing + (Math.Cos(designHeading) * 30);
+            }
+            len = glm.Distance(designPtA, designPtB);
+
+            vec3 P1 = new vec3();
+            for (int i = 0; i < (int)len; i += 1)
+            {
+                P1.easting = (hsin * i) + designPtA.easting;
+                P1.northing = (hcos * i) + designPtA.northing;
+                P1.heading = designHeading;
+                gArr[idx].curvePts.Add(P1);
+            }
+
+            gArr[idx].heading = designHeading;
+
+            double dist;
+            if (isRefRightSide)
+            {
+                dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
+                NudgeRefTrack(dist);
+            }
+            else
+            {
+                dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
+                NudgeRefTrack(dist);
+            }
+
+            gArr[idx].ptA.easting = (gArr[idx].curvePts[0].easting);
+            gArr[idx].ptA.northing = (gArr[idx].curvePts[0].northing);
+            gArr[idx].ptB.easting = (gArr[idx].curvePts[gArr[idx].curvePts.Count - 1].easting);
+            gArr[idx].ptB.northing = (gArr[idx].curvePts[gArr[idx].curvePts.Count - 1].northing);
+
+            //build the tail extensions
+            AddFirstLastPoints(ref gArr[idx].curvePts, 100);
+        }
         //add extensons
         public void AddFirstLastPoints(ref List<vec3> xList, int ptsToAdd)
         {
@@ -1599,7 +1651,7 @@ namespace AgOpenGPS
         public void ResetTrack()
         {
             curList?.Clear();
-            mf.trk.idx = -1;
+            idx = -1;
         }
 
         // Searches for the nearest "global" curve point to the refPoint by checking all points of the trk.

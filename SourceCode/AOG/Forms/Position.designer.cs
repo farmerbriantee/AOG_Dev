@@ -825,19 +825,10 @@ namespace AgOpenGPS
                 //like normal
                 if (trk.gArr.Count > 0 && trk.idx > -1)
                 {
-                    if (trk.gArr[trk.idx].mode == TrackMode.AB)
-                    {
-                        ABLine.BuildCurrentABLineList(pivotAxlePos);
+                    //build new current ref line if required
+                    trk.BuildTrackCurrentList(pivotAxlePos);
 
-                        ABLine.GetCurrentABLine(pivotAxlePos, steerAxlePos);
-                    }
-                    else
-                    {
-                        //build new current ref line if required
-                        trk.BuildTrackCurrentList(pivotAxlePos);
-
-                        trk.GetCurrentTrackLine(pivotAxlePos, steerAxlePos);
-                    }
+                    trk.GetCurrentTrackLine(pivotAxlePos, steerAxlePos);
                 }
             }
 

@@ -318,9 +318,11 @@ namespace AgOpenGPS
             timer1.Enabled = false;
             mf.trk.isMakingABLine = false;
 
-            mf.trk.gArr.Add(new CTrk());
+            mf.trk.CreateDesignedABTrack(isRefRightSide);
 
-            idx = mf.trk.gArr.Count - 1;
+            mf.trk.designName = "AB: " +
+                (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+            textBox1.Text = mf.trk.designName;
 
             mf.trk.gArr[idx].mode = TrackMode.AB;
 
@@ -345,9 +347,6 @@ namespace AgOpenGPS
                 mf.trk.gArr[idx].curvePts.Add(P1);
             }
 
-            mf.trk.designName = "AB: " +
-                (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
-            textBox1.Text = mf.trk.designName;
 
             mf.trk.gArr[idx].heading = mf.trk.designHeading;
 
@@ -442,60 +441,13 @@ namespace AgOpenGPS
             timer1.Enabled = false;
 
             mf.trk.isMakingABLine = false;
-            mf.trk.gArr.Add(new CTrk());
 
-            idx = mf.trk.gArr.Count - 1;
-
-            mf.trk.gArr[idx].mode = TrackMode.AB;
-
-            double hsin = Math.Sin(mf.trk.designHeading);
-            double hcos = Math.Cos(mf.trk.designHeading);
-
-            //fill in the dots between A and B
-            double len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
-            if (len < 20)
-            {
-                mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
-                mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
-            }
-            len = glm.Distance(mf.trk.designPtA, mf.trk.designPtB);
-
-            vec3 P1 = new vec3();
-            for (int i = 0; i < (int)len; i += 1)
-            {
-                P1.easting = (hsin * i) + mf.trk.designPtA.easting;
-                P1.northing = (hcos * i) + mf.trk.designPtA.northing;
-                P1.heading = mf.trk.designHeading;
-                mf.trk.gArr[idx].curvePts.Add(P1);
-            }
+            mf.trk.CreateDesignedABTrack(isRefRightSide);
 
             mf.trk.designName = "A+" +
-                (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) 
+                + "\u00B0 ";
             textBox1.Text = mf.trk.designName;
-
-            mf.trk.gArr[idx].heading = mf.trk.designHeading;
-
-            double dist;
-            if (isRefRightSide)
-            {
-                dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
-                mf.trk.idx = idx;
-                mf.trk.NudgeRefTrack(dist);
-            }
-            else
-            {
-                dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
-                mf.trk.idx = idx;
-                mf.trk.NudgeRefTrack(dist);
-            }
-
-            mf.trk.gArr[idx].ptA.easting = (mf.trk.gArr[idx].curvePts[0].easting);
-            mf.trk.gArr[idx].ptA.northing = (mf.trk.gArr[idx].curvePts[0].northing);
-            mf.trk.gArr[idx].ptB.easting = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].easting);
-            mf.trk.gArr[idx].ptB.northing = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].northing);
-
-            //build the tail extensions
-            mf.trk.AddFirstLastPoints(ref mf.trk.gArr[idx].curvePts, 100);
 
             panelAPlus.Visible = false;
             panelName.Visible = true;

@@ -693,14 +693,6 @@ namespace AgOpenGPS
                     { form2.ShowDialog(this); }
                 }
 
-                //load from Existing
-                else if (result == DialogResult.Abort)
-                {
-                    //ask for a field to copy
-                    using (var form2 = new FormFieldISOXML(this))
-                    { form2.ShowDialog(this); }
-                }
-
                 if (isJobStarted)
                 {
                     double distance = Math.Pow((CNMEA.latStart - pn.latitude), 2) + Math.Pow((CNMEA.lonStart - pn.longitude), 2);

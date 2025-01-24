@@ -800,6 +800,34 @@ namespace AgOpenGPS
                                     trk.gArr[trk.idx].curvePts.Add(vecPtt);
                                 }
                             }
+
+                            if (trk.gArr[trk.idx].mode == TrackMode.AB)
+                            {
+                                double designHeading = trk.gArr[trk.idx].heading;
+
+                                double hsin = Math.Sin(designHeading);
+                                double hcos = Math.Cos(designHeading);
+
+                                //fill in the dots between A and B
+                                double len = glm.Distance(trk.gArr[trk.idx].ptA, trk.gArr[trk.idx].ptB);
+                                if (len < 20)
+                                {
+                                    trk.gArr[trk.idx].ptB.easting = trk.gArr[trk.idx].ptA.easting + (Math.Sin(designHeading) * 30);
+                                    trk.gArr[trk.idx].ptB.northing = trk.gArr[trk.idx].ptA.northing + (Math.Cos(designHeading) * 30);
+                                }
+                                len = glm.Distance(trk.gArr[trk.idx].ptA, trk.gArr[trk.idx].ptA);
+
+                                vec3 P1 = new vec3();
+                                for (int i = 0; i < (int)len; i += 1)
+                                {
+                                    P1.easting = (hsin * i) + trk.gArr[trk.idx].ptA.easting;
+                                    P1.northing = (hcos * i) + trk.gArr[trk.idx].ptA.northing;
+                                    P1.heading = designHeading;
+                                    trk.gArr[trk.idx].curvePts.Add(P1);
+                                }
+
+                                trk.AddFirstLastPoints(ref trk.gArr[trk.idx].curvePts, 100);
+                            }
                         }
                     }
                     catch (Exception er)

@@ -1361,7 +1361,7 @@ namespace AgOpenGPS
             //build the tail extensions
             AddFirstLastPoints(ref gArr[idx].curvePts, 100);
         }
-        //add extensons
+        
         public void AddFirstLastPoints(ref List<vec3> xList, int ptsToAdd)
         {
             int ptCnt = xList.Count - 1;

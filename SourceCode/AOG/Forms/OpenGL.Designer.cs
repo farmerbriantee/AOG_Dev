@@ -726,6 +726,12 @@ namespace AgOpenGPS
             GL.MatrixMode(MatrixMode.Modelview);
         }
 
+        enum bbColors
+        {
+            fence = 75, headland = 105, innerFence = 25, tram = 150, //red
+            section = 127 //grn
+        }
+
         private void oglBack_Paint(object sender, PaintEventArgs e)
         {
             oglBack.MakeCurrent();
@@ -743,7 +749,7 @@ namespace AgOpenGPS
                 -toolPos.northing - Math.Cos(toolPos.heading) * 15,
                 0);
 
-            #region Draw to Back Buffer
+            #region Draw to Back Buffer           
 
             // field triangulation color qqq
             GL.ColorMask(true, false, false, false); //Draw only in red
@@ -752,8 +758,9 @@ namespace AgOpenGPS
             {
                 if (bnd.isHeadlandOn)
                 {
-                    //draw 75 red in whole outer field polygon
-                    GL.Color3((byte)75, (byte)0, (byte)0);
+                    //draw red in whole outer field polygon
+                    GL.Color3((byte)bbColors.fence, (byte)0, (byte)0);
+
                     GL.Begin(PrimitiveType.Triangles);
                     for (int i = 0; i < bnd.bndList[0].bndTriangleList.Count; i++)
                     {
@@ -763,8 +770,9 @@ namespace AgOpenGPS
                     }
                     GL.End();
 
-                    //draw 25 red in headland polygon
-                    GL.Color3((byte)150, (byte)0, (byte)0);
+                    //draw red in headland polygon
+                    GL.Color3((byte)bbColors.headland, (byte)0, (byte)0);
+
                     GL.Begin(PrimitiveType.Triangles);
                     for (int i = 0; i < bnd.bndList[0].hdLineTriangleList.Count; i++)
                     {
@@ -778,8 +786,9 @@ namespace AgOpenGPS
                 }
                 else //no headland excists
                 {
-                    //draw 25 red in whole outer field polygon
-                    GL.Color3((byte)25, (byte)0, (byte)0);
+                    //draw  red in whole outer field polygon (fence)
+                    GL.Color3((byte)bbColors.fence, (byte)0, (byte)0);
+
                     GL.Begin(PrimitiveType.Triangles);
                     for (int i = 0; i < bnd.bndList[0].bndTriangleList.Count; i++)
                     {
@@ -790,10 +799,10 @@ namespace AgOpenGPS
                     GL.End();
                 }
 
-                //draw 0 red in inner boundary of field, aka black again
+                //draw red in inner boundary of field
                 if (bnd.bndList.Count > 1)
                 {
-                    GL.Color3((byte)0, (byte)0, (byte)0);
+                    GL.Color3((byte)bbColors.innerFence, (byte)0, (byte)0);
                     GL.Begin(PrimitiveType.Triangles);
                     for (int a = 1; a < bnd.bndList.Count; a++)
                     {
@@ -806,11 +815,42 @@ namespace AgOpenGPS
                     }
                     GL.End();
                 }
+
+                //tram tracks
+                GL.Color3((byte)bbColors.tram, (byte)0, (byte)0);
+
+                if (tool.isDisplayTramControl && tram.displayMode != 0)
+                {
+                    GL.LineWidth(8);
+
+                    if ((tram.displayMode == 1 || tram.displayMode == 2))
+                    {
+                        for (int i = 0; i < tram.tramList.Count; i++)
+                        {
+                            GL.Begin(PrimitiveType.LineStrip);
+                            for (int h = 0; h < tram.tramList[i].Count; h++)
+                                GL.Vertex3(tram.tramList[i][h].easting, tram.tramList[i][h].northing, 0);
+                            GL.End();
+                        }
+                    }
+
+                    if (tram.displayMode == 1 || tram.displayMode == 3)
+                    {
+                        //boundary tram list
+                        GL.Begin(PrimitiveType.LineStrip);
+                        for (int h = 0; h < tram.tramBndOuterArr.Count; h++)
+                            GL.Vertex3(tram.tramBndOuterArr[h].easting, tram.tramBndOuterArr[h].northing, 0);
+                        for (int h = 0; h < tram.tramBndInnerArr.Count; h++)
+                            GL.Vertex3(tram.tramBndInnerArr[h].easting, tram.tramBndInnerArr[h].northing, 0);
+                        GL.End();
+                    }
+                }
+
             }
 
             //patch color
             GL.ColorMask(false, true, false, false); //Draw only in green
-            GL.Color3((byte)0, (byte)127, (byte)0);
+            GL.Color3((byte)0, (byte)bbColors.section, (byte)0);
 
             //to draw or not the triangle patch
             bool isDraw;
@@ -858,37 +898,6 @@ namespace AgOpenGPS
                             GL.End();
                         }
                     }
-                }
-            }
-
-            //tram tracks
-            GL.ColorMask(false, false, true, false); //Draw only in blue
-            GL.Color3((byte)0, (byte)0, (byte)150);
-
-            if (tool.isDisplayTramControl && tram.displayMode != 0 )
-            {
-                GL.LineWidth(8);
-
-                if ((tram.displayMode == 1 || tram.displayMode == 2))
-                {
-                    for (int i = 0; i < tram.tramList.Count; i++)
-                    {
-                        GL.Begin(PrimitiveType.LineStrip);
-                        for (int h = 0; h < tram.tramList[i].Count; h++)
-                            GL.Vertex3(tram.tramList[i][h].easting, tram.tramList[i][h].northing, 0);
-                        GL.End();
-                    }
-                }
-
-                if (tram.displayMode == 1 || tram.displayMode == 3)
-                {
-                    //boundary tram list
-                    GL.Begin(PrimitiveType.LineStrip);
-                    for (int h = 0; h < tram.tramBndOuterArr.Count; h++)
-                        GL.Vertex3(tram.tramBndOuterArr[h].easting, tram.tramBndOuterArr[h].northing, 0);
-                    for (int h = 0; h < tram.tramBndInnerArr.Count; h++)
-                        GL.Vertex3(tram.tramBndInnerArr[h].easting, tram.tramBndInnerArr[h].northing, 0);
-                    GL.End();
                 }
             }
 

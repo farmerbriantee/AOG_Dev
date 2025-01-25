@@ -683,7 +683,8 @@ namespace AgOpenGPS
         {
             //triangulate headland area
             mf.bnd.bndList[0].hdLinePolygon = new CPolygon(mf.bnd.bndList[0].hdLine.ToArray());
-            mf.bnd.bndList[0].hdLineTriangleList = mf.bnd.bndList[0].bndPolygon.Triangulate();
+            mf.bnd.bndList[0].hdLineTriangleList = mf.bnd.bndList[0].hdLinePolygon.Triangulate();
+            mf.bnd.isHeadlandOn = true;
 
             mf.FileSaveHeadLines();
             //does headland control sections

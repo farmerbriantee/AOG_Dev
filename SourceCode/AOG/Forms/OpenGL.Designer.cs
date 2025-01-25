@@ -3,7 +3,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Windows.Forms;
 using System.Text;
-using System.Drawing;
+using System.Diagnostics;
 
 namespace AgOpenGPS
 {
@@ -22,13 +22,9 @@ namespace AgOpenGPS
 
         //data buffer for pixels read from off screen buffer
 
-        //data buffer for pixels read from off screen buffer
-        byte[] rateRed = new byte[1];
-        byte[] rateGrn = new byte[1];
-        byte[] rateBlu = new byte[1];
-
         byte[] grnPixels = new byte[150001];
-
+        byte[] redPixels = new byte[150001];
+        byte[] bluPixels = new byte[150001];
         private bool isHeadlandClose = false;
 
         // When oglMain is created
@@ -749,7 +745,71 @@ namespace AgOpenGPS
 
             #region Draw to Back Buffer
 
+            // field triangulation color qqq
+            GL.ColorMask(true, false, false, false); //Draw only in red
+
+            if (bnd.bndList.Count > 0)
+            {
+                if (bnd.isHeadlandOn)
+                {
+                    //draw 75 red in whole outer field polygon
+                    GL.Color3((byte)75, (byte)0, (byte)0);
+                    GL.Begin(PrimitiveType.Triangles);
+                    for (int i = 0; i < bnd.bndList[0].bndTriangleList.Count; i++)
+                    {
+                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[0].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[1].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[2].northing, 0);
+                    }
+                    GL.End();
+
+                    //draw 25 red in headland polygon
+                    GL.Color3((byte)150, (byte)0, (byte)0);
+                    GL.Begin(PrimitiveType.Triangles);
+                    for (int i = 0; i < bnd.bndList[0].hdLineTriangleList.Count; i++)
+                    {
+                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].northing, 0);
+                    }
+                    GL.End();
+
+                    //if we would have inner boundary headline draw them here
+                }
+                else //no headland excists
+                {
+                    //draw 25 red in whole outer field polygon
+                    GL.Color3((byte)25, (byte)0, (byte)0);
+                    GL.Begin(PrimitiveType.Triangles);
+                    for (int i = 0; i < bnd.bndList[0].bndTriangleList.Count; i++)
+                    {
+                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[0].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[1].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[2].northing, 0);
+                    }
+                    GL.End();
+                }
+
+                //draw 0 red in inner boundary of field, aka black again
+                if (bnd.bndList.Count > 1)
+                {
+                    GL.Color3((byte)0, (byte)0, (byte)0);
+                    GL.Begin(PrimitiveType.Triangles);
+                    for (int a = 1; a < bnd.bndList.Count; a++)
+                    {
+                        for (int i = 0; i < bnd.bndList[a].bndTriangleList.Count; i++)
+                        {
+                            GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[0].northing, 0);
+                            GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[1].northing, 0);
+                            GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[2].northing, 0);
+                        }
+                    }
+                    GL.End();
+                }
+            }
+
             //patch color
+            GL.ColorMask(false, true, false, false); //Draw only in green
             GL.Color3((byte)0, (byte)127, (byte)0);
 
             //to draw or not the triangle patch
@@ -801,11 +861,12 @@ namespace AgOpenGPS
                 }
             }
 
-            //draw 245 green for the tram tracks
+            //tram tracks
+            GL.ColorMask(false, false, true, false); //Draw only in blue
+            GL.Color3((byte)0, (byte)0, (byte)150);
 
-            if (tool.isDisplayTramControl && tram.displayMode != 0 && (trk.idx > -1))
+            if (tool.isDisplayTramControl && tram.displayMode != 0 )
             {
-                GL.Color3((byte)0, (byte)245, (byte)0);
                 GL.LineWidth(8);
 
                 if ((tram.displayMode == 1 || tram.displayMode == 2))
@@ -831,26 +892,7 @@ namespace AgOpenGPS
                 }
             }
 
-            //draw 240 green for boundary
-            if (bnd.bndList.Count > 0)
-            {
-                ////draw the bnd line 
-                if (bnd.bndList[0].fenceLine.Count > 3)
-                {
-                    GL.LineWidth(3);
-                    GL.Color3((byte)0, (byte)240, (byte)0);
-                    bnd.bndList[0].fenceLine.DrawPolygon();
-                }
-
-
-                //draw 250 green for the headland
-                if (bnd.isHeadlandOn && bnd.isSectionControlledByHeadland)
-                {
-                    GL.LineWidth(3);
-                    GL.Color3((byte)0, (byte)250, (byte)0);
-                    bnd.bndList[0].hdLine.DrawPolygon();
-                }
-            }
+            GL.ColorMask(true, true, true, true);
 
             //finish it up - we need to read the ram of video card
             GL.Flush();
@@ -858,7 +900,7 @@ namespace AgOpenGPS
             #endregion
 
             //determine where the tool is wrt to headland
-            if (bnd.isHeadlandOn) bnd.WhereAreToolCorners();
+            //if (bnd.isHeadlandOn) bnd.WhereAreToolCorners();
 
             //set the look ahead for hyd Lift in pixels per second
             vehicle.hydLiftLookAheadDistanceLeft = tool.farLeftSpeed * vehicle.hydLiftLookAheadTime * 10;
@@ -879,32 +921,6 @@ namespace AgOpenGPS
             if (tool.lookAheadDistanceOffPixelsLeft > 160) tool.lookAheadDistanceOffPixelsLeft = 160;
             if (tool.lookAheadDistanceOffPixelsRight > 160) tool.lookAheadDistanceOffPixelsRight = 160;
 
-            //determine if section is in boundary and headland using the section left/right positions
-            bool isLeftIn = true, isRightIn = true;
-
-            if (bnd.bndList.Count > 0)
-            {
-                for (int j = 0; j < tool.numOfSections; j++)
-                {
-                    //only one first left point, the rest are all rights moved over to left
-                    isLeftIn = j == 0 ? bnd.IsPointInsideFenceArea(section[j].leftPoint) : isRightIn;
-                    isRightIn = bnd.IsPointInsideFenceArea(section[j].rightPoint);
-
-                    if (!tool.isSectionOffWhenOut)
-                    {
-                        //merge the two sides into in or out
-                        if (isLeftIn || isRightIn) section[j].isInBoundary = true;
-                        else section[j].isInBoundary = false;
-                    }
-                    else
-                    {
-                        //merge the two sides into in or out
-                        if (!isLeftIn || !isRightIn) section[j].isInBoundary = false;
-                        else section[j].isInBoundary = true;
-                    }
-                }
-            }
-
             //determine farthest ahead lookahead - is the height of the readpixel line
             double rpHeight = 0;
             double rpOnHeight = 0;
@@ -917,14 +933,9 @@ namespace AgOpenGPS
             if (tool.lookAheadDistanceOnPixelsLeft > tool.lookAheadDistanceOnPixelsRight) rpOnHeight = tool.lookAheadDistanceOnPixelsLeft;
             else rpOnHeight = tool.lookAheadDistanceOnPixelsRight;
 
-            isHeadlandClose = false;
-
             //clamp the height after looking way ahead, this is for switching off super section only
             rpOnHeight = Math.Abs(rpOnHeight);
             rpToolHeight = Math.Abs(rpToolHeight);
-
-            //10 % min is required for overlap, otherwise it never would be on.
-            int pixLimit = (int)((double)(section[0].rpSectionWidth * rpOnHeight) / (double)(5.0));
 
             if ((rpOnHeight < rpToolHeight && bnd.isHeadlandOn && bnd.isSectionControlledByHeadland)) rpHeight = rpToolHeight + 2;
             else rpHeight = rpOnHeight + 2;
@@ -932,12 +943,15 @@ namespace AgOpenGPS
             if (rpHeight > 290) rpHeight = 290;
             if (rpHeight < 8) rpHeight = 8;
 
-            //read the whole block of pixels up to max lookahead, one read only
+            //read the whole block of pixels up to max lookahead, one read only qqq
+            GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Red, PixelType.UnsignedByte, redPixels);
             GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Green, PixelType.UnsignedByte, grnPixels);
+            GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Blue, PixelType.UnsignedByte, bluPixels);
 
-            //Paint to context for troubleshooting
-            //oglBack.MakeCurrent();
-            //oglBack.SwapBuffers();
+            //Paint to context for troubleshooting qqq
+            oglBack.BringToFront();
+            oglBack.MakeCurrent();
+            oglBack.SwapBuffers();
 
             //determine if headland is in read pixel buffer left middle and right. 
             int start = 0, end = 0, tagged = 0, totalPixel = 0;

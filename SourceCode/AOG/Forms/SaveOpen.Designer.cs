@@ -358,9 +358,6 @@ namespace AgOpenGPS
             }
 
             // Tracks -------------------------------------------------------------------------------------------------
-
-            trk.gArr?.Clear();
-
             FileLoadTracks();
 
             //section patches
@@ -469,6 +466,10 @@ namespace AgOpenGPS
                                         delta = 0;
                                     }
                                 }
+
+                                //Triangulate the bundary polygon
+                                New.bndPolygon = new CPolygon(New.fenceLineEar.ToArray());
+                                New.bndTriangleList = New.bndPolygon.Triangulate();
 
                                 bnd.bndList.Add(New);
                             }

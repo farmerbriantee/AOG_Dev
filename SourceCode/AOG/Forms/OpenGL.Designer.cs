@@ -1053,7 +1053,46 @@ namespace AgOpenGPS
                     continue;
                 }
 
+                //AutoSection - If any nowhere applied, send OnRequest, if its all green send an offRequest
+                section[j].isSectionRequiredOn = false;
 
+                //calculate the slopes of the lines
+                mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
+                mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
+
+                start = section[j].rpSectionPosition - section[0].rpSectionPosition;
+                end = section[j].rpSectionWidth - 1 + start;
+
+                if (end >= tool.rpWidth)
+                    end = tool.rpWidth - 1;
+
+                totalPixel = 0;
+                tagged = 0;
+
+                for (int pos = start; pos <= end; pos++)
+                {
+                    startHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
+                    endHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
+
+                    //for (int a = startHeight; a <= endHeight; a += tool.rpWidth)
+                    {
+                        //totalPixel++;
+                        if (grnPixels[endHeight] == 0) tagged++;
+                        if (grnPixels[startHeight] == 127) totalPixel++;
+                    }
+                }
+
+                //determine if meeting minimum coverage
+                totalPixel--;
+                //if (tagged != 0)
+                section[j].isSectionRequiredOn = true;
+
+                //check for off
+                if (tagged == 0 && totalPixel == (end - start))
+                    section[j].isSectionRequiredOn = false;
+
+
+                /*
                 //AutoSection - If any nowhere applied, send OnRequest, if its all green send an offRequest
                 section[j].isSectionRequiredOn = false;
 
@@ -1084,6 +1123,7 @@ namespace AgOpenGPS
 
                 //determine if meeting minimum coverage
                 section[j].isSectionRequiredOn = ((tagged * 100) / totalPixel > (100 - tool.minCoverage));
+                */
 
                 //logic if in or out of boundaries or headland
                 if (bnd.bndList.Count > 0)

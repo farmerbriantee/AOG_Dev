@@ -944,7 +944,7 @@ namespace AgOpenGPS
             if (rpHeight < 8) rpHeight = 8;
 
             //read the whole block of pixels up to max lookahead, one read only qqq
-            GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Red, PixelType.UnsignedByte, redPixels);
+            //GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Red, PixelType.UnsignedByte, redPixels);
             GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Green, PixelType.UnsignedByte, grnPixels);
             GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Blue, PixelType.UnsignedByte, bluPixels);
 

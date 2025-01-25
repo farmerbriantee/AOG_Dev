@@ -33,12 +33,9 @@ namespace AgOpenGPS
         private int A, B, C;
         private int rA, rB;
 
-        public int currentLocationIndex;
-
         //pure pursuit values
         public vec2 goalPointTrk = new vec2(0, 0);
 
-        public double steerAngleTrk, rEastTrk, rNorthTrk, manualUturnHeading;
 
         public bool isSmoothWindowOpen, isLooping;
         public List<vec3> smooList = new List<vec3>();
@@ -75,15 +72,7 @@ namespace AgOpenGPS
 
         public int lineWidth = 2, numGuideLines;
 
-        public double pivotDistanceError, pivotDistanceErrorLast, pivotDerivative, pivotDerivativeSmoothed, lastTrackDistance = 10000;
-
-        //derivative counters
-        private int counter2;
-
         public double inty;
-
-        // Should we find the global nearest curve point (instead of local) on the next search.
-        private bool findGlobalNearestTrackPoint = true;
 
         public CTrack(FormGPS _f)
         {
@@ -105,7 +94,7 @@ namespace AgOpenGPS
             if (!isTrackValid || ((mf.secondsSinceStart - lastSecond) > 1 && (!mf.isBtnAutoSteerOn || mf.mc.steerSwitchHigh)))
             {
                 lastSecond = mf.secondsSinceStart;
-                findGlobalNearestTrackPoint = true;
+                mf.gyd.findGlobalNearestTrackPoint = true;
                 if (track.mode != TrackMode.waterPivot)
                 {
                     int refCount = track.curvePts.Count;
@@ -213,7 +202,7 @@ namespace AgOpenGPS
 
                     curList = await Task.Run(() => BuildNewOffsetList(distAway, track));
                     isBusyWorking = false;
-                    findGlobalNearestTrackPoint = true;
+                    mf.gyd.findGlobalNearestTrackPoint = true;
 
                     guideArr?.Clear();
                     if (mf.isSideGuideLines && mf.camera.camSetDistance > mf.tool.width * -400)
@@ -564,316 +553,20 @@ namespace AgOpenGPS
                 }
             }
 
-            double dist, dx, dz;
-            //int ptCount = curList.Count;
-
             if (curList.Count > 0)
             {
-                // Update based on autosteer settings and distance from line
-                double goalPointDistance = mf.vehicle.UpdateGoalPointDistance();
-                bool ReverseHeading = mf.isReverse ? !isHeadingSameWay : isHeadingSameWay;
-
                 if (mf.yt.isYouTurnTriggered && mf.yt.DistanceFromYouTurnLine())//do the pure pursuit from youTurn
                 {
-                    //now substitute what it thinks are AB line values with auto turn values
-                    steerAngleTrk = mf.yt.steerAngleYT;
-                    distanceFromCurrentLinePivot = mf.yt.distanceFromCurrentLine;
-
-                    goalPointTrk = mf.yt.goalPointYT;
-                    mf.vehicle.modeActualXTE = (distanceFromCurrentLinePivot);
+                    mf.gyd.UTurnGuidance();
                 }
+
                 else if (mf.isStanleyUsed)//Stanley
                 {
-                    mf.gyd.StanleyGuidanceCurve(pivot, steer, ref curList);
+                    mf.gyd.StanleyGuidance(pivot, steer, ref curList);
                 }
                 else// Pure Pursuit ------------------------------------------
                 {
-                    double minDistA;
-                    double minDistB;
-                    //close call hit
-
-                    bool isAddStart = false, isAddEnd = false;
-
-                    //If is a curve or an AB made into curve
-                    if (gArr[idx].mode <= TrackMode.Curve)
-                    {
-                        minDistB = double.MaxValue;
-                        //close call hit
-                        int cc, dd;
-
-                        if (findGlobalNearestTrackPoint)
-                        {
-                            // When not already following some line, find the globally nearest point
-
-                            cc = findNearestGlobalCurvePoint(pivot, 10);
-
-                            findGlobalNearestTrackPoint = false;
-                        }
-                        else
-                        {
-                            // When already "locked" to follow some line, try to find the "local" nearest point
-                            // based on the last one. This prevents jumping between lines close to each other (or crossing lines).
-                            // As this is prone to find a "local minimum", this should only be used when already following some line.
-
-                            cc = findNearestLocalCurvePoint(pivot, currentLocationIndex, goalPointDistance, ReverseHeading);
-                        }
-
-                        minDistA = double.MaxValue;
-
-                        dd = cc + 8; if (dd > curList.Count - 1) dd = curList.Count;
-                        cc -= 8; if (cc < 0) cc = 0;
-
-                        //find the closest 2 points to current close call
-                        for (int j = cc; j < dd; j++)
-                        {
-                            dist = glm.DistanceSquared(pivot, curList[j]);
-                            if (dist < minDistA)
-                            {
-                                minDistB = minDistA;
-                                B = A;
-                                minDistA = dist;
-                                A = j;
-                            }
-                            else if (dist < minDistB)
-                            {
-                                minDistB = dist;
-                                B = j;
-                            }
-                        }
-
-                        //just need to make sure the points continue ascending or heading switches all over the place
-                        if (A > B) { C = A; A = B; B = C; }
-
-                        currentLocationIndex = A;
-
-                        if (A > curList.Count - 1 || B > curList.Count - 1)
-                            return;
-
-                        if (A > curList.Count - 50)
-                            isAddEnd = true;
-                        else if (A < 50)
-                            isAddStart = true;
-                    }
-                    else
-                    {
-                        if (findGlobalNearestTrackPoint)
-                        {
-                            // When not already following some line, find the globally nearest point
-
-                            A = findNearestGlobalCurvePoint(pivot);
-
-                            findGlobalNearestTrackPoint = false;
-                        }
-                        else
-                        {
-                            // When already "locked" to follow some line, try to find the "local" nearest point
-                            // based on the last one. This prevents jumping between lines close to each other (or crossing lines).
-                            // As this is prone to find a "local minimum", this should only be used when already following some line.
-
-                            A = findNearestLocalCurvePoint(pivot, currentLocationIndex, goalPointDistance, ReverseHeading);
-                        }
-
-                        currentLocationIndex = A;
-
-                        if (A > curList.Count - 1)
-                            return;
-
-                        //initial forward Test if pivot InRange AB
-                        if (A == curList.Count - 1) B = 0;
-                        else B = A + 1;
-
-                        if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
-                             curList[B].easting, curList[B].northing, pivot.easting, pivot.northing))
-                            goto SegmentFound;
-
-                        //step back one
-                        if (A == 0)
-                        {
-                            A = curList.Count - 1;
-                            B = 0;
-                        }
-                        else
-                        {
-                            A--;
-                            B = A + 1;
-                        }
-
-                        if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
-                            curList[B].easting, curList[B].northing, pivot.easting, pivot.northing))
-                            goto SegmentFound;
-
-                        //realy really lost
-                        return;
-                    }
-
-                SegmentFound:
-
-                    //get the distance from currently active AB line
-
-                    dx = curList[B].easting - curList[A].easting;
-                    dz = curList[B].northing - curList[A].northing;
-
-                    if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dz) < Double.Epsilon) return;
-
-                    //abHeading = Math.Atan2(dz, dx);
-
-                    //how far from current AB Line is fix
-                    distanceFromCurrentLinePivot = ((dz * pivot.easting) - (dx * pivot.northing) + (curList[B].easting
-                                * curList[A].northing) - (curList[B].northing * curList[A].easting))
-                                    / Math.Sqrt((dz * dz) + (dx * dx));
-
-                    //integral slider is set to 0
-                    if (mf.vehicle.purePursuitIntegralGain != 0 && !mf.isReverse)
-                    {
-                        pivotDistanceError = distanceFromCurrentLinePivot * 0.2 + pivotDistanceError * 0.8;
-
-                        if (counter2++ > 4)
-                        {
-                            pivotDerivative = pivotDistanceError - pivotDistanceErrorLast;
-                            pivotDistanceErrorLast = pivotDistanceError;
-                            counter2 = 0;
-                            pivotDerivative *= 2;
-
-                            //limit the derivative
-                            //if (pivotDerivative > 0.03) pivotDerivative = 0.03;
-                            //if (pivotDerivative < -0.03) pivotDerivative = -0.03;
-                            //if (Math.Abs(pivotDerivative) < 0.01) pivotDerivative = 0;
-                        }
-
-                        //pivotErrorTotal = pivotDistanceError + pivotDerivative;
-
-                        if (mf.isBtnAutoSteerOn && mf.avgSpeed > 2.5 && Math.Abs(pivotDerivative) < 0.1)
-                        {
-                            //if over the line heading wrong way, rapidly decrease integral
-                            if ((inty < 0 && distanceFromCurrentLinePivot < 0) || (inty > 0 && distanceFromCurrentLinePivot > 0))
-                            {
-                                inty += pivotDistanceError * mf.vehicle.purePursuitIntegralGain * -0.04;
-                            }
-                            else
-                            {
-                                if (Math.Abs(distanceFromCurrentLinePivot) > 0.02)
-                                {
-                                    inty += pivotDistanceError * mf.vehicle.purePursuitIntegralGain * -0.02;
-                                    if (inty > 0.2) inty = 0.2;
-                                    else if (inty < -0.2) inty = -0.2;
-                                }
-                            }
-                        }
-                        else inty *= 0.95;
-                    }
-                    else inty = 0;
-
-                    // ** Pure pursuit ** - calc point on AB Line closest to current position
-                    double U = (((pivot.easting - curList[A].easting) * dx)
-                                + ((pivot.northing - curList[A].northing) * dz))
-                                / ((dx * dx) + (dz * dz));
-
-                    rEastTrk = curList[A].easting + (U * dx);
-                    rNorthTrk = curList[A].northing + (U * dz);
-                    manualUturnHeading = curList[A].heading;
-
-                    int count = ReverseHeading ? 1 : -1;
-                    vec3 start = new vec3(rEastTrk, rNorthTrk, 0);
-                    double distSoFar = 0;
-
-                    for (int i = ReverseHeading ? B : A; i < curList.Count && i >= 0;)
-                    {
-                        // used for calculating the length squared of next segment.
-                        double tempDist = glm.Distance(start, curList[i]);
-
-                        //will we go too far?
-                        if ((tempDist + distSoFar) > goalPointDistance)
-                        {
-                            double j = (goalPointDistance - distSoFar) / tempDist; // the remainder to yet travel
-
-                            goalPointTrk.easting = (((1 - j) * start.easting) + (j * curList[i].easting));
-                            goalPointTrk.northing = (((1 - j) * start.northing) + (j * curList[i].northing));
-                            break;
-                        }
-                        else distSoFar += tempDist;
-                        start = curList[i];
-                        i += count;
-                        if (i < 0) i = curList.Count - 1;
-                        if (i > curList.Count - 1) i = 0;
-                    }
-
-                    if (gArr[idx].mode <= TrackMode.Curve)
-                    {
-                        if (mf.isBtnAutoSteerOn && !mf.isReverse)
-                        {
-                            if (isHeadingSameWay)
-                            {
-                                if (glm.Distance(goalPointTrk, curList[(curList.Count - 1)]) < 0.5)
-                                {
-                                    mf.btnAutoSteer.PerformClick();
-                                    mf.TimedMessageBox(2000, gStr.gsGuidanceStopped, gStr.gsPastEndOfCurve);
-                                    Log.EventWriter("Autosteer Stop, Past End of Curve");
-                                }
-                            }
-                            else
-                            {
-                                if (glm.Distance(goalPointTrk, curList[0]) < 0.5)
-                                {
-                                    mf.btnAutoSteer.PerformClick();
-                                    mf.TimedMessageBox(2000, gStr.gsGuidanceStopped, gStr.gsPastEndOfCurve);
-                                    Log.EventWriter("Autosteer Stop, Past End of Curve");
-                                }
-                            }
-                        }
-                    }
-
-                    //calc "D" the distance from pivot axle to lookahead point
-                    double goalPointDistanceSquared = glm.DistanceSquared(goalPointTrk.northing, goalPointTrk.easting, pivot.northing, pivot.easting);
-
-                    //calculate the the delta x in local coordinates and steering angle degrees based on wheelbase
-                    //double localHeading = glm.twoPI - mf.fixHeading;
-
-                    double localHeading;
-                    if (ReverseHeading) localHeading = glm.twoPI - mf.fixHeading + inty;
-                    else localHeading = glm.twoPI - mf.fixHeading - inty;
-
-                    steerAngleTrk = glm.toDegrees(Math.Atan(2 * (((goalPointTrk.easting - pivot.easting) * Math.Cos(localHeading))
-                        + ((goalPointTrk.northing - pivot.northing) * Math.Sin(localHeading))) * mf.vehicle.wheelbase / goalPointDistanceSquared));
-
-                    if (mf.ahrs.imuRoll != 88888)
-                        steerAngleTrk += mf.ahrs.imuRoll * -mf.gyd.sideHillCompFactor;
-
-                    if (steerAngleTrk < -mf.vehicle.maxSteerAngle) steerAngleTrk = -mf.vehicle.maxSteerAngle;
-                    if (steerAngleTrk > mf.vehicle.maxSteerAngle) steerAngleTrk = mf.vehicle.maxSteerAngle;
-
-                    if (!isHeadingSameWay)
-                        distanceFromCurrentLinePivot *= -1.0;
-
-                    //used for acquire/hold mode
-                    mf.vehicle.modeActualXTE = (distanceFromCurrentLinePivot);
-
-                    double steerHeadingError = (pivot.heading - curList[A].heading);
-                    //Fix the circular error
-                    if (steerHeadingError > Math.PI)
-                        steerHeadingError -= Math.PI;
-                    else if (steerHeadingError < -Math.PI)
-                        steerHeadingError += Math.PI;
-
-                    if (steerHeadingError > glm.PIBy2)
-                        steerHeadingError -= Math.PI;
-                    else if (steerHeadingError < -glm.PIBy2)
-                        steerHeadingError += Math.PI;
-
-                    mf.vehicle.modeActualHeadingError = glm.toDegrees(steerHeadingError);
-
-                    //Convert to centimeters
-                    mf.guidanceLineDistanceOff = (short)Math.Round(distanceFromCurrentLinePivot * 1000.0, MidpointRounding.AwayFromZero);
-                    mf.guidanceLineSteerAngle = (short)(steerAngleTrk * 100);
-
-                    if (isAddStart)
-                    {
-                        AddStartPoints(ref curList, 100);
-                    }
-
-                    if (isAddEnd)
-                    {
-                        AddEndPoints(ref curList, 100);
-                    }
+                    mf.gyd.PurePursuitGuidance(pivot, ref curList);
                 }
             }
             else
@@ -882,104 +575,6 @@ namespace AgOpenGPS
                 distanceFromCurrentLinePivot = 32000;
                 mf.guidanceLineDistanceOff = 32000;
             }
-        }
-
-        // Searches for the nearest "global" curve point to the refPoint by checking all points of the trk.
-        // Parameter "increment" added here to give possibility to make a "sparser" search (to speed it up?)
-        // Return: index to the nearest point
-        private int findNearestGlobalCurvePoint(vec3 refPoint, int increment = 1)
-        {
-            double minDist = double.MaxValue;
-            int minDistIndex = 0;
-
-            for (int i = 0; i < curList.Count; i += increment)
-            {
-                double dist = glm.DistanceSquared(refPoint, curList[i]);
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    minDistIndex = i;
-                }
-            }
-            return minDistIndex;
-        }
-
-        // Searches for the nearest "local" curve point to the refPoint by traversing forward and backward on the curve
-        // startIndex means the starting point (index to curList) of the search.
-        // Return: index to the nearest (local) point
-        private int findNearestLocalCurvePoint(vec3 refPoint, int startIndex, double minSearchDistance, bool reverseSearchDirection)
-        {
-            double minDist = glm.DistanceSquared(refPoint, curList[(startIndex + curList.Count) % curList.Count]);
-            int minDistIndex = startIndex;
-
-            int directionMultiplier = reverseSearchDirection ? 1 : -1;
-            double distSoFar = 0;
-            vec3 start = curList[startIndex];
-
-            // Check all points' distances from the pivot inside the "look ahead"-distance and find the nearest
-            int offset = 1;
-
-            while (offset < curList.Count)
-            {
-                int pointIndex = (startIndex + (offset * directionMultiplier) + curList.Count) % curList.Count;  // Wrap around
-                double dist = glm.DistanceSquared(refPoint, curList[pointIndex]);
-
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    minDistIndex = pointIndex;
-                }
-
-                distSoFar += glm.Distance(start, curList[pointIndex]);
-                start = curList[pointIndex];
-
-                offset++;
-
-                if (distSoFar > minSearchDistance)
-                {
-                    break;
-                }
-            }
-
-            // Continue traversing until the distance starts growing
-            while (offset < curList.Count)
-            {
-                int pointIndex = (startIndex + (offset * directionMultiplier) + curList.Count) % curList.Count;  // Wrap around
-                double dist = glm.DistanceSquared(refPoint, curList[pointIndex]);
-                if (dist < minDist)
-                {
-                    // Getting closer
-                    minDist = dist;
-                    minDistIndex = pointIndex;
-                }
-                else
-                {
-                    // Getting farther, no point to continue
-                    break;
-                }
-                offset++;
-            }
-
-            // Traverse from the start point also into another direction to be sure we choose the minimum local distance.
-            // (This is also needed due to the way AB-curve is handled (the search may start one off from the last known nearest point)).
-            for (offset = 1; offset < curList.Count; offset++)
-            {
-                int pointIndex = (startIndex + (offset * (-directionMultiplier)) + curList.Count) % curList.Count;  // Wrap around
-                double dist = glm.DistanceSquared(refPoint, curList[pointIndex]);
-                if (dist < minDist)
-                {
-                    // Getting closer
-                    minDist = dist;
-                    minDistIndex = pointIndex;
-                }
-                else
-                {
-                    // Getting farther, no point to continue
-                    break;
-                }
-            }
-
-            return minDistIndex;
         }
 
         public void DrawNewTrack()
@@ -1405,7 +1000,7 @@ namespace AgOpenGPS
             }
         }
 
-        private void AddEndPoints(ref List<vec3> xList, int ptsToAdd)
+        public void AddEndPoints(ref List<vec3> xList, int ptsToAdd)
         {
             int ptCnt = xList.Count - 1;
             ptsToAdd *= 2;

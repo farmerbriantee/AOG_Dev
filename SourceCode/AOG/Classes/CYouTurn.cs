@@ -1081,7 +1081,7 @@ namespace AgOpenGPS
 
             bool loop = track.mode == TrackMode.bndCurve || track.mode == TrackMode.waterPivot;
 
-            for (j = thisCurve.currentLocationIndex; j > 0 && j < thisCurve.curList.Count; j += Count)
+            for (j = mf.gyd.currentLocationIndex; j > 0 && j < thisCurve.curList.Count; j += Count)
             {
                 if (j < 0)
                 {
@@ -1476,10 +1476,10 @@ namespace AgOpenGPS
             //point on AB line closest to pivot axle point from AB Line PurePursuit
             if (mf.trk.idx > -1 && mf.trk.gArr.Count > 0)
             {
-                    rEastYT = mf.trk.rEastTrk;
-                    rNorthYT = mf.trk.rNorthTrk;
+                    rEastYT = mf.gyd.rEastTrk;
+                    rNorthYT = mf.gyd.rNorthTrk;
                     isHeadingSameWay = mf.trk.isHeadingSameWay;
-                    head = mf.trk.manualUturnHeading;
+                    head = mf.gyd.manualUturnHeading;
             }
             else return;
 

@@ -758,8 +758,8 @@ namespace AgOpenGPS
             FileSaveTracks();
 
             ExportFieldAs_KML();
-            ExportFieldAs_ISOXMLv3();
-            ExportFieldAs_ISOXMLv4();
+            //ExportFieldAs_ISOXMLv3();
+            //ExportFieldAs_ISOXMLv4();
 
             Log.EventWriter("** Closed **   " + currentFieldDirectory + "   "
                 + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));

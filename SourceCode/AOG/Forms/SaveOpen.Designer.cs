@@ -731,6 +731,10 @@ namespace AgOpenGPS
 
             if (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0)
             {
+                //Triangulate headland polygon
+                bnd.bndList[0].hdLinePolygon = new CPolygon(bnd.bndList[0].hdLine.ToArray());
+                bnd.bndList[0].hdLineTriangleList = bnd.bndList[0].hdLinePolygon.Triangulate();
+
                 bnd.isHeadlandOn = true;
                 btnHeadlandOnOff.Image = Properties.Resources.HeadlandOn;
                 btnHeadlandOnOff.Visible = true;

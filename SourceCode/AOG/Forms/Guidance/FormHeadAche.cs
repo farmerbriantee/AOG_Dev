@@ -681,6 +681,10 @@ namespace AgOpenGPS
 
         private void btnExit_Click(object sender, EventArgs e)
         {
+            //triangulate headland area
+            mf.bnd.bndList[0].hdLinePolygon = new CPolygon(mf.bnd.bndList[0].hdLine.ToArray());
+            mf.bnd.bndList[0].hdLineTriangleList = mf.bnd.bndList[0].bndPolygon.Triangulate();
+
             mf.FileSaveHeadLines();
             //does headland control sections
             mf.bnd.isSectionControlledByHeadland = cboxIsSectionControlled.Checked;

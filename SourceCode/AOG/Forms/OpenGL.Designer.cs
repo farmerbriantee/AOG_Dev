@@ -959,7 +959,7 @@ namespace AgOpenGPS
             oglBack.SwapBuffers();
 
             //determine if headland is in read pixel buffer left middle and right. 
-            int start = 0, end = 0, tagged = 0, totalPixel = 0;
+            int start = 0, end = 0;
 
             //slope of the look ahead line
             double mOn = 0, mOff = 0;
@@ -967,7 +967,7 @@ namespace AgOpenGPS
             double theta = mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
             double deg = glm.toDegrees(Math.Atan(theta));
 
-            //tram and hydraulics
+            //tram
             if (tram.displayMode > 0 && tool.width > vehicle.trackWidth)
             {
                 tram.controlByte = 0;
@@ -985,43 +985,26 @@ namespace AgOpenGPS
             }
             else tram.controlByte = 0;
 
-            //determine if in or out of headland, do hydraulics if on
+            //determine if in or out of headland, do hydraulics if on *Todo
             if (bnd.isHeadlandOn)
             {
                 //calculate the slope
                 double m = (vehicle.hydLiftLookAheadDistanceRight - vehicle.hydLiftLookAheadDistanceLeft) / tool.rpWidth;
-                int height = 1;
-
-                for (int pos = 0; pos < tool.rpWidth; pos++)
-                {
-                    height = (int)(vehicle.hydLiftLookAheadDistanceLeft + (m * pos)) - 1;
-                    for (int a = pos; a < height * tool.rpWidth; a += tool.rpWidth)
-                    {
-                        if (grnPixels[a] == 250)
-                        {
-                            isHeadlandClose = true;
-                            goto GetOutTool;
-                        }
-                    }
-                }
-
-            GetOutTool: //goto
-
-                //is the tool completely in the headland or not
-                bnd.isToolInHeadland = bnd.isToolOuterPointsInHeadland && !isHeadlandClose;
-
-                //if we are in headland, turn off trams
-                if (bnd.isToolInHeadland) tram.controlByte = 0;
 
                 //set hydraulics based on tool in headland or not
-                bnd.SetHydPosition();
+                //bnd.SetHydPosition();
             }
 
             ///////////////////////////////////////////   Section control        ssssssssssssssssssssss
 
-            int endHeight = 1, startHeight = 1;
+            //the lookahead on and off lines
+            int onHeight = 1, offHeight = 1;
 
-            if (bnd.isHeadlandOn && bnd.isSectionControlledByHeadland) bnd.WhereAreToolLookOnPoints();
+            //for section control counting applied or not
+            int un_appliedCount = 0, appliedCount = 0;
+
+            //headland and boundary counts
+            int bndOn = 0, bndOff = 0, hdOn = 0, hdOff = 0;
 
             for (int j = 0; j < tool.numOfSections; j++)
             {
@@ -1062,35 +1045,72 @@ namespace AgOpenGPS
                 if (end >= tool.rpWidth)
                     end = tool.rpWidth - 1;
 
-                totalPixel = 0;
-                tagged = 0;
+                appliedCount = 0;
+                un_appliedCount = 0;
 
                 for (int pos = start; pos <= end; pos++)
                 {
-                    startHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
-                    endHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
+                    offHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
+                    onHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
 
-                    //for (int a = startHeight; a <= endHeight; a += tool.rpWidth)
-                    {
-                        //totalPixel++;
-                        if (grnPixels[endHeight] == 0) tagged++;
-                        if (grnPixels[startHeight] == 127) totalPixel++;
-                    }
+                    if (grnPixels[onHeight] == 0) un_appliedCount++;
+                    if (grnPixels[offHeight] == (byte)bbColors.section) appliedCount++;
                 }
 
-                //determine if meeting minimum coverage
-                totalPixel--;
-                //if (tagged != 0)
-                section[j].isSectionRequiredOn = true;
+                //determine if meeting minimum coverage todo
+                appliedCount--;
 
-                //check for off
-                if (tagged == 0 && totalPixel == (end - start))
-                    section[j].isSectionRequiredOn = false;
-
+                //if (un_appliedCount != 0)
+                section[j].isSectionRequiredOn = (un_appliedCount == 0 && appliedCount == (end - start));
 
                 //logic if in or out of boundaries or headland
                 if (bnd.bndList.Count > 0)
                 {
+                    start = section[j].rpSectionPosition - section[0].rpSectionPosition;
+                    end = section[j].rpSectionWidth - 1 + start;
+
+                    if (end >= tool.rpWidth)
+                        end = tool.rpWidth - 1;
+
+                    bndOff = bndOn = 0;
+
+                    for (int pos = start; pos <= end; pos++)
+                    {
+                        offHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
+                        onHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
+
+                        if (redPixels[onHeight] == (byte)bbColors.fence || redPixels[onHeight] == (byte)bbColors.headland)
+                            bndOn++;
+                        if (redPixels[offHeight] == (byte)bbColors.fence || redPixels[offHeight] == (byte)bbColors.headland)
+                            bndOff++;
+                    }
+
+                    //determine if meeting minimum coverage
+
+                    //if (un_appliedCount != 0)
+                    section[j].isSectionRequiredOn = true;
+
+                    //check for off
+                    if (tool.isSectionOffWhenOut)
+                    {
+                        if (bndOn == 0 && bndOff == 0)
+                            section[j].isSectionRequiredOn = false;
+                    }
+                    else
+                    {
+                        if (bndOn != (end - start + 1) && bndOff != (end - start + 1))
+                            section[j].isSectionRequiredOn = false;
+                    }
+                }
+
+
+                //global request to turn on section
+                section[j].sectionOnRequest = section[j].isSectionRequiredOn;
+                section[j].sectionOffRequest = !section[j].sectionOnRequest;
+
+            }  // end of go thru all sections "for"
+
+            /*
                     //if out of boundary, turn it off
                     if (!section[j].isInBoundary)
                     {
@@ -1119,14 +1139,14 @@ namespace AgOpenGPS
                             if (end >= tool.rpWidth)
                                 end = tool.rpWidth - 1;
 
-                            tagged = 0;
+                            un_appliedCount = 0;
 
                             for (int pos = start; pos <= end; pos++)
                             {
-                                startHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
-                                endHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
+                                offHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
+                                onHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
 
-                                for (int a = startHeight; a <= endHeight; a += tool.rpWidth)
+                                for (int a = offHeight; a <= onHeight; a += tool.rpWidth)
                                 {
                                     if (a < 0)
                                         mOn = 0;
@@ -1155,14 +1175,7 @@ namespace AgOpenGPS
                             }
                         }
                     }
-                }
-
-
-                //global request to turn on section
-                section[j].sectionOnRequest = section[j].isSectionRequiredOn;
-                section[j].sectionOffRequest = !section[j].sectionOnRequest;
-
-            }  // end of go thru all sections "for"
+                    */
 
             //Set all the on and off times based from on off section requests
             for (int j = 0; j < tool.numOfSections; j++)

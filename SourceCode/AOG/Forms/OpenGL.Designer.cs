@@ -1064,7 +1064,10 @@ namespace AgOpenGPS
                 section[j].isSectionRequiredOn = (un_appliedCount == 0 && appliedCount == (end - start));
 
                 //logic if in or out of boundaries or headland
-                if (bnd.bndList.Count > 0)
+                //Has a fence and... a headland but headland not control sections OR no headland.
+                if (bnd.bndList.Count > 0 && 
+                    ((!bnd.isSectionControlledByHeadland && bnd.bndList[0].hdLineTriangleList.Count > 0) 
+                    || bnd.bndList[0].hdLineTriangleList.Count == 0))
                 {
                     start = section[j].rpSectionPosition - section[0].rpSectionPosition;
                     end = section[j].rpSectionWidth - 1 + start;
@@ -1102,6 +1105,48 @@ namespace AgOpenGPS
                             section[j].isSectionRequiredOn = false;
                     }
                 }
+                //Has a fence and... a headland but headland and does control sections.
+                else  if (bnd.bndList.Count > 0 &&  
+                                (bnd.isSectionControlledByHeadland && bnd.bndList[0].hdLineTriangleList.Count > 0))
+                    {
+                        start = section[j].rpSectionPosition - section[0].rpSectionPosition;
+                        end = section[j].rpSectionWidth - 1 + start;
+
+                        if (end >= tool.rpWidth)
+                            end = tool.rpWidth - 1;
+
+                        bndOff = bndOn = 0;
+
+                        for (int pos = start; pos <= end; pos++)
+                        {
+                            offHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
+                            onHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
+
+                            if ( redPixels[onHeight] == (byte)bbColors.headland)
+                                bndOn++;
+                            if ( redPixels[offHeight] == (byte)bbColors.headland)
+                                bndOff++;
+                        }
+
+                        //determine if meeting minimum coverage
+
+                        //if (un_appliedCount != 0)
+                        section[j].isSectionRequiredOn = true;
+
+                        //check for off
+                        if (tool.isSectionOffWhenOut)
+                        {
+                            if (bndOn == 0 && bndOff == 0)
+                                section[j].isSectionRequiredOn = false;
+                        }
+                        else
+                        {
+                            if (bndOn != (end - start + 1) && bndOff != (end - start + 1))
+                                section[j].isSectionRequiredOn = false;
+                        }
+                    }
+
+                
 
 
                 //global request to turn on section

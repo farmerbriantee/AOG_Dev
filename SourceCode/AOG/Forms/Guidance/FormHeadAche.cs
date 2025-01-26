@@ -876,6 +876,8 @@ namespace AgOpenGPS
         private void btnHeadlandOff_Click(object sender, EventArgs e)
         {
             mf.bnd.bndList[0].hdLine?.Clear();
+            mf.bnd.bndList[0].hdLineTriangleList?.Clear();
+
             mf.FileSaveHeadland();
             mf.bnd.isHeadlandOn = false;
             mf.vehicle.isHydLiftOn = false;

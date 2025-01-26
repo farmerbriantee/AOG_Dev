@@ -728,8 +728,8 @@ namespace AgOpenGPS
 
         enum bbColors
         {
-            fence = 75, headland = 105, innerFence = 25, tram = 150, //red
-            section = 127 //grn
+            fence = 75, headland = 105, innerFence = 25,  //red
+            section = 127, tram = 240, //grn
         }
 
         private void oglBack_Paint(object sender, PaintEventArgs e)
@@ -749,7 +749,7 @@ namespace AgOpenGPS
                 -toolPos.northing - Math.Cos(toolPos.heading) * 15,
                 0);
 
-            #region Draw to Back Buffer           
+            #region Draw Red and Grn to Back Buffer           
 
             // field triangulation color qqq
             GL.ColorMask(true, false, false, false); //Draw only in red
@@ -815,37 +815,6 @@ namespace AgOpenGPS
                     }
                     GL.End();
                 }
-
-                //tram tracks
-                GL.Color3((byte)bbColors.tram, (byte)0, (byte)0);
-
-                if (tool.isDisplayTramControl && tram.displayMode != 0)
-                {
-                    GL.LineWidth(8);
-
-                    if ((tram.displayMode == 1 || tram.displayMode == 2))
-                    {
-                        for (int i = 0; i < tram.tramList.Count; i++)
-                        {
-                            GL.Begin(PrimitiveType.LineStrip);
-                            for (int h = 0; h < tram.tramList[i].Count; h++)
-                                GL.Vertex3(tram.tramList[i][h].easting, tram.tramList[i][h].northing, 0);
-                            GL.End();
-                        }
-                    }
-
-                    if (tram.displayMode == 1 || tram.displayMode == 3)
-                    {
-                        //boundary tram list
-                        GL.Begin(PrimitiveType.LineStrip);
-                        for (int h = 0; h < tram.tramBndOuterArr.Count; h++)
-                            GL.Vertex3(tram.tramBndOuterArr[h].easting, tram.tramBndOuterArr[h].northing, 0);
-                        for (int h = 0; h < tram.tramBndInnerArr.Count; h++)
-                            GL.Vertex3(tram.tramBndInnerArr[h].easting, tram.tramBndInnerArr[h].northing, 0);
-                        GL.End();
-                    }
-                }
-
             }
 
             //patch color
@@ -901,15 +870,42 @@ namespace AgOpenGPS
                 }
             }
 
+            //tram tracks
+            GL.Color3((byte)0, (byte)bbColors.tram, (byte)0);
+
+            if (tool.isDisplayTramControl && tram.displayMode != 0)
+            {
+                GL.LineWidth(4);
+
+                if ((tram.displayMode == 1 || tram.displayMode == 2))
+                {
+                    for (int i = 0; i < tram.tramList.Count; i++)
+                    {
+                        GL.Begin(PrimitiveType.LineStrip);
+                        for (int h = 0; h < tram.tramList[i].Count; h++)
+                            GL.Vertex3(tram.tramList[i][h].easting, tram.tramList[i][h].northing, 0);
+                        GL.End();
+                    }
+                }
+
+                if (tram.displayMode == 1 || tram.displayMode == 3)
+                {
+                    //boundary tram list
+                    GL.Begin(PrimitiveType.LineStrip);
+                    for (int h = 0; h < tram.tramBndOuterArr.Count; h++)
+                        GL.Vertex3(tram.tramBndOuterArr[h].easting, tram.tramBndOuterArr[h].northing, 0);
+                    for (int h = 0; h < tram.tramBndInnerArr.Count; h++)
+                        GL.Vertex3(tram.tramBndInnerArr[h].easting, tram.tramBndInnerArr[h].northing, 0);
+                    GL.End();
+                }
+            }
+
             GL.ColorMask(true, true, true, true);
 
             //finish it up - we need to read the ram of video card
             GL.Flush();
 
             #endregion
-
-            //determine where the tool is wrt to headland
-            //if (bnd.isHeadlandOn) bnd.WhereAreToolCorners();
 
             //set the look ahead for hyd Lift in pixels per second
             vehicle.hydLiftLookAheadDistanceLeft = tool.farLeftSpeed * vehicle.hydLiftLookAheadTime * 10;
@@ -953,9 +949,9 @@ namespace AgOpenGPS
             if (rpHeight < 8) rpHeight = 8;
 
             //read the whole block of pixels up to max lookahead, one read only qqq
-            //GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Red, PixelType.UnsignedByte, redPixels);
+            GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Red, PixelType.UnsignedByte, redPixels);
             GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Green, PixelType.UnsignedByte, grnPixels);
-            GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Blue, PixelType.UnsignedByte, bluPixels);
+            //GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Blue, PixelType.UnsignedByte, bluPixels);
 
             //Paint to context for troubleshooting qqq
             oglBack.BringToFront();
@@ -978,13 +974,13 @@ namespace AgOpenGPS
                 //1 pixels in is there a tram line?
                 if (tram.isOuter)
                 {
-                    if (grnPixels[tool.rpWidth - (int)(tram.halfWheelTrack * 10)] == 245 || tram.isRightManualOn) tram.controlByte += 1;
-                    if (grnPixels[(int)(tram.halfWheelTrack * 10)] == 245 || tram.isLeftManualOn) tram.controlByte += 2;
+                    if (grnPixels[tool.rpWidth - (int)(tram.halfWheelTrack * 10)] == (byte)bbColors.tram || tram.isRightManualOn) tram.controlByte += 1;
+                    if (grnPixels[(int)(tram.halfWheelTrack * 10)] == (byte)bbColors.tram || tram.isLeftManualOn) tram.controlByte += 2;
                 }
                 else
                 {
-                    if (grnPixels[tool.rpWidth / 2 + (int)(tram.halfWheelTrack * 10)] == 245 || tram.isRightManualOn) tram.controlByte += 1;
-                    if (grnPixels[tool.rpWidth / 2 - (int)(tram.halfWheelTrack * 10)] == 245 || tram.isLeftManualOn) tram.controlByte += 2;
+                    if (grnPixels[tool.rpWidth / 2 + (int)(tram.halfWheelTrack * 10)] == (byte)bbColors.tram || tram.isRightManualOn) tram.controlByte += 1;
+                    if (grnPixels[tool.rpWidth / 2 - (int)(tram.halfWheelTrack * 10)] == (byte)bbColors.tram || tram.isLeftManualOn) tram.controlByte += 2;
                 }
             }
             else tram.controlByte = 0;
@@ -1091,39 +1087,6 @@ namespace AgOpenGPS
                 if (tagged == 0 && totalPixel == (end - start))
                     section[j].isSectionRequiredOn = false;
 
-
-                /*
-                //AutoSection - If any nowhere applied, send OnRequest, if its all green send an offRequest
-                section[j].isSectionRequiredOn = false;
-
-                //calculate the slopes of the lines
-                mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
-                mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
-
-                start = section[j].rpSectionPosition - section[0].rpSectionPosition;
-                end = section[j].rpSectionWidth - 1 + start;
-
-                if (end >= tool.rpWidth)
-                    end = tool.rpWidth - 1;
-
-                totalPixel = 1;
-                tagged = 0;
-
-                for (int pos = start; pos <= end; pos++)
-                {
-                    startHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
-                    endHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
-
-                    for (int a = startHeight; a <= endHeight; a += tool.rpWidth)
-                    {
-                        totalPixel++;
-                        if (grnPixels[a] == 0) tagged++;
-                    }
-                }
-
-                //determine if meeting minimum coverage
-                section[j].isSectionRequiredOn = ((tagged * 100) / totalPixel > (100 - tool.minCoverage));
-                */
 
                 //logic if in or out of boundaries or headland
                 if (bnd.bndList.Count > 0)

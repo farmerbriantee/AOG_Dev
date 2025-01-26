@@ -212,7 +212,7 @@ namespace AgOpenGPS
 
                 mf.trk.gArr[idx].ptA.easting = (mf.trk.gArr[idx].curvePts[0].easting);
                 mf.trk.gArr[idx].ptA.northing = (mf.trk.gArr[idx].curvePts[0].northing);
-                mf.trk.gArr[idx].ptB.easting = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count-1].easting);
+                mf.trk.gArr[idx].ptB.easting = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].easting);
                 mf.trk.gArr[idx].ptB.northing = (mf.trk.gArr[idx].curvePts[mf.trk.gArr[idx].curvePts.Count - 1].northing);
 
                 //build the tail extensions
@@ -397,7 +397,7 @@ namespace AgOpenGPS
             mf.trk.CreateDesignedABTrack(isRefRightSide);
 
             mf.trk.designName = "A+" +
-                (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) 
+                (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture)
                 + "\u00B0 ";
             textBox1.Text = mf.trk.designName;
 

@@ -1476,10 +1476,10 @@ namespace AgOpenGPS
             //point on AB line closest to pivot axle point from AB Line PurePursuit
             if (mf.trk.idx > -1 && mf.trk.gArr.Count > 0)
             {
-                    rEastYT = mf.gyd.rEastTrk;
-                    rNorthYT = mf.gyd.rNorthTrk;
-                    isHeadingSameWay = mf.trk.isHeadingSameWay;
-                    head = mf.gyd.manualUturnHeading;
+                rEastYT = mf.gyd.rEastTrk;
+                rNorthYT = mf.gyd.rNorthTrk;
+                isHeadingSameWay = mf.trk.isHeadingSameWay;
+                head = mf.gyd.manualUturnHeading;
             }
             else return;
 

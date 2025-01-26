@@ -1,5 +1,4 @@
-﻿using AgOpenGPS.Culture;
-using OpenTK;
+﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
@@ -363,7 +362,7 @@ namespace AgOpenGPS
             {
                 maxFieldDistance *= 1.1;
             }
-            else if (ptt.Y > oglSelf.Height  / 3)
+            else if (ptt.Y > oglSelf.Height / 3)
             {
                 CalculateMinMax();
             }
@@ -443,7 +442,7 @@ namespace AgOpenGPS
                 }
                 GL.End();
 
-                int ptIndex = gTemp[i].curvePts.Count / 2 - gTemp[i].curvePts.Count/15;
+                int ptIndex = gTemp[i].curvePts.Count / 2 - gTemp[i].curvePts.Count / 15;
                 double length = gTemp[i].curvePts.Count / 20;
 
                 vec2 pointL = new vec2(
@@ -466,7 +465,7 @@ namespace AgOpenGPS
                 if (i == indx) GL.PointSize(24);
                 else GL.PointSize(20);
 
-                GL.Color3(1.0f*viz, 1.0f*viz, 0.0f * viz);
+                GL.Color3(1.0f * viz, 1.0f * viz, 0.0f * viz);
                 GL.Begin(PrimitiveType.Points);
 
                 GL.Vertex3(gTemp[i].curvePts[0].easting,
@@ -490,12 +489,12 @@ namespace AgOpenGPS
                             gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].northing, "B", fontSize);
 
                 GL.Color3(1.0f * viz, 1.0f * viz, 1.0f * viz);
-                
+
                 int drawSpot = gTemp[i].curvePts.Count / 2;
                 drawSpot = drawSpot * 5 / 8;
 
                 DrawText3D(gTemp[i].curvePts[drawSpot].easting,
-                            gTemp[i].curvePts[drawSpot].northing, (i+1).ToString(), fontSize);
+                            gTemp[i].curvePts[drawSpot].northing, (i + 1).ToString(), fontSize);
 
                 GL.Disable(EnableCap.Blend);
             }
@@ -619,7 +618,7 @@ namespace AgOpenGPS
                 }
                 if (isCross != 1)
                 {
-                    mf.YesMessageBox("Direction problem or not crossing\r\n\r\nLine: " + (startLine+1) + " and Line: " + (crossingLine+1));
+                    mf.YesMessageBox("Direction problem or not crossing\r\n\r\nLine: " + (startLine + 1) + " and Line: " + (crossingLine + 1));
                     return;
                 }
                 isCross = 0;

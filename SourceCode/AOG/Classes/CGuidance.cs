@@ -58,13 +58,13 @@ namespace AgOpenGPS
             double goalPointDistance = mf.vehicle.UpdateGoalPointDistance();
             bool ReverseHeading = mf.isReverse ? !mf.trk.isHeadingSameWay : mf.trk.isHeadingSameWay;
 
-            
-                //now substitute what it thinks are AB line values with auto turn values
-                steerAngleTrk = mf.yt.steerAngleYT;
-                distanceFromCurrentLinePivot = mf.yt.distanceFromCurrentLine;
 
-                goalPointTrk = mf.yt.goalPointYT;
-                mf.vehicle.modeActualXTE = (distanceFromCurrentLinePivot);         
+            //now substitute what it thinks are AB line values with auto turn values
+            steerAngleTrk = mf.yt.steerAngleYT;
+            distanceFromCurrentLinePivot = mf.yt.distanceFromCurrentLine;
+
+            goalPointTrk = mf.yt.goalPointYT;
+            mf.vehicle.modeActualXTE = (distanceFromCurrentLinePivot);
 
         }
 
@@ -649,12 +649,12 @@ namespace AgOpenGPS
                 mf.trk.AddEndPoints(ref curList, 100);
             }
         }
-        
+
 
         // Searches for the nearest "global" curve point to the refPoint by checking all points of the trk.
         // Parameter "increment" added here to give possibility to make a "sparser" search (to speed it up?)
         // Return: index to the nearest point
-        private int findNearestGlobalCurvePoint(vec3 refPoint, ref List<vec3> curList, int increment = 1 )
+        private int findNearestGlobalCurvePoint(vec3 refPoint, ref List<vec3> curList, int increment = 1)
         {
             double minDist = double.MaxValue;
             int minDistIndex = 0;

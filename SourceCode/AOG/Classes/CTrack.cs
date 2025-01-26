@@ -1,10 +1,7 @@
-﻿using AgOpenGPS.Culture;
+﻿using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
-using OpenTK.Graphics.OpenGL;
 using System.Threading.Tasks;
-using System.Collections;
-using System.Globalization;
 
 namespace AgOpenGPS
 {
@@ -30,7 +27,7 @@ namespace AgOpenGPS
         public double howManyPathsAway, lastHowManyPathsAway;
         public vec2 refPoint1 = new vec2(1, 1), refPoint2 = new vec2(2, 2);
 
-        private int A, B, C;
+        private int C;
         private int rA, rB;
 
         //pure pursuit values
@@ -956,7 +953,7 @@ namespace AgOpenGPS
             //build the tail extensions
             AddFirstLastPoints(ref gArr[idx].curvePts, 100);
         }
-        
+
         public void AddFirstLastPoints(ref List<vec3> xList, int ptsToAdd)
         {
             int ptCnt = xList.Count - 1;

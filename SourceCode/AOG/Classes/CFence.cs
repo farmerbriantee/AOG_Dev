@@ -14,11 +14,6 @@ namespace AgOpenGPS
         public bool isDrawRightSide = true, isDrawAtPivot = true, isOkToAddPoints = false;
         public bool isRecBoundaryWhenSectionOn = false;
 
-        public int closestFenceNum;
-
-        //point at the farthest boundary segment from pivotAxle
-        public vec3 closestFencePt = new vec3(-10000, -10000, 9);
-
         public bool IsPointInsideFenceArea(vec3 testPoint)
         {
             //first where are we, must be inside outer and outside of inner geofence non drive thru turn borders
@@ -64,7 +59,7 @@ namespace AgOpenGPS
             if (!mf.mc.isOutOfBounds)
             {
                 GL.Color4(0, 0, 0, 0.8);
-                GL.LineWidth(8);
+                GL.LineWidth(mf.trk.lineWidth * 3);
 
                 for (int i = 0; i < bndList.Count; i++)
                 {
@@ -82,7 +77,7 @@ namespace AgOpenGPS
             }
             else
             {
-                GL.LineWidth(mf.trk.lineWidth * 3);
+                GL.LineWidth(mf.trk.lineWidth * 2);
                 GL.Color3(0.95f, 0.25f, 0.250f);
 
                 for (int i = 0; i < bndList.Count; i++)

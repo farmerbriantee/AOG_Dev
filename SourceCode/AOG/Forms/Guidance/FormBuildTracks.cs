@@ -778,7 +778,7 @@ namespace AgOpenGPS
 
             mf.trk.designLineEndB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.pivotAxlePos.heading) * 1000);
             mf.trk.designLineEndB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.pivotAxlePos.heading) * 1000);
-            
+
             btnBLine.Enabled = true;
             btnALine.Enabled = false;
 
@@ -900,7 +900,7 @@ namespace AgOpenGPS
             mf.trk.designName = "A+" +
                 (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.trk.designName;
-            
+
             panelAPlus.Visible = false;
             panelName.Visible = true;
             mf.Activate();

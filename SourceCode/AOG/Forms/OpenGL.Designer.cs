@@ -3,12 +3,18 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System.Windows.Forms;
 using System.Text;
-using System.Drawing;
+using System.Diagnostics;
 
 namespace AgOpenGPS
 {
     public partial class FormGPS
     {
+        enum bbColors
+        {
+            fence = 75, headland = 105, innerFence = 25,  //red
+            section = 127, tram = 240, //grn
+        }
+
         //extracted Near, Far, Right, Left clipping planes of frustum
         public double[] frustum = new double[24];
 
@@ -22,14 +28,23 @@ namespace AgOpenGPS
 
         //data buffer for pixels read from off screen buffer
 
-        //data buffer for pixels read from off screen buffer
-        byte[] rateRed = new byte[1];
-        byte[] rateGrn = new byte[1];
-        byte[] rateBlu = new byte[1];
-
         byte[] grnPixels = new byte[150001];
+        byte[] redPixels = new byte[150001];
 
-        private bool isHeadlandClose = false;
+        int deadCam = 0;
+
+        StringBuilder sb = new StringBuilder();
+
+        vec2 left = new vec2();
+        vec2 right = new vec2();
+        vec2 ptTip = new vec2();
+
+        public double avgPivDistance, lightbarDistance, longAvgPivDistance;
+
+        private int bbCounter = 0;
+
+        //mapping change occured
+        private ulong number = 0, lastNumber = 0;
 
         // When oglMain is created
         private void oglMain_Load(object sender, EventArgs e)
@@ -59,15 +74,6 @@ namespace AgOpenGPS
         }
 
         //oglMain rendering, Draw
-
-        int deadCam = 0;
-
-        StringBuilder sb = new StringBuilder();
-
-        vec2 left = new vec2();
-        vec2 right = new vec2();
-        vec2 ptTip = new vec2();
-
         private void oglMain_Paint(object sender, PaintEventArgs e)
         {
             if (sentenceCounter < 299)
@@ -106,6 +112,70 @@ namespace AgOpenGPS
 
                     GL.Enable(EnableCap.Blend);
                     //draw patches of sections
+
+                    if (bnd.bndList.Count > 0)
+                    {
+                        if (bnd.isHeadlandOn)
+                        {
+                            //draw whole outer field polygon
+                            GL.Color4(0.1, 0.1, 0.351, 0.2);
+
+                            GL.Begin(PrimitiveType.Triangles);
+                            for (int i = 0; i < bnd.bndList[0].bndTriangleList.Count; i++)
+                            {
+                                GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[0].northing, 0);
+                                GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[1].northing, 0);
+                                GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[2].northing, 0);
+                            }
+                            GL.End();
+
+                            //draw headland polygon
+                            GL.Color4(0.1, 0.3, 0.1, 0.2);
+
+                            GL.Begin(PrimitiveType.Triangles);
+                            for (int i = 0; i < bnd.bndList[0].hdLineTriangleList.Count; i++)
+                            {
+                                GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].northing, 0);
+                                GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].northing, 0);
+                                GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].northing, 0);
+                            }
+                            GL.End();
+
+                            //if we would have inner boundary headline draw them here
+                        }
+                        else //no headland excists
+                        {
+                            //draw outer field polygon (fence)
+                            GL.Color4(.32, 0.32, 0.32, 0.32);
+
+                            GL.Begin(PrimitiveType.Triangles);
+                            for (int i = 0; i < bnd.bndList[0].bndTriangleList.Count; i++)
+                            {
+                                GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[0].northing, 0);
+                                GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[1].northing, 0);
+                                GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[2].northing, 0);
+                            }
+                            GL.End();
+                        }
+
+                        //draw red in inner boundary of field
+                        if (bnd.bndList.Count > 1)
+                        {
+                            GL.Color4(0.351, 0.1, 0.1, 0.32);
+                            GL.Begin(PrimitiveType.Triangles);
+                            for (int a = 1; a < bnd.bndList.Count; a++)
+                            {
+                                for (int i = 0; i < bnd.bndList[a].bndTriangleList.Count; i++)
+                                {
+                                    GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[0].northing, 0);
+                                    GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[1].northing, 0);
+                                    GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[2].northing, 0);
+                                }
+                            }
+                            GL.End();
+                        }
+                    }
+
 
                     //direction marker width
                     double factor = 0.37;
@@ -707,8 +777,6 @@ namespace AgOpenGPS
             }
         }
 
-        private int bbCounter = 0;
-
         private void oglBack_Load(object sender, EventArgs e)
         {
             oglBack.MakeCurrent();
@@ -747,10 +815,77 @@ namespace AgOpenGPS
                 -toolPos.northing - Math.Cos(toolPos.heading) * 15,
                 0);
 
-            #region Draw to Back Buffer
+            #region Draw Red and Grn to Back Buffer           
+
+            // field triangulation color qqq
+            GL.ColorMask(true, false, false, false); //Draw only in red
+
+            if (bnd.bndList.Count > 0)
+            {
+                if (bnd.isHeadlandOn)
+                {
+                    //draw red in whole outer field polygon
+                    GL.Color3((byte)bbColors.fence, (byte)0, (byte)0);
+
+                    GL.Begin(PrimitiveType.Triangles);
+                    for (int i = 0; i < bnd.bndList[0].bndTriangleList.Count; i++)
+                    {
+                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[0].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[1].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[2].northing, 0);
+                    }
+                    GL.End();
+
+                    //draw red in headland polygon
+                    GL.Color3((byte)bbColors.headland, (byte)0, (byte)0);
+
+                    GL.Begin(PrimitiveType.Triangles);
+                    for (int i = 0; i < bnd.bndList[0].hdLineTriangleList.Count; i++)
+                    {
+                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].northing, 0);
+                    }
+                    GL.End();
+
+                    //if we would have inner boundary headline draw them here
+                }
+                else //no headland excists
+                {
+                    //draw  red in whole outer field polygon (fence)
+                    GL.Color3((byte)bbColors.fence, (byte)0, (byte)0);
+
+                    GL.Begin(PrimitiveType.Triangles);
+                    for (int i = 0; i < bnd.bndList[0].bndTriangleList.Count; i++)
+                    {
+                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[0].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[1].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[2].northing, 0);
+                    }
+                    GL.End();
+                }
+
+                //draw red in inner boundary of field
+                if (bnd.bndList.Count > 1)
+                {
+                    GL.Color3((byte)bbColors.innerFence, (byte)0, (byte)0);
+                    GL.Begin(PrimitiveType.Triangles);
+                    for (int a = 1; a < bnd.bndList.Count; a++)
+                    {
+                        for (int i = 0; i < bnd.bndList[a].bndTriangleList.Count; i++)
+                        {
+                            GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[0].northing, 0);
+                            GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[1].northing, 0);
+                            GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[2].northing, 0);
+                        }
+                    }
+                    GL.End();
+                }
+            }
 
             //patch color
-            GL.Color3((byte)0, (byte)127, (byte)0);
+            GL.ColorMask(false, true, false, false); //Draw only in green
+            GL.Color3((byte)0, (byte)bbColors.section, (byte)0);
 
             //to draw or not the triangle patch
             bool isDraw;
@@ -801,12 +936,12 @@ namespace AgOpenGPS
                 }
             }
 
-            //draw 245 green for the tram tracks
+            //tram tracks
+            GL.Color3((byte)0, (byte)bbColors.tram, (byte)0);
 
-            if (tool.isDisplayTramControl && tram.displayMode != 0 && (trk.idx > -1))
+            if (tool.isDisplayTramControl && tram.displayMode != 0)
             {
-                GL.Color3((byte)0, (byte)245, (byte)0);
-                GL.LineWidth(8);
+                GL.LineWidth(4);
 
                 if ((tram.displayMode == 1 || tram.displayMode == 2))
                 {
@@ -831,34 +966,12 @@ namespace AgOpenGPS
                 }
             }
 
-            //draw 240 green for boundary
-            if (bnd.bndList.Count > 0)
-            {
-                ////draw the bnd line 
-                if (bnd.bndList[0].fenceLine.Count > 3)
-                {
-                    GL.LineWidth(3);
-                    GL.Color3((byte)0, (byte)240, (byte)0);
-                    bnd.bndList[0].fenceLine.DrawPolygon();
-                }
-
-
-                //draw 250 green for the headland
-                if (bnd.isHeadlandOn && bnd.isSectionControlledByHeadland)
-                {
-                    GL.LineWidth(3);
-                    GL.Color3((byte)0, (byte)250, (byte)0);
-                    bnd.bndList[0].hdLine.DrawPolygon();
-                }
-            }
+            GL.ColorMask(true, true, true, true);
 
             //finish it up - we need to read the ram of video card
             GL.Flush();
 
             #endregion
-
-            //determine where the tool is wrt to headland
-            if (bnd.isHeadlandOn) bnd.WhereAreToolCorners();
 
             //set the look ahead for hyd Lift in pixels per second
             vehicle.hydLiftLookAheadDistanceLeft = tool.farLeftSpeed * vehicle.hydLiftLookAheadTime * 10;
@@ -879,32 +992,6 @@ namespace AgOpenGPS
             if (tool.lookAheadDistanceOffPixelsLeft > 160) tool.lookAheadDistanceOffPixelsLeft = 160;
             if (tool.lookAheadDistanceOffPixelsRight > 160) tool.lookAheadDistanceOffPixelsRight = 160;
 
-            //determine if section is in boundary and headland using the section left/right positions
-            bool isLeftIn = true, isRightIn = true;
-
-            if (bnd.bndList.Count > 0)
-            {
-                for (int j = 0; j < tool.numOfSections; j++)
-                {
-                    //only one first left point, the rest are all rights moved over to left
-                    isLeftIn = j == 0 ? bnd.IsPointInsideFenceArea(section[j].leftPoint) : isRightIn;
-                    isRightIn = bnd.IsPointInsideFenceArea(section[j].rightPoint);
-
-                    if (!tool.isSectionOffWhenOut)
-                    {
-                        //merge the two sides into in or out
-                        if (isLeftIn || isRightIn) section[j].isInBoundary = true;
-                        else section[j].isInBoundary = false;
-                    }
-                    else
-                    {
-                        //merge the two sides into in or out
-                        if (!isLeftIn || !isRightIn) section[j].isInBoundary = false;
-                        else section[j].isInBoundary = true;
-                    }
-                }
-            }
-
             //determine farthest ahead lookahead - is the height of the readpixel line
             double rpHeight = 0;
             double rpOnHeight = 0;
@@ -917,14 +1004,9 @@ namespace AgOpenGPS
             if (tool.lookAheadDistanceOnPixelsLeft > tool.lookAheadDistanceOnPixelsRight) rpOnHeight = tool.lookAheadDistanceOnPixelsLeft;
             else rpOnHeight = tool.lookAheadDistanceOnPixelsRight;
 
-            isHeadlandClose = false;
-
             //clamp the height after looking way ahead, this is for switching off super section only
             rpOnHeight = Math.Abs(rpOnHeight);
             rpToolHeight = Math.Abs(rpToolHeight);
-
-            //10 % min is required for overlap, otherwise it never would be on.
-            int pixLimit = (int)((double)(section[0].rpSectionWidth * rpOnHeight) / (double)(5.0));
 
             if ((rpOnHeight < rpToolHeight && bnd.isHeadlandOn && bnd.isSectionControlledByHeadland)) rpHeight = rpToolHeight + 2;
             else rpHeight = rpOnHeight + 2;
@@ -932,15 +1014,18 @@ namespace AgOpenGPS
             if (rpHeight > 290) rpHeight = 290;
             if (rpHeight < 8) rpHeight = 8;
 
-            //read the whole block of pixels up to max lookahead, one read only
+            //read the whole block of pixels up to max lookahead, one read only qqq
+            GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Red, PixelType.UnsignedByte, redPixels);
             GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Green, PixelType.UnsignedByte, grnPixels);
+            //GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Blue, PixelType.UnsignedByte, bluPixels);
 
-            //Paint to context for troubleshooting
+            //Paint to context for troubleshooting qqq
+            //oglBack.BringToFront();
             //oglBack.MakeCurrent();
             //oglBack.SwapBuffers();
 
             //determine if headland is in read pixel buffer left middle and right. 
-            int start = 0, end = 0, tagged = 0, totalPixel = 0;
+            int start = 0, end = 0;
 
             //slope of the look ahead line
             double mOn = 0, mOff = 0;
@@ -948,61 +1033,41 @@ namespace AgOpenGPS
             double theta = mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
             double deg = glm.toDegrees(Math.Atan(theta));
 
-            //tram and hydraulics
+            //tram
             if (tram.displayMode > 0 && tool.width > vehicle.trackWidth)
             {
                 tram.controlByte = 0;
                 //1 pixels in is there a tram line?
                 if (tram.isOuter)
                 {
-                    if (grnPixels[tool.rpWidth - (int)(tram.halfWheelTrack * 10)] == 245 || tram.isRightManualOn) tram.controlByte += 1;
-                    if (grnPixels[(int)(tram.halfWheelTrack * 10)] == 245 || tram.isLeftManualOn) tram.controlByte += 2;
+                    if (grnPixels[tool.rpWidth - (int)(tram.halfWheelTrack * 10)] == (byte)bbColors.tram || tram.isRightManualOn) tram.controlByte += 1;
+                    if (grnPixels[(int)(tram.halfWheelTrack * 10)] == (byte)bbColors.tram || tram.isLeftManualOn) tram.controlByte += 2;
                 }
                 else
                 {
-                    if (grnPixels[tool.rpWidth / 2 + (int)(tram.halfWheelTrack * 10)] == 245 || tram.isRightManualOn) tram.controlByte += 1;
-                    if (grnPixels[tool.rpWidth / 2 - (int)(tram.halfWheelTrack * 10)] == 245 || tram.isLeftManualOn) tram.controlByte += 2;
+                    if (grnPixels[tool.rpWidth / 2 + (int)(tram.halfWheelTrack * 10)] == (byte)bbColors.tram || tram.isRightManualOn) tram.controlByte += 1;
+                    if (grnPixels[tool.rpWidth / 2 - (int)(tram.halfWheelTrack * 10)] == (byte)bbColors.tram || tram.isLeftManualOn) tram.controlByte += 2;
                 }
             }
             else tram.controlByte = 0;
 
-            //determine if in or out of headland, do hydraulics if on
+            //determine if in or out of headland, do hydraulics if on *Todo
             if (bnd.isHeadlandOn)
             {
                 //calculate the slope
                 double m = (vehicle.hydLiftLookAheadDistanceRight - vehicle.hydLiftLookAheadDistanceLeft) / tool.rpWidth;
-                int height = 1;
-
-                for (int pos = 0; pos < tool.rpWidth; pos++)
-                {
-                    height = (int)(vehicle.hydLiftLookAheadDistanceLeft + (m * pos)) - 1;
-                    for (int a = pos; a < height * tool.rpWidth; a += tool.rpWidth)
-                    {
-                        if (grnPixels[a] == 250)
-                        {
-                            isHeadlandClose = true;
-                            goto GetOutTool;
-                        }
-                    }
-                }
-
-            GetOutTool: //goto
-
-                //is the tool completely in the headland or not
-                bnd.isToolInHeadland = bnd.isToolOuterPointsInHeadland && !isHeadlandClose;
-
-                //if we are in headland, turn off trams
-                if (bnd.isToolInHeadland) tram.controlByte = 0;
 
                 //set hydraulics based on tool in headland or not
-                bnd.SetHydPosition();
+                //bnd.SetHydPosition();
             }
 
             ///////////////////////////////////////////   Section control        ssssssssssssssssssssss
 
-            int endHeight = 1, startHeight = 1;
+            //the lookahead on and off lines
+            int onHeight = 1, offHeight = 1;
 
-            if (bnd.isHeadlandOn && bnd.isSectionControlledByHeadland) bnd.WhereAreToolLookOnPoints();
+            //headland and boundary counts
+            int onCount = 0, offCount = 0;
 
             for (int j = 0; j < tool.numOfSections; j++)
             {
@@ -1030,113 +1095,113 @@ namespace AgOpenGPS
                     continue;
                 }
 
-
                 //AutoSection - If any nowhere applied, send OnRequest, if its all green send an offRequest
-                section[j].isSectionRequiredOn = false;
-
-                //calculate the slopes of the lines
-                mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
-                mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
-
-                start = section[j].rpSectionPosition - section[0].rpSectionPosition;
-                end = section[j].rpSectionWidth - 1 + start;
-
-                if (end >= tool.rpWidth)
-                    end = tool.rpWidth - 1;
-
-                totalPixel = 1;
-                tagged = 0;
-
-                for (int pos = start; pos <= end; pos++)
-                {
-                    startHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
-                    endHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
-
-                    for (int a = startHeight; a <= endHeight; a += tool.rpWidth)
-                    {
-                        totalPixel++;
-                        if (grnPixels[a] == 0) tagged++;
-                    }
-                }
-
-                //determine if meeting minimum coverage
-                section[j].isSectionRequiredOn = ((tagged * 100) / totalPixel > (100 - tool.minCoverage));
+                section[j].isSectionRequiredOn = true;
 
                 //logic if in or out of boundaries or headland
-                if (bnd.bndList.Count > 0)
+                //Has a fence and... a headland but headland not control sections OR no headland.
+                if (bnd.bndList.Count > 0 &&
+                    ((!bnd.isSectionControlledByHeadland && bnd.bndList[0].hdLineTriangleList.Count > 0)
+                    || bnd.bndList[0].hdLineTriangleList.Count == 0))
                 {
-                    //if out of boundary, turn it off
-                    if (!section[j].isInBoundary)
+                    start = section[j].rpSectionPosition - section[0].rpSectionPosition;
+                    end = section[j].rpSectionWidth - 1 + start;
+
+                    if (end >= tool.rpWidth)
+                        end = tool.rpWidth - 1;
+
+                    offCount = onCount = 0;
+
+                    for (int pos = start; pos <= end; pos++)
                     {
-                        section[j].isSectionRequiredOn = false;
-                        section[j].sectionOffRequest = true;
-                        section[j].sectionOnRequest = false;
-                        section[j].sectionOffTimer = 0;
-                        section[j].sectionOnTimer = 0;
-                        continue;
+                        offHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
+                        onHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
+
+                        if (redPixels[onHeight] == (byte)bbColors.fence || redPixels[onHeight] == (byte)bbColors.headland)
+                            onCount++;
+
+                        if (redPixels[offHeight] == (byte)bbColors.fence || redPixels[offHeight] == (byte)bbColors.headland)
+                            offCount++;
+                    }
+
+                    //check for off
+                    if (tool.isSectionOffWhenOut)
+                    {
+                        if (onCount == 0 && offCount == 0)
+                            section[j].isSectionRequiredOn = false;
                     }
                     else
                     {
-                        //is headland coming up
-                        if (bnd.isHeadlandOn && bnd.isSectionControlledByHeadland)
-                        {
-                            bool isHeadlandInLookOn = false;
-
-                            //is headline in off to on area
-                            mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
-                            mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
-
-                            start = section[j].rpSectionPosition - section[0].rpSectionPosition;
-
-                            end = section[j].rpSectionWidth - 1 + start;
-
-                            if (end >= tool.rpWidth)
-                                end = tool.rpWidth - 1;
-
-                            tagged = 0;
-
-                            for (int pos = start; pos <= end; pos++)
-                            {
-                                startHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
-                                endHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
-
-                                for (int a = startHeight; a <= endHeight; a += tool.rpWidth)
-                                {
-                                    if (a < 0)
-                                        mOn = 0;
-                                    if (grnPixels[a] == 250)
-                                    {
-                                        isHeadlandInLookOn = true;
-                                        goto GetOutHdOn;
-                                    }
-                                }
-                            }
-                        GetOutHdOn:
-
-                            //determine if look ahead points are completely in headland
-                            if (section[j].isSectionRequiredOn && section[j].isLookOnInHeadland && !isHeadlandInLookOn)
-                            {
-                                section[j].isSectionRequiredOn = false;
-                                section[j].sectionOffRequest = true;
-                                section[j].sectionOnRequest = false;
-                            }
-
-                            if (section[j].isSectionRequiredOn && !section[j].isLookOnInHeadland && isHeadlandInLookOn)
-                            {
-                                section[j].isSectionRequiredOn = true;
-                                section[j].sectionOffRequest = false;
-                                section[j].sectionOnRequest = true;
-                            }
-                        }
+                        if (onCount != (end - start + 1) && offCount != (end - start + 1))
+                            section[j].isSectionRequiredOn = false;
                     }
                 }
 
+                //Has a fence and... a headland but headland DOES control sections. Assume headland is inside fence - no check fence
+                else if (section[j].isSectionRequiredOn && bnd.bndList.Count > 0 &&
+                                (bnd.isSectionControlledByHeadland && bnd.bndList[0].hdLineTriangleList.Count > 0))
+                {
+                    start = section[j].rpSectionPosition - section[0].rpSectionPosition;
+                    end = section[j].rpSectionWidth - 1 + start;
+
+                    if (end >= tool.rpWidth)
+                        end = tool.rpWidth - 1;
+
+                    offCount = onCount = 0;
+
+                    for (int pos = start; pos <= end; pos++)
+                    {
+                        offHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
+                        onHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
+
+                        if (redPixels[onHeight] == (byte)bbColors.headland)
+                            onCount++;
+                        if (redPixels[offHeight] == (byte)bbColors.headland)
+                            offCount++;
+                    }
+
+                    //check for off
+                    if (onCount == 0 && offCount == 0)
+                        section[j].isSectionRequiredOn = false;
+                }
+
+                //check if already applied and turn off section - if within headlands and fence
+                if (section[j].isSectionRequiredOn == true)
+                {
+                    //calculate the slopes of the lines
+                    mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
+                    mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
+
+                    start = section[j].rpSectionPosition - section[0].rpSectionPosition;
+                    end = section[j].rpSectionWidth - 1 + start;
+
+                    if (end >= tool.rpWidth)
+                        end = tool.rpWidth - 1;
+
+                    offCount = 0;
+                    onCount = 0;
+
+                    for (int pos = start; pos <= end; pos++)
+                    {
+                        offHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
+                        onHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
+
+                        if (grnPixels[onHeight] == 0) onCount++;
+                        if (grnPixels[offHeight] == (byte)bbColors.section) offCount++;
+                    }
+
+                    //determine if meeting minimum coverage todo
+                    //section[j].isSectionRequiredOn = true;
+                    //if (un_appliedCount != 0)
+                    if (onCount == 0 && offCount == (end - start + 1))
+                        section[j].isSectionRequiredOn = false;
+                }
 
                 //global request to turn on section
                 section[j].sectionOnRequest = section[j].isSectionRequiredOn;
                 section[j].sectionOffRequest = !section[j].sectionOnRequest;
 
-            }  // end of go thru all sections "for"
+            } // end of go thru all sections "for"
 
             //Set all the on and off times based from on off section requests
             for (int j = 0; j < tool.numOfSections; j++)
@@ -1353,8 +1418,6 @@ namespace AgOpenGPS
                         }
                     }
                 }
-
-
                 lastNumber = number;
             }
 
@@ -1366,10 +1429,6 @@ namespace AgOpenGPS
             {
                 nozz.BuildRatePGN();
             }
-
-            ////Paint to context for troubleshooting
-            //oglBack.MakeCurrent();
-            //oglBack.SwapBuffers();
 
             //file writer that runs all the time
             if (fileSaveAlwaysCounter > 60)
@@ -1395,8 +1454,6 @@ namespace AgOpenGPS
 
                     //NMEA elevation file
                     if (isLogElevation && sbGrid.Length > 0) FileSaveElevation();
-
-                    //ExportFieldAs_KML();
                 }
 
                 //set saving flag off
@@ -1407,26 +1464,8 @@ namespace AgOpenGPS
 
                 //calc overlap
                 oglZoom.Refresh();
-
-            }
-
-
-            //this is the end of the "frame". Now we wait for next NMEA sentence with a valid fix. 
-        }
-
-        private void DistanceToFieldOriginCheck()
-        {
-            if (Math.Abs(pivotAxlePos.easting) > 20000 || Math.Abs(pivotAxlePos.northing) > 20000)
-            {
-                YesMessageBox("Serious Field Origin Error" +  "\r\n\r\n" +
-                    "Field Origin is More Then 20 km from your current GPS Position" +
-                    " Delete this field and create a new one as Accuracy will be poor" + "\r\n\r\n" +
-                    "Or you may have a field open and drove far away");
-            }
-        }
-
-        //mapping change occured
-        private ulong number = 0, lastNumber = 0;
+            }            
+        }//this is the end of the "frame". Now we wait for next NMEA sentence with a valid fix. 
 
         private void oglZoom_Load(object sender, EventArgs e)
         {
@@ -1972,8 +2011,6 @@ namespace AgOpenGPS
             }
             catch { }
         }
-
-        public double avgPivDistance, lightbarDistance, longAvgPivDistance;
 
         private void DrawLightBar(double Width, double Height, double offlineDistance)
         {
@@ -2539,6 +2576,7 @@ namespace AgOpenGPS
             GL.PopMatrix();
 
         }
+
         private void DrawSpeedo()
         {
             GL.PushMatrix();
@@ -2590,6 +2628,7 @@ namespace AgOpenGPS
             GL.PopMatrix();
 
         }
+
         private void DrawLostRTK()
         {
             GL.Color3(0.9752f, 0.752f, 0.40f);
@@ -2625,6 +2664,17 @@ namespace AgOpenGPS
                 {
                     lblHardwareMessage.Visible = false;
                 }
+            }
+        }
+
+        private void DistanceToFieldOriginCheck()
+        {
+            if (Math.Abs(pivotAxlePos.easting) > 20000 || Math.Abs(pivotAxlePos.northing) > 20000)
+            {
+                YesMessageBox("Serious Field Origin Error" +  "\r\n\r\n" +
+                    "Field Origin is More Then 20 km from your current GPS Position" +
+                    " Delete this field and create a new one as Accuracy will be poor" + "\r\n\r\n" +
+                    "Or you may have a field open and drove far away");
             }
         }
 

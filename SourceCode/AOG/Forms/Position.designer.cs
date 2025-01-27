@@ -966,8 +966,6 @@ namespace AgOpenGPS
 
                 p_254.pgn[p_254.steerAngleHi] = unchecked((byte)(guidanceLineSteerAngle >> 8));
                 p_254.pgn[p_254.steerAngleLo] = unchecked((byte)(guidanceLineSteerAngle));
-
-
             }
 
             //out serial to autosteer module  //indivdual classes load the distance and heading deltas 
@@ -1095,8 +1093,6 @@ namespace AgOpenGPS
 
             #endregion
 
-
-
             //update main window
             oglMain.MakeCurrent();
             oglMain.Refresh();
@@ -1160,22 +1156,6 @@ namespace AgOpenGPS
                 double boundaryDistance = glm.Distance(pn.fix, prevBoundaryPos);
                 if (boundaryDistance > 1) AddBoundaryPoint();
             }
-
-            //calc distance travelled since last GPS fix
-            //distance = glm.Distance(pn.fix, prevFix);
-            //if (avgSpeed > 1)
-
-            //if ((avgSpeed - previousSpeed  ) < -vehicle.panicStopSpeed && vehicle.panicStopSpeed != 0)
-            //{
-            //    if (isBtnAutoSteerOn)
-            //    {
-            //       btnAutoSteer.PerformClick();
-            //        TimedMessageBox(2000, gStr.gsGuidanceStopped, "Panic Stop");
-            //        Log.EventWriter("Steer Off, Panic Stop Exceeded");
-            //    }
-            //}
-
-            //previousSpeed = avgSpeed;   
         }
 
         //all the hitch, pivot, section, trailing hitch, headings and fixes
@@ -1309,7 +1289,6 @@ namespace AgOpenGPS
             }
 
             if (sectionTriggerStepDistance < 1) sectionTriggerStepDistance = 1;
-            //if (sectionTriggerStepDistance > 5) sectionTriggerStepDistance = 5;
 
             //finally fixed distance for making a curve line
             if (trk.isRecordingCurveTrack) sectionTriggerStepDistance *= 0.5;
@@ -1407,7 +1386,7 @@ namespace AgOpenGPS
                     tool.farRightSpeed = tool.farRightSpeed * 0.7 + sped * 0.3;
                 }
 
-                //choose fastest speed
+                //choose fastest speed and filter
                 if (leftSpeed > rightSpeed)
                 {
                     sped = leftSpeed;
@@ -1475,60 +1454,28 @@ namespace AgOpenGPS
 
         private void AddContourPoints()
         {
-            //if (isConstantContourOn)
+            //record contour all the time
+            //Contour Base Track.... At least One section on, turn on if not
+            if (patchCounter != 0)
             {
-                //record contour all the time
-                //Contour Base Track.... At least One section on, turn on if not
-                if (patchCounter != 0)
-                {
-                    //keep the line going, everything is on for recording path
-                    if (ct.isContourOn) ct.AddPoint(pivotAxlePos);
-                    else
-                    {
-                        ct.StartContourLine();
-                        ct.AddPoint(pivotAxlePos);
-                    }
-                }
-
-                //All sections OFF so if on, turn off
+                //keep the line going, everything is on for recording path
+                if (ct.isContourOn) ct.AddPoint(pivotAxlePos);
                 else
                 {
-                    if (ct.isContourOn)
-                    { ct.StopContourLine(); }
+                    ct.StartContourLine();
+                    ct.AddPoint(pivotAxlePos);
                 }
-
-                //Build contour line if close enough to a patch
-                if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(pivotAxlePos);
             }
-            //else
-            //{
-            //    if ((ABLine.isBtnABLineOn && !ct.isContourBtnOn && ABLine.isABLineSet && isBtnAutoSteerOn) ||
-            //                (!ct.isContourBtnOn && trk.isBtnTrackOn && trk.isCurveSet && isBtnAutoSteerOn))
-            //    {
-            //        //no contour recorded
-            //        if (ct.isContourOn) { ct.StopContourLine(); }
-            //    }
-            //    else
-            //    {
-            //        //Contour Base Track.... At least One section on, turn on if not
-            //        if (patchCounter != 0)
-            //        {
-            //            //keep the line going, everything is on for recording path
-            //            if (ct.isContourOn) ct.AddPoint(pivotAxlePos);
-            //            else
-            //            {
-            //                ct.StartContourLine();
-            //                ct.AddPoint(pivotAxlePos);
-            //            }
-            //        }
 
-            //        //All sections OFF so if on, turn off
-            //        else { if (ct.isContourOn) { ct.StopContourLine(); } }
+            //All sections OFF so if on, turn off
+            else
+            {
+                if (ct.isContourOn)
+                { ct.StopContourLine(); }
+            }
 
-            //        //Build contour line if close enough to a patch
-            //        if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(pivotAxlePos);
-            //    }
-            //}
+            //Build contour line if close enough to a patch
+            if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(pivotAxlePos);
 
             //save the north & east as previous
             prevContourPos.northing = pivotAxlePos.northing;

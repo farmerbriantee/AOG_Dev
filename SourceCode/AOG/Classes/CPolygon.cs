@@ -22,6 +22,15 @@ namespace AgOpenGPS
             polygonPts = _points;
         }
 
+        public CPolygon(vec3[] _points)
+        {
+            polygonPts = new vec2[_points.Length];
+            for (int i = 0; i < _points.Length; i++)
+            {
+                polygonPts[i] = new vec2(_points[i].easting, _points[i].northing);
+            }
+        }
+
         public vec2[] polygonPts;
 
         // Triangulate the polygon. http://www-cgrl.cs.mcgill.ca/~godfried/teaching/cg-projects/97/Ian/cutting_ears.html

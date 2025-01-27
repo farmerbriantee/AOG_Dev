@@ -126,6 +126,10 @@ namespace AgOpenGPS
                     delta = 0;
                 }
             }
+
+            //Triangulate the bundary polygon
+            bndPolygon = new CPolygon(fenceLineEar.ToArray());
+            bndTriangleList = bndPolygon.Triangulate();
         }
 
         public void ReverseWinding()

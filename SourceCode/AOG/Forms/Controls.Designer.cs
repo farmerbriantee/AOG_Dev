@@ -741,8 +741,8 @@ namespace AgOpenGPS
             //turn off all the sections
             for (int j = 0; j < tool.numOfSections; j++)
             {
-                section[j].sectionOnOffCycle = false;
-                section[j].sectionOffRequest = false;
+                section[j].sectionOffRequest = true;
+                section[j].sectionOnRequest = false;
             }
 
             //turn off patching

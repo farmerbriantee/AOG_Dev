@@ -836,17 +836,21 @@ namespace AgOpenGPS
                     }
                     GL.End();
 
-                    //draw red in headland polygon
-                    GL.Color3((byte)bbColors.headland, (byte)0, (byte)0);
-
-                    GL.Begin(PrimitiveType.Triangles);
-                    for (int i = 0; i < bnd.bndList[0].hdLineTriangleList.Count; i++)
+                    //if section not controlled by headland, don't even draw it. 
+                    if (bnd.isSectionControlledByHeadland && bnd.bndList[0].hdLineTriangleList.Count > 0)
                     {
-                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].northing, 0);
-                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].northing, 0);
-                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].northing, 0);
+                        //draw red in headland polygon
+                        GL.Color3((byte)bbColors.headland, (byte)0, (byte)0);
+
+                        GL.Begin(PrimitiveType.Triangles);
+                        for (int i = 0; i < bnd.bndList[0].hdLineTriangleList.Count; i++)
+                        {
+                            GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].northing, 0);
+                            GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].northing, 0);
+                            GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].northing, 0);
+                        }
+                        GL.End();
                     }
-                    GL.End();
 
                     //if we would have inner boundary headline draw them here
                 }
@@ -1069,24 +1073,16 @@ namespace AgOpenGPS
             //headland and boundary counts
             int onCount = 0, offCount = 0;
 
+            //select correct buffer color based on headland control
+            byte colorBnd = (byte)bbColors.fence;
+            if (bnd.isSectionControlledByHeadland)
+                colorBnd = (byte)bbColors.headland;
+            else
+                colorBnd = (byte)bbColors.fence;
+
+            //loop thru each section for section control
             for (int j = 0; j < tool.numOfSections; j++)
             {
-                //Off or too slow or going backwards
-                if (section[j].sectionBtnState == btnStates.Off || avgSpeed < vehicle.slowSpeedCutoff || section[j].speedPixels < 0)
-                {
-                    section[j].sectionOnRequest = false;
-                    section[j].sectionOffRequest = true;
-
-                    // Manual on, force the section On
-                    if (section[j].sectionBtnState == btnStates.On)
-                    {
-                        section[j].sectionOnRequest = true;
-                        section[j].sectionOffRequest = false;
-                        continue;
-                    }
-                    continue;
-                }
-
                 // Manual on, force the section On
                 if (section[j].sectionBtnState == btnStates.On)
                 {
@@ -1095,14 +1091,24 @@ namespace AgOpenGPS
                     continue;
                 }
 
+                //Off or too slow or going backwards
+                if (section[j].sectionBtnState == btnStates.Off || avgSpeed < vehicle.slowSpeedCutoff || section[j].speedPixels < 0)
+                {
+                    section[j].sectionOnRequest = false;
+                    section[j].sectionOffRequest = true;
+                    continue;
+                }
+
                 //AutoSection - If any nowhere applied, send OnRequest, if its all green send an offRequest
-                section[j].isSectionRequiredOn = true;
+                //section[j].sectionOnRequest = true;
+
+                //calculate the slopes of the lines
+                mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
+                mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
 
                 //logic if in or out of boundaries or headland
-                //Has a fence and... a headland but headland not control sections OR no headland.
-                if (bnd.bndList.Count > 0 &&
-                    ((!bnd.isSectionControlledByHeadland && bnd.bndList[0].hdLineTriangleList.Count > 0)
-                    || bnd.bndList[0].hdLineTriangleList.Count == 0))
+                //Has a fence and... a headland but headland not control sections OR no headland. No headland was drawn
+                if (bnd.bndList.Count > 0)
                 {
                     start = section[j].rpSectionPosition - section[0].rpSectionPosition;
                     end = section[j].rpSectionWidth - 1 + start;
@@ -1117,60 +1123,28 @@ namespace AgOpenGPS
                         offHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
                         onHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
 
-                        if (redPixels[onHeight] == (byte)bbColors.fence || redPixels[onHeight] == (byte)bbColors.headland)
+                        if (redPixels[onHeight] == colorBnd && grnPixels[onHeight] == 0)
                             onCount++;
-
-                        if (redPixels[offHeight] == (byte)bbColors.fence || redPixels[offHeight] == (byte)bbColors.headland)
+                        if (redPixels[offHeight] == colorBnd && grnPixels[offHeight] == (byte)bbColors.section
+                             || redPixels[offHeight] != colorBnd)
                             offCount++;
                     }
 
                     //check for off
-                    if (tool.isSectionOffWhenOut)
-                    {
-                        if (onCount == 0 && offCount == 0)
-                            section[j].isSectionRequiredOn = false;
-                    }
-                    else
-                    {
-                        if (onCount != (end - start + 1) && offCount != (end - start + 1))
-                            section[j].isSectionRequiredOn = false;
-                    }
+                    int coverage = (end - start + 1) - ((end - start + 1) * tool.minCoverage) / 100;
+
+                    if (onCount > coverage) section[j].sectionOnRequest = true;
+                    else section[j].sectionOnRequest = false;
+
+                    coverage = ((end - start + 1) * tool.minCoverage) / 100;
+                    if (offCount < (coverage) && section[j].sectionOnRequest == false)
+                        section[j].sectionOnRequest = true;
                 }
 
-                //Has a fence and... a headland but headland DOES control sections. Assume headland is inside fence - no check fence
-                else if (section[j].isSectionRequiredOn && bnd.bndList.Count > 0 &&
-                                (bnd.isSectionControlledByHeadland && bnd.bndList[0].hdLineTriangleList.Count > 0))
+                ////no bnds - check if already applied and turn off section - if within headlands and fence
+                else
                 {
-                    start = section[j].rpSectionPosition - section[0].rpSectionPosition;
-                    end = section[j].rpSectionWidth - 1 + start;
-
-                    if (end >= tool.rpWidth)
-                        end = tool.rpWidth - 1;
-
-                    offCount = onCount = 0;
-
-                    for (int pos = start; pos <= end; pos++)
-                    {
-                        offHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
-                        onHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
-
-                        if (redPixels[onHeight] == (byte)bbColors.headland)
-                            onCount++;
-                        if (redPixels[offHeight] == (byte)bbColors.headland)
-                            offCount++;
-                    }
-
-                    //check for off
-                    if (onCount == 0 && offCount == 0)
-                        section[j].isSectionRequiredOn = false;
-                }
-
-                //check if already applied and turn off section - if within headlands and fence
-                if (section[j].isSectionRequiredOn == true)
-                {
-                    //calculate the slopes of the lines
-                    mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
-                    mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
+                    section[j].sectionOnRequest = true;
 
                     start = section[j].rpSectionPosition - section[0].rpSectionPosition;
                     end = section[j].rpSectionWidth - 1 + start;
@@ -1191,14 +1165,11 @@ namespace AgOpenGPS
                     }
 
                     //determine if meeting minimum coverage todo
-                    //section[j].isSectionRequiredOn = true;
-                    //if (un_appliedCount != 0)
                     if (onCount == 0 && offCount == (end - start + 1))
-                        section[j].isSectionRequiredOn = false;
+                        section[j].sectionOnRequest = false;
                 }
 
-                //global request to turn on section
-                section[j].sectionOnRequest = section[j].isSectionRequiredOn;
+                //set off requests - used for timing of mapping and section delay
                 section[j].sectionOffRequest = !section[j].sectionOnRequest;
 
             } // end of go thru all sections "for"

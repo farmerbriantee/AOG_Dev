@@ -627,7 +627,7 @@ namespace AgOpenGPS
             }
 
             bool closing = true;
-            int choice = SaveOrNot(closing);
+            int choice = SaveOrNot();
 
             //simple cancel return to AgOpenGPS
             if (choice == 1)
@@ -701,7 +701,7 @@ namespace AgOpenGPS
             }
         }
 
-        public int SaveOrNot(bool closing)
+        public int SaveOrNot()
         {
             CloseTopMosts();
 

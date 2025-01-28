@@ -405,12 +405,10 @@ namespace AgOpenGPS
                         //draw Boundaries
                         bnd.DrawFenceLines();
 
-                        GL.LineWidth(trk.lineWidth);
-
                         //draw the turnLines
                         if (yt.isYouTurnBtnOn && !ct.isContourBtnOn)
                         {
-                            GL.LineWidth(trk.lineWidth * 3);
+                            GL.LineWidth(trk.lineWidth * 4);
                             GL.Color4(0, 0, 0, 0.80f);
 
                             for (int i = 0; i < bnd.bndList.Count; i++)
@@ -429,7 +427,7 @@ namespace AgOpenGPS
                         //Draw headland
                         if (bnd.isHeadlandOn)
                         {
-                            GL.LineWidth(trk.lineWidth*3);
+                            GL.LineWidth(trk.lineWidth*4);
 
                             GL.Color4(0,0,0, 0.80f);
                             bnd.bndList[0].hdLine.DrawPolygon();
@@ -457,8 +455,7 @@ namespace AgOpenGPS
                     //draw line creations
                     if (trk.isMakingCurveTrack) trk.DrawNewTrack();
 
-                    if (trk.isMakingABLine)
-                        trk.DrawABLineNew();
+                    if (trk.isMakingABLine) trk.DrawABLineNew();
 
                     if (flagPts.Count > 0) DrawFlags();
 
@@ -1077,10 +1074,14 @@ namespace AgOpenGPS
 
             //select correct buffer color based on headland control
             byte colorBnd = (byte)bbColors.fence;
-            if (bnd.isSectionControlledByHeadland)
-                colorBnd = (byte)bbColors.headland;
-            else
-                colorBnd = (byte)bbColors.fence;
+
+            if (bnd.bndList.Count > 0)
+            {
+                if (bnd.isSectionControlledByHeadland && bnd.bndList[0].hdLine.Count > 0)
+                    colorBnd = (byte)bbColors.headland;
+                else
+                    colorBnd = (byte)bbColors.fence;
+            }
 
             //loop thru each section for section control
             for (int j = 0; j < tool.numOfSections; j++)

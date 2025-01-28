@@ -463,8 +463,8 @@ namespace AgOpenGPS
             LoadSettings();
 
             //for field data and overlap
-            oglZoom.Width = 400;
-            oglZoom.Height = 400;
+            oglZoom.Width = 600;
+            oglZoom.Height = 600;
             oglZoom.Left = 100;
             oglZoom.Top = 100;
 

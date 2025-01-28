@@ -57,6 +57,7 @@ namespace AgOpenGPS
 
         //create instance of a stopwatch for timing of frames and NMEA hz determination
         private readonly Stopwatch swFrame = new Stopwatch();
+        private readonly Stopwatch algoTimer = new Stopwatch();
 
         public double secondsSinceStart;
         public double gridToolSpacing;

@@ -209,13 +209,6 @@ namespace AgOpenGPS
             btnSubAntenna.BackColor = SystemColors.GradientActiveCaption;
         }
 
-        private void btnSubGuidance_Click(object sender, EventArgs e)
-        {
-            ClearVehicleSubBackgrounds();
-            tab1.SelectedTab = tabVGuidance;
-            //btnSubGuidance.BackColor = SystemColors.GradientActiveCaption;               
-        }
-
         #endregion Region
 
         #region Tool Sub Menu

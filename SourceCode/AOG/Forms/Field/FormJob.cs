@@ -126,7 +126,7 @@ namespace AgOpenGPS
                 double lat = 0;
                 double lon = 0;
 
-                string fieldDirectory = Path.GetFileName(dir);
+                Path.GetFileName(dir);
                 string filename = Path.Combine(dir, "Field.txt");
                 string line;
 

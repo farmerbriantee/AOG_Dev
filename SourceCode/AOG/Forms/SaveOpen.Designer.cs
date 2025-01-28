@@ -1896,8 +1896,6 @@ namespace AgOpenGPS
                 writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>     ");
                 writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2""> ");
 
-                int count2 = flagPts.Count;
-
                 writer.WriteLine(@"<Document>");
 
                 writer.WriteLine(@"  <Placemark>                                  ");
@@ -1934,8 +1932,6 @@ namespace AgOpenGPS
 
                 writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>     ");
                 writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2""> ");
-
-                int count2 = flagPts.Count;
 
                 writer.WriteLine(@"<Document>");
 

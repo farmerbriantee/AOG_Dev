@@ -50,19 +50,6 @@ namespace AgOpenGPS
             Close();
         }
 
-        private void btnVehicleColor_Click(object sender, EventArgs e)
-        {
-            using (FormColorPicker form = new FormColorPicker(mf, mf.vehicleColor))
-            {
-                if (form.ShowDialog(this) == DialogResult.OK)
-                {
-                    mf.vehicleColor = form.useThisColor;
-                }
-            }
-
-            Properties.Settings.Default.setDisplay_colorVehicle = mf.vehicleColor;
-        }
-
         private void btnFrameDay_Click(object sender, EventArgs e)
         {
             if (!mf.isDay) mf.SwapDayNightMode();

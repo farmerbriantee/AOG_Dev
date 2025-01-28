@@ -483,7 +483,7 @@ namespace AgOpenGPS
                             FileName = strPath,
                             WorkingDirectory = Path.GetDirectoryName(strPath)
                         };
-                        Process proc = Process.Start(processInfo);
+                        Process.Start(processInfo);
                         Log.EventWriter("AgOne Started");
                     }
                     catch
@@ -508,7 +508,7 @@ namespace AgOpenGPS
                                 FileName = strPath,
                                 WorkingDirectory = Path.GetDirectoryName(strPath)
                             };
-                            Process proc = Process.Start(processInfo);
+                            Process.Start(processInfo);
                             Log.EventWriter("AgTwo Started");
                         }
                         catch
@@ -705,7 +705,7 @@ namespace AgOpenGPS
         {
             CloseTopMosts();
 
-            using (FormSaveOrNot form = new FormSaveOrNot(closing))
+            using (FormSaveOrNot form = new FormSaveOrNot())
             {
                 DialogResult result = form.ShowDialog(this);
 

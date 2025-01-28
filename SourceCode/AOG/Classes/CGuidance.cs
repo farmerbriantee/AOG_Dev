@@ -55,9 +55,7 @@ namespace AgOpenGPS
         public void UTurnGuidance()
         {
             // Update based on autosteer settings and distance from line
-            double goalPointDistance = mf.vehicle.UpdateGoalPointDistance();
-            bool ReverseHeading = mf.isReverse ? !mf.trk.isHeadingSameWay : mf.trk.isHeadingSameWay;
-
+            mf.vehicle.UpdateGoalPointDistance();
 
             //now substitute what it thinks are AB line values with auto turn values
             steerAngleTrk = mf.yt.steerAngleYT;
@@ -145,7 +143,7 @@ namespace AgOpenGPS
         /// <param name="pivot">Pivot position vector</param>
         /// <param name="steer">Steer position vector</param>
         /// <param name="curList">the current list of guidance points</param>
-        public void StanleyGuidance(vec3 pivot, vec3 steer, ref List<vec3> curList)
+        public void StanleyGuidance(vec3 steer, ref List<vec3> curList)
         {            //calculate required steer angle
             //find the closest point roughly
             int cc = 0, dd;

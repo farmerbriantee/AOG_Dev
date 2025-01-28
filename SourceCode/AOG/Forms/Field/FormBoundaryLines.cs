@@ -738,20 +738,6 @@ namespace AgOpenGPS
             FixLabels();
         }
 
-        private void btnDeleteCurve_Click(object sender, EventArgs e)
-        {
-            //mf.bnd.buildList[0].hdLine?.Clear();
-
-            if (gTemp.Count > 1)
-            {
-                gTemp.RemoveAt(indx);
-                indx--;
-                if (indx < 0) indx = gTemp.Count - 1;
-            }
-
-            FixLabels();
-        }
-
         private void btnExit_Click(object sender, EventArgs e)
         {
             if (buildList.Count > 5)

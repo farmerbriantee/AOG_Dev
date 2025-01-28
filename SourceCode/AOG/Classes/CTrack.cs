@@ -559,7 +559,7 @@ namespace AgOpenGPS
 
                 else if (mf.isStanleyUsed)//Stanley
                 {
-                    mf.gyd.StanleyGuidance(pivot, steer, ref curList);
+                    mf.gyd.StanleyGuidance(steer, ref curList);
                 }
                 else// Pure Pursuit ------------------------------------------
                 {
@@ -982,7 +982,6 @@ namespace AgOpenGPS
 
         public void AddStartPoints(ref List<vec3> xList, int ptsToAdd)
         {
-            int ptCnt = xList.Count - 1;
             vec3 start;
             ptsToAdd *= 2;
 

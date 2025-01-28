@@ -180,14 +180,6 @@ namespace AgOpenGPS
             Properties.Settings.Default.setWindow_abDrawSize = Size;
         }
 
-        private void btnCenterOGL_Click(object sender, EventArgs e)
-        {
-            zoom = 1;
-            sX = 0;
-            sY = 0;
-            zoomToggle = false;
-        }
-
         private void cboxIsZoom_CheckedChanged(object sender, EventArgs e)
         {
             zoomToggle = false;
@@ -295,12 +287,6 @@ namespace AgOpenGPS
             if (gTemp[indx].isVisible)
                 cboxIsVisible.Image = Properties.Resources.TrackVisible;
             else cboxIsVisible.Image = Properties.Resources.TracksInvisible;
-        }
-
-        private void nudDistance_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-            btnSelectCurve.Focus();
         }
 
         private void btnDeleteCurve_Click(object sender, EventArgs e)

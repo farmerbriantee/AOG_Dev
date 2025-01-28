@@ -1034,9 +1034,6 @@ namespace AgOpenGPS
             //slope of the look ahead line
             double mOn = 0, mOff = 0;
 
-            double theta = mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
-            double deg = glm.toDegrees(Math.Atan(theta));
-
             //tram
             if (tram.displayMode > 0 && tool.width > vehicle.trackWidth)
             {
@@ -1538,7 +1535,6 @@ namespace AgOpenGPS
                 int once = 0;
                 int twice = 0;
                 int more = 0;
-                int level = 0;
                 double total = 0;
                 double total2 = 0;
 
@@ -1549,12 +1545,10 @@ namespace AgOpenGPS
                     if (overPix[i] > 105)
                     {
                         more++;
-                        level = overPix[i];
                     }
                     else if (overPix[i] > 85)
                     {
                         twice++;
-                        level = overPix[i];
                     }
                     else if (overPix[i] > 50)
                     {
@@ -1989,7 +1983,7 @@ namespace AgOpenGPS
             catch { }
         }
 
-        private void DrawLightBar(double Width, double Height, double offlineDistance)
+        private void DrawLightBar(double offlineDistance)
         {
             double down = 25;
             GL.LineWidth(1);
@@ -2078,7 +2072,7 @@ namespace AgOpenGPS
 
                 double avgPivotDistance = avgPivDistance * (isMetric ? 0.1 : 0.03937);
 
-                if (isLightbarOn) DrawLightBar(oglMain.Width, oglMain.Height, avgPivotDistance);
+                if (isLightbarOn) DrawLightBar(avgPivotDistance);
 
                 if (avgPivotDistance > 999) avgPivotDistance = 999;
                 if (avgPivotDistance < -999) avgPivotDistance = -999;

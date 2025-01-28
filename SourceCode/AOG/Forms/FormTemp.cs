@@ -18,10 +18,5 @@ namespace AgOpenGPS
         private void FormToolPivot_Load(object sender, EventArgs e)
         {
         }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
     }
 }

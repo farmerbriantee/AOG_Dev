@@ -41,9 +41,6 @@ namespace AgOpenGPS
 
             Size = Properties.Settings.Default.setWindow_gridSize;
 
-            Screen myScreen = Screen.FromControl(this);
-            Rectangle area = myScreen.WorkingArea;
-
             Location = Properties.Settings.Default.setWindow_gridLocation;
             FormABDraw_ResizeEnd(this, e);
 
@@ -87,19 +84,6 @@ namespace AgOpenGPS
             sY = 0;
 
             btnExit.Focus();
-        }
-
-        private void BtnMakeABLine_Click(object sender, EventArgs e)
-        {
-            //calculate the Heading
-            double abHead = Math.Atan2(
-                pntB.easting - pntA.easting,
-                pntB.northing - pntA.northing);
-            if (abHead < 0) abHead += glm.twoPI;
-
-            //clean up gui
-
-            start = 99999; end = 99999;
         }
 
         private void oglSelf_MouseDown(object sender, MouseEventArgs e)
@@ -278,12 +262,6 @@ namespace AgOpenGPS
 
             tlp1.Width = Width - oglSelf.Width - 10;
             tlp1.Left = oglSelf.Width - 2;
-
-            Screen myScreen = Screen.FromControl(this);
-            Rectangle area = myScreen.WorkingArea;
-
-            //this.Top = (area.Height - this.Height) / 2;
-            //this.Left = (area.Width - this.Width) / 2;
         }
 
         private void oglSelf_Resize(object sender, EventArgs e)

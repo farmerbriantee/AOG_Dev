@@ -152,7 +152,6 @@ namespace AgOpenGPS
                             }
 
                             line = coordinates;
-                            char[] delimiterChars = { ' ', '\t', '\r', '\n' };
                             string[] numberSets = line.Split();
 
                             //at least 3 points

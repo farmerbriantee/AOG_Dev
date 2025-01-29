@@ -126,8 +126,7 @@ namespace AgOpenGPS
             //swFrame.Stop();
             //Measure the frequency of the GPS updates
             timeSliceOfLastFix = (double)(swFrame.ElapsedTicks) / (double)System.Diagnostics.Stopwatch.Frequency;
-            swFrame.Reset();
-            swFrame.Start();
+            swFrame.Restart();
 
             //get Hz from timeslice
             nowHz = 1 / timeSliceOfLastFix;
@@ -1103,7 +1102,7 @@ namespace AgOpenGPS
             frameTimeRough = (double)(swFrame.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency;
 
             if (frameTimeRough > 80) frameTimeRough = 80;
-            frameTime = frameTime * 0.90 + frameTimeRough * 0.1;
+            frameTime = frameTime * 0.96 + frameTimeRough * 0.04;
         }
 
         private void TheRest()

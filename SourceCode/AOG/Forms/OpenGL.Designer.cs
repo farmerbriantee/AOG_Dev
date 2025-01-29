@@ -48,6 +48,7 @@ namespace AgOpenGPS
         //mapping change occured
         private ulong number = 0, lastNumber = 0;
 
+        private double aTime;
         public void StartATimer()
         {
             algoTimer.Restart();
@@ -55,7 +56,9 @@ namespace AgOpenGPS
 
         public void StopAtimer()
         {
-            lblAlgo.Text = ((double)(algoTimer.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency).ToString() +  "  " + bob;
+            double newTime = ((double)(algoTimer.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency);
+            aTime = newTime * 0.1 + aTime * 0.9;
+            lblAlgo.Text = aTime.ToString("N3") + "  " + bob;
         }
 
         // When oglMain is created
@@ -191,8 +194,6 @@ namespace AgOpenGPS
 
                     //direction marker width
                     double factor = 0.37;
-
-                    StartATimer();
 
                     GL.LineWidth(2);
 
@@ -343,8 +344,6 @@ namespace AgOpenGPS
                             }
                         }
                     }
-
-                    StopAtimer();
 
                     // the follow up to sections patches
                     int patchCount = 0;
@@ -673,7 +672,9 @@ namespace AgOpenGPS
                     //draw the section control window off screen buffer
                     if (isJobStarted && (bbCounter == 0))
                     {
+                        StartATimer();
                         oglBackPaint();
+                        StopAtimer();
 
                         p_239.pgn[p_239.geoStop] = mc.isOutOfBounds ? (byte)1 : (byte)0;
 

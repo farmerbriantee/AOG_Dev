@@ -4,6 +4,8 @@ using OpenTK.Graphics.OpenGL;
 using System.Windows.Forms;
 using System.Text;
 using System.Diagnostics;
+using OpenTK.Graphics;
+using System.Threading;
 
 namespace AgOpenGPS
 {
@@ -41,10 +43,20 @@ namespace AgOpenGPS
 
         public double avgPivDistance, lightbarDistance, longAvgPivDistance;
 
-        private int bbCounter = 0;
+        private int bbCounter = 0, bob = 0;
 
         //mapping change occured
         private ulong number = 0, lastNumber = 0;
+
+        public void StartATimer()
+        {
+            algoTimer.Restart();
+        }
+
+        public void StopAtimer()
+        {
+            lblAlgo.Text = ((double)(algoTimer.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency).ToString() +  "  " + bob;
+        }
 
         // When oglMain is created
         private void oglMain_Load(object sender, EventArgs e)
@@ -180,7 +192,11 @@ namespace AgOpenGPS
                     //direction marker width
                     double factor = 0.37;
 
+                    StartATimer();
+
                     GL.LineWidth(2);
+
+                    bob = 0;
 
                     for (int j = 0; j < triStrip.Count; j++)
                     {
@@ -231,7 +247,7 @@ namespace AgOpenGPS
 
                                 if (isDraw)
                                 {
-
+                                    bob++;
                                     count2 = triList.Count;
                                     GL.Begin(PrimitiveType.TriangleStrip);
 
@@ -327,6 +343,8 @@ namespace AgOpenGPS
                             }
                         }
                     }
+
+                    StopAtimer();
 
                     // the follow up to sections patches
                     int patchCount = 0;
@@ -655,7 +673,7 @@ namespace AgOpenGPS
                     //draw the section control window off screen buffer
                     if (isJobStarted && (bbCounter == 0))
                     {
-                        oglBack.Refresh();
+                        oglBackPaint();
 
                         p_239.pgn[p_239.geoStop] = mc.isOutOfBounds ? (byte)1 : (byte)0;
 
@@ -777,6 +795,7 @@ namespace AgOpenGPS
         private void oglBack_Load(object sender, EventArgs e)
         {
             oglBack.MakeCurrent();
+
             GL.Enable(EnableCap.CullFace);
             GL.CullFace(CullFaceMode.Back);
             GL.PixelStore(PixelStoreParameter.PackAlignment, 1);
@@ -787,6 +806,7 @@ namespace AgOpenGPS
         private void oglBack_Resize(object sender, EventArgs e)
         {
             oglBack.MakeCurrent();
+
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
             GL.Viewport(0, 0, 500, 300);
@@ -797,16 +817,19 @@ namespace AgOpenGPS
 
         private void oglBack_Paint(object sender, PaintEventArgs e)
         {
-            algoTimer.Reset();
-            algoTimer.Start();
-
+            oglBackPaint();
+        }
+        private void oglBackPaint()
+        {
             oglBack.MakeCurrent();
 
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
-            GL.LoadIdentity();					// Reset The View
+            GL.LoadIdentity();                  // Reset The View
 
             //back the camera up
             GL.Translate(0, 0, -500);
+
+            //Thread.Sleep(10);
 
             //rotate camera so heading matched fix heading in the world
             GL.Rotate(glm.toDegrees(toolPos.heading), 0, 0, 1);
@@ -1021,9 +1044,6 @@ namespace AgOpenGPS
             //read the whole block of pixels up to max lookahead, one read only qqq
             GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Red, PixelType.UnsignedByte, redPixels);
             GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Green, PixelType.UnsignedByte, grnPixels);
-            //GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Blue, PixelType.UnsignedByte, bluPixels);
-
-            double tim = (double)(algoTimer.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency;
 
             //Paint to context for troubleshooting qqq
             //oglBack.BringToFront();

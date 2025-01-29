@@ -3,6 +3,7 @@
 using AgOpenGPS.Culture;
 using AgOpenGPS.Properties;
 using OpenTK;
+using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
@@ -267,7 +268,6 @@ namespace AgOpenGPS
                 }
             }
         }
-
         public FormGPS()
         {
             //winform initialization

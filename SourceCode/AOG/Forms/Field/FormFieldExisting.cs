@@ -303,25 +303,24 @@ namespace AgOpenGPS
                 { Directory.CreateDirectory(directoryName); }
             }
 
-            string line;
             string offsets, convergence, startFix;
 
             using (StreamReader reader = new StreamReader(fileStr))
             {
                 try
                 {
-                    line = reader.ReadLine();
-                    line = reader.ReadLine();
-                    line = reader.ReadLine();
-                    line = reader.ReadLine();
+                    reader.ReadLine();
+                    reader.ReadLine();
+                    reader.ReadLine();
+                    reader.ReadLine();
 
                     //read the Offsets  - all we really need from template field file
                     offsets = reader.ReadLine();
 
-                    line = reader.ReadLine();
+                    reader.ReadLine();
                     convergence = reader.ReadLine();
 
-                    line = reader.ReadLine();
+                    reader.ReadLine();
                     startFix = reader.ReadLine();
                 }
                 catch (Exception ex)
@@ -482,25 +481,6 @@ namespace AgOpenGPS
                 btnSerialCancel.Focus();
             }
         }
-
-        private void tboxTask_Click(object sender, EventArgs e)
-        {
-            if (mf.isKeyboardOn)
-            {
-                mf.KeyboardToText((TextBox)sender, this);
-                btnSerialCancel.Focus();
-            }
-        }
-
-        private void tboxVehicle_Click(object sender, EventArgs e)
-        {
-            if (mf.isKeyboardOn)
-            {
-                mf.KeyboardToText((TextBox)sender, this);
-                btnSerialCancel.Focus();
-            }
-        }
-
         private void btnAddDate_Click(object sender, EventArgs e)
         {
             tboxFieldName.Text += " " + DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);

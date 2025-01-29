@@ -559,7 +559,7 @@ namespace AgOpenGPS
 
                 else if (mf.isStanleyUsed)//Stanley
                 {
-                    mf.gyd.StanleyGuidance(pivot, steer, ref curList);
+                    mf.gyd.StanleyGuidance(steer, ref curList);
                 }
                 else// Pure Pursuit ------------------------------------------
                 {
@@ -673,11 +673,13 @@ namespace AgOpenGPS
                     GL.End();
                 }
             }
+
+            //Draw AB Lines
             if (!isSmoothWindowOpen) //normal. Smoothing window is not open.
             {
                 if (curList.Count > 0)
                 {
-                    GL.LineWidth(lineWidth * 3);
+                    GL.LineWidth(lineWidth * 4);
                     GL.Color3(0, 0, 0);
 
                     //GL.Enable(EnableCap.LineSmooth);
@@ -706,7 +708,7 @@ namespace AgOpenGPS
                     GL.LineWidth(lineWidth);
                     GL.Color3(0.95f, 0.2f, 0.95f);
 
-                    //ablines and curves are a line - the rest a loop
+                    //ablines and curves are a track - the rest a loop
                     if (gArr[idx].mode <= TrackMode.Curve)
                     {
                         GL.Begin(PrimitiveType.LineStrip);
@@ -982,7 +984,6 @@ namespace AgOpenGPS
 
         public void AddStartPoints(ref List<vec3> xList, int ptsToAdd)
         {
-            int ptCnt = xList.Count - 1;
             vec3 start;
             ptsToAdd *= 2;
 

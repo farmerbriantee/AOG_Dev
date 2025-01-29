@@ -56,42 +56,22 @@ namespace AgOpenGPS
 
         public void DrawFenceLines()
         {
-            if (!mf.mc.isOutOfBounds)
+            GL.Color4(0, 0, 0, 0.8);
+            GL.LineWidth(mf.trk.lineWidth * 4);
+
+            for (int i = 0; i < bndList.Count; i++)
             {
-                GL.Color4(0, 0, 0, 0.8);
-                GL.LineWidth(mf.trk.lineWidth * 3);
-
-                for (int i = 0; i < bndList.Count; i++)
-                {
-                    bndList[i].fenceLineEar.DrawPolygon();
-                }
-
-                GL.Color4(0.95f, 0.5f, 0.50f, 1.0f);
-                GL.LineWidth(mf.trk.lineWidth * 2);
-
-                for (int i = 0; i < bndList.Count; i++)
-                {
-                    if (i > 0) GL.Color4(0.85f, 0.34f, 0.3f, 1.0f);
-                    bndList[i].fenceLineEar.DrawPolygon();
-                }
-            }
-            else
-            {
-                GL.LineWidth(mf.trk.lineWidth * 2);
-                GL.Color3(0.95f, 0.25f, 0.250f);
-
-                for (int i = 0; i < bndList.Count; i++)
-                {
-                    bndList[i].fenceLineEar.DrawPolygon();
-                }
+                bndList[i].fenceLineEar.DrawPolygon();
             }
 
-            ////closest points  TooDoo
-            //GL.Color3(0.70f, 0.95f, 0.95f);
-            //GL.PointSize(6.0f);
-            //GL.Begin(PrimitiveType.Points);
-            //GL.Vertex3(mf.bnd.closestTurnPt.easting, mf.bnd.closestTurnPt.northing, 0);
-            //GL.End();
+            GL.Color4(0.95f, 0.5f, 0.50f, 1.0f);
+            GL.LineWidth(mf.trk.lineWidth);
+
+            for (int i = 0; i < bndList.Count; i++)
+            {
+                if (i > 0) GL.Color4(0.85f, 0.34f, 0.3f, 1.0f);
+                bndList[i].fenceLineEar.DrawPolygon();
+            }
 
             if (bndBeingMadePts.Count > 0)
             {

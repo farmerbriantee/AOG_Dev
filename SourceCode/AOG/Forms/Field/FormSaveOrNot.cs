@@ -10,7 +10,7 @@ namespace AgOpenGPS
         private int countExit = 2;
         private int countShutdown = 10;
 
-        public FormSaveOrNot(bool closing)
+        public FormSaveOrNot()
         {
             InitializeComponent();
         }

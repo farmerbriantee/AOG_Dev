@@ -4,6 +4,8 @@ using OpenTK.Graphics.OpenGL;
 using System.Windows.Forms;
 using System.Text;
 using System.Diagnostics;
+using OpenTK.Graphics;
+using System.Threading;
 
 namespace AgOpenGPS
 {
@@ -41,10 +43,20 @@ namespace AgOpenGPS
 
         public double avgPivDistance, lightbarDistance, longAvgPivDistance;
 
-        private int bbCounter = 0;
+        private int bbCounter = 0, bob = 0;
 
         //mapping change occured
         private ulong number = 0, lastNumber = 0;
+
+        public void StartATimer()
+        {
+            algoTimer.Restart();
+        }
+
+        public void StopAtimer()
+        {
+            lblAlgo.Text = ((double)(algoTimer.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency).ToString() +  "  " + bob;
+        }
 
         // When oglMain is created
         private void oglMain_Load(object sender, EventArgs e)
@@ -180,7 +192,11 @@ namespace AgOpenGPS
                     //direction marker width
                     double factor = 0.37;
 
+                    StartATimer();
+
                     GL.LineWidth(2);
+
+                    bob = 0;
 
                     for (int j = 0; j < triStrip.Count; j++)
                     {
@@ -231,7 +247,7 @@ namespace AgOpenGPS
 
                                 if (isDraw)
                                 {
-
+                                    bob++;
                                     count2 = triList.Count;
                                     GL.Begin(PrimitiveType.TriangleStrip);
 
@@ -328,6 +344,8 @@ namespace AgOpenGPS
                         }
                     }
 
+                    StopAtimer();
+
                     // the follow up to sections patches
                     int patchCount = 0;
 
@@ -405,12 +423,10 @@ namespace AgOpenGPS
                         //draw Boundaries
                         bnd.DrawFenceLines();
 
-                        GL.LineWidth(trk.lineWidth);
-
                         //draw the turnLines
                         if (yt.isYouTurnBtnOn && !ct.isContourBtnOn)
                         {
-                            GL.LineWidth(trk.lineWidth * 3);
+                            GL.LineWidth(trk.lineWidth * 4);
                             GL.Color4(0, 0, 0, 0.80f);
 
                             for (int i = 0; i < bnd.bndList.Count; i++)
@@ -429,7 +445,7 @@ namespace AgOpenGPS
                         //Draw headland
                         if (bnd.isHeadlandOn)
                         {
-                            GL.LineWidth(trk.lineWidth*3);
+                            GL.LineWidth(trk.lineWidth*4);
 
                             GL.Color4(0,0,0, 0.80f);
                             bnd.bndList[0].hdLine.DrawPolygon();
@@ -457,8 +473,7 @@ namespace AgOpenGPS
                     //draw line creations
                     if (trk.isMakingCurveTrack) trk.DrawNewTrack();
 
-                    if (trk.isMakingABLine)
-                        trk.DrawABLineNew();
+                    if (trk.isMakingABLine) trk.DrawABLineNew();
 
                     if (flagPts.Count > 0) DrawFlags();
 
@@ -658,7 +673,7 @@ namespace AgOpenGPS
                     //draw the section control window off screen buffer
                     if (isJobStarted && (bbCounter == 0))
                     {
-                        oglBack.Refresh();
+                        oglBackPaint();
 
                         p_239.pgn[p_239.geoStop] = mc.isOutOfBounds ? (byte)1 : (byte)0;
 
@@ -780,6 +795,7 @@ namespace AgOpenGPS
         private void oglBack_Load(object sender, EventArgs e)
         {
             oglBack.MakeCurrent();
+
             GL.Enable(EnableCap.CullFace);
             GL.CullFace(CullFaceMode.Back);
             GL.PixelStore(PixelStoreParameter.PackAlignment, 1);
@@ -790,6 +806,7 @@ namespace AgOpenGPS
         private void oglBack_Resize(object sender, EventArgs e)
         {
             oglBack.MakeCurrent();
+
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
             GL.Viewport(0, 0, 500, 300);
@@ -800,13 +817,19 @@ namespace AgOpenGPS
 
         private void oglBack_Paint(object sender, PaintEventArgs e)
         {
+            oglBackPaint();
+        }
+        private void oglBackPaint()
+        {
             oglBack.MakeCurrent();
 
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
-            GL.LoadIdentity();					// Reset The View
+            GL.LoadIdentity();                  // Reset The View
 
             //back the camera up
             GL.Translate(0, 0, -500);
+
+            //Thread.Sleep(10);
 
             //rotate camera so heading matched fix heading in the world
             GL.Rotate(glm.toDegrees(toolPos.heading), 0, 0, 1);
@@ -836,17 +859,21 @@ namespace AgOpenGPS
                     }
                     GL.End();
 
-                    //draw red in headland polygon
-                    GL.Color3((byte)bbColors.headland, (byte)0, (byte)0);
-
-                    GL.Begin(PrimitiveType.Triangles);
-                    for (int i = 0; i < bnd.bndList[0].hdLineTriangleList.Count; i++)
+                    //if section not controlled by headland, don't even draw it. 
+                    if (bnd.isSectionControlledByHeadland && bnd.bndList[0].hdLineTriangleList.Count > 0)
                     {
-                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].northing, 0);
-                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].northing, 0);
-                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].northing, 0);
+                        //draw red in headland polygon
+                        GL.Color3((byte)bbColors.headland, (byte)0, (byte)0);
+
+                        GL.Begin(PrimitiveType.Triangles);
+                        for (int i = 0; i < bnd.bndList[0].hdLineTriangleList.Count; i++)
+                        {
+                            GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].northing, 0);
+                            GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].northing, 0);
+                            GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].northing, 0);
+                        }
+                        GL.End();
                     }
-                    GL.End();
 
                     //if we would have inner boundary headline draw them here
                 }
@@ -1017,7 +1044,6 @@ namespace AgOpenGPS
             //read the whole block of pixels up to max lookahead, one read only qqq
             GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Red, PixelType.UnsignedByte, redPixels);
             GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Green, PixelType.UnsignedByte, grnPixels);
-            //GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Blue, PixelType.UnsignedByte, bluPixels);
 
             //Paint to context for troubleshooting qqq
             //oglBack.BringToFront();
@@ -1029,9 +1055,6 @@ namespace AgOpenGPS
 
             //slope of the look ahead line
             double mOn = 0, mOff = 0;
-
-            double theta = mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
-            double deg = glm.toDegrees(Math.Atan(theta));
 
             //tram
             if (tram.displayMode > 0 && tool.width > vehicle.trackWidth)
@@ -1069,24 +1092,20 @@ namespace AgOpenGPS
             //headland and boundary counts
             int onCount = 0, offCount = 0;
 
+            //select correct buffer color based on headland control
+            byte colorBnd = (byte)bbColors.fence;
+
+            if (bnd.bndList.Count > 0)
+            {
+                if (bnd.isSectionControlledByHeadland && bnd.bndList[0].hdLine.Count > 0)
+                    colorBnd = (byte)bbColors.headland;
+                else
+                    colorBnd = (byte)bbColors.fence;
+            }
+
+            //loop thru each section for section control
             for (int j = 0; j < tool.numOfSections; j++)
             {
-                //Off or too slow or going backwards
-                if (section[j].sectionBtnState == btnStates.Off || avgSpeed < vehicle.slowSpeedCutoff || section[j].speedPixels < 0)
-                {
-                    section[j].sectionOnRequest = false;
-                    section[j].sectionOffRequest = true;
-
-                    // Manual on, force the section On
-                    if (section[j].sectionBtnState == btnStates.On)
-                    {
-                        section[j].sectionOnRequest = true;
-                        section[j].sectionOffRequest = false;
-                        continue;
-                    }
-                    continue;
-                }
-
                 // Manual on, force the section On
                 if (section[j].sectionBtnState == btnStates.On)
                 {
@@ -1095,14 +1114,24 @@ namespace AgOpenGPS
                     continue;
                 }
 
+                //Off or too slow or going backwards
+                if (section[j].sectionBtnState == btnStates.Off || avgSpeed < vehicle.slowSpeedCutoff || section[j].speedPixels < 0)
+                {
+                    section[j].sectionOnRequest = false;
+                    section[j].sectionOffRequest = true;
+                    continue;
+                }
+
                 //AutoSection - If any nowhere applied, send OnRequest, if its all green send an offRequest
-                section[j].isSectionRequiredOn = true;
+                //section[j].sectionOnRequest = true;
+
+                //calculate the slopes of the lines
+                mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
+                mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
 
                 //logic if in or out of boundaries or headland
-                //Has a fence and... a headland but headland not control sections OR no headland.
-                if (bnd.bndList.Count > 0 &&
-                    ((!bnd.isSectionControlledByHeadland && bnd.bndList[0].hdLineTriangleList.Count > 0)
-                    || bnd.bndList[0].hdLineTriangleList.Count == 0))
+                //Has a fence and... a headland but headland not control sections OR no headland. No headland was drawn
+                if (bnd.bndList.Count > 0)
                 {
                     start = section[j].rpSectionPosition - section[0].rpSectionPosition;
                     end = section[j].rpSectionWidth - 1 + start;
@@ -1117,60 +1146,28 @@ namespace AgOpenGPS
                         offHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
                         onHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
 
-                        if (redPixels[onHeight] == (byte)bbColors.fence || redPixels[onHeight] == (byte)bbColors.headland)
+                        if (redPixels[onHeight] == colorBnd && grnPixels[onHeight] == 0)
                             onCount++;
-
-                        if (redPixels[offHeight] == (byte)bbColors.fence || redPixels[offHeight] == (byte)bbColors.headland)
+                        if (redPixels[offHeight] == colorBnd && grnPixels[offHeight] == (byte)bbColors.section
+                             || redPixels[offHeight] != colorBnd)
                             offCount++;
                     }
 
                     //check for off
-                    if (tool.isSectionOffWhenOut)
-                    {
-                        if (onCount == 0 && offCount == 0)
-                            section[j].isSectionRequiredOn = false;
-                    }
-                    else
-                    {
-                        if (onCount != (end - start + 1) && offCount != (end - start + 1))
-                            section[j].isSectionRequiredOn = false;
-                    }
+                    int coverage = (end - start + 1) - ((end - start + 1) * tool.minCoverage) / 100;
+
+                    if (onCount > coverage) section[j].sectionOnRequest = true;
+                    else section[j].sectionOnRequest = false;
+
+                    coverage = ((end - start + 1) * tool.minCoverage) / 100;
+                    if (offCount < (coverage) && section[j].sectionOnRequest == false)
+                        section[j].sectionOnRequest = true;
                 }
 
-                //Has a fence and... a headland but headland DOES control sections. Assume headland is inside fence - no check fence
-                else if (section[j].isSectionRequiredOn && bnd.bndList.Count > 0 &&
-                                (bnd.isSectionControlledByHeadland && bnd.bndList[0].hdLineTriangleList.Count > 0))
+                ////no bnds - check if already applied and turn off section - if within headlands and fence
+                else
                 {
-                    start = section[j].rpSectionPosition - section[0].rpSectionPosition;
-                    end = section[j].rpSectionWidth - 1 + start;
-
-                    if (end >= tool.rpWidth)
-                        end = tool.rpWidth - 1;
-
-                    offCount = onCount = 0;
-
-                    for (int pos = start; pos <= end; pos++)
-                    {
-                        offHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
-                        onHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
-
-                        if (redPixels[onHeight] == (byte)bbColors.headland)
-                            onCount++;
-                        if (redPixels[offHeight] == (byte)bbColors.headland)
-                            offCount++;
-                    }
-
-                    //check for off
-                    if (onCount == 0 && offCount == 0)
-                        section[j].isSectionRequiredOn = false;
-                }
-
-                //check if already applied and turn off section - if within headlands and fence
-                if (section[j].isSectionRequiredOn == true)
-                {
-                    //calculate the slopes of the lines
-                    mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
-                    mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
+                    section[j].sectionOnRequest = true;
 
                     start = section[j].rpSectionPosition - section[0].rpSectionPosition;
                     end = section[j].rpSectionWidth - 1 + start;
@@ -1191,14 +1188,11 @@ namespace AgOpenGPS
                     }
 
                     //determine if meeting minimum coverage todo
-                    //section[j].isSectionRequiredOn = true;
-                    //if (un_appliedCount != 0)
                     if (onCount == 0 && offCount == (end - start + 1))
-                        section[j].isSectionRequiredOn = false;
+                        section[j].sectionOnRequest = false;
                 }
 
-                //global request to turn on section
-                section[j].sectionOnRequest = section[j].isSectionRequiredOn;
+                //set off requests - used for timing of mapping and section delay
                 section[j].sectionOffRequest = !section[j].sectionOnRequest;
 
             } // end of go thru all sections "for"
@@ -1567,7 +1561,6 @@ namespace AgOpenGPS
                 int once = 0;
                 int twice = 0;
                 int more = 0;
-                int level = 0;
                 double total = 0;
                 double total2 = 0;
 
@@ -1578,12 +1571,10 @@ namespace AgOpenGPS
                     if (overPix[i] > 105)
                     {
                         more++;
-                        level = overPix[i];
                     }
                     else if (overPix[i] > 85)
                     {
                         twice++;
-                        level = overPix[i];
                     }
                     else if (overPix[i] > 50)
                     {
@@ -1617,12 +1608,18 @@ namespace AgOpenGPS
                 GL.Color3(0.90f, 0.90f, 0.293f);
 
                 int two3 = oglMain.Width / 4;
-                GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+                GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
                 {
-                    GL.TexCoord2(0, 0); GL.Vertex2(-82 - two3, bottomSide); // 
-                    GL.TexCoord2(1, 0); GL.Vertex2(82 - two3,  bottomSide); // 
-                    GL.TexCoord2(1, 1); GL.Vertex2(82 - two3,  bottomSide+60); // 
-                    GL.TexCoord2(0, 1); GL.Vertex2(-82 - two3, bottomSide+60); //
+                    //GL.TexCoord2(0, 0); GL.Vertex2(-82 - two3, bottomSide); // TL
+                    //GL.TexCoord2(1, 0); GL.Vertex2(82 - two3,  bottomSide); // TR
+                    //GL.TexCoord2(1, 1); GL.Vertex2(82 - two3,  bottomSide+60); // BR
+                    //GL.TexCoord2(0, 1); GL.Vertex2(-82 - two3, bottomSide+60); // BL
+
+                    GL.TexCoord2(1, 0); GL.Vertex2(82 - two3, bottomSide); // Top Right
+                    GL.TexCoord2(0, 0); GL.Vertex2(-82 - two3, bottomSide); // Top Left
+                    GL.TexCoord2(1, 1); GL.Vertex2(82 - two3, bottomSide + 60); // Bottom Right
+                    GL.TexCoord2(0, 1); GL.Vertex2(-82 - two3, bottomSide + 60); // Bottom Left
+
                 }
                 GL.End();
             }
@@ -1635,10 +1632,10 @@ namespace AgOpenGPS
                 GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.Lateral]);        // Select Our Texture
                 GL.Color3(0.590f, 0.90f, 0.93f);
                 int two3 = oglMain.Width / 4;
-                GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+                GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
                 {
-                    GL.TexCoord2(0, 0); GL.Vertex2(-100 - two3, bottomSide ); // 
                     GL.TexCoord2(1, 0); GL.Vertex2(100 - two3,  bottomSide ); // 
+                    GL.TexCoord2(0, 0); GL.Vertex2(-100 - two3, bottomSide ); // 
                     GL.TexCoord2(1, 1); GL.Vertex2(100 - two3,  bottomSide +60); // 
                     GL.TexCoord2(0, 1); GL.Vertex2(-100 - two3, bottomSide +60); //
                 }
@@ -1670,18 +1667,18 @@ namespace AgOpenGPS
 
             int bottom = 90;
             int two3 = oglMain.Width / 5;
-            GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+            GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
             if (!yt.isTurnLeft)
             {
-                GL.TexCoord2(0, 0); GL.Vertex2(-62 + two3, bottom); // 
                 GL.TexCoord2(1, 0); GL.Vertex2(62 + two3,  bottom); // 
+                GL.TexCoord2(0, 0); GL.Vertex2(-62 + two3, bottom); // 
                 GL.TexCoord2(1, 1); GL.Vertex2(62 + two3,  bottom+60); // 
                 GL.TexCoord2(0, 1); GL.Vertex2(-62 + two3, bottom+60); //
             }
             else
             {
-                GL.TexCoord2(1, 0); GL.Vertex2(-62 + two3, bottom); // 
                 GL.TexCoord2(0, 0); GL.Vertex2(62 + two3,  bottom); // 
+                GL.TexCoord2(1, 0); GL.Vertex2(-62 + two3, bottom); // 
                 GL.TexCoord2(0, 1); GL.Vertex2(62 + two3,  bottom+60); // 
                 GL.TexCoord2(1, 1); GL.Vertex2(-62 + two3, bottom + 60); //
             }
@@ -1701,10 +1698,10 @@ namespace AgOpenGPS
                 GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.YouTurnH]);        // Select Our Texture
             }
 
-            GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+            GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
             {
-                GL.TexCoord2(0, 0); GL.Vertex2(-32 + two3, 100); // 
                 GL.TexCoord2(1, 0); GL.Vertex2(32 + two3, 100); // 
+                GL.TexCoord2(0, 0); GL.Vertex2(-32 + two3, 100); // 
                 GL.TexCoord2(1, 1); GL.Vertex2(32 + two3, 160); // 
                 GL.TexCoord2(0, 1); GL.Vertex2(-32 + two3, 160); //
             }
@@ -1777,10 +1774,10 @@ namespace AgOpenGPS
             GL.Translate(center, bottomSide, 0);
             GL.Rotate(ahrs.imuRoll, 0, 0, 1);
 
-            GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+            GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
             {
-                GL.TexCoord2(0, 0); GL.Vertex2(-sizer, -sizer); // 
                 GL.TexCoord2(1, 0); GL.Vertex2(sizer, -sizer); // 
+                GL.TexCoord2(0, 0); GL.Vertex2(-sizer, -sizer); // 
                 GL.TexCoord2(1, 1); GL.Vertex2(sizer, sizer); // 
                 GL.TexCoord2(0, 1); GL.Vertex2(-sizer, sizer); //
             }
@@ -1801,10 +1798,10 @@ namespace AgOpenGPS
 
             GL.Translate(center, bottomSide, 0);
 
-            GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+            GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
             {
-                GL.TexCoord2(0, 0); GL.Vertex2(-sizer, -sizer); // 
                 GL.TexCoord2(1, 0); GL.Vertex2(sizer, -sizer); // 
+                GL.TexCoord2(0, 0); GL.Vertex2(-sizer, -sizer); // 
                 GL.TexCoord2(1, 1); GL.Vertex2(sizer, sizer); // 
                 GL.TexCoord2(0, 1); GL.Vertex2(-sizer, sizer); //
             }
@@ -1834,10 +1831,10 @@ namespace AgOpenGPS
                 else GL.Color4(0.99f, 0.990f, 0.0f, 0.993f);
             }
 
-            GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+            GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
             {
-                GL.TexCoord2(0, 0); GL.Vertex2(center - 24, bottomSide - 24); // 
                 GL.TexCoord2(1, 0); GL.Vertex2(center + 24, bottomSide - 24); // 
+                GL.TexCoord2(0, 0); GL.Vertex2(center - 24, bottomSide - 24); // 
                 GL.TexCoord2(1, 1); GL.Vertex2(center + 24, bottomSide + 24); // 
                 GL.TexCoord2(0, 1); GL.Vertex2(center - 24, bottomSide + 24); //
             }
@@ -1854,10 +1851,10 @@ namespace AgOpenGPS
 
             center += 100;
 
-            GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+            GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
             {
-                GL.TexCoord2(0, 0); GL.Vertex2(center - 24, bottomSide - 24); // 
                 GL.TexCoord2(1, 0); GL.Vertex2(center + 24, bottomSide - 24); // 
+                GL.TexCoord2(0, 0); GL.Vertex2(center - 24, bottomSide - 24); // 
                 GL.TexCoord2(1, 1); GL.Vertex2(center + 24, bottomSide + 24); // 
                 GL.TexCoord2(0, 1); GL.Vertex2(center - 24, bottomSide + 24); //
             }
@@ -2012,7 +2009,7 @@ namespace AgOpenGPS
             catch { }
         }
 
-        private void DrawLightBar(double Width, double Height, double offlineDistance)
+        private void DrawLightBar(double offlineDistance)
         {
             double down = 25;
             GL.LineWidth(1);
@@ -2101,7 +2098,7 @@ namespace AgOpenGPS
 
                 double avgPivotDistance = avgPivDistance * (isMetric ? 0.1 : 0.03937);
 
-                if (isLightbarOn) DrawLightBar(oglMain.Width, oglMain.Height, avgPivotDistance);
+                if (isLightbarOn) DrawLightBar(avgPivotDistance);
 
                 if (avgPivotDistance > 999) avgPivotDistance = 999;
                 if (avgPivotDistance < -999) avgPivotDistance = -999;
@@ -2140,14 +2137,14 @@ namespace AgOpenGPS
 
                 GL.Color4(red, green, 0.3, 1.0);
 
-                GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+                GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
 
                 //int wide = (int)((double)oglMain.Width / 12);
                 //if (wide < 75) wide = 75;
                 int wide = 50;
 
-                GL.TexCoord2(0, 1); GL.Vertex2(-wide, 50); // 
                 GL.TexCoord2(1, 1); GL.Vertex2(wide, 50); // 
+                GL.TexCoord2(0, 1); GL.Vertex2(-wide, 50); // 
                 GL.TexCoord2(1, 0); GL.Vertex2(wide, 2); // 
                 GL.TexCoord2(0, 0); GL.Vertex2(-wide, 2); //
 
@@ -2318,9 +2315,9 @@ namespace AgOpenGPS
 
                 GL.Color4(red, green, 0.3, 1.0);
 
-                GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
-                GL.TexCoord2(0, 1); GL.Vertex2(-wide, 3); // 
+                GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
                 GL.TexCoord2(1, 1); GL.Vertex2(wide, 3); // 
+                GL.TexCoord2(0, 1); GL.Vertex2(-wide, 3); // 
                 GL.TexCoord2(1, 0); GL.Vertex2(wide, 35*(1+textSize)); // 
                 GL.TexCoord2(0, 0); GL.Vertex2(-wide, 35 * (1 + textSize)); //
                 GL.End();
@@ -2378,20 +2375,20 @@ namespace AgOpenGPS
 
             int center = oglMain.Width / 2 - 60;
 
-            GL.Begin(PrimitiveType.Quads);             // Build Quad From A Triangle Strip
+            GL.Begin(PrimitiveType.TriangleStrip);             // Build Quad From A Triangle Strip
             {
-                GL.TexCoord2(0, 0); GL.Vertex2(center, 50); // 
                 GL.TexCoord2(1, 0); GL.Vertex2(center + 32, 50); // 
+                GL.TexCoord2(0, 0); GL.Vertex2(center, 50); // 
                 GL.TexCoord2(1, 1); GL.Vertex2(center+ 32, 82); // 
                 GL.TexCoord2(0, 1); GL.Vertex2(center , 82); //
             }
             GL.End();
 
             GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.ZoomOut48]);        // Select Our Texture
-            GL.Begin(PrimitiveType.Quads);             // Build Quad From A Triangle Strip
+            GL.Begin(PrimitiveType.TriangleStrip);             // Build Quad From A Triangle Strip
             {
-                GL.TexCoord2(0, 0); GL.Vertex2(center, 200); // 
                 GL.TexCoord2(1, 0); GL.Vertex2(center + 32, 200); // 
+                GL.TexCoord2(0, 0); GL.Vertex2(center, 200); // 
                 GL.TexCoord2(1, 1); GL.Vertex2(center + 32, 232); // 
                 GL.TexCoord2(0, 1); GL.Vertex2(center, 232); //
             }
@@ -2404,10 +2401,10 @@ namespace AgOpenGPS
                 if (!isPanFormVisible)
                 {
                     GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.Pan]);        // Select Our Texture
-                    GL.Begin(PrimitiveType.Quads);             // Build Quad From A Triangle Strip
+                    GL.Begin(PrimitiveType.TriangleStrip);             // Build Quad From A Triangle Strip
                     {
-                        GL.TexCoord2(0, 0); GL.Vertex2(center, 50); // 
                         GL.TexCoord2(1, 0); GL.Vertex2(center + 32, 50); // 
+                        GL.TexCoord2(0, 0); GL.Vertex2(center, 50); // 
                         GL.TexCoord2(1, 1); GL.Vertex2(center + 32, 82); // 
                         GL.TexCoord2(0, 1); GL.Vertex2(center, 82); //
                     }
@@ -2417,10 +2414,10 @@ namespace AgOpenGPS
                 //hide show bottom menu
                 int hite = oglMain.Height - 30;
                 GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.MenuHideShow]);        // Select Our Texture
-                GL.Begin(PrimitiveType.Quads);             // Build Quad From A Triangle Strip
+                GL.Begin(PrimitiveType.TriangleStrip);             // Build Quad From A Triangle Strip
                 {
-                    GL.TexCoord2(0, 0); GL.Vertex2(center, hite - 32); // 
                     GL.TexCoord2(1, 0); GL.Vertex2(center + 32, hite - 32); // 
+                    GL.TexCoord2(0, 0); GL.Vertex2(center, hite - 32); // 
                     GL.TexCoord2(1, 1); GL.Vertex2(center + 32, hite); // 
                     GL.TexCoord2(0, 1); GL.Vertex2(center, hite); //
                 }
@@ -2469,10 +2466,10 @@ namespace AgOpenGPS
             GL.Translate(center, 78, 0);
 
             GL.Rotate(-camHeading, 0, 0, 1);
-            GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+            GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
             {
-                GL.TexCoord2(0, 0); GL.Vertex2(-52, -52); // 
                 GL.TexCoord2(1, 0); GL.Vertex2(52, -52.0); // 
+                GL.TexCoord2(0, 0); GL.Vertex2(-52, -52); // 
                 GL.TexCoord2(1, 1); GL.Vertex2(52, 52); // 
                 GL.TexCoord2(0, 1); GL.Vertex2(-52, 52); //
             }
@@ -2495,10 +2492,10 @@ namespace AgOpenGPS
                 GL.Translate(-oglMain.Width / 12, oglMain.Height / 2 - 20, 0);
                 GL.Rotate(180, 0, 0, 1);
 
-                GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+                GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
                 {
-                    GL.TexCoord2(0, 0.15); GL.Vertex2(-32, -32); // 
                     GL.TexCoord2(1, 0.15); GL.Vertex2(32, -32.0); // 
+                    GL.TexCoord2(0, 0.15); GL.Vertex2(-32, -32); // 
                     GL.TexCoord2(1, 1); GL.Vertex2(32, 32); // 
                     GL.TexCoord2(0, 1); GL.Vertex2(-32, 32); //
                 }
@@ -2530,10 +2527,10 @@ namespace AgOpenGPS
                 if (isChangingDirection) GL.Rotate(90, 0, 0, 1);
                 else GL.Rotate(180, 0, 0, 1);
 
-                GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+                GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
                 {
-                    GL.TexCoord2(0, 0.15); GL.Vertex2(-32, -32); // 
                     GL.TexCoord2(1, 0.15); GL.Vertex2(32, -32.0); // 
+                    GL.TexCoord2(0, 0.15); GL.Vertex2(-32, -32); // 
                     GL.TexCoord2(1, 1); GL.Vertex2(32, 32); // 
                     GL.TexCoord2(0, 1); GL.Vertex2(-32, 32); //
                 }
@@ -2563,10 +2560,10 @@ namespace AgOpenGPS
                 GL.Color3(0.952f, 0.40f, 0.0f);
             }
 
-            GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+            GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
             {
-                GL.TexCoord2(0, 0); GL.Vertex2(-48, -64); // 
                 GL.TexCoord2(1, 0); GL.Vertex2(48, -64.0); // 
+                GL.TexCoord2(0, 0); GL.Vertex2(-48, -64); // 
                 GL.TexCoord2(1, 1); GL.Vertex2(48, 64); // 
                 GL.TexCoord2(0, 1); GL.Vertex2(-48, 64); //
             }
@@ -2587,10 +2584,10 @@ namespace AgOpenGPS
 
             GL.Translate(oglMain.Width / 2 - 130, 65, 0);
 
-            GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+            GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
             {
-                GL.TexCoord2(0, 0); GL.Vertex2(-58, -58); // 
                 GL.TexCoord2(1, 0); GL.Vertex2(58, -58.0); // 
+                GL.TexCoord2(0, 0); GL.Vertex2(-58, -58); // 
                 GL.TexCoord2(1, 1); GL.Vertex2(58, 58); // 
                 GL.TexCoord2(0, 1); GL.Vertex2(-58, 58); //
             }
@@ -2615,10 +2612,10 @@ namespace AgOpenGPS
             else GL.Color3(0.952f, 0.0f, 0.0f);
 
             GL.Rotate(angle, 0, 0, 1);
-            GL.Begin(PrimitiveType.Quads);              // Build Quad From A Triangle Strip
+            GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
             {
-                GL.TexCoord2(0, 0); GL.Vertex2(-48, -48); // 
                 GL.TexCoord2(1, 0); GL.Vertex2(48, -48.0); // 
+                GL.TexCoord2(0, 0); GL.Vertex2(-48, -48); // 
                 GL.TexCoord2(1, 1); GL.Vertex2(48, 48); // 
                 GL.TexCoord2(0, 1); GL.Vertex2(-48, 48); //
             }

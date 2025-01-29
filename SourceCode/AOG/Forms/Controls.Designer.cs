@@ -741,8 +741,8 @@ namespace AgOpenGPS
             //turn off all the sections
             for (int j = 0; j < tool.numOfSections; j++)
             {
-                section[j].sectionOnOffCycle = false;
-                section[j].sectionOffRequest = false;
+                section[j].sectionOffRequest = true;
+                section[j].sectionOnRequest = false;
             }
 
             //turn off patching
@@ -954,13 +954,10 @@ namespace AgOpenGPS
 
                 try
                 {
-                    //TimedMessageBox(2000, "Please Wait", "Starting AgOne");
                     ProcessStartInfo processInfo = new ProcessStartInfo();
                     processInfo.FileName = strPath;
-                    //processInfo.ErrorDialog = true;
-                    //processInfo.UseShellExecute = false;
                     processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
-                    Process proc = Process.Start(processInfo);
+                    Process.Start(processInfo);
                 }
                 catch
                 {
@@ -2101,7 +2098,7 @@ namespace AgOpenGPS
                 ProcessStartInfo processInfo = new ProcessStartInfo();
                 processInfo.FileName = strPath;
                 processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
-                Process proc = Process.Start(processInfo);
+                Process.Start(processInfo);
             }
             catch
             {

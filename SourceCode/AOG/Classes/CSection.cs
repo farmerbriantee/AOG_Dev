@@ -8,18 +8,11 @@ namespace AgOpenGPS
 
     public class CSection
     {
-        //copy of the mainform address
-        //private readonly FormGPS mf;
-
         //is this section on or off
         public bool isSectionOn = false;
 
-        //public bool isAllowedOn = false;
-        public bool isSectionRequiredOn = false;
-
         public bool sectionOnRequest = false;
         public bool sectionOffRequest = false;
-        public bool sectionOnOffCycle = false;
 
         public int sectionOnTimer = 0;
         public int sectionOffTimer = 0;
@@ -62,10 +55,8 @@ namespace AgOpenGPS
         public vec2 lastRightPoint;
 
         //whether or not this section is in boundary, headland
-        public bool isInBoundary = true, isHydLiftInWorkArea = true;
+        public bool isHydLiftInWorkArea = true;
 
-        public bool isInHeadlandArea = true;
-        public bool isLookOnInHeadland = true;
         public int numTriangles = 0;
 
         //used to determine state of Manual section button - Off Auto On
@@ -74,6 +65,7 @@ namespace AgOpenGPS
         //simple constructor, position is set in GPSWinForm_Load in FormGPS when creating new object
         public CSection()
         {
+
         }
     }
 }

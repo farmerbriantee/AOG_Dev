@@ -200,22 +200,5 @@ namespace AgOpenGPS
             mf.PanelBuildRightMenu();
             mf.PanelUpdateRightAndBottom();
         }
-
-        private void btnVideoHelp_Click(object sender, EventArgs e)
-
-        {
-            Process[] processName = Process.GetProcessesByName("BobsYourUncle");
-            //Start application here
-            string strPath = Path.Combine(Application.StartupPath, "Buttons.mp4");
-
-            try
-            {
-                Process.Start(strPath);
-            }
-            catch
-            {
-                mf.TimedMessageBox(2000, "Playback Error", "Can't Find Media Player");
-            }
-        }
     }
 }

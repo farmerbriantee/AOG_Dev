@@ -3,6 +3,7 @@
 using AgOpenGPS.Culture;
 using AgOpenGPS.Properties;
 using OpenTK;
+using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,7 @@ namespace AgOpenGPS
 
         //create instance of a stopwatch for timing of frames and NMEA hz determination
         private readonly Stopwatch swFrame = new Stopwatch();
+        private readonly Stopwatch algoTimer = new Stopwatch();
 
         public double secondsSinceStart;
         public double gridToolSpacing;
@@ -266,7 +268,6 @@ namespace AgOpenGPS
                 }
             }
         }
-
         public FormGPS()
         {
             //winform initialization
@@ -463,8 +464,8 @@ namespace AgOpenGPS
             LoadSettings();
 
             //for field data and overlap
-            oglZoom.Width = 400;
-            oglZoom.Height = 400;
+            oglZoom.Width = 600;
+            oglZoom.Height = 600;
             oglZoom.Left = 100;
             oglZoom.Top = 100;
 
@@ -483,7 +484,7 @@ namespace AgOpenGPS
                             FileName = strPath,
                             WorkingDirectory = Path.GetDirectoryName(strPath)
                         };
-                        Process proc = Process.Start(processInfo);
+                        Process.Start(processInfo);
                         Log.EventWriter("AgOne Started");
                     }
                     catch
@@ -508,7 +509,7 @@ namespace AgOpenGPS
                                 FileName = strPath,
                                 WorkingDirectory = Path.GetDirectoryName(strPath)
                             };
-                            Process proc = Process.Start(processInfo);
+                            Process.Start(processInfo);
                             Log.EventWriter("AgTwo Started");
                         }
                         catch
@@ -627,7 +628,7 @@ namespace AgOpenGPS
             }
 
             bool closing = true;
-            int choice = SaveOrNot(closing);
+            int choice = SaveOrNot();
 
             //simple cancel return to AgOpenGPS
             if (choice == 1)
@@ -701,11 +702,11 @@ namespace AgOpenGPS
             }
         }
 
-        public int SaveOrNot(bool closing)
+        public int SaveOrNot()
         {
             CloseTopMosts();
 
-            using (FormSaveOrNot form = new FormSaveOrNot(closing))
+            using (FormSaveOrNot form = new FormSaveOrNot())
             {
                 DialogResult result = form.ShowDialog(this);
 

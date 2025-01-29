@@ -731,7 +731,6 @@ namespace AgOpenGPS
             //build the headland
             mf.bnd.bndList[0].hdLine?.Clear();
 
-            int numOfLines = mf.hdl.tracksArr.Count;
             int nextLine = 0;
             crossings.Clear();
 
@@ -860,12 +859,6 @@ namespace AgOpenGPS
             }
 
             mf.FileSaveHeadland();
-        }
-
-        private void btnDeletePoints_Click(object sender, EventArgs e)
-        {
-            start = 99999; end = 99999;
-            isA = true;
         }
 
         private void cboxToolWidths_SelectedIndexChanged(object sender, EventArgs e)

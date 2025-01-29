@@ -530,7 +530,7 @@ namespace AgOpenGPS
 
             GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.Font]);
             GL.Enable(EnableCap.Texture2D);
-            GL.Begin(PrimitiveType.Quads);
+            GL.Begin(PrimitiveType.TriangleStrip);
 
             double u_step = GlyphWidth / (double)textureWidth;
             double v_step = GlyphHeight / (double)textureHeight;
@@ -541,17 +541,20 @@ namespace AgOpenGPS
                 double u = idx % GlyphsPerLine * u_step;
                 double v = idx / GlyphsPerLine * v_step;
 
-                GL.TexCoord2(u, v + v_step);
-                GL.Vertex2(x, y);
-
-                GL.TexCoord2(u + u_step, v + v_step);
-                GL.Vertex2(x + GlyphWidth * size, y);
-
                 GL.TexCoord2(u + u_step, v);
                 GL.Vertex2(x + GlyphWidth * size, y + GlyphHeight * size);
 
                 GL.TexCoord2(u, v);
                 GL.Vertex2(x, y + GlyphHeight * size);
+
+                GL.TexCoord2(u + u_step, v + v_step);
+                GL.Vertex2(x + GlyphWidth * size, y);
+                
+                GL.TexCoord2(u, v + v_step);
+                GL.Vertex2(x, y);
+
+
+
 
                 x += CharXSpacing * size;
             }
@@ -728,20 +731,6 @@ namespace AgOpenGPS
         {
             if (gTemp.Count > 0)
             {
-                indx--;
-                if (indx < 0) indx = gTemp.Count - 1;
-            }
-
-            FixLabels();
-        }
-
-        private void btnDeleteCurve_Click(object sender, EventArgs e)
-        {
-            //mf.bnd.buildList[0].hdLine?.Clear();
-
-            if (gTemp.Count > 1)
-            {
-                gTemp.RemoveAt(indx);
                 indx--;
                 if (indx < 0) indx = gTemp.Count - 1;
             }

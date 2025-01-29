@@ -8,17 +8,6 @@ namespace AgOpenGPS
 {
     public partial class FormConfig
     {
-
-        #region Module Steer
-        private void tabASteer_Enter(object sender, EventArgs e)
-        {
-        }
-
-        private void tabASteer_Leave(object sender, EventArgs e)
-        {
-        }
-
-        #endregion
         private void Enable_AlertM_Click(object sender, EventArgs e)
         {
             pboxSendMachine.Visible = true;

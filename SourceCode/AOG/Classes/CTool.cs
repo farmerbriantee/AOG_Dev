@@ -330,11 +330,11 @@ namespace AgOpenGPS
             GL.LineWidth(2);
 
             double hite = mf.camera.camSetDistance / -150;
-            if (hite > 8) hite = 8;
+            if (hite > 2) hite = 2;
             if (hite < 1) hite = 1;
 
             //TooDoo
-            //hite = 0.2;
+            hite = 0.2;
 
             for (int j = 0; j < numOfSections; j++)
             {

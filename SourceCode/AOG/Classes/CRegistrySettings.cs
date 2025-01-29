@@ -113,7 +113,7 @@ namespace AgOpenGPS
                 //does current vehicle exist?
                 if (isVehicleExist && vehicleFileName != "Default Vehicle")
                 {
-                    SettingsIO.ImportAll(Path.Combine(RegistrySettings.vehiclesDirectory, vehicleFileName + ".XML"));
+                    SettingsIO.ImportSettings(Path.Combine(RegistrySettings.vehiclesDirectory, vehicleFileName + ".XML"));
                 }
                 else
                 {
@@ -156,7 +156,7 @@ namespace AgOpenGPS
                 if (vehicleFileName != "Default Vehicle")
                 {
                     Thread.Sleep(500);
-                    SettingsIO.ExportAll(Path.Combine(vehiclesDirectory, vehicleFileName + ".xml"));
+                    SettingsIO.ExportSettings(Path.Combine(vehiclesDirectory, vehicleFileName + ".xml"));
                 }
                 else
                 {

@@ -37,7 +37,7 @@ namespace AgOpenGPS
 
                     if (result3 == DialogResult.Yes)
                     {
-                        bool success = SettingsIO.ImportAll(Path.Combine(RegistrySettings.vehiclesDirectory, lvVehicles.SelectedItems[0].SubItems[0].Text + ".XML"));
+                        bool success = SettingsIO.ImportSettings(Path.Combine(RegistrySettings.vehiclesDirectory, lvVehicles.SelectedItems[0].SubItems[0].Text + ".XML"));
                         if (!success) return;
 
                         RegistrySettings.vehicleFileName = lvVehicles.SelectedItems[0].SubItems[0].Text;
@@ -806,17 +806,6 @@ namespace AgOpenGPS
             Properties.Settings.Default.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
             
             SetOpacity();
-        }
-
-        private void hsbarOpacity_ValueChanged(object sender, EventArgs e)
-        {
-            //lblOpacityPercent.Text = hsbarOpacity.Value.ToString() + "%";
-            //mf.vehicleOpacityByte = (byte)(255 * (hsbarOpacity.Value * 0.01));
-            //Properties.Settings.Default.setDisplay_colorVehicle = mf.vehicleColor;
-
-            //if (original == null) original = (Bitmap)pboxAlpha.BackgroundImage.Clone();
-            //pboxAlpha.BackColor = Color.Transparent;
-            //pboxAlpha.BackgroundImage = SetAlpha((Bitmap)original, (byte)(255 * (hsbarOpacity.Value * 0.01)));
         }
 
         private void cboxIsImage_Click(object sender, EventArgs e)

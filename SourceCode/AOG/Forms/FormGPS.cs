@@ -664,6 +664,11 @@ namespace AgOpenGPS
             //write the log file
             FileSaveSystemEvents();
 
+            //stop back buffer thread
+            if (thread_oglBack != null && thread_oglBack.IsAlive)
+                thread_oglBack.Abort();
+
+
             //save current vehicle
             RegistrySettings.Save();
 
@@ -998,6 +1003,13 @@ namespace AgOpenGPS
             fileSaveCounter = 25;
             lblGuidanceLine.Visible = false;
             lblHardwareMessage.Visible = false;
+
+            if (thread_oglBack == null)
+            {
+                OGLBackStartBB();
+            }
+
+            oglMain.MakeCurrent();
         }
 
         //close the current job

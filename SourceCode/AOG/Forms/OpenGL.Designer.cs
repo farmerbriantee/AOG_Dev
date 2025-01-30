@@ -677,9 +677,7 @@ namespace AgOpenGPS
                     //draw the section control window off screen buffer
                     if (isJobStarted) // && (bbCounter == 0))
                     {
-                        StartATimer();
                         oglBackPGN_FileSave();
-                        StopAtimer();
 
                         p_239.pgn[p_239.geoStop] = mc.isOutOfBounds ? (byte)1 : (byte)0;
 
@@ -783,15 +781,11 @@ namespace AgOpenGPS
                 oglBack.Context.MakeCurrent(oglBack.WindowInfo); //Bimds the OpenGL context to this new thread
                 while (true)
                 {
-                    Thread.Sleep(90);
-
                     GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
                     GL.LoadIdentity();                  // Reset The View
 
                     //back the camera up
                     GL.Translate(0, 0, -500);
-
-                    //Thread.Sleep(10);
 
                     //rotate camera so heading matched fix heading in the world
                     GL.Rotate(glm.toDegrees(toolPos.heading), 0, 0, 1);
@@ -1377,6 +1371,8 @@ namespace AgOpenGPS
                         lastNumber = number;
                     }
 
+                    // moderate speed
+                    Thread.Sleep(200);
                 }
             });
 
@@ -1427,14 +1423,22 @@ namespace AgOpenGPS
                 //go see if data ready for draw and position updates
                 tmrWatchdog.Enabled = true;
 
+                StartATimer();
                 //calc overlap
                 oglZoom.Refresh();
+                StopAtimer();
             }            
-        }//this is the end of the "frame". Now we wait for next NMEA sentence with a valid fix. 
+        } 
 
         private void oglZoom_Load(object sender, EventArgs e)
         {
             oglZoom.MakeCurrent();
+            oglZoom.Width = 600;
+            oglZoom.Height = 600;
+            oglZoom.Left = 100;
+            oglZoom.Top = 100;
+            oglZoom.SendToBack();
+
             GL.Enable(EnableCap.CullFace);
             GL.CullFace(CullFaceMode.Back);
             GL.PixelStore(PixelStoreParameter.PackAlignment, 1);

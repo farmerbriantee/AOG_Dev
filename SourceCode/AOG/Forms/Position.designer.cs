@@ -1093,9 +1093,7 @@ namespace AgOpenGPS
             #endregion
 
             //update main window
-            //oglMain.MakeCurrent();
             oglMain.Refresh();
-
 
             //end of UppdateFixPosition
 

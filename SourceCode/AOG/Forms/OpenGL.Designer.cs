@@ -998,9 +998,16 @@ namespace AgOpenGPS
                     if (rpHeight > 290) rpHeight = 290;
                     if (rpHeight < 8) rpHeight = 8;
 
+                    byte[] rgbPixels = new byte[tool.rpWidth * (int)rpHeight * 2];
+
                     //read the whole block of pixels up to max lookahead, one read only qqq
-                    GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Red, PixelType.UnsignedByte, redPixels);
-                    GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Green, PixelType.UnsignedByte, grnPixels);
+                    GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Rg, PixelType.UnsignedByte, rgbPixels);
+
+                    for (int i = 0, j = 0; i < rgbPixels.Length; i += 2, j++)
+                    {
+                        redPixels[j] = rgbPixels[i];
+                        grnPixels[j] = rgbPixels[i + 1];
+                    }
 
                     //Paint to context for troubleshooting qqq
                     //this.BeginInvoke((MethodInvoker)(() => this.oglBack.BringToFront()));

@@ -1069,6 +1069,26 @@ namespace AgOpenGPS
                         //TODO
                         //Maybe when we are not using headland we should lower the tool if there are som unaplied area?
                         //For example when we are driving the headland
+
+                        //calculate the slope
+                        double m = (vehicle.hydLiftLookAheadDistanceRight - vehicle.hydLiftLookAheadDistanceLeft) / tool.rpWidth;
+
+                        start = 0;
+                        end = tool.rpWidth;
+                        for (int pos = start; pos <= end; pos++)
+                        {
+                            dwnHeight = (int)(vehicle.hydLiftLookAheadDistanceLeft + (m * pos)) * tool.rpWidth + pos;
+                            upHeight = pos;
+
+                            if (redPixels[dwnHeight] == (byte)bbColors.headland && grnPixels[dwnHeight] != (byte)bbColors.section
+                            || redPixels[upHeight] == (byte)bbColors.headland && grnPixels[upHeight] != (byte)bbColors.section)
+                                goto toolInWorkArea;
+
+                        }
+                    toolInWorkArea:
+                        {
+                            bnd.isToolInHeadland = false;
+                        }
                     }
 
                     bnd.SetHydPosition();

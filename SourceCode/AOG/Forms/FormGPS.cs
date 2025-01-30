@@ -1006,7 +1006,7 @@ namespace AgOpenGPS
 
             if (thread_oglBack == null)
             {
-                OGLBackStartBB();
+                oglBackStart();
             }
 
             oglMain.MakeCurrent();

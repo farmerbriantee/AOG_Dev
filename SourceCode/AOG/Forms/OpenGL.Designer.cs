@@ -45,6 +45,8 @@ namespace AgOpenGPS
 
         private int bbCounter = 0, bob = 0;
 
+        Thread thread_oglBack;
+
         //mapping change occured
         private ulong number = 0, lastNumber = 0;
 
@@ -676,7 +678,7 @@ namespace AgOpenGPS
                     if (isJobStarted) // && (bbCounter == 0))
                     {
                         StartATimer();
-                        oglBackPaint();
+                        oglBackPGN_FileSave();
                         StopAtimer();
 
                         p_239.pgn[p_239.geoStop] = mc.isOutOfBounds ? (byte)1 : (byte)0;
@@ -758,17 +760,8 @@ namespace AgOpenGPS
         private void oglBack_Load(object sender, EventArgs e)
         {
             oglBack.MakeCurrent();
-
-            GL.Enable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.Back);
-            GL.PixelStore(PixelStoreParameter.PackAlignment, 1);
             oglBack.Width = 500;
             oglBack.Height = 300;
-        }
-
-        private void oglBack_Resize(object sender, EventArgs e)
-        {
-            oglBack.MakeCurrent();
 
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
@@ -776,10 +769,13 @@ namespace AgOpenGPS
             Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView(0.06f, 1.6666666666f, 50.0f, 520.0f);
             GL.LoadMatrix(ref mat);
             GL.MatrixMode(MatrixMode.Modelview);
+
+            GL.Enable(EnableCap.CullFace);
+            GL.CullFace(CullFaceMode.Back);
+            GL.PixelStore(PixelStoreParameter.PackAlignment, 1);
         }
 
-        Thread thread_oglBack;
-        private void OGLBackStartBB()
+        private void oglBackStart()
         {
             oglBack.Context.MakeCurrent(null); //Unbinds the context from the current thread.
             thread_oglBack = new Thread(() =>
@@ -1388,7 +1384,7 @@ namespace AgOpenGPS
 
         }
 
-        private void oglBackPaint()
+        private void oglBackPGN_FileSave()
         {
             //send the byte out to section machines
             BuildMachineByte();

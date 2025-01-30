@@ -46,6 +46,7 @@ namespace AgOpenGPS
         private int bbCounter = 0, bob = 0;
 
         Thread thread_oglBack;
+        AutoResetEvent pauseOglBack = new AutoResetEvent(false);
 
         //mapping change occured
         private ulong number = 0, lastNumber = 0;
@@ -669,14 +670,15 @@ namespace AgOpenGPS
                     GL.PointSize(1.0f);
                     GL.Flush();
                     oglMain.SwapBuffers();
-
-                    //5 hz sections
-                    //if (bbCounter++ > 0) 
-                    //    bbCounter = 0;
                    
                     //draw the section control window off screen buffer
-                    if (isJobStarted) // && (bbCounter == 0))
+                    if (isJobStarted)
                     {
+                        pauseOglBack.Set();
+
+                        //Machine data should probably be done in the end of the oglBack thread
+                        //thats were the information is updated, here it is old information
+                        //TODO
                         oglBackPGN_FileSave();
 
                         p_239.pgn[p_239.geoStop] = mc.isOutOfBounds ? (byte)1 : (byte)0;
@@ -775,12 +777,14 @@ namespace AgOpenGPS
 
         private void oglBackStart()
         {
+            Stopwatch BBtimer = new Stopwatch();
             oglBack.Context.MakeCurrent(null); //Unbinds the context from the current thread.
             thread_oglBack = new Thread(() =>
             {
                 oglBack.Context.MakeCurrent(oglBack.WindowInfo); //Bimds the OpenGL context to this new thread
                 while (true)
                 {
+                    BBtimer.Restart();
                     GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
                     GL.LoadIdentity();                  // Reset The View
 
@@ -1164,7 +1168,7 @@ namespace AgOpenGPS
                         //turn off delay
                         if (tool.turnOffDelay > 0)
                         {
-                            if (!section[j].sectionOffRequest) section[j].sectionOffTimer = (int)(gpsHz / 2.0 * tool.turnOffDelay);
+                            if (!section[j].sectionOffRequest) section[j].sectionOffTimer = (int)(gpsHz * tool.turnOffDelay);
 
                             if (section[j].sectionOffTimer > 0) section[j].sectionOffTimer--;
 
@@ -1182,25 +1186,25 @@ namespace AgOpenGPS
                         //Mapping timers
                         if (section[j].sectionOnRequest && !section[j].isMappingOn && section[j].mappingOnTimer == 0)
                         {
-                            section[j].mappingOnTimer = (int)(tool.lookAheadOnSetting * (gpsHz / 2) - 1);
+                            section[j].mappingOnTimer = (int)(tool.lookAheadOnSetting * gpsHz);
                         }
                         else if (section[j].sectionOnRequest && section[j].isMappingOn && section[j].mappingOffTimer > 1)
                         {
                             section[j].mappingOffTimer = 0;
-                            section[j].mappingOnTimer = (int)(tool.lookAheadOnSetting * (gpsHz / 2) - 1);
+                            section[j].mappingOnTimer = (int)(tool.lookAheadOnSetting * gpsHz);
                         }
 
                         if (tool.lookAheadOffSetting > 0)
                         {
                             if (section[j].sectionOffRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
                             {
-                                section[j].mappingOffTimer = (int)(tool.lookAheadOffSetting * (gpsHz / 2) + 4);
+                                section[j].mappingOffTimer = (int)(tool.lookAheadOffSetting * gpsHz);
                             }
                         }
                         else if (tool.turnOffDelay > 0)
                         {
                             if (section[j].sectionOffRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
-                                section[j].mappingOffTimer = (int)(tool.turnOffDelay * gpsHz / 2);
+                                section[j].mappingOffTimer = (int)(tool.turnOffDelay * gpsHz);
                         }
                         else
                         {
@@ -1371,8 +1375,10 @@ namespace AgOpenGPS
                         lastNumber = number;
                     }
 
+                    BBtimer.Stop();
+                    Debug.WriteLine(BBtimer.ElapsedTicks * 1_000_000 / Stopwatch.Frequency);
                     // moderate speed
-                    Thread.Sleep(200);
+                    pauseOglBack.WaitOne();
                 }
             });
 

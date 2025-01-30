@@ -1012,15 +1012,9 @@ namespace AgOpenGPS
                     //Paint to context for troubleshooting qqq
                     //this.BeginInvoke((MethodInvoker)(() => this.oglBack.BringToFront()));
                     //this.BeginInvoke((MethodInvoker)(() => this.oglBack.SwapBuffers()));
+
+                    ///////////////////////////////////////////  Tram control  ///////////////////////////////////////////
                     
-
-                    //determine if headland is in read pixel buffer left middle and right. 
-                    int start = 0, end = 0;
-
-                    //slope of the look ahead line
-                    double mOn = 0, mOff = 0;
-
-                    //tram
                     if (tram.displayMode > 0 && tool.width > vehicle.trackWidth)
                     {
                         tram.controlByte = 0;
@@ -1038,34 +1032,57 @@ namespace AgOpenGPS
                     }
                     else tram.controlByte = 0;
 
+                    ///////////////////////////////////////////  Hydraulic control  ///////////////////////////////////////////
+
+                    //determine if headland is in read pixel buffer left middle and right. 
+                    int start = 0, end = 0;
+
+                    //the lookahead on and off lines
+                    int dwnHeight = 1, upHeight = 1;
+
+                    bnd.isToolInHeadland = true;
+
                     //determine if in or out of headland, do hydraulics if on *Todo
-                    if (bnd.isHeadlandOn)
+                    if (bnd.isHeadlandOn && bnd.isSectionControlledByHeadland)
                     {
                         //calculate the slope
                         double m = (vehicle.hydLiftLookAheadDistanceRight - vehicle.hydLiftLookAheadDistanceLeft) / tool.rpWidth;
 
-                        //set hydraulics based on tool in headland or not
-                        //bnd.SetHydPosition();
+                        start = 0;
+                        end = tool.rpWidth;
+                        for (int pos = start; pos <= end; pos++)
+                        {
+                            dwnHeight = (int)(vehicle.hydLiftLookAheadDistanceLeft + (m * pos)) * tool.rpWidth + pos;
+                            upHeight = pos;
+
+                            if (redPixels[dwnHeight] == (byte)bbColors.headland || redPixels[upHeight] == (byte)bbColors.headland)
+                                goto toolInWorkArea;
+
+                        }
+                    toolInWorkArea:
+                        {
+                            bnd.isToolInHeadland = false;
+                        }
+                    } 
+                    else
+                    {
+                        //TODO
+                        //Maybe when we are not using headland we should lower the tool if there are som unaplied area?
+                        //For example when we are driving the headland
                     }
 
-                    ///////////////////////////////////////////   Section control        ssssssssssssssssssssss
+                    bnd.SetHydPosition();
+
+                    ///////////////////////////////////////////   Section control   ///////////////////////////////////////////
+
+                    //slope of the look ahead line
+                    double mOn = 0, mOff = 0;
 
                     //the lookahead on and off lines
                     int onHeight = 1, offHeight = 1;
 
                     //headland and boundary counts
                     int onCount = 0, offCount = 0;
-
-                    //select correct buffer color based on headland control
-                    /*byte colorBnd = (byte)bbColors.fence;
-
-                    if (bnd.bndList.Count > 0)
-                    {
-                        if (bnd.isSectionControlledByHeadland && bnd.bndList[0].hdLine.Count > 0)
-                            colorBnd = (byte)bbColors.headland;
-                        else
-                            colorBnd = (byte)bbColors.fence;
-                    }*/
 
                     //loop thru each section for section control
                     for (int j = 0; j < tool.numOfSections; j++)

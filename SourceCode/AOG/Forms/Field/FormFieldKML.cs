@@ -194,7 +194,7 @@ namespace AgOpenGPS
                     mf.FileSaveBoundary();
                     mf.bnd.BuildTurnLines();
                     mf.fd.UpdateFieldBoundaryGUIAreas();
-                    mf.CalculateMinMax();
+                    mf.CalculateSectionPatchesMinMax();
 
                     btnSave.Enabled = true;
                     btnLoadKML.Enabled = false;

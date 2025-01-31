@@ -133,7 +133,7 @@ namespace AgOpenGPS
                     mf.fd.UpdateFieldBoundaryGUIAreas();
 
                     //turn lines made from boundaries
-                    mf.CalculateMinMax();
+                    mf.CalculateSectionPatchesMinMax();
                     mf.FileSaveBoundary();
                     mf.bnd.BuildTurnLines();
                     mf.btnABDraw.Visible = true;

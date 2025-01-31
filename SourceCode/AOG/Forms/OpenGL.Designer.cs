@@ -52,6 +52,7 @@ namespace AgOpenGPS
         private ulong number = 0, lastNumber = 0;
 
         private double aTime;
+
         public void StartATimer()
         {
             algoTimer.Restart();
@@ -147,7 +148,7 @@ namespace AgOpenGPS
                         if (bnd.isHeadlandOn)
                         {
                             //draw whole outer field polygon
-                            GL.Color4(0.1, 0.1, 0.351, 0.2);
+                            GL.Color4(0.1, 0.1, 0.351, 0.25);
 
                             GL.Begin(PrimitiveType.Triangles);
                             for (int i = 0; i < bnd.bndList[0].bndTriangleList.Count; i++)
@@ -159,7 +160,7 @@ namespace AgOpenGPS
                             GL.End();
 
                             //draw headland polygon
-                            GL.Color4(0.1, 0.3, 0.1, 0.2);
+                            GL.Color4(0.1, 0.3, 0.1, 0.25);
 
                             GL.Begin(PrimitiveType.Triangles);
                             for (int i = 0; i < bnd.bndList[0].hdLineTriangleList.Count; i++)
@@ -717,10 +718,8 @@ namespace AgOpenGPS
                         //go see if data ready for draw and position updates
                         tmrWatchdog.Enabled = true;
 
-                        StartATimer();
                         //calc overlap
                         oglZoom.Refresh();
-                        StopAtimer();
                     }
 
                     #endregion
@@ -1503,32 +1502,6 @@ namespace AgOpenGPS
             #endregion
         }
 
-        private void oglBackStart()
-        {
-            Stopwatch BBtimer = new Stopwatch();
-            oglBack.Context.MakeCurrent(null); //Unbinds the context from the current thread.
-            thread_oglBack = new Thread(() =>
-            {
-                oglBack.Context.MakeCurrent(oglBack.WindowInfo); //Bimds the OpenGL context to this new thread
-                while (true)
-                {
-                    BBtimer.Restart();
-
-                    BBtimer.Stop();
-                    Debug.WriteLine(BBtimer.ElapsedTicks * 1_000_000 / Stopwatch.Frequency);
-                    // moderate speed
-                    pauseOglBack.WaitOne();
-                }
-            });
-
-            thread_oglBack.Start();
-
-        }
-
-        private void oglBackPGN_FileSave()
-        {
-        }
-
         private void oglZoom_Load(object sender, EventArgs e)
         {
             oglZoom.MakeCurrent();
@@ -1538,17 +1511,6 @@ namespace AgOpenGPS
             oglZoom.Top = 100;
             oglZoom.SendToBack();
 
-            GL.Enable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.Back);
-            GL.PixelStore(PixelStoreParameter.PackAlignment, 1);
-
-            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-            GL.ClearColor(0, 0, 0, 1.0f);
-        }
-
-        private void oglZoom_Resize(object sender, EventArgs e)
-        {
-            oglZoom.MakeCurrent();
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
 
@@ -1558,6 +1520,13 @@ namespace AgOpenGPS
             GL.LoadMatrix(ref mat);
 
             GL.MatrixMode(MatrixMode.Modelview);
+
+            GL.Enable(EnableCap.CullFace);
+            GL.CullFace(CullFaceMode.Back);
+            GL.PixelStore(PixelStoreParameter.PackAlignment, 1);
+
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+            GL.ClearColor(0, 0, 0, 1.0f);
         }
 
         private void oglZoom_Paint(object sender, PaintEventArgs e)
@@ -1572,7 +1541,7 @@ namespace AgOpenGPS
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
                 GL.LoadIdentity();                  // Reset The View
 
-                CalculateMinMax();
+                CalculateSectionPatchesMinMax();
                 //back the camera up
                 GL.Translate(0, 0, -maxFieldDistance);
                 GL.Enable(EnableCap.Blend);
@@ -2829,7 +2798,7 @@ namespace AgOpenGPS
         public double maxFieldX, maxFieldY, minFieldX, minFieldY, fieldCenterX, fieldCenterY, maxFieldDistance, maxCrossFieldLength;
 
         //determine mins maxs of patches and whole field.
-        public void CalculateMinMax()
+        public void CalculateSectionPatchesMinMax()
         {
 
             minFieldX = 9999999; minFieldY = 9999999;
@@ -2907,6 +2876,32 @@ namespace AgOpenGPS
                 fieldCenterY = (maxFieldY + minFieldY) / 2.0;
             }
         }
+        private void oglBackStart()
+        {
+            Stopwatch BBtimer = new Stopwatch();
+            oglBack.Context.MakeCurrent(null); //Unbinds the context from the current thread.
+            thread_oglBack = new Thread(() =>
+            {
+                oglBack.Context.MakeCurrent(oglBack.WindowInfo); //Bimds the OpenGL context to this new thread
+                while (true)
+                {
+                    BBtimer.Restart();
+
+                    BBtimer.Stop();
+                    Debug.WriteLine(BBtimer.ElapsedTicks * 1_000_000 / Stopwatch.Frequency);
+                    // moderate speed
+                    pauseOglBack.WaitOne();
+                }
+            });
+
+            thread_oglBack.Start();
+
+        }
+
+        private void oglBackPGN_FileSave()
+        {
+        }
+
     }
 }
 

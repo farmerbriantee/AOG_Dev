@@ -1101,7 +1101,7 @@ namespace AgOpenGPS
             if (frameTimeRough > 80) frameTimeRough = 80;
             frameTime = frameTime * 0.96 + frameTimeRough * 0.04;
 
-            //update main window
+            //Don't care about time from here on - update main window
             oglMain.Refresh();
 
             //Albin - get the section control started here already. 

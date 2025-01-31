@@ -94,10 +94,13 @@ namespace AgOpenGPS
         //oglMain rendering, Draw
         private void oglMain_Paint(object sender, PaintEventArgs e)
         {
+
             if (sentenceCounter < 299)
             {
                 if (isGPSPositionInitialized)
                 {
+                    #region Initialize
+
                     oglMain.MakeCurrent();
 
                     if (!isInit)
@@ -119,6 +122,11 @@ namespace AgOpenGPS
 
                     //the bounding box of the camera for cullling.
                     CalcFrustum();
+
+                    #endregion
+
+                    #region Field Surface
+
                     GL.Disable(EnableCap.Blend);
 
                     worldGrid.DrawFieldSurface();
@@ -126,10 +134,13 @@ namespace AgOpenGPS
                     ////if grid is on draw it
                     if (isGridOn) worldGrid.DrawWorldGrid(camera.gridZoom);
 
+                    GL.Enable(EnableCap.Blend);
+
                     if (isDrawPolygons) GL.PolygonMode(MaterialFace.Front, PolygonMode.Line);
 
-                    GL.Enable(EnableCap.Blend);
-                    //draw patches of sections
+                    #endregion
+
+                    #region Draw Boundary and Headland highlight areas
 
                     if (bnd.bndList.Count > 0)
                     {
@@ -194,6 +205,9 @@ namespace AgOpenGPS
                         }
                     }
 
+                    #endregion
+
+                    #region Draw patches of sections, section lines, section dir markers
                     //direction marker width
                     double factor = 0.37;
 
@@ -402,25 +416,9 @@ namespace AgOpenGPS
 
                     GL.PolygonMode(MaterialFace.Front, PolygonMode.Fill);
 
-                    /*
-                    //GL.Color3(1, 1, 1);
+                    #endregion
 
-                    //if (bnd.shpList.Count > 0)
-                    //{
-                    //    for (int h = 0; h < bnd.shpList.Count; h++)
-                    //    {
-                    //        GL.Color3(bnd.shpList[h].color.R, bnd.shpList[h].color.G, bnd.shpList[h].color.B);
-                    //        GL.Begin(PrimitiveType.LineLoop);
-                    //        for (int i = 0; i < bnd.shpList[h].points.Count; i++)
-                    //        {
-                    //            {
-                    //                GL.Vertex3(bnd.shpList[h].points[i].easting, bnd.shpList[h].points[i].northing, 0);
-                    //            }
-                    //        }
-                    //        GL.End();
-                    //    }
-                    //}
-                    */
+                    #region Draw Boundaries - Headland and Fence
 
                     if (bnd.bndList.Count > 0 || bnd.isBndBeingMade == true)
                     {
@@ -460,6 +458,9 @@ namespace AgOpenGPS
                         }
                     }
 
+                    #endregion
+
+                    #region Draw Tracks
                     //draw contour line if button on 
                     if (ct.isContourBtnOn)
                     {
@@ -479,7 +480,13 @@ namespace AgOpenGPS
 
                     if (trk.isMakingABLine) trk.DrawABLineNew();
 
+                    #endregion
+
+                    #region Flags
+
                     if (flagPts.Count > 0) DrawFlags();
+
+                    if (leftMouseDownOnOpenGL) MakeFlagMark();
 
                     //Direct line to flag if flag selected
                     try
@@ -498,6 +505,10 @@ namespace AgOpenGPS
                         }
                     }
                     catch { }
+
+                    #endregion
+
+                    #region Vehicle and Tool
 
                     //draw the vehicle/implement
                     GL.PushMatrix();
@@ -542,9 +553,9 @@ namespace AgOpenGPS
                         }
                     }
 
-                    if (leftMouseDownOnOpenGL) MakeFlagMark();
+                    #endregion
 
-                    #region Ortho
+                    #region Text Lightbar Steer Circle etc - Ortho Mode
                     // 2D Ortho ---------------------------------------////////-------------------------------------------------
 
                     GL.MatrixMode(MatrixMode.Projection);
@@ -661,15 +672,18 @@ namespace AgOpenGPS
 
                     #endregion Ortho
 
+                    #region Flush and Swap
                     //  back to the projection and pop it, then back to the model view.
                     GL.MatrixMode(MatrixMode.Projection);
                     GL.PopMatrix();
                     GL.MatrixMode(MatrixMode.Modelview);
 
-                    //reset point size
-                    GL.PointSize(1.0f);
                     GL.Flush();
                     oglMain.SwapBuffers();
+
+                    #endregion
+
+                    #region FileSave and oglZoom
 
                     //file writer that runs all the time
                     if (fileSaveAlwaysCounter > 60)
@@ -708,8 +722,13 @@ namespace AgOpenGPS
                         oglZoom.Refresh();
                         StopAtimer();
                     }
+
+                    #endregion
                 }
             }
+
+            #region No GPS
+
             else
             {
                 //sentenceCounter = 0;
@@ -774,8 +793,9 @@ namespace AgOpenGPS
 
                 lblSpeed.Text = "???";
                 lblHz.Text = " ???? \r\n Not Connected";
-
             }
+
+            #endregion
         }
 
         private void oglBack_Load(object sender, EventArgs e)
@@ -798,6 +818,8 @@ namespace AgOpenGPS
 
         private void oglBack_Paint(object sender, PaintEventArgs e)
         {
+            #region OGL translate rotate
+
             oglBack.MakeCurrent();
 
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
@@ -812,6 +834,8 @@ namespace AgOpenGPS
             GL.Translate(-toolPos.easting - Math.Sin(toolPos.heading) * 15,
                 -toolPos.northing - Math.Cos(toolPos.heading) * 15,
                 0);
+
+            #endregion
 
             #region Draw Red and Grn to Back Buffer           
 
@@ -972,6 +996,8 @@ namespace AgOpenGPS
 
             #endregion
 
+            #region Lookahead and ReadPixel
+
             //set the look ahead for hyd Lift in pixels per second
             vehicle.hydLiftLookAheadDistanceLeft = tool.farLeftSpeed * vehicle.hydLiftLookAheadTime * 10;
             vehicle.hydLiftLookAheadDistanceRight = tool.farRightSpeed * vehicle.hydLiftLookAheadTime * 10;
@@ -1024,10 +1050,13 @@ namespace AgOpenGPS
                 grnPixels[j] = rgbPixels[i + 1];
             }
 
-            //Paint to context for troubleshooting qqq
-            //this.BeginInvoke((MethodInvoker)(() => this.oglBack.BringToFront()));
-            //this.BeginInvoke((MethodInvoker)(() => this.oglBack.SwapBuffers()));
 
+            //Paint to context for troubleshooting qqq
+            //oglBack.BringToFront()));
+            //oglBack.SwapBuffers()));
+            #endregion
+
+            #region Tram Painting
             ///////////////////////////////////////////  Tram control  ///////////////////////////////////////////
 
             if (tram.displayMode > 0 && tool.width > vehicle.trackWidth)
@@ -1047,6 +1076,9 @@ namespace AgOpenGPS
             }
             else tram.controlByte = 0;
 
+            #endregion
+
+            #region Hydraulic Control
             ///////////////////////////////////////////  Hydraulic control  ///////////////////////////////////////////
 
             //determine if headland is in read pixel buffer left middle and right. 
@@ -1108,6 +1140,9 @@ namespace AgOpenGPS
 
             bnd.SetHydPosition();
 
+            #endregion
+
+            #region Section On Off Requests
             ///////////////////////////////////////////   Section control   ///////////////////////////////////////////
 
             //slope of the look ahead line
@@ -1212,6 +1247,10 @@ namespace AgOpenGPS
 
             } // end of go thru all sections "for"
 
+            #endregion
+
+            #region Section delays and mapping
+
             //Set all the on and off times based from on off section requests
             for (int j = 0; j < tool.numOfSections; j++)
             {
@@ -1290,9 +1329,17 @@ namespace AgOpenGPS
                 }
             }
 
+            #endregion
+
+            #region Workswitch control
+
             //Checks the workswitch or steerSwitch if required
             if (ahrs.isAutoSteerAuto || mc.isRemoteWorkSystemOn)
                 mc.CheckWorkAndSteerSwitch();
+
+            #endregion
+
+            #region Combine section patches
 
             // check if any sections have changed status
             number = 0;
@@ -1430,6 +1477,10 @@ namespace AgOpenGPS
                 lastNumber = number;
             }
 
+            #endregion
+
+            #region PGNS
+
             //send the byte out to section machines
             BuildMachineByte();
 
@@ -1448,6 +1499,8 @@ namespace AgOpenGPS
 
                 SendPgnToLoop(p_229.pgn);
             }
+
+            #endregion
         }
 
         private void oglBackStart()
@@ -1509,8 +1562,11 @@ namespace AgOpenGPS
 
         private void oglZoom_Paint(object sender, PaintEventArgs e)
         {
+
             if (isJobStarted)
             {
+                #region Draw Sections
+
                 oglZoom.MakeCurrent();
 
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
@@ -1572,7 +1628,9 @@ namespace AgOpenGPS
 
                 //oglZoom.SwapBuffers();
 
+                #endregion
 
+                #region Calculate Overlap
                 int grnHeight = oglZoom.Height;
                 int grnWidth = oglZoom.Width;
                 byte[] overPix = new byte[grnHeight * grnWidth + 1];
@@ -1616,7 +1674,7 @@ namespace AgOpenGPS
                 }
             }
 
-            oglMain.MakeCurrent();
+            #endregion
         }
 
         private void DrawManUTurnBtn()

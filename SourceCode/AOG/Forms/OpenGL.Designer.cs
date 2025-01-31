@@ -671,27 +671,42 @@ namespace AgOpenGPS
                     GL.Flush();
                     oglMain.SwapBuffers();
 
-                    //draw the section control window off screen buffer
-                    if (isJobStarted)
+                    //file writer that runs all the time
+                    if (fileSaveAlwaysCounter > 60)
                     {
-                        oglBack.Refresh();
+                        fileSaveAlwaysCounter = 0;
+                        //if (sbMissedSentence.Length > 0) FileSaveMissedEvents();
+                    }
 
-                        //Machine data should probably be done in the end of the oglBack thread
-                        //thats were the information is updated, here it is old information
-                        //TODO
+                    //if a minute has elapsed save the field in case of crash and to be able to resume            
+                    if (fileSaveCounter > 30 && sentenceCounter < 20)
+                    {
+                        tmrWatchdog.Enabled = false;
+                        fileSaveCounter = 0;
 
-                        //Albin - I moved the Auto pauseOglBack.Set(); to the end of processing of data in Position.cs
-                        //It doesn't have to wait for the main OGL to be updated. By the time its done, the oglBack
-                        //should be done and then send the pgns here. Can't really send the pgns in the thread since there 
-                        //may be the main thread also sending pgns - which would conflict, maybe. 
+                        DistanceToFieldOriginCheck();
 
-                        //oglBackPGN_FileSave();
+                        //don't save if no gps
+                        if (isJobStarted)
+                        {
+                            //auto save the field patches, contours accumulated so far
+                            FileSaveSections();
+                            FileSaveContour();
 
-                        p_239.pgn[p_239.geoStop] = mc.isOutOfBounds ? (byte)1 : (byte)0;
+                            //NMEA elevation file
+                            if (isLogElevation && sbGrid.Length > 0) FileSaveElevation();
+                        }
 
-                        SendPgnToLoop(p_239.pgn);
+                        //set saving flag off
+                        isSavingFile = false;
 
-                        SendPgnToLoop(p_229.pgn);
+                        //go see if data ready for draw and position updates
+                        tmrWatchdog.Enabled = true;
+
+                        StartATimer();
+                        //calc overlap
+                        oglZoom.Refresh();
+                        StopAtimer();
                     }
                 }
             }
@@ -1424,42 +1439,14 @@ namespace AgOpenGPS
                 nozz.BuildRatePGN();
             }
 
-            //file writer that runs all the time
-            if (fileSaveAlwaysCounter > 60)
+            //draw the section control window off screen buffer
+            if (isJobStarted)
             {
-                fileSaveAlwaysCounter = 0;
-                //if (sbMissedSentence.Length > 0) FileSaveMissedEvents();
-            }
+                p_239.pgn[p_239.geoStop] = mc.isOutOfBounds ? (byte)1 : (byte)0;
 
-            //if a minute has elapsed save the field in case of crash and to be able to resume            
-            if (fileSaveCounter > 30 && sentenceCounter < 20)
-            {
-                tmrWatchdog.Enabled = false;
-                fileSaveCounter = 0;
+                SendPgnToLoop(p_239.pgn);
 
-                DistanceToFieldOriginCheck();
-
-                //don't save if no gps
-                if (isJobStarted)
-                {
-                    //auto save the field patches, contours accumulated so far
-                    FileSaveSections();
-                    FileSaveContour();
-
-                    //NMEA elevation file
-                    if (isLogElevation && sbGrid.Length > 0) FileSaveElevation();
-                }
-
-                //set saving flag off
-                isSavingFile = false;
-
-                //go see if data ready for draw and position updates
-                tmrWatchdog.Enabled = true;
-
-                StartATimer();
-                //calc overlap
-                oglZoom.Refresh();
-                StopAtimer();
+                SendPgnToLoop(p_229.pgn);
             }
         }
 

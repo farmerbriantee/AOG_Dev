@@ -1092,10 +1092,14 @@ namespace AgOpenGPS
 
             #endregion
 
-            if (isJobStarted)
-            {
-                pauseOglBack.Set();
-            }
+            //do section control
+            oglBack.Refresh();
+
+            //stop the timer and calc how long it took to do calcs and draw
+            frameTimeRough = (double)(swFrame.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency;
+
+            if (frameTimeRough > 80) frameTimeRough = 80;
+            frameTime = frameTime * 0.96 + frameTimeRough * 0.04;
 
             //update main window
             oglMain.Refresh();
@@ -1103,11 +1107,6 @@ namespace AgOpenGPS
             //Albin - get the section control started here already. 
             //end of UppdateFixPosition
 
-            //stop the timer and calc how long it took to do calcs and draw
-            frameTimeRough = (double)(swFrame.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency;
-
-            if (frameTimeRough > 80) frameTimeRough = 80;
-            frameTime = frameTime * 0.96 + frameTimeRough * 0.04;
         }
 
         private void TheRest()

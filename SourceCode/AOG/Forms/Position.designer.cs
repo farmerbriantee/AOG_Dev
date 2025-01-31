@@ -1092,9 +1092,15 @@ namespace AgOpenGPS
 
             #endregion
 
+            if (isJobStarted)
+            {
+                pauseOglBack.Set();
+            }
+
             //update main window
             oglMain.Refresh();
 
+            //Albin - get the section control started here already. 
             //end of UppdateFixPosition
 
             //stop the timer and calc how long it took to do calcs and draw

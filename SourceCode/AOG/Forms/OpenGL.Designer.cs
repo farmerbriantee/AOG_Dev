@@ -671,14 +671,19 @@ namespace AgOpenGPS
                     GL.Flush();
                     oglMain.SwapBuffers();
 
+
                     //draw the section control window off screen buffer
                     if (isJobStarted)
                     {
-                        pauseOglBack.Set();
-
                         //Machine data should probably be done in the end of the oglBack thread
                         //thats were the information is updated, here it is old information
                         //TODO
+
+                        //Albin - I moved the Auto pauseOglBack.Set(); to the end of processing of data in Position.cs
+                        //It doesn't have to wait for the main OGL to be updated. By the time its done, the oglBack
+                        //should be done and then send the pgns here. Can't really send the pgns in the thread since there 
+                        //may be the main thread also sending pgns - which would conflict, maybe. 
+
                         oglBackPGN_FileSave();
 
                         p_239.pgn[p_239.geoStop] = mc.isOutOfBounds ? (byte)1 : (byte)0;

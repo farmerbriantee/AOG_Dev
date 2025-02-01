@@ -70,7 +70,7 @@ namespace AgOpenGPS
             if (headingTrue > glm.twoPI) headingTrue -= glm.twoPI;
             if (headingTrue < 0) headingTrue += glm.twoPI;
 
-            mf.pn.vtgSpeed = Math.Abs(Math.Round(4 * stepDistance * 10, 2));
+            mf.pn.vtgSpeed = Math.Abs(Math.Round(40 * stepDistance, 2));
             mf.pn.AverageTheSpeed();
 
             //Calculate the next Lat Long based on heading and distance

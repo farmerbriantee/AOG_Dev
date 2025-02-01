@@ -991,8 +991,8 @@ namespace AgOpenGPS
             {
                 if (timerSim.Enabled)
                 {
-                    if (timerSim.Interval < 50) timerSim.Interval = 93;
-                    else timerSim.Interval = 30;
+                    if (timerSim.Interval < 50) timerSim.Interval = 94;
+                    else timerSim.Interval = 45;
                 }
 
                 return true;    // indicate that you handled this keystroke

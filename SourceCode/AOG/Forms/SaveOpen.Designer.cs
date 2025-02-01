@@ -475,7 +475,7 @@ namespace AgOpenGPS
                             }
                         }
 
-                        CalculateMinMax();
+                        CalculateSectionPatchesMinMax();
                         bnd.BuildTurnLines();
                         if (bnd.bndList.Count > 0) btnABDraw.Visible = true;
                     }

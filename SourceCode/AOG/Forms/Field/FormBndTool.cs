@@ -58,7 +58,7 @@ namespace AgOpenGPS
 
             InitializeComponent();
 
-            mf.CalculateMinMax();
+            mf.CalculateSectionPatchesMinMax();
         }
 
         private void FormBndTool_Load(object sender, EventArgs e)
@@ -492,7 +492,7 @@ namespace AgOpenGPS
                 bndList?.Clear();
 
                 //turn lines made from boundaries
-                mf.CalculateMinMax();
+                mf.CalculateSectionPatchesMinMax();
                 mf.bnd.BuildTurnLines();
 
                 mf.fd.UpdateFieldBoundaryGUIAreas();
@@ -898,7 +898,7 @@ namespace AgOpenGPS
 
                 mf.bnd.bndList[0].FixFenceLine(0);
 
-                mf.CalculateMinMax();
+                mf.CalculateSectionPatchesMinMax();
                 mf.bnd.BuildTurnLines();
 
                 mf.fd.UpdateFieldBoundaryGUIAreas();

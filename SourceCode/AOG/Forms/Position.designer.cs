@@ -126,12 +126,11 @@ namespace AgOpenGPS
             //swFrame.Stop();
             //Measure the frequency of the GPS updates
             timeSliceOfLastFix = (double)(swFrame.ElapsedTicks) / (double)System.Diagnostics.Stopwatch.Frequency;
-            swFrame.Reset();
-            swFrame.Start();
+            swFrame.Restart();
 
             //get Hz from timeslice
             nowHz = 1 / timeSliceOfLastFix;
-            if (nowHz > 70) nowHz = 70;
+            if (nowHz > 30) nowHz = 30;
             if (nowHz < 3) nowHz = 3;
 
             //simple comp filter
@@ -1093,17 +1092,21 @@ namespace AgOpenGPS
 
             #endregion
 
-            //update main window
-            oglMain.MakeCurrent();
-            oglMain.Refresh();
-
-            //end of UppdateFixPosition
+            //do section control
+            oglBack.Refresh();
 
             //stop the timer and calc how long it took to do calcs and draw
             frameTimeRough = (double)(swFrame.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency;
 
             if (frameTimeRough > 80) frameTimeRough = 80;
-            frameTime = frameTime * 0.90 + frameTimeRough * 0.1;
+            frameTime = frameTime * 0.96 + frameTimeRough * 0.04;
+
+            //Don't care about time from here on - update main window
+            oglMain.Refresh();
+
+            //Albin - get the section control started here already. 
+            //end of UppdateFixPosition
+
         }
 
         private void TheRest()

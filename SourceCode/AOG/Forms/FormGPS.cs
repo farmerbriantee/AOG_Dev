@@ -463,12 +463,6 @@ namespace AgOpenGPS
             // load all the gui elements in gui.designer.cs
             LoadSettings();
 
-            //for field data and overlap
-            oglZoom.Width = 600;
-            oglZoom.Height = 600;
-            oglZoom.Left = 100;
-            oglZoom.Top = 100;
-
             if (RegistrySettings.vehicleFileName != "Default Vehicle" && Properties.Settings.Default.setDisplay_isAutoStartAgOne)
             {
                 //Start AgOne process
@@ -663,6 +657,11 @@ namespace AgOpenGPS
 
             //write the log file
             FileSaveSystemEvents();
+
+            //stop back buffer thread
+            if (thread_oglBack != null && thread_oglBack.IsAlive)
+                thread_oglBack.Abort();
+
 
             //save current vehicle
             RegistrySettings.Save();
@@ -998,6 +997,13 @@ namespace AgOpenGPS
             fileSaveCounter = 25;
             lblGuidanceLine.Visible = false;
             lblHardwareMessage.Visible = false;
+
+            if (thread_oglBack == null)
+            {
+                //oglBackStart();
+            }
+
+            oglMain.MakeCurrent();
         }
 
         //close the current job

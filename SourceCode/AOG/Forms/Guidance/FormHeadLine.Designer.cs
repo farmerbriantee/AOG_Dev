@@ -46,7 +46,6 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.btnALength = new System.Windows.Forms.Button();
             this.btnHeadlandOff = new System.Windows.Forms.Button();
-            this.cboxIsSectionControlled = new System.Windows.Forms.CheckBox();
             this.rbtnLine = new System.Windows.Forms.RadioButton();
             this.rbtnCurve = new System.Windows.Forms.RadioButton();
             this.btnUndo = new System.Windows.Forms.Button();
@@ -144,7 +143,6 @@
             this.tlp1.Controls.Add(this.btnExit, 1, 8);
             this.tlp1.Controls.Add(this.btnALength, 0, 1);
             this.tlp1.Controls.Add(this.btnHeadlandOff, 0, 8);
-            this.tlp1.Controls.Add(this.cboxIsSectionControlled, 1, 7);
             this.tlp1.Controls.Add(this.cboxToolWidths, 1, 3);
             this.tlp1.Controls.Add(this.rbtnLine, 1, 2);
             this.tlp1.Controls.Add(this.rbtnCurve, 0, 2);
@@ -391,29 +389,6 @@
             this.btnHeadlandOff.UseVisualStyleBackColor = false;
             this.btnHeadlandOff.Click += new System.EventHandler(this.btnHeadlandOff_Click);
             // 
-            // cboxIsSectionControlled
-            // 
-            this.cboxIsSectionControlled.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cboxIsSectionControlled.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxIsSectionControlled.BackColor = System.Drawing.Color.Transparent;
-            this.cboxIsSectionControlled.Checked = true;
-            this.cboxIsSectionControlled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cboxIsSectionControlled.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.cboxIsSectionControlled.FlatAppearance.BorderSize = 0;
-            this.cboxIsSectionControlled.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.cboxIsSectionControlled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxIsSectionControlled.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxIsSectionControlled.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cboxIsSectionControlled.Image = global::AgOpenGPS.Properties.Resources.HeadlandSectionOn;
-            this.cboxIsSectionControlled.Location = new System.Drawing.Point(177, 544);
-            this.cboxIsSectionControlled.Name = "cboxIsSectionControlled";
-            this.cboxIsSectionControlled.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cboxIsSectionControlled.Size = new System.Drawing.Size(99, 71);
-            this.cboxIsSectionControlled.TabIndex = 467;
-            this.cboxIsSectionControlled.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cboxIsSectionControlled.UseVisualStyleBackColor = false;
-            this.cboxIsSectionControlled.Click += new System.EventHandler(this.cboxIsSectionControlled_Click);
-            // 
             // rbtnLine
             // 
             this.rbtnLine.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -473,7 +448,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1006, 708);
+            this.ClientSize = new System.Drawing.Size(1006, 722);
             this.ControlBox = false;
             this.Controls.Add(this.tlp1);
             this.Controls.Add(this.headingGroupBox);
@@ -506,7 +481,6 @@
         private System.Windows.Forms.RadioButton rbtnLine;
         private System.Windows.Forms.RadioButton rbtnCurve;
         private NudlessNumericUpDown nudSetDistance;
-        private System.Windows.Forms.CheckBox cboxIsSectionControlled;
         private System.Windows.Forms.Button btnBndLoop;
         private System.Windows.Forms.Button btnDeletePoints;
         private System.Windows.Forms.Button btnUndo;

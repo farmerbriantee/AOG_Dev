@@ -468,8 +468,8 @@ namespace AgOpenGPS
                                 }
 
                                 //Triangulate the bundary polygon
-                                New.bndPolygon = new CPolygon(New.fenceLineEar.ToArray());
-                                New.bndTriangleList = New.bndPolygon.Triangulate();
+                                CPolygon bndPolygon = new CPolygon(New.fenceLineEar.ToArray());
+                                New.bndTriangleList = bndPolygon.Triangulate();
 
                                 bnd.bndList.Add(New);
                             }
@@ -732,8 +732,8 @@ namespace AgOpenGPS
             if (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0)
             {
                 //Triangulate headland polygon
-                bnd.bndList[0].hdLinePolygon = new CPolygon(bnd.bndList[0].hdLine.ToArray());
-                bnd.bndList[0].hdLineTriangleList = bnd.bndList[0].hdLinePolygon.Triangulate();
+                CPolygon hdLinePolygon = new CPolygon(bnd.bndList[0].hdLine.ToArray());
+                bnd.bndList[0].hdLineTriangleList = hdLinePolygon.Triangulate();
 
                 bnd.isHeadlandOn = true;
                 btnHeadlandOnOff.Image = Properties.Resources.HeadlandOn;

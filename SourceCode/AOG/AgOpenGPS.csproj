@@ -133,12 +133,6 @@
     <Compile Include="Classes\CExtensionMethods.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Classes\CFence.cs">
-      <DependentUpon>CBoundary.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Classes\CFenceLine.cs">
-      <DependentUpon>CBoundaryList.cs</DependentUpon>
-    </Compile>
     <Compile Include="Classes\CBoundary.cs" />
     <Compile Include="Classes\CGuidance.cs" />
     <Compile Include="Classes\CHeadLine.cs" />
@@ -155,9 +149,6 @@
     <Compile Include="Classes\CAHRS.cs" />
     <Compile Include="Classes\CAutoSteer.cs" />
     <Compile Include="Classes\CFont.cs" />
-    <Compile Include="Classes\CHead.cs">
-      <DependentUpon>CBoundary.cs</DependentUpon>
-    </Compile>
     <Compile Include="Classes\CSim.cs" />
     <Compile Include="Classes\CTrack.cs" />
     <Compile Include="Classes\CTram.cs" />
@@ -170,12 +161,6 @@
     <Compile Include="Classes\CSection.cs" />
     <Compile Include="Classes\CVehicle.cs" />
     <Compile Include="Classes\CWorldGrid.cs" />
-    <Compile Include="Classes\CTurn.cs">
-      <DependentUpon>CBoundary.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Classes\CTurnLines.cs">
-      <DependentUpon>CBoundaryList.cs</DependentUpon>
-    </Compile>
     <Compile Include="Classes\CTool.cs" />
     <Compile Include="Forms\Field\FormEnterFlag.cs">
       <SubType>Form</SubType>

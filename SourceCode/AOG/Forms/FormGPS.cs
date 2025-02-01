@@ -621,7 +621,6 @@ namespace AgOpenGPS
                 return;
             }
 
-            bool closing = true;
             int choice = SaveOrNot();
 
             //simple cancel return to AgOpenGPS

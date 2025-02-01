@@ -43,8 +43,6 @@ namespace AgOpenGPS
 
         public double avgPivDistance, lightbarDistance, longAvgPivDistance;
 
-        private int bbCounter = 0, bob = 0;
-
         Thread thread_oglBack;
         AutoResetEvent pauseOglBack = new AutoResetEvent(false);
 
@@ -62,7 +60,7 @@ namespace AgOpenGPS
         {
             double newTime = ((double)(algoTimer.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency);
             aTime = newTime * 0.1 + aTime * 0.9;
-            lblAlgo.Text = aTime.ToString("N3") + "  " + bob;
+            lblAlgo.Text = aTime.ToString("N3");
         }
 
         // When oglMain is created
@@ -176,7 +174,7 @@ namespace AgOpenGPS
                         else //no headland excists
                         {
                             //draw outer field polygon (fence)
-                            GL.Color4(.32, 0.32, 0.32, 0.32);
+                            GL.Color4(0.1, 0.3, 0.1, 0.25);
 
                             GL.Begin(PrimitiveType.Triangles);
                             for (int i = 0; i < bnd.bndList[0].bndTriangleList.Count; i++)
@@ -213,8 +211,6 @@ namespace AgOpenGPS
                     double factor = 0.37;
 
                     GL.LineWidth(2);
-
-                    bob = 0;
 
                     for (int j = 0; j < triStrip.Count; j++)
                     {
@@ -265,7 +261,6 @@ namespace AgOpenGPS
 
                                 if (isDraw)
                                 {
-                                    bob++;
                                     count2 = triList.Count;
                                     GL.Begin(PrimitiveType.TriangleStrip);
 
@@ -424,39 +419,7 @@ namespace AgOpenGPS
                     if (bnd.bndList.Count > 0 || bnd.isBndBeingMade == true)
                     {
                         //draw Boundaries
-                        bnd.DrawFenceLines();
-
-                        //draw the turnLines
-                        if (yt.isYouTurnBtnOn && !ct.isContourBtnOn)
-                        {
-                            GL.LineWidth(trk.lineWidth * 4);
-                            GL.Color4(0, 0, 0, 0.80f);
-
-                            for (int i = 0; i < bnd.bndList.Count; i++)
-                            {
-                                bnd.bndList[i].turnLine.DrawPolygon();
-                            }
-
-                            GL.Color3(0.76f, 0.6f, 0.95f);
-                            GL.LineWidth(trk.lineWidth);
-                            for (int i = 0; i < bnd.bndList.Count; i++)
-                            {
-                                bnd.bndList[i].turnLine.DrawPolygon();
-                            }
-                        }
-
-                        //Draw headland
-                        if (bnd.isHeadlandOn)
-                        {
-                            GL.LineWidth(trk.lineWidth * 4);
-
-                            GL.Color4(0, 0, 0, 0.80f);
-                            bnd.bndList[0].hdLine.DrawPolygon();
-
-                            GL.LineWidth(trk.lineWidth);
-                            GL.Color4(0.960f, 0.96232f, 0.30f, 1.0f);
-                            bnd.bndList[0].hdLine.DrawPolygon();
-                        }
+                        bnd.DrawBnds();
                     }
 
                     #endregion

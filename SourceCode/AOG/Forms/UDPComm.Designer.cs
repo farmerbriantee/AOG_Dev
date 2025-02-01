@@ -114,7 +114,7 @@ namespace AgOpenGPS
                 {
                     case 0xD6:
                         {
-                            if (udpWatch.ElapsedMilliseconds < 20)
+                            if (udpWatch.ElapsedMilliseconds < 15)
                             {
                                 missedSentenceCount++;
                                 return;

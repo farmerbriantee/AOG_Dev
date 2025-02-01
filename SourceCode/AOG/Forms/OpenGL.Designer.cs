@@ -1161,7 +1161,8 @@ namespace AgOpenGPS
 
                         if (redPixels[onHeight] == (byte)bbColors.headland && grnPixels[onHeight] == 0)
                             onCount++;
-                        if (redPixels[offHeight] != (byte)bbColors.headland || grnPixels[offHeight] == (byte)bbColors.section)
+                        if (redPixels[offHeight] != (byte)bbColors.headland || 
+                            (grnPixels[offHeight] == (byte)bbColors.section || grnPixels[offHeight] == (byte)bbColors.tram))
                             offCount++;
                     }
 

@@ -63,7 +63,9 @@ namespace AgOpenGPS
 
             mf.mc.actualSteerAngleDegrees = steerangleAve;
 
-            double temp = stepDistance * Math.Tan(steerangleAve * 0.0165329252) / 2;
+            double stepDist = (10 / mf.gpsHz) * stepDistance;
+
+            double temp = stepDist * Math.Tan(steerangleAve * 0.0165329252) / 2;
             headingTrue += temp;
             if (headingTrue > glm.twoPI) headingTrue -= glm.twoPI;
             if (headingTrue < 0) headingTrue += glm.twoPI;
@@ -72,7 +74,7 @@ namespace AgOpenGPS
             mf.pn.AverageTheSpeed();
 
             //Calculate the next Lat Long based on heading and distance
-            CalculateNewPostionFromBearingDistance(glm.toRadians(latitude), glm.toRadians(longitude), headingTrue, stepDistance / 1000.0);
+            CalculateNewPostionFromBearingDistance(glm.toRadians(latitude), glm.toRadians(longitude), headingTrue, stepDist / 1000.0);
 
             mf.pn.ConvertWGS84ToLocal(latitude, longitude, out mf.pn.fix.northing, out mf.pn.fix.easting);
 

@@ -574,7 +574,6 @@ namespace AgOpenGPS
             //Tool GPS on
             isGPSTwoActive = Properties.Settings.Default.setGPS_isGPSTwoActive;
 
-            udpWatchLimit = Properties.Settings.Default.SetGPS_udpWatchMsec;
             pn.headingTrueDualOffset = Properties.Settings.Default.setGPS_dualHeadingOffset;
             dualReverseDetectionDistance = Properties.Settings.Default.setGPS_dualReverseDetectionDistance;
 

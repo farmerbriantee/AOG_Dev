@@ -49,10 +49,6 @@ namespace AgOpenGPS
 
             mf.bnd.bndList[0].hdLine?.Clear();
 
-            cboxIsSectionControlled.Checked = Properties.Settings.Default.setHeadland_isSectionControlled;
-            if (cboxIsSectionControlled.Checked) cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOn;
-            else cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOff;
-
             Size = Properties.Settings.Default.setWindow_HeadAcheSize;
 
             Screen myScreen = Screen.FromControl(this);
@@ -682,14 +678,13 @@ namespace AgOpenGPS
         private void btnExit_Click(object sender, EventArgs e)
         {
             //triangulate headland area
-            mf.bnd.bndList[0].hdLinePolygon = new CPolygon(mf.bnd.bndList[0].hdLine.ToArray());
-            mf.bnd.bndList[0].hdLineTriangleList = mf.bnd.bndList[0].hdLinePolygon.Triangulate();
+            CPolygon hdLinePolygon = new CPolygon(mf.bnd.bndList[0].hdLine.ToArray());
+            mf.bnd.bndList[0].hdLineTriangleList = hdLinePolygon.Triangulate();
             mf.bnd.isHeadlandOn = true;
 
             mf.FileSaveHeadLines();
             //does headland control sections
-            mf.bnd.isSectionControlledByHeadland = cboxIsSectionControlled.Checked;
-            Properties.Settings.Default.setHeadland_isSectionControlled = cboxIsSectionControlled.Checked;
+            mf.bnd.isSectionControlledByHeadland = true;
 
             Close();
         }
@@ -940,12 +935,6 @@ namespace AgOpenGPS
             sY = 0;
             zoomToggle = false;
             btnExit.Focus();
-        }
-
-        private void cboxIsSectionControlled_Click(object sender, EventArgs e)
-        {
-            if (cboxIsSectionControlled.Checked) cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOn;
-            else cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOff;
         }
 
         private void cboxIsZoom_CheckedChanged(object sender, EventArgs e)

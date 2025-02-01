@@ -840,9 +840,8 @@ namespace AgOpenGPS
                 buttonOrder.Add(int.Parse(words[i], CultureInfo.InvariantCulture));
             }
 
-            bnd.isSectionControlledByHeadland = Properties.Settings.Default.setHeadland_isSectionControlled;
-            if (bnd.isSectionControlledByHeadland) cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOn;
-            else cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOff;
+            bnd.isSectionControlledByHeadland = true;
+            cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOn;
 
             //right side build
             PanelBuildRightMenu();

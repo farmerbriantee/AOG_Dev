@@ -72,10 +72,6 @@ namespace AgOpenGPS
                 mf.trk.CalculateHeadings(ref mf.bnd.bndList[0].hdLine);
             }
 
-            cboxIsSectionControlled.Checked = Properties.Settings.Default.setHeadland_isSectionControlled;
-            if (cboxIsSectionControlled.Checked) cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOn;
-            else cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOff;
-
             cboxIsZoom.Checked = false;
 
             Size = Properties.Settings.Default.setWindow_HeadlineSize;
@@ -592,8 +588,7 @@ namespace AgOpenGPS
                 mf.bnd.bndList[0].hdLine?.Clear();
 
                 //does headland control sections
-                mf.bnd.isSectionControlledByHeadland = cboxIsSectionControlled.Checked;
-                Properties.Settings.Default.setHeadland_isSectionControlled = cboxIsSectionControlled.Checked;
+                mf.bnd.isSectionControlledByHeadland = true;
 
                 //middle points
                 for (int i = 1; i < hdArr.Length; i++)
@@ -625,8 +620,8 @@ namespace AgOpenGPS
                 mf.bnd.bndList[0].hdLine.Add(ptEnd);
 
                 //triangulate headland area
-                mf.bnd.bndList[0].hdLinePolygon = new CPolygon(mf.bnd.bndList[0].hdLine.ToArray());
-                mf.bnd.bndList[0].hdLineTriangleList = mf.bnd.bndList[0].hdLinePolygon.Triangulate();
+                CPolygon hdLinePolygon = new CPolygon(mf.bnd.bndList[0].hdLine.ToArray());
+                mf.bnd.bndList[0].hdLineTriangleList = hdLinePolygon.Triangulate();
                 mf.bnd.isHeadlandOn = true;
             }
 
@@ -992,12 +987,6 @@ namespace AgOpenGPS
         {
             if (sliceArr.Count > 8)
                 sliceArr.RemoveRange(0, 5);
-        }
-
-        private void cboxIsSectionControlled_Click(object sender, EventArgs e)
-        {
-            if (cboxIsSectionControlled.Checked) cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOn;
-            else cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOff;
         }
 
         private void cboxIsZoom_CheckedChanged(object sender, EventArgs e)

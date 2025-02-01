@@ -42,7 +42,6 @@
             this.btnCycleBackward = new System.Windows.Forms.Button();
             this.btnBndLoop = new System.Windows.Forms.Button();
             this.btnDeleteHeadland = new System.Windows.Forms.Button();
-            this.cboxIsSectionControlled = new System.Windows.Forms.CheckBox();
             this.btnCycleForward = new System.Windows.Forms.Button();
             this.btnALength = new System.Windows.Forms.Button();
             this.btnBLength = new System.Windows.Forms.Button();
@@ -291,30 +290,6 @@
             this.btnDeleteHeadland.UseVisualStyleBackColor = false;
             this.btnDeleteHeadland.Click += new System.EventHandler(this.btnDeleteHeadland_Click);
             // 
-            // cboxIsSectionControlled
-            // 
-            this.cboxIsSectionControlled.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cboxIsSectionControlled.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxIsSectionControlled.BackColor = System.Drawing.Color.Transparent;
-            this.cboxIsSectionControlled.Checked = true;
-            this.cboxIsSectionControlled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tlp1.SetColumnSpan(this.cboxIsSectionControlled, 2);
-            this.cboxIsSectionControlled.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.cboxIsSectionControlled.FlatAppearance.BorderSize = 0;
-            this.cboxIsSectionControlled.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.cboxIsSectionControlled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxIsSectionControlled.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxIsSectionControlled.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cboxIsSectionControlled.Image = global::AgOpenGPS.Properties.Resources.HeadlandSectionOff;
-            this.cboxIsSectionControlled.Location = new System.Drawing.Point(216, 15);
-            this.cboxIsSectionControlled.Name = "cboxIsSectionControlled";
-            this.cboxIsSectionControlled.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cboxIsSectionControlled.Size = new System.Drawing.Size(63, 65);
-            this.cboxIsSectionControlled.TabIndex = 467;
-            this.cboxIsSectionControlled.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cboxIsSectionControlled.UseVisualStyleBackColor = false;
-            this.cboxIsSectionControlled.Click += new System.EventHandler(this.cboxIsSectionControlled_Click);
-            // 
             // btnCycleForward
             // 
             this.btnCycleForward.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -457,7 +432,6 @@
             this.tlp1.Controls.Add(this.btnAShrink, 2, 1);
             this.tlp1.Controls.Add(this.cboxToolWidths, 4, 3);
             this.tlp1.Controls.Add(this.btnExit, 4, 7);
-            this.tlp1.Controls.Add(this.cboxIsSectionControlled, 4, 0);
             this.tlp1.Controls.Add(this.btnHeadlandOff, 0, 7);
             this.tlp1.Controls.Add(this.nudSetDistance, 0, 3);
             this.tlp1.Controls.Add(this.btnDeleteCurve, 2, 7);
@@ -530,7 +504,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1006, 709);
+            this.ClientSize = new System.Drawing.Size(1006, 722);
             this.ControlBox = false;
             this.Controls.Add(this.tlp1);
             this.Controls.Add(this.oglSelf);
@@ -566,7 +540,6 @@
         private System.Windows.Forms.RadioButton rbtnCurve;
         private NudlessNumericUpDown nudSetDistance;
         private System.Windows.Forms.Button btnDeleteHeadland;
-        private System.Windows.Forms.CheckBox cboxIsSectionControlled;
         private System.Windows.Forms.Button btnBndLoop;
         private System.Windows.Forms.Button btnCycleBackward;
         private System.Windows.Forms.ComboBox cboxToolWidths;

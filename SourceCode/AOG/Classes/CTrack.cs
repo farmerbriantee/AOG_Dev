@@ -373,8 +373,6 @@ namespace AgOpenGPS
                     }
                     else
                     {
-
-
                         double distSqAway = (distAway * distAway) - 0.01;
 
                         int refCount = track.curvePts.Count;
@@ -482,7 +480,6 @@ namespace AgOpenGPS
                             if (pt33.heading < 0) pt33.heading += glm.twoPI;
                             newCurList.Add(pt33);
                         }
-
                     }
                     if (mf.bnd.bndList.Count > 0 && (track.mode == TrackMode.AB || track.mode == TrackMode.Curve))
                     {
@@ -571,7 +568,6 @@ namespace AgOpenGPS
                 {
                     mf.gyd.UTurnGuidance();
                 }
-
                 else if (mf.isStanleyUsed)//Stanley
                 {
                     mf.gyd.StanleyGuidance(steer, ref curList);
@@ -620,7 +616,7 @@ namespace AgOpenGPS
             {
                 if (gArr[idx].curvePts == null || gArr[idx].curvePts.Count == 0) return;
 
-                GL.LineWidth(lineWidth*2);
+                GL.LineWidth(lineWidth * 2);
                 GL.Color3(0.96, 0.2f, 0.2f);
                 GL.Begin(PrimitiveType.Lines);
 
@@ -1004,7 +1000,7 @@ namespace AgOpenGPS
 
             start = new vec3(xList[0]);
 
-            for (int i = 1; i < ptsToAdd; i+=2)
+            for (int i = 1; i < ptsToAdd; i += 2)
             {
                 vec3 pt = new vec3(start);
                 pt.easting -= (Math.Sin(pt.heading) * i);
@@ -1018,7 +1014,7 @@ namespace AgOpenGPS
             int ptCnt = xList.Count - 1;
             ptsToAdd *= 2;
 
-            for (int i = 1; i < ptsToAdd; i+=2)
+            for (int i = 1; i < ptsToAdd; i += 2)
             {
                 vec3 pt = new vec3(xList[ptCnt]);
                 pt.easting += (Math.Sin(pt.heading) * i);
@@ -1235,7 +1231,6 @@ namespace AgOpenGPS
             maxy = Math.Max(pt1.easting, pt2.easting);
             return _ = r.northing >= minx && r.northing <= maxx && (r.easting >= miny && r.easting <= maxy);
         }
-
     }
 
     public class CTrk

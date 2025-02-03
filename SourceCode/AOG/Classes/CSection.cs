@@ -65,7 +65,6 @@ namespace AgOpenGPS
         //simple constructor, position is set in GPSWinForm_Load in FormGPS when creating new object
         public CSection()
         {
-
         }
     }
 }

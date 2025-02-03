@@ -747,7 +747,7 @@ namespace AgOpenGPS
             Settings.Default.setGPS_isGPSTwoActive = mf.isGPSTwoActive;
         }
 
-        #endregion
+        #endregion Tab Tool Steer
 
         //main first tabform
 
@@ -989,6 +989,7 @@ namespace AgOpenGPS
         #endregion
 
         #region bottom buttons of flyout
+
         private void btnSendSteerConfigPGN_Click(object sender, EventArgs e)
         {
             SaveSettings();

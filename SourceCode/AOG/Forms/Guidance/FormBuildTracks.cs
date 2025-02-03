@@ -904,7 +904,6 @@ namespace AgOpenGPS
             panelAPlus.Visible = false;
             panelName.Visible = true;
             mf.Activate();
-
         }
 
         #endregion A Plus
@@ -1232,7 +1231,6 @@ namespace AgOpenGPS
             mf.trk.designName = "A+" +
                 (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.trk.designName;
-
 
             panelLatLonPlus.Visible = false;
             panelName.Visible = true;

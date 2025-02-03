@@ -481,6 +481,7 @@ namespace AgOpenGPS
                 btnSerialCancel.Focus();
             }
         }
+
         private void btnAddDate_Click(object sender, EventArgs e)
         {
             tboxFieldName.Text += " " + DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);

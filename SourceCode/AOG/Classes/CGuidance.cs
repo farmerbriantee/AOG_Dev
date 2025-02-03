@@ -11,6 +11,7 @@ namespace AgOpenGPS
 
         //steer, pivot, and ref indexes
         private int sA, sB, C, pA, pB;
+
         public int A, B;
 
         //private int rA, rB;
@@ -353,9 +354,10 @@ namespace AgOpenGPS
             }
         }
 
-        #endregion
+        #endregion Stanley
 
         #region PurePursuit
+
         public void PurePursuitGuidance(vec3 pivot, ref List<vec3> curList)
         {
             double minDistA;
@@ -708,7 +710,6 @@ namespace AgOpenGPS
             }
         }
 
-
         // Searches for the nearest "global" curve point to the refPoint by checking all points of the trk.
         // Parameter "increment" added here to give possibility to make a "sparser" search (to speed it up?)
         // Return: index to the nearest point
@@ -807,6 +808,6 @@ namespace AgOpenGPS
             return minDistIndex;
         }
 
-        #endregion Stanley
+        #endregion PurePursuit
     }
 }

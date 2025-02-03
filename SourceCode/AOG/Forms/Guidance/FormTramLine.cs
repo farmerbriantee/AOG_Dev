@@ -34,6 +34,7 @@ namespace AgOpenGPS
         private int passes, startPass;
 
         #region Form
+
         public FormTramLine(Form callingForm)
         {
             //get copy of the calling main form
@@ -349,6 +350,7 @@ namespace AgOpenGPS
         #endregion Building Lines
 
         #region OpenGL and Drawing
+
         private void oglSelf_MouseDown(object sender, MouseEventArgs e)
         {
             step++;
@@ -661,6 +663,7 @@ namespace AgOpenGPS
         #endregion OpenGL and Drawing
 
         #region Buttons and misc functions
+
         private void btnSelectCurve_Click(object sender, EventArgs e)
         {
             tramList?.Clear();
@@ -772,6 +775,7 @@ namespace AgOpenGPS
 
             FormTramLine_ResizeEnd(this, e);
         }
+
         private void btnDnAlpha_Click(object sender, EventArgs e)
         {
             mf.tram.alpha -= 0.1;
@@ -789,6 +793,7 @@ namespace AgOpenGPS
         #endregion Buttons and misc functions
 
         #region Outer Tram
+
         private void cboxIsOuter_Click(object sender, EventArgs e)
         {
             if (cboxIsOuter.Checked)

@@ -9,10 +9,13 @@ namespace AgOpenGPS
     public static class RegistrySettings
     {
         public static string culture = "en";
+
         public static string vehiclesDirectory =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Vehicles");
+
         public static string logsDirectory =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Logs");
+
         public static string vehicleFileName = "Default Vehicle";
         public static string workingDirectory = "Default";
         public static string baseDirectory = workingDirectory;

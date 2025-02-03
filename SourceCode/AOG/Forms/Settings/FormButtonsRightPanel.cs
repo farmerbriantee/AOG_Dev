@@ -9,8 +9,10 @@ namespace AgOpenGPS
     {
         //class variables
         private readonly FormGPS mf = null;
-        int btnCounter = 0;
-        string original;
+
+        private int btnCounter = 0;
+        private string original;
+
         public FormButtonsRightPanel(Form callingForm)
         {
             //get copy of the calling main form
@@ -51,6 +53,7 @@ namespace AgOpenGPS
             mf.buttonOrder.Add(1);
             btnCounter++;
         }
+
         private void btnSectionMasterAuto_Click(object sender, EventArgs e)
         {
             flpRight.Controls.Add(autoSection);
@@ -96,6 +99,7 @@ namespace AgOpenGPS
             //btnTrack.Enabled = false;
             btnContour.Enabled = false;
         }
+
         //private void btnTrack_Click(object sender, EventArgs e)
         //{
         //    flpRight.Controls.Add(track);

@@ -46,8 +46,8 @@ namespace AgOpenGPS
             btnLeftRight.Image = mf.bnd.isDrawRightSide ? Properties.Resources.BoundaryRight : Properties.Resources.BoundaryLeft;
             btnAntennaTool.Image = mf.bnd.isDrawAtPivot ? Properties.Resources.BoundaryRecordPivot : Properties.Resources.BoundaryRecordTool;
 
-            mf.bnd.createBndOffset = (mf.tool.width * 0.5);
-            mf.bnd.isBndBeingMade = true;
+            mf.bnd.createFenceOffset = (mf.tool.width * 0.5);
+            mf.bnd.isFenceBeingMade = true;
             mf.Focus();
 
             if (!mf.IsOnScreen(Location, Size, 1))
@@ -72,11 +72,11 @@ namespace AgOpenGPS
             btnPausePlay.Focus();
             if (mf.isMetric)
             {
-                mf.bnd.createBndOffset = (double)nudOffset.Value * 0.01;
+                mf.bnd.createFenceOffset = (double)nudOffset.Value * 0.01;
             }
             else
             {
-                mf.bnd.createBndOffset = (double)nudOffset.Value / 39.3701;
+                mf.bnd.createFenceOffset = (double)nudOffset.Value / 39.3701;
                 double ftInches = (double)nudOffset.Value;
                 lblMetersInches.Text = ((int)(ftInches / 12)).ToString() + "' " + (ftInches % 12).ToString("N1") + '"';
             }
@@ -84,7 +84,7 @@ namespace AgOpenGPS
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            int ptCount = mf.bnd.bndBeingMadePts.Count;
+            int ptCount = mf.bnd.fenceBeingMadePts.Count;
             double area = 0;
 
             if (ptCount > 0)
@@ -93,7 +93,7 @@ namespace AgOpenGPS
 
                 for (int i = 0; i < ptCount; j = i++)
                 {
-                    area += (mf.bnd.bndBeingMadePts[j].easting + mf.bnd.bndBeingMadePts[i].easting) * (mf.bnd.bndBeingMadePts[j].northing - mf.bnd.bndBeingMadePts[i].northing);
+                    area += (mf.bnd.fenceBeingMadePts[j].easting + mf.bnd.fenceBeingMadePts[i].easting) * (mf.bnd.fenceBeingMadePts[j].northing - mf.bnd.fenceBeingMadePts[i].northing);
                 }
                 area = Math.Abs(area / 2);
             }
@@ -106,7 +106,7 @@ namespace AgOpenGPS
                 lblArea.Text = Math.Round(area * 0.000247105, 2).ToString();
             }
 
-            lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
+            lblPoints.Text = mf.bnd.fenceBeingMadePts.Count.ToString();
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -117,13 +117,13 @@ namespace AgOpenGPS
                 MessageBoxDefaultButton.Button2);
             if (result3 == DialogResult.Yes)
             {
-                if (mf.bnd.bndBeingMadePts.Count > 2)
+                if (mf.bnd.fenceBeingMadePts.Count > 2)
                 {
                     CBoundaryList New = new CBoundaryList();
 
-                    for (int i = 0; i < mf.bnd.bndBeingMadePts.Count; i++)
+                    for (int i = 0; i < mf.bnd.fenceBeingMadePts.Count; i++)
                     {
-                        New.fenceLine.Add(mf.bnd.bndBeingMadePts[i]);
+                        New.fenceLine.Add(mf.bnd.fenceBeingMadePts[i]);
                     }
 
                     New.CalculateFenceArea(mf.bnd.bndList.Count);
@@ -143,8 +143,8 @@ namespace AgOpenGPS
 
                 //stop it all for adding
                 mf.bnd.isOkToAddPoints = false;
-                mf.bnd.isBndBeingMade = false;
-                mf.bnd.bndBeingMadePts.Clear();
+                mf.bnd.isFenceBeingMade = false;
+                mf.bnd.fenceBeingMadePts.Clear();
 
                 //close window
                 isClosing = true;
@@ -176,15 +176,15 @@ namespace AgOpenGPS
             mf.bnd.isOkToAddPoints = true;
             mf.AddBoundaryPoint();
             mf.bnd.isOkToAddPoints = false;
-            lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
+            lblPoints.Text = mf.bnd.fenceBeingMadePts.Count.ToString();
         }
 
         private void btnDeleteLast_Click(object sender, EventArgs e)
         {
-            int ptCount = mf.bnd.bndBeingMadePts.Count;
+            int ptCount = mf.bnd.fenceBeingMadePts.Count;
             if (ptCount > 0)
-                mf.bnd.bndBeingMadePts.RemoveAt(ptCount - 1);
-            lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
+                mf.bnd.fenceBeingMadePts.RemoveAt(ptCount - 1);
+            lblPoints.Text = mf.bnd.fenceBeingMadePts.Count.ToString();
         }
 
         private void btnRestart_Click(object sender, EventArgs e)
@@ -196,9 +196,9 @@ namespace AgOpenGPS
                                     MessageBoxDefaultButton.Button2);
             if (result3 == DialogResult.Yes)
             {
-                mf.bnd.bndBeingMadePts?.Clear();
+                mf.bnd.fenceBeingMadePts?.Clear();
             }
-            lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
+            lblPoints.Text = mf.bnd.fenceBeingMadePts.Count.ToString();
         }
 
         private void btnLeftRight_Click(object sender, EventArgs e)
@@ -221,15 +221,15 @@ namespace AgOpenGPS
                 mf.bnd.isOkToAddPoints = true;
                 mf.AddBoundaryPoint();
                 mf.bnd.isOkToAddPoints = false;
-                lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
+                lblPoints.Text = mf.bnd.fenceBeingMadePts.Count.ToString();
             }
 
             if (keyData == Keys.D) //autosteer button on off
             {
-                int ptCount = mf.bnd.bndBeingMadePts.Count;
+                int ptCount = mf.bnd.fenceBeingMadePts.Count;
                 if (ptCount > 0)
-                    mf.bnd.bndBeingMadePts.RemoveAt(ptCount - 1);
-                lblPoints.Text = mf.bnd.bndBeingMadePts.Count.ToString();
+                    mf.bnd.fenceBeingMadePts.RemoveAt(ptCount - 1);
+                lblPoints.Text = mf.bnd.fenceBeingMadePts.Count.ToString();
             }
 
             if (keyData == Keys.R) //autosteer button on off
@@ -257,7 +257,7 @@ namespace AgOpenGPS
 
         private void cboxIsRecBoundaryWhenSectionOn_Click(object sender, EventArgs e)
         {
-            mf.bnd.isRecBoundaryWhenSectionOn = cboxIsRecBoundaryWhenSectionOn.Checked;
+            mf.bnd.isRecFenceWhenSectionOn = cboxIsRecBoundaryWhenSectionOn.Checked;
         }
     }
 }

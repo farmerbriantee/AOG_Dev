@@ -416,7 +416,7 @@ namespace AgOpenGPS
 
                     #region Draw Boundaries - Headland and Fence
 
-                    if (bnd.bndList.Count > 0 || bnd.isBndBeingMade == true)
+                    if (bnd.bndList.Count > 0 || bnd.isFenceBeingMade == true)
                     {
                         //draw Boundaries
                         bnd.DrawBnds();

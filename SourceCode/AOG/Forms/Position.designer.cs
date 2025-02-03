@@ -22,7 +22,7 @@ namespace AgOpenGPS
         public StringBuilder sbGrid = new StringBuilder();
 
         // autosteer variables for sending serial
-        public short guidanceLineDistanceOff, guidanceLineSteerAngle;
+        public short guidanceLineDistanceOff, guidanceLineSteerAngle, guidanceLineDistanceOffTool;
         public double avGuidanceSteerAngle;
 
         public short errorAngVel;

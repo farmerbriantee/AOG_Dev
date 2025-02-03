@@ -58,6 +58,7 @@ namespace AgOpenGPS
 
         //create instance of a stopwatch for timing of frames and NMEA hz determination
         private readonly Stopwatch swFrame = new Stopwatch();
+
         private readonly Stopwatch algoTimer = new Stopwatch();
 
         public double secondsSinceStart;
@@ -65,6 +66,7 @@ namespace AgOpenGPS
 
         //the currentversion of software
         public string currentVersionStr, inoVersionStr;
+
         public int inoVersionInt;
 
         //private readonly Stopwatch swDraw = new Stopwatch();
@@ -268,6 +270,7 @@ namespace AgOpenGPS
                 }
             }
         }
+
         public FormGPS()
         {
             //winform initialization
@@ -661,7 +664,6 @@ namespace AgOpenGPS
             if (thread_oglBack != null && thread_oglBack.IsAlive)
                 thread_oglBack.Abort();
 
-
             //save current vehicle
             RegistrySettings.Save();
 
@@ -997,6 +999,8 @@ namespace AgOpenGPS
             lblGuidanceLine.Visible = false;
             lblHardwareMessage.Visible = false;
 
+            gyd.isFindGlobalNearestTrackPoint = true;
+
             if (thread_oglBack == null)
             {
                 //oglBackStart();
@@ -1009,6 +1013,7 @@ namespace AgOpenGPS
         public void JobClose()
         {
             sbGrid.Clear();
+            gyd.isFindGlobalNearestTrackPoint = true;
 
             //reset field offsets
             if (!isKeepOffsetsOn)

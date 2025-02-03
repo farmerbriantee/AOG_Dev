@@ -727,7 +727,6 @@ namespace AgOpenGPS
             return false;
         }
 
-
         #endregion CreateTurn
 
         #region KStyle turns

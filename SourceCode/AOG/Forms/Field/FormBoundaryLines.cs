@@ -33,6 +33,7 @@ namespace AgOpenGPS
 
         // temp bnd list
         private List<vec3> buildList = new List<vec3>();
+
         public double iE = 0, iN = 0;
 
         public FormBoundaryLines(Form callingForm)
@@ -303,7 +304,6 @@ namespace AgOpenGPS
                 {
                     Log.EventWriter("Error clipping curve lines to PtA and PtB for Boundary Lines");
                 }
-
             }
 
             //divide up the AB line into segments
@@ -549,12 +549,9 @@ namespace AgOpenGPS
 
                 GL.TexCoord2(u + u_step, v + v_step);
                 GL.Vertex2(x + GlyphWidth * size, y);
-                
+
                 GL.TexCoord2(u, v + v_step);
                 GL.Vertex2(x, y);
-
-
-
 
                 x += CharXSpacing * size;
             }
@@ -635,7 +632,6 @@ namespace AgOpenGPS
 
             startLine = 0;
             crossingLine = 0;
-
 
             for (int i = 0; i < gTemp[startLine].curvePts.Count - 1; i++)
             {

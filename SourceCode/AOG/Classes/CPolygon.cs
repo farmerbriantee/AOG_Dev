@@ -14,7 +14,8 @@ namespace AgOpenGPS
 
     public class CPolygon
     {
-        public CPolygon() { }
+        public CPolygon()
+        { }
 
         //Create a copy of the bndEarPts from aligned boundary
         public CPolygon(vec2[] _points)

@@ -11,7 +11,8 @@ namespace AgOpenGPS
 
         //steer, pivot, and ref indexes
         private int sA, sB, C, pA, pB;
-        public int A, B, A2, B2;
+
+        public int A, B;
 
         //private int rA, rB;
 
@@ -42,9 +43,9 @@ namespace AgOpenGPS
         private int counter2;
 
         // Should we find the global nearest curve point (instead of local) on the next search.
-        public bool findGlobalNearestTrackPoint = true;
+        public bool isFindGlobalNearestTrackPoint = true;
 
-        public int currentLocationIndex, currentLocationIndex2;
+        public int currentLocationIndex;
         public double pivotDistanceErrorLast, pivotDerivative, pivotDerivativeSmoothed, lastTrackDistance = 10000;
 
         public CGuidance(FormGPS _f)
@@ -353,43 +354,47 @@ namespace AgOpenGPS
             }
         }
 
-        #endregion
+        #endregion Stanley
 
         #region PurePursuit
+
         public void PurePursuitGuidance(vec3 pivot, ref List<vec3> curList)
         {
             double minDistA;
             double minDistB;
             double dist, dx, dz;
 
-            //close call hit
-
             bool isAddStart = false, isAddEnd = false;
 
             double goalPointDistance = mf.vehicle.UpdateGoalPointDistance();
             bool ReverseHeading = mf.isReverse ? !mf.trk.isHeadingSameWay : mf.trk.isHeadingSameWay;
 
-            //If is a curve or an AB made into curve
-            //if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
-
-            minDistA = double.MaxValue;
             //close call hit
+            minDistA = double.MaxValue;
             int cc = 0, dd;
 
-            for (int j = 0; j < curList.Count; j += 5)
+            if (isFindGlobalNearestTrackPoint)
             {
-                dist = glm.DistanceSquared(pivot, curList[j]);
-                if (dist < minDistA)
+                for (int j = 0; j < curList.Count; j += 5)
                 {
-                    minDistA = dist;
-                    cc = j;
+                    dist = glm.DistanceSquared(pivot, curList[j]);
+                    if (dist < minDistA)
+                    {
+                        minDistA = dist;
+                        cc = j;
+                    }
                 }
+                isFindGlobalNearestTrackPoint = false;
+                minDistA = double.MaxValue;
+            }
+            else
+            {
+                cc = currentLocationIndex;
             }
 
-            minDistA = double.MaxValue;
-
-            dd = cc + 5; if (dd > curList.Count - 1) dd = curList.Count;
-            cc -= 5; if (cc < 0) cc = 0;
+            //find the local point
+            dd = cc + 6; if (dd > curList.Count - 1) dd = curList.Count;
+            cc -= 6; if (cc < 0) cc = 0;
 
             //find the closest 2 points to current close call
             for (int j = cc; j < dd; j++)
@@ -402,10 +407,11 @@ namespace AgOpenGPS
                 }
             }
 
-            currentLocationIndex = A;
-
-            if (A > curList.Count - 1)
+            if (A > curList.Count - 1 || A < 0)
+            {
+                isFindGlobalNearestTrackPoint = false;
                 return;
+            }
 
             //initial forward Test if pivot InRange AB
             if (A == curList.Count - 1) B = 0;
@@ -432,8 +438,15 @@ namespace AgOpenGPS
             {
                 goto SegmentFound;
             }
+            else
+            {
+                isFindGlobalNearestTrackPoint = true;
+                return;
+            }
 
         SegmentFound:
+
+            currentLocationIndex = A;
 
             if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
             {
@@ -636,8 +649,6 @@ namespace AgOpenGPS
                     }
                 }
 
-                currentLocationIndex2 = A;
-
                 if (A > curList.Count - 1)
                     return;
 
@@ -670,13 +681,10 @@ namespace AgOpenGPS
             Segment2Found:
 
                 //get the distance from currently active AB line
-
                 dx = curList[B].easting - curList[A].easting;
                 dz = curList[B].northing - curList[A].northing;
 
                 if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dz) < Double.Epsilon) return;
-
-                //abHeading = Math.Atan2(dz, dx);
 
                 //how far from current AB Line is fix
                 distanceFromCurrentLineTool = ((dz * mf.pnTwo.fix.easting) - (dx * mf.pnTwo.fix.northing) + (curList[B].easting
@@ -701,7 +709,6 @@ namespace AgOpenGPS
                 mf.trk.AddEndPoints(ref curList, 100);
             }
         }
-
 
         // Searches for the nearest "global" curve point to the refPoint by checking all points of the trk.
         // Parameter "increment" added here to give possibility to make a "sparser" search (to speed it up?)
@@ -801,6 +808,6 @@ namespace AgOpenGPS
             return minDistIndex;
         }
 
-        #endregion Stanley
+        #endregion PurePursuit
     }
 }

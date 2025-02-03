@@ -19,6 +19,7 @@ namespace AgOpenGPS
 
         //boundary variables
         public double area;
+
         public bool isDriveThru;
 
         //constructor
@@ -295,7 +296,5 @@ namespace AgOpenGPS
                 CalculateTurnHeadings();
             }
         }
-
-
     }
 }

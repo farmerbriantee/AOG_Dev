@@ -15,6 +15,7 @@ namespace AgOpenGPS
 
         //int FontTextureID;
         public const int textureWidth = 256;
+
         public const int textureHeight = 256;
 
         public bool isFontOn;

@@ -82,7 +82,7 @@ namespace AgOpenGPS
         {
             if (!File.Exists(settingsFilePath))
             {
-                return(false);
+                return (false);
             }
 
             //var appSettings = Properties.Settings.Default;
@@ -102,7 +102,7 @@ namespace AgOpenGPS
                 {
                     Properties.Settings.Default.Reload();
                 }
-                return(true);
+                return (true);
             }
             catch (Exception ex) // Should make this more specific
             {
@@ -111,7 +111,7 @@ namespace AgOpenGPS
                     Properties.Settings.Default.Reload();
                     Log.EventWriter("Catch -> Failed to Import Settings: " + ex.ToString());
                 }
-                return(false);
+                return (false);
             }
         }
 

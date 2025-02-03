@@ -10,6 +10,7 @@ namespace AgOpenGPS
         public List<CTrk> gTemp = new List<CTrk>();
 
         private double snapAdj = 0, distanceMoved = 0;
+
         public FormRefNudge(Form callingForm)
         {
             //get copy of the calling main form

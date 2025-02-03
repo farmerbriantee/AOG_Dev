@@ -742,7 +742,6 @@ namespace AgOpenGPS
             GL.LineStipple(1, 0x0707);
             for (int i = 0; i < gTemp.Count; i++)
             {
-
                 GL.Enable(EnableCap.LineStipple);
                 GL.LineWidth(5);
 

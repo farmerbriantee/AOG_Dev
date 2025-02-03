@@ -1,6 +1,6 @@
-﻿using System;
+﻿using OpenTK.Graphics.OpenGL;
+using System;
 using System.Collections.Generic;
-using OpenTK.Graphics.OpenGL;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace AgOpenGPS
@@ -18,16 +18,19 @@ namespace AgOpenGPS
 
         //boundary record properties
         public double createFenceOffset;
+
         public bool isFenceBeingMade;
         public bool isDrawRightSide = true, isDrawAtPivot = true, isOkToAddPoints = false;
         public bool isRecFenceWhenSectionOn = false;
 
         //headland properties
         public bool isHeadlandOn;
+
         public bool isToolInHeadland, isSectionControlledByHeadland;
 
         //turnline props
         public int turnSelected, closestTurnNum;
+
         public double iE = 0, iN = 0;
 
         //constructor

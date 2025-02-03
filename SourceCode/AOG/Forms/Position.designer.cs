@@ -22,7 +22,7 @@ namespace AgOpenGPS
         public StringBuilder sbGrid = new StringBuilder();
 
         // autosteer variables for sending serial
-        public short guidanceLineDistanceOff, guidanceLineSteerAngle;
+        public short guidanceLineDistanceOff, guidanceLineSteerAngle, guidanceLineDistanceOffTool;
         public double avGuidanceSteerAngle;
 
         public short errorAngVel;
@@ -130,8 +130,8 @@ namespace AgOpenGPS
 
             //get Hz from timeslice
             nowHz = 1 / timeSliceOfLastFix;
-            if (nowHz > 30) nowHz = 30;
-            if (nowHz < 3) nowHz = 3;
+            if (nowHz > 35) nowHz = 35;
+            if (nowHz < 5) nowHz = 5;
 
             //simple comp filter
             gpsHz = 0.98 * gpsHz + 0.02 * nowHz;
@@ -1409,7 +1409,7 @@ namespace AgOpenGPS
 
             //build the boundary line
 
-            if (bnd.isOkToAddPoints && (!bnd.isRecBoundaryWhenSectionOn || (bnd.isRecBoundaryWhenSectionOn && (manualBtnState == btnStates.On || autoBtnState == btnStates.Auto))))
+            if (bnd.isOkToAddPoints && (!bnd.isRecFenceWhenSectionOn || (bnd.isRecFenceWhenSectionOn && (manualBtnState == btnStates.On || autoBtnState == btnStates.Auto))))
             {
                 if (bnd.isDrawAtPivot)
                 {
@@ -1417,10 +1417,10 @@ namespace AgOpenGPS
                     {
                         //Right side
                         vec3 point = new vec3(
-                            pivotAxlePos.easting + (Math.Sin(pivotAxlePos.heading - glm.PIBy2) * -bnd.createBndOffset),
-                            pivotAxlePos.northing + (Math.Cos(pivotAxlePos.heading - glm.PIBy2) * -bnd.createBndOffset),
+                            pivotAxlePos.easting + (Math.Sin(pivotAxlePos.heading - glm.PIBy2) * -bnd.createFenceOffset),
+                            pivotAxlePos.northing + (Math.Cos(pivotAxlePos.heading - glm.PIBy2) * -bnd.createFenceOffset),
                             pivotAxlePos.heading);
-                        bnd.bndBeingMadePts.Add(point);
+                        bnd.fenceBeingMadePts.Add(point);
                     }
 
                     //draw on left side
@@ -1428,10 +1428,10 @@ namespace AgOpenGPS
                     {
                         //Right side
                         vec3 point = new vec3(
-                            pivotAxlePos.easting + (Math.Sin(pivotAxlePos.heading - glm.PIBy2) * bnd.createBndOffset),
-                            pivotAxlePos.northing + (Math.Cos(pivotAxlePos.heading - glm.PIBy2) * bnd.createBndOffset),
+                            pivotAxlePos.easting + (Math.Sin(pivotAxlePos.heading - glm.PIBy2) * bnd.createFenceOffset),
+                            pivotAxlePos.northing + (Math.Cos(pivotAxlePos.heading - glm.PIBy2) * bnd.createFenceOffset),
                             pivotAxlePos.heading);
-                        bnd.bndBeingMadePts.Add(point);
+                        bnd.fenceBeingMadePts.Add(point);
                     }
                 }
                 else
@@ -1441,7 +1441,7 @@ namespace AgOpenGPS
                     {
                         //Right side
                         vec3 point = new vec3(section[tool.numOfSections-1].rightPoint.easting, section[tool.numOfSections - 1].rightPoint.northing, 0);
-                        bnd.bndBeingMadePts.Add(point);
+                        bnd.fenceBeingMadePts.Add(point);
                     }
 
                     //draw on left side
@@ -1449,7 +1449,7 @@ namespace AgOpenGPS
                     {
                         //Right side
                         vec3 point = new vec3(section[0].leftPoint.easting, section[0].leftPoint.northing, 0);
-                        bnd.bndBeingMadePts.Add(point);
+                        bnd.fenceBeingMadePts.Add(point);
                     }
                 }
             }

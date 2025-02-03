@@ -5,15 +5,14 @@ namespace AgOpenGPS
 {
     public class CBoundaryList
     {
-        //list of coordinates of boundary line
         public List<vec3> fenceLine = new List<vec3>(128);
         public List<vec2> fenceLineEar = new List<vec2>(128);
+        public List<Triangle> fenceTriangleList = new List<Triangle>(128);
 
         public List<vec3> hdLine = new List<vec3>(128);
-        public List<vec3> turnLine = new List<vec3>(128);
-
-        public List<Triangle> bndTriangleList = new List<Triangle>(128);
         public List<Triangle> hdLineTriangleList = new List<Triangle>(128);
+
+        public List<vec3> turnLine = new List<vec3>(128);
 
         //public CPolygon bndPolygon = new CPolygon();
         //public CPolygon hdLinePolygon = new CPolygon();
@@ -29,6 +28,7 @@ namespace AgOpenGPS
             isDriveThru = false;
         }
 
+        //fence functions
         public void CalculateFenceLineHeadings()
         {
             //to calc heading based on next and previous points to give an average heading.
@@ -148,7 +148,7 @@ namespace AgOpenGPS
 
             //Triangulate the bundary polygon
             CPolygon bndPolygon = new CPolygon(fenceLineEar.ToArray());
-            bndTriangleList = bndPolygon.Triangulate();
+            fenceTriangleList = bndPolygon.Triangulate();
         }
 
         public void ReverseWinding()
@@ -167,7 +167,6 @@ namespace AgOpenGPS
             }
         }
 
-        //obvious
         public bool CalculateFenceArea(int idx)
         {
             int ptCount = fenceLine.Count;
@@ -194,6 +193,7 @@ namespace AgOpenGPS
             return isClockwise;
         }
 
+        //Turn Functions
         public void CalculateTurnHeadings()
         {
             //to calc heading based on next and previous points to give an average heading.

@@ -1,6 +1,7 @@
 ﻿using AgOpenGPS.Culture;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 
 namespace AgOpenGPS
 {
@@ -10,14 +11,15 @@ namespace AgOpenGPS
 
         //steer, pivot, and ref indexes
         private int sA, sB, C, pA, pB;
-        private int A, B;
+        public int A, B, A2, B2;
 
         //private int rA, rB;
 
-        public double distanceFromCurrentLineSteer, distanceFromCurrentLinePivot;
+        public double distanceFromCurrentLineSteer, distanceFromCurrentLinePivot, distanceFromCurrentLineTool;
         public double steerAngleGu, rEastSteer, rNorthSteer, rEastPivot, rNorthPivot;
         public double steerAngleTrk;
-        private vec2 goalPointTrk = new vec2();
+
+        public vec2 goalPointTrk = new vec2();
 
         public double rEastTrk, rNorthTrk, manualUturnHeading;
 
@@ -42,7 +44,7 @@ namespace AgOpenGPS
         // Should we find the global nearest curve point (instead of local) on the next search.
         public bool findGlobalNearestTrackPoint = true;
 
-        public int currentLocationIndex;
+        public int currentLocationIndex, currentLocationIndex2;
         public double pivotDistanceErrorLast, pivotDerivative, pivotDerivativeSmoothed, lastTrackDistance = 10000;
 
         public CGuidance(FormGPS _f)
@@ -63,7 +65,6 @@ namespace AgOpenGPS
 
             goalPointTrk = mf.yt.goalPointYT;
             mf.vehicle.modeActualXTE = (distanceFromCurrentLinePivot);
-
         }
 
         #region Stanley
@@ -352,7 +353,9 @@ namespace AgOpenGPS
             }
         }
 
+        #endregion
 
+        #region PurePursuit
         public void PurePursuitGuidance(vec3 pivot, ref List<vec3> curList)
         {
             double minDistA;
@@ -367,127 +370,84 @@ namespace AgOpenGPS
             bool ReverseHeading = mf.isReverse ? !mf.trk.isHeadingSameWay : mf.trk.isHeadingSameWay;
 
             //If is a curve or an AB made into curve
-            if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
+            //if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
+
+            minDistA = double.MaxValue;
+            //close call hit
+            int cc = 0, dd;
+
+            for (int j = 0; j < curList.Count; j += 5)
             {
-                minDistB = double.MaxValue;
-                //close call hit
-                int cc, dd;
-
-                if (findGlobalNearestTrackPoint)
+                dist = glm.DistanceSquared(pivot, curList[j]);
+                if (dist < minDistA)
                 {
-                    // When not already following some line, find the globally nearest point
-
-                    cc = findNearestGlobalCurvePoint(pivot, ref curList, 10);
-
-                    findGlobalNearestTrackPoint = false;
+                    minDistA = dist;
+                    cc = j;
                 }
-                else
+            }
+
+            minDistA = double.MaxValue;
+
+            dd = cc + 5; if (dd > curList.Count - 1) dd = curList.Count;
+            cc -= 5; if (cc < 0) cc = 0;
+
+            //find the closest 2 points to current close call
+            for (int j = cc; j < dd; j++)
+            {
+                dist = glm.DistanceSquared(pivot, curList[j]);
+                if (dist < minDistA)
                 {
-                    // When already "locked" to follow some line, try to find the "local" nearest point
-                    // based on the last one. This prevents jumping between lines close to each other (or crossing lines).
-                    // As this is prone to find a "local minimum", this should only be used when already following some line.
-
-                    cc = findNearestLocalCurvePoint(pivot, currentLocationIndex, goalPointDistance, ReverseHeading, ref curList);
+                    minDistA = dist;
+                    A = j;
                 }
+            }
 
-                minDistA = double.MaxValue;
+            currentLocationIndex = A;
 
-                dd = cc + 8; if (dd > curList.Count - 1) dd = curList.Count;
-                cc -= 8; if (cc < 0) cc = 0;
+            if (A > curList.Count - 1)
+                return;
 
-                //find the closest 2 points to current close call
-                for (int j = cc; j < dd; j++)
-                {
-                    dist = glm.DistanceSquared(pivot, curList[j]);
-                    if (dist < minDistA)
-                    {
-                        minDistB = minDistA;
-                        B = A;
-                        minDistA = dist;
-                        A = j;
-                    }
-                    else if (dist < minDistB)
-                    {
-                        minDistB = dist;
-                        B = j;
-                    }
-                }
+            //initial forward Test if pivot InRange AB
+            if (A == curList.Count - 1) B = 0;
+            else B = A + 1;
 
-                //just need to make sure the points continue ascending or heading switches all over the place
-                if (A > B) { C = A; A = B; B = C; }
+            if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
+                 curList[B].easting, curList[B].northing, pivot.easting, pivot.northing))
+                goto SegmentFound;
 
-                currentLocationIndex = A;
-
-                if (A > curList.Count - 1 || B > curList.Count - 1)
-                    return;
-
-                if (A > curList.Count - 50)
-                    isAddEnd = true;
-                else if (A < 50)
-                    isAddStart = true;
+            //step back one
+            if (A == 0)
+            {
+                A = curList.Count - 1;
+                B = 0;
             }
             else
             {
-                if (findGlobalNearestTrackPoint)
-                {
-                    // When not already following some line, find the globally nearest point
+                A--;
+                B = A + 1;
+            }
 
-                    A = findNearestGlobalCurvePoint(pivot, ref curList);
-
-                    findGlobalNearestTrackPoint = false;
-                }
-                else
-                {
-                    // When already "locked" to follow some line, try to find the "local" nearest point
-                    // based on the last one. This prevents jumping between lines close to each other (or crossing lines).
-                    // As this is prone to find a "local minimum", this should only be used when already following some line.
-
-                    A = findNearestLocalCurvePoint(pivot, currentLocationIndex, goalPointDistance, ReverseHeading, ref curList);
-                }
-
-                currentLocationIndex = A;
-
-                if (A > curList.Count - 1)
-                    return;
-
-                //initial forward Test if pivot InRange AB
-                if (A == curList.Count - 1) B = 0;
-                else B = A + 1;
-
-                if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
-                     curList[B].easting, curList[B].northing, pivot.easting, pivot.northing))
-                    goto SegmentFound;
-
-                //step back one
-                if (A == 0)
-                {
-                    A = curList.Count - 1;
-                    B = 0;
-                }
-                else
-                {
-                    A--;
-                    B = A + 1;
-                }
-
-                if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
-                    curList[B].easting, curList[B].northing, pivot.easting, pivot.northing))
-                    goto SegmentFound;
-
-                //realy really lost
-                return;
+            if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
+                curList[B].easting, curList[B].northing, pivot.easting, pivot.northing))
+            {
+                goto SegmentFound;
             }
 
         SegmentFound:
 
-            //get the distance from currently active AB line
+            if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
+            {
+                if (A > curList.Count - 50)
+                    isAddEnd = true;
+                if (A < 50)
+                    isAddStart = true;
+            }
 
+            //get the distance from currently active AB line
             dx = curList[B].easting - curList[A].easting;
             dz = curList[B].northing - curList[A].northing;
 
             if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dz) < Double.Epsilon) return;
-
-            //abHeading = Math.Atan2(dz, dx);
 
             //how far from current AB Line is fix
             distanceFromCurrentLinePivot = ((dz * pivot.easting) - (dx * pivot.northing) + (curList[B].easting
@@ -560,6 +520,11 @@ namespace AgOpenGPS
 
                     goalPointTrk.easting = (((1 - j) * start.easting) + (j * curList[i].easting));
                     goalPointTrk.northing = (((1 - j) * start.northing) + (j * curList[i].northing));
+
+                    double size = goalPointTrk.northing - rNorthTrk + 0.05;
+                    if (size < goalPointDistance)
+                        break;
+
                     break;
                 }
                 else distSoFar += tempDist;
@@ -637,6 +602,95 @@ namespace AgOpenGPS
             mf.guidanceLineDistanceOff = (short)Math.Round(distanceFromCurrentLinePivot * 1000.0, MidpointRounding.AwayFromZero);
             mf.guidanceLineSteerAngle = (short)(steerAngleTrk * 100);
 
+            /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            if (mf.isGPSTwoActive)
+            {
+                minDistA = double.MaxValue;
+                //close call hit
+                cc = 0;
+
+                for (int j = 0; j < curList.Count; j += 5)
+                {
+                    dist = glm.DistanceSquared(mf.pnTwo.fix, curList[j]);
+                    if (dist < minDistA)
+                    {
+                        minDistA = dist;
+                        cc = j;
+                    }
+                }
+
+                minDistA = double.MaxValue;
+
+                dd = cc + 5; if (dd > curList.Count - 1) dd = curList.Count;
+                cc -= 5; if (cc < 0) cc = 0;
+
+                //find the closest 2 points to current close call
+                for (int j = cc; j < dd; j++)
+                {
+                    dist = glm.DistanceSquared(mf.pnTwo.fix, curList[j]);
+                    if (dist < minDistA)
+                    {
+                        minDistA = dist;
+                        A = j;
+                    }
+                }
+
+                currentLocationIndex2 = A;
+
+                if (A > curList.Count - 1)
+                    return;
+
+                //initial forward Test if gps2 InRange AB
+                if (A == curList.Count - 1) B = 0;
+                else B = A + 1;
+
+                if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
+                     curList[B].easting, curList[B].northing, mf.pnTwo.fix.easting, mf.pnTwo.fix.northing))
+                    goto Segment2Found;
+
+                //step back one
+                if (A == 0)
+                {
+                    A = curList.Count - 1;
+                    B = 0;
+                }
+                else
+                {
+                    A--;
+                    B = A + 1;
+                }
+
+                if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
+                    curList[B].easting, curList[B].northing, mf.pnTwo.fix.easting, mf.pnTwo.fix.northing))
+                {
+                    goto Segment2Found;
+                }
+
+            Segment2Found:
+
+                //get the distance from currently active AB line
+
+                dx = curList[B].easting - curList[A].easting;
+                dz = curList[B].northing - curList[A].northing;
+
+                if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dz) < Double.Epsilon) return;
+
+                //abHeading = Math.Atan2(dz, dx);
+
+                //how far from current AB Line is fix
+                distanceFromCurrentLineTool = ((dz * mf.pnTwo.fix.easting) - (dx * mf.pnTwo.fix.northing) + (curList[B].easting
+                            * curList[A].northing) - (curList[B].northing * curList[A].easting))
+                                / Math.Sqrt((dz * dz) + (dx * dx));
+
+                if (!mf.trk.isHeadingSameWay)
+                    distanceFromCurrentLineTool *= -1.0;
+
+                mf.guidanceLineDistanceOffTool = (short)Math.Round(distanceFromCurrentLineTool * 1000.0, MidpointRounding.AwayFromZero);
+                mf.lblAlgo.Text = mf.guidanceLineDistanceOffTool.ToString();
+            }
+
+            //extend the line if close to end of line
             if (isAddStart)
             {
                 mf.trk.AddStartPoints(ref curList, 100);

@@ -13,14 +13,14 @@ namespace AgOpenGPS
         //the class of all the individual lists like headland, turnline, fence
         public List<CBoundaryList> bndList = new List<CBoundaryList>();
 
-        //create a new boundary and show it
-        public List<vec3> bndBeingMadePts = new List<vec3>(128);
+        //create a new fence and show it
+        public List<vec3> fenceBeingMadePts = new List<vec3>(128);
 
         //boundary record properties
-        public double createBndOffset;
-        public bool isBndBeingMade;
+        public double createFenceOffset;
+        public bool isFenceBeingMade;
         public bool isDrawRightSide = true, isDrawAtPivot = true, isOkToAddPoints = false;
-        public bool isRecBoundaryWhenSectionOn = false;
+        public bool isRecFenceWhenSectionOn = false;
 
         //headland properties
         public bool isHeadlandOn;
@@ -54,6 +54,26 @@ namespace AgOpenGPS
                 return 0;
             }
             return -1; //is outside border turn
+        }
+
+        public bool IsPointInsideFenceArea(vec3 testPoint)
+        {
+            //first where are we, must be inside outer and outside of inner geofence non drive thru turn borders
+            if (bndList[0].fenceLineEar.IsPointInPolygon(testPoint))
+            {
+                for (int i = 1; i < bndList.Count; i++)
+                {
+                    //make sure not inside a non drivethru boundary
+                    //if (buildList[i].isDriveThru) continue;
+                    if (bndList[i].fenceLineEar.IsPointInPolygon(testPoint))
+                    {
+                        return false;
+                    }
+                }
+                //we are safely inside outer, outside inner boundaries
+                return true;
+            }
+            return false;
         }
 
         public void BuildTurnLines()
@@ -161,26 +181,6 @@ namespace AgOpenGPS
             }
         }
 
-        public bool IsPointInsideFenceArea(vec3 testPoint)
-        {
-            //first where are we, must be inside outer and outside of inner geofence non drive thru turn borders
-            if (bndList[0].fenceLineEar.IsPointInPolygon(testPoint))
-            {
-                for (int i = 1; i < bndList.Count; i++)
-                {
-                    //make sure not inside a non drivethru boundary
-                    //if (buildList[i].isDriveThru) continue;
-                    if (bndList[i].fenceLineEar.IsPointInPolygon(testPoint))
-                    {
-                        return false;
-                    }
-                }
-                //we are safely inside outer, outside inner boundaries
-                return true;
-            }
-            return false;
-        }
-
         public void DrawBnds()
         {
             DrawFenceLines();
@@ -245,16 +245,16 @@ namespace AgOpenGPS
                 bndList[i].fenceLineEar.DrawPolygon();
             }
 
-            if (bndBeingMadePts.Count > 0)
+            if (fenceBeingMadePts.Count > 0)
             {
                 //the boundary so far
                 vec3 pivot = mf.pivotAxlePos;
                 GL.LineWidth(mf.trk.lineWidth);
                 GL.Color3(0.825f, 0.22f, 0.90f);
                 GL.Begin(PrimitiveType.LineStrip);
-                for (int h = 0; h < bndBeingMadePts.Count; h++) GL.Vertex3(bndBeingMadePts[h].easting, bndBeingMadePts[h].northing, 0);
+                for (int h = 0; h < fenceBeingMadePts.Count; h++) GL.Vertex3(fenceBeingMadePts[h].easting, fenceBeingMadePts[h].northing, 0);
                 GL.Color3(0.295f, 0.972f, 0.290f);
-                GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
+                GL.Vertex3(fenceBeingMadePts[0].easting, fenceBeingMadePts[0].northing, 0);
                 GL.End();
 
                 //line from last point to pivot marker
@@ -267,34 +267,34 @@ namespace AgOpenGPS
                 {
                     if (isDrawRightSide)
                     {
-                        GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
+                        GL.Vertex3(fenceBeingMadePts[0].easting, fenceBeingMadePts[0].northing, 0);
 
-                        GL.Vertex3(pivot.easting + (Math.Sin(pivot.heading - glm.PIBy2) * -createBndOffset),
-                                pivot.northing + (Math.Cos(pivot.heading - glm.PIBy2) * -createBndOffset), 0);
-                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                        GL.Vertex3(pivot.easting + (Math.Sin(pivot.heading - glm.PIBy2) * -createFenceOffset),
+                                pivot.northing + (Math.Cos(pivot.heading - glm.PIBy2) * -createFenceOffset), 0);
+                        GL.Vertex3(fenceBeingMadePts[fenceBeingMadePts.Count - 1].easting, fenceBeingMadePts[fenceBeingMadePts.Count - 1].northing, 0);
                     }
                     else
                     {
-                        GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
+                        GL.Vertex3(fenceBeingMadePts[0].easting, fenceBeingMadePts[0].northing, 0);
 
-                        GL.Vertex3(pivot.easting + (Math.Sin(pivot.heading - glm.PIBy2) * createBndOffset),
-                                pivot.northing + (Math.Cos(pivot.heading - glm.PIBy2) * createBndOffset), 0);
-                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                        GL.Vertex3(pivot.easting + (Math.Sin(pivot.heading - glm.PIBy2) * createFenceOffset),
+                                pivot.northing + (Math.Cos(pivot.heading - glm.PIBy2) * createFenceOffset), 0);
+                        GL.Vertex3(fenceBeingMadePts[fenceBeingMadePts.Count - 1].easting, fenceBeingMadePts[fenceBeingMadePts.Count - 1].northing, 0);
                     }
                 }
                 else //draw from tool
                 {
                     if (isDrawRightSide)
                     {
-                        GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
+                        GL.Vertex3(fenceBeingMadePts[0].easting, fenceBeingMadePts[0].northing, 0);
                         GL.Vertex3(mf.section[mf.tool.numOfSections - 1].rightPoint.easting, mf.section[mf.tool.numOfSections - 1].rightPoint.northing, 0);
-                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                        GL.Vertex3(fenceBeingMadePts[fenceBeingMadePts.Count - 1].easting, fenceBeingMadePts[fenceBeingMadePts.Count - 1].northing, 0);
                     }
                     else
                     {
-                        GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
+                        GL.Vertex3(fenceBeingMadePts[0].easting, fenceBeingMadePts[0].northing, 0);
                         GL.Vertex3(mf.section[0].leftPoint.easting, mf.section[0].leftPoint.northing, 0);
-                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                        GL.Vertex3(fenceBeingMadePts[fenceBeingMadePts.Count - 1].easting, fenceBeingMadePts[fenceBeingMadePts.Count - 1].northing, 0);
                     }
                 }
                 GL.End();
@@ -304,7 +304,7 @@ namespace AgOpenGPS
                 GL.Color3(0.0f, 0.95f, 0.95f);
                 GL.PointSize(6.0f);
                 GL.Begin(PrimitiveType.Points);
-                for (int h = 0; h < bndBeingMadePts.Count; h++) GL.Vertex3(bndBeingMadePts[h].easting, bndBeingMadePts[h].northing, 0);
+                for (int h = 0; h < fenceBeingMadePts.Count; h++) GL.Vertex3(fenceBeingMadePts[h].easting, fenceBeingMadePts[h].northing, 0);
                 GL.End();
             }
         }

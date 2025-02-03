@@ -149,11 +149,11 @@ namespace AgOpenGPS
                             GL.Color4(0.1, 0.1, 0.351, 0.25);
 
                             GL.Begin(PrimitiveType.Triangles);
-                            for (int i = 0; i < bnd.bndList[0].bndTriangleList.Count; i++)
+                            for (int i = 0; i < bnd.bndList[0].fenceTriangleList.Count; i++)
                             {
-                                GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[0].northing, 0);
-                                GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[1].northing, 0);
-                                GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[2].northing, 0);
+                                GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[0].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[0].northing, 0);
+                                GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[1].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[1].northing, 0);
+                                GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[2].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[2].northing, 0);
                             }
                             GL.End();
 
@@ -177,11 +177,11 @@ namespace AgOpenGPS
                             GL.Color4(0.1, 0.3, 0.1, 0.25);
 
                             GL.Begin(PrimitiveType.Triangles);
-                            for (int i = 0; i < bnd.bndList[0].bndTriangleList.Count; i++)
+                            for (int i = 0; i < bnd.bndList[0].fenceTriangleList.Count; i++)
                             {
-                                GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[0].northing, 0);
-                                GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[1].northing, 0);
-                                GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[2].northing, 0);
+                                GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[0].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[0].northing, 0);
+                                GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[1].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[1].northing, 0);
+                                GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[2].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[2].northing, 0);
                             }
                             GL.End();
                         }
@@ -193,11 +193,11 @@ namespace AgOpenGPS
                             GL.Begin(PrimitiveType.Triangles);
                             for (int a = 1; a < bnd.bndList.Count; a++)
                             {
-                                for (int i = 0; i < bnd.bndList[a].bndTriangleList.Count; i++)
+                                for (int i = 0; i < bnd.bndList[a].fenceTriangleList.Count; i++)
                                 {
-                                    GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[0].northing, 0);
-                                    GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[1].northing, 0);
-                                    GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[2].northing, 0);
+                                    GL.Vertex3(bnd.bndList[a].fenceTriangleList[i].polygonPts[0].easting, bnd.bndList[a].fenceTriangleList[i].polygonPts[0].northing, 0);
+                                    GL.Vertex3(bnd.bndList[a].fenceTriangleList[i].polygonPts[1].easting, bnd.bndList[a].fenceTriangleList[i].polygonPts[1].northing, 0);
+                                    GL.Vertex3(bnd.bndList[a].fenceTriangleList[i].polygonPts[2].easting, bnd.bndList[a].fenceTriangleList[i].polygonPts[2].northing, 0);
                                 }
                             }
                             GL.End();
@@ -416,7 +416,7 @@ namespace AgOpenGPS
 
                     #region Draw Boundaries - Headland and Fence
 
-                    if (bnd.bndList.Count > 0 || bnd.isBndBeingMade == true)
+                    if (bnd.bndList.Count > 0 || bnd.isFenceBeingMade == true)
                     {
                         //draw Boundaries
                         bnd.DrawBnds();
@@ -506,13 +506,13 @@ namespace AgOpenGPS
                             GL.PointSize(12);
                             GL.Begin(PrimitiveType.Points);
                             GL.Color3(0, 0, 0);
-                            GL.Vertex3(trk.goalPointTrk.easting, trk.goalPointTrk.northing, 0.0);
+                            GL.Vertex3(gyd.goalPointTrk.easting, gyd.goalPointTrk.northing, 0.0);
                             GL.End();
 
                             GL.PointSize(6);
                             GL.Begin(PrimitiveType.Points);
                             GL.Color3(0.98, 0.98, 0.098);
-                            GL.Vertex3(trk.goalPointTrk.easting, trk.goalPointTrk.northing, 0.0);
+                            GL.Vertex3(gyd.goalPointTrk.easting, gyd.goalPointTrk.northing, 0.0);
                             GL.End();
                         }
                     }
@@ -812,11 +812,11 @@ namespace AgOpenGPS
                     GL.Color3((byte)bbColors.fence, (byte)0, (byte)0);
 
                     GL.Begin(PrimitiveType.Triangles);
-                    for (int i = 0; i < bnd.bndList[0].bndTriangleList.Count; i++)
+                    for (int i = 0; i < bnd.bndList[0].fenceTriangleList.Count; i++)
                     {
-                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[0].northing, 0);
-                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[1].northing, 0);
-                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[2].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[0].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[0].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[1].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[1].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[2].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[2].northing, 0);
                     }
                     GL.End();
 
@@ -841,11 +841,11 @@ namespace AgOpenGPS
                     GL.Color3((byte)bbColors.headland, (byte)0, (byte)0);
 
                     GL.Begin(PrimitiveType.Triangles);
-                    for (int i = 0; i < bnd.bndList[0].bndTriangleList.Count; i++)
+                    for (int i = 0; i < bnd.bndList[0].fenceTriangleList.Count; i++)
                     {
-                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[0].northing, 0);
-                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[1].northing, 0);
-                        GL.Vertex3(bnd.bndList[0].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[0].bndTriangleList[i].polygonPts[2].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[0].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[0].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[1].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[1].northing, 0);
+                        GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[2].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[2].northing, 0);
                     }
                     GL.End();
                 }
@@ -857,11 +857,11 @@ namespace AgOpenGPS
                     GL.Begin(PrimitiveType.Triangles);
                     for (int a = 1; a < bnd.bndList.Count; a++)
                     {
-                        for (int i = 0; i < bnd.bndList[a].bndTriangleList.Count; i++)
+                        for (int i = 0; i < bnd.bndList[a].fenceTriangleList.Count; i++)
                         {
-                            GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[0].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[0].northing, 0);
-                            GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[1].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[1].northing, 0);
-                            GL.Vertex3(bnd.bndList[a].bndTriangleList[i].polygonPts[2].easting, bnd.bndList[a].bndTriangleList[i].polygonPts[2].northing, 0);
+                            GL.Vertex3(bnd.bndList[a].fenceTriangleList[i].polygonPts[0].easting, bnd.bndList[a].fenceTriangleList[i].polygonPts[0].northing, 0);
+                            GL.Vertex3(bnd.bndList[a].fenceTriangleList[i].polygonPts[1].easting, bnd.bndList[a].fenceTriangleList[i].polygonPts[1].northing, 0);
+                            GL.Vertex3(bnd.bndList[a].fenceTriangleList[i].polygonPts[2].easting, bnd.bndList[a].fenceTriangleList[i].polygonPts[2].northing, 0);
                         }
                     }
                     GL.End();
@@ -1161,7 +1161,8 @@ namespace AgOpenGPS
 
                         if (redPixels[onHeight] == (byte)bbColors.headland && grnPixels[onHeight] == 0)
                             onCount++;
-                        if (redPixels[offHeight] != (byte)bbColors.headland || grnPixels[offHeight] == (byte)bbColors.section)
+                        if (redPixels[offHeight] != (byte)bbColors.headland || 
+                            (grnPixels[offHeight] == (byte)bbColors.section || grnPixels[offHeight] == (byte)bbColors.tram))
                             offCount++;
                     }
 

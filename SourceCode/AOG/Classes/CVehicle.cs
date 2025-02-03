@@ -465,7 +465,7 @@ namespace AgOpenGPS
                 GL.End();
             }
 
-            if (mf.camera.camSetDistance > -75 && mf.isFirstHeadingSet)
+            if (mf.camera.camSetDistance > -275 && mf.isFirstHeadingSet)
             {
                 //draw the bright antenna dot
                 GL.PointSize(16);
@@ -481,7 +481,7 @@ namespace AgOpenGPS
                 GL.End();
             }
 
-            if (mf.bnd.isBndBeingMade)
+            if (mf.bnd.isFenceBeingMade)
             {
                 if (mf.bnd.isDrawRightSide)
                 {
@@ -491,8 +491,8 @@ namespace AgOpenGPS
                     {
                         GL.Vertex3(0.0, 0, 0);
                         GL.Color3(1.270, 1.220, 0.20);
-                        GL.Vertex3(mf.bnd.createBndOffset, 0, 0);
-                        GL.Vertex3(mf.bnd.createBndOffset * 0.75, 0.25, 0);
+                        GL.Vertex3(mf.bnd.createFenceOffset, 0, 0);
+                        GL.Vertex3(mf.bnd.createFenceOffset * 0.75, 0.25, 0);
                     }
                     GL.End();
                 }
@@ -506,8 +506,8 @@ namespace AgOpenGPS
                     {
                         GL.Vertex3(0.0, 0, 0);
                         GL.Color3(1.270, 1.220, 0.20);
-                        GL.Vertex3(-mf.bnd.createBndOffset, 0, 0);
-                        GL.Vertex3(-mf.bnd.createBndOffset * 0.75, 0.25, 0);
+                        GL.Vertex3(-mf.bnd.createFenceOffset, 0, 0);
+                        GL.Vertex3(-mf.bnd.createFenceOffset * 0.75, 0.25, 0);
                     }
                     GL.End();
                 }

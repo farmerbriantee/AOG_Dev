@@ -31,8 +31,6 @@ namespace AgOpenGPS
 
         // Status delegate
         public int missedSentenceCount = 0;
-        public int udpWatchLimit = 70;
-
         public bool isGPSTwoActive = true;
 
         private readonly Stopwatch udpWatch = new Stopwatch();
@@ -116,7 +114,7 @@ namespace AgOpenGPS
                 {
                     case 0xD6:
                         {
-                            if (udpWatch.ElapsedMilliseconds < udpWatchLimit)
+                            if (udpWatch.ElapsedMilliseconds < 15)
                             {
                                 missedSentenceCount++;
                                 return;
@@ -993,8 +991,8 @@ namespace AgOpenGPS
             {
                 if (timerSim.Enabled)
                 {
-                    if (timerSim.Interval < 20) timerSim.Interval = 93;
-                    else timerSim.Interval = 15;
+                    if (timerSim.Interval < 50) timerSim.Interval = 94;
+                    else timerSim.Interval = 45;
                 }
 
                 return true;    // indicate that you handled this keystroke

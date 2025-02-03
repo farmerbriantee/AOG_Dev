@@ -574,7 +574,6 @@ namespace AgOpenGPS
             //Tool GPS on
             isGPSTwoActive = Properties.Settings.Default.setGPS_isGPSTwoActive;
 
-            udpWatchLimit = Properties.Settings.Default.SetGPS_udpWatchMsec;
             pn.headingTrueDualOffset = Properties.Settings.Default.setGPS_dualHeadingOffset;
             dualReverseDetectionDistance = Properties.Settings.Default.setGPS_dualReverseDetectionDistance;
 
@@ -651,7 +650,7 @@ namespace AgOpenGPS
                 timerSim.Enabled = false;
             }
 
-            if (timerSim.Enabled) gpsHz = 10;
+            if (timerSim.Enabled) gpsHz = 20;
 
             //set the flag mark button to red dot
             btnFlag.Image = Properties.Resources.FlagRed;

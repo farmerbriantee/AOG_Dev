@@ -11,7 +11,7 @@ namespace AgOpenGPS
 
         //steer, pivot, and ref indexes
         private int sA, sB, C, pA, pB;
-        public int A, B, A2, B2;
+        public int A, B;
 
         //private int rA, rB;
 
@@ -44,7 +44,7 @@ namespace AgOpenGPS
         // Should we find the global nearest curve point (instead of local) on the next search.
         public bool findGlobalNearestTrackPoint = true;
 
-        public int currentLocationIndex, currentLocationIndex2;
+        public int currentLocationIndex;
         public double pivotDistanceErrorLast, pivotDerivative, pivotDerivativeSmoothed, lastTrackDistance = 10000;
 
         public CGuidance(FormGPS _f)
@@ -402,8 +402,6 @@ namespace AgOpenGPS
                 }
             }
 
-            currentLocationIndex = A;
-
             if (A > curList.Count - 1)
                 return;
 
@@ -434,6 +432,8 @@ namespace AgOpenGPS
             }
 
         SegmentFound:
+
+            currentLocationIndex = A;
 
             if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
             {
@@ -636,8 +636,6 @@ namespace AgOpenGPS
                     }
                 }
 
-                currentLocationIndex2 = A;
-
                 if (A > curList.Count - 1)
                     return;
 
@@ -670,13 +668,10 @@ namespace AgOpenGPS
             Segment2Found:
 
                 //get the distance from currently active AB line
-
                 dx = curList[B].easting - curList[A].easting;
                 dz = curList[B].northing - curList[A].northing;
 
                 if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dz) < Double.Epsilon) return;
-
-                //abHeading = Math.Atan2(dz, dx);
 
                 //how far from current AB Line is fix
                 distanceFromCurrentLineTool = ((dz * mf.pnTwo.fix.easting) - (dx * mf.pnTwo.fix.northing) + (curList[B].easting

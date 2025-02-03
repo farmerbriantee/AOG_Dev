@@ -56,6 +56,26 @@ namespace AgOpenGPS
             return -1; //is outside border turn
         }
 
+        public bool IsPointInsideFenceArea(vec3 testPoint)
+        {
+            //first where are we, must be inside outer and outside of inner geofence non drive thru turn borders
+            if (bndList[0].fenceLineEar.IsPointInPolygon(testPoint))
+            {
+                for (int i = 1; i < bndList.Count; i++)
+                {
+                    //make sure not inside a non drivethru boundary
+                    //if (buildList[i].isDriveThru) continue;
+                    if (bndList[i].fenceLineEar.IsPointInPolygon(testPoint))
+                    {
+                        return false;
+                    }
+                }
+                //we are safely inside outer, outside inner boundaries
+                return true;
+            }
+            return false;
+        }
+
         public void BuildTurnLines()
         {
             if (bndList.Count == 0)
@@ -159,26 +179,6 @@ namespace AgOpenGPS
                     }
                 }
             }
-        }
-
-        public bool IsPointInsideFenceArea(vec3 testPoint)
-        {
-            //first where are we, must be inside outer and outside of inner geofence non drive thru turn borders
-            if (bndList[0].fenceLineEar.IsPointInPolygon(testPoint))
-            {
-                for (int i = 1; i < bndList.Count; i++)
-                {
-                    //make sure not inside a non drivethru boundary
-                    //if (buildList[i].isDriveThru) continue;
-                    if (bndList[i].fenceLineEar.IsPointInPolygon(testPoint))
-                    {
-                        return false;
-                    }
-                }
-                //we are safely inside outer, outside inner boundaries
-                return true;
-            }
-            return false;
         }
 
         public void DrawBnds()

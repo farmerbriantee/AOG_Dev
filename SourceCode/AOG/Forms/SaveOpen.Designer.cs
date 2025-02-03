@@ -469,7 +469,7 @@ namespace AgOpenGPS
 
                                 //Triangulate the bundary polygon
                                 CPolygon bndPolygon = new CPolygon(New.fenceLineEar.ToArray());
-                                New.bndTriangleList = bndPolygon.Triangulate();
+                                New.fenceTriangleList = bndPolygon.Triangulate();
 
                                 bnd.bndList.Add(New);
                             }

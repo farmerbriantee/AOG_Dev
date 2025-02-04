@@ -936,7 +936,7 @@ namespace AgOpenGPS
 
         #region FindTurnPoint
 
-        public bool FindCurveOutTurnPoint(CTrack thisCurve, ref List<vec3> nextCurve, CClose inPt, bool isTurnLineSameWay)
+        public bool FindCurveOutTurnPoint(CTracks thisCurve, ref List<vec3> nextCurve, CClose inPt, bool isTurnLineSameWay)
         {
             int a = isTurnLineSameWay ? 1 : -1;
 
@@ -1066,7 +1066,7 @@ namespace AgOpenGPS
             return false;
         }
 
-        private bool FindCurveTurnPoint(CTrack thisCurve, bool noIdea)
+        private bool FindCurveTurnPoint(CTracks thisCurve, bool noIdea)
         {
             //AAA Is updated but not tested....
             //find closet AB Curve point that will cross and go out of bounds

@@ -2,6 +2,7 @@
 
 using AgOpenGPS.Culture;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -1273,29 +1274,33 @@ namespace AgOpenGPS
             //used to increase triangle countExit when going around corners, less on straight
             //pick the slow moving side edge of tool
             double distance = tool.width*0.75;
-            if (distance > 8) distance = 8;
+            if (distance > 5) distance = 5;
 
+            double twist = 0.2;
             //whichever is less
             if (tool.farLeftSpeed < tool.farRightSpeed)
             {
-                double twist = tool.farLeftSpeed * (tool.width / 50) / tool.farRightSpeed * (50/ tool.width);
-                twist *= twist;
-                if (twist < 0.2) twist = 0.2;
-                sectionTriggerStepDistance = distance * twist;
+                twist = tool.farLeftSpeed * (tool.width / 50) / tool.farRightSpeed * (50/ tool.width);
             }
             else
             {
-                double twist = tool.farRightSpeed * (tool.width / 50) / tool.farLeftSpeed * (50 / tool.width);
-                twist *= twist;
-                if (twist < 0.2) twist = 0.2;
-
-                sectionTriggerStepDistance = distance * twist;
+                twist = tool.farRightSpeed * (tool.width / 50) / tool.farLeftSpeed * (50 / tool.width);
             }
 
-            if (sectionTriggerStepDistance < 1) sectionTriggerStepDistance = 1;
+            twist *= twist;
+            if (twist < 0.15) twist = 0.15;
+            sectionTriggerStepDistance = distance * twist;
+
+            if (sectionTriggerStepDistance < 0.8) sectionTriggerStepDistance = 0.8;
 
             //finally fixed distance for making a curve line
             if (trk.isRecordingCurveTrack) sectionTriggerStepDistance *= 0.5;
+
+            if (triStrip.Count > 0)
+            {
+                if (triStrip[0].triangleList.Count < 4)
+                    sectionTriggerStepDistance = 0.5;
+            }
 
             //precalc the sin and cos of heading * -1
             sinSectionHeading = Math.Sin(-toolPivotPos.heading);

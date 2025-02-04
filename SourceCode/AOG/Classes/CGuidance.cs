@@ -309,14 +309,14 @@ namespace AgOpenGPS
 
             if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
             {
-                if (A > curList.Count - 50)
+                if (cc > curList.Count - 50)
                 {
                     mf.trk.AddEndPoints(ref curList, 100);
                     currentLocationIndex = cc;
                     isFindGlobalNearestTrackPoint = true;
                     return;
                 }
-                if (A < 50)
+                if (cc < 50)
                 {
                     mf.trk.AddStartPoints(ref curList, 100);
                     currentLocationIndex = cc;

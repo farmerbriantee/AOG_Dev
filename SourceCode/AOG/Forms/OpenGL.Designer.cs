@@ -376,7 +376,7 @@ namespace AgOpenGPS
                                 }
                                 patchCount = triStrip[j].patchList.Count - 1;
 
-                                if (patchCount > 0)
+                                if (triStrip[j].patchList[patchCount].Count > 0)
                                 {
                                     try
                                     {
@@ -402,7 +402,8 @@ namespace AgOpenGPS
                                         GL.End();
                                     }
                                     catch
-                                    { }
+                                    { 
+                                    }
                                 }
                             }
                         }

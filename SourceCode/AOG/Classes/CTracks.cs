@@ -35,7 +35,7 @@ namespace AgOpenGPS
         public List<vec3> smooList = new List<vec3>();
 
         //the list of points of curve to drive on
-        public List<vec3> curList = new List<vec3>();
+        public List<vec3> currentGuidanceTrack = new List<vec3>();
 
         //guidelines
         public List<List<vec3>> guideArr = new List<List<vec3>>();
@@ -77,7 +77,7 @@ namespace AgOpenGPS
             numGuideLines = Properties.Settings.Default.setAS_numGuideLines;
         }
 
-        public async void BuildTrackCurrentList(vec3 pivot)
+        public async void GetDistanceFromRefTrack(vec3 pivot)
         {
             double minDistA = 1000000, minDistB;
 
@@ -85,7 +85,7 @@ namespace AgOpenGPS
 
             CTrk track = gArr[idx];
 
-            if (!isTrackValid || ((mf.secondsSinceStart - lastSecond) > 1 && (!mf.isBtnAutoSteerOn || mf.mc.steerSwitchHigh)))
+            if (!isTrackValid || ((mf.secondsSinceStart - lastSecond) > 3 && (!mf.isBtnAutoSteerOn || mf.mc.steerSwitchHigh)))
             {
                 lastSecond = mf.secondsSinceStart;
                 mf.gyd.isFindGlobalNearestTrackPoint = true;
@@ -94,7 +94,7 @@ namespace AgOpenGPS
                     int refCount = track.curvePts.Count;
                     if (refCount < 2)
                     {
-                        curList?.Clear();
+                        currentGuidanceTrack?.Clear();
                         return;
                     }
 
@@ -185,132 +185,38 @@ namespace AgOpenGPS
             {
                 if (!isBusyWorking)
                 {
-                    //is boundary curve - use task
-                    isBusyWorking = true;
-                    isTrackValid = true;
-                    lastHowManyPathsAway = howManyPathsAway;
-                    lastIsHeadingSameWay = isHeadingSameWay;
-                    double distAway = widthMinusOverlap * howManyPathsAway + (isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) + track.nudgeDistance;
-
-                    distAway += (0.5 * widthMinusOverlap);
-
-                    curList = await Task.Run(() => BuildNewOffsetList(distAway, track));
-                    isBusyWorking = false;
-                    mf.gyd.isFindGlobalNearestTrackPoint = true;
-
-                    guideArr?.Clear();
-                    if (mf.isSideGuideLines && mf.camera.camSetDistance > mf.tool.width * -400)
+                    try
                     {
-                        //build the list list of guide lines
-                        guideArr = await Task.Run(() => BuildTrackGuidelines(distAway, mf.trk.numGuideLines, track));
+                        //is boundary curve - use task
+                        isBusyWorking = true;
+                        isTrackValid = true;
+                        lastHowManyPathsAway = howManyPathsAway;
+                        lastIsHeadingSameWay = isHeadingSameWay;
+                        double distAway = widthMinusOverlap * howManyPathsAway + (isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) + track.nudgeDistance;
+
+                        distAway += (0.5 * widthMinusOverlap);
+
+                        currentGuidanceTrack = await Task.Run(() => BuildCurrentGuidanceTrack(distAway, track));
+
+                        isBusyWorking = false;
+                        mf.gyd.isFindGlobalNearestTrackPoint = true;
+
+                        guideArr?.Clear();
+                        if (mf.isSideGuideLines && mf.camera.camSetDistance > mf.tool.width * -400)
+                        {
+                            //build the list list of guide lines
+                            guideArr = await Task.Run(() => BuildTrackGuidelines(distAway, mf.trk.numGuideLines, track));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.EventWriter("BuildGuidanceCatch: " + ex.ToString());
                     }
                 }
             }
         }
 
-        private List<List<vec3>> BuildTrackGuidelines(double distAway, int _passes, CTrk track)
-        {
-            // the listlist of all the guidelines
-            List<List<vec3>> newGuideLL = new List<List<vec3>>();
-
-            //the list of points of curve new list from async
-            List<vec3> newGuideList = new List<vec3>();
-
-            try
-            {
-                for (int numGuides = -_passes; numGuides <= _passes; numGuides++)
-                {
-                    if (numGuides == 0) continue;
-                    newGuideList = new List<vec3>
-                    {
-                        Capacity = 128
-                    };
-
-                    newGuideLL.Add(newGuideList);
-
-                    double nextGuideDist = (mf.tool.width - mf.tool.overlap) * numGuides +
-                        (isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) + track.nudgeDistance;
-
-                    //nextGuideDist += (0.5 * (mf.tool.width - mf.tool.overlap));
-
-                    nextGuideDist += distAway;
-
-                    vec3 point;
-
-                    double step = (mf.tool.width - mf.tool.overlap) * 0.48;
-                    if (step > 4) step = 4;
-                    if (step < 1) step = 1;
-
-                    double distSqAway = (nextGuideDist * nextGuideDist) - 0.01;
-
-                    int refCount = track.curvePts.Count;
-                    for (int i = 0; i < refCount; i++)
-                    {
-                        point = new vec3(
-                        track.curvePts[i].easting + (Math.Sin(glm.PIBy2 + track.curvePts[i].heading) * nextGuideDist),
-                        track.curvePts[i].northing + (Math.Cos(glm.PIBy2 + track.curvePts[i].heading) * nextGuideDist),
-                        track.curvePts[i].heading);
-                        bool Add = true;
-
-                        for (int t = 0; t < refCount; t++)
-                        {
-                            double dist = ((point.easting - track.curvePts[t].easting) * (point.easting - track.curvePts[t].easting))
-                                + ((point.northing - track.curvePts[t].northing) * (point.northing - track.curvePts[t].northing));
-                            if (dist < distSqAway)
-                            {
-                                Add = false;
-                                break;
-                            }
-                        }
-
-                        if (Add)
-                        {
-                            if (newGuideList.Count > 0)
-                            {
-                                double dist = ((point.easting - newGuideList[newGuideList.Count - 1].easting) * (point.easting - newGuideList[newGuideList.Count - 1].easting))
-                                    + ((point.northing - newGuideList[newGuideList.Count - 1].northing) * (point.northing - newGuideList[newGuideList.Count - 1].northing));
-                                if (dist > step)
-                                {
-                                    if (mf.bnd.bndList.Count > 0)
-                                    {
-                                        if (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(point))
-                                        {
-                                            newGuideList.Add(point);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        newGuideList.Add(point);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if (mf.bnd.bndList.Count > 0)
-                                {
-                                    if (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(point))
-                                    {
-                                        newGuideList.Add(point);
-                                    }
-                                }
-                                else
-                                {
-                                    newGuideList.Add(point);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Log.EventWriter("Exception Build new offset curve" + e.ToString());
-            }
-
-            return newGuideLL;
-        }
-
-        public List<vec3> BuildNewOffsetList(double distAway, CTrk track)
+        public List<vec3> BuildCurrentGuidanceTrack(double distAway, CTrk track)
         {
             //the list of points of curve new list from async
             List<vec3> newCurList = new List<vec3>();
@@ -552,7 +458,7 @@ namespace AgOpenGPS
             return newCurList;
         }
 
-        public void GetCurrentTrackLine(vec3 pivot, vec3 steer)
+        public void GetDistanceFromCurrentGuidanceLine(vec3 pivot, vec3 steer)
         {
             if (gArr[idx].curvePts == null || gArr[idx].curvePts.Count < 5)
             {
@@ -562,7 +468,7 @@ namespace AgOpenGPS
                 }
             }
 
-            if (curList.Count > 0)
+            if (currentGuidanceTrack.Count > 0)
             {
                 if (mf.yt.isYouTurnTriggered && mf.yt.DistanceFromYouTurnLine())//do the pure pursuit from youTurn
                 {
@@ -570,11 +476,11 @@ namespace AgOpenGPS
                 }
                 else if (mf.isStanleyUsed)//Stanley
                 {
-                    mf.gyd.StanleyGuidance(steer, ref curList);
+                    mf.gyd.StanleyGuidance(steer, ref currentGuidanceTrack);
                 }
                 else// Pure Pursuit ------------------------------------------
                 {
-                    mf.gyd.PurePursuitGuidance(pivot, ref curList);
+                    mf.gyd.PurePursuitGuidance(pivot, ref currentGuidanceTrack);
                 }
             }
             else
@@ -583,6 +489,108 @@ namespace AgOpenGPS
                 distanceFromCurrentLinePivot = 32000;
                 mf.guidanceLineDistanceOff = 32000;
             }
+        }
+
+        private List<List<vec3>> BuildTrackGuidelines(double distAway, int _passes, CTrk track)
+        {
+            // the listlist of all the guidelines
+            List<List<vec3>> newGuideLL = new List<List<vec3>>();
+
+            //the list of points of curve new list from async
+            List<vec3> newGuideList = new List<vec3>();
+
+            try
+            {
+                for (int numGuides = -_passes; numGuides <= _passes; numGuides++)
+                {
+                    if (numGuides == 0) continue;
+                    newGuideList = new List<vec3>
+                    {
+                        Capacity = 128
+                    };
+
+                    newGuideLL.Add(newGuideList);
+
+                    double nextGuideDist = (mf.tool.width - mf.tool.overlap) * numGuides +
+                        (isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) ;
+
+                    //nextGuideDist += (0.5 * (mf.tool.width - mf.tool.overlap));
+
+                    nextGuideDist += distAway;
+
+                    vec3 point;
+
+                    double step = (mf.tool.width - mf.tool.overlap) * 0.48;
+                    if (step > 4) step = 4;
+                    if (step < 1) step = 1;
+
+                    double distSqAway = (nextGuideDist * nextGuideDist) - 0.01;
+
+                    int refCount = track.curvePts.Count;
+                    for (int i = 0; i < refCount; i++)
+                    {
+                        point = new vec3(
+                        track.curvePts[i].easting + (Math.Sin(glm.PIBy2 + track.curvePts[i].heading) * nextGuideDist),
+                        track.curvePts[i].northing + (Math.Cos(glm.PIBy2 + track.curvePts[i].heading) * nextGuideDist),
+                        track.curvePts[i].heading);
+                        bool Add = true;
+
+                        for (int t = 0; t < refCount; t++)
+                        {
+                            double dist = ((point.easting - track.curvePts[t].easting) * (point.easting - track.curvePts[t].easting))
+                                + ((point.northing - track.curvePts[t].northing) * (point.northing - track.curvePts[t].northing));
+                            if (dist < distSqAway)
+                            {
+                                Add = false;
+                                break;
+                            }
+                        }
+
+                        if (Add)
+                        {
+                            if (newGuideList.Count > 0)
+                            {
+                                double dist = ((point.easting - newGuideList[newGuideList.Count - 1].easting) * (point.easting - newGuideList[newGuideList.Count - 1].easting))
+                                    + ((point.northing - newGuideList[newGuideList.Count - 1].northing) * (point.northing - newGuideList[newGuideList.Count - 1].northing));
+                                if (dist > step)
+                                {
+                                    if (mf.bnd.bndList.Count > 0)
+                                    {
+                                        if (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(point))
+                                        {
+                                            newGuideList.Add(point);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        newGuideList.Add(point);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (mf.bnd.bndList.Count > 0)
+                                {
+                                    if (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(point))
+                                    {
+                                        newGuideList.Add(point);
+                                    }
+                                }
+                                else
+                                {
+                                    newGuideList.Add(point);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.EventWriter("Exception Build new offset curve" + e.ToString());
+            }
+
+            return newGuideLL;
         }
 
         public void DrawNewTrack()
@@ -648,7 +656,7 @@ namespace AgOpenGPS
             }
 
             //Draw Tracks
-            if (curList.Count > 0 && !isSmoothWindowOpen) //normal. Smoothing window is not open.
+            if (currentGuidanceTrack.Count > 0 && !isSmoothWindowOpen) //normal. Smoothing window is not open.
             {
                 GL.LineWidth(lineWidth * 4);
                 GL.Color3(0, 0, 0);
@@ -671,7 +679,7 @@ namespace AgOpenGPS
                     GL.Begin(PrimitiveType.LineLoop);
                 }
 
-                for (int h = 0; h < curList.Count; h++) GL.Vertex3(curList[h].easting, curList[h].northing, 0);
+                for (int h = 0; h < currentGuidanceTrack.Count; h++) GL.Vertex3(currentGuidanceTrack[h].easting, currentGuidanceTrack[h].northing, 0);
                 GL.End();
 
                 GL.LineWidth(lineWidth);
@@ -695,7 +703,7 @@ namespace AgOpenGPS
                     GL.Begin(PrimitiveType.LineLoop);
                 }
 
-                for (int h = 0; h < curList.Count; h++) GL.Vertex3(curList[h].easting, curList[h].northing, 0);
+                for (int h = 0; h < currentGuidanceTrack.Count; h++) GL.Vertex3(currentGuidanceTrack[h].easting, currentGuidanceTrack[h].northing, 0);
                 GL.End();
 
                 mf.yt.DrawYouTurn();
@@ -716,14 +724,14 @@ namespace AgOpenGPS
                 //GL.PointSize(12.0f);
                 //GL.Begin(PrimitiveType.Points);
                 //GL.Color3(0.920f, 0.6f, 0.30f);
-                ////for (int h = 0; h < curList.Count; h++) GL.Vertex3(curList[h].easting, curList[h].northing, 0);
-                //GL.Vertex3(curList[mf.gyd.A].easting, curList[mf.gyd.A].northing, 0);
+                ////for (int h = 0; h < currentGuidanceTrack.Count; h++) GL.Vertex3(currentGuidanceTrack[h].easting, currentGuidanceTrack[h].northing, 0);
+                //GL.Vertex3(currentGuidanceTrack[mf.gyd.A].easting, currentGuidanceTrack[mf.gyd.A].northing, 0);
                 //GL.End();
 
                 //GL.Begin(PrimitiveType.Points);
                 //GL.Color3(0.20f, 0.4f, 0.930f);
-                ////for (int h = 0; h < curList.Count; h++) GL.Vertex3(curList[h].easting, curList[h].northing, 0);
-                //GL.Vertex3(curList[mf.gyd.B].easting, curList[mf.gyd.B].northing, 0);
+                ////for (int h = 0; h < currentGuidanceTrack.Count; h++) GL.Vertex3(currentGuidanceTrack[h].easting, currentGuidanceTrack[h].northing, 0);
+                //GL.Vertex3(currentGuidanceTrack[mf.gyd.B].easting, currentGuidanceTrack[mf.gyd.B].northing, 0);
                 //GL.End();
                 */
             }
@@ -1204,7 +1212,7 @@ namespace AgOpenGPS
 
         public void ResetTrack()
         {
-            curList?.Clear();
+            currentGuidanceTrack?.Clear();
             idx = -1;
         }
 

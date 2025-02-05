@@ -193,7 +193,7 @@ namespace AgOpenGPS
 
                         curveIndex += count;
 
-                        vec3 currentPos = new vec3(mf.trk.curList[curveIndex]);
+                        vec3 currentPos = new vec3(mf.trk.currentGuidanceTrack[curveIndex]);
 
                         if (!mf.trk.isHeadingSameWay) currentPos.heading += Math.PI;
                         if (currentPos.heading >= glm.twoPI) currentPos.heading -= glm.twoPI;
@@ -212,13 +212,13 @@ namespace AgOpenGPS
                         //neat trick to not have to add pi/2
                         if (isTurnLeft)
                         {
-                            goal.easting = mf.trk.curList[curveIndex - count].easting + (Math.Cos(-invertHead) * turnOffset);
-                            goal.northing = mf.trk.curList[curveIndex - count].northing + (Math.Sin(-invertHead) * turnOffset);
+                            goal.easting = mf.trk.currentGuidanceTrack[curveIndex - count].easting + (Math.Cos(-invertHead) * turnOffset);
+                            goal.northing = mf.trk.currentGuidanceTrack[curveIndex - count].northing + (Math.Sin(-invertHead) * turnOffset);
                         }
                         else
                         {
-                            goal.easting = mf.trk.curList[curveIndex - count].easting - (Math.Cos(-invertHead) * turnOffset);
-                            goal.northing = mf.trk.curList[curveIndex - count].northing - (Math.Sin(-invertHead) * turnOffset);
+                            goal.easting = mf.trk.currentGuidanceTrack[curveIndex - count].easting - (Math.Cos(-invertHead) * turnOffset);
+                            goal.northing = mf.trk.currentGuidanceTrack[curveIndex - count].northing - (Math.Sin(-invertHead) * turnOffset);
                         }
 
                         goal.heading = invertHead;
@@ -231,7 +231,7 @@ namespace AgOpenGPS
                             return false;
                         }
 
-                        if (stopIfWayOut == 300 || curveIndex < 1 || curveIndex > (mf.trk.curList.Count - 2))
+                        if (stopIfWayOut == 300 || curveIndex < 1 || curveIndex > (mf.trk.currentGuidanceTrack.Count - 2))
                         {
                             //for some reason it doesn't go inside boundary
                             FailCreate();
@@ -283,7 +283,7 @@ namespace AgOpenGPS
                     distAway += (0.5 * widthMinusOverlap);
 
                     //create the next line
-                    nextCurve = mf.trk.BuildNewOffsetList(distAway, track);
+                    nextCurve = mf.trk.BuildCurrentGuidanceTrack(distAway, track);
 
                     //get the index of the last yt point
                     double dis = double.MaxValue;
@@ -303,7 +303,7 @@ namespace AgOpenGPS
                         if (outClosestTurnPt.curveIndex >= 0)
                         {
                             outClosestTurnPt.closePt = new vec3(nextCurve[outClosestTurnPt.curveIndex]);
-                            inClosestTurnPt.closePt = new vec3(mf.trk.curList[inClosestTurnPt.curveIndex]);
+                            inClosestTurnPt.closePt = new vec3(mf.trk.currentGuidanceTrack[inClosestTurnPt.curveIndex]);
 
                             if (!AddCurveSequenceLines()) return false;
                         }
@@ -401,7 +401,7 @@ namespace AgOpenGPS
                         isOutOfBounds = false;
                         stopIfWayOut++;
 
-                        vec3 currentPos = new vec3(mf.trk.curList[inClosestTurnPt.curveIndex]);
+                        vec3 currentPos = new vec3(mf.trk.currentGuidanceTrack[inClosestTurnPt.curveIndex]);
 
                         head = currentPos.heading;
                         if (!mf.trk.isHeadingSameWay) head += Math.PI;
@@ -459,7 +459,7 @@ namespace AgOpenGPS
                             return true;
                         }
 
-                        if (stopIfWayOut == 300 || inClosestTurnPt.curveIndex < 1 || inClosestTurnPt.curveIndex > (mf.trk.curList.Count - 2))
+                        if (stopIfWayOut == 300 || inClosestTurnPt.curveIndex < 1 || inClosestTurnPt.curveIndex > (mf.trk.currentGuidanceTrack.Count - 2))
                         {
                             //for some reason it doesn't go inside boundary
                             FailCreate();
@@ -468,7 +468,7 @@ namespace AgOpenGPS
 
                         //keep moving infield till pattern is all inside
                         inClosestTurnPt.curveIndex = inClosestTurnPt.curveIndex + count;
-                        inClosestTurnPt.closePt = new vec3(mf.trk.curList[inClosestTurnPt.curveIndex]);
+                        inClosestTurnPt.closePt = new vec3(mf.trk.currentGuidanceTrack[inClosestTurnPt.curveIndex]);
 
                         //set the flag to Critical stop machine
                         if (glm.Distance(ytList[0], mf.pivotAxlePos) < 3)
@@ -489,7 +489,7 @@ namespace AgOpenGPS
                     distAway += (0.5 * widthMinusOverlap);
 
                     //create the next line
-                    nextCurve = mf.trk.BuildNewOffsetList(distAway, track);
+                    nextCurve = mf.trk.BuildCurrentGuidanceTrack(distAway, track);
 
                     //going with or against boundary?
                     bool isTurnLineSameWay = true;
@@ -775,12 +775,12 @@ namespace AgOpenGPS
 
                 //creates half a circle starting at the crossing point
                 ytList.Clear();
-                if (curveIndex >= mf.trk.curList.Count || curveIndex < 0)
+                if (curveIndex >= mf.trk.currentGuidanceTrack.Count || curveIndex < 0)
                 {
                     FailCreate();
                     return false;
                 }
-                vec3 currentPos = new vec3(mf.trk.curList[curveIndex]);
+                vec3 currentPos = new vec3(mf.trk.currentGuidanceTrack[curveIndex]);
 
                 curveIndex += count;
 
@@ -887,7 +887,7 @@ namespace AgOpenGPS
             //leading in line of turn
             for (int i = 0; i < 4; i++)
             {
-                ytList.Insert(0, new vec3(mf.trk.curList[curveIndex + i * count]));
+                ytList.Insert(0, new vec3(mf.trk.currentGuidanceTrack[curveIndex + i * count]));
             }
 
             //fill in the gaps
@@ -978,7 +978,7 @@ namespace AgOpenGPS
                     }
                 }
 
-                for (int i = 0; i < thisCurve.curList.Count - 2; i++)
+                for (int i = 0; i < thisCurve.currentGuidanceTrack.Count - 2; i++)
                 {
                     int res = GetLineIntersection(
                                     mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex].easting,
@@ -986,10 +986,10 @@ namespace AgOpenGPS
                                     mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex + 1].easting,
                                     mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex + 1].northing,
 
-                                    thisCurve.curList[i].easting,
-                                    thisCurve.curList[i].northing,
-                                    thisCurve.curList[i + 1].easting,
-                                    thisCurve.curList[i + 1].northing,
+                                    thisCurve.currentGuidanceTrack[i].easting,
+                                    thisCurve.currentGuidanceTrack[i].northing,
+                                    thisCurve.currentGuidanceTrack[i + 1].easting,
+                                    thisCurve.currentGuidanceTrack[i + 1].northing,
 
                                      ref iE, ref iN);
                     if (res == 1)
@@ -1007,13 +1007,13 @@ namespace AgOpenGPS
                             closestTurnPt = new CClose();
                             closestTurnPt.closePt.easting = iE;
                             closestTurnPt.closePt.northing = iN;
-                            closestTurnPt.closePt.heading = thisCurve.curList[i].heading; //ändrad nyss till this curve
+                            closestTurnPt.closePt.heading = thisCurve.currentGuidanceTrack[i].heading; //ändrad nyss till this curve
                             closestTurnPt.turnLineIndex = turnLineIndex;
                             closestTurnPt.curveIndex = i;
                             closestTurnPt.turnLineHeading = mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex].heading;
                             closestTurnPt.turnLineNum = turnLineNum;
                             isOutSameCurve = true;
-                            nextCurve = thisCurve.curList;//???? already created the line so why change it
+                            nextCurve = thisCurve.currentGuidanceTrack;//???? already created the line so why change it
                             return true;
                         }
                     }
@@ -1081,19 +1081,19 @@ namespace AgOpenGPS
 
             bool loop = track.mode == TrackMode.bndCurve || track.mode == TrackMode.waterPivot;
 
-            for (j = mf.gyd.currentLocationIndex; j > 0 && j < thisCurve.curList.Count; j += Count)
+            for (j = mf.gyd.currentLocationIndex; j > 0 && j < thisCurve.currentGuidanceTrack.Count; j += Count)
             {
                 if (j < 0)
                 {
                     if (loop)
                     {
                         loop = false;
-                        j = thisCurve.curList.Count;
+                        j = thisCurve.currentGuidanceTrack.Count;
                         continue;
                     }
                     break;
                 }
-                else if (j >= thisCurve.curList.Count)
+                else if (j >= thisCurve.currentGuidanceTrack.Count)
                 {
                     if (loop)
                     {
@@ -1104,7 +1104,7 @@ namespace AgOpenGPS
                     break;
                 }
 
-                int turnIndex = mf.bnd.IsPointInsideTurnArea(thisCurve.curList[j]);
+                int turnIndex = mf.bnd.IsPointInsideTurnArea(thisCurve.currentGuidanceTrack[j]);
                 if (turnIndex != 0)
                 {
                     closestTurnPt.curveIndex = j - Count;
@@ -1140,10 +1140,10 @@ namespace AgOpenGPS
                         mf.bnd.bndList[turnNum].turnLine[i + 1].easting,
                         mf.bnd.bndList[turnNum].turnLine[i + 1].northing,
 
-                        thisCurve.curList[closestTurnPt.curveIndex].easting,
-                        thisCurve.curList[closestTurnPt.curveIndex].northing,
-                        thisCurve.curList[closestTurnPt.curveIndex + Count].easting,
-                        thisCurve.curList[closestTurnPt.curveIndex + Count].northing,
+                        thisCurve.currentGuidanceTrack[closestTurnPt.curveIndex].easting,
+                        thisCurve.currentGuidanceTrack[closestTurnPt.curveIndex].northing,
+                        thisCurve.currentGuidanceTrack[closestTurnPt.curveIndex + Count].easting,
+                        thisCurve.currentGuidanceTrack[closestTurnPt.curveIndex + Count].northing,
 
                          ref iE, ref iN);
 
@@ -1161,7 +1161,7 @@ namespace AgOpenGPS
                     }
                     else
                     {
-                        closestTurnPt.closePt.heading = thisCurve.curList[closestTurnPt.curveIndex].heading;
+                        closestTurnPt.closePt.heading = thisCurve.currentGuidanceTrack[closestTurnPt.curveIndex].heading;
                         closestTurnPt.turnLineIndex = i;
                         closestTurnPt.turnLineNum = turnNum;
                         closestTurnPt.turnLineHeading = mf.bnd.bndList[turnNum].turnLine[i].heading;
@@ -1188,9 +1188,9 @@ namespace AgOpenGPS
 
             for (int i = 0; i < lenny && i > -lenny; i += a)
             {
-                ytList.Insert(0, new vec3(mf.trk.curList[inClosestTurnPt.curveIndex]));
+                ytList.Insert(0, new vec3(mf.trk.currentGuidanceTrack[inClosestTurnPt.curveIndex]));
                 inClosestTurnPt.curveIndex += a;
-                if (inClosestTurnPt.curveIndex < 2 || inClosestTurnPt.curveIndex > mf.trk.curList.Count - 3)
+                if (inClosestTurnPt.curveIndex < 2 || inClosestTurnPt.curveIndex > mf.trk.currentGuidanceTrack.Count - 3)
                 {
                     FailCreate();
                     return false;
@@ -1203,7 +1203,7 @@ namespace AgOpenGPS
             {
                 ytList.Add(new vec3(nextCurve[outClosestTurnPt.curveIndex]));
                 outClosestTurnPt.curveIndex += a;
-                if (outClosestTurnPt.curveIndex < 2 || outClosestTurnPt.curveIndex > mf.trk.curList.Count - 3)
+                if (outClosestTurnPt.curveIndex < 2 || outClosestTurnPt.curveIndex > mf.trk.currentGuidanceTrack.Count - 3)
                 {
                     FailCreate();
                     return false;
@@ -1811,9 +1811,9 @@ namespace AgOpenGPS
             //{
             //    GL.Begin(PrimitiveType.Points);
             //    GL.Color3(0.95f, 0.41f, 0.980f);
-            //    for (int i = 0; i < nextCurve.curList.Count; i++)
+            //    for (int i = 0; i < nextCurve.currentGuidanceTrack.Count; i++)
             //    {
-            //        GL.Vertex3(nextCurve.curList[i].easting, nextCurve.curList[i].northing, 0);
+            //        GL.Vertex3(nextCurve.currentGuidanceTrack[i].easting, nextCurve.currentGuidanceTrack[i].northing, 0);
             //    }
             //    GL.End();
             //}

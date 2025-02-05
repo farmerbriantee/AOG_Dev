@@ -1113,8 +1113,10 @@ namespace AgOpenGPS
 
         private void TheRest()
         {
+            CalculateTrailingAndTBTHitch();
+
             //positions and headings 
-            CalculatePositionHeading();
+            CalculateSectionTriggerStepDistance();
 
             //calculate lookahead at full speed, no sentence misses
             CalculateSectionLookAhead(toolPos.northing, toolPos.easting, cosSectionHeading, sinSectionHeading);
@@ -1164,10 +1166,8 @@ namespace AgOpenGPS
         }
 
         //all the hitch, pivot, section, trailing hitch, headings and fixes
-        private void CalculatePositionHeading()
+        private void CalculateTrailingAndTBTHitch()
         {
-            #region pivot hitch trail
-
             //translate from pivot position to steer axle and pivot axle position
             //translate world to the pivot axle
             pivotAxlePos.easting = pn.fix.easting - (Math.Sin(fixHeading) * vehicle.antennaPivot);
@@ -1268,13 +1268,14 @@ namespace AgOpenGPS
                 toolPos.easting = hitchPos.easting;
                 toolPos.northing = hitchPos.northing;
             }
+        }
 
-            #endregion
 
-            //used to increase triangle countExit when going around corners, less on straight
-            //pick the slow moving side edge of tool
+        //used to increase triangle countExit when going around corners, less on straight
+        private void CalculateSectionTriggerStepDistance()
+        {
             double distance = tool.width*0.75;
-            if (distance > 5) distance = 5;
+            if (distance > 6) distance = 6;
 
             double twist = 0.2;
             //whichever is less
@@ -1288,19 +1289,13 @@ namespace AgOpenGPS
             }
 
             twist *= twist;
-            if (twist < 0.15) twist = 0.15;
+            if (twist < 0.2) twist = 0.2;
             sectionTriggerStepDistance = distance * twist;
 
-            if (sectionTriggerStepDistance < 0.8) sectionTriggerStepDistance = 0.8;
+            if (sectionTriggerStepDistance < 1.5) sectionTriggerStepDistance = 1.5;
 
             //finally fixed distance for making a curve line
             if (trk.isRecordingCurveTrack) sectionTriggerStepDistance *= 0.5;
-
-            //if (triStrip.Count > 0)
-            //{
-            //    if (triStrip[0].triangleList.Count < 4)
-            //        sectionTriggerStepDistance = 0.5;
-            //}
 
             //precalc the sin and cos of heading * -1
             sinSectionHeading = Math.Sin(-toolPivotPos.heading);

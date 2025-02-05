@@ -2,6 +2,7 @@
 
 using AgOpenGPS.Culture;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -1030,8 +1031,9 @@ namespace AgOpenGPS
                         }
                         else if (yt.ytList.Count > 5)//wait to trigger the actual turn since its made and waiting
                         {
-                            //distance from current pivot to first point of youturn pattern
-                            distancePivotToTurnLine = glm.Distance(yt.ytList[2], pivotAxlePos);
+                            //distance from current pivot or steer to first point of youturn pattern
+                            if (isStanleyUsed) distancePivotToTurnLine = glm.Distance(yt.ytList[2], steerAxlePos);
+                            else distancePivotToTurnLine = glm.Distance(yt.ytList[2], pivotAxlePos);
 
                             if ((distancePivotToTurnLine <= 20.0) && (distancePivotToTurnLine >= 18.0) && !yt.isYouTurnTriggered)
 
@@ -1111,8 +1113,10 @@ namespace AgOpenGPS
 
         private void TheRest()
         {
+            CalculateTrailingAndTBTHitch();
+
             //positions and headings 
-            CalculatePositionHeading();
+            CalculateSectionTriggerStepDistance();
 
             //calculate lookahead at full speed, no sentence misses
             CalculateSectionLookAhead(toolPos.northing, toolPos.easting, cosSectionHeading, sinSectionHeading);
@@ -1162,10 +1166,8 @@ namespace AgOpenGPS
         }
 
         //all the hitch, pivot, section, trailing hitch, headings and fixes
-        private void CalculatePositionHeading()
+        private void CalculateTrailingAndTBTHitch()
         {
-            #region pivot hitch trail
-
             //translate from pivot position to steer axle and pivot axle position
             //translate world to the pivot axle
             pivotAxlePos.easting = pn.fix.easting - (Math.Sin(fixHeading) * vehicle.antennaPivot);
@@ -1266,32 +1268,31 @@ namespace AgOpenGPS
                 toolPos.easting = hitchPos.easting;
                 toolPos.northing = hitchPos.northing;
             }
+        }
 
-            #endregion
 
-            //used to increase triangle countExit when going around corners, less on straight
-            //pick the slow moving side edge of tool
+        //used to increase triangle countExit when going around corners, less on straight
+        private void CalculateSectionTriggerStepDistance()
+        {
             double distance = tool.width*0.75;
-            if (distance > 8) distance = 8;
+            if (distance > 6) distance = 6;
 
+            double twist = 0.2;
             //whichever is less
             if (tool.farLeftSpeed < tool.farRightSpeed)
             {
-                double twist = tool.farLeftSpeed * (tool.width / 50) / tool.farRightSpeed * (50/ tool.width);
-                twist *= twist;
-                if (twist < 0.2) twist = 0.2;
-                sectionTriggerStepDistance = distance * twist;
+                twist = tool.farLeftSpeed * (tool.width / 50) / tool.farRightSpeed * (50/ tool.width);
             }
             else
             {
-                double twist = tool.farRightSpeed * (tool.width / 50) / tool.farLeftSpeed * (50 / tool.width);
-                twist *= twist;
-                if (twist < 0.2) twist = 0.2;
-
-                sectionTriggerStepDistance = distance * twist;
+                twist = tool.farRightSpeed * (tool.width / 50) / tool.farLeftSpeed * (50 / tool.width);
             }
 
-            if (sectionTriggerStepDistance < 1) sectionTriggerStepDistance = 1;
+            twist *= twist;
+            if (twist < 0.2) twist = 0.2;
+            sectionTriggerStepDistance = distance * twist;
+
+            if (sectionTriggerStepDistance < 1.5) sectionTriggerStepDistance = 1.5;
 
             //finally fixed distance for making a curve line
             if (trk.isRecordingCurveTrack) sectionTriggerStepDistance *= 0.5;

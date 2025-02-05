@@ -134,7 +134,7 @@ namespace AgOpenGPS
         public CSection[] section;
 
         /// <summary>
-        /// an array of patches to draw
+        /// a List of patches to draw
         /// </summary>
         //public CPatches[] triStrip;
         public List<CPatches> triStrip;
@@ -152,7 +152,7 @@ namespace AgOpenGPS
         /// <summary>
         /// Contour Mode Instance
         /// </summary>
-        public CTrack trk;
+        public CTracks trk;
 
         /// <summary>
         /// Auto Headland YouTurn
@@ -312,7 +312,7 @@ namespace AgOpenGPS
             ct = new CContour(this);
 
             //new track instance
-            trk = new CTrack(this);
+            trk = new CTracks(this);
 
             //new instance of contour mode
             hdl = new CHeadLine(this);

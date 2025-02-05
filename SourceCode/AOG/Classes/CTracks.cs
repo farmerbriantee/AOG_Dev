@@ -9,7 +9,7 @@ namespace AgOpenGPS
     public enum TrackMode
     { None = 0, AB = 2, Curve = 4, bndTrackOuter = 8, bndTrackInner = 16, bndCurve = 32, waterPivot = 64 };//, Heading, Circle, Spiral
 
-    public class CTrack
+    public class CTracks
     {
         //pointers to mainform controls
         private readonly FormGPS mf;
@@ -68,7 +68,7 @@ namespace AgOpenGPS
 
         public double inty;
 
-        public CTrack(FormGPS _f)
+        public CTracks(FormGPS _f)
         {
             //constructor
             mf = _f;

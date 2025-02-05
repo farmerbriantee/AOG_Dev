@@ -150,7 +150,7 @@
     <Compile Include="Classes\CAutoSteer.cs" />
     <Compile Include="Classes\CFont.cs" />
     <Compile Include="Classes\CSim.cs" />
-    <Compile Include="Classes\CTrack.cs" />
+    <Compile Include="Classes\CTracks.cs" />
     <Compile Include="Classes\CTram.cs" />
     <Compile Include="Classes\CYouTurn.cs" />
     <Compile Include="Classes\CFlag.cs" />

@@ -82,6 +82,7 @@ namespace AgOpenGPS
 
         //how far should the distance between points on the uTurn be
         private double pointSpacing;
+        public int onA;
 
         #endregion Fields
 
@@ -935,7 +936,7 @@ namespace AgOpenGPS
 
         #region FindTurnPoint
 
-        public bool FindCurveOutTurnPoint(CTrack thisCurve, ref List<vec3> nextCurve, CClose inPt, bool isTurnLineSameWay)
+        public bool FindCurveOutTurnPoint(CTracks thisCurve, ref List<vec3> nextCurve, CClose inPt, bool isTurnLineSameWay)
         {
             int a = isTurnLineSameWay ? 1 : -1;
 
@@ -1065,7 +1066,7 @@ namespace AgOpenGPS
             return false;
         }
 
-        private bool FindCurveTurnPoint(CTrack thisCurve, bool noIdea)
+        private bool FindCurveTurnPoint(CTracks thisCurve, bool noIdea)
         {
             //AAA Is updated but not tested....
             //find closet AB Curve point that will cross and go out of bounds
@@ -1181,7 +1182,7 @@ namespace AgOpenGPS
         private bool AddCurveSequenceLines()
         {
             //how many points striaght out
-            double lenny = 5;
+            double lenny = 8;
             bool sameWay = mf.trk.isHeadingSameWay;
             int a = sameWay ? -1 : 1;
 
@@ -1527,26 +1528,23 @@ namespace AgOpenGPS
             YouTurnTrigger();
         }
 
-        public int onA;
-
         //determine distance from youTurn guidance line
         public bool DistanceFromYouTurnLine()
         {
             //grab a copy from main - the steer position
-            double minDistA = 1000000, minDistB = 1000000;
-            int ptCount = ytList.Count;
+            double minDistA = double.MaxValue, minDistB = double.MaxValue;
 
-            if (ptCount > 0)
+            if (ytList.Count > 0)
             {
                 if (mf.isStanleyUsed)
                 {
-                    vec3 pivot = mf.steerAxlePos;
+                    vec3 steer = mf.steerAxlePos;
 
                     //find the closest 2 points to current fix
-                    for (int t = 0; t < ptCount; t++)
+                    for (int t = 0; t < ytList.Count; t++)
                     {
-                        double dist = ((pivot.easting - ytList[t].easting) * (pivot.easting - ytList[t].easting))
-                                        + ((pivot.northing - ytList[t].northing) * (pivot.northing - ytList[t].northing));
+                        double dist = ((steer.easting - ytList[t].easting) * (steer.easting - ytList[t].easting))
+                                        + ((steer.northing - ytList[t].northing) * (steer.northing - ytList[t].northing));
                         if (dist < minDistA)
                         {
                             minDistB = minDistA;
@@ -1561,38 +1559,24 @@ namespace AgOpenGPS
                         }
                     }
 
-                    if (minDistA > 16)
+                    if (minDistA > 30)
                     {
                         CompleteYouTurn();
                         return false;
                     }
 
                     //just need to make sure the points continue ascending or heading switches all over the place
-                    if (A > B)
-                    {
-                        (B, A) = (A, B);
-                    }
+                    if (A > B) (B, A) = (A, B);
 
-                    //minDistA = 100;
-                    //int closestPt = 0;
-                    //for (int i = 0; i < ptCount; i++)
-                    //{
-                    //    double distancePiv = glm.DistanceSquared(ytList[i], pivot);
-                    //    if (distancePiv < minDistA)
-                    //    {
-                    //        minDistA = distancePiv;
-                    //    }
-                    //}
+                    //feed backward to turn slower to keep steer on
+                    if (A < 0) A = 0; B = A + 1;
+                    if (A > 2) { A -= 3; B -= 3; }
 
-                    //feed backward to turn slower to keep pivot on
-                    if (A < 0)
-                    {
-                        A = 0;
-                    }
-                    B = A + 1;
+                    //the number in the cancel uturn button on display
+                    onA = A;
 
                     //return and reset if too far away or end of the line
-                    if (B >= ptCount - 1)
+                    if (B >= ytList.Count - 3)
                     {
                         CompleteYouTurn();
                         return false;
@@ -1612,13 +1596,13 @@ namespace AgOpenGPS
                     double abHeading = ytList[A].heading;
 
                     //how far from current AB Line is steer point 90 degrees from steer position
-                    distanceFromCurrentLine = ((dz * pivot.easting) - (dx * pivot.northing) + (ytList[B].easting
+                    distanceFromCurrentLine = ((dz * steer.easting) - (dx * steer.northing) + (ytList[B].easting
                                 * ytList[A].northing) - (ytList[B].northing * ytList[A].easting))
                                     / Math.Sqrt((dz * dz) + (dx * dx));
 
                     //Calc point on AB Line closest to current position and 90 degrees to segment heading
-                    double U = (((pivot.easting - ytList[A].easting) * dx)
-                                + ((pivot.northing - ytList[A].northing) * dz))
+                    double U = (((steer.easting - ytList[A].easting) * dx)
+                                + ((steer.northing - ytList[A].northing) * dz))
                                 / ((dx * dx) + (dz * dz));
 
                     //critical point used as start for the uturn path - critical
@@ -1626,7 +1610,7 @@ namespace AgOpenGPS
                     rNorthYT = ytList[A].northing + (U * dz);
 
                     //the first part of stanley is to extract heading error
-                    double abFixHeadingDelta = (pivot.heading - abHeading);
+                    double abFixHeadingDelta = (steer.heading - abHeading);
 
                     //Fix the circular error - get it from -Pi/2 to Pi/2
                     if (abFixHeadingDelta > Math.PI) abFixHeadingDelta -= Math.PI;
@@ -1657,7 +1641,7 @@ namespace AgOpenGPS
                     vec3 pivot = mf.pivotAxlePos;
 
                     //find the closest 2 points to current fix
-                    for (int t = 0; t < ptCount; t++)
+                    for (int t = 0; t < ytList.Count; t++)
                     {
                         double dist = ((pivot.easting - ytList[t].easting) * (pivot.easting - ytList[t].easting))
                                         + ((pivot.northing - ytList[t].northing) * (pivot.northing - ytList[t].northing));
@@ -1676,15 +1660,14 @@ namespace AgOpenGPS
                     }
 
                     //just need to make sure the points continue ascending or heading switches all over the place
-                    if (A > B)
-                    {
-                        (B, A) = (A, B);
-                    }
+                    if (A > B) (B, A) = (A, B);
 
+                    //the number in the cancel uturn button on display
                     onA = A;
+
                     double distancePiv = glm.Distance(ytList[A], pivot);
 
-                    if ((A > 0 && distancePiv > 2) || (B >= ptCount - 1))
+                    if ((A > 0 && distancePiv > 2) || (B >= ytList.Count - 1))
                     {
                         CompleteYouTurn();
                         return false;
@@ -1722,7 +1705,7 @@ namespace AgOpenGPS
                     vec3 start = new vec3(rEastYT, rNorthYT, 0);
                     double distSoFar = 0;
 
-                    for (int i = ReverseHeading ? B : A; i < ptCount && i >= 0; i += count)
+                    for (int i = ReverseHeading ? B : A; i < ytList.Count && i >= 0; i += count)
                     {
                         // used for calculating the length squared of next segment.
                         double tempDist = glm.Distance(start, ytList[i]);
@@ -1740,7 +1723,7 @@ namespace AgOpenGPS
 
                         start = ytList[i];
 
-                        if (i == ptCount - 1)//goalPointDistance is longer than remaining u-turn
+                        if (i == ytList.Count - 1)//goalPointDistance is longer than remaining u-turn
                         {
                             CompleteYouTurn();
                             return false;

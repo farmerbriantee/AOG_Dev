@@ -33,9 +33,6 @@ namespace AgOpenGPS
         //for adding steering angle based on side slope hill
         public double sideHillCompFactor;
 
-        //derivative counter
-        private int counter;
-
         //derivative counters
         private int counter2;
 

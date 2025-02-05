@@ -134,7 +134,7 @@ namespace AgOpenGPS
         public CSection[] section;
 
         /// <summary>
-        /// an array of patches to draw
+        /// a List of patches to draw
         /// </summary>
         //public CPatches[] triStrip;
         public List<CPatches> triStrip;

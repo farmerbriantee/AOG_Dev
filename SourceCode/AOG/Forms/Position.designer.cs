@@ -1296,11 +1296,11 @@ namespace AgOpenGPS
             //finally fixed distance for making a curve line
             if (trk.isRecordingCurveTrack) sectionTriggerStepDistance *= 0.5;
 
-            if (triStrip.Count > 0)
-            {
-                if (triStrip[0].triangleList.Count < 4)
-                    sectionTriggerStepDistance = 0.5;
-            }
+            //if (triStrip.Count > 0)
+            //{
+            //    if (triStrip[0].triangleList.Count < 4)
+            //        sectionTriggerStepDistance = 0.5;
+            //}
 
             //precalc the sin and cos of heading * -1
             sinSectionHeading = Math.Sin(-toolPivotPos.heading);

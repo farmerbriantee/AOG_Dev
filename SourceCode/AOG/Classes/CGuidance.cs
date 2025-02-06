@@ -33,9 +33,6 @@ namespace AgOpenGPS
         //for adding steering angle based on side slope hill
         public double sideHillCompFactor;
 
-        //derivative counter
-        private int counter;
-
         //derivative counters
         private int counter2;
 
@@ -73,7 +70,6 @@ namespace AgOpenGPS
             int cc = 0, dd;
             double dist, dx, dz;
             double minDistA = double.MaxValue;
-            bool isAddStart = false, isAddEnd = false;
 
             if (curList.Count > 3)
             {
@@ -276,10 +272,7 @@ namespace AgOpenGPS
         public void PurePursuitGuidance(vec3 pivot, ref List<vec3> curList)
         {
             double minDistA;
-            double minDistB;
             double dist, dx, dz;
-
-            bool isAddStart = false, isAddEnd = false;
 
             double goalPointDistance = mf.vehicle.UpdateGoalPointDistance();
             bool ReverseHeading = mf.isReverse ? !mf.trk.isHeadingSameWay : mf.trk.isHeadingSameWay;

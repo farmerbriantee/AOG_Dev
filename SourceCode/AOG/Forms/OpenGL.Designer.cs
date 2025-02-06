@@ -552,7 +552,7 @@ namespace AgOpenGPS
 
                     if ((isBtnAutoSteerOn || yt.isYouTurnBtnOn) && !ct.isContourBtnOn) DrawManUTurnBtn();
 
-                    //if (isCompassOn) DrawCompass();
+                    if (isCompassOn) DrawCompass();
                     DrawCompassText();
 
                     if (isSpeedoOn) DrawSpeedo();
@@ -1439,29 +1439,6 @@ namespace AgOpenGPS
                     }
                 }
                 lastNumber = number;
-            }
-
-            #endregion
-
-            #region PGNS
-
-            //send the byte out to section machines
-            BuildMachineByte();
-
-            //Nozzz
-            if (isNozzleApp)
-            {
-                nozz.BuildRatePGN();
-            }
-
-            //draw the section control window off screen buffer
-            if (isJobStarted)
-            {
-                p_239.pgn[p_239.geoStop] = mc.isOutOfBounds ? (byte)1 : (byte)0;
-
-                SendPgnToLoop(p_239.pgn);
-
-                SendPgnToLoop(p_229.pgn);
             }
 
             #endregion
@@ -2468,9 +2445,7 @@ namespace AgOpenGPS
         private void DrawCompass()
         {
             //Heading text
-            int center = oglMain.Width / 2 - 55;
-            font.DrawText(center - 8, 40, "^", 0.8);
-
+            int center = oglMain.Width / 2 - 120;
 
             GL.PushMatrix();
             GL.Enable(EnableCap.Texture2D);
@@ -2479,15 +2454,15 @@ namespace AgOpenGPS
             GL.Color4(0.952f, 0.870f, 0.73f, 0.8);
 
 
-            GL.Translate(center, 78, 0);
+            GL.Translate(center, 50, 0);
 
-            GL.Rotate(-camHeading, 0, 0, 1);
+            GL.Rotate(camHeading, 0, 0, 1);
             GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
             {
-                GL.TexCoord2(1, 0); GL.Vertex2(52, -52.0); // 
-                GL.TexCoord2(0, 0); GL.Vertex2(-52, -52); // 
-                GL.TexCoord2(1, 1); GL.Vertex2(52, 52); // 
-                GL.TexCoord2(0, 1); GL.Vertex2(-52, 52); //
+                GL.TexCoord2(1, 0); GL.Vertex2(42, -42.0); // 
+                GL.TexCoord2(0, 0); GL.Vertex2(-42, -42); // 
+                GL.TexCoord2(1, 1); GL.Vertex2(42, 42); // 
+                GL.TexCoord2(0, 1); GL.Vertex2(-42, 42); //
             }
             GL.End();
             GL.Disable(EnableCap.Texture2D);

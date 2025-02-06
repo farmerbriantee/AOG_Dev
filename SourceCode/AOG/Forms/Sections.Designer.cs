@@ -1080,6 +1080,7 @@ namespace AgOpenGPS
                 }
             }//if serial or udp port open
         }
+
         private void DoZones()
         {
             int Bit;

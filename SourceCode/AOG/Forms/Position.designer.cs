@@ -826,9 +826,9 @@ namespace AgOpenGPS
                 if (trk.gArr.Count > 0 && trk.idx > -1)
                 {
                     //build new current ref line if required
-                    trk.BuildTrackCurrentList(pivotAxlePos);
+                    trk.GetDistanceFromRefTrack(pivotAxlePos);
 
-                    trk.GetCurrentTrackLine(pivotAxlePos, steerAxlePos);
+                    trk.GetDistanceFromCurrentGuidanceLine(pivotAxlePos, steerAxlePos);
                 }
             }
 

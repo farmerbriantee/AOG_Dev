@@ -283,7 +283,7 @@ namespace AgOpenGPS
                     distAway += (0.5 * widthMinusOverlap);
 
                     //create the next line
-                    nextCurve = mf.trk.BuildNewOffsetList(distAway, track);
+                    nextCurve = mf.trk.BuildCurrentGuidanceTrack(distAway, track);
 
                     //get the index of the last yt point
                     double dis = double.MaxValue;
@@ -489,7 +489,7 @@ namespace AgOpenGPS
                     distAway += (0.5 * widthMinusOverlap);
 
                     //create the next line
-                    nextCurve = mf.trk.BuildNewOffsetList(distAway, track);
+                    nextCurve = mf.trk.BuildCurrentGuidanceTrack(distAway, track);
 
                     //going with or against boundary?
                     bool isTurnLineSameWay = true;

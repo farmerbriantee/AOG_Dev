@@ -305,7 +305,7 @@ namespace AgOpenGPS
                             outClosestTurnPt.closePt = new vec3(nextCurve[outClosestTurnPt.curveIndex]);
                             inClosestTurnPt.closePt = new vec3(mf.trk.currentGuidanceTrack[inClosestTurnPt.curveIndex]);
 
-                            if (!AddCurveSequenceLines()) return false;
+                            if (!AddCurveSequenceLines(3)) return false;
                         }
                     }
 
@@ -669,7 +669,7 @@ namespace AgOpenGPS
                         }
                     }
 
-                    if (!AddCurveSequenceLines()) return false;
+                    if (!AddCurveSequenceLines(5)) return false;
 
                     //fill in the gaps
                     double distance;
@@ -1179,10 +1179,9 @@ namespace AgOpenGPS
         #region SequenceLines
 
         //TODO: is for some reason making longer for omegaturn....
-        private bool AddCurveSequenceLines()
+        private bool AddCurveSequenceLines(double lenny)
         {
             //how many points striaght out
-            double lenny = 8;
             bool sameWay = mf.trk.isHeadingSameWay;
             int a = sameWay ? -1 : 1;
 

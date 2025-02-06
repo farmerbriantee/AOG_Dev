@@ -619,6 +619,43 @@ namespace AgOpenGPS
         {
             if (idx == -1) return;
 
+            if (guideArr.Count > 0)
+            {
+                GL.LineWidth(lineWidth * 3);
+                GL.Color3(0, 0, 0);
+
+                if (gArr[idx].mode != TrackMode.bndCurve)
+                    GL.Begin(PrimitiveType.LineStrip);
+                else
+                    GL.Begin(PrimitiveType.LineLoop);
+
+                for (int i = 0; i < guideArr.Count; i++)
+                {
+                    GL.Begin(PrimitiveType.LineStrip);
+                    for (int h = 0; h < guideArr[i].Count; h++)
+                        GL.Vertex3(guideArr[i][h].easting, guideArr[i][h].northing, 0);
+                    GL.End();
+                }
+                GL.End();
+
+                GL.LineWidth(lineWidth);
+                GL.Color4(0.2, 0.75, 0.2, 0.6);
+
+                if (gArr[idx].mode != TrackMode.bndCurve)
+                    GL.Begin(PrimitiveType.LineStrip);
+                else
+                    GL.Begin(PrimitiveType.LineLoop);
+
+                for (int i = 0; i < guideArr.Count; i++)
+                {
+                    GL.Begin(PrimitiveType.LineStrip);
+                    for (int h = 0; h < guideArr[i].Count; h++)
+                        GL.Vertex3(guideArr[i][h].easting, guideArr[i][h].northing, 0);
+                    GL.End();
+                }
+                GL.End();
+            }
+
             //draw reference line
             if (gArr[idx].mode != TrackMode.waterPivot)
             {
@@ -734,43 +771,6 @@ namespace AgOpenGPS
                 //GL.Vertex3(currentGuidanceTrack[mf.gyd.B].easting, currentGuidanceTrack[mf.gyd.B].northing, 0);
                 //GL.End();
                 */
-            }
-
-            if (guideArr.Count > 0)
-            {
-                GL.LineWidth(lineWidth * 3);
-                GL.Color3(0, 0, 0);
-
-                if (gArr[idx].mode != TrackMode.bndCurve)
-                    GL.Begin(PrimitiveType.LineStrip);
-                else
-                    GL.Begin(PrimitiveType.LineLoop);
-
-                for (int i = 0; i < guideArr.Count; i++)
-                {
-                    GL.Begin(PrimitiveType.LineStrip);
-                    for (int h = 0; h < guideArr[i].Count; h++)
-                        GL.Vertex3(guideArr[i][h].easting, guideArr[i][h].northing, 0);
-                    GL.End();
-                }
-                GL.End();
-
-                GL.LineWidth(lineWidth);
-                GL.Color4(0.2, 0.75, 0.2, 0.6);
-
-                if (gArr[idx].mode != TrackMode.bndCurve)
-                    GL.Begin(PrimitiveType.LineStrip);
-                else
-                    GL.Begin(PrimitiveType.LineLoop);
-
-                for (int i = 0; i < guideArr.Count; i++)
-                {
-                    GL.Begin(PrimitiveType.LineStrip);
-                    for (int h = 0; h < guideArr[i].Count; h++)
-                        GL.Vertex3(guideArr[i][h].easting, guideArr[i][h].northing, 0);
-                    GL.End();
-                }
-                GL.End();
             }
         }
 

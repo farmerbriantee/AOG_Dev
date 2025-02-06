@@ -1442,29 +1442,6 @@ namespace AgOpenGPS
             }
 
             #endregion
-
-            #region PGNS
-
-            //send the byte out to section machines
-            BuildMachineByte();
-
-            //Nozzz
-            if (isNozzleApp)
-            {
-                nozz.BuildRatePGN();
-            }
-
-            //draw the section control window off screen buffer
-            if (isJobStarted)
-            {
-                p_239.pgn[p_239.geoStop] = mc.isOutOfBounds ? (byte)1 : (byte)0;
-
-                SendPgnToLoop(p_239.pgn);
-
-                SendPgnToLoop(p_229.pgn);
-            }
-
-            #endregion
         }
 
         private void oglZoom_Load(object sender, EventArgs e)

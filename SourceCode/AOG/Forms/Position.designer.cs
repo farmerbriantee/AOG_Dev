@@ -844,6 +844,7 @@ namespace AgOpenGPS
 
                 //save distance for display
                 lightbarDistance = guidanceLineDistanceOff;
+                lightbarDistanceTool = guidanceLineDistanceOffTool;
 
                 if (!isBtnAutoSteerOn) //32020 means auto steer is off
                 {
@@ -898,28 +899,6 @@ namespace AgOpenGPS
                         minSteerSpeedTimer = 0;
                     }
                 }
-
-                //double tanSteerAngle = Math.Tan(glm.toRadians(((double)(guidanceLineSteerAngle)) * 0.01));
-                //double tanActSteerAngle = Math.Tan(glm.toRadians(mc.actualSteerAngleDegrees));
-
-                //setAngVel = 0.277777 * avgSpeed * tanSteerAngle / vehicle.wheelbase;
-                //actAngVel = glm.toDegrees(0.277777 * avgSpeed * tanActSteerAngle / vehicle.wheelbase);
-
-
-                //isMaxAngularVelocity = false;
-                ////greater then settings rads/sec limit steer angle
-                //if (Math.Abs(setAngVel) > vehicle.maxAngularVelocity)
-                //{
-                //    setAngVel = vehicle.maxAngularVelocity;
-                //    tanSteerAngle = 3.6 * setAngVel * vehicle.wheelbase / avgSpeed;
-                //    if (guidanceLineSteerAngle < 0)
-                //        guidanceLineSteerAngle = (short)(glm.toDegrees(Math.Atan(tanSteerAngle)) * -100);
-                //    else
-                //        guidanceLineSteerAngle = (short)(glm.toDegrees(Math.Atan(tanSteerAngle)) * 100);
-                //    isMaxAngularVelocity = true;
-                //}
-
-                //setAngVel = glm.toDegrees(setAngVel);
 
                 if (isChangingDirection && ahrs.imuHeading == 99999)
                     p_254.pgn[p_254.status] = 0;
@@ -1174,8 +1153,8 @@ namespace AgOpenGPS
             pivotAxlePos.northing = pn.fix.northing - (Math.Cos(fixHeading) * vehicle.antennaPivot);
             pivotAxlePos.heading = fixHeading;
 
-            steerAxlePos.easting = pivotAxlePos.easting + (Math.Sin(fixHeading) * vehicle.wheelbase);
-            steerAxlePos.northing = pivotAxlePos.northing + (Math.Cos(fixHeading) * vehicle.wheelbase);
+            steerAxlePos.easting = pivotAxlePos.easting + (Math.Sin(fixHeading) * vehicle.wheelbase*0.5);
+            steerAxlePos.northing = pivotAxlePos.northing + (Math.Cos(fixHeading) * vehicle.wheelbase*0.5);
             steerAxlePos.heading = fixHeading;
 
             //guidance look ahead distance based on time or tool width at least 

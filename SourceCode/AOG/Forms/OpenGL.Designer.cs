@@ -41,7 +41,7 @@ namespace AgOpenGPS
         vec2 right = new vec2();
         vec2 ptTip = new vec2();
 
-        public double avgPivDistance, lightbarDistance, longAvgPivDistance;
+        public double avgPivDistance, avgPivDistanceTool, lightbarDistance, lightbarDistanceTool, longAvgPivDistance;
 
         Thread thread_oglBack;
         AutoResetEvent pauseOglBack = new AutoResetEvent(false);
@@ -608,7 +608,7 @@ namespace AgOpenGPS
                     if (mc.isOutOfBounds)
                     {
                         GL.Color3(1.0, 0.66, 0.33);
-                        GL.LineWidth(8);
+                        GL.LineWidth(16);
                     }
                     if ((isRTK_AlarmOn && sounds.isRTKAlarming) || (yt.isYouTurnBtnOn && yt.turnTooCloseTrigger))
                     {
@@ -2119,6 +2119,12 @@ namespace AgOpenGPS
                 if (avgPivotDistance > 999) avgPivotDistance = 999;
                 if (avgPivotDistance < -999) avgPivotDistance = -999;
 
+                //tool xte
+                avgPivDistanceTool =  avgPivDistanceTool * 0.5 + lightbarDistanceTool * 0.5;
+                double avgPivotDistanceTool = avgPivDistanceTool * (isMetric ? 0.1 : 0.03937);
+                if (avgPivotDistanceTool > 999) avgPivotDistanceTool = 999;
+                if (avgPivotDistanceTool < -999) avgPivotDistanceTool = -999;
+
 
                 string hede = ".0.";
 
@@ -2137,10 +2143,6 @@ namespace AgOpenGPS
 
                 GL.Enable(EnableCap.Texture2D);
                 GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.CrossTrackBkgrnd]);        // Select Our Texture
-
-                // Select Our Texture
-                GL.Enable(EnableCap.Texture2D);
-                GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.CrossTrackBkgrnd]);
 
                 double green = Math.Abs(avgPivDistance);
                 double red = green;
@@ -2186,6 +2188,11 @@ namespace AgOpenGPS
             }
         }
 
+        private void DrawToolXTEText()
+        {
+
+        }
+
         private void DrawSteerBarText()
         {
 
@@ -2212,6 +2219,7 @@ namespace AgOpenGPS
                 // in millimeters
                 double avgPivotDistance = avgPivDistance * (isMetric ? 0.1 : 0.03937);
                 double err = (mc.actualSteerAngleDegrees - (double)(guidanceLineSteerAngle) * 0.01);
+
 
                 if (isBtnAutoSteerOn)
                 {
@@ -2315,7 +2323,6 @@ namespace AgOpenGPS
                 int wide = (int)((double)oglMain.Width / 18);
                 if (wide < 64) wide = 64;
 
-
                 // Select Our Texture
                 GL.Enable(EnableCap.Texture2D);
                 GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.CrossTrackBkgrnd]);
@@ -2343,6 +2350,67 @@ namespace AgOpenGPS
                 GL.Color4(0.12f, 0.12770f, 0.120f, 1);
 
                 font.DrawText(center, 2, hede, 1.0 + textSize);
+
+                if (isGPSTwoActive)
+                {
+                    //tool xte
+                    avgPivDistanceTool = avgPivDistanceTool * 0.5 + lightbarDistanceTool * 0.5;
+                    double avgPivotDistanceTool = avgPivDistanceTool * (isMetric ? 0.1 : 0.03937);
+                    if (avgPivotDistanceTool > 999) avgPivotDistanceTool = 999;
+                    if (avgPivotDistanceTool < -999) avgPivotDistanceTool = -999;
+
+                    hede = "> 0 <";
+
+                    if (Math.Abs(avgPivotDistanceTool) > 0.9999)
+                    {
+                        if (avgPivotDistanceTool < 0.0)
+                        {
+                            hede = (Math.Abs(avgPivotDistanceTool)).ToString("N0") + " >";
+                            center = -(int)(((double)(hede.Length) * 0.5) * (18 * (1.0 + textSize)) - 0);
+                        }
+                        else
+                        {
+                            hede = "< " + (Math.Abs(avgPivotDistanceTool)).ToString("N0");
+                            center = -(int)(((double)(hede.Length) * 0.5) * (18 * (1.0 + textSize)));
+                        }
+                    }
+                    else
+                    {
+                        center = (int)(-40 * (1 + textSize));
+                    }
+
+                    center += (int)(120 * (1.0 + textSize));
+
+                    // Select Our Texture
+                    GL.Enable(EnableCap.Texture2D);
+                    GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.CrossTrackBkgrnd]);
+
+                    green = Math.Abs(avgPivDistanceTool);
+                    red = green;
+                    if (green > 400) green = 400;
+                    green *= .001;
+                    green = (0.4 - green) + 0.58;
+
+                    if (red > 400) red = 400;
+                    red = 0.002 * red;
+
+                    GL.Color4(red, green, 0.3, 0.5);
+
+                    double moveOver = 120 * (1 + textSize);
+
+                    GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
+                    GL.TexCoord2(1, 1); GL.Vertex2(moveOver + wide, 3); // 
+                    GL.TexCoord2(0, 1); GL.Vertex2(moveOver + -wide, 3); // 
+                    GL.TexCoord2(1, 0); GL.Vertex2(moveOver + wide, 35 * (1 + textSize)); // 
+                    GL.TexCoord2(0, 0); GL.Vertex2(moveOver + -wide, 35 * (1 + textSize)); //
+                    GL.End();
+
+                    GL.Disable(EnableCap.Texture2D);
+
+                    GL.Color4(0.312f, 0.312770f, 0.3120f, 1);
+
+                    font.DrawText(center, 2, hede, 1.0 + textSize);
+                }
 
                 if (vehicle.isInDeadZone)
                 {

@@ -10,8 +10,8 @@ namespace AgOpenGPS
     {
         private readonly FormGPS mf = null;
 
-        private bool toSend = false, isSA = false;
-        private int counter = 0, secondCntr = 0, cntr;
+        private bool toSend = false, toolSend = false, toolSend2 = false, isSA = false;
+        private int counter = 0, secondCntr = 0, cntr, toolCounter = 0, toolCounter2 = 0;
         private vec3 startFix;
         private double diameter, steerAngleRight, dist;
         private int windowSizeState = 0;
@@ -126,8 +126,8 @@ namespace AgOpenGPS
             lblHeadingErrorGain.Text = mf.vehicle.stanleyHeadingErrorGain.ToString();
 
             mf.vehicle.stanleyIntegralGainAB = Properties.Settings.Default.stanleyIntegralGainAB;
-            hsbarIntegral.Value = (int)(Properties.Settings.Default.stanleyIntegralGainAB * 100);
-            lblIntegralPercent.Text = ((int)(mf.vehicle.stanleyIntegralGainAB * 100)).ToString();
+            hsbarIntegral_Tool.Value = (int)(Properties.Settings.Default.stanleyIntegralGainAB * 100);
+            lblIntegral_Tool.Text = ((int)(mf.vehicle.stanleyIntegralGainAB * 100)).ToString();
 
             mf.vehicle.purePursuitIntegralGain = Properties.Settings.Default.purePursuitIntegralGainAB;
             hsbarIntegralPurePursuit.Value = (int)(Properties.Settings.Default.purePursuitIntegralGainAB * 100);
@@ -364,6 +364,30 @@ namespace AgOpenGPS
             lblPWMDisplay.Text = mf.mc.pwmDisplay.ToString();
 
             counter++;
+
+            toolCounter++;
+            if (toolSend && toolCounter > 4)
+            {
+                toolCounter = 0;
+                toolSend = false;
+            }
+
+            toolCounter2++;
+            if (toolSend2 && toolCounter2 > 4)
+            {
+                mf.p_231.pgn[mf.p_231.maxSteerAngle] = unchecked((byte)hsbarMaxSteerAngle_Tool.Value);
+
+                if (cboxInvertSteer_Tool.Checked) mf.p_231.pgn[mf.p_231.invertSteer] = 1;
+                else mf.p_231.pgn[mf.p_231.invertSteer] = 0;
+
+                if (cboxInvertWAS_Tool.Checked) mf.p_231.pgn[mf.p_231.invertWAS] = 1;
+                else mf.p_231.pgn[mf.p_231.invertWAS] = 0;
+
+                mf.SendPgnToLoop(mf.p_231.pgn);
+
+                toolCounter2 = 0;
+                toolSend2 = false;
+            }
 
             if (toSend && counter > 4)
             {
@@ -737,13 +761,46 @@ namespace AgOpenGPS
         private void tabTool_Enter(object sender, EventArgs e)
         {
             cboxGPSTwo.Checked = mf.isGPSToolActive;
+
+            hsbarPGain_Tool.Value = Properties.Settings.Default.setToolSteer.gainP;
+            hsbarIntegral_Tool.Value = Properties.Settings.Default.setToolSteer.integral;
+            hsbarMinPWM_Tool.Value = Properties.Settings.Default.setToolSteer.minPWM;
+            hsbarHighPWM_Tool.Value = Properties.Settings.Default.setToolSteer.highPWM;
+            hsbarAckermann_Tool.Value = Properties.Settings.Default.setToolSteer.ackermann;
+            hsbarCPD_Tool.Value = Properties.Settings.Default.setToolSteer.countsPerDegree;
+            hsbarMaxSteerAngle_Tool.Value = Properties.Settings.Default.setToolSteer.maxSteerAngle;
+            hsbarZeroWAS_Tool.Value = Properties.Settings.Default.setToolSteer.wasOffset;
+
+            cboxInvertSteer_Tool.Checked = (Properties.Settings.Default.setToolSteer.isInvertSteer == 1);
+            cboxInvertWAS_Tool.Checked = (Properties.Settings.Default.setToolSteer.isInvertWAS == 1);
+
+            lblPGain_Tool.Text = hsbarPGain_Tool.Value.ToString();
+            lblIntegral_Tool.Text = hsbarIntegral_Tool.Value.ToString();
+            lblMinPWM_Tool.Text = hsbarMinPWM_Tool.Value.ToString();
+            lblHighPWM_Tool.Text = hsbarHighPWM_Tool.Value.ToString();
+            lblAckermann_Tool.Text = hsbarAckermann_Tool.Value.ToString();
+            lblZeroWAS_Tool.Text = (hsbarZeroWAS_Tool.Value / (double)(hsbarCPD_Tool.Value)).ToString("N2");
+            lblCPD_Tool.Text = hsbarCPD_Tool.Value.ToString();
+            lblMaxSteerAngle_Tool.Text = hsbarMaxSteerAngle_Tool.Value.ToString();
         }
 
         private void tabTool_Leave(object sender, EventArgs e)
         {
 
+            mf.p_232.pgn[mf.p_232.gainP] = Properties.Settings.Default.setToolSteer.gainP;
+            mf.p_232.pgn[mf.p_232.integral] = Properties.Settings.Default.setToolSteer.integral;
+            mf.p_232.pgn[mf.p_232.minPWM] = Properties.Settings.Default.setToolSteer.minPWM;
+            mf.p_232.pgn[mf.p_232.highPWM] = Properties.Settings.Default.setToolSteer.highPWM;
+            mf.p_232.pgn[mf.p_232.countsPerDegree] = Properties.Settings.Default.setToolSteer.countsPerDegree;
+            mf.p_232.pgn[mf.p_232.ackerman] = Properties.Settings.Default.setToolSteer.ackermann;
+         
+            mf.p_232.pgn[mf.p_232.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset >> 8));
+            mf.p_232.pgn[mf.p_232.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset));
+            mf.p_231.pgn[mf.p_231.maxSteerAngle] = Properties.Settings.Default.setToolSteer.maxSteerAngle;
+            
+            mf.p_231.pgn[mf.p_231.invertWAS] = Properties.Settings.Default.setToolSteer.isInvertWAS;
+            mf.p_231.pgn[mf.p_231.invertSteer] = Properties.Settings.Default.setToolSteer.isInvertSteer;
         }
-
         private void cboxGPSTwo_Click(object sender, EventArgs e)
         {
             mf.isGPSToolActive = cboxGPSTwo.Checked;
@@ -751,6 +808,88 @@ namespace AgOpenGPS
             Log.EventWriter("GPS Two set to: " + cboxGPSTwo.Checked.ToString());
             Settings.Default.setToolSteer.isGPSToolActive = mf.isGPSToolActive;
         }
+
+        private void cboxInvertWAS_Tool_Click(object sender, EventArgs e)
+        {
+            toolSend2 = true;
+            toolCounter2 = 0;
+        }
+
+        private void cboxInvertSteer_Tool_Click(object sender, EventArgs e)
+        {
+            toolSend2 = true;
+            toolCounter2 = 0;
+        }
+
+        private void hsbarMaxSteerAngle_Tool_Scroll(object sender, ScrollEventArgs e)
+        {
+            lblMaxSteerAngle_Tool.Text = e.NewValue.ToString();
+            toolSend2 = true;
+            toolCounter2 = 0;
+        }
+
+
+        private void btnZeroWAS_Tool_Click(object sender, EventArgs e)
+        {
+            hsbarZeroWAS_Tool.Value += (int)(hsbarCPD_Tool.Value * -mf.mc.actualToolSteerAngleDegrees);
+            lblZeroWAS_Tool.Text = (hsbarZeroWAS_Tool.Value / (double)(hsbarCPD_Tool.Value)).ToString("N2");
+            toolSend = true;
+            toolCounter = 0;
+        }
+
+        private void hsbarPGain_Tool_Scroll(object sender, ScrollEventArgs e)
+        {
+            lblPGain_Tool.Text = e.NewValue.ToString();
+            toolSend = true;
+            toolCounter = 0;
+        }
+
+        private void hsbarHighPWM_Tool_Scroll(object sender, ScrollEventArgs e)
+        {
+            lblHighPWM_Tool.Text = e.NewValue.ToString();
+            toolSend = true;
+            toolCounter = 0;
+        }
+
+        private void hsbarMinPWM_Tool_Scroll(object sender, ScrollEventArgs e)
+        {
+            lblMinPWM_Tool.Text = e.NewValue.ToString();
+            toolSend = true;
+            toolCounter = 0;
+        }
+
+        private void hsbarZeroWAS_Tool_Scroll(object sender, ScrollEventArgs e)
+        {
+            lblZeroWAS_Tool.Text = (e.NewValue / (double)(hsbarCPD_Tool.Value)).ToString("N2");
+            toolSend = true;
+            toolCounter = 0;
+        }
+
+        private void hsbarCPD_Tool_Scroll(object sender, ScrollEventArgs e)
+        {
+            lblCPD_Tool.Text = e.NewValue.ToString();
+
+            lblCPD_Tool.Text = hsbarCPD_Tool.Value.ToString();
+
+            lblZeroWAS_Tool.Text = (hsbarZeroWAS_Tool.Value / (double)(hsbarCPD_Tool.Value)).ToString("N2");
+            toSend = true;
+            counter = 0;
+        }
+
+        private void hsbarAckermann_Tool_Scroll(object sender, ScrollEventArgs e)
+        {
+            lblAckermann_Tool.Text = e.NewValue.ToString();
+            toolSend = true;
+            toolCounter = 0;
+        }
+
+        private void hsbarIntegral_Tool_Scroll(object sender, ScrollEventArgs e)
+        {
+            lblIntegral_Tool.Text = e.NewValue.ToString();
+            toolSend = true;
+            toolCounter = 0;
+        }
+
 
         #endregion Tab Tool Steer
 
@@ -880,8 +1019,8 @@ namespace AgOpenGPS
 
         private void hsbarIntegral_ValueChanged(object sender, EventArgs e)
         {
-            mf.vehicle.stanleyIntegralGainAB = hsbarIntegral.Value * 0.01;
-            lblIntegralPercent.Text = hsbarIntegral.Value.ToString();
+            mf.vehicle.stanleyIntegralGainAB = hsbarIntegral_Tool.Value * 0.01;
+            lblIntegral_Tool.Text = hsbarIntegral_Tool.Value.ToString();
         }
 
         #endregion

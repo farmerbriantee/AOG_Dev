@@ -96,7 +96,7 @@ namespace AgOpenGPS
                 //long enough line?
                 if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
                 {
-                    if (cc > curList.Count - 50)
+                    if (cc > curList.Count - 30)
                     {
                         mf.trk.AddEndPoints(ref curList, 100);
                         currentLocationIndex = cc;
@@ -114,7 +114,7 @@ namespace AgOpenGPS
                         minDistA = double.MaxValue;
                     }
 
-                    if (cc < 50)
+                    if (cc < 30)
                     {
                         mf.trk.AddStartPoints(ref curList, 100);
                         currentLocationIndex = cc;
@@ -325,7 +325,7 @@ namespace AgOpenGPS
 
             if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
             {
-                if (cc > curList.Count - 50)
+                if (cc > curList.Count - 30)
                 {
                     mf.trk.AddEndPoints(ref curList, 100);
                     currentLocationIndex = cc;
@@ -343,7 +343,7 @@ namespace AgOpenGPS
                     minDistA = double.MaxValue;
                 }
                 
-                if (cc < 50)
+                if (cc < 30)
                 {
                     mf.trk.AddStartPoints(ref curList, 100);
                     currentLocationIndex = cc;

@@ -22,7 +22,7 @@ namespace AgOpenGPS
         private EndPoint endPointLoopBack = new IPEndPoint(IPAddress.Loopback, 0);
 
         //second AgIO
-        private EndPoint epAgTwo = new IPEndPoint(IPAddress.Parse("127.255.255.255"), 27777);
+        private EndPoint epAgTool = new IPEndPoint(IPAddress.Parse("127.255.255.255"), 27777);
         private EndPoint endPointLoopBack2 = new IPEndPoint(IPAddress.Loopback, 0);
 
         // Data stream
@@ -54,7 +54,7 @@ namespace AgOpenGPS
                 Log.EventWriter("Catch -> Load UDP Loopback Error: " + ex.ToString());
             }
 
-            //AgTwo
+            //AgTool
             try
             {
                 // Initialise the socket
@@ -62,7 +62,7 @@ namespace AgOpenGPS
                 loopBackSocket2.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
                 loopBackSocket2.Bind(new IPEndPoint(IPAddress.Loopback, 25555));
                 loopBackSocket2.BeginReceiveFrom(loopBuffer2, 0, loopBuffer2.Length, SocketFlags.None,
-                    ref endPointLoopBack2, new AsyncCallback(ReceiveAppDataTwo), null);
+                    ref endPointLoopBack2, new AsyncCallback(ReceiveAppDataTool), null);
             }
             catch (Exception ex)
             {
@@ -435,7 +435,7 @@ namespace AgOpenGPS
         #endregion
 
         #region AgTwo Second GPS
-        public void SendPgnToLoopTwo(byte[] byteData)
+        public void SendPgnToLoopTool(byte[] byteData)
         {
             if (loopBackSocket2 != null && byteData.Length > 2)
             {
@@ -449,7 +449,7 @@ namespace AgOpenGPS
                     byteData[byteData.Length - 1] = (byte)crc;
 
                     loopBackSocket2.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None,
-                        epAgTwo, new AsyncCallback(SendAsyncLoopDataTwo), null);
+                        epAgTool, new AsyncCallback(SendAsyncLoopDataTool), null);
                 }
                 catch (Exception)
                 {
@@ -459,7 +459,7 @@ namespace AgOpenGPS
             }
         }
 
-        private void ReceiveFromAgTwo(byte[] data)
+        private void ReceiveFromAgTool(byte[] data)
         {
             if (data.Length > 4 && data[0] == 0x80 && data[1] == 0x81)
             {
@@ -494,87 +494,87 @@ namespace AgOpenGPS
                                 if (timerSim.Enabled)
                                     DisableSim();
 
-                                pnTwo.longitude = Lon;
-                                pnTwo.latitude = Lat;
+                                pnTool.longitude = Lon;
+                                pnTool.latitude = Lat;
 
-                                pnTwo.ConvertWGS84ToLocal(Lat, Lon, out pnTwo.fix.northing, out pnTwo.fix.easting);
+                                pnTool.ConvertWGS84ToLocal(Lat, Lon, out pnTool.fix.northing, out pnTool.fix.easting);
 
                                 //From dual antenna heading sentences
                                 float temp = BitConverter.ToSingle(data, 21);
                                 if (temp != float.MaxValue)
                                 {
-                                    pnTwo.headingTrueDual = temp + pnTwo.headingTrueDualOffset;
-                                    if (pnTwo.headingTrueDual < 0) pnTwo.headingTrueDual += 360;
+                                    pnTool.headingTrueDual = temp + pnTool.headingTrueDualOffset;
+                                    if (pnTool.headingTrueDual < 0) pnTool.headingTrueDual += 360;
                                 }
 
                                 //from single antenna sentences (VTG,RMC)
-                                pnTwo.headingTrue = BitConverter.ToSingle(data, 25);
+                                pnTool.headingTrue = BitConverter.ToSingle(data, 25);
 
                                 //always save the speed_KMH.
                                 temp = BitConverter.ToSingle(data, 29);
                                 if (temp != float.MaxValue)
                                 {
-                                    pnTwo.vtgSpeed = temp;
+                                    pnTool.vtgSpeed = temp;
                                 }
 
                                 //roll in degrees
                                 temp = BitConverter.ToSingle(data, 33);
                                 if (temp != float.MaxValue)
                                 {
-                                    if (ahrsTwo.isRollInvert) temp *= -1;
-                                    ahrsTwo.imuRoll = temp - ahrsTwo.rollZero;
+                                    if (ahrsTool.isRollInvert) temp *= -1;
+                                    ahrsTool.imuRoll = temp - ahrsTool.rollZero;
                                 }
                                 if (temp == float.MinValue)
-                                    ahrsTwo.imuRoll = 0;
+                                    ahrsTool.imuRoll = 0;
 
                                 //altitude in meters
                                 temp = BitConverter.ToSingle(data, 37);
                                 if (temp != float.MaxValue)
-                                    pnTwo.altitude = temp;
+                                    pnTool.altitude = temp;
 
                                 ushort sats = BitConverter.ToUInt16(data, 41);
                                 if (sats != ushort.MaxValue)
-                                    pnTwo.satellitesTracked = sats;
+                                    pnTool.satellitesTracked = sats;
 
                                 byte fix = data[43];
                                 if (fix != byte.MaxValue)
-                                    pnTwo.fixQuality = fix;
+                                    pnTool.fixQuality = fix;
 
                                 ushort hdop = BitConverter.ToUInt16(data, 44);
                                 if (hdop != ushort.MaxValue)
-                                    pnTwo.hdop = hdop * 0.01;
+                                    pnTool.hdop = hdop * 0.01;
 
                                 ushort age = BitConverter.ToUInt16(data, 46);
                                 if (age != ushort.MaxValue)
-                                    pnTwo.age = age * 0.01;
+                                    pnTool.age = age * 0.01;
 
                                 ushort imuHead = BitConverter.ToUInt16(data, 48);
                                 if (imuHead != ushort.MaxValue)
                                 {
-                                    ahrsTwo.imuHeading = imuHead;
-                                    ahrsTwo.imuHeading *= 0.1;
+                                    ahrsTool.imuHeading = imuHead;
+                                    ahrsTool.imuHeading *= 0.1;
                                 }
 
                                 short imuRol = BitConverter.ToInt16(data, 50);
                                 if (imuRol != short.MaxValue)
                                 {
                                     double rollK = imuRol;
-                                    if (ahrsTwo.isRollInvert) rollK *= -0.1;
+                                    if (ahrsTool.isRollInvert) rollK *= -0.1;
                                     else rollK *= 0.1;
-                                    rollK -= ahrsTwo.rollZero;
-                                    ahrsTwo.imuRoll = ahrsTwo.imuRoll * ahrsTwo.rollFilter + rollK * (1 - ahrsTwo.rollFilter);
+                                    rollK -= ahrsTool.rollZero;
+                                    ahrsTool.imuRoll = ahrsTool.imuRoll * ahrsTool.rollFilter + rollK * (1 - ahrsTool.rollFilter);
                                 }
 
                                 short imuPich = BitConverter.ToInt16(data, 52);
                                 if (imuPich != short.MaxValue)
                                 {
-                                    ahrsTwo.imuPitch = imuPich;
+                                    ahrsTool.imuPitch = imuPich;
                                 }
 
                                 short imuYaw = BitConverter.ToInt16(data, 54);
                                 if (imuYaw != short.MaxValue)
                                 {
-                                    ahrsTwo.imuYawRate = imuYaw;
+                                    ahrsTool.imuYawRate = imuYaw;
                                 }
 
                                 sentenceCounter = 0;
@@ -622,7 +622,7 @@ namespace AgOpenGPS
             }
         }
 
-        private void ReceiveAppDataTwo(IAsyncResult asyncResult)
+        private void ReceiveAppDataTool(IAsyncResult asyncResult)
         {
             try
             {
@@ -634,9 +634,9 @@ namespace AgOpenGPS
 
                 // Listen for more connections again...
                 loopBackSocket2.BeginReceiveFrom(loopBuffer2, 0, loopBuffer2.Length, SocketFlags.None,
-                    ref endPointLoopBack2, new AsyncCallback(ReceiveAppDataTwo), null);
+                    ref endPointLoopBack2, new AsyncCallback(ReceiveAppDataTool), null);
 
-                BeginInvoke((MethodInvoker)(() => ReceiveFromAgTwo(localMsg)));
+                BeginInvoke((MethodInvoker)(() => ReceiveFromAgTool(localMsg)));
             }
             catch (Exception)
             {
@@ -644,7 +644,7 @@ namespace AgOpenGPS
             }
         }
 
-        public void SendAsyncLoopDataTwo(IAsyncResult asyncResult)
+        public void SendAsyncLoopDataTool(IAsyncResult asyncResult)
         {
             try
             {

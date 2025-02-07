@@ -234,6 +234,88 @@ namespace AgOpenGPS
                 else if (steerHeadingError < -glm.PIBy2) steerHeadingError += Math.PI;
 
                 DoSteerAngleCalc();
+
+                //Tool GPS
+                if (mf.isGPSToolActive)
+                {
+                    minDistA = double.MaxValue;
+                    //close call hit
+                    cc = 0;
+
+                    for (int j = 0; j < curList.Count; j += 5)
+                    {
+                        dist = glm.DistanceSquared(mf.pnTool.fix, curList[j]);
+                        if (dist < minDistA)
+                        {
+                            minDistA = dist;
+                            cc = j;
+                        }
+                    }
+
+                    minDistA = double.MaxValue;
+
+                    dd = cc + 5; if (dd > curList.Count - 1) dd = curList.Count;
+                    cc -= 5; if (cc < 0) cc = 0;
+
+                    //find the closest 2 points to current close call
+                    for (int j = cc; j < dd; j++)
+                    {
+                        dist = glm.DistanceSquared(mf.pnTool.fix, curList[j]);
+                        if (dist < minDistA)
+                        {
+                            minDistA = dist;
+                            A = j;
+                        }
+                    }
+
+                    if (A > curList.Count - 1)
+                        return;
+
+                    //initial forward Test if gps2 InRange AB
+                    if (A == curList.Count - 1) B = 0;
+                    else B = A + 1;
+
+                    if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
+                         curList[B].easting, curList[B].northing, mf.pnTool.fix.easting, mf.pnTool.fix.northing))
+                        goto Segment2Found;
+
+                    //step back one
+                    if (A == 0)
+                    {
+                        A = curList.Count - 1;
+                        B = 0;
+                    }
+                    else
+                    {
+                        A--;
+                        B = A + 1;
+                    }
+
+                    if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
+                        curList[B].easting, curList[B].northing, mf.pnTool.fix.easting, mf.pnTool.fix.northing))
+                    {
+                        goto Segment2Found;
+                    }
+
+                Segment2Found:
+
+                    //get the distance from currently active AB line
+                    dx = curList[B].easting - curList[A].easting;
+                    dz = curList[B].northing - curList[A].northing;
+
+                    if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dz) < Double.Epsilon) return;
+
+                    //how far from current AB Line is fix
+                    distanceFromCurrentLineTool = ((dz * mf.pnTool.fix.easting) - (dx * mf.pnTool.fix.northing) + (curList[B].easting
+                                * curList[A].northing) - (curList[B].northing * curList[A].easting))
+                                    / Math.Sqrt((dz * dz) + (dx * dx));
+
+                    if (!mf.trk.isHeadingSameWay)
+                        distanceFromCurrentLineTool *= -1.0;
+
+                    mf.guidanceLineDistanceOffTool = (short)Math.Round(distanceFromCurrentLineTool * 1000.0, MidpointRounding.AwayFromZero);
+                }
+
             }
             else
             {
@@ -586,7 +668,7 @@ namespace AgOpenGPS
 
                 for (int j = 0; j < curList.Count; j += 5)
                 {
-                    dist = glm.DistanceSquared(mf.pnTwo.fix, curList[j]);
+                    dist = glm.DistanceSquared(mf.pnTool.fix, curList[j]);
                     if (dist < minDistA)
                     {
                         minDistA = dist;
@@ -602,7 +684,7 @@ namespace AgOpenGPS
                 //find the closest 2 points to current close call
                 for (int j = cc; j < dd; j++)
                 {
-                    dist = glm.DistanceSquared(mf.pnTwo.fix, curList[j]);
+                    dist = glm.DistanceSquared(mf.pnTool.fix, curList[j]);
                     if (dist < minDistA)
                     {
                         minDistA = dist;
@@ -618,7 +700,7 @@ namespace AgOpenGPS
                 else B = A + 1;
 
                 if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
-                     curList[B].easting, curList[B].northing, mf.pnTwo.fix.easting, mf.pnTwo.fix.northing))
+                     curList[B].easting, curList[B].northing, mf.pnTool.fix.easting, mf.pnTool.fix.northing))
                     goto Segment2Found;
 
                 //step back one
@@ -634,7 +716,7 @@ namespace AgOpenGPS
                 }
 
                 if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
-                    curList[B].easting, curList[B].northing, mf.pnTwo.fix.easting, mf.pnTwo.fix.northing))
+                    curList[B].easting, curList[B].northing, mf.pnTool.fix.easting, mf.pnTool.fix.northing))
                 {
                     goto Segment2Found;
                 }
@@ -648,7 +730,7 @@ namespace AgOpenGPS
                 if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dz) < Double.Epsilon) return;
 
                 //how far from current AB Line is fix
-                distanceFromCurrentLineTool = ((dz * mf.pnTwo.fix.easting) - (dx * mf.pnTwo.fix.northing) + (curList[B].easting
+                distanceFromCurrentLineTool = ((dz * mf.pnTool.fix.easting) - (dx * mf.pnTool.fix.northing) + (curList[B].easting
                             * curList[A].northing) - (curList[B].northing * curList[A].easting))
                                 / Math.Sqrt((dz * dz) + (dx * dx));
 

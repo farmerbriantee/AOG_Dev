@@ -760,7 +760,7 @@ namespace AgOpenGPS
 
         private void tabTool_Enter(object sender, EventArgs e)
         {
-            cboxGPSTwo.Checked = mf.isGPSToolActive;
+            cboxGPSTool.Checked = mf.isGPSToolActive;
 
             hsbarPGain_Tool.Value = Properties.Settings.Default.setToolSteer.gainP;
             hsbarIntegral_Tool.Value = Properties.Settings.Default.setToolSteer.integral;
@@ -816,11 +816,11 @@ namespace AgOpenGPS
             mf.p_231.pgn[mf.p_231.invertSteer] = Properties.Settings.Default.setToolSteer.isInvertSteer;
         }
 
-        private void cboxGPSTwo_Click(object sender, EventArgs e)
+        private void cboxGPSTool_Click(object sender, EventArgs e)
         {
-            mf.isGPSToolActive = cboxGPSTwo.Checked;
+            mf.isGPSToolActive = cboxGPSTool.Checked;
             mf.YesMessageBox("You must restart AgOpenGPS to make changes to the networking");
-            Log.EventWriter("GPS Two set to: " + cboxGPSTwo.Checked.ToString());
+            Log.EventWriter("GPS Tool set to: " + cboxGPSTool.Checked.ToString());
             Settings.Default.setToolSteer.isGPSToolActive = mf.isGPSToolActive;
         }
 

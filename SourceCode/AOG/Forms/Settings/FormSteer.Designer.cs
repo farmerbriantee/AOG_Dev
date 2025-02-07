@@ -250,7 +250,7 @@
             this.label83 = new System.Windows.Forms.Label();
             this.cboxInvertWAS_Tool = new System.Windows.Forms.CheckBox();
             this.cboxInvertSteer_Tool = new System.Windows.Forms.CheckBox();
-            this.cboxGPSTwo = new System.Windows.Forms.CheckBox();
+            this.cboxGPSTool = new System.Windows.Forms.CheckBox();
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.label35 = new System.Windows.Forms.Label();
             this.btnSteerWizard = new System.Windows.Forms.Button();
@@ -2958,7 +2958,7 @@
             this.tabTool.Controls.Add(this.label83);
             this.tabTool.Controls.Add(this.cboxInvertWAS_Tool);
             this.tabTool.Controls.Add(this.cboxInvertSteer_Tool);
-            this.tabTool.Controls.Add(this.cboxGPSTwo);
+            this.tabTool.Controls.Add(this.cboxGPSTool);
             this.tabTool.ImageIndex = 5;
             this.tabTool.Location = new System.Drawing.Point(4, 58);
             this.tabTool.Name = "tabTool";
@@ -3329,24 +3329,24 @@
             this.cboxInvertSteer_Tool.UseVisualStyleBackColor = false;
             this.cboxInvertSteer_Tool.Click += new System.EventHandler(this.cboxInvertSteer_Tool_Click);
             // 
-            // cboxGPSTwo
+            // cboxGPSTool
             // 
-            this.cboxGPSTwo.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxGPSTwo.BackColor = System.Drawing.Color.AliceBlue;
-            this.cboxGPSTwo.Checked = true;
-            this.cboxGPSTwo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cboxGPSTwo.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.cboxGPSTwo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxGPSTwo.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxGPSTwo.ForeColor = System.Drawing.Color.Black;
-            this.cboxGPSTwo.Location = new System.Drawing.Point(75, 16);
-            this.cboxGPSTwo.Name = "cboxGPSTwo";
-            this.cboxGPSTwo.Size = new System.Drawing.Size(170, 47);
-            this.cboxGPSTwo.TabIndex = 485;
-            this.cboxGPSTwo.Text = "Tool GPS";
-            this.cboxGPSTwo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cboxGPSTwo.UseVisualStyleBackColor = false;
-            this.cboxGPSTwo.Click += new System.EventHandler(this.cboxGPSTwo_Click);
+            this.cboxGPSTool.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cboxGPSTool.BackColor = System.Drawing.Color.AliceBlue;
+            this.cboxGPSTool.Checked = true;
+            this.cboxGPSTool.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cboxGPSTool.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
+            this.cboxGPSTool.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboxGPSTool.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxGPSTool.ForeColor = System.Drawing.Color.Black;
+            this.cboxGPSTool.Location = new System.Drawing.Point(75, 16);
+            this.cboxGPSTool.Name = "cboxGPSTool";
+            this.cboxGPSTool.Size = new System.Drawing.Size(170, 47);
+            this.cboxGPSTool.TabIndex = 485;
+            this.cboxGPSTool.Text = "Tool GPS";
+            this.cboxGPSTool.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cboxGPSTool.UseVisualStyleBackColor = false;
+            this.cboxGPSTool.Click += new System.EventHandler(this.cboxGPSTool_Click);
             // 
             // imageList2
             // 
@@ -3970,7 +3970,7 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ImageList imageList2;
         private System.Windows.Forms.TabPage tabTool;
-        private System.Windows.Forms.CheckBox cboxGPSTwo;
+        private System.Windows.Forms.CheckBox cboxGPSTool;
         private System.Windows.Forms.Label label84;
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.Label label86;

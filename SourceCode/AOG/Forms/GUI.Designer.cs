@@ -583,11 +583,12 @@ namespace AgOpenGPS
                 p_232.pgn[p_232.countsPerDegree] = Properties.Settings.Default.setToolSteer.countsPerDegree;
                 p_232.pgn[p_232.ackerman] = Properties.Settings.Default.setToolSteer.ackermann;
 
-                p_232.pgn[p_232.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffsetHi >> 8));
-                p_232.pgn[p_232.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffsetLo));
+                p_232.pgn[p_232.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset >> 8));
+                p_232.pgn[p_232.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset));
 
                 p_231.pgn[p_231.invertWAS] = Properties.Settings.Default.setToolSteer.isInvertWAS;
                 p_231.pgn[p_231.invertSteer] = Properties.Settings.Default.setToolSteer.isInvertSteer;
+                p_231.pgn[p_231.maxSteerAngle] = Properties.Settings.Default.setToolSteer.maxSteerAngle;
             }
 
             pn.headingTrueDualOffset = Properties.Settings.Default.setGPS_dualHeadingOffset;

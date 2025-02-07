@@ -85,8 +85,7 @@ namespace AgOpenGPS
         public byte highPWM         = 200;
         public byte countsPerDegree = 100;
 
-        public byte wasOffsetLo     = 0;
-        public byte wasOffsetHi     = 0;
+        public int wasOffset     = 0;
         public byte ackermann       = 100;
         public byte maxSteerAngle = 20;
 
@@ -103,8 +102,7 @@ namespace AgOpenGPS
             highPWM = _setting.highPWM;
             countsPerDegree = _setting.countsPerDegree;
 
-            wasOffsetLo = _setting.wasOffsetLo;
-            wasOffsetHi = _setting.wasOffsetHi;
+            wasOffset = _setting.wasOffset;
             ackermann = _setting.ackermann;
 
             isInvertWAS = _setting.isInvertWAS;

@@ -35,6 +35,9 @@
 
         public bool workSwitchHigh, oldWorkSwitchHigh, steerSwitchHigh, oldSteerSwitchHigh, oldSteerSwitchRemote;
 
+        public double actualToolSteerAngleDegrees = 0;
+
+
         //constructor
         public CModuleComm(FormGPS _f)
         {

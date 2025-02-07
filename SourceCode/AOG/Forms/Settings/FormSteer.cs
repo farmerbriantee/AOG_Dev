@@ -786,6 +786,20 @@ namespace AgOpenGPS
 
         private void tabTool_Leave(object sender, EventArgs e)
         {
+            Properties.Settings.Default.setToolSteer.gainP = (byte)hsbarPGain_Tool.Value;
+            Properties.Settings.Default.setToolSteer.integral = (byte)hsbarIntegral_Tool.Value;
+            Properties.Settings.Default.setToolSteer.minPWM = (byte)hsbarMinPWM_Tool.Value;
+            Properties.Settings.Default.setToolSteer.highPWM = (byte)hsbarHighPWM_Tool.Value;
+            Properties.Settings.Default.setToolSteer.countsPerDegree = (byte)hsbarCPD_Tool.Value;
+            Properties.Settings.Default.setToolSteer.ackermann = (byte)hsbarAckermann_Tool.Value;
+            Properties.Settings.Default.setToolSteer.wasOffset = hsbarZeroWAS_Tool.Value;
+            Properties.Settings.Default.setToolSteer.maxSteerAngle = (byte)hsbarMaxSteerAngle_Tool.Value;
+
+            if (cboxInvertSteer_Tool.Checked) Properties.Settings.Default.setToolSteer.isInvertWAS = 1;
+            else Properties.Settings.Default.setToolSteer.isInvertWAS = 0;
+
+            if (cboxInvertWAS_Tool.Checked) Properties.Settings.Default.setToolSteer.isInvertSteer = 1;
+            else Properties.Settings.Default.setToolSteer.isInvertSteer = 0;
 
             mf.p_232.pgn[mf.p_232.gainP] = Properties.Settings.Default.setToolSteer.gainP;
             mf.p_232.pgn[mf.p_232.integral] = Properties.Settings.Default.setToolSteer.integral;
@@ -793,14 +807,15 @@ namespace AgOpenGPS
             mf.p_232.pgn[mf.p_232.highPWM] = Properties.Settings.Default.setToolSteer.highPWM;
             mf.p_232.pgn[mf.p_232.countsPerDegree] = Properties.Settings.Default.setToolSteer.countsPerDegree;
             mf.p_232.pgn[mf.p_232.ackerman] = Properties.Settings.Default.setToolSteer.ackermann;
-         
+
             mf.p_232.pgn[mf.p_232.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset >> 8));
             mf.p_232.pgn[mf.p_232.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset));
             mf.p_231.pgn[mf.p_231.maxSteerAngle] = Properties.Settings.Default.setToolSteer.maxSteerAngle;
-            
+
             mf.p_231.pgn[mf.p_231.invertWAS] = Properties.Settings.Default.setToolSteer.isInvertWAS;
             mf.p_231.pgn[mf.p_231.invertSteer] = Properties.Settings.Default.setToolSteer.isInvertSteer;
         }
+
         private void cboxGPSTwo_Click(object sender, EventArgs e)
         {
             mf.isGPSToolActive = cboxGPSTwo.Checked;

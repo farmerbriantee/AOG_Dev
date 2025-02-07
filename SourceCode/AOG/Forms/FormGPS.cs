@@ -126,7 +126,7 @@ namespace AgOpenGPS
         /// <summary>
         /// The NMEA class that decodes it
         /// </summary>
-        public CNMEA pnTwo;
+        public CNMEA pnTool;
 
         /// <summary>
         /// an array of sections
@@ -202,7 +202,7 @@ namespace AgOpenGPS
         /// <summary>
         /// Heading, Roll, Pitch, GPS, Properties
         /// </summary>
-        public CAHRS ahrsTwo;
+        public CAHRS ahrsTool;
 
         /// <summary>
         /// Most of the displayed field data for GUI
@@ -307,7 +307,7 @@ namespace AgOpenGPS
             pn = new CNMEA(this);
 
             //our NMEA parser for GPS 2
-            pnTwo = new CNMEA(this);
+            pnTool = new CNMEA(this);
 
             //new instance of contour mode
             ct = new CContour(this);
@@ -334,7 +334,7 @@ namespace AgOpenGPS
             ahrs = new CAHRS();
 
             ////all the attitude, heading, roll, pitch reference system GPS2
-            ahrsTwo = new CAHRS();
+            ahrsTool = new CAHRS();
 
             //fieldData all in one place
             fd = new CFieldData(this);

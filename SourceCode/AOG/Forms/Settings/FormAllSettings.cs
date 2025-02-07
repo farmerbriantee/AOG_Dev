@@ -122,11 +122,11 @@ namespace AgOpenGPS
             //lblLatitude.Text = mf.Latitude;
             //lblLongitude.Text = mf.Longitude;
 
-            //lblEastingField2.Text = Math.Round(mf.pnTwo.fix.easting, 2).ToString();
-            //lblNorthingField2.Text = Math.Round(mf.pnTwo.fix.northing, 2).ToString();
+            //lblEastingField2.Text = Math.Round(mf.pnTool.fix.easting, 2).ToString();
+            //lblNorthingField2.Text = Math.Round(mf.pnTool.fix.northing, 2).ToString();
 
-            //lblLatitude2.Text = mf.pnTwo.latitude.ToString("N7");
-            //lblLongitude2.Text = mf.pnTwo.longitude.ToString("N7");
+            //lblLatitude2.Text = mf.pnTool.latitude.ToString("N7");
+            //lblLongitude2.Text = mf.pnTool.longitude.ToString("N7");
 
             //other sat and GPS info
             lblSatsTracked.Text = mf.SatsTracked;

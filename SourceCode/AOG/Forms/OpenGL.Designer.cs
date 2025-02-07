@@ -492,13 +492,13 @@ namespace AgOpenGPS
                             GL.PointSize(16);
                             GL.Begin(PrimitiveType.Points);
                             GL.Color3(0.0, 0.0, 0.0);
-                            GL.Vertex3(pnTwo.fix.easting, pnTwo.fix.northing, 0.0);
+                            GL.Vertex3(pnTool.fix.easting, pnTool.fix.northing, 0.0);
                             GL.End();
 
                             GL.PointSize(10);
                             GL.Begin(PrimitiveType.Points);
                             GL.Color3(0.20, 0.78, 0.98);
-                            GL.Vertex3(pnTwo.fix.easting, pnTwo.fix.northing, 0.0);
+                            GL.Vertex3(pnTool.fix.easting, pnTool.fix.northing, 0.0);
                             GL.End();
                         }
 

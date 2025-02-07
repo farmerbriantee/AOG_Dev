@@ -103,10 +103,10 @@ namespace AgOpenGPS
 
             if (mf.isGPSToolActive && mf.isGPSPositionInitialized)
             {
-                mf.pnTwo.fix.easting = mf.toolPivotPos.easting;
-                mf.pnTwo.fix.northing = mf.toolPivotPos.northing;
+                mf.pnTool.fix.easting = mf.toolPivotPos.easting;
+                mf.pnTool.fix.northing = mf.toolPivotPos.northing;
 
-                mf.pnTwo.ConvertLocalToWGS84(mf.pnTwo.fix.northing, mf.pnTwo.fix.easting, out mf.pnTwo.latitude, out mf.pnTwo.longitude);
+                mf.pnTool.ConvertLocalToWGS84(mf.pnTool.fix.northing, mf.pnTool.fix.easting, out mf.pnTool.latitude, out mf.pnTool.longitude);
             }
 
             mf.UpdateFixPosition();

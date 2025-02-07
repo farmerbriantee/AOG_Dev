@@ -504,13 +504,13 @@ namespace AgOpenGPS
 
                         if (trk.idx > -1)
                         {
-                            GL.PointSize(12);
+                            GL.PointSize(16);
                             GL.Begin(PrimitiveType.Points);
                             GL.Color3(0, 0, 0);
                             GL.Vertex3(gyd.goalPointTrk.easting, gyd.goalPointTrk.northing, 0.0);
                             GL.End();
 
-                            GL.PointSize(6);
+                            GL.PointSize(10);
                             GL.Begin(PrimitiveType.Points);
                             GL.Color3(0.98, 0.98, 0.098);
                             GL.Vertex3(gyd.goalPointTrk.easting, gyd.goalPointTrk.northing, 0.0);
@@ -2165,11 +2165,6 @@ namespace AgOpenGPS
             }
         }
 
-        private void DrawToolXTEText()
-        {
-
-        }
-
         private void DrawSteerBarText()
         {
 
@@ -2185,7 +2180,8 @@ namespace AgOpenGPS
                 //int down = (int)((double)oglMain.Height/38);
                 int down = 58 + (int)((double)(oglMain.Height - 600) / 17);
 
-                double textSize = (100 + (double)(oglMain.Height - 600)) * 0.0012;
+                double textSize = ((100 + (double)(oglMain.Height - 600)) * 0.0012) + 1;
+
                 int pointy = 24;
 
                 double alphaBar = 1.0;
@@ -2283,17 +2279,17 @@ namespace AgOpenGPS
                     if (avgPivotDistance < 0.0)
                     {
                         hede = (Math.Abs(avgPivotDistance)).ToString("N0") + " >";
-                        center = -(int)(((double)(hede.Length) * 0.5) * (18 * (1.0 + textSize)) - 0);
+                        center = -(int)(((double)(hede.Length) * 0.5) * (18 * (textSize)));
                     }
                     else
                     {
                         hede = "< " + (Math.Abs(avgPivotDistance)).ToString("N0");
-                        center = -(int)(((double)(hede.Length) * 0.5) * (18 * (1.0 + textSize)));
+                        center = -(int)(((double)(hede.Length) * 0.5) * (18 * (textSize)));
                     }
                 }
                 else
                 {
-                    center = (int)(-40 * (1 + textSize));
+                    center = (int)(-40 * (textSize));
                 }
 
 
@@ -2308,25 +2304,25 @@ namespace AgOpenGPS
                 double red = green;
                 if (green > 400) green = 400;
                 green *= .001;
-                green = (0.4 - green) + 0.58;
+                green = (0.7 - green) + 0.28;
 
                 if (red > 400) red = 400;
-                red = 0.002 * red;
+                red = 0.01 * red;
 
-                GL.Color4(red, green, 0.3, 1.0);
+                GL.Color4(red, green, 0.13, 1.0);
 
                 GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
                 GL.TexCoord2(1, 1); GL.Vertex2(wide, 3); // 
                 GL.TexCoord2(0, 1); GL.Vertex2(-wide, 3); // 
-                GL.TexCoord2(1, 0); GL.Vertex2(wide, 35 * (1 + textSize)); // 
-                GL.TexCoord2(0, 0); GL.Vertex2(-wide, 35 * (1 + textSize)); //
+                GL.TexCoord2(1, 0); GL.Vertex2(wide, 35 * (textSize)); // 
+                GL.TexCoord2(0, 0); GL.Vertex2(-wide, 35 * (textSize)); //
                 GL.End();
 
                 GL.Disable(EnableCap.Texture2D);
 
                 GL.Color4(0.12f, 0.12770f, 0.120f, 1);
 
-                font.DrawText(center, 2, hede, 1.0 + textSize);
+                font.DrawText(center, 2, hede, textSize);
 
                 if (isGPSToolActive)
                 {
@@ -2343,20 +2339,20 @@ namespace AgOpenGPS
                         if (avgPivotDistanceTool < 0.0)
                         {
                             hede = (Math.Abs(avgPivotDistanceTool)).ToString("N0") + " >";
-                            center = -(int)(((double)(hede.Length) * 0.5) * (18 * (1.0 + textSize)) - 0);
+                            center = -(int)(((double)(hede.Length) * 0.5) * (18 * (textSize)) - 0);
                         }
                         else
                         {
                             hede = "< " + (Math.Abs(avgPivotDistanceTool)).ToString("N0");
-                            center = -(int)(((double)(hede.Length) * 0.5) * (18 * (1.0 + textSize)));
+                            center = -(int)(((double)(hede.Length) * 0.5) * (18 * (textSize)));
                         }
                     }
                     else
                     {
-                        center = (int)(-40 * (1 + textSize));
+                        center = (int)(-40 * (textSize));
                     }
 
-                    center += (int)(120 * (1.0 + textSize));
+                    center += (int)(120 * (textSize));
 
                     // Select Our Texture
                     GL.Enable(EnableCap.Texture2D);
@@ -2366,27 +2362,27 @@ namespace AgOpenGPS
                     red = green;
                     if (green > 400) green = 400;
                     green *= .001;
-                    green = (0.4 - green) + 0.58;
+                    green = (0.7 - green) + 0.28;
 
                     if (red > 400) red = 400;
-                    red = 0.002 * red;
+                    red = 0.01 * red;
 
-                    GL.Color4(red, green, 0.3, 0.5);
+                    GL.Color4(red, green, 0.3, 1.0);
 
-                    double moveOver = 120 * (1 + textSize);
+                    double moveOver = 120 * (textSize);
 
                     GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
                     GL.TexCoord2(1, 1); GL.Vertex2(moveOver + wide, 3); // 
                     GL.TexCoord2(0, 1); GL.Vertex2(moveOver + -wide, 3); // 
-                    GL.TexCoord2(1, 0); GL.Vertex2(moveOver + wide, 35 * (1 + textSize)); // 
-                    GL.TexCoord2(0, 0); GL.Vertex2(moveOver + -wide, 35 * (1 + textSize)); //
+                    GL.TexCoord2(1, 0); GL.Vertex2(moveOver + wide, 35 * (textSize)); // 
+                    GL.TexCoord2(0, 0); GL.Vertex2(moveOver + -wide, 35 * (textSize)); //
                     GL.End();
 
                     GL.Disable(EnableCap.Texture2D);
 
-                    GL.Color4(0.312f, 0.312770f, 0.3120f, 1);
+                    GL.Color4(0.12f, 0.12770f, 0.120f, 1);
 
-                    font.DrawText(center, 2, hede, 1.0 + textSize);
+                    font.DrawText(center, 2, hede, textSize);
                 }
 
                 if (vehicle.isInDeadZone)
@@ -2394,8 +2390,8 @@ namespace AgOpenGPS
                     GL.Color4(0.512f, 0.9712770f, 0.5120f, 1);
                     GL.LineWidth(4);
                     GL.Begin(PrimitiveType.Lines);
-                    GL.Vertex2(-wide, 36 * (1 + textSize));
-                    GL.Vertex2(wide, 36 * (1 + textSize));
+                    GL.Vertex2(-wide, 36 * (textSize));
+                    GL.Vertex2(wide, 36 * (textSize));
                     GL.End();
                 }
             }

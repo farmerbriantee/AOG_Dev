@@ -736,15 +736,20 @@ namespace AgOpenGPS
 
         private void tabTool_Enter(object sender, EventArgs e)
         {
-            cboxGPSTwo.Checked = mf.isGPSTwoActive;
+            cboxGPSTwo.Checked = mf.isGPSToolActive;
+        }
+
+        private void tabTool_Leave(object sender, EventArgs e)
+        {
+
         }
 
         private void cboxGPSTwo_Click(object sender, EventArgs e)
         {
-            mf.isGPSTwoActive = cboxGPSTwo.Checked;
+            mf.isGPSToolActive = cboxGPSTwo.Checked;
             mf.YesMessageBox("You must restart AgOpenGPS to make changes to the networking");
             Log.EventWriter("GPS Two set to: " + cboxGPSTwo.Checked.ToString());
-            Settings.Default.setGPS_isGPSTwoActive = mf.isGPSTwoActive;
+            Settings.Default.setToolSteer.isGPSToolActive = mf.isGPSToolActive;
         }
 
         #endregion Tab Tool Steer

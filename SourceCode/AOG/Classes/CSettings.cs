@@ -71,6 +71,48 @@ namespace AgOpenGPS
         }
     }
 
+    public class CToolSteerSettings
+    {
+        public CToolSteerSettings()
+        { }
+
+        //public bool ;
+        public bool isGPSToolActive = true;
+
+        public byte gainP           = 50;
+        public byte integral        = 0;
+        public byte minPWM          = 30;
+        public byte highPWM         = 200;
+        public byte countsPerDegree = 100;
+
+        public byte wasOffsetLo     = 0;
+        public byte wasOffsetHi     = 0;
+        public byte ackermann       = 100;
+        public byte maxSteerAngle = 20;
+
+        public byte isInvertWAS = 0;
+        public byte isInvertSteer = 0;
+
+        public CToolSteerSettings(CToolSteerSettings _setting)
+        {
+            isGPSToolActive = _setting.isGPSToolActive;
+
+            gainP = _setting.gainP;
+            integral = _setting.integral;
+            minPWM = _setting.minPWM;
+            highPWM = _setting.highPWM;
+            countsPerDegree = _setting.countsPerDegree;
+
+            wasOffsetLo = _setting.wasOffsetLo;
+            wasOffsetHi = _setting.wasOffsetHi;
+            ackermann = _setting.ackermann;
+
+            isInvertWAS = _setting.isInvertWAS;
+            isInvertSteer = _setting.isInvertSteer;
+            maxSteerAngle = _setting.maxSteerAngle;
+        }
+    }
+
     public static class SettingsIO
     {
         /// <summary>

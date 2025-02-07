@@ -85,29 +85,51 @@ namespace AgOpenGPS
                         }
                     }
                     isFindGlobalNearestTrackPoint = false;
-                    minDistA = double.MaxValue;
                 }
                 else
                 {
                     cc = currentLocationIndex;
                 }
 
+                minDistA = double.MaxValue;
+
                 //long enough line?
                 if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
                 {
-                    if (cc > curList.Count - 50)
+                    if (cc > curList.Count - 30)
                     {
                         mf.trk.AddEndPoints(ref curList, 100);
                         currentLocationIndex = cc;
-                        isFindGlobalNearestTrackPoint = true;
-                        return;
+
+                        for (int j = 0; j < curList.Count; j += 5)
+                        {
+                            dist = glm.DistanceSquared(steer, curList[j]);
+                            if (dist < minDistA)
+                            {
+                                minDistA = dist;
+                                cc = j;
+                            }
+                        }
+                        isFindGlobalNearestTrackPoint = false;
+                        minDistA = double.MaxValue;
                     }
-                    if (cc < 50)
+
+                    if (cc < 30)
                     {
                         mf.trk.AddStartPoints(ref curList, 100);
                         currentLocationIndex = cc;
-                        isFindGlobalNearestTrackPoint = true;
-                        return;
+
+                        for (int j = 0; j < curList.Count; j += 5)
+                        {
+                            dist = glm.DistanceSquared(steer, curList[j]);
+                            if (dist < minDistA)
+                            {
+                                minDistA = dist;
+                                cc = j;
+                            }
+                        }
+                        isFindGlobalNearestTrackPoint = false;
+                        minDistA = double.MaxValue;
                     }
                 }
 
@@ -236,7 +258,7 @@ namespace AgOpenGPS
             xTrackSteerCorrection = (xTrackSteerCorrection * 0.5) + XTEc * (0.5);
 
             ////derivative of steer distance error
-            //distSteerError = (distSteerError * 0.95) + ((xTrackSteerCorrection * 60) * 0.05);
+            distSteerError = (distSteerError * 0.95) + ((xTrackSteerCorrection * 60) * 0.05);
             //if (counter++ > 5)
             //{
             //    derivativeDistError = distSteerError - lastDistSteerError;
@@ -293,28 +315,50 @@ namespace AgOpenGPS
                     }
                 }
                 isFindGlobalNearestTrackPoint = false;
-                minDistA = double.MaxValue;
             }
             else
             {
                 cc = currentLocationIndex;
             }
 
+            minDistA = double.MaxValue;
+
             if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
             {
-                if (cc > curList.Count - 50)
+                if (cc > curList.Count - 30)
                 {
                     mf.trk.AddEndPoints(ref curList, 100);
                     currentLocationIndex = cc;
-                    isFindGlobalNearestTrackPoint = true;
-                    return;
+
+                    for (int j = 0; j < curList.Count; j += 5)
+                    {
+                        dist = glm.DistanceSquared(pivot, curList[j]);
+                        if (dist < minDistA)
+                        {
+                            minDistA = dist;
+                            cc = j;
+                        }
+                    }
+                    isFindGlobalNearestTrackPoint = false;
+                    minDistA = double.MaxValue;
                 }
-                if (cc < 50)
+                
+                if (cc < 30)
                 {
                     mf.trk.AddStartPoints(ref curList, 100);
                     currentLocationIndex = cc;
-                    isFindGlobalNearestTrackPoint = true;
-                    return;
+
+                    for (int j = 0; j < curList.Count; j += 5)
+                    {
+                        dist = glm.DistanceSquared(pivot, curList[j]);
+                        if (dist < minDistA)
+                        {
+                            minDistA = dist;
+                            cc = j;
+                        }
+                    }
+                    isFindGlobalNearestTrackPoint = false;
+                    minDistA = double.MaxValue;
                 }
             }
 
@@ -534,7 +578,7 @@ namespace AgOpenGPS
             mf.guidanceLineSteerAngle = (short)(steerAngleTrk * 100);
 
             //Tool GPS
-            if (mf.isGPSTwoActive)
+            if (mf.isGPSToolActive)
             {
                 minDistA = double.MaxValue;
                 //close call hit
@@ -612,7 +656,6 @@ namespace AgOpenGPS
                     distanceFromCurrentLineTool *= -1.0;
 
                 mf.guidanceLineDistanceOffTool = (short)Math.Round(distanceFromCurrentLineTool * 1000.0, MidpointRounding.AwayFromZero);
-                mf.lblAlgo.Text = mf.guidanceLineDistanceOffTool.ToString();
             }
         }
 

@@ -65,7 +65,6 @@
             this.lblAcquirePP = new System.Windows.Forms.Label();
             this.lblPureIntegral = new System.Windows.Forms.Label();
             this.tabStan = new System.Windows.Forms.TabPage();
-            this.label74 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label72 = new System.Windows.Forms.Label();
             this.lblIntegralPercent = new System.Windows.Forms.Label();
@@ -239,6 +238,35 @@
             this.button2 = new System.Windows.Forms.Button();
             this.pboxSendSteer = new System.Windows.Forms.PictureBox();
             this.btnSendSteerConfigPGN = new System.Windows.Forms.Button();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label83 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.label84 = new System.Windows.Forms.Label();
+            this.label85 = new System.Windows.Forms.Label();
+            this.label86 = new System.Windows.Forms.Label();
+            this.label87 = new System.Windows.Forms.Label();
+            this.label88 = new System.Windows.Forms.Label();
+            this.label89 = new System.Windows.Forms.Label();
+            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
+            this.hScrollBar2 = new System.Windows.Forms.HScrollBar();
+            this.label90 = new System.Windows.Forms.Label();
+            this.label91 = new System.Windows.Forms.Label();
+            this.label92 = new System.Windows.Forms.Label();
+            this.hScrollBar3 = new System.Windows.Forms.HScrollBar();
+            this.label96 = new System.Windows.Forms.Label();
+            this.label97 = new System.Windows.Forms.Label();
+            this.label98 = new System.Windows.Forms.Label();
+            this.label99 = new System.Windows.Forms.Label();
+            this.hScrollBar4 = new System.Windows.Forms.HScrollBar();
+            this.hScrollBar5 = new System.Windows.Forms.HScrollBar();
+            this.label100 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.hScrollBar6 = new System.Windows.Forms.HScrollBar();
+            this.label101 = new System.Windows.Forms.Label();
+            this.label102 = new System.Windows.Forms.Label();
+            this.hScrollBar7 = new System.Windows.Forms.HScrollBar();
+            this.label103 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPP.SuspendLayout();
             this.tabStan.SuspendLayout();
@@ -730,12 +758,8 @@
             this.tabStan.BackColor = System.Drawing.Color.Gainsboro;
             this.tabStan.BackgroundImage = global::AgOpenGPS.Properties.Resources.Sf_Stanley;
             this.tabStan.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.tabStan.Controls.Add(this.label74);
             this.tabStan.Controls.Add(this.label73);
             this.tabStan.Controls.Add(this.label72);
-            this.tabStan.Controls.Add(this.lblIntegralPercent);
-            this.tabStan.Controls.Add(this.hsbarIntegral);
-            this.tabStan.Controls.Add(this.label27);
             this.tabStan.Controls.Add(this.label25);
             this.tabStan.Controls.Add(this.lblHeadingErrorGain);
             this.tabStan.Controls.Add(this.lblStanleyGain);
@@ -748,20 +772,6 @@
             this.tabStan.Name = "tabStan";
             this.tabStan.Size = new System.Drawing.Size(365, 342);
             this.tabStan.TabIndex = 15;
-            // 
-            // label74
-            // 
-            this.label74.AutoSize = true;
-            this.label74.BackColor = System.Drawing.Color.Transparent;
-            this.label74.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label74.ForeColor = System.Drawing.Color.Black;
-            this.label74.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label74.Location = new System.Drawing.Point(68, 293);
-            this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(14, 16);
-            this.label74.TabIndex = 549;
-            this.label74.Text = "0";
-            this.label74.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // label73
             // 
@@ -795,7 +805,7 @@
             // 
             this.lblIntegralPercent.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIntegralPercent.ForeColor = System.Drawing.Color.Black;
-            this.lblIntegralPercent.Location = new System.Drawing.Point(3, 259);
+            this.lblIntegralPercent.Location = new System.Drawing.Point(313, 407);
             this.lblIntegralPercent.Name = "lblIntegralPercent";
             this.lblIntegralPercent.Size = new System.Drawing.Size(60, 35);
             this.lblIntegralPercent.TabIndex = 352;
@@ -805,7 +815,7 @@
             // hsbarIntegral
             // 
             this.hsbarIntegral.LargeChange = 1;
-            this.hsbarIntegral.Location = new System.Drawing.Point(68, 261);
+            this.hsbarIntegral.Location = new System.Drawing.Point(380, 409);
             this.hsbarIntegral.Name = "hsbarIntegral";
             this.hsbarIntegral.Size = new System.Drawing.Size(202, 30);
             this.hsbarIntegral.TabIndex = 351;
@@ -814,11 +824,12 @@
             // 
             // label27
             // 
+            this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label27.ForeColor = System.Drawing.Color.Black;
-            this.label27.Location = new System.Drawing.Point(63, 232);
+            this.label27.Location = new System.Drawing.Point(454, 383);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(204, 30);
+            this.label27.Size = new System.Drawing.Size(63, 25);
             this.label27.TabIndex = 350;
             this.label27.Text = "Integral";
             this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3167,14 +3178,47 @@
             // 
             // tabTool
             // 
+            this.tabTool.BackColor = System.Drawing.Color.White;
+            this.tabTool.Controls.Add(this.lblIntegralPercent);
+            this.tabTool.Controls.Add(this.label96);
+            this.tabTool.Controls.Add(this.hsbarIntegral);
+            this.tabTool.Controls.Add(this.label27);
+            this.tabTool.Controls.Add(this.label97);
+            this.tabTool.Controls.Add(this.label98);
+            this.tabTool.Controls.Add(this.label99);
+            this.tabTool.Controls.Add(this.hScrollBar4);
+            this.tabTool.Controls.Add(this.hScrollBar5);
+            this.tabTool.Controls.Add(this.label100);
+            this.tabTool.Controls.Add(this.button1);
+            this.tabTool.Controls.Add(this.hScrollBar6);
+            this.tabTool.Controls.Add(this.label101);
+            this.tabTool.Controls.Add(this.label102);
+            this.tabTool.Controls.Add(this.hScrollBar7);
+            this.tabTool.Controls.Add(this.label103);
+            this.tabTool.Controls.Add(this.label84);
+            this.tabTool.Controls.Add(this.label85);
+            this.tabTool.Controls.Add(this.label86);
+            this.tabTool.Controls.Add(this.label87);
+            this.tabTool.Controls.Add(this.label88);
+            this.tabTool.Controls.Add(this.label89);
+            this.tabTool.Controls.Add(this.hScrollBar1);
+            this.tabTool.Controls.Add(this.hScrollBar2);
+            this.tabTool.Controls.Add(this.label90);
+            this.tabTool.Controls.Add(this.label91);
+            this.tabTool.Controls.Add(this.label92);
+            this.tabTool.Controls.Add(this.hScrollBar3);
+            this.tabTool.Controls.Add(this.label31);
+            this.tabTool.Controls.Add(this.label83);
+            this.tabTool.Controls.Add(this.checkBox1);
+            this.tabTool.Controls.Add(this.checkBox2);
             this.tabTool.Controls.Add(this.cboxGPSTwo);
             this.tabTool.ImageIndex = 5;
             this.tabTool.Location = new System.Drawing.Point(4, 58);
             this.tabTool.Name = "tabTool";
             this.tabTool.Size = new System.Drawing.Size(596, 463);
             this.tabTool.TabIndex = 5;
-            this.tabTool.UseVisualStyleBackColor = true;
             this.tabTool.Enter += new System.EventHandler(this.tabTool_Enter);
+            this.tabTool.Leave += new System.EventHandler(this.tabTool_Leave);
             // 
             // cboxGPSTwo
             // 
@@ -3186,9 +3230,9 @@
             this.cboxGPSTwo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxGPSTwo.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxGPSTwo.ForeColor = System.Drawing.Color.Black;
-            this.cboxGPSTwo.Location = new System.Drawing.Point(424, 43);
+            this.cboxGPSTwo.Location = new System.Drawing.Point(75, 16);
             this.cboxGPSTwo.Name = "cboxGPSTwo";
-            this.cboxGPSTwo.Size = new System.Drawing.Size(137, 52);
+            this.cboxGPSTwo.Size = new System.Drawing.Size(170, 47);
             this.cboxGPSTwo.TabIndex = 485;
             this.cboxGPSTwo.Text = "Tool GPS";
             this.cboxGPSTwo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3276,6 +3320,358 @@
             this.btnSendSteerConfigPGN.UseVisualStyleBackColor = false;
             this.btnSendSteerConfigPGN.Click += new System.EventHandler(this.btnSendSteerConfigPGN_Click);
             // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.ForeColor = System.Drawing.Color.Black;
+            this.label31.Location = new System.Drawing.Point(163, 356);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(83, 16);
+            this.label31.TabIndex = 519;
+            this.label31.Text = "Invert WAS";
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label83.ForeColor = System.Drawing.Color.Black;
+            this.label83.Location = new System.Drawing.Point(21, 357);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(113, 16);
+            this.label83.TabIndex = 518;
+            this.label83.Text = "Invert Motor Dir";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox1.BackColor = System.Drawing.Color.White;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.checkBox1.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBox1.Image = global::AgOpenGPS.Properties.Resources.ConSt_InvertWAS;
+            this.checkBox1.Location = new System.Drawing.Point(162, 376);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox1.Size = new System.Drawing.Size(109, 78);
+            this.checkBox1.TabIndex = 516;
+            this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBox1.UseVisualStyleBackColor = false;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox2.BackColor = System.Drawing.Color.White;
+            this.checkBox2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.checkBox2.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
+            this.checkBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.checkBox2.Image = global::AgOpenGPS.Properties.Resources.ConSt_InvertDirection;
+            this.checkBox2.Location = new System.Drawing.Point(19, 376);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBox2.Size = new System.Drawing.Size(109, 78);
+            this.checkBox2.TabIndex = 517;
+            this.checkBox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBox2.UseVisualStyleBackColor = false;
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.BackColor = System.Drawing.Color.Transparent;
+            this.label84.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label84.ForeColor = System.Drawing.Color.Black;
+            this.label84.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label84.Location = new System.Drawing.Point(65, 315);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(21, 16);
+            this.label84.TabIndex = 564;
+            this.label84.Text = "25";
+            this.label84.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.BackColor = System.Drawing.Color.Transparent;
+            this.label85.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label85.ForeColor = System.Drawing.Color.Black;
+            this.label85.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label85.Location = new System.Drawing.Point(65, 225);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(28, 16);
+            this.label85.TabIndex = 563;
+            this.label85.Text = "180";
+            this.label85.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.BackColor = System.Drawing.Color.Transparent;
+            this.label86.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label86.ForeColor = System.Drawing.Color.Black;
+            this.label86.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label86.Location = new System.Drawing.Point(65, 135);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(21, 16);
+            this.label86.TabIndex = 562;
+            this.label86.Text = "50";
+            this.label86.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label87.ForeColor = System.Drawing.Color.Black;
+            this.label87.Location = new System.Drawing.Point(105, 259);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(136, 19);
+            this.label87.TabIndex = 561;
+            this.label87.Text = "Minimum to Move";
+            this.label87.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label88.ForeColor = System.Drawing.Color.Black;
+            this.label88.Location = new System.Drawing.Point(109, 169);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(118, 19);
+            this.label88.TabIndex = 560;
+            this.label88.Text = "Maximum Limit";
+            this.label88.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label89.ForeColor = System.Drawing.Color.Black;
+            this.label89.Location = new System.Drawing.Point(104, 79);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(133, 19);
+            this.label89.TabIndex = 559;
+            this.label89.Text = "Proportional Gain";
+            this.label89.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // hScrollBar1
+            // 
+            this.hScrollBar1.LargeChange = 1;
+            this.hScrollBar1.Location = new System.Drawing.Point(65, 282);
+            this.hScrollBar1.Maximum = 200;
+            this.hScrollBar1.Name = "hScrollBar1";
+            this.hScrollBar1.Size = new System.Drawing.Size(202, 30);
+            this.hScrollBar1.TabIndex = 557;
+            this.hScrollBar1.Value = 10;
+            // 
+            // hScrollBar2
+            // 
+            this.hScrollBar2.LargeChange = 1;
+            this.hScrollBar2.Location = new System.Drawing.Point(65, 102);
+            this.hScrollBar2.Maximum = 200;
+            this.hScrollBar2.Minimum = 1;
+            this.hScrollBar2.Name = "hScrollBar2";
+            this.hScrollBar2.Size = new System.Drawing.Size(202, 30);
+            this.hScrollBar2.TabIndex = 553;
+            this.hScrollBar2.Value = 4;
+            // 
+            // label90
+            // 
+            this.label90.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label90.ForeColor = System.Drawing.Color.Black;
+            this.label90.Location = new System.Drawing.Point(5, 100);
+            this.label90.Name = "label90";
+            this.label90.Size = new System.Drawing.Size(61, 35);
+            this.label90.TabIndex = 554;
+            this.label90.Text = "888";
+            this.label90.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label91
+            // 
+            this.label91.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label91.ForeColor = System.Drawing.Color.Black;
+            this.label91.Location = new System.Drawing.Point(5, 189);
+            this.label91.Name = "label91";
+            this.label91.Size = new System.Drawing.Size(61, 35);
+            this.label91.TabIndex = 556;
+            this.label91.Text = "888";
+            this.label91.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label92
+            // 
+            this.label92.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label92.ForeColor = System.Drawing.Color.Black;
+            this.label92.Location = new System.Drawing.Point(5, 279);
+            this.label92.Name = "label92";
+            this.label92.Size = new System.Drawing.Size(61, 35);
+            this.label92.TabIndex = 558;
+            this.label92.Text = "888";
+            this.label92.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // hScrollBar3
+            // 
+            this.hScrollBar3.LargeChange = 2;
+            this.hScrollBar3.Location = new System.Drawing.Point(65, 192);
+            this.hScrollBar3.Maximum = 255;
+            this.hScrollBar3.Name = "hScrollBar3";
+            this.hScrollBar3.Size = new System.Drawing.Size(202, 30);
+            this.hScrollBar3.TabIndex = 555;
+            this.hScrollBar3.Value = 50;
+            // 
+            // label96
+            // 
+            this.label96.AutoSize = true;
+            this.label96.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label96.ForeColor = System.Drawing.Color.Black;
+            this.label96.Location = new System.Drawing.Point(423, 304);
+            this.label96.Name = "label96";
+            this.label96.Size = new System.Drawing.Size(124, 19);
+            this.label96.TabIndex = 577;
+            this.label96.Text = "Max Steer Angle";
+            this.label96.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label97
+            // 
+            this.label97.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label97.ForeColor = System.Drawing.Color.Black;
+            this.label97.Location = new System.Drawing.Point(321, 324);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(52, 35);
+            this.label97.TabIndex = 569;
+            this.label97.Text = "888";
+            this.label97.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label98
+            // 
+            this.label98.AutoSize = true;
+            this.label98.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label98.ForeColor = System.Drawing.Color.Black;
+            this.label98.Location = new System.Drawing.Point(441, 220);
+            this.label98.Name = "label98";
+            this.label98.Size = new System.Drawing.Size(89, 19);
+            this.label98.TabIndex = 576;
+            this.label98.Text = "Ackermann";
+            this.label98.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label99
+            // 
+            this.label99.AutoSize = true;
+            this.label99.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label99.ForeColor = System.Drawing.Color.Black;
+            this.label99.Location = new System.Drawing.Point(415, 137);
+            this.label99.Name = "label99";
+            this.label99.Size = new System.Drawing.Size(141, 19);
+            this.label99.TabIndex = 575;
+            this.label99.Text = "Counts per Degree";
+            this.label99.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // hScrollBar4
+            // 
+            this.hScrollBar4.LargeChange = 1;
+            this.hScrollBar4.Location = new System.Drawing.Point(380, 243);
+            this.hScrollBar4.Maximum = 200;
+            this.hScrollBar4.Minimum = 1;
+            this.hScrollBar4.Name = "hScrollBar4";
+            this.hScrollBar4.Size = new System.Drawing.Size(202, 30);
+            this.hScrollBar4.TabIndex = 573;
+            this.hScrollBar4.Value = 100;
+            // 
+            // hScrollBar5
+            // 
+            this.hScrollBar5.LargeChange = 1;
+            this.hScrollBar5.Location = new System.Drawing.Point(380, 326);
+            this.hScrollBar5.Maximum = 80;
+            this.hScrollBar5.Minimum = 10;
+            this.hScrollBar5.Name = "hScrollBar5";
+            this.hScrollBar5.Size = new System.Drawing.Size(202, 30);
+            this.hScrollBar5.TabIndex = 568;
+            this.hScrollBar5.Value = 10;
+            // 
+            // label100
+            // 
+            this.label100.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label100.ForeColor = System.Drawing.Color.Black;
+            this.label100.Location = new System.Drawing.Point(318, 241);
+            this.label100.Name = "label100";
+            this.label100.Size = new System.Drawing.Size(55, 35);
+            this.label100.TabIndex = 574;
+            this.label100.Text = "888";
+            this.label100.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button1.Image = global::AgOpenGPS.Properties.Resources.SteerZero;
+            this.button1.Location = new System.Drawing.Point(447, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(70, 30);
+            this.button1.TabIndex = 572;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // hScrollBar6
+            // 
+            this.hScrollBar6.LargeChange = 1;
+            this.hScrollBar6.Location = new System.Drawing.Point(380, 160);
+            this.hScrollBar6.Maximum = 255;
+            this.hScrollBar6.Minimum = 1;
+            this.hScrollBar6.Name = "hScrollBar6";
+            this.hScrollBar6.Size = new System.Drawing.Size(202, 30);
+            this.hScrollBar6.TabIndex = 570;
+            this.hScrollBar6.Value = 20;
+            // 
+            // label101
+            // 
+            this.label101.AutoSize = true;
+            this.label101.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label101.ForeColor = System.Drawing.Color.Black;
+            this.label101.Location = new System.Drawing.Point(445, 54);
+            this.label101.Name = "label101";
+            this.label101.Size = new System.Drawing.Size(80, 19);
+            this.label101.TabIndex = 566;
+            this.label101.Text = "WAS Zero";
+            this.label101.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label102
+            // 
+            this.label102.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label102.ForeColor = System.Drawing.Color.Black;
+            this.label102.Location = new System.Drawing.Point(318, 158);
+            this.label102.Name = "label102";
+            this.label102.Size = new System.Drawing.Size(55, 35);
+            this.label102.TabIndex = 571;
+            this.label102.Text = "888";
+            this.label102.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // hScrollBar7
+            // 
+            this.hScrollBar7.LargeChange = 20;
+            this.hScrollBar7.Location = new System.Drawing.Point(380, 77);
+            this.hScrollBar7.Maximum = 4000;
+            this.hScrollBar7.Minimum = -4000;
+            this.hScrollBar7.Name = "hScrollBar7";
+            this.hScrollBar7.Size = new System.Drawing.Size(202, 30);
+            this.hScrollBar7.SmallChange = 2;
+            this.hScrollBar7.TabIndex = 565;
+            // 
+            // label103
+            // 
+            this.label103.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label103.ForeColor = System.Drawing.Color.Black;
+            this.label103.Location = new System.Drawing.Point(303, 75);
+            this.label103.Name = "label103";
+            this.label103.Size = new System.Drawing.Size(70, 35);
+            this.label103.TabIndex = 567;
+            this.label103.Text = "-55.88";
+            this.label103.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // FormSteer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -3350,6 +3746,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudSnapDistance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGuidanceLookAhead)).EndInit();
             this.tabTool.ResumeLayout(false);
+            this.tabTool.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxSendSteer)).EndInit();
             this.ResumeLayout(false);
 
@@ -3549,7 +3946,6 @@
         private System.Windows.Forms.Label label67;
         private System.Windows.Forms.Label label66;
         private System.Windows.Forms.Label label65;
-        private System.Windows.Forms.Label label74;
         private System.Windows.Forms.Label label73;
         private System.Windows.Forms.Label label75;
         private System.Windows.Forms.Label label76;
@@ -3565,5 +3961,34 @@
         private System.Windows.Forms.ImageList imageList2;
         private System.Windows.Forms.TabPage tabTool;
         private System.Windows.Forms.CheckBox cboxGPSTwo;
+        private System.Windows.Forms.Label label84;
+        private System.Windows.Forms.Label label85;
+        private System.Windows.Forms.Label label86;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.Label label88;
+        private System.Windows.Forms.Label label89;
+        private System.Windows.Forms.HScrollBar hScrollBar1;
+        private System.Windows.Forms.HScrollBar hScrollBar2;
+        private System.Windows.Forms.Label label90;
+        private System.Windows.Forms.Label label91;
+        private System.Windows.Forms.Label label92;
+        private System.Windows.Forms.HScrollBar hScrollBar3;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label83;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Label label96;
+        private System.Windows.Forms.Label label97;
+        private System.Windows.Forms.Label label98;
+        private System.Windows.Forms.Label label99;
+        private System.Windows.Forms.HScrollBar hScrollBar4;
+        private System.Windows.Forms.HScrollBar hScrollBar5;
+        private System.Windows.Forms.Label label100;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.HScrollBar hScrollBar6;
+        private System.Windows.Forms.Label label101;
+        private System.Windows.Forms.Label label102;
+        private System.Windows.Forms.HScrollBar hScrollBar7;
+        private System.Windows.Forms.Label label103;
     }
 }

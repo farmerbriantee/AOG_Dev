@@ -1569,7 +1569,7 @@ namespace AgOpenGPS
 
                     //feed backward to turn slower to keep steer on
                     if (A < 0) A = 0; B = A + 1;
-                    if (A > 2) { A -= 3; B -= 3; }
+                    //if (A > 2) { A -= 3; B -= 3; }
 
                     //the number in the cancel uturn button on display
                     onA = A;

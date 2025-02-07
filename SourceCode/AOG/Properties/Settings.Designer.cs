@@ -3181,13 +3181,12 @@ namespace AgOpenGPS.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool setGPS_isGPSTwoActive {
+        public global::AgOpenGPS.CToolSteerSettings setToolSteer {
             get {
-                return ((bool)(this["setGPS_isGPSTwoActive"]));
+                return ((global::AgOpenGPS.CToolSteerSettings)(this["setToolSteer"]));
             }
             set {
-                this["setGPS_isGPSTwoActive"] = value;
+                this["setToolSteer"] = value;
             }
         }
     }

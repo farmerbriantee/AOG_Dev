@@ -572,7 +572,23 @@ namespace AgOpenGPS
             }
 
             //Tool GPS on
-            isGPSTwoActive = Properties.Settings.Default.setGPS_isGPSTwoActive;
+            CheckToolSteerSettingsNotNull();
+            isGPSToolActive = Properties.Settings.Default.setToolSteer.isGPSToolActive;
+
+            if (isGPSToolActive)
+            {
+                p_232.pgn[p_232.gainP] = Properties.Settings.Default.setToolSteer.gainP;
+                p_232.pgn[p_232.integral] = Properties.Settings.Default.setToolSteer.integral;
+                p_232.pgn[p_232.minPWM] = Properties.Settings.Default.setToolSteer.minPWM;
+                p_232.pgn[p_232.countsPerDegree] = Properties.Settings.Default.setToolSteer.countsPerDegree;
+                p_232.pgn[p_232.ackerman] = Properties.Settings.Default.setToolSteer.ackermann;
+
+                p_232.pgn[p_232.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffsetHi >> 8));
+                p_232.pgn[p_232.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffsetLo));
+
+                p_231.pgn[p_231.invertWAS] = Properties.Settings.Default.setToolSteer.isInvertWAS;
+                p_231.pgn[p_231.invertSteer] = Properties.Settings.Default.setToolSteer.isInvertSteer;
+            }
 
             pn.headingTrueDualOffset = Properties.Settings.Default.setGPS_dualHeadingOffset;
             dualReverseDetectionDistance = Properties.Settings.Default.setGPS_dualReverseDetectionDistance;

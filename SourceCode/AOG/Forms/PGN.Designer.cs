@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 
 namespace AgOpenGPS
 {
@@ -444,6 +445,8 @@ namespace AgOpenGPS
             //public int  = 12;
         }
 
+        // Nozzle -----------------------------------------------------------------------------------
+
         //Spray Data
         public class CPGN_227_E3
         {
@@ -497,7 +500,69 @@ namespace AgOpenGPS
             }
         }
 
+        // Tool Steer ------------------------------------------------------------------------------
+        
+        //ToolSteerData
+        public class CPGN_233_E9
+        {
+            /// <summary>
+            /// PGN_233_E9 speedLo = 5 speedHi = 6 
+            ///    status = 7 xteLo = 8 xteHi = 9;
+            /// </summary>
+            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f,233, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+            public const int speedLo = 5;
+            public const int speedHi = 6;
+            public const int status = 7;
+            public const int xteLo = 8;
+            public const int xteHi = 9;
+        }
 
+        //ToolSteer Config
+        public class CPGN_232_E8
+        {
+            /// <summary>
+            /// PGN - 232_E8 gainP=5 integral=6  MinPWM = 7 hiPWM = 8
+            /// CountsPerDegree = 9 wasOffsetLo = 10 wasOffsetHi = 11 
+            /// </summary>
+            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 232, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+            public int gainP = 5;
+            public int integral = 6;
+            public int minPWM = 7;
+            public int highPWM = 8;
+            public int countsPerDegree = 9;
+            public int wasOffsetLo = 10;
+            public int wasOffsetHi = 11;
+            public int ackerman = 12;
+        }
+
+        //Toolsteer Settings
+        public class CPGN_231_E7
+        {
+            /// <summary>
+            /// 
+            /// PGN - 231 - E7 
+            /// invWas = 5 invSteer = 6 maxSteer = 7
+            /// </summary>
+            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 231, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+            public int invertWAS = 5;
+            public int invertSteer = 6;
+            public int maxSteerAngle = 7;
+        }
+
+        //From Tool Steer Board
+        public class CPGN_230_E6
+        {
+            /// <summary>
+            /// From Tool steer module
+            /// </summary>
+            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 230, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+            public int actualLo = 5;
+            public int actualHi = 6;
+            public int rollLo = 7;
+            public int rollHi = 8;
+            public int pwm = 9;
+            public int status = 10;
+        }
 
         //pgn instances
 
@@ -537,14 +602,30 @@ namespace AgOpenGPS
         public CPGN_EB p_235 = new CPGN_EB();
 
         /// <summary>
+        /// Tool Steer Data Sent
+        /// </summary>
+        public CPGN_233_E9 p_233 = new CPGN_233_E9();
+
+        /// <summary>
+        /// Tool Steer Settings
+        /// </summary>
+        public CPGN_232_E8 p_232 = new CPGN_232_E8();
+
+        /// <summary>
+        /// Tool Steer Config
+        /// </summary>
+        public CPGN_231_E7 p_231 = new CPGN_231_E7();
+
+
+        /// <summary>
         /// Section dimensions PGN - 228 - E4
         /// </summary>
-        public CPGN_E4 p_228 = new CPGN_E4();
-
         /// <summary>
         /// Section Symmetric PGN - 229 - EB
         /// </summary>
         public CPGN_E5 p_229 = new CPGN_E5();
+
+        public CPGN_E4 p_228 = new CPGN_E4();
 
         //Spray PGNS
         /// <summary>

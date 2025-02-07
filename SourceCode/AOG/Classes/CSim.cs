@@ -101,7 +101,7 @@ namespace AgOpenGPS
 
             mf.sentenceCounter = 0;
 
-            if (mf.isGPSTwoActive && mf.isGPSPositionInitialized)
+            if (mf.isGPSToolActive && mf.isGPSPositionInitialized)
             {
                 mf.pnTwo.fix.easting = mf.toolPivotPos.easting;
                 mf.pnTwo.fix.northing = mf.toolPivotPos.northing;

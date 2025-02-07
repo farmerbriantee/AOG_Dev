@@ -279,6 +279,7 @@ namespace AgOpenGPS
             CheckSettingsNotNull();
 
             CheckNozzleSettingsNotNull();
+            CheckToolSteerSettingsNotNull();
 
             //time keeper
             secondsSinceStart = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds;
@@ -491,7 +492,7 @@ namespace AgOpenGPS
                     }
                 }
 
-                if (isGPSTwoActive)
+                if (isGPSToolActive)
                 {
                     //Start AgTwo process
                     Process[] processNam = Process.GetProcessesByName("AgTwo");
@@ -801,6 +802,14 @@ namespace AgOpenGPS
             if (Settings.Default.setNozzleSettings == null)
             {
                 Settings.Default.setNozzleSettings = new CNozzleSettings();
+            }
+        }
+
+        public void CheckToolSteerSettingsNotNull()
+        {
+            if (Settings.Default.setToolSteer == null)
+            {
+                Settings.Default.setToolSteer = new CToolSteerSettings();
             }
         }
 

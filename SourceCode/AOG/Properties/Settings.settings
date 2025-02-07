@@ -791,8 +791,8 @@
     <Setting Name="setWindow_tramLineSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">1022, 742</Value>
     </Setting>
-    <Setting Name="setGPS_isGPSTwoActive" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+    <Setting Name="setToolSteer" Type="AgOpenGPS.CToolSteerSettings" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

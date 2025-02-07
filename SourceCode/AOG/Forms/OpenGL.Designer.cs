@@ -487,7 +487,7 @@ namespace AgOpenGPS
                     {
 
                         //Draw Tool antenna
-                        if (isGPSTwoActive)
+                        if (isGPSToolActive)
                         {
                             GL.PointSize(16);
                             GL.Begin(PrimitiveType.Points);
@@ -2328,7 +2328,7 @@ namespace AgOpenGPS
 
                 font.DrawText(center, 2, hede, 1.0 + textSize);
 
-                if (isGPSTwoActive)
+                if (isGPSToolActive)
                 {
                     //tool xte
                     avgPivDistanceTool = avgPivDistanceTool * 0.5 + lightbarDistanceTool * 0.5;

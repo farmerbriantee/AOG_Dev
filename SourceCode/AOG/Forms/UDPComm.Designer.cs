@@ -31,7 +31,7 @@ namespace AgOpenGPS
 
         // Status delegate
         public int missedSentenceCount = 0;
-        public bool isGPSTwoActive = true;
+        public bool isGPSToolActive = true;
 
         private readonly Stopwatch udpWatch = new Stopwatch();
 

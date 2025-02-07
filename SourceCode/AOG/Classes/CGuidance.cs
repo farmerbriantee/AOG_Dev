@@ -578,7 +578,7 @@ namespace AgOpenGPS
             mf.guidanceLineSteerAngle = (short)(steerAngleTrk * 100);
 
             //Tool GPS
-            if (mf.isGPSTwoActive)
+            if (mf.isGPSToolActive)
             {
                 minDistA = double.MaxValue;
                 //close call hit

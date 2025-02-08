@@ -331,17 +331,7 @@ namespace AgOpenGPS
                         CNMEA.latStart = double.Parse(offs[0], CultureInfo.InvariantCulture);
                         CNMEA.lonStart = double.Parse(offs[1], CultureInfo.InvariantCulture);
 
-                        if (timerSim.Enabled)
-                        {
-                            pn.latitude = CNMEA.latStart;
-                            pn.longitude = CNMEA.lonStart;
-
-                            sim.latitude = Properties.Settings.Default.setGPS_SimLatitude = pn.latitude;
-                            sim.longitude = Properties.Settings.Default.setGPS_SimLongitude = pn.longitude;
-
-                        }
-
-                        pn.SetLocalMetersPerDegree();
+                        pn.SetLocalMetersPerDegree(true);
                     }
                 }
 
@@ -717,6 +707,7 @@ namespace AgOpenGPS
                                     }
                                 }
                             }
+                            else break;
                         }
                     }
 

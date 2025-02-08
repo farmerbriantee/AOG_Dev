@@ -133,6 +133,16 @@ namespace AgOpenGPS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ABPivotCircle {
+            get {
+                object obj = ResourceManager.GetObject("ABPivotCircle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ABShrinkGrow {
             get {
                 object obj = ResourceManager.GetObject("ABShrinkGrow", resourceCulture);

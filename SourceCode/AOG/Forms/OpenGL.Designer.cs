@@ -143,7 +143,7 @@ namespace AgOpenGPS
 
                     if (bnd.bndList.Count > 0)
                     {
-                        if (bnd.isHeadlandOn)
+                        if (bnd.isHeadlandOn && bnd.bndList.Count > 0)
                         {
                             //draw whole outer field polygon
                             GL.Color4(0.1, 0.1, 0.351, 0.25);

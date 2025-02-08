@@ -224,7 +224,17 @@ namespace AgOpenGPS
                 rEastSteer = steerA.easting + (U * dx);
                 rNorthSteer = steerA.northing + (U * dz);
 
-                steerHeadingError = steer.heading - steerA.heading;
+                if (!mf.trk.isHeadingSameWay)
+                    steerHeadingError = steer.heading - steerB.heading;
+                else
+                {
+                    double abDist = glm.DistanceSquared(steerA, steerB);
+                    double rDist = glm.DistanceSquared(rNorthSteer, rEastSteer, steerA.northing, steerA.easting);
+                    rDist /= abDist;
+                    double delta = (1-rDist)* steerA.heading + (rDist) * steerB.heading;
+
+                    steerHeadingError = steer.heading - delta;
+                }
 
                 //Fix the circular error
                 if (steerHeadingError > Math.PI) steerHeadingError -= Math.PI;
@@ -340,7 +350,7 @@ namespace AgOpenGPS
             xTrackSteerCorrection = (xTrackSteerCorrection * 0.5) + XTEc * (0.5);
 
             ////derivative of steer distance error
-            distSteerError = (distSteerError * 0.95) + ((xTrackSteerCorrection * 60) * 0.05);
+            //distSteerError = (distSteerError * 0.95) + ((xTrackSteerCorrection * 60) * 0.05);
             //if (counter++ > 5)
             //{
             //    derivativeDistError = distSteerError - lastDistSteerError;

@@ -60,6 +60,7 @@ namespace AgOpenGPS
             panelLatLonPlus.Top = 3; panelLatLonPlus.Left = 3;
             panelLatLonLatLon.Top = 3; panelLatLonLatLon.Left = 3;
             panelPivot.Top = 3; panelPivot.Left = 3;
+            panelPivot3Pt.Top = 3; panelPivot3Pt.Left = 3;
 
             panelEditName.Visible = false;
             panelMain.Visible = true;
@@ -72,6 +73,7 @@ namespace AgOpenGPS
             panelLatLonPlus.Visible = false;
             panelLatLonLatLon.Visible = false;
             panelPivot.Visible = false;
+            panelPivot3Pt.Visible = false;
 
             this.Size = new System.Drawing.Size(650, 480);
 
@@ -598,6 +600,19 @@ namespace AgOpenGPS
 
             nudLatitudePivot.Value = (decimal)mf.pn.latitude;
             nudLongitudePivot.Value = (decimal)mf.pn.longitude;
+            mf.Activate();
+        }
+
+        private void btnPivot3Pt_Click(object sender, EventArgs e)
+        {
+            panelChoose.Visible = false;
+            panelPivot3Pt.Visible = true;
+
+            mf.trk.designPtsList?.Clear();
+            mf.trk.designPtA.easting = 20000;
+            mf.trk.designPtB.easting = 20000;
+
+            this.Size = new System.Drawing.Size(270, 360);
             mf.Activate();
         }
 
@@ -1240,6 +1255,65 @@ namespace AgOpenGPS
 
         #endregion LatLon +
 
+        #region Pivot 3 Point
+
+
+        private void btnPivot1_Click(object sender, EventArgs e)
+        {
+            mf.trk.designPtA = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
+            mf.trk.isMakingABLine = true;
+            btnPivot2.Enabled = true;
+            btnPivot1.Enabled = false;
+
+        }
+
+        private void btnPivot2_Click(object sender, EventArgs e)
+        {
+            mf.trk.designPtB = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
+            btnPivot3.Enabled = true;
+            btnPivot2.Enabled = false;
+        }
+
+        private void btnPivot3_Click(object sender, EventArgs e)
+        {
+            mf.trk.isMakingABLine=false;
+
+            mf.trk.gArr.Add(new CTrk());
+
+            idx = mf.trk.gArr.Count - 1;
+
+            mf.trk.gArr[idx].ptA = FindCircleCenter(mf.pivotAxlePos, mf.trk.designPtA, mf.trk.designPtB);
+                mf.trk.gArr[idx].mode = TrackMode.waterPivot;
+
+            mf.trk.designName = "Piv";
+            textBox1.Text = mf.trk.designName;
+
+            btnPivot1.Enabled = true;
+            btnPivot2.Enabled = false;
+            btnPivot3.Enabled = false;
+
+            panelPivot3Pt.Visible = false;
+            panelName.Visible = true;
+
+            this.Size = new System.Drawing.Size(270, 360);
+            mf.Activate();
+        }
+
+        private vec2 FindCircleCenter(vec3 p1, vec2 p2, vec2 p3)
+        {
+            var d2 = p2.northing * p2.northing + p2.easting * p2.easting;
+            var bc = (p1.northing * p1.northing + p1.easting * p1.easting - d2) / 2;
+            var cd = (d2 - p3.northing * p3.northing - p3.easting * p3.easting) / 2;
+            var det = (p1.northing - p2.northing) * (p2.easting - p3.easting) - (p2.northing - p3.northing) * (p1.easting - p2.easting);
+            if (Math.Abs(det) > 1e-10) return new vec2(
+              ((p1.northing - p2.northing) * cd - (p2.northing - p3.northing) * bc) / det,
+              (bc * (p2.easting - p3.easting) - cd * (p1.easting - p2.easting)) / det
+            );
+            else return new vec2();
+        }
+
+        #endregion
+
         #region Lat Lon Pivot
 
         private void nudLatitudePivot_Click(object sender, EventArgs e)
@@ -1404,5 +1478,6 @@ namespace AgOpenGPS
             }
             mf.Activate();
         }
+
     }
 }

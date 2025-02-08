@@ -226,7 +226,7 @@ namespace AgOpenGPS
                 if (track.mode == TrackMode.waterPivot)
                 {
                     //max 2 cm offset from correct circle or limit to 500 points
-                    double Angle = glm.twoPI / Math.Min(Math.Max(Math.Ceiling(glm.twoPI / (2 * Math.Acos(1 - (0.02 / Math.Abs(distAway))))), 50), 500);//limit between 50 and 500 points
+                    double Angle = glm.twoPI / Math.Min(Math.Max(Math.Ceiling(glm.twoPI / (2 * Math.Acos(1 - (0.02 / Math.Abs(distAway))))), 100), 1000);//limit between 50 and 500 points
 
                     vec3 centerPos = new vec3(track.ptA.easting, track.ptA.northing, 0);
                     double rotation = 0;
@@ -253,6 +253,9 @@ namespace AgOpenGPS
                         }
 
                         arr[arr.Length - 1].heading = Math.Atan2(arr[0].easting - arr[arr.Length - 1].easting, arr[0].northing - arr[arr.Length - 1].northing);
+                        
+                        if (arr[arr.Length - 1].heading < 0) arr[arr.Length - 1].heading += glm.twoPI;
+                        if (arr[arr.Length - 1].heading >= glm.twoPI) arr[arr.Length - 1].heading -= glm.twoPI;
 
                         newCurList.AddRange(arr);
                     }

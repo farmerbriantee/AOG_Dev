@@ -155,7 +155,8 @@ namespace AgOpenGPS
                 }
 
                 //initial forward Test if pivot InRange AB
-                if (A == curList.Count - 1) B = 0;
+                if (A == curList.Count - 1) 
+                    B = 0;
                 else B = A + 1;
 
                 if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
@@ -225,16 +226,46 @@ namespace AgOpenGPS
                 rNorthSteer = steerA.northing + (U * dz);
 
                 if (!mf.trk.isHeadingSameWay)
-                    steerHeadingError = steer.heading - steerB.heading;
-                else
                 {
+                    //steerHeadingError = steer.heading - steerB.heading;
+
+                    double delta = 0;
                     double abDist = glm.DistanceSquared(steerA, steerB);
                     double rDist = glm.DistanceSquared(rNorthSteer, rEastSteer, steerA.northing, steerA.easting);
                     rDist /= abDist;
-                    double delta = (1-rDist)* steerA.heading + (rDist) * steerB.heading;
+                    if (Math.Abs(steerA.heading - steerB.heading) > Math.PI)
+                    {
+                        if (steerA.heading < Math.PI) delta = (1 - rDist) * (steerA.heading + glm.twoPI) + (rDist) * steerB.heading;
+                        else delta = (1 - rDist) * steerA.heading + (rDist) * (steerB.heading + glm.twoPI);
+                    }
+                    else
+                    {
+                        delta = (1 - rDist) * steerA.heading + (rDist) * steerB.heading;
+                    }
+                    steerHeadingError = steer.heading - delta;
 
+                }
+                else
+                {
+                    //steerA.heading -= Math.PI;
+                    //steerB.heading -= Math.PI;
+                    double delta = 0;
+                    double abDist = glm.DistanceSquared(steerA, steerB);
+                    double rDist = glm.DistanceSquared(rNorthSteer, rEastSteer, steerA.northing, steerA.easting);
+                    rDist /= abDist;
+                    if (Math.Abs(steerA.heading - steerB.heading) > Math.PI)
+                    {
+                        if (steerA.heading < Math.PI) delta = (1 - rDist) * (steerA.heading + glm.twoPI) + (rDist) * steerB.heading;
+                        else delta = (1 - rDist) * steerA.heading + (rDist) * (steerB.heading + glm.twoPI);
+                    }
+                    else
+                    {
+                        delta = (1 - rDist) * steerA.heading + (rDist) * steerB.heading;
+                    }
                     steerHeadingError = steer.heading - delta;
                 }
+
+                mf.lblAlgo.Text = steerHeadingError.ToString();
 
                 //Fix the circular error
                 if (steerHeadingError > Math.PI) steerHeadingError -= Math.PI;
@@ -325,13 +356,13 @@ namespace AgOpenGPS
 
                     mf.guidanceLineDistanceOffTool = (short)Math.Round(distanceFromCurrentLineTool * 1000.0, MidpointRounding.AwayFromZero);
                 }
-
             }
             else
             {
                 //invalid distance so tell AS module
                 distanceFromCurrentLineSteer = 32000;
                 mf.guidanceLineDistanceOff = 32000;
+                mf.guidanceLineDistanceOffTool = 32000;
             }
         }
 

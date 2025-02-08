@@ -890,7 +890,7 @@ namespace AgOpenGPS
                                 TimedMessageBox(3000, "AutoSteer Disabled", "Below Minimum Safe Steering Speed: " + vehicle.minSteerSpeed.ToString("N0") + " Kmh");
                             else
                                 TimedMessageBox(3000, "AutoSteer Disabled", "Below Minimum Safe Steering Speed: " + (vehicle.minSteerSpeed * 0.621371).ToString("N1") + " MPH");
-                            
+
                             Log.EventWriter("Steer Off, Below Min Steering Speed");
                         }
                     }
@@ -907,11 +907,11 @@ namespace AgOpenGPS
                 if (!isSteerInReverse)
                 {
                     if (isReverse) p_254.pgn[p_254.status] = 0;
-                }                
+                }
 
                 // delay on dead zone.
                 if (p_254.pgn[p_254.status] == 1 && !isReverse
-                    && Math.Abs(guidanceLineSteerAngle - mc.actualSteerAngleDegrees*100) < vehicle.deadZoneHeading)
+                    && Math.Abs(guidanceLineSteerAngle - mc.actualSteerAngleDegrees * 100) < vehicle.deadZoneHeading)
                 {
                     if (vehicle.deadZoneDelayCounter > vehicle.deadZoneDelay)
                     {
@@ -924,10 +924,31 @@ namespace AgOpenGPS
                     vehicle.isInDeadZone = false;
                 }
 
-                 if (!vehicle.isInDeadZone)
+                if (!vehicle.isInDeadZone)
                 {
                     p_254.pgn[p_254.steerAngleHi] = unchecked((byte)(guidanceLineSteerAngle >> 8));
                     p_254.pgn[p_254.steerAngleLo] = unchecked((byte)(guidanceLineSteerAngle));
+                }
+
+                if (isGPSToolActive)
+                {
+                    p_233.pgn[p_233.speedHi] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0) >> 8));
+                    p_233.pgn[p_233.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
+                    p_233.pgn[p_233.xteHi] = unchecked((byte)(guidanceLineDistanceOffTool >> 8));
+                    p_233.pgn[p_233.xteLo] = unchecked((byte)(guidanceLineDistanceOffTool));
+
+                    if (!vehicle.isInFreeDriveMode || guidanceLineDistanceOffTool < 27000)
+                    {
+                        if (p_254.pgn[p_254.status] == 1) p_233.pgn[p_233.status] = 1;
+                        else p_233.pgn[p_233.status] = 0;
+                    }
+                    else
+                    {
+                        p_233.pgn[p_233.status] = 0;
+                    }
+
+                    //send to tool steer
+                    SendPgnToLoopTool(p_233.pgn);
                 }
             }
 
@@ -949,6 +970,8 @@ namespace AgOpenGPS
 
             //out serial to autosteer module  //indivdual classes load the distance and heading deltas 
             SendPgnToLoop(p_254.pgn);
+
+
 
             //for average cross track error
             if (guidanceLineDistanceOff < 29000)

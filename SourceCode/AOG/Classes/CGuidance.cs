@@ -356,13 +356,13 @@ namespace AgOpenGPS
 
                     mf.guidanceLineDistanceOffTool = (short)Math.Round(distanceFromCurrentLineTool * 1000.0, MidpointRounding.AwayFromZero);
                 }
-
             }
             else
             {
                 //invalid distance so tell AS module
                 distanceFromCurrentLineSteer = 32000;
                 mf.guidanceLineDistanceOff = 32000;
+                mf.guidanceLineDistanceOffTool = 32000;
             }
         }
 

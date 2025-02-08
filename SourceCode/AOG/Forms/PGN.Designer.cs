@@ -510,11 +510,11 @@ namespace AgOpenGPS
             ///    status = 7 xteLo = 8 xteHi = 9;
             /// </summary>
             public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f,233, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-            public const int speedLo = 5;
-            public const int speedHi = 6;
-            public const int status = 7;
-            public const int xteLo = 8;
-            public const int xteHi = 9;
+            public int speedLo = 5;
+            public int speedHi = 6;
+            public int status = 7;
+            public int xteLo = 8;
+            public int xteHi = 9;
         }
 
         //ToolSteer Config

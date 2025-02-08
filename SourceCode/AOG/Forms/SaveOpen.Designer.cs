@@ -717,6 +717,7 @@ namespace AgOpenGPS
                                     }
                                 }
                             }
+                            else break;
                         }
                     }
 

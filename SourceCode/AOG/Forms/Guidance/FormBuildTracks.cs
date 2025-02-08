@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -1311,6 +1312,25 @@ namespace AgOpenGPS
             );
             else return new vec2();
         }
+
+        //Dim t As Double = p2.X * p2.X + p2.Y * p2.Y
+        //Dim b As Double = (p1.X * p1.X + p1.Y * p1.Y - t) / 2
+        //Dim c As Double = (t - p3.X * p3.X - p3.Y * p3.Y) / 2
+        //Dim d As Double = 1 / ((p1.X - p2.X) * (p2.Y - p3.Y) - (p2.X - p3.X) * (p1.Y - p2.Y))
+        //Dim x As Double = (b * (p2.Y - p3.Y) - c * (p1.Y - p2.Y)) * d
+        //Dim y As Double = ((p1.X - p2.X) * c - (p2.X - p3.X) * b) * d
+
+        //def circle_thru_pts(x1, y1, x2, y2, x3, y3):
+        //s1 = x1**2 + y1**2
+        //s2 = x2**2 + y2**2
+        //s3 = x3**2 + y3**2
+        //M11 = x1* y2 + x2* y3 + x3* y1 - (x2* y1 + x3* y2 + x1* y3)
+        //M12 = s1* y2 + s2* y3 + s3* y1 - (s2* y1 + s3* y2 + s1* y3)
+        //M13 = s1* x2 + s2* x3 + s3* x1 - (s2* x1 + s3* x2 + s1* x3)
+        //x0 =  0.5*M12/M11
+        //y0 = -0.5 * M13 / M11
+        //r0 = ((x1 - x0)**2 + (y1 - y0)**2)**0.5
+        //return (x0, y0, r0)
 
         #endregion
 

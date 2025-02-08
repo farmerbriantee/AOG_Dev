@@ -1506,7 +1506,7 @@ namespace AgOpenGPS
                 {
                     CNMEA.latStart = pn.latitude;
                     CNMEA.lonStart = pn.longitude;
-                    pn.SetLocalMetersPerDegree();
+                    pn.SetLocalMetersPerDegree(false);
                 }
 
                 pn.ConvertWGS84ToLocal(pn.latitude, pn.longitude, out pn.fix.northing, out pn.fix.easting);

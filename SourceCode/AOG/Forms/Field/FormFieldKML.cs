@@ -332,16 +332,7 @@ namespace AgOpenGPS
                     CNMEA.latStart = latK;
                     CNMEA.lonStart = lonK;
 
-                    if (mf.timerSim.Enabled)
-                    {
-                        mf.sim.latitude = Properties.Settings.Default.setGPS_SimLatitude = latK;
-                        mf.sim.longitude = Properties.Settings.Default.setGPS_SimLongitude = lonK;
-
-                        mf.pn.latitude = latK;
-                        mf.pn.longitude = lonK;
-                    }
-
-                    mf.pn.SetLocalMetersPerDegree();
+                    mf.pn.SetLocalMetersPerDegree(true);
 
                     //make sure directory exists, or create it
                     if ((!string.IsNullOrEmpty(directoryName)) && (!Directory.Exists(directoryName)))

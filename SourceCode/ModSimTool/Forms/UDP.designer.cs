@@ -212,9 +212,9 @@ namespace ModSimTool
                                 temp |= data[8];
                                 short temp2 = (short)temp;
 
-                                //Bit 8,9    set point steer angle * 100 is sent
-                                XTE = (double)(temp2) * 0.01; //high low bytes
-
+                                //Bit 8,9    set xte * 100 is sent
+                                XTE = (double)(temp2); //high low bytes
+                                lblXTE.Text = XTE.ToString("N2");
 
                                 //----------------------------------------------------------------------------
                                 //Serial Send to agopenGPS
@@ -257,7 +257,7 @@ namespace ModSimTool
                                 lblKp.Text = toolSettings.Kp.ToString();
 
                                 toolSettings.Integral = data[6]; //read the minimum amount of PWM for instant on\
-                                lblIntegral.Text = toolSettings.minPWM.ToString();
+                                lblIntegral.Text = toolSettings.Integral.ToString();
 
                                 toolSettings.minPWM = data[7];   // read lowPWM from AgOpenGPS              
                                 lblMinPWM.Text = toolSettings.minPWM.ToString();

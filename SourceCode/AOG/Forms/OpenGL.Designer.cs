@@ -483,7 +483,7 @@ namespace AgOpenGPS
                     }
                     GL.PopMatrix();
 
-                    if (camera.camSetDistance > -250)
+                    if (camera.camSetDistance > -550)
                     {
 
                         //Draw Tool antenna
@@ -502,7 +502,7 @@ namespace AgOpenGPS
                             GL.End();
                         }
 
-                        if (trk.idx > -1)
+                        if (!isStanleyUsed && trk.idx > -1)
                         {
                             GL.PointSize(16);
                             GL.Begin(PrimitiveType.Points);
@@ -515,6 +515,22 @@ namespace AgOpenGPS
                             GL.Color3(0.98, 0.98, 0.098);
                             GL.Vertex3(gyd.goalPointTrk.easting, gyd.goalPointTrk.northing, 0.0);
                             GL.End();
+                        }
+
+                        if (isStanleyUsed)
+                        {
+                            GL.PointSize(16);
+                            GL.Begin(PrimitiveType.Points);
+                            GL.Color3(0.0, 0.0, 0.0);
+                            GL.Vertex3(steerAxlePos.easting, steerAxlePos.northing, 0.0);
+                            GL.End();
+
+                            GL.PointSize(10);
+                            GL.Begin(PrimitiveType.Points);
+                            GL.Color3(0.20, 0.78, 0.98);
+                            GL.Vertex3(steerAxlePos.easting, steerAxlePos.northing, 0.0);
+                            GL.End();
+
                         }
                     }
 

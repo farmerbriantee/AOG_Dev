@@ -892,10 +892,10 @@ namespace AgOpenGPS
             //to draw or not the triangle patch
             bool isDraw;
 
-            double pivEplus = toolPivotPos.easting + 50;
-            double pivEminus = toolPivotPos.easting - 50;
-            double pivNplus = toolPivotPos.northing + 50;
-            double pivNminus = toolPivotPos.northing - 50;
+            double pivEplus = toolPivotPos.easting + tool.width;
+            double pivEminus = toolPivotPos.easting - tool.width;
+            double pivNplus = toolPivotPos.northing + tool.width;
+            double pivNminus = toolPivotPos.northing - tool.width;
 
             //draw patches j= # of sections
             for (int j = 0; j < triStrip.Count; j++)

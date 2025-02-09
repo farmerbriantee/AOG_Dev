@@ -53,9 +53,8 @@ namespace AgOpenGPS
         {
             if (setSim && mf.timerSim.Enabled)
             {
-                latitude = mf.sim.latitude = Properties.Settings.Default.setGPS_SimLatitude = latitude;
-                longitude = mf.sim.longitude = Properties.Settings.Default.setGPS_SimLongitude = longitude;
-                Properties.Settings.Default.Save();
+                latitude = mf.sim.latitude = Properties.Settings.Default.setGPS_SimLatitude = latStart;
+                longitude = mf.sim.longitude = Properties.Settings.Default.setGPS_SimLongitude = lonStart;
             }
 
             mPerDegreeLat = 111132.92 - 559.82 * Math.Cos(2.0 * latStart * 0.01745329251994329576923690766743) + 1.175

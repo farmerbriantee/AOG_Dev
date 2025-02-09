@@ -44,13 +44,7 @@ namespace AgOpenGPS
             CNMEA.latStart = (double)nudLatitude.Value;
             CNMEA.lonStart = (double)nudLongitude.Value;
 
-            mf.pn.latitude = (double)nudLatitude.Value;
-            mf.pn.longitude = (double)nudLongitude.Value;
-
             mf.pn.SetLocalMetersPerDegree(true);
-
-            Properties.Settings.Default.setGPS_SimLatitude = mf.sim.latitude;
-            Properties.Settings.Default.setGPS_SimLongitude = mf.sim.longitude;
 
             Close();
         }

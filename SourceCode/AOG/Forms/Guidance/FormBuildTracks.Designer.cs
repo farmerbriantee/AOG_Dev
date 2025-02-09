@@ -375,7 +375,7 @@
             this.btnMoveUp.Size = new System.Drawing.Size(78, 57);
             this.btnMoveUp.TabIndex = 430;
             this.btnMoveUp.UseVisualStyleBackColor = false;
-            this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUp_Click);
+            this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUPGN_Click);
             // 
             // btnMoveDn
             // 

@@ -495,7 +495,7 @@
             this.kioskModeToolStrip.Name = "kioskModeToolStrip";
             this.kioskModeToolStrip.Size = new System.Drawing.Size(382, 50);
             this.kioskModeToolStrip.Text = "Kiosk Mode";
-            this.kioskModeToolStrip.Click += new System.EventHandler(this.kioskModeToolStrip_Click);
+            this.kioskModeToolStrip.Click += new System.EventHandler(this.kioskModeToolStriPGN_Click);
             // 
             // resetALLToolStripMenuItem
             // 
@@ -1048,7 +1048,7 @@
             this.rollCheckToolStripMenuItem.Name = "rollCheckToolStripMenuItem";
             this.rollCheckToolStripMenuItem.Size = new System.Drawing.Size(322, 44);
             this.rollCheckToolStripMenuItem.Text = "Roll Check";
-            this.rollCheckToolStripMenuItem.Click += new System.EventHandler(this.correctionToolStrip_Click);
+            this.rollCheckToolStripMenuItem.Click += new System.EventHandler(this.correctionToolStriPGN_Click);
             // 
             // boundaryToolToolStripMenu
             // 
@@ -1097,7 +1097,7 @@
             this.webcamToolStrip.Name = "webcamToolStrip";
             this.webcamToolStrip.Size = new System.Drawing.Size(450, 70);
             this.webcamToolStrip.Text = "WebCam";
-            this.webcamToolStrip.Click += new System.EventHandler(this.webcamToolStrip_Click);
+            this.webcamToolStrip.Click += new System.EventHandler(this.webcamToolStriPGN_Click);
             // 
             // offsetFixToolStrip
             // 
@@ -1105,7 +1105,7 @@
             this.offsetFixToolStrip.Name = "offsetFixToolStrip";
             this.offsetFixToolStrip.Size = new System.Drawing.Size(450, 70);
             this.offsetFixToolStrip.Text = "Offset Fix";
-            this.offsetFixToolStrip.Click += new System.EventHandler(this.offsetFixToolStrip_Click);
+            this.offsetFixToolStrip.Click += new System.EventHandler(this.offsetFixToolStriPGN_Click);
             // 
             // panelSim
             // 
@@ -1164,7 +1164,7 @@
             this.btnSimSpeedUp.Size = new System.Drawing.Size(36, 34);
             this.btnSimSpeedUp.TabIndex = 532;
             this.btnSimSpeedUp.UseVisualStyleBackColor = false;
-            this.btnSimSpeedUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSimSpeedUp_MouseDown);
+            this.btnSimSpeedUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSimSpeedUPGN_MouseDown);
             // 
             // btnSimSetSpeedToZero
             // 
@@ -1337,7 +1337,7 @@
             this.btnTiltUp.TabIndex = 544;
             this.btnTiltUp.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnTiltUp.UseVisualStyleBackColor = false;
-            this.btnTiltUp.Click += new System.EventHandler(this.btnTiltUp_Click);
+            this.btnTiltUp.Click += new System.EventHandler(this.btnTiltUPGN_Click);
             // 
             // btnBrightnessDn
             // 
@@ -1376,7 +1376,7 @@
             this.btnBrightnessUp.Size = new System.Drawing.Size(84, 75);
             this.btnBrightnessUp.TabIndex = 473;
             this.btnBrightnessUp.UseVisualStyleBackColor = false;
-            this.btnBrightnessUp.Click += new System.EventHandler(this.btnBrightnessUp_Click);
+            this.btnBrightnessUp.Click += new System.EventHandler(this.btnBrightnessUPGN_Click);
             // 
             // btnDayNightMode
             // 
@@ -3043,7 +3043,7 @@
             this.btnSprayRateUp.TabIndex = 615;
             this.btnSprayRateUp.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSprayRateUp.UseVisualStyleBackColor = false;
-            this.btnSprayRateUp.Click += new System.EventHandler(this.btnSprayRateUp_Click);
+            this.btnSprayRateUp.Click += new System.EventHandler(this.btnSprayRateUPGN_Click);
             // 
             // btnSprayRateDn
             // 

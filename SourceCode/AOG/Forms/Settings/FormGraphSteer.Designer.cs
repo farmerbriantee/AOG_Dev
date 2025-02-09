@@ -166,7 +166,7 @@
             this.btnGainUp.TabIndex = 197;
             this.btnGainUp.Text = "+";
             this.btnGainUp.UseVisualStyleBackColor = false;
-            this.btnGainUp.Click += new System.EventHandler(this.btnGainUp_Click);
+            this.btnGainUp.Click += new System.EventHandler(this.btnGainUPGN_Click);
             // 
             // btnGainDown
             // 

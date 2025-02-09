@@ -122,7 +122,7 @@ namespace AgOpenGPS
             mf.SwapDayNightMode();
         }
 
-        private void btnSwap_Click(object sender, EventArgs e)
+        private void btnSwaPGN_Click(object sender, EventArgs e)
         {
             mf.SwapDayNightMode();
         }

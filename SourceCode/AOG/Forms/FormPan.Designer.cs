@@ -172,7 +172,7 @@
             this.btnPanUp.TabIndex = 471;
             this.btnPanUp.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnPanUp.UseVisualStyleBackColor = false;
-            this.btnPanUp.Click += new System.EventHandler(this.btnPanUp_Click);
+            this.btnPanUp.Click += new System.EventHandler(this.btnPanUPGN_Click);
             // 
             // btnDownLeft
             // 

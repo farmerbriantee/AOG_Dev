@@ -152,7 +152,7 @@
             this.btnSwap.TabIndex = 10;
             this.btnSwap.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnSwap.UseVisualStyleBackColor = true;
-            this.btnSwap.Click += new System.EventHandler(this.btnSwap_Click);
+            this.btnSwap.Click += new System.EventHandler(this.btnSwaPGN_Click);
             // 
             // btnDayText
             // 

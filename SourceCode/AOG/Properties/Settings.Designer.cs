@@ -3098,12 +3098,12 @@ namespace AgOpenGPS.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool setApp_isNozzleApp {
+        public bool setApPGN_isNozzleApp {
             get {
-                return ((bool)(this["setApp_isNozzleApp"]));
+                return ((bool)(this["setApPGN_isNozzleApp"]));
             }
             set {
-                this["setApp_isNozzleApp"] = value;
+                this["setApPGN_isNozzleApp"] = value;
             }
         }
         

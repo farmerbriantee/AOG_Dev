@@ -831,7 +831,7 @@
             this.hsbarSideHillComp.Size = new System.Drawing.Size(217, 30);
             this.hsbarSideHillComp.TabIndex = 352;
             this.hsbarSideHillComp.Value = 5;
-            this.hsbarSideHillComp.ValueChanged += new System.EventHandler(this.hsbarSideHillComp_ValueChanged);
+            this.hsbarSideHillComp.ValueChanged += new System.EventHandler(this.hsbarSideHillComPGN_ValueChanged);
             // 
             // label22
             // 
@@ -1538,7 +1538,7 @@
             this.btnSteerAngleUp.Size = new System.Drawing.Size(73, 74);
             this.btnSteerAngleUp.TabIndex = 315;
             this.btnSteerAngleUp.UseVisualStyleBackColor = true;
-            this.btnSteerAngleUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSteerAngleUp_MouseDown);
+            this.btnSteerAngleUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSteerAngleUPGN_MouseDown);
             // 
             // btnFreeDrive
             // 
@@ -3516,7 +3516,7 @@
             this.btnSkipCPD_Setup.Size = new System.Drawing.Size(72, 61);
             this.btnSkipCPD_Setup.TabIndex = 539;
             this.btnSkipCPD_Setup.UseVisualStyleBackColor = false;
-            this.btnSkipCPD_Setup.Click += new System.EventHandler(this.btnSkipCPD_Setup_Click);
+            this.btnSkipCPD_Setup.Click += new System.EventHandler(this.btnSkipCPD_SetuPGN_Click);
             // 
             // btnOKNext_CPDSetup
             // 
@@ -3533,7 +3533,7 @@
             this.btnOKNext_CPDSetup.Size = new System.Drawing.Size(72, 72);
             this.btnOKNext_CPDSetup.TabIndex = 541;
             this.btnOKNext_CPDSetup.UseVisualStyleBackColor = false;
-            this.btnOKNext_CPDSetup.Click += new System.EventHandler(this.btnOKNext_CPDSetup_Click);
+            this.btnOKNext_CPDSetup.Click += new System.EventHandler(this.btnOKNext_CPDSetuPGN_Click);
             // 
             // tabCountsPerDeg
             // 

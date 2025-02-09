@@ -103,15 +103,15 @@ namespace AgOpenGPS
 
             Properties.Settings.Default.setNozzleSettings.pressureMin = (int)nudSprayMinPressure.Value;
 
-            mf.p_226.pgn[mf.p_226.minPressure] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.pressureMin));
+            PGN_226.pgn[PGN_226.minPressure] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.pressureMin));
 
-            mf.SendPgnToLoop(mf.p_226.pgn);
+            mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void bntOK_Click(object sender, EventArgs e)
         {
-            mf.p_225.pgn[mf.p_225.zeroTankVolumeLo] = 0;
-            mf.p_225.pgn[mf.p_225.zeroTankVolumeHi] = 0;
+            PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 0;
+            PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
 
             Close();
         }
@@ -133,13 +133,13 @@ namespace AgOpenGPS
                 {
                     mf.nozz.volumeApplied = 0;
 
-                    mf.p_225.pgn[mf.p_225.zeroTankVolumeLo] = 1;
-                    mf.p_225.pgn[mf.p_225.zeroTankVolumeHi] = 0;
+                    PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 1;
+                    PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
 
-                    mf.SendPgnToLoop(mf.p_225.pgn);
+                    mf.SendPgnToLoop(PGN_225.pgn);
 
-                    mf.p_225.pgn[mf.p_225.zeroTankVolumeLo] = 0;
-                    mf.p_225.pgn[mf.p_225.zeroTankVolumeHi] = 0;
+                    PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 0;
+                    PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
                 }
                 else
                 {
@@ -147,16 +147,16 @@ namespace AgOpenGPS
 
                     int vol = (int)nudZeroVolume.Value;
 
-                    mf.p_226.pgn[mf.p_226.flowCalHi] = unchecked((byte)(vol >> 8));
-                    mf.p_226.pgn[mf.p_226.flowCaLo] = unchecked((byte)(vol));
+                    PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(vol >> 8));
+                    PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(vol));
 
-                    mf.p_225.pgn[mf.p_225.zeroTankVolumeLo] = 1;
-                    mf.p_225.pgn[mf.p_225.zeroTankVolumeHi] = 0;
+                    PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 1;
+                    PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
 
-                    mf.SendPgnToLoop(mf.p_225.pgn);
+                    mf.SendPgnToLoop(PGN_225.pgn);
 
-                    mf.p_225.pgn[mf.p_225.zeroTankVolumeLo] = 0;
-                    mf.p_225.pgn[mf.p_225.zeroTankVolumeHi] = 0;
+                    PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 0;
+                    PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
                 }
             }
         }
@@ -166,13 +166,13 @@ namespace AgOpenGPS
             mf.nozz.volumeApplied = 0;
             nudZeroVolume.Value = 0;
 
-            mf.p_225.pgn[mf.p_225.zeroTankVolumeLo] = 1;
-            mf.p_225.pgn[mf.p_225.zeroTankVolumeHi] = 0;
+            PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 1;
+            PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
 
-            mf.SendPgnToLoop(mf.p_225.pgn);
+            mf.SendPgnToLoop(PGN_225.pgn);
 
-            mf.p_225.pgn[mf.p_225.zeroTankVolumeLo] = 0;
-            mf.p_225.pgn[mf.p_225.zeroTankVolumeHi] = 0;
+            PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 0;
+            PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
         }
 
         private void timer1_Tick(object sender, EventArgs e)

@@ -356,7 +356,7 @@ namespace AgOpenGPS
             }
         }
 
-        private void btnMoveUp_Click(object sender, EventArgs e)
+        private void btnMoveUPGN_Click(object sender, EventArgs e)
         {
             if (selectedItem == -1 || selectedItem == 0)
                 return;

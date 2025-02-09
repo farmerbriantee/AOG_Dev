@@ -345,7 +345,7 @@
             this.cboxDrawMap.Size = new System.Drawing.Size(78, 76);
             this.cboxDrawMap.TabIndex = 482;
             this.cboxDrawMap.UseVisualStyleBackColor = false;
-            this.cboxDrawMap.Click += new System.EventHandler(this.cboxDrawMap_Click);
+            this.cboxDrawMap.Click += new System.EventHandler(this.cboxDrawMaPGN_Click);
             // 
             // FormMap
             // 
@@ -365,8 +365,8 @@
             this.Name = "FormMap";
             this.ShowInTaskbar = false;
             this.Text = "Bing Maps for Background";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMap_FormClosing);
-            this.Load += new System.EventHandler(this.FormMap_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMaPGN_FormClosing);
+            this.Load += new System.EventHandler(this.FormMaPGN_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

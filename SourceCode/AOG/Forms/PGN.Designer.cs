@@ -5,651 +5,402 @@ namespace AgOpenGPS
 {
     public partial class FormGPS
     {
-        //Latitude
-        public class CPGN_D0
+        public void LoadPGNS()
         {
-            /// <summary>
-            ///  Latitude Longitude 8 bytes as modified float
-            ///  double lat = (encodedAngle / (0x7FFFFFFF / 90.0));
-            ///  double lon = (encodedAngle / (0x7FFFFFFF / 180.0));
-            /// </summary>
-            public byte[] latLong = new byte[] { 0x80, 0x81, 0x7F, 0xD0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+            PGN_252.pgn[PGN_252.gainProportional] = Properties.Settings.Default.setAS_Kp;
+            PGN_252.pgn[PGN_252.highPWM] = Properties.Settings.Default.setAS_highSteerPWM;
+            PGN_252.pgn[PGN_252.lowPWM] = Properties.Settings.Default.setAS_lowSteerPWM;
+            PGN_252.pgn[PGN_252.minPWM] = Properties.Settings.Default.setAS_minSteerPWM;
+            PGN_252.pgn[PGN_252.countsPerDegree] = Properties.Settings.Default.setAS_countsPerDegree;
+            PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset >> 8)); ;
+            PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setAS_Kp));
+            PGN_252.pgn[PGN_252.ackerman] = Properties.Settings.Default.setAS_ackerman;
 
+            //pin relays
+            string[] words = Properties.Settings.Default.setRelay_pinConfig.Split(',');
 
-            public void LoadLatitudeLongitude(double lat, double lon)
-            {
-                
-                int encodedAngle = (int)(lat * (0x7FFFFFFF / 90.0));
-                //double angle = (encodedAngle / (0x7FFFFFFF / 90.0));
+            PGN_236.pgn[PGN_236.pin0] = (byte)int.Parse(words[0]);
+            PGN_236.pgn[PGN_236.pin1] = (byte)int.Parse(words[1]);
+            PGN_236.pgn[PGN_236.pin2] = (byte)int.Parse(words[2]);
+            PGN_236.pgn[PGN_236.pin3] = (byte)int.Parse(words[3]);
+            PGN_236.pgn[PGN_236.pin4] = (byte)int.Parse(words[4]);
+            PGN_236.pgn[PGN_236.pin5] = (byte)int.Parse(words[5]);
+            PGN_236.pgn[PGN_236.pin6] = (byte)int.Parse(words[6]);
+            PGN_236.pgn[PGN_236.pin7] = (byte)int.Parse(words[7]);
+            PGN_236.pgn[PGN_236.pin8] = (byte)int.Parse(words[8]);
+            PGN_236.pgn[PGN_236.pin9] = (byte)int.Parse(words[9]);
 
-                byte[] lat6 = BitConverter.GetBytes(encodedAngle);
-                Array.Copy(lat6, 0, latLong, 5, 4);
+            PGN_236.pgn[PGN_236.pin10] = (byte)int.Parse(words[10]);
+            PGN_236.pgn[PGN_236.pin11] = (byte)int.Parse(words[11]);
+            PGN_236.pgn[PGN_236.pin12] = (byte)int.Parse(words[12]);
+            PGN_236.pgn[PGN_236.pin13] = (byte)int.Parse(words[13]);
+            PGN_236.pgn[PGN_236.pin14] = (byte)int.Parse(words[14]);
+            PGN_236.pgn[PGN_236.pin15] = (byte)int.Parse(words[15]);
+            PGN_236.pgn[PGN_236.pin16] = (byte)int.Parse(words[16]);
+            PGN_236.pgn[PGN_236.pin17] = (byte)int.Parse(words[17]);
+            PGN_236.pgn[PGN_236.pin18] = (byte)int.Parse(words[18]);
+            PGN_236.pgn[PGN_236.pin19] = (byte)int.Parse(words[19]);
 
-                encodedAngle = (int)(lon * (0x7FFFFFFF / 180.0));
-                //double angle = (encodedAngle / (0x7FFFFFFF / 180.0));
+            PGN_236.pgn[PGN_236.pin20] = (byte)int.Parse(words[20]);
+            PGN_236.pgn[PGN_236.pin21] = (byte)int.Parse(words[21]);
+            PGN_236.pgn[PGN_236.pin22] = (byte)int.Parse(words[22]);
+            PGN_236.pgn[PGN_236.pin23] = (byte)int.Parse(words[23]);
 
-                lat6 = BitConverter.GetBytes(encodedAngle);
-                Array.Copy(lat6, 0, latLong, 9, 4);
-            }
+            //nozzle settings
+            PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 0;
+            PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
+            PGN_225.pgn[PGN_225.auto] = 1;
+            PGN_225.pgn[PGN_225.up] = 0;
+            PGN_225.pgn[PGN_225.dn] = 0;
         }
+    }
 
-        //AutoSteerData
-        public class CPGN_FE
-        {
-            /// <summary>
-            /// 8 bytes
-            /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xFE, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-            public int speedLo = 5;
-            public int speedHi = 6;
-            public int status = 7;
-            public int steerAngleLo = 8;
-            public int steerAngleHi = 9;
-            public int lineDistance  = 10;
-            public int sc1to8 = 11;
-            public int sc9to16 = 12;
+    //AutoSteerData
+    public static class PGN_254
+    {
+        /// <summary>
+        /// 8 bytes
+        /// </summary>
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 254, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+        public static int speedLo = 5;
+        public static int speedHi = 6;
+        public static int status = 7;
+        public static int steerAngleLo = 8;
+        public static int steerAngleHi = 9;
+        public static int lineDistance = 10;
+        public static int sc1to8 = 11;
+        public static int sc9to16 = 12;
+    }
 
-            public void Reset()
-            {
-            }
-        }
-
-        public class CPGN_FD
-        {
-            /// <summary>
-            /// From steer module
-            /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xFD, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-            public int actualLo = 5;
-            public int actualHi = 6;
-            public int headLo = 7;
-            public int headHi = 8;
-            public int rollLo = 9;
-            public int rollHi = 10;
-            public int switchStatus = 11;
-            public int pwm = 12;
-
-            public void Reset()
-            {
-            }
-        }
+    public static class PGN_253
+    {
+        /// <summary>
+        /// From steer module
+        /// </summary>
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 253, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+        public static int actualLo = 5;
+        public static int actualHi = 6;
+        public static int headLo = 7;
+        public static int headHi = 8;
+        public static int rollLo = 9;
+        public static int rollHi = 10;
+        public static int switchStatus = 11;
+        public static int pwm = 12;
+    }
 
 
-        //AutoSteer Settings
-        public class CPGN_FC
-        {
-            /// <summary>
-            /// PGN - 252 - FC gainProportional=5 HighPWM=6  LowPWM = 7 MinPWM = 8 
-            /// CountsPerDegree = 9 wasOffsetHi = 10 wasOffsetLo = 11 
-            /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xFC, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-            public int gainProportional = 5;
-            public int highPWM = 6;
-            public int lowPWM = 7;
-            public int minPWM = 8;
-            public int countsPerDegree = 9;
-            public int wasOffsetLo = 10;
-            public int wasOffsetHi = 11;
-            public int ackerman = 12;
+    //AutoSteer Settings
+    public static class PGN_252
+    {
+        /// <summary>
+        /// PGN - 252 - FC gainProportional=5 HighPWM=6  LowPWM = 7 MinPWM = 8 
+        /// CountsPerDegree = 9 wasOffsetHi = 10 wasOffsetLo = 11 
+        /// </summary>
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 252, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+        public static int gainProportional = 5;
+        public static int highPWM = 6;
+        public static int lowPWM = 7;
+        public static int minPWM = 8;
+        public static int countsPerDegree = 9;
+        public static int wasOffsetLo = 10;
+        public static int wasOffsetHi = 11;
+        public static int ackerman = 12;          
+    }
 
-            public CPGN_FC()
-            {
-                pgn[gainProportional] = Properties.Settings.Default.setAS_Kp;
-                pgn[highPWM] = Properties.Settings.Default.setAS_highSteerPWM;
-                pgn[lowPWM] = Properties.Settings.Default.setAS_lowSteerPWM;
-                pgn[minPWM] = Properties.Settings.Default.setAS_minSteerPWM;
-                pgn[countsPerDegree] = Properties.Settings.Default.setAS_countsPerDegree;
-                pgn[wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset >> 8));;
-                pgn[wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setAS_Kp));
-                pgn[ackerman] = Properties.Settings.Default.setAS_ackerman;
-            }
+    //Autosteer Board Config
+    public static class PGN_251
+    {
+        /// <summary>
+        /// 
+        /// PGN - 251 - FB 
+        /// set0=5 maxPulse = 6 minSpeed = 7 ackermanFix = 8
+        /// </summary>
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 251, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+        public static int set0 = 5;
+        public static int maxPulse = 6;
+        public static int minSpeed = 7;
+        public static int set1 = 8;
+        public static int angVel = 9;
+        //public static int  = 10;
+        //public static int  = 11;
+        //public static int  = 12;
 
-            public void Reset()
-            {
-            }
-        }
+    }
 
-        //Autosteer Board Config
-        public class CPGN_FB
-        {
-            /// <summary>
-            /// 
-            /// PGN - 251 - FB 
-            /// set0=5 maxPulse = 6 minSpeed = 7 ackermanFix = 8
-            /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xFB, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-            public int set0 = 5;
-            public int maxPulse = 6;
-            public int minSpeed = 7;
-            public int set1 = 8;
-            public int angVel  = 9;
-            //public int  = 10;
-            //public int  = 11;
-            //public int  = 12;
+    //Machine Data
+    public static class PGN_239
+    {
+        /// <summary>
+        /// PGN - 239 - EF 
+        /// uturn=5  tree=6  hydLift = 8 
+        /// </summary>
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 239, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+        public static int uturn = 5;
+        public static int speed = 6;
+        public static int hydLift = 7;
+        public static int tram = 8;
+        public static int geoStop = 9; //out of bounds etc
+                                //public static int  = 10;
+        public static int sc1to8 = 11;
+        public static int sc9to16 = 12;
+    }
 
-            public CPGN_FB()
-            {
-                pgn[set0] = 0;
-                pgn[maxPulse] = 0;
-                pgn[minSpeed] = 0;
-                pgn[set1] = 0;
-                pgn[angVel] = 0;
-            }
+    public static class PGN_229
+    {
+        /// <summary>
+        /// PGN - 229 - E5 
+        /// </summary>
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 229, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+        public static int sc1to8 = 5;
+        public static int sc9to16 = 6;
+        public static int sc17to24 = 7;
+        public static int sc25to32 = 8;
+        public static int sc33to40 = 9;
+        public static int sc41to48 = 10;
+        public static int sc49to56 = 11;
+        public static int sc57to64 = 12;
+        public static int toolLSpeed = 13;
+        public static int toolRSpeed = 14;
+    }
 
-            public void Reset()
-            {
-            }
-        }
+    //Machine Config
+    public static class PGN_238
+    {
+        /// <summary>
+        /// PGN - 238 - EE 
+        /// raiseTime=5  lowerTime=6   enableHyd= 7 set0 = 8
+        /// </summary>
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 238, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+        public static int raiseTime = 5;
+        public static int lowerTime = 6;
+        public static int enableHyd = 7;
+        public static int set0 = 8;
+        public static int user1 = 9;
+        public static int user2 = 10;
+        public static int user3 = 11;
+        public static int user4 = 12;
+    }
 
-        //Machine Data
-        public class CPGN_EF
-        {
-            /// <summary>
-            /// PGN - 239 - EF 
-            /// uturn=5  tree=6  hydLift = 8 
-            /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xEF, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-            public int uturn = 5;
-            public int speed = 6;
-            public int hydLift = 7;
-            public int tram = 8;
-            public int geoStop = 9; //out of bounds etc
-            //public int  = 10;
-            public int sc1to8 = 11;
-            public int sc9to16 = 12;
-
-            public CPGN_EF()
-            {
-            }
-
-            public void Reset()
-            {
-            }
-        }
-        public class CPGN_E5
-        {
-            /// <summary>
-            /// PGN - 229 - E5 
-            /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xE5, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-            public int sc1to8 = 5;
-            public int sc9to16 = 6;
-            public int sc17to24 = 7;
-            public int sc25to32 = 8;
-            public int sc33to40 = 9; 
-            public int sc41to48 = 10;
-            public int sc49to56 = 11;
-            public int sc57to64 = 12;
-            public int toolLSpeed = 13;
-            public int toolRSpeed = 14;
-
-            public CPGN_E5()
-            {
-            }
-
-            public void Reset()
-            {
-            }
-        }
-
-        //Machine Config
-        public class CPGN_EE
-        {
-            /// <summary>
-            /// PGN - 238 - EE 
-            /// raiseTime=5  lowerTime=6   enableHyd= 7 set0 = 8
-            /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xEE, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-            public int raiseTime = 5;
-            public int lowerTime = 6;
-            public int enableHyd = 7;
-            public int set0 = 8;
-            public int user1 = 9;
-            public int user2 = 10;
-            public int user3 = 11;
-            public int user4  = 12;
-
-            // PGN  - 127.239 0x7FEF
-            int crc = 0;
-
-            public CPGN_EE()
-            {
-                pgn[raiseTime] = Properties.Settings.Default.setArdMac_hydRaiseTime;
-                pgn[lowerTime] = Properties.Settings.Default.setArdMac_hydLowerTime;
-                pgn[enableHyd] = Properties.Settings.Default.setArdMac_isHydEnabled;
-                pgn[set0] = Properties.Settings.Default.setArdMac_setting0;
-
-                pgn[user1] = Properties.Settings.Default.setArdMac_user1;
-                pgn[user2] = Properties.Settings.Default.setArdMac_user2;
-                pgn[user3] = Properties.Settings.Default.setArdMac_user3;
-                pgn[user4] = Properties.Settings.Default.setArdMac_user4;
-            }
-
-            public void MakeCRC()
-            {
-                crc = 0;
-                for (int i = 2; i < pgn.Length - 1; i++)
-                {
-                    crc += pgn[i];
-                }
-                pgn[pgn.Length - 1] = (byte)crc;
-            }
-
-            public void Reset()
-            {
-            }
-        }
-
-        //Relay Config
-        public class CPGN_EC
-        {
-            /// <summary>
-            /// PGN - 236 - EC
-            /// Pin conifg 1 to 20
-            /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xEC, 24,
+    //Relay Config
+    public static class PGN_236
+    {
+        /// <summary>
+        /// PGN - 236 - EC
+        /// Pin conifg 1 to 20
+        /// </summary>
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 236, 24,
                                         0, 0, 0, 0, 0, 0, 0, 0,
                                         0, 0, 0, 0, 0, 0, 0, 0,
                                         0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
 
-            //where in the pgn is which pin
-            public int pin0 = 5;
-            public int pin1 = 6;
-            public int pin2 = 7;
-            public int pin3 = 8;
-            public int pin4 = 9;
-            public int pin5 = 10;
-            public int pin6 = 11;
-            public int pin7 = 12;
-            public int pin8 = 13;
-            public int pin9 = 14;
+        //where in the pgn is which pin
+        public static int pin0 = 5;
+        public static int pin1 = 6;
+        public static int pin2 = 7;
+        public static int pin3 = 8;
+        public static int pin4 = 9;
+        public static int pin5 = 10;
+        public static int pin6 = 11;
+        public static int pin7 = 12;
+        public static int pin8 = 13;
+        public static int pin9 = 14;
 
-            public int pin10 = 15;
-            public int pin11 = 16;
-            public int pin12 = 17;
-            public int pin13 = 18;
-            public int pin14 = 19;
-            public int pin15 = 20;
-            public int pin16 = 21;
+        public static int pin10 = 15;
+        public static int pin11 = 16;
+        public static int pin12 = 17;
+        public static int pin13 = 18;
+        public static int pin14 = 19;
+        public static int pin15 = 20;
+        public static int pin16 = 21;
 
-            public int pin17 = 22;
-            public int pin18 = 23;
-            public int pin19 = 24;
-            public int pin20 = 25;
-            public int pin21 = 26;
-            public int pin22 = 27;
-            public int pin23 = 28;
+        public static int pin17 = 22;
+        public static int pin18 = 23;
+        public static int pin19 = 24;
+        public static int pin20 = 25;
+        public static int pin21 = 26;
+        public static int pin22 = 27;
+        public static int pin23 = 28;
+    }
 
-            // PGN  - 127.237 0x7FED
-            int crc = 0;
-
-            public CPGN_EC()
-            {
-                string[] words;
-
-                words = Properties.Settings.Default.setRelay_pinConfig.Split(',');
-
-                pgn[pin0] = (byte)int.Parse(words[0]);
-                pgn[pin1] = (byte)int.Parse(words[1]);
-                pgn[pin2] = (byte)int.Parse(words[2]);
-                pgn[pin3] = (byte)int.Parse(words[3]);
-                pgn[pin4] = (byte)int.Parse(words[4]);
-                pgn[pin5] = (byte)int.Parse(words[5]);
-                pgn[pin6] = (byte)int.Parse(words[6]);
-                pgn[pin7] = (byte)int.Parse(words[7]);
-                pgn[pin8] = (byte)int.Parse(words[8]);
-                pgn[pin9] = (byte)int.Parse(words[9]);
-
-                pgn[pin10] = (byte)int.Parse(words[10]);
-                pgn[pin11] = (byte)int.Parse(words[11]);
-                pgn[pin12] = (byte)int.Parse(words[12]);
-                pgn[pin13] = (byte)int.Parse(words[13]);
-                pgn[pin14] = (byte)int.Parse(words[14]);
-                pgn[pin15] = (byte)int.Parse(words[15]);
-                pgn[pin16] = (byte)int.Parse(words[16]);
-                pgn[pin17] = (byte)int.Parse(words[17]);
-                pgn[pin18] = (byte)int.Parse(words[18]);
-                pgn[pin19] = (byte)int.Parse(words[19]);
-
-                pgn[pin20] = (byte)int.Parse(words[20]);
-                pgn[pin21] = (byte)int.Parse(words[21]);
-                pgn[pin22] = (byte)int.Parse(words[22]);
-                pgn[pin23] = (byte)int.Parse(words[23]);
-
-            }
-
-            public void MakeCRC()
-            {
-                crc = 0;
-                for (int i = 2; i < pgn.Length - 1; i++)
-                {
-                    crc += pgn[i];
-                }
-                pgn[pgn.Length - 1] = (byte)crc;
-            }
-
-            public void Reset()
-            {
-            }
-        }
-
-        public class CPGN_EB
-        {
-            /// <summary>
-            /// PGN - 235 - EB
-            /// Section dimensions
-            /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xEB, 33,
+    public static class PGN_235
+    {
+        /// <summary>
+        /// PGN - 235 - EB
+        /// Section dimensions
+        /// </summary>
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xEB, 33,
                                         0, 0, 0, 0, 0, 0, 0, 0,
                                         0, 0, 0, 0, 0, 0, 0, 0,
                                         0, 0, 0, 0, 0, 0, 0, 0,
                                         0, 0, 0, 0, 0, 0, 0, 0,
                                         0, 0xCC };
 
-            //where in the pgn is which pin
-            public int sec0Lo  = 5;
-            public int sec1Lo  = 7;
-            public int sec2Lo  = 9;
-            public int sec3Lo  = 11;
-            public int sec4Lo  = 13;
-            public int sec5Lo  = 15;
-            public int sec6Lo  = 17;
-            public int sec7Lo  = 19;
-            public int sec8Lo  = 21;
-            public int sec9Lo  = 23;
-            public int sec10Lo = 25;
-            public int sec11Lo = 27;
-            public int sec12Lo = 29;
-            public int sec13Lo = 31;
-            public int sec14Lo = 33;
-            public int sec15Lo = 35;
+        //where in the pgn is which pin
+        public static int sec0Lo = 5;
+        public static int sec1Lo = 7;
+        public static int sec2Lo = 9;
+        public static int sec3Lo = 11;
+        public static int sec4Lo = 13;
+        public static int sec5Lo = 15;
+        public static int sec6Lo = 17;
+        public static int sec7Lo = 19;
+        public static int sec8Lo = 21;
+        public static int sec9Lo = 23;
+        public static int sec10Lo = 25;
+        public static int sec11Lo = 27;
+        public static int sec12Lo = 29;
+        public static int sec13Lo = 31;
+        public static int sec14Lo = 33;
+        public static int sec15Lo = 35;
 
-            public int sec0Hi  = 6;
-            public int sec1Hi  = 8;
-            public int sec2Hi  = 10;
-            public int sec3Hi  = 12;
-            public int sec4Hi  = 14;
-            public int sec5Hi  = 16;
-            public int sec6Hi  = 18;
-            public int sec7Hi  = 20;
-            public int sec8Hi  = 22;
-            public int sec9Hi  = 24;
-            public int sec10Hi = 26;
-            public int sec11Hi = 28;
-            public int sec12Hi = 30;
-            public int sec13Hi = 32;
-            public int sec14Hi = 34;
-            public int sec15Hi = 36;
+        public static int sec0Hi = 6;
+        public static int sec1Hi = 8;
+        public static int sec2Hi = 10;
+        public static int sec3Hi = 12;
+        public static int sec4Hi = 14;
+        public static int sec5Hi = 16;
+        public static int sec6Hi = 18;
+        public static int sec7Hi = 20;
+        public static int sec8Hi = 22;
+        public static int sec9Hi = 24;
+        public static int sec10Hi = 26;
+        public static int sec11Hi = 28;
+        public static int sec12Hi = 30;
+        public static int sec13Hi = 32;
+        public static int sec14Hi = 34;
+        public static int sec15Hi = 36;
 
-            public int numSections = 37;
+        public static int numSections = 37;
+    }
 
-            public CPGN_EB()
-            {
-                pgn[sec0Lo] = 0;
-                pgn[sec1Lo] = 0;
-                pgn[sec2Lo] = 0;
-                pgn[sec3Lo] = 0;
-                pgn[sec4Lo] = 0;
-                pgn[sec5Lo] = 0;
-                pgn[sec6Lo] = 0;
-                pgn[sec7Lo] = 0;
-                pgn[sec8Lo] = 0;
-                pgn[sec9Lo] = 0;
-                pgn[sec10Lo] = 0;
-                pgn[sec11Lo] = 0;
-                pgn[sec12Lo] = 0;
-                pgn[sec13Lo] = 0;
-                pgn[sec14Lo] = 0;
-                pgn[sec15Lo] = 0;
-
-                pgn[sec0Hi] = 0;
-                pgn[sec1Hi] = 0;
-                pgn[sec2Hi] = 0;
-                pgn[sec3Hi] = 0;
-                pgn[sec4Hi] = 0;
-                pgn[sec5Hi] = 0; 
-                pgn[sec6Hi] = 0;
-                pgn[sec7Hi] = 0;
-                pgn[sec8Hi] = 0;
-                pgn[sec9Hi] = 0;
-                pgn[sec10Hi] = 0;
-                pgn[sec11Hi] = 0;
-                pgn[sec12Hi] = 0;
-                pgn[sec13Hi] = 0;
-                pgn[sec14Hi] = 0;
-                pgn[sec15Hi] = 0;
-
-                pgn[numSections] = 0;   
-            }
-
-            public void Reset()
-            {
-            }
-        }
-
-        public class CPGN_E4
-        {
-            /// <summary>
-            /// 8 bytes
-            /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xE4, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-            public int rate0 = 5;
-            public int rate1 = 6;
-            public int rate2 = 7;
-            //public int  = 6;
-            //public int = 7;
-            //public int gleLo = 8;
-            //public int gleHi = 9;
-            //public int tance = 10;
-            //public int = 11;
-            //public int  = 12;
-        }
-
-        // Nozzle -----------------------------------------------------------------------------------
-
-        //Spray Data
-        public class CPGN_227_E3
-        {
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xE3, 5, 0, 0, 0, 0, 0, 0xCC };
-            public int sec1to8 = 5;
-            public int sec9to16 = 6;
-            public int volumePerMinuteSetLo = 7;
-            public int volumePerMinuteSetHi = 8;
-            public int percentWidthBypass = 9;
-
-        }
-
-        //Spray Settings
-        public class CPGN_226_E2
-        {
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xE2, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-            public int flowCaLo = 5;
-            public int flowCalHi = 6;
-            public int pressureCalLo = 7;
-            public int pressureCalHi = 8;
-            public int Kp = 9;
-            public int Ki = 10;
-            public int minPressure = 11;
-            public int fastPWM = 12;
-            public int slowPWM = 13;
-            public int deadbandError = 14;
-            public int switchAtFlowError = 15;
-            public int isBypass = 16;
-            public int isSectionValve3Wire = 17;
-
-        }
-
-        //Spray Functions
-        public class CPGN_225_E1
-        {
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xE1, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-
-            public int zeroTankVolumeLo = 5;
-            public int zeroTankVolumeHi = 6;
-            public int auto = 7;
-            public int up = 8;
-            public int dn = 9;
-
-            public CPGN_225_E1()
-            {
-                pgn[zeroTankVolumeLo] = 0;
-                pgn[zeroTankVolumeHi] = 0;
-                pgn[auto] = 1;
-                pgn[up] = 0;
-                pgn[dn] = 0;
-            }
-        }
-
-        // Tool Steer ------------------------------------------------------------------------------
-        
-        //ToolSteerData
-        public class CPGN_233_E9
-        {
-            /// <summary>
-            /// PGN_233_E9 speedLo = 5 speedHi = 6 
-            ///    status = 7 xteLo = 8 xteHi = 9;
-            /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f,233, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-            public int speedLo = 5;
-            public int speedHi = 6;
-            public int status = 7;
-            public int xteLo = 8;
-            public int xteHi = 9;
-        }
-
-        //ToolSteer Settings
-        public class CPGN_232_E8
-        {
-            /// <summary>
-            /// PGN - 232_E8 gainP=5 integral=6  MinPWM = 7 hiPWM = 8
-            /// CountsPerDegree = 9 wasOffsetLo = 10 wasOffsetHi = 11 
-            /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 232, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-            public int gainP = 5;
-            public int integral = 6;
-            public int minPWM = 7;
-            public int highPWM = 8;
-            public int countsPerDegree = 9;
-            public int wasOffsetLo = 10;
-            public int wasOffsetHi = 11;
-            public int ackerman = 12;
-        }
-
-        //Toolsteer Config
-        public class CPGN_231_E7
-        {
-            /// <summary>
-            /// 
-            /// PGN - 231 - E7 
-            /// invWas = 5 invSteer = 6 maxSteer = 7
-            /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 231, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-            public int invertWAS = 5;
-            public int invertSteer = 6;
-            public int maxSteerAngle = 7;
-            public int isSteer = 8;
-        }
-
-        //From Tool Steer Board
-        public class CPGN_230_E6
-        {
-            /// <summary>
-            /// From Tool steer module
-            /// </summary>
-            public byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 230, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-            public int actualLo = 5;
-            public int actualHi = 6;
-            public int rollLo = 7;
-            public int rollHi = 8;
-            public int pwm = 9;
-            public int status = 10;
-        }
-
-        //pgn instances
-
+    public static class PGN_228
+    {
         /// <summary>
-        /// autoSteerData - FE - 254 - 
+        /// 8 bytes
         /// </summary>
-        public CPGN_FE p_254 = new CPGN_FE();
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 228, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+        public static int rate0 = 5;
+        public static int rate1 = 6;
+        public static int rate2 = 7;
+        //public static int  = 6;
+        //public static int = 7;
+        //public static int gleLo = 8;
+        //public static int gleHi = 9;
+        //public static int tance = 10;
+        //public static int = 11;
+        //public static int  = 12;
+    }
 
-        /// <summary>
-        /// autoSteerSettings PGN - 252 - FC
-        /// </summary>
-        public CPGN_FC p_252 = new CPGN_FC();
+    // Nozzle -----------------------------------------------------------------------------------
 
-        /// <summary>
-        /// autoSteerConfig PGN - 251 - FB
-        /// </summary>
-        public CPGN_FB p_251 = new CPGN_FB();
-
-        /// <summary>
-        /// machineData PGN - 239 - EF
-        /// </summary>
-        public CPGN_EF p_239 = new CPGN_EF();
-
-        /// <summary>
-        /// machineConfig PGN - 238 - EE
-        /// </summary>
-        public CPGN_EE p_238 = new CPGN_EE();
-
-        /// <summary>
-        /// relayConfig PGN - 236 - EC
-        /// </summary>
-        public CPGN_EC p_236 = new CPGN_EC();
-
-        /// <summary>
-        /// Section dimensions PGN - 235 - EB
-        /// </summary>
-        public CPGN_EB p_235 = new CPGN_EB();
-
-        /// <summary>
-        /// Tool Steer Data Sent
-        /// </summary>
-        public CPGN_233_E9 p_233 = new CPGN_233_E9();
-
-        /// <summary>
-        /// Tool Steer Settings
-        /// </summary>
-        public CPGN_232_E8 p_232 = new CPGN_232_E8();
-
-        /// <summary>
-        /// Tool Steer Config
-        /// </summary>
-        public CPGN_231_E7 p_231 = new CPGN_231_E7();
-
-
-        /// <summary>
-        /// Section dimensions PGN - 228 - E4
-        /// </summary>
-        /// <summary>
-        /// Section Symmetric PGN - 229 - EB
-        /// </summary>
-        public CPGN_E5 p_229 = new CPGN_E5();
-
-        public CPGN_E4 p_228 = new CPGN_E4();
-
-        //Spray PGNS
-        /// <summary>
-        /// Spray Data PGN - 227 - E3
-        /// </summary>
-        public CPGN_227_E3 p_227 = new CPGN_227_E3();
-
-        /// <summary>
-        /// Spray Settings PGN - 226 - E2
-        /// </summary>
-        public CPGN_226_E2 p_226 = new CPGN_226_E2();
-
-        /// <summary>
-        /// Spray Functions PGN - 225 - E1
-        /// </summary>
-        public CPGN_225_E1 p_225 = new CPGN_225_E1();
-
-
-        /// <summary>
-        /// LatitudeLongitude - D0 - 
-        /// </summary>
-        //public CPGN_D0 p_208 = new CPGN_D0();
+    //Spray Data
+    public static class PGN_227
+    {
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xE3, 5, 0, 0, 0, 0, 0, 0xCC };
+        public static int sec1to8 = 5;
+        public static int sec9to16 = 6;
+        public static int volumePerMinuteSetLo = 7;
+        public static int volumePerMinuteSetHi = 8;
+        public static int percentWidthBypass = 9;
 
     }
+
+    //Spray Settings
+    public static class PGN_226
+    {
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 226, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+        public static int flowCaLo = 5;
+        public static int flowCalHi = 6;
+        public static int pressureCalLo = 7;
+        public static int pressureCalHi = 8;
+        public static int Kp = 9;
+        public static int Ki = 10;
+        public static int minPressure = 11;
+        public static int fastPWM = 12;
+        public static int slowPWM = 13;
+        public static int deadbandError = 14;
+        public static int switchAtFlowError = 15;
+        public static int isBypass = 16;
+        public static int isSectionValve3Wire = 17;
+
+    }
+
+    //Spray Functions
+    public static class PGN_225
+    {
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 225, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+
+        public static int zeroTankVolumeLo = 5;
+        public static int zeroTankVolumeHi = 6;
+        public static int auto = 7;
+        public static int up = 8;
+        public static int dn = 9;
+    }
+
+    // Tool Steer ------------------------------------------------------------------------------
+
+    //ToolSteerData
+    public static class PGN_233
+    {
+        /// <summary>
+        /// PGN_233_E9 speedLo = 5 speedHi = 6 
+        ///    status = 7 xteLo = 8 xteHi = 9;
+        /// </summary>
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 233, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+        public static int speedLo = 5;
+        public static int speedHi = 6;
+        public static int status = 7;
+        public static int xteLo = 8;
+        public static int xteHi = 9;
+    }
+
+    //ToolSteer Settings
+    public static class PGN_232
+    {
+        /// <summary>
+        /// PGN - 232_E8 gainP=5 integral=6  MinPWM = 7 hiPWM = 8
+        /// CountsPerDegree = 9 wasOffsetLo = 10 wasOffsetHi = 11 
+        /// </summary>
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 232, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+        public static int gainP = 5;
+        public static int integral = 6;
+        public static int minPWM = 7;
+        public static int highPWM = 8;
+        public static int countsPerDegree = 9;
+        public static int wasOffsetLo = 10;
+        public static int wasOffsetHi = 11;
+        public static int ackerman = 12;
+    }
+
+    //Toolsteer Config
+    public static class PGN_231
+    {
+        /// <summary>
+        /// 
+        /// PGN - 231 - E7 
+        /// invWas = 5 invSteer = 6 maxSteer = 7
+        /// </summary>
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 231, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+        public static int invertWAS = 5;
+        public static int invertSteer = 6;
+        public static int maxSteerAngle = 7;
+        public static int isSteer = 8;
+    }
+
+    //From Tool Steer Board
+    public static class PGN_230
+    {
+        /// <summary>
+        /// From Tool steer module
+        /// </summary>
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 230, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+        public static int actualLo = 5;
+        public static int actualHi = 6;
+        public static int rollLo = 7;
+        public static int rollHi = 8;
+        public static int pwm = 9;
+        public static int status = 10;
+    }
 }
-    
+
+

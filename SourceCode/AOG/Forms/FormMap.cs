@@ -41,7 +41,7 @@ namespace AgOpenGPS
             mapControl.Tracks.Add(bingLine);
         }
 
-        private void FormMap_Load(object sender, EventArgs e)
+        private void FormMaPGN_Load(object sender, EventArgs e)
         {
             Size = Properties.Settings.Default.setWindow_BingMapSize;
 
@@ -72,7 +72,7 @@ namespace AgOpenGPS
             label3.Text = gStr.gsBoundary;
         }
 
-        private void FormMap_FormClosing(object sender, FormClosingEventArgs e)
+        private void FormMaPGN_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!isClosing)
             {
@@ -415,7 +415,7 @@ namespace AgOpenGPS
             }
         }
 
-        private void cboxDrawMap_Click(object sender, EventArgs e)
+        private void cboxDrawMaPGN_Click(object sender, EventArgs e)
         {
             if (bingLine.Count > 0)
             {

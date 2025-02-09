@@ -1785,7 +1785,7 @@
             this.hsbarSideHillComp.Size = new System.Drawing.Size(339, 53);
             this.hsbarSideHillComp.TabIndex = 352;
             this.hsbarSideHillComp.Value = 5;
-            this.hsbarSideHillComp.ValueChanged += new System.EventHandler(this.hsbarSideHillComp_ValueChanged);
+            this.hsbarSideHillComp.ValueChanged += new System.EventHandler(this.hsbarSideHillComPGN_ValueChanged);
             // 
             // label22
             // 
@@ -2104,7 +2104,7 @@
             this.btnSteerAngleUp.Size = new System.Drawing.Size(73, 56);
             this.btnSteerAngleUp.TabIndex = 315;
             this.btnSteerAngleUp.UseVisualStyleBackColor = false;
-            this.btnSteerAngleUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSteerAngleUp_MouseDown);
+            this.btnSteerAngleUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSteerAngleUPGN_MouseDown);
             // 
             // btnFreeDrive
             // 

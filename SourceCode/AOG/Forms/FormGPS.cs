@@ -464,6 +464,9 @@ namespace AgOpenGPS
                 }
             }
 
+            //default values for PGNs
+            LoadPGNS();
+
             // load all the gui elements in gui.designer.cs
             LoadSettings();
 
@@ -1037,7 +1040,7 @@ namespace AgOpenGPS
             btnFieldStats.Visible = false;
 
             //make sure hydraulic lift is off
-            p_239.pgn[p_239.hydLift] = 0;
+            PGN_239.pgn[PGN_239.hydLift] = 0;
             vehicle.isHydLiftOn = false;
             btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
             btnHydLift.Visible = false;

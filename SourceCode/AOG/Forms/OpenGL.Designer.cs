@@ -1663,14 +1663,14 @@ namespace AgOpenGPS
                 if (distancePivotToTurnLine > 0 && !yt.isOutOfBounds && yt.youTurnPhase == 10) GL.Color3(0.3f, 0.95f, 0.3f);
                 else GL.Color3(0.97f, 0.635f, 0.4f);
                 //mc.autoSteerData[mc.sdX] = 0;
-                p_239.pgn[p_239.uturn] = 0;
+                PGN_239.pgn[PGN_239.uturn] = 0;
             }
             else
             {
                 GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.TurnCancel]);        // Select Our Texture
                 GL.Color3(0.90f, 0.90f, 0.293f);
                 //mc.autoSteerData[mc.sdX] = 0;
-                p_239.pgn[p_239.uturn] = 1;
+                PGN_239.pgn[PGN_239.uturn] = 1;
             }
 
             int bottom = 90;
@@ -2621,7 +2621,7 @@ namespace AgOpenGPS
 
             GL.Translate(oglMain.Width / 2 - 35, oglMain.Height / 2, 0);
 
-            if (p_239.pgn[p_239.hydLift] == 2)
+            if (PGN_239.pgn[PGN_239.hydLift] == 2)
             {
                 GL.Color3(0.0f, 0.950f, 0.0f);
             }

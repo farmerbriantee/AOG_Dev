@@ -105,23 +105,23 @@
                                                     (mf.avgSpeed * 0.621) * mf.nozz.currentSectionsWidthMeters * 39.3701 / 5940 * 100);
                 }
 
-                mf.p_227.pgn[mf.p_227.volumePerMinuteSetLo] = (byte)(mf.nozz.volumePerMinuteSet);
-                mf.p_227.pgn[mf.p_227.volumePerMinuteSetHi] = unchecked((byte)((mf.nozz.volumePerMinuteSet) >> 8));
-                mf.p_227.pgn[mf.p_227.percentWidthBypass] = (byte)(mf.nozz.percentWidthBypass);
+                PGN_227.pgn[PGN_227.volumePerMinuteSetLo] = (byte)(mf.nozz.volumePerMinuteSet);
+                PGN_227.pgn[PGN_227.volumePerMinuteSetHi] = unchecked((byte)((mf.nozz.volumePerMinuteSet) >> 8));
+                PGN_227.pgn[PGN_227.percentWidthBypass] = (byte)(mf.nozz.percentWidthBypass);
             }
             else
             {
                 mf.nozz.volumePerMinuteSet = 0;
 
-                mf.p_227.pgn[mf.p_227.volumePerMinuteSetLo] = 0;
-                mf.p_227.pgn[mf.p_227.volumePerMinuteSetHi] = 0;
-                mf.p_227.pgn[mf.p_227.percentWidthBypass] = 0;
+                PGN_227.pgn[PGN_227.volumePerMinuteSetLo] = 0;
+                PGN_227.pgn[PGN_227.volumePerMinuteSetHi] = 0;
+                PGN_227.pgn[PGN_227.percentWidthBypass] = 0;
             }
 
-            mf.p_227.pgn[mf.p_227.sec1to8] = mf.p_254.pgn[mf.p_254.sc1to8];
-            mf.p_227.pgn[mf.p_227.sec9to16] = mf.p_254.pgn[mf.p_254.sc9to16];
+            PGN_227.pgn[PGN_227.sec1to8] = PGN_254.pgn[PGN_254.sc1to8];
+            PGN_227.pgn[PGN_227.sec9to16] = PGN_254.pgn[PGN_254.sc9to16];
 
-            mf.SendPgnToLoop(mf.p_227.pgn);
+            mf.SendPgnToLoop(PGN_227.pgn);
         }
     }
 

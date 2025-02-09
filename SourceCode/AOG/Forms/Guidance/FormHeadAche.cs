@@ -715,7 +715,7 @@ namespace AgOpenGPS
             //}
         }
 
-        private void btnBndLoop_Click(object sender, EventArgs e)
+        private void btnBndLooPGN_Click(object sender, EventArgs e)
         {
             //sort the lines
             mf.hdl.tracksArr.Sort((p, q) => p.a_point.CompareTo(q.a_point));

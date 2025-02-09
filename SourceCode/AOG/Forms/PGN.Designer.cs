@@ -547,6 +547,7 @@ namespace AgOpenGPS
             public int invertWAS = 5;
             public int invertSteer = 6;
             public int maxSteerAngle = 7;
+            public int isSteer = 8;
         }
 
         //From Tool Steer Board

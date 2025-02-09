@@ -776,6 +776,7 @@ namespace AgOpenGPS
         {
             cboxGPSTool.Checked = mf.isGPSToolActive;
 
+            //settings
             hsbarPGain_Tool.Value = Properties.Settings.Default.setToolSteer.gainP;
             hsbarIntegral_Tool.Value = Properties.Settings.Default.setToolSteer.integral;
             hsbarMinPWM_Tool.Value = Properties.Settings.Default.setToolSteer.minPWM;
@@ -784,10 +785,13 @@ namespace AgOpenGPS
             hsbarCPD_Tool.Value = Properties.Settings.Default.setToolSteer.countsPerDegree;
             hsbarZeroWAS_Tool.Value = Properties.Settings.Default.setToolSteer.wasOffset;
 
+            //config
             hsbarMaxSteerAngle_Tool.Value = Properties.Settings.Default.setToolSteer.maxSteerAngle;
             cboxInvertSteer_Tool.Checked = (Properties.Settings.Default.setToolSteer.isInvertSteer == 1);
             cboxInvertWAS_Tool.Checked = (Properties.Settings.Default.setToolSteer.isInvertWAS == 1);
+            cboxIsSteerNotSlide_Tool.Checked = (Properties.Settings.Default.setToolSteer.isSteerNotSlide == 1);
 
+            //settings
             lblPGain_Tool.Text = hsbarPGain_Tool.Value.ToString();
             lblIntegral_Tool.Text = hsbarIntegral_Tool.Value.ToString();
             lblMinPWM_Tool.Text = hsbarMinPWM_Tool.Value.ToString();
@@ -796,11 +800,13 @@ namespace AgOpenGPS
             lblZeroWAS_Tool.Text = (hsbarZeroWAS_Tool.Value / (double)(hsbarCPD_Tool.Value)).ToString("N2");
             lblCPD_Tool.Text = hsbarCPD_Tool.Value.ToString();
 
+            //config
             lblMaxSteerAngle_Tool.Text = hsbarMaxSteerAngle_Tool.Value.ToString();
         }
 
         private void tabTool_Leave(object sender, EventArgs e)
         {
+            //settings
             Properties.Settings.Default.setToolSteer.gainP = (byte)hsbarPGain_Tool.Value;
             Properties.Settings.Default.setToolSteer.integral = (byte)hsbarIntegral_Tool.Value;
             Properties.Settings.Default.setToolSteer.minPWM = (byte)hsbarMinPWM_Tool.Value;
@@ -808,6 +814,8 @@ namespace AgOpenGPS
             Properties.Settings.Default.setToolSteer.countsPerDegree = (byte)hsbarCPD_Tool.Value;
             Properties.Settings.Default.setToolSteer.ackermann = (byte)hsbarAckermann_Tool.Value;
             Properties.Settings.Default.setToolSteer.wasOffset = hsbarZeroWAS_Tool.Value;
+
+            //config
             Properties.Settings.Default.setToolSteer.maxSteerAngle = (byte)hsbarMaxSteerAngle_Tool.Value;
 
             if (cboxInvertSteer_Tool.Checked) Properties.Settings.Default.setToolSteer.isInvertWAS = 1;
@@ -815,6 +823,9 @@ namespace AgOpenGPS
 
             if (cboxInvertWAS_Tool.Checked) Properties.Settings.Default.setToolSteer.isInvertSteer = 1;
             else Properties.Settings.Default.setToolSteer.isInvertSteer = 0;
+
+            if (cboxIsSteerNotSlide_Tool.Checked) Properties.Settings.Default.setToolSteer.isSteerNotSlide = 1;
+            else Properties.Settings.Default.setToolSteer.isSteerNotSlide = 0;
 
             mf.p_232.pgn[mf.p_232.gainP] = Properties.Settings.Default.setToolSteer.gainP;
             mf.p_232.pgn[mf.p_232.integral] = Properties.Settings.Default.setToolSteer.integral;
@@ -825,10 +836,12 @@ namespace AgOpenGPS
 
             mf.p_232.pgn[mf.p_232.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset >> 8));
             mf.p_232.pgn[mf.p_232.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset));
+            
+            //config
             mf.p_231.pgn[mf.p_231.maxSteerAngle] = Properties.Settings.Default.setToolSteer.maxSteerAngle;
-
             mf.p_231.pgn[mf.p_231.invertWAS] = Properties.Settings.Default.setToolSteer.isInvertWAS;
             mf.p_231.pgn[mf.p_231.invertSteer] = Properties.Settings.Default.setToolSteer.isInvertSteer;
+            mf.p_231.pgn[mf.p_231.isSteer] = Properties.Settings.Default.setToolSteer.isSteerNotSlide;
         }
 
         private void cboxGPSTool_Click(object sender, EventArgs e)
@@ -851,6 +864,12 @@ namespace AgOpenGPS
             toolSend2 = true;
             toolCounterConfig = 0;
         }
+        private void cboxIsSteerNotSlide_Click(object sender, EventArgs e)
+        {
+            toolSend2 = true;
+            toolCounterConfig = 0;
+        }
+
 
         private void hsbarMaxSteerAngle_Tool_Scroll(object sender, ScrollEventArgs e)
         {

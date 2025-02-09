@@ -91,6 +91,7 @@ namespace AgOpenGPS
 
         public byte isInvertWAS = 0;
         public byte isInvertSteer = 0;
+        public byte isSteerNotSlide = 1;
 
         public CToolSteerSettings(CToolSteerSettings _setting)
         {
@@ -108,6 +109,7 @@ namespace AgOpenGPS
             isInvertWAS = _setting.isInvertWAS;
             isInvertSteer = _setting.isInvertSteer;
             maxSteerAngle = _setting.maxSteerAngle;
+            isSteerNotSlide = _setting.isSteerNotSlide;
         }
     }
 

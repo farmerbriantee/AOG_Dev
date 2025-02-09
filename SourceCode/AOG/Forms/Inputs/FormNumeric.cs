@@ -157,7 +157,7 @@ namespace AgOpenGPS
             tboxNumber.Focus();
         }
 
-        private void BtnDistanceUp_MouseDown(object sender, MouseEventArgs e)
+        private void BtnDistanceUPGN_MouseDown(object sender, MouseEventArgs e)
         {
             if (tboxNumber.Text == "" || tboxNumber.Text == "-" || tboxNumber.Text == gStr.gsError) tboxNumber.Text = "0";
             double tryNumber = double.Parse(tboxNumber.Text, CultureInfo.CurrentCulture);

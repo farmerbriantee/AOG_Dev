@@ -838,8 +838,8 @@ namespace AgOpenGPS
             if (!vehicle.isInFreeDriveMode)
             {
                 //fill up0 the appropriate arrays with new values
-                p_254.pgn[p_254.speedHi] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0) >> 8));
-                p_254.pgn[p_254.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
+                PGN_254.pgn[PGN_254.speedHi] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0) >> 8));
+                PGN_254.pgn[PGN_254.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
                 //mc.machineControlData[mc.cnSpeed] = mc.autoSteerData[mc.sdSpeed];
 
                 //save distance for display
@@ -849,10 +849,10 @@ namespace AgOpenGPS
                 if (!isBtnAutoSteerOn) //32020 means auto steer is off
                 {
                     guidanceLineDistanceOff = 32020;
-                    p_254.pgn[p_254.status] = 0;
+                    PGN_254.pgn[PGN_254.status] = 0;
                 }
 
-                else p_254.pgn[p_254.status] = 1;
+                else PGN_254.pgn[PGN_254.status] = 1;
 
                 //mc.autoSteerData[7] = unchecked((byte)(guidanceLineDistanceOff >> 8));
                 //mc.autoSteerData[8] = unchecked((byte)(guidanceLineDistanceOff));
@@ -871,7 +871,7 @@ namespace AgOpenGPS
                     distanceX2 += 127;
                 }
 
-                p_254.pgn[p_254.lineDistance] = unchecked((byte)distanceX2);
+                PGN_254.pgn[PGN_254.lineDistance] = unchecked((byte)distanceX2);
 
                 if (!timerSim.Enabled)
                 {
@@ -901,16 +901,16 @@ namespace AgOpenGPS
                 }
 
                 if (isChangingDirection && ahrs.imuHeading == 99999)
-                    p_254.pgn[p_254.status] = 0;
+                    PGN_254.pgn[PGN_254.status] = 0;
 
                 //for now if backing up, turn off autosteer
                 if (!isSteerInReverse)
                 {
-                    if (isReverse) p_254.pgn[p_254.status] = 0;
+                    if (isReverse) PGN_254.pgn[PGN_254.status] = 0;
                 }
 
                 // delay on dead zone.
-                if (p_254.pgn[p_254.status] == 1 && !isReverse
+                if (PGN_254.pgn[PGN_254.status] == 1 && !isReverse
                     && Math.Abs(guidanceLineSteerAngle - mc.actualSteerAngleDegrees * 100) < vehicle.deadZoneHeading)
                 {
                     if (vehicle.deadZoneDelayCounter > vehicle.deadZoneDelay)
@@ -926,50 +926,50 @@ namespace AgOpenGPS
 
                 if (!vehicle.isInDeadZone)
                 {
-                    p_254.pgn[p_254.steerAngleHi] = unchecked((byte)(guidanceLineSteerAngle >> 8));
-                    p_254.pgn[p_254.steerAngleLo] = unchecked((byte)(guidanceLineSteerAngle));
+                    PGN_254.pgn[PGN_254.steerAngleHi] = unchecked((byte)(guidanceLineSteerAngle >> 8));
+                    PGN_254.pgn[PGN_254.steerAngleLo] = unchecked((byte)(guidanceLineSteerAngle));
                 }
 
                 if (isGPSToolActive)
                 {
-                    p_233.pgn[p_233.speedHi] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0) >> 8));
-                    p_233.pgn[p_233.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
-                    p_233.pgn[p_233.xteHi] = unchecked((byte)(guidanceLineDistanceOffTool >> 8));
-                    p_233.pgn[p_233.xteLo] = unchecked((byte)(guidanceLineDistanceOffTool));
+                    PGN_233.pgn[PGN_233.speedHi] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0) >> 8));
+                    PGN_233.pgn[PGN_233.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
+                    PGN_233.pgn[PGN_233.xteHi] = unchecked((byte)(guidanceLineDistanceOffTool >> 8));
+                    PGN_233.pgn[PGN_233.xteLo] = unchecked((byte)(guidanceLineDistanceOffTool));
 
                     if (!vehicle.isInFreeDriveMode || guidanceLineDistanceOffTool < 27000)
                     {
-                        if (p_254.pgn[p_254.status] == 1) p_233.pgn[p_233.status] = 1;
-                        else p_233.pgn[p_233.status] = 0;
+                        if (PGN_254.pgn[PGN_254.status] == 1) PGN_233.pgn[PGN_233.status] = 1;
+                        else PGN_233.pgn[PGN_233.status] = 0;
                     }
                     else
                     {
-                        p_233.pgn[p_233.status] = 0;
+                        PGN_233.pgn[PGN_233.status] = 0;
                     }
 
                     //send to tool steer
-                    SendPgnToLoopTool(p_233.pgn);
+                    SendPgnToLoopTool(PGN_233.pgn);
                 }
             }
 
             else //Drive button is on
             {
                 //fill up the auto steer array with free drive values
-                p_254.pgn[p_254.speedHi] = unchecked((byte)((int)(80) >> 8));
-                p_254.pgn[p_254.speedLo] = unchecked((byte)((int)(80)));
+                PGN_254.pgn[PGN_254.speedHi] = unchecked((byte)((int)(80) >> 8));
+                PGN_254.pgn[PGN_254.speedLo] = unchecked((byte)((int)(80)));
 
                 //turn on status to operate
-                p_254.pgn[p_254.status] = 1;
+                PGN_254.pgn[PGN_254.status] = 1;
 
                 //send the steer angle
                 guidanceLineSteerAngle = (Int16)(vehicle.driveFreeSteerAngle * 100);
 
-                p_254.pgn[p_254.steerAngleHi] = unchecked((byte)(guidanceLineSteerAngle >> 8));
-                p_254.pgn[p_254.steerAngleLo] = unchecked((byte)(guidanceLineSteerAngle));
+                PGN_254.pgn[PGN_254.steerAngleHi] = unchecked((byte)(guidanceLineSteerAngle >> 8));
+                PGN_254.pgn[PGN_254.steerAngleLo] = unchecked((byte)(guidanceLineSteerAngle));
             }
 
             //out serial to autosteer module  //indivdual classes load the distance and heading deltas 
-            SendPgnToLoop(p_254.pgn);
+            SendPgnToLoop(PGN_254.pgn);
 
 
 

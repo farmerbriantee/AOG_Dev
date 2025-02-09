@@ -715,8 +715,8 @@ namespace AgOpenGPS
         {
             if (tool.isSectionsNotZones)
             {
-                p_254.pgn[p_254.sc1to8] = 0;
-                p_254.pgn[p_254.sc9to16] = 0;
+                PGN_254.pgn[PGN_254.sc1to8] = 0;
+                PGN_254.pgn[PGN_254.sc9to16] = 0;
 
                 int number = 0;
                 for (int j = 0; j < 8; j++)
@@ -724,7 +724,7 @@ namespace AgOpenGPS
                     if (section[j].isSectionOn)
                         number |= 1 << j;
                 }
-                p_254.pgn[p_254.sc1to8] = unchecked((byte)number);
+                PGN_254.pgn[PGN_254.sc1to8] = unchecked((byte)number);
                 number = 0;
 
                 for (int j = 8; j < 16; j++)
@@ -732,22 +732,22 @@ namespace AgOpenGPS
                     if (section[j].isSectionOn)
                         number |= 1 << (j-8);
                 }
-                p_254.pgn[p_254.sc9to16] = unchecked((byte)number);
+                PGN_254.pgn[PGN_254.sc9to16] = unchecked((byte)number);
 
                 //machine pgn
-                p_239.pgn[p_239.sc1to8] = p_254.pgn[p_254.sc1to8];
-                p_239.pgn[p_239.sc9to16] = p_254.pgn[p_254.sc9to16];
-                p_229.pgn[p_229.sc1to8] = p_254.pgn[p_254.sc1to8];
-                p_229.pgn[p_229.sc9to16] = p_254.pgn[p_254.sc9to16];
-                p_229.pgn[p_229.toolLSpeed] = unchecked((byte)(tool.farLeftSpeed * 10));
-                p_229.pgn[p_229.toolRSpeed] = unchecked((byte)(tool.farRightSpeed * 10));
+                PGN_239.pgn[PGN_239.sc1to8] = PGN_254.pgn[PGN_254.sc1to8];
+                PGN_239.pgn[PGN_239.sc9to16] = PGN_254.pgn[PGN_254.sc9to16];
+                PGN_229.pgn[PGN_229.sc1to8] = PGN_254.pgn[PGN_254.sc1to8];
+                PGN_229.pgn[PGN_229.sc9to16] = PGN_254.pgn[PGN_254.sc9to16];
+                PGN_229.pgn[PGN_229.toolLSpeed] = unchecked((byte)(tool.farLeftSpeed * 10));
+                PGN_229.pgn[PGN_229.toolRSpeed] = unchecked((byte)(tool.farRightSpeed * 10));
             }
             else
             {
                 //zero all the bytes - set only if on
                 for (int i = 5; i < 13; i++)
                 {
-                    p_229.pgn[i] = 0;
+                    PGN_229.pgn[i] = 0;
                 }
 
                 int number = 0;
@@ -758,24 +758,24 @@ namespace AgOpenGPS
                         if (section[j + k * 8].isSectionOn)
                             number |= 1 << j;
                     }
-                    p_229.pgn[5 + k] = unchecked((byte)number);
+                    PGN_229.pgn[5 + k] = unchecked((byte)number);
                     number = 0;
                 }
 
                 //tool speed to calc ramp
-                p_229.pgn[p_229.toolLSpeed] = unchecked((byte)(tool.farLeftSpeed * 10));
-                p_229.pgn[p_229.toolRSpeed] = unchecked((byte)(tool.farRightSpeed * 10));
+                PGN_229.pgn[PGN_229.toolLSpeed] = unchecked((byte)(tool.farLeftSpeed * 10));
+                PGN_229.pgn[PGN_229.toolRSpeed] = unchecked((byte)(tool.farRightSpeed * 10));
 
-                p_239.pgn[p_239.sc1to8] = p_229.pgn[p_229.sc1to8];
-                p_239.pgn[p_239.sc9to16] = p_229.pgn[p_229.sc9to16];
+                PGN_239.pgn[PGN_239.sc1to8] = PGN_229.pgn[PGN_229.sc1to8];
+                PGN_239.pgn[PGN_239.sc9to16] = PGN_229.pgn[PGN_229.sc9to16];
 
-                p_254.pgn[p_254.sc1to8] = p_229.pgn[p_229.sc1to8];
-                p_254.pgn[p_254.sc9to16] = p_229.pgn[p_229.sc9to16];
+                PGN_254.pgn[PGN_254.sc1to8] = PGN_229.pgn[PGN_229.sc1to8];
+                PGN_254.pgn[PGN_254.sc9to16] = PGN_229.pgn[PGN_229.sc9to16];
 
             }
 
-            p_239.pgn[p_239.speed] = unchecked((byte)(avgSpeed * 10));
-            p_239.pgn[p_239.tram] = unchecked((byte)tram.controlByte);
+            PGN_239.pgn[PGN_239.speed] = unchecked((byte)(avgSpeed * 10));
+            PGN_239.pgn[PGN_239.tram] = unchecked((byte)tram.controlByte);
         }
 
         private void DoRemoteSwitches()

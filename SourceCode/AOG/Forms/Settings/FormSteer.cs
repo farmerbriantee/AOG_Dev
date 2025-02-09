@@ -281,17 +281,17 @@ namespace AgOpenGPS
             Properties.Settings.Default.purePursuitIntegralGainAB = mf.vehicle.purePursuitIntegralGain;
             Properties.Settings.Default.setVehicle_maxSteerAngle = mf.vehicle.maxSteerAngle;
 
-            Properties.Settings.Default.setAS_countsPerDegree = mf.p_252.pgn[mf.p_252.countsPerDegree] = unchecked((byte)hsbarCountsPerDegree.Value);
-            Properties.Settings.Default.setAS_ackerman = mf.p_252.pgn[mf.p_252.ackerman] = unchecked((byte)hsbarAckerman.Value);
+            Properties.Settings.Default.setAS_countsPerDegree = PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)hsbarCountsPerDegree.Value);
+            Properties.Settings.Default.setAS_ackerman = PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)hsbarAckerman.Value);
 
             Properties.Settings.Default.setAS_wasOffset = hsbarWasOffset.Value;
-            mf.p_252.pgn[mf.p_252.wasOffsetHi] = unchecked((byte)(hsbarWasOffset.Value >> 8));
-            mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)(hsbarWasOffset.Value));
+            PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(hsbarWasOffset.Value >> 8));
+            PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(hsbarWasOffset.Value));
 
-            Properties.Settings.Default.setAS_highSteerPWM = mf.p_252.pgn[mf.p_252.highPWM] = unchecked((byte)hsbarHighSteerPWM.Value);
-            Properties.Settings.Default.setAS_lowSteerPWM = mf.p_252.pgn[mf.p_252.lowPWM] = unchecked((byte)(hsbarHighSteerPWM.Value / 3));
-            Properties.Settings.Default.setAS_Kp = mf.p_252.pgn[mf.p_252.gainProportional] = unchecked((byte)hsbarProportionalGain.Value);
-            Properties.Settings.Default.setAS_minSteerPWM = mf.p_252.pgn[mf.p_252.minPWM] = unchecked((byte)hsbarMinPWM.Value);
+            Properties.Settings.Default.setAS_highSteerPWM = PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)hsbarHighSteerPWM.Value);
+            Properties.Settings.Default.setAS_lowSteerPWM = PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)(hsbarHighSteerPWM.Value / 3));
+            Properties.Settings.Default.setAS_Kp = PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)hsbarProportionalGain.Value);
+            Properties.Settings.Default.setAS_minSteerPWM = PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)hsbarMinPWM.Value);
 
             Properties.Settings.Default.setAS_deadZoneHeading = mf.vehicle.deadZoneHeading;
             Properties.Settings.Default.setAS_deadZoneDelay = mf.vehicle.deadZoneDelay;
@@ -371,17 +371,17 @@ namespace AgOpenGPS
             //tool settings
             if (toolSend && toolCounterSettings > 4)
             {
-                mf.p_232.pgn[mf.p_232.gainP] = (byte)hsbarPGain_Tool.Value;
-                mf.p_232.pgn[mf.p_232.integral] = (byte)hsbarIntegral_Tool.Value;
-                mf.p_232.pgn[mf.p_232.minPWM] = (byte)hsbarMinPWM_Tool.Value;
-                mf.p_232.pgn[mf.p_232.highPWM] = (byte)hsbarHighPWM_Tool.Value;
-                mf.p_232.pgn[mf.p_232.countsPerDegree] = (byte)hsbarCPD_Tool.Value;
-                mf.p_232.pgn[mf.p_232.ackerman] = (byte) hsbarAckermann_Tool.Value;
+                PGN_232.pgn[PGN_232.gainP] = (byte)hsbarPGain_Tool.Value;
+                PGN_232.pgn[PGN_232.integral] = (byte)hsbarIntegral_Tool.Value;
+                PGN_232.pgn[PGN_232.minPWM] = (byte)hsbarMinPWM_Tool.Value;
+                PGN_232.pgn[PGN_232.highPWM] = (byte)hsbarHighPWM_Tool.Value;
+                PGN_232.pgn[PGN_232.countsPerDegree] = (byte)hsbarCPD_Tool.Value;
+                PGN_232.pgn[PGN_232.ackerman] = (byte) hsbarAckermann_Tool.Value;
 
-                mf.p_232.pgn[mf.p_232.wasOffsetHi] = unchecked((byte)(hsbarZeroWAS_Tool.Value >> 8));
-                mf.p_232.pgn[mf.p_232.wasOffsetLo] = unchecked((byte)(hsbarZeroWAS_Tool.Value));
+                PGN_232.pgn[PGN_232.wasOffsetHi] = unchecked((byte)(hsbarZeroWAS_Tool.Value >> 8));
+                PGN_232.pgn[PGN_232.wasOffsetLo] = unchecked((byte)(hsbarZeroWAS_Tool.Value));
 
-                mf.SendPgnToLoopTool(mf.p_232.pgn);
+                mf.SendPgnToLoopTool(PGN_232.pgn);
                 toolCounterSettings = 0;
                 toolSend = false;
             }
@@ -389,15 +389,15 @@ namespace AgOpenGPS
             //tool config
             if (toolSend2 && toolCounterConfig > 4)
             {
-                mf.p_231.pgn[mf.p_231.maxSteerAngle] = unchecked((byte)hsbarMaxSteerAngle_Tool.Value);
+                PGN_231.pgn[PGN_231.maxSteerAngle] = unchecked((byte)hsbarMaxSteerAngle_Tool.Value);
 
-                if (cboxInvertSteer_Tool.Checked) mf.p_231.pgn[mf.p_231.invertSteer] = 1;
-                else mf.p_231.pgn[mf.p_231.invertSteer] = 0;
+                if (cboxInvertSteer_Tool.Checked) PGN_231.pgn[PGN_231.invertSteer] = 1;
+                else PGN_231.pgn[PGN_231.invertSteer] = 0;
 
-                if (cboxInvertWAS_Tool.Checked) mf.p_231.pgn[mf.p_231.invertWAS] = 1;
-                else mf.p_231.pgn[mf.p_231.invertWAS] = 0;
+                if (cboxInvertWAS_Tool.Checked) PGN_231.pgn[PGN_231.invertWAS] = 1;
+                else PGN_231.pgn[PGN_231.invertWAS] = 0;
 
-                mf.SendPgnToLoopTool(mf.p_231.pgn);
+                mf.SendPgnToLoopTool(PGN_231.pgn);
 
                 toolCounterConfig = 0;
                 toolSend2 = false;
@@ -405,18 +405,18 @@ namespace AgOpenGPS
 
             if (toSend && counter > 4)
             {
-                mf.p_252.pgn[mf.p_252.countsPerDegree] = unchecked((byte)hsbarCountsPerDegree.Value);
-                mf.p_252.pgn[mf.p_252.ackerman] = unchecked((byte)hsbarAckerman.Value);
+                PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)hsbarCountsPerDegree.Value);
+                PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)hsbarAckerman.Value);
 
-                mf.p_252.pgn[mf.p_252.wasOffsetHi] = unchecked((byte)(hsbarWasOffset.Value >> 8));
-                mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)(hsbarWasOffset.Value));
+                PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(hsbarWasOffset.Value >> 8));
+                PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(hsbarWasOffset.Value));
 
-                mf.p_252.pgn[mf.p_252.highPWM] = unchecked((byte)hsbarHighSteerPWM.Value);
-                mf.p_252.pgn[mf.p_252.lowPWM] = unchecked((byte)(hsbarHighSteerPWM.Value / 3));
-                mf.p_252.pgn[mf.p_252.gainProportional] = unchecked((byte)hsbarProportionalGain.Value);
-                mf.p_252.pgn[mf.p_252.minPWM] = unchecked((byte)hsbarMinPWM.Value);
+                PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)hsbarHighSteerPWM.Value);
+                PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)(hsbarHighSteerPWM.Value / 3));
+                PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)hsbarProportionalGain.Value);
+                PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)hsbarMinPWM.Value);
 
-                mf.SendPgnToLoop(mf.p_252.pgn);
+                mf.SendPgnToLoop(PGN_252.pgn);
                 toSend = false;
                 counter = 0;
             }
@@ -569,7 +569,7 @@ namespace AgOpenGPS
             mf.isSteerInReverse = cboxSteerInReverse.Checked;
         }
 
-        private void hsbarSideHillComp_ValueChanged(object sender, EventArgs e)
+        private void hsbarSideHillComPGN_ValueChanged(object sender, EventArgs e)
         {
             double deg = hsbarSideHillComp.Value;
             deg *= 0.01;
@@ -827,21 +827,21 @@ namespace AgOpenGPS
             if (cboxIsSteerNotSlide_Tool.Checked) Properties.Settings.Default.setToolSteer.isSteerNotSlide = 1;
             else Properties.Settings.Default.setToolSteer.isSteerNotSlide = 0;
 
-            mf.p_232.pgn[mf.p_232.gainP] = Properties.Settings.Default.setToolSteer.gainP;
-            mf.p_232.pgn[mf.p_232.integral] = Properties.Settings.Default.setToolSteer.integral;
-            mf.p_232.pgn[mf.p_232.minPWM] = Properties.Settings.Default.setToolSteer.minPWM;
-            mf.p_232.pgn[mf.p_232.highPWM] = Properties.Settings.Default.setToolSteer.highPWM;
-            mf.p_232.pgn[mf.p_232.countsPerDegree] = Properties.Settings.Default.setToolSteer.countsPerDegree;
-            mf.p_232.pgn[mf.p_232.ackerman] = Properties.Settings.Default.setToolSteer.ackermann;
+            PGN_232.pgn[PGN_232.gainP] = Properties.Settings.Default.setToolSteer.gainP;
+            PGN_232.pgn[PGN_232.integral] = Properties.Settings.Default.setToolSteer.integral;
+            PGN_232.pgn[PGN_232.minPWM] = Properties.Settings.Default.setToolSteer.minPWM;
+            PGN_232.pgn[PGN_232.highPWM] = Properties.Settings.Default.setToolSteer.highPWM;
+            PGN_232.pgn[PGN_232.countsPerDegree] = Properties.Settings.Default.setToolSteer.countsPerDegree;
+            PGN_232.pgn[PGN_232.ackerman] = Properties.Settings.Default.setToolSteer.ackermann;
 
-            mf.p_232.pgn[mf.p_232.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset >> 8));
-            mf.p_232.pgn[mf.p_232.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset));
+            PGN_232.pgn[PGN_232.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset >> 8));
+            PGN_232.pgn[PGN_232.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset));
             
             //config
-            mf.p_231.pgn[mf.p_231.maxSteerAngle] = Properties.Settings.Default.setToolSteer.maxSteerAngle;
-            mf.p_231.pgn[mf.p_231.invertWAS] = Properties.Settings.Default.setToolSteer.isInvertWAS;
-            mf.p_231.pgn[mf.p_231.invertSteer] = Properties.Settings.Default.setToolSteer.isInvertSteer;
-            mf.p_231.pgn[mf.p_231.isSteer] = Properties.Settings.Default.setToolSteer.isSteerNotSlide;
+            PGN_231.pgn[PGN_231.maxSteerAngle] = Properties.Settings.Default.setToolSteer.maxSteerAngle;
+            PGN_231.pgn[PGN_231.invertWAS] = Properties.Settings.Default.setToolSteer.isInvertWAS;
+            PGN_231.pgn[PGN_231.invertSteer] = Properties.Settings.Default.setToolSteer.isInvertSteer;
+            PGN_231.pgn[PGN_231.isSteer] = Properties.Settings.Default.setToolSteer.isSteerNotSlide;
         }
 
         private void cboxGPSTool_Click(object sender, EventArgs e)
@@ -1169,7 +1169,7 @@ namespace AgOpenGPS
             //hSBarFreeDrive.Value = mf.driveFreeSteerAngle;
         }
 
-        private void btnSteerAngleUp_MouseDown(object sender, MouseEventArgs e)
+        private void btnSteerAngleUPGN_MouseDown(object sender, MouseEventArgs e)
         {
             mf.vehicle.driveFreeSteerAngle++;
             if (mf.vehicle.driveFreeSteerAngle > 40) mf.vehicle.driveFreeSteerAngle = 40;
@@ -1188,7 +1188,7 @@ namespace AgOpenGPS
         private void btnSendSteerConfigPGN_Click(object sender, EventArgs e)
         {
             SaveSettings();
-            mf.SendPgnToLoop(mf.p_251.pgn);
+            mf.SendPgnToLoop(PGN_251.pgn);
             pboxSendSteer.Visible = false;
             Log.EventWriter("Steer Form, Send and Save Pressed");
 
@@ -1294,14 +1294,14 @@ namespace AgOpenGPS
 
             Properties.Settings.Default.setArdSteer_setting1 = (byte)sett;
 
-            mf.p_251.pgn[mf.p_251.set0] = Properties.Settings.Default.setArdSteer_setting0;
-            mf.p_251.pgn[mf.p_251.set1] = Properties.Settings.Default.setArdSteer_setting1;
-            mf.p_251.pgn[mf.p_251.maxPulse] = Properties.Settings.Default.setArdSteer_maxPulseCounts;
-            mf.p_251.pgn[mf.p_251.minSpeed] = unchecked((byte)(Properties.Settings.Default.setAS_minSteerSpeed * 10));
+            PGN_251.pgn[PGN_251.set0] = Properties.Settings.Default.setArdSteer_setting0;
+            PGN_251.pgn[PGN_251.set1] = Properties.Settings.Default.setArdSteer_setting1;
+            PGN_251.pgn[PGN_251.maxPulse] = Properties.Settings.Default.setArdSteer_maxPulseCounts;
+            PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Properties.Settings.Default.setAS_minSteerSpeed * 10));
 
             if (Properties.Settings.Default.setAS_isConstantContourOn)
-                mf.p_251.pgn[mf.p_251.angVel] = 1;
-            else mf.p_251.pgn[mf.p_251.angVel] = 0;
+                PGN_251.pgn[PGN_251.angVel] = 1;
+            else PGN_251.pgn[PGN_251.angVel] = 0;
 
             pboxSendSteer.Visible = false;
         }

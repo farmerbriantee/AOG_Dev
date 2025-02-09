@@ -398,7 +398,7 @@ namespace AgOpenGPS
             rbtnLeftNegative.Checked = Properties.Settings.Default.setVehicle_toolOffset < 0;
         }
 
-        private void nudOverlap_Click(object sender, EventArgs e)
+        private void nudOverlaPGN_Click(object sender, EventArgs e)
         {
             if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
             {
@@ -419,7 +419,7 @@ namespace AgOpenGPS
             rbtnToolGap.Checked = Properties.Settings.Default.setVehicle_toolOverlap < 0;
         }
 
-        private void btnZeroOverlap_Click(object sender, EventArgs e)
+        private void btnZeroOverlaPGN_Click(object sender, EventArgs e)
         {
             nudOverlap.Value = 0;
             rbtnToolOverlap.Checked = false;
@@ -429,7 +429,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setVehicle_toolOverlap = mf.tool.overlap;
         }
 
-        private void rbtnToolOverlap_Click(object sender, EventArgs e)
+        private void rbtnToolOverlaPGN_Click(object sender, EventArgs e)
         {
             if (rbtnToolOverlap.Checked)
                 mf.tool.overlap = (double)nudOverlap.Value * mf.inchOrCm2m;

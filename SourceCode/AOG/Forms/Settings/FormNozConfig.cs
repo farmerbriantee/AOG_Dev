@@ -68,10 +68,10 @@ namespace AgOpenGPS
 
             Properties.Settings.Default.setNozzleSettings.flowCal = (int)nudSprayFlowCal.Value;
 
-            mf.p_226.pgn[mf.p_226.flowCalHi] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.flowCal >> 8)); ;
-            mf.p_226.pgn[mf.p_226.flowCaLo] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.flowCal));
+            PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.flowCal >> 8)); ;
+            PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.flowCal));
 
-            mf.SendPgnToLoop(mf.p_226.pgn);
+            mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void nudSprayPressureCal_Click(object sender, EventArgs e)
@@ -80,10 +80,10 @@ namespace AgOpenGPS
 
             Properties.Settings.Default.setNozzleSettings.pressureCal = (int)nudSprayPressureCal.Value;
 
-            mf.p_226.pgn[mf.p_226.pressureCalHi] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.pressureCal >> 8)); ;
-            mf.p_226.pgn[mf.p_226.pressureCalLo] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.pressureCal));
+            PGN_226.pgn[PGN_226.pressureCalHi] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.pressureCal >> 8)); ;
+            PGN_226.pgn[PGN_226.pressureCalLo] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.pressureCal));
 
-            mf.SendPgnToLoop(mf.p_226.pgn);
+            mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void nudFastPWM_Click(object sender, EventArgs e)
@@ -92,9 +92,9 @@ namespace AgOpenGPS
 
             Properties.Settings.Default.setNozzleSettings.fastPWM = (byte)nudFastPWM.Value;
 
-            mf.p_226.pgn[mf.p_226.fastPWM] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.fastPWM));
+            PGN_226.pgn[PGN_226.fastPWM] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.fastPWM));
 
-            mf.SendPgnToLoop(mf.p_226.pgn);
+            mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void nudSlowPWM_Click(object sender, EventArgs e)
@@ -103,9 +103,9 @@ namespace AgOpenGPS
 
             Properties.Settings.Default.setNozzleSettings.slowPWM = (byte)nudSlowPWM.Value;
 
-            mf.p_226.pgn[mf.p_226.slowPWM] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.slowPWM));
+            PGN_226.pgn[PGN_226.slowPWM] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.slowPWM));
 
-            mf.SendPgnToLoop(mf.p_226.pgn);
+            mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void nudDeadbandError_Click(object sender, EventArgs e)
@@ -114,9 +114,9 @@ namespace AgOpenGPS
 
             Properties.Settings.Default.setNozzleSettings.deadbandError = (byte)(nudDeadbandError.Value * 100);
 
-            mf.p_226.pgn[mf.p_226.deadbandError] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.deadbandError));
+            PGN_226.pgn[PGN_226.deadbandError] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.deadbandError));
 
-            mf.SendPgnToLoop(mf.p_226.pgn);
+            mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void nudSwitchAtFlowError_Click(object sender, EventArgs e)
@@ -125,9 +125,9 @@ namespace AgOpenGPS
 
             Properties.Settings.Default.setNozzleSettings.switchAtFlowError = (byte)(nudSwitchAtFlowError.Value * 100);
 
-            mf.p_226.pgn[mf.p_226.switchAtFlowError] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.switchAtFlowError));
+            PGN_226.pgn[PGN_226.switchAtFlowError] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.switchAtFlowError));
 
-            mf.SendPgnToLoop(mf.p_226.pgn);
+            mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void nudSprayKpClick(object sender, EventArgs e)
@@ -136,9 +136,9 @@ namespace AgOpenGPS
 
             Properties.Settings.Default.setNozzleSettings.Kp = (byte)nudSprayKp.Value;
 
-            mf.p_226.pgn[mf.p_226.Kp] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.Kp));
+            PGN_226.pgn[PGN_226.Kp] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.Kp));
 
-            mf.SendPgnToLoop(mf.p_226.pgn);
+            mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void cboxSectionValve3Wire_Click(object sender, EventArgs e)
@@ -147,18 +147,18 @@ namespace AgOpenGPS
             {
                 cboxSectionValve3Wire.Text = "3 Wire";
                 mf.nozz.isSectionValve3Wire = true;
-                mf.p_226.pgn[mf.p_226.isSectionValve3Wire] = 1;
+                PGN_226.pgn[PGN_226.isSectionValve3Wire] = 1;
             }
             else
             {
                 cboxSectionValve3Wire.Text = "Reverse";
                 mf.nozz.isSectionValve3Wire = false;
-                mf.p_226.pgn[mf.p_226.isSectionValve3Wire] = 0;
+                PGN_226.pgn[PGN_226.isSectionValve3Wire] = 0;
             }
 
             Properties.Settings.Default.setNozzleSettings.isSectionValve3Wire = mf.nozz.isSectionValve3Wire;
 
-            mf.SendPgnToLoop(mf.p_226.pgn);
+            mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void cboxBypass_Click(object sender, EventArgs e)
@@ -167,18 +167,18 @@ namespace AgOpenGPS
             {
                 cboxBypass.Text = "Bypass";
                 mf.nozz.isBypass = true;
-                mf.p_226.pgn[mf.p_226.isBypass] = 1;
+                PGN_226.pgn[PGN_226.isBypass] = 1;
             }
             else
             {
                 cboxBypass.Text = "Closed";
                 mf.nozz.isBypass = false;
-                mf.p_226.pgn[mf.p_226.isBypass] = 0;
+                PGN_226.pgn[PGN_226.isBypass] = 0;
             }
 
             Properties.Settings.Default.setNozzleSettings.isBypass = mf.nozz.isBypass;
 
-            mf.SendPgnToLoop(mf.p_226.pgn);
+            mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void timer1_Tick(object sender, EventArgs e)

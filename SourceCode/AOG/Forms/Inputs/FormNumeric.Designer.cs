@@ -92,7 +92,7 @@
             this.btnDistanceUp.Size = new System.Drawing.Size(83, 92);
             this.btnDistanceUp.TabIndex = 148;
             this.btnDistanceUp.UseVisualStyleBackColor = false;
-            this.btnDistanceUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BtnDistanceUp_MouseDown);
+            this.btnDistanceUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BtnDistanceUPGN_MouseDown);
             // 
             // btnDistanceDn
             // 

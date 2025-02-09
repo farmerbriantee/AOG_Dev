@@ -41,7 +41,7 @@ namespace AgOpenGPS
                 cboxSprayAutoManual.Text = "Auto";
                 nozz.isSprayAutoMode = true;
 
-                p_225.pgn[p_225.auto] = 1;
+                PGN_225.pgn[PGN_225.auto] = 1;
             }
             else
             {
@@ -49,10 +49,10 @@ namespace AgOpenGPS
                 nozz.isSprayAutoMode = false;
 
                 //manual mode 
-                p_225.pgn[p_225.auto] = 0;
+                PGN_225.pgn[PGN_225.auto] = 0;
             }
 
-            SendPgnToLoop(p_225.pgn);
+            SendPgnToLoop(PGN_225.pgn);
         }
 
         private void btnSprayVolumeTotal_Click(object sender, EventArgs e)
@@ -116,11 +116,11 @@ namespace AgOpenGPS
         {
             if (!nozz.isSprayAutoMode)
             {
-                p_225.pgn[p_225.dn] = 1;
+                PGN_225.pgn[PGN_225.dn] = 1;
 
-                SendPgnToLoop(p_225.pgn);
+                SendPgnToLoop(PGN_225.pgn);
 
-                p_225.pgn[p_225.dn] = 0;
+                PGN_225.pgn[PGN_225.dn] = 0;
             }
             else
             {
@@ -130,15 +130,15 @@ namespace AgOpenGPS
             }
         }
 
-        private void btnSprayRateUp_Click(object sender, EventArgs e)
+        private void btnSprayRateUPGN_Click(object sender, EventArgs e)
         {
             if (!nozz.isSprayAutoMode)
             {
-                p_225.pgn[p_225.up] = 1;
+                PGN_225.pgn[PGN_225.up] = 1;
 
-                SendPgnToLoop(p_225.pgn);
+                SendPgnToLoop(PGN_225.pgn);
 
-                p_225.pgn[p_225.up] = 0;
+                PGN_225.pgn[PGN_225.up] = 0;
             }
             else
             {
@@ -1304,7 +1304,7 @@ namespace AgOpenGPS
             }
 
             nozzleAppToolStripMenuItem.Checked = isNozzleApp;
-            Settings.Default.setApp_isNozzleApp = isNozzleApp;
+            Settings.Default.setApPGN_isNozzleApp = isNozzleApp;
             
 
             LoadSettings();
@@ -1312,7 +1312,7 @@ namespace AgOpenGPS
             PanelsAndOGLSize();
         }
 
-        private void kioskModeToolStrip_Click(object sender, EventArgs e)
+        private void kioskModeToolStriPGN_Click(object sender, EventArgs e)
         {
             isKioskMode = !isKioskMode;
 
@@ -1752,7 +1752,7 @@ namespace AgOpenGPS
 
             if (!bnd.isHeadlandOn)
             {
-                p_239.pgn[p_239.hydLift] = 0;
+                PGN_239.pgn[PGN_239.hydLift] = 0;
                 btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
             }
 
@@ -1776,12 +1776,12 @@ namespace AgOpenGPS
                 else
                 {
                     btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
-                    p_239.pgn[p_239.hydLift] = 0;
+                    PGN_239.pgn[PGN_239.hydLift] = 0;
                 }
             }
             else
             {
-                p_239.pgn[p_239.hydLift] = 0;
+                PGN_239.pgn[PGN_239.hydLift] = 0;
                 vehicle.isHydLiftOn = false;
                 btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
             }
@@ -1958,20 +1958,20 @@ namespace AgOpenGPS
             form.Show(this);
             this.Activate();
         }
-        private void webcamToolStrip_Click(object sender, EventArgs e)
+        private void webcamToolStriPGN_Click(object sender, EventArgs e)
         {
             Form form = new FormWebCam();
             form.Show(this);
             this.Activate();
         }
-        private void offsetFixToolStrip_Click(object sender, EventArgs e)
+        private void offsetFixToolStriPGN_Click(object sender, EventArgs e)
         {
             using (var form = new FormShiftPos(this))
             {
                 form.ShowDialog(this);
             }
         }
-        private void correctionToolStrip_Click(object sender, EventArgs e)
+        private void correctionToolStriPGN_Click(object sender, EventArgs e)
         {
             //check if window already exists
             Form fcc = Application.OpenForms["FormCorrection"];
@@ -1991,7 +1991,7 @@ namespace AgOpenGPS
 
         #region Nav Panel
 
-        private void btnTiltUp_Click(object sender, EventArgs e)
+        private void btnTiltUPGN_Click(object sender, EventArgs e)
         {
             camera.camPitch -= ((camera.camPitch * 0.012) - 1);
             if (camera.camPitch > -58) camera.camPitch = 0;
@@ -2041,7 +2041,7 @@ namespace AgOpenGPS
                 form.Show(this);
             navPanelCounter = 0;
         }
-        private void btnBrightnessUp_Click(object sender, EventArgs e)
+        private void btnBrightnessUPGN_Click(object sender, EventArgs e)
         {
             if (displayBrightness.isWmiMonitor)
             {
@@ -2134,7 +2134,7 @@ namespace AgOpenGPS
 
         #region Sim controls
 
-        private void btnSimSpeedUp_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void btnSimSpeedUPGN_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (sim.stepDistance < 0)
             {

@@ -2339,7 +2339,7 @@
             this.btnOpacityUp.Size = new System.Drawing.Size(73, 72);
             this.btnOpacityUp.TabIndex = 533;
             this.btnOpacityUp.UseVisualStyleBackColor = false;
-            this.btnOpacityUp.Click += new System.EventHandler(this.btnOpacityUp_Click);
+            this.btnOpacityUp.Click += new System.EventHandler(this.btnOpacityUPGN_Click);
             // 
             // cboxIsImage
             // 
@@ -3103,7 +3103,7 @@
             this.btnZeroOverlap.Size = new System.Drawing.Size(114, 52);
             this.btnZeroOverlap.TabIndex = 489;
             this.btnZeroOverlap.UseVisualStyleBackColor = false;
-            this.btnZeroOverlap.Click += new System.EventHandler(this.btnZeroOverlap_Click);
+            this.btnZeroOverlap.Click += new System.EventHandler(this.btnZeroOverlaPGN_Click);
             // 
             // btnZeroToolOffset
             // 
@@ -3202,7 +3202,7 @@
             this.rbtnToolOverlap.TabIndex = 479;
             this.rbtnToolOverlap.TabStop = true;
             this.rbtnToolOverlap.UseVisualStyleBackColor = false;
-            this.rbtnToolOverlap.Click += new System.EventHandler(this.rbtnToolOverlap_Click);
+            this.rbtnToolOverlap.Click += new System.EventHandler(this.rbtnToolOverlaPGN_Click);
             // 
             // rbtnToolGap
             // 
@@ -3217,7 +3217,7 @@
             this.rbtnToolGap.Size = new System.Drawing.Size(166, 218);
             this.rbtnToolGap.TabIndex = 478;
             this.rbtnToolGap.UseVisualStyleBackColor = false;
-            this.rbtnToolGap.Click += new System.EventHandler(this.rbtnToolOverlap_Click);
+            this.rbtnToolGap.Click += new System.EventHandler(this.rbtnToolOverlaPGN_Click);
             // 
             // groupBox2
             // 
@@ -3308,7 +3308,7 @@
             0,
             0,
             0});
-            this.nudOverlap.Click += new System.EventHandler(this.nudOverlap_Click);
+            this.nudOverlap.Click += new System.EventHandler(this.nudOverlaPGN_Click);
             // 
             // nudOffset
             // 
@@ -5625,7 +5625,7 @@
             this.cboxMinGPSStep.Text = "10 cm";
             this.cboxMinGPSStep.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxMinGPSStep.UseVisualStyleBackColor = false;
-            this.cboxMinGPSStep.Click += new System.EventHandler(this.cboxMinGPSStep_Click);
+            this.cboxMinGPSStep.Click += new System.EventHandler(this.cboxMinGPSStePGN_Click);
             // 
             // label167
             // 
@@ -5902,7 +5902,7 @@
             this.btnRollOffsetUp.Size = new System.Drawing.Size(59, 69);
             this.btnRollOffsetUp.TabIndex = 487;
             this.btnRollOffsetUp.UseVisualStyleBackColor = true;
-            this.btnRollOffsetUp.Click += new System.EventHandler(this.btnRollOffsetUp_Click);
+            this.btnRollOffsetUp.Click += new System.EventHandler(this.btnRollOffsetUPGN_Click);
             // 
             // btnRollOffsetDown
             // 
@@ -6233,7 +6233,7 @@
             this.btnTurnSmoothingUp.Size = new System.Drawing.Size(59, 69);
             this.btnTurnSmoothingUp.TabIndex = 466;
             this.btnTurnSmoothingUp.UseVisualStyleBackColor = true;
-            this.btnTurnSmoothingUp.Click += new System.EventHandler(this.btnTurnSmoothingUp_Click);
+            this.btnTurnSmoothingUp.Click += new System.EventHandler(this.btnTurnSmoothingUPGN_Click);
             // 
             // btnTurnSmoothingDown
             // 
@@ -6301,7 +6301,7 @@
             this.btnDistanceUp.Size = new System.Drawing.Size(59, 69);
             this.btnDistanceUp.TabIndex = 457;
             this.btnDistanceUp.UseVisualStyleBackColor = true;
-            this.btnDistanceUp.Click += new System.EventHandler(this.btnDistanceUp_Click);
+            this.btnDistanceUp.Click += new System.EventHandler(this.btnDistanceUPGN_Click);
             // 
             // btnDistanceDn
             // 

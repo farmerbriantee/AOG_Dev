@@ -109,7 +109,7 @@ namespace AgOpenGPS
             lblPoints.Text = mf.bnd.fenceBeingMadePts.Count.ToString();
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
+        private void btnStoPGN_Click(object sender, EventArgs e)
         {
             DialogResult result3 = MessageBox.Show("Done?", gStr.gsBoundary,
                 MessageBoxButtons.YesNo,

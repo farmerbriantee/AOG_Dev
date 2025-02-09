@@ -55,42 +55,42 @@ namespace AgOpenGPS
                         SectionFeetInchesTotalWidthLabelUpdate();
 
                         //Form Steer Settings
-                        mf.p_252.pgn[mf.p_252.countsPerDegree] = unchecked((byte)Properties.Settings.Default.setAS_countsPerDegree);
-                        mf.p_252.pgn[mf.p_252.ackerman] = unchecked((byte)Properties.Settings.Default.setAS_ackerman);
+                        PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Properties.Settings.Default.setAS_countsPerDegree);
+                        PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)Properties.Settings.Default.setAS_ackerman);
 
-                        mf.p_252.pgn[mf.p_252.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset >> 8));
-                        mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset));
+                        PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset >> 8));
+                        PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset));
 
-                        mf.p_252.pgn[mf.p_252.highPWM] = unchecked((byte)Properties.Settings.Default.setAS_highSteerPWM);
-                        mf.p_252.pgn[mf.p_252.lowPWM] = unchecked((byte)Properties.Settings.Default.setAS_lowSteerPWM);
-                        mf.p_252.pgn[mf.p_252.gainProportional] = unchecked((byte)Properties.Settings.Default.setAS_Kp);
-                        mf.p_252.pgn[mf.p_252.minPWM] = unchecked((byte)Properties.Settings.Default.setAS_minSteerPWM);
+                        PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)Properties.Settings.Default.setAS_highSteerPWM);
+                        PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)Properties.Settings.Default.setAS_lowSteerPWM);
+                        PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)Properties.Settings.Default.setAS_Kp);
+                        PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)Properties.Settings.Default.setAS_minSteerPWM);
 
-                        mf.SendPgnToLoop(mf.p_252.pgn);
+                        mf.SendPgnToLoop(PGN_252.pgn);
 
                         //steer config
-                        mf.p_251.pgn[mf.p_251.set0] = Properties.Settings.Default.setArdSteer_setting0;
-                        mf.p_251.pgn[mf.p_251.set1] = Properties.Settings.Default.setArdSteer_setting1;
-                        mf.p_251.pgn[mf.p_251.maxPulse] = Properties.Settings.Default.setArdSteer_maxPulseCounts;
-                        mf.p_251.pgn[mf.p_251.minSpeed] = unchecked((byte)(Properties.Settings.Default.setAS_minSteerSpeed * 10));
+                        PGN_251.pgn[PGN_251.set0] = Properties.Settings.Default.setArdSteer_setting0;
+                        PGN_251.pgn[PGN_251.set1] = Properties.Settings.Default.setArdSteer_setting1;
+                        PGN_251.pgn[PGN_251.maxPulse] = Properties.Settings.Default.setArdSteer_maxPulseCounts;
+                        PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Properties.Settings.Default.setAS_minSteerSpeed * 10));
 
                         if (Properties.Settings.Default.setAS_isConstantContourOn)
-                            mf.p_251.pgn[mf.p_251.angVel] = 1;
-                        else mf.p_251.pgn[mf.p_251.angVel] = 0;
+                            PGN_251.pgn[PGN_251.angVel] = 1;
+                        else PGN_251.pgn[PGN_251.angVel] = 0;
 
-                        mf.SendPgnToLoop(mf.p_251.pgn);
+                        mf.SendPgnToLoop(PGN_251.pgn);
 
                         //machine settings    
-                        mf.p_238.pgn[mf.p_238.set0] = Properties.Settings.Default.setArdMac_setting0;
-                        mf.p_238.pgn[mf.p_238.raiseTime] = Properties.Settings.Default.setArdMac_hydRaiseTime;
-                        mf.p_238.pgn[mf.p_238.lowerTime] = Properties.Settings.Default.setArdMac_hydLowerTime;
+                        PGN_238.pgn[PGN_238.set0] = Properties.Settings.Default.setArdMac_setting0;
+                        PGN_238.pgn[PGN_238.raiseTime] = Properties.Settings.Default.setArdMac_hydRaiseTime;
+                        PGN_238.pgn[PGN_238.lowerTime] = Properties.Settings.Default.setArdMac_hydLowerTime;
 
-                        mf.p_238.pgn[mf.p_238.user1] = Properties.Settings.Default.setArdMac_user1;
-                        mf.p_238.pgn[mf.p_238.user2] = Properties.Settings.Default.setArdMac_user2;
-                        mf.p_238.pgn[mf.p_238.user3] = Properties.Settings.Default.setArdMac_user3;
-                        mf.p_238.pgn[mf.p_238.user4] = Properties.Settings.Default.setArdMac_user4;
+                        PGN_238.pgn[PGN_238.user1] = Properties.Settings.Default.setArdMac_user1;
+                        PGN_238.pgn[PGN_238.user2] = Properties.Settings.Default.setArdMac_user2;
+                        PGN_238.pgn[PGN_238.user3] = Properties.Settings.Default.setArdMac_user3;
+                        PGN_238.pgn[PGN_238.user4] = Properties.Settings.Default.setArdMac_user4;
 
-                        mf.SendPgnToLoop(mf.p_238.pgn);
+                        mf.SendPgnToLoop(PGN_238.pgn);
 
                         //Send Pin configuration
                         SendRelaySettingsToMachineModule();
@@ -306,49 +306,49 @@ namespace AgOpenGPS
                 SectionFeetInchesTotalWidthLabelUpdate();
 
                 //Form Steer Settings
-                mf.p_252.pgn[mf.p_252.countsPerDegree] = unchecked((byte)Properties.Settings.Default.setAS_countsPerDegree);
-                mf.p_252.pgn[mf.p_252.ackerman] = unchecked((byte)Properties.Settings.Default.setAS_ackerman);
+                PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Properties.Settings.Default.setAS_countsPerDegree);
+                PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)Properties.Settings.Default.setAS_ackerman);
 
-                mf.p_252.pgn[mf.p_252.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset >> 8));
-                mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset));
+                PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset >> 8));
+                PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset));
 
-                mf.p_252.pgn[mf.p_252.highPWM] = unchecked((byte)Properties.Settings.Default.setAS_highSteerPWM);
-                mf.p_252.pgn[mf.p_252.lowPWM] = unchecked((byte)Properties.Settings.Default.setAS_lowSteerPWM);
-                mf.p_252.pgn[mf.p_252.gainProportional] = unchecked((byte)Properties.Settings.Default.setAS_Kp);
-                mf.p_252.pgn[mf.p_252.minPWM] = unchecked((byte)Properties.Settings.Default.setAS_minSteerPWM);
+                PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)Properties.Settings.Default.setAS_highSteerPWM);
+                PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)Properties.Settings.Default.setAS_lowSteerPWM);
+                PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)Properties.Settings.Default.setAS_Kp);
+                PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)Properties.Settings.Default.setAS_minSteerPWM);
 
-                mf.SendPgnToLoop(mf.p_252.pgn);
+                mf.SendPgnToLoop(PGN_252.pgn);
 
                 //machine module settings
-                mf.p_238.pgn[mf.p_238.set0] = Properties.Settings.Default.setArdMac_setting0;
-                mf.p_238.pgn[mf.p_238.raiseTime] = Properties.Settings.Default.setArdMac_hydRaiseTime;
-                mf.p_238.pgn[mf.p_238.lowerTime] = Properties.Settings.Default.setArdMac_hydLowerTime;
+                PGN_238.pgn[PGN_238.set0] = Properties.Settings.Default.setArdMac_setting0;
+                PGN_238.pgn[PGN_238.raiseTime] = Properties.Settings.Default.setArdMac_hydRaiseTime;
+                PGN_238.pgn[PGN_238.lowerTime] = Properties.Settings.Default.setArdMac_hydLowerTime;
 
-                mf.SendPgnToLoop(mf.p_238.pgn);
+                mf.SendPgnToLoop(PGN_238.pgn);
 
                 //steer config
-                mf.p_251.pgn[mf.p_251.set0] = Properties.Settings.Default.setArdSteer_setting0;
-                mf.p_251.pgn[mf.p_251.set1] = Properties.Settings.Default.setArdSteer_setting1;
-                mf.p_251.pgn[mf.p_251.maxPulse] = Properties.Settings.Default.setArdSteer_maxPulseCounts;
-                mf.p_251.pgn[mf.p_251.minSpeed] = unchecked((byte)(Properties.Settings.Default.setAS_minSteerSpeed * 10));
+                PGN_251.pgn[PGN_251.set0] = Properties.Settings.Default.setArdSteer_setting0;
+                PGN_251.pgn[PGN_251.set1] = Properties.Settings.Default.setArdSteer_setting1;
+                PGN_251.pgn[PGN_251.maxPulse] = Properties.Settings.Default.setArdSteer_maxPulseCounts;
+                PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Properties.Settings.Default.setAS_minSteerSpeed * 10));
 
                 if (Properties.Settings.Default.setAS_isConstantContourOn)
-                    mf.p_251.pgn[mf.p_251.angVel] = 1;
-                else mf.p_251.pgn[mf.p_251.angVel] = 0;
+                    PGN_251.pgn[PGN_251.angVel] = 1;
+                else PGN_251.pgn[PGN_251.angVel] = 0;
 
-                mf.SendPgnToLoop(mf.p_251.pgn);
+                mf.SendPgnToLoop(PGN_251.pgn);
 
                 //machine settings    
-                mf.p_238.pgn[mf.p_238.set0] = Properties.Settings.Default.setArdMac_setting0;
-                mf.p_238.pgn[mf.p_238.raiseTime] = Properties.Settings.Default.setArdMac_hydRaiseTime;
-                mf.p_238.pgn[mf.p_238.lowerTime] = Properties.Settings.Default.setArdMac_hydLowerTime;
+                PGN_238.pgn[PGN_238.set0] = Properties.Settings.Default.setArdMac_setting0;
+                PGN_238.pgn[PGN_238.raiseTime] = Properties.Settings.Default.setArdMac_hydRaiseTime;
+                PGN_238.pgn[PGN_238.lowerTime] = Properties.Settings.Default.setArdMac_hydLowerTime;
 
-                mf.p_238.pgn[mf.p_238.user1] = Properties.Settings.Default.setArdMac_user1;
-                mf.p_238.pgn[mf.p_238.user2] = Properties.Settings.Default.setArdMac_user2;
-                mf.p_238.pgn[mf.p_238.user3] = Properties.Settings.Default.setArdMac_user3;
-                mf.p_238.pgn[mf.p_238.user4] = Properties.Settings.Default.setArdMac_user4;
+                PGN_238.pgn[PGN_238.user1] = Properties.Settings.Default.setArdMac_user1;
+                PGN_238.pgn[PGN_238.user2] = Properties.Settings.Default.setArdMac_user2;
+                PGN_238.pgn[PGN_238.user3] = Properties.Settings.Default.setArdMac_user3;
+                PGN_238.pgn[PGN_238.user4] = Properties.Settings.Default.setArdMac_user4;
 
-                mf.SendPgnToLoop(mf.p_238.pgn);
+                mf.SendPgnToLoop(PGN_238.pgn);
 
                 //Send Pin configuration
                 SendRelaySettingsToMachineModule();
@@ -788,7 +788,7 @@ namespace AgOpenGPS
             pboxAlpha.BackgroundImage = SetAlpha((Bitmap)original, (byte)(mf.vehicleOpacityByte));
         }
 
-        private void btnOpacityUp_Click(object sender, EventArgs e)
+        private void btnOpacityUPGN_Click(object sender, EventArgs e)
         {
             mf.vehicleOpacity = Math.Min(mf.vehicleOpacity + 0.2, 1);
             lblOpacityPercent.Text = ((int)(mf.vehicleOpacity * 100)).ToString() + "%";

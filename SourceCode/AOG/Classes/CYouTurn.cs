@@ -1427,7 +1427,7 @@ namespace AgOpenGPS
             mf.sounds.isBoundAlarming = false;
             isTurnCreationTooClose = false;
             isTurnCreationNotCrossingError = false;
-            mf.p_239.pgn[mf.p_239.uturn] = 0;
+            PGN_239.pgn[PGN_239.uturn] = 0;
         }
 
         public void ResetCreatedYouTurn()
@@ -1435,7 +1435,7 @@ namespace AgOpenGPS
             youTurnPhase = 0;
             ytList?.Clear();
             mf.makeUTurnCounter = 0;
-            mf.p_239.pgn[mf.p_239.uturn] = 0;
+            PGN_239.pgn[PGN_239.uturn] = 0;
             isOutSameCurve = false;
             isGoingStraightThrough = false;
         }

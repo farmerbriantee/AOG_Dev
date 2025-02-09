@@ -92,7 +92,7 @@ namespace AgOpenGPS
             }
         }
 
-        private void btnGainUp_Click(object sender, EventArgs e)
+        private void btnGainUPGN_Click(object sender, EventArgs e)
         {
             if (isAuto)
             {

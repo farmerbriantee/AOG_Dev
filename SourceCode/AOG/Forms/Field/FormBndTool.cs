@@ -655,7 +655,7 @@ namespace AgOpenGPS
                 sY += 0.01;
         }
 
-        private void btnMoveUp_Click(object sender, EventArgs e)
+        private void btnMoveUPGN_Click(object sender, EventArgs e)
         {
             if (zoom == 0.1)
                 sY -= 0.01;
@@ -679,7 +679,7 @@ namespace AgOpenGPS
             if (zoom < 0.1) zoom = 0.1;
         }
 
-        private void btnStartStop_Click(object sender, EventArgs e)
+        private void btnStartStoPGN_Click(object sender, EventArgs e)
         {
             btnStartStop.Enabled = false;
             if (secList.Count < 20)

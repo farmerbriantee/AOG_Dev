@@ -158,16 +158,16 @@ namespace AgOpenGPS
             Properties.Settings.Default.setVehicle_hydraulicLiftLookAhead = (double)nudHydLiftLookAhead.Value;
             mf.vehicle.hydLiftLookAheadTime = Properties.Settings.Default.setVehicle_hydraulicLiftLookAhead;
 
-            mf.p_238.pgn[mf.p_238.set0] = (byte)sett;
-            mf.p_238.pgn[mf.p_238.raiseTime] = (byte)nudRaiseTime.Value;
-            mf.p_238.pgn[mf.p_238.lowerTime] = (byte)nudLowerTime.Value;
+            PGN_238.pgn[PGN_238.set0] = (byte)sett;
+            PGN_238.pgn[PGN_238.raiseTime] = (byte)nudRaiseTime.Value;
+            PGN_238.pgn[PGN_238.lowerTime] = (byte)nudLowerTime.Value;
 
-            mf.p_238.pgn[mf.p_238.user1] = (byte)nudUser1.Value;
-            mf.p_238.pgn[mf.p_238.user2] = (byte)nudUser2.Value;
-            mf.p_238.pgn[mf.p_238.user3] = (byte)nudUser3.Value;
-            mf.p_238.pgn[mf.p_238.user4] = (byte)nudUser4.Value;
+            PGN_238.pgn[PGN_238.user1] = (byte)nudUser1.Value;
+            PGN_238.pgn[PGN_238.user2] = (byte)nudUser2.Value;
+            PGN_238.pgn[PGN_238.user3] = (byte)nudUser3.Value;
+            PGN_238.pgn[PGN_238.user4] = (byte)nudUser4.Value;
 
-            mf.SendPgnToLoop(mf.p_238.pgn);
+            mf.SendPgnToLoop(PGN_238.pgn);
             pboxSendMachine.Visible = false;
         }
 
@@ -310,71 +310,71 @@ namespace AgOpenGPS
             words = Properties.Settings.Default.setRelay_pinConfig.Split(',');
 
             //load the pgn
-            mf.p_236.pgn[mf.p_236.pin0] = (byte)int.Parse(words[0]);
-            mf.p_236.pgn[mf.p_236.pin1] = (byte)int.Parse(words[1]);
-            mf.p_236.pgn[mf.p_236.pin2] = (byte)int.Parse(words[2]);
-            mf.p_236.pgn[mf.p_236.pin3] = (byte)int.Parse(words[3]);
-            mf.p_236.pgn[mf.p_236.pin4] = (byte)int.Parse(words[4]);
-            mf.p_236.pgn[mf.p_236.pin5] = (byte)int.Parse(words[5]);
-            mf.p_236.pgn[mf.p_236.pin6] = (byte)int.Parse(words[6]);
-            mf.p_236.pgn[mf.p_236.pin7] = (byte)int.Parse(words[7]);
-            mf.p_236.pgn[mf.p_236.pin8] = (byte)int.Parse(words[8]);
-            mf.p_236.pgn[mf.p_236.pin9] = (byte)int.Parse(words[9]);
+            PGN_236.pgn[PGN_236.pin0] = (byte)int.Parse(words[0]);
+            PGN_236.pgn[PGN_236.pin1] = (byte)int.Parse(words[1]);
+            PGN_236.pgn[PGN_236.pin2] = (byte)int.Parse(words[2]);
+            PGN_236.pgn[PGN_236.pin3] = (byte)int.Parse(words[3]);
+            PGN_236.pgn[PGN_236.pin4] = (byte)int.Parse(words[4]);
+            PGN_236.pgn[PGN_236.pin5] = (byte)int.Parse(words[5]);
+            PGN_236.pgn[PGN_236.pin6] = (byte)int.Parse(words[6]);
+            PGN_236.pgn[PGN_236.pin7] = (byte)int.Parse(words[7]);
+            PGN_236.pgn[PGN_236.pin8] = (byte)int.Parse(words[8]);
+            PGN_236.pgn[PGN_236.pin9] = (byte)int.Parse(words[9]);
 
-            mf.p_236.pgn[mf.p_236.pin10] = (byte)int.Parse(words[10]);
-            mf.p_236.pgn[mf.p_236.pin11] = (byte)int.Parse(words[11]);
-            mf.p_236.pgn[mf.p_236.pin12] = (byte)int.Parse(words[12]);
-            mf.p_236.pgn[mf.p_236.pin13] = (byte)int.Parse(words[13]);
-            mf.p_236.pgn[mf.p_236.pin14] = (byte)int.Parse(words[14]);
-            mf.p_236.pgn[mf.p_236.pin15] = (byte)int.Parse(words[15]);
-            mf.p_236.pgn[mf.p_236.pin16] = (byte)int.Parse(words[16]);
-            mf.p_236.pgn[mf.p_236.pin17] = (byte)int.Parse(words[17]);
-            mf.p_236.pgn[mf.p_236.pin18] = (byte)int.Parse(words[18]);
-            mf.p_236.pgn[mf.p_236.pin19] = (byte)int.Parse(words[19]);
+            PGN_236.pgn[PGN_236.pin10] = (byte)int.Parse(words[10]);
+            PGN_236.pgn[PGN_236.pin11] = (byte)int.Parse(words[11]);
+            PGN_236.pgn[PGN_236.pin12] = (byte)int.Parse(words[12]);
+            PGN_236.pgn[PGN_236.pin13] = (byte)int.Parse(words[13]);
+            PGN_236.pgn[PGN_236.pin14] = (byte)int.Parse(words[14]);
+            PGN_236.pgn[PGN_236.pin15] = (byte)int.Parse(words[15]);
+            PGN_236.pgn[PGN_236.pin16] = (byte)int.Parse(words[16]);
+            PGN_236.pgn[PGN_236.pin17] = (byte)int.Parse(words[17]);
+            PGN_236.pgn[PGN_236.pin18] = (byte)int.Parse(words[18]);
+            PGN_236.pgn[PGN_236.pin19] = (byte)int.Parse(words[19]);
 
-            mf.p_236.pgn[mf.p_236.pin20] = (byte)int.Parse(words[20]);
-            mf.p_236.pgn[mf.p_236.pin21] = (byte)int.Parse(words[21]);
-            mf.p_236.pgn[mf.p_236.pin22] = (byte)int.Parse(words[22]);
-            mf.p_236.pgn[mf.p_236.pin23] = (byte)int.Parse(words[23]);
-            mf.SendPgnToLoop(mf.p_236.pgn);
+            PGN_236.pgn[PGN_236.pin20] = (byte)int.Parse(words[20]);
+            PGN_236.pgn[PGN_236.pin21] = (byte)int.Parse(words[21]);
+            PGN_236.pgn[PGN_236.pin22] = (byte)int.Parse(words[22]);
+            PGN_236.pgn[PGN_236.pin23] = (byte)int.Parse(words[23]);
+            mf.SendPgnToLoop(PGN_236.pgn);
 
 
-            mf.p_235.pgn[mf.p_235.sec0Lo] = unchecked((byte)(mf.section[0].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec0Hi] = unchecked((byte)((int)((mf.section[0].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec1Lo] = unchecked((byte)(mf.section[1].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec1Hi] = unchecked((byte)((int)((mf.section[1].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec2Lo] = unchecked((byte)(mf.section[2].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec2Hi] = unchecked((byte)((int)((mf.section[2].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec3Lo] = unchecked((byte)(mf.section[3].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec3Hi] = unchecked((byte)((int)((mf.section[3].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec4Lo] = unchecked((byte)(mf.section[4].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec4Hi] = unchecked((byte)((int)((mf.section[4].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec5Lo] = unchecked((byte)(mf.section[5].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec5Hi] = unchecked((byte)((int)((mf.section[5].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec6Lo] = unchecked((byte)(mf.section[6].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec6Hi] = unchecked((byte)((int)((mf.section[6].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec7Lo] = unchecked((byte)(mf.section[7].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec7Hi] = unchecked((byte)((int)((mf.section[7].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec8Lo] = unchecked((byte)(mf.section[8].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec8Hi] = unchecked((byte)((int)((mf.section[8].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec9Lo] = unchecked((byte)(mf.section[9].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec9Hi] = unchecked((byte)((int)((mf.section[9].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec10Lo] = unchecked((byte)(mf.section[10].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec10Hi] = unchecked((byte)((int)((mf.section[10].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec11Lo] = unchecked((byte)(mf.section[11].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec11Hi] = unchecked((byte)((int)((mf.section[11].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec12Lo] = unchecked((byte)(mf.section[12].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec12Hi] = unchecked((byte)((int)((mf.section[12].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec13Lo] = unchecked((byte)(mf.section[13].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec13Hi] = unchecked((byte)((int)((mf.section[13].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec14Lo] = unchecked((byte)(mf.section[14].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec14Hi] = unchecked((byte)((int)((mf.section[14].sectionWidth * 100)) >> 8));
-            mf.p_235.pgn[mf.p_235.sec15Lo] = unchecked((byte)(mf.section[15].sectionWidth * 100));
-            mf.p_235.pgn[mf.p_235.sec15Hi] = unchecked((byte)((int)((mf.section[15].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec0Lo] = unchecked((byte)(mf.section[0].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec0Hi] = unchecked((byte)((int)((mf.section[0].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec1Lo] = unchecked((byte)(mf.section[1].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec1Hi] = unchecked((byte)((int)((mf.section[1].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec2Lo] = unchecked((byte)(mf.section[2].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec2Hi] = unchecked((byte)((int)((mf.section[2].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec3Lo] = unchecked((byte)(mf.section[3].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec3Hi] = unchecked((byte)((int)((mf.section[3].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec4Lo] = unchecked((byte)(mf.section[4].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec4Hi] = unchecked((byte)((int)((mf.section[4].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec5Lo] = unchecked((byte)(mf.section[5].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec5Hi] = unchecked((byte)((int)((mf.section[5].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec6Lo] = unchecked((byte)(mf.section[6].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec6Hi] = unchecked((byte)((int)((mf.section[6].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec7Lo] = unchecked((byte)(mf.section[7].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec7Hi] = unchecked((byte)((int)((mf.section[7].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec8Lo] = unchecked((byte)(mf.section[8].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec8Hi] = unchecked((byte)((int)((mf.section[8].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec9Lo] = unchecked((byte)(mf.section[9].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec9Hi] = unchecked((byte)((int)((mf.section[9].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec10Lo] = unchecked((byte)(mf.section[10].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec10Hi] = unchecked((byte)((int)((mf.section[10].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec11Lo] = unchecked((byte)(mf.section[11].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec11Hi] = unchecked((byte)((int)((mf.section[11].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec12Lo] = unchecked((byte)(mf.section[12].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec12Hi] = unchecked((byte)((int)((mf.section[12].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec13Lo] = unchecked((byte)(mf.section[13].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec13Hi] = unchecked((byte)((int)((mf.section[13].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec14Lo] = unchecked((byte)(mf.section[14].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec14Hi] = unchecked((byte)((int)((mf.section[14].sectionWidth * 100)) >> 8));
+            PGN_235.pgn[PGN_235.sec15Lo] = unchecked((byte)(mf.section[15].sectionWidth * 100));
+            PGN_235.pgn[PGN_235.sec15Hi] = unchecked((byte)((int)((mf.section[15].sectionWidth * 100)) >> 8));
 
-            mf.p_235.pgn[mf.p_235.numSections] = (byte)mf.tool.numOfSections;
+            PGN_235.pgn[PGN_235.numSections] = (byte)mf.tool.numOfSections;
 
-            mf.SendPgnToLoop(mf.p_235.pgn);
+            mf.SendPgnToLoop(PGN_235.pgn);
         }
 
         private void btnRelaySetDefaultConfig_Click(object sender, EventArgs e)
@@ -516,7 +516,7 @@ namespace AgOpenGPS
             UpdateUturnText();
         }
 
-        private void btnDistanceUp_Click(object sender, EventArgs e)
+        private void btnDistanceUPGN_Click(object sender, EventArgs e)
         {
             if (mf.yt.youTurnStartOffset++ > 49) mf.yt.youTurnStartOffset = 50;
             UpdateUturnText();
@@ -528,7 +528,7 @@ namespace AgOpenGPS
             lblSmoothing.Text = mf.yt.uTurnSmoothing.ToString();
         }
 
-        private void btnTurnSmoothingUp_Click(object sender, EventArgs e)
+        private void btnTurnSmoothingUPGN_Click(object sender, EventArgs e)
         {
             mf.yt.uTurnSmoothing += 2;
             if (mf.yt.uTurnSmoothing > 50) mf.yt.uTurnSmoothing = 50;

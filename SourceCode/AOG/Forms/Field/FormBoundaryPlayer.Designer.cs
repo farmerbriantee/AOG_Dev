@@ -187,7 +187,7 @@
             this.btnStop.TabIndex = 140;
             this.btnStop.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnStop.UseVisualStyleBackColor = false;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            this.btnStop.Click += new System.EventHandler(this.btnStoPGN_Click);
             // 
             // btnPausePlay
             // 

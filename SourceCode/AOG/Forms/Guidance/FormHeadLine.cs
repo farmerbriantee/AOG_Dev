@@ -694,7 +694,7 @@ namespace AgOpenGPS
 
         public List<int> crossings = new List<int>(1);
 
-        private void btnBndLoop_Click(object sender, EventArgs e)
+        private void btnBndLooPGN_Click(object sender, EventArgs e)
         {
             int ptCount = mf.bnd.bndList[0].fenceLine.Count;
 

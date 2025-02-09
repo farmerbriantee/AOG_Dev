@@ -150,7 +150,7 @@ namespace AgOpenGPS
         //        mf.udpWatchLimit = Properties.Settings.Default.SetGPS_udpWatchMsec;
         //    }
         //}
-        private void cboxMinGPSStep_Click(object sender, EventArgs e)
+        private void cboxMinGPSStePGN_Click(object sender, EventArgs e)
         {
             if (cboxMinGPSStep.Checked)
             {
@@ -179,7 +179,7 @@ namespace AgOpenGPS
             mf.ahrs.fusionWeight = (double)hsbarFusion.Value * 0.002;
         }
 
-        //private void nudForwardComp_Click(object sender, EventArgs e)
+        //private void nudForwardComPGN_Click(object sender, EventArgs e)
         //{
         //    if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
         //    {
@@ -187,7 +187,7 @@ namespace AgOpenGPS
         //    }
         //}
 
-        //private void nudReverseComp_Click(object sender, EventArgs e)
+        //private void nudReverseComPGN_Click(object sender, EventArgs e)
         //{
         //    if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
         //    {
@@ -245,7 +245,7 @@ namespace AgOpenGPS
             }
         }
 
-        private void btnRollOffsetUp_Click(object sender, EventArgs e)
+        private void btnRollOffsetUPGN_Click(object sender, EventArgs e)
         {
             if (mf.ahrs.imuRoll != 88888)
             {

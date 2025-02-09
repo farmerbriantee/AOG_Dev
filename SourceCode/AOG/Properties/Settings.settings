@@ -770,7 +770,7 @@
     <Setting Name="setNozzleSettings" Type="AgOpenGPS.CNozzleSettings" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="setApp_isNozzleApp" Type="System.Boolean" Scope="User">
+    <Setting Name="setApPGN_isNozzleApp" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="setTram_alpha" Type="System.Double" Scope="User">

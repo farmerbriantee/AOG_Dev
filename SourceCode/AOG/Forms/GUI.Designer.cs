@@ -514,7 +514,7 @@ namespace AgOpenGPS
 
             CheckNozzleSettingsNotNull();
 
-            isNozzleApp = Properties.Settings.Default.setApp_isNozzleApp;
+            isNozzleApp = Properties.Settings.Default.setApPGN_isNozzleApp;
 
             if (isNozzleApp)
             {
@@ -531,22 +531,22 @@ namespace AgOpenGPS
 
             if (isNozzleApp)
             {
-                p_226.pgn[p_226.flowCalHi] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.flowCal >> 8)); ;
-                p_226.pgn[p_226.flowCaLo] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.flowCal));
-                p_226.pgn[p_226.pressureCalHi] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.pressureCal >> 8));
-                p_226.pgn[p_226.pressureCalLo] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.pressureCal));
-                p_226.pgn[p_226.Kp] = Properties.Settings.Default.setNozzleSettings.Kp;
-                p_226.pgn[p_226.Ki] = Properties.Settings.Default.setNozzleSettings.Ki;
-                p_226.pgn[p_226.minPressure] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.pressureMin));
-                p_226.pgn[p_226.fastPWM] = Properties.Settings.Default.setNozzleSettings.fastPWM;
-                p_226.pgn[p_226.slowPWM] = Properties.Settings.Default.setNozzleSettings.slowPWM;
-                p_226.pgn[p_226.deadbandError] = Properties.Settings.Default.setNozzleSettings.deadbandError;
-                p_226.pgn[p_226.switchAtFlowError] = Properties.Settings.Default.setNozzleSettings.switchAtFlowError;
+                PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.flowCal >> 8)); ;
+                PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.flowCal));
+                PGN_226.pgn[PGN_226.pressureCalHi] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.pressureCal >> 8));
+                PGN_226.pgn[PGN_226.pressureCalLo] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.pressureCal));
+                PGN_226.pgn[PGN_226.Kp] = Properties.Settings.Default.setNozzleSettings.Kp;
+                PGN_226.pgn[PGN_226.Ki] = Properties.Settings.Default.setNozzleSettings.Ki;
+                PGN_226.pgn[PGN_226.minPressure] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.pressureMin));
+                PGN_226.pgn[PGN_226.fastPWM] = Properties.Settings.Default.setNozzleSettings.fastPWM;
+                PGN_226.pgn[PGN_226.slowPWM] = Properties.Settings.Default.setNozzleSettings.slowPWM;
+                PGN_226.pgn[PGN_226.deadbandError] = Properties.Settings.Default.setNozzleSettings.deadbandError;
+                PGN_226.pgn[PGN_226.switchAtFlowError] = Properties.Settings.Default.setNozzleSettings.switchAtFlowError;
 
                 if (Properties.Settings.Default.setNozzleSettings.isBypass)
-                    p_226.pgn[p_226.isBypass] = 1;
+                    PGN_226.pgn[PGN_226.isBypass] = 1;
                 else
-                    p_226.pgn[p_226.isBypass] = 0;
+                    PGN_226.pgn[PGN_226.isBypass] = 0;
 
 
                 tlpNozzle.Width = 175;
@@ -577,18 +577,18 @@ namespace AgOpenGPS
 
             if (isGPSToolActive)
             {
-                p_232.pgn[p_232.gainP] = Properties.Settings.Default.setToolSteer.gainP;
-                p_232.pgn[p_232.integral] = Properties.Settings.Default.setToolSteer.integral;
-                p_232.pgn[p_232.minPWM] = Properties.Settings.Default.setToolSteer.minPWM;
-                p_232.pgn[p_232.countsPerDegree] = Properties.Settings.Default.setToolSteer.countsPerDegree;
-                p_232.pgn[p_232.ackerman] = Properties.Settings.Default.setToolSteer.ackermann;
+                PGN_232.pgn[PGN_232.gainP] = Properties.Settings.Default.setToolSteer.gainP;
+                PGN_232.pgn[PGN_232.integral] = Properties.Settings.Default.setToolSteer.integral;
+                PGN_232.pgn[PGN_232.minPWM] = Properties.Settings.Default.setToolSteer.minPWM;
+                PGN_232.pgn[PGN_232.countsPerDegree] = Properties.Settings.Default.setToolSteer.countsPerDegree;
+                PGN_232.pgn[PGN_232.ackerman] = Properties.Settings.Default.setToolSteer.ackermann;
 
-                p_232.pgn[p_232.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset >> 8));
-                p_232.pgn[p_232.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset));
+                PGN_232.pgn[PGN_232.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset >> 8));
+                PGN_232.pgn[PGN_232.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset));
 
-                p_231.pgn[p_231.invertWAS] = Properties.Settings.Default.setToolSteer.isInvertWAS;
-                p_231.pgn[p_231.invertSteer] = Properties.Settings.Default.setToolSteer.isInvertSteer;
-                p_231.pgn[p_231.maxSteerAngle] = Properties.Settings.Default.setToolSteer.maxSteerAngle;
+                PGN_231.pgn[PGN_231.invertWAS] = Properties.Settings.Default.setToolSteer.isInvertWAS;
+                PGN_231.pgn[PGN_231.invertSteer] = Properties.Settings.Default.setToolSteer.isInvertSteer;
+                PGN_231.pgn[PGN_231.maxSteerAngle] = Properties.Settings.Default.setToolSteer.maxSteerAngle;
             }
 
             pn.headingTrueDualOffset = Properties.Settings.Default.setGPS_dualHeadingOffset;

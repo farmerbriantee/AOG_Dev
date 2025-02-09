@@ -278,7 +278,7 @@
             this.btnStartStop.Size = new System.Drawing.Size(115, 61);
             this.btnStartStop.TabIndex = 544;
             this.btnStartStop.UseVisualStyleBackColor = false;
-            this.btnStartStop.Click += new System.EventHandler(this.btnStartStop_Click);
+            this.btnStartStop.Click += new System.EventHandler(this.btnStartStoPGN_Click);
             // 
             // btnResetReduce
             // 
@@ -562,7 +562,7 @@
             this.btnMoveUp.Size = new System.Drawing.Size(55, 60);
             this.btnMoveUp.TabIndex = 575;
             this.btnMoveUp.UseVisualStyleBackColor = false;
-            this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUp_Click);
+            this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUPGN_Click);
             // 
             // btnMoveLeft
             // 

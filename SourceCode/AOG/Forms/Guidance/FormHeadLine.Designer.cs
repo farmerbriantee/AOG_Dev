@@ -271,7 +271,7 @@
             this.btnBndLoop.Text = "Build";
             this.btnBndLoop.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnBndLoop.UseVisualStyleBackColor = false;
-            this.btnBndLoop.Click += new System.EventHandler(this.btnBndLoop_Click);
+            this.btnBndLoop.Click += new System.EventHandler(this.btnBndLooPGN_Click);
             // 
             // btnAShrink
             // 

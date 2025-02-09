@@ -16,7 +16,7 @@ namespace AgOpenGPS
             InitializeComponent();
         }
 
-        private void btnPanUp_Click(object sender, EventArgs e)
+        private void btnPanUPGN_Click(object sender, EventArgs e)
         {
             mf.camera.panY += (mf.camera.camSetDistance / 25);
         }

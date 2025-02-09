@@ -517,7 +517,7 @@ namespace AgOpenGPS
             public int xteHi = 9;
         }
 
-        //ToolSteer Config
+        //ToolSteer Settings
         public class CPGN_232_E8
         {
             /// <summary>
@@ -535,7 +535,7 @@ namespace AgOpenGPS
             public int ackerman = 12;
         }
 
-        //Toolsteer Settings
+        //Toolsteer Config
         public class CPGN_231_E7
         {
             /// <summary>

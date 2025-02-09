@@ -40,7 +40,6 @@ namespace ModSimTool
             this.label25 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.lblInvertWAS_Tool = new System.Windows.Forms.Label();
-            this.label39 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
@@ -48,7 +47,6 @@ namespace ModSimTool
             this.lblIntegral = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.lblInvertSteer_Tool = new System.Windows.Forms.Label();
-            this.lblLowPWM = new System.Windows.Forms.Label();
             this.lblAckerman = new System.Windows.Forms.Label();
             this.lblMinPWM = new System.Windows.Forms.Label();
             this.lblWAS_Offset = new System.Windows.Forms.Label();
@@ -91,6 +89,8 @@ namespace ModSimTool
             this.lblStatus = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lblSpeed = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblIsSteer = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbarSteerAngleWAS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbarSpeed)).BeginInit();
@@ -114,6 +114,8 @@ namespace ModSimTool
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.lblIsSteer);
             this.groupBox1.Controls.Add(this.label49);
             this.groupBox1.Controls.Add(this.label36);
             this.groupBox1.Controls.Add(this.lblMaxAngle_Tool);
@@ -121,7 +123,6 @@ namespace ModSimTool
             this.groupBox1.Controls.Add(this.label25);
             this.groupBox1.Controls.Add(this.label40);
             this.groupBox1.Controls.Add(this.lblInvertWAS_Tool);
-            this.groupBox1.Controls.Add(this.label39);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label38);
             this.groupBox1.Controls.Add(this.label23);
@@ -129,7 +130,6 @@ namespace ModSimTool
             this.groupBox1.Controls.Add(this.lblIntegral);
             this.groupBox1.Controls.Add(this.label35);
             this.groupBox1.Controls.Add(this.lblInvertSteer_Tool);
-            this.groupBox1.Controls.Add(this.lblLowPWM);
             this.groupBox1.Controls.Add(this.lblAckerman);
             this.groupBox1.Controls.Add(this.lblMinPWM);
             this.groupBox1.Controls.Add(this.lblWAS_Offset);
@@ -149,7 +149,7 @@ namespace ModSimTool
             this.label49.BackColor = System.Drawing.Color.Transparent;
             this.label49.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label49.ForeColor = System.Drawing.Color.Black;
-            this.label49.Location = new System.Drawing.Point(43, 331);
+            this.label49.Location = new System.Drawing.Point(43, 304);
             this.label49.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(78, 19);
@@ -162,7 +162,7 @@ namespace ModSimTool
             this.label36.BackColor = System.Drawing.Color.Transparent;
             this.label36.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label36.ForeColor = System.Drawing.Color.Black;
-            this.label36.Location = new System.Drawing.Point(27, 191);
+            this.label36.Location = new System.Drawing.Point(27, 164);
             this.label36.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(94, 19);
@@ -175,7 +175,7 @@ namespace ModSimTool
             this.lblMaxAngle_Tool.BackColor = System.Drawing.Color.Transparent;
             this.lblMaxAngle_Tool.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMaxAngle_Tool.ForeColor = System.Drawing.Color.Black;
-            this.lblMaxAngle_Tool.Location = new System.Drawing.Point(128, 331);
+            this.lblMaxAngle_Tool.Location = new System.Drawing.Point(128, 304);
             this.lblMaxAngle_Tool.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMaxAngle_Tool.Name = "lblMaxAngle_Tool";
             this.lblMaxAngle_Tool.Size = new System.Drawing.Size(14, 19);
@@ -201,7 +201,7 @@ namespace ModSimTool
             this.label25.BackColor = System.Drawing.Color.Transparent;
             this.label25.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label25.ForeColor = System.Drawing.Color.Black;
-            this.label25.Location = new System.Drawing.Point(36, 275);
+            this.label25.Location = new System.Drawing.Point(36, 248);
             this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(85, 19);
@@ -214,7 +214,7 @@ namespace ModSimTool
             this.label40.BackColor = System.Drawing.Color.Transparent;
             this.label40.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label40.ForeColor = System.Drawing.Color.Black;
-            this.label40.Location = new System.Drawing.Point(44, 79);
+            this.label40.Location = new System.Drawing.Point(44, 110);
             this.label40.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(77, 19);
@@ -227,25 +227,12 @@ namespace ModSimTool
             this.lblInvertWAS_Tool.BackColor = System.Drawing.Color.Transparent;
             this.lblInvertWAS_Tool.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInvertWAS_Tool.ForeColor = System.Drawing.Color.Black;
-            this.lblInvertWAS_Tool.Location = new System.Drawing.Point(128, 275);
+            this.lblInvertWAS_Tool.Location = new System.Drawing.Point(128, 248);
             this.lblInvertWAS_Tool.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblInvertWAS_Tool.Name = "lblInvertWAS_Tool";
             this.lblInvertWAS_Tool.Size = new System.Drawing.Size(14, 19);
             this.lblInvertWAS_Tool.TabIndex = 576;
             this.lblInvertWAS_Tool.Text = ".";
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.BackColor = System.Drawing.Color.Transparent;
-            this.label39.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.ForeColor = System.Drawing.Color.Black;
-            this.label39.Location = new System.Drawing.Point(48, 107);
-            this.label39.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(73, 19);
-            this.label39.TabIndex = 590;
-            this.label39.Text = "LowPWM";
             // 
             // label1
             // 
@@ -266,7 +253,7 @@ namespace ModSimTool
             this.label38.BackColor = System.Drawing.Color.Transparent;
             this.label38.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label38.ForeColor = System.Drawing.Color.Black;
-            this.label38.Location = new System.Drawing.Point(52, 135);
+            this.label38.Location = new System.Drawing.Point(52, 77);
             this.label38.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(69, 19);
@@ -279,7 +266,7 @@ namespace ModSimTool
             this.label23.BackColor = System.Drawing.Color.Transparent;
             this.label23.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.ForeColor = System.Drawing.Color.Black;
-            this.label23.Location = new System.Drawing.Point(34, 303);
+            this.label23.Location = new System.Drawing.Point(34, 276);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(87, 19);
@@ -292,7 +279,7 @@ namespace ModSimTool
             this.label37.BackColor = System.Drawing.Color.Transparent;
             this.label37.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label37.ForeColor = System.Drawing.Color.Black;
-            this.label37.Location = new System.Drawing.Point(39, 163);
+            this.label37.Location = new System.Drawing.Point(39, 136);
             this.label37.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(82, 19);
@@ -318,7 +305,7 @@ namespace ModSimTool
             this.label35.BackColor = System.Drawing.Color.Transparent;
             this.label35.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label35.ForeColor = System.Drawing.Color.Black;
-            this.label35.Location = new System.Drawing.Point(32, 219);
+            this.label35.Location = new System.Drawing.Point(32, 192);
             this.label35.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(89, 19);
@@ -331,25 +318,12 @@ namespace ModSimTool
             this.lblInvertSteer_Tool.BackColor = System.Drawing.Color.Transparent;
             this.lblInvertSteer_Tool.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInvertSteer_Tool.ForeColor = System.Drawing.Color.Black;
-            this.lblInvertSteer_Tool.Location = new System.Drawing.Point(128, 303);
+            this.lblInvertSteer_Tool.Location = new System.Drawing.Point(128, 276);
             this.lblInvertSteer_Tool.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblInvertSteer_Tool.Name = "lblInvertSteer_Tool";
             this.lblInvertSteer_Tool.Size = new System.Drawing.Size(14, 19);
             this.lblInvertSteer_Tool.TabIndex = 574;
             this.lblInvertSteer_Tool.Text = ".";
-            // 
-            // lblLowPWM
-            // 
-            this.lblLowPWM.AutoSize = true;
-            this.lblLowPWM.BackColor = System.Drawing.Color.Transparent;
-            this.lblLowPWM.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLowPWM.ForeColor = System.Drawing.Color.Black;
-            this.lblLowPWM.Location = new System.Drawing.Point(128, 107);
-            this.lblLowPWM.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblLowPWM.Name = "lblLowPWM";
-            this.lblLowPWM.Size = new System.Drawing.Size(14, 19);
-            this.lblLowPWM.TabIndex = 589;
-            this.lblLowPWM.Text = ".";
             // 
             // lblAckerman
             // 
@@ -357,7 +331,7 @@ namespace ModSimTool
             this.lblAckerman.BackColor = System.Drawing.Color.Transparent;
             this.lblAckerman.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAckerman.ForeColor = System.Drawing.Color.Black;
-            this.lblAckerman.Location = new System.Drawing.Point(128, 219);
+            this.lblAckerman.Location = new System.Drawing.Point(128, 192);
             this.lblAckerman.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAckerman.Name = "lblAckerman";
             this.lblAckerman.Size = new System.Drawing.Size(14, 19);
@@ -370,7 +344,7 @@ namespace ModSimTool
             this.lblMinPWM.BackColor = System.Drawing.Color.Transparent;
             this.lblMinPWM.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMinPWM.ForeColor = System.Drawing.Color.Black;
-            this.lblMinPWM.Location = new System.Drawing.Point(128, 135);
+            this.lblMinPWM.Location = new System.Drawing.Point(128, 77);
             this.lblMinPWM.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMinPWM.Name = "lblMinPWM";
             this.lblMinPWM.Size = new System.Drawing.Size(14, 19);
@@ -383,7 +357,7 @@ namespace ModSimTool
             this.lblWAS_Offset.BackColor = System.Drawing.Color.Transparent;
             this.lblWAS_Offset.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWAS_Offset.ForeColor = System.Drawing.Color.Black;
-            this.lblWAS_Offset.Location = new System.Drawing.Point(128, 191);
+            this.lblWAS_Offset.Location = new System.Drawing.Point(128, 164);
             this.lblWAS_Offset.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWAS_Offset.Name = "lblWAS_Offset";
             this.lblWAS_Offset.Size = new System.Drawing.Size(14, 19);
@@ -409,7 +383,7 @@ namespace ModSimTool
             this.lblHighPWM.BackColor = System.Drawing.Color.Transparent;
             this.lblHighPWM.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHighPWM.ForeColor = System.Drawing.Color.Black;
-            this.lblHighPWM.Location = new System.Drawing.Point(128, 79);
+            this.lblHighPWM.Location = new System.Drawing.Point(128, 110);
             this.lblHighPWM.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblHighPWM.Name = "lblHighPWM";
             this.lblHighPWM.Size = new System.Drawing.Size(14, 19);
@@ -422,9 +396,9 @@ namespace ModSimTool
             this.lblWAS_CPD.BackColor = System.Drawing.Color.Transparent;
             this.lblWAS_CPD.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWAS_CPD.ForeColor = System.Drawing.Color.Black;
-            this.lblWAS_CPD.Location = new System.Drawing.Point(128, 163);
+            this.lblWAS_CPD.Location = new System.Drawing.Point(128, 136);
             this.lblWAS_CPD.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblWAS_CPD.Name = "lblWAS_Counts";
+            this.lblWAS_CPD.Name = "lblWAS_CPD";
             this.lblWAS_CPD.Size = new System.Drawing.Size(14, 19);
             this.lblWAS_CPD.TabIndex = 586;
             this.lblWAS_CPD.Text = ".";
@@ -873,6 +847,32 @@ namespace ModSimTool
             this.lblSpeed.TabIndex = 578;
             this.lblSpeed.Text = ".";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(23, 336);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 19);
+            this.label2.TabIndex = 597;
+            this.label2.Text = "isSteerNoSld";
+            // 
+            // lblIsSteer
+            // 
+            this.lblIsSteer.AutoSize = true;
+            this.lblIsSteer.BackColor = System.Drawing.Color.Transparent;
+            this.lblIsSteer.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIsSteer.ForeColor = System.Drawing.Color.Black;
+            this.lblIsSteer.Location = new System.Drawing.Point(128, 336);
+            this.lblIsSteer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblIsSteer.Name = "lblIsSteer";
+            this.lblIsSteer.Size = new System.Drawing.Size(14, 19);
+            this.lblIsSteer.TabIndex = 598;
+            this.lblIsSteer.Text = ".";
+            // 
             // FormSim
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
@@ -990,17 +990,17 @@ namespace ModSimTool
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.Label lblLowPWM;
         private System.Windows.Forms.Label lblAckerman;
         private System.Windows.Forms.Label lblMinPWM;
         private System.Windows.Forms.Label lblWAS_Offset;
         private System.Windows.Forms.Label lblKp;
         private System.Windows.Forms.Label lblHighPWM;
         private System.Windows.Forms.Label lblWAS_CPD;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblIsSteer;
     }
 }
 

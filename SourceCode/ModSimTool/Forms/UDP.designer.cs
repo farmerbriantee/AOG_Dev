@@ -250,9 +250,8 @@ namespace ModSimTool
                                 break;
                             }
 
-                        case 232:
+                        case 232: //settings
                             {
-                                ////PID values
                                 toolSettings.Kp = data[5];   // read Kp from AgOpenGPS
                                 lblKp.Text = toolSettings.Kp.ToString();
 
@@ -279,9 +278,8 @@ namespace ModSimTool
                                 break;
                             }
 
-                        case 231:
+                        case 231: //config
                             {
-                                ////PID values
                                 toolConfig.InvertWAS = data[5];   // read Kp from AgOpenGPS
                                 lblInvertWAS_Tool.Text = toolConfig.InvertWAS.ToString();
 
@@ -290,6 +288,9 @@ namespace ModSimTool
 
                                 toolConfig.MaxSteerAngle = data[7];   // read lowPWM from AgOpenGPS              
                                 lblMaxAngle_Tool.Text = toolConfig.MaxSteerAngle.ToString();
+
+                                toolConfig.IsSteerNotSlide = data[8];   // read lowPWM from AgOpenGPS              
+                                lblIsSteer.Text = toolConfig.IsSteerNotSlide.ToString();
 
                                 break;
                             }
@@ -472,6 +473,8 @@ namespace ModSimTool
         public static byte InvertWAS = 0;
         public static byte InvertSteerMotor = 0;
         public static byte MaxSteerAngle = 20;
+        public static byte IsSteerNotSlide = 20;
+
     }
 
     public static class toolSettings

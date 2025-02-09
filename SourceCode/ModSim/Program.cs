@@ -7,7 +7,7 @@ namespace ModSim
 {
     internal static class Program
     {
-        private static readonly Mutex Mutex = new Mutex(true, "{8F6F0AC4-B9A1-66fd-A8CF-72F04E6BDE82}");
+        private static readonly Mutex Mutex = new Mutex(true, "{8F6F0AC4-B9A1-66fA-A8CF-62F04E6BCE82}");
 
         /// <summary>
         /// The main entry point for the application.

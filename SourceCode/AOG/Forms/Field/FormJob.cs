@@ -49,7 +49,7 @@ namespace AgOpenGPS
             {
                 lblResumeField.Text = gStr.gsResume + ": " + mf.currentFieldDirectory;
 
-                if (mf.isJobStarted)
+                if (mf.isFieldStarted)
                 {
                     btnJobResume.Enabled = false;
                     lblResumeField.Text = gStr.gsOpen + ": " + mf.currentFieldDirectory;
@@ -81,7 +81,7 @@ namespace AgOpenGPS
 
         private void btnJobResume_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted) mf.FileSaveEverythingBeforeClosingField();
+            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
 
             //open the Resume.txt and continue from last exit
             mf.FileOpenField("Resume");
@@ -102,7 +102,7 @@ namespace AgOpenGPS
                 //returns full field.txt file dir name
                 if (form.ShowDialog(this) == DialogResult.Yes)
                 {
-                    if (mf.isJobStarted) mf.FileSaveEverythingBeforeClosingField();
+                    if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
                     mf.FileOpenField(mf.filePickerFileAndDirectory);
 
                     Close();
@@ -183,7 +183,7 @@ namespace AgOpenGPS
                         //returns full field.txt file dir name
                         if (form.ShowDialog(this) == DialogResult.Yes)
                         {
-                            if (mf.isJobStarted) mf.FileSaveEverythingBeforeClosingField();
+                            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
                             mf.FileOpenField(mf.filePickerFileAndDirectory);
                             Close();
                         }
@@ -219,7 +219,7 @@ namespace AgOpenGPS
 
         private void btnFromKML_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted) mf.FileSaveEverythingBeforeClosingField();
+            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
             //back to FormGPS
             DialogResult = DialogResult.No;
             Close();
@@ -234,7 +234,7 @@ namespace AgOpenGPS
 
         private void btnJobClose_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted) mf.FileSaveEverythingBeforeClosingField();
+            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
             //back to FormGPS
             DialogResult = DialogResult.OK;
             Close();
@@ -248,7 +248,7 @@ namespace AgOpenGPS
 
         private void btnFromISOXML_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted) mf.FileSaveEverythingBeforeClosingField();
+            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
             //back to FormGPS
             DialogResult = DialogResult.Abort;
             Close();

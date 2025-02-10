@@ -29,7 +29,7 @@ namespace AgOpenGPS
 
         private void bntOK_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.isFieldStarted)
             {
                 mf.TimedMessageBox(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
                 Close();

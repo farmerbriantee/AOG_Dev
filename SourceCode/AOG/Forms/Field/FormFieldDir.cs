@@ -74,7 +74,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            if (mf.isJobStarted) mf.FileSaveEverythingBeforeClosingField();
+            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
 
             //append date time to name
 

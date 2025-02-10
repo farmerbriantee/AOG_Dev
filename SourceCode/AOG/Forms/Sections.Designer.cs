@@ -284,7 +284,7 @@ namespace AgOpenGPS
         {
             //var matches = this.Controls.Find("btnZone1", true);
 
-            if (!isJobStarted)
+            if (!isFieldStarted)
             {
                 btnSection1Man.Visible = false;
                 btnSection2Man.Visible = false;
@@ -355,7 +355,7 @@ namespace AgOpenGPS
 
             if (tool.isSectionsNotZones)
             {
-                //if (!isJobStarted) top = Height - 40;
+                //if (!isFieldStarted) top = Height - 40;
 
                 btnSection1Man.Top = btnSection2Man.Top = btnSection3Man.Top =
                 btnSection4Man.Top = btnSection5Man.Top = btnSection6Man.Top =
@@ -480,7 +480,7 @@ namespace AgOpenGPS
 
         public void LineUpAllZoneButtons()
         {
-            if (!isJobStarted)
+            if (!isFieldStarted)
             {
                 btnSection1Man.Visible = false;
                 btnSection2Man.Visible = false;
@@ -549,7 +549,7 @@ namespace AgOpenGPS
             btnZone7.Visible = tool.zones > 6;
             btnZone8.Visible = tool.zones > 7;
 
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 btnZone1.BackColor = Color.Red;
                 btnZone2.BackColor = Color.Red;
@@ -781,7 +781,7 @@ namespace AgOpenGPS
         private void DoRemoteSwitches()
         {
             //MTZ8302 Feb 2020 
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 //MainSW was used
                 if (mc.ss[mc.swMain] != mc.ssP[mc.swMain])

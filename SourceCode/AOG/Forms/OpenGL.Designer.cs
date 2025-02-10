@@ -682,7 +682,7 @@ namespace AgOpenGPS
                         DistanceToFieldOriginCheck();
 
                         //don't save if no gps
-                        if (isJobStarted)
+                        if (isFieldStarted)
                         {
                             //auto save the field patches, contours accumulated so far
                             FileSaveSections();
@@ -1490,7 +1490,7 @@ namespace AgOpenGPS
         private void oglZoom_Paint(object sender, PaintEventArgs e)
         {
 
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 #region Draw Sections
 
@@ -2468,7 +2468,7 @@ namespace AgOpenGPS
             GL.End();
 
             //Pan
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 center = oglMain.Width / -2 + 30;
                 if (!isPanFormVisible)

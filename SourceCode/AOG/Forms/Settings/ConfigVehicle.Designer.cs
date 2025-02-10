@@ -21,7 +21,7 @@ namespace AgOpenGPS
 
         private void btnVehicleLoad_Click(object sender, EventArgs e)
         {
-            if (!mf.isJobStarted)
+            if (!mf.isFieldStarted)
             {
                 //save current vehicle
                 RegistrySettings.Save();
@@ -117,7 +117,7 @@ namespace AgOpenGPS
         }
         private void btnVehicleDelete_Click(object sender, EventArgs e)
         {
-            if (!mf.isJobStarted)
+            if (!mf.isFieldStarted)
             {
                 if (lvVehicles.SelectedItems.Count > 0)
                 {
@@ -211,7 +211,7 @@ namespace AgOpenGPS
         }
         private void tboxVehicleNameSave_Click(object sender, EventArgs e)
         {
-            if (!mf.isJobStarted)
+            if (!mf.isFieldStarted)
             {
 
                 if (mf.isKeyboardOn)
@@ -262,7 +262,7 @@ namespace AgOpenGPS
         }
         private void tboxCreateNewVehicle_Click(object sender, EventArgs e)
         {
-            if (!mf.isJobStarted)
+            if (!mf.isFieldStarted)
             {
 
                 if (mf.isKeyboardOn)

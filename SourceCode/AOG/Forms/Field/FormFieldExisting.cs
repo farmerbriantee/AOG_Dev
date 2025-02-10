@@ -285,7 +285,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            if (mf.isJobStarted) mf.FileSaveEverythingBeforeClosingField();
+            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
 
             //get the directory and make sure it exists, create if not
             string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, tboxFieldName.Text.Trim());

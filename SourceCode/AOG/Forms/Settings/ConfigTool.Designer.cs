@@ -516,7 +516,7 @@ namespace AgOpenGPS
 
         private void tabTSections_Enter(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.isFieldStarted)
             {
                 if (mf.autoBtnState == btnStates.Auto)
                     mf.btnSectionMasterAuto.PerformClick();

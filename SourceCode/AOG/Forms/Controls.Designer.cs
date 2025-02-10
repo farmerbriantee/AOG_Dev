@@ -592,7 +592,7 @@ namespace AgOpenGPS
         {
             if (!isFirstFixPositionSet || sentenceCounter > 299)
             {
-                if (isJobStarted)
+                if (isFieldStarted)
                 {
                     FileSaveEverythingBeforeClosingField();
                     TimedMessageBox(2500, gStr.gsField, "Field is now closed");
@@ -658,7 +658,7 @@ namespace AgOpenGPS
                     return;
                 }
 
-                if (isJobStarted)
+                if (isFieldStarted)
                 {
                     if (autoBtnState == btnStates.Auto)
                         btnSectionMasterAuto.PerformClick();
@@ -690,7 +690,7 @@ namespace AgOpenGPS
                     { form2.ShowDialog(this); }
                 }
 
-                if (isJobStarted)
+                if (isFieldStarted)
                 {
                     double distance = Math.Pow((CNMEA.latStart - pn.latitude), 2) + Math.Pow((CNMEA.lonStart - pn.longitude), 2);
                     distance = Math.Sqrt(distance);
@@ -708,9 +708,9 @@ namespace AgOpenGPS
                 }
             }
 
-            FieldMenuButtonEnableDisable(isJobStarted);
+            FieldMenuButtonEnableDisable(isFieldStarted);
 
-            toolStripBtnFieldTools.Enabled = isJobStarted;
+            toolStripBtnFieldTools.Enabled = isFieldStarted;
 
             bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
 
@@ -841,7 +841,7 @@ namespace AgOpenGPS
         }
         private void boundariesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 DialogResult diaRes = DialogResult.None;
 
@@ -938,7 +938,7 @@ namespace AgOpenGPS
                 else btnBrightnessDn.Text = "??";
             }
 
-            if (isJobStarted) btnGrid.Enabled = true;
+            if (isFieldStarted) btnGrid.Enabled = true;
             else btnGrid.Enabled = false;
 
         }
@@ -1099,7 +1099,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            if (!isJobStarted) return;
+            if (!isFieldStarted) return;
 
             Form form = new FormFieldData(this);
             form.Show(this);
@@ -1231,7 +1231,7 @@ namespace AgOpenGPS
         }
         private void setWorkingDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 TimedMessageBox(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
                 return;
@@ -1283,7 +1283,7 @@ namespace AgOpenGPS
 
         private void nozzleAppToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 TimedMessageBox(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
                 Log.EventWriter("Turning Nozzle on or off while open field");
@@ -1338,7 +1338,7 @@ namespace AgOpenGPS
 
         private void resetALLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 MessageBox.Show(gStr.gsCloseFieldFirst);
             }
@@ -1371,7 +1371,7 @@ namespace AgOpenGPS
 
         private void simulatorOnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 TimedMessageBox(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
                 return;
@@ -1807,7 +1807,7 @@ namespace AgOpenGPS
         }
         private void boundaryToolToolStripMenu_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 using (var form = new FormBndTool(this))
                 {
@@ -1817,7 +1817,7 @@ namespace AgOpenGPS
         }
         private void SmoothABtoolStripMenu_Click(object sender, EventArgs e)
         {
-            if (isJobStarted && trk.idx > -1)
+            if (isFieldStarted && trk.idx > -1)
             {
                 using (var form = new FormSmoothAB(this))
                 {
@@ -1826,7 +1826,7 @@ namespace AgOpenGPS
             }
             else
             {
-                if (!isJobStarted) TimedMessageBox(2000, gStr.gsFieldNotOpen, gStr.gsStartNewField);
+                if (!isFieldStarted) TimedMessageBox(2000, gStr.gsFieldNotOpen, gStr.gsStartNewField);
                 else TimedMessageBox(2000, gStr.gsCurveNotOn, gStr.gsTurnABCurveOn);
             }
         }
@@ -1840,7 +1840,7 @@ namespace AgOpenGPS
         }
         private void toolStripAreYouSure_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 if (autoBtnState == btnStates.Off && manualBtnState == btnStates.Off)
                 {
@@ -2115,7 +2115,7 @@ namespace AgOpenGPS
         }
         private void googleEarthOpenGLContextMenu_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 //save new copy of kml with selected flag and view in GoogleEarth
                 FileSaveSingleFlagKML(flagNumberPicked);

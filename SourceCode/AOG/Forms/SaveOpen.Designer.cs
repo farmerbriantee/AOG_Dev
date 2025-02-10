@@ -98,7 +98,7 @@ namespace AgOpenGPS
             //$Offsets
             //533172,5927719,12 - offset easting, northing, zone
 
-            //if (!isJobStarted)
+            //if (!isFieldStarted)
             //{
             //    using (TimedMessageBox(3000, "Ooops, Job Not Started", "Start a Job First"))
             //    {  }
@@ -146,7 +146,7 @@ namespace AgOpenGPS
             //$Offsets
             //533172,5927719,12 - offset easting, northing, zone
 
-            if (!isJobStarted)
+            if (!isFieldStarted)
             {
                 TimedMessageBox(3000, gStr.gsFieldNotOpen, gStr.gsCreateNewField);
                 return;

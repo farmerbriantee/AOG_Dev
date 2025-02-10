@@ -272,7 +272,7 @@ namespace AgOpenGPS
                 trailingTool -= trailingToolToPivotLength;
             }
 
-            if (mf.isJobStarted)
+            if (mf.isFieldStarted)
             {
                 //look ahead lines
                 GL.LineWidth(3);

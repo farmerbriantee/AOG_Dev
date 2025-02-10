@@ -341,7 +341,7 @@ namespace AgOpenGPS
                     mf.displayFieldName = mf.currentFieldDirectory;
 
                     //create the field file header info
-                    if (!mf.isJobStarted)
+                    if (!mf.isFieldStarted)
                     {
                         mf.TimedMessageBox(3000, gStr.gsFieldNotOpen, gStr.gsCreateNewField);
                         return;

@@ -48,7 +48,7 @@ namespace AgOpenGPS
         public int flagNumberPicked = 0;
 
         //bool for whether or not a job is active
-        public bool isJobStarted = false, isBtnAutoSteerOn, isLidarBtnOn = true;
+        public bool isFieldStarted = false, isBtnAutoSteerOn, isLidarBtnOn = true;
 
         //if we are saving a file
         public bool isSavingFile = false;
@@ -637,7 +637,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 if (autoBtnState == btnStates.Auto)
                     btnSectionMasterAuto.PerformClick();
@@ -911,7 +911,7 @@ namespace AgOpenGPS
         public void JobNew()
         {
             //SendSteerSettingsOutAutoSteerPort();
-            isJobStarted = true;
+            isFieldStarted = true;
             startCounter = 0;
 
             btnFieldStats.Visible = true;
@@ -1059,7 +1059,7 @@ namespace AgOpenGPS
             FieldMenuButtonEnableDisable(false);
 
             menustripLanguage.Enabled = true;
-            isJobStarted = false;
+            isFieldStarted = false;
 
             //fix ManualOffOnAuto buttons
             manualBtnState = btnStates.Off;

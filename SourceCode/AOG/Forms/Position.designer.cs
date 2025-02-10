@@ -1128,7 +1128,7 @@ namespace AgOpenGPS
             contourTriggerDistance = glm.Distance(pn.fix, prevContourPos);
             gridTriggerDistance = glm.DistanceSquared(pn.fix, prevGridPos);
 
-            if ( isLogElevation && gridTriggerDistance > 2.9 && patchCounter !=0 && isJobStarted)
+            if ( isLogElevation && gridTriggerDistance > 2.9 && patchCounter !=0 && isFieldStarted)
             {
                 //grab fix and elevation
                 sbGrid.Append(
@@ -1147,14 +1147,14 @@ namespace AgOpenGPS
             }
 
             //contour points
-            if (isJobStarted &&(contourTriggerDistance > tool.contourWidth 
+            if (isFieldStarted &&(contourTriggerDistance > tool.contourWidth 
                 || contourTriggerDistance > sectionTriggerStepDistance))
             {
                 AddContourPoints();
             }
 
             //section on off and points
-            if (sectionTriggerDistance > sectionTriggerStepDistance && isJobStarted)
+            if (sectionTriggerDistance > sectionTriggerStepDistance && isFieldStarted)
             {
                 AddSectionOrPathPoints();
             }
@@ -1525,7 +1525,7 @@ namespace AgOpenGPS
         {
             if (!isFirstFixPositionSet)
             {
-                if (!isJobStarted)
+                if (!isFieldStarted)
                 {
                     CNMEA.latStart = pn.latitude;
                     CNMEA.lonStart = pn.longitude;

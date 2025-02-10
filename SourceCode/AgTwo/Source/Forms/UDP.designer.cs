@@ -56,7 +56,7 @@ namespace AgTwo
         public IPEndPoint epModule = new IPEndPoint(IPAddress.Parse(
                 Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
                 Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
-                Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 28888);
+                Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 18888);
 
         public IPEndPoint epHello = new IPEndPoint(IPAddress.Parse(
                 Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
@@ -100,7 +100,7 @@ namespace AgTwo
                 // Initialise the socket
                 UDPSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 UDPSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
-                UDPSocket.Bind(new IPEndPoint(IPAddress.Any, 29999));
+                UDPSocket.Bind(new IPEndPoint(IPAddress.Any, 19999));
                 UDPSocket.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref endPointUDP,
                     new AsyncCallback(ReceiveDataUDPAsync), null);
 

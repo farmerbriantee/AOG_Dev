@@ -245,17 +245,20 @@ namespace AgOpenGPS
                         newCurList.CopyTo(arr);
                         newCurList.Clear();
 
-                        for (int i = 0; i < (arr.Length - 1); i++)
+                        for (int i = 1; i < (arr.Length - 1); i++)
                         {
-                            arr[i].heading = Math.Atan2(arr[i + 1].easting - arr[i].easting, arr[i + 1].northing - arr[i].northing);
+                            arr[i].heading = Math.Atan2(arr[i + 1].easting - arr[i-1].easting, arr[i + 1].northing - arr[i-1].northing);
                             if (arr[i].heading < 0) arr[i].heading += glm.twoPI;
                             if (arr[i].heading >= glm.twoPI) arr[i].heading -= glm.twoPI;
                         }
 
                         arr[arr.Length - 1].heading = Math.Atan2(arr[0].easting - arr[arr.Length - 1].easting, arr[0].northing - arr[arr.Length - 1].northing);
-                        
                         if (arr[arr.Length - 1].heading < 0) arr[arr.Length - 1].heading += glm.twoPI;
                         if (arr[arr.Length - 1].heading >= glm.twoPI) arr[arr.Length - 1].heading -= glm.twoPI;
+
+                        arr[0].heading = Math.Atan2(arr[ 1].easting - arr[arr.Length - 1].easting, arr[1].northing - arr[arr.Length - 1].northing);
+                        if (arr[0].heading < 0) arr[0].heading += glm.twoPI;
+                        if (arr[0].heading >= glm.twoPI) arr[0].heading -= glm.twoPI;
 
                         newCurList.AddRange(arr);
                     }

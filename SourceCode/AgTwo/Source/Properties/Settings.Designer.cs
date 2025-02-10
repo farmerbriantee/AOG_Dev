@@ -37,7 +37,7 @@ namespace AgTwo.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("29999")]
+        [global::System.Configuration.DefaultSettingValueAttribute("19999")]
         public int setIP_thisPort {
             get {
                 return ((int)(this["setIP_thisPort"]));
@@ -49,7 +49,7 @@ namespace AgTwo.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("28888")]
+        [global::System.Configuration.DefaultSettingValueAttribute("18888")]
         public int setIP_autoSteerPort {
             get {
                 return ((int)(this["setIP_autoSteerPort"]));

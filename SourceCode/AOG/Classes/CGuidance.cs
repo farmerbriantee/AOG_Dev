@@ -225,45 +225,22 @@ namespace AgOpenGPS
                 rEastSteer = steerA.easting + (U * dx);
                 rNorthSteer = steerA.northing + (U * dz);
 
-                if (!mf.trk.isHeadingSameWay)
+                double delta = 0;
+                double abDist = glm.DistanceSquared(steerA, steerB);
+                double rDist = glm.DistanceSquared(rNorthSteer, rEastSteer, steerA.northing, steerA.easting);
+                rDist /= abDist;
+                if (Math.Abs(steerA.heading - steerB.heading) > Math.PI)
                 {
-                    //steerHeadingError = steer.heading - steerB.heading;
-
-                    double delta = 0;
-                    double abDist = glm.DistanceSquared(steerA, steerB);
-                    double rDist = glm.DistanceSquared(rNorthSteer, rEastSteer, steerA.northing, steerA.easting);
-                    rDist /= abDist;
-                    if (Math.Abs(steerA.heading - steerB.heading) > Math.PI)
-                    {
-                        if (steerA.heading < Math.PI) delta = (1 - rDist) * (steerA.heading + glm.twoPI) + (rDist) * steerB.heading;
-                        else delta = (1 - rDist) * steerA.heading + (rDist) * (steerB.heading + glm.twoPI);
-                    }
-                    else
-                    {
-                        delta = (1 - rDist) * steerA.heading + (rDist) * steerB.heading;
-                    }
-                    steerHeadingError = steer.heading - delta;
-
+                    if (steerA.heading < Math.PI) delta = (1 - rDist) * (steerA.heading + glm.twoPI) + (rDist) * steerB.heading;
+                    else delta = (1 - rDist) * steerA.heading + (rDist) * (steerB.heading + glm.twoPI);
                 }
                 else
                 {
-                    //steerA.heading -= Math.PI;
-                    //steerB.heading -= Math.PI;
-                    double delta = 0;
-                    double abDist = glm.DistanceSquared(steerA, steerB);
-                    double rDist = glm.DistanceSquared(rNorthSteer, rEastSteer, steerA.northing, steerA.easting);
-                    rDist /= abDist;
-                    if (Math.Abs(steerA.heading - steerB.heading) > Math.PI)
-                    {
-                        if (steerA.heading < Math.PI) delta = (1 - rDist) * (steerA.heading + glm.twoPI) + (rDist) * steerB.heading;
-                        else delta = (1 - rDist) * steerA.heading + (rDist) * (steerB.heading + glm.twoPI);
-                    }
-                    else
-                    {
-                        delta = (1 - rDist) * steerA.heading + (rDist) * steerB.heading;
-                    }
-                    steerHeadingError = steer.heading - delta;
+                    delta = (1 - rDist) * steerA.heading + (rDist) * steerB.heading;
                 }
+                steerHeadingError = steer.heading - delta;
+
+                steerHeadingError = steer.heading - delta;
 
                 mf.lblAlgo.Text = steerHeadingError.ToString();
 

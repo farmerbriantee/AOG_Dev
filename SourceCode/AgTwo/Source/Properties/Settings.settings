@@ -6,10 +6,10 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="setIP_thisPort" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">29999</Value>
+      <Value Profile="(Default)">19999</Value>
     </Setting>
     <Setting Name="setIP_autoSteerPort" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">28888</Value>
+      <Value Profile="(Default)">18888</Value>
     </Setting>
     <Setting Name="setPgm_isFirstRun" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

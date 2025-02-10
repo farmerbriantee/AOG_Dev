@@ -180,7 +180,7 @@ namespace AgTwo
 
                                     try
                                     {
-                                        scanSocket.Bind(new IPEndPoint(info.Address, 29999));
+                                        scanSocket.Bind(new IPEndPoint(info.Address, 19999));
                                         scanSocket.SendTo(scanModules, 0, scanModules.Length, SocketFlags.None, mf.epModuleSet);
                                     }
                                     catch (Exception ex)
@@ -244,7 +244,7 @@ namespace AgTwo
 
                                         try
                                         {
-                                            scanSocket.Bind(new IPEndPoint(info.Address, 29999));
+                                            scanSocket.Bind(new IPEndPoint(info.Address, 19999));
                                             scanSocket.SendTo(sendIPToModules, 0, sendIPToModules.Length, SocketFlags.None, mf.epModuleSet);
                                         }
                                         catch (Exception ex)
@@ -271,7 +271,7 @@ namespace AgTwo
                 mf.epModule = new IPEndPoint(IPAddress.Parse(
                     Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
                     Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
-                    Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 28888);
+                    Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 18888);
 
                 lblNetworkHelp.Text =
                     Properties.Settings.Default.etIP_SubnetOne.ToString() + " . " +

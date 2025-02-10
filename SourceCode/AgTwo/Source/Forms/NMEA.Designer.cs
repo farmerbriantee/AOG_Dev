@@ -290,9 +290,6 @@ namespace AgTwo
 
                 //Send nmea to AgOpenGPS
                 SendToLoopBackMessageAOG(nmeaPGN);
-
-                //Send nmea to autosteer module 28888
-                if (isSendNMEAToUDP) SendUDPMessage(nmeaPGN, epModule);
             }
         }
 

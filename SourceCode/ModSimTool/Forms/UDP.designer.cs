@@ -20,7 +20,7 @@ namespace ModSimTool
         public IPEndPoint epAgIO = new IPEndPoint(IPAddress.Parse(
                 Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
                 Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
-                Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 29999);
+                Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 19999);
         
         // Data stream
         private byte[] buffer = new byte[1024];
@@ -51,7 +51,7 @@ namespace ModSimTool
                 // Initialise the socket
                 UDPSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 UDPSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
-                UDPSocket.Bind(new IPEndPoint(IPAddress.Any, 28888));
+                UDPSocket.Bind(new IPEndPoint(IPAddress.Any, 18888));
                 UDPSocket.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref endPointUDP,
                     new AsyncCallback(ReceiveDataUDPAsync), null);
 

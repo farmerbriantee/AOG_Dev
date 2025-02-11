@@ -42,7 +42,7 @@
             this.btnFromExisting = new System.Windows.Forms.Button();
             this.btnFieldNew = new System.Windows.Forms.Button();
             this.lblResumeField = new System.Windows.Forms.Label();
-            this.btnDeleteAB = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.btnJobNew = new System.Windows.Forms.Button();
             this.btnJobResume = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -155,7 +155,6 @@
             this.btnFromISOXML.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFromISOXML.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnFromISOXML.UseVisualStyleBackColor = false;
-            this.btnFromISOXML.Click += new System.EventHandler(this.btnFromISOXML_Click);
             // 
             // label1
             // 
@@ -320,28 +319,28 @@
             this.lblResumeField.Text = "Previous Field";
             this.lblResumeField.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // btnDeleteAB
+            // btnCancel
             // 
-            this.btnDeleteAB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteAB.BackColor = System.Drawing.Color.Transparent;
-            this.btnDeleteAB.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnDeleteAB.FlatAppearance.BorderSize = 0;
-            this.btnDeleteAB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteAB.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.btnDeleteAB.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDeleteAB.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
-            this.btnDeleteAB.Location = new System.Drawing.Point(542, 592);
-            this.btnDeleteAB.Name = "btnDeleteAB";
-            this.btnDeleteAB.Size = new System.Drawing.Size(107, 57);
-            this.btnDeleteAB.TabIndex = 4;
-            this.btnDeleteAB.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnDeleteAB.UseVisualStyleBackColor = false;
-            this.btnDeleteAB.Click += new System.EventHandler(this.btnDeleteAB_Click);
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
+            this.btnCancel.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancel.Location = new System.Drawing.Point(542, 592);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(107, 57);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnJobNew
             // 
             this.btnJobNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnJobNew.BackColor = System.Drawing.Color.Transparent;
+            this.btnJobNew.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(254)))), ((int)(((byte)(230)))));
             this.btnJobNew.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnJobNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJobNew.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -358,11 +357,12 @@
             this.btnJobNew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnJobNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnJobNew.UseVisualStyleBackColor = false;
+            this.btnJobNew.Click += new System.EventHandler(this.btnJobNew_Click);
             // 
             // btnJobResume
             // 
             this.btnJobResume.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnJobResume.BackColor = System.Drawing.Color.Transparent;
+            this.btnJobResume.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(254)))), ((int)(((byte)(230)))));
             this.btnJobResume.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnJobResume.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJobResume.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -379,6 +379,7 @@
             this.btnJobResume.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnJobResume.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnJobResume.UseVisualStyleBackColor = false;
+            this.btnJobResume.Click += new System.EventHandler(this.btnJobResume_Click);
             // 
             // label5
             // 
@@ -393,7 +394,7 @@
             this.label5.Text = "Previous Job";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // FormJob
+            // FormField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -404,7 +405,7 @@
             this.Controls.Add(this.btnJobResume);
             this.Controls.Add(this.btnJobNew);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.btnDeleteAB);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.lblResumeField);
             this.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -412,7 +413,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(640, 530);
-            this.Name = "FormJob";
+            this.Name = "FormField";
             this.Padding = new System.Windows.Forms.Padding(4);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -437,7 +438,7 @@
         private System.Windows.Forms.Button btnInField;
         private System.Windows.Forms.Button btnFromKML;
         private System.Windows.Forms.Button btnFromISOXML;
-        private System.Windows.Forms.Button btnDeleteAB;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;

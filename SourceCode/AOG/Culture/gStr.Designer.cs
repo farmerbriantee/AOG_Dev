@@ -61,7 +61,7 @@ namespace AgOpenGPS.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AB trk.
+        ///   Looks up a localized string similar to AB Curve.
         /// </summary>
         public static string gsABCurve {
             get {
@@ -349,6 +349,15 @@ namespace AgOpenGPS.Culture {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create New Job.
+        /// </summary>
+        public static string gsCreateNewJob {
+            get {
+                return ResourceManager.GetString("gsCreateNewJob", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current.
         /// </summary>
         public static string gsCurrent {
@@ -484,7 +493,7 @@ namespace AgOpenGPS.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit AB trk.
+        ///   Looks up a localized string similar to Edit AB Curve.
         /// </summary>
         public static string gsEditABCurve {
             get {
@@ -534,6 +543,15 @@ namespace AgOpenGPS.Culture {
         public static string gsEnterFieldName {
             get {
                 return ResourceManager.GetString("gsEnterFieldName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Job Name.
+        /// </summary>
+        public static string gsEnterJobName {
+            get {
+                return ResourceManager.GetString("gsEnterJobName", resourceCulture);
             }
         }
         
@@ -1006,7 +1024,7 @@ namespace AgOpenGPS.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Past End Of trk.
+        ///   Looks up a localized string similar to Past End Of Curve.
         /// </summary>
         public static string gsPastEndOfCurve {
             get {
@@ -1204,7 +1222,7 @@ namespace AgOpenGPS.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Smooth AB trk.
+        ///   Looks up a localized string similar to Smooth AB Curve.
         /// </summary>
         public static string gsSmoothABCurve {
             get {

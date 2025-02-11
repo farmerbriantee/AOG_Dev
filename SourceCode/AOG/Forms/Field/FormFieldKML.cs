@@ -375,6 +375,11 @@ namespace AgOpenGPS
                         writer.WriteLine(CNMEA.latStart.ToString(CultureInfo.InvariantCulture) + "," + CNMEA.lonStart.ToString(CultureInfo.InvariantCulture));
                     }
 
+                    directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs");
+
+                    if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+                    { Directory.CreateDirectory(directoryName); }
+
                     mf.FileCreateSections();
                     mf.FileCreateRecPath();
                     mf.FileCreateContour();

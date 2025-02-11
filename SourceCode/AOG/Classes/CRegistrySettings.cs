@@ -26,12 +26,12 @@ namespace AgOpenGPS
             try
             {
                 //opening the subkey
-                RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AgOpenGPS");
+                RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AOG");
 
                 ////create default keys if not existing
                 if (regKey == null)
                 {
-                    RegistryKey Key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AgOpenGPS");
+                    RegistryKey Key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
 
                     //storing the values
                     Key.SetValue("Language", "en");
@@ -41,11 +41,11 @@ namespace AgOpenGPS
                 }
 
                 //Base Directory Registry Key
-                regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AgOpenGPS");
+                regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AOG");
 
                 if (regKey.GetValue("WorkingDirectory") == null || regKey.GetValue("WorkingDirectory").ToString() == "")
                 {
-                    RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AgOpenGPS");
+                    RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
                     key.SetValue("WorkingDirectory", "Default");
                     key.Close();
                 }
@@ -63,7 +63,7 @@ namespace AgOpenGPS
                 //Vehicle File Name Registry Key
                 if (regKey.GetValue("VehicleFileName") == null || regKey.GetValue("VehicleFileName").ToString() == "")
                 {
-                    RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AgOpenGPS");
+                    RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
                     key.SetValue("VehicleFileName", "Default Vehicle");
                     key.Close();
                 }
@@ -73,7 +73,7 @@ namespace AgOpenGPS
                 //Language Registry Key
                 if (regKey.GetValue("Language") == null || regKey.GetValue("Language").ToString() == "")
                 {
-                    RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AgOpenGPS");
+                    RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
                     key.SetValue("Language", "en");
                     key.Close();
                 }
@@ -138,7 +138,7 @@ namespace AgOpenGPS
         public static void Save()
         {
             Properties.Settings.Default.Save();
-            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AgOpenGPS");
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
             try
             {
                 key.SetValue("VehicleFileName", vehicleFileName);
@@ -176,10 +176,10 @@ namespace AgOpenGPS
         {
             try
             {
-                Registry.CurrentUser.DeleteSubKeyTree(@"SOFTWARE\AgOpenGPS");
+                Registry.CurrentUser.DeleteSubKeyTree(@"SOFTWARE\AOG");
 
                 //create all new key
-                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AgOpenGPS");
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
                 key.SetValue("Language", "en");
                 key.SetValue("VehicleFileName", "Default Vehicle");
                 key.SetValue("WorkingDirectory", "Default");

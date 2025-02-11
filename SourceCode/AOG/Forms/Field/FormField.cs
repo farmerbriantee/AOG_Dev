@@ -254,9 +254,43 @@ namespace AgOpenGPS
             Close();
         }
 
-        private void btnDeleteAB_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             mf.isCancelFieldMenu = true;
+        }
+
+        private void btnJobNew_Click(object sender, EventArgs e)
+        {
+            if (!mf.isFieldStarted) return;
+            //back to FormGPS
+            DialogResult = DialogResult.Abort;
+            Close();
+
+        }
+
+        private void btnJobResume_Click(object sender, EventArgs e)
+        {
+            if (!mf.isFieldStarted) return;
+
+            mf.jobPickerFileAndDirectory = "";
+
+            using (FormJobPicker form = new FormJobPicker(mf))
+            {
+                //returns full field.txt file dir name
+                if (form.ShowDialog(this) == DialogResult.Yes)
+                {
+
+                    //get the directory and make sure it exists, create if not
+                    DirectoryInfo dirNewJob = new DirectoryInfo(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", mf.jobPickerFileAndDirectory));
+
+                    mf.currentJobDirectory = Path.Combine("Jobs", mf.jobPickerFileAndDirectory);
+                    Close();
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
     }
 }

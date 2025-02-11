@@ -298,9 +298,14 @@ namespace AgOpenGPS
             }
             else
             {
-                //create the new directory
+                //create the new directories
                 if ((!string.IsNullOrEmpty(directoryName)) && (!Directory.Exists(directoryName)))
                 { Directory.CreateDirectory(directoryName); }
+
+                string jobsName = Path.Combine(directoryName, "Jobs");
+
+                if ((jobsName.Length > 0) && (!Directory.Exists(jobsName)))
+                { Directory.CreateDirectory(jobsName); }
             }
 
             string offsets, convergence, startFix;
@@ -595,7 +600,7 @@ namespace AgOpenGPS
                     //else
                     //{
                     //    lblTemplateChosen.Text = lvLines.SelectedItems[0].SubItems[2].Text;
-                    //    tboxFieldName.Text = lvLines.SelectedItems[0].SubItems[2].Text.Trim();
+                    //    tboxJobName.Text = lvLines.SelectedItems[0].SubItems[2].Text.Trim();
                     //}
                     btnSave.Enabled = true;
                 }

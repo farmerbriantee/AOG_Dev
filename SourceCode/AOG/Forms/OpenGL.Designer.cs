@@ -682,7 +682,7 @@ namespace AgOpenGPS
                         DistanceToFieldOriginCheck();
 
                         //don't save if no gps
-                        if (isFieldStarted)
+                        if (isJobStarted)
                         {
                             //auto save the field patches, contours accumulated so far
                             FileSaveSections();

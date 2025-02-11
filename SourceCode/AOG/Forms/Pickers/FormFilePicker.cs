@@ -33,7 +33,7 @@ namespace AgOpenGPS
 
             string[] dirs = Directory.GetDirectories(RegistrySettings.fieldsDirectory);
 
-            //fileList?.Clear();
+            //jobList?.Clear();
 
             if (dirs == null || dirs.Length < 1)
             {

@@ -670,7 +670,7 @@ namespace AgOpenGPS
                 if (result == DialogResult.Yes)
                 {
                     //new field - ask for a directory name
-                    using (var form2 = new FormFieldDir(this))
+                    using (var form2 = new FormFieldNew(this))
                     { form2.ShowDialog(this); }
                 }
 
@@ -689,6 +689,23 @@ namespace AgOpenGPS
                     using (var form2 = new FormFieldExisting(this))
                     { form2.ShowDialog(this); }
                 }
+
+                //New Job
+                else if (result == DialogResult.Abort)
+                {
+                    //ask for a field to copy
+                    using (var form2 = new FormJobNew(this))
+                    { form2.ShowDialog(this); }
+                }
+
+                //continue job
+                else if (result == DialogResult.Ignore)
+                {
+                    //ask for a field to copy
+                    using (var form2 = new FormJobNew(this))
+                    { form2.ShowDialog(this); }
+                }
+
 
                 if (isFieldStarted)
                 {
@@ -726,54 +743,6 @@ namespace AgOpenGPS
                 twoSecondCounter = 100;
             }
 
-        }
-        public void FileSaveEverythingBeforeClosingField()
-        {
-            //turn off contour line if on
-            if (ct.isContourOn) ct.StopContourLine();
-
-            if (autoBtnState == btnStates.Auto)
-                btnSectionMasterAuto.PerformClick();
-
-            if (manualBtnState == btnStates.On)
-                btnSectionMasterManual.PerformClick();
-
-            //turn off all the sections
-            for (int j = 0; j < tool.numOfSections; j++)
-            {
-                section[j].sectionOffRequest = true;
-                section[j].sectionOnRequest = false;
-            }
-
-            //turn off patching
-            for (int j = 0; j < triStrip.Count; j++)
-            {
-                if (triStrip[j].isDrawing) triStrip[j].TurnMappingOff();
-            }
-
-            //FileSaveHeadland();
-            FileSaveBoundary();
-            FileSaveSections();
-            FileSaveContour();
-            FileSaveTracks();
-
-            ExportFieldAs_KML();
-            //ExportFieldAs_ISOXMLv3();
-            //ExportFieldAs_ISOXMLv4();
-
-            Log.EventWriter("** Closed **   " + currentFieldDirectory + "   "
-                + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
-
-            Settings.Default.setF_CurrentDir = currentFieldDirectory;
-            
-
-            panelRight.Enabled = false;
-            FieldMenuButtonEnableDisable(false);
-            displayFieldName = gStr.gsNone;
-
-            FieldClose();
-
-            this.Text = "AgOpenGPS";
         }
 
         private void tramLinesMenuMulti_Click(object sender, EventArgs e)

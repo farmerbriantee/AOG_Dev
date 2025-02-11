@@ -70,7 +70,7 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Edit Field Name";
             // 
-            // tboxFieldName
+            // tboxJobName
             // 
             this.tboxFieldName.BackColor = System.Drawing.Color.White;
             this.tboxFieldName.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

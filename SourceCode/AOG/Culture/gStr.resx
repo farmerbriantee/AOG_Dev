@@ -213,6 +213,9 @@
   <data name="gsCreateNewField" xml:space="preserve">
     <value>Create New Field</value>
   </data>
+  <data name="gsCreateNewJob" xml:space="preserve">
+    <value>Create New Job</value>
+  </data>
   <data name="gsCurrent" xml:space="preserve">
     <value>Current</value>
   </data>
@@ -275,6 +278,9 @@
   </data>
   <data name="gsEnterFieldName" xml:space="preserve">
     <value>Enter Field Name</value>
+  </data>
+  <data name="gsEnterJobName" xml:space="preserve">
+    <value>Enter Job Name</value>
   </data>
   <data name="gsEnterSimCoords" xml:space="preserve">
     <value>Enter Sim Coords</value>

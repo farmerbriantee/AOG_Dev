@@ -32,7 +32,7 @@ namespace AgOpenGPS
             //10.1728031317344,0.723157039771303 -easting, northing
 
             //get the directory and make sure it exists, create if not
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, currentJobDirectory);
 
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             { Directory.CreateDirectory(directoryName); }
@@ -76,7 +76,7 @@ namespace AgOpenGPS
             //64.697,0.168,-21.654,0 - east, heading, north, altitude
 
             //get the directory and make sure it exists, create if not
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, currentJobDirectory);
 
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             { Directory.CreateDirectory(directoryName); }
@@ -108,7 +108,7 @@ namespace AgOpenGPS
             string myFileName;
 
             //get the directory and make sure it exists, create if not
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, currentJobDirectory);
 
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             { Directory.CreateDirectory(directoryName); }
@@ -179,6 +179,11 @@ namespace AgOpenGPS
                 writer.WriteLine("StartFix");
                 writer.WriteLine(pn.latitude.ToString(CultureInfo.InvariantCulture) + "," + pn.longitude.ToString(CultureInfo.InvariantCulture));
             }
+
+            directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Jobs");
+
+            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+            { Directory.CreateDirectory(directoryName); }
         }
 
         //Create Flag file
@@ -350,11 +355,11 @@ namespace AgOpenGPS
             // Tracks -------------------------------------------------------------------------------------------------
             FileLoadTracks();
 
-            //section patches
-            FileLoadSections();
+            ////section patches
+            //FileLoadSections();
 
-            // Contour points ----------------------------------------------------------------------------
-            FileLoadContour();
+            //// Contour points ----------------------------------------------------------------------------
+            //FileLoadContour();
 
             // Flags -------------------------------------------------------------------------------------------------
             FileLoadFlags();
@@ -1211,7 +1216,7 @@ namespace AgOpenGPS
             if (contourSaveList.Count() > 0)
             {
                 //Append the current list to the field file
-                using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Contour.txt"), true))
+                using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, currentJobDirectory, "Contour.txt"), true))
                 {
 
                     //for every new chunk of patch in the whole section
@@ -1235,7 +1240,7 @@ namespace AgOpenGPS
         //save nmea sentences
         public void FileSaveElevation()
         {
-            using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Elevation.txt"), true))
+            using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, currentJobDirectory, "Elevation.txt"), true))
             {
                 writer.Write(sbGrid.ToString());
             }
@@ -1389,7 +1394,7 @@ namespace AgOpenGPS
             if (patchSaveList.Count() > 0)
             {
                 //Append the current list to the field file
-                using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Sections.txt"), true))
+                using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, currentJobDirectory, "Sections.txt"), true))
                 {
                     //for each patch, write out the list of triangles to the file
                     foreach (var triList in patchSaveList)

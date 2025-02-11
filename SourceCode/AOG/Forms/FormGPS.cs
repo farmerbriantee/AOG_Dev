@@ -42,7 +42,7 @@ namespace AgOpenGPS
         public const int MAXHEADS = 6;
 
         //current fields
-        public string currentFieldDirectory, displayFieldName;
+        public string currentFieldDirectory, displayFieldName, currentJobDirectory, displayJobName;
 
         private bool leftMouseDownOnOpenGL; //mousedown event in opengl window
         public int flagNumberPicked = 0;
@@ -97,7 +97,7 @@ namespace AgOpenGPS
         public char[] hotkeys;
 
         //used by filePicker Form to return picked file and directory
-        public string filePickerFileAndDirectory;
+        public string filePickerFileAndDirectory, jobPickerFileAndDirectory;
 
         //the position of the GPS Data window within the FormGPS window
         public int GPSDataWindowLeft = 80, GPSDataWindowTopOffset = 220;
@@ -749,166 +749,80 @@ namespace AgOpenGPS
             }
         }
 
-        // Return True if a certain percent of a rectangle is shown across the total screen area of all monitors, otherwise return False.
-        public bool IsOnScreen(System.Drawing.Point RecLocation, System.Drawing.Size RecSize, double MinPercentOnScreen = 0.8)
+        public void FileSaveEverythingBeforeClosingField()
         {
-            double PixelsVisible = 0;
-            System.Drawing.Rectangle Rec = new System.Drawing.Rectangle(RecLocation, RecSize);
 
-            foreach (Screen Scrn in Screen.AllScreens)
-            {
-                System.Drawing.Rectangle r = System.Drawing.Rectangle.Intersect(Rec, Scrn.WorkingArea);
-                // intersect rectangle with screen
-                if (r.Width != 0 & r.Height != 0)
-                {
-                    PixelsVisible += (r.Width * r.Height);
-                    // tally visible pixels
-                }
-            }
-            return PixelsVisible >= (Rec.Width * Rec.Height) * MinPercentOnScreen;
+            JobClose();
+
+            //FileSaveHeadland();
+            FileSaveBoundary();
+            FileSaveSections();
+            FileSaveContour();
+            FileSaveTracks();
+
+            ExportFieldAs_KML();
+            //ExportFieldAs_ISOXMLv3();
+            //ExportFieldAs_ISOXMLv4();
+
+            Log.EventWriter("** Closed **   " + currentFieldDirectory + "   "
+                + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
+
+            Settings.Default.setF_CurrentDir = currentFieldDirectory;
+
+
+            panelRight.Enabled = false;
+            FieldMenuButtonEnableDisable(false);
+            displayFieldName = gStr.gsNone;
+
+            FieldClose();
+
+            this.Text = "AgOpenGPS";
         }
 
-        private void FormGPS_Move(object sender, EventArgs e)
+        public void FieldNew()
         {
-            Form f = Application.OpenForms["FormGPSData"];
-            if (f != null)
+            isFieldStarted = true;
+            startCounter = 0;
+
+            btnContour.Enabled = true;
+            btnTrack.Enabled = true;
+            btnABDraw.Enabled = true;
+            btnCycleLines.Image = Properties.Resources.ABLineCycle;
+            btnCycleLinesBk.Image = Properties.Resources.ABLineCycleBk;
+
+            btnAutoSteer.Enabled = true;
+
+            DisableYouTurnButtons();
+            btnFlag.Enabled = true;
+
+            //update the menu
+            this.menustripLanguage.Enabled = false;
+            panelRight.Enabled = true;
+            //boundaryToolStripBtn.Enabled = true;
+            isPanelBottomHidden = false;
+
+            FieldMenuButtonEnableDisable(true);
+            PanelUpdateRightAndBottom();
+            PanelsAndOGLSize();
+            SetZoom();
+
+            fileSaveCounter = 25;
+            lblGuidanceLine.Visible = false;
+            lblHardwareMessage.Visible = false;
+
+            gyd.isFindGlobalNearestTrackPoint = true;
+
+            if (thread_oglBack == null)
             {
-                f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-                f.Left = this.Left + GPSDataWindowLeft;
+                //oglBackStart();
             }
 
-            f = Application.OpenForms["FormFieldData"];
-            if (f != null)
-            {
-                f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-                f.Left = this.Left + GPSDataWindowLeft;
-            }
-
-            f = Application.OpenForms["FormPan"];
-            if (f != null)
-            {
-                f.Top = this.Top + 75;
-                f.Left = this.Left + this.Width - 380;
-            }
-        }
-
-        public void CheckSettingsNotNull()
-        {
-            if (Settings.Default.setFeatures == null)
-            {
-                Settings.Default.setFeatures = new CFeatureSettings();
-            }
-        }
-
-        public void CheckNozzleSettingsNotNull()
-        {
-            if (Settings.Default.setNozzleSettings == null)
-            {
-                Settings.Default.setNozzleSettings = new CNozzleSettings();
-            }
-        }
-
-        public void CheckToolSteerSettingsNotNull()
-        {
-            if (Settings.Default.setToolSteer == null)
-            {
-                Settings.Default.setToolSteer = new CToolSteerSettings();
-            }
-        }
-
-        public enum textures : uint
-        {
-            Floor, Font,
-            Turn, TurnCancel, TurnManual,
-            Compass, Speedo, SpeedoNeedle,
-            Lift, SteerPointer,
-            SteerDot, Tractor, QuestionMark,
-            FrontWheels, FourWDFront, FourWDRear,
-            Harvester,
-            Lateral, bingGrid,
-            NoGPS, ZoomIn48, ZoomOut48,
-            Pan, MenuHideShow,
-            ToolWheels, Tire, TramDot,
-            YouTurnU, YouTurnH, CrossTrackBkgrnd
-        }
-
-        public void LoadGLTextures()
-        {
-            GL.Enable(EnableCap.Texture2D);
-
-            Bitmap[] oglTextures = new Bitmap[]
-            {
-                Resources.z_Floor,Resources.z_Font,
-                Resources.z_Turn,Resources.z_TurnCancel,Resources.z_TurnManual,
-                Resources.z_Compass,Resources.z_Speedo,Resources.z_SpeedoNeedle,
-                Resources.z_Lift,Resources.z_SteerPointer,
-                Resources.z_SteerDot,GetTractorBrand(Settings.Default.setBrand_TBrand),Resources.z_QuestionMark,
-                Resources.z_FrontWheels,Get4WDBrandFront(Settings.Default.setBrand_WDBrand),
-                Get4WDBrandRear(Settings.Default.setBrand_WDBrand),
-                GetHarvesterBrand(Settings.Default.setBrand_HBrand),
-                Resources.z_LateralManual, Resources.z_bingMap,
-                Resources.z_NoGPS, Resources.ZoomIn48, Resources.ZoomOut48,
-                Resources.Pan, Resources.MenuHideShow,
-                Resources.z_Tool, Resources.z_Tire, Resources.z_TramOnOff,
-                Resources.YouTurnU, Resources.YouTurnH, Resources.z_crossTrackBkgnd
-            };
-
-            texture = new uint[oglTextures.Length];
-
-            for (int h = 0; h < oglTextures.Length; h++)
-            {
-                using (Bitmap bitmap = oglTextures[h])
-                {
-                    GL.GenTextures(1, out texture[h]);
-                    GL.BindTexture(TextureTarget.Texture2D, texture[h]);
-                    BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-                    GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmapData.Width, bitmapData.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmapData.Scan0);
-                    bitmap.UnlockBits(bitmapData);
-                    GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, 9729);
-                    GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, 9729);
-                }
-            }
-        }
-
-        public bool KeypadToNUD(NudlessNumericUpDown sender, Form owner)
-        {
-            var colour = sender.BackColor;
-            sender.BackColor = Color.Red;
-            sender.Value = Math.Round(sender.Value, sender.DecimalPlaces);
-
-            using (FormNumeric form = new FormNumeric((double)sender.Minimum, (double)sender.Maximum, (double)sender.Value))
-            {
-                DialogResult result = form.ShowDialog(owner);
-                if (result == DialogResult.OK)
-                {
-                    sender.Value = (decimal)form.ReturnValue;
-                    sender.BackColor = colour;
-                    return true;
-                }
-                else if (result == DialogResult.Cancel)
-                {
-                    sender.BackColor = colour;
-                }
-                return false;
-            }
-        }
-
-        public void KeyboardToText(TextBox sender, Form owner)
-        {
-            var colour = sender.BackColor;
-            sender.BackColor = Color.Red;
-            using (FormKeyboard form = new FormKeyboard(sender.Text))
-            {
-                if (form.ShowDialog(owner) == DialogResult.OK)
-                {
-                    sender.Text = form.ReturnString;
-                }
-            }
-            sender.BackColor = colour;
+            oglMain.MakeCurrent();
         }
 
         public void JobbNew()
         {
+            isJobStarted = true;
             btnFieldStats.Visible = true;
 
             btnSectionMasterManual.Enabled = true;
@@ -983,6 +897,15 @@ namespace AgOpenGPS
 
         public void JobClose()
         {
+            isJobStarted = false;
+
+            //auto save the field patches, contours accumulated so far
+            FileSaveSections();
+            FileSaveContour();
+
+            //NMEA elevation file
+            if (isLogElevation && sbGrid.Length > 0) FileSaveElevation();
+
             if (autoBtnState == btnStates.Auto)
                 btnSectionMasterAuto.PerformClick();
 
@@ -1088,49 +1011,6 @@ namespace AgOpenGPS
             triStrip.Add(new CPatches(this));
         }
 
-        //request a new field
-        public void FieldNew()
-        {
-            isFieldStarted = true;
-            startCounter = 0;
-
-            btnContour.Enabled = true;
-            btnTrack.Enabled = true;
-            btnABDraw.Enabled = true;
-            btnCycleLines.Image = Properties.Resources.ABLineCycle;
-            btnCycleLinesBk.Image = Properties.Resources.ABLineCycleBk;
-
-            btnAutoSteer.Enabled = true;
-
-            DisableYouTurnButtons();
-            btnFlag.Enabled = true;
-
-            //update the menu
-            this.menustripLanguage.Enabled = false;
-            panelRight.Enabled = true;
-            //boundaryToolStripBtn.Enabled = true;
-            isPanelBottomHidden = false;
-
-            FieldMenuButtonEnableDisable(true);
-            PanelUpdateRightAndBottom();
-            PanelsAndOGLSize();
-            SetZoom();
-
-            fileSaveCounter = 25;
-            lblGuidanceLine.Visible = false;
-            lblHardwareMessage.Visible = false;
-
-            gyd.isFindGlobalNearestTrackPoint = true;
-
-            if (thread_oglBack == null)
-            {
-                //oglBackStart();
-            }
-
-            oglMain.MakeCurrent();
-        }
-
-        //close the current Field
         public void FieldClose()
         {
             JobClose();
@@ -1252,6 +1132,86 @@ namespace AgOpenGPS
             }
         }
 
+        // Return True if a certain percent of a rectangle is shown across the total screen area of all monitors, otherwise return False.
+        public bool IsOnScreen(System.Drawing.Point RecLocation, System.Drawing.Size RecSize, double MinPercentOnScreen = 0.8)
+        {
+            double PixelsVisible = 0;
+            System.Drawing.Rectangle Rec = new System.Drawing.Rectangle(RecLocation, RecSize);
+
+            foreach (Screen Scrn in Screen.AllScreens)
+            {
+                System.Drawing.Rectangle r = System.Drawing.Rectangle.Intersect(Rec, Scrn.WorkingArea);
+                // intersect rectangle with screen
+                if (r.Width != 0 & r.Height != 0)
+                {
+                    PixelsVisible += (r.Width * r.Height);
+                    // tally visible pixels
+                }
+            }
+            return PixelsVisible >= (Rec.Width * Rec.Height) * MinPercentOnScreen;
+        }
+
+        private void FormGPS_Move(object sender, EventArgs e)
+        {
+            Form f = Application.OpenForms["FormGPSData"];
+            if (f != null)
+            {
+                f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
+                f.Left = this.Left + GPSDataWindowLeft;
+            }
+
+            f = Application.OpenForms["FormFieldData"];
+            if (f != null)
+            {
+                f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
+                f.Left = this.Left + GPSDataWindowLeft;
+            }
+
+            f = Application.OpenForms["FormPan"];
+            if (f != null)
+            {
+                f.Top = this.Top + 75;
+                f.Left = this.Left + this.Width - 380;
+            }
+        }
+
+        public bool KeypadToNUD(NudlessNumericUpDown sender, Form owner)
+        {
+            var colour = sender.BackColor;
+            sender.BackColor = Color.Red;
+            sender.Value = Math.Round(sender.Value, sender.DecimalPlaces);
+
+            using (FormNumeric form = new FormNumeric((double)sender.Minimum, (double)sender.Maximum, (double)sender.Value))
+            {
+                DialogResult result = form.ShowDialog(owner);
+                if (result == DialogResult.OK)
+                {
+                    sender.Value = (decimal)form.ReturnValue;
+                    sender.BackColor = colour;
+                    return true;
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    sender.BackColor = colour;
+                }
+                return false;
+            }
+        }
+
+        public void KeyboardToText(TextBox sender, Form owner)
+        {
+            var colour = sender.BackColor;
+            sender.BackColor = Color.Red;
+            using (FormKeyboard form = new FormKeyboard(sender.Text))
+            {
+                if (form.ShowDialog(owner) == DialogResult.OK)
+                {
+                    sender.Text = form.ReturnString;
+                }
+            }
+            sender.BackColor = colour;
+        }
+
         public void FieldMenuButtonEnableDisable(bool isOn)
         {
             SmoothABtoolStripMenu.Enabled = isOn;
@@ -1296,6 +1256,84 @@ namespace AgOpenGPS
         {
             var form = new FormYes(s1);
             form.ShowDialog(this);
+        }
+
+        public void CheckSettingsNotNull()
+        {
+            if (Settings.Default.setFeatures == null)
+            {
+                Settings.Default.setFeatures = new CFeatureSettings();
+            }
+        }
+
+        public void CheckNozzleSettingsNotNull()
+        {
+            if (Settings.Default.setNozzleSettings == null)
+            {
+                Settings.Default.setNozzleSettings = new CNozzleSettings();
+            }
+        }
+
+        public void CheckToolSteerSettingsNotNull()
+        {
+            if (Settings.Default.setToolSteer == null)
+            {
+                Settings.Default.setToolSteer = new CToolSteerSettings();
+            }
+        }
+
+        public enum textures : uint
+        {
+            Floor, Font,
+            Turn, TurnCancel, TurnManual,
+            Compass, Speedo, SpeedoNeedle,
+            Lift, SteerPointer,
+            SteerDot, Tractor, QuestionMark,
+            FrontWheels, FourWDFront, FourWDRear,
+            Harvester,
+            Lateral, bingGrid,
+            NoGPS, ZoomIn48, ZoomOut48,
+            Pan, MenuHideShow,
+            ToolWheels, Tire, TramDot,
+            YouTurnU, YouTurnH, CrossTrackBkgrnd
+        }
+
+        public void LoadGLTextures()
+        {
+            GL.Enable(EnableCap.Texture2D);
+
+            Bitmap[] oglTextures = new Bitmap[]
+            {
+                Resources.z_Floor,Resources.z_Font,
+                Resources.z_Turn,Resources.z_TurnCancel,Resources.z_TurnManual,
+                Resources.z_Compass,Resources.z_Speedo,Resources.z_SpeedoNeedle,
+                Resources.z_Lift,Resources.z_SteerPointer,
+                Resources.z_SteerDot,GetTractorBrand(Settings.Default.setBrand_TBrand),Resources.z_QuestionMark,
+                Resources.z_FrontWheels,Get4WDBrandFront(Settings.Default.setBrand_WDBrand),
+                Get4WDBrandRear(Settings.Default.setBrand_WDBrand),
+                GetHarvesterBrand(Settings.Default.setBrand_HBrand),
+                Resources.z_LateralManual, Resources.z_bingMap,
+                Resources.z_NoGPS, Resources.ZoomIn48, Resources.ZoomOut48,
+                Resources.Pan, Resources.MenuHideShow,
+                Resources.z_Tool, Resources.z_Tire, Resources.z_TramOnOff,
+                Resources.YouTurnU, Resources.YouTurnH, Resources.z_crossTrackBkgnd
+            };
+
+            texture = new uint[oglTextures.Length];
+
+            for (int h = 0; h < oglTextures.Length; h++)
+            {
+                using (Bitmap bitmap = oglTextures[h])
+                {
+                    GL.GenTextures(1, out texture[h]);
+                    GL.BindTexture(TextureTarget.Texture2D, texture[h]);
+                    BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                    GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmapData.Width, bitmapData.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmapData.Scan0);
+                    bitmap.UnlockBits(bitmapData);
+                    GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, 9729);
+                    GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, 9729);
+                }
+            }
         }
 
         // Generates a random number within a range.

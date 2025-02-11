@@ -122,12 +122,12 @@ namespace AgOpenGPS.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string setF_CurrentDir {
+        public string setF_CurrentFieldDir {
             get {
-                return ((string)(this["setF_CurrentDir"]));
+                return ((string)(this["setF_CurrentFieldDir"]));
             }
             set {
-                this["setF_CurrentDir"] = value;
+                this["setF_CurrentFieldDir"] = value;
             }
         }
         
@@ -3187,6 +3187,18 @@ namespace AgOpenGPS.Properties {
             }
             set {
                 this["setToolSteer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string setF_CurrentJobDir {
+            get {
+                return ((string)(this["setF_CurrentJobDir"]));
+            }
+            set {
+                this["setF_CurrentJobDir"] = value;
             }
         }
     }

@@ -74,21 +74,14 @@ namespace AgOpenGPS
                 return;
             }
 
-            //append date time to name
-
-
             //get the directory and make sure it exists, create if not
             DirectoryInfo dirNewJob = new DirectoryInfo(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", tboxJobName.Text.Trim()));
 
-            mf.currentJobDirectory = Path.Combine("Jobs", tboxJobName.Text.Trim());
 
             mf.menustripLanguage.Enabled = false;
             //if no template set just make a new file.
             try
             {
-                //start a new field
-                //mf.FieldNew();
-
                 //create it for first save
                 if (dirNewJob.Exists)
                 {
@@ -97,16 +90,23 @@ namespace AgOpenGPS
                 }
                 else
                 {
+                    mf.JobClose();
+
+                    //create the job directory
                     dirNewJob.Create();
 
                     mf.JobNew();
 
+                    mf.currentJobDirectory = Path.Combine("Jobs", tboxJobName.Text.Trim());
                     mf.displayJobName = mf.currentJobDirectory;
 
                     //create the field file header info
                     mf.FileCreateSections();
                     mf.FileCreateContour();
                     mf.FileCreateElevation();
+
+                    DialogResult = DialogResult.OK;
+                    Close();
                 }
             }
             catch (Exception ex)
@@ -116,9 +116,6 @@ namespace AgOpenGPS
                 MessageBox.Show(gStr.gsError, ex.ToString());
                 mf.currentFieldDirectory = "";
             }
-
-            DialogResult = DialogResult.OK;
-            Close();
         }
 
         private void tboxJobName_Click(object sender, EventArgs e)

@@ -41,10 +41,7 @@ namespace AgOpenGPS
 
             //write out the file
             using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, myFileName)))
-            {
-                //write paths # of sections
-                //writer.WriteLine("$Sectionsv4");
-            }
+            { }
         }
         
         public void FileCreateBoundary()

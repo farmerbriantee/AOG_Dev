@@ -43,7 +43,7 @@ namespace AgOpenGPS
                 btnFieldResume.Enabled = false;
                 mf.currentFieldDirectory = "";
 
-                Properties.Settings.Default.setF_CurrentDir = "";
+                Properties.Settings.Default.setF_CurrentFieldDir = "";
             }
             else
             {

@@ -409,7 +409,7 @@ namespace AgOpenGPS
             SetLanguage(RegistrySettings.culture);
 
             //make sure current field directory exists, null if not
-            currentFieldDirectory = Settings.Default.setF_CurrentDir;
+            currentFieldDirectory = Settings.Default.setF_CurrentFieldDir;
 
             if (currentFieldDirectory != "")
             {
@@ -417,9 +417,23 @@ namespace AgOpenGPS
                 if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
                 {
                     currentFieldDirectory = "";
-                    Settings.Default.setF_CurrentDir = "";
+                    Settings.Default.setF_CurrentFieldDir = "";
 
                     Log.EventWriter("Field Directory is Empty or Missing");
+                }
+            }
+
+            currentJobDirectory = Settings.Default.setF_CurrentJobDir;
+
+            if (currentFieldDirectory != "" && currentJobDirectory != "")
+            {
+                string dir = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, currentJobDirectory);
+                if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+                {
+                    currentJobDirectory = "";
+                    Settings.Default.setF_CurrentJobDir = "";
+
+                    Log.EventWriter("Job Directory is Empty or Missing");
                 }
             }
 
@@ -751,27 +765,12 @@ namespace AgOpenGPS
 
         public void FileSaveEverythingBeforeClosingField()
         {
-            JobClose();
-
-            //FileSaveHeadland();
-            FileSaveBoundary();
-            FileSaveSections();
-            FileSaveContour();
-            FileSaveTracks();
-
-            ExportFieldAs_KML();
-            //ExportFieldAs_ISOXMLv3();
-            //ExportFieldAs_ISOXMLv4();
-
-            Log.EventWriter("** Closed **   " + currentFieldDirectory + "   "
-                + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
-
-            Settings.Default.setF_CurrentDir = currentFieldDirectory;
-
-
             panelRight.Enabled = false;
             FieldMenuButtonEnableDisable(false);
             displayFieldName = gStr.gsNone;
+            displayJobName = gStr.gsNone;
+
+            JobClose();
 
             FieldClose();
 
@@ -926,6 +925,13 @@ namespace AgOpenGPS
             autoBtnState = btnStates.Off;
             btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
 
+            //clear out contour and Lists
+            btnContour.Enabled = false;
+            ct.ResetContour();
+            ct.isContourBtnOn = false;
+            btnContour.Image = Properties.Resources.ContourOff;
+            ct.isContourOn = false;
+
             if (tool.isSectionsNotZones)
             {
                 //Update the button colors and text
@@ -940,70 +946,23 @@ namespace AgOpenGPS
                 LineUpAllZoneButtons();
             }
 
-            if
-                (isJobStarted)
+            if(isJobStarted)
             {
+                Settings.Default.setF_CurrentJobDir = currentJobDirectory;
+
                 //auto save the field patches, contours accumulated so far
                 FileSaveSections();
                 FileSaveContour();
 
                 //NMEA elevation file
                 if (isLogElevation && sbGrid.Length > 0) FileSaveElevation();
+                isJobStarted = false;
+
+                Log.EventWriter("** Closed **   " + currentJobDirectory + "   "
+                    + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
+
+                isJobStarted = false;
             }
-
-            isJobStarted = false;
-
-            btnZone1.BackColor = Color.Silver;
-            btnZone2.BackColor = Color.Silver;
-            btnZone3.BackColor = Color.Silver;
-            btnZone4.BackColor = Color.Silver;
-            btnZone5.BackColor = Color.Silver;
-            btnZone6.BackColor = Color.Silver;
-            btnZone7.BackColor = Color.Silver;
-            btnZone8.BackColor = Color.Silver;
-
-            btnZone1.Enabled = false;
-            btnZone2.Enabled = false;
-            btnZone3.Enabled = false;
-            btnZone4.Enabled = false;
-            btnZone5.Enabled = false;
-            btnZone6.Enabled = false;
-            btnZone7.Enabled = false;
-            btnZone8.Enabled = false;
-
-            btnSection1Man.Enabled = false;
-            btnSection2Man.Enabled = false;
-            btnSection3Man.Enabled = false;
-            btnSection4Man.Enabled = false;
-            btnSection5Man.Enabled = false;
-            btnSection6Man.Enabled = false;
-            btnSection7Man.Enabled = false;
-            btnSection8Man.Enabled = false;
-            btnSection9Man.Enabled = false;
-            btnSection10Man.Enabled = false;
-            btnSection11Man.Enabled = false;
-            btnSection12Man.Enabled = false;
-            btnSection13Man.Enabled = false;
-            btnSection14Man.Enabled = false;
-            btnSection15Man.Enabled = false;
-            btnSection16Man.Enabled = false;
-
-            btnSection1Man.BackColor = Color.Silver;
-            btnSection2Man.BackColor = Color.Silver;
-            btnSection3Man.BackColor = Color.Silver;
-            btnSection4Man.BackColor = Color.Silver;
-            btnSection5Man.BackColor = Color.Silver;
-            btnSection6Man.BackColor = Color.Silver;
-            btnSection7Man.BackColor = Color.Silver;
-            btnSection8Man.BackColor = Color.Silver;
-            btnSection9Man.BackColor = Color.Silver;
-            btnSection10Man.BackColor = Color.Silver;
-            btnSection11Man.BackColor = Color.Silver;
-            btnSection12Man.BackColor = Color.Silver;
-            btnSection13Man.BackColor = Color.Silver;
-            btnSection14Man.BackColor = Color.Silver;
-            btnSection15Man.BackColor = Color.Silver;
-            btnSection16Man.BackColor = Color.Silver;
 
             //clear the section lists
             for (int j = 0; j < triStrip.Count; j++)
@@ -1015,11 +974,29 @@ namespace AgOpenGPS
 
             triStrip?.Clear();
             triStrip.Add(new CPatches(this));
+
+            patchSaveList?.Clear();
+            contourSaveList?.Clear();
         }
 
         public void FieldClose()
         {
             JobClose();
+
+            Settings.Default.setF_CurrentFieldDir = currentFieldDirectory;
+
+            if (isFieldStarted)
+            {
+                FileSaveBoundary();
+                FileSaveTracks();
+
+                Log.EventWriter("** Closed **   " + currentFieldDirectory + "   "
+                    + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
+
+                //ExportFieldAs_KML();
+                //ExportFieldAs_ISOXMLv3();
+                //ExportFieldAs_ISOXMLv4();
+            }
 
             sbGrid.Clear();
             gyd.isFindGlobalNearestTrackPoint = true;
@@ -1077,20 +1054,10 @@ namespace AgOpenGPS
             tram.tramBndInnerArr?.Clear();
             tram.tramBndOuterArr?.Clear();
 
-            //clear out contour and Lists
-            btnContour.Enabled = false;
-            //btnContourPriority.Enabled = false;
-            //btnSnapToPivot.Image = Properties.Resources.SnapToPivot;
-            ct.ResetContour();
-            ct.isContourBtnOn = false;
-            btnContour.Image = Properties.Resources.ContourOff;
-            ct.isContourOn = false;
-
             btnABDraw.Enabled = false;
+            btnABDraw.Visible = false;
             btnCycleLines.Image = Properties.Resources.ABLineCycle;
-            //btnCycleLines.Enabled = false;
             btnCycleLinesBk.Image = Properties.Resources.ABLineCycleBk;
-            //btnCycleLinesBk.Enabled = false;
 
             //AutoSteer
             btnAutoSteer.Enabled = false;
@@ -1100,9 +1067,6 @@ namespace AgOpenGPS
             //auto YouTurn shutdown
             yt.isYouTurnBtnOn = false;
             btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
-
-            btnABDraw.Visible = false;
-
             yt.ResetYouTurn();
             DisableYouTurnButtons();
 

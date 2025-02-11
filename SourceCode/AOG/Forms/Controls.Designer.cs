@@ -586,9 +586,9 @@ namespace AgOpenGPS
             headlandBuildToolStripMenuItem.Enabled = (bnd.bndList.Count > 0);
         }
 
-        public bool isCancelJobMenu;
+        public bool isCancelFieldMenu;
 
-        private void btnJobMenu_Click(object sender, EventArgs e)
+        private void btnFieldMenu_Click(object sender, EventArgs e)
         {
             if (!isFirstFixPositionSet || sentenceCounter > 299)
             {
@@ -648,13 +648,13 @@ namespace AgOpenGPS
                 return;
             }
 
-            using (var form = new FormJob(this))
+            using (var form = new FormField(this))
             {
                 var result = form.ShowDialog(this);
 
-                if (isCancelJobMenu)
+                if (isCancelFieldMenu)
                 {
-                    isCancelJobMenu = false;
+                    isCancelFieldMenu = false;
                     return;
                 }
 
@@ -771,7 +771,7 @@ namespace AgOpenGPS
             FieldMenuButtonEnableDisable(false);
             displayFieldName = gStr.gsNone;
 
-            JobClose();
+            FieldClose();
 
             this.Text = "AgOpenGPS";
         }

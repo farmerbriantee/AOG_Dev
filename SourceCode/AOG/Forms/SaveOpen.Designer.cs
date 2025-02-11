@@ -276,10 +276,10 @@ namespace AgOpenGPS
             if (fileAndDirectory == "Cancel") return;
 
             //close the existing job and reset everything
-            this.JobClose();
+            this.FieldClose();
 
             //and open a new job
-            this.JobNew();
+            this.FieldNew();
 
             //Saturday, February 11, 2017  -->  7:26:52 AM
             //$FieldDir
@@ -342,7 +342,7 @@ namespace AgOpenGPS
                     TimedMessageBox(2000, gStr.gsFieldFileIsCorrupt, gStr.gsChooseADifferentField);
 
 
-                    JobClose();
+                    FieldClose();
                     return;
                 }
             }

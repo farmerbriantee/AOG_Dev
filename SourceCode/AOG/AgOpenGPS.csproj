@@ -459,11 +459,11 @@
     <Compile Include="Forms\Field\FormFieldDir.Designer.cs">
       <DependentUpon>FormFieldDir.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Field\FormJob.cs">
+    <Compile Include="Forms\Field\FormField.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Field\FormJob.Designer.cs">
-      <DependentUpon>FormJob.cs</DependentUpon>
+    <Compile Include="Forms\Field\FormField.Designer.cs">
+      <DependentUpon>FormField.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Field\FormSaveOrNot.cs">
       <SubType>Form</SubType>
@@ -797,8 +797,8 @@
       <DependentUpon>FormGPS.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Field\FormJob.resx">
-      <DependentUpon>FormJob.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Field\FormField.resx">
+      <DependentUpon>FormField.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Field\FormSaveOrNot.resx">
       <DependentUpon>FormSaveOrNot.cs</DependentUpon>

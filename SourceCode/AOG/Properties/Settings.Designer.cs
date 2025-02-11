@@ -2631,24 +2631,24 @@ namespace AgOpenGPS.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("200, 200")]
-        public global::System.Drawing.Point setJobMenu_location {
+        public global::System.Drawing.Point setFieldMenu_location {
             get {
-                return ((global::System.Drawing.Point)(this["setJobMenu_location"]));
+                return ((global::System.Drawing.Point)(this["setFieldMenu_location"]));
             }
             set {
-                this["setJobMenu_location"] = value;
+                this["setFieldMenu_location"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("640, 530")]
-        public global::System.Drawing.Size setJobMenu_size {
+        public global::System.Drawing.Size setFieldMenu_size {
             get {
-                return ((global::System.Drawing.Size)(this["setJobMenu_size"]));
+                return ((global::System.Drawing.Size)(this["setFieldMenu_size"]));
             }
             set {
-                this["setJobMenu_size"] = value;
+                this["setFieldMenu_size"] = value;
             }
         }
         

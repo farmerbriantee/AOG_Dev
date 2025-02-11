@@ -47,8 +47,8 @@ namespace AgOpenGPS
         private bool leftMouseDownOnOpenGL; //mousedown event in opengl window
         public int flagNumberPicked = 0;
 
-        //bool for whether or not a job is active
-        public bool isFieldStarted = false, isBtnAutoSteerOn, isLidarBtnOn = true;
+        //bool for whether or not a Field and job is active
+        public bool isFieldStarted = false, isJobStarted = false, isBtnAutoSteerOn;
 
         //if we are saving a file
         public bool isSavingFile = false;
@@ -907,13 +907,8 @@ namespace AgOpenGPS
             sender.BackColor = colour;
         }
 
-        //request a new job
-        public void JobNew()
+        public void JobbNew()
         {
-            //SendSteerSettingsOutAutoSteerPort();
-            isFieldStarted = true;
-            startCounter = 0;
-
             btnFieldStats.Visible = true;
 
             btnSectionMasterManual.Enabled = true;
@@ -976,17 +971,6 @@ namespace AgOpenGPS
             btnZone7.Enabled = true;
             btnZone8.Enabled = true;
 
-            btnContour.Enabled = true;
-            btnTrack.Enabled = true;
-            btnABDraw.Enabled = true;
-            btnCycleLines.Image = Properties.Resources.ABLineCycle;
-            btnCycleLinesBk.Image = Properties.Resources.ABLineCycleBk;
-
-            btnAutoSteer.Enabled = true;
-
-            DisableYouTurnButtons();
-            btnFlag.Enabled = true;
-
             if (tool.isSectionsNotZones)
             {
                 LineUpIndividualSectionBtns();
@@ -995,71 +979,28 @@ namespace AgOpenGPS
             {
                 LineUpAllZoneButtons();
             }
-
-            //update the menu
-            this.menustripLanguage.Enabled = false;
-            panelRight.Enabled = true;
-            //boundaryToolStripBtn.Enabled = true;
-            isPanelBottomHidden = false;
-
-            FieldMenuButtonEnableDisable(true);
-            PanelUpdateRightAndBottom();
-            PanelsAndOGLSize();
-            SetZoom();
-
-            fileSaveCounter = 25;
-            lblGuidanceLine.Visible = false;
-            lblHardwareMessage.Visible = false;
-
-            gyd.isFindGlobalNearestTrackPoint = true;
-
-            if (thread_oglBack == null)
-            {
-                //oglBackStart();
-            }
-
-            oglMain.MakeCurrent();
         }
 
-        //close the current job
         public void JobClose()
         {
-            sbGrid.Clear();
-            gyd.isFindGlobalNearestTrackPoint = true;
+            if (autoBtnState == btnStates.Auto)
+                btnSectionMasterAuto.PerformClick();
 
-            //reset field offsets
-            if (!isKeepOffsetsOn)
+            if (manualBtnState == btnStates.On)
+                btnSectionMasterManual.PerformClick();
+
+            //turn off all the sections
+            for (int j = 0; j < tool.numOfSections; j++)
             {
-                pn.fixOffset.easting = 0;
-                pn.fixOffset.northing = 0;
+                section[j].sectionOffRequest = true;
+                section[j].sectionOnRequest = false;
             }
 
-            //turn off headland
-            bnd.isHeadlandOn = false;
-
-            btnFieldStats.Visible = false;
-
-            //make sure hydraulic lift is off
-            PGN_239.pgn[PGN_239.hydLift] = 0;
-            vehicle.isHydLiftOn = false;
-            btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
-            btnHydLift.Visible = false;
-            lblHardwareMessage.Visible = false;
-
-            lblGuidanceLine.Visible = false;
-            lblHardwareMessage.Visible = false;
-
-            //zoom gone
-            oglZoom.SendToBack();
-
-            //clean all the lines
-            bnd.bndList.Clear();
-
-            panelRight.Enabled = false;
-            FieldMenuButtonEnableDisable(false);
-
-            menustripLanguage.Enabled = true;
-            isFieldStarted = false;
+            //turn off patching
+            for (int j = 0; j < triStrip.Count; j++)
+            {
+                if (triStrip[j].isDrawing) triStrip[j].TurnMappingOff();
+            }
 
             //fix ManualOffOnAuto buttons
             manualBtnState = btnStates.Off;
@@ -1145,6 +1086,91 @@ namespace AgOpenGPS
 
             triStrip?.Clear();
             triStrip.Add(new CPatches(this));
+        }
+
+        //request a new field
+        public void FieldNew()
+        {
+            isFieldStarted = true;
+            startCounter = 0;
+
+            btnContour.Enabled = true;
+            btnTrack.Enabled = true;
+            btnABDraw.Enabled = true;
+            btnCycleLines.Image = Properties.Resources.ABLineCycle;
+            btnCycleLinesBk.Image = Properties.Resources.ABLineCycleBk;
+
+            btnAutoSteer.Enabled = true;
+
+            DisableYouTurnButtons();
+            btnFlag.Enabled = true;
+
+            //update the menu
+            this.menustripLanguage.Enabled = false;
+            panelRight.Enabled = true;
+            //boundaryToolStripBtn.Enabled = true;
+            isPanelBottomHidden = false;
+
+            FieldMenuButtonEnableDisable(true);
+            PanelUpdateRightAndBottom();
+            PanelsAndOGLSize();
+            SetZoom();
+
+            fileSaveCounter = 25;
+            lblGuidanceLine.Visible = false;
+            lblHardwareMessage.Visible = false;
+
+            gyd.isFindGlobalNearestTrackPoint = true;
+
+            if (thread_oglBack == null)
+            {
+                //oglBackStart();
+            }
+
+            oglMain.MakeCurrent();
+        }
+
+        //close the current Field
+        public void FieldClose()
+        {
+            JobClose();
+
+            sbGrid.Clear();
+            gyd.isFindGlobalNearestTrackPoint = true;
+
+            //reset field offsets
+            if (!isKeepOffsetsOn)
+            {
+                pn.fixOffset.easting = 0;
+                pn.fixOffset.northing = 0;
+            }
+
+            //turn off headland
+            bnd.isHeadlandOn = false;
+
+            btnFieldStats.Visible = false;
+
+            //make sure hydraulic lift is off
+            PGN_239.pgn[PGN_239.hydLift] = 0;
+            vehicle.isHydLiftOn = false;
+            btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
+            btnHydLift.Visible = false;
+            lblHardwareMessage.Visible = false;
+
+            lblGuidanceLine.Visible = false;
+            lblHardwareMessage.Visible = false;
+
+            //zoom gone
+            oglZoom.SendToBack();
+
+            //clean all the lines
+            bnd.bndList.Clear();
+
+            panelRight.Enabled = false;
+            FieldMenuButtonEnableDisable(false);
+
+            menustripLanguage.Enabled = true;
+            isFieldStarted = false;
 
             //clear the flags
             flagPts.Clear();

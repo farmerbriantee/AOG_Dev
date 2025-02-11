@@ -318,8 +318,8 @@ namespace AgOpenGPS
             //if no template set just make a new file.
             try
             {
-                //start a new job
-                mf.JobNew();
+                //start a new field
+                mf.FieldNew();
 
                 //create it for first save
                 if ((!string.IsNullOrEmpty(directoryName)) && (Directory.Exists(directoryName)))

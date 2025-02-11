@@ -6,33 +6,33 @@ using System.Windows.Forms;
 
 namespace AgOpenGPS
 {
-    public partial class FormJob : Form
+    public partial class FormField : Form
     {
         //class variables
         private readonly FormGPS mf = null;
 
-        public FormJob(Form callingForm)
+        public FormField(Form callingForm)
         {
             //get ref of the calling main form
             mf = callingForm as FormGPS;
 
             InitializeComponent();
 
-            btnJobOpen.Text = gStr.gsOpen;
-            btnJobNew.Text = gStr.gsNew;
-            btnJobResume.Text = gStr.gsResume;
+            btnFieldOpen.Text = gStr.gsOpen;
+            btnFieldNew.Text = gStr.gsNew;
+            btnFieldResume.Text = gStr.gsResume;
             btnInField.Text = gStr.gsDriveIn;
             btnFromKML.Text = gStr.gsFromKml;
             btnFromExisting.Text = gStr.gsFromExisting;
-            btnJobClose.Text = gStr.gsClose;
+            btnFieldClose.Text = gStr.gsClose;
 
             this.Text = gStr.gsStartNewField;
         }
 
-        private void FormJob_Load(object sender, EventArgs e)
+        private void FormField_Load(object sender, EventArgs e)
         {
             //check if directory and file exists, maybe was deleted etc
-            if (String.IsNullOrEmpty(mf.currentFieldDirectory)) btnJobResume.Enabled = false;
+            if (String.IsNullOrEmpty(mf.currentFieldDirectory)) btnFieldResume.Enabled = false;
             string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
 
             string fileAndDirectory = Path.Combine(directoryName, "Field.txt");
@@ -40,7 +40,7 @@ namespace AgOpenGPS
             if (!File.Exists(fileAndDirectory))
             {
                 lblResumeField.Text = "";
-                btnJobResume.Enabled = false;
+                btnFieldResume.Enabled = false;
                 mf.currentFieldDirectory = "";
 
                 Properties.Settings.Default.setF_CurrentDir = "";
@@ -51,17 +51,17 @@ namespace AgOpenGPS
 
                 if (mf.isFieldStarted)
                 {
-                    btnJobResume.Enabled = false;
+                    btnFieldResume.Enabled = false;
                     lblResumeField.Text = gStr.gsOpen + ": " + mf.currentFieldDirectory;
                 }
                 else
                 {
-                    btnJobClose.Enabled = false;
+                    btnFieldClose.Enabled = false;
                 }
             }
 
-            Location = Properties.Settings.Default.setJobMenu_location;
-            Size = Properties.Settings.Default.setJobMenu_size;
+            Location = Properties.Settings.Default.setFieldMenu_location;
+            Size = Properties.Settings.Default.setFieldMenu_size;
 
             mf.CloseTopMosts();
 
@@ -72,28 +72,28 @@ namespace AgOpenGPS
             }
         }
 
-        private void btnJobNew_Click(object sender, EventArgs e)
+        private void btnFieldNew_Click(object sender, EventArgs e)
         {
             //back to FormGPS
             DialogResult = DialogResult.Yes;
             Close();
         }
 
-        private void btnJobResume_Click(object sender, EventArgs e)
+        private void btnFieldResume_Click(object sender, EventArgs e)
         {
             if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
 
             //open the Resume.txt and continue from last exit
             mf.FileOpenField("Resume");
 
-            Log.EventWriter("Job Form, Field Resume");
+            Log.EventWriter("Field Form, Field Resume");
 
             //back to FormGPS
             DialogResult = DialogResult.OK;
             Close();
         }
 
-        private void btnJobOpen_Click(object sender, EventArgs e)
+        private void btnFieldOpen_Click(object sender, EventArgs e)
         {
             mf.filePickerFileAndDirectory = "";
 
@@ -232,7 +232,7 @@ namespace AgOpenGPS
             Close();
         }
 
-        private void btnJobClose_Click(object sender, EventArgs e)
+        private void btnFieldClose_Click(object sender, EventArgs e)
         {
             if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
             //back to FormGPS
@@ -240,10 +240,10 @@ namespace AgOpenGPS
             Close();
         }
 
-        private void FormJob_FormClosing(object sender, FormClosingEventArgs e)
+        private void FormField_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.setJobMenu_location = Location;
-            Properties.Settings.Default.setJobMenu_size = Size;
+            Properties.Settings.Default.setFieldMenu_location = Location;
+            Properties.Settings.Default.setFieldMenu_size = Size;
         }
 
         private void btnFromISOXML_Click(object sender, EventArgs e)
@@ -256,7 +256,7 @@ namespace AgOpenGPS
 
         private void btnDeleteAB_Click(object sender, EventArgs e)
         {
-            mf.isCancelJobMenu = true;
+            mf.isCancelFieldMenu = true;
         }
     }
 }

@@ -328,7 +328,7 @@ namespace AgOpenGPS
                     Log.EventWriter("While Opening Field" + ex);
 
                     mf.TimedMessageBox(2000, gStr.gsFieldFileIsCorrupt, gStr.gsChooseADifferentField);
-                    mf.JobClose();
+                    mf.FieldClose();
                     return;
                 }
 

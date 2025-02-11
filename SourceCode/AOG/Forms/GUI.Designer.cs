@@ -950,6 +950,17 @@ namespace AgOpenGPS
 
                 PanelSizeRightAndBottom();
             }
+
+            if (!isJobStarted)
+            {
+                btnSectionMasterAuto.Visible = false;
+                btnSectionMasterManual.Visible = false;
+            }
+            else
+            {
+                btnSectionMasterAuto.Visible = true;
+                btnSectionMasterManual.Visible = true;
+            }
         }
 
         public void PanelBuildRightMenu()

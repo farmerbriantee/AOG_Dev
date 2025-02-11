@@ -17,97 +17,112 @@ namespace AgOpenGPS
 {
     public partial class FormConfig
     {
+        public  void TurnOffSectionsSafely()
+        {
+            if (mf.autoBtnState == btnStates.Auto)
+                mf.btnSectionMasterAuto.PerformClick();
+
+            if (mf.manualBtnState == btnStates.On)
+                mf.btnSectionMasterManual.PerformClick();
+
+            //turn off all the sections
+            for (int j = 0; j < mf.tool.numOfSections; j++)
+            {
+                mf.section[j].sectionOffRequest = true;
+                mf.section[j].sectionOnRequest = false;
+            }
+
+            //turn off patching
+            for (int j = 0; j < mf.triStrip.Count; j++)
+            {
+                if (mf.triStrip[j].isDrawing) mf.triStrip[j].TurnMappingOff();
+            }
+        }
         #region Vehicle Save---------------------------------------------
 
         private void btnVehicleLoad_Click(object sender, EventArgs e)
         {
-            if (!mf.isFieldStarted)
-            {
-                //save current vehicle
-                RegistrySettings.Save();
+            TurnOffSectionsSafely();
 
-                if (lvVehicles.SelectedItems.Count > 0)
+            //save current vehicle
+            RegistrySettings.Save();
+
+            if (lvVehicles.SelectedItems.Count > 0)
+            {
+                DialogResult result3 = MessageBox.Show(
+                    "Open: " + lvVehicles.SelectedItems[0].SubItems[0].Text + ".XML ?",
+                    gStr.gsSaveAndReturn,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2);
+
+                if (result3 == DialogResult.Yes)
                 {
-                    DialogResult result3 = MessageBox.Show(
-                        "Open: " + lvVehicles.SelectedItems[0].SubItems[0].Text + ".XML ?",
-                        gStr.gsSaveAndReturn,
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question,
-                        MessageBoxDefaultButton.Button2);
+                    bool success = SettingsIO.ImportSettings(Path.Combine(RegistrySettings.vehiclesDirectory, lvVehicles.SelectedItems[0].SubItems[0].Text + ".XML"));
+                    if (!success) return;
 
-                    if (result3 == DialogResult.Yes)
-                    {
-                        bool success = SettingsIO.ImportSettings(Path.Combine(RegistrySettings.vehiclesDirectory, lvVehicles.SelectedItems[0].SubItems[0].Text + ".XML"));
-                        if (!success) return;
+                    RegistrySettings.vehicleFileName = lvVehicles.SelectedItems[0].SubItems[0].Text;
 
-                        RegistrySettings.vehicleFileName = lvVehicles.SelectedItems[0].SubItems[0].Text;
+                    RegistrySettings.Save();
 
-                        RegistrySettings.Save();
+                    LoadBrandImage();
 
-                        LoadBrandImage();
+                    mf.vehicle = new CVehicle(mf);
+                    mf.tool = new CTool(mf);
 
-                        mf.vehicle = new CVehicle(mf);
-                        mf.tool = new CTool(mf);
+                    //reset AgOpenGPS
+                    mf.LoadSettings();
 
-                        //reset AgOpenGPS
-                        mf.LoadSettings();
+                    SectionFeetInchesTotalWidthLabelUpdate();
 
-                        SectionFeetInchesTotalWidthLabelUpdate();
+                    //Form Steer Settings
+                    PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Properties.Settings.Default.setAS_countsPerDegree);
+                    PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)Properties.Settings.Default.setAS_ackerman);
 
-                        //Form Steer Settings
-                        PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Properties.Settings.Default.setAS_countsPerDegree);
-                        PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)Properties.Settings.Default.setAS_ackerman);
+                    PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset >> 8));
+                    PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset));
 
-                        PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset >> 8));
-                        PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset));
+                    PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)Properties.Settings.Default.setAS_highSteerPWM);
+                    PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)Properties.Settings.Default.setAS_lowSteerPWM);
+                    PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)Properties.Settings.Default.setAS_Kp);
+                    PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)Properties.Settings.Default.setAS_minSteerPWM);
 
-                        PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)Properties.Settings.Default.setAS_highSteerPWM);
-                        PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)Properties.Settings.Default.setAS_lowSteerPWM);
-                        PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)Properties.Settings.Default.setAS_Kp);
-                        PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)Properties.Settings.Default.setAS_minSteerPWM);
+                    mf.SendPgnToLoop(PGN_252.pgn);
 
-                        mf.SendPgnToLoop(PGN_252.pgn);
+                    //steer config
+                    PGN_251.pgn[PGN_251.set0] = Properties.Settings.Default.setArdSteer_setting0;
+                    PGN_251.pgn[PGN_251.set1] = Properties.Settings.Default.setArdSteer_setting1;
+                    PGN_251.pgn[PGN_251.maxPulse] = Properties.Settings.Default.setArdSteer_maxPulseCounts;
+                    PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Properties.Settings.Default.setAS_minSteerSpeed * 10));
 
-                        //steer config
-                        PGN_251.pgn[PGN_251.set0] = Properties.Settings.Default.setArdSteer_setting0;
-                        PGN_251.pgn[PGN_251.set1] = Properties.Settings.Default.setArdSteer_setting1;
-                        PGN_251.pgn[PGN_251.maxPulse] = Properties.Settings.Default.setArdSteer_maxPulseCounts;
-                        PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Properties.Settings.Default.setAS_minSteerSpeed * 10));
+                    if (Properties.Settings.Default.setAS_isConstantContourOn)
+                        PGN_251.pgn[PGN_251.angVel] = 1;
+                    else PGN_251.pgn[PGN_251.angVel] = 0;
 
-                        if (Properties.Settings.Default.setAS_isConstantContourOn)
-                            PGN_251.pgn[PGN_251.angVel] = 1;
-                        else PGN_251.pgn[PGN_251.angVel] = 0;
+                    mf.SendPgnToLoop(PGN_251.pgn);
 
-                        mf.SendPgnToLoop(PGN_251.pgn);
+                    //machine settings    
+                    PGN_238.pgn[PGN_238.set0] = Properties.Settings.Default.setArdMac_setting0;
+                    PGN_238.pgn[PGN_238.raiseTime] = Properties.Settings.Default.setArdMac_hydRaiseTime;
+                    PGN_238.pgn[PGN_238.lowerTime] = Properties.Settings.Default.setArdMac_hydLowerTime;
 
-                        //machine settings    
-                        PGN_238.pgn[PGN_238.set0] = Properties.Settings.Default.setArdMac_setting0;
-                        PGN_238.pgn[PGN_238.raiseTime] = Properties.Settings.Default.setArdMac_hydRaiseTime;
-                        PGN_238.pgn[PGN_238.lowerTime] = Properties.Settings.Default.setArdMac_hydLowerTime;
+                    PGN_238.pgn[PGN_238.user1] = Properties.Settings.Default.setArdMac_user1;
+                    PGN_238.pgn[PGN_238.user2] = Properties.Settings.Default.setArdMac_user2;
+                    PGN_238.pgn[PGN_238.user3] = Properties.Settings.Default.setArdMac_user3;
+                    PGN_238.pgn[PGN_238.user4] = Properties.Settings.Default.setArdMac_user4;
 
-                        PGN_238.pgn[PGN_238.user1] = Properties.Settings.Default.setArdMac_user1;
-                        PGN_238.pgn[PGN_238.user2] = Properties.Settings.Default.setArdMac_user2;
-                        PGN_238.pgn[PGN_238.user3] = Properties.Settings.Default.setArdMac_user3;
-                        PGN_238.pgn[PGN_238.user4] = Properties.Settings.Default.setArdMac_user4;
+                    mf.SendPgnToLoop(PGN_238.pgn);
 
-                        mf.SendPgnToLoop(PGN_238.pgn);
+                    //Send Pin configuration
+                    SendRelaySettingsToMachineModule();
 
-                        //Send Pin configuration
-                        SendRelaySettingsToMachineModule();
+                    ///Remind the user
+                    mf.TimedMessageBox(2500, "Steer and Machine Settings Sent", "Were Modules Connected?");
 
-                        ///Remind the user
-                        mf.TimedMessageBox(2500, "Steer and Machine Settings Sent", "Were Modules Connected?");
-
-                        Log.EventWriter("Vehicle Loaded: " + RegistrySettings.vehicleFileName + ".XML");
-                        btnOK.PerformClick();
-                    }
-
-                    UpdateVehicleListView();
+                    Log.EventWriter("Vehicle Loaded: " + RegistrySettings.vehicleFileName + ".XML");
+                    btnOK.PerformClick();
                 }
-            }
-            else
-            {
-                mf.TimedMessageBox(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
+
                 UpdateVehicleListView();
             }
 
@@ -115,48 +130,39 @@ namespace AgOpenGPS
 
             btnOK.PerformClick();
         }
+
         private void btnVehicleDelete_Click(object sender, EventArgs e)
         {
-            if (!mf.isFieldStarted)
+            if (lvVehicles.SelectedItems.Count > 0)
             {
-                if (lvVehicles.SelectedItems.Count > 0)
+
+                if (lvVehicles.SelectedItems[0].SubItems[0].Text != RegistrySettings.vehicleFileName)
                 {
-                    if (lvVehicles.SelectedItems[0].SubItems[0].Text.Trim() != "Default Vehicle")
+                    DialogResult result3 = MessageBox.Show(
+                    "Delete: " + lvVehicles.SelectedItems[0].SubItems[0].Text + ".XML",
+                    gStr.gsSaveAndReturn,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Error,
+                    MessageBoxDefaultButton.Button2);
+                    if (result3 == DialogResult.Yes)
                     {
-
-                        if (lvVehicles.SelectedItems[0].SubItems[0].Text != RegistrySettings.vehicleFileName)
-                        {
-                            DialogResult result3 = MessageBox.Show(
-                            "Delete: " + lvVehicles.SelectedItems[0].SubItems[0].Text + ".XML",
-                            gStr.gsSaveAndReturn,
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button2);
-                            if (result3 == DialogResult.Yes)
-                            {
-                                File.Delete(Path.Combine(RegistrySettings.vehiclesDirectory, lvVehicles.SelectedItems[0].SubItems[0].Text + ".XML"));
-                            }
-                        }
-                        else
-                        {
-                            mf.TimedMessageBox(2000, "Vehicle In Use", "Select Different Vehicle");
-                        }
+                        File.Delete(Path.Combine(RegistrySettings.vehiclesDirectory, lvVehicles.SelectedItems[0].SubItems[0].Text + ".XML"));
                     }
-                    else
-                    {
-                        Log.EventWriter("Attempted to Delete Default Vehicle, Denied");
-                        mf.TimedMessageBox(2500, "Default Vehicle Delete Denied", "Choose Another Vehicle");
-                    }
-
                 }
+                else
+                {
+                    mf.TimedMessageBox(2000, "Vehicle In Use", "Select Different Vehicle");
+                }
+
             }
-
             UpdateVehicleListView();
-        }
 
+        }
         //Save As Vehicle
         private void btnVehicleSave_Click(object sender, EventArgs e)
         {
+            TurnOffSectionsSafely();
+
             btnVehicleSave.BackColor = Color.Transparent;
             btnVehicleSave.Enabled = false;            
 
@@ -211,20 +217,12 @@ namespace AgOpenGPS
         }
         private void tboxVehicleNameSave_Click(object sender, EventArgs e)
         {
-            if (!mf.isFieldStarted)
+            if (mf.isKeyboardOn)
             {
-
-                if (mf.isKeyboardOn)
-                {
-                    mf.KeyboardToText((TextBox)sender, this);
-                }
-            }
-            else
-            {
-                mf.TimedMessageBox(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
-                tboxVehicleNameSave.Enabled = false;
+                mf.KeyboardToText((TextBox)sender, this);
             }
         }
+
         private void tboxVehicleNameSave_Enter(object sender, EventArgs e)
         {
             //btnVehicleSaveAs.Enabled = false;
@@ -233,7 +231,6 @@ namespace AgOpenGPS
 
             lvVehicles.SelectedItems.Clear();
         }
-
 
         //New Vehicle
         private void tboxCreateNewVehicle_TextChanged(object sender, EventArgs e)
@@ -262,23 +259,18 @@ namespace AgOpenGPS
         }
         private void tboxCreateNewVehicle_Click(object sender, EventArgs e)
         {
-            if (!mf.isFieldStarted)
-            {
+            TurnOffSectionsSafely();
 
-                if (mf.isKeyboardOn)
-                {
-                    mf.KeyboardToText((TextBox)sender, this);
-                }
-            }
-            else
+            if (mf.isKeyboardOn)
             {
-                var form = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
-                form.Show(this);
-                tboxCreateNewVehicle.Enabled = false;
+                mf.KeyboardToText((TextBox)sender, this);
             }
         }
+
         private void btnVehicleNewSave_Click(object sender, EventArgs e)
         {
+            TurnOffSectionsSafely();
+
             btnVehicleNewSave.BackColor = Color.Transparent;
             btnVehicleNewSave.Enabled = false;
 

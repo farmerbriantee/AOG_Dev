@@ -282,38 +282,22 @@ namespace AgOpenGPS
 
         public void LineUpIndividualSectionBtns()
         {
-            //var matches = this.Controls.Find("btnZone1", true);
-
-            if (!isFieldStarted)
-            {
-                btnSection1Man.Visible = false;
-                btnSection2Man.Visible = false;
-                btnSection3Man.Visible = false;
-                btnSection4Man.Visible = false;
-                btnSection5Man.Visible = false;
-                btnSection6Man.Visible = false;
-                btnSection7Man.Visible = false;
-                btnSection8Man.Visible = false;
-                btnSection9Man.Visible = false;
-                btnSection10Man.Visible = false;
-                btnSection11Man.Visible = false;
-                btnSection12Man.Visible = false;
-                btnSection13Man.Visible = false;
-                btnSection14Man.Visible = false;
-                btnSection15Man.Visible = false;
-                btnSection16Man.Visible = false;
-
-                btnZone1.Visible = false;
-                btnZone2.Visible = false;
-                btnZone3.Visible = false;
-                btnZone4.Visible = false;
-                btnZone5.Visible = false;
-                btnZone6.Visible = false;
-                btnZone7.Visible = false;
-                btnZone8.Visible = false;
-                return;
-            }
-
+            btnSection1Man.Visible = false;
+            btnSection2Man.Visible = false;
+            btnSection3Man.Visible = false;
+            btnSection4Man.Visible = false;
+            btnSection5Man.Visible = false;
+            btnSection6Man.Visible = false;
+            btnSection7Man.Visible = false;
+            btnSection8Man.Visible = false;
+            btnSection9Man.Visible = false;
+            btnSection10Man.Visible = false;
+            btnSection11Man.Visible = false;
+            btnSection12Man.Visible = false;
+            btnSection13Man.Visible = false;
+            btnSection14Man.Visible = false;
+            btnSection15Man.Visible = false;
+            btnSection16Man.Visible = false;
 
             btnZone1.Visible = false;
             btnZone2.Visible = false;
@@ -323,7 +307,6 @@ namespace AgOpenGPS
             btnZone6.Visible = false;
             btnZone7.Visible = false;
             btnZone8.Visible = false;
-
 
             int oglCenter = isPanelBottomHidden ? oglCenter = oglMain.Width / 2 + 30 : statusStripLeft.Width + oglMain.Width / 2;
 
@@ -393,22 +376,25 @@ namespace AgOpenGPS
                 btnSection15Man.Left = btnSection14Man.Left + btnSection1Man.Size.Width;
                 btnSection16Man.Left = btnSection15Man.Left + btnSection1Man.Size.Width;
 
-                btnSection1Man.Visible = tool.numOfSections > 0;
-                btnSection2Man.Visible = tool.numOfSections > 1;
-                btnSection3Man.Visible = tool.numOfSections > 2;
-                btnSection4Man.Visible = tool.numOfSections > 3;
-                btnSection5Man.Visible = tool.numOfSections > 4;
-                btnSection6Man.Visible = tool.numOfSections > 5;
-                btnSection7Man.Visible = tool.numOfSections > 6;
-                btnSection8Man.Visible = tool.numOfSections > 7;
-                btnSection9Man.Visible = tool.numOfSections > 8;
-                btnSection10Man.Visible = tool.numOfSections > 9;
-                btnSection11Man.Visible = tool.numOfSections > 10;
-                btnSection12Man.Visible = tool.numOfSections > 11;
-                btnSection13Man.Visible = tool.numOfSections > 12;
-                btnSection14Man.Visible = tool.numOfSections > 13;
-                btnSection15Man.Visible = tool.numOfSections > 14;
-                btnSection16Man.Visible = tool.numOfSections > 15;
+                if (isJobStarted)
+                {
+                    btnSection1Man.Visible = tool.numOfSections > 0;
+                    btnSection2Man.Visible = tool.numOfSections > 1;
+                    btnSection3Man.Visible = tool.numOfSections > 2;
+                    btnSection4Man.Visible = tool.numOfSections > 3;
+                    btnSection5Man.Visible = tool.numOfSections > 4;
+                    btnSection6Man.Visible = tool.numOfSections > 5;
+                    btnSection7Man.Visible = tool.numOfSections > 6;
+                    btnSection8Man.Visible = tool.numOfSections > 7;
+                    btnSection9Man.Visible = tool.numOfSections > 8;
+                    btnSection10Man.Visible = tool.numOfSections > 9;
+                    btnSection11Man.Visible = tool.numOfSections > 10;
+                    btnSection12Man.Visible = tool.numOfSections > 11;
+                    btnSection13Man.Visible = tool.numOfSections > 12;
+                    btnSection14Man.Visible = tool.numOfSections > 13;
+                    btnSection15Man.Visible = tool.numOfSections > 14;
+                    btnSection16Man.Visible = tool.numOfSections > 15;
+                }
             }
         }
 

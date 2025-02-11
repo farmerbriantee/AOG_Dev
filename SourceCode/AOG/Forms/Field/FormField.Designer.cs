@@ -358,7 +358,6 @@
             this.btnJobNew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnJobNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnJobNew.UseVisualStyleBackColor = false;
-            this.btnJobNew.Click += new System.EventHandler(this.btnNewJob);
             // 
             // btnJobResume
             // 

@@ -751,7 +751,6 @@ namespace AgOpenGPS
 
         public void FileSaveEverythingBeforeClosingField()
         {
-
             JobClose();
 
             //FileSaveHeadland();
@@ -782,6 +781,8 @@ namespace AgOpenGPS
         public void FieldNew()
         {
             isFieldStarted = true;
+            isJobStarted = false;
+
             startCounter = 0;
 
             btnContour.Enabled = true;
@@ -820,8 +821,9 @@ namespace AgOpenGPS
             oglMain.MakeCurrent();
         }
 
-        public void JobbNew()
+        public void JobNew()
         {
+
             isJobStarted = true;
             btnFieldStats.Visible = true;
 
@@ -897,15 +899,6 @@ namespace AgOpenGPS
 
         public void JobClose()
         {
-            isJobStarted = false;
-
-            //auto save the field patches, contours accumulated so far
-            FileSaveSections();
-            FileSaveContour();
-
-            //NMEA elevation file
-            if (isLogElevation && sbGrid.Length > 0) FileSaveElevation();
-
             if (autoBtnState == btnStates.Auto)
                 btnSectionMasterAuto.PerformClick();
 
@@ -946,6 +939,19 @@ namespace AgOpenGPS
                 AllZonesAndButtonsToState(autoBtnState);
                 LineUpAllZoneButtons();
             }
+
+            if
+                (isJobStarted)
+            {
+                //auto save the field patches, contours accumulated so far
+                FileSaveSections();
+                FileSaveContour();
+
+                //NMEA elevation file
+                if (isLogElevation && sbGrid.Length > 0) FileSaveElevation();
+            }
+
+            isJobStarted = false;
 
             btnZone1.BackColor = Color.Silver;
             btnZone2.BackColor = Color.Silver;

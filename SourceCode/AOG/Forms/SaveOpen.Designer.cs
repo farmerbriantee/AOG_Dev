@@ -384,7 +384,6 @@ namespace AgOpenGPS
 
         }
 
-
         public void FileLoadBoundaries()
         {
             string fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Boundary.txt");
@@ -534,60 +533,6 @@ namespace AgOpenGPS
                         {
                             worldGrid.isGeoMap = false;
                         }
-                    }
-                }
-            }
-        }
-
-        public void FileLoadContour()
-        {
-            string fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Contour.txt");
-            if (!File.Exists(fileAndDirectory))
-            {
-                TimedMessageBox(2000, gStr.gsMissingContourFile, gStr.gsButFieldIsLoaded);
-
-                //return;
-            }
-
-            //Points in Patch followed by easting, heading, northing, altitude
-            else
-            {
-                using (StreamReader reader = new StreamReader(fileAndDirectory))
-                {
-                    try
-                    {
-                        //read header
-                        string line = reader.ReadLine();
-
-                        while (!reader.EndOfStream)
-                        {
-                            //read how many vertices in the following patch
-                            line = reader.ReadLine();
-                            int verts = int.Parse(line);
-
-                            vec3 vecFix = new vec3(0, 0, 0);
-
-                            ct.ptList = new List<vec3>();
-                            ct.ptList.Capacity = verts + 1;
-                            ct.stripList.Add(ct.ptList);
-
-                            for (int v = 0; v < verts; v++)
-                            {
-                                line = reader.ReadLine();
-                                string[] words = line.Split(',');
-                                vecFix.easting = double.Parse(words[0], CultureInfo.InvariantCulture);
-                                vecFix.northing = double.Parse(words[1], CultureInfo.InvariantCulture);
-                                vecFix.heading = double.Parse(words[2], CultureInfo.InvariantCulture);
-                                ct.ptList.Add(vecFix);
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Log.EventWriter("Loading Contour file" + e.ToString());
-
-                        TimedMessageBox(2000, gStr.gsContourFileIsCorrupt, gStr.gsButFieldIsLoaded);
-
                     }
                 }
             }
@@ -863,19 +808,83 @@ namespace AgOpenGPS
             hdl.idx = -1;
         }
 
-        public void FileLoadSections()
+        public void FileLoadContour(string dir)
         {
-            string fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Sections.txt");
-            if (!File.Exists(fileAndDirectory))
+            if (!File.Exists(dir))
             {
-                TimedMessageBox(2000, gStr.gsMissingSectionFile, gStr.gsButFieldIsLoaded);
+                string myFileName = "Contour.txt";
 
-                //return;
+                //write out the file
+                using (StreamWriter writer = new StreamWriter(dir))
+                {
+                    //write paths # of sections
+                    //writer.WriteLine("$Sectionsv4");
+                }
+                return;
+            }
+
+            //Points in Patch followed by easting, heading, northing, altitude
+            else
+            {
+                using (StreamReader reader = new StreamReader(dir))
+                {
+                    try
+                    {
+                        //read header
+                        string line = reader.ReadLine();
+
+                        while (!reader.EndOfStream)
+                        {
+                            //read how many vertices in the following patch
+                            line = reader.ReadLine();
+                            int verts = int.Parse(line);
+
+                            vec3 vecFix = new vec3(0, 0, 0);
+
+                            ct.ptList = new List<vec3>();
+                            ct.ptList.Capacity = verts + 1;
+                            ct.stripList.Add(ct.ptList);
+
+                            for (int v = 0; v < verts; v++)
+                            {
+                                line = reader.ReadLine();
+                                string[] words = line.Split(',');
+                                vecFix.easting = double.Parse(words[0], CultureInfo.InvariantCulture);
+                                vecFix.northing = double.Parse(words[1], CultureInfo.InvariantCulture);
+                                vecFix.heading = double.Parse(words[2], CultureInfo.InvariantCulture);
+                                ct.ptList.Add(vecFix);
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Log.EventWriter("Loading Contour file" + e.ToString());
+
+                        TimedMessageBox(2000, gStr.gsContourFileIsCorrupt, gStr.gsButFieldIsLoaded);
+
+                    }
+                }
+            }
+        }
+
+        public void FileLoadSections(string dir)
+        {
+            if (!File.Exists(dir))
+            {
+                string myFileName = "Sections.txt";
+
+                //write out the file
+                using (StreamWriter writer = new StreamWriter(dir))
+                {
+                    //write paths # of sections
+                    //writer.WriteLine("$Sectionsv4");
+                }
+                return;
             }
             else
             {
                 bool isv3 = false;
-                using (StreamReader reader = new StreamReader(fileAndDirectory))
+                using (StreamReader reader = new StreamReader(dir))
                 {
                     try
                     {
@@ -935,17 +944,7 @@ namespace AgOpenGPS
                     }
 
                 }
-
-                //was old version prior to v4
-                if (isv3)
-                {
-                    //Append the current list to the field file
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Sections.txt"), false))
-                    {
-                    }
-                }
             }
-
         }
 
         public void FileLoadTracks()

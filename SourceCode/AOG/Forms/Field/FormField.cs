@@ -272,6 +272,8 @@ namespace AgOpenGPS
         {
             if (!mf.isFieldStarted) return;
 
+            mf.JobClose();
+
             mf.jobPickerFileAndDirectory = "";
 
             using (FormJobPicker form = new FormJobPicker(mf))
@@ -284,6 +286,15 @@ namespace AgOpenGPS
                     DirectoryInfo dirNewJob = new DirectoryInfo(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", mf.jobPickerFileAndDirectory));
 
                     mf.currentJobDirectory = Path.Combine("Jobs", mf.jobPickerFileAndDirectory);
+
+                    mf.JobNew();
+
+                    mf.displayJobName = mf.currentJobDirectory;
+
+                    //create the field file header info
+                    mf.FileLoadSections(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, mf.currentJobDirectory, "Sections.txt"));
+                    mf.FileLoadContour(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, mf.currentJobDirectory, "Contour.txt"));
+
                     Close();
                 }
                 else

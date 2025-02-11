@@ -99,7 +99,7 @@ namespace AgOpenGPS
                 {
                     dirNewJob.Create();
 
-                    mf.JobbNew();
+                    mf.JobNew();
 
                     mf.displayJobName = mf.currentJobDirectory;
 

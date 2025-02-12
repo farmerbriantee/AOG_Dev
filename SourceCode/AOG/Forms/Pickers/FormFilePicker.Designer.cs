@@ -190,7 +190,6 @@
             // 
             this.btnNewJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnNewJob.BackColor = System.Drawing.Color.Transparent;
-            this.btnNewJob.DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.btnNewJob.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNewJob.Image = global::AgOpenGPS.Properties.Resources.FileNew;
             this.btnNewJob.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -227,6 +226,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormFilePicker";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormFilePicker_FormClosing);
             this.Load += new System.EventHandler(this.FormFilePicker_Load);
             this.ResumeLayout(false);
 

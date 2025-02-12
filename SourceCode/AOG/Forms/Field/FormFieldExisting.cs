@@ -363,32 +363,6 @@ namespace AgOpenGPS
                 string fileToCopy = "";
                 string destinationDirectory = "";
 
-                if (chkApplied.Checked)
-                {
-                    fileToCopy = Path.Combine(templateDirectoryName, "Contour.txt");
-                    destinationDirectory = Path.Combine(directoryName, "Contour.txt");
-                    if (File.Exists(fileToCopy))
-                        File.Copy(fileToCopy, destinationDirectory);
-
-                    fileToCopy = Path.Combine(templateDirectoryName, "Sections.txt");
-                    destinationDirectory = Path.Combine(directoryName, "Sections.txt");
-                    if (File.Exists(fileToCopy))
-                        File.Copy(fileToCopy, destinationDirectory);
-                }
-                else
-                {
-                    //create blank Contour and Section files
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Sections.txt")))
-                    {
-                        //blank
-                    }
-
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Contour.txt")))
-                    {
-                        writer.WriteLine("$Contour");
-                    }
-                }
-
                 fileToCopy = Path.Combine(templateDirectoryName, "BackPic.txt");
                 destinationDirectory = Path.Combine(directoryName, "BackPic.txt");
                 if (File.Exists(fileToCopy))
@@ -449,6 +423,11 @@ namespace AgOpenGPS
 
                     fileToCopy = Path.Combine(templateDirectoryName, "Tram.txt");
                     destinationDirectory = Path.Combine(directoryName, "Tram.txt");
+                    if (File.Exists(fileToCopy))
+                        File.Copy(fileToCopy, destinationDirectory);
+
+                    fileToCopy = Path.Combine(templateDirectoryName, "Tracks.txt");
+                    destinationDirectory = Path.Combine(directoryName, "Tracks.txt");
                     if (File.Exists(fileToCopy))
                         File.Copy(fileToCopy, destinationDirectory);
                 }

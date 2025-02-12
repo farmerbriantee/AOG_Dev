@@ -87,6 +87,8 @@ namespace AgOpenGPS
             //if no template set just make a new file.
             try
             {
+                mf.JobClose();
+
                 //start a new field
                 mf.FieldNew();
 

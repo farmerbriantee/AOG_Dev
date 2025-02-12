@@ -249,7 +249,6 @@ namespace AgOpenGPS
                 return;
             }
 
-
             //list of jobs
             string[] dirs = Directory.GetDirectories(directoryName);
 
@@ -386,6 +385,12 @@ namespace AgOpenGPS
 
                     Close();
                 }
+            }
+            else
+            {
+                mf.YesMessageBox("Pick a field");
+                this.DialogResult = DialogResult.None;
+                return;
             }
         }
 
@@ -626,7 +631,13 @@ namespace AgOpenGPS
             else
             {
                 mf.YesMessageBox("Pick a field");
+                this.DialogResult = DialogResult.None;
+                return;
             }
+        }
+
+        private void FormFilePicker_FormClosing(object sender, FormClosingEventArgs e)
+        {
         }
     }
 }

@@ -157,7 +157,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.Gainsboro;
-            this.ClientSize = new System.Drawing.Size(676, 514);
+            this.ClientSize = new System.Drawing.Size(676, 255);
             this.ControlBox = false;
             this.Controls.Add(this.btnAddDate);
             this.Controls.Add(this.btnAddTime);

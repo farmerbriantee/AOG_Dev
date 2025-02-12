@@ -33,7 +33,7 @@ namespace AgOpenGPS
             //old Version?
             string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs");
 
-            if (!string.IsNullOrEmpty(directoryName) && (!Directory.Exists(directoryName)))
+            if (string.IsNullOrEmpty(directoryName) || (!Directory.Exists(directoryName)))
             {
                 mf.YesMessageBox("No Jobs Exist\r\n\r\n" + gStr.gsCreateNewJob);
                 Log.EventWriter("Job Picker, No Jobs");

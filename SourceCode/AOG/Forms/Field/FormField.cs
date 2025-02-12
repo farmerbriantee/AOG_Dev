@@ -41,20 +41,19 @@ namespace AgOpenGPS
 
             if (!File.Exists(fileAndDirectory))
             {
-                lblResumeField.Text = "";
+                lblResumeField.Text = "Field: " + gStr.gsNone;
                 btnFieldResume.Enabled = false;
                 mf.currentFieldDirectory = "";
-
                 Properties.Settings.Default.setF_CurrentFieldDir = "";
             }
             else
             {
-                lblResumeField.Text = gStr.gsResume + " Field: " + mf.currentFieldDirectory;
+                lblResumeField.Text = "Field: " + gStr.gsResume + "\r\n" +mf.currentFieldDirectory;
 
                 if (mf.isFieldStarted)
                 {
                     btnFieldResume.Enabled = false;
-                    lblResumeField.Text = gStr.gsOpen + " Field: " + mf.currentFieldDirectory;
+                    lblResumeField.Text = "Field: " + gStr.gsOpen + "\r\n" + mf.currentFieldDirectory;
                 }
                 else
                 {
@@ -68,19 +67,18 @@ namespace AgOpenGPS
 
                 if (!File.Exists(fileAndDirectory))
                 {
-                    lblResumeJob.Text = "";
+                    lblResumeJob.Text = "Job: " + gStr.gsNone;
                     isResumeJob = false;
                     mf.currentJobDirectory = "";
-
                     Properties.Settings.Default.setF_CurrentJobDir = "";
                 }
                 else
                 {
-                    lblResumeJob.Text = gStr.gsResume + " Job: " + mf.currentJobDirectory;
+                    lblResumeJob.Text = "Job: " + gStr.gsResume + "\r\n" + mf.currentJobDirectory;
 
                     if (mf.isJobStarted)
                     {
-                        lblResumeField.Text = gStr.gsOpen + " Job: " + mf.currentJobDirectory;
+                        lblResumeField.Text = "Job: " + gStr.gsOpen + "\r\n" + mf.currentJobDirectory;
                         isResumeJob = false;
                     }
                     else
@@ -130,6 +128,15 @@ namespace AgOpenGPS
 
             if (isResumeJob)
             {
+                string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs");
+
+                if (string.IsNullOrEmpty(directoryName) || (!Directory.Exists(directoryName)))
+                {
+                    DialogResult = DialogResult.OK;
+                    Close();
+                    return;
+                }
+
                 mf.JobNew();
 
                 mf.displayJobName = mf.currentJobDirectory;
@@ -361,11 +368,11 @@ namespace AgOpenGPS
 
             string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs");
 
-            if (!string.IsNullOrEmpty(directoryName) && (!Directory.Exists(directoryName)))
+            if (string.IsNullOrEmpty(directoryName) || (!Directory.Exists(directoryName)))
             {
                 mf.YesMessageBox("No Jobs Exist\r\n\r\n" + gStr.gsCreateNewJob);
                 Log.EventWriter("Job Picker, No Jobs");
-                Close();
+                DialogResult = DialogResult.None;
                 return;
             }
 

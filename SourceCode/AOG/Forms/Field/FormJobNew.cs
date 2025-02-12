@@ -25,7 +25,7 @@ namespace AgOpenGPS
 
         private void FormJobNew_Load(object sender, EventArgs e)
         {
-            btnSave.Enabled = false;
+            btnSaveJob.Enabled = false;
 
             if (!mf.IsOnScreen(Location, Size, 1))
             {
@@ -43,30 +43,30 @@ namespace AgOpenGPS
 
             if (String.IsNullOrEmpty(tboxJobName.Text.Trim()))
             {
-                btnSave.Enabled = false;
+                btnSaveJob.Enabled = false;
             }
             else
             {
-                btnSave.Enabled = true;
+                btnSaveJob.Enabled = true;
             }
         }
 
-        private void btnSerialCancel_Click(object sender, EventArgs e)
+        private void btnCancelJob_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void btnAddDate_Click(object sender, EventArgs e)
+        private void btnAddDateJob_Click(object sender, EventArgs e)
         {
             tboxJobName.Text += " " + DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         }
 
-        private void btnAddTime_Click(object sender, EventArgs e)
+        private void btnAddTimeJob_Click(object sender, EventArgs e)
         {
             tboxJobName.Text += " " + DateTime.Now.ToString("HH-mm", CultureInfo.InvariantCulture);
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void btnSaveJob_Click(object sender, EventArgs e)
         {
             //fill something in
             if (String.IsNullOrEmpty(tboxJobName.Text.Trim()))
@@ -77,9 +77,8 @@ namespace AgOpenGPS
             //get the directory and make sure it exists, create if not
             DirectoryInfo dirNewJob = new DirectoryInfo(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", tboxJobName.Text.Trim()));
 
-
             mf.menustripLanguage.Enabled = false;
-            //if no template set just make a new file.
+
             try
             {
                 //create it for first save
@@ -123,7 +122,7 @@ namespace AgOpenGPS
             if (mf.isKeyboardOn)
             {
                 mf.KeyboardToText((TextBox)sender, this);
-                btnSerialCancel.Focus();
+                btnJobCancel.Focus();
             }
         }
     }

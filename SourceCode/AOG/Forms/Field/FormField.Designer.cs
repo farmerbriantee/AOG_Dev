@@ -29,24 +29,19 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnJobNew = new System.Windows.Forms.Button();
-            this.btnJobOpen = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblResumeJob = new System.Windows.Forms.Label();
             this.btnFromKML = new System.Windows.Forms.Button();
-            this.btnFromISOXML = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnFieldOpen = new System.Windows.Forms.Button();
             this.btnFieldClose = new System.Windows.Forms.Button();
             this.btnInField = new System.Windows.Forms.Button();
             this.btnFieldResume = new System.Windows.Forms.Button();
             this.btnFromExisting = new System.Windows.Forms.Button();
             this.btnFieldNew = new System.Windows.Forms.Button();
+            this.btnJobOpen = new System.Windows.Forms.Button();
             this.btnJobClose = new System.Windows.Forms.Button();
+            this.btnJobNew = new System.Windows.Forms.Button();
             this.lblResumeField = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.lblResumeJob = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,21 +58,17 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.Controls.Add(this.lblResumeJob, 4, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblResumeField, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.btnFromKML, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btnFromISOXML, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnFieldOpen, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.btnFieldClose, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnInField, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btnFieldResume, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.btnFromExisting, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.btnFieldNew, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.btnJobOpen, 4, 2);
             this.tableLayoutPanel1.Controls.Add(this.btnJobClose, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnJobNew, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnInField, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnFieldOpen, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnFieldResume, 2, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
@@ -85,82 +76,21 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(744, 440);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(740, 436);
             this.tableLayoutPanel1.TabIndex = 106;
             // 
-            // label4
+            // lblResumeJob
             // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(235, 330);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(17, 110);
-            this.label4.TabIndex = 111;
-            // 
-            // btnJobNew
-            // 
-            this.btnJobNew.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnJobNew.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(254)))), ((int)(((byte)(230)))));
-            this.btnJobNew.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnJobNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnJobNew.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnJobNew.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnJobNew.Image = global::AgOpenGPS.Properties.Resources.FileNew;
-            this.btnJobNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnJobNew.Location = new System.Drawing.Point(517, 129);
-            this.btnJobNew.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnJobNew.Name = "btnJobNew";
-            this.btnJobNew.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnJobNew.Size = new System.Drawing.Size(220, 71);
-            this.btnJobNew.TabIndex = 107;
-            this.btnJobNew.Text = "New Job";
-            this.btnJobNew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnJobNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnJobNew.UseVisualStyleBackColor = false;
-            this.btnJobNew.Click += new System.EventHandler(this.btnJobNew_Click);
-            // 
-            // btnJobOpen
-            // 
-            this.btnJobOpen.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnJobOpen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(254)))), ((int)(((byte)(230)))));
-            this.btnJobOpen.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnJobOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnJobOpen.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnJobOpen.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnJobOpen.Image = global::AgOpenGPS.Properties.Resources.FilePrevious;
-            this.btnJobOpen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnJobOpen.Location = new System.Drawing.Point(517, 239);
-            this.btnJobOpen.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnJobOpen.Name = "btnJobOpen";
-            this.btnJobOpen.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnJobOpen.Size = new System.Drawing.Size(220, 71);
-            this.btnJobOpen.TabIndex = 108;
-            this.btnJobOpen.Text = "Open Job";
-            this.btnJobOpen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnJobOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnJobOpen.UseVisualStyleBackColor = false;
-            this.btnJobOpen.Click += new System.EventHandler(this.btnJobOpen_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(235, 220);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(17, 110);
-            this.label3.TabIndex = 110;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(235, 110);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(17, 110);
-            this.label2.TabIndex = 109;
+            this.lblResumeJob.BackColor = System.Drawing.Color.Transparent;
+            this.lblResumeJob.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblResumeJob.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResumeJob.ForeColor = System.Drawing.Color.Black;
+            this.lblResumeJob.Location = new System.Drawing.Point(511, 327);
+            this.lblResumeJob.Name = "lblResumeJob";
+            this.lblResumeJob.Size = new System.Drawing.Size(226, 109);
+            this.lblResumeJob.TabIndex = 109;
+            this.lblResumeJob.Text = "Previous Job";
+            this.lblResumeJob.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnFromKML
             // 
@@ -173,11 +103,11 @@
             this.btnFromKML.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnFromKML.Image = global::AgOpenGPS.Properties.Resources.BoundaryLoadFromGE;
             this.btnFromKML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFromKML.Location = new System.Drawing.Point(5, 114);
+            this.btnFromKML.Location = new System.Drawing.Point(5, 113);
             this.btnFromKML.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnFromKML.Name = "btnFromKML";
             this.btnFromKML.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnFromKML.Size = new System.Drawing.Size(222, 102);
+            this.btnFromKML.Size = new System.Drawing.Size(221, 101);
             this.btnFromKML.TabIndex = 91;
             this.btnFromKML.Text = "From KML";
             this.btnFromKML.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -185,42 +115,9 @@
             this.btnFromKML.UseVisualStyleBackColor = false;
             this.btnFromKML.Click += new System.EventHandler(this.btnFromKML_Click);
             // 
-            // btnFromISOXML
-            // 
-            this.btnFromISOXML.BackColor = System.Drawing.Color.Transparent;
-            this.btnFromISOXML.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnFromISOXML.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnFromISOXML.FlatAppearance.BorderSize = 0;
-            this.btnFromISOXML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFromISOXML.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFromISOXML.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnFromISOXML.Image = global::AgOpenGPS.Properties.Resources.ISOXML;
-            this.btnFromISOXML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFromISOXML.Location = new System.Drawing.Point(5, 4);
-            this.btnFromISOXML.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnFromISOXML.Name = "btnFromISOXML";
-            this.btnFromISOXML.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnFromISOXML.Size = new System.Drawing.Size(222, 102);
-            this.btnFromISOXML.TabIndex = 107;
-            this.btnFromISOXML.Text = "ISO-XML";
-            this.btnFromISOXML.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFromISOXML.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnFromISOXML.UseVisualStyleBackColor = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(235, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(17, 110);
-            this.label1.TabIndex = 108;
-            // 
             // btnFieldOpen
             // 
             this.btnFieldOpen.BackColor = System.Drawing.Color.Transparent;
-            this.btnFieldOpen.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnFieldOpen.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnFieldOpen.FlatAppearance.BorderSize = 0;
             this.btnFieldOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -228,11 +125,11 @@
             this.btnFieldOpen.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnFieldOpen.Image = global::AgOpenGPS.Properties.Resources.FileOpen;
             this.btnFieldOpen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFieldOpen.Location = new System.Drawing.Point(260, 224);
+            this.btnFieldOpen.Location = new System.Drawing.Point(259, 113);
             this.btnFieldOpen.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnFieldOpen.Name = "btnFieldOpen";
             this.btnFieldOpen.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnFieldOpen.Size = new System.Drawing.Size(222, 102);
+            this.btnFieldOpen.Size = new System.Drawing.Size(221, 101);
             this.btnFieldOpen.TabIndex = 3;
             this.btnFieldOpen.Text = "Open";
             this.btnFieldOpen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -252,11 +149,11 @@
             this.btnFieldClose.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnFieldClose.Image = global::AgOpenGPS.Properties.Resources.FileClose;
             this.btnFieldClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFieldClose.Location = new System.Drawing.Point(260, 4);
+            this.btnFieldClose.Location = new System.Drawing.Point(259, 4);
             this.btnFieldClose.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnFieldClose.Name = "btnFieldClose";
             this.btnFieldClose.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnFieldClose.Size = new System.Drawing.Size(222, 102);
+            this.btnFieldClose.Size = new System.Drawing.Size(221, 101);
             this.btnFieldClose.TabIndex = 105;
             this.btnFieldClose.Text = "Close";
             this.btnFieldClose.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -267,7 +164,6 @@
             // btnInField
             // 
             this.btnInField.BackColor = System.Drawing.Color.Transparent;
-            this.btnInField.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnInField.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnInField.FlatAppearance.BorderSize = 0;
             this.btnInField.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -275,11 +171,11 @@
             this.btnInField.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnInField.Image = global::AgOpenGPS.Properties.Resources.AutoManualIsAuto;
             this.btnInField.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnInField.Location = new System.Drawing.Point(260, 114);
+            this.btnInField.Location = new System.Drawing.Point(5, 4);
             this.btnInField.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnInField.Name = "btnInField";
             this.btnInField.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnInField.Size = new System.Drawing.Size(222, 102);
+            this.btnInField.Size = new System.Drawing.Size(221, 101);
             this.btnInField.TabIndex = 89;
             this.btnInField.Text = "Drive In";
             this.btnInField.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -290,7 +186,6 @@
             // btnFieldResume
             // 
             this.btnFieldResume.BackColor = System.Drawing.Color.Transparent;
-            this.btnFieldResume.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnFieldResume.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnFieldResume.FlatAppearance.BorderSize = 0;
             this.btnFieldResume.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -298,11 +193,11 @@
             this.btnFieldResume.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnFieldResume.Image = global::AgOpenGPS.Properties.Resources.FilePrevious;
             this.btnFieldResume.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFieldResume.Location = new System.Drawing.Point(260, 334);
+            this.btnFieldResume.Location = new System.Drawing.Point(259, 222);
             this.btnFieldResume.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnFieldResume.Name = "btnFieldResume";
             this.btnFieldResume.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnFieldResume.Size = new System.Drawing.Size(222, 102);
+            this.btnFieldResume.Size = new System.Drawing.Size(221, 101);
             this.btnFieldResume.TabIndex = 1;
             this.btnFieldResume.Text = "Resume";
             this.btnFieldResume.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -321,11 +216,11 @@
             this.btnFromExisting.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnFromExisting.Image = global::AgOpenGPS.Properties.Resources.FileExisting;
             this.btnFromExisting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFromExisting.Location = new System.Drawing.Point(5, 224);
+            this.btnFromExisting.Location = new System.Drawing.Point(5, 222);
             this.btnFromExisting.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnFromExisting.Name = "btnFromExisting";
             this.btnFromExisting.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnFromExisting.Size = new System.Drawing.Size(222, 102);
+            this.btnFromExisting.Size = new System.Drawing.Size(221, 101);
             this.btnFromExisting.TabIndex = 104;
             this.btnFromExisting.Text = "Existing";
             this.btnFromExisting.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -344,17 +239,39 @@
             this.btnFieldNew.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnFieldNew.Image = global::AgOpenGPS.Properties.Resources.FileNew;
             this.btnFieldNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFieldNew.Location = new System.Drawing.Point(5, 334);
+            this.btnFieldNew.Location = new System.Drawing.Point(5, 331);
             this.btnFieldNew.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnFieldNew.Name = "btnFieldNew";
             this.btnFieldNew.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnFieldNew.Size = new System.Drawing.Size(222, 102);
+            this.btnFieldNew.Size = new System.Drawing.Size(221, 101);
             this.btnFieldNew.TabIndex = 2;
             this.btnFieldNew.Text = "New Field";
             this.btnFieldNew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFieldNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnFieldNew.UseVisualStyleBackColor = false;
             this.btnFieldNew.Click += new System.EventHandler(this.btnFieldNew_Click);
+            // 
+            // btnJobOpen
+            // 
+            this.btnJobOpen.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnJobOpen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(254)))), ((int)(((byte)(230)))));
+            this.btnJobOpen.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnJobOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnJobOpen.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnJobOpen.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnJobOpen.Image = global::AgOpenGPS.Properties.Resources.FilePrevious;
+            this.btnJobOpen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnJobOpen.Location = new System.Drawing.Point(514, 237);
+            this.btnJobOpen.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnJobOpen.Name = "btnJobOpen";
+            this.btnJobOpen.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnJobOpen.Size = new System.Drawing.Size(220, 71);
+            this.btnJobOpen.TabIndex = 108;
+            this.btnJobOpen.Text = "Open Job";
+            this.btnJobOpen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnJobOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnJobOpen.UseVisualStyleBackColor = false;
+            this.btnJobOpen.Click += new System.EventHandler(this.btnJobOpen_Click);
             // 
             // btnJobClose
             // 
@@ -366,7 +283,7 @@
             this.btnJobClose.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnJobClose.Image = global::AgOpenGPS.Properties.Resources.FilePrevious;
             this.btnJobClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnJobClose.Location = new System.Drawing.Point(517, 19);
+            this.btnJobClose.Location = new System.Drawing.Point(514, 19);
             this.btnJobClose.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnJobClose.Name = "btnJobClose";
             this.btnJobClose.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -378,16 +295,37 @@
             this.btnJobClose.UseVisualStyleBackColor = false;
             this.btnJobClose.Click += new System.EventHandler(this.btnJobClose_Click);
             // 
+            // btnJobNew
+            // 
+            this.btnJobNew.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnJobNew.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(254)))), ((int)(((byte)(230)))));
+            this.btnJobNew.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnJobNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnJobNew.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnJobNew.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnJobNew.Image = global::AgOpenGPS.Properties.Resources.FileNew;
+            this.btnJobNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnJobNew.Location = new System.Drawing.Point(514, 128);
+            this.btnJobNew.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnJobNew.Name = "btnJobNew";
+            this.btnJobNew.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnJobNew.Size = new System.Drawing.Size(220, 71);
+            this.btnJobNew.TabIndex = 107;
+            this.btnJobNew.Text = "New Job";
+            this.btnJobNew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnJobNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnJobNew.UseVisualStyleBackColor = false;
+            this.btnJobNew.Click += new System.EventHandler(this.btnJobNew_Click);
+            // 
             // lblResumeField
             // 
-            this.lblResumeField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblResumeField.BackColor = System.Drawing.Color.Transparent;
+            this.lblResumeField.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblResumeField.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResumeField.ForeColor = System.Drawing.Color.Black;
-            this.lblResumeField.Location = new System.Drawing.Point(19, 473);
+            this.lblResumeField.Location = new System.Drawing.Point(257, 327);
             this.lblResumeField.Name = "lblResumeField";
-            this.lblResumeField.Size = new System.Drawing.Size(469, 28);
+            this.lblResumeField.Size = new System.Drawing.Size(225, 109);
             this.lblResumeField.TabIndex = 106;
             this.lblResumeField.Text = "Previous Field";
             this.lblResumeField.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -402,7 +340,7 @@
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
             this.btnCancel.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
-            this.btnCancel.Location = new System.Drawing.Point(646, 453);
+            this.btnCancel.Location = new System.Drawing.Point(642, 452);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(107, 57);
             this.btnCancel.TabIndex = 4;
@@ -410,29 +348,15 @@
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // lblResumeJob
-            // 
-            this.lblResumeJob.BackColor = System.Drawing.Color.Transparent;
-            this.lblResumeJob.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblResumeJob.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResumeJob.ForeColor = System.Drawing.Color.Black;
-            this.lblResumeJob.Location = new System.Drawing.Point(513, 330);
-            this.lblResumeJob.Name = "lblResumeJob";
-            this.lblResumeJob.Size = new System.Drawing.Size(228, 110);
-            this.lblResumeJob.TabIndex = 109;
-            this.lblResumeJob.Text = "Previous Job";
-            this.lblResumeJob.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // FormField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(760, 517);
+            this.ClientSize = new System.Drawing.Size(756, 513);
             this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.lblResumeField);
             this.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Location = new System.Drawing.Point(200, 200);
@@ -447,7 +371,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormField_FormClosing);
             this.Load += new System.EventHandler(this.FormField_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -463,12 +386,7 @@
         private System.Windows.Forms.Button btnFieldNew;
         private System.Windows.Forms.Button btnInField;
         private System.Windows.Forms.Button btnFromKML;
-        private System.Windows.Forms.Button btnFromISOXML;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnJobNew;
         private System.Windows.Forms.Button btnJobOpen;
         private System.Windows.Forms.Label lblResumeJob;

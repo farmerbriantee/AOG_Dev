@@ -149,6 +149,7 @@ namespace AgOpenGPS
         private void btnFieldOpen_Click(object sender, EventArgs e)
         {
             mf.filePickerFileAndDirectory = "";
+            mf.jobPickerFileAndDirectory = "";
 
             using (FormFilePicker form = new FormFilePicker(mf))
             {
@@ -158,13 +159,43 @@ namespace AgOpenGPS
                     if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
                     mf.FileOpenField(mf.filePickerFileAndDirectory);
 
-                    Close();
+                    if (!mf.isFieldStarted)
+                    {
+                        //todo error message no field open - bad
+                        return;
+                    }
+
+                    if (mf.jobPickerFileAndDirectory != "")
+                    {
+                        mf.JobClose();
+
+                        //get the directory and make sure it exists, create if not
+                        DirectoryInfo dirNewJob = new DirectoryInfo(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", mf.jobPickerFileAndDirectory));
+
+                        mf.currentJobDirectory = Path.Combine("Jobs", mf.jobPickerFileAndDirectory);
+
+                        mf.JobNew();
+
+                        mf.displayJobName = mf.currentJobDirectory;
+
+                        //create the field file header info
+                        mf.FileLoadSections(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, mf.currentJobDirectory, "Sections.txt"));
+                        mf.FileLoadContour(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, mf.currentJobDirectory, "Contour.txt"));
+                    }
+                    else if (mf.jobPickerFileAndDirectory != "Newww") //create new job
+                    {
+                        using (var form2 = new FormJobNew(this))
+                        { form2.ShowDialog(mf); }
+                    }
                 }
                 else
                 {
+                    //todo all closed still
                     return;
                 }
             }
+
+            Close();
         }
 
         private void btnInField_Click(object sender, EventArgs e)

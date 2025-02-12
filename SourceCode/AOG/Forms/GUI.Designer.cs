@@ -137,7 +137,7 @@ namespace AgOpenGPS
                     switch (currentFieldTextCounter)
                     {
                         case 0:
-                            lblCurrentField.Text = gStr.gsField + ": " + displayFieldName;
+                            lblCurrentField.Text = gStr.gsField + ": " + displayFieldName + " :" + currentJobDirectory;
                             break;
 
                         case 1:

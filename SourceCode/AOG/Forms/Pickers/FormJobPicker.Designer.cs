@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lvLines = new System.Windows.Forms.ListView();
+            this.lvLinesJob = new System.Windows.Forms.ListView();
             this.chDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnByDistance = new System.Windows.Forms.Button();
@@ -39,27 +39,27 @@
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // lvLines
+            // lvLinesJob
             // 
-            this.lvLines.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lvLinesJob.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvLines.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.lvLines.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvLinesJob.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lvLinesJob.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chDate,
             this.chName});
-            this.lvLines.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lvLines.FullRowSelect = true;
-            this.lvLines.GridLines = true;
-            this.lvLines.HideSelection = false;
-            this.lvLines.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.lvLines.Location = new System.Drawing.Point(5, 12);
-            this.lvLines.MultiSelect = false;
-            this.lvLines.Name = "lvLines";
-            this.lvLines.Size = new System.Drawing.Size(1006, 459);
-            this.lvLines.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.lvLines.TabIndex = 86;
-            this.lvLines.UseCompatibleStateImageBehavior = false;
-            this.lvLines.View = System.Windows.Forms.View.Details;
+            this.lvLinesJob.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvLinesJob.FullRowSelect = true;
+            this.lvLinesJob.GridLines = true;
+            this.lvLinesJob.HideSelection = false;
+            this.lvLinesJob.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.lvLinesJob.Location = new System.Drawing.Point(5, 12);
+            this.lvLinesJob.MultiSelect = false;
+            this.lvLinesJob.Name = "lvLinesJob";
+            this.lvLinesJob.Size = new System.Drawing.Size(1006, 459);
+            this.lvLinesJob.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.lvLinesJob.TabIndex = 86;
+            this.lvLinesJob.UseCompatibleStateImageBehavior = false;
+            this.lvLinesJob.View = System.Windows.Forms.View.Details;
             // 
             // chDate
             // 
@@ -162,7 +162,7 @@
             this.Controls.Add(this.btnByDistance);
             this.Controls.Add(this.btnOpenExistingLv);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.lvLines);
+            this.Controls.Add(this.lvLinesJob);
             this.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "FormJobPicker";
@@ -177,7 +177,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView lvLines;
+        private System.Windows.Forms.ListView lvLinesJob;
         private System.Windows.Forms.ColumnHeader chName;
         private System.Windows.Forms.Button btnByDistance;
         private System.Windows.Forms.Button btnOpenExistingLv;

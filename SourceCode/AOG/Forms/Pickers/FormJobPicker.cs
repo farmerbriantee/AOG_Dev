@@ -28,7 +28,7 @@ namespace AgOpenGPS
         private void FormJobPicker_Load(object sender, EventArgs e)
         {
             order = 0;
-            ListViewItem itm;
+            ListViewItem itmJob;
 
             //old Version?
             string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs");
@@ -63,13 +63,13 @@ namespace AgOpenGPS
             for (int i = 0; i < jobList.Count; i += 2)
             {
                 string[] jobNames = { jobList[i], jobList[i + 1] };
-                itm = new ListViewItem(jobNames);
-                lvLines.Items.Add(itm);
+                itmJob = new ListViewItem(jobNames);
+                lvLinesJob.Items.Add(itmJob);
             }
 
             //string fieldName = Path.GetDirectoryName(dir).ToString(CultureInfo.InvariantCulture);
 
-            if (lvLines.Items.Count > 0)
+            if (lvLinesJob.Items.Count > 0)
             {
             }
             else
@@ -85,7 +85,7 @@ namespace AgOpenGPS
         {
             ListViewItem itm;
 
-            lvLines.Items.Clear();
+            lvLinesJob.Items.Clear();
             order += 1;
             if (order == 2) order = 0;
 
@@ -102,10 +102,10 @@ namespace AgOpenGPS
                     itm = new ListViewItem(fieldNames);
                 }
 
-                lvLines.Items.Add(itm);
+                lvLinesJob.Items.Add(itm);
             }
 
-            if (lvLines.Items.Count > 0)
+            if (lvLinesJob.Items.Count > 0)
             {
                 if (order == 0)
                 {
@@ -129,11 +129,11 @@ namespace AgOpenGPS
 
         private void btnOpenExistingLv_Click(object sender, EventArgs e)
         {
-            int count = lvLines.SelectedItems.Count;
+            int count = lvLinesJob.SelectedItems.Count;
             if (count > 0)
             {
-                    if (order == 0) mf.jobPickerFileAndDirectory =lvLines.SelectedItems[0].SubItems[1].Text;
-                    else mf.jobPickerFileAndDirectory = lvLines.SelectedItems[0].SubItems[0].Text;
+                    if (order == 0) mf.jobPickerFileAndDirectory =lvLinesJob.SelectedItems[0].SubItems[1].Text;
+                    else mf.jobPickerFileAndDirectory = lvLinesJob.SelectedItems[0].SubItems[0].Text;
                     Close();
             }
         }
@@ -145,14 +145,14 @@ namespace AgOpenGPS
 
         private void btnDeleteJob_Click(object sender, EventArgs e)
         {
-            int count = lvLines.SelectedItems.Count;
+            int count = lvLinesJob.SelectedItems.Count;
             string dir2Delete;
             if (count > 0)
             {
                 if (order == 0)
-                    dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", lvLines.SelectedItems[0].SubItems[0].Text);
+                    dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", lvLinesJob.SelectedItems[0].SubItems[0].Text);
                 else
-                    dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", lvLines.SelectedItems[0].SubItems[1].Text);
+                    dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", lvLinesJob.SelectedItems[0].SubItems[1].Text);
 
                 DialogResult result3 = MessageBox.Show(
                     dir2Delete,
@@ -174,18 +174,18 @@ namespace AgOpenGPS
 
             jobList?.Clear();
 
-            lvLines.Items.Clear();
+            lvLinesJob.Items.Clear();
 
             for (int i = 0; i < jobList.Count; i += 2)
             {
                 string[] JobNames = { jobList[i], jobList[i + 1] };
                 itm = new ListViewItem(JobNames);
-                lvLines.Items.Add(itm);
+                lvLinesJob.Items.Add(itm);
             }
 
             //string fieldName = Path.GetDirectoryName(dir).ToString(CultureInfo.InvariantCulture);
 
-            if (lvLines.Items.Count > 0)
+            if (lvLinesJob.Items.Count > 0)
             {
                 this.chName.Text = gStr.gsField;
                 this.chName.Width = 700;

@@ -377,8 +377,7 @@ namespace AgOpenGPS
 
                     if (lvLinesJob.SelectedItems.Count > 0)
                     {
-                        if (order == 0) mf.jobPickerFileAndDirectory = lvLinesJob.SelectedItems[0].SubItems[1].Text;
-                        else mf.jobPickerFileAndDirectory = lvLinesJob.SelectedItems[0].SubItems[0].Text;
+                        mf.jobPickerFileAndDirectory = lvLinesJob.SelectedItems[0].SubItems[1].Text;
                     }
                     else
                     {

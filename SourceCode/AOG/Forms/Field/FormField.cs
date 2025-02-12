@@ -165,7 +165,12 @@ namespace AgOpenGPS
                         return;
                     }
 
-                    if (mf.jobPickerFileAndDirectory != "")
+                    if (mf.jobPickerFileAndDirectory == "Newww") //create new job
+                    {
+                        using (var form2 = new FormJobNew(mf))
+                        { form2.ShowDialog(mf); }
+                    }
+                    else if (mf.jobPickerFileAndDirectory != "" )
                     {
                         mf.JobClose();
 
@@ -181,11 +186,6 @@ namespace AgOpenGPS
                         //create the field file header info
                         mf.FileLoadSections(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, mf.currentJobDirectory, "Sections.txt"));
                         mf.FileLoadContour(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, mf.currentJobDirectory, "Contour.txt"));
-                    }
-                    else if (mf.jobPickerFileAndDirectory != "Newww") //create new job
-                    {
-                        using (var form2 = new FormJobNew(this))
-                        { form2.ShowDialog(mf); }
                     }
                 }
                 else

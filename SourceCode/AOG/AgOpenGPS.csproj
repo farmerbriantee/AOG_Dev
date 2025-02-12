@@ -168,7 +168,6 @@
     <Compile Include="Classes\CBoundaryList.cs" />
     <Compile Include="Classes\CDubins.cs" />
     <Compile Include="Classes\CAHRS.cs" />
-    <Compile Include="Classes\CAutoSteer.cs" />
     <Compile Include="Classes\CFont.cs" />
     <Compile Include="Classes\CSim.cs" />
     <Compile Include="Classes\CTracks.cs" />

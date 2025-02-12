@@ -770,8 +770,7 @@ namespace AgOpenGPS
             displayFieldName = gStr.gsNone;
             displayJobName = gStr.gsNone;
 
-            JobClose();
-
+            //it closes Job first
             FieldClose();
 
             this.Text = "AgOpenGPS";
@@ -822,7 +821,6 @@ namespace AgOpenGPS
 
         public void JobNew()
         {
-
             isJobStarted = true;
             btnFieldStats.Visible = true;
 

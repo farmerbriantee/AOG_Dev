@@ -12,8 +12,7 @@ using System.Text;
 using AgOpenGPS.Culture;
 
 namespace AgOpenGPS
-{
-    
+{    
     public partial class FormGPS
     {
         //list of the list of patch data individual triangles for contour tracking

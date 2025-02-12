@@ -11,6 +11,8 @@ namespace AgOpenGPS
         //class variables
         private readonly FormGPS mf = null;
 
+        bool isResumeJob = false;
+
         public FormField(Form callingForm)
         {
             //get ref of the calling main form
@@ -33,9 +35,9 @@ namespace AgOpenGPS
         {
             //check if directory and file exists, maybe was deleted etc
             if (String.IsNullOrEmpty(mf.currentFieldDirectory)) btnFieldResume.Enabled = false;
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
+            string directoryFieldName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
 
-            string fileAndDirectory = Path.Combine(directoryName, "Field.txt");
+            string fileAndDirectory = Path.Combine(directoryFieldName, "Field.txt");
 
             if (!File.Exists(fileAndDirectory))
             {
@@ -47,17 +49,55 @@ namespace AgOpenGPS
             }
             else
             {
-                lblResumeField.Text = gStr.gsResume + ": " + mf.currentFieldDirectory;
+                lblResumeField.Text = gStr.gsResume + " Field: " + mf.currentFieldDirectory;
 
                 if (mf.isFieldStarted)
                 {
                     btnFieldResume.Enabled = false;
-                    lblResumeField.Text = gStr.gsOpen + ": " + mf.currentFieldDirectory;
+                    lblResumeField.Text = gStr.gsOpen + " Field: " + mf.currentFieldDirectory;
                 }
                 else
                 {
                     btnFieldClose.Enabled = false;
                 }
+            }
+
+            if (btnFieldResume.Enabled)
+            {
+                fileAndDirectory = Path.Combine(directoryFieldName, mf.currentJobDirectory, "Sections.txt");
+
+                if (!File.Exists(fileAndDirectory))
+                {
+                    lblResumeJob.Text = "";
+                    isResumeJob = false;
+                    mf.currentJobDirectory = "";
+
+                    Properties.Settings.Default.setF_CurrentJobDir = "";
+                }
+                else
+                {
+                    lblResumeJob.Text = gStr.gsResume + " Job: " + mf.currentJobDirectory;
+
+                    if (mf.isJobStarted)
+                    {
+                        lblResumeField.Text = gStr.gsOpen + " Job: " + mf.currentJobDirectory;
+                        isResumeJob = false;
+                    }
+                    else
+                    {
+                        btnJobClose.Enabled = false;
+                        btnJobOpen.Enabled = false;
+                        btnJobNew.Enabled = false;
+                        isResumeJob = true;
+                    }
+                }
+            }
+            else
+            {
+                if (mf.isJobStarted)
+                    lblResumeJob.Text = gStr.gsOpen + " Job: " + mf.currentJobDirectory;
+                else
+                    lblResumeJob.Text = " Job: " + gStr.gsNone;
             }
 
             Location = Properties.Settings.Default.setFieldMenu_location;
@@ -87,6 +127,19 @@ namespace AgOpenGPS
             mf.FileOpenField("Resume");
 
             Log.EventWriter("Field Form, Field Resume");
+
+            if (isResumeJob)
+            {
+                mf.JobNew();
+
+                mf.displayJobName = mf.currentJobDirectory;
+
+                //create the field file header info
+                mf.FileLoadSections(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, mf.currentJobDirectory, "Sections.txt"));
+                mf.FileLoadContour(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, mf.currentJobDirectory, "Contour.txt"));
+            }
+
+            isResumeJob = false;
 
             //back to FormGPS
             DialogResult = DialogResult.OK;
@@ -265,14 +318,25 @@ namespace AgOpenGPS
             //back to FormGPS
             DialogResult = DialogResult.Abort;
             Close();
-
         }
 
-        private void btnJobResume_Click(object sender, EventArgs e)
+        private void btnJobOpen_Click(object sender, EventArgs e)
         {
-            if (!mf.isFieldStarted) return;
+            if (!mf.isFieldStarted)
+            {
+                mf.YesMessageBox(gStr.gsFieldNotOpen + "\r\n\r\n" + gStr.gsCreateNewField);
+                return;
+            }
 
-            mf.JobClose();
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs");
+
+            if (!string.IsNullOrEmpty(directoryName) && (!Directory.Exists(directoryName)))
+            {
+                mf.YesMessageBox("No Jobs Exist\r\n\r\n" + gStr.gsCreateNewJob);
+                Log.EventWriter("Job Picker, No Jobs");
+                Close();
+                return;
+            }
 
             mf.jobPickerFileAndDirectory = "";
 
@@ -281,9 +345,10 @@ namespace AgOpenGPS
                 //returns full field.txt file dir name
                 if (form.ShowDialog(this) == DialogResult.Yes)
                 {
+                    mf.JobClose();
 
                     //get the directory and make sure it exists, create if not
-                    DirectoryInfo dirNewJob = new DirectoryInfo(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", mf.jobPickerFileAndDirectory));
+                    //DirectoryInfo dirNewJob = new DirectoryInfo(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", mf.jobPickerFileAndDirectory));
 
                     mf.currentJobDirectory = Path.Combine("Jobs", mf.jobPickerFileAndDirectory);
 
@@ -302,6 +367,11 @@ namespace AgOpenGPS
                     return;
                 }
             }
+        }
+
+        private void btnJobClose_Click(object sender, EventArgs e)
+        {
+            mf.JobClose();
         }
     }
 }

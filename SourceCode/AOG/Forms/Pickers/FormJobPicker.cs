@@ -35,7 +35,7 @@ namespace AgOpenGPS
 
             if (!string.IsNullOrEmpty(directoryName) && (!Directory.Exists(directoryName)))
             {
-                mf.TimedMessageBox(2000, gStr.gsCreateNewJob, gStr.gsFileError);
+                mf.YesMessageBox("No Jobs Exist\r\n\r\n" + gStr.gsCreateNewJob);
                 Log.EventWriter("Job Picker, No Jobs");
                 Close();
                 return;

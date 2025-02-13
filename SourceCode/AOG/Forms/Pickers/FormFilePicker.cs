@@ -244,7 +244,7 @@ namespace AgOpenGPS
 
             string directoryName = Path.Combine(chosenDir, "Jobs");
 
-            if (!string.IsNullOrEmpty(directoryName) && (!Directory.Exists(directoryName)))
+            if (string.IsNullOrEmpty(directoryName) || (!Directory.Exists(directoryName)))
             {
                 return;
             }
@@ -256,9 +256,6 @@ namespace AgOpenGPS
 
             if (dirs == null || dirs.Length < 1)
             {
-                mf.TimedMessageBox(2000, gStr.gsCreateNewJob, gStr.gsFileError);
-                Log.EventWriter("Job Picker, No Jobs");
-                Close();
                 return;
             }
 
@@ -624,6 +621,7 @@ namespace AgOpenGPS
                             Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[1].Text, "Field.txt");
 
                         mf.jobPickerFileAndDirectory = "Newww";
+                    this.DialogResult = DialogResult.Yes;
 
                     Close();
                 }

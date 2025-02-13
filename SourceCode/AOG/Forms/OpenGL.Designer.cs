@@ -1231,6 +1231,8 @@ namespace AgOpenGPS
 
             #region Section delays and mapping
 
+            int mappingFactor = (int)(gpsHz / 9 * 2);
+
             //Set all the on and off times based from on off section requests
             for (int j = 0; j < tool.numOfSections; j++)
             {
@@ -1260,25 +1262,25 @@ namespace AgOpenGPS
                 //Mapping timers
                 if (section[j].sectionOnRequest && !section[j].isMappingOn && section[j].mappingOnTimer == 0)
                 {
-                    section[j].mappingOnTimer = (int)(tool.lookAheadOnSetting * gpsHz);
+                    section[j].mappingOnTimer = (int)(tool.lookAheadOnSetting * gpsHz) - mappingFactor;
                 }
                 else if (section[j].sectionOnRequest && section[j].isMappingOn && section[j].mappingOffTimer > 1)
                 {
                     section[j].mappingOffTimer = 0;
-                    section[j].mappingOnTimer = (int)(tool.lookAheadOnSetting * gpsHz);
+                    section[j].mappingOnTimer = (int)(tool.lookAheadOnSetting * gpsHz) - mappingFactor;
                 }
 
                 if (tool.lookAheadOffSetting > 0)
                 {
                     if (section[j].sectionOffRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
                     {
-                        section[j].mappingOffTimer = (int)(tool.lookAheadOffSetting * gpsHz);
+                        section[j].mappingOffTimer = (int)(tool.lookAheadOffSetting * gpsHz)+ mappingFactor;
                     }
                 }
                 else if (tool.turnOffDelay > 0)
                 {
                     if (section[j].sectionOffRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
-                        section[j].mappingOffTimer = (int)(tool.turnOffDelay * gpsHz);
+                        section[j].mappingOffTimer = (int)(tool.turnOffDelay * gpsHz)+ mappingFactor;
                 }
                 else
                 {

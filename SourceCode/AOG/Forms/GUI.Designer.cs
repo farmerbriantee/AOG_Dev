@@ -114,7 +114,7 @@ namespace AgOpenGPS
 
             ////////////////////////////////////////////// 10 second ///////////////////////////////////////////////////////
             //every 3 second update status
-            if (fourSecondCounter >= 3)
+            if (fourSecondCounter >= 2)
             {
                 if (!isPauseFieldTextCounter)
                 {

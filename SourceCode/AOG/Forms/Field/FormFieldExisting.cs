@@ -426,8 +426,8 @@ namespace AgOpenGPS
                     if (File.Exists(fileToCopy))
                         File.Copy(fileToCopy, destinationDirectory);
 
-                    fileToCopy = Path.Combine(templateDirectoryName, "Tracks.txt");
-                    destinationDirectory = Path.Combine(directoryName, "Tracks.txt");
+                    fileToCopy = Path.Combine(templateDirectoryName, "TrackLines.txt");
+                    destinationDirectory = Path.Combine(directoryName, "TrackLines.txt");
                     if (File.Exists(fileToCopy))
                         File.Copy(fileToCopy, destinationDirectory);
                 }

@@ -223,7 +223,7 @@ namespace AgOpenGPS
             if (lvLines.Items.Count > 0)
             {
                 this.chName.Text = gStr.gsField;
-                this.chName.Width = 680;
+                this.chName.Width = 670;
 
                 this.chDistance.Text = gStr.gsDistance;
                 this.chDistance.Width = 140;
@@ -515,7 +515,7 @@ namespace AgOpenGPS
                 if (order == 0)
                 {
                     this.chName.Text = gStr.gsField;
-                    this.chName.Width = 680;
+                    this.chName.Width = 670;
 
                     this.chDistance.Text = gStr.gsDistance;
                     this.chDistance.Width = 140;
@@ -529,7 +529,7 @@ namespace AgOpenGPS
                     this.chName.Width = 140;
 
                     this.chDistance.Text = gStr.gsField;
-                    this.chDistance.Width = 680;
+                    this.chDistance.Width = 670;
 
                     this.chArea.Text = gStr.gsArea;
                     this.chArea.Width = 140;
@@ -540,7 +540,7 @@ namespace AgOpenGPS
                     this.chName.Width = 140;
 
                     this.chDistance.Text = gStr.gsField;
-                    this.chDistance.Width = 680;
+                    this.chDistance.Width = 670;
 
                     this.chArea.Text = gStr.gsDistance;
                     this.chArea.Width = 140;

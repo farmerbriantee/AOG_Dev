@@ -212,7 +212,7 @@ namespace AgOpenGPS
             if (lvLines.Items.Count > 0)
             {
                 this.chName.Text = gStr.gsField;
-                this.chName.Width = 680;
+                this.chName.Width = 670;
 
                 this.chDistance.Text = gStr.gsDistance;
                 this.chDistance.Width = 140;
@@ -276,13 +276,6 @@ namespace AgOpenGPS
             {
                 lvLinesJob.Items[lvLinesJob.Items.Count - 1].EnsureVisible();
             }
-            else
-            {
-                mf.TimedMessageBox(2000, gStr.gsNoFieldsFound, gStr.gsCreateNewField);
-                Log.EventWriter("File Picker, No Line items");
-                Close();
-                return;
-            }
         }
 
         private void btnByDistance_Click(object sender, EventArgs e)
@@ -319,7 +312,7 @@ namespace AgOpenGPS
                 if (order == 0)
                 {
                     this.chName.Text = gStr.gsField;
-                    this.chName.Width = 680;
+                    this.chName.Width = 670;
 
                     this.chDistance.Text = gStr.gsDistance;
                     this.chDistance.Width = 140;
@@ -333,7 +326,7 @@ namespace AgOpenGPS
                     this.chName.Width = 140;
 
                     this.chDistance.Text = gStr.gsField;
-                    this.chDistance.Width = 680;
+                    this.chDistance.Width = 670;
 
                     this.chArea.Text = gStr.gsArea;
                     this.chArea.Width = 140;
@@ -344,7 +337,7 @@ namespace AgOpenGPS
                     this.chName.Width = 140;
 
                     this.chDistance.Text = gStr.gsField;
-                    this.chDistance.Width = 680;
+                    this.chDistance.Width = 670;
 
                     this.chArea.Text = gStr.gsDistance;
                     this.chArea.Width = 140;
@@ -391,7 +384,7 @@ namespace AgOpenGPS
             }
         }
 
-        private void btnDeleteAB_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             mf.filePickerFileAndDirectory = "";
         }
@@ -402,6 +395,9 @@ namespace AgOpenGPS
             string dir2Delete;
             if (count > 0)
             {
+                //close field and job
+                mf.FileSaveEverythingBeforeClosingField();
+
                 if (order == 0)
                     dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[0].Text);
                 else
@@ -582,12 +578,10 @@ namespace AgOpenGPS
                 lvLines.Items.Add(itm);
             }
 
-            //string fieldName = Path.GetDirectoryName(dir).ToString(CultureInfo.InvariantCulture);
-
             if (lvLines.Items.Count > 0)
             {
                 this.chName.Text = gStr.gsField;
-                this.chName.Width = 680;
+                this.chName.Width = 670;
 
                 this.chDistance.Text = gStr.gsDistance;
                 this.chDistance.Width = 140;
@@ -599,6 +593,81 @@ namespace AgOpenGPS
             {
                 //var form2 = new FormTimedMessage(2000, gStr.gsNoFieldsCreated, gStr.gsCreateNewFieldFirst);
                 //form2.Show(this);
+            }
+
+            lvLinesJob.Items.Clear();
+        }
+
+        private void btnDeleteJob_Click(object sender, EventArgs e)
+        {
+            string dir2Delete;
+            if (lvLinesJob.SelectedItems.Count > 0)
+            {
+                //close field and job
+                mf.JobClose();
+
+                if (order == 0)
+                    dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[0].Text);
+                else
+                    dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[1].Text);
+
+                dir2Delete = Path.Combine(dir2Delete, "Jobs", lvLinesJob.SelectedItems[0].SubItems[1].Text);
+                DialogResult result3 = MessageBox.Show(
+                    dir2Delete,
+                    gStr.gsDeleteForSure,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2);
+                if (result3 == DialogResult.Yes)
+                {
+                    System.IO.Directory.Delete(dir2Delete, true);
+                }
+                else return;
+            }
+            else return;
+
+            ListViewItem itmJob;
+            lvLinesJob.Items.Clear();
+
+            string chosenDir;
+            if (order == 0) chosenDir =
+                Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[0].Text);
+            else chosenDir =
+                Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[1].Text);
+
+            string directoryName = Path.Combine(chosenDir, "Jobs");
+
+            if (string.IsNullOrEmpty(directoryName) || (!Directory.Exists(directoryName)))
+            {
+                return;
+            }
+
+            //list of jobs
+            string[] dirs = Directory.GetDirectories(directoryName);
+
+            jobList?.Clear();
+
+            if (dirs == null || dirs.Length < 1)
+            {
+                return;
+            }
+
+            foreach (string dir in dirs)
+            {
+                jobList.Add(Directory.GetCreationTime(dir).ToString());
+                jobList.Add(Path.GetFileName(dir));
+            }
+
+            for (int i = 0; i < jobList.Count; i += 2)
+            {
+                string[] jobNames = { jobList[i], jobList[i + 1] };
+                itmJob = new ListViewItem(jobNames);
+                lvLinesJob.Items.Add(itmJob);
+            }
+
+            if (lvLinesJob.Items.Count > 0)
+            {
+                lvLinesJob.Items[lvLinesJob.Items.Count - 1].EnsureVisible();
             }
         }
 

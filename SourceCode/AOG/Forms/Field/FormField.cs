@@ -157,6 +157,7 @@ namespace AgOpenGPS
         {
             mf.filePickerFileAndDirectory = "";
             mf.jobPickerFileAndDirectory = "";
+            this.Hide();
 
             using (FormFilePicker form = new FormFilePicker(mf))
             {
@@ -168,7 +169,7 @@ namespace AgOpenGPS
 
                     if (!mf.isFieldStarted)
                     {
-                        //todo error message no field open - bad
+                        mf.YesMessageBox("Field Not Loaded - \r\n\r\n This is really bad. Field is corrupt ");
                         return;
                     }
 

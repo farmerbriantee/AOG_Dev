@@ -319,7 +319,7 @@
             // chName
             // 
             this.chName.Text = "Field";
-            this.chName.Width = 680;
+            this.chName.Width = 670;
             // 
             // chDistance
             // 

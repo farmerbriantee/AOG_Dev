@@ -630,9 +630,69 @@ namespace AgOpenGPS
             //    }
         }
 
-        private void FormFilePicker_FormClosing(object sender, FormClosingEventArgs e)
+        private void btnDeleteJob_Click(object sender, EventArgs e)
         {
+            string dir2Delete;
+            if (lvLinesJob.SelectedItems.Count > 0)
+            {
+                //close field and job
+                mf.JobClose();
+
+                if (order == 0)
+                    dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[0].Text);
+                else
+                    dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[1].Text);
+
+                dir2Delete = Path.Combine(dir2Delete, "Jobs", lvLinesJob.SelectedItems[0].SubItems[1].Text);
+                DialogResult result3 = MessageBox.Show(
+                    dir2Delete,
+                    gStr.gsDeleteForSure,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2);
+                if (result3 == DialogResult.Yes)
+                {
+                    System.IO.Directory.Delete(dir2Delete, true);
+                }
+                else return;
+            }
+            else return;
+
+            PopulateJobsListView();
         }
+
+        private void bntNewJob_Click(object sender, EventArgs e)
+        {
+            if (lvLines.SelectedItems.Count > 0)
+            {
+                if (lvLines.SelectedItems[0].SubItems[0].Text == "Error" ||
+                    lvLines.SelectedItems[0].SubItems[1].Text == "Error" ||
+                    lvLines.SelectedItems[0].SubItems[2].Text == "Error")
+                {
+                    MessageBox.Show("This Field is Damaged, Please Delete \r\n ALREADY TOLD YOU THAT :)", gStr.gsFileError,
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    if (order == 0) mf.filePickerFileAndDirectory =
+                            Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[0].Text, "Field.txt");
+                    else mf.filePickerFileAndDirectory =
+                            Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[1].Text, "Field.txt");
+
+                    mf.jobPickerFileAndDirectory = "Newww";
+                    this.DialogResult = DialogResult.Yes;
+
+                    Close();
+                }
+            }
+            else
+            {
+                mf.YesMessageBox("Pick a field");
+                this.DialogResult = DialogResult.None;
+                return;
+            }
+        }
+
 
         private void PopulateJobsListView()
         {

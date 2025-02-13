@@ -23,7 +23,7 @@ namespace AgOpenGPS
             btnFieldOpen.Text = gStr.gsOpen;
             btnFieldNew.Text = gStr.gsNew;
             btnFieldResume.Text = gStr.gsResume;
-            btnInField.Text = gStr.gsDriveIn;
+            //btnInField.Text = gStr.gsDriveIn;
             btnFromKML.Text = gStr.gsFromKml;
             btnFromExisting.Text = gStr.gsFromExisting;
             btnFieldClose.Text = gStr.gsClose;

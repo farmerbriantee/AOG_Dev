@@ -31,7 +31,6 @@
             this.lvLinesJob = new System.Windows.Forms.ListView();
             this.chDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnByDistance = new System.Windows.Forms.Button();
             this.btnOpenExistingLv = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnDeleteJob = new System.Windows.Forms.Button();
@@ -60,6 +59,7 @@
             this.lvLinesJob.TabIndex = 86;
             this.lvLinesJob.UseCompatibleStateImageBehavior = false;
             this.lvLinesJob.View = System.Windows.Forms.View.Details;
+            this.lvLinesJob.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLinesJob_ColumnClick);
             // 
             // chDate
             // 
@@ -70,22 +70,6 @@
             // 
             this.chName.Text = "Job";
             this.chName.Width = 600;
-            // 
-            // btnByDistance
-            // 
-            this.btnByDistance.BackColor = System.Drawing.Color.Transparent;
-            this.btnByDistance.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnByDistance.Image = global::AgOpenGPS.Properties.Resources.Sort;
-            this.btnByDistance.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnByDistance.Location = new System.Drawing.Point(269, 507);
-            this.btnByDistance.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnByDistance.Name = "btnByDistance";
-            this.btnByDistance.Size = new System.Drawing.Size(207, 63);
-            this.btnByDistance.TabIndex = 93;
-            this.btnByDistance.Text = "Sort";
-            this.btnByDistance.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnByDistance.UseVisualStyleBackColor = false;
-            this.btnByDistance.Click += new System.EventHandler(this.btnByDistance_Click);
             // 
             // btnOpenExistingLv
             // 
@@ -159,7 +143,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnDeleteJob);
-            this.Controls.Add(this.btnByDistance);
             this.Controls.Add(this.btnOpenExistingLv);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.lvLinesJob);
@@ -179,7 +162,6 @@
 
         private System.Windows.Forms.ListView lvLinesJob;
         private System.Windows.Forms.ColumnHeader chName;
-        private System.Windows.Forms.Button btnByDistance;
         private System.Windows.Forms.Button btnOpenExistingLv;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ColumnHeader chDate;

@@ -198,6 +198,12 @@
     <Compile Include="Forms\Field\FormBoundaryLines.Designer.cs">
       <DependentUpon>FormBoundaryLines.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Field\FormFieldISOXML.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Field\FormFieldISOXML.Designer.cs">
+      <DependentUpon>FormFieldISOXML.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Field\FormJobNew.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -685,6 +691,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Field\FormBoundaryLines.resx">
       <DependentUpon>FormBoundaryLines.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Field\FormFieldISOXML.resx">
+      <DependentUpon>FormFieldISOXML.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Field\FormJobNew.resx">
       <DependentUpon>FormJobNew.cs</DependentUpon>

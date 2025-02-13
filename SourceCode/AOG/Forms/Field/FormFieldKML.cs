@@ -318,8 +318,8 @@ namespace AgOpenGPS
             //if no template set just make a new file.
             try
             {
-                //start a new job
-                mf.JobNew();
+                //start a new field
+                mf.FieldNew();
 
                 //create it for first save
                 if ((!string.IsNullOrEmpty(directoryName)) && (Directory.Exists(directoryName)))
@@ -341,7 +341,7 @@ namespace AgOpenGPS
                     mf.displayFieldName = mf.currentFieldDirectory;
 
                     //create the field file header info
-                    if (!mf.isJobStarted)
+                    if (!mf.isFieldStarted)
                     {
                         mf.TimedMessageBox(3000, gStr.gsFieldNotOpen, gStr.gsCreateNewField);
                         return;
@@ -374,6 +374,11 @@ namespace AgOpenGPS
                         writer.WriteLine("StartFix");
                         writer.WriteLine(CNMEA.latStart.ToString(CultureInfo.InvariantCulture) + "," + CNMEA.lonStart.ToString(CultureInfo.InvariantCulture));
                     }
+
+                    directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs");
+
+                    if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
+                    { Directory.CreateDirectory(directoryName); }
 
                     mf.FileCreateSections();
                     mf.FileCreateRecPath();

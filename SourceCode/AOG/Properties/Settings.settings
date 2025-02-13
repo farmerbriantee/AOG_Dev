@@ -26,7 +26,7 @@
     <Setting Name="setMenu_isLightbarOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="setF_CurrentDir" Type="System.String" Scope="User">
+    <Setting Name="setF_CurrentFieldDir" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="setF_isWorkSwitchEnabled" Type="System.Boolean" Scope="User">
@@ -653,10 +653,10 @@
     <Setting Name="setTool_isTramOuterInverted" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="setJobMenu_location" Type="System.Drawing.Point" Scope="User">
+    <Setting Name="setFieldMenu_location" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">200, 200</Value>
     </Setting>
-    <Setting Name="setJobMenu_size" Type="System.Drawing.Size" Scope="User">
+    <Setting Name="setFieldMenu_size" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">640, 530</Value>
     </Setting>
     <Setting Name="setWindow_steerSettingsLocation" Type="System.Drawing.Point" Scope="User">
@@ -792,6 +792,9 @@
       <Value Profile="(Default)">1022, 742</Value>
     </Setting>
     <Setting Name="setToolSteer" Type="AgOpenGPS.CToolSteerSettings" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="setF_CurrentJobDir" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

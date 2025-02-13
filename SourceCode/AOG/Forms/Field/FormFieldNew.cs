@@ -7,12 +7,12 @@ using System.Windows.Forms;
 
 namespace AgOpenGPS
 {
-    public partial class FormFieldDir : Form
+    public partial class FormFieldNew : Form
     {
         //class variables
         private readonly FormGPS mf = null;
 
-        public FormFieldDir(Form _callingForm)
+        public FormFieldNew(Form _callingForm)
         {
             //get copy of the calling main form
             mf = _callingForm as FormGPS;
@@ -74,7 +74,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            if (mf.isJobStarted) mf.FileSaveEverythingBeforeClosingField();
+            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
 
             //append date time to name
 
@@ -87,8 +87,10 @@ namespace AgOpenGPS
             //if no template set just make a new file.
             try
             {
-                //start a new job
-                mf.JobNew();
+                mf.JobClose();
+
+                //start a new field
+                mf.FieldNew();
 
                 //create it for first save
                 if (dirNewField.Exists)
@@ -109,12 +111,13 @@ namespace AgOpenGPS
 
                     //create the field file header info
                     mf.FileCreateField();
-                    mf.FileCreateSections();
                     mf.FileCreateRecPath();
-                    mf.FileCreateContour();
                     mf.FileCreateElevation();
                     mf.FileSaveFlags();
                     mf.FileCreateBoundary();
+
+                    //mf.FileCreateSections();
+                    //mf.FileCreateContour();
                     //mf.FileSaveABLine();
                     //mf.FileSaveCurveLine();
                     //mf.FileSaveHeadland();

@@ -223,7 +223,7 @@ namespace AgOpenGPS
             if (lvLines.Items.Count > 0)
             {
                 this.chName.Text = gStr.gsField;
-                this.chName.Width = 680;
+                this.chName.Width = 670;
 
                 this.chDistance.Text = gStr.gsDistance;
                 this.chDistance.Width = 140;
@@ -285,7 +285,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            if (mf.isJobStarted) mf.FileSaveEverythingBeforeClosingField();
+            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
 
             //get the directory and make sure it exists, create if not
             string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, tboxFieldName.Text.Trim());
@@ -298,9 +298,14 @@ namespace AgOpenGPS
             }
             else
             {
-                //create the new directory
+                //create the new directories
                 if ((!string.IsNullOrEmpty(directoryName)) && (!Directory.Exists(directoryName)))
                 { Directory.CreateDirectory(directoryName); }
+
+                string jobsName = Path.Combine(directoryName, "Jobs");
+
+                if ((jobsName.Length > 0) && (!Directory.Exists(jobsName)))
+                { Directory.CreateDirectory(jobsName); }
             }
 
             string offsets, convergence, startFix;
@@ -328,7 +333,7 @@ namespace AgOpenGPS
                     Log.EventWriter("While Opening Field" + ex);
 
                     mf.TimedMessageBox(2000, gStr.gsFieldFileIsCorrupt, gStr.gsChooseADifferentField);
-                    mf.JobClose();
+                    mf.FieldClose();
                     return;
                 }
 
@@ -357,32 +362,6 @@ namespace AgOpenGPS
                 string templateDirectoryName = Path.Combine(RegistrySettings.fieldsDirectory, lblTemplateChosen.Text);
                 string fileToCopy = "";
                 string destinationDirectory = "";
-
-                if (chkApplied.Checked)
-                {
-                    fileToCopy = Path.Combine(templateDirectoryName, "Contour.txt");
-                    destinationDirectory = Path.Combine(directoryName, "Contour.txt");
-                    if (File.Exists(fileToCopy))
-                        File.Copy(fileToCopy, destinationDirectory);
-
-                    fileToCopy = Path.Combine(templateDirectoryName, "Sections.txt");
-                    destinationDirectory = Path.Combine(directoryName, "Sections.txt");
-                    if (File.Exists(fileToCopy))
-                        File.Copy(fileToCopy, destinationDirectory);
-                }
-                else
-                {
-                    //create blank Contour and Section files
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Sections.txt")))
-                    {
-                        //blank
-                    }
-
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Contour.txt")))
-                    {
-                        writer.WriteLine("$Contour");
-                    }
-                }
 
                 fileToCopy = Path.Combine(templateDirectoryName, "BackPic.txt");
                 destinationDirectory = Path.Combine(directoryName, "BackPic.txt");
@@ -444,6 +423,11 @@ namespace AgOpenGPS
 
                     fileToCopy = Path.Combine(templateDirectoryName, "Tram.txt");
                     destinationDirectory = Path.Combine(directoryName, "Tram.txt");
+                    if (File.Exists(fileToCopy))
+                        File.Copy(fileToCopy, destinationDirectory);
+
+                    fileToCopy = Path.Combine(templateDirectoryName, "TrackLines.txt");
+                    destinationDirectory = Path.Combine(directoryName, "TrackLines.txt");
                     if (File.Exists(fileToCopy))
                         File.Copy(fileToCopy, destinationDirectory);
                 }
@@ -531,7 +515,7 @@ namespace AgOpenGPS
                 if (order == 0)
                 {
                     this.chName.Text = gStr.gsField;
-                    this.chName.Width = 680;
+                    this.chName.Width = 670;
 
                     this.chDistance.Text = gStr.gsDistance;
                     this.chDistance.Width = 140;
@@ -545,7 +529,7 @@ namespace AgOpenGPS
                     this.chName.Width = 140;
 
                     this.chDistance.Text = gStr.gsField;
-                    this.chDistance.Width = 680;
+                    this.chDistance.Width = 670;
 
                     this.chArea.Text = gStr.gsArea;
                     this.chArea.Width = 140;
@@ -556,7 +540,7 @@ namespace AgOpenGPS
                     this.chName.Width = 140;
 
                     this.chDistance.Text = gStr.gsField;
-                    this.chDistance.Width = 680;
+                    this.chDistance.Width = 670;
 
                     this.chArea.Text = gStr.gsDistance;
                     this.chArea.Width = 140;
@@ -595,7 +579,7 @@ namespace AgOpenGPS
                     //else
                     //{
                     //    lblTemplateChosen.Text = lvLines.SelectedItems[0].SubItems[2].Text;
-                    //    tboxFieldName.Text = lvLines.SelectedItems[0].SubItems[2].Text.Trim();
+                    //    tboxJobName.Text = lvLines.SelectedItems[0].SubItems[2].Text.Trim();
                     //}
                     btnSave.Enabled = true;
                 }

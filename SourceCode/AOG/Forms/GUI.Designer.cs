@@ -114,7 +114,7 @@ namespace AgOpenGPS
 
             ////////////////////////////////////////////// 10 second ///////////////////////////////////////////////////////
             //every 3 second update status
-            if (fourSecondCounter >= 3)
+            if (fourSecondCounter >= 2)
             {
                 if (!isPauseFieldTextCounter)
                 {
@@ -132,12 +132,12 @@ namespace AgOpenGPS
                 //reset the counter
                 fourSecondCounter = 0;
 
-                if (isJobStarted)
+                if (isFieldStarted)
                 {
                     switch (currentFieldTextCounter)
                     {
                         case 0:
-                            lblCurrentField.Text = gStr.gsField + ": " + displayFieldName;
+                            lblCurrentField.Text = gStr.gsField + ": " + displayFieldName + " :" + currentJobDirectory;
                             break;
 
                         case 1:
@@ -886,7 +886,7 @@ namespace AgOpenGPS
 
         public void PanelUpdateRightAndBottom()
         {
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 int tracksTotal = 0, tracksVisible = 0;
                 bool isHdl = false;
@@ -949,6 +949,17 @@ namespace AgOpenGPS
                 }
 
                 PanelSizeRightAndBottom();
+            }
+
+            if (!isJobStarted)
+            {
+                btnSectionMasterAuto.Visible = false;
+                btnSectionMasterManual.Visible = false;
+            }
+            else
+            {
+                btnSectionMasterAuto.Visible = true;
+                btnSectionMasterManual.Visible = true;
             }
         }
 
@@ -1060,7 +1071,7 @@ namespace AgOpenGPS
         private void PanelsAndOGLSize()
         {
             // Nozzz
-            if (!isJobStarted)
+            if (!isFieldStarted)
             {
                 panelBottom.Visible = false;
                 panelRight.Visible = false;
@@ -1329,7 +1340,7 @@ namespace AgOpenGPS
                 //0 at bottom for opengl, 0 at top for windows, so invert Y value
                 Point point = oglMain.PointToClient(Cursor.Position);
 
-                if (isJobStarted)
+                if (isFieldStarted)
                 {
                     if (isBtnAutoSteerOn || yt.isYouTurnBtnOn)
                     {
@@ -1466,7 +1477,7 @@ namespace AgOpenGPS
                             form.Left = this.Width -400 + this.Left;
                         }
 
-                        if (isJobStarted)
+                        if (isFieldStarted)
                         {
                             if (point.Y > oglMain.Height - 60 && point.Y < oglMain.Height - 30)
                             {

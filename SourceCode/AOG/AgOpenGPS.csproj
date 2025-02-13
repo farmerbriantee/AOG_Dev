@@ -151,9 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\CBrightness.cs" />
-    <Compile Include="Classes\CExtensionMethods.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Classes\CExtensionMethods.cs" />
     <Compile Include="Classes\CBoundary.cs" />
     <Compile Include="Classes\CGuidance.cs" />
     <Compile Include="Classes\CHeadLine.cs" />
@@ -168,7 +166,6 @@
     <Compile Include="Classes\CBoundaryList.cs" />
     <Compile Include="Classes\CDubins.cs" />
     <Compile Include="Classes\CAHRS.cs" />
-    <Compile Include="Classes\CAutoSteer.cs" />
     <Compile Include="Classes\CFont.cs" />
     <Compile Include="Classes\CSim.cs" />
     <Compile Include="Classes\CTracks.cs" />
@@ -200,6 +197,12 @@
     </Compile>
     <Compile Include="Forms\Field\FormBoundaryLines.Designer.cs">
       <DependentUpon>FormBoundaryLines.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Field\FormJobNew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Field\FormJobNew.Designer.cs">
+      <DependentUpon>FormJobNew.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormPan.cs">
       <SubType>Form</SubType>
@@ -260,6 +263,12 @@
     </Compile>
     <Compile Include="Forms\Field\FormFieldExisting.Designer.cs">
       <DependentUpon>FormFieldExisting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Pickers\FormJobPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Pickers\FormJobPicker.Designer.cs">
+      <DependentUpon>FormJobPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Settings\FormAllSettings.cs">
       <SubType>Form</SubType>
@@ -453,17 +462,17 @@
     <Compile Include="Forms\Field\FormBoundaryPlayer.Designer.cs">
       <DependentUpon>FormBoundaryPlayer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Field\FormFieldDir.cs">
+    <Compile Include="Forms\Field\FormFieldNew.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Field\FormFieldDir.Designer.cs">
-      <DependentUpon>FormFieldDir.cs</DependentUpon>
+    <Compile Include="Forms\Field\FormFieldNew.Designer.cs">
+      <DependentUpon>FormFieldNew.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Field\FormJob.cs">
+    <Compile Include="Forms\Field\FormField.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Field\FormJob.Designer.cs">
-      <DependentUpon>FormJob.cs</DependentUpon>
+    <Compile Include="Forms\Field\FormField.Designer.cs">
+      <DependentUpon>FormField.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Field\FormSaveOrNot.cs">
       <SubType>Form</SubType>
@@ -677,6 +686,9 @@
     <EmbeddedResource Include="Forms\Field\FormBoundaryLines.resx">
       <DependentUpon>FormBoundaryLines.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Field\FormJobNew.resx">
+      <DependentUpon>FormJobNew.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormPan.resx">
       <DependentUpon>FormPan.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -709,6 +721,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Field\FormFieldExisting.resx">
       <DependentUpon>FormFieldExisting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Pickers\FormJobPicker.resx">
+      <DependentUpon>FormJobPicker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\FormAllSettings.resx">
       <DependentUpon>FormAllSettings.cs</DependentUpon>
@@ -786,8 +801,8 @@
     <EmbeddedResource Include="Forms\Field\FormBoundaryPlayer.resx">
       <DependentUpon>FormBoundaryPlayer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Field\FormFieldDir.resx">
-      <DependentUpon>FormFieldDir.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Field\FormFieldNew.resx">
+      <DependentUpon>FormFieldNew.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormGPSData.resx">
       <DependentUpon>FormGPSData.cs</DependentUpon>
@@ -797,8 +812,8 @@
       <DependentUpon>FormGPS.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Field\FormJob.resx">
-      <DependentUpon>FormJob.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Field\FormField.resx">
+      <DependentUpon>FormField.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Field\FormSaveOrNot.resx">
       <DependentUpon>FormSaveOrNot.cs</DependentUpon>

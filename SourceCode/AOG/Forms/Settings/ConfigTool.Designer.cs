@@ -516,15 +516,8 @@ namespace AgOpenGPS
 
         private void tabTSections_Enter(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
-            {
-                if (mf.autoBtnState == btnStates.Auto)
-                    mf.btnSectionMasterAuto.PerformClick();
-
-                if (mf.manualBtnState == btnStates.On)
-                    mf.btnSectionMasterManual.PerformClick();
-            }
-
+            TurnOffSectionsSafely();
+            
             if (mf.tool.isSectionsNotZones)
             {
                 //fix ManualOffOnAuto buttons

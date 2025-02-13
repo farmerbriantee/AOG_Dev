@@ -105,7 +105,7 @@ namespace AgOpenGPS
         {
             if (polygon.Count > 2)
             {
-                GL.Begin(PrimitiveType.LineStrip);
+                GL.Begin(PrimitiveType.LineLoop);
                 for (int i = 0; i < polygon.Count; i++)
                 {
                     GL.Vertex3(polygon[i].easting, polygon[i].northing, 0);

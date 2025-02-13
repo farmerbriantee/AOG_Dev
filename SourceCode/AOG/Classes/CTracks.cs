@@ -268,8 +268,8 @@ namespace AgOpenGPS
                     vec3 point;
 
                     double step = (mf.tool.width - mf.tool.overlap) * 0.4;
-                    if (step > 4) step = 4;
-                    if (step < 1) step = 1;
+                    if (step > 2) step = 2;
+                    if (step < 0.5) step = 0.5;
 
                     if (track.mode == TrackMode.AB)
                     {

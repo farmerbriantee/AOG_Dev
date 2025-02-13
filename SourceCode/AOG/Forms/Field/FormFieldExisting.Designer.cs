@@ -33,7 +33,6 @@
             this.tboxFieldName = new System.Windows.Forms.TextBox();
             this.btnSerialCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.chkApplied = new System.Windows.Forms.CheckBox();
             this.chkHeadland = new System.Windows.Forms.CheckBox();
             this.chkGuidanceLines = new System.Windows.Forms.CheckBox();
             this.chkFlags = new System.Windows.Forms.CheckBox();
@@ -41,7 +40,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.btnAddDate = new System.Windows.Forms.Button();
             this.btnAddTime = new System.Windows.Forms.Button();
@@ -118,24 +116,6 @@
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // chkApplied
-            // 
-            this.chkApplied.Appearance = System.Windows.Forms.Appearance.Button;
-            this.chkApplied.BackColor = System.Drawing.Color.Transparent;
-            this.chkApplied.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.chkApplied.FlatAppearance.CheckedBackColor = System.Drawing.Color.MediumAquamarine;
-            this.chkApplied.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkApplied.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkApplied.ForeColor = System.Drawing.Color.White;
-            this.chkApplied.Image = global::AgOpenGPS.Properties.Resources.SectionMasterOff;
-            this.chkApplied.Location = new System.Drawing.Point(485, 575);
-            this.chkApplied.Name = "chkApplied";
-            this.chkApplied.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkApplied.Size = new System.Drawing.Size(76, 74);
-            this.chkApplied.TabIndex = 257;
-            this.chkApplied.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.chkApplied.UseVisualStyleBackColor = false;
-            // 
             // chkHeadland
             // 
             this.chkHeadland.Appearance = System.Windows.Forms.Appearance.Button;
@@ -148,7 +128,7 @@
             this.chkHeadland.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkHeadland.ForeColor = System.Drawing.Color.White;
             this.chkHeadland.Image = global::AgOpenGPS.Properties.Resources.HeadlandMenu;
-            this.chkHeadland.Location = new System.Drawing.Point(590, 575);
+            this.chkHeadland.Location = new System.Drawing.Point(524, 575);
             this.chkHeadland.Name = "chkHeadland";
             this.chkHeadland.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkHeadland.Size = new System.Drawing.Size(76, 74);
@@ -168,7 +148,7 @@
             this.chkGuidanceLines.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkGuidanceLines.ForeColor = System.Drawing.Color.White;
             this.chkGuidanceLines.Image = global::AgOpenGPS.Properties.Resources.ABTrackAB;
-            this.chkGuidanceLines.Location = new System.Drawing.Point(695, 575);
+            this.chkGuidanceLines.Location = new System.Drawing.Point(668, 575);
             this.chkGuidanceLines.Name = "chkGuidanceLines";
             this.chkGuidanceLines.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.chkGuidanceLines.Size = new System.Drawing.Size(76, 74);
@@ -227,7 +207,7 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label5.Location = new System.Drawing.Point(602, 651);
+            this.label5.Location = new System.Drawing.Point(536, 651);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 13);
@@ -241,26 +221,12 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label6.Location = new System.Drawing.Point(722, 651);
+            this.label6.Location = new System.Drawing.Point(689, 651);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 13);
+            this.label6.Size = new System.Drawing.Size(40, 13);
             this.label6.TabIndex = 267;
-            this.label6.Text = "Lines";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label7.Location = new System.Drawing.Point(499, 651);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 13);
-            this.label7.TabIndex = 268;
-            this.label7.Text = "Mapping";
+            this.label6.Text = "Tracks";
             // 
             // label8
             // 
@@ -353,7 +319,7 @@
             // chName
             // 
             this.chName.Text = "Field";
-            this.chName.Width = 680;
+            this.chName.Width = 670;
             // 
             // chDistance
             // 
@@ -441,7 +407,6 @@
             this.Controls.Add(this.btnAddDate);
             this.Controls.Add(this.btnAddTime);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label1);
@@ -451,7 +416,6 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.chkFlags);
             this.Controls.Add(this.btnSerialCancel);
-            this.Controls.Add(this.chkApplied);
             this.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -471,7 +435,6 @@
         private System.Windows.Forms.TextBox tboxFieldName;
         private System.Windows.Forms.Button btnSerialCancel;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.CheckBox chkApplied;
         private System.Windows.Forms.CheckBox chkHeadland;
         private System.Windows.Forms.CheckBox chkGuidanceLines;
         private System.Windows.Forms.CheckBox chkFlags;
@@ -479,7 +442,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnAddDate;
         private System.Windows.Forms.Button btnAddTime;

@@ -68,24 +68,14 @@ namespace AgOpenGPS
             //already have a boundary
             if (mf.bnd.bndList.Count == 0)
             {
-                //draw patches j= # of sections
-                for (int j = 0; j < mf.triStrip.Count; j++)
+                //for every new chunk of patch
+                foreach (var triList in mf.patchList)
                 {
-                    //every time the section turns off and on is a new patch
-                    int patchCount = mf.triStrip[j].patchList.Count;
-
-                    if (patchCount > 0)
+                    for (int i = 1; i < triList.Count; i++)
                     {
-                        //for every new chunk of patch
-                        foreach (var triList in mf.triStrip[j].patchList)
-                        {
-                            for (int i = 1; i < triList.Count; i++)
-                            {
-                                vec3 bob = new vec3(triList[i].easting, triList[i].northing, 0);
+                        vec3 bob = new vec3(triList[i].easting, triList[i].northing, 0);
 
-                                secList.Add(bob);
-                            }
-                        }
+                        secList.Add(bob);
                     }
                 }
             }
@@ -429,23 +419,14 @@ namespace AgOpenGPS
             bndList?.Clear();
             smooList?.Clear();
 
-            for (int j = 0; j < mf.triStrip.Count; j++)
+            //for every new chunk of patch
+            foreach (var triList in mf.patchList)
             {
-                //every time the section turns off and on is a new patch
-                int patchCount = mf.triStrip[j].patchList.Count;
-
-                if (patchCount > 0)
+                for (int i = 1; i < triList.Count; i++)
                 {
-                    //for every new chunk of patch
-                    foreach (var triList in mf.triStrip[j].patchList)
-                    {
-                        for (int i = 1; i < triList.Count; i++)
-                        {
-                            vec3 bob = new vec3(triList[i].easting, triList[i].northing, 0);
+                    vec3 bob = new vec3(triList[i].easting, triList[i].northing, 0);
 
-                            secList.Add(bob);
-                        }
-                    }
+                    secList.Add(bob);
                 }
             }
 

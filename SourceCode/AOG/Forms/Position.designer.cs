@@ -1128,7 +1128,7 @@ namespace AgOpenGPS
             contourTriggerDistance = glm.Distance(pn.fix, prevContourPos);
             gridTriggerDistance = glm.DistanceSquared(pn.fix, prevGridPos);
 
-            if ( isLogElevation && gridTriggerDistance > 2.9 && patchCounter !=0 && isJobStarted)
+            if ( isLogElevation && gridTriggerDistance > 2.9 && patchCounter !=0 && isFieldStarted)
             {
                 //grab fix and elevation
                 sbGrid.Append(
@@ -1147,14 +1147,14 @@ namespace AgOpenGPS
             }
 
             //contour points
-            if (isJobStarted &&(contourTriggerDistance > tool.contourWidth 
+            if (isFieldStarted &&(contourTriggerDistance > tool.contourWidth 
                 || contourTriggerDistance > sectionTriggerStepDistance))
             {
                 AddContourPoints();
             }
 
             //section on off and points
-            if (sectionTriggerDistance > sectionTriggerStepDistance && isJobStarted)
+            if (sectionTriggerDistance > sectionTriggerStepDistance && isFieldStarted)
             {
                 AddSectionOrPathPoints();
             }
@@ -1504,17 +1504,17 @@ namespace AgOpenGPS
             patchCounter = 0;
 
             //send the current and previous GPS fore/aft corrected fix to each section
-            for (int j = 0; j < triStrip.Count; j++)
+            foreach (var patch in triStrip)
             {
-                if (triStrip[j].isDrawing)
+                if (patch.isDrawing)
                 {
                     if (isPatchesChangingColor)
                     {
-                        triStrip[j].numTriangles = 64;
+                        patch.numTriangles = 64;
                         isPatchesChangingColor = false;
                     }
 
-                    triStrip[j].AddMappingPoint(j);
+                    patch.AddMappingPoint();
                     patchCounter++;
                 }
             }
@@ -1525,7 +1525,7 @@ namespace AgOpenGPS
         {
             if (!isFirstFixPositionSet)
             {
-                if (!isJobStarted)
+                if (!isFieldStarted)
                 {
                     CNMEA.latStart = pn.latitude;
                     CNMEA.lonStart = pn.longitude;

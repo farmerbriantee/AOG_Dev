@@ -39,7 +39,7 @@
             this.btnAddTime = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // tboxFieldName
+            // tboxJobName
             // 
             this.tboxFieldName.BackColor = System.Drawing.Color.AliceBlue;
             this.tboxFieldName.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

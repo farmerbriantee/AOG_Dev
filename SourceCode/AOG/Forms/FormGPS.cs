@@ -42,13 +42,13 @@ namespace AgOpenGPS
         public const int MAXHEADS = 6;
 
         //current fields
-        public string currentFieldDirectory, displayFieldName;
+        public string currentFieldDirectory, displayFieldName, currentJobDirectory, displayJobName;
 
         private bool leftMouseDownOnOpenGL; //mousedown event in opengl window
         public int flagNumberPicked = 0;
 
-        //bool for whether or not a job is active
-        public bool isJobStarted = false, isBtnAutoSteerOn, isLidarBtnOn = true;
+        //bool for whether or not a Field and job is active
+        public bool isFieldStarted = false, isJobStarted = false, isBtnAutoSteerOn;
 
         //if we are saving a file
         public bool isSavingFile = false;
@@ -97,7 +97,7 @@ namespace AgOpenGPS
         public char[] hotkeys;
 
         //used by filePicker Form to return picked file and directory
-        public string filePickerFileAndDirectory;
+        public string filePickerFileAndDirectory, jobPickerFileAndDirectory;
 
         //the position of the GPS Data window within the FormGPS window
         public int GPSDataWindowLeft = 80, GPSDataWindowTopOffset = 220;
@@ -298,10 +298,7 @@ namespace AgOpenGPS
             section = new CSection[MAXSECTIONS];
             for (int j = 0; j < MAXSECTIONS; j++) section[j] = new CSection();
 
-            triStrip = new List<CPatches>
-            {
-                new CPatches(this)
-            };
+            triStrip = new List<CPatches>();
 
             //our NMEA parser
             pn = new CNMEA(this);
@@ -409,7 +406,7 @@ namespace AgOpenGPS
             SetLanguage(RegistrySettings.culture);
 
             //make sure current field directory exists, null if not
-            currentFieldDirectory = Settings.Default.setF_CurrentDir;
+            currentFieldDirectory = Settings.Default.setF_CurrentFieldDir;
 
             if (currentFieldDirectory != "")
             {
@@ -417,9 +414,23 @@ namespace AgOpenGPS
                 if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
                 {
                     currentFieldDirectory = "";
-                    Settings.Default.setF_CurrentDir = "";
+                    Settings.Default.setF_CurrentFieldDir = "";
 
                     Log.EventWriter("Field Directory is Empty or Missing");
+                }
+            }
+
+            currentJobDirectory = Settings.Default.setF_CurrentJobDir;
+
+            if (currentFieldDirectory != "" && currentJobDirectory != "")
+            {
+                string dir = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, currentJobDirectory);
+                if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+                {
+                    currentJobDirectory = "";
+                    Settings.Default.setF_CurrentJobDir = "";
+
+                    Log.EventWriter("Job Directory is Empty or Missing");
                 }
             }
 
@@ -637,7 +648,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            if (isJobStarted)
+            if (isFieldStarted)
             {
                 if (autoBtnState == btnStates.Auto)
                     btnSectionMasterAuto.PerformClick();
@@ -749,6 +760,334 @@ namespace AgOpenGPS
             }
         }
 
+        public void FileSaveEverythingBeforeClosingField()
+        {
+            panelRight.Enabled = false;
+            FieldMenuButtonEnableDisable(false);
+            displayFieldName = gStr.gsNone;
+            displayJobName = gStr.gsNone;
+
+            //it closes Job first
+            FieldClose();
+
+            this.Text = "AgOpenGPS";
+        }
+
+        public void FieldNew()
+        {
+            isFieldStarted = true;
+            isJobStarted = false;
+
+            startCounter = 0;
+
+            btnContour.Enabled = true;
+            btnTrack.Enabled = true;
+            btnABDraw.Enabled = true;
+            btnCycleLines.Image = Properties.Resources.ABLineCycle;
+            btnCycleLinesBk.Image = Properties.Resources.ABLineCycleBk;
+
+            btnAutoSteer.Enabled = true;
+
+            DisableYouTurnButtons();
+            btnFlag.Enabled = true;
+
+            //update the menu
+            this.menustripLanguage.Enabled = false;
+            panelRight.Enabled = true;
+            //boundaryToolStripBtn.Enabled = true;
+            isPanelBottomHidden = false;
+
+            FieldMenuButtonEnableDisable(true);
+            PanelUpdateRightAndBottom();
+            PanelsAndOGLSize();
+            SetZoom();
+
+            fileSaveCounter = 25;
+            lblGuidanceLine.Visible = false;
+            lblHardwareMessage.Visible = false;
+
+            gyd.isFindGlobalNearestTrackPoint = true;
+
+            if (thread_oglBack == null)
+            {
+                //oglBackStart();
+            }
+
+            oglMain.MakeCurrent();
+        }
+
+        public void JobNew()
+        {
+            isJobStarted = true;
+            btnFieldStats.Visible = true;
+
+            btnSectionMasterManual.Enabled = true;
+            manualBtnState = btnStates.Off;
+            btnSectionMasterManual.Image = Properties.Resources.ManualOff;
+
+            btnSectionMasterAuto.Enabled = true;
+            autoBtnState = btnStates.Off;
+            btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
+
+            btnSection1Man.BackColor = Color.Red;
+            btnSection2Man.BackColor = Color.Red;
+            btnSection3Man.BackColor = Color.Red;
+            btnSection4Man.BackColor = Color.Red;
+            btnSection5Man.BackColor = Color.Red;
+            btnSection6Man.BackColor = Color.Red;
+            btnSection7Man.BackColor = Color.Red;
+            btnSection8Man.BackColor = Color.Red;
+            btnSection9Man.BackColor = Color.Red;
+            btnSection10Man.BackColor = Color.Red;
+            btnSection11Man.BackColor = Color.Red;
+            btnSection12Man.BackColor = Color.Red;
+            btnSection13Man.BackColor = Color.Red;
+            btnSection14Man.BackColor = Color.Red;
+            btnSection15Man.BackColor = Color.Red;
+            btnSection16Man.BackColor = Color.Red;
+
+            btnSection1Man.Enabled = true;
+            btnSection2Man.Enabled = true;
+            btnSection3Man.Enabled = true;
+            btnSection4Man.Enabled = true;
+            btnSection5Man.Enabled = true;
+            btnSection6Man.Enabled = true;
+            btnSection7Man.Enabled = true;
+            btnSection8Man.Enabled = true;
+            btnSection9Man.Enabled = true;
+            btnSection10Man.Enabled = true;
+            btnSection11Man.Enabled = true;
+            btnSection12Man.Enabled = true;
+            btnSection13Man.Enabled = true;
+            btnSection14Man.Enabled = true;
+            btnSection15Man.Enabled = true;
+            btnSection16Man.Enabled = true;
+
+            btnZone1.BackColor = Color.Red;
+            btnZone2.BackColor = Color.Red;
+            btnZone3.BackColor = Color.Red;
+            btnZone4.BackColor = Color.Red;
+            btnZone5.BackColor = Color.Red;
+            btnZone6.BackColor = Color.Red;
+            btnZone7.BackColor = Color.Red;
+            btnZone8.BackColor = Color.Red;
+
+            btnZone1.Enabled = true;
+            btnZone2.Enabled = true;
+            btnZone3.Enabled = true;
+            btnZone4.Enabled = true;
+            btnZone5.Enabled = true;
+            btnZone6.Enabled = true;
+            btnZone7.Enabled = true;
+            btnZone8.Enabled = true;
+
+            if (tool.isSectionsNotZones)
+            {
+                LineUpIndividualSectionBtns();
+            }
+            else
+            {
+                LineUpAllZoneButtons();
+            }
+        }
+
+        public void JobClose()
+        {
+            if (autoBtnState == btnStates.Auto)
+                btnSectionMasterAuto.PerformClick();
+
+            if (manualBtnState == btnStates.On)
+                btnSectionMasterManual.PerformClick();
+
+            //turn off all the sections
+            for (int j = 0; j < tool.numOfSections; j++)
+            {
+                section[j].sectionOffRequest = true;
+                section[j].sectionOnRequest = false;
+            }
+
+            //turn off patching
+            foreach (var patch in triStrip)
+            {
+                if (patch.isDrawing) patch.TurnMappingOff();
+            }
+
+            //fix ManualOffOnAuto buttons
+            manualBtnState = btnStates.Off;
+            btnSectionMasterManual.Image = Properties.Resources.ManualOff;
+
+            //fix auto button
+            autoBtnState = btnStates.Off;
+            btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
+
+            //clear out contour and Lists
+            btnContour.Enabled = false;
+            ct.ResetContour();
+            ct.isContourBtnOn = false;
+            btnContour.Image = Properties.Resources.ContourOff;
+            ct.isContourOn = false;
+
+            if (tool.isSectionsNotZones)
+            {
+                //Update the button colors and text
+                AllSectionsAndButtonsToState(btnStates.Off);
+
+                //enable disable manual buttons
+                LineUpIndividualSectionBtns();
+            }
+            else
+            {
+                AllZonesAndButtonsToState(autoBtnState);
+                LineUpAllZoneButtons();
+            }
+
+            if(isJobStarted)
+            {
+                Settings.Default.setF_CurrentJobDir = currentJobDirectory;
+
+                //auto save the field patches, contours accumulated so far
+                FileSaveSections();
+                FileSaveContour();
+
+                //NMEA elevation file
+                if (isLogElevation && sbGrid.Length > 0) FileSaveElevation();
+                isJobStarted = false;
+
+                Log.EventWriter("** Closed **   " + currentJobDirectory + "   "
+                    + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
+
+                isJobStarted = false;
+            }
+
+            triStrip?.Clear();
+            patchList?.Clear();
+            patchSaveList?.Clear();
+            contourSaveList?.Clear();
+        }
+
+        public void FieldClose()
+        {
+            JobClose();
+
+            Settings.Default.setF_CurrentFieldDir = currentFieldDirectory;
+
+            if (isFieldStarted)
+            {
+                FileSaveBoundary();
+                FileSaveTracks();
+
+                Log.EventWriter("** Closed **   " + currentFieldDirectory + "   "
+                    + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
+
+                //ExportFieldAs_KML();
+                //ExportFieldAs_ISOXMLv3();
+                //ExportFieldAs_ISOXMLv4();
+            }
+
+            sbGrid.Clear();
+            gyd.isFindGlobalNearestTrackPoint = true;
+
+            //reset field offsets
+            if (!isKeepOffsetsOn)
+            {
+                pn.fixOffset.easting = 0;
+                pn.fixOffset.northing = 0;
+            }
+
+            //turn off headland
+            bnd.isHeadlandOn = false;
+
+            btnFieldStats.Visible = false;
+
+            //make sure hydraulic lift is off
+            PGN_239.pgn[PGN_239.hydLift] = 0;
+            vehicle.isHydLiftOn = false;
+            btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
+            btnHydLift.Visible = false;
+            lblHardwareMessage.Visible = false;
+
+            lblGuidanceLine.Visible = false;
+            lblHardwareMessage.Visible = false;
+
+            //zoom gone
+            oglZoom.SendToBack();
+
+            //clean all the lines
+            bnd.bndList.Clear();
+
+            panelRight.Enabled = false;
+            FieldMenuButtonEnableDisable(false);
+
+            menustripLanguage.Enabled = true;
+            isFieldStarted = false;
+
+            //clear the flags
+            flagPts.Clear();
+
+            //ABLine
+            tram.tramList?.Clear();
+
+            //curve line
+            trk.ResetTrack();
+
+            //tracks
+            trk.gArr?.Clear();
+            trk.idx = -1;
+
+            //clean up tram
+            tram.displayMode = 0;
+            tram.generateMode = 0;
+            tram.tramBndInnerArr?.Clear();
+            tram.tramBndOuterArr?.Clear();
+
+            btnABDraw.Enabled = false;
+            btnABDraw.Visible = false;
+            btnCycleLines.Image = Properties.Resources.ABLineCycle;
+            btnCycleLinesBk.Image = Properties.Resources.ABLineCycleBk;
+
+            //AutoSteer
+            btnAutoSteer.Enabled = false;
+            isBtnAutoSteerOn = false;
+            btnAutoSteer.Image = Properties.Resources.AutoSteerOff;
+
+            //auto YouTurn shutdown
+            yt.isYouTurnBtnOn = false;
+            btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
+            yt.ResetYouTurn();
+            DisableYouTurnButtons();
+
+            //reset acre and distance counters
+            fd.workedAreaTotal = 0;
+
+            //reset GUI areas
+            fd.UpdateFieldBoundaryGUIAreas();
+
+            displayFieldName = gStr.gsNone;
+
+            isPanelBottomHidden = false;
+
+            PanelsAndOGLSize();
+            SetZoom();
+            worldGrid.isGeoMap = false;
+
+            panelSim.Top = Height - 60;
+
+            PanelUpdateRightAndBottom();
+
+            btnSection1Man.Text = "1";
+
+            using (Bitmap bitmap = Properties.Resources.z_bingMap)
+            {
+                GL.GenTextures(1, out texture[(int)FormGPS.textures.bingGrid]);
+                GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.bingGrid]);
+                BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmapData.Width, bitmapData.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmapData.Scan0);
+                bitmap.UnlockBits(bitmapData);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, 9729);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, 9729);
+            }
+        }
+
         // Return True if a certain percent of a rectangle is shown across the total screen area of all monitors, otherwise return False.
         public bool IsOnScreen(System.Drawing.Point RecLocation, System.Drawing.Size RecSize, double MinPercentOnScreen = 0.8)
         {
@@ -790,6 +1129,89 @@ namespace AgOpenGPS
                 f.Top = this.Top + 75;
                 f.Left = this.Left + this.Width - 380;
             }
+        }
+
+        public bool KeypadToNUD(NudlessNumericUpDown sender, Form owner)
+        {
+            var colour = sender.BackColor;
+            sender.BackColor = Color.Red;
+            sender.Value = Math.Round(sender.Value, sender.DecimalPlaces);
+
+            using (FormNumeric form = new FormNumeric((double)sender.Minimum, (double)sender.Maximum, (double)sender.Value))
+            {
+                DialogResult result = form.ShowDialog(owner);
+                if (result == DialogResult.OK)
+                {
+                    sender.Value = (decimal)form.ReturnValue;
+                    sender.BackColor = colour;
+                    return true;
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    sender.BackColor = colour;
+                }
+                return false;
+            }
+        }
+
+        public void KeyboardToText(TextBox sender, Form owner)
+        {
+            var colour = sender.BackColor;
+            sender.BackColor = Color.Red;
+            using (FormKeyboard form = new FormKeyboard(sender.Text))
+            {
+                if (form.ShowDialog(owner) == DialogResult.OK)
+                {
+                    sender.Text = form.ReturnString;
+                }
+            }
+            sender.BackColor = colour;
+        }
+
+        public void FieldMenuButtonEnableDisable(bool isOn)
+        {
+            SmoothABtoolStripMenu.Enabled = isOn;
+            deleteContourPathsToolStripMenuItem.Enabled = isOn;
+            boundaryToolToolStripMenu.Enabled = isOn;
+            offsetFixToolStrip.Enabled = isOn;
+
+            boundariesToolStripMenuItem.Enabled = isOn;
+            headlandToolStripMenuItem.Enabled = isOn;
+            headlandBuildToolStripMenuItem.Enabled = isOn;
+            flagByLatLonToolStripMenuItem.Enabled = isOn;
+            recordedPathStripMenu.Enabled = isOn;
+        }
+
+        //take the distance from object and convert to camera data
+        public void SetZoom()
+        {
+            //match grid to cam distance and redo perspective
+            camera.gridZoom = camera.camSetDistance / -15;
+
+            gridToolSpacing = (int)(camera.gridZoom / tool.width + 0.5);
+            if (gridToolSpacing < 1) gridToolSpacing = 1;
+            camera.gridZoom = gridToolSpacing * tool.width;
+
+            oglMain.MakeCurrent();
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadIdentity();
+            Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView((float)fovy, oglMain.AspectRatio, 1f, (float)(camDistanceFactor * camera.camSetDistance));
+            GL.LoadMatrix(ref mat);
+            GL.MatrixMode(MatrixMode.Modelview);
+        }
+
+        //message box pops up with info then goes away
+        public void TimedMessageBox(int timeout, string s1, string s2)
+        {
+            FormTimedMessage form = new FormTimedMessage(timeout, s1, s2);
+            form.Show(this);
+            this.Activate();
+        }
+
+        public void YesMessageBox(string s1)
+        {
+            var form = new FormYes(s1);
+            form.ShowDialog(this);
         }
 
         public void CheckSettingsNotNull()
@@ -868,408 +1290,6 @@ namespace AgOpenGPS
                     GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, 9729);
                 }
             }
-        }
-
-        public bool KeypadToNUD(NudlessNumericUpDown sender, Form owner)
-        {
-            var colour = sender.BackColor;
-            sender.BackColor = Color.Red;
-            sender.Value = Math.Round(sender.Value, sender.DecimalPlaces);
-
-            using (FormNumeric form = new FormNumeric((double)sender.Minimum, (double)sender.Maximum, (double)sender.Value))
-            {
-                DialogResult result = form.ShowDialog(owner);
-                if (result == DialogResult.OK)
-                {
-                    sender.Value = (decimal)form.ReturnValue;
-                    sender.BackColor = colour;
-                    return true;
-                }
-                else if (result == DialogResult.Cancel)
-                {
-                    sender.BackColor = colour;
-                }
-                return false;
-            }
-        }
-
-        public void KeyboardToText(TextBox sender, Form owner)
-        {
-            var colour = sender.BackColor;
-            sender.BackColor = Color.Red;
-            using (FormKeyboard form = new FormKeyboard(sender.Text))
-            {
-                if (form.ShowDialog(owner) == DialogResult.OK)
-                {
-                    sender.Text = form.ReturnString;
-                }
-            }
-            sender.BackColor = colour;
-        }
-
-        //request a new job
-        public void JobNew()
-        {
-            //SendSteerSettingsOutAutoSteerPort();
-            isJobStarted = true;
-            startCounter = 0;
-
-            btnFieldStats.Visible = true;
-
-            btnSectionMasterManual.Enabled = true;
-            manualBtnState = btnStates.Off;
-            btnSectionMasterManual.Image = Properties.Resources.ManualOff;
-
-            btnSectionMasterAuto.Enabled = true;
-            autoBtnState = btnStates.Off;
-            btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
-
-            btnSection1Man.BackColor = Color.Red;
-            btnSection2Man.BackColor = Color.Red;
-            btnSection3Man.BackColor = Color.Red;
-            btnSection4Man.BackColor = Color.Red;
-            btnSection5Man.BackColor = Color.Red;
-            btnSection6Man.BackColor = Color.Red;
-            btnSection7Man.BackColor = Color.Red;
-            btnSection8Man.BackColor = Color.Red;
-            btnSection9Man.BackColor = Color.Red;
-            btnSection10Man.BackColor = Color.Red;
-            btnSection11Man.BackColor = Color.Red;
-            btnSection12Man.BackColor = Color.Red;
-            btnSection13Man.BackColor = Color.Red;
-            btnSection14Man.BackColor = Color.Red;
-            btnSection15Man.BackColor = Color.Red;
-            btnSection16Man.BackColor = Color.Red;
-
-            btnSection1Man.Enabled = true;
-            btnSection2Man.Enabled = true;
-            btnSection3Man.Enabled = true;
-            btnSection4Man.Enabled = true;
-            btnSection5Man.Enabled = true;
-            btnSection6Man.Enabled = true;
-            btnSection7Man.Enabled = true;
-            btnSection8Man.Enabled = true;
-            btnSection9Man.Enabled = true;
-            btnSection10Man.Enabled = true;
-            btnSection11Man.Enabled = true;
-            btnSection12Man.Enabled = true;
-            btnSection13Man.Enabled = true;
-            btnSection14Man.Enabled = true;
-            btnSection15Man.Enabled = true;
-            btnSection16Man.Enabled = true;
-
-            btnZone1.BackColor = Color.Red;
-            btnZone2.BackColor = Color.Red;
-            btnZone3.BackColor = Color.Red;
-            btnZone4.BackColor = Color.Red;
-            btnZone5.BackColor = Color.Red;
-            btnZone6.BackColor = Color.Red;
-            btnZone7.BackColor = Color.Red;
-            btnZone8.BackColor = Color.Red;
-
-            btnZone1.Enabled = true;
-            btnZone2.Enabled = true;
-            btnZone3.Enabled = true;
-            btnZone4.Enabled = true;
-            btnZone5.Enabled = true;
-            btnZone6.Enabled = true;
-            btnZone7.Enabled = true;
-            btnZone8.Enabled = true;
-
-            btnContour.Enabled = true;
-            btnTrack.Enabled = true;
-            btnABDraw.Enabled = true;
-            btnCycleLines.Image = Properties.Resources.ABLineCycle;
-            btnCycleLinesBk.Image = Properties.Resources.ABLineCycleBk;
-
-            btnAutoSteer.Enabled = true;
-
-            DisableYouTurnButtons();
-            btnFlag.Enabled = true;
-
-            if (tool.isSectionsNotZones)
-            {
-                LineUpIndividualSectionBtns();
-            }
-            else
-            {
-                LineUpAllZoneButtons();
-            }
-
-            //update the menu
-            this.menustripLanguage.Enabled = false;
-            panelRight.Enabled = true;
-            //boundaryToolStripBtn.Enabled = true;
-            isPanelBottomHidden = false;
-
-            FieldMenuButtonEnableDisable(true);
-            PanelUpdateRightAndBottom();
-            PanelsAndOGLSize();
-            SetZoom();
-
-            fileSaveCounter = 25;
-            lblGuidanceLine.Visible = false;
-            lblHardwareMessage.Visible = false;
-
-            gyd.isFindGlobalNearestTrackPoint = true;
-
-            if (thread_oglBack == null)
-            {
-                //oglBackStart();
-            }
-
-            oglMain.MakeCurrent();
-        }
-
-        //close the current job
-        public void JobClose()
-        {
-            sbGrid.Clear();
-            gyd.isFindGlobalNearestTrackPoint = true;
-
-            //reset field offsets
-            if (!isKeepOffsetsOn)
-            {
-                pn.fixOffset.easting = 0;
-                pn.fixOffset.northing = 0;
-            }
-
-            //turn off headland
-            bnd.isHeadlandOn = false;
-
-            btnFieldStats.Visible = false;
-
-            //make sure hydraulic lift is off
-            PGN_239.pgn[PGN_239.hydLift] = 0;
-            vehicle.isHydLiftOn = false;
-            btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
-            btnHydLift.Visible = false;
-            lblHardwareMessage.Visible = false;
-
-            lblGuidanceLine.Visible = false;
-            lblHardwareMessage.Visible = false;
-
-            //zoom gone
-            oglZoom.SendToBack();
-
-            //clean all the lines
-            bnd.bndList.Clear();
-
-            panelRight.Enabled = false;
-            FieldMenuButtonEnableDisable(false);
-
-            menustripLanguage.Enabled = true;
-            isJobStarted = false;
-
-            //fix ManualOffOnAuto buttons
-            manualBtnState = btnStates.Off;
-            btnSectionMasterManual.Image = Properties.Resources.ManualOff;
-
-            //fix auto button
-            autoBtnState = btnStates.Off;
-            btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
-
-            if (tool.isSectionsNotZones)
-            {
-                //Update the button colors and text
-                AllSectionsAndButtonsToState(btnStates.Off);
-
-                //enable disable manual buttons
-                LineUpIndividualSectionBtns();
-            }
-            else
-            {
-                AllZonesAndButtonsToState(autoBtnState);
-                LineUpAllZoneButtons();
-            }
-
-            btnZone1.BackColor = Color.Silver;
-            btnZone2.BackColor = Color.Silver;
-            btnZone3.BackColor = Color.Silver;
-            btnZone4.BackColor = Color.Silver;
-            btnZone5.BackColor = Color.Silver;
-            btnZone6.BackColor = Color.Silver;
-            btnZone7.BackColor = Color.Silver;
-            btnZone8.BackColor = Color.Silver;
-
-            btnZone1.Enabled = false;
-            btnZone2.Enabled = false;
-            btnZone3.Enabled = false;
-            btnZone4.Enabled = false;
-            btnZone5.Enabled = false;
-            btnZone6.Enabled = false;
-            btnZone7.Enabled = false;
-            btnZone8.Enabled = false;
-
-            btnSection1Man.Enabled = false;
-            btnSection2Man.Enabled = false;
-            btnSection3Man.Enabled = false;
-            btnSection4Man.Enabled = false;
-            btnSection5Man.Enabled = false;
-            btnSection6Man.Enabled = false;
-            btnSection7Man.Enabled = false;
-            btnSection8Man.Enabled = false;
-            btnSection9Man.Enabled = false;
-            btnSection10Man.Enabled = false;
-            btnSection11Man.Enabled = false;
-            btnSection12Man.Enabled = false;
-            btnSection13Man.Enabled = false;
-            btnSection14Man.Enabled = false;
-            btnSection15Man.Enabled = false;
-            btnSection16Man.Enabled = false;
-
-            btnSection1Man.BackColor = Color.Silver;
-            btnSection2Man.BackColor = Color.Silver;
-            btnSection3Man.BackColor = Color.Silver;
-            btnSection4Man.BackColor = Color.Silver;
-            btnSection5Man.BackColor = Color.Silver;
-            btnSection6Man.BackColor = Color.Silver;
-            btnSection7Man.BackColor = Color.Silver;
-            btnSection8Man.BackColor = Color.Silver;
-            btnSection9Man.BackColor = Color.Silver;
-            btnSection10Man.BackColor = Color.Silver;
-            btnSection11Man.BackColor = Color.Silver;
-            btnSection12Man.BackColor = Color.Silver;
-            btnSection13Man.BackColor = Color.Silver;
-            btnSection14Man.BackColor = Color.Silver;
-            btnSection15Man.BackColor = Color.Silver;
-            btnSection16Man.BackColor = Color.Silver;
-
-            //clear the section lists
-            for (int j = 0; j < triStrip.Count; j++)
-            {
-                //clean out the lists
-                triStrip[j].patchList?.Clear();
-                triStrip[j].triangleList?.Clear();
-            }
-
-            triStrip?.Clear();
-            triStrip.Add(new CPatches(this));
-
-            //clear the flags
-            flagPts.Clear();
-
-            //ABLine
-            tram.tramList?.Clear();
-
-            //curve line
-            trk.ResetTrack();
-
-            //tracks
-            trk.gArr?.Clear();
-            trk.idx = -1;
-
-            //clean up tram
-            tram.displayMode = 0;
-            tram.generateMode = 0;
-            tram.tramBndInnerArr?.Clear();
-            tram.tramBndOuterArr?.Clear();
-
-            //clear out contour and Lists
-            btnContour.Enabled = false;
-            //btnContourPriority.Enabled = false;
-            //btnSnapToPivot.Image = Properties.Resources.SnapToPivot;
-            ct.ResetContour();
-            ct.isContourBtnOn = false;
-            btnContour.Image = Properties.Resources.ContourOff;
-            ct.isContourOn = false;
-
-            btnABDraw.Enabled = false;
-            btnCycleLines.Image = Properties.Resources.ABLineCycle;
-            //btnCycleLines.Enabled = false;
-            btnCycleLinesBk.Image = Properties.Resources.ABLineCycleBk;
-            //btnCycleLinesBk.Enabled = false;
-
-            //AutoSteer
-            btnAutoSteer.Enabled = false;
-            isBtnAutoSteerOn = false;
-            btnAutoSteer.Image = Properties.Resources.AutoSteerOff;
-
-            //auto YouTurn shutdown
-            yt.isYouTurnBtnOn = false;
-            btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
-
-            btnABDraw.Visible = false;
-
-            yt.ResetYouTurn();
-            DisableYouTurnButtons();
-
-            //reset acre and distance counters
-            fd.workedAreaTotal = 0;
-
-            //reset GUI areas
-            fd.UpdateFieldBoundaryGUIAreas();
-
-            displayFieldName = gStr.gsNone;
-
-            isPanelBottomHidden = false;
-
-            PanelsAndOGLSize();
-            SetZoom();
-            worldGrid.isGeoMap = false;
-
-            panelSim.Top = Height - 60;
-
-            PanelUpdateRightAndBottom();
-
-            btnSection1Man.Text = "1";
-
-            using (Bitmap bitmap = Properties.Resources.z_bingMap)
-            {
-                GL.GenTextures(1, out texture[(int)FormGPS.textures.bingGrid]);
-                GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.bingGrid]);
-                BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-                GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmapData.Width, bitmapData.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmapData.Scan0);
-                bitmap.UnlockBits(bitmapData);
-                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, 9729);
-                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, 9729);
-            }
-        }
-
-        public void FieldMenuButtonEnableDisable(bool isOn)
-        {
-            SmoothABtoolStripMenu.Enabled = isOn;
-            deleteContourPathsToolStripMenuItem.Enabled = isOn;
-            boundaryToolToolStripMenu.Enabled = isOn;
-            offsetFixToolStrip.Enabled = isOn;
-
-            boundariesToolStripMenuItem.Enabled = isOn;
-            headlandToolStripMenuItem.Enabled = isOn;
-            headlandBuildToolStripMenuItem.Enabled = isOn;
-            flagByLatLonToolStripMenuItem.Enabled = isOn;
-            recordedPathStripMenu.Enabled = isOn;
-        }
-
-        //take the distance from object and convert to camera data
-        public void SetZoom()
-        {
-            //match grid to cam distance and redo perspective
-            camera.gridZoom = camera.camSetDistance / -15;
-
-            gridToolSpacing = (int)(camera.gridZoom / tool.width + 0.5);
-            if (gridToolSpacing < 1) gridToolSpacing = 1;
-            camera.gridZoom = gridToolSpacing * tool.width;
-
-            oglMain.MakeCurrent();
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadIdentity();
-            Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView((float)fovy, oglMain.AspectRatio, 1f, (float)(camDistanceFactor * camera.camSetDistance));
-            GL.LoadMatrix(ref mat);
-            GL.MatrixMode(MatrixMode.Modelview);
-        }
-
-        //message box pops up with info then goes away
-        public void TimedMessageBox(int timeout, string s1, string s2)
-        {
-            FormTimedMessage form = new FormTimedMessage(timeout, s1, s2);
-            form.Show(this);
-            this.Activate();
-        }
-
-        public void YesMessageBox(string s1)
-        {
-            var form = new FormYes(s1);
-            form.ShowDialog(this);
         }
 
         // Generates a random number within a range.

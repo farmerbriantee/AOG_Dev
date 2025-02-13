@@ -57,7 +57,7 @@ namespace AgOpenGPS
             label58.Text = Properties.Settings.Default.setDisplay_isAutoOffAgOne.ToString();
 
             label60.Text = RegistrySettings.culture;
-            label62.Text = Properties.Settings.Default.setF_CurrentDir;
+            label62.Text = Properties.Settings.Default.setF_CurrentFieldDir;
             label64.Text = Properties.Settings.Default.setF_isRemoteWorkSystemOn.ToString();
             label66.Text = Properties.Settings.Default.setF_isSteerWorkSwitchEnabled.ToString();
             label68.Text = Properties.Settings.Default.setF_isSteerWorkSwitchManualSections.ToString();

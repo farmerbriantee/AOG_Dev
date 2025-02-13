@@ -229,7 +229,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Field and Job Picker";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormFilePicker_FormClosing);
             this.Load += new System.EventHandler(this.FormFilePicker_Load);
             this.ResumeLayout(false);
 

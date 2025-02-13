@@ -12,7 +12,7 @@ using System.Text;
 using AgOpenGPS.Culture;
 
 namespace AgOpenGPS
-{    
+{
     public partial class FormGPS
     {
         //list of the list of patch data individual triangles for contour tracking
@@ -20,6 +20,8 @@ namespace AgOpenGPS
 
         //list of the list of patch data individual triangles for field sections
         public List<List<vec3>> patchSaveList = new List<List<vec3>>();
+
+        public List<List<vec3>> fieldList = new List<List<vec3>>();
 
         #region Create Files
 
@@ -42,7 +44,7 @@ namespace AgOpenGPS
             using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, myFileName)))
             { }
         }
-        
+
         public void FileCreateBoundary()
         {
             //$Sections
@@ -377,7 +379,123 @@ namespace AgOpenGPS
 
             //update field data
             oglZoom.Refresh();
+        }
 
+        public void FileLoadFields()
+        {
+            fieldList.Clear();
+
+            string[] dirs = Directory.GetDirectories(RegistrySettings.fieldsDirectory);
+
+
+            foreach (string dir in dirs)
+            {
+                double latStart = 0;
+                double lonStart = 0;
+                double distance = 0;
+                string fieldDirectory = Path.GetFileName(dir);
+                string filename = Path.Combine(dir, "Field.txt");
+                string line;
+
+                //make sure directory has a field.txt in it
+                if (File.Exists(filename))
+                {
+                    using (StreamReader reader = new StreamReader(filename))
+                    {
+                        try
+                        {
+                            //Date time line
+                            for (int i = 0; i < 8; i++)
+                            {
+                                line = reader.ReadLine();
+                            }
+
+                            //start positions
+                            if (!reader.EndOfStream)
+                            {
+                                line = reader.ReadLine();
+                                string[] offs = line.Split(',');
+
+                                latStart = (double.Parse(offs[0], CultureInfo.InvariantCulture));
+                                lonStart = (double.Parse(offs[1], CultureInfo.InvariantCulture));
+
+                                double mPerDegreeLat = 111132.92 - 559.82 * Math.Cos(2.0 * latStart * 0.01745329251994329576923690766743) + 1.175
+                                * Math.Cos(4.0 * latStart * 0.01745329251994329576923690766743) - 0.0023
+                                * Math.Cos(6.0 * latStart * 0.01745329251994329576923690766743);
+
+                                //grab the boundary area
+                                filename = Path.Combine(dir, "Boundary.txt");
+                                if (File.Exists(filename))
+                                {
+                                    var field = new List<vec3>();
+
+                                    List<vec3> pointList = new List<vec3>();
+                                    double area = 0;
+
+                                    using (StreamReader reader2 = new StreamReader(filename))
+                                    {
+                                        try
+                                        {
+                                            //read header
+                                            line = reader2.ReadLine();//Boundary
+
+                                            if (!reader2.EndOfStream)
+                                            {
+                                                //True or False OR points from older boundary files
+                                                line = reader2.ReadLine();
+
+                                                //Check for older boundary files, then above line string is num of points
+                                                if (line == "True" || line == "False")
+                                                {
+                                                    line = reader2.ReadLine(); //number of points
+                                                }
+
+                                                //Check for latest boundary files, then above line string is num of points
+                                                if (line == "True" || line == "False")
+                                                {
+                                                    line = reader2.ReadLine(); //number of points
+                                                }
+
+                                                int numPoints = int.Parse(line);
+
+                                                if (numPoints > 0)
+                                                {
+                                                    //load the line
+                                                    for (int i = 0; i < numPoints; i++)
+                                                    {
+                                                        line = reader2.ReadLine();
+                                                        string[] words = line.Split(',');
+                                                        pn.GetLocalToLocal(double.Parse(words[0], CultureInfo.InvariantCulture), double.Parse(words[1], CultureInfo.InvariantCulture), mPerDegreeLat, latStart, lonStart, out double northing, out double easting);
+
+                                                        field.Add(new vec3(easting, northing, 0));
+                                                    }
+                                                    fieldList.Add(field);
+                                                }
+                                            }
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            area = 0;
+                                            Log.EventWriter("Field.txt is Broken" + e.ToString());
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show(fieldDirectory + " is Damaged, Missing Boundary.Txt " +
+                                        "               \r\n Delete Field or Fix ", gStr.gsFileError,
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+
+                            }
+                        }
+                        catch (Exception eg)
+                        {
+                            Log.EventWriter("Field.txt is Broken" + eg.ToString());
+                        }
+                    }
+                }
+            }
         }
 
         public void FileLoadBoundaries()
@@ -1351,7 +1469,7 @@ namespace AgOpenGPS
 
                             //write out the mode
                             writer.WriteLine(hdl.tracksArr[i].mode.ToString(CultureInfo.InvariantCulture));
-                            
+
                             //write out the A_Point index
                             writer.WriteLine(hdl.tracksArr[i].a_point.ToString(CultureInfo.InvariantCulture));
 

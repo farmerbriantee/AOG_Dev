@@ -59,7 +59,6 @@
             this.lvLinesJob.TabIndex = 86;
             this.lvLinesJob.UseCompatibleStateImageBehavior = false;
             this.lvLinesJob.View = System.Windows.Forms.View.Details;
-            this.lvLinesJob.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLinesJob_ColumnClick);
             // 
             // chDate
             // 

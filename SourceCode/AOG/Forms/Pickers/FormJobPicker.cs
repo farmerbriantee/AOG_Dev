@@ -14,8 +14,6 @@ namespace AgOpenGPS
 
         private readonly List<string> jobList = new List<string>();
 
-        ListViewItemComparer sorter = new ListViewItemComparer(new Type[] { typeof(DateTime), typeof(string) });
-
         public FormJobPicker(Form callingForm)
         {
             //get copy of the calling main form
@@ -37,7 +35,8 @@ namespace AgOpenGPS
                 Close();
                 return;
             }
-            lvLinesJob.ListViewItemSorter = sorter;
+
+            new ListViewItemSorter(lvLinesJob);
 
             LoadJobs();
 
@@ -115,136 +114,5 @@ namespace AgOpenGPS
             else return;
         }
 
-        private void lvLinesJob_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            // Determine if clicked column is already the column that is being sorted.
-            if (e.Column == sorter.ColumnIndex)
-            {
-                // Reverse the current sort direction for this column.
-                if (sorter.SortDirection == SortOrder.Ascending)
-                {
-                    sorter.SortDirection = SortOrder.Descending;
-                }
-                else
-                {
-                    sorter.SortDirection = SortOrder.Ascending;
-                }
-            }
-            else
-            {
-                // Set the column number that is to be sorted; default to ascending.
-                sorter.ColumnIndex = e.Column;
-                sorter.SortDirection = SortOrder.Ascending;
-            }
-
-            // Perform the sort with these new sort options.
-            lvLinesJob.Sort();
-        }
     }
-
-
-    public class ListViewItemComparer : IComparer
-    {
-        private int _columnIndex;
-        public int ColumnIndex
-        {
-            get
-            {
-                return _columnIndex;
-            }
-            set
-            {
-                _columnIndex = value;
-            }
-        }
-
-        private SortOrder _sortDirection = SortOrder.Ascending;
-        public SortOrder SortDirection
-        {
-            get
-            {
-                return _sortDirection;
-            }
-            set
-            {
-                _sortDirection = value;
-            }
-        }
-
-        private Type[] _columnType;
-
-        public Type[] ColumnType
-        {
-            get
-            {
-                return _columnType;
-            }
-        }
-
-        public ListViewItemComparer(Type[] type)
-        {
-            _columnType = type;
-        }
-
-        public int Compare(object x, object y)
-        {
-            ListViewItem lviX = x as ListViewItem;
-            ListViewItem lviY = y as ListViewItem;
-
-            int result;
-
-            if (lviX == null && lviY == null)
-            {
-                result = 0;
-            }
-            else if (lviX == null)
-            {
-                result = -1;
-            }
-            else if (lviY == null)
-            {
-                result = 1;
-            }
-
-            if (ColumnType.Length > ColumnIndex)
-            {
-                if (ColumnType[ColumnIndex] == typeof(DateTime))
-                {
-                    DateTime xDt = DateTime.Parse(lviX.SubItems[ColumnIndex].Text);
-                    DateTime yDt = DateTime.Parse(lviY.SubItems[ColumnIndex].Text);
-                    result = -DateTime.Compare(xDt, yDt);
-                }
-                else if (ColumnType[ColumnIndex] == typeof(double))
-                {
-                    double xDt = double.Parse(lviX.SubItems[ColumnIndex].Text);
-                    double yDt = double.Parse(lviY.SubItems[ColumnIndex].Text);
-                    result = xDt.CompareTo(yDt);
-                }
-                else
-                {
-                    result = string.Compare(
-                        lviX.SubItems[ColumnIndex].Text,
-                        lviY.SubItems[ColumnIndex].Text,
-                        true);
-                }
-            }
-            else
-            {
-                result = string.Compare(
-                    lviX.SubItems[ColumnIndex].Text,
-                    lviY.SubItems[ColumnIndex].Text,
-                    true);
-            }
-
-            if (SortDirection == SortOrder.Descending)
-            {
-                return -result;
-            }
-            else
-            {
-                return result;
-            }
-        }
-    }
-
 }

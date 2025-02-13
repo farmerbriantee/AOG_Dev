@@ -33,9 +33,9 @@ namespace AgOpenGPS
             }
 
             //turn off patching
-            for (int j = 0; j < mf.triStrip.Count; j++)
+            foreach (var patch in mf.triStrip)
             {
-                if (mf.triStrip[j].isDrawing) mf.triStrip[j].TurnMappingOff();
+                if (patch.isDrawing) patch.TurnMappingOff();
             }
         }
         #region Vehicle Save---------------------------------------------

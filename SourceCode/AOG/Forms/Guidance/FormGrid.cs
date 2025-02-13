@@ -294,40 +294,30 @@ namespace AgOpenGPS
 
             GL.Color3(0.9f, 0.9f, 0.8f);
 
-            //draw patches j= # of sections
-            for (int j = 0; j < mf.triStrip.Count; j++)
+            //for every new chunk of patch
+            foreach (var triList in mf.patchList)
             {
-                //every time the section turns off and on is a new patch
-                patchCount = mf.triStrip[j].patchList.Count;
+                //draw the triangle in each triangle strip
+                GL.Begin(PrimitiveType.TriangleStrip);
+                cnt = triList.Count;
 
-                if (patchCount > 0)
+                //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
+                if (cnt >= (mipmap))
                 {
-                    //for every new chunk of patch
-                    foreach (System.Collections.Generic.List<vec3> triList in mf.triStrip[j].patchList)
+                    step = mipmap;
+                    for (int i = 1; i < cnt; i += step)
                     {
-                        //draw the triangle in each triangle strip
-                        GL.Begin(PrimitiveType.TriangleStrip);
-                        cnt = triList.Count;
+                        GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
+                        GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
 
-                        //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
-                        if (cnt >= (mipmap))
-                        {
-                            step = mipmap;
-                            for (int i = 1; i < cnt; i += step)
-                            {
-                                GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
-                                GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
-
-                                //too small to mipmap it
-                                if (cnt - i <= (mipmap + 2))
-                                    step = 0;
-                            }
-                        }
-                        else { for (int i = 1; i < cnt; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
-                        GL.End();
+                        //too small to mipmap it
+                        if (cnt - i <= (mipmap + 2))
+                            step = 0;
                     }
                 }
-            } //end of section patches
+                else { for (int i = 1; i < cnt; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
+                GL.End();
+            }
         }
     }
 }

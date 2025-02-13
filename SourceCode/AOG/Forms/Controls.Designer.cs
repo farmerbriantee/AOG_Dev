@@ -1852,12 +1852,8 @@ namespace AgOpenGPS
                         fd.workedAreaTotal = 0;
 
                         //clear the section lists
-                        for (int j = 0; j < triStrip.Count; j++)
-                        {
-                            //clean out the lists
-                            triStrip[j].patchList?.Clear();
-                            triStrip[j].triangleList?.Clear();
-                        }
+                        triStrip?.Clear();
+                        patchList?.Clear();
                         patchSaveList?.Clear();
 
                         FileCreateContour();

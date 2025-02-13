@@ -13,9 +13,6 @@ namespace AgOpenGPS
         //list of patch data individual triangles
         public List<vec3> triangleList = new List<vec3>();
 
-        //list of the list of patch data individual triangles for that entire section activity
-        public List<List<vec3>> patchList = new List<List<vec3>>();
-
         //mapping
         public bool isDrawing = false;
 
@@ -31,8 +28,6 @@ namespace AgOpenGPS
         {
             //constructor
             mf = _f;
-            patchList.Capacity = 2048;
-            //triangleList.Capacity =
         }
 
         public void TurnMappingOn(int j)
@@ -47,8 +42,6 @@ namespace AgOpenGPS
 
                 //starting a new patch chunk so create a new triangle list
                 triangleList = new List<vec3>(32);
-
-                patchList.Add(triangleList);
 
                 if (!mf.tool.isMultiColoredSections)
                 {
@@ -77,7 +70,7 @@ namespace AgOpenGPS
 
         public void TurnMappingOff()
         {
-            AddMappingPoint(0);
+            AddMappingPoint();
 
             isDrawing = false;
             numTriangles = 0;
@@ -86,18 +79,18 @@ namespace AgOpenGPS
             {
                 //save the triangle list in a patch list to add to saving file
                 mf.patchSaveList.Add(triangleList);
+                mf.patchList.Add(triangleList);
             }
             else
             {
                 triangleList.Clear();
-                if (patchList.Count > 0) patchList.RemoveAt(patchList.Count - 1);
             }
         }
 
         //every time a new fix, a new patch point from last point to this point
         //only need prev point on the first points of triangle strip that makes a box (2 triangles)
 
-        public void AddMappingPoint(int j)
+        public void AddMappingPoint()
         {
             leftPoint = mf.section[currentStartSectionNum].leftPoint;
             rightPoint = mf.section[currentEndSectionNum].rightPoint;
@@ -146,13 +139,11 @@ namespace AgOpenGPS
 
                 triangleList = new List<vec3>(32);
 
-                patchList.Add(triangleList);
-
                 //Add Patch colour
                 if (!mf.tool.isMultiColoredSections)
                     triangleList.Add(new vec3(mf.sectionColorDay.R, mf.sectionColorDay.G, mf.sectionColorDay.B));
                 else
-                    triangleList.Add(new vec3(mf.tool.secColors[j].R, mf.tool.secColors[j].G, mf.tool.secColors[j].B));
+                    triangleList.Add(new vec3(mf.tool.secColors[currentStartSectionNum].R, mf.tool.secColors[currentStartSectionNum].G, mf.tool.secColors[currentStartSectionNum].B));
 
                 //add the points to List, yes its more points, but breaks up patches for culling
                 triangleList.Add(new vec3(leftPoint.easting, leftPoint.northing, 0));

@@ -21,6 +21,9 @@ namespace AgOpenGPS
         //list of the list of patch data individual triangles for field sections
         public List<List<vec3>> patchSaveList = new List<List<vec3>>();
 
+        //list of the list of patch data individual triangles for that entire section activity
+        public List<List<vec3>> patchList = new List<List<vec3>>();
+
         public List<List<vec3>> fieldList = new List<List<vec3>>();
 
         #region Create Files
@@ -1017,11 +1020,7 @@ namespace AgOpenGPS
                             }
                             int verts = int.Parse(line);
 
-                            triStrip[0].triangleList = new List<vec3>();
-                            triStrip[0].triangleList.Capacity = verts + 1;
-
-                            triStrip[0].patchList.Add(triStrip[0].triangleList);
-
+                            var triangleList = new List<vec3>(verts + 1);
 
                             for (int v = 0; v < verts; v++)
                             {
@@ -1030,7 +1029,7 @@ namespace AgOpenGPS
                                 vecFix.easting = double.Parse(words[0], CultureInfo.InvariantCulture);
                                 vecFix.northing = double.Parse(words[1], CultureInfo.InvariantCulture);
                                 vecFix.heading = double.Parse(words[2], CultureInfo.InvariantCulture);
-                                triStrip[0].triangleList.Add(vecFix);
+                                triangleList.Add(vecFix);
                             }
 
                             //calculate area of this patch - AbsoluteValue of (Ax(By-Cy) + Bx(Cy-Ay) + Cx(Ay-By)/2)
@@ -1040,12 +1039,13 @@ namespace AgOpenGPS
                                 for (int j = 1; j < verts; j++)
                                 {
                                     double temp = 0;
-                                    temp = triStrip[0].triangleList[j].easting * (triStrip[0].triangleList[j + 1].northing - triStrip[0].triangleList[j + 2].northing) +
-                                              triStrip[0].triangleList[j + 1].easting * (triStrip[0].triangleList[j + 2].northing - triStrip[0].triangleList[j].northing) +
-                                                  triStrip[0].triangleList[j + 2].easting * (triStrip[0].triangleList[j].northing - triStrip[0].triangleList[j + 1].northing);
+                                    temp = triangleList[j].easting * (triangleList[j + 1].northing - triangleList[j + 2].northing) +
+                                              triangleList[j + 1].easting * (triangleList[j + 2].northing - triangleList[j].northing) +
+                                                  triangleList[j + 2].easting * (triangleList[j].northing - triangleList[j + 1].northing);
 
                                     fd.workedAreaTotal += Math.Abs((temp * 0.5));
                                 }
+                                patchList.Add(triangleList);
                             }
                         }
                     }
@@ -1896,65 +1896,57 @@ namespace AgOpenGPS
             string secPts = "";
             int cntr = 0;
 
-            for (int j = 0; j < triStrip.Count; j++)
+            //for every new chunk of patch
+            foreach (var triList in patchList)
             {
-                int patches = triStrip[j].patchList.Count;
-
-                if (patches > 0)
+                if (triList.Count > 0)
                 {
-                    //for every new chunk of patch
-                    foreach (var triList in triStrip[j].patchList)
+                    kml.WriteStartElement("Placemark");
+                    kml.WriteElementString("name", "Sections_" + cntr.ToString());
+                    cntr++;
+
+                    string collor = "F0" + ((byte)(triList[0].heading)).ToString("X2") +
+                        ((byte)(triList[0].northing)).ToString("X2") + ((byte)(triList[0].easting)).ToString("X2");
+
+                    //lineStyle
+                    kml.WriteStartElement("Style");
+
+                    kml.WriteStartElement("LineStyle");
+                    kml.WriteElementString("color", collor);
+                    //kml.WriteElementString("width", "6");
+                    kml.WriteEndElement(); // <LineStyle>
+
+                    kml.WriteStartElement("PolyStyle");
+                    kml.WriteElementString("color", collor);
+                    kml.WriteEndElement(); // <PloyStyle>
+                    kml.WriteEndElement(); //Style
+
+                    kml.WriteStartElement("Polygon");
+                    kml.WriteElementString("tessellate", "1");
+                    kml.WriteStartElement("outerBoundaryIs");
+                    kml.WriteStartElement("LinearRing");
+
+                    //coords
+                    kml.WriteStartElement("coordinates");
+                    secPts = "";
+                    for (int i = 1; i < triList.Count; i += 2)
                     {
-                        if (triList.Count > 0)
-                        {
-                            kml.WriteStartElement("Placemark");
-                            kml.WriteElementString("name", "Sections_" + cntr.ToString());
-                            cntr++;
-
-                            string collor = "F0" + ((byte)(triList[0].heading)).ToString("X2") +
-                                ((byte)(triList[0].northing)).ToString("X2") + ((byte)(triList[0].easting)).ToString("X2");
-
-                            //lineStyle
-                            kml.WriteStartElement("Style");
-
-                            kml.WriteStartElement("LineStyle");
-                            kml.WriteElementString("color", collor);
-                            //kml.WriteElementString("width", "6");
-                            kml.WriteEndElement(); // <LineStyle>
-
-                            kml.WriteStartElement("PolyStyle");
-                            kml.WriteElementString("color", collor);
-                            kml.WriteEndElement(); // <PloyStyle>
-                            kml.WriteEndElement(); //Style
-
-                            kml.WriteStartElement("Polygon");
-                            kml.WriteElementString("tessellate", "1");
-                            kml.WriteStartElement("outerBoundaryIs");
-                            kml.WriteStartElement("LinearRing");
-
-                            //coords
-                            kml.WriteStartElement("coordinates");
-                            secPts = "";
-                            for (int i = 1; i < triList.Count; i += 2)
-                            {
-                                secPts += pn.GetLocalToWSG84_KML(triList[i].easting, triList[i].northing);
-                            }
-                            for (int i = triList.Count - 1; i > 1; i -= 2)
-                            {
-                                secPts += pn.GetLocalToWSG84_KML(triList[i].easting, triList[i].northing);
-                            }
-                            secPts += pn.GetLocalToWSG84_KML(triList[1].easting, triList[1].northing);
-
-                            kml.WriteRaw(secPts);
-                            kml.WriteEndElement(); // <coordinates>
-
-                            kml.WriteEndElement(); // <LinearRing>
-                            kml.WriteEndElement(); // <outerBoundaryIs>
-                            kml.WriteEndElement(); // <Polygon>
-
-                            kml.WriteEndElement(); // <Placemark>
-                        }
+                        secPts += pn.GetLocalToWSG84_KML(triList[i].easting, triList[i].northing);
                     }
+                    for (int i = triList.Count - 1; i > 1; i -= 2)
+                    {
+                        secPts += pn.GetLocalToWSG84_KML(triList[i].easting, triList[i].northing);
+                    }
+                    secPts += pn.GetLocalToWSG84_KML(triList[1].easting, triList[1].northing);
+
+                    kml.WriteRaw(secPts);
+                    kml.WriteEndElement(); // <coordinates>
+
+                    kml.WriteEndElement(); // <LinearRing>
+                    kml.WriteEndElement(); // <outerBoundaryIs>
+                    kml.WriteEndElement(); // <Polygon>
+
+                    kml.WriteEndElement(); // <Placemark>
                 }
             }
             kml.WriteEndElement(); // <Folder>

@@ -1504,17 +1504,17 @@ namespace AgOpenGPS
             patchCounter = 0;
 
             //send the current and previous GPS fore/aft corrected fix to each section
-            for (int j = 0; j < triStrip.Count; j++)
+            foreach (var patch in triStrip)
             {
-                if (triStrip[j].isDrawing)
+                if (patch.isDrawing)
                 {
                     if (isPatchesChangingColor)
                     {
-                        triStrip[j].numTriangles = 64;
+                        patch.numTriangles = 64;
                         isPatchesChangingColor = false;
                     }
 
-                    triStrip[j].AddMappingPoint(j);
+                    patch.AddMappingPoint();
                     patchCounter++;
                 }
             }

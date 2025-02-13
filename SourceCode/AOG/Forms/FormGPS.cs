@@ -298,10 +298,7 @@ namespace AgOpenGPS
             section = new CSection[MAXSECTIONS];
             for (int j = 0; j < MAXSECTIONS; j++) section[j] = new CSection();
 
-            triStrip = new List<CPatches>
-            {
-                new CPatches(this)
-            };
+            triStrip = new List<CPatches>();
 
             //our NMEA parser
             pn = new CNMEA(this);
@@ -910,9 +907,9 @@ namespace AgOpenGPS
             }
 
             //turn off patching
-            for (int j = 0; j < triStrip.Count; j++)
+            foreach (var patch in triStrip)
             {
-                if (triStrip[j].isDrawing) triStrip[j].TurnMappingOff();
+                if (patch.isDrawing) patch.TurnMappingOff();
             }
 
             //fix ManualOffOnAuto buttons
@@ -962,17 +959,8 @@ namespace AgOpenGPS
                 isJobStarted = false;
             }
 
-            //clear the section lists
-            for (int j = 0; j < triStrip.Count; j++)
-            {
-                //clean out the lists
-                triStrip[j].patchList?.Clear();
-                triStrip[j].triangleList?.Clear();
-            }
-
             triStrip?.Clear();
-            triStrip.Add(new CPatches(this));
-
+            patchList?.Clear();
             patchSaveList?.Clear();
             contourSaveList?.Clear();
         }

@@ -142,29 +142,35 @@ namespace AgOpenGPS
                     #region Draw Boundary and Headland highlight areas
 
 
-                    GL.Color4(0.9, 0.9, 0.9, 1.0);
-                    //for every new chunk of patch
-                    foreach (var triList in fieldList)
+                    if (!isFieldStarted)
                     {
-                        for (int i = 1; i < triList.Count; i += 3)
-                        {
-                            //determine if point is in frustum or not, if < 0, its outside so abort, z always is 0                            
-                            if (frustum[0] * triList[i].easting + frustum[1] * triList[i].northing + frustum[3] <= 0)
-                                continue;//right
-                            if (frustum[4] * triList[i].easting + frustum[5] * triList[i].northing + frustum[7] <= 0)
-                                continue;//left
-                            if (frustum[16] * triList[i].easting + frustum[17] * triList[i].northing + frustum[19] <= 0)
-                                continue;//bottom
-                            if (frustum[20] * triList[i].easting + frustum[21] * triList[i].northing + frustum[23] <= 0)
-                                continue;//top
-                            if (frustum[8] * triList[i].easting + frustum[9] * triList[i].northing + frustum[11] <= 0)
-                                continue;//far
-                            if (frustum[12] * triList[i].easting + frustum[13] * triList[i].northing + frustum[15] <= 0)
-                                continue;//near
+                        GL.Color4(0.9, 0.9, 0.9, 1.0);
 
-                            //point is in frustum so draw the entire patch. The downside of triangle strips.
-                            triList.DrawPolygon();
-                            break;
+                        GL.LineWidth(2);
+
+                        //for every new chunk of patch
+                        foreach (var triList in fieldList)
+                        {
+                            for (int i = 1; i < triList.Count; i += 3)
+                            {
+                                //determine if point is in frustum or not, if < 0, its outside so abort, z always is 0                            
+                                if (frustum[0] * triList[i].easting + frustum[1] * triList[i].northing + frustum[3] <= 0)
+                                    continue;//right
+                                if (frustum[4] * triList[i].easting + frustum[5] * triList[i].northing + frustum[7] <= 0)
+                                    continue;//left
+                                if (frustum[16] * triList[i].easting + frustum[17] * triList[i].northing + frustum[19] <= 0)
+                                    continue;//bottom
+                                if (frustum[20] * triList[i].easting + frustum[21] * triList[i].northing + frustum[23] <= 0)
+                                    continue;//top
+                                if (frustum[8] * triList[i].easting + frustum[9] * triList[i].northing + frustum[11] <= 0)
+                                    continue;//far
+                                if (frustum[12] * triList[i].easting + frustum[13] * triList[i].northing + frustum[15] <= 0)
+                                    continue;//near
+
+                                //point is in frustum so draw the entire patch. The downside of triangle strips.
+                                triList.DrawPolygon();
+                                break;
+                            }
                         }
                     }
 

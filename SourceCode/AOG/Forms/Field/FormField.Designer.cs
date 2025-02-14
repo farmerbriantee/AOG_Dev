@@ -34,16 +34,16 @@
             this.btnJobClose = new System.Windows.Forms.Button();
             this.btnJobNew = new System.Windows.Forms.Button();
             this.btnFromKML = new System.Windows.Forms.Button();
-            this.btnFromExisting = new System.Windows.Forms.Button();
+            this.btnFromISOXML = new System.Windows.Forms.Button();
             this.btnFieldResume = new System.Windows.Forms.Button();
             this.btnFieldOpen = new System.Windows.Forms.Button();
             this.btnFieldNew = new System.Windows.Forms.Button();
             this.lblResumeField = new System.Windows.Forms.Label();
             this.lblResumeJob = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +64,7 @@
             this.tableLayoutPanel1.Controls.Add(this.btnJobClose, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnJobNew, 4, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnFromKML, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnFromExisting, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnFromISOXML, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnFieldResume, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.btnFieldOpen, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.btnFieldNew, 2, 1);
@@ -196,28 +196,28 @@
             this.btnFromKML.UseVisualStyleBackColor = false;
             this.btnFromKML.Click += new System.EventHandler(this.btnFromKML_Click);
             // 
-            // btnFromExisting
+            // btnFromISOXML
             // 
-            this.btnFromExisting.BackColor = System.Drawing.Color.Transparent;
-            this.btnFromExisting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnFromExisting.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnFromExisting.FlatAppearance.BorderSize = 0;
-            this.btnFromExisting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFromExisting.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFromExisting.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnFromExisting.Image = global::AgOpenGPS.Properties.Resources.FileExisting;
-            this.btnFromExisting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFromExisting.Location = new System.Drawing.Point(5, 121);
-            this.btnFromExisting.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnFromExisting.Name = "btnFromExisting";
-            this.btnFromExisting.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.btnFromExisting.Size = new System.Drawing.Size(206, 109);
-            this.btnFromExisting.TabIndex = 104;
-            this.btnFromExisting.Text = "Existing";
-            this.btnFromExisting.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFromExisting.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnFromExisting.UseVisualStyleBackColor = false;
-            this.btnFromExisting.Click += new System.EventHandler(this.btnFromExisting_Click);
+            this.btnFromISOXML.BackColor = System.Drawing.Color.Transparent;
+            this.btnFromISOXML.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnFromISOXML.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnFromISOXML.FlatAppearance.BorderSize = 0;
+            this.btnFromISOXML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFromISOXML.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFromISOXML.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnFromISOXML.Image = global::AgOpenGPS.Properties.Resources.FileExisting;
+            this.btnFromISOXML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFromISOXML.Location = new System.Drawing.Point(5, 121);
+            this.btnFromISOXML.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.btnFromISOXML.Name = "btnFromISOXML";
+            this.btnFromISOXML.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnFromISOXML.Size = new System.Drawing.Size(206, 109);
+            this.btnFromISOXML.TabIndex = 104;
+            this.btnFromISOXML.Text = "ISOXML";
+            this.btnFromISOXML.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFromISOXML.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnFromISOXML.UseVisualStyleBackColor = false;
+            this.btnFromISOXML.Click += new System.EventHandler(this.btnFromISOXML_Click);
             // 
             // btnFieldResume
             // 
@@ -316,24 +316,6 @@
             this.lblResumeJob.Text = "Previous Job";
             this.lblResumeJob.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.BackColor = System.Drawing.Color.Transparent;
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.FlatAppearance.BorderSize = 0;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.btnCancel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
-            this.btnCancel.Location = new System.Drawing.Point(642, 452);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(107, 57);
-            this.btnCancel.TabIndex = 4;
-            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -363,6 +345,24 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(11, 117);
             this.label3.TabIndex = 115;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
+            this.btnCancel.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancel.Location = new System.Drawing.Point(642, 452);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(107, 57);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // FormField
             // 
@@ -399,7 +399,7 @@
         private System.Windows.Forms.Button btnFieldClose;
         private System.Windows.Forms.Button btnFieldResume;
         private System.Windows.Forms.Label lblResumeField;
-        private System.Windows.Forms.Button btnFromExisting;
+        private System.Windows.Forms.Button btnFromISOXML;
         private System.Windows.Forms.Button btnFieldNew;
         private System.Windows.Forms.Button btnFromKML;
         private System.Windows.Forms.Button btnCancel;

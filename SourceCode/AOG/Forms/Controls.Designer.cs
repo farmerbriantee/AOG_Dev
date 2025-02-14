@@ -682,11 +682,11 @@ namespace AgOpenGPS
                     { form2.ShowDialog(this); }
                 }
 
-                //load from Existing
+                //load from ISOXML
                 else if (result == DialogResult.Retry)
                 {
                     //ask for a field to copy
-                    using (var form2 = new FormFieldExisting(this))
+                    using (var form2 = new FormFieldISOXML(this))
                     { form2.ShowDialog(this); }
                 }
 

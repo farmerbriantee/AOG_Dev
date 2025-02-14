@@ -41,7 +41,7 @@ namespace AgOpenGPS
         {
             PopulateFieldsListView();
 
-            
+
             if (mf.isFieldStarted)
             {
                 for (int i = 0; i < lvLines.Items.Count; i++)
@@ -55,7 +55,20 @@ namespace AgOpenGPS
                     }
                 }
             }
-            
+
+            if (mf.isFieldStarted && mf.isJobStarted)
+            {
+                for (int i = 0; i < lvLinesJob.Items.Count; i++)
+                {
+                    if (lvLinesJob.Items[i].SubItems[1].Text == mf.displayJobName)
+                    {          
+                        lvLinesJob.Items[i].Selected = true;
+                        lvLinesJob.Select();
+                        lvLinesJob.Items[i].EnsureVisible();
+                        break;
+                    }
+                }
+            }
         }
 
         private void PopulateFieldsListView()

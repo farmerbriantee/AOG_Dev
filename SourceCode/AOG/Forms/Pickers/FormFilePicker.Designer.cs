@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnByDistance = new System.Windows.Forms.Button();
             this.btnOpenExistingLv = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnDeleteField = new System.Windows.Forms.Button();
@@ -44,22 +43,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // btnByDistance
-            // 
-            this.btnByDistance.BackColor = System.Drawing.Color.Transparent;
-            this.btnByDistance.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnByDistance.Image = global::AgOpenGPS.Properties.Resources.Sort;
-            this.btnByDistance.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnByDistance.Location = new System.Drawing.Point(267, 581);
-            this.btnByDistance.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.btnByDistance.Name = "btnByDistance";
-            this.btnByDistance.Size = new System.Drawing.Size(69, 63);
-            this.btnByDistance.TabIndex = 93;
-            this.btnByDistance.Text = "Sort";
-            this.btnByDistance.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnByDistance.UseVisualStyleBackColor = false;
-            this.btnByDistance.Click += new System.EventHandler(this.btnByDistance_Click);
             // 
             // btnOpenExistingLv
             // 
@@ -86,7 +69,7 @@
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
             this.btnCancel.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
-            this.btnCancel.Location = new System.Drawing.Point(389, 581);
+            this.btnCancel.Location = new System.Drawing.Point(304, 581);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(71, 63);
             this.btnCancel.TabIndex = 91;
@@ -95,6 +78,7 @@
             // 
             // btnDeleteField
             // 
+            this.btnDeleteField.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDeleteField.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.btnDeleteField.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
             this.btnDeleteField.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -110,12 +94,12 @@
             // chName
             // 
             this.chName.Text = "Field";
-            this.chName.Width = 670;
+            this.chName.Width = 620;
             // 
             // chDistance
             // 
             this.chDistance.Text = "Distance";
-            this.chDistance.Width = 140;
+            this.chDistance.Width = 180;
             // 
             // chArea
             // 
@@ -170,12 +154,12 @@
             // chDate
             // 
             this.chDate.Text = "Date Created";
-            this.chDate.Width = 370;
+            this.chDate.Width = 300;
             // 
             // chJobName
             // 
             this.chJobName.Text = "Job";
-            this.chJobName.Width = 590;
+            this.chJobName.Width = 640;
             // 
             // btnDeleteJob
             // 
@@ -184,7 +168,7 @@
             this.btnDeleteJob.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
             this.btnDeleteJob.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnDeleteJob.Image = global::AgOpenGPS.Properties.Resources.Trash;
-            this.btnDeleteJob.Location = new System.Drawing.Point(130, 581);
+            this.btnDeleteJob.Location = new System.Drawing.Point(150, 581);
             this.btnDeleteJob.Name = "btnDeleteJob";
             this.btnDeleteJob.Size = new System.Drawing.Size(71, 63);
             this.btnDeleteJob.TabIndex = 101;
@@ -199,7 +183,7 @@
             this.btnNewJob.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNewJob.Image = global::AgOpenGPS.Properties.Resources.FileNew;
             this.btnNewJob.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNewJob.Location = new System.Drawing.Point(496, 581);
+            this.btnNewJob.Location = new System.Drawing.Point(449, 581);
             this.btnNewJob.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnNewJob.Name = "btnNewJob";
             this.btnNewJob.Size = new System.Drawing.Size(190, 63);
@@ -211,9 +195,10 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(149, 641);
+            this.label1.Location = new System.Drawing.Point(169, 641);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 16);
             this.label1.TabIndex = 103;
@@ -221,6 +206,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(31, 641);
@@ -240,7 +226,6 @@
             this.Controls.Add(this.btnDeleteJob);
             this.Controls.Add(this.lvLinesJob);
             this.Controls.Add(this.btnDeleteField);
-            this.Controls.Add(this.btnByDistance);
             this.Controls.Add(this.btnOpenExistingLv);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.lvLines);
@@ -262,7 +247,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnByDistance;
         private System.Windows.Forms.Button btnOpenExistingLv;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnDeleteField;

@@ -25,7 +25,7 @@ namespace AgOpenGPS
             btnFieldResume.Text = gStr.gsResume;
             //btnInField.Text = gStr.gsDriveIn;
             btnFromKML.Text = gStr.gsFromKml;
-            btnFromExisting.Text = gStr.gsFromExisting;
+            btnFromISOXML.Text = "From ISOXML";
             btnFieldClose.Text = gStr.gsClose;
 
             this.Text = gStr.gsStartNewField;
@@ -317,7 +317,7 @@ namespace AgOpenGPS
             Close();
         }
 
-        private void btnFromExisting_Click(object sender, EventArgs e)
+        private void btnFromISOXML_Click(object sender, EventArgs e)
         {
             //back to FormGPS
             DialogResult = DialogResult.Retry;

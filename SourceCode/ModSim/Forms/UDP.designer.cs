@@ -167,7 +167,6 @@ namespace ModSim
 
         //Heart beat hello AgIO
         static byte [] helloFromAutoSteer = { 128, 129, 126, 126, 5, 0, 0, 0, 0, 0, 71 };
-        short helloSteerPosition = 0;
 
         //hello from AgIO
         static byte[] helloFromMachine = { 128, 129, 123, 123, 5, 0, 0, 0, 0, 0, 71 };
@@ -181,7 +180,6 @@ namespace ModSim
 
 
         //Relays
-        bool isRelayActiveHigh = true;
         byte relay = 0, relayHi = 0, uTurn = 0;
         byte xte = 0;
 
@@ -199,8 +197,6 @@ namespace ModSim
         //steering variables
         double steerAngleActual = 0;
         double steerAngleSetPoint = 0; //the desired angle from AgOpen
-        int steeringPosition = 0; //from steering sensor
-        double steerAngleError = 0; //setpoint - actual
 
         //Machine module
         int hydLift = 0;

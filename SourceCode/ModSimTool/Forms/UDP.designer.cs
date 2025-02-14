@@ -167,7 +167,6 @@ namespace ModSimTool
 
         //Heart beat hello AgIO
         static byte [] helloFromAutoSteer = { 128, 129, 126, 126, 5, 0, 0, 0, 0, 0, 71 };
-        short helloSteerPosition = 0;
 
         //hello from AgIO
         static byte[] helloFromMachine = { 128, 129, 123, 123, 5, 0, 0, 0, 0, 0, 71 };

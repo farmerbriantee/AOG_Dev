@@ -42,7 +42,7 @@
             // 
             this.lvLinesJob.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvLinesJob.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.lvLinesJob.BackColor = System.Drawing.Color.CadetBlue;
             this.lvLinesJob.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chDate,
             this.chName});
@@ -54,7 +54,7 @@
             this.lvLinesJob.Location = new System.Drawing.Point(5, 12);
             this.lvLinesJob.MultiSelect = false;
             this.lvLinesJob.Name = "lvLinesJob";
-            this.lvLinesJob.Size = new System.Drawing.Size(1006, 459);
+            this.lvLinesJob.Size = new System.Drawing.Size(1006, 360);
             this.lvLinesJob.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvLinesJob.TabIndex = 86;
             this.lvLinesJob.UseCompatibleStateImageBehavior = false;
@@ -63,21 +63,22 @@
             // chDate
             // 
             this.chDate.Text = "Date Created";
-            this.chDate.Width = 400;
+            this.chDate.Width = 300;
             // 
             // chName
             // 
             this.chName.Text = "Job";
-            this.chName.Width = 600;
+            this.chName.Width = 640;
             // 
             // btnOpenExistingLv
             // 
+            this.btnOpenExistingLv.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOpenExistingLv.BackColor = System.Drawing.Color.Transparent;
             this.btnOpenExistingLv.DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.btnOpenExistingLv.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOpenExistingLv.Image = global::AgOpenGPS.Properties.Resources.FileOpen;
             this.btnOpenExistingLv.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOpenExistingLv.Location = new System.Drawing.Point(739, 507);
+            this.btnOpenExistingLv.Location = new System.Drawing.Point(739, 398);
             this.btnOpenExistingLv.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnOpenExistingLv.Name = "btnOpenExistingLv";
             this.btnOpenExistingLv.Size = new System.Drawing.Size(261, 63);
@@ -89,11 +90,12 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
             this.btnCancel.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
-            this.btnCancel.Location = new System.Drawing.Point(572, 507);
+            this.btnCancel.Location = new System.Drawing.Point(572, 398);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(71, 63);
             this.btnCancel.TabIndex = 91;
@@ -102,21 +104,25 @@
             // 
             // btnDeleteJob
             // 
+            this.btnDeleteJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDeleteJob.BackColor = System.Drawing.Color.CadetBlue;
             this.btnDeleteJob.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
             this.btnDeleteJob.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnDeleteJob.Image = global::AgOpenGPS.Properties.Resources.Trash;
-            this.btnDeleteJob.Location = new System.Drawing.Point(46, 507);
+            this.btnDeleteJob.Location = new System.Drawing.Point(46, 398);
             this.btnDeleteJob.Name = "btnDeleteJob";
             this.btnDeleteJob.Size = new System.Drawing.Size(71, 63);
             this.btnDeleteJob.TabIndex = 94;
             this.btnDeleteJob.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnDeleteJob.UseVisualStyleBackColor = false;
             this.btnDeleteJob.Click += new System.EventHandler(this.btnDeleteJob_Click);
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(48, 488);
+            this.label1.Location = new System.Drawing.Point(48, 379);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 16);
             this.label1.TabIndex = 95;
@@ -124,9 +130,10 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(585, 488);
+            this.label2.Location = new System.Drawing.Point(585, 379);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 16);
             this.label2.TabIndex = 96;
@@ -137,7 +144,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1011, 578);
+            this.ClientSize = new System.Drawing.Size(1011, 469);
             this.ControlBox = false;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -150,7 +157,7 @@
             this.Name = "FormJobPicker";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FormFilePicker";
+            this.Text = "Job Selector";
             this.Load += new System.EventHandler(this.FormJobPicker_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

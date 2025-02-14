@@ -342,12 +342,6 @@
     <Compile Include="Forms\Inputs\FormKeyboard.Designer.cs">
       <DependentUpon>FormKeyboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Pickers\FormDrivePicker.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Pickers\FormDrivePicker.Designer.cs">
-      <DependentUpon>FormDrivePicker.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Pickers\FormFilePicker.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -767,9 +761,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Inputs\FormKeyboard.resx">
       <DependentUpon>FormKeyboard.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Pickers\FormDrivePicker.resx">
-      <DependentUpon>FormDrivePicker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pickers\FormFilePicker.resx">
       <DependentUpon>FormFilePicker.cs</DependentUpon>

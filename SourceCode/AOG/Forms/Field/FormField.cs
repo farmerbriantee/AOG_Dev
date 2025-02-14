@@ -110,46 +110,17 @@ namespace AgOpenGPS
             }
         }
 
+        private void FormField_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.setFieldMenu_location = Location;
+            Properties.Settings.Default.setFieldMenu_size = Size;
+        }
+
+        #region Field Btns
         private void btnFieldNew_Click(object sender, EventArgs e)
         {
             //back to FormGPS
             DialogResult = DialogResult.Yes;
-            Close();
-        }
-
-        private void btnFieldResume_Click(object sender, EventArgs e)
-        {
-            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
-
-            //open the Resume.txt and continue from last exit
-            mf.FileOpenField("Resume");
-
-            Log.EventWriter("Field Form, Field Resume");
-
-            if (isResumeJob)
-            {
-                string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs");
-
-                if (string.IsNullOrEmpty(directoryName) || (!Directory.Exists(directoryName)))
-                {
-                    DialogResult = DialogResult.OK;
-                    Close();
-                    return;
-                }
-
-                mf.JobNew();
-
-                mf.displayJobName = mf.currentJobDirectory;
-
-                //create the field file header info
-                mf.FileLoadSections(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, mf.currentJobDirectory, "Sections.txt"));
-                mf.FileLoadContour(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, mf.currentJobDirectory, "Contour.txt"));
-            }
-
-            isResumeJob = false;
-
-            //back to FormGPS
-            DialogResult = DialogResult.OK;
             Close();
         }
 
@@ -206,107 +177,48 @@ namespace AgOpenGPS
             Close();
         }
 
-        private void btnInField_Click(object sender, EventArgs e)
+        private void btnFieldClose_Click(object sender, EventArgs e)
         {
-            string infieldList = "";
-            int numFields = 0;
-
-            string[] dirs = Directory.GetDirectories(RegistrySettings.fieldsDirectory);
-
-            foreach (string dir in dirs)
-            {
-                double lat = 0;
-                double lon = 0;
-
-                Path.GetFileName(dir);
-                string filename = Path.Combine(dir, "Field.txt");
-                string line;
-
-                //make sure directory has a field.txt in it
-                if (File.Exists(filename))
-                {
-                    using (StreamReader reader = new StreamReader(filename))
-                    {
-                        try
-                        {
-                            //Date time line
-                            for (int i = 0; i < 8; i++)
-                            {
-                                line = reader.ReadLine();
-                            }
-
-                            //start positions
-                            if (!reader.EndOfStream)
-                            {
-                                line = reader.ReadLine();
-                                string[] offs = line.Split(',');
-
-                                lat = (double.Parse(offs[0], CultureInfo.InvariantCulture));
-                                lon = (double.Parse(offs[1], CultureInfo.InvariantCulture));
-
-                                double dist = GetDistance(lon, lat, mf.pn.longitude, mf.pn.latitude);
-
-                                if (dist < 500)
-                                {
-                                    numFields++;
-                                    if (string.IsNullOrEmpty(infieldList))
-                                        infieldList += Path.GetFileName(dir);
-                                    else
-                                        infieldList += "," + Path.GetFileName(dir);
-                                }
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            mf.TimedMessageBox(2000, gStr.gsFieldFileIsCorrupt, gStr.gsChooseADifferentField);
-                        }
-                    }
-                }
-            }
-
-            if (!string.IsNullOrEmpty(infieldList))
-            {
-                mf.filePickerFileAndDirectory = "";
-
-                if (numFields > 1)
-                {
-                    using (FormDrivePicker form = new FormDrivePicker(mf, infieldList))
-                    {
-                        //returns full field.txt file dir name
-                        if (form.ShowDialog(this) == DialogResult.Yes)
-                        {
-                            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
-                            mf.FileOpenField(mf.filePickerFileAndDirectory);
-                            Close();
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                }
-                else // 1 field found
-                {
-                    mf.filePickerFileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, infieldList, "Field.txt");
-                    mf.FileOpenField(mf.filePickerFileAndDirectory);
-                    Close();
-                }
-            }
-            else //no fields found
-            {
-                mf.TimedMessageBox(2000, gStr.gsNoFieldsFound, gStr.gsFieldNotOpen);
-            }
+            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
+            //back to FormGPS
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
-        public double GetDistance(double longitude, double latitude, double otherLongitude, double otherLatitude)
+        private void btnFieldResume_Click(object sender, EventArgs e)
         {
-            double d1 = latitude * (Math.PI / 180.0);
-            double num1 = longitude * (Math.PI / 180.0);
-            double d2 = otherLatitude * (Math.PI / 180.0);
-            double num2 = otherLongitude * (Math.PI / 180.0) - num1;
-            double d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) + Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
+            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
 
-            return 6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
+            //open the Resume.txt and continue from last exit
+            mf.FileOpenField("Resume");
+
+            Log.EventWriter("Field Form, Field Resume");
+
+            if (isResumeJob)
+            {
+                string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs");
+
+                if (string.IsNullOrEmpty(directoryName) || (!Directory.Exists(directoryName)))
+                {
+                    DialogResult = DialogResult.OK;
+                    Close();
+                    return;
+                }
+
+                mf.JobNew();
+
+                mf.displayJobName = mf.currentJobDirectory;
+
+                //create the field file header info
+                mf.FileLoadSections(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, mf.currentJobDirectory, "Sections.txt"));
+                mf.FileLoadContour(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, mf.currentJobDirectory, "Contour.txt"));
+            }
+
+            isResumeJob = false;
+
+            //back to FormGPS
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void btnFromKML_Click(object sender, EventArgs e)
@@ -324,32 +236,9 @@ namespace AgOpenGPS
             Close();
         }
 
-        private void btnFieldClose_Click(object sender, EventArgs e)
-        {
-            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
-            //back to FormGPS
-            DialogResult = DialogResult.OK;
-            Close();
-        }
+        #endregion
 
-        private void FormField_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Properties.Settings.Default.setFieldMenu_location = Location;
-            Properties.Settings.Default.setFieldMenu_size = Size;
-        }
-
-        private void btnFromISOXML_Click(object sender, EventArgs e)
-        {
-            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
-            //back to FormGPS
-            DialogResult = DialogResult.Abort;
-            Close();
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            mf.isCancelFieldMenu = true;
-        }
+        #region Job Btns
 
         private void btnJobNew_Click(object sender, EventArgs e)
         {
@@ -411,6 +300,13 @@ namespace AgOpenGPS
         private void btnJobClose_Click(object sender, EventArgs e)
         {
             mf.JobClose();
+        }
+
+        #endregion
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            mf.isCancelFieldMenu = true;
         }
     }
 }

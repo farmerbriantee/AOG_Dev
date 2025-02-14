@@ -128,7 +128,7 @@ namespace ModSim
         public double speed = 0.6, headingTrue, stepDistance = 0.05, steerAngle;
         private double degrees, roll = 0;
 
-        private int rollIMU = 0, headingIMU = 0, pitchIMU = 0;
+        private int rollIMU = 0, headingIMU = 0;
 
         private const double ToRadians = 0.01745329251994329576923690768489, ToDegrees = 57.295779513082325225835265587528;
 

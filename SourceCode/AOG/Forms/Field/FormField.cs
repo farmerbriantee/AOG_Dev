@@ -338,14 +338,6 @@ namespace AgOpenGPS
             Properties.Settings.Default.setFieldMenu_size = Size;
         }
 
-        private void btnFromISOXML_Click(object sender, EventArgs e)
-        {
-            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
-            //back to FormGPS
-            DialogResult = DialogResult.Abort;
-            Close();
-        }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             mf.isCancelFieldMenu = true;

@@ -282,7 +282,7 @@ namespace AgOpenGPS
             if (fileAndDirectory == "Cancel") return;
 
             //close the existing job and reset everything
-            this.FieldClose();
+            this.FileSaveEverythingBeforeClosingField();
 
             //and open a new job
             this.FieldNew();
@@ -347,8 +347,7 @@ namespace AgOpenGPS
 
                     TimedMessageBox(2000, gStr.gsFieldFileIsCorrupt, gStr.gsChooseADifferentField);
 
-
-                    FieldClose();
+                    FileSaveEverythingBeforeClosingField();
                     return;
                 }
             }
@@ -1810,9 +1809,9 @@ namespace AgOpenGPS
         {
             using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, currentJobDirectory, "Elevation.txt"), true))
             {
-                writer.Write(sbGrid.ToString());
+                writer.Write(sbElevationString.ToString());
             }
-            sbGrid.Clear();
+            sbElevationString.Clear();
         }
 
         //save all the flag markers

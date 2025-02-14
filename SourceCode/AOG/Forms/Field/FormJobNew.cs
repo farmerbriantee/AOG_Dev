@@ -97,7 +97,7 @@ namespace AgOpenGPS
                     mf.JobNew();
 
                     mf.currentJobDirectory = Path.Combine("Jobs", tboxJobName.Text.Trim());
-                    mf.displayJobName = mf.currentJobDirectory;
+                    mf.displayJobName = Path.GetFileName(mf.currentJobDirectory);
 
                     //create the field file header info
                     mf.FileCreateSections();

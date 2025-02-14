@@ -40,6 +40,22 @@ namespace AgOpenGPS
         private void FormFilePicker_Load(object sender, EventArgs e)
         {
             PopulateFieldsListView();
+
+            
+            if (mf.isFieldStarted)
+            {
+                for (int i = 0; i < lvLines.Items.Count; i++)
+                {
+                    if (lvLines.Items[i].SubItems[0].Text == mf.currentFieldDirectory)
+                    {
+                        lvLines.Items[i].Selected = true;
+                        lvLines.Select();
+                        lvLines.Items[i].EnsureVisible();
+                        break;
+                    }
+                }
+            }
+            
         }
 
         private void PopulateFieldsListView()

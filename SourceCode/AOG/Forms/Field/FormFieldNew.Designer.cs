@@ -215,7 +215,7 @@
             this.btnSaveJob.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSaveJob.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnSaveJob.Image = global::AgOpenGPS.Properties.Resources.OK64;
-            this.btnSaveJob.Location = new System.Drawing.Point(578, 460);
+            this.btnSaveJob.Location = new System.Drawing.Point(583, 480);
             this.btnSaveJob.Name = "btnSaveJob";
             this.btnSaveJob.Size = new System.Drawing.Size(83, 59);
             this.btnSaveJob.TabIndex = 154;
@@ -233,7 +233,7 @@
             this.btnJobCancel.Font = new System.Drawing.Font("Tahoma", 12F);
             this.btnJobCancel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnJobCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
-            this.btnJobCancel.Location = new System.Drawing.Point(462, 459);
+            this.btnJobCancel.Location = new System.Drawing.Point(5, 482);
             this.btnJobCancel.Name = "btnJobCancel";
             this.btnJobCancel.Size = new System.Drawing.Size(77, 59);
             this.btnJobCancel.TabIndex = 156;
@@ -292,7 +292,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.Gainsboro;
-            this.ClientSize = new System.Drawing.Size(672, 524);
+            this.ClientSize = new System.Drawing.Size(672, 546);
             this.ControlBox = false;
             this.Controls.Add(this.btnJobNew);
             this.Controls.Add(this.btnFieldNew);

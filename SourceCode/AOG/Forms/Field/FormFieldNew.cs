@@ -112,8 +112,6 @@ namespace AgOpenGPS
             //if no template set just make a new file.
             try
             {
-                mf.JobClose();
-
                 //start a new field
                 mf.FieldNew();
 
@@ -136,16 +134,8 @@ namespace AgOpenGPS
 
                     //create the field file header info
                     mf.FileCreateField();
-                    mf.FileCreateRecPath();
-                    mf.FileCreateElevation();
                     mf.FileSaveFlags();
                     mf.FileCreateBoundary();
-
-                    //mf.FileCreateSections();
-                    //mf.FileCreateContour();
-                    //mf.FileSaveABLine();
-                    //mf.FileSaveCurveLine();
-                    //mf.FileSaveHeadland();
                 }
             }
             catch (Exception ex)
@@ -155,9 +145,6 @@ namespace AgOpenGPS
                 MessageBox.Show(gStr.gsError, ex.ToString());
                 mf.currentFieldDirectory = "";
             }
-
-            DialogResult = DialogResult.OK;
-            Close();
         }
 
         private void CreateNewJob()
@@ -197,9 +184,6 @@ namespace AgOpenGPS
                     mf.FileCreateSections();
                     mf.FileCreateContour();
                     mf.FileCreateElevation();
-
-                    DialogResult = DialogResult.OK;
-                    Close();
                 }
             }
             catch (Exception ex)
@@ -212,6 +196,49 @@ namespace AgOpenGPS
 
         }
 
+        private void btnSaveJob_Click(object sender, EventArgs e)
+        {
+            if (!mf.isFieldStarted) 
+                CreateNewField();
+
+            if (mf.isFieldStarted && !mf.isJobStarted && tboxJobName.Text != "") 
+                CreateNewJob();
+
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void btnFieldNew_Click(object sender, EventArgs e)
+        {
+            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
+            tboxFieldName.Text = "";
+            tboxJobName.Text = "";
+            tboxJobName.Enabled = true;
+            tboxFieldName.Enabled = true;
+
+            btnFieldNew.Enabled = false;
+            btnAddDate.Enabled = true;
+            btnAddTime.Enabled = true;
+
+            btnJobNew.Enabled = false;
+        }
+
+        private void btnJobNew_Click(object sender, EventArgs e)
+        {
+            mf.JobClose();
+            tboxFieldName.Text = "";
+            tboxJobName.Text = "";
+            tboxJobName.Enabled = true;
+
+            btnFieldNew.Enabled = false;
+            btnJobNew.Enabled = false;
+
+            btnAddDateJob.Enabled = true;
+            btnAddTimeJob.Enabled = true;
+
+
+
+        }
 
         #region Job
         private void tboxJobName_TextChanged(object sender, EventArgs e)
@@ -257,47 +284,7 @@ namespace AgOpenGPS
             tboxJobName.Text += " " + DateTime.Now.ToString("HH-mm", CultureInfo.InvariantCulture);
         }
 
-        private void btnSaveJob_Click(object sender, EventArgs e)
-        {
-            if (!mf.isFieldStarted) CreateNewField();
-            if (mf.isFieldStarted && !mf.isJobStarted) CreateNewJob();
-
-            DialogResult = DialogResult.OK;
-            Close();
-        }
-
         #endregion
 
-        private void btnFieldNew_Click(object sender, EventArgs e)
-        {
-            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
-            tboxFieldName.Text = "";
-            tboxJobName.Text = "";
-            tboxJobName.Enabled = true;
-            tboxFieldName.Enabled = true;
-
-            btnFieldNew.Enabled = false;
-            btnAddDate.Enabled = true;
-            btnAddTime.Enabled = true;
-
-            btnJobNew.Enabled = false;
-        }
-
-        private void btnJobNew_Click(object sender, EventArgs e)
-        {
-            mf.JobClose();
-            tboxFieldName.Text = "";
-            tboxJobName.Text = "";
-            tboxJobName.Enabled = true;
-
-            btnFieldNew.Enabled = false;
-            btnJobNew.Enabled = false;
-
-            btnAddDateJob.Enabled = true;
-            btnAddTimeJob.Enabled = true;
-
-
-
-        }
     }
 }

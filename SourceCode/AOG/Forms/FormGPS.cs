@@ -980,8 +980,8 @@ namespace AgOpenGPS
                     + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
 
                 //ExportFieldAs_KML();
-                ExportFieldAs_ISOXMLv3();
-                ExportFieldAs_ISOXMLv4();
+                //ExportFieldAs_ISOXMLv3();
+                //ExportFieldAs_ISOXMLv4();
             }
 
             sbGrid.Clear();

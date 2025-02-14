@@ -14,6 +14,8 @@ namespace AgOpenGPS
 
         private readonly List<string> jobList = new List<string>();
 
+        private ListViewItemSorter lvColumnSorterJobs;
+
         public FormJobPicker(Form callingForm)
         {
             //get copy of the calling main form
@@ -21,6 +23,9 @@ namespace AgOpenGPS
 
             InitializeComponent();
             btnOpenExistingLv.Text = gStr.gsUseSelected;
+
+            lvColumnSorterJobs = new ListViewItemSorter(lvLinesJob);
+            lvLinesJob.ListViewItemSorter = lvColumnSorterJobs;
         }
 
         private void FormJobPicker_Load(object sender, EventArgs e)
@@ -35,8 +40,6 @@ namespace AgOpenGPS
                 Close();
                 return;
             }
-
-            new ListViewItemSorter(lvLinesJob);
 
             LoadJobs();
 
@@ -58,7 +61,7 @@ namespace AgOpenGPS
 
             foreach (string dir in dirs)
             {
-                jobList.Add(Directory.GetCreationTime(dir).ToString(CultureInfo.CurrentUICulture));
+                jobList.Add(Directory.GetCreationTime(dir).ToString("yyyy-M-dd HH:MM"));
                 jobList.Add(Path.GetFileName(dir));
             }
         }
@@ -77,8 +80,7 @@ namespace AgOpenGPS
 
         private void btnOpenExistingLv_Click(object sender, EventArgs e)
         {
-            int count = lvLinesJob.SelectedItems.Count;
-            if (count > 0)
+            if (lvLinesJob.SelectedItems.Count > 0)
             {
                 mf.jobPickerFileAndDirectory = lvLinesJob.SelectedItems[0].SubItems[1].Text;
                 Close();
@@ -92,8 +94,7 @@ namespace AgOpenGPS
 
         private void btnDeleteJob_Click(object sender, EventArgs e)
         {
-            int count = lvLinesJob.SelectedItems.Count;
-            if (count > 0)
+            if (lvLinesJob.SelectedItems.Count > 0)
             {
                 string dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", lvLinesJob.SelectedItems[0].SubItems[1].Text);
 
@@ -113,6 +114,5 @@ namespace AgOpenGPS
             }
             else return;
         }
-
     }
 }

@@ -29,7 +29,7 @@ namespace AgOpenGPS
             lvLines.Columns[0].Text = gStr.gsField;
             lvLines.Columns[1].Text = gStr.gsDistance;
             lvLines.Columns[2].Text = gStr.gsArea;
-            
+
             lvColumnSorterJobs = new ListViewItemSorter(lvLinesJob);
             lvLinesJob.ListViewItemSorter = lvColumnSorterJobs;
 
@@ -217,7 +217,6 @@ namespace AgOpenGPS
 
             lvLines.Items.Clear();
 
-
             for (int i = 0; i < fieldList.Count; i += 3)
             {
                 string[] fieldNames = { fieldList[i], fieldList[i + 1], fieldList[i + 2] };
@@ -233,6 +232,49 @@ namespace AgOpenGPS
                 Log.EventWriter("File Picker, No Line items");
                 Close();
                 return;
+            }
+        }
+
+        private void PopulateJobsListView()
+        {
+            ListViewItem itmJob;
+            lvLinesJob.Items.Clear();
+
+            string chosenDir = Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[0].Text);
+
+            string directoryName = Path.Combine(chosenDir, "Jobs");
+
+            if (string.IsNullOrEmpty(directoryName) || (!Directory.Exists(directoryName)))
+            {
+                return;
+            }
+
+            //list of jobs
+            string[] dirs = Directory.GetDirectories(directoryName);
+
+            jobList?.Clear();
+
+            if (dirs == null || dirs.Length < 1)
+            {
+                return;
+            }
+
+            foreach (string dir in dirs)
+            {
+                jobList.Add(Directory.GetCreationTime(dir).ToString("yyyy-M-dd HH:MM"));
+                jobList.Add(Path.GetFileName(dir));
+            }
+
+            for (int i = 0; i < jobList.Count; i += 2)
+            {
+                string[] jobNames = { jobList[i], jobList[i + 1] };
+                itmJob = new ListViewItem(jobNames);
+                lvLinesJob.Items.Add(itmJob);
+            }
+
+            if (lvLinesJob.Items.Count > 0)
+            {
+                lvLinesJob.Items[lvLinesJob.Items.Count - 1].EnsureVisible();
             }
         }
 
@@ -280,11 +322,6 @@ namespace AgOpenGPS
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            mf.filePickerFileAndDirectory = "";
-        }
-
         private void btnDeleteField_Click(object sender, EventArgs e)
         {
             int count = lvLines.SelectedItems.Count;
@@ -294,7 +331,6 @@ namespace AgOpenGPS
                 //close field and job
                 mf.FileSaveEverythingBeforeClosingField();
 
-                
                 dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[0].Text);
 
                 DialogResult result3 = MessageBox.Show(
@@ -372,48 +408,9 @@ namespace AgOpenGPS
             }
         }
 
-        private void PopulateJobsListView()
+        private void btnCancel_Click(object sender, EventArgs e)
         {
-            ListViewItem itmJob;
-            lvLinesJob.Items.Clear();
-            
-            string chosenDir = Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[0].Text);
-
-            string directoryName = Path.Combine(chosenDir, "Jobs");
-
-            if (string.IsNullOrEmpty(directoryName) || (!Directory.Exists(directoryName)))
-            {
-                return;
-            }
-
-            //list of jobs
-            string[] dirs = Directory.GetDirectories(directoryName);
-
-            jobList?.Clear();
-
-            if (dirs == null || dirs.Length < 1)
-            {
-                return;
-            }
-
-            foreach (string dir in dirs)
-            {
-                jobList.Add(Directory.GetCreationTime(dir).ToString("yyyy-M-dd HH:MM"));
-                jobList.Add(Path.GetFileName(dir));
-            }
-
-            for (int i = 0; i < jobList.Count; i += 2)
-            {
-                string[] jobNames = { jobList[i], jobList[i + 1] };
-                itmJob = new ListViewItem(jobNames);
-                lvLinesJob.Items.Add(itmJob);
-            }
-
-            if (lvLinesJob.Items.Count > 0)
-            {
-                lvLinesJob.Items[lvLinesJob.Items.Count - 1].EnsureVisible();
-            }
-
+            mf.filePickerFileAndDirectory = "";
         }
     }
 }

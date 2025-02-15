@@ -57,7 +57,7 @@
             this.btnJobCancel.UseVisualStyleBackColor = false;
             this.btnJobCancel.Click += new System.EventHandler(this.btnCancelJob_Click);
             // 
-            // btnSaveJob
+            // btnSave
             // 
             this.btnSaveJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveJob.BackColor = System.Drawing.Color.Transparent;

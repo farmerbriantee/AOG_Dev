@@ -8,7 +8,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AgOpenGPS
 {
-    public partial class FormFilePicker : Form
+    public partial class FormFieldOpen : Form
     {
         private readonly FormGPS mf = null;
 
@@ -18,7 +18,7 @@ namespace AgOpenGPS
         private ListViewItemSorter lvColumnSorterJobs;
         private ListViewItemSorter lvColumnSorterFields;
 
-        public FormFilePicker(Form callingForm)
+        public FormFieldOpen(Form callingForm)
         {
             //get copy of the calling main form
             mf = callingForm as FormGPS;
@@ -377,6 +377,7 @@ namespace AgOpenGPS
             else return;
 
             PopulateFieldsListView();
+            lvLinesJob.Items.Clear();
         }
 
         private void btnDeleteJob_Click(object sender, EventArgs e)

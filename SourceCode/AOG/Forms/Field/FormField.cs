@@ -127,7 +127,7 @@ namespace AgOpenGPS
             mf.jobPickerFileAndDirectory = "";
             this.Hide();
 
-            using (FormFilePicker form = new FormFilePicker(mf))
+            using (FormFieldOpen form = new FormFieldOpen(mf))
             {
                 //returns full field.txt file dir name
                 if (form.ShowDialog(this) == DialogResult.Yes)

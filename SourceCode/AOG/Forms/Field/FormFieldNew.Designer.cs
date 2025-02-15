@@ -40,7 +40,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tboxJobName = new System.Windows.Forms.TextBox();
-            this.btnSaveJob = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.btnJobCancel = new System.Windows.Forms.Button();
             this.btnFieldNew = new System.Windows.Forms.Button();
             this.btnJobNew = new System.Windows.Forms.Button();
@@ -208,20 +208,20 @@
             this.tboxJobName.Click += new System.EventHandler(this.tboxJobName_Click);
             this.tboxJobName.TextChanged += new System.EventHandler(this.tboxJobName_TextChanged);
             // 
-            // btnSaveJob
+            // btnSave
             // 
-            this.btnSaveJob.BackColor = System.Drawing.Color.Transparent;
-            this.btnSaveJob.FlatAppearance.BorderSize = 0;
-            this.btnSaveJob.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveJob.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSaveJob.Image = global::AgOpenGPS.Properties.Resources.OK64;
-            this.btnSaveJob.Location = new System.Drawing.Point(583, 480);
-            this.btnSaveJob.Name = "btnSaveJob";
-            this.btnSaveJob.Size = new System.Drawing.Size(83, 59);
-            this.btnSaveJob.TabIndex = 154;
-            this.btnSaveJob.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSaveJob.UseVisualStyleBackColor = false;
-            this.btnSaveJob.Click += new System.EventHandler(this.btnSaveJob_Click);
+            this.btnSave.BackColor = System.Drawing.Color.Transparent;
+            this.btnSave.FlatAppearance.BorderSize = 0;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnSave.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnSave.Location = new System.Drawing.Point(583, 480);
+            this.btnSave.Name = "btnSaveJob";
+            this.btnSave.Size = new System.Drawing.Size(83, 59);
+            this.btnSave.TabIndex = 154;
+            this.btnSave.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnJobCancel
             // 
@@ -302,7 +302,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.tboxJobName);
-            this.Controls.Add(this.btnSaveJob);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnJobCancel);
             this.Controls.Add(this.btnAddDate);
             this.Controls.Add(this.btnAddTime);
@@ -337,7 +337,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tboxJobName;
-        private System.Windows.Forms.Button btnSaveJob;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnJobCancel;
         private System.Windows.Forms.Button btnFieldNew;
         private System.Windows.Forms.Button btnJobNew;

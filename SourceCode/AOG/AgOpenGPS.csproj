@@ -336,11 +336,11 @@
     <Compile Include="Forms\Inputs\FormKeyboard.Designer.cs">
       <DependentUpon>FormKeyboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Pickers\FormFilePicker.cs">
+    <Compile Include="Forms\Field\FormFieldOpen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Pickers\FormFilePicker.Designer.cs">
-      <DependentUpon>FormFilePicker.cs</DependentUpon>
+    <Compile Include="Forms\Field\FormFieldOpen.Designer.cs">
+      <DependentUpon>FormFieldOpen.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Inputs\FormNumeric.cs">
       <SubType>Form</SubType>
@@ -753,8 +753,8 @@
     <EmbeddedResource Include="Forms\Inputs\FormKeyboard.resx">
       <DependentUpon>FormKeyboard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Pickers\FormFilePicker.resx">
-      <DependentUpon>FormFilePicker.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Field\FormFieldOpen.resx">
+      <DependentUpon>FormFieldOpen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Inputs\FormNumeric.resx">
       <DependentUpon>FormNumeric.cs</DependentUpon>

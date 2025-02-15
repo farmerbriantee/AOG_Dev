@@ -1,6 +1,6 @@
 ﻿namespace AgOpenGPS
 {
-    partial class FormFilePicker
+    partial class FormFieldOpen
     {
         /// <summary>
         /// Required designer variable.

@@ -26,7 +26,7 @@ namespace AgOpenGPS
 
         private void FormFieldDir_Load(object sender, EventArgs e)
         {
-            btnSaveJob.Enabled = false;
+            btnSave.Enabled = false;
 
             if (mf.isFieldStarted)
             {
@@ -44,6 +44,15 @@ namespace AgOpenGPS
                 tboxJobName.Enabled = false;
 
                 btnJobNew.Enabled = true;
+                btnAddDateJob.Enabled = false;
+                btnAddTimeJob.Enabled = false;
+            }
+
+            if (!mf.isFieldStarted && !mf.isJobStarted)
+            {
+                btnFieldNew.Enabled = false;
+                btnJobNew.Enabled = false;
+                tboxJobName.Enabled = false;
                 btnAddDateJob.Enabled = false;
                 btnAddTimeJob.Enabled = false;
             }
@@ -66,11 +75,17 @@ namespace AgOpenGPS
 
             if (String.IsNullOrEmpty(tboxFieldName.Text.Trim()))
             {
-                btnSaveJob.Enabled = false;
+                btnSave.Enabled = false;
+                tboxJobName.Enabled = false;
+                btnAddDateJob.Enabled = false;
+                btnAddTimeJob.Enabled = false;
             }
             else
             {
-                btnSaveJob.Enabled = true;
+                btnSave.Enabled = true;
+                tboxJobName.Enabled = true;
+                btnAddDateJob.Enabled = true;
+                btnAddTimeJob.Enabled = true;
             }
         }
 
@@ -196,13 +211,53 @@ namespace AgOpenGPS
 
         }
 
-        private void btnSaveJob_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
-            if (!mf.isFieldStarted) 
-                CreateNewField();
+            if (!mf.isFieldStarted)
+            {
+                //fill something in
+                if (String.IsNullOrEmpty(tboxFieldName.Text.Trim()))
+                {
+                    mf.YesMessageBox("No Field Name Entered");
+                    return;
+                }
 
-            if (mf.isFieldStarted && !mf.isJobStarted && tboxJobName.Text != "") 
+                try
+                {
+                    //get the directory and make sure it exists, create if not
+                    DirectoryInfo dirNewField = new DirectoryInfo(Path.Combine(RegistrySettings.fieldsDirectory, tboxFieldName.Text.Trim()));
+
+                    //create it for first save
+                    if (dirNewField.Exists)
+                    {
+                        mf.YesMessageBox($"{gStr.gsChooseADifferentName} \r\n\r\n {gStr.gsDirectoryExists}");
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.EventWriter($"Catch: {ex.ToString()} ");
+                    mf.YesMessageBox("Serious Error CreatingField");
+                }
+
+                CreateNewField();
+            }
+
+            //job
+            if (mf.isFieldStarted && !mf.isJobStarted && tboxJobName.Text != "")
+            {
+                //get the directory and make sure it exists, create if not
+                DirectoryInfo dirNewField = new DirectoryInfo(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", tboxJobName.Text.Trim()));
+
+                //create it for first save
+                if (dirNewField.Exists)
+                {
+                    mf.YesMessageBox($"Job Creation Error \r\n\r\n{gStr.gsChooseADifferentName}\r\n\r\n{gStr.gsDirectoryExists}");
+                    return;
+                }
+
                 CreateNewJob();
+            }
 
             DialogResult = DialogResult.OK;
             Close();
@@ -212,9 +267,10 @@ namespace AgOpenGPS
         {
             if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
             tboxFieldName.Text = "";
-            tboxJobName.Text = "";
-            tboxJobName.Enabled = true;
             tboxFieldName.Enabled = true;
+
+            tboxJobName.Text = "";
+            tboxJobName.Enabled = false;
 
             btnFieldNew.Enabled = false;
             btnAddDate.Enabled = true;
@@ -226,7 +282,6 @@ namespace AgOpenGPS
         private void btnJobNew_Click(object sender, EventArgs e)
         {
             mf.JobClose();
-            tboxFieldName.Text = "";
             tboxJobName.Text = "";
             tboxJobName.Enabled = true;
 
@@ -235,9 +290,6 @@ namespace AgOpenGPS
 
             btnAddDateJob.Enabled = true;
             btnAddTimeJob.Enabled = true;
-
-
-
         }
 
         #region Job
@@ -250,13 +302,13 @@ namespace AgOpenGPS
             textboxSender.Text = Regex.Replace(textboxSender.Text, glm.fileRegex, "");
             textboxSender.SelectionStart = cursorPosition;
 
-            if (String.IsNullOrEmpty(tboxJobName.Text.Trim()))
+            if (tboxFieldName.Text == "" && String.IsNullOrEmpty(tboxJobName.Text.Trim()))
             {
-                btnSaveJob.Enabled = false;
+                btnSave.Enabled = false;
             }
             else
             {
-                btnSaveJob.Enabled = true;
+                btnSave.Enabled = true;
             }
         }
 

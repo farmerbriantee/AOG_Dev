@@ -93,7 +93,6 @@ namespace AgOpenGPS
         //oglMain rendering, Draw
         private void oglMain_Paint(object sender, PaintEventArgs e)
         {
-
             if (sentenceCounter < 299)
             {
                 if (isGPSPositionInitialized)
@@ -1465,10 +1464,10 @@ namespace AgOpenGPS
         private void oglZoom_Load(object sender, EventArgs e)
         {
             oglZoom.MakeCurrent();
-            oglZoom.Width = 600;
-            oglZoom.Height = 600;
+            oglZoom.Width = 500;
+            oglZoom.Height = 500;
             oglZoom.Left = 100;
-            oglZoom.Top = 100;
+            oglZoom.Top = 80;
             oglZoom.SendToBack();
 
             GL.MatrixMode(MatrixMode.Projection);

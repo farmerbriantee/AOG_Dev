@@ -143,31 +143,40 @@ namespace AgOpenGPS
 
                     if (!isFieldStarted)
                     {
-                        GL.Color4(0.9, 0.9, 0.9, 1.0);
 
                         GL.LineWidth(2);
 
-                        //for every new chunk of patch
-                        foreach (var triList in fieldList)
+                        foreach (var field in fieldFilesList.fieldArr)
                         {
-                            for (int i = 1; i < triList.Count; i += 3)
+                            for (int i = 1; i < field.bndPts.Count; i += 3)
                             {
                                 //determine if point is in frustum or not, if < 0, its outside so abort, z always is 0                            
-                                if (frustum[0] * triList[i].easting + frustum[1] * triList[i].northing + frustum[3] <= 0)
+                                if (frustum[0] * field.bndPts[i].easting + frustum[1] * field.bndPts[i].northing + frustum[3] <= 0)
                                     continue;//right
-                                if (frustum[4] * triList[i].easting + frustum[5] * triList[i].northing + frustum[7] <= 0)
+                                if (frustum[4] * field.bndPts[i].easting + frustum[5] * field.bndPts[i].northing + frustum[7] <= 0)
                                     continue;//left
-                                if (frustum[16] * triList[i].easting + frustum[17] * triList[i].northing + frustum[19] <= 0)
+                                if (frustum[16] * field.bndPts[i].easting + frustum[17] * field.bndPts[i].northing + frustum[19] <= 0)
                                     continue;//bottom
-                                if (frustum[20] * triList[i].easting + frustum[21] * triList[i].northing + frustum[23] <= 0)
+                                if (frustum[20] * field.bndPts[i].easting + frustum[21] * field.bndPts[i].northing + frustum[23] <= 0)
                                     continue;//top
-                                if (frustum[8] * triList[i].easting + frustum[9] * triList[i].northing + frustum[11] <= 0)
+                                if (frustum[8] * field.bndPts[i].easting + frustum[9] * field.bndPts[i].northing + frustum[11] <= 0)
                                     continue;//far
-                                if (frustum[12] * triList[i].easting + frustum[13] * triList[i].northing + frustum[15] <= 0)
+                                if (frustum[12] * field.bndPts[i].easting + frustum[13] * field.bndPts[i].northing + frustum[15] <= 0)
                                     continue;//near
 
                                 //point is in frustum so draw the entire patch. The downside of triangle strips.
-                                triList.DrawPolygon();
+                                GL.Color4(0.9, 0.9, 0.9, 1.0);
+                                field.bndPts.DrawPolygon();
+
+                                GL.PointSize(8.0f);
+                                GL.Color3(0.3, 0.9, 0.3);
+                                GL.Begin(PrimitiveType.Points);
+
+                                GL.Vertex3(field.start.easting, field.start.northing, 0);
+                                GL.End();
+
+                                font.DrawText3D(field.start.easting, field.start.northing, field.name, 2);
+
                                 break;
                             }
                         }

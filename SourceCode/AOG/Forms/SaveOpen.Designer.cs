@@ -13,18 +13,31 @@ using AgOpenGPS.Culture;
 
 namespace AgOpenGPS
 {
+    public class CFieldFile
+    {
+        public List<vec3> bndPts = new List<vec3>();
+        public vec2 start;
+        public string name;
+    }
+
+    public class CFieldFiles
+    {
+        public List<CFieldFile> fieldArr = new List<CFieldFile>();
+        
+    }
+
     public partial class FormGPS
     {
         //list of the list of patch data individual triangles for contour tracking
         public List<List<vec3>> contourSaveList = new List<List<vec3>>();
 
-        //list of the list of patch data individual triangles for field sections
+        //list of the list of patch data individual triangles for bndPts sections
         public List<List<vec3>> patchSaveList = new List<List<vec3>>();
 
         //list of the list of patch data individual triangles for that entire section activity
         public List<List<vec3>> patchList = new List<List<vec3>>();
 
-        public List<List<vec3>> fieldList = new List<List<vec3>>();
+        public CFieldFiles fieldFilesList = new CFieldFiles();
 
         #region Create Files
 
@@ -138,7 +151,7 @@ namespace AgOpenGPS
             }
         }
 
-        //creates the field file when starting new field
+        //creates the bndPts file when starting new bndPts
         public void FileCreateField()
         {
             //Saturday, February 11, 2017  -->  7:26:52 AM
@@ -234,7 +247,7 @@ namespace AgOpenGPS
 
         #region Field Open Resume
 
-        //function to open a previously saved field, resume, open exisiting, open named field
+        //function to open a previously saved bndPts, resume, open exisiting, open named bndPts
         public void FileOpenField(string _openType)
         {
             string fileAndDirectory = "";
@@ -305,7 +318,7 @@ namespace AgOpenGPS
                     //dir header $FieldDir
                     line = reader.ReadLine();
 
-                    //read field directory
+                    //read bndPts directory
                     line = reader.ReadLine();
 
                     currentFieldDirectory = Path.GetDirectoryName(fileAndDirectory);
@@ -379,13 +392,14 @@ namespace AgOpenGPS
             PanelsAndOGLSize();
             SetZoom();
 
-            //update field data
+            //update bndPts data
             oglZoom.Refresh();
         }
 
         public void FileLoadFields()
         {
-            fieldList.Clear();
+            fieldFilesList.fieldArr.Clear();
+            int idx;
 
             string[] dirs = Directory.GetDirectories(RegistrySettings.fieldsDirectory);
 
@@ -399,9 +413,17 @@ namespace AgOpenGPS
                 string filename = Path.Combine(dir, "Field.txt");
                 string line;
 
-                //make sure directory has a field.txt in it
+                //make sure directory has a bndPts.txt in it
                 if (File.Exists(filename))
                 {
+                    fieldFilesList.fieldArr.Add(new CFieldFile());
+                    idx = fieldFilesList.fieldArr.Count - 1;
+
+                    //add name to the list
+                    fieldFilesList.fieldArr[idx].name = fieldDirectory;
+
+                    fieldFilesList.fieldArr[idx].start = new vec2(0, 0);
+
                     using (StreamReader reader = new StreamReader(filename))
                     {
                         try
@@ -425,13 +447,17 @@ namespace AgOpenGPS
                                 * Math.Cos(4.0 * latStart * 0.01745329251994329576923690766743) - 0.0023
                                 * Math.Cos(6.0 * latStart * 0.01745329251994329576923690766743);
 
+                                //get start coords
+                                pn.GetLocalToLocal(latStart, lonStart, mPerDegreeLat, latStart, lonStart, out double northing, out double easting);
+                                fieldFilesList.fieldArr[idx].start.northing = northing;
+                                fieldFilesList.fieldArr[idx].start.easting = easting;
+
                                 //grab the boundary area
                                 filename = Path.Combine(dir, "Boundary.txt");
                                 if (File.Exists(filename))
                                 {
-                                    var field = new List<vec3>();
+                                    var bndPts = new List<vec3>();
 
-                                    List<vec3> pointList = new List<vec3>();
                                     double area = 0;
 
                                     using (StreamReader reader2 = new StreamReader(filename))
@@ -467,11 +493,10 @@ namespace AgOpenGPS
                                                     {
                                                         line = reader2.ReadLine();
                                                         string[] words = line.Split(',');
-                                                        pn.GetLocalToLocal(double.Parse(words[0], CultureInfo.InvariantCulture), double.Parse(words[1], CultureInfo.InvariantCulture), mPerDegreeLat, latStart, lonStart, out double northing, out double easting);
+                                                        pn.GetLocalToLocal(double.Parse(words[0], CultureInfo.InvariantCulture), double.Parse(words[1], CultureInfo.InvariantCulture), mPerDegreeLat, latStart, lonStart, out double nort, out double east);
 
-                                                        field.Add(new vec3(easting, northing, 0));
+                                                        fieldFilesList.fieldArr[idx].bndPts.Add(new vec3(east, nort,0));
                                                     }
-                                                    fieldList.Add(field);
                                                 }
                                             }
                                         }
@@ -1782,7 +1807,7 @@ namespace AgOpenGPS
             //make sure there is something to save
             if (contourSaveList.Count() > 0)
             {
-                //Append the current list to the field file
+                //Append the current list to the bndPts file
                 using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, currentJobDirectory, "Contour.txt"), true))
                 {
 
@@ -1960,7 +1985,7 @@ namespace AgOpenGPS
             //make sure there is something to save
             if (patchSaveList.Count() > 0)
             {
-                //Append the current list to the field file
+                //Append the current list to the bndPts file
                 using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, currentJobDirectory, "Sections.txt"), true))
                 {
                     //for each patch, write out the list of triangles to the file
@@ -2532,7 +2557,7 @@ namespace AgOpenGPS
             kml.WriteStartElement("kml", "http://www.opengis.net/kml/2.2");
             kml.WriteStartElement("Document");
 
-            foreach(String dir in Directory.EnumerateDirectories(directoryName).OrderBy(d => new DirectoryInfo(d).Name).ToArray())
+            foreach (String dir in Directory.EnumerateDirectories(directoryName).OrderBy(d => new DirectoryInfo(d).Name).ToArray())
             //loop
             {
                 if (!File.Exists(Path.Combine(dir, "Field.kml"))) continue;
@@ -2543,10 +2568,10 @@ namespace AgOpenGPS
 
                 var lines = File.ReadAllLines(Path.Combine(dir, "Field.kml"));
                 LinkedList<string> linebuffer = new LinkedList<string>();
-                for( var i = 3; i < lines.Length-2; i++)  //We want to skip the first 3 and last 2 lines
+                for (var i = 3; i < lines.Length - 2; i++)  //We want to skip the first 3 and last 2 lines
                 {
                     linebuffer.AddLast(lines[i]);
-                    if(linebuffer.Count > 2)
+                    if (linebuffer.Count > 2)
                     {
                         kml.WriteRaw("   ");
                         kml.WriteRaw(Environment.NewLine);
@@ -2564,7 +2589,7 @@ namespace AgOpenGPS
                 kml.WriteRaw(Environment.NewLine);
 
                 kml.WriteEndElement(); // <Folder>
-                kml.WriteComment("End of " +directoryName);
+                kml.WriteComment("End of " + directoryName);
             }
 
             //end of document

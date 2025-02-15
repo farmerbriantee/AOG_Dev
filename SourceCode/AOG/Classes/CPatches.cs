@@ -136,6 +136,7 @@ namespace AgOpenGPS
 
                 //save the cutoff patch to be saved later
                 mf.patchSaveList.Add(triangleList);
+                mf.patchList.Add(triangleList);
 
                 triangleList = new List<vec3>(32);
 

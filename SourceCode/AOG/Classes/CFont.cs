@@ -27,10 +27,10 @@ namespace AgOpenGPS
             isFontOn = true;
         }
 
-        public void DrawText3D(double x1, double y1, string text, double size = 1.0)
+        public void DrawText3D(double x1, double y1, string text, double sizeF = 1.0)
         {
             double x = 0, y = 0;
-
+            double size = 1;
             GL.PushMatrix();
 
             GL.Translate(x1, y1, 0);
@@ -50,6 +50,8 @@ namespace AgOpenGPS
                 size = Math.Pow(size, 0.85);
                 size /= 1000;
             }
+
+            size *= sizeF;
 
             GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.Font]);
             GL.Enable(EnableCap.Texture2D);

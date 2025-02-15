@@ -379,15 +379,8 @@ namespace AgOpenGPS
 
                     if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
                     { Directory.CreateDirectory(directoryName); }
-
-                    mf.FileCreateSections();
-                    mf.FileCreateRecPath();
-                    mf.FileCreateContour();
-                    mf.FileCreateElevation();
+                    
                     mf.FileSaveFlags();
-                    //mf.FileSaveABLine();
-                    //mf.FileSaveCurveLine();
-                    //mf.FileSaveHeadland();
                 }
             }
             catch (Exception ex)

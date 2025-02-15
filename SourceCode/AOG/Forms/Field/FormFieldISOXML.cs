@@ -343,10 +343,6 @@ namespace AgOpenGPS
                         writer.WriteLine(CNMEA.latStart.ToString(CultureInfo.InvariantCulture) + "," + CNMEA.lonStart.ToString(CultureInfo.InvariantCulture));
                     }
 
-                    mf.FileCreateSections();
-                    mf.FileCreateRecPath();
-                    mf.FileCreateContour();
-                    mf.FileCreateElevation();
                     mf.FileSaveFlags();
                 }
             }

@@ -699,7 +699,7 @@ namespace AgOpenGPS
                             FileSaveContour();
 
                             //NMEA elevation file
-                            if (isLogElevation && sbGrid.Length > 0) FileSaveElevation();
+                            if (isLogElevation && sbElevationString.Length > 0) FileSaveElevation();
                         }
 
                         //set saving flag off

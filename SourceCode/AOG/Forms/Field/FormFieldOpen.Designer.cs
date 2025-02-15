@@ -1,6 +1,6 @@
 ﻿namespace AgOpenGPS
 {
-    partial class FormFilePicker
+    partial class FormFieldOpen
     {
         /// <summary>
         /// Required designer variable.
@@ -72,7 +72,7 @@
             this.btnCancel.Location = new System.Drawing.Point(304, 581);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(71, 63);
-            this.btnCancel.TabIndex = 91;
+            this.btnCancel.TabIndex = 2;
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -123,7 +123,7 @@
             this.lvLines.Name = "lvLines";
             this.lvLines.Size = new System.Drawing.Size(976, 283);
             this.lvLines.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.lvLines.TabIndex = 86;
+            this.lvLines.TabIndex = 0;
             this.lvLines.UseCompatibleStateImageBehavior = false;
             this.lvLines.View = System.Windows.Forms.View.Details;
             this.lvLines.SelectedIndexChanged += new System.EventHandler(this.lvLines_SelectedIndexChanged);
@@ -147,7 +147,7 @@
             this.lvLinesJob.Name = "lvLinesJob";
             this.lvLinesJob.Size = new System.Drawing.Size(976, 280);
             this.lvLinesJob.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.lvLinesJob.TabIndex = 97;
+            this.lvLinesJob.TabIndex = 1;
             this.lvLinesJob.UseCompatibleStateImageBehavior = false;
             this.lvLinesJob.View = System.Windows.Forms.View.Details;
             // 
@@ -220,7 +220,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(980, 655);
+            this.ClientSize = new System.Drawing.Size(984, 655);
             this.ControlBox = false;
             this.Controls.Add(this.btnNewJob);
             this.Controls.Add(this.btnDeleteJob);

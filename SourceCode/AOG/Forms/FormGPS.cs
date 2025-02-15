@@ -765,9 +765,8 @@ namespace AgOpenGPS
             panelRight.Enabled = false;
             FieldMenuButtonEnableDisable(false);
             displayFieldName = gStr.gsNone;
-            displayJobName = gStr.gsNone;
 
-            //it closes Job first
+            JobClose();
             FieldClose();
 
             this.Text = "AgOpenGPS";
@@ -807,11 +806,6 @@ namespace AgOpenGPS
             lblHardwareMessage.Visible = false;
 
             gyd.isFindGlobalNearestTrackPoint = true;
-
-            if (thread_oglBack == null)
-            {
-                //oglBackStart();
-            }
 
             oglMain.MakeCurrent();
         }
@@ -920,6 +914,25 @@ namespace AgOpenGPS
             autoBtnState = btnStates.Off;
             btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
 
+            if(isJobStarted)
+            {
+                Settings.Default.setF_CurrentJobDir = currentJobDirectory;
+
+                //auto save the field patches, contours accumulated so far
+                FileSaveSections();
+                FileSaveContour();
+
+                //NMEA elevation file
+                if (isLogElevation && sbElevationString.Length > 0) FileSaveElevation();
+
+                Log.EventWriter("** Closed **   " + currentJobDirectory + "   "
+                    + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
+
+                isJobStarted = false;
+            }
+
+            displayJobName = gStr.gsNone;
+
             //clear out contour and Lists
             btnContour.Enabled = false;
             ct.ResetContour();
@@ -941,24 +954,6 @@ namespace AgOpenGPS
                 LineUpAllZoneButtons();
             }
 
-            if(isJobStarted)
-            {
-                Settings.Default.setF_CurrentJobDir = currentJobDirectory;
-
-                //auto save the field patches, contours accumulated so far
-                FileSaveSections();
-                FileSaveContour();
-
-                //NMEA elevation file
-                if (isLogElevation && sbGrid.Length > 0) FileSaveElevation();
-                isJobStarted = false;
-
-                Log.EventWriter("** Closed **   " + currentJobDirectory + "   "
-                    + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
-
-                isJobStarted = false;
-            }
-
             triStrip?.Clear();
             patchList?.Clear();
             patchSaveList?.Clear();
@@ -967,8 +962,6 @@ namespace AgOpenGPS
 
         public void FieldClose()
         {
-            JobClose();
-
             Settings.Default.setF_CurrentFieldDir = currentFieldDirectory;
 
             if (isFieldStarted)
@@ -980,11 +973,11 @@ namespace AgOpenGPS
                     + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
 
                 //ExportFieldAs_KML();
-                ExportFieldAs_ISOXMLv3();
-                ExportFieldAs_ISOXMLv4();
+                //ExportFieldAs_ISOXMLv3();
+                //ExportFieldAs_ISOXMLv4();
             }
 
-            sbGrid.Clear();
+            sbElevationString.Clear();
             gyd.isFindGlobalNearestTrackPoint = true;
 
             //reset field offsets

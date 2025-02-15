@@ -114,7 +114,7 @@ namespace AgOpenGPS
 
             ////////////////////////////////////////////// 10 second ///////////////////////////////////////////////////////
             //every 3 second update status
-            if (fourSecondCounter >= 2)
+            if (fourSecondCounter >= 1)
             {
                 if (!isPauseFieldTextCounter)
                 {
@@ -137,7 +137,7 @@ namespace AgOpenGPS
                     switch (currentFieldTextCounter)
                     {
                         case 0:
-                            lblCurrentField.Text = gStr.gsField + ": " + displayFieldName + " :" + currentJobDirectory;
+                            lblCurrentField.Text = gStr.gsField + ": " + displayFieldName + " * Job: " + displayJobName;
                             break;
 
                         case 1:

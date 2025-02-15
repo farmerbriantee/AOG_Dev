@@ -20,7 +20,7 @@ namespace AgOpenGPS
         public double startGPSHeading = 0;
 
         //string to record fixes for elevation maps
-        public StringBuilder sbGrid = new StringBuilder();
+        public StringBuilder sbElevationString = new StringBuilder();
 
         // autosteer variables for sending serial
         public short guidanceLineDistanceOff, guidanceLineSteerAngle, guidanceLineDistanceOffTool;
@@ -1131,7 +1131,7 @@ namespace AgOpenGPS
             if ( isLogElevation && gridTriggerDistance > 2.9 && patchCounter !=0 && isFieldStarted)
             {
                 //grab fix and elevation
-                sbGrid.Append(
+                sbElevationString.Append(
                       pn.latitude.ToString("N7", CultureInfo.InvariantCulture) + ","
                     + pn.longitude.ToString("N7", CultureInfo.InvariantCulture) + ","
                     + Math.Round((pn.altitude - vehicle.antennaHeight),3).ToString(CultureInfo.InvariantCulture) + ","

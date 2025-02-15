@@ -1809,7 +1809,7 @@ namespace AgOpenGPS
         }
         private void toolStripAreYouSure_Click(object sender, EventArgs e)
         {
-            if (isFieldStarted)
+            if (isFieldStarted && isJobStarted)
             {
                 if (autoBtnState == btnStates.Off && manualBtnState == btnStates.Off)
                 {

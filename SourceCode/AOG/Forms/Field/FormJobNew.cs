@@ -71,20 +71,20 @@ namespace AgOpenGPS
             //fill something in
             if (String.IsNullOrEmpty(tboxJobName.Text.Trim()))
             {
+                mf.YesMessageBox("No Job Name Entered");
                 return;
             }
-
-            //get the directory and make sure it exists, create if not
-            DirectoryInfo dirNewJob = new DirectoryInfo(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", tboxJobName.Text.Trim()));
 
             mf.menustripLanguage.Enabled = false;
 
             try
             {
-                //create it for first save
+                //get the directory and make sure it exists, create if not
+                DirectoryInfo dirNewJob = new DirectoryInfo(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", tboxJobName.Text.Trim()));
+
                 if (dirNewJob.Exists)
                 {
-                    MessageBox.Show(gStr.gsChooseADifferentName, gStr.gsDirectoryExists, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    mf.YesMessageBox($"Job Creation Error \r\n\r\n{gStr.gsChooseADifferentName}\r\n\r\n{gStr.gsDirectoryExists}");
                     return;
                 }
                 else
@@ -97,7 +97,7 @@ namespace AgOpenGPS
                     mf.JobNew();
 
                     mf.currentJobDirectory = Path.Combine("Jobs", tboxJobName.Text.Trim());
-                    mf.displayJobName = mf.currentJobDirectory;
+                    mf.displayJobName = Path.GetFileName(mf.currentJobDirectory);
 
                     //create the field file header info
                     mf.FileCreateSections();

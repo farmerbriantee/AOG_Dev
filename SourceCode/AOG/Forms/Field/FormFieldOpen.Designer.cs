@@ -150,6 +150,7 @@
             this.lvLinesJob.TabIndex = 1;
             this.lvLinesJob.UseCompatibleStateImageBehavior = false;
             this.lvLinesJob.View = System.Windows.Forms.View.Details;
+            this.lvLinesJob.SelectedIndexChanged += new System.EventHandler(this.lvLinesJob_SelectedIndexChanged);
             // 
             // chDate
             // 

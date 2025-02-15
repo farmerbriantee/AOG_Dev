@@ -93,7 +93,6 @@ namespace AgOpenGPS
         //oglMain rendering, Draw
         private void oglMain_Paint(object sender, PaintEventArgs e)
         {
-
             if (sentenceCounter < 299)
             {
                 if (isGPSPositionInitialized)
@@ -1465,10 +1464,10 @@ namespace AgOpenGPS
         private void oglZoom_Load(object sender, EventArgs e)
         {
             oglZoom.MakeCurrent();
-            oglZoom.Width = 600;
-            oglZoom.Height = 600;
+            oglZoom.Width = 500;
+            oglZoom.Height = 500;
             oglZoom.Left = 100;
-            oglZoom.Top = 100;
+            oglZoom.Top = 80;
             oglZoom.SendToBack();
 
             GL.MatrixMode(MatrixMode.Projection);
@@ -2515,7 +2514,7 @@ namespace AgOpenGPS
         private void DrawCompass()
         {
             //Heading text
-            int center = oglMain.Width / 2 - 120;
+            int center = oglMain.Width / 2 -48;
 
             GL.PushMatrix();
             GL.Enable(EnableCap.Texture2D);
@@ -2524,7 +2523,7 @@ namespace AgOpenGPS
             GL.Color4(0.952f, 0.870f, 0.73f, 0.8);
 
 
-            GL.Translate(center, 50, 0);
+            GL.Translate(center, 140, 0);
 
             GL.Rotate(camHeading, 0, 0, 1);
             GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip

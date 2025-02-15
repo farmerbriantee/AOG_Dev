@@ -4,19 +4,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AgOpenGPS
 {
     public partial class FormFieldOpen : Form
     {
         private readonly FormGPS mf = null;
-
-        private readonly List<string> fieldList = new List<string>();
-        private readonly List<string> jobList = new List<string>();
-
-        private ListViewItemSorter lvColumnSorterJobs;
-        private ListViewItemSorter lvColumnSorterFields;
 
         public FormFieldOpen(Form callingForm)
         {
@@ -25,22 +18,26 @@ namespace AgOpenGPS
 
             InitializeComponent();
             btnOpenExistingLv.Text = gStr.gsUseSelected;
+            btnOpenExistingLv.Enabled = false;
+            btnDeleteJob.Enabled = false;
+            btnDeleteField.Enabled = false;
 
             lvLines.Columns[0].Text = gStr.gsField;
             lvLines.Columns[1].Text = gStr.gsDistance;
             lvLines.Columns[2].Text = gStr.gsArea;
 
-            lvColumnSorterJobs = new ListViewItemSorter(lvLinesJob);
-            lvLinesJob.ListViewItemSorter = lvColumnSorterJobs;
+            lvLinesJob.ListViewItemSorter = new ListViewItemSorter(lvLinesJob);
+            lvLinesJob.HideSelection = false;
+            lvLinesJob.AllowColumnReorder = true;
 
-            lvColumnSorterFields = new ListViewItemSorter(lvLines);
-            lvLines.ListViewItemSorter = lvColumnSorterFields;
+            lvLines.ListViewItemSorter = new ListViewItemSorter(lvLines);
+            lvLines.HideSelection = false;
+            lvLines.AllowColumnReorder = true;
         }
 
         private void FormFilePicker_Load(object sender, EventArgs e)
         {
             PopulateFieldsListView();
-
 
             if (mf.isFieldStarted)
             {
@@ -73,11 +70,9 @@ namespace AgOpenGPS
 
         private void PopulateFieldsListView()
         {
-            ListViewItem itm;
+            lvLines.Items.Clear();
 
             string[] dirs = Directory.GetDirectories(RegistrySettings.fieldsDirectory);
-
-            fieldList?.Clear();
 
             if (dirs == null || dirs.Length < 1)
             {
@@ -93,9 +88,11 @@ namespace AgOpenGPS
                 double lonStart = 0;
                 double distance = 0;
                 string fieldDirectory = Path.GetFileName(dir);
+                string distanceString = "";
+                string areaString = "";
                 string filename = Path.Combine(dir, "Field.txt");
                 string line;
-
+                
                 //make sure directory has a field.txt in it
                 if (File.Exists(filename))
                 {
@@ -122,16 +119,14 @@ namespace AgOpenGPS
                                 distance = Math.Sqrt(distance);
                                 distance *= 100;
 
-                                fieldList.Add(fieldDirectory);
-                                fieldList.Add(Math.Round(distance, 2).ToString("N2").PadLeft(10));
+                                distanceString = Math.Round(distance, 2).ToString("N2").PadLeft(10);
                             }
                             else
                             {
                                 MessageBox.Show(fieldDirectory + " is Damaged, Please Delete This Field", gStr.gsFileError,
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                                fieldList.Add(fieldDirectory);
-                                fieldList.Add("Error");
+                                distanceString = "Error";
                             }
                         }
                         catch (Exception eg)
@@ -139,8 +134,7 @@ namespace AgOpenGPS
                             MessageBox.Show(fieldDirectory + " is Damaged, Please Delete, Field.txt is Broken", gStr.gsFileError,
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                             Log.EventWriter("Field.txt is Broken" + eg.ToString());
-                            fieldList.Add(fieldDirectory);
-                            fieldList.Add("Error");
+                            distanceString = "Error";
                         }
                     }
                 }
@@ -222,96 +216,70 @@ namespace AgOpenGPS
                             Log.EventWriter("Field.txt is Broken" + e.ToString());
                         }
                     }
-                    if (area == 0) fieldList.Add("No Bndry");
-                    else fieldList.Add(Math.Round(area, 1).ToString("N1").PadLeft(10));
+                    if (area == 0) areaString = "No Bndry";
+                    else areaString = Math.Round(area, 1).ToString("N1").PadLeft(10);
                 }
                 else
                 {
-                    fieldList.Add("Error");
+                    areaString = "Error";
                     MessageBox.Show(fieldDirectory + " is Damaged, Missing Boundary.Txt " +
                         "               \r\n Delete Field or Fix ", gStr.gsFileError,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                filename = Path.Combine(dir, "Field.txt");
+                string[] fieldNames = { fieldDirectory, distanceString, areaString };
+                lvLines.Items.Add(new ListViewItem(fieldNames));
             }
-
-            if (fieldList == null || fieldList.Count < 1)
-            {
-                mf.TimedMessageBox(2000, gStr.gsNoFieldsFound, gStr.gsCreateNewField);
-                Log.EventWriter("File Picker, No fields Sorted");
-                Close();
-                return;
-            }
-
-            lvLines.Items.Clear();
-
-            for (int i = 0; i < fieldList.Count; i += 3)
-            {
-                string[] fieldNames = { fieldList[i], fieldList[i + 1], fieldList[i + 2] };
-                itm = new ListViewItem(fieldNames);
-                lvLines.Items.Add(itm);
-            }
-
-            //string fieldName = Path.GetDirectoryName(dir).ToString(CultureInfo.InvariantCulture);
 
             if (lvLines.Items.Count == 0)
             {
                 mf.TimedMessageBox(2000, gStr.gsNoFieldsFound, gStr.gsCreateNewField);
-                Log.EventWriter("File Picker, No Line items");
+                Log.EventWriter("File Picker, No field items");
                 Close();
                 return;
-            }
-        }
-
-        private void PopulateJobsListView()
-        {
-            ListViewItem itmJob;
-            lvLinesJob.Items.Clear();
-
-            string chosenDir = Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[0].Text);
-
-            string directoryName = Path.Combine(chosenDir, "Jobs");
-
-            if (string.IsNullOrEmpty(directoryName) || (!Directory.Exists(directoryName)))
-            {
-                return;
-            }
-
-            //list of jobs
-            string[] dirs = Directory.GetDirectories(directoryName);
-
-            jobList?.Clear();
-
-            if (dirs == null || dirs.Length < 1)
-            {
-                return;
-            }
-
-            foreach (string dir in dirs)
-            {
-                jobList.Add(Directory.GetCreationTime(dir).ToString("yyyy-M-dd HH:MM"));
-                jobList.Add(Path.GetFileName(dir));
-            }
-
-            for (int i = 0; i < jobList.Count; i += 2)
-            {
-                string[] jobNames = { jobList[i], jobList[i + 1] };
-                itmJob = new ListViewItem(jobNames);
-                lvLinesJob.Items.Add(itmJob);
-            }
-
-            if (lvLinesJob.Items.Count > 0)
-            {
-                lvLinesJob.Items[lvLinesJob.Items.Count - 1].EnsureVisible();
             }
         }
 
         private void lvLines_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lvLines.SelectedItems.Count < 1) return;
-
+            btnDeleteField.Enabled = lvLines.SelectedItems.Count > 0;
             PopulateJobsListView();
+        }
+
+        private void PopulateJobsListView()
+        {
+            lvLinesJob.Items.Clear();
+
+            if (lvLines.SelectedItems.Count > 0)
+            {
+                string chosenDir = Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[0].Text);
+
+                string directoryName = Path.Combine(chosenDir, "Jobs");
+
+                if (string.IsNullOrEmpty(directoryName) || (!Directory.Exists(directoryName)))
+                {
+                    return;
+                }
+
+                //list of jobs
+                string[] dirs = Directory.GetDirectories(directoryName);
+
+                foreach (string dir in dirs)
+                {
+                    var time = Directory.GetCreationTime(dir).ToString("yyyy-M-dd HH:MM");
+                    var path = Path.GetFileName(dir);
+                    var itmJob = new string[] { time, path };
+                    lvLinesJob.Items.Add(new ListViewItem(itmJob));
+                }
+                if (lvLinesJob.Items.Count > 0)
+                    lvLinesJob.Items[lvLinesJob.Items.Count - 1].EnsureVisible();
+            }
+            lvLinesJob_SelectedIndexChanged(null, null);
+        }
+
+        private void lvLinesJob_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnDeleteJob.Enabled = btnOpenExistingLv.Enabled = lvLinesJob.SelectedItems.Count > 0;
         }
 
         private void btnOpenExistingLv_Click(object sender, EventArgs e)
@@ -353,14 +321,9 @@ namespace AgOpenGPS
 
         private void btnDeleteField_Click(object sender, EventArgs e)
         {
-            int count = lvLines.SelectedItems.Count;
-            string dir2Delete;
-            if (count > 0)
+            if (lvLines.SelectedItems.Count > 0)
             {
-                //close field and job
-                mf.FileSaveEverythingBeforeClosingField();
-
-                dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[0].Text);
+                string dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[0].Text);
 
                 DialogResult result3 = MessageBox.Show(
                     dir2Delete,
@@ -370,14 +333,15 @@ namespace AgOpenGPS
                     MessageBoxDefaultButton.Button2);
                 if (result3 == DialogResult.Yes)
                 {
-                    System.IO.Directory.Delete(dir2Delete, true);
-                }
-                else return;
-            }
-            else return;
+                    //close field and job
+                    mf.FileSaveEverythingBeforeClosingField();
 
-            PopulateFieldsListView();
-            lvLinesJob.Items.Clear();
+                    System.IO.Directory.Delete(dir2Delete, true);
+
+                    PopulateFieldsListView();
+                    lvLinesJob.Items.Clear();
+                }
+            }
         }
 
         private void btnDeleteJob_Click(object sender, EventArgs e)
@@ -385,9 +349,6 @@ namespace AgOpenGPS
             string dir2Delete;
             if (lvLinesJob.SelectedItems.Count > 0)
             {
-                //close field and job
-                mf.JobClose();
-
                 dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, lvLines.SelectedItems[0].SubItems[0].Text);
 
                 dir2Delete = Path.Combine(dir2Delete, "Jobs", lvLinesJob.SelectedItems[0].SubItems[1].Text);
@@ -399,13 +360,12 @@ namespace AgOpenGPS
                     MessageBoxDefaultButton.Button2);
                 if (result3 == DialogResult.Yes)
                 {
+                    //close field and job
+                    mf.JobClose();
                     System.IO.Directory.Delete(dir2Delete, true);
+                    PopulateJobsListView();
                 }
-                else return;
             }
-            else return;
-
-            PopulateJobsListView();
         }
 
         private void bntNewJob_Click(object sender, EventArgs e)

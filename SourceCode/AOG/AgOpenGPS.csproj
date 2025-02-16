@@ -672,6 +672,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="Culture\gStr.sr.resx" />
     <EmbeddedResource Include="Forms\Field\FormEnterFlag.resx">
       <DependentUpon>FormEnterFlag.cs</DependentUpon>
     </EmbeddedResource>

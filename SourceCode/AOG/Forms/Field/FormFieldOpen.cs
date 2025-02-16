@@ -242,7 +242,7 @@ namespace AgOpenGPS
 
         private void lvLines_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnDeleteField.Enabled = lvLines.SelectedItems.Count > 0;
+            btnDeleteField.Enabled = btnOpenExistingLv.Enabled = lvLines.SelectedItems.Count > 0;
             PopulateJobsListView();
         }
 
@@ -279,7 +279,7 @@ namespace AgOpenGPS
 
         private void lvLinesJob_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnDeleteJob.Enabled = btnOpenExistingLv.Enabled = lvLinesJob.SelectedItems.Count > 0;
+            btnDeleteJob.Enabled = lvLinesJob.SelectedItems.Count > 0;
         }
 
         private void btnOpenExistingLv_Click(object sender, EventArgs e)

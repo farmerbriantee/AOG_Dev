@@ -213,9 +213,6 @@
   <data name="gsCreateNewField" xml:space="preserve">
     <value>zCreate New Field</value>
   </data>
-  <data name="gsCreateNewJob" xml:space="preserve">
-    <value>zCreate New Job</value>
-  </data>
   <data name="gsCurrent" xml:space="preserve">
     <value>zCurrent</value>
   </data>
@@ -278,9 +275,6 @@
   </data>
   <data name="gsEnterFieldName" xml:space="preserve">
     <value>zEnter Field Name</value>
-  </data>
-  <data name="gsEnterJobName" xml:space="preserve">
-    <value>zEnter Job Name</value>
   </data>
   <data name="gsEnterSimCoords" xml:space="preserve">
     <value>zEnter Sim Coords</value>

@@ -779,7 +779,6 @@ namespace AgOpenGPS
 
             startCounter = 0;
 
-            btnContour.Enabled = true;
             btnTrack.Enabled = true;
             btnABDraw.Enabled = true;
             btnCycleLines.Image = Properties.Resources.ABLineCycle;
@@ -812,6 +811,8 @@ namespace AgOpenGPS
 
         public void JobNew()
         {
+            btnContour.Enabled = true;
+
             isJobStarted = true;
             btnFieldStats.Visible = true;
 
@@ -883,6 +884,8 @@ namespace AgOpenGPS
             {
                 LineUpAllZoneButtons();
             }
+
+            PanelsAndOGLSize();
         }
 
         public void JobClose()

@@ -160,7 +160,7 @@ namespace AgOpenGPS
             if (ct.isContourBtnOn)
             {
                 DisableYouTurnButtons();
-                guidanceLookAheadTime = 0.5;
+                //guidanceLookAheadTime = 0.5;
                 btnContourLock.Image = Resources.ColorUnlocked;
                 ct.isLocked = false;
             }

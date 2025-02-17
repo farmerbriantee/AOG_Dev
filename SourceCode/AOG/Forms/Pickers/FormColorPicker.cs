@@ -33,8 +33,8 @@ namespace AgOpenGPS
 
             UpdateColor(inColor);
 
-            //this.bntOK.Text = gStr.gsForNow;
-            //this.btnSave.Text = gStr.gsToFile;
+            //this.bntOK.Text = Lang.Get(ggStr.gsForNow;
+            //this.btnSave.Text = Lang.Get(ggStr.gsToFile;
         }
 
         private void btnSave_Click(object sender, EventArgs e)

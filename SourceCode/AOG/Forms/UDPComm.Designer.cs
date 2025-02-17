@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Xml.Linq;
 using AgOpenGPS.Culture;
 using System.Text;
+using AgOpenGPS.Classes;
 
 namespace AgOpenGPS
 {
@@ -724,7 +725,7 @@ namespace AgOpenGPS
             if ((char)keyData == hotkeys[0]) //autosteer button on off
             {
                 btnAutoSteer.PerformClick();
-                if (!isBtnAutoSteerOn) TimedMessageBox(2000, gStr.gsGuidanceStopped, "Hotkey Triggered");
+                if (!isBtnAutoSteerOn) TimedMessageBox(2000, Lang.Get(ggStr.gsGuidanceStopped), "Hotkey Triggered");
                 return true;    // indicate that you handled this keystroke
             }
 

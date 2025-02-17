@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+using AgOpenGPS.Culture;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -36,11 +37,11 @@ namespace AgOpenGPS
             tboxFieldName.Text = "";
             btnBuildFields.Enabled = false;
 
-            label1.Text = gStr.gsEditFieldName;
+            label1.Text = Lang.Get(ggStr.gsEditFieldName);
 
-            this.Text = gStr.gsCreateNewField;
+            this.Text = Lang.Get(ggStr.gsCreateNewField);
 
-            lblField.Text = gStr.gsBasedOnField;
+            lblField.Text = Lang.Get(ggStr.gsBasedOnField);
 
             tree.Nodes?.Clear();
 
@@ -149,7 +150,6 @@ namespace AgOpenGPS
                 catch (Exception ex)
                 {
                     Log.EventWriter("Creating new iso field " + ex.ToString());
-                    MessageBox.Show(gStr.gsError, ex.ToString());
                     return;
                 }
 
@@ -209,7 +209,7 @@ namespace AgOpenGPS
             //create new field files.
             if ((!string.IsNullOrEmpty(directoryName)) && (Directory.Exists(directoryName)))
             {
-                MessageBox.Show(gStr.gsChooseADifferentName, gStr.gsDirectoryExists, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show(Lang.Get(ggStr.gsChooseADifferentName), Lang.Get(ggStr.gsDirectoryExists), MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 mf.currentFieldDirectory = "";
                 return;
             }
@@ -282,7 +282,7 @@ namespace AgOpenGPS
                 //double check
                 if ((!string.IsNullOrEmpty(directoryName)) && (Directory.Exists(directoryName)))
                 {
-                    MessageBox.Show(gStr.gsChooseADifferentName, gStr.gsDirectoryExists, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show(Lang.Get(ggStr.gsChooseADifferentName), Lang.Get(ggStr.gsDirectoryExists), MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
                 else
@@ -311,7 +311,7 @@ namespace AgOpenGPS
 
                     if (!mf.isJobStarted)
                     {
-                        mf.TimedMessageBox(3000, gStr.gsFieldNotOpen, gStr.gsCreateNewField);
+                        mf.TimedMessageBox(3000, Lang.Get(ggStr.gsFieldNotOpen), Lang.Get(ggStr.gsCreateNewField));
                         return;
                     }
                     string myFileName;
@@ -350,7 +350,7 @@ namespace AgOpenGPS
             {
                 Log.EventWriter("Creating new iso field " + ex.ToString());
 
-                MessageBox.Show(gStr.gsError, ex.ToString());
+                MessageBox.Show(Lang.Get(ggStr.gsError), ex.ToString());
                 mf.currentFieldDirectory = "";
             }
 
@@ -406,7 +406,7 @@ namespace AgOpenGPS
             {
                 Log.EventWriter("Creating new iso field " + ew.ToString());
 
-                MessageBox.Show(gStr.gsError, ew.ToString());
+                MessageBox.Show(Lang.Get(ggStr.gsError), ew.ToString());
             }
 
             //load inner boundaries next only if outer existed
@@ -455,7 +455,7 @@ namespace AgOpenGPS
                 {
                     Log.EventWriter("Creating new iso field " + ed.ToString());
 
-                    MessageBox.Show(gStr.gsError, ed.ToString());
+                    MessageBox.Show(Lang.Get(ggStr.gsError), ed.ToString());
                 }
             }
             //Headland
@@ -505,7 +505,7 @@ namespace AgOpenGPS
                 catch (Exception ex)
                 {
                     Log.EventWriter("Creating new iso field " + ex.ToString());
-                    MessageBox.Show(gStr.gsError, ex.ToString());
+                    MessageBox.Show(Lang.Get(ggStr.gsError), ex.ToString());
                 }
             }
 
@@ -671,7 +671,7 @@ namespace AgOpenGPS
             catch (Exception ex)
             {
                 Log.EventWriter("Creating new iso field " + ex.ToString());
-                MessageBox.Show(gStr.gsError, ex.ToString());
+                MessageBox.Show(Lang.Get(ggStr.gsError), ex.ToString());
             }
 
             //AB Lines or curves when > 2 PNT's
@@ -817,7 +817,7 @@ namespace AgOpenGPS
             catch (Exception ex)
             {
                 Log.EventWriter("Creating new iso field " + ex.ToString());
-                MessageBox.Show(gStr.gsError, ex.ToString());
+                MessageBox.Show(Lang.Get(ggStr.gsError), ex.ToString());
             }
 
             mf.FileSaveBoundary();

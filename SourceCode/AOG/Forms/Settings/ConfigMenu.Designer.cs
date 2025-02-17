@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+using AgOpenGPS.Culture;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -72,7 +73,7 @@ namespace AgOpenGPS
             lblNudgeDistance.Text = snapDist + mf.unitsInCm.ToString();
             lblUnits.Text = mf.isMetric ? "Metric" : "Imperial";
 
-            lblCurrentVehicle.Text = gStr.gsCurrent + ": "+ RegistrySettings.vehicleFileName;
+            lblCurrentVehicle.Text = Lang.Get(ggStr.gsCurrent) + ": "+ RegistrySettings.vehicleFileName;
             lblSummaryVehicleName.Text = lblCurrentVehicle.Text;
 
             lblTramWidth.Text = mf.isMetric ?

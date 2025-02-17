@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+using AgOpenGPS.Culture;
 using AgOpenGPS.Properties;
 using System;
 using System.Drawing;
@@ -36,9 +37,9 @@ namespace AgOpenGPS
             nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);
             nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
 
-            this.label3.Text = gStr.gsAgressiveness;
-            this.label5.Text = gStr.gsOvershootReduction;
-            this.Text = gStr.gsAutoSteerConfiguration;
+            this.label3.Text = Lang.Get(ggStr.gsAgressiveness);
+            this.label5.Text = Lang.Get(ggStr.gsOvershootReduction);
+            this.Text = Lang.Get(ggStr.gsAutoSteerConfiguration);
             this.Width = 388;
             this.Height = 490;
         }
@@ -216,7 +217,7 @@ namespace AgOpenGPS
                 pbarSensor.Visible = false;
                 hsbarSensor.Visible = false;
                 lblhsbarSensor.Visible = false;
-                label61.Text = gStr.gsEncoderCounts;
+                label61.Text = Lang.Get(ggStr.gsEncoderCounts);
             }
             else if (cboxPressureSensor.Checked)
             {
@@ -514,7 +515,7 @@ namespace AgOpenGPS
                         pbarSensor.Visible = false;
                         hsbarSensor.Visible = false;
                         lblhsbarSensor.Visible = false;
-                        label61.Text = gStr.gsEncoderCounts;
+                        label61.Text = Lang.Get(ggStr.gsEncoderCounts);
                     }
                 }
             }
@@ -1192,7 +1193,7 @@ namespace AgOpenGPS
             pboxSendSteer.Visible = false;
             Log.EventWriter("Steer Form, Send and Save Pressed");
 
-            mf.TimedMessageBox(2000, gStr.gsAutoSteerPort, "Settings Sent To Steer Module");
+            mf.TimedMessageBox(2000, Lang.Get(ggStr.gsAutoSteerPort), "Settings Sent To Steer Module");
         }
 
         private void SaveSettings()

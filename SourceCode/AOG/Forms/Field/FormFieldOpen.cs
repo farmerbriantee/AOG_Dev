@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+using AgOpenGPS.Culture;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,14 +18,14 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
 
             InitializeComponent();
-            btnOpenExistingLv.Text = gStr.gsUseSelected;
+            btnOpenExistingLv.Text = Lang.Get(ggStr.gsUseSelected);
             btnOpenExistingLv.Enabled = false;
             btnDeleteJob.Enabled = false;
             btnDeleteField.Enabled = false;
 
-            lvLines.Columns[0].Text = gStr.gsField;
-            lvLines.Columns[1].Text = gStr.gsDistance;
-            lvLines.Columns[2].Text = gStr.gsArea;
+            lvLines.Columns[0].Text = Lang.Get(ggStr.gsField);
+            lvLines.Columns[1].Text = Lang.Get(ggStr.gsDistance);
+            lvLines.Columns[2].Text = Lang.Get(ggStr.gsArea);
 
             lvLinesJob.ListViewItemSorter = new ListViewItemSorter(lvLinesJob);
             lvLinesJob.HideSelection = false;
@@ -76,7 +77,7 @@ namespace AgOpenGPS
 
             if (dirs == null || dirs.Length < 1)
             {
-                mf.TimedMessageBox(2000, gStr.gsCreateNewField, gStr.gsFileError);
+                mf.TimedMessageBox(2000, Lang.Get(ggStr.gsCreateNewField), Lang.Get(ggStr.gsFileError));
                 Log.EventWriter("File Picker, No Fields");
                 Close();
                 return;
@@ -123,7 +124,7 @@ namespace AgOpenGPS
                             }
                             else
                             {
-                                MessageBox.Show(fieldDirectory + " is Damaged, Please Delete This Field", gStr.gsFileError,
+                                MessageBox.Show(fieldDirectory + " is Damaged, Please Delete This Field", Lang.Get(ggStr.gsFileError),
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                                 distanceString = "Error";
@@ -131,7 +132,7 @@ namespace AgOpenGPS
                         }
                         catch (Exception eg)
                         {
-                            MessageBox.Show(fieldDirectory + " is Damaged, Please Delete, Field.txt is Broken", gStr.gsFileError,
+                            MessageBox.Show(fieldDirectory + " is Damaged, Please Delete, Field.txt is Broken", Lang.Get(ggStr.gsFileError),
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                             Log.EventWriter("Field.txt is Broken" + eg.ToString());
                             distanceString = "Error";
@@ -223,7 +224,7 @@ namespace AgOpenGPS
                 {
                     areaString = "Error";
                     MessageBox.Show(fieldDirectory + " is Damaged, Missing Boundary.Txt " +
-                        "               \r\n Delete Field or Fix ", gStr.gsFileError,
+                        "               \r\n Delete Field or Fix ", Lang.Get(ggStr.gsFileError),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
@@ -233,7 +234,7 @@ namespace AgOpenGPS
 
             if (lvLines.Items.Count == 0)
             {
-                mf.TimedMessageBox(2000, gStr.gsNoFieldsFound, gStr.gsCreateNewField);
+                mf.TimedMessageBox(2000, Lang.Get(ggStr.gsNoFieldsFound), Lang.Get(ggStr.gsCreateNewField));
                 Log.EventWriter("File Picker, No field items");
                 Close();
                 return;
@@ -291,7 +292,7 @@ namespace AgOpenGPS
                     lvLines.SelectedItems[0].SubItems[1].Text == "Error" ||
                     lvLines.SelectedItems[0].SubItems[2].Text == "Error")
                 {
-                    MessageBox.Show("This Field is Damaged, Please Delete \r\n ALREADY TOLD YOU THAT :)", gStr.gsFileError,
+                    MessageBox.Show("This Field is Damaged, Please Delete \r\n ALREADY TOLD YOU THAT :)", Lang.Get(ggStr.gsFileError),
                                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
@@ -327,7 +328,7 @@ namespace AgOpenGPS
 
                 DialogResult result3 = MessageBox.Show(
                     dir2Delete,
-                    gStr.gsDeleteForSure,
+                    Lang.Get(ggStr.gsDeleteForSure),
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question,
                     MessageBoxDefaultButton.Button2);
@@ -354,7 +355,7 @@ namespace AgOpenGPS
                 dir2Delete = Path.Combine(dir2Delete, "Jobs", lvLinesJob.SelectedItems[0].SubItems[1].Text);
                 DialogResult result3 = MessageBox.Show(
                     dir2Delete,
-                    gStr.gsDeleteForSure,
+                    Lang.Get(ggStr.gsDeleteForSure),
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question,
                     MessageBoxDefaultButton.Button2);
@@ -376,7 +377,7 @@ namespace AgOpenGPS
                     lvLines.SelectedItems[0].SubItems[1].Text == "Error" ||
                     lvLines.SelectedItems[0].SubItems[2].Text == "Error")
                 {
-                    MessageBox.Show("This Field is Damaged, Please Delete \r\n ALREADY TOLD YOU THAT :)", gStr.gsFileError,
+                    MessageBox.Show("This Field is Damaged, Please Delete \r\n ALREADY TOLD YOU THAT :)", Lang.Get(ggStr.gsFileError),
                                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else

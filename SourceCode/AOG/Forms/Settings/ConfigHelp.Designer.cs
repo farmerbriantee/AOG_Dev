@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using AgOpenGPS.Properties;
 using OpenTK.Graphics.OpenGL;
 
-//                MessageBox.Show(gStr, gStr.gsHelp);
+//                MessageBox.Show(gStr, Lang.Get(ggStr.gsHelp);
 
 namespace AgOpenGPS
 {

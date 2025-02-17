@@ -1,3 +1,4 @@
+using AgOpenGPS.Classes;
 using AgOpenGPS.Culture;
 using System;
 using System.Drawing;
@@ -23,12 +24,12 @@ namespace AgOpenGPS
             //winform initialization
             InitializeComponent();
 
-            this.Text = gStr.gsStartDeleteABoundary;
+            this.Text = Lang.Get(ggStr.gsStartDeleteABoundary);
 
             //Column Header
             Boundary.Text = "Bounds";
-            Thru.Text = gStr.gsDriveThru;
-            Area.Text = gStr.gsArea;
+            Thru.Text = Lang.Get(ggStr.gsDriveThru);
+            Area.Text = Lang.Get(ggStr.gsArea);
             btnDelete.Enabled = false;
         }
 
@@ -118,7 +119,7 @@ namespace AgOpenGPS
                 {
                     //cc.Text = "Outer";
                     mf.bnd.bndList[i].isDriveThru = false;
-                    a.Text = string.Format(gStr.gsOuter);
+                    a.Text = string.Format(Lang.Get(ggStr.gsOuter));
                     //a.Font = backupfont;
                     d.Text = "--";
                     d.Enabled = false;
@@ -130,7 +131,7 @@ namespace AgOpenGPS
                 {
                     //cc.Text = "Inner";
                     inner += 1;
-                    a.Text = string.Format(gStr.gsInner + " {0}", inner);
+                    a.Text = string.Format(Lang.Get(ggStr.gsInner) + " {0}", inner);
                     //a.Font = backupfont;
                     d.Text = mf.bnd.bndList[i].isDriveThru ? "Yes" : "No";
                     d.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -197,8 +198,8 @@ namespace AgOpenGPS
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            DialogResult result3 = MessageBox.Show(gStr.gsCompletelyDeleteBoundary,
-                gStr.gsDeleteForSure,
+            DialogResult result3 = MessageBox.Show(Lang.Get(ggStr.gsCompletelyDeleteBoundary),
+                Lang.Get(ggStr.gsDeleteForSure),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
                 MessageBoxDefaultButton.Button2);
@@ -221,7 +222,7 @@ namespace AgOpenGPS
             }
             else
             {
-                mf.TimedMessageBox(1500, gStr.gsNothingDeleted, gStr.gsActionHasBeenCancelled);
+                mf.TimedMessageBox(1500, Lang.Get(ggStr.gsNothingDeleted), Lang.Get(ggStr.gsActionHasBeenCancelled));
             }
         }
 
@@ -370,7 +371,7 @@ namespace AgOpenGPS
                                 }
                                 else
                                 {
-                                    mf.TimedMessageBox(2000, gStr.gsErrorreadingKML, gStr.gsChooseBuildDifferentone);
+                                    mf.TimedMessageBox(2000, Lang.Get(ggStr.gsErrorreadingKML), Lang.Get(ggStr.gsChooseBuildDifferentone));
                                     Log.EventWriter("KML Read Error to make new field");
                                 }
                                 if (button.Name == "btnLoadBoundaryFromGE")

@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+using AgOpenGPS.Culture;
 using System;
 using System.Windows.Forms;
 
@@ -18,8 +19,8 @@ namespace AgOpenGPS
 
             InitializeComponent();
 
-            label1.Text = gStr.gsArea + ":";
-            this.Text = gStr.gsStopRecordPauseBoundary;
+            label1.Text = Lang.Get(ggStr.gsArea) + ":";
+            this.Text = Lang.Get(ggStr.gsStopRecordPauseBoundary);
             nudOffset.Controls[0].Enabled = false;
         }
 
@@ -111,7 +112,7 @@ namespace AgOpenGPS
 
         private void btnStoPGN_Click(object sender, EventArgs e)
         {
-            DialogResult result3 = MessageBox.Show("Done?", gStr.gsBoundary,
+            DialogResult result3 = MessageBox.Show("Done?", Lang.Get(ggStr.gsBoundary),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
                 MessageBoxDefaultButton.Button2);
@@ -189,8 +190,8 @@ namespace AgOpenGPS
 
         private void btnRestart_Click(object sender, EventArgs e)
         {
-            DialogResult result3 = MessageBox.Show(gStr.gsCompletelyDeleteBoundary,
-                                    gStr.gsDeleteForSure,
+            DialogResult result3 = MessageBox.Show(Lang.Get(ggStr.gsCompletelyDeleteBoundary),
+                                    Lang.Get(ggStr.gsDeleteForSure),
                                     MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Question,
                                     MessageBoxDefaultButton.Button2);
@@ -238,7 +239,7 @@ namespace AgOpenGPS
                 {
                     mf.bnd.isOkToAddPoints = false;
                     btnPausePlay.Image = Properties.Resources.BoundaryRecord;
-                    //btnPausePlay.Text = gStr.gsRecord;
+                    //btnPausePlay.Text = Lang.Get(ggStr.gsRecord;
                     btnAddPoint.Enabled = true;
                     btnDeleteLast.Enabled = true;
                 }
@@ -246,7 +247,7 @@ namespace AgOpenGPS
                 {
                     mf.bnd.isOkToAddPoints = true;
                     btnPausePlay.Image = Properties.Resources.boundaryPause;
-                    //btnPausePlay.Text = gStr.gsPause;
+                    //btnPausePlay.Text = Lang.Get(ggStr.gsPause;
                     btnAddPoint.Enabled = false;
                     btnDeleteLast.Enabled = false;
                 }

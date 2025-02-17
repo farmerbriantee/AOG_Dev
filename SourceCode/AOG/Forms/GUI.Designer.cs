@@ -882,7 +882,42 @@ namespace AgOpenGPS
                 btnChargeStatus.BackColor = Color.LightCoral;
             }
 
-            //jumpDistanceAlarm = Settings.Default.setGPS_jumpFixAlarmDistance;
+            enterSimCoordsToolStripMenuItem.Text = Lang.Get(ggStr.gsEnterSimCoords);
+            menustripLanguage.Text = Lang.Get(ggStr.gsLanguage);
+
+            simulatorOnToolStripMenuItem.Text = Lang.Get(ggStr.gsSimulatorOn);
+            resetALLToolStripMenuItem.Text = Lang.Get(ggStr.gsResetAll);
+
+            toolStripColors.Text = Lang.Get(ggStr.gsColors);
+            toolStripSectionColors.Text = "Section " + Lang.Get(ggStr.gsColors);
+            toolStripConfig.Text = Lang.Get(ggStr.gsConfiguration);
+            toolStripSteerSettings.Text = Lang.Get(ggStr.gsAutoSteer);
+            toolStripWorkingDirectories.Text = Lang.Get(ggStr.gsDirectories);
+
+            resetEverythingToolStripMenuItem.Text = Lang.Get(ggStr.gsResetAllForSure);
+
+            steerChartStripMenu.Text = Lang.Get(ggStr.gsCharts);
+
+            //Tools Menu
+            SmoothABtoolStripMenu.Text = Lang.Get(ggStr.gsSmoothABCurve);
+            boundariesToolStripMenuItem.Text = Lang.Get(ggStr.gsBoundary);
+            headlandToolStripMenuItem.Text = Lang.Get(ggStr.gsHeadland);
+            headlandBuildToolStripMenuItem.Text = Lang.Get(ggStr.gsHeadland) + " Builder";
+            deleteContourPathsToolStripMenuItem.Text = Lang.Get(ggStr.gsDeleteContourPaths);
+            deleteAppliedToolStripMenuItem.Text = Lang.Get(ggStr.gsDeleteAppliedArea);
+            tramsMultiMenuField.Text = Lang.Get(ggStr.gsTramLines) + " Multi";
+
+            recordedPathStripMenu.Text = Lang.Get(ggStr.gsRecordedPathMenu);
+            flagByLatLonToolStripMenuItem.Text = Lang.Get(ggStr.gsFlagByLatLon);
+            boundaryToolToolStripMenu.Text = Lang.Get(ggStr.gsBoundary) + " Tool";
+
+            webcamToolStrip.Text = Lang.Get(ggStr.gsWebCam);
+            offsetFixToolStrip.Text = Lang.Get(ggStr.gsOffsetFix);
+            wizardsMenu.Text = Lang.Get(ggStr.gsWizards);
+            steerWizardMenuItem.Text = Lang.Get(ggStr.gsSteerWizard);
+            steerChartToolStripMenuItem.Text = Lang.Get(ggStr.gsSteerChart);
+            headingChartToolStripMenuItem.Text = Lang.Get(ggStr.gsHeadingChart);
+            xTEChartToolStripMenuItem.Text = Lang.Get(ggStr.gsXTEChart);
         }
 
         public void PanelUpdateRightAndBottom()

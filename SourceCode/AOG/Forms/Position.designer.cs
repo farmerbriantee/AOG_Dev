@@ -783,7 +783,7 @@ namespace AgOpenGPS
             //    if (isBtnAutoSteerOn)
             //    {
             //        btnAutoSteer.PerformClick();
-            //        TimedMessageBox(3000, gStr.gsAutoSteer, "Big Jump in GPS position:" + jumpDistance.ToString("N0") + " cm");
+            //        TimedMessageBox(3000, Lang.Get(ggStr.gsAutoSteer, "Big Jump in GPS position:" + jumpDistance.ToString("N0") + " cm");
             //        Log.EventWriter("Autosteer Off, Jump in GPS position: " + jumpDistance.ToString("N0") + " cm");
             //    }
 

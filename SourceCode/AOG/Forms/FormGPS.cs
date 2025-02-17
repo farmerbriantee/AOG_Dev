@@ -539,43 +539,6 @@ namespace AgOpenGPS
             //nmea limiter
             udpWatch.Start();
 
-            enterSimCoordsToolStripMenuItem.Text = gStr.gsEnterSimCoords;
-            menustripLanguage.Text = gStr.gsLanguage;
-
-            simulatorOnToolStripMenuItem.Text = gStr.gsSimulatorOn;
-            resetALLToolStripMenuItem.Text = gStr.gsResetAll;
-
-            toolStripColors.Text = gStr.gsColors;
-            toolStripSectionColors.Text = "Section " + gStr.gsColors;
-            toolStripConfig.Text = gStr.gsConfiguration;
-            toolStripSteerSettings.Text = gStr.gsAutoSteer;
-            toolStripWorkingDirectories.Text = gStr.gsDirectories;
-
-            resetEverythingToolStripMenuItem.Text = Lang.Get("gsResetAllForSure");
-
-            steerChartStripMenu.Text = gStr.gsCharts;
-
-            //Tools Menu
-            SmoothABtoolStripMenu.Text = gStr.gsSmoothABCurve;
-            boundariesToolStripMenuItem.Text = gStr.gsBoundary;
-            headlandToolStripMenuItem.Text = gStr.gsHeadland;
-            headlandBuildToolStripMenuItem.Text = gStr.gsHeadland + " Builder";
-            deleteContourPathsToolStripMenuItem.Text = gStr.gsDeleteContourPaths;
-            deleteAppliedToolStripMenuItem.Text = gStr.gsDeleteAppliedArea;
-            tramsMultiMenuField.Text = gStr.gsTramLines + " Multi";
-
-            recordedPathStripMenu.Text = gStr.gsRecordedPathMenu;
-            flagByLatLonToolStripMenuItem.Text = gStr.gsFlagByLatLon;
-            boundaryToolToolStripMenu.Text = gStr.gsBoundary + " Tool";
-
-            webcamToolStrip.Text = gStr.gsWebCam;
-            offsetFixToolStrip.Text = gStr.gsOffsetFix;
-            wizardsMenu.Text = gStr.gsWizards;
-            steerWizardMenuItem.Text = gStr.gsSteerWizard;
-            steerChartToolStripMenuItem.Text = gStr.gsSteerChart;
-            headingChartToolStripMenuItem.Text = gStr.gsHeadingChart;
-            xTEChartToolStripMenuItem.Text = gStr.gsXTEChart;
-
             btnChangeMappingColor.Text = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
 
             hotkeys = new char[19];
@@ -638,7 +601,7 @@ namespace AgOpenGPS
 
             if (this.OwnedForms.Any())
             {
-                TimedMessageBox(2000, gStr.gsWindowsStillOpen, gStr.gsCloseAllWindowsFirst);
+                TimedMessageBox(2000, Lang.Get(ggStr.gsWindowsStillOpen), Lang.Get(ggStr.gsCloseAllWindowsFirst));
                 e.Cancel = true;
                 return;
             }
@@ -768,7 +731,7 @@ namespace AgOpenGPS
         {
             panelRight.Enabled = false;
             FieldMenuButtonEnableDisable(false);
-            displayFieldName = gStr.gsNone;
+            displayFieldName = Lang.Get(ggStr.gsNone);
 
             JobClose();
             FieldClose();
@@ -938,7 +901,7 @@ namespace AgOpenGPS
                 isJobStarted = false;
             }
 
-            displayJobName = gStr.gsNone;
+            displayJobName = Lang.Get(ggStr.gsNone);
 
             //clear out contour and Lists
             btnContour.Enabled = false;
@@ -1062,7 +1025,7 @@ namespace AgOpenGPS
             //reset GUI areas
             fd.UpdateFieldBoundaryGUIAreas();
 
-            displayFieldName = gStr.gsNone;
+            displayFieldName = Lang.Get(ggStr.gsNone);
 
             isPanelBottomHidden = false;
 

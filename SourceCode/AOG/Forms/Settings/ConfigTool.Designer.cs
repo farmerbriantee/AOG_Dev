@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+using AgOpenGPS.Culture;
 using AgOpenGPS.Properties;
 using System;
 using System.Collections.Generic;
@@ -1309,15 +1310,15 @@ namespace AgOpenGPS
         {
             if (mf.isMetric)
             {
-                lblInchesCm.Text = gStr.gsCentimeters;
-                lblFeetMeters.Text = gStr.gsMeters;
+                lblInchesCm.Text = Lang.Get(ggStr.gsCentimeters);
+                lblFeetMeters.Text = Lang.Get(ggStr.gsMeters);
                 lblSecTotalWidthFeet.Visible = false;
                 lblSecTotalWidthInches.Visible = false;
                 lblSecTotalWidthMeters.Visible = true;
             }
             else
             {
-                lblInchesCm.Text = gStr.gsInches;
+                lblInchesCm.Text = Lang.Get(ggStr.gsInches);
                 lblFeetMeters.Text = "Feet";
                 lblSecTotalWidthFeet.Visible = true;
                 lblSecTotalWidthInches.Visible = true;

@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+using AgOpenGPS.Culture;
 using System;
 using System.Windows.Forms;
 
@@ -15,7 +16,7 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
             InitializeComponent();
 
-            this.Text = gStr.gsEnterCoordinatesForSimulator;
+            this.Text = Lang.Get(ggStr.gsEnterCoordinatesForSimulator);
 
             nudLatitude.Controls[0].Enabled = false;
             nudLongitude.Controls[0].Enabled = false;
@@ -31,7 +32,7 @@ namespace AgOpenGPS
         {
             if (mf.isFieldStarted)
             {
-                mf.TimedMessageBox(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
+                mf.TimedMessageBox(2000, Lang.Get(ggStr.gsFieldIsOpen), Lang.Get(ggStr.gsCloseFieldFirst));
                 Close();
             }
 

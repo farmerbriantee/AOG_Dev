@@ -1,5 +1,6 @@
 ﻿//Please, if you use this, share the improvements
 
+using AgOpenGPS.Classes;
 using AgOpenGPS.Culture;
 using System;
 using System.Drawing;
@@ -112,8 +113,8 @@ namespace AgOpenGPS
             tab1.SelectedTab = tabSummary;
             tboxVehicleNameSave.Focus();
 
-            label29.Text = gStr.gsSaveAs;
-            label162.Text = gStr.gsNew;
+            label29.Text = Lang.Get(ggStr.gsSaveAs);
+            label162.Text = Lang.Get(ggStr.gsNew);
             UpdateSummary();
 
             if (!mf.IsOnScreen(Location, Size, 1))

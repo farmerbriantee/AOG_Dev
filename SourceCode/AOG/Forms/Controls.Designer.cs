@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using AgOpenGPS.Classes;
 using AgOpenGPS.Culture;
 using AgOpenGPS.Properties;
 using Microsoft.Win32;
@@ -1467,9 +1468,7 @@ namespace AgOpenGPS
         private void menuLanguageSerbian_Click(object sender, EventArgs e)
         {
             SetLanguage("sr");
-
         }
-
 
         private void SetLanguage(string lang)
         {
@@ -1590,6 +1589,8 @@ namespace AgOpenGPS
 
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(RegistrySettings.culture);
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(RegistrySettings.culture);
+
+            Lang.Load();
 
             LoadSettings();
         }

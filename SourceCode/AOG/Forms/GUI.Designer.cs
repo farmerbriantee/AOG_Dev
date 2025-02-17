@@ -882,6 +882,43 @@ namespace AgOpenGPS
                 btnChargeStatus.BackColor = Color.LightCoral;
             }
 
+            enterSimCoordsToolStripMenuItem.Text = Lang.Get("gsEnterSimCoords");
+            menustripLanguage.Text = Lang.Get("gsLanguage");
+
+            simulatorOnToolStripMenuItem.Text = Lang.Get("gsSimulatorOn");
+            resetALLToolStripMenuItem.Text = Lang.Get("gsResetAll");
+
+            toolStripColors.Text = Lang.Get("gsColors");
+            toolStripSectionColors.Text = "Section " + Lang.Get("gsColors");
+            toolStripConfig.Text = Lang.Get("gsConfiguration");
+            toolStripSteerSettings.Text = Lang.Get("gsAutoSteer");
+            toolStripWorkingDirectories.Text = Lang.Get("gsDirectories");
+
+            resetEverythingToolStripMenuItem.Text = Lang.Get("gsResetAllForSure");
+
+            steerChartStripMenu.Text = Lang.Get("gsCharts");
+
+            //Tools Menu
+            SmoothABtoolStripMenu.Text = Lang.Get("gsSmoothABCurve");
+            boundariesToolStripMenuItem.Text = Lang.Get("gsBoundary");
+            headlandToolStripMenuItem.Text = Lang.Get("gsHeadland");
+            headlandBuildToolStripMenuItem.Text = Lang.Get("gsHeadland") + " Builder";
+            deleteContourPathsToolStripMenuItem.Text = Lang.Get("gsDeleteContourPaths");
+            deleteAppliedToolStripMenuItem.Text = Lang.Get("gsDeleteAppliedArea");
+            tramsMultiMenuField.Text = Lang.Get("gsTramLines") + " Multi";
+
+            recordedPathStripMenu.Text = Lang.Get("gsRecordedPathMenu");
+            flagByLatLonToolStripMenuItem.Text = Lang.Get("gsFlagByLatLon");
+            boundaryToolToolStripMenu.Text = Lang.Get("gsBoundary") + " Tool";
+
+            webcamToolStrip.Text = Lang.Get("gsWebCam");
+            offsetFixToolStrip.Text = Lang.Get("gsOffsetFix");
+            wizardsMenu.Text = Lang.Get("gsWizards");
+            steerWizardMenuItem.Text = Lang.Get("gsSteerWizard");
+            steerChartToolStripMenuItem.Text = Lang.Get("gsSteerChart");
+            headingChartToolStripMenuItem.Text = Lang.Get("gsHeadingChart");
+            xTEChartToolStripMenuItem.Text = Lang.Get("gsXTEChart");
+
             //jumpDistanceAlarm = Settings.Default.setGPS_jumpFixAlarmDistance;
         }
 

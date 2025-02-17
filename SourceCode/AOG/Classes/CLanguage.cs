@@ -22,6 +22,8 @@ namespace AgOpenGPS.Classes
             }
             else
             {
+                cult?.Clear();
+
                 using (StreamReader reader = new StreamReader(fileAndDirectory))
                 {
                     try

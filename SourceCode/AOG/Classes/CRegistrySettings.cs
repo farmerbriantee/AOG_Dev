@@ -124,8 +124,6 @@ namespace AgOpenGPS
                     vehicleFileName = "Default Vehicle";
                     Log.EventWriter("Vehicle file does not exist or is Default, Default Vehicle selected");
                 }
-
-                Lang.Load();
             }
             catch (Exception ex)
             {

@@ -11,14 +11,14 @@ namespace AgOpenGPS.Classes
 {
     public static class Lang
     {
-        public static Dictionary<string, string> sub = new Dictionary<string, string>();
+        public static Dictionary<string, string> cult = new Dictionary<string, string>();
 
-        public static void Load()
+        public static bool Load()
         {
             string fileAndDirectory = Path.Combine(Application.StartupPath, "Translations.csv");
             if (!File.Exists(fileAndDirectory))
             {
-                return;
+                return false;
             }
             else
             {
@@ -30,6 +30,7 @@ namespace AgOpenGPS.Classes
                         //read header
                         string line = reader.ReadLine(); //header
                         string[] header = line.Split(',');
+
                         if (RegistrySettings.culture == "en") column = 4;
                         else
                         {
@@ -48,26 +49,31 @@ namespace AgOpenGPS.Classes
                         while (line != null)
                         {
                             string[] parts = line.Split(',');
-                            if (parts.Length > 2)
+                            if (!String.IsNullOrEmpty(parts[column]))
                             {
-                                sub.Add(parts[2], parts[column]);
+                                cult.Add(parts[2], parts[column]);
+                            }
+                            else
+                            {
+                                cult.Add(parts[2], parts[4]);
                             }
                             line = reader.ReadLine();
                         }
-
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        Log.EventWriter($"Catch Language Load: {ex.Message}");
                     }
+
                 }
+                return true;
             }
         }
 
         public static string Get(string gstr)
         {
             string result;
-            if (sub.TryGetValue(gstr, out result))
+            if (cult.TryGetValue(gstr, out result))
             {
                 return result;
             }

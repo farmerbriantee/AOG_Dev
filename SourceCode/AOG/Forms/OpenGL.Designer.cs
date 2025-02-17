@@ -2576,8 +2576,8 @@ namespace AgOpenGPS
             else
             {
                 //GL.Color3(0.952f, 0.980f, 0.980f);
-                //int lenny = (gStr.gsIfWrongDirectionTapVehicle.Length * 12) / 2;
-                //font.DrawText(-lenny, 150, gStr.gsIfWrongDirectionTapVehicle, 0.8f);
+                //int lenny = (Lang.Get("gsIfWrongDirectionTapVehicle.Length * 12) / 2;
+                //font.DrawText(-lenny, 150, Lang.Get("gsIfWrongDirectionTapVehicle, 0.8f);
 
                 if (isReverse) GL.Color3(0.952f, 0.0f, 0.0f);
                 else GL.Color3(0.952f, 0.0f, 0.0f);

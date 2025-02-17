@@ -364,6 +364,8 @@ namespace AgOpenGPS
 
         private void FormGPS_Load(object sender, EventArgs e)
         {
+            if (!Lang.Load()) YesMessageBox("Error Loading Language Files");
+
             if (!isTermsAccepted)
             {
                 if (!Properties.Settings.Default.setDisplay_isTermsAccepted)
@@ -537,42 +539,42 @@ namespace AgOpenGPS
             //nmea limiter
             udpWatch.Start();
 
-            enterSimCoordsToolStripMenuItem.Text = gStr.gsEnterSimCoords;
-            menustripLanguage.Text = gStr.gsLanguage;
+            enterSimCoordsToolStripMenuItem.Text = Lang.Get("gsEnterSimCoords");
+            menustripLanguage.Text = Lang.Get("gsLanguage");
 
-            simulatorOnToolStripMenuItem.Text = gStr.gsSimulatorOn;
-            resetALLToolStripMenuItem.Text = gStr.gsResetAll;
+            simulatorOnToolStripMenuItem.Text = Lang.Get("gsSimulatorOn");
+            resetALLToolStripMenuItem.Text = Lang.Get("gsResetAll");
 
-            toolStripColors.Text = gStr.gsColors;
-            toolStripSectionColors.Text = "Section " + gStr.gsColors;
-            toolStripConfig.Text = gStr.gsConfiguration;
-            toolStripSteerSettings.Text = gStr.gsAutoSteer;
-            toolStripWorkingDirectories.Text = gStr.gsDirectories;
+            toolStripColors.Text = Lang.Get("gsColors");
+            toolStripSectionColors.Text = "Section " + Lang.Get("gsColors");
+            toolStripConfig.Text = Lang.Get("gsConfiguration");
+            toolStripSteerSettings.Text = Lang.Get("gsAutoSteer");
+            toolStripWorkingDirectories.Text = Lang.Get("gsDirectories");
 
             resetEverythingToolStripMenuItem.Text = Lang.Get("gsResetAllForSure");
 
-            steerChartStripMenu.Text = gStr.gsCharts;
+            steerChartStripMenu.Text = Lang.Get("gsCharts");
 
             //Tools Menu
-            SmoothABtoolStripMenu.Text = gStr.gsSmoothABCurve;
-            boundariesToolStripMenuItem.Text = gStr.gsBoundary;
-            headlandToolStripMenuItem.Text = gStr.gsHeadland;
-            headlandBuildToolStripMenuItem.Text = gStr.gsHeadland + " Builder";
-            deleteContourPathsToolStripMenuItem.Text = gStr.gsDeleteContourPaths;
-            deleteAppliedToolStripMenuItem.Text = gStr.gsDeleteAppliedArea;
-            tramsMultiMenuField.Text = gStr.gsTramLines + " Multi";
+            SmoothABtoolStripMenu.Text = Lang.Get("gsSmoothABCurve");
+            boundariesToolStripMenuItem.Text = Lang.Get("gsBoundary");
+            headlandToolStripMenuItem.Text = Lang.Get("gsHeadland");
+            headlandBuildToolStripMenuItem.Text = Lang.Get("gsHeadland") + " Builder";
+            deleteContourPathsToolStripMenuItem.Text = Lang.Get("gsDeleteContourPaths");
+            deleteAppliedToolStripMenuItem.Text = Lang.Get("gsDeleteAppliedArea");
+            tramsMultiMenuField.Text = Lang.Get("gsTramLines") + " Multi";
 
-            recordedPathStripMenu.Text = gStr.gsRecordedPathMenu;
-            flagByLatLonToolStripMenuItem.Text = gStr.gsFlagByLatLon;
-            boundaryToolToolStripMenu.Text = gStr.gsBoundary + " Tool";
+            recordedPathStripMenu.Text = Lang.Get("gsRecordedPathMenu");
+            flagByLatLonToolStripMenuItem.Text = Lang.Get("gsFlagByLatLon");
+            boundaryToolToolStripMenu.Text = Lang.Get("gsBoundary") + " Tool";
 
-            webcamToolStrip.Text = gStr.gsWebCam;
-            offsetFixToolStrip.Text = gStr.gsOffsetFix;
-            wizardsMenu.Text = gStr.gsWizards;
-            steerWizardMenuItem.Text = gStr.gsSteerWizard;
-            steerChartToolStripMenuItem.Text = gStr.gsSteerChart;
-            headingChartToolStripMenuItem.Text = gStr.gsHeadingChart;
-            xTEChartToolStripMenuItem.Text = gStr.gsXTEChart;
+            webcamToolStrip.Text = Lang.Get("gsWebCam");
+            offsetFixToolStrip.Text = Lang.Get("gsOffsetFix");
+            wizardsMenu.Text = Lang.Get("gsWizards");
+            steerWizardMenuItem.Text = Lang.Get("gsSteerWizard");
+            steerChartToolStripMenuItem.Text = Lang.Get("gsSteerChart");
+            headingChartToolStripMenuItem.Text = Lang.Get("gsHeadingChart");
+            xTEChartToolStripMenuItem.Text = Lang.Get("gsXTEChart");
 
             btnChangeMappingColor.Text = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
 
@@ -636,7 +638,7 @@ namespace AgOpenGPS
 
             if (this.OwnedForms.Any())
             {
-                TimedMessageBox(2000, gStr.gsWindowsStillOpen, gStr.gsCloseAllWindowsFirst);
+                TimedMessageBox(2000, Lang.Get("gsWindowsStillOpen"), Lang.Get("gsCloseAllWindowsFirst"));
                 e.Cancel = true;
                 return;
             }
@@ -766,7 +768,7 @@ namespace AgOpenGPS
         {
             panelRight.Enabled = false;
             FieldMenuButtonEnableDisable(false);
-            displayFieldName = gStr.gsNone;
+            displayFieldName = Lang.Get("gsNone");
 
             JobClose();
             FieldClose();
@@ -936,7 +938,7 @@ namespace AgOpenGPS
                 isJobStarted = false;
             }
 
-            displayJobName = gStr.gsNone;
+            displayJobName = Lang.Get("gsNone");
 
             //clear out contour and Lists
             btnContour.Enabled = false;
@@ -1060,7 +1062,7 @@ namespace AgOpenGPS
             //reset GUI areas
             fd.UpdateFieldBoundaryGUIAreas();
 
-            displayFieldName = gStr.gsNone;
+            displayFieldName = Lang.Get("gsNone");
 
             isPanelBottomHidden = false;
 

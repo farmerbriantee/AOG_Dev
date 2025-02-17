@@ -364,6 +364,8 @@ namespace AgOpenGPS
 
         private void FormGPS_Load(object sender, EventArgs e)
         {
+            Lang.Load();
+
             if (!isTermsAccepted)
             {
                 if (!Properties.Settings.Default.setDisplay_isTermsAccepted)

@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using AgOpenGPS.Classes;
 using AgOpenGPS.Culture;
 using AgOpenGPS.Properties;
 using Microsoft.Win32;
@@ -1590,6 +1591,9 @@ namespace AgOpenGPS
 
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(RegistrySettings.culture);
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(RegistrySettings.culture);
+
+            //load language file Translations.csv
+            Lang.Load();
 
             LoadSettings();
         }

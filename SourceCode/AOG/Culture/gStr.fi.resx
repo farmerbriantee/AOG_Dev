@@ -1215,13 +1215,4 @@
   <data name="gsZoomIn" xml:space="preserve">
     <value>Lähennä</value>
   </data>
-  <data name="v_AboutIntro" xml:space="preserve">
-    <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
-  </data>
-  <data name="v_RecordedPathForm" xml:space="preserve">
-    <value>https://www.youtube.com/watch?v=fE3TPRIRSFg</value>
-  </data>
-  <data name="v_SteerSettingsForm" xml:space="preserve">
-    <value>https://www.youtube.com/watch?v=3SdvYgx8HHc</value>
-  </data>
 </root>

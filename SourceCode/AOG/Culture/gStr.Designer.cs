@@ -3407,32 +3407,5 @@ namespace AgOpenGPS.Culture {
                 return ResourceManager.GetString("gsZoomIn", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://www.youtube.com/watch?v=iN2cZ8avHag.
-        /// </summary>
-        public static string v_AboutIntro {
-            get {
-                return ResourceManager.GetString("v_AboutIntro", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://www.youtube.com/watch?v=fE3TPRIRSFg.
-        /// </summary>
-        public static string v_RecordedPathForm {
-            get {
-                return ResourceManager.GetString("v_RecordedPathForm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://www.youtube.com/watch?v=3SdvYgx8HHc.
-        /// </summary>
-        public static string v_SteerSettingsForm {
-            get {
-                return ResourceManager.GetString("v_SteerSettingsForm", resourceCulture);
-            }
-        }
     }
 }

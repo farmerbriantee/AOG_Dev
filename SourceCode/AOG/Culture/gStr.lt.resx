@@ -121,7 +121,7 @@
     <value>AB kreivė</value>
   </data>
   <data name="gsABDraw" xml:space="preserve">
-    <value>Nubrėžti AB. Pažymėkite 2 taškus ant ribos, kad pradėti</value>
+    <value>Nubrėžti AB. Pažymėkite 2 taškus ant ribos  kad pradėti</value>
   </data>
   <data name="gsABline" xml:space="preserve">
     <value>AB linija</value>
@@ -185,9 +185,6 @@
   </data>
   <data name="gsArea" xml:space="preserve">
     <value>Plotas</value>
-  </data>
-  <data name="gsArrangeText" xml:space="preserve">
-    <value>Paspauskite mygtuką kairėje, kad jis atsirastų menu dešinėje.                            Kokia tvarka juos paspausite, tokia tvarka atsiras Menu</value>
   </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Padargo tipas</value>
@@ -583,7 +580,7 @@
     <value>IMU ašies pakeitimas</value>
   </data>
   <data name="gsIfWrongDirectionTapVehicle" xml:space="preserve">
-    <value>Jei neteisinga kryptis, palieskite transporto priemonę</value>
+    <value>Jei neteisinga kryptis  palieskite transporto priemonę</value>
   </data>
   <data name="gsImage" xml:space="preserve">
     <value>Nėra paveikslėlio</value>
@@ -598,7 +595,7 @@
     <value>Vidinis</value>
   </data>
   <data name="gsIntegralInfo" xml:space="preserve">
-    <value>Tai po truputį padidins posūkio kampą, kad pataisyti sekimą</value>
+    <value>Tai po truputį padidins posūkio kampą  kad pataisyti sekimą</value>
   </data>
   <data name="gsInvertHydraulicRelays" xml:space="preserve">
     <value>Perversti rėles</value>
@@ -700,7 +697,7 @@
     <value>Minimalus greitis</value>
   </data>
   <data name="gsMinToMove" xml:space="preserve">
-    <value>Minimum, kad pradėtų veikt</value>
+    <value>Minimum  kad pradėtų veikt</value>
   </data>
   <data name="gsMissingABLinesFile" xml:space="preserve">
     <value>Trūksta AB eilučių failo</value>
@@ -874,7 +871,7 @@
     <value>Problema kuriant kelią</value>
   </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
-    <value>Programa išsijungs, prašome paleisti iš naujo</value>
+    <value>Programa išsijungs  prašome paleisti iš naujo</value>
   </data>
   <data name="gsProportionalGain" xml:space="preserve">
     <value>Proporcingas priartėjimas</value>
@@ -1047,9 +1044,6 @@
   <data name="gsSteerChart" xml:space="preserve">
     <value>Vairavimo diagrama</value>
   </data>
-  <data name="gsSteerDescription" xml:space="preserve">
-    <value>Nefiksuojantis mygtukas: įjungta/išjungta.         Fiksuojantis mygtukas: įjungta/išjungta</value>
-  </data>
   <data name="gsSteerEnable" xml:space="preserve">
     <value>Vairavimo paleidimas nuotoliu</value>
   </data>
@@ -1066,7 +1060,7 @@
     <value>Vairavimo nustatymų vedlys</value>
   </data>
   <data name="gsStopRecordPauseBoundary" xml:space="preserve">
-    <value>Sustabdyti, pauzė, įrašinėti ribas</value>
+    <value>Sustabdyti  pauzė  įrašinėti ribas</value>
   </data>
   <data name="gsSvennArrow" xml:space="preserve">
     <value>Svenn rodyklė</value>
@@ -1075,19 +1069,13 @@
     <value>Terminai ir sąlygos esamai versijai:</value>
   </data>
   <data name="gsTermsOne" xml:space="preserve">
-    <value>Jei platinate šios NEMOKAMOS programos kopijas, nesvarbu, ar tai būtų nemokama, ar už tam tikrą mokestį, patobulintas, pakeistas, turite perduoti gavėjams tas pačias laisves, kurias gavote kaip nurodyta GPLv3 licencijoje.</value>
+    <value>Jei platinate šios NEMOKAMOS programos kopijas  nesvarbu  ar tai būtų nemokama  ar už tam tikrą mokestį  patobulintas  pakeistas  turite perduoti gavėjams tas pačias laisves  kurias gavote kaip nurodyta GPLv3 licencijoje.</value>
   </data>
   <data name="gsTermsThree" xml:space="preserve">
-    <value>"AgOpenGPS yra griežtai mokomoji programinė įranga, skirta sužinoti apie valdymo sistemas, GPS sakinius ir teorinį mašinos valdymo taikymą.
-
-Jokiu būdu jokiu būdu negalima naudoti tikroje įrangoje. Suteikiamas treniruoklis, kad mokinys galėtų saugiai patirti mašinos valdymą.
-
-Programinėje įrangoje nėra saugos sistemų ir jos nėra numanomos.
-
-NAUDOJIMAS SAVO RIZIKA."</value>
+    <value>"AgOpenGPS yra griežtai mokomoji programinė įranga  skirta sužinoti apie valdymo sistemas  GPS sakinius ir teorinį mašinos valdymo taikymą. Jokiu būdu jokiu būdu negalima naudoti tikroje įrangoje. Suteikiamas treniruoklis  kad mokinys galėtų saugiai patirti mašinos valdymą. Programinėje įrangoje nėra saugos sistemų ir jos nėra numanomos. NAUDOJIMAS SAVO RIZIKA."</value>
   </data>
   <data name="gsTermsTwo" xml:space="preserve">
-    <value>Turite įsitikinti, kad jie gauna arba gali gauti šaltinio kodą. Ir jūs turite parodyti jiems šias sąlygas, kad jie žinotų savo teises. Nevokite kitų darbų ir vadinkite jį savo.</value>
+    <value>Turite įsitikinti  kad jie gauna arba gali gauti šaltinio kodą. Ir jūs turite parodyti jiems šias sąlygas  kad jie žinotų savo teises. Nevokite kitų darbų ir vadinkite jį savo.</value>
   </data>
   <data name="gsToFile" xml:space="preserve">
     <value>Į failą</value>

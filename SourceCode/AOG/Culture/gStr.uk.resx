@@ -430,7 +430,7 @@
     <value>Пауза</value>
   </data>
   <data name="gsPleaseEnterABLine" xml:space="preserve">
-    <value>Будь ласка, Введіть (AB) лінію</value>
+    <value>Будь ласка  Введіть (AB) лінію</value>
   </data>
   <data name="gsPressureSensorValueLabel" xml:space="preserve">
     <value>Тиск (бар)</value>

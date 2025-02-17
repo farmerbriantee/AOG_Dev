@@ -268,17 +268,6 @@ namespace AgOpenGPS.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Touch the buttons on the left side you want to appear in the Menu (The right side). 
-        ///
-        ///The order you push them will be the order they appear on the menu from bottom up..
-        /// </summary>
-        public static string gsArrangeText {
-            get {
-                return ResourceManager.GetString("gsArrangeText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Attachment Style.
         /// </summary>
         public static string gsAttachmentStyle {
@@ -2916,16 +2905,6 @@ namespace AgOpenGPS.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Button - Push On. Push Off
-        ///Switch - Pushed On, Release Off.
-        /// </summary>
-        public static string gsSteerDescription {
-            get {
-                return ResourceManager.GetString("gsSteerDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to External Enable.
         /// </summary>
         public static string gsSteerEnable {
@@ -2998,7 +2977,7 @@ namespace AgOpenGPS.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you distribute copies of this FREE program, whether gratis or for a fee, improved, changed, you must pass on to the recipients the same freedoms that you received as Outlined in the GPLv3 License..
+        ///   Looks up a localized string similar to If you distribute copies of this FREE program  whether gratis or for a fee  improved  changed  you must pass on to the recipients the same freedoms that you received as Outlined in the GPLv3 License..
         /// </summary>
         public static string gsTermsOne {
             get {
@@ -3007,13 +2986,7 @@ namespace AgOpenGPS.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AgOpenGPS is strictly educational software to learn about guidance systems, GPS sentences, and theoretical application of machine control.
-        ///
-        ///It is in no way to be used on real equipment in any circumstance. A simulator is provided to allow the student to safely experience machine guidance.
-        ///
-        ///There are no safety systems in the software and none are implied. 
-        ///
-        ///USE AT OWN RISK..
+        ///   Looks up a localized string similar to AgOpenGPS is strictly educational software to learn about guidance systems  GPS sentences  and theoretical application of machine control. It is in no way to be used on real equipment in any circumstance. A simulator is provided to allow the student to safely experience machine guidance. There are no safety systems in the software and none are implied. USE AT OWN RISK..
         /// </summary>
         public static string gsTermsThree {
             get {
@@ -3022,7 +2995,7 @@ namespace AgOpenGPS.Culture {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must make sure that they, receive or can get the source code.  And you must show them these terms so they know their rights. Don&apos;t steal others work and call it your own..
+        ///   Looks up a localized string similar to You must make sure that they  receive or can get the source code.  And you must show them these terms so they know their rights. Don&apos;t steal others work and call it your own..
         /// </summary>
         public static string gsTermsTwo {
             get {

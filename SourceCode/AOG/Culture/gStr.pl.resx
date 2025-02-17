@@ -121,7 +121,7 @@
     <value>Krzywa AB</value>
   </data>
   <data name="gsABDraw" xml:space="preserve">
-    <value>Narysuj AB - Kliknij 2 punkty na granicy, aby rozpocząć.</value>
+    <value>Narysuj AB - Kliknij 2 punkty na granicy  aby rozpocząć.</value>
   </data>
   <data name="gsABline" xml:space="preserve">
     <value>Prosta AB</value>
@@ -173,10 +173,6 @@
   </data>
   <data name="gsArea" xml:space="preserve">
     <value>Powierzchnia</value>
-  </data>
-  <data name="gsArrangeText" xml:space="preserve">
-    <value>Dotknij przycisków po lewej stronie, które chcesz, aby pojawiły się w Menu (po prawej stronie).
-Kolejność, w jakiej je naciśniesz, będzie kolejnością, w jakiej pojawią się w menu od dołu do góry.</value>
   </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Rodzaj Narzędzia</value>
@@ -563,7 +559,7 @@ Kolejność, w jakiej je naciśniesz, będzie kolejnością, w jakiej pojawią s
     <value>Wewnętrzny</value>
   </data>
   <data name="gsIntegralInfo" xml:space="preserve">
-    <value>Powoli zwiększy kąt skrętu, aby zmniejszyć błąd śledzenia</value>
+    <value>Powoli zwiększy kąt skrętu  aby zmniejszyć błąd śledzenia</value>
   </data>
   <data name="gsInvertHydraulicRelays" xml:space="preserve">
     <value>Odwróć przekaźnik</value>
@@ -962,22 +958,19 @@ Kolejność, w jakiej je naciśniesz, będzie kolejnością, w jakiej pojawią s
     <value>Kreator kierowania</value>
   </data>
   <data name="gsStopRecordPauseBoundary" xml:space="preserve">
-    <value>Zatrzymaj nagrywanie, wstrzymaj granicę</value>
+    <value>Zatrzymaj nagrywanie  wstrzymaj granicę</value>
   </data>
   <data name="gsTermsConditions" xml:space="preserve">
     <value>Warunki i zasady dla wersji:</value>
   </data>
   <data name="gsTermsOne" xml:space="preserve">
-    <value>Jeśli rozpowszechniasz kopie tego BEZPŁATNEGO programu, niezależnie od tego, czy za darmo, czy za opłatą, ulepszone, zmienione, musisz przekazać odbiorcom te same wolności, które otrzymałeś, zgodnie z licencją GPLv3.</value>
+    <value>Jeśli rozpowszechniasz kopie tego BEZPŁATNEGO programu  niezależnie od tego  czy za darmo  czy za opłatą  ulepszone  zmienione  musisz przekazać odbiorcom te same wolności  które otrzymałeś  zgodnie z licencją GPLv3.</value>
   </data>
   <data name="gsTermsThree" xml:space="preserve">
-    <value>AgOpenGPS to wyłącznie edukacyjne oprogramowanie do nauki o systemach nawigacyjnych, zdaniach GPS i teoretycznym zastosowaniu sterowania maszynami.
-W żadnym wypadku nie należy go używać na prawdziwym sprzęcie. Dostarczony jest symulator, aby umożliwić uczniowi bezpieczne doświadczenie prowadzenia maszyny.
-W oprogramowaniu nie ma systemów bezpieczeństwa i żadne nie są sugerowane.
-UŻYWAJ NA WŁASNE RYZYKO.</value>
+    <value>AgOpenGPS to wyłącznie edukacyjne oprogramowanie do nauki o systemach nawigacyjnych  zdaniach GPS i teoretycznym zastosowaniu sterowania maszynami. W żadnym wypadku nie należy go używać na prawdziwym sprzęcie. Dostarczony jest symulator  aby umożliwić uczniowi bezpieczne doświadczenie prowadzenia maszyny. W oprogramowaniu nie ma systemów bezpieczeństwa i żadne nie są sugerowane. UŻYWAJ NA WŁASNE RYZYKO.</value>
   </data>
   <data name="gsTermsTwo" xml:space="preserve">
-    <value>Musisz upewnić się, że otrzymają lub mogą uzyskać kod źródłowy. I musisz pokazać im te warunki, aby wiedzieli, jakie mają prawa. Nie kradnij pracy innych i nie nazywaj jej swoją własną.</value>
+    <value>Musisz upewnić się  że otrzymają lub mogą uzyskać kod źródłowy. I musisz pokazać im te warunki  aby wiedzieli  jakie mają prawa. Nie kradnij pracy innych i nie nazywaj jej swoją własną.</value>
   </data>
   <data name="gsToFile" xml:space="preserve">
     <value>Do pliku</value>

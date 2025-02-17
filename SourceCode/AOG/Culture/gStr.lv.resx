@@ -121,7 +121,7 @@
     <value>AB Izliekta</value>
   </data>
   <data name="gsABDraw" xml:space="preserve">
-    <value>Zīmējiet AB. Lai sāktu, atzīmējiet 2 punktus uz lauka robežas</value>
+    <value>Zīmējiet AB. Lai sāktu  atzīmējiet 2 punktus uz lauka robežas</value>
   </data>
   <data name="gsABline" xml:space="preserve">
     <value>AB Līnija</value>
@@ -185,9 +185,6 @@
   </data>
   <data name="gsArea" xml:space="preserve">
     <value>Platība</value>
-  </data>
-  <data name="gsArrangeText" xml:space="preserve">
-    <value>Pieskarieties pogām kreisajā pusē, kuras vēlaties lai parādās izvēlnē (labajā pusē).</value>
   </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Piekabināmās iekārtas veids</value>
@@ -466,7 +463,7 @@
     <value>Kļūda</value>
   </data>
   <data name="gsErrorreadingKML" xml:space="preserve">
-    <value>Lasot KML, radās kļūda</value>
+    <value>Lasot KML  radās kļūda</value>
   </data>
   <data name="gsExit" xml:space="preserve">
     <value>Iziet</value>
@@ -586,7 +583,7 @@
     <value>IMU ass maiņa</value>
   </data>
   <data name="gsIfWrongDirectionTapVehicle" xml:space="preserve">
-    <value>Ja nepareizs virziens, pieskarieties transportlīdzeklim</value>
+    <value>Ja nepareizs virziens  pieskarieties transportlīdzeklim</value>
   </data>
   <data name="gsImage" xml:space="preserve">
     <value>Nav attēla:</value>
@@ -604,7 +601,7 @@
     <value>Integrāls</value>
   </data>
   <data name="gsIntegralInfo" xml:space="preserve">
-    <value>Tas lēnām palielinās stūres leņķi, lai samazinātu novirzes kļūdu</value>
+    <value>Tas lēnām palielinās stūres leņķi  lai samazinātu novirzes kļūdu</value>
   </data>
   <data name="gsInvertHydraulicRelays" xml:space="preserve">
     <value>Invertēt releju</value>
@@ -844,10 +841,10 @@
     <value>Attālums no aizmugurējās ass</value>
   </data>
   <data name="gsPleaseEnterABLine" xml:space="preserve">
-    <value>Lūdzu, ievadiet AB Līniju</value>
+    <value>Lūdzu  ievadiet AB Līniju</value>
   </data>
   <data name="gsPleaseWait" xml:space="preserve">
-    <value>Lūdzu, pagaidiet ...</value>
+    <value>Lūdzu  pagaidiet ...</value>
   </data>
   <data name="gsPoint" xml:space="preserve">
     <value>Punkts</value>
@@ -877,10 +874,10 @@
     <value>Priekšskatījums</value>
   </data>
   <data name="gsProblemMakingPath" xml:space="preserve">
-    <value>Problēma, veidojot ceļu</value>
+    <value>Problēma  veidojot ceļu</value>
   </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
-    <value>Programma tiks aizvērta, lūdzu, restartējiet</value>
+    <value>Programma tiks aizvērta  lūdzu  restartējiet</value>
   </data>
   <data name="gsProportionalGain" xml:space="preserve">
     <value>Proporcionālais ieguvums</value>
@@ -925,7 +922,7 @@
     <value>Atiestatīt visu</value>
   </data>
   <data name="gsResetAllForSure" xml:space="preserve">
-    <value>Atiestatīt visu, Esi pārliecināts?</value>
+    <value>Atiestatīt visu  Esi pārliecināts?</value>
   </data>
   <data name="gsResume" xml:space="preserve">
     <value>Turpināt</value>
@@ -1059,15 +1056,11 @@
   <data name="gsSteerChart" xml:space="preserve">
     <value>Stūrēšanas diagrammas</value>
   </data>
-  <data name="gsSteerDescription" xml:space="preserve">
-    <value>Poga — nospiediet ieslēgts/ nospiediet izslēgts
- Slēdzis - ieslēgšanas / izslēgšanas slēdzis</value>
-  </data>
   <data name="gsSteerEnable" xml:space="preserve">
     <value>Attālā braukšanas uzsākšana</value>
   </data>
   <data name="gsSteerInReverse" xml:space="preserve">
-    <value>Stūrēšana, braucot atpakaļgaitā</value>
+    <value>Stūrēšana  braucot atpakaļgaitā</value>
   </data>
   <data name="gsSteerResponse" xml:space="preserve">
     <value>Stūres reakcija</value>
@@ -1088,19 +1081,13 @@
     <value>Versijas noteikumi un nosacījumi:</value>
   </data>
   <data name="gsTermsOne" xml:space="preserve">
-    <value>Ja izplatāt šīs BEZMAKSAS programmas kopijas, neatkarīgi no tā, vai tā ir bez maksas vai par maksu, uzlabotas, mainītas, jums ir jānodod saņēmējiem tās pašas brīvības, kuras saņēmāt saskaņā ar GPLv3 licenci.</value>
+    <value>Ja izplatāt šīs BEZMAKSAS programmas kopijas  neatkarīgi no tā  vai tā ir bez maksas vai par maksu  uzlabotas  mainītas  jums ir jānodod saņēmējiem tās pašas brīvības  kuras saņēmāt saskaņā ar GPLv3 licenci.</value>
   </data>
   <data name="gsTermsThree" xml:space="preserve">
-    <value>AgOpenGPS ir tikai izglītojoša programmatūra, lai uzzinātu par vadības sistēmām, GPS frāzēm un mašīnu vadības teorētisko pielietojumu.
- 
- To nekādā gadījumā nedrīkst izmantot reālām iekārtām. Ir pieejams simulators, lai students varētu droši apgūt mašīnas vadību.
- 
- Programmatūrā nav drošības sistēmu, un neviena no tām nav ietverta.
- 
- IZMANTOJIET UZ SAVU RISKU."</value>
+    <value>AgOpenGPS ir tikai izglītojoša programmatūra  lai uzzinātu par vadības sistēmām  GPS frāzēm un mašīnu vadības teorētisko pielietojumu. To nekādā gadījumā nedrīkst izmantot reālām iekārtām. Ir pieejams simulators  lai students varētu droši apgūt mašīnas vadību. Programmatūrā nav drošības sistēmu  un neviena no tām nav ietverta. IZMANTOJIET UZ SAVU RISKU."</value>
   </data>
   <data name="gsTermsTwo" xml:space="preserve">
-    <value>Jums ir jānodrošina, ka viņi saņem vai var iegūt avota kodu. Un jums ir jāparāda viņiem šie nosacījumi, lai viņi zinātu savas tiesības. Nezodziet citu darbu un nepiesaviniet to sev.</value>
+    <value>Jums ir jānodrošina  ka viņi saņem vai var iegūt avota kodu. Un jums ir jāparāda viņiem šie nosacījumi  lai viņi zinātu savas tiesības. Nezodziet citu darbu un nepiesaviniet to sev.</value>
   </data>
   <data name="gsToFile" xml:space="preserve">
     <value>Uz failu</value>

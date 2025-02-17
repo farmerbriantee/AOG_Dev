@@ -186,11 +186,6 @@
   <data name="gsArea" xml:space="preserve">
     <value>Area</value>
   </data>
-  <data name="gsArrangeText" xml:space="preserve">
-    <value>Touch the buttons on the left side you want to appear in the Menu (The right side). 
-
-The order you push them will be the order they appear on the menu from bottom up.</value>
-  </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Attachment Style</value>
   </data>
@@ -1070,10 +1065,6 @@ The order you push them will be the order they appear on the menu from bottom up
   <data name="gsSteerChart" xml:space="preserve">
     <value>Steer Charts</value>
   </data>
-  <data name="gsSteerDescription" xml:space="preserve">
-    <value>Button - Push On. Push Off
-Switch - Pushed On, Release Off</value>
-  </data>
   <data name="gsSteerEnable" xml:space="preserve">
     <value>External Enable</value>
   </data>
@@ -1099,19 +1090,13 @@ Switch - Pushed On, Release Off</value>
     <value>Terms and Conditions for version: </value>
   </data>
   <data name="gsTermsOne" xml:space="preserve">
-    <value>If you distribute copies of this FREE program, whether gratis or for a fee, improved, changed, you must pass on to the recipients the same freedoms that you received as Outlined in the GPLv3 License.</value>
+    <value>If you distribute copies of this FREE program  whether gratis or for a fee  improved  changed  you must pass on to the recipients the same freedoms that you received as Outlined in the GPLv3 License.</value>
   </data>
   <data name="gsTermsThree" xml:space="preserve">
-    <value>AgOpenGPS is strictly educational software to learn about guidance systems, GPS sentences, and theoretical application of machine control.
-
-It is in no way to be used on real equipment in any circumstance. A simulator is provided to allow the student to safely experience machine guidance.
-
-There are no safety systems in the software and none are implied. 
-
-USE AT OWN RISK.</value>
+    <value>AgOpenGPS is strictly educational software to learn about guidance systems  GPS sentences  and theoretical application of machine control. It is in no way to be used on real equipment in any circumstance. A simulator is provided to allow the student to safely experience machine guidance. There are no safety systems in the software and none are implied. USE AT OWN RISK.</value>
   </data>
   <data name="gsTermsTwo" xml:space="preserve">
-    <value>You must make sure that they, receive or can get the source code.  And you must show them these terms so they know their rights. Don't steal others work and call it your own.</value>
+    <value>You must make sure that they  receive or can get the source code.  And you must show them these terms so they know their rights. Don't steal others work and call it your own.</value>
   </data>
   <data name="gsToFile" xml:space="preserve">
     <value>To File</value>

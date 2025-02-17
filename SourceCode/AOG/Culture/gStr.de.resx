@@ -121,7 +121,7 @@
     <value>A-B Kurve</value>
   </data>
   <data name="gsABDraw" xml:space="preserve">
-    <value>Erstellen einer AB-Linie - Klicken Sie auf 2 Punkte auf der Grenze, um zu beginnen</value>
+    <value>Erstellen einer AB-Linie - Klicken Sie auf 2 Punkte auf der Grenze  um zu beginnen</value>
   </data>
   <data name="gsABline" xml:space="preserve">
     <value>A-B Linie</value>
@@ -167,9 +167,6 @@
   </data>
   <data name="gsArea" xml:space="preserve">
     <value>Fläche</value>
-  </data>
-  <data name="gsArrangeText" xml:space="preserve">
-    <value>Berühren Sie die Schaltflächen auf der linken Seite, die im Menü angezeigt werden sollen (die rechte Seite).  Die Reihenfolge, in der Sie sie drücken, entspricht der Reihenfolge, in der sie von unten nach oben im Menü erscheinen.</value>
   </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Maschinentyp</value>
@@ -541,7 +538,7 @@
     <value>Innere</value>
   </data>
   <data name="gsIntegralInfo" xml:space="preserve">
-    <value>Der Lenkwinkel wird langsam erhöht, um den Spurversatz zu verringern.</value>
+    <value>Der Lenkwinkel wird langsam erhöht  um den Spurversatz zu verringern.</value>
   </data>
   <data name="gsInvertHydraulicRelays" xml:space="preserve">
     <value>Relais umkehren</value>
@@ -945,9 +942,6 @@
   <data name="gsSteerChart" xml:space="preserve">
     <value>Lenkdiagramm</value>
   </data>
-  <data name="gsSteerDescription" xml:space="preserve">
-    <value>Kein / Taster / Schalter</value>
-  </data>
   <data name="gsSteerEnable" xml:space="preserve">
     <value>Externe Aktivierung</value>
   </data>
@@ -964,19 +958,19 @@
     <value>Assistent Lenkeinstellungen</value>
   </data>
   <data name="gsStopRecordPauseBoundary" xml:space="preserve">
-    <value>Grenze aufzeichnen, pausieren, stoppen</value>
+    <value>Grenze aufzeichnen  pausieren  stoppen</value>
   </data>
   <data name="gsTermsConditions" xml:space="preserve">
     <value>Nutzungsbedingungen für die Version:</value>
   </data>
   <data name="gsTermsOne" xml:space="preserve">
-    <value>Wenn Sie Kopien dieses KOSTENLOSEN Programms verteilen, sei es gratis oder gegen Gebühr, verbessert oder geändert, müssen Sie den Empfängern dieselben Freiheiten weitergeben, die Sie gemäß der GPLv3-Lizenz erhalten haben.</value>
+    <value>Wenn Sie Kopien dieses KOSTENLOSEN Programms verteilen  sei es gratis oder gegen Gebühr  verbessert oder geändert  müssen Sie den Empfängern dieselben Freiheiten weitergeben  die Sie gemäß der GPLv3-Lizenz erhalten haben.</value>
   </data>
   <data name="gsTermsThree" xml:space="preserve">
-    <value>AgOpenGPS ist eine reine Lernsoftware zum Erlernen von Leitsystemen, GPS-Sätzen und der theoretischen Anwendung der Maschinensteuerung. Es besteht unter keinen Umständen die Möglichkeit, es auf realen Geräten zu verwenden. Damit die Schüler die Maschinenführung auf sichere Weise erleben können, steht ihnen ein Simulator zur Verfügung. Es sind keine Sicherheitssysteme in der Software vorhanden und auch keine impliziert. VERWENDUNG AUF EIGENES RISIKO.</value>
+    <value>AgOpenGPS ist eine reine Lernsoftware zum Erlernen von Leitsystemen  GPS-Sätzen und der theoretischen Anwendung der Maschinensteuerung. Es besteht unter keinen Umständen die Möglichkeit  es auf realen Geräten zu verwenden. Damit die Schüler die Maschinenführung auf sichere Weise erleben können  steht ihnen ein Simulator zur Verfügung. Es sind keine Sicherheitssysteme in der Software vorhanden und auch keine impliziert. VERWENDUNG AUF EIGENES RISIKO.</value>
   </data>
   <data name="gsTermsTwo" xml:space="preserve">
-    <value>Sie müssen sicherstellen, dass sie den Quellcode erhalten oder bekommen können. Und Sie müssen ihnen diese Bedingungen zeigen, damit sie ihre Rechte kennen. Stehlen Sie nicht die Arbeit anderer und geben Sie sie als Ihre eigene aus.</value>
+    <value>Sie müssen sicherstellen  dass sie den Quellcode erhalten oder bekommen können. Und Sie müssen ihnen diese Bedingungen zeigen  damit sie ihre Rechte kennen. Stehlen Sie nicht die Arbeit anderer und geben Sie sie als Ihre eigene aus.</value>
   </data>
   <data name="gsToFile" xml:space="preserve">
     <value>in Datei</value>

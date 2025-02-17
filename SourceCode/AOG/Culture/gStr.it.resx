@@ -186,9 +186,6 @@
   <data name="gsArea" xml:space="preserve">
     <value>Area</value>
   </data>
-  <data name="gsArrangeText" xml:space="preserve">
-    <value>Seleziona i pulsanti nel box a sinistra secondo l'ordine con cui vuoi che appaiano in AOG Menu. L'ordina sarà dal basso verso l'alto.</value>
-  </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Tipologia di Attrezzo</value>
   </data>
@@ -874,7 +871,7 @@
     <value>Problema Creazione Percorso</value>
   </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
-    <value>Il Programma Verra' Chiuso, Riavviare</value>
+    <value>Il Programma Verra' Chiuso  Riavviare</value>
   </data>
   <data name="gsProportionalGain" xml:space="preserve">
     <value>Guadagno Proporzionale</value>
@@ -1053,9 +1050,6 @@
   <data name="gsSteerChart" xml:space="preserve">
     <value>Grafico dello Sterzo</value>
   </data>
-  <data name="gsSteerDescription" xml:space="preserve">
-    <value>Pulsante - Premere per attivare,  Premere per disattivare           Interruttore - Spingere per attivare, Rilasciare per disattivare</value>
-  </data>
   <data name="gsSteerEnable" xml:space="preserve">
     <value>Attivazione esterna</value>
   </data>
@@ -1078,10 +1072,10 @@
     <value>Termini e Condizioni per la versione:</value>
   </data>
   <data name="gsTermsOne" xml:space="preserve">
-    <value>Se distribusci copie di questo PROGRAMMA GRATUITO, che tu lo faccia gratis o dietro pagamento, migliorato o modificato, devi trasmettere ai destinatari le stesse libertà a te concesse dalla Licenza GPLv3.</value>
+    <value>Se distribusci copie di questo PROGRAMMA GRATUITO  che tu lo faccia gratis o dietro pagamento  migliorato o modificato  devi trasmettere ai destinatari le stesse libertà a te concesse dalla Licenza GPLv3.</value>
   </data>
   <data name="gsTermsThree" xml:space="preserve">
-    <value>AgOpenGPS è un software educativo sviluppato per conoscere i sistemi di guida, i messaggi GPS, e l'applicazione teorica del controllo macchine.                                                                                                                                                                          Non deve essere mai utilizzato su veicoli e attrezzature reali. Nel software è presente un simulatore che permette di sperimentare in sicurezza la guida autonoma di un veicolo.                                                                                                             Non ci sono sistemi di sicurezza all'interno del software nè espliciti nè impliciti.                                                            UTILIZZATELO A VOSTRO RISCHIO E PERICOLO.</value>
+    <value>AgOpenGPS è un software educativo sviluppato per conoscere i sistemi di guida  i messaggi GPS  e l'applicazione teorica del controllo macchine.                                                                                                                                                                          Non deve essere mai utilizzato su veicoli e attrezzature reali. Nel software è presente un simulatore che permette di sperimentare in sicurezza la guida autonoma di un veicolo.                                                                                                             Non ci sono sistemi di sicurezza all'interno del software nè espliciti nè impliciti.                                                            UTILIZZATELO A VOSTRO RISCHIO E PERICOLO.</value>
   </data>
   <data name="gsTermsTwo" xml:space="preserve">
     <value>Devi garantire che loro ricevano o possano ottenere il codice sorgente. E devi mostrargli questi terminidi utilizzo in modo che possano sapere i loro diritti. Non rubare il lavoro degli altri e non dire che è tuo.</value>

@@ -186,11 +186,6 @@
   <data name="gsArea" xml:space="preserve">
     <value>Área</value>
   </data>
-  <data name="gsArrangeText" xml:space="preserve">
-    <value>Toca los botones a la izquierda que quieres que aparezcan en el menú (lado derecho).
-
-El orden en que los presiones será el orden en que aparecerán en el menú de abajo hacia arriba.</value>
-  </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Estilo de acople</value>
   </data>
@@ -276,7 +271,7 @@ El orden en que los presiones será el orden en que aparecerán en el menú de a
     <value>Cerrar</value>
   </data>
   <data name="gsCloseAllWindowsFirst" xml:space="preserve">
-    <value>Por favor, cierre primero todas las ventanas</value>
+    <value>Por favor  cierre primero todas las ventanas</value>
   </data>
   <data name="gsCloseFieldFirst" xml:space="preserve">
     <value>Antes cierre el fichero</value>

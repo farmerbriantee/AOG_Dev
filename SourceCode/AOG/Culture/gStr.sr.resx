@@ -718,7 +718,7 @@
     <value>Problem pri kreiranju putanje</value>
   </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
-    <value>Gašenje programa, molim restartujte</value>
+    <value>Gašenje programa  molim restartujte</value>
   </data>
   <data name="gsQuickAB" xml:space="preserve">
     <value>Brza AB linija</value>
@@ -854,10 +854,6 @@
   </data>
   <data name="gsSteerChart" xml:space="preserve">
     <value>Grafikoni upravljanja</value>
-  </data>
-  <data name="gsSteerDescription" xml:space="preserve">
-    <value>Dugme - Pritisni za pokretanje/zaustavljanje navođenja
-Prekidač - Uključi/isključi</value>
   </data>
   <data name="gsSteerEnable" xml:space="preserve">
     <value>Eksterno pokretanje</value>

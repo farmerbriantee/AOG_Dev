@@ -178,7 +178,7 @@
     <value>Vyberte iný názov</value>
   </data>
   <data name="gsChooseBuildDifferentone" xml:space="preserve">
-    <value>Vyberte, alebo vytvorte iné</value>
+    <value>Vyberte  alebo vytvorte iné</value>
   </data>
   <data name="gsClose" xml:space="preserve">
     <value>Zavrieť</value>
@@ -526,7 +526,7 @@
     <value>Zapnite AB krivky</value>
   </data>
   <data name="gsTurnOnContourOrMakeABLine" xml:space="preserve">
-    <value>Zapnite kontúry, alebo vytvorte AB líniu</value>
+    <value>Zapnite kontúry  alebo vytvorte AB líniu</value>
   </data>
   <data name="gsUseSelected" xml:space="preserve">
     <value>Použiť vybrané</value>

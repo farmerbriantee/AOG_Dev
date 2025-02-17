@@ -186,9 +186,6 @@
   <data name="gsArea" xml:space="preserve">
     <value>Område</value>
   </data>
-  <data name="gsArrangeText" xml:space="preserve">
-    <value>Trykk på knappene på venstre side som du vil skal vises i menyen (høyre side). Rekkefølgen du trykker på dem, vil være rekkefølgen de vises i menyen fra bunnen opp.</value>
-  </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Festestil</value>
   </data>
@@ -499,7 +496,7 @@
     <value>Fiks til fix avstand</value>
   </data>
   <data name="gsFixAlarm" xml:space="preserve">
-    <value>RTK fiksering, alarm</value>
+    <value>RTK fiksering  alarm</value>
   </data>
   <data name="gsFixAlarmStop" xml:space="preserve">
     <value>Alarm stopper autostyring</value>
@@ -577,7 +574,7 @@
     <value>Inverter IMU-akse</value>
   </data>
   <data name="gsIfWrongDirectionTapVehicle" xml:space="preserve">
-    <value>Hvis feil retning, trykk på kjøretøyet</value>
+    <value>Hvis feil retning  trykk på kjøretøyet</value>
   </data>
   <data name="gsImage" xml:space="preserve">
     <value>Ikke noe bilde</value>
@@ -865,7 +862,7 @@
     <value>Klarer ikke å lage vei</value>
   </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
-    <value>Programmet vil avslutte, vennligst start på nytt</value>
+    <value>Programmet vil avslutte  vennligst start på nytt</value>
   </data>
   <data name="gsProportionalGain" xml:space="preserve">
     <value>Proposjonal økning</value>
@@ -1041,9 +1038,6 @@
   <data name="gsSteerChart" xml:space="preserve">
     <value>Styringsdiagram</value>
   </data>
-  <data name="gsSteerDescription" xml:space="preserve">
-    <value>Knapp - Trykk på. Trykk av bryter - Trykket på, slipp av</value>
-  </data>
   <data name="gsSteerEnable" xml:space="preserve">
     <value>Ekstern aktivering</value>
   </data>
@@ -1066,10 +1060,10 @@
     <value>Svenn pil</value>
   </data>
   <data name="gsTermsOne" xml:space="preserve">
-    <value>Hvis du distribuerer kopier av dette GRATIS programmet, enten gratis eller mot betaling, forbedret, endret, må du gi mottakerne de samme frihetene som du mottok i henhold til GPLv3-lisensen.</value>
+    <value>Hvis du distribuerer kopier av dette GRATIS programmet  enten gratis eller mot betaling  forbedret  endret  må du gi mottakerne de samme frihetene som du mottok i henhold til GPLv3-lisensen.</value>
   </data>
   <data name="gsTermsThree" xml:space="preserve">
-    <value>AgOpenGPS er strengt pedagogisk programvare for å lære om styringssystemer, GPS-setninger og teoretisk bruk av maskinstyring. Det skal på ingen måte brukes på ekte utstyr under noen omstendigheter. En simulator tilbys for å la studenten trygt oppleve maskinstyring. Det er ingen sikkerhetssystemer i programvaren, og ingen er implisert. BRUK PÅ EGEN RISIKO.</value>
+    <value>AgOpenGPS er strengt pedagogisk programvare for å lære om styringssystemer  GPS-setninger og teoretisk bruk av maskinstyring. Det skal på ingen måte brukes på ekte utstyr under noen omstendigheter. En simulator tilbys for å la studenten trygt oppleve maskinstyring. Det er ingen sikkerhetssystemer i programvaren  og ingen er implisert. BRUK PÅ EGEN RISIKO.</value>
   </data>
   <data name="gsTermsTwo" xml:space="preserve">
     <value>Du må sørge for at de mottar eller kan få tilgang til kildekoden. Og du må vise dem disse vilkårene slik at de kjenner sine rettigheter. Stjel ikke andres arbeid og kall det ditt eget.</value>

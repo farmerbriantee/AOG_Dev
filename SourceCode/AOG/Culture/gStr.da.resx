@@ -174,11 +174,6 @@
   <data name="gsArea" xml:space="preserve">
     <value>Areal</value>
   </data>
-  <data name="gsArrangeText" xml:space="preserve">
-    <value>Klik på de knapper til venstre, som du ønsker skal være i Menu (den højre side)
-
-Rækkefølgen du klikker på dem, angiver placeringen nedefra og op</value>
-  </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Påhæng type</value>
   </data>
@@ -348,7 +343,7 @@ Rækkefølgen du klikker på dem, angiver placeringen nedefra og op</value>
     <value>Slet mark</value>
   </data>
   <data name="gsDeleteForSure" xml:space="preserve">
-    <value>Slet, Er Du Sikker?</value>
+    <value>Slet  Er Du Sikker?</value>
   </data>
   <data name="gsDirect" xml:space="preserve">
     <value>Direkte</value>
@@ -531,7 +526,7 @@ Rækkefølgen du klikker på dem, angiver placeringen nedefra og op</value>
     <value>Inderste</value>
   </data>
   <data name="gsIntegralInfo" xml:space="preserve">
-    <value>Vil langsomt øge styrevinkel, for at mindske cross track fejl</value>
+    <value>Vil langsomt øge styrevinkel  for at mindske cross track fejl</value>
   </data>
   <data name="gsInvertHydraulicRelays" xml:space="preserve">
     <value>omvend hydraulik relæ</value>
@@ -708,7 +703,7 @@ Rækkefølgen du klikker på dem, angiver placeringen nedefra og op</value>
     <value>Kan Ikke Oprette Sti</value>
   </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
-    <value>Program Afsluttes, Venligst Genstart</value>
+    <value>Program Afsluttes  Venligst Genstart</value>
   </data>
   <data name="gsRaiseTime" xml:space="preserve">
     <value>Løfte tid</value>
@@ -717,7 +712,7 @@ Rækkefølgen du klikker på dem, angiver placeringen nedefra og op</value>
     <value>Dosering</value>
   </data>
   <data name="gsReallyResetEverything" xml:space="preserve">
-    <value>Helt Sikker, Nulstille alt</value>
+    <value>Helt Sikker  Nulstille alt</value>
   </data>
   <data name="gsRecord" xml:space="preserve">
     <value>Record</value>
@@ -738,7 +733,7 @@ Rækkefølgen du klikker på dem, angiver placeringen nedefra og op</value>
     <value>Nulstil Alt</value>
   </data>
   <data name="gsResetAllForSure" xml:space="preserve">
-    <value>Nulstil Alt, Er Du Sikker?</value>
+    <value>Nulstil Alt  Er Du Sikker?</value>
   </data>
   <data name="gsResume" xml:space="preserve">
     <value>Genoptag</value>
@@ -849,19 +844,13 @@ Rækkefølgen du klikker på dem, angiver placeringen nedefra og op</value>
     <value>Stop Record Pause Af Kant</value>
   </data>
   <data name="gsTermsOne" xml:space="preserve">
-    <value>Hvis du omdeler kopier af dette FRIE program, uanset om det er gratis eller mod betaling, forbedret, ændret, skal du give modtageren samme friheder som du modtog som det står i GPLv3 licensen</value>
+    <value>Hvis du omdeler kopier af dette FRIE program  uanset om det er gratis eller mod betaling  forbedret  ændret  skal du give modtageren samme friheder som du modtog som det står i GPLv3 licensen</value>
   </data>
   <data name="gsTermsThree" xml:space="preserve">
-    <value>AgOpenGPS er udelukkende undervisnings software, til at lære om autostyrings systemer, GPS meddelelser, og teoretisk tildeling af maskin kontrol.
-
-Det må på ingen måde bruges på rigtige maskiner.                                      En simulator er inkluderet for at tilbyde eleven, sikkert at opleve maskin styring.
-
-Der er ingen sikkerhedssystemer i softwaren, og ingen er underforstået. 
-
-ANVENDELSE PÅ EGET RISIKO</value>
+    <value>AgOpenGPS er udelukkende undervisnings software  til at lære om autostyrings systemer  GPS meddelelser  og teoretisk tildeling af maskin kontrol. Det må på ingen måde bruges på rigtige maskiner.                                      En simulator er inkluderet for at tilbyde eleven  sikkert at opleve maskin styring. Der er ingen sikkerhedssystemer i softwaren  og ingen er underforstået. ANVENDELSE PÅ EGET RISIKO</value>
   </data>
   <data name="gsTermsTwo" xml:space="preserve">
-    <value>Du skal sikre dig, at de modtager eller kan få kildekoden.  Og du skal vise dem disse vilkår, så de kender deres rettigheder. Stjæl ikke andres arbejde og kald det dit eget.</value>
+    <value>Du skal sikre dig  at de modtager eller kan få kildekoden.  Og du skal vise dem disse vilkår  så de kender deres rettigheder. Stjæl ikke andres arbejde og kald det dit eget.</value>
   </data>
   <data name="gsToFile" xml:space="preserve">
     <value>Gem  fil</value>

@@ -171,11 +171,6 @@
   <data name="gsArea" xml:space="preserve">
     <value>Oppervlakte</value>
   </data>
-  <data name="gsArrangeText" xml:space="preserve">
-    <value>Gebruik de knoppen aan de linkerkant die u in het menu wilt laten verschijnen (de rechterkant).
-
-De volgorde waarin u ze indrukt, is de volgorde waarin ze van onder naar boven in het menu verschijnen.</value>
-  </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Type werktuig</value>
   </data>
@@ -822,7 +817,7 @@ De volgorde waarin u ze indrukt, is de volgorde waarin ze van onder naar boven i
     <value>Probleem tijdens het maken van pad</value>
   </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
-    <value>Programma word afgesloten, start opnieuw</value>
+    <value>Programma word afgesloten  start opnieuw</value>
   </data>
   <data name="gsProportionalGain" xml:space="preserve">
     <value>Versterking</value>
@@ -1020,16 +1015,13 @@ De volgorde waarin u ze indrukt, is de volgorde waarin ze van onder naar boven i
     <value>Algemene Voorwaarden van versie: </value>
   </data>
   <data name="gsTermsOne" xml:space="preserve">
-    <value>Als u kopieën van dit GRATIS programma verspreidt, hetzij gratis of tegen betaling, verbeterd of gewijzigd, moet u aan de ontvangers dezelfde vrijheden doorgeven die u zelf hebt ontvangen, zoals uiteengezet in de GPLv3-licentie.</value>
+    <value>Als u kopieën van dit GRATIS programma verspreidt  hetzij gratis of tegen betaling  verbeterd of gewijzigd  moet u aan de ontvangers dezelfde vrijheden doorgeven die u zelf hebt ontvangen  zoals uiteengezet in de GPLv3-licentie.</value>
   </data>
   <data name="gsTermsThree" xml:space="preserve">
-    <value>AgOpenGPS is strikt educatieve software om te leren over geleidingssystemen, GPS-zinnen en theoretische toepassingen van machinebesturing. Het mag in geen geval op echte apparatuur worden gebruikt, in welke omstandigheid dan ook. Er is een simulator beschikbaar om de student veilig machinegeleiding te laten ervaren.
-Er zijn geen veiligheidssystemen in de software en er zijn er geen geïmpliceerd.
-
-GEBRUIK OP EIGEN RISICO.</value>
+    <value>AgOpenGPS is strikt educatieve software om te leren over geleidingssystemen  GPS-zinnen en theoretische toepassingen van machinebesturing. Het mag in geen geval op echte apparatuur worden gebruikt  in welke omstandigheid dan ook. Er is een simulator beschikbaar om de student veilig machinegeleiding te laten ervaren. Er zijn geen veiligheidssystemen in de software en er zijn er geen geïmpliceerd. GEBRUIK OP EIGEN RISICO.</value>
   </data>
   <data name="gsTermsTwo" xml:space="preserve">
-    <value>Je moet ervoor zorgen dat ze de broncode ontvangen of kunnen krijgen. En je moet ze deze voorwaarden laten zien, zodat ze hun rechten kennen. Steel geen werk van anderen en noem het je eigen werk.</value>
+    <value>Je moet ervoor zorgen dat ze de broncode ontvangen of kunnen krijgen. En je moet ze deze voorwaarden laten zien  zodat ze hun rechten kennen. Steel geen werk van anderen en noem het je eigen werk.</value>
   </data>
   <data name="gsToFile" xml:space="preserve">
     <value>Naar bestand</value>

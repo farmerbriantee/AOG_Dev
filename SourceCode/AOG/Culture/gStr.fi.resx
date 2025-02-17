@@ -121,7 +121,7 @@
     <value>Ab -käyrä</value>
   </data>
   <data name="gsABDraw" xml:space="preserve">
-    <value>Piirrä AB, Valitse kaksi pistettä reunalinjalta</value>
+    <value>Piirrä AB  Valitse kaksi pistettä reunalinjalta</value>
   </data>
   <data name="gsABline" xml:space="preserve">
     <value>Ab -linja</value>
@@ -176,11 +176,6 @@
   </data>
   <data name="gsArea" xml:space="preserve">
     <value>Alue</value>
-  </data>
-  <data name="gsArrangeText" xml:space="preserve">
-    <value>Kosketa vasemmalla puolella olevia kuvakkeita, joiden haluat näkyvän valikossa (oikea puoli).
-
- Kuvakkeet näkyvät alhaalta ylöspäin siinä järjestyksessä jossa ne ovat valittu.</value>
   </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Laitteen tyyppi</value>
@@ -360,8 +355,7 @@
     <value>Poista käsitelty alue</value>
   </data>
   <data name="gsDeleteBoundaryMapping" xml:space="preserve">
-    <value>Tämä toiminto poistaa kaikki rajat. 
-Haluatko jatkaa?</value>
+    <value>Tämä toiminto poistaa kaikki rajat. Haluatko jatkaa?</value>
   </data>
   <data name="gsDeleteContourPaths" xml:space="preserve">
     <value>Poista ääriviivat</value>
@@ -874,7 +868,7 @@ Haluatko jatkaa?</value>
     <value>Ongelman polun luonnissa</value>
   </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
-    <value>Ohjelma sulkeutuu, ole hyvä ja käynnistä uudelleen</value>
+    <value>Ohjelma sulkeutuu  ole hyvä ja käynnistä uudelleen</value>
   </data>
   <data name="gsProportionalGain" xml:space="preserve">
     <value>Suhteellinen vahvistus</value>
@@ -1053,10 +1047,6 @@ Haluatko jatkaa?</value>
   <data name="gsSteerChart" xml:space="preserve">
     <value>Ohjauskaavio</value>
   </data>
-  <data name="gsSteerDescription" xml:space="preserve">
-    <value>Nappi = Hetkellinen
-Kytkin = Lukkiutuva</value>
-  </data>
   <data name="gsSteerEnable" xml:space="preserve">
     <value>Ulkoinen Aktivointi</value>
   </data>
@@ -1082,21 +1072,13 @@ Kytkin = Lukkiutuva</value>
     <value>Version ehdot:</value>
   </data>
   <data name="gsTermsOne" xml:space="preserve">
-    <value>Jos jaat tämän ILMAISEN ohjelman kopioita, joko ilmaiseksi tai maksua vastaan, parannettuna, muutettuna, sinun on siirrettävä vastaanottajille samat vapaudet, jotka olet saanut GPLv3-lisenssissä kuvatulla tavalla.</value>
+    <value>Jos jaat tämän ILMAISEN ohjelman kopioita  joko ilmaiseksi tai maksua vastaan  parannettuna  muutettuna  sinun on siirrettävä vastaanottajille samat vapaudet  jotka olet saanut GPLv3-lisenssissä kuvatulla tavalla.</value>
   </data>
   <data name="gsTermsThree" xml:space="preserve">
-    <value>AgOpenGPS on tiukasti koulutusohjelmisto, jonka avulla voi oppia ohjausjärjestelmistä, 
-GPS-lauseista ja koneenhallinnan teoreettisesta soveltamisesta. 
-
-Sitä ei saa missään tapauksessa käyttää todellisissa laitteissa.
-Mukana on simulaattori, jonka avulla opiskelija voi kokea koneen ohjauksen turvallisesti. 
-
-Ohjelmistossa ei ole turvajärjestelmiä. 
-
-KÄYTTÖ OMALLA VASTUULLA.</value>
+    <value>AgOpenGPS on tiukasti koulutusohjelmisto  jonka avulla voi oppia ohjausjärjestelmistä  GPS-lauseista ja koneenhallinnan teoreettisesta soveltamisesta. Sitä ei saa missään tapauksessa käyttää todellisissa laitteissa. Mukana on simulaattori  jonka avulla opiskelija voi kokea koneen ohjauksen turvallisesti. Ohjelmistossa ei ole turvajärjestelmiä. KÄYTTÖ OMALLA VASTUULLA.</value>
   </data>
   <data name="gsTermsTwo" xml:space="preserve">
-    <value>Sinun on varmistettava, että he vastaanottavat tai voivat saada lähdekoodin. Ja sinun on näytettävä heille nämä ehdot, jotta he tietävät oikeutensa. Älä varasta muiden töitä ja kutsu sitä omaksesi.</value>
+    <value>Sinun on varmistettava  että he vastaanottavat tai voivat saada lähdekoodin. Ja sinun on näytettävä heille nämä ehdot  jotta he tietävät oikeutensa. Älä varasta muiden töitä ja kutsu sitä omaksesi.</value>
   </data>
   <data name="gsToFile" xml:space="preserve">
     <value>Arkistoida</value>

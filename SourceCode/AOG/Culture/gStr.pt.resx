@@ -331,7 +331,7 @@
     <value>Ajuda</value>
   </data>
   <data name="gsIfWrongDirectionTapVehicle" xml:space="preserve">
-    <value>Se a direção errada, toque no veículo</value>
+    <value>Se a direção errada  toque no veículo</value>
   </data>
   <data name="gsInches" xml:space="preserve">
     <value>Polegada</value>
@@ -448,7 +448,7 @@
     <value>Caminho para criar problemas</value>
   </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
-    <value>O programa será encerrado, reinicie</value>
+    <value>O programa será encerrado  reinicie</value>
   </data>
   <data name="gsReallyResetEverything" xml:space="preserve">
     <value>Realmente redefinir tudo</value>

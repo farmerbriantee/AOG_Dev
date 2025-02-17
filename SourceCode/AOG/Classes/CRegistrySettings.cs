@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Properties;
+﻿using AgOpenGPS.Classes;
+using AgOpenGPS.Properties;
 using Microsoft.Win32;
 using System;
 using System.IO;
@@ -123,6 +124,8 @@ namespace AgOpenGPS
                     vehicleFileName = "Default Vehicle";
                     Log.EventWriter("Vehicle file does not exist or is Default, Default Vehicle selected");
                 }
+
+                Lang.Load();
             }
             catch (Exception ex)
             {

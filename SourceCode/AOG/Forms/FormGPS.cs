@@ -1,5 +1,6 @@
 ﻿//Please, if you use this, share the improvements
 
+using AgOpenGPS.Classes;
 using AgOpenGPS.Culture;
 using AgOpenGPS.Properties;
 using OpenTK;
@@ -548,7 +549,8 @@ namespace AgOpenGPS
             toolStripSteerSettings.Text = gStr.gsAutoSteer;
             toolStripWorkingDirectories.Text = gStr.gsDirectories;
 
-            resetEverythingToolStripMenuItem.Text = gStr.gsResetAllForSure;
+            resetEverythingToolStripMenuItem.Text = Lang.Get("gsResetAllForSure");
+
             steerChartStripMenu.Text = gStr.gsCharts;
 
             //Tools Menu

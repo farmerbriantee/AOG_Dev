@@ -457,5 +457,4 @@ namespace AgOpenGPS.Classes
         public static string gsZones = "gsZones";
         public static string gsZoomIn = "gsZoomIn";
     }
-
 }

@@ -466,15 +466,24 @@ namespace AgOpenGPS
 
         private void tabUTurn_Leave(object sender, EventArgs e)
         {
+            if (Properties.Settings.Default.setAS_uTurnSmoothing != mf.yt.uTurnSmoothing ||
+                Properties.Settings.Default.set_youTurnExtensionLength != mf.yt.youTurnStartOffset ||
+                Properties.Settings.Default.set_youTurnRadius != mf.yt.youTurnRadius ||
+                Properties.Settings.Default.set_youTurnDistanceFromBoundary != mf.yt.uturnDistanceFromBoundary)
+            {
             Properties.Settings.Default.setAS_uTurnSmoothing = mf.yt.uTurnSmoothing;
             Properties.Settings.Default.set_youTurnExtensionLength = mf.yt.youTurnStartOffset;
+                Properties.Settings.Default.set_youTurnRadius = mf.yt.youTurnRadius;
 
-            Properties.Settings.Default.set_youTurnRadius = mf.yt.youTurnRadius;
+                if (Properties.Settings.Default.set_youTurnDistanceFromBoundary != mf.yt.uturnDistanceFromBoundary)
+                {
             Properties.Settings.Default.set_youTurnDistanceFromBoundary = mf.yt.uturnDistanceFromBoundary;
                     foreach (var bnd in mf.bnd.bndList)
                         bnd.BuildTurnLine();
+                }
 
             mf.yt.ResetCreatedYouTurn();
+        }
         }
 
         #endregion

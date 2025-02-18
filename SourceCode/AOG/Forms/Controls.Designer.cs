@@ -1592,8 +1592,8 @@ namespace AgOpenGPS
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(RegistrySettings.culture);
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(RegistrySettings.culture);
 
-            //load language file Translations.csv
-            Lang.Load();
+            //load language file Translations.xlsx
+            if (!Lang.Load()) YesMessageBox("Serious error loading languages");
 
             LoadSettings();
         }

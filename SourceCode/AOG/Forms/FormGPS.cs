@@ -3,6 +3,7 @@
 using AgOpenGPS.Classes;
 using AgOpenGPS.Culture;
 using AgOpenGPS.Properties;
+using ExcelDataReader;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
@@ -364,7 +365,7 @@ namespace AgOpenGPS
 
         private void FormGPS_Load(object sender, EventArgs e)
         {
-            Lang.Load();
+            if (!Lang.Load()) YesMessageBox("Serious error loading languages");
 
             if (!isTermsAccepted)
             {

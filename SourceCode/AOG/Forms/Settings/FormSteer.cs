@@ -37,11 +37,43 @@ namespace AgOpenGPS
             nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);
             nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
 
-            this.label3.Text = Lang.Get(ggStr.gsAgressiveness);
-            this.label5.Text = Lang.Get(ggStr.gsOvershootReduction);
+            this.lblDistance.Text = Lang.Get(ggStr.gsAgressiveness);
+            this.lblHeading.Text = Lang.Get(ggStr.gsOvershootReduction);
             this.Text = Lang.Get(ggStr.gsAutoSteerConfiguration);
             this.Width = 388;
             this.Height = 490;
+            lblSteerResponse.Text = Lang.Get(ggStr.gsSteerResponse);
+            lblIntegral.Text = Lang.Get(ggStr.gsIntegral);
+            lblDistance.Text = Lang.Get(ggStr.gsDistance);
+            lblHeading.Text = Lang.Get(ggStr.gsHeading);
+            lblPropGain.Text = Lang.Get(ggStr.gsProportionalGain);
+            lblMaxLimit.Text = Lang.Get(ggStr.gsMaxLimit);
+            lblMin2Move.Text = Lang.Get(ggStr.gsMinToMove);
+            lblGain.Text = Lang.Get(ggStr.gsProportionalGain);
+            lblWasZero.Text = Lang.Get(ggStr.gsWasZero);
+            lblMaxSteerAng.Text = Lang.Get(ggStr.gsMaxSteerAngle);
+            lblCPD.Text = Lang.Get(ggStr.gsCountsPerDegree);
+            lblAckermann.Text = Lang.Get(ggStr.gsAckermann);
+            lblInvertWAS.Text = Lang.Get(ggStr.gsInvertWas);
+            lblInvertMotor.Text = Lang.Get(ggStr.gsInvertMotor);
+            lblInvertRelays.Text = Lang.Get(ggStr.gsInvertRelays);
+            lblMotorDriver.Text = Lang.Get(ggStr.gsMotorDriver);
+            lblA2D.Text = Lang.Get(ggStr.gsADConverter);
+            lblIMUXY.Text = Lang.Get(ggStr.gsIMUAxis);
+            lblSteerEnable.Text = Lang.Get(ggStr.gsSteerEnable);
+            lblSendSave.Text = Lang.Get(ggStr.gsSendAndSave);
+            lblResetToDefaults.Text = Lang.Get(ggStr.gsResetAll);
+            lblWizard.Text = Lang.Get(ggStr.gsWizard);
+            lblUturnComp.Text = Lang.Get(ggStr.gsUturnCompensation);
+            lblSidehillDeg.Text = Lang.Get(ggStr.gsSideHillComp);
+            lblSteerInReverse.Text = Lang.Get(ggStr.gsSteerInReverse);
+            lblManualTurns.Text = Lang.Get(ggStr.gsManualTurns);
+            lblMinSpeed.Text = Lang.Get(ggStr.gsMinSpeed);
+            lblMaxSpeed.Text = Lang.Get(ggStr.gsMaxSpeed);
+            lblLightbar.Text = Lang.Get(ggStr.gsLightbar);
+            lblSteerBar.Text = Lang.Get(ggStr.gsSteerBar);
+            lblNextGuideLine.Text = Lang.Get(ggStr.gsNextGuidanceLine);
+
         }
 
         private void FormSteer_Load(object sender, EventArgs e)

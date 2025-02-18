@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExcelDataReader;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
@@ -11,61 +12,71 @@ namespace AgOpenGPS.Classes
 
         public static bool Load()
         {
-            string fileAndDirectory = Path.Combine(Application.StartupPath, "Translations.csv");
-            if (!File.Exists(fileAndDirectory))
+            string filePath = Path.Combine(Application.StartupPath, "Translations.xlsx");
+            if (!File.Exists(filePath))
             {
                 return false;
             }
-            else
+
+            using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
             {
-                cult?.Clear();
-
-                using (StreamReader reader = new StreamReader(fileAndDirectory))
+                try
                 {
-                    try
-                    {
-                        int column = 4;
-                        //read header
-                        string line = reader.ReadLine(); //header
-                        string[] header = line.Split(',');
+                    IExcelDataReader reader;
 
-                        if (RegistrySettings.culture == "en") column = 4;
+                    reader = ExcelDataReader.ExcelReaderFactory.CreateReader(stream);
+
+                    var conf = new ExcelDataSetConfiguration
+                    {
+                        ConfigureDataTable = _ => new ExcelDataTableConfiguration
+                        {
+                            UseHeaderRow = false
+                        }
+                    };
+
+                    var dataSet = reader.AsDataSet(conf);
+
+                    var dataTable = dataSet.Tables[0];
+
+                    int column = 4;
+                    if (RegistrySettings.culture != "en")
+                    {
+                        string regCult = "." + RegistrySettings.culture;
+
+                        for (int i = 1; i < dataTable.Rows.Count; i++)
+                        {
+                            string bob = dataTable.Rows[0][i].ToString();
+
+                            if (dataTable.Rows[0][i].ToString() == regCult)
+                            {
+                                column = i;
+                                break;
+                            }
+                        }
+                    }
+
+                    cult?.Clear();
+
+                    for (int i = 1; i < dataTable.Rows.Count; ++i)
+                    {
+                        if (!String.IsNullOrEmpty(dataTable.Rows[i][column].ToString()))
+                        {
+                            cult.Add(dataTable.Rows[i][2].ToString(), dataTable.Rows[i][column].ToString());
+                        }
                         else
                         {
-                            string cult = "." + RegistrySettings.culture;
-
-                            for (int i = 0; i < header.Length; i++)
-                            {
-                                if (header[i] == cult)
-                                {
-                                    column = i;
-                                    break;
-                                }
-                            }
-                        }
-
-                        while (line != null)
-                        {
-                            string[] parts = line.Split(',');
-                            if (!String.IsNullOrEmpty(parts[column]))
-                            {
-                                cult.Add(parts[2], parts[column]);
-                            }
-                            else
-                            {
-                                cult.Add(parts[2], parts[4]);
-                            }
-                            line = reader.ReadLine();
+                            cult.Add(dataTable.Rows[i][2].ToString(), dataTable.Rows[i][4].ToString());
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        Log.EventWriter($"Catch Language Load: {ex.Message}");
-                    }
-
                 }
-                return true;
+                catch (Exception ex)
+                {
+                    Log.EventWriter($"Catch Language Load: {ex.Message}");
+                    return false;
+                }
             }
+
+            return true;
         }
 
         public static string Get(string gstr)
@@ -82,6 +93,8 @@ namespace AgOpenGPS.Classes
         }
     }
 
+    
+    
     public static class ggStr
     {
         public static string gsABCurve = "gsABCurve";

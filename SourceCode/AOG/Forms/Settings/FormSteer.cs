@@ -48,6 +48,10 @@ namespace AgOpenGPS
             label49.Text = Lang.Get(ggStr.gsHeading);
             label54.Text = Lang.Get(ggStr.gsOnDelay);
 
+            lblTurnSensor.Text = Lang.Get(ggStr.gsTurnSensor);
+            labelCurrentTurnSensor.Text = Lang.Get(ggStr.gsCurrentTurnSensor);
+            labelPressureTurnSensor.Text = Lang.Get(ggStr.gsPressureTurnSensor);
+
             lblSteerResponse.Text = Lang.Get(ggStr.gsSteerResponse);
             lblIntegral.Text = Lang.Get(ggStr.gsIntegral);
             lblDistance.Text = Lang.Get(ggStr.gsDistance);
@@ -249,46 +253,46 @@ namespace AgOpenGPS
             {
                 cboxPressureSensor.Checked = false;
                 cboxCurrentSensor.Checked = false;
-                label61.Visible = true;
+                lblTurnSensor.Visible = true;
                 lblPercentFS.Visible = true;
                 nudMaxCounts.Visible = true;
                 pbarSensor.Visible = false;
                 hsbarSensor.Visible = false;
                 lblhsbarSensor.Visible = false;
-                label61.Text = Lang.Get(ggStr.gsEncoderCounts);
+                lblTurnSensor.Text = Lang.Get(ggStr.gsEncoderCounts);
             }
             else if (cboxPressureSensor.Checked)
             {
                 cboxEncoder.Checked = false;
                 cboxCurrentSensor.Checked = false;
-                label61.Visible = true;
+                lblTurnSensor.Visible = true;
                 lblPercentFS.Visible = true;
                 nudMaxCounts.Visible = false;
                 pbarSensor.Visible = true;
                 hsbarSensor.Visible = true;
                 lblhsbarSensor.Visible = true;
 
-                label61.Text = "Off at %";
+                lblTurnSensor.Text = "Off at %";
             }
             else if (cboxCurrentSensor.Checked)
             {
                 cboxPressureSensor.Checked = false;
                 cboxEncoder.Checked = false;
-                label61.Visible = true;
+                lblTurnSensor.Visible = true;
                 lblPercentFS.Visible = true;
                 nudMaxCounts.Visible = false;
                 pbarSensor.Visible = true;
                 hsbarSensor.Visible = true;
                 lblhsbarSensor.Visible = true;
 
-                label61.Text = "Off at %";
+                lblTurnSensor.Text = "Off at %";
             }
             else
             {
                 cboxPressureSensor.Checked = false;
                 cboxCurrentSensor.Checked = false;
                 cboxEncoder.Checked = false;
-                label61.Visible = false;
+                lblTurnSensor.Visible = false;
                 lblPercentFS.Visible = false;
                 nudMaxCounts.Visible = false;
                 pbarSensor.Visible = false;
@@ -510,7 +514,7 @@ namespace AgOpenGPS
                         cboxPressureSensor.Checked = false;
                         cboxCurrentSensor.Checked = false;
                         cboxEncoder.Checked = false;
-                        label61.Visible = false;
+                        lblTurnSensor.Visible = false;
                         lblPercentFS.Visible = false;
                         nudMaxCounts.Visible = false;
                         pbarSensor.Visible = false;
@@ -523,11 +527,11 @@ namespace AgOpenGPS
                     {
                         cboxEncoder.Checked = false;
                         cboxCurrentSensor.Checked = false;
-                        label61.Visible = true;
+                        lblTurnSensor.Visible = true;
                         lblPercentFS.Visible = true;
                         nudMaxCounts.Visible = false;
                         pbarSensor.Visible = true;
-                        label61.Text = "Off at %";
+                        lblTurnSensor.Text = "Off at %";
                         hsbarSensor.Visible = true;
                         lblhsbarSensor.Visible = true;
                     }
@@ -535,25 +539,25 @@ namespace AgOpenGPS
                     {
                         cboxPressureSensor.Checked = false;
                         cboxEncoder.Checked = false;
-                        label61.Visible = true;
+                        lblTurnSensor.Visible = true;
                         lblPercentFS.Visible = true;
                         nudMaxCounts.Visible = false;
                         hsbarSensor.Visible = true;
                         pbarSensor.Visible = true;
-                        label61.Text = "Off at %";
+                        lblTurnSensor.Text = "Off at %";
                         lblhsbarSensor.Visible = true;
                     }
                     else if (checkbox == cboxEncoder)
                     {
                         cboxPressureSensor.Checked = false;
                         cboxCurrentSensor.Checked = false;
-                        label61.Visible = true;
+                        lblTurnSensor.Visible = true;
                         lblPercentFS.Visible = false;
                         nudMaxCounts.Visible = true;
                         pbarSensor.Visible = false;
                         hsbarSensor.Visible = false;
                         lblhsbarSensor.Visible = false;
-                        label61.Text = Lang.Get(ggStr.gsEncoderCounts);
+                        lblTurnSensor.Text = Lang.Get(ggStr.gsEncoderCounts);
                     }
                 }
             }

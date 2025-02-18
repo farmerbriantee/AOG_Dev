@@ -156,7 +156,7 @@
             this.cboxConv = new System.Windows.Forms.ComboBox();
             this.lblMotorDriver = new System.Windows.Forms.Label();
             this.lblA2D = new System.Windows.Forms.Label();
-            this.label61 = new System.Windows.Forms.Label();
+            this.lblTurnSensor = new System.Windows.Forms.Label();
             this.label55 = new System.Windows.Forms.Label();
             this.lblInvertWAS = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -1964,18 +1964,18 @@
             this.lblA2D.Text = "A2D Convertor";
             this.lblA2D.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
-            // label61
+            // lblTurnSensor
             // 
-            this.label61.BackColor = System.Drawing.Color.Transparent;
-            this.label61.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label61.ForeColor = System.Drawing.Color.Black;
-            this.label61.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label61.Location = new System.Drawing.Point(11, 172);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(216, 32);
-            this.label61.TabIndex = 494;
-            this.label61.Text = "Turn Sensor";
-            this.label61.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblTurnSensor.BackColor = System.Drawing.Color.Transparent;
+            this.lblTurnSensor.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTurnSensor.ForeColor = System.Drawing.Color.Black;
+            this.lblTurnSensor.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblTurnSensor.Location = new System.Drawing.Point(11, 172);
+            this.lblTurnSensor.Name = "lblTurnSensor";
+            this.lblTurnSensor.Size = new System.Drawing.Size(216, 32);
+            this.lblTurnSensor.TabIndex = 494;
+            this.lblTurnSensor.Text = "Turn Sensor";
+            this.lblTurnSensor.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // label55
             // 
@@ -2237,7 +2237,7 @@
             this.tabSensors.BackColor = System.Drawing.Color.LightGray;
             this.tabSensors.Controls.Add(this.hsbarSensor);
             this.tabSensors.Controls.Add(this.nudMaxCounts);
-            this.tabSensors.Controls.Add(this.label61);
+            this.tabSensors.Controls.Add(this.lblTurnSensor);
             this.tabSensors.Controls.Add(this.pbarSensor);
             this.tabSensors.Controls.Add(this.lblPercentFS);
             this.tabSensors.Controls.Add(this.lblhsbarSensor);
@@ -3877,7 +3877,7 @@
         private System.Windows.Forms.ComboBox cboxConv;
         private System.Windows.Forms.Label lblMotorDriver;
         private System.Windows.Forms.Label lblA2D;
-        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.Label lblTurnSensor;
         private NudlessNumericUpDown nudMaxCounts;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.CheckBox cboxCurrentSensor;

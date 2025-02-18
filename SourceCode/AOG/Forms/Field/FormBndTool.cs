@@ -407,15 +407,12 @@ namespace AgOpenGPS
             {
                 secList?.Clear();
 
-                CBoundaryList New = new CBoundaryList();
+                CBoundaryList newBnd = new CBoundaryList();
 
                 for (int i = 0; i < smooList.Count; i++)
                 {
-                    New.fenceLine.Add(new vec3(smooList[i]));
+                    newBnd.fenceLine.Add(new vec3(smooList[i]));
                 }
-
-                New.CalculateFenceArea(0);
-                New.FixFenceLine(0);
 
                 if (mf.bnd.bndList.Count > 0)
                 {
@@ -431,16 +428,11 @@ namespace AgOpenGPS
                     }
                 }
 
-                mf.bnd.bndList.Add(New);//edit
+                mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
 
                 smooList.Clear();
                 bndList?.Clear();
 
-                //turn lines made from boundaries
-                mf.CalculateSectionPatchesMinMax();
-                mf.bnd.BuildTurnLines();
-
-                mf.fd.UpdateFieldBoundaryGUIAreas();
                 mf.FileSaveBoundary();
             }
 
@@ -841,12 +833,8 @@ namespace AgOpenGPS
                     }
                 }
 
-                mf.bnd.bndList[0].FixFenceLine(0);
+                mf.bnd.AddToBoundList(mf.bnd.bndList[0], 0, false);
 
-                mf.CalculateSectionPatchesMinMax();
-                mf.bnd.BuildTurnLines();
-
-                mf.fd.UpdateFieldBoundaryGUIAreas();
                 mf.FileSaveBoundary();
             }
 

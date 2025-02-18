@@ -737,21 +737,11 @@ namespace AgOpenGPS
             {
                 CBoundaryList newBnd = new CBoundaryList();
 
-                for (int i = 0; i < buildList.Count; i++)
-                {
-                    newBnd.fenceLine.Add(buildList[i]);
-                }
+                newBnd.fenceLine = buildList;
 
-                newBnd.CalculateFenceArea(mf.bnd.bndList.Count);
-                newBnd.FixFenceLine(mf.bnd.bndList.Count);
+                mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
 
-                mf.bnd.bndList.Add(newBnd);
-                mf.fd.UpdateFieldBoundaryGUIAreas();
-
-                //turn lines made from boundaries
-                mf.CalculateSectionPatchesMinMax();
                 mf.FileSaveBoundary();
-                mf.bnd.BuildTurnLines();
                 mf.btnABDraw.Visible = true;
 
                 Log.EventWriter("Guidance Line Boundary Created");

@@ -471,10 +471,9 @@ namespace AgOpenGPS
 
             Properties.Settings.Default.set_youTurnRadius = mf.yt.youTurnRadius;
             Properties.Settings.Default.set_youTurnDistanceFromBoundary = mf.yt.uturnDistanceFromBoundary;
+                    foreach (var bnd in mf.bnd.bndList)
+                        bnd.BuildTurnLine();
 
-            
-
-            mf.bnd.BuildTurnLines();
             mf.yt.ResetCreatedYouTurn();
         }
 

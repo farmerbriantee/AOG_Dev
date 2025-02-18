@@ -727,8 +727,6 @@ namespace AgOpenGPS
 
             ahrs = new CAHRS();
 
-            fd.UpdateFieldBoundaryGUIAreas();
-
             btnSection1Man.Visible = false;
             btnSection2Man.Visible = false;
             btnSection3Man.Visible = false;

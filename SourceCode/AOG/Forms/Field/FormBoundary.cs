@@ -172,7 +172,6 @@ namespace AgOpenGPS
             {
                 mf.bnd.bndList[Convert.ToInt32(b.Name)].isDriveThru = !mf.bnd.bndList[Convert.ToInt32(b.Name)].isDriveThru;
                 UpdateChart();
-                mf.bnd.BuildTurnLines();
             }
         }
 
@@ -216,8 +215,6 @@ namespace AgOpenGPS
 
                 mf.FileSaveBoundary();
                 mf.FileSaveHeadland();
-                mf.fd.UpdateFieldBoundaryGUIAreas();
-                mf.bnd.BuildTurnLines();
                 UpdateChart();
             }
             else
@@ -346,7 +343,7 @@ namespace AgOpenGPS
                                 //at least 3 points
                                 if (numberSets.Length > 2)
                                 {
-                                    CBoundaryList New = new CBoundaryList();
+                                    CBoundaryList newBnd = new CBoundaryList();
 
                                     foreach (string item in numberSets)
                                     {
@@ -357,13 +354,9 @@ namespace AgOpenGPS
                                         mf.pn.ConvertWGS84ToLocal(latK, lonK, out norting, out easting);
 
                                         //add the point to boundary
-                                        New.fenceLine.Add(new vec3(easting, norting, 0));
+                                        newBnd.fenceLine.Add(new vec3(easting, norting, 0));
                                     }
-
-                                    New.CalculateFenceArea(mf.bnd.bndList.Count);
-                                    New.FixFenceLine(mf.bnd.bndList.Count);
-
-                                    mf.bnd.bndList.Add(New);
+                                    mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
 
                                     mf.btnABDraw.Visible = true;
 
@@ -381,7 +374,6 @@ namespace AgOpenGPS
                             }
                         }
                         mf.FileSaveBoundary();
-                        mf.bnd.BuildTurnLines();
                         mf.btnABDraw.Visible = true;
                         UpdateChart();
                     }

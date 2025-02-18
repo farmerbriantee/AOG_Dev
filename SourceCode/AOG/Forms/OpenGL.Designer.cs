@@ -1508,7 +1508,7 @@ namespace AgOpenGPS
 
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
                 GL.LoadIdentity();                  // Reset The View
-
+                if (bnd.bndList.Count == 0)
                 CalculateSectionPatchesMinMax();
                 //back the camera up
                 GL.Translate(0, 0, -maxFieldDistance);

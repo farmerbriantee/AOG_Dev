@@ -581,8 +581,8 @@ namespace AgOpenGPS
                                 }
 
                                 bnd.AddToBoundList(newBnd, bnd.bndList.Count);
-                                    }
-                                    }
+                            }
+                        }
 
                         CalculateSectionPatchesMinMax();
                         fd.UpdateFieldBoundaryGUIAreas();

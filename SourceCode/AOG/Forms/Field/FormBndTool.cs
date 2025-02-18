@@ -795,8 +795,8 @@ namespace AgOpenGPS
                     }
                 }
 
-                vec3[] arr = new vec3[mf.bnd.bndList[0].fenceLine.Count];
-                mf.bnd.bndList[0].fenceLine.CopyTo(arr);
+                vec3[] arr = new vec3[mf.bnd.bndList[bndSelect].fenceLine.Count];
+                mf.bnd.bndList[bndSelect].fenceLine.CopyTo(arr);
 
                 if (start++ == arr.Length) start--;
                 //if (end-- == -1) end = 0;
@@ -833,7 +833,7 @@ namespace AgOpenGPS
                     }
                 }
 
-                mf.bnd.AddToBoundList(mf.bnd.bndList[0], 0, false);
+                mf.bnd.AddToBoundList(mf.bnd.bndList[bndSelect], bndSelect, false);
 
                 mf.FileSaveBoundary();
             }
@@ -1005,22 +1005,24 @@ namespace AgOpenGPS
 
             GL.Color3(0.725f, 0.95f, 0.950f);
 
-            if (mf.bnd.bndList.Count > 0)
+            for (int i = bndSelect; i < mf.bnd.bndList.Count; i++)
             {
+                if (i < 0) continue;
                 GL.Begin(PrimitiveType.LineLoop);
-                for (int i = 0; i < mf.bnd.bndList[0].fenceLine.Count; i++)
+                for (int j = 0; j < mf.bnd.bndList[i].fenceLine.Count; j++)
                 {
-                    GL.Vertex3(mf.bnd.bndList[0].fenceLine[i].easting, mf.bnd.bndList[0].fenceLine[i].northing, 0);
+                    GL.Vertex3(mf.bnd.bndList[i].fenceLine[j].easting, mf.bnd.bndList[i].fenceLine[j].northing, 0);
                 }
                 GL.End();
 
                 GL.PointSize(4);
                 GL.Begin(PrimitiveType.Points);
-                for (int i = 0; i < mf.bnd.bndList[0].fenceLine.Count; i++)
+                for (int j = 0; j < mf.bnd.bndList[i].fenceLine.Count; j++)
                 {
-                    GL.Vertex3(mf.bnd.bndList[0].fenceLine[i].easting, mf.bnd.bndList[0].fenceLine[i].northing, 0);
+                    GL.Vertex3(mf.bnd.bndList[i].fenceLine[j].easting, mf.bnd.bndList[i].fenceLine[j].northing, 0);
                 }
                 GL.End();
+                if (bndSelect >= 0) break;
             }
 
             //new boundary being made
@@ -1089,9 +1091,9 @@ namespace AgOpenGPS
                         GL.Color3(0.90f, 0.5f, 0.25f);
                         GL.Begin(PrimitiveType.LineStrip);
                         {
-                            GL.Vertex3(mf.bnd.bndList[0].fenceLine[start].easting, mf.bnd.bndList[0].fenceLine[start].northing, 0);
+                            GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[start].easting, mf.bnd.bndList[bndSelect].fenceLine[start].northing, 0);
                             GL.Vertex3(pint.easting, pint.northing, 0);
-                            GL.Vertex3(mf.bnd.bndList[0].fenceLine[end].easting, mf.bnd.bndList[0].fenceLine[end].northing, 0);
+                            GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[end].easting, mf.bnd.bndList[bndSelect].fenceLine[end].northing, 0);
                         }
                         GL.End();
                     }
@@ -1101,8 +1103,8 @@ namespace AgOpenGPS
                         GL.Color3(0.90f, 0.5f, 0.25f);
                         GL.Begin(PrimitiveType.Lines);
                         {
-                            GL.Vertex3(mf.bnd.bndList[0].fenceLine[start].easting, mf.bnd.bndList[0].fenceLine[start].northing, 0);
-                            GL.Vertex3(mf.bnd.bndList[0].fenceLine[end].easting, mf.bnd.bndList[0].fenceLine[end].northing, 0);
+                            GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[start].easting, mf.bnd.bndList[bndSelect].fenceLine[start].northing, 0);
+                            GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[end].easting, mf.bnd.bndList[bndSelect].fenceLine[end].northing, 0);
                         }
                         GL.End();
                     }

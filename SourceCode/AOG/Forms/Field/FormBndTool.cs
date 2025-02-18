@@ -57,8 +57,6 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
 
             InitializeComponent();
-
-            mf.CalculateSectionPatchesMinMax();
         }
 
         private void FormBndTool_Load(object sender, EventArgs e)

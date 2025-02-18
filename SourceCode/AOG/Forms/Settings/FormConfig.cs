@@ -25,6 +25,11 @@ namespace AgOpenGPS
             tab1.ItemSize = new Size(0, 1);
             tab1.SizeMode = TabSizeMode.Fixed;
 
+            groupBox1.Text = Lang.Get(ggStr.gsVehiclegroupbox);
+            label70.Text = Lang.Get(ggStr.gsOpacity);
+            label122.Text = Lang.Get(ggStr.gsSendAndSave);
+            label103.Text = Lang.Get(ggStr.gsSound);
+
             lblSaveAs.Text = Lang.Get(ggStr.gsSaveAs);
             lblNew.Text = Lang.Get(ggStr.gsNew);
             lblToolWidth.Text = Lang.Get(ggStr.gsWidth);
@@ -397,6 +402,16 @@ namespace AgOpenGPS
             {
                 mf.trk.numGuideLines = (int)nudNumGuideLines.Value;
             }
+        }
+
+        private void nudDefaultSectionWidth_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nudNumberOfSections_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -427,7 +427,6 @@
             this.lblUser2 = new System.Windows.Forms.Label();
             this.lblUser1 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label147 = new System.Windows.Forms.Label();
             this.nudHydLiftLookAhead = new AgOpenGPS.NudlessNumericUpDown();
             this.lblHydLookAhead = new System.Windows.Forms.Label();
             this.lblRaiseTime = new System.Windows.Forms.Label();
@@ -481,7 +480,6 @@
             this.label82 = new System.Windows.Forms.Label();
             this.lblScreenButtons = new System.Windows.Forms.Label();
             this.lblToolsMenu = new System.Windows.Forms.Label();
-            this.lblFieldMenu = new System.Windows.Forms.Label();
             this.label93 = new System.Windows.Forms.Label();
             this.cboxHardwareMessages = new System.Windows.Forms.CheckBox();
             this.cboxShutdownWhenNoPower = new System.Windows.Forms.CheckBox();
@@ -501,6 +499,7 @@
             this.cboxFeatureABSmooth = new System.Windows.Forms.CheckBox();
             this.cboxFeatureBoundary = new System.Windows.Forms.CheckBox();
             this.cboxFeatureHeadland = new System.Windows.Forms.CheckBox();
+            this.lblFieldMenu = new System.Windows.Forms.Label();
             this.cboxFeatureTram = new System.Windows.Forms.CheckBox();
             this.tabDisplay = new System.Windows.Forms.TabPage();
             this.lblLineSmooth = new System.Windows.Forms.Label();
@@ -1335,10 +1334,10 @@
             this.lblNew.BackColor = System.Drawing.Color.Transparent;
             this.lblNew.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNew.ForeColor = System.Drawing.Color.Black;
-            this.lblNew.Location = new System.Drawing.Point(95, 106);
+            this.lblNew.Location = new System.Drawing.Point(42, 106);
             this.lblNew.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblNew.Name = "lblNew";
-            this.lblNew.Size = new System.Drawing.Size(140, 23);
+            this.lblNew.Size = new System.Drawing.Size(193, 23);
             this.lblNew.TabIndex = 522;
             this.lblNew.Text = "New:";
             this.lblNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1599,32 +1598,30 @@
             // lblDelete
             // 
             this.lblDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblDelete.AutoSize = true;
             this.lblDelete.BackColor = System.Drawing.Color.Transparent;
             this.lblDelete.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDelete.ForeColor = System.Drawing.Color.Black;
-            this.lblDelete.Location = new System.Drawing.Point(777, 377);
+            this.lblDelete.Location = new System.Drawing.Point(756, 377);
             this.lblDelete.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblDelete.Name = "lblDelete";
-            this.lblDelete.Size = new System.Drawing.Size(57, 18);
+            this.lblDelete.Size = new System.Drawing.Size(99, 18);
             this.lblDelete.TabIndex = 488;
             this.lblDelete.Text = "Delete";
-            this.lblDelete.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDelete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblOpen
             // 
             this.lblOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblOpen.AutoSize = true;
             this.lblOpen.BackColor = System.Drawing.Color.Transparent;
             this.lblOpen.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOpen.ForeColor = System.Drawing.Color.Black;
-            this.lblOpen.Location = new System.Drawing.Point(783, 275);
+            this.lblOpen.Location = new System.Drawing.Point(762, 275);
             this.lblOpen.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblOpen.Name = "lblOpen";
-            this.lblOpen.Size = new System.Drawing.Size(47, 18);
+            this.lblOpen.Size = new System.Drawing.Size(89, 18);
             this.lblOpen.TabIndex = 486;
             this.lblOpen.Text = "Open";
-            this.lblOpen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblOpen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnVehicleLoad
             // 
@@ -1936,14 +1933,14 @@
             // label70
             // 
             this.label70.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label70.AutoSize = true;
             this.label70.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label70.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label70.Location = new System.Drawing.Point(665, 422);
+            this.label70.Location = new System.Drawing.Point(576, 422);
             this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(70, 19);
+            this.label70.Size = new System.Drawing.Size(245, 19);
             this.label70.TabIndex = 478;
             this.label70.Text = "Opacity";
+            this.label70.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelHarvesterBrands
             // 
@@ -2388,27 +2385,27 @@
             // 
             // lblPivotDistance
             // 
-            this.lblPivotDistance.AutoSize = true;
             this.lblPivotDistance.BackColor = System.Drawing.Color.Transparent;
             this.lblPivotDistance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPivotDistance.ForeColor = System.Drawing.Color.Black;
-            this.lblPivotDistance.Location = new System.Drawing.Point(154, 24);
+            this.lblPivotDistance.Location = new System.Drawing.Point(91, 24);
             this.lblPivotDistance.Name = "lblPivotDistance";
-            this.lblPivotDistance.Size = new System.Drawing.Size(86, 16);
+            this.lblPivotDistance.Size = new System.Drawing.Size(217, 16);
             this.lblPivotDistance.TabIndex = 503;
             this.lblPivotDistance.Text = "Pivot Distance";
+            this.lblPivotDistance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblAntennaHeight
             // 
-            this.lblAntennaHeight.AutoSize = true;
             this.lblAntennaHeight.BackColor = System.Drawing.Color.Transparent;
             this.lblAntennaHeight.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAntennaHeight.ForeColor = System.Drawing.Color.Black;
-            this.lblAntennaHeight.Location = new System.Drawing.Point(417, 263);
+            this.lblAntennaHeight.Location = new System.Drawing.Point(370, 263);
             this.lblAntennaHeight.Name = "lblAntennaHeight";
-            this.lblAntennaHeight.Size = new System.Drawing.Size(94, 16);
+            this.lblAntennaHeight.Size = new System.Drawing.Size(188, 16);
             this.lblAntennaHeight.TabIndex = 502;
             this.lblAntennaHeight.Text = "Antenna Height";
+            this.lblAntennaHeight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label21
             // 
@@ -2702,33 +2699,33 @@
             // 
             // lblHitchLength
             // 
-            this.lblHitchLength.AutoSize = true;
             this.lblHitchLength.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblHitchLength.Location = new System.Drawing.Point(68, 327);
+            this.lblHitchLength.Location = new System.Drawing.Point(16, 327);
             this.lblHitchLength.Name = "lblHitchLength";
-            this.lblHitchLength.Size = new System.Drawing.Size(77, 16);
+            this.lblHitchLength.Size = new System.Drawing.Size(192, 16);
             this.lblHitchLength.TabIndex = 479;
             this.lblHitchLength.Text = "Hitch Length";
+            this.lblHitchLength.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblTrack
             // 
-            this.lblTrack.AutoSize = true;
             this.lblTrack.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblTrack.Location = new System.Drawing.Point(755, 221);
+            this.lblTrack.Location = new System.Drawing.Point(700, 221);
             this.lblTrack.Name = "lblTrack";
-            this.lblTrack.Size = new System.Drawing.Size(39, 16);
+            this.lblTrack.Size = new System.Drawing.Size(133, 16);
             this.lblTrack.TabIndex = 476;
             this.lblTrack.Text = "Track";
+            this.lblTrack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblWheelBase
             // 
-            this.lblWheelBase.AutoSize = true;
             this.lblWheelBase.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblWheelBase.Location = new System.Drawing.Point(226, 453);
+            this.lblWheelBase.Location = new System.Drawing.Point(179, 453);
             this.lblWheelBase.Name = "lblWheelBase";
-            this.lblWheelBase.Size = new System.Drawing.Size(70, 16);
+            this.lblWheelBase.Size = new System.Drawing.Size(152, 16);
             this.lblWheelBase.TabIndex = 475;
             this.lblWheelBase.Text = "Wheelbase";
+            this.lblWheelBase.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // nudTractorHitchLength
             // 
@@ -2971,7 +2968,7 @@
             this.lblUnitsHitch.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUnitsHitch.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblUnitsHitch.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblUnitsHitch.Location = new System.Drawing.Point(438, 482);
+            this.lblUnitsHitch.Location = new System.Drawing.Point(438, 477);
             this.lblUnitsHitch.Name = "lblUnitsHitch";
             this.lblUnitsHitch.Size = new System.Drawing.Size(57, 19);
             this.lblUnitsHitch.TabIndex = 485;
@@ -4080,12 +4077,12 @@
             this.lblBoundary.Font = new System.Drawing.Font("Tahoma", 15.75F);
             this.lblBoundary.ForeColor = System.Drawing.Color.Black;
             this.lblBoundary.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblBoundary.Location = new System.Drawing.Point(441, 473);
+            this.lblBoundary.Location = new System.Drawing.Point(430, 473);
             this.lblBoundary.Name = "lblBoundary";
-            this.lblBoundary.Size = new System.Drawing.Size(168, 32);
+            this.lblBoundary.Size = new System.Drawing.Size(195, 25);
             this.lblBoundary.TabIndex = 502;
             this.lblBoundary.Text = "Boundary";
-            this.lblBoundary.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblBoundary.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblTurnOffBelowUnits
             // 
@@ -4135,12 +4132,12 @@
             this.lblSectionWidth.Font = new System.Drawing.Font("Tahoma", 15.75F);
             this.lblSectionWidth.ForeColor = System.Drawing.Color.Black;
             this.lblSectionWidth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblSectionWidth.Location = new System.Drawing.Point(217, 325);
+            this.lblSectionWidth.Location = new System.Drawing.Point(191, 321);
             this.lblSectionWidth.Name = "lblSectionWidth";
-            this.lblSectionWidth.Size = new System.Drawing.Size(177, 25);
+            this.lblSectionWidth.Size = new System.Drawing.Size(232, 25);
             this.lblSectionWidth.TabIndex = 297;
             this.lblSectionWidth.Text = "Section Width";
-            this.lblSectionWidth.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblSectionWidth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // cboxNumSections
             // 
@@ -4196,23 +4193,23 @@
             this.lblCoverage.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lblCoverage.Location = new System.Drawing.Point(228, 473);
             this.lblCoverage.Name = "lblCoverage";
-            this.lblCoverage.Size = new System.Drawing.Size(174, 32);
+            this.lblCoverage.Size = new System.Drawing.Size(195, 25);
             this.lblCoverage.TabIndex = 293;
             this.lblCoverage.Text = "% Coverage";
-            this.lblCoverage.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblCoverage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblZonesBox
             // 
             this.lblZonesBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblZonesBox.AutoSize = true;
             this.lblZonesBox.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblZonesBox.ForeColor = System.Drawing.Color.Black;
             this.lblZonesBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblZonesBox.Location = new System.Drawing.Point(51, 323);
+            this.lblZonesBox.Location = new System.Drawing.Point(10, 321);
             this.lblZonesBox.Name = "lblZonesBox";
-            this.lblZonesBox.Size = new System.Drawing.Size(76, 29);
+            this.lblZonesBox.Size = new System.Drawing.Size(160, 29);
             this.lblZonesBox.TabIndex = 493;
             this.lblZonesBox.Text = "Zones";
+            this.lblZonesBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblSections
             // 
@@ -4221,12 +4218,12 @@
             this.lblSections.Font = new System.Drawing.Font("Tahoma", 15.75F);
             this.lblSections.ForeColor = System.Drawing.Color.Black;
             this.lblSections.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblSections.Location = new System.Drawing.Point(442, 315);
+            this.lblSections.Location = new System.Drawing.Point(442, 321);
             this.lblSections.Name = "lblSections";
-            this.lblSections.Size = new System.Drawing.Size(195, 33);
+            this.lblSections.Size = new System.Drawing.Size(195, 25);
             this.lblSections.TabIndex = 291;
             this.lblSections.Text = "Sections";
-            this.lblSections.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblSections.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // cboxNumberOfZones
             // 
@@ -4244,7 +4241,7 @@
             "6",
             "7",
             "8"});
-            this.cboxNumberOfZones.Location = new System.Drawing.Point(37, 354);
+            this.cboxNumberOfZones.Location = new System.Drawing.Point(37, 355);
             this.cboxNumberOfZones.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.cboxNumberOfZones.Name = "cboxNumberOfZones";
             this.cboxNumberOfZones.Size = new System.Drawing.Size(100, 50);
@@ -4549,7 +4546,7 @@
             this.nudDefaultSectionWidth.BackColor = System.Drawing.Color.AliceBlue;
             this.nudDefaultSectionWidth.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDefaultSectionWidth.InterceptArrowKeys = false;
-            this.nudDefaultSectionWidth.Location = new System.Drawing.Point(216, 355);
+            this.nudDefaultSectionWidth.Location = new System.Drawing.Point(216, 353);
             this.nudDefaultSectionWidth.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -4570,6 +4567,7 @@
             0,
             0,
             0});
+            this.nudDefaultSectionWidth.ValueChanged += new System.EventHandler(this.nudDefaultSectionWidth_ValueChanged);
             this.nudDefaultSectionWidth.Click += new System.EventHandler(this.nudDefaultSectionWidth_Click);
             // 
             // nudMinCoverage
@@ -4981,7 +4979,7 @@
             this.nudNumberOfSections.BackColor = System.Drawing.Color.AliceBlue;
             this.nudNumberOfSections.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudNumberOfSections.InterceptArrowKeys = false;
-            this.nudNumberOfSections.Location = new System.Drawing.Point(486, 351);
+            this.nudNumberOfSections.Location = new System.Drawing.Point(486, 355);
             this.nudNumberOfSections.Minimum = new decimal(new int[] {
             1,
             0,
@@ -4997,6 +4995,7 @@
             0,
             0,
             0});
+            this.nudNumberOfSections.ValueChanged += new System.EventHandler(this.nudNumberOfSections_ValueChanged);
             this.nudNumberOfSections.Click += new System.EventHandler(this.nudNumberOfSections_Click);
             // 
             // tabTSwitches
@@ -5221,7 +5220,7 @@
             this.lblOnSecs.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lblOnSecs.Location = new System.Drawing.Point(60, 528);
             this.lblOnSecs.Name = "lblOnSecs";
-            this.lblOnSecs.Size = new System.Drawing.Size(145, 39);
+            this.lblOnSecs.Size = new System.Drawing.Size(145, 29);
             this.lblOnSecs.TabIndex = 131;
             this.lblOnSecs.Text = "On (secs)";
             this.lblOnSecs.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -5235,7 +5234,7 @@
             this.lblOffSecs.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lblOffSecs.Location = new System.Drawing.Point(346, 528);
             this.lblOffSecs.Name = "lblOffSecs";
-            this.lblOffSecs.Size = new System.Drawing.Size(145, 39);
+            this.lblOffSecs.Size = new System.Drawing.Size(145, 29);
             this.lblOffSecs.TabIndex = 130;
             this.lblOffSecs.Text = "Off (secs)";
             this.lblOffSecs.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -5249,7 +5248,7 @@
             this.lblTurnOffDelay.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lblTurnOffDelay.Location = new System.Drawing.Point(634, 528);
             this.lblTurnOffDelay.Name = "lblTurnOffDelay";
-            this.lblTurnOffDelay.Size = new System.Drawing.Size(145, 39);
+            this.lblTurnOffDelay.Size = new System.Drawing.Size(145, 29);
             this.lblTurnOffDelay.TabIndex = 129;
             this.lblTurnOffDelay.Text = "Turn Off Delay (secs)";
             this.lblTurnOffDelay.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -5410,12 +5409,12 @@
             this.lblAlarmStopsAutoSteer.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.lblAlarmStopsAutoSteer.ForeColor = System.Drawing.Color.Black;
             this.lblAlarmStopsAutoSteer.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblAlarmStopsAutoSteer.Location = new System.Drawing.Point(187, 395);
+            this.lblAlarmStopsAutoSteer.Location = new System.Drawing.Point(209, 392);
             this.lblAlarmStopsAutoSteer.Name = "lblAlarmStopsAutoSteer";
-            this.lblAlarmStopsAutoSteer.Size = new System.Drawing.Size(142, 53);
+            this.lblAlarmStopsAutoSteer.Size = new System.Drawing.Size(171, 53);
             this.lblAlarmStopsAutoSteer.TabIndex = 478;
             this.lblAlarmStopsAutoSteer.Text = "Alarm Stops Autosteer";
-            this.lblAlarmStopsAutoSteer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblAlarmStopsAutoSteer.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // label118
             // 
@@ -5452,12 +5451,12 @@
             this.lblRTKFixAlarm.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.lblRTKFixAlarm.ForeColor = System.Drawing.Color.Black;
             this.lblRTKFixAlarm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblRTKFixAlarm.Location = new System.Drawing.Point(34, 422);
+            this.lblRTKFixAlarm.Location = new System.Drawing.Point(34, 392);
             this.lblRTKFixAlarm.Name = "lblRTKFixAlarm";
-            this.lblRTKFixAlarm.Size = new System.Drawing.Size(127, 28);
+            this.lblRTKFixAlarm.Size = new System.Drawing.Size(127, 55);
             this.lblRTKFixAlarm.TabIndex = 471;
             this.lblRTKFixAlarm.Text = "RTK Fix Alarm";
-            this.lblRTKFixAlarm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblRTKFixAlarm.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // gboxDual
             // 
@@ -5470,7 +5469,7 @@
             this.gboxDual.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gboxDual.Location = new System.Drawing.Point(3, 116);
             this.gboxDual.Name = "gboxDual";
-            this.gboxDual.Size = new System.Drawing.Size(385, 228);
+            this.gboxDual.Size = new System.Drawing.Size(385, 279);
             this.gboxDual.TabIndex = 471;
             this.gboxDual.TabStop = false;
             this.gboxDual.Text = "Dual Antenna Settings";
@@ -5478,17 +5477,16 @@
             // lblReverseDistance
             // 
             this.lblReverseDistance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblReverseDistance.AutoSize = true;
             this.lblReverseDistance.BackColor = System.Drawing.Color.Transparent;
             this.lblReverseDistance.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.lblReverseDistance.ForeColor = System.Drawing.Color.Black;
             this.lblReverseDistance.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblReverseDistance.Location = new System.Drawing.Point(173, 137);
+            this.lblReverseDistance.Location = new System.Drawing.Point(173, 155);
             this.lblReverseDistance.Name = "lblReverseDistance";
-            this.lblReverseDistance.Size = new System.Drawing.Size(189, 23);
+            this.lblReverseDistance.Size = new System.Drawing.Size(186, 60);
             this.lblReverseDistance.TabIndex = 473;
             this.lblReverseDistance.Text = "Reverse Distance (m)";
-            this.lblReverseDistance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblReverseDistance.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // nudDualReverseDistance
             // 
@@ -5498,7 +5496,7 @@
             this.nudDualReverseDistance.DecimalPlaces = 2;
             this.nudDualReverseDistance.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDualReverseDistance.InterceptArrowKeys = false;
-            this.nudDualReverseDistance.Location = new System.Drawing.Point(191, 167);
+            this.nudDualReverseDistance.Location = new System.Drawing.Point(191, 218);
             this.nudDualReverseDistance.Maximum = new decimal(new int[] {
             9,
             0,
@@ -5539,7 +5537,7 @@
             this.nudDualHeadingOffset.DecimalPlaces = 1;
             this.nudDualHeadingOffset.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDualHeadingOffset.InterceptArrowKeys = false;
-            this.nudDualHeadingOffset.Location = new System.Drawing.Point(191, 63);
+            this.nudDualHeadingOffset.Location = new System.Drawing.Point(191, 90);
             this.nudDualHeadingOffset.Minimum = new decimal(new int[] {
             100,
             0,
@@ -5560,17 +5558,16 @@
             // lblHeadingOffset
             // 
             this.lblHeadingOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblHeadingOffset.AutoSize = true;
             this.lblHeadingOffset.BackColor = System.Drawing.Color.Transparent;
             this.lblHeadingOffset.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.lblHeadingOffset.ForeColor = System.Drawing.Color.Black;
             this.lblHeadingOffset.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblHeadingOffset.Location = new System.Drawing.Point(155, 33);
+            this.lblHeadingOffset.Location = new System.Drawing.Point(173, 28);
             this.lblHeadingOffset.Name = "lblHeadingOffset";
-            this.lblHeadingOffset.Size = new System.Drawing.Size(216, 23);
+            this.lblHeadingOffset.Size = new System.Drawing.Size(186, 60);
             this.lblHeadingOffset.TabIndex = 469;
             this.lblHeadingOffset.Text = "Heading Offset (Degree)";
-            this.lblHeadingOffset.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblHeadingOffset.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // gboxSingle
             // 
@@ -5601,7 +5598,7 @@
             this.lblHeadingDistance.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHeadingDistance.ForeColor = System.Drawing.Color.Black;
             this.lblHeadingDistance.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblHeadingDistance.Location = new System.Drawing.Point(235, 114);
+            this.lblHeadingDistance.Location = new System.Drawing.Point(259, 114);
             this.lblHeadingDistance.Name = "lblHeadingDistance";
             this.lblHeadingDistance.Size = new System.Drawing.Size(25, 25);
             this.lblHeadingDistance.TabIndex = 482;
@@ -5618,7 +5615,7 @@
             this.cboxMinGPSStep.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxMinGPSStep.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxMinGPSStep.ForeColor = System.Drawing.Color.Black;
-            this.cboxMinGPSStep.Location = new System.Drawing.Point(220, 60);
+            this.cboxMinGPSStep.Location = new System.Drawing.Point(250, 60);
             this.cboxMinGPSStep.Name = "cboxMinGPSStep";
             this.cboxMinGPSStep.Size = new System.Drawing.Size(190, 39);
             this.cboxMinGPSStep.TabIndex = 480;
@@ -5697,12 +5694,11 @@
             // 
             // lblIMUFusion
             // 
-            this.lblIMUFusion.AutoSize = true;
             this.lblIMUFusion.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIMUFusion.ForeColor = System.Drawing.Color.Black;
-            this.lblIMUFusion.Location = new System.Drawing.Point(203, 203);
+            this.lblIMUFusion.Location = new System.Drawing.Point(136, 203);
             this.lblIMUFusion.Name = "lblIMUFusion";
-            this.lblIMUFusion.Size = new System.Drawing.Size(72, 25);
+            this.lblIMUFusion.Size = new System.Drawing.Size(181, 25);
             this.lblIMUFusion.TabIndex = 472;
             this.lblIMUFusion.Text = "Fusion";
             this.lblIMUFusion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -5727,29 +5723,27 @@
             // 
             // lblFixToFixDistance
             // 
-            this.lblFixToFixDistance.AutoSize = true;
             this.lblFixToFixDistance.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFixToFixDistance.ForeColor = System.Drawing.Color.Black;
             this.lblFixToFixDistance.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblFixToFixDistance.Location = new System.Drawing.Point(52, 114);
+            this.lblFixToFixDistance.Location = new System.Drawing.Point(6, 114);
             this.lblFixToFixDistance.Name = "lblFixToFixDistance";
-            this.lblFixToFixDistance.Size = new System.Drawing.Size(166, 23);
+            this.lblFixToFixDistance.Size = new System.Drawing.Size(238, 23);
             this.lblFixToFixDistance.TabIndex = 481;
             this.lblFixToFixDistance.Text = "Fix To Fix Distance";
-            this.lblFixToFixDistance.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFixToFixDistance.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblMinGPSStep
             // 
-            this.lblMinGPSStep.AutoSize = true;
             this.lblMinGPSStep.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMinGPSStep.ForeColor = System.Drawing.Color.Black;
             this.lblMinGPSStep.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblMinGPSStep.Location = new System.Drawing.Point(38, 66);
+            this.lblMinGPSStep.Location = new System.Drawing.Point(6, 66);
             this.lblMinGPSStep.Name = "lblMinGPSStep";
-            this.lblMinGPSStep.Size = new System.Drawing.Size(171, 23);
+            this.lblMinGPSStep.Size = new System.Drawing.Size(238, 23);
             this.lblMinGPSStep.TabIndex = 478;
             this.lblMinGPSStep.Text = "Minimum GPS Step";
-            this.lblMinGPSStep.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblMinGPSStep.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // headingGroupBox
             // 
@@ -5811,7 +5805,7 @@
             this.cboxIsRTK_KillAutoSteer.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsRTK_KillAutoSteer.ForeColor = System.Drawing.Color.Black;
             this.cboxIsRTK_KillAutoSteer.Image = global::AgOpenGPS.Properties.Resources.AutoSteerOff;
-            this.cboxIsRTK_KillAutoSteer.Location = new System.Drawing.Point(205, 451);
+            this.cboxIsRTK_KillAutoSteer.Location = new System.Drawing.Point(241, 451);
             this.cboxIsRTK_KillAutoSteer.Name = "cboxIsRTK_KillAutoSteer";
             this.cboxIsRTK_KillAutoSteer.Size = new System.Drawing.Size(103, 69);
             this.cboxIsRTK_KillAutoSteer.TabIndex = 477;
@@ -5934,33 +5928,33 @@
             // 
             // lblInvertRoll
             // 
-            this.lblInvertRoll.AutoSize = true;
             this.lblInvertRoll.ForeColor = System.Drawing.Color.Black;
-            this.lblInvertRoll.Location = new System.Drawing.Point(605, 182);
+            this.lblInvertRoll.Location = new System.Drawing.Point(584, 182);
             this.lblInvertRoll.Name = "lblInvertRoll";
-            this.lblInvertRoll.Size = new System.Drawing.Size(65, 16);
+            this.lblInvertRoll.Size = new System.Drawing.Size(148, 16);
             this.lblInvertRoll.TabIndex = 484;
             this.lblInvertRoll.Text = "Invert Roll";
+            this.lblInvertRoll.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblZeroRoll
             // 
-            this.lblZeroRoll.AutoSize = true;
             this.lblZeroRoll.ForeColor = System.Drawing.Color.Black;
-            this.lblZeroRoll.Location = new System.Drawing.Point(94, 183);
+            this.lblZeroRoll.Location = new System.Drawing.Point(77, 183);
             this.lblZeroRoll.Name = "lblZeroRoll";
-            this.lblZeroRoll.Size = new System.Drawing.Size(58, 16);
+            this.lblZeroRoll.Size = new System.Drawing.Size(148, 16);
             this.lblZeroRoll.TabIndex = 483;
             this.lblZeroRoll.Text = "Zero Roll";
+            this.lblZeroRoll.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblRemoveOffset
             // 
-            this.lblRemoveOffset.AutoSize = true;
             this.lblRemoveOffset.ForeColor = System.Drawing.Color.Black;
-            this.lblRemoveOffset.Location = new System.Drawing.Point(94, 27);
+            this.lblRemoveOffset.Location = new System.Drawing.Point(77, 27);
             this.lblRemoveOffset.Name = "lblRemoveOffset";
-            this.lblRemoveOffset.Size = new System.Drawing.Size(91, 16);
+            this.lblRemoveOffset.Size = new System.Drawing.Size(148, 16);
             this.lblRemoveOffset.TabIndex = 482;
             this.lblRemoveOffset.Text = "Remove Offset";
+            this.lblRemoveOffset.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblRollZeroOffset
             // 
@@ -6019,9 +6013,9 @@
             this.lblRollFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblRollFilter.Font = new System.Drawing.Font("Tahoma", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRollFilter.ForeColor = System.Drawing.Color.Black;
-            this.lblRollFilter.Location = new System.Drawing.Point(169, 399);
+            this.lblRollFilter.Location = new System.Drawing.Point(128, 396);
             this.lblRollFilter.Name = "lblRollFilter";
-            this.lblRollFilter.Size = new System.Drawing.Size(122, 52);
+            this.lblRollFilter.Size = new System.Drawing.Size(188, 52);
             this.lblRollFilter.TabIndex = 345;
             this.lblRollFilter.Text = "Roll Filter";
             this.lblRollFilter.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -6142,7 +6136,7 @@
             this.lblUturnSmoothing.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lblUturnSmoothing.Location = new System.Drawing.Point(298, 389);
             this.lblUturnSmoothing.Name = "lblUturnSmoothing";
-            this.lblUturnSmoothing.Size = new System.Drawing.Size(170, 77);
+            this.lblUturnSmoothing.Size = new System.Drawing.Size(170, 125);
             this.lblUturnSmoothing.TabIndex = 474;
             this.lblUturnSmoothing.Text = "Set Smoothing to 3 or 4x Radius";
             // 
@@ -6153,7 +6147,7 @@
             this.lblUturnExtension.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lblUturnExtension.Location = new System.Drawing.Point(62, 389);
             this.lblUturnExtension.Name = "lblUturnExtension";
-            this.lblUturnExtension.Size = new System.Drawing.Size(175, 82);
+            this.lblUturnExtension.Size = new System.Drawing.Size(175, 125);
             this.lblUturnExtension.TabIndex = 473;
             this.lblUturnExtension.Text = "Set extension length to 2 or 3x Radius\r\n";
             // 
@@ -7588,55 +7582,54 @@
             // lblUser4
             // 
             this.lblUser4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblUser4.AutoSize = true;
             this.lblUser4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUser4.ForeColor = System.Drawing.Color.Black;
             this.lblUser4.Location = new System.Drawing.Point(662, 326);
             this.lblUser4.Name = "lblUser4";
-            this.lblUser4.Size = new System.Drawing.Size(44, 16);
+            this.lblUser4.Size = new System.Drawing.Size(110, 16);
             this.lblUser4.TabIndex = 492;
             this.lblUser4.Text = "User 4";
+            this.lblUser4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblUser3
             // 
             this.lblUser3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblUser3.AutoSize = true;
             this.lblUser3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUser3.ForeColor = System.Drawing.Color.Black;
             this.lblUser3.Location = new System.Drawing.Point(662, 234);
             this.lblUser3.Name = "lblUser3";
-            this.lblUser3.Size = new System.Drawing.Size(44, 16);
+            this.lblUser3.Size = new System.Drawing.Size(110, 16);
             this.lblUser3.TabIndex = 491;
             this.lblUser3.Text = "User 3";
+            this.lblUser3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblUser2
             // 
             this.lblUser2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblUser2.AutoSize = true;
             this.lblUser2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUser2.ForeColor = System.Drawing.Color.Black;
             this.lblUser2.Location = new System.Drawing.Point(662, 147);
             this.lblUser2.Name = "lblUser2";
-            this.lblUser2.Size = new System.Drawing.Size(44, 16);
+            this.lblUser2.Size = new System.Drawing.Size(110, 16);
             this.lblUser2.TabIndex = 490;
             this.lblUser2.Text = "User 2";
+            this.lblUser2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblUser1
             // 
             this.lblUser1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblUser1.AutoSize = true;
             this.lblUser1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUser1.ForeColor = System.Drawing.Color.Black;
             this.lblUser1.Location = new System.Drawing.Point(662, 56);
             this.lblUser1.Name = "lblUser1";
-            this.lblUser1.Size = new System.Drawing.Size(44, 16);
+            this.lblUser1.Size = new System.Drawing.Size(110, 16);
             this.lblUser1.TabIndex = 489;
             this.lblUser1.Text = "User 1";
+            this.lblUser1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // groupBox4
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox4.Controls.Add(this.label147);
             this.groupBox4.Controls.Add(this.nudHydLiftLookAhead);
             this.groupBox4.Controls.Add(this.lblHydLookAhead);
             this.groupBox4.Controls.Add(this.lblRaiseTime);
@@ -7654,17 +7647,6 @@
             this.groupBox4.TabIndex = 484;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Hydraulic Lift Config";
-            // 
-            // label147
-            // 
-            this.label147.AutoSize = true;
-            this.label147.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label147.ForeColor = System.Drawing.Color.Black;
-            this.label147.Location = new System.Drawing.Point(276, 133);
-            this.label147.Name = "label147";
-            this.label147.Size = new System.Drawing.Size(60, 16);
-            this.label147.TabIndex = 480;
-            this.label147.Text = "Plant Pop";
             // 
             // nudHydLiftLookAhead
             // 
@@ -7710,36 +7692,36 @@
             // 
             // lblRaiseTime
             // 
-            this.lblRaiseTime.AutoSize = true;
             this.lblRaiseTime.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRaiseTime.ForeColor = System.Drawing.Color.Black;
-            this.lblRaiseTime.Location = new System.Drawing.Point(223, 55);
+            this.lblRaiseTime.Location = new System.Drawing.Point(222, 34);
             this.lblRaiseTime.Name = "lblRaiseTime";
-            this.lblRaiseTime.Size = new System.Drawing.Size(110, 16);
+            this.lblRaiseTime.Size = new System.Drawing.Size(123, 37);
             this.lblRaiseTime.TabIndex = 478;
             this.lblRaiseTime.Text = "Raise Time (secs)";
+            this.lblRaiseTime.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblEnable
             // 
-            this.lblEnable.AutoSize = true;
             this.lblEnable.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEnable.ForeColor = System.Drawing.Color.Black;
-            this.lblEnable.Location = new System.Drawing.Point(31, 56);
+            this.lblEnable.Location = new System.Drawing.Point(34, 35);
             this.lblEnable.Name = "lblEnable";
-            this.lblEnable.Size = new System.Drawing.Size(45, 16);
+            this.lblEnable.Size = new System.Drawing.Size(123, 37);
             this.lblEnable.TabIndex = 479;
             this.lblEnable.Text = "Enable";
+            this.lblEnable.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblHydLowerTime
             // 
-            this.lblHydLowerTime.AutoSize = true;
             this.lblHydLowerTime.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHydLowerTime.ForeColor = System.Drawing.Color.Black;
-            this.lblHydLowerTime.Location = new System.Drawing.Point(223, 260);
+            this.lblHydLowerTime.Location = new System.Drawing.Point(222, 240);
             this.lblHydLowerTime.Name = "lblHydLowerTime";
-            this.lblHydLowerTime.Size = new System.Drawing.Size(114, 16);
+            this.lblHydLowerTime.Size = new System.Drawing.Size(123, 37);
             this.lblHydLowerTime.TabIndex = 477;
             this.lblHydLowerTime.Text = "Lower Time (secs)";
+            this.lblHydLowerTime.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // cboxIsHydOn
             // 
@@ -7838,13 +7820,13 @@
             // lblHydInvertRelays
             // 
             this.lblHydInvertRelays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblHydInvertRelays.AutoSize = true;
             this.lblHydInvertRelays.ForeColor = System.Drawing.Color.Black;
-            this.lblHydInvertRelays.Location = new System.Drawing.Point(314, 495);
+            this.lblHydInvertRelays.Location = new System.Drawing.Point(113, 434);
             this.lblHydInvertRelays.Name = "lblHydInvertRelays";
-            this.lblHydInvertRelays.Size = new System.Drawing.Size(81, 16);
+            this.lblHydInvertRelays.Size = new System.Drawing.Size(195, 23);
             this.lblHydInvertRelays.TabIndex = 476;
             this.lblHydInvertRelays.Text = "Invert Relays";
+            this.lblHydInvertRelays.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblSendAndSave
             // 
@@ -7853,9 +7835,9 @@
             this.lblSendAndSave.Font = new System.Drawing.Font("Tahoma", 15.75F);
             this.lblSendAndSave.ForeColor = System.Drawing.Color.Black;
             this.lblSendAndSave.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblSendAndSave.Location = new System.Drawing.Point(519, 507);
+            this.lblSendAndSave.Location = new System.Drawing.Point(468, 507);
             this.lblSendAndSave.Name = "lblSendAndSave";
-            this.lblSendAndSave.Size = new System.Drawing.Size(172, 37);
+            this.lblSendAndSave.Size = new System.Drawing.Size(223, 37);
             this.lblSendAndSave.TabIndex = 455;
             this.lblSendAndSave.Text = "Send + Save";
             this.lblSendAndSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -7863,14 +7845,13 @@
             // lblMachineModule
             // 
             this.lblMachineModule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblMachineModule.AutoSize = true;
             this.lblMachineModule.BackColor = System.Drawing.Color.Transparent;
             this.lblMachineModule.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMachineModule.ForeColor = System.Drawing.Color.Black;
             this.lblMachineModule.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblMachineModule.Location = new System.Drawing.Point(315, 3);
+            this.lblMachineModule.Location = new System.Drawing.Point(220, 0);
             this.lblMachineModule.Name = "lblMachineModule";
-            this.lblMachineModule.Size = new System.Drawing.Size(181, 25);
+            this.lblMachineModule.Size = new System.Drawing.Size(358, 25);
             this.lblMachineModule.TabIndex = 450;
             this.lblMachineModule.Text = "Machine Module";
             this.lblMachineModule.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -8043,29 +8024,27 @@
             // lblDisplay
             // 
             this.lblDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblDisplay.AutoSize = true;
             this.lblDisplay.BackColor = System.Drawing.Color.Transparent;
             this.lblDisplay.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDisplay.ForeColor = System.Drawing.Color.Black;
             this.lblDisplay.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblDisplay.Location = new System.Drawing.Point(655, 13);
+            this.lblDisplay.Location = new System.Drawing.Point(604, 13);
             this.lblDisplay.Name = "lblDisplay";
-            this.lblDisplay.Size = new System.Drawing.Size(53, 16);
+            this.lblDisplay.Size = new System.Drawing.Size(158, 16);
             this.lblDisplay.TabIndex = 486;
             this.lblDisplay.Text = "Display?";
-            this.lblDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDisplay.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblOveride
             // 
             this.lblOveride.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblOveride.AutoSize = true;
             this.lblOveride.BackColor = System.Drawing.Color.Transparent;
             this.lblOveride.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOveride.ForeColor = System.Drawing.Color.Black;
             this.lblOveride.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblOveride.Location = new System.Drawing.Point(407, 286);
+            this.lblOveride.Location = new System.Drawing.Point(343, 286);
             this.lblOveride.Name = "lblOveride";
-            this.lblOveride.Size = new System.Drawing.Size(51, 16);
+            this.lblOveride.Size = new System.Drawing.Size(199, 16);
             this.lblOveride.TabIndex = 483;
             this.lblOveride.Text = "Overide";
             this.lblOveride.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -8087,13 +8066,13 @@
             // lblTramWid
             // 
             this.lblTramWid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblTramWid.AutoSize = true;
             this.lblTramWid.ForeColor = System.Drawing.Color.Black;
-            this.lblTramWid.Location = new System.Drawing.Point(326, 85);
+            this.lblTramWid.Location = new System.Drawing.Point(293, 85);
             this.lblTramWid.Name = "lblTramWid";
-            this.lblTramWid.Size = new System.Drawing.Size(75, 16);
+            this.lblTramWid.Size = new System.Drawing.Size(157, 16);
             this.lblTramWid.TabIndex = 477;
             this.lblTramWid.Text = "Tram Width";
+            this.lblTramWid.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // cboxDisplayTramControl
             // 
@@ -8199,7 +8178,6 @@
             this.tabBtns.Controls.Add(this.label82);
             this.tabBtns.Controls.Add(this.lblScreenButtons);
             this.tabBtns.Controls.Add(this.lblToolsMenu);
-            this.tabBtns.Controls.Add(this.lblFieldMenu);
             this.tabBtns.Controls.Add(this.label93);
             this.tabBtns.Controls.Add(this.cboxHardwareMessages);
             this.tabBtns.Controls.Add(this.cboxShutdownWhenNoPower);
@@ -8219,6 +8197,7 @@
             this.tabBtns.Controls.Add(this.cboxFeatureABSmooth);
             this.tabBtns.Controls.Add(this.cboxFeatureBoundary);
             this.tabBtns.Controls.Add(this.cboxFeatureHeadland);
+            this.tabBtns.Controls.Add(this.lblFieldMenu);
             this.tabBtns.Controls.Add(this.cboxFeatureTram);
             this.tabBtns.Location = new System.Drawing.Point(4, 44);
             this.tabBtns.Name = "tabBtns";
@@ -8231,26 +8210,26 @@
             // lblPowerLoss
             // 
             this.lblPowerLoss.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblPowerLoss.AutoSize = true;
             this.lblPowerLoss.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPowerLoss.ForeColor = System.Drawing.Color.Black;
-            this.lblPowerLoss.Location = new System.Drawing.Point(30, 476);
+            this.lblPowerLoss.Location = new System.Drawing.Point(9, 476);
             this.lblPowerLoss.Name = "lblPowerLoss";
-            this.lblPowerLoss.Size = new System.Drawing.Size(133, 16);
+            this.lblPowerLoss.Size = new System.Drawing.Size(172, 16);
             this.lblPowerLoss.TabIndex = 531;
             this.lblPowerLoss.Text = "Power Loss Shutdown";
+            this.lblPowerLoss.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lblAutoOffAgio
             // 
             this.lblAutoOffAgio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblAutoOffAgio.AutoSize = true;
             this.lblAutoOffAgio.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAutoOffAgio.ForeColor = System.Drawing.Color.Black;
-            this.lblAutoOffAgio.Location = new System.Drawing.Point(393, 476);
+            this.lblAutoOffAgio.Location = new System.Drawing.Point(376, 476);
             this.lblAutoOffAgio.Name = "lblAutoOffAgio";
-            this.lblAutoOffAgio.Size = new System.Drawing.Size(102, 16);
+            this.lblAutoOffAgio.Size = new System.Drawing.Size(172, 16);
             this.lblAutoOffAgio.TabIndex = 529;
             this.lblAutoOffAgio.Text = "Auto Off AgOne?";
+            this.lblAutoOffAgio.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // label91
             // 
@@ -8306,14 +8285,14 @@
             // lblAutoStartAgio
             // 
             this.lblAutoStartAgio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblAutoStartAgio.AutoSize = true;
             this.lblAutoStartAgio.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAutoStartAgio.ForeColor = System.Drawing.Color.Black;
-            this.lblAutoStartAgio.Location = new System.Drawing.Point(234, 476);
+            this.lblAutoStartAgio.Location = new System.Drawing.Point(197, 476);
             this.lblAutoStartAgio.Name = "lblAutoStartAgio";
-            this.lblAutoStartAgio.Size = new System.Drawing.Size(113, 16);
+            this.lblAutoStartAgio.Size = new System.Drawing.Size(172, 16);
             this.lblAutoStartAgio.TabIndex = 518;
             this.lblAutoStartAgio.Text = "Auto Start AgOne?";
+            this.lblAutoStartAgio.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // label121
             // 
@@ -8357,9 +8336,9 @@
             this.label103.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label103.ForeColor = System.Drawing.Color.Black;
             this.label103.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label103.Location = new System.Drawing.Point(690, 2);
+            this.label103.Location = new System.Drawing.Point(662, 4);
             this.label103.Name = "label103";
-            this.label103.Size = new System.Drawing.Size(128, 25);
+            this.label103.Size = new System.Drawing.Size(186, 25);
             this.label103.TabIndex = 512;
             this.label103.Text = "Sound";
             this.label103.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -8394,7 +8373,7 @@
             this.label90.AutoSize = true;
             this.label90.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label90.ForeColor = System.Drawing.Color.Black;
-            this.label90.Location = new System.Drawing.Point(181, 352);
+            this.label90.Location = new System.Drawing.Point(212, 352);
             this.label90.Name = "label90";
             this.label90.Size = new System.Drawing.Size(61, 16);
             this.label90.TabIndex = 488;
@@ -8406,7 +8385,7 @@
             this.label89.AutoSize = true;
             this.label89.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label89.ForeColor = System.Drawing.Color.Black;
-            this.label89.Location = new System.Drawing.Point(181, 249);
+            this.label89.Location = new System.Drawing.Point(212, 249);
             this.label89.Name = "label89";
             this.label89.Size = new System.Drawing.Size(59, 16);
             this.label89.TabIndex = 487;
@@ -8418,7 +8397,7 @@
             this.label88.AutoSize = true;
             this.label88.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label88.ForeColor = System.Drawing.Color.Black;
-            this.label88.Location = new System.Drawing.Point(173, 144);
+            this.label88.Location = new System.Drawing.Point(204, 144);
             this.label88.Name = "label88";
             this.label88.Size = new System.Drawing.Size(81, 16);
             this.label88.TabIndex = 486;
@@ -8430,7 +8409,7 @@
             this.label87.AutoSize = true;
             this.label87.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label87.ForeColor = System.Drawing.Color.Black;
-            this.label87.Location = new System.Drawing.Point(177, 40);
+            this.label87.Location = new System.Drawing.Point(208, 40);
             this.label87.Name = "label87";
             this.label87.Size = new System.Drawing.Size(70, 16);
             this.label87.TabIndex = 485;
@@ -8490,9 +8469,9 @@
             this.lblScreenButtons.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblScreenButtons.ForeColor = System.Drawing.Color.Black;
             this.lblScreenButtons.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblScreenButtons.Location = new System.Drawing.Point(366, 2);
+            this.lblScreenButtons.Location = new System.Drawing.Point(346, 4);
             this.lblScreenButtons.Name = "lblScreenButtons";
-            this.lblScreenButtons.Size = new System.Drawing.Size(190, 25);
+            this.lblScreenButtons.Size = new System.Drawing.Size(233, 25);
             this.lblScreenButtons.TabIndex = 474;
             this.lblScreenButtons.Text = "Screen Buttons";
             this.lblScreenButtons.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -8503,25 +8482,12 @@
             this.lblToolsMenu.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblToolsMenu.ForeColor = System.Drawing.Color.Black;
             this.lblToolsMenu.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblToolsMenu.Location = new System.Drawing.Point(144, 2);
+            this.lblToolsMenu.Location = new System.Drawing.Point(157, 4);
             this.lblToolsMenu.Name = "lblToolsMenu";
-            this.lblToolsMenu.Size = new System.Drawing.Size(128, 25);
+            this.lblToolsMenu.Size = new System.Drawing.Size(172, 25);
             this.lblToolsMenu.TabIndex = 468;
             this.lblToolsMenu.Text = "Tools Menu";
             this.lblToolsMenu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblFieldMenu
-            // 
-            this.lblFieldMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblFieldMenu.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFieldMenu.ForeColor = System.Drawing.Color.Black;
-            this.lblFieldMenu.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblFieldMenu.Location = new System.Drawing.Point(6, 2);
-            this.lblFieldMenu.Name = "lblFieldMenu";
-            this.lblFieldMenu.Size = new System.Drawing.Size(128, 25);
-            this.lblFieldMenu.TabIndex = 455;
-            this.lblFieldMenu.Text = "Field Menu";
-            this.lblFieldMenu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label93
             // 
@@ -8591,7 +8557,7 @@
             this.cboxAutoOffAgOne.ForeColor = System.Drawing.Color.Red;
             this.cboxAutoOffAgOne.Image = global::AgOpenGPS.Properties.Resources.AgIO;
             this.cboxAutoOffAgOne.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cboxAutoOffAgOne.Location = new System.Drawing.Point(372, 495);
+            this.cboxAutoOffAgOne.Location = new System.Drawing.Point(398, 495);
             this.cboxAutoOffAgOne.Margin = new System.Windows.Forms.Padding(0);
             this.cboxAutoOffAgOne.Name = "cboxAutoOffAgOne";
             this.cboxAutoOffAgOne.Size = new System.Drawing.Size(129, 77);
@@ -8812,7 +8778,7 @@
             this.cboxFeatureOffsetFix.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureOffsetFix.ForeColor = System.Drawing.SystemColors.ControlText;
             this.cboxFeatureOffsetFix.Image = global::AgOpenGPS.Properties.Resources.YouTurnReverse;
-            this.cboxFeatureOffsetFix.Location = new System.Drawing.Point(174, 371);
+            this.cboxFeatureOffsetFix.Location = new System.Drawing.Point(205, 371);
             this.cboxFeatureOffsetFix.Name = "cboxFeatureOffsetFix";
             this.cboxFeatureOffsetFix.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.cboxFeatureOffsetFix.Size = new System.Drawing.Size(77, 77);
@@ -8834,7 +8800,7 @@
             this.cboxFeatureWebcam.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureWebcam.ForeColor = System.Drawing.SystemColors.ControlText;
             this.cboxFeatureWebcam.Image = global::AgOpenGPS.Properties.Resources.Webcam;
-            this.cboxFeatureWebcam.Location = new System.Drawing.Point(174, 267);
+            this.cboxFeatureWebcam.Location = new System.Drawing.Point(205, 267);
             this.cboxFeatureWebcam.Name = "cboxFeatureWebcam";
             this.cboxFeatureWebcam.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.cboxFeatureWebcam.Size = new System.Drawing.Size(77, 77);
@@ -8856,7 +8822,7 @@
             this.cboxFeatureHideContour.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureHideContour.ForeColor = System.Drawing.SystemColors.ControlText;
             this.cboxFeatureHideContour.Image = global::AgOpenGPS.Properties.Resources.Trash;
-            this.cboxFeatureHideContour.Location = new System.Drawing.Point(174, 163);
+            this.cboxFeatureHideContour.Location = new System.Drawing.Point(205, 163);
             this.cboxFeatureHideContour.Name = "cboxFeatureHideContour";
             this.cboxFeatureHideContour.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.cboxFeatureHideContour.Size = new System.Drawing.Size(77, 77);
@@ -8878,7 +8844,7 @@
             this.cboxFeatureABSmooth.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureABSmooth.ForeColor = System.Drawing.SystemColors.ControlText;
             this.cboxFeatureABSmooth.Image = global::AgOpenGPS.Properties.Resources.ABSmooth;
-            this.cboxFeatureABSmooth.Location = new System.Drawing.Point(174, 59);
+            this.cboxFeatureABSmooth.Location = new System.Drawing.Point(205, 59);
             this.cboxFeatureABSmooth.Name = "cboxFeatureABSmooth";
             this.cboxFeatureABSmooth.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.cboxFeatureABSmooth.Size = new System.Drawing.Size(77, 77);
@@ -8929,6 +8895,19 @@
             this.cboxFeatureHeadland.TabIndex = 464;
             this.cboxFeatureHeadland.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxFeatureHeadland.UseVisualStyleBackColor = false;
+            // 
+            // lblFieldMenu
+            // 
+            this.lblFieldMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblFieldMenu.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFieldMenu.ForeColor = System.Drawing.Color.Black;
+            this.lblFieldMenu.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblFieldMenu.Location = new System.Drawing.Point(-4, 4);
+            this.lblFieldMenu.Name = "lblFieldMenu";
+            this.lblFieldMenu.Size = new System.Drawing.Size(155, 25);
+            this.lblFieldMenu.TabIndex = 455;
+            this.lblFieldMenu.Text = "Field Menu";
+            this.lblFieldMenu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // cboxFeatureTram
             // 
@@ -8995,14 +8974,14 @@
             // lblLineSmooth
             // 
             this.lblLineSmooth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblLineSmooth.AutoSize = true;
             this.lblLineSmooth.BackColor = System.Drawing.Color.Transparent;
             this.lblLineSmooth.ForeColor = System.Drawing.Color.Black;
-            this.lblLineSmooth.Location = new System.Drawing.Point(37, 475);
+            this.lblLineSmooth.Location = new System.Drawing.Point(27, 475);
             this.lblLineSmooth.Name = "lblLineSmooth";
-            this.lblLineSmooth.Size = new System.Drawing.Size(78, 16);
+            this.lblLineSmooth.Size = new System.Drawing.Size(120, 16);
             this.lblLineSmooth.TabIndex = 539;
             this.lblLineSmooth.Text = "Line Smooth";
+            this.lblLineSmooth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // chkLineSmooth
             // 
@@ -9028,14 +9007,14 @@
             // lblSectionLines
             // 
             this.lblSectionLines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblSectionLines.AutoSize = true;
             this.lblSectionLines.BackColor = System.Drawing.Color.Transparent;
             this.lblSectionLines.ForeColor = System.Drawing.Color.Black;
-            this.lblSectionLines.Location = new System.Drawing.Point(425, 475);
+            this.lblSectionLines.Location = new System.Drawing.Point(415, 475);
             this.lblSectionLines.Name = "lblSectionLines";
-            this.lblSectionLines.Size = new System.Drawing.Size(82, 16);
+            this.lblSectionLines.Size = new System.Drawing.Size(120, 16);
             this.lblSectionLines.TabIndex = 537;
             this.lblSectionLines.Text = "Section Lines";
+            this.lblSectionLines.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // chkSectionLines
             // 
@@ -9061,14 +9040,14 @@
             // lblDirectionMarkers
             // 
             this.lblDirectionMarkers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblDirectionMarkers.AutoSize = true;
             this.lblDirectionMarkers.BackColor = System.Drawing.Color.Transparent;
             this.lblDirectionMarkers.ForeColor = System.Drawing.Color.Black;
-            this.lblDirectionMarkers.Location = new System.Drawing.Point(234, 475);
+            this.lblDirectionMarkers.Location = new System.Drawing.Point(221, 475);
             this.lblDirectionMarkers.Name = "lblDirectionMarkers";
-            this.lblDirectionMarkers.Size = new System.Drawing.Size(107, 16);
+            this.lblDirectionMarkers.Size = new System.Drawing.Size(120, 16);
             this.lblDirectionMarkers.TabIndex = 533;
             this.lblDirectionMarkers.Text = "Direction Markers";
+            this.lblDirectionMarkers.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // chkDirectionMarkers
             // 
@@ -9096,14 +9075,14 @@
             // label79
             // 
             this.label79.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label79.AutoSize = true;
             this.label79.BackColor = System.Drawing.Color.Transparent;
             this.label79.ForeColor = System.Drawing.Color.Black;
-            this.label79.Location = new System.Drawing.Point(708, 111);
+            this.label79.Location = new System.Drawing.Point(694, 111);
             this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(58, 16);
+            this.label79.Size = new System.Drawing.Size(120, 16);
             this.label79.TabIndex = 531;
             this.label79.Text = "Elevation";
+            this.label79.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // unitsGroupBox
             // 
@@ -9163,110 +9142,110 @@
             // lblSvennArrow
             // 
             this.lblSvennArrow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblSvennArrow.AutoSize = true;
             this.lblSvennArrow.BackColor = System.Drawing.Color.Transparent;
             this.lblSvennArrow.ForeColor = System.Drawing.Color.Black;
-            this.lblSvennArrow.Location = new System.Drawing.Point(231, 232);
+            this.lblSvennArrow.Location = new System.Drawing.Point(221, 232);
             this.lblSvennArrow.Name = "lblSvennArrow";
-            this.lblSvennArrow.Size = new System.Drawing.Size(81, 16);
+            this.lblSvennArrow.Size = new System.Drawing.Size(120, 16);
             this.lblSvennArrow.TabIndex = 529;
             this.lblSvennArrow.Text = "Svenn Arrow";
+            this.lblSvennArrow.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblBrightness
             // 
             this.lblBrightness.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblBrightness.AutoSize = true;
             this.lblBrightness.BackColor = System.Drawing.Color.Transparent;
             this.lblBrightness.ForeColor = System.Drawing.Color.Black;
-            this.lblBrightness.Location = new System.Drawing.Point(37, 232);
+            this.lblBrightness.Location = new System.Drawing.Point(27, 232);
             this.lblBrightness.Name = "lblBrightness";
-            this.lblBrightness.Size = new System.Drawing.Size(66, 16);
+            this.lblBrightness.Size = new System.Drawing.Size(120, 16);
             this.lblBrightness.TabIndex = 527;
             this.lblBrightness.Text = "Brightness";
+            this.lblBrightness.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblFieldTexture
             // 
             this.lblFieldTexture.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblFieldTexture.AutoSize = true;
             this.lblFieldTexture.BackColor = System.Drawing.Color.Transparent;
             this.lblFieldTexture.ForeColor = System.Drawing.Color.Black;
-            this.lblFieldTexture.Location = new System.Drawing.Point(37, 354);
+            this.lblFieldTexture.Location = new System.Drawing.Point(27, 354);
             this.lblFieldTexture.Name = "lblFieldTexture";
-            this.lblFieldTexture.Size = new System.Drawing.Size(82, 16);
+            this.lblFieldTexture.Size = new System.Drawing.Size(120, 16);
             this.lblFieldTexture.TabIndex = 525;
             this.lblFieldTexture.Text = "Field Texture";
+            this.lblFieldTexture.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPolygons
             // 
             this.lblPolygons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblPolygons.AutoSize = true;
             this.lblPolygons.BackColor = System.Drawing.Color.Transparent;
             this.lblPolygons.ForeColor = System.Drawing.Color.Black;
-            this.lblPolygons.Location = new System.Drawing.Point(37, 111);
+            this.lblPolygons.Location = new System.Drawing.Point(27, 111);
             this.lblPolygons.Name = "lblPolygons";
-            this.lblPolygons.Size = new System.Drawing.Size(57, 16);
+            this.lblPolygons.Size = new System.Drawing.Size(120, 16);
             this.lblPolygons.TabIndex = 523;
             this.lblPolygons.Text = "Polygons";
+            this.lblPolygons.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblKeyboard
             // 
             this.lblKeyboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblKeyboard.AutoSize = true;
             this.lblKeyboard.BackColor = System.Drawing.Color.Transparent;
             this.lblKeyboard.ForeColor = System.Drawing.Color.Black;
-            this.lblKeyboard.Location = new System.Drawing.Point(425, 111);
+            this.lblKeyboard.Location = new System.Drawing.Point(415, 111);
             this.lblKeyboard.Name = "lblKeyboard";
-            this.lblKeyboard.Size = new System.Drawing.Size(60, 16);
+            this.lblKeyboard.Size = new System.Drawing.Size(120, 16);
             this.lblKeyboard.TabIndex = 521;
             this.lblKeyboard.Text = "Keyboard";
+            this.lblKeyboard.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblStartFullScreen
             // 
             this.lblStartFullScreen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblStartFullScreen.AutoSize = true;
             this.lblStartFullScreen.BackColor = System.Drawing.Color.Transparent;
             this.lblStartFullScreen.ForeColor = System.Drawing.Color.Black;
-            this.lblStartFullScreen.Location = new System.Drawing.Point(425, 232);
+            this.lblStartFullScreen.Location = new System.Drawing.Point(415, 232);
             this.lblStartFullScreen.Name = "lblStartFullScreen";
-            this.lblStartFullScreen.Size = new System.Drawing.Size(97, 16);
+            this.lblStartFullScreen.Size = new System.Drawing.Size(120, 16);
             this.lblStartFullScreen.TabIndex = 518;
             this.lblStartFullScreen.Text = "Start Fullscreen";
+            this.lblStartFullScreen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblSpeedo
             // 
             this.lblSpeedo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblSpeedo.AutoSize = true;
             this.lblSpeedo.BackColor = System.Drawing.Color.Transparent;
             this.lblSpeedo.ForeColor = System.Drawing.Color.Black;
-            this.lblSpeedo.Location = new System.Drawing.Point(232, 112);
+            this.lblSpeedo.Location = new System.Drawing.Point(221, 112);
             this.lblSpeedo.Name = "lblSpeedo";
-            this.lblSpeedo.Size = new System.Drawing.Size(50, 16);
+            this.lblSpeedo.Size = new System.Drawing.Size(120, 16);
             this.lblSpeedo.TabIndex = 516;
             this.lblSpeedo.Text = "Speedo";
+            this.lblSpeedo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblExtraGuides
             // 
             this.lblExtraGuides.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblExtraGuides.AutoSize = true;
             this.lblExtraGuides.BackColor = System.Drawing.Color.Transparent;
             this.lblExtraGuides.ForeColor = System.Drawing.Color.Black;
-            this.lblExtraGuides.Location = new System.Drawing.Point(425, 350);
+            this.lblExtraGuides.Location = new System.Drawing.Point(415, 350);
             this.lblExtraGuides.Name = "lblExtraGuides";
-            this.lblExtraGuides.Size = new System.Drawing.Size(65, 16);
+            this.lblExtraGuides.Size = new System.Drawing.Size(120, 16);
             this.lblExtraGuides.TabIndex = 519;
             this.lblExtraGuides.Text = "Guidelines";
+            this.lblExtraGuides.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblGrid
             // 
             this.lblGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblGrid.AutoSize = true;
             this.lblGrid.BackColor = System.Drawing.Color.Transparent;
             this.lblGrid.ForeColor = System.Drawing.Color.Black;
-            this.lblGrid.Location = new System.Drawing.Point(231, 354);
+            this.lblGrid.Location = new System.Drawing.Point(221, 354);
             this.lblGrid.Name = "lblGrid";
-            this.lblGrid.Size = new System.Drawing.Size(30, 16);
+            this.lblGrid.Size = new System.Drawing.Size(120, 16);
             this.lblGrid.TabIndex = 515;
             this.lblGrid.Text = "Grid";
+            this.lblGrid.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // chkDisplayLogElevation
             // 
@@ -9551,10 +9530,10 @@
             this.lblToolWidth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lblToolWidth.Location = new System.Drawing.Point(583, 4);
             this.lblToolWidth.Name = "lblToolWidth";
-            this.lblToolWidth.Size = new System.Drawing.Size(128, 25);
+            this.lblToolWidth.Size = new System.Drawing.Size(168, 25);
             this.lblToolWidth.TabIndex = 301;
             this.lblToolWidth.Text = "Tool Width:";
-            this.lblToolWidth.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblToolWidth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblSecTotalWidthFeet
             // 
@@ -9783,9 +9762,7 @@
             this.tabRelay.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pboxSendRelay)).EndInit();
             this.tabAMachine.ResumeLayout(false);
-            this.tabAMachine.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudHydLiftLookAhead)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLowerTime)).EndInit();
@@ -9803,7 +9780,6 @@
             this.tabBtns.ResumeLayout(false);
             this.tabBtns.PerformLayout();
             this.tabDisplay.ResumeLayout(false);
-            this.tabDisplay.PerformLayout();
             this.unitsGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudNumGuideLines)).EndInit();
             this.panelBottom.ResumeLayout(false);
@@ -10110,7 +10086,6 @@
         private System.Windows.Forms.Label label146;
         private NudlessNumericUpDown nudUser2;
         private NudlessNumericUpDown nudUser1;
-        private System.Windows.Forms.Label label147;
         private System.Windows.Forms.Label lblUser4;
         private System.Windows.Forms.Label lblUser3;
         private System.Windows.Forms.Label lblUser2;

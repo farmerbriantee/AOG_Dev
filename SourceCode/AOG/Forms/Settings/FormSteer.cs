@@ -42,6 +42,12 @@ namespace AgOpenGPS
             this.Text = Lang.Get(ggStr.gsAutoSteerConfiguration);
             this.Width = 388;
             this.Height = 490;
+            label19.Text = Lang.Get(ggStr.gsSpeedFactor);
+            label82.Text = Lang.Get(ggStr.gsAquireFactor);
+            label51.Text = Lang.Get(ggStr.gsDeadzone);
+            label49.Text = Lang.Get(ggStr.gsHeading);
+            label54.Text = Lang.Get(ggStr.gsOnDelay);
+
             lblSteerResponse.Text = Lang.Get(ggStr.gsSteerResponse);
             lblIntegral.Text = Lang.Get(ggStr.gsIntegral);
             lblDistance.Text = Lang.Get(ggStr.gsDistance);

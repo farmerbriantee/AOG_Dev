@@ -52,8 +52,6 @@ namespace AgOpenGPS
 
             CalculateMinMax();
 
-            mf.bnd.bndList?.Clear();
-
             Size = Properties.Settings.Default.setWindow_HeadAcheSize;
 
             Screen myScreen = Screen.FromControl(this);

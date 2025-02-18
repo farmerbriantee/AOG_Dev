@@ -65,24 +65,6 @@ namespace AgOpenGPS
         {
             panel1.Visible = false;
 
-            //already have a boundary
-            if (mf.bnd.bndList.Count == 0)
-            {
-                //for every new chunk of patch
-                foreach (var triList in mf.patchList)
-                {
-                    for (int i = 1; i < triList.Count; i++)
-                    {
-                        vec3 bob = new vec3(triList[i].easting, triList[i].northing, 0);
-
-                        secList.Add(bob);
-                    }
-                }
-            }
-            else
-            {
-            }
-
             cboxPointDistance.SelectedIndexChanged -= cboxPointDistance_SelectedIndexChanged;
             cboxPointDistance.Text = "?";
             cboxPointDistance.SelectedIndexChanged += cboxPointDistance_SelectedIndexChanged;
@@ -132,15 +114,8 @@ namespace AgOpenGPS
             GL.LoadMatrix(ref mat);
 
             GL.MatrixMode(MatrixMode.Modelview);
-
             tlp1.Width = Width - oglSelf.Width - 4;
             tlp1.Left = oglSelf.Width;
-
-            Screen myScreen = Screen.FromControl(this);
-            Rectangle area = myScreen.WorkingArea;
-
-            this.Top = (area.Height - this.Height) / 2;
-            this.Left = (area.Width - this.Width) / 2;
         }
 
         private void KNN()
@@ -330,14 +305,6 @@ namespace AgOpenGPS
             timer1.Enabled = true;
         }
 
-        private void DeleteBoundary()
-        {
-            mf.bnd.bndList?.Clear();
-            mf.FileSaveBoundary();
-            mf.fd.UpdateFieldBoundaryGUIAreas();
-            mf.FileSaveHeadland();
-        }
-
         private void btnAddPoints_Click(object sender, EventArgs e)
         {
             double abHead = Math.Atan2(
@@ -396,20 +363,6 @@ namespace AgOpenGPS
             cboxSmooth.Enabled = false;
             btnMakeBoundary.Enabled = false;
 
-            if (mf.bnd.bndList.Count > 0)
-            {
-                DialogResult result3 = MessageBox.Show(gStr.gsDeleteBoundaryMapping,
-                    gStr.gsDeleteForSure,
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button2);
-                if (result3 != DialogResult.Yes)
-                {
-                    return;
-                }
-            }
-
-            DeleteBoundary();
 
             isStep = false;
             timer1.Interval = 500;
@@ -456,9 +409,6 @@ namespace AgOpenGPS
             {
                 secList?.Clear();
 
-                //just in case
-                DeleteBoundary();
-
                 CBoundaryList New = new CBoundaryList();
 
                 for (int i = 0; i < smooList.Count; i++)
@@ -468,7 +418,23 @@ namespace AgOpenGPS
 
                 New.CalculateFenceArea(0);
                 New.FixFenceLine(0);
-                mf.bnd.bndList.Add(New);
+
+                if (mf.bnd.bndList.Count > 0)
+                {
+                    DialogResult result3 = MessageBox.Show(gStr.gsDeleteBoundaryMapping,
+                        gStr.gsDeleteForSure,
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question,
+                        MessageBoxDefaultButton.Button2);
+                    if (result3 == DialogResult.Yes)
+                    {
+                        mf.bnd.bndList.Clear();
+                        mf.FileSaveHeadland();
+                    }
+                }
+
+                mf.bnd.bndList.Add(New);//edit
+
                 smooList.Clear();
                 bndList?.Clear();
 

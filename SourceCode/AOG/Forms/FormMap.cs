@@ -274,6 +274,7 @@ namespace AgOpenGPS
                 mf.bnd.bndList.RemoveAt(cnt - 1);
 
                 mf.FileSaveBoundary();
+                mf.FileSaveHeadland();
                 mf.bnd.BuildTurnLines();
                 mf.fd.UpdateFieldBoundaryGUIAreas();
                 mf.btnABDraw.Visible = false;

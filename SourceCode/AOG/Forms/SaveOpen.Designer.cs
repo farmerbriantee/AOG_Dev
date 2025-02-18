@@ -569,6 +569,7 @@ namespace AgOpenGPS
 
                             if (numPoints > 0)
                             {
+                                bool foundheadings = false;
                                 //load the line
                                 for (int i = 0; i < numPoints; i++)
                                 {
@@ -579,13 +580,15 @@ namespace AgOpenGPS
                                     double.Parse(words[1], CultureInfo.InvariantCulture),
                                     double.Parse(words[2], CultureInfo.InvariantCulture));
 
+                                    if (vecPt.heading != 0) foundheadings = true;
                                     New.fenceLine.Add(vecPt);
                                 }
 
                                 New.CalculateFenceArea(k);
+                                if (!foundheadings)
+                                    New.CalculateFenceLineHeadings();
 
                                 double delta = 0;
-                                New.fenceLineEar?.Clear();
 
                                 for (int i = 0; i < New.fenceLine.Count; i++)
                                 {

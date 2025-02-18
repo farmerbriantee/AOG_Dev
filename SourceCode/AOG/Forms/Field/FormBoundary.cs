@@ -215,6 +215,7 @@ namespace AgOpenGPS
                 fenceSelected = -1;
 
                 mf.FileSaveBoundary();
+                mf.FileSaveHeadland();
                 mf.fd.UpdateFieldBoundaryGUIAreas();
                 mf.bnd.BuildTurnLines();
                 UpdateChart();
@@ -229,11 +230,11 @@ namespace AgOpenGPS
         {
             fenceSelected = -1;
             mf.bnd.bndList.Clear();
-            mf.FileSaveBoundary();
+            mf.FileSaveHeadland();
+
             flp1.Controls.Clear();
 
             UpdateChart();
-            mf.bnd.BuildTurnLines();
             btnDelete.Enabled = false;
         }
 

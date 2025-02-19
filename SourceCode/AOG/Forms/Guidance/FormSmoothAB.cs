@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+
 using System;
 using System.Windows.Forms;
 
@@ -17,10 +18,10 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
             InitializeComponent();
 
-            this.bntOK.Text = gStr.gsForNow;
-            this.btnSave.Text = gStr.gsToFile;
+            this.bntOK.Text = gStr.Get(gs.gsForNow);
+            this.btnSave.Text = gStr.Get(gs.gsToFile);
 
-            this.Text = gStr.gsSmoothABCurve;
+            this.Text = gStr.Get(gs.gsSmoothABCurve);
         }
 
         private void bntOK_Click(object sender, EventArgs e)

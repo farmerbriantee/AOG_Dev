@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Properties;
+﻿using AgOpenGPS.Classes;
+using AgOpenGPS.Properties;
 using Microsoft.Win32;
 using System;
 using System.IO;

@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+
 using System;
 using System.Linq;
 using System.Text;
@@ -173,11 +174,9 @@ namespace AgOpenGPS
 
         private void btnSendMachinePGN_Click(object sender, EventArgs e)
         {
-            SaveSettingsMachine();
+            SaveSettingsMachine();            
 
-            
-
-            mf.TimedMessageBox(2000, gStr.gsMachinePort, gStr.gsSentToMachineModule);
+            mf.TimedMessageBox(2000, gStr.Get(gs.gsMachinePort), gStr.Get(gs.gsSentToMachineModule));
 
             pboxSendMachine.Visible = false;
         }
@@ -263,7 +262,7 @@ namespace AgOpenGPS
             SaveSettingsRelay();
             SendRelaySettingsToMachineModule();
 
-            mf.TimedMessageBox(2000, gStr.gsMachinePort, gStr.gsSentToMachineModule);
+            mf.TimedMessageBox(2000, gStr.Get(gs.gsMachinePort), gStr.Get(gs.gsSentToMachineModule));
 
             pboxSendRelay.Visible = false;
         }

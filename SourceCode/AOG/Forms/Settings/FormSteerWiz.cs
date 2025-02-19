@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -28,9 +29,9 @@ namespace AgOpenGPS
             nudVehicleTrack.Controls[0].Enabled = false;
             nudWheelbase.Controls[0].Enabled = false;
 
-            this.label3.Text = gStr.gsAgressiveness;
-            this.label5.Text = gStr.gsOvershootReduction;
-            this.Text = gStr.gsAutoSteerConfiguration;
+            this.label3.Text = gStr.Get(gs.gsAgressiveness);
+            this.label5.Text = gStr.Get(gs.gsOvershootReduction);
+            this.Text = gStr.Get(gs.gsAutoSteerConfiguration);
             //this.Width = 378;
             //this.Height = 462;
         }
@@ -164,7 +165,7 @@ namespace AgOpenGPS
                 pbarSensor.Visible = false;
                 hsbarSensor.Visible = false;
                 lblhsbarSensor.Visible = false;
-                label61.Text = gStr.gsEncoderCounts;
+                label61.Text = gStr.Get(gs.gsEncoderCounts);
             }
             else if (cboxPressureSensor.Checked)
             {
@@ -752,7 +753,7 @@ namespace AgOpenGPS
                         pbarSensor.Visible = false;
                         hsbarSensor.Visible = false;
                         lblhsbarSensor.Visible = false;
-                        label61.Text = gStr.gsEncoderCounts;
+                        label61.Text = gStr.Get(gs.gsEncoderCounts);
                     }
                 }
             }

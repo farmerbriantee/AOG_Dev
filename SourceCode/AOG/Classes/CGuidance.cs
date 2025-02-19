@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+
 using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
@@ -618,7 +619,7 @@ namespace AgOpenGPS
                         if (glm.Distance(goalPointTrk, curList[(curList.Count - 1)]) < 0.5)
                         {
                             mf.btnAutoSteer.PerformClick();
-                            mf.TimedMessageBox(2000, gStr.gsGuidanceStopped, gStr.gsPastEndOfCurve);
+                            mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), gStr.Get(gs.gsPastEndOfCurve));
                             Log.EventWriter("Autosteer Stop, Past End of Curve");
                         }
                     }
@@ -627,7 +628,7 @@ namespace AgOpenGPS
                         if (glm.Distance(goalPointTrk, curList[0]) < 0.5)
                         {
                             mf.btnAutoSteer.PerformClick();
-                            mf.TimedMessageBox(2000, gStr.gsGuidanceStopped, gStr.gsPastEndOfCurve);
+                            mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), gStr.Get(gs.gsPastEndOfCurve));
                             Log.EventWriter("Autosteer Stop, Past End of Curve");
                         }
                     }

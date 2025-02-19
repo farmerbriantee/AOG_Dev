@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+
 using AgOpenGPS.Properties;
 using System;
 using System.Drawing;
@@ -36,11 +37,53 @@ namespace AgOpenGPS
             nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);
             nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
 
-            this.label3.Text = gStr.gsAgressiveness;
-            this.label5.Text = gStr.gsOvershootReduction;
-            this.Text = gStr.gsAutoSteerConfiguration;
+            this.lblDistance.Text = gStr.Get(gs.gsAgressiveness);
+            this.lblHeading.Text = gStr.Get(gs.gsOvershootReduction);
+            this.Text = gStr.Get(gs.gsAutoSteerConfiguration);
             this.Width = 388;
             this.Height = 490;
+            label19.Text = gStr.Get(gs.gsSpeedFactor);
+            label82.Text = gStr.Get(gs.gsAquireFactor);
+            label51.Text = gStr.Get(gs.gsDeadzone);
+            label49.Text = gStr.Get(gs.gsHeading);
+            label54.Text = gStr.Get(gs.gsOnDelay);
+
+            lblTurnSensor.Text = gStr.Get(gs.gsTurnSensor);
+            labelCurrentTurnSensor.Text = gStr.Get(gs.gsCurrentTurnSensor);
+            labelPressureTurnSensor.Text = gStr.Get(gs.gsPressureTurnSensor);
+
+            lblSteerResponse.Text = gStr.Get(gs.gsSteerResponse);
+            lblIntegral.Text = gStr.Get(gs.gsIntegral);
+            lblDistance.Text = gStr.Get(gs.gsDistance);
+            lblHeading.Text = gStr.Get(gs.gsHeading);
+            lblPropGain.Text = gStr.Get(gs.gsProportionalGain);
+            lblMaxLimit.Text = gStr.Get(gs.gsMaxLimit);
+            lblMin2Move.Text = gStr.Get(gs.gsMinToMove);
+            lblGain.Text = gStr.Get(gs.gsProportionalGain);
+            lblWasZero.Text = gStr.Get(gs.gsWasZero);
+            lblMaxSteerAng.Text = gStr.Get(gs.gsMaxSteerAngle);
+            lblCPD.Text = gStr.Get(gs.gsCountsPerDegree);
+            lblAckermann.Text = gStr.Get(gs.gsAckermann);
+            lblInvertWAS.Text = gStr.Get(gs.gsInvertWas);
+            lblInvertMotor.Text = gStr.Get(gs.gsInvertMotor);
+            lblInvertRelays.Text = gStr.Get(gs.gsInvertRelays);
+            lblMotorDriver.Text = gStr.Get(gs.gsMotorDriver);
+            lblA2D.Text = gStr.Get(gs.gsADConverter);
+            lblIMUXY.Text = gStr.Get(gs.gsIMUAxis);
+            lblSteerEnable.Text = gStr.Get(gs.gsSteerEnable);
+            lblSendSave.Text = gStr.Get(gs.gsSendAndSave);
+            lblResetToDefaults.Text = gStr.Get(gs.gsResetAll);
+            lblWizard.Text = gStr.Get(gs.gsWizard);
+            lblUturnComp.Text = gStr.Get(gs.gsUturnCompensation);
+            lblSidehillDeg.Text = gStr.Get(gs.gsSideHillComp);
+            lblSteerInReverse.Text = gStr.Get(gs.gsSteerInReverse);
+            lblManualTurns.Text = gStr.Get(gs.gsManualTurns);
+            lblMinSpeed.Text = gStr.Get(gs.gsMinSpeed);
+            lblMaxSpeed.Text = gStr.Get(gs.gsMaxSpeed);
+            lblLightbar.Text = gStr.Get(gs.gsLightbar);
+            lblSteerBar.Text = gStr.Get(gs.gsSteerBar);
+            lblNextGuideLine.Text = gStr.Get(gs.gsNextGuidanceLine);
+
         }
 
         private void FormSteer_Load(object sender, EventArgs e)
@@ -210,46 +253,46 @@ namespace AgOpenGPS
             {
                 cboxPressureSensor.Checked = false;
                 cboxCurrentSensor.Checked = false;
-                label61.Visible = true;
+                lblTurnSensor.Visible = true;
                 lblPercentFS.Visible = true;
                 nudMaxCounts.Visible = true;
                 pbarSensor.Visible = false;
                 hsbarSensor.Visible = false;
                 lblhsbarSensor.Visible = false;
-                label61.Text = gStr.gsEncoderCounts;
+                lblTurnSensor.Text = gStr.Get(gs.gsEncoderCounts);
             }
             else if (cboxPressureSensor.Checked)
             {
                 cboxEncoder.Checked = false;
                 cboxCurrentSensor.Checked = false;
-                label61.Visible = true;
+                lblTurnSensor.Visible = true;
                 lblPercentFS.Visible = true;
                 nudMaxCounts.Visible = false;
                 pbarSensor.Visible = true;
                 hsbarSensor.Visible = true;
                 lblhsbarSensor.Visible = true;
 
-                label61.Text = "Off at %";
+                lblTurnSensor.Text = "Off at %";
             }
             else if (cboxCurrentSensor.Checked)
             {
                 cboxPressureSensor.Checked = false;
                 cboxEncoder.Checked = false;
-                label61.Visible = true;
+                lblTurnSensor.Visible = true;
                 lblPercentFS.Visible = true;
                 nudMaxCounts.Visible = false;
                 pbarSensor.Visible = true;
                 hsbarSensor.Visible = true;
                 lblhsbarSensor.Visible = true;
 
-                label61.Text = "Off at %";
+                lblTurnSensor.Text = "Off at %";
             }
             else
             {
                 cboxPressureSensor.Checked = false;
                 cboxCurrentSensor.Checked = false;
                 cboxEncoder.Checked = false;
-                label61.Visible = false;
+                lblTurnSensor.Visible = false;
                 lblPercentFS.Visible = false;
                 nudMaxCounts.Visible = false;
                 pbarSensor.Visible = false;
@@ -471,7 +514,7 @@ namespace AgOpenGPS
                         cboxPressureSensor.Checked = false;
                         cboxCurrentSensor.Checked = false;
                         cboxEncoder.Checked = false;
-                        label61.Visible = false;
+                        lblTurnSensor.Visible = false;
                         lblPercentFS.Visible = false;
                         nudMaxCounts.Visible = false;
                         pbarSensor.Visible = false;
@@ -484,11 +527,11 @@ namespace AgOpenGPS
                     {
                         cboxEncoder.Checked = false;
                         cboxCurrentSensor.Checked = false;
-                        label61.Visible = true;
+                        lblTurnSensor.Visible = true;
                         lblPercentFS.Visible = true;
                         nudMaxCounts.Visible = false;
                         pbarSensor.Visible = true;
-                        label61.Text = "Off at %";
+                        lblTurnSensor.Text = "Off at %";
                         hsbarSensor.Visible = true;
                         lblhsbarSensor.Visible = true;
                     }
@@ -496,25 +539,25 @@ namespace AgOpenGPS
                     {
                         cboxPressureSensor.Checked = false;
                         cboxEncoder.Checked = false;
-                        label61.Visible = true;
+                        lblTurnSensor.Visible = true;
                         lblPercentFS.Visible = true;
                         nudMaxCounts.Visible = false;
                         hsbarSensor.Visible = true;
                         pbarSensor.Visible = true;
-                        label61.Text = "Off at %";
+                        lblTurnSensor.Text = "Off at %";
                         lblhsbarSensor.Visible = true;
                     }
                     else if (checkbox == cboxEncoder)
                     {
                         cboxPressureSensor.Checked = false;
                         cboxCurrentSensor.Checked = false;
-                        label61.Visible = true;
+                        lblTurnSensor.Visible = true;
                         lblPercentFS.Visible = false;
                         nudMaxCounts.Visible = true;
                         pbarSensor.Visible = false;
                         hsbarSensor.Visible = false;
                         lblhsbarSensor.Visible = false;
-                        label61.Text = gStr.gsEncoderCounts;
+                        lblTurnSensor.Text = gStr.Get(gs.gsEncoderCounts);
                     }
                 }
             }
@@ -1192,7 +1235,7 @@ namespace AgOpenGPS
             pboxSendSteer.Visible = false;
             Log.EventWriter("Steer Form, Send and Save Pressed");
 
-            mf.TimedMessageBox(2000, gStr.gsAutoSteerPort, "Settings Sent To Steer Module");
+            mf.TimedMessageBox(2000, gStr.Get(gs.gsAutoSteerPort), "Settings Sent To Steer Module");
         }
 
         private void SaveSettings()

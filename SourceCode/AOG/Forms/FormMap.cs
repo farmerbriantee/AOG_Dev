@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
@@ -69,7 +70,7 @@ namespace AgOpenGPS
             }
 
             btnDeleteAll.Enabled = true;
-            label3.Text = gStr.gsBoundary;
+            label3.Text = gStr.Get(gs.gsBoundary);
         }
 
         private void FormMaPGN_FormClosing(object sender, FormClosingEventArgs e)
@@ -257,12 +258,12 @@ namespace AgOpenGPS
 
             if (mf.bnd.bndList == null || mf.bnd.bndList.Count == 0)
             {
-                mf.TimedMessageBox(2000, gStr.gsBoundary, gStr.gsNoBoundary);
+                mf.TimedMessageBox(2000, gStr.Get(gs.gsBoundary), gStr.Get(gs.gsNoBoundary));
                 return;
             }
 
             DialogResult result3 = MessageBox.Show("Delete Last Field Boundary Made?",
-                gStr.gsDeleteForSure,
+                gStr.Get(gs.gsDeleteForSure),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
                 MessageBoxDefaultButton.Button2);
@@ -284,7 +285,7 @@ namespace AgOpenGPS
             }
             else
             {
-                mf.TimedMessageBox(1500, gStr.gsNothingDeleted, gStr.gsActionHasBeenCancelled);
+                mf.TimedMessageBox(1500, gStr.Get(gs.gsNothingDeleted), gStr.Get(gs.gsActionHasBeenCancelled));
             }
             cboxEnableLineDraw.Checked = false;
 
@@ -324,7 +325,7 @@ namespace AgOpenGPS
         {
             if (bingLine.Count > 0)
             {
-                mf.TimedMessageBox(3000, gStr.gsBoundary, "Finish Making Boundary or Delete");
+                mf.TimedMessageBox(3000, gStr.Get(gs.gsBoundary), "Finish Making Boundary or Delete");
                 return;
             }
 
@@ -419,7 +420,7 @@ namespace AgOpenGPS
         {
             if (bingLine.Count > 0)
             {
-                mf.TimedMessageBox(2000, gStr.gsBoundary, "Finish Making Boundary");
+                mf.TimedMessageBox(2000, gStr.Get(gs.gsBoundary), "Finish Making Boundary");
                 cboxDrawMap.Checked = !cboxDrawMap.Checked;
                 return;
             }
@@ -495,7 +496,7 @@ namespace AgOpenGPS
 
             if (mf.bnd.bndList.Count > 1)
             {
-                lblBnds.Text = "1 " + gStr.gsOuter + "\r\n" + (mf.bnd.bndList.Count - 1).ToString() + " " + gStr.gsInner;
+                lblBnds.Text = "1 " + gStr.Get(gs.gsOuter) + "\r\n" + (mf.bnd.bndList.Count - 1).ToString() + " " + gStr.Get(gs.gsInner);
             }
             else if (mf.bnd.bndList.Count == 1)
             {
@@ -503,7 +504,7 @@ namespace AgOpenGPS
             }
             else
             {
-                lblBnds.Text = gStr.gsNone;
+                lblBnds.Text = gStr.Get(gs.gsNone);
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+
 using System;
 using System.Windows.Forms;
 
@@ -15,7 +16,7 @@ namespace AgOpenGPS
 
             InitializeComponent();
 
-            this.Text = gStr.gsEditABLine;
+            this.Text = gStr.Get(gs.gsEditABLine);
             nudLatitude.Controls[0].Enabled = false;
             nudLongitude.Controls[0].Enabled = false;
 

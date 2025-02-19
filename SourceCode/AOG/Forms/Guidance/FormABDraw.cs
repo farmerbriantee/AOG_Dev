@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -100,7 +101,7 @@ namespace AgOpenGPS
                     if (mf.isBtnAutoSteerOn)
                     {
                         mf.btnAutoSteer.PerformClick();
-                        mf.TimedMessageBox(2000, gStr.gsGuidanceStopped, "Return From Editing");
+                        mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Return From Editing");
                     }
                     if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
                 }
@@ -121,7 +122,7 @@ namespace AgOpenGPS
                         if (mf.trk.idx != originalLine)
                         {
                             if (mf.isBtnAutoSteerOn) mf.btnAutoSteer.PerformClick();
-                            mf.TimedMessageBox(2000, gStr.gsGuidanceStopped, "Return From Editing");
+                            mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Return From Editing");
                             if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
                         }
                     }
@@ -157,7 +158,7 @@ namespace AgOpenGPS
                                 if (mf.isBtnAutoSteerOn)
                                 {
                                     mf.btnAutoSteer.PerformClick();
-                                    mf.TimedMessageBox(2000, gStr.gsGuidanceStopped, "Return From Editing");
+                                    mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Return From Editing");
                                 }
                                 if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
                             }
@@ -166,7 +167,7 @@ namespace AgOpenGPS
                         {
                             mf.trk.idx = -1;
 
-                            mf.TimedMessageBox(2000, gStr.gsEditABLine, gStr.gsNoABLineActive);
+                            mf.TimedMessageBox(2000, gStr.Get(gs.gsEditABLine), gStr.Get(gs.gsNoABLineActive));
                             if (mf.isBtnAutoSteerOn) mf.btnAutoSteer.PerformClick();
                             if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
                         }

@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -24,7 +25,7 @@ namespace AgOpenGPS
             mf = _mf as FormGPS;
             InitializeComponent();
 
-            //btnPausePlay.Text = gStr.gsPause;
+            //btnPausePlay.Text = gStr.Get(gs.gsPause;
             this.Text = "Tracks";
         }
 
@@ -125,7 +126,7 @@ namespace AgOpenGPS
             {
                 mf.trk.designPtA.easting = mf.pivotAxlePos.easting;
                 mf.trk.designPtA.northing = mf.pivotAxlePos.northing;
-                lblCurveExists.Text = gStr.gsDriving;
+                lblCurveExists.Text = gStr.Get(gs.gsDriving);
 
                 btnBCurve.Enabled = true;
                 btnACurve.Enabled = false;
@@ -234,14 +235,14 @@ namespace AgOpenGPS
             {
                 mf.trk.isRecordingCurveTrack = false;
                 btnPausePlay.Image = Properties.Resources.BoundaryRecord;
-                //btnPausePlay.Text = gStr.gsRecord;
+                //btnPausePlay.Text = gStr.Get(gs.gsRecord;
                 btnACurve.Enabled = true;
             }
             else
             {
                 mf.trk.isRecordingCurveTrack = true;
                 btnPausePlay.Image = Properties.Resources.boundaryPause;
-                //btnPausePlay.Text = gStr.gsPause;
+                //btnPausePlay.Text = gStr.Get(gs.gsPause;
                 btnACurve.Enabled = false;
             }
 
@@ -464,7 +465,7 @@ namespace AgOpenGPS
             if (mf.isBtnAutoSteerOn)
             {
                 mf.btnAutoSteer.PerformClick();
-                mf.TimedMessageBox(2000, gStr.gsGuidanceStopped, "Return From Editing");
+                mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Return From Editing");
             }
             if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
 

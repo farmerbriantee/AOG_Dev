@@ -1,4 +1,4 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Classes;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -416,8 +416,8 @@ namespace AgOpenGPS
 
                 if (mf.bnd.bndList.Count > 0)
                 {
-                    DialogResult result3 = MessageBox.Show(gStr.gsDeleteBoundaryMapping,
-                        gStr.gsDeleteForSure,
+                    DialogResult result3 = MessageBox.Show(gStr.Get(gs.gsDeleteBoundaryMapping),
+                        gStr.Get(gs.gsDeleteForSure),
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question,
                         MessageBoxDefaultButton.Button2);

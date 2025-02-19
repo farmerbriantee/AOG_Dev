@@ -366,7 +366,7 @@ namespace AgOpenGPS
 
             try
             {
-                CBoundaryList NewList = new CBoundaryList();
+                CBoundaryList newBnd = new CBoundaryList();
                 foreach (XmlNode nodePart in fieldParts)
                 {
                     //grab the polygons
@@ -384,23 +384,17 @@ namespace AgOpenGPS
                                     mf.pn.ConvertWGS84ToLocal(latK, lonK, out norting, out easting);
 
                                     //add the point to boundary
-                                    NewList.fenceLine.Add(new vec3(easting, norting, 0));
+                                    newBnd.fenceLine.Add(new vec3(easting, norting, 0));
                                 }
                             }
                         }
                     }
 
                     //we have outer bnd
-                    if (NewList.fenceLine.Count > 0) break;
+                    if (newBnd.fenceLine.Count > 0) break;
                 }
 
-                {
-                    //build the boundary, make sure is clockwise for outer counter clockwise for inner
-                    NewList.CalculateFenceArea(mf.bnd.bndList.Count);
-                    NewList.FixFenceLine(mf.bnd.bndList.Count);
-
-                    mf.bnd.bndList.Add(NewList);
-                }
+                mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
             }
             catch (Exception ew)
             {
@@ -427,7 +421,7 @@ namespace AgOpenGPS
                             {
                                 if (nodePart.ChildNodes[0].Attributes["A"].Value == "1") //LSG
                                 {
-                                    CBoundaryList NewList = new CBoundaryList();
+                                    CBoundaryList NewBnd = new CBoundaryList();
                                     foreach (XmlNode pnt in nodePart.ChildNodes[0].ChildNodes) //PNT
                                     {
                                         double.TryParse(pnt.Attributes["C"].Value, NumberStyles.Float,
@@ -438,14 +432,10 @@ namespace AgOpenGPS
                                         mf.pn.ConvertWGS84ToLocal(latK, lonK, out norting, out easting);
 
                                         //add the point to boundary
-                                        NewList.fenceLine.Add(new vec3(easting, norting, 0));
+                                        NewBnd.fenceLine.Add(new vec3(easting, norting, 0));
                                     }
 
-                                    //build the boundary, make sure is clockwise for outer counter clockwise for inner
-                                    NewList.CalculateFenceArea(mf.bnd.bndList.Count);
-                                    NewList.FixFenceLine(mf.bnd.bndList.Count);
-
-                                    mf.bnd.bndList.Add(NewList);
+                                    mf.bnd.AddToBoundList(NewBnd, mf.bnd.bndList.Count);
                                 }
                             }
                         }
@@ -492,11 +482,7 @@ namespace AgOpenGPS
                                     //build the boundary, make sure is clockwise for outer counter clockwise for inner
                                     mf.trk.CalculateHeadings(ref desList);
 
-                                    //write out the Curve Points
-                                    foreach (vec3 item in desList)
-                                    {
-                                        mf.bnd.bndList[0].hdLine.Add(item);
-                                    }
+                                    mf.bnd.bndList[0].hdLine = desList;
                                 }
                             }
                         }
@@ -821,9 +807,6 @@ namespace AgOpenGPS
             }
 
             mf.FileSaveBoundary();
-            mf.bnd.BuildTurnLines();
-            mf.fd.UpdateFieldBoundaryGUIAreas();
-            mf.CalculateSectionPatchesMinMax();
             mf.FileSaveHeadland();
 
             mf.FileSaveTracks();

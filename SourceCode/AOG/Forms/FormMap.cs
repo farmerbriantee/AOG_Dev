@@ -214,24 +214,18 @@ namespace AgOpenGPS
         {
             if (bingLine.Count > 2)
             {
-                CBoundaryList New = new CBoundaryList();
+                CBoundaryList newBnd = new CBoundaryList();
                 for (int i = 0; i < bingLine.Count; i++)
                 {
                     mf.pn.ConvertWGS84ToLocal(bingLine[i].Latitude, bingLine[i].Longitude, out double nort, out double east);
                     vec3 v = new vec3(east, nort, 0);
-                    New.fenceLine.Add(v);
+                    newBnd.fenceLine.Add(v);
                 }
 
-                New.CalculateFenceArea(mf.bnd.bndList.Count);
-                New.FixFenceLine(mf.bnd.bndList.Count);
-
-                mf.bnd.bndList.Add(New);
-                mf.fd.UpdateFieldBoundaryGUIAreas();
+                mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
 
                 //turn lines made from boundaries
-                mf.CalculateSectionPatchesMinMax();
                 mf.FileSaveBoundary();
-                mf.bnd.BuildTurnLines();
                 mf.btnABDraw.Visible = true;
             }
 
@@ -275,8 +269,7 @@ namespace AgOpenGPS
                 mf.bnd.bndList.RemoveAt(cnt - 1);
 
                 mf.FileSaveBoundary();
-                mf.bnd.BuildTurnLines();
-                mf.fd.UpdateFieldBoundaryGUIAreas();
+                mf.FileSaveHeadland();
                 mf.btnABDraw.Visible = false;
                 //clean up line
                 mapControl.Markers.Clear();

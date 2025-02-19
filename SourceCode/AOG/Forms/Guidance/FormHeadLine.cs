@@ -33,8 +33,6 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
 
             InitializeComponent();
-
-            mf.CalculateSectionPatchesMinMax();
         }
 
         private void FormHeadLine_Load(object sender, EventArgs e)
@@ -406,7 +404,7 @@ namespace AgOpenGPS
 
             GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
             GL.LoadIdentity();                  // Reset The View
-
+            
             //back the camera up
             GL.Translate(0, 0, -mf.maxFieldDistance * zoom);
 

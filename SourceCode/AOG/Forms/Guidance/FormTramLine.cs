@@ -42,7 +42,6 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
 
             InitializeComponent();
-            mf.CalculateSectionPatchesMinMax();
         }
 
         private void FormTramLine_Load(object sender, EventArgs e)

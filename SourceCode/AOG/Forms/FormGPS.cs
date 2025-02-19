@@ -934,7 +934,6 @@ namespace AgOpenGPS
 
             if (isFieldStarted)
             {
-                FileSaveBoundary();
                 FileSaveTracks();
 
                 Log.EventWriter("** Closed **   " + currentFieldDirectory + "   "

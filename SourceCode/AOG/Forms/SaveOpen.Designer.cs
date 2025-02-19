@@ -542,11 +542,9 @@ namespace AgOpenGPS
                         //read header
                         string line = reader.ReadLine();//Boundary
 
-                        for (int k = 0; true; k++)
+                        while (!reader.EndOfStream)
                         {
-                            if (reader.EndOfStream) break;
-
-                            CBoundaryList New = new CBoundaryList();
+                            CBoundaryList newBnd = new CBoundaryList();
 
                             //True or False OR points from older boundary files
                             line = reader.ReadLine();
@@ -554,7 +552,7 @@ namespace AgOpenGPS
                             //Check for older boundary files, then above line string is num of points
                             if (line == "True" || line == "False")
                             {
-                                New.isDriveThru = bool.Parse(line);
+                                newBnd.isDriveThru = bool.Parse(line);
                                 line = reader.ReadLine(); //number of points
                             }
 
@@ -578,42 +576,18 @@ namespace AgOpenGPS
                                     double.Parse(words[1], CultureInfo.InvariantCulture),
                                     double.Parse(words[2], CultureInfo.InvariantCulture));
 
-                                    New.fenceLine.Add(vecPt);
+                                    newBnd.fenceLine.Add(vecPt);
                                 }
 
-                                New.CalculateFenceArea(k);
-
-                                double delta = 0;
-                                New.fenceLineEar?.Clear();
-
-                                for (int i = 0; i < New.fenceLine.Count; i++)
-                                {
-                                    if (i == 0)
-                                    {
-                                        New.fenceLineEar.Add(new vec2(New.fenceLine[i].easting, New.fenceLine[i].northing));
-                                        continue;
-                                    }
-                                    delta += (New.fenceLine[i - 1].heading - New.fenceLine[i].heading);
-                                    if (Math.Abs(delta) > 0.005)
-                                    {
-                                        New.fenceLineEar.Add(new vec2(New.fenceLine[i].easting, New.fenceLine[i].northing));
-                                        delta = 0;
-                                    }
-                                }
-
-                                //Triangulate the bundary polygon
-                                CPolygon bndPolygon = new CPolygon(New.fenceLineEar.ToArray());
-                                New.fenceTriangleList = bndPolygon.Triangulate();
-
-                                bnd.bndList.Add(New);
+                                bnd.AddToBoundList(newBnd, bnd.bndList.Count);
                             }
                         }
 
                         CalculateSectionPatchesMinMax();
-                        bnd.BuildTurnLines();
+                        fd.UpdateFieldBoundaryGUIAreas();
+
                         if (bnd.bndList.Count > 0) btnABDraw.Visible = true;
                     }
-
                     catch (Exception e)
                     {
                         TimedMessageBox(2000, gStr.Get(gs.gsBoundaryLineFilesAreCorrupt), gStr.Get(gs.gsButFieldIsLoaded));
@@ -1790,6 +1764,10 @@ namespace AgOpenGPS
                     }
                 }
             }
+
+            fd.UpdateFieldBoundaryGUIAreas();
+
+            CalculateSectionPatchesMinMax();
         }
 
         //save the contour points

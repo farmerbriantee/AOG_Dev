@@ -42,6 +42,14 @@ namespace AgOpenGPS
             isSectionControlledByHeadland = true;
         }
 
+        public void AddToBoundList(CBoundaryList bound, int k, bool add = true)
+        {
+            //build the boundary, make sure is clockwise for outer counter clockwise for inner
+            bound.FixFenceLine(k);
+            if (add)
+                bndList.Add(bound);
+        }
+
         public int IsPointInsideTurnArea(vec3 pt)
         {
             if (bndList.Count > 0 && bndList[0].turnLine.IsPointInPolygon(pt))
@@ -77,86 +85,6 @@ namespace AgOpenGPS
                 return true;
             }
             return false;
-        }
-
-        public void BuildTurnLines()
-        {
-            if (bndList.Count == 0)
-            {
-                //mf.TimedMessageBox(1500, " No Boundaries", "No Turn Lines Made");
-                return;
-            }
-
-            //update the GUI values for boundaries
-            mf.fd.UpdateFieldBoundaryGUIAreas();
-
-            //to fill the list of line points
-            vec3 point = new vec3();
-
-            //determine how wide a headland space
-            double totalHeadWidth = mf.yt.uturnDistanceFromBoundary;
-
-            //inside boundaries
-            for (int j = 0; j < bndList.Count; j++)
-            {
-                bndList[j].turnLine.Clear();
-                if (bndList[j].isDriveThru) continue;
-
-                int ptCount = bndList[j].fenceLine.Count;
-
-                for (int i = ptCount - 1; i >= 0; i--)
-                {
-                    //calculate the point outside the boundary
-                    point.easting = bndList[j].fenceLine[i].easting + (-Math.Sin(glm.PIBy2 + bndList[j].fenceLine[i].heading) * totalHeadWidth);
-                    point.northing = bndList[j].fenceLine[i].northing + (-Math.Cos(glm.PIBy2 + bndList[j].fenceLine[i].heading) * totalHeadWidth);
-                    point.heading = bndList[j].fenceLine[i].heading;
-                    if (point.heading < -glm.twoPI) point.heading += glm.twoPI;
-
-                    //only add if outside actual field boundary
-                    if (j == 0 == bndList[j].fenceLineEar.IsPointInPolygon(point))
-                    {
-                        vec3 tPnt = new vec3(point.easting, point.northing, point.heading);
-                        bndList[j].turnLine.Add(tPnt);
-                    }
-                }
-                bndList[j].FixTurnLine(totalHeadWidth, 2);
-
-                //countExit the reference list of original curve
-                int cnt = bndList[j].turnLine.Count;
-
-                //the temp array
-                vec3[] arr = new vec3[cnt];
-
-                for (int s = 0; s < cnt; s++)
-                {
-                    arr[s] = bndList[j].turnLine[s];
-                }
-
-                double delta = 0;
-                bndList[j].turnLine?.Clear();
-
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    if (i == 0)
-                    {
-                        bndList[j].turnLine.Add(arr[i]);
-                        continue;
-                    }
-                    delta += (arr[i - 1].heading - arr[i].heading);
-                    if (Math.Abs(delta) > 0.005)
-                    {
-                        bndList[j].turnLine.Add(arr[i]);
-                        delta = 0;
-                    }
-                }
-
-                if (bndList[j].turnLine.Count > 0)
-                {
-                    vec3 end = new vec3(bndList[j].turnLine[0].easting,
-                        bndList[j].turnLine[0].northing, bndList[j].turnLine[0].heading);
-                    bndList[j].turnLine.Add(end);
-                }
-            }
         }
 
         public void SetHydPosition()

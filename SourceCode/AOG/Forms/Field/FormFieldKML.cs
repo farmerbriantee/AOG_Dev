@@ -158,7 +158,7 @@ namespace AgOpenGPS
                             //at least 3 points
                             if (numberSets.Length > 2)
                             {
-                                CBoundaryList New = new CBoundaryList();
+                                CBoundaryList newBnd = new CBoundaryList();
 
                                 foreach (string item in numberSets)
                                 {
@@ -171,14 +171,10 @@ namespace AgOpenGPS
                                     mf.pn.ConvertWGS84ToLocal(latK, lonK, out northing, out easting);
 
                                     //add the point to boundary
-                                    New.fenceLine.Add(new vec3(easting, northing, 0));
+                                    newBnd.fenceLine.Add(new vec3(easting, northing, 0));
                                 }
 
-                                //build the boundary, make sure is clockwise for outer counter clockwise for inner
-                                New.CalculateFenceArea(mf.bnd.bndList.Count);
-                                New.FixFenceLine(mf.bnd.bndList.Count);
-
-                                mf.bnd.bndList.Add(New);
+                                mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
 
                                 mf.btnABDraw.Visible = true;
 
@@ -193,9 +189,6 @@ namespace AgOpenGPS
                         }
                     }
                     mf.FileSaveBoundary();
-                    mf.bnd.BuildTurnLines();
-                    mf.fd.UpdateFieldBoundaryGUIAreas();
-                    mf.CalculateSectionPatchesMinMax();
 
                     btnSave.Enabled = true;
                     btnLoadKML.Enabled = false;

@@ -1,5 +1,4 @@
-﻿using AgOpenGPS.Classes;
-
+﻿using AgOpenGPS.Culture;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -58,31 +57,11 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
 
             InitializeComponent();
-
-            mf.CalculateSectionPatchesMinMax();
         }
 
         private void FormBndTool_Load(object sender, EventArgs e)
         {
             panel1.Visible = false;
-
-            //already have a boundary
-            if (mf.bnd.bndList.Count == 0)
-            {
-                //for every new chunk of patch
-                foreach (var triList in mf.patchList)
-                {
-                    for (int i = 1; i < triList.Count; i++)
-                    {
-                        vec3 bob = new vec3(triList[i].easting, triList[i].northing, 0);
-
-                        secList.Add(bob);
-                    }
-                }
-            }
-            else
-            {
-            }
 
             cboxPointDistance.SelectedIndexChanged -= cboxPointDistance_SelectedIndexChanged;
             cboxPointDistance.Text = "?";
@@ -133,15 +112,8 @@ namespace AgOpenGPS
             GL.LoadMatrix(ref mat);
 
             GL.MatrixMode(MatrixMode.Modelview);
-
             tlp1.Width = Width - oglSelf.Width - 4;
             tlp1.Left = oglSelf.Width;
-
-            Screen myScreen = Screen.FromControl(this);
-            Rectangle area = myScreen.WorkingArea;
-
-            this.Top = (area.Height - this.Height) / 2;
-            this.Left = (area.Width - this.Width) / 2;
         }
 
         private void KNN()
@@ -331,14 +303,6 @@ namespace AgOpenGPS
             timer1.Enabled = true;
         }
 
-        private void DeleteBoundary()
-        {
-            mf.bnd.bndList?.Clear();
-            mf.FileSaveBoundary();
-            mf.fd.UpdateFieldBoundaryGUIAreas();
-            mf.FileSaveHeadland();
-        }
-
         private void btnAddPoints_Click(object sender, EventArgs e)
         {
             double abHead = Math.Atan2(
@@ -397,20 +361,6 @@ namespace AgOpenGPS
             cboxSmooth.Enabled = false;
             btnMakeBoundary.Enabled = false;
 
-            if (mf.bnd.bndList.Count > 0)
-            {
-                DialogResult result3 = MessageBox.Show(gStr.Get(gs.gsDeleteBoundaryMapping),
-                    gStr.Get(gs.gsDeleteForSure),
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button2);
-                if (result3 != DialogResult.Yes)
-                {
-                    return;
-                }
-            }
-
-            DeleteBoundary();
 
             isStep = false;
             timer1.Interval = 500;
@@ -457,27 +407,32 @@ namespace AgOpenGPS
             {
                 secList?.Clear();
 
-                //just in case
-                DeleteBoundary();
-
-                CBoundaryList New = new CBoundaryList();
+                CBoundaryList newBnd = new CBoundaryList();
 
                 for (int i = 0; i < smooList.Count; i++)
                 {
-                    New.fenceLine.Add(new vec3(smooList[i]));
+                    newBnd.fenceLine.Add(new vec3(smooList[i]));
                 }
 
-                New.CalculateFenceArea(0);
-                New.FixFenceLine(0);
-                mf.bnd.bndList.Add(New);
+                if (mf.bnd.bndList.Count > 0)
+                {
+                    DialogResult result3 = MessageBox.Show(gStr.gsDeleteBoundaryMapping,
+                        gStr.gsDeleteForSure,
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question,
+                        MessageBoxDefaultButton.Button2);
+                    if (result3 == DialogResult.Yes)
+                    {
+                        mf.bnd.bndList.Clear();
+                        mf.FileSaveHeadland();
+                    }
+                }
+
+                mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
+
                 smooList.Clear();
                 bndList?.Clear();
 
-                //turn lines made from boundaries
-                mf.CalculateSectionPatchesMinMax();
-                mf.bnd.BuildTurnLines();
-
-                mf.fd.UpdateFieldBoundaryGUIAreas();
                 mf.FileSaveBoundary();
             }
 
@@ -840,8 +795,8 @@ namespace AgOpenGPS
                     }
                 }
 
-                vec3[] arr = new vec3[mf.bnd.bndList[0].fenceLine.Count];
-                mf.bnd.bndList[0].fenceLine.CopyTo(arr);
+                vec3[] arr = new vec3[mf.bnd.bndList[bndSelect].fenceLine.Count];
+                mf.bnd.bndList[bndSelect].fenceLine.CopyTo(arr);
 
                 if (start++ == arr.Length) start--;
                 //if (end-- == -1) end = 0;
@@ -878,12 +833,8 @@ namespace AgOpenGPS
                     }
                 }
 
-                mf.bnd.bndList[0].FixFenceLine(0);
+                mf.bnd.AddToBoundList(mf.bnd.bndList[bndSelect], bndSelect, false);
 
-                mf.CalculateSectionPatchesMinMax();
-                mf.bnd.BuildTurnLines();
-
-                mf.fd.UpdateFieldBoundaryGUIAreas();
                 mf.FileSaveBoundary();
             }
 
@@ -1054,22 +1005,24 @@ namespace AgOpenGPS
 
             GL.Color3(0.725f, 0.95f, 0.950f);
 
-            if (mf.bnd.bndList.Count > 0)
+            for (int i = bndSelect; i < mf.bnd.bndList.Count; i++)
             {
+                if (i < 0) continue;
                 GL.Begin(PrimitiveType.LineLoop);
-                for (int i = 0; i < mf.bnd.bndList[0].fenceLine.Count; i++)
+                for (int j = 0; j < mf.bnd.bndList[i].fenceLine.Count; j++)
                 {
-                    GL.Vertex3(mf.bnd.bndList[0].fenceLine[i].easting, mf.bnd.bndList[0].fenceLine[i].northing, 0);
+                    GL.Vertex3(mf.bnd.bndList[i].fenceLine[j].easting, mf.bnd.bndList[i].fenceLine[j].northing, 0);
                 }
                 GL.End();
 
                 GL.PointSize(4);
                 GL.Begin(PrimitiveType.Points);
-                for (int i = 0; i < mf.bnd.bndList[0].fenceLine.Count; i++)
+                for (int j = 0; j < mf.bnd.bndList[i].fenceLine.Count; j++)
                 {
-                    GL.Vertex3(mf.bnd.bndList[0].fenceLine[i].easting, mf.bnd.bndList[0].fenceLine[i].northing, 0);
+                    GL.Vertex3(mf.bnd.bndList[i].fenceLine[j].easting, mf.bnd.bndList[i].fenceLine[j].northing, 0);
                 }
                 GL.End();
+                if (bndSelect >= 0) break;
             }
 
             //new boundary being made
@@ -1138,9 +1091,9 @@ namespace AgOpenGPS
                         GL.Color3(0.90f, 0.5f, 0.25f);
                         GL.Begin(PrimitiveType.LineStrip);
                         {
-                            GL.Vertex3(mf.bnd.bndList[0].fenceLine[start].easting, mf.bnd.bndList[0].fenceLine[start].northing, 0);
+                            GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[start].easting, mf.bnd.bndList[bndSelect].fenceLine[start].northing, 0);
                             GL.Vertex3(pint.easting, pint.northing, 0);
-                            GL.Vertex3(mf.bnd.bndList[0].fenceLine[end].easting, mf.bnd.bndList[0].fenceLine[end].northing, 0);
+                            GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[end].easting, mf.bnd.bndList[bndSelect].fenceLine[end].northing, 0);
                         }
                         GL.End();
                     }
@@ -1150,8 +1103,8 @@ namespace AgOpenGPS
                         GL.Color3(0.90f, 0.5f, 0.25f);
                         GL.Begin(PrimitiveType.Lines);
                         {
-                            GL.Vertex3(mf.bnd.bndList[0].fenceLine[start].easting, mf.bnd.bndList[0].fenceLine[start].northing, 0);
-                            GL.Vertex3(mf.bnd.bndList[0].fenceLine[end].easting, mf.bnd.bndList[0].fenceLine[end].northing, 0);
+                            GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[start].easting, mf.bnd.bndList[bndSelect].fenceLine[start].northing, 0);
+                            GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[end].easting, mf.bnd.bndList[bndSelect].fenceLine[end].northing, 0);
                         }
                         GL.End();
                     }

@@ -120,23 +120,16 @@ namespace AgOpenGPS
             {
                 if (mf.bnd.fenceBeingMadePts.Count > 2)
                 {
-                    CBoundaryList New = new CBoundaryList();
+                    CBoundaryList newBnd = new CBoundaryList();
 
                     for (int i = 0; i < mf.bnd.fenceBeingMadePts.Count; i++)
                     {
-                        New.fenceLine.Add(mf.bnd.fenceBeingMadePts[i]);
+                        newBnd.fenceLine.Add(mf.bnd.fenceBeingMadePts[i]);
                     }
 
-                    New.CalculateFenceArea(mf.bnd.bndList.Count);
-                    New.FixFenceLine(mf.bnd.bndList.Count);
+                    mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
 
-                    mf.bnd.bndList.Add(New);
-                    mf.fd.UpdateFieldBoundaryGUIAreas();
-
-                    //turn lines made from boundaries
-                    mf.CalculateSectionPatchesMinMax();
                     mf.FileSaveBoundary();
-                    mf.bnd.BuildTurnLines();
                     mf.btnABDraw.Visible = true;
 
                     Log.EventWriter("Driven Boundary Created, Area: " + lblArea.Text);

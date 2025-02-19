@@ -22,6 +22,7 @@ namespace AgOpenGPS
 
         public bool isDriveThru;
 
+        private int idx = 0;
         //constructor
         public CBoundaryList()
         {
@@ -30,7 +31,7 @@ namespace AgOpenGPS
         }
 
         //fence functions
-        public void CalculateFenceLineHeadings()
+        private void CalculateFenceLineHeadings()
         {
             //to calc heading based on next and previous points to give an average heading.
             int cnt = fenceLine.Count;
@@ -63,6 +64,10 @@ namespace AgOpenGPS
 
         public void FixFenceLine(int bndNum)
         {
+            idx = bndNum;
+
+            CalculateFenceArea(bndNum);
+
             double spacing;
             //close if less then 20 ha, 40ha, more
             if (area < 200000) spacing = 1.1;
@@ -150,9 +155,79 @@ namespace AgOpenGPS
             //Triangulate the bundary polygon
             CPolygon bndPolygon = new CPolygon(fenceLineEar.ToArray());
             fenceTriangleList = bndPolygon.Triangulate();
+
+
+            BuildTurnLine();
         }
 
-        public void ReverseWinding()
+        public void BuildTurnLine()
+        {
+            //to fill the list of line points
+            vec3 point = new vec3();
+
+            //determine how wide a headland space
+            double totalHeadWidth = Properties.Settings.Default.set_youTurnDistanceFromBoundary;
+
+            //inside boundaries
+            turnLine.Clear();
+
+            int ptCount = fenceLine.Count;
+
+            for (int i = ptCount - 1; i >= 0; i--)
+            {
+                //calculate the point outside the boundary
+                point.easting = fenceLine[i].easting + (-Math.Sin(glm.PIBy2 + fenceLine[i].heading) * totalHeadWidth);
+                point.northing = fenceLine[i].northing + (-Math.Cos(glm.PIBy2 + fenceLine[i].heading) * totalHeadWidth);
+                point.heading = fenceLine[i].heading;
+                if (point.heading < -glm.twoPI) point.heading += glm.twoPI;
+
+                //only add if outside actual field boundary
+                if (idx == 0 == fenceLineEar.IsPointInPolygon(point))
+                {
+                    vec3 tPnt = new vec3(point.easting, point.northing, point.heading);
+                    turnLine.Add(tPnt);
+                }
+            }
+            FixTurnLine(totalHeadWidth, 2);
+
+            //countExit the reference list of original curve
+            int cnt = turnLine.Count;
+
+            //the temp array
+            vec3[] arr = new vec3[cnt];
+
+            for (int s = 0; s < cnt; s++)
+            {
+                arr[s] = turnLine[s];
+            }
+
+            double delta = 0;
+            turnLine?.Clear();
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (i == 0)
+                {
+                    turnLine.Add(arr[i]);
+                    continue;
+                }
+                delta += (arr[i - 1].heading - arr[i].heading);
+                if (Math.Abs(delta) > 0.005)
+                {
+                    turnLine.Add(arr[i]);
+                    delta = 0;
+                }
+            }
+
+            if (turnLine.Count > 0)
+            {
+                vec3 end = new vec3(turnLine[0].easting,
+                    turnLine[0].northing, turnLine[0].heading);
+                turnLine.Add(end);
+            }
+        }
+
+        private void ReverseWinding()
         {
             //reverse the boundary
             int cnt = fenceLine.Count;
@@ -168,7 +243,7 @@ namespace AgOpenGPS
             }
         }
 
-        public bool CalculateFenceArea(int idx)
+        private bool CalculateFenceArea(int idx)
         {
             int ptCount = fenceLine.Count;
             if (ptCount < 1) return false;
@@ -195,7 +270,7 @@ namespace AgOpenGPS
         }
 
         //Turn Functions
-        public void CalculateTurnHeadings()
+        private void CalculateTurnHeadings()
         {
             //to calc heading based on next and previous points to give an average heading.
             int cnt = turnLine.Count;
@@ -233,7 +308,7 @@ namespace AgOpenGPS
             turnLine.Add(new vec3(pt2));
         }
 
-        public void FixTurnLine(double totalHeadWidth, double spacing)
+        private void FixTurnLine(double totalHeadWidth, double spacing)
         {
             //countExit the points from the boundary
             int lineCount = turnLine.Count;

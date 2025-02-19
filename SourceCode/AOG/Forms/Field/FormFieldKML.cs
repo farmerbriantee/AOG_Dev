@@ -1,5 +1,5 @@
 ﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using System;
 using System.Globalization;
 using System.IO;
@@ -22,8 +22,8 @@ namespace AgOpenGPS
 
             InitializeComponent();
 
-            label1.Text = Lang.Get(ggStr.gsEnterFieldName);
-            this.Text = Lang.Get(ggStr.gsCreateNewField);
+            label1.Text = gStr.Get(gs.gsEnterFieldName);
+            this.Text = gStr.Get(gs.gsCreateNewField);
         }
 
         private void FormFieldDir_Load(object sender, EventArgs e)
@@ -186,7 +186,7 @@ namespace AgOpenGPS
                             }
                             else
                             {
-                                mf.TimedMessageBox(2000, Lang.Get(ggStr.gsErrorreadingKML), Lang.Get(ggStr.gsChooseBuildDifferentone));
+                                mf.TimedMessageBox(2000, gStr.Get(gs.gsErrorreadingKML), gStr.Get(gs.gsChooseBuildDifferentone));
                                 Log.EventWriter("New Field, Error Reading KML");
                             }
                             break;
@@ -204,7 +204,7 @@ namespace AgOpenGPS
                 {
                     btnSave.Enabled = false;
                     btnLoadKML.Enabled = false;
-                    mf.TimedMessageBox(2000, Lang.Get(ggStr.gsErrorreadingKML), Lang.Get(ggStr.gsChooseBuildDifferentone));
+                    mf.TimedMessageBox(2000, gStr.Get(gs.gsErrorreadingKML), gStr.Get(gs.gsChooseBuildDifferentone));
                     Log.EventWriter("New Field, Error Reading KML" + ee.ToString());
                     return;
                 }
@@ -279,7 +279,7 @@ namespace AgOpenGPS
                             }
                             else
                             {
-                                mf.TimedMessageBox(2000, Lang.Get(ggStr.gsErrorreadingKML), Lang.Get(ggStr.gsChooseBuildDifferentone));
+                                mf.TimedMessageBox(2000, gStr.Get(gs.gsErrorreadingKML), gStr.Get(gs.gsChooseBuildDifferentone));
                                 Log.EventWriter("New Field, Error Reading KML ");
                             }
                             //if (button.Name == "btnLoadBoundaryFromGE")
@@ -325,7 +325,7 @@ namespace AgOpenGPS
                 //create it for first save
                 if ((!string.IsNullOrEmpty(directoryName)) && (Directory.Exists(directoryName)))
                 {
-                    MessageBox.Show(Lang.Get(ggStr.gsChooseADifferentName), Lang.Get(ggStr.gsDirectoryExists), MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show(gStr.Get(gs.gsChooseADifferentName), gStr.Get(gs.gsDirectoryExists), MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
                 else
@@ -344,7 +344,7 @@ namespace AgOpenGPS
                     //create the field file header info
                     if (!mf.isFieldStarted)
                     {
-                        mf.TimedMessageBox(3000, Lang.Get(ggStr.gsFieldNotOpen), Lang.Get(ggStr.gsCreateNewField));
+                        mf.TimedMessageBox(3000, gStr.Get(gs.gsFieldNotOpen), gStr.Get(gs.gsCreateNewField));
                         return;
                     }
                     string myFileName;
@@ -388,7 +388,7 @@ namespace AgOpenGPS
             {
                 Log.EventWriter("Creating new kml field " + ex.ToString());
 
-                MessageBox.Show(Lang.Get(ggStr.gsError), ex.ToString());
+                MessageBox.Show(gStr.Get(gs.gsError), ex.ToString());
                 mf.currentFieldDirectory = "";
             }
         }

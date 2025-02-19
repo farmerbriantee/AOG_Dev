@@ -1,5 +1,5 @@
 ﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
 
             InitializeComponent();
-            btnOpenExistingLv.Text = Lang.Get(ggStr.gsUseSelected);
+            btnOpenExistingLv.Text = gStr.Get(gs.gsUseSelected);
 
             lvColumnSorterJobs = new ListViewItemSorter(lvLinesJob);
             lvLinesJob.ListViewItemSorter = lvColumnSorterJobs;
@@ -36,7 +36,7 @@ namespace AgOpenGPS
 
             if (string.IsNullOrEmpty(directoryName) || (!Directory.Exists(directoryName)))
             {
-                mf.YesMessageBox("No Jobs Exist\r\n\r\n" + Lang.Get(ggStr.gsCreateNewJob));
+                mf.YesMessageBox("No Jobs Exist\r\n\r\n" + gStr.Get(gs.gsCreateNewJob));
                 Log.EventWriter("Job Picker, No Jobs");
                 Close();
                 return;
@@ -46,7 +46,7 @@ namespace AgOpenGPS
 
             if (jobList.Count < 2)
             {
-                mf.TimedMessageBox(2000, Lang.Get(ggStr.gsCreateNewJob), Lang.Get(ggStr.gsFileError));
+                mf.TimedMessageBox(2000, gStr.Get(gs.gsCreateNewJob), gStr.Get(gs.gsFileError));
                 Log.EventWriter("Job Picker, No Jobs");
                 Close();
                 return;
@@ -101,7 +101,7 @@ namespace AgOpenGPS
 
                 DialogResult result3 = MessageBox.Show(
                     dir2Delete,
-                    Lang.Get(ggStr.gsDeleteForSure),
+                    gStr.Get(gs.gsDeleteForSure),
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question,
                     MessageBoxDefaultButton.Button2);

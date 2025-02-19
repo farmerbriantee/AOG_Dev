@@ -6,9 +6,9 @@ using System.Windows.Forms;
 
 namespace AgOpenGPS.Classes
 {
-    public static class Lang
+    public static class gStr
     {
-        public static Dictionary<string, string> cult = new Dictionary<string, string>();
+        public static Dictionary<string, string> cultureDictionary = new Dictionary<string, string>();
 
         public static bool Load()
         {
@@ -38,34 +38,30 @@ namespace AgOpenGPS.Classes
 
                     var dataTable = dataSet.Tables[0];
 
-                    int column = 4;
-                    if (RegistrySettings.culture != "en")
+                    int column = 2;
+
+                    for (int i = 1; i < dataTable.Rows.Count; i++)
                     {
-                        string regCult = "." + RegistrySettings.culture;
+                        string bob = dataTable.Rows[0][i].ToString();
 
-                        for (int i = 1; i < dataTable.Rows.Count; i++)
+                        if (dataTable.Rows[0][i].ToString() == RegistrySettings.culture)
                         {
-                            string bob = dataTable.Rows[0][i].ToString();
-
-                            if (dataTable.Rows[0][i].ToString() == regCult)
-                            {
-                                column = i;
-                                break;
-                            }
+                            column = i;
+                            break;
                         }
                     }
 
-                    cult?.Clear();
+                    cultureDictionary?.Clear();
 
                     for (int i = 1; i < dataTable.Rows.Count; ++i)
                     {
                         if (!String.IsNullOrEmpty(dataTable.Rows[i][column].ToString()))
                         {
-                            cult.Add(dataTable.Rows[i][2].ToString(), dataTable.Rows[i][column].ToString());
+                            cultureDictionary.Add(dataTable.Rows[i][0].ToString(), dataTable.Rows[i][column].ToString());
                         }
                         else
                         {
-                            cult.Add(dataTable.Rows[i][2].ToString(), dataTable.Rows[i][4].ToString());
+                            cultureDictionary.Add(dataTable.Rows[i][0].ToString(), dataTable.Rows[i][2].ToString());
                         }
                     }
                 }
@@ -79,10 +75,58 @@ namespace AgOpenGPS.Classes
             return true;
         }
 
-        public static string Get(string gstr)
+        public static void GenerateReferenceKeys()
+        {
+            string filePath = Path.Combine(Application.StartupPath, "Translations.xlsx");
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+            {
+                try
+                {
+                    IExcelDataReader reader;
+
+                    reader = ExcelDataReader.ExcelReaderFactory.CreateReader(stream);
+
+                    var conf = new ExcelDataSetConfiguration
+                    {
+                        ConfigureDataTable = _ => new ExcelDataTableConfiguration
+                        {
+                            UseHeaderRow = false
+                        }
+                    };
+
+                    var dataSet = reader.AsDataSet(conf);
+
+                    var dataTable = dataSet.Tables[0];
+
+                    //write out the file
+                    using (StreamWriter writer = new StreamWriter(Path.Combine(Application.StartupPath, "TranslationReferences.txt")))
+                    {
+                        writer.WriteLine("public static class gs");
+                        writer.WriteLine("{");
+                        for (int i = 1; i < dataTable.Rows.Count; i++)
+                        {
+                            writer.WriteLine($"     public static string {dataTable.Rows[i][0]} = \"{dataTable.Rows[i][0]}\";");
+                        }
+
+                        writer.WriteLine("}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.EventWriter($"Catch Language Reference Keys error: {ex.Message}");
+                }
+            }
+        }
+
+        public static string Get(string _gstr)
         {
             string result;
-            if (cult.TryGetValue(gstr, out result))
+            if (cultureDictionary.TryGetValue(_gstr, out result))
             {
                 return result;
             }
@@ -93,9 +137,7 @@ namespace AgOpenGPS.Classes
         }
     }
 
-    
-    
-    public static class ggStr
+    public static class gs
     {
         public static string gsABCurve = "gsABCurve";
         public static string gsABDraw = "gsABDraw";

@@ -1,5 +1,5 @@
 ﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using System;
 using System.Windows.Forms;
 
@@ -37,7 +37,7 @@ namespace AgOpenGPS
         private void RegisterKeyboard1_ButtonPressed(object sender, KeyPressEventArgs e)
         {
             //clear the error as user entered new values
-            if (keyboardString.Text == Lang.Get(ggStr.gsError))
+            if (keyboardString.Text == gStr.Get(gs.gsError))
             {
                 keyboardString.Text = "";
             }

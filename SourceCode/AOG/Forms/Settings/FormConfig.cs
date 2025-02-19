@@ -25,100 +25,100 @@ namespace AgOpenGPS
             tab1.ItemSize = new Size(0, 1);
             tab1.SizeMode = TabSizeMode.Fixed;
 
-            groupBox1.Text = Lang.Get(ggStr.gsVehiclegroupbox);
-            label70.Text = Lang.Get(ggStr.gsOpacity);
-            label122.Text = Lang.Get(ggStr.gsSendAndSave);
-            label103.Text = Lang.Get(ggStr.gsSound);
+            groupBox1.Text = gStr.Get(gs.gsVehiclegroupbox);
+            label70.Text = gStr.Get(gs.gsOpacity);
+            label122.Text = gStr.Get(gs.gsSendAndSave);
+            label103.Text = gStr.Get(gs.gsSound);
 
-            lblSaveAs.Text = Lang.Get(ggStr.gsSaveAs);
-            lblNew.Text = Lang.Get(ggStr.gsNew);
-            lblToolWidth.Text = Lang.Get(ggStr.gsWidth);
-            lblOpen.Text = Lang.Get(ggStr.gsOpen);
-            lblDelete.Text = Lang.Get(ggStr.gsDelete);
-            lblPivotDistance.Text = Lang.Get(ggStr.gsPivotDistance);
-            lblAntennaHeight.Text = Lang.Get(ggStr.gsAntennaHeight);
-            groupBox5.Text = Lang.Get(ggStr.gsAntennaOffset);
-            lblHitchLength.Text = Lang.Get(ggStr.gsHitchLength);
-            lblWheelBase.Text = Lang.Get(ggStr.gsWheelbase);
-            lblTrack.Text = Lang.Get(ggStr.gsTrack);
-            gboxAttachment.Text = Lang.Get(ggStr.gsAttachmentStyle);
+            lblSaveAs.Text = gStr.Get(gs.gsSaveAs);
+            lblNew.Text = gStr.Get(gs.gsNew);
+            lblToolWidth.Text = gStr.Get(gs.gsWidth);
+            lblOpen.Text = gStr.Get(gs.gsOpen);
+            lblDelete.Text = gStr.Get(gs.gsDelete);
+            lblPivotDistance.Text = gStr.Get(gs.gsPivotDistance);
+            lblAntennaHeight.Text = gStr.Get(gs.gsAntennaHeight);
+            groupBox5.Text = gStr.Get(gs.gsAntennaOffset);
+            lblHitchLength.Text = gStr.Get(gs.gsHitchLength);
+            lblWheelBase.Text = gStr.Get(gs.gsWheelbase);
+            lblTrack.Text = gStr.Get(gs.gsTrack);
+            gboxAttachment.Text = gStr.Get(gs.gsAttachmentStyle);
 
-            lblUnitsHitch.Text = Lang.Get(ggStr.gsUnits);
-            groupBox2.Text = Lang.Get(ggStr.gsToolOffset);
-            groupBox3.Text = Lang.Get(ggStr.gsOverlapGap);
-            lblZonesBox.Text = Lang.Get(ggStr.gsZones);
-            lblSectionWidth.Text = Lang.Get(ggStr.gsWidth);
-            lblCoverage.Text = Lang.Get(ggStr.gsCoverage);
-            lblChoose.Text = Lang.Get(ggStr.gsChoose);
-            lblBoundary.Text = Lang.Get(ggStr.gsBoundary);
-            lblSections.Text = Lang.Get(ggStr.gsSections);
+            lblUnitsHitch.Text = gStr.Get(gs.gsUnits);
+            groupBox2.Text = gStr.Get(gs.gsToolOffset);
+            groupBox3.Text = gStr.Get(gs.gsOverlapGap);
+            lblZonesBox.Text = gStr.Get(gs.gsZones);
+            lblSectionWidth.Text = gStr.Get(gs.gsWidth);
+            lblCoverage.Text = gStr.Get(gs.gsCoverage);
+            lblChoose.Text = gStr.Get(gs.gsChoose);
+            lblBoundary.Text = gStr.Get(gs.gsBoundary);
+            lblSections.Text = gStr.Get(gs.gsSections);
 
-            grpSwitch.Text = Lang.Get(ggStr.gsWorkSwitch);
-            grpControls.Text = Lang.Get(ggStr.gsSteerSwitch);
+            grpSwitch.Text = gStr.Get(gs.gsWorkSwitch);
+            grpControls.Text = gStr.Get(gs.gsSteerSwitch);
 
-            lblLookAheadTimeSettings.Text = Lang.Get(ggStr.gsLookAheadTiming);
-            lblOnSecs.Text = Lang.Get(ggStr.gsOn);
-            lblOffSecs.Text = Lang.Get(ggStr.gsOff);
-            lblTurnOffDelay.Text = Lang.Get(ggStr.gsTurnOffDelay);
+            lblLookAheadTimeSettings.Text = gStr.Get(gs.gsLookAheadTiming);
+            lblOnSecs.Text = gStr.Get(gs.gsOn);
+            lblOffSecs.Text = gStr.Get(gs.gsOff);
+            lblTurnOffDelay.Text = gStr.Get(gs.gsTurnOffDelay);
 
-            gboxSingle.Text = Lang.Get(ggStr.gsSingleAntennaSetting);
-            gboxDual.Text = Lang.Get(ggStr.gsDualAntennaSetting);
+            gboxSingle.Text = gStr.Get(gs.gsSingleAntennaSetting);
+            gboxDual.Text = gStr.Get(gs.gsDualAntennaSetting);
 
-            lblHeadingOffset.Text = Lang.Get(ggStr.gsHeadingOffset);
-            lblReverseDistance.Text = Lang.Get(ggStr.gsReverseDistance);
-            lblRTKFixAlarm.Text = Lang.Get(ggStr.gsFixAlarm);
-            lblAlarmStopsAutoSteer.Text = Lang.Get(ggStr.gsFixAlarmStop);
-            lblMinGPSStep.Text = Lang.Get(ggStr.gsGpsStep);
-            lblFixToFixDistance.Text = Lang.Get(ggStr.gsFix2Fix);
-            lblIMUFusion.Text = Lang.Get(ggStr.gsImuFusion);
-            cboxIsReverseOn.Text = Lang.Get(ggStr.gsSteerInReverse);
+            lblHeadingOffset.Text = gStr.Get(gs.gsHeadingOffset);
+            lblReverseDistance.Text = gStr.Get(gs.gsReverseDistance);
+            lblRTKFixAlarm.Text = gStr.Get(gs.gsFixAlarm);
+            lblAlarmStopsAutoSteer.Text = gStr.Get(gs.gsFixAlarmStop);
+            lblMinGPSStep.Text = gStr.Get(gs.gsGpsStep);
+            lblFixToFixDistance.Text = gStr.Get(gs.gsFix2Fix);
+            lblIMUFusion.Text = gStr.Get(gs.gsImuFusion);
+            cboxIsReverseOn.Text = gStr.Get(gs.gsSteerInReverse);
 
-            lblRemoveOffset.Text = Lang.Get(ggStr.gsRemoveOffset);
-            lblZeroRoll.Text = Lang.Get(ggStr.gsZeroRoll);
-            lblRollFilter.Text = Lang.Get(ggStr.gsRollFilter);
-            lblInvertRoll.Text = Lang.Get(ggStr.gsInvertRoll);
+            lblRemoveOffset.Text = gStr.Get(gs.gsRemoveOffset);
+            lblZeroRoll.Text = gStr.Get(gs.gsZeroRoll);
+            lblRollFilter.Text = gStr.Get(gs.gsRollFilter);
+            lblInvertRoll.Text = gStr.Get(gs.gsInvertRoll);
 
-            lblUturnExtension.Text = Lang.Get(ggStr.gsUturnExtension);
-            lblUturnSmoothing.Text = Lang.Get(ggStr.gsUturnSmooth);
+            lblUturnExtension.Text = gStr.Get(gs.gsUturnExtension);
+            lblUturnSmoothing.Text = gStr.Get(gs.gsUturnSmooth);
 
-            lblMachineModule.Text = Lang.Get(ggStr.gsMachineModule);
-            groupBox4.Text = Lang.Get(ggStr.gsHydraulicLiftConfig);
-            lblHydLookAhead.Text = Lang.Get(ggStr.gsHydraulicLiftLookAhead);
-            lblHydLowerTime.Text = Lang.Get(ggStr.gsLowerTime);
-            lblEnable.Text = Lang.Get(ggStr.gsEnable);
-            lblHydInvertRelays.Text = Lang.Get(ggStr.gsInvertRelays);
-            lblRaiseTime.Text = Lang.Get(ggStr.gsRaiseTime);
+            lblMachineModule.Text = gStr.Get(gs.gsMachineModule);
+            groupBox4.Text = gStr.Get(gs.gsHydraulicLiftConfig);
+            lblHydLookAhead.Text = gStr.Get(gs.gsHydraulicLiftLookAhead);
+            lblHydLowerTime.Text = gStr.Get(gs.gsLowerTime);
+            lblEnable.Text = gStr.Get(gs.gsEnable);
+            lblHydInvertRelays.Text = gStr.Get(gs.gsInvertRelays);
+            lblRaiseTime.Text = gStr.Get(gs.gsRaiseTime);
 
-            lblUser1.Text = Lang.Get(ggStr.gsUser1);
-            lblUser2.Text = Lang.Get(ggStr.gsUser2);
-            lblUser3.Text = Lang.Get(ggStr.gsUser3);
-            lblUser4.Text = Lang.Get(ggStr.gsUser4);
-            lblSendAndSave.Text = Lang.Get(ggStr.gsSendAndSave);
+            lblUser1.Text = gStr.Get(gs.gsUser1);
+            lblUser2.Text = gStr.Get(gs.gsUser2);
+            lblUser3.Text = gStr.Get(gs.gsUser3);
+            lblUser4.Text = gStr.Get(gs.gsUser4);
+            lblSendAndSave.Text = gStr.Get(gs.gsSendAndSave);
 
-            lblFieldMenu.Text = Lang.Get(ggStr.gsFieldMenu);
-            lblToolsMenu.Text = Lang.Get(ggStr.gsToolsMenu);
-            lblScreenButtons.Text = Lang.Get(ggStr.gsScreenButtons);
+            lblFieldMenu.Text = gStr.Get(gs.gsFieldMenu);
+            lblToolsMenu.Text = gStr.Get(gs.gsToolsMenu);
+            lblScreenButtons.Text = gStr.Get(gs.gsScreenButtons);
 
-            lblBottomMenu.Text = Lang.Get(ggStr.gsBottomMenu);
-            lblRightMenu.Text = Lang.Get(ggStr.gsRightMenu);
-            lblPowerLoss.Text = Lang.Get(ggStr.gsPowerLoss);
-            lblAutoStartAgio.Text = Lang.Get(ggStr.gsAutoStartAgIO);
-            lblAutoOffAgio.Text = Lang.Get(ggStr.gsAutoOffAgIO);
+            lblBottomMenu.Text = gStr.Get(gs.gsBottomMenu);
+            lblRightMenu.Text = gStr.Get(gs.gsRightMenu);
+            lblPowerLoss.Text = gStr.Get(gs.gsPowerLoss);
+            lblAutoStartAgio.Text = gStr.Get(gs.gsAutoStartAgIO);
+            lblAutoOffAgio.Text = gStr.Get(gs.gsAutoOffAgIO);
 
-            lblPolygons.Text = Lang.Get(ggStr.gsPolygons);
-            lblBrightness.Text = Lang.Get(ggStr.gsBrightness);
-            lblFieldTexture.Text = Lang.Get(ggStr.gsFieldTexture);
-            lblLineSmooth.Text = Lang.Get(ggStr.gsLineSmooth);
-            lblSpeedo.Text = Lang.Get(ggStr.gsSpeedo);
-            lblSvennArrow.Text = Lang.Get(ggStr.gsSvennArrow);
-            lblGrid.Text = Lang.Get(ggStr.gsGrid);
-            lblDirectionMarkers.Text = Lang.Get(ggStr.gsDirectionMarkers);
-            lblKeyboard.Text = Lang.Get(ggStr.gsKeyboard);
-            lblStartFullScreen.Text = Lang.Get(ggStr.gsStartFullscreen);
-            lblExtraGuides.Text = Lang.Get(ggStr.gsExtraGuideLines);
-            lblSectionLines.Text = Lang.Get(ggStr.gsSectionLines);
-            label79.Text = Lang.Get(ggStr.gsElevationlog);
-            unitsGroupBox.Text = Lang.Get(ggStr.gsUnits);
+            lblPolygons.Text = gStr.Get(gs.gsPolygons);
+            lblBrightness.Text = gStr.Get(gs.gsBrightness);
+            lblFieldTexture.Text = gStr.Get(gs.gsFieldTexture);
+            lblLineSmooth.Text = gStr.Get(gs.gsLineSmooth);
+            lblSpeedo.Text = gStr.Get(gs.gsSpeedo);
+            lblSvennArrow.Text = gStr.Get(gs.gsSvennArrow);
+            lblGrid.Text = gStr.Get(gs.gsGrid);
+            lblDirectionMarkers.Text = gStr.Get(gs.gsDirectionMarkers);
+            lblKeyboard.Text = gStr.Get(gs.gsKeyboard);
+            lblStartFullScreen.Text = gStr.Get(gs.gsStartFullscreen);
+            lblExtraGuides.Text = gStr.Get(gs.gsExtraGuideLines);
+            lblSectionLines.Text = gStr.Get(gs.gsSectionLines);
+            label79.Text = gStr.Get(gs.gsElevationlog);
+            unitsGroupBox.Text = gStr.Get(gs.gsUnits);
 
             HideSubMenu();
 
@@ -207,8 +207,8 @@ namespace AgOpenGPS
             tab1.SelectedTab = tabSummary;
             tboxVehicleNameSave.Focus();
 
-            lblSaveAs.Text = Lang.Get(ggStr.gsSaveAs);
-            lblNew.Text = Lang.Get(ggStr.gsNew);
+            lblSaveAs.Text = gStr.Get(gs.gsSaveAs);
+            lblNew.Text = gStr.Get(gs.gsNew);
             UpdateSummary();
 
             if (!mf.IsOnScreen(Location, Size, 1))

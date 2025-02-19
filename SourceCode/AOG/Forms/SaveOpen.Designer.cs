@@ -9,7 +9,7 @@ using System.IO;
 using System.Globalization;
 using System.Xml;
 using System.Text;
-using AgOpenGPS.Culture;
+
 using AgOpenGPS.Classes;
 
 namespace AgOpenGPS
@@ -163,7 +163,7 @@ namespace AgOpenGPS
 
             if (!isFieldStarted)
             {
-                TimedMessageBox(3000, Lang.Get(ggStr.gsFieldNotOpen), Lang.Get(ggStr.gsCreateNewField));
+                TimedMessageBox(3000, gStr.Get(gs.gsFieldNotOpen), gStr.Get(gs.gsCreateNewField));
                 return;
             }
             string myFileName;
@@ -359,7 +359,7 @@ namespace AgOpenGPS
                 {
                     Log.EventWriter("While Opening Field" + e.ToString());
 
-                    TimedMessageBox(2000, Lang.Get(ggStr.gsFieldFileIsCorrupt), Lang.Get(ggStr.gsChooseADifferentField));
+                    TimedMessageBox(2000, gStr.Get(gs.gsFieldFileIsCorrupt), gStr.Get(gs.gsChooseADifferentField));
 
                     FileSaveEverythingBeforeClosingField();
                     return;
@@ -511,7 +511,7 @@ namespace AgOpenGPS
                                 else
                                 {
                                     MessageBox.Show(fieldDirectory + " is Damaged, Missing Boundary.Txt " +
-                                        "               \r\n Delete Field or Fix ", Lang.Get(ggStr.gsFileError), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        "               \r\n Delete Field or Fix ", gStr.Get(gs.gsFileError), MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
 
                             }
@@ -530,7 +530,7 @@ namespace AgOpenGPS
             string fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Boundary.txt");
             if (!File.Exists(fileAndDirectory))
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsMissingBoundaryFile), Lang.Get(ggStr.gsButFieldIsLoaded));
+                TimedMessageBox(2000, gStr.Get(gs.gsMissingBoundaryFile), gStr.Get(gs.gsButFieldIsLoaded));
             }
             else
             {
@@ -616,7 +616,7 @@ namespace AgOpenGPS
 
                     catch (Exception e)
                     {
-                        TimedMessageBox(2000, Lang.Get(ggStr.gsBoundaryLineFilesAreCorrupt), Lang.Get(ggStr.gsButFieldIsLoaded));
+                        TimedMessageBox(2000, gStr.Get(gs.gsBoundaryLineFilesAreCorrupt), gStr.Get(gs.gsButFieldIsLoaded));
 
                         Log.EventWriter("Load Boundary Line" + e.ToString());
                     }
@@ -683,7 +683,7 @@ namespace AgOpenGPS
             string fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Flags.txt");
             if (!File.Exists(fileAndDirectory))
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsMissingFlagsFile), Lang.Get(ggStr.gsButFieldIsLoaded));
+                TimedMessageBox(2000, gStr.Get(gs.gsMissingFlagsFile), gStr.Get(gs.gsButFieldIsLoaded));
 
             }
 
@@ -747,7 +747,7 @@ namespace AgOpenGPS
 
                     catch (Exception e)
                     {
-                        TimedMessageBox(2000, Lang.Get(ggStr.gsFlagFileIsCorrupt), Lang.Get(ggStr.gsButFieldIsLoaded));
+                        TimedMessageBox(2000, gStr.Get(gs.gsFlagFileIsCorrupt), gStr.Get(gs.gsButFieldIsLoaded));
 
                         Log.EventWriter("FieldOpen, Loading Flags, Corrupt Flag File" + e.ToString());
                     }
@@ -856,7 +856,7 @@ namespace AgOpenGPS
 
             if (!File.Exists(filename))
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsFileError), "Missing Headlines File");
+                TimedMessageBox(2000, gStr.Get(gs.gsFileError), "Missing Headlines File");
                 Log.EventWriter("Load Field, Missing Headlines File");
             }
             else
@@ -998,7 +998,7 @@ namespace AgOpenGPS
                     {
                         Log.EventWriter("Loading Contour file" + e.ToString());
 
-                        TimedMessageBox(2000, Lang.Get(ggStr.gsContourFileIsCorrupt), Lang.Get(ggStr.gsButFieldIsLoaded));
+                        TimedMessageBox(2000, gStr.Get(gs.gsContourFileIsCorrupt), gStr.Get(gs.gsButFieldIsLoaded));
                     }
                 }
             }
@@ -1073,7 +1073,7 @@ namespace AgOpenGPS
                     {
                         Log.EventWriter("Section file" + e.ToString());
 
-                        TimedMessageBox(2000, "Section File is Corrupt", Lang.Get(ggStr.gsButFieldIsLoaded));
+                        TimedMessageBox(2000, "Section File is Corrupt", gStr.Get(gs.gsButFieldIsLoaded));
                     }
                 }
             }
@@ -1097,7 +1097,7 @@ namespace AgOpenGPS
 
             if (!File.Exists(filename))
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsFileError), "Missing Tracks File");
+                TimedMessageBox(2000, gStr.Get(gs.gsFileError), "Missing Tracks File");
                 Log.EventWriter("Load Field, Missing Tracks File");
             }
             else
@@ -1193,7 +1193,7 @@ namespace AgOpenGPS
                     }
                     catch (Exception er)
                     {
-                        TimedMessageBox(2000, Lang.Get(ggStr.gsCurveLineFileIsCorrupt), Lang.Get(ggStr.gsButFieldIsLoaded));
+                        TimedMessageBox(2000, gStr.Get(gs.gsCurveLineFileIsCorrupt), gStr.Get(gs.gsButFieldIsLoaded));
                         Log.EventWriter("Load Curve Line" + er.ToString());
                     }
                 }
@@ -1294,7 +1294,7 @@ namespace AgOpenGPS
 
                     catch (Exception e)
                     {
-                        TimedMessageBox(2000, "Tram is corrupt", Lang.Get(ggStr.gsButFieldIsLoaded));
+                        TimedMessageBox(2000, "Tram is corrupt", gStr.Get(gs.gsButFieldIsLoaded));
 
                         Log.EventWriter("Load Boundary Line" + e.ToString());
                     }

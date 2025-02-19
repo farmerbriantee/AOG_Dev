@@ -1,5 +1,5 @@
 ﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using System;
 using System.Globalization;
 using System.IO;
@@ -21,13 +21,13 @@ namespace AgOpenGPS
 
             InitializeComponent();
 
-            btnFieldOpen.Text = Lang.Get(ggStr.gsOpen);
-            btnFieldNew.Text = Lang.Get(ggStr.gsNew);
-            btnFieldResume.Text = Lang.Get(ggStr.gsResume);
-            btnFromKML.Text = Lang.Get(ggStr.gsFromKml);
+            btnFieldOpen.Text = gStr.Get(gs.gsOpen);
+            btnFieldNew.Text = gStr.Get(gs.gsNew);
+            btnFieldResume.Text = gStr.Get(gs.gsResume);
+            btnFromKML.Text = gStr.Get(gs.gsFromKml);
             btnFromISOXML.Text = "From ISOXML";
-            btnFieldClose.Text = Lang.Get(ggStr.gsClose);
-            this.Text = Lang.Get(ggStr.gsStartNewField);
+            btnFieldClose.Text = gStr.Get(gs.gsClose);
+            this.Text = gStr.Get(gs.gsStartNewField);
         }
 
         private void FormField_Load(object sender, EventArgs e)
@@ -40,19 +40,19 @@ namespace AgOpenGPS
 
             if (!File.Exists(fileAndDirectory))
             {
-                lblResumeField.Text = "Field: " + Lang.Get(ggStr.gsNone);
+                lblResumeField.Text = "Field: " + gStr.Get(gs.gsNone);
                 btnFieldResume.Enabled = false;
                 mf.currentFieldDirectory = "";
                 Properties.Settings.Default.setF_CurrentFieldDir = "";
             }
             else
             {
-                lblResumeField.Text = $"Field: {Lang.Get(ggStr.gsResume)}: {mf.currentFieldDirectory}";
+                lblResumeField.Text = $"Field: {gStr.Get(gs.gsResume)}: {mf.currentFieldDirectory}";
 
                 if (mf.isFieldStarted)
                 {
                     btnFieldResume.Enabled = false;
-                    lblResumeField.Text = $"Field: {Lang.Get(ggStr.gsOpen)}: {mf.currentFieldDirectory}";
+                    lblResumeField.Text = $"Field: {gStr.Get(gs.gsOpen)}: {mf.currentFieldDirectory}";
                 }
                 else
                 {
@@ -66,18 +66,18 @@ namespace AgOpenGPS
 
                 if (!File.Exists(fileAndDirectory))
                 {
-                    lblResumeJob.Text = $"Job: {Lang.Get(ggStr.gsNone)}";
+                    lblResumeJob.Text = $"Job: {gStr.Get(gs.gsNone)}";
                     isResumeJob = false;
                     mf.currentJobDirectory = "";
                     Properties.Settings.Default.setF_CurrentJobDir = "";
                 }
                 else
                 {
-                    lblResumeJob.Text = $"Job: { Lang.Get(ggStr.gsResume)}: {Path.GetFileName(mf.currentJobDirectory)}";
+                    lblResumeJob.Text = $"Job: { gStr.Get(gs.gsResume)}: {Path.GetFileName(mf.currentJobDirectory)}";
 
                     if (mf.isJobStarted)
                     {
-                        lblResumeField.Text = $"Job: {Lang.Get(ggStr.gsOpen)}: {Path.GetFileName(mf.currentJobDirectory)}";
+                        lblResumeField.Text = $"Job: {gStr.Get(gs.gsOpen)}: {Path.GetFileName(mf.currentJobDirectory)}";
                         isResumeJob = false;
                     }
                     else
@@ -89,9 +89,9 @@ namespace AgOpenGPS
             else
             {
                 if (mf.isJobStarted)
-                    lblResumeJob.Text = $"Job: { Lang.Get(ggStr.gsOpen)}: {Path.GetFileName(mf.currentJobDirectory)}";
+                    lblResumeJob.Text = $"Job: { gStr.Get(gs.gsOpen)}: {Path.GetFileName(mf.currentJobDirectory)}";
                 else
-                    lblResumeJob.Text = $" Job: {Lang.Get(ggStr.gsNone)}";
+                    lblResumeJob.Text = $" Job: {gStr.Get(gs.gsNone)}";
             }
 
             Location = Properties.Settings.Default.setFieldMenu_location;

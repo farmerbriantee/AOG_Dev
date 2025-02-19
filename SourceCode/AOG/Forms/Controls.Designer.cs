@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using AgOpenGPS.Properties;
 using Microsoft.Win32;
 using OpenTK.Input;
@@ -177,7 +177,7 @@ namespace AgOpenGPS
                 if (isBtnAutoSteerOn)
                 {
                     btnAutoSteer.PerformClick();
-                    TimedMessageBox(2000, Lang.Get(ggStr.gsGuidanceStopped), Lang.Get(ggStr.gsContourOn));
+                    TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), gStr.Get(gs.gsContourOn));
                 }
 
             }
@@ -319,7 +319,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    TimedMessageBox(2000, Lang.Get(ggStr.gsNoGuidanceLines), Lang.Get(ggStr.gsTurnOnContourOrMakeABLine));
+                    TimedMessageBox(2000, gStr.Get(gs.gsNoGuidanceLines), gStr.Get(gs.gsTurnOnContourOrMakeABLine));
                 }
             }
         }
@@ -330,7 +330,7 @@ namespace AgOpenGPS
 
             if (bnd.bndList.Count == 0)
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsNoBoundary), Lang.Get(ggStr.gsCreateABoundaryFirst));
+                TimedMessageBox(2000, gStr.Get(gs.gsNoBoundary), gStr.Get(gs.gsCreateABoundaryFirst));
                 Log.EventWriter("Uturn attempted without boundary");
                 return;
             }
@@ -384,7 +384,7 @@ namespace AgOpenGPS
                 if (isBtnAutoSteerOn)
                 {
                     btnAutoSteer.PerformClick();
-                    TimedMessageBox(2000, Lang.Get(ggStr.gsGuidanceStopped), "Track Changed");
+                    TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Track Changed");
                 }
 
                 if (yt.isYouTurnBtnOn) btnAutoYouTurn.PerformClick();
@@ -423,7 +423,7 @@ namespace AgOpenGPS
                 if (isBtnAutoSteerOn)
                 {
                     btnAutoSteer.PerformClick();
-                    TimedMessageBox(2000, Lang.Get(ggStr.gsGuidanceStopped), "Track Changed");
+                    TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Track Changed");
                 }
 
                 lblNumCu.Text = (trk.idx + 1).ToString() + "/" + trk.gArr.Count.ToString();
@@ -457,7 +457,7 @@ namespace AgOpenGPS
             }
             else
             {
-                TimedMessageBox(1500, Lang.Get(ggStr.gsNoABLineActive), Lang.Get(ggStr.gsPleaseEnterABLine));
+                TimedMessageBox(1500, gStr.Get(gs.gsNoABLineActive), gStr.Get(gs.gsPleaseEnterABLine));
                 return;
             }
             if (flp1.Visible)
@@ -496,7 +496,7 @@ namespace AgOpenGPS
             }
             else
             {
-                TimedMessageBox(1500, Lang.Get(ggStr.gsNoABLineActive), Lang.Get(ggStr.gsPleaseEnterABLine));
+                TimedMessageBox(1500, gStr.Get(gs.gsNoABLineActive), gStr.Get(gs.gsPleaseEnterABLine));
                 return;
             }
 
@@ -559,7 +559,7 @@ namespace AgOpenGPS
         {
             if (bnd.bndList.Count == 0)
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsNoBoundary), Lang.Get(ggStr.gsCreateABoundaryFirst));
+                TimedMessageBox(2000, gStr.Get(gs.gsNoBoundary), gStr.Get(gs.gsCreateABoundaryFirst));
                 return;
             }
 
@@ -596,7 +596,7 @@ namespace AgOpenGPS
                 if (isFieldStarted)
                 {
                     FileSaveEverythingBeforeClosingField();
-                    TimedMessageBox(2500, Lang.Get(ggStr.gsField), "Field is now closed");
+                    TimedMessageBox(2500, gStr.Get(gs.gsField), "Field is now closed");
                 }
                 else
                 {
@@ -645,7 +645,7 @@ namespace AgOpenGPS
 
             if (this.OwnedForms.Any())
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsWindowsStillOpen), Lang.Get(ggStr.gsCloseAllWindowsFirst));
+                TimedMessageBox(2000, gStr.Get(gs.gsWindowsStillOpen), gStr.Get(gs.gsCloseAllWindowsFirst));
                 return;
             }
 
@@ -752,13 +752,13 @@ namespace AgOpenGPS
 
             if (trk.gArr.Count < 1 )
             {
-                TimedMessageBox(1500, Lang.Get(ggStr.gsNoGuidanceLines), Lang.Get(ggStr.gsNoGuidanceLines));
+                TimedMessageBox(1500, gStr.Get(gs.gsNoGuidanceLines), gStr.Get(gs.gsNoGuidanceLines));
                 panelRight.Enabled = true;
                 return;
             }
             if (bnd.bndList.Count < 1)
             {
-                TimedMessageBox(1500, Lang.Get(ggStr.gsNoBoundary), Lang.Get(ggStr.gsCreateABoundaryFirst));
+                TimedMessageBox(1500, gStr.Get(gs.gsNoBoundary), gStr.Get(gs.gsCreateABoundaryFirst));
                 panelRight.Enabled = true;
                 return;
             }
@@ -784,7 +784,7 @@ namespace AgOpenGPS
         {
             if (bnd.bndList.Count == 0)
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsNoBoundary), Lang.Get(ggStr.gsCreateABoundaryFirst));
+                TimedMessageBox(2000, gStr.Get(gs.gsNoBoundary), gStr.Get(gs.gsCreateABoundaryFirst));
                 return;
             }
 
@@ -794,7 +794,7 @@ namespace AgOpenGPS
         {
             if (bnd.bndList.Count == 0)
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsNoBoundary), Lang.Get(ggStr.gsCreateABoundaryFirst));
+                TimedMessageBox(2000, gStr.Get(gs.gsNoBoundary), gStr.Get(gs.gsCreateABoundaryFirst));
                 return;
             }
 
@@ -1203,7 +1203,7 @@ namespace AgOpenGPS
         {
             if (isFieldStarted)
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsFieldIsOpen), Lang.Get(ggStr.gsCloseFieldFirst));
+                TimedMessageBox(2000, gStr.Get(gs.gsFieldIsOpen), gStr.Get(gs.gsCloseFieldFirst));
                 return;
             }
 
@@ -1232,7 +1232,7 @@ namespace AgOpenGPS
                 RegistrySettings.Save();
 
                 //restart program
-                MessageBox.Show(Lang.Get(ggStr.gsProgramWillExitPleaseRestart));
+                MessageBox.Show(gStr.Get(gs.gsProgramWillExitPleaseRestart));
                 Close();
             }
         }
@@ -1255,7 +1255,7 @@ namespace AgOpenGPS
         {
             if (isFieldStarted)
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsFieldIsOpen), Lang.Get(ggStr.gsCloseFieldFirst));
+                TimedMessageBox(2000, gStr.Get(gs.gsFieldIsOpen), gStr.Get(gs.gsCloseFieldFirst));
                 Log.EventWriter("Turning Nozzle on or off while open field");
                 return;
             }
@@ -1310,11 +1310,11 @@ namespace AgOpenGPS
         {
             if (isFieldStarted)
             {
-                MessageBox.Show(Lang.Get(ggStr.gsCloseFieldFirst));
+                MessageBox.Show(gStr.Get(gs.gsCloseFieldFirst));
             }
             else
             {
-                DialogResult result2 = MessageBox.Show(Lang.Get(ggStr.gsReallyResetEverything), Lang.Get(ggStr.gsResetAll),
+                DialogResult result2 = MessageBox.Show(gStr.Get(gs.gsReallyResetEverything), gStr.Get(gs.gsResetAll),
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
                 if (result2 == DialogResult.Yes)
@@ -1333,7 +1333,7 @@ namespace AgOpenGPS
                     Settings.Default.Reset();
                     
 
-                    MessageBox.Show(Lang.Get(ggStr.gsProgramWillExitPleaseRestart));
+                    MessageBox.Show(gStr.Get(gs.gsProgramWillExitPleaseRestart));
                     Close();
                 }
             }
@@ -1343,7 +1343,7 @@ namespace AgOpenGPS
         {
             if (isFieldStarted)
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsFieldIsOpen), Lang.Get(ggStr.gsCloseFieldFirst));
+                TimedMessageBox(2000, gStr.Get(gs.gsFieldIsOpen), gStr.Get(gs.gsCloseFieldFirst));
                 return;
             }
             if (simulatorOnToolStripMenuItem.Checked)
@@ -1471,6 +1471,10 @@ namespace AgOpenGPS
 
         }
 
+        private void menuGenerateLanguageReference_Click(object sender, EventArgs e)
+        {
+            gStr.GenerateReferenceKeys();
+        }
 
         private void SetLanguage(string lang)
         {
@@ -1593,7 +1597,7 @@ namespace AgOpenGPS
             Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(RegistrySettings.culture);
 
             //load language file Translations.xlsx
-            if (!Lang.Load()) YesMessageBox("Serious error loading languages");
+            if (!gStr.Load()) YesMessageBox("Serious error loading languages");
 
             LoadSettings();
         }
@@ -1810,8 +1814,8 @@ namespace AgOpenGPS
             }
             else
             {
-                if (!isFieldStarted) TimedMessageBox(2000, Lang.Get(ggStr.gsFieldNotOpen), Lang.Get(ggStr.gsStartNewField));
-                else TimedMessageBox(2000, Lang.Get(ggStr.gsCurveNotOn), Lang.Get(ggStr.gsTurnABCurveOn));
+                if (!isFieldStarted) TimedMessageBox(2000, gStr.Get(gs.gsFieldNotOpen), gStr.Get(gs.gsStartNewField));
+                else TimedMessageBox(2000, gStr.Get(gs.gsCurveNotOn), gStr.Get(gs.gsTurnABCurveOn));
             }
         }
          private void deleteContourPathsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1829,8 +1833,8 @@ namespace AgOpenGPS
                 if (autoBtnState == btnStates.Off && manualBtnState == btnStates.Off)
                 {
 
-                    DialogResult result3 = MessageBox.Show(Lang.Get(ggStr.gsDeleteAllContoursAndSections),
-                        Lang.Get(ggStr.gsDeleteForSure),
+                    DialogResult result3 = MessageBox.Show(gStr.Get(gs.gsDeleteAllContoursAndSections),
+                        gStr.Get(gs.gsDeleteForSure),
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question,
                         MessageBoxDefaultButton.Button2);
@@ -1878,7 +1882,7 @@ namespace AgOpenGPS
                     }
                     else
                     {
-                        TimedMessageBox(1500, Lang.Get(ggStr.gsNothingDeleted), Lang.Get(ggStr.gsActionHasBeenCancelled));
+                        TimedMessageBox(1500, gStr.Get(gs.gsNothingDeleted), gStr.Get(gs.gsActionHasBeenCancelled));
                     }
                 }
                 else
@@ -2158,7 +2162,7 @@ namespace AgOpenGPS
             if (isBtnAutoSteerOn)
             {
                 btnAutoSteer.PerformClick();
-                TimedMessageBox(2000, Lang.Get(ggStr.gsGuidanceStopped), "Sim Reverse Touched");
+                TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Sim Reverse Touched");
                 Log.EventWriter("Steer Off, Sim Reverse Activated");
             }
         }

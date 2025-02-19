@@ -1,5 +1,5 @@
 ﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using System;
 using System.Windows.Forms;
 
@@ -19,8 +19,8 @@ namespace AgOpenGPS
 
             InitializeComponent();
 
-            label1.Text = Lang.Get(ggStr.gsArea) + ":";
-            this.Text = Lang.Get(ggStr.gsStopRecordPauseBoundary);
+            label1.Text = gStr.Get(gs.gsArea) + ":";
+            this.Text = gStr.Get(gs.gsStopRecordPauseBoundary);
             nudOffset.Controls[0].Enabled = false;
         }
 
@@ -112,7 +112,7 @@ namespace AgOpenGPS
 
         private void btnStoPGN_Click(object sender, EventArgs e)
         {
-            DialogResult result3 = MessageBox.Show("Done?", Lang.Get(ggStr.gsBoundary),
+            DialogResult result3 = MessageBox.Show("Done?", gStr.Get(gs.gsBoundary),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
                 MessageBoxDefaultButton.Button2);
@@ -190,8 +190,8 @@ namespace AgOpenGPS
 
         private void btnRestart_Click(object sender, EventArgs e)
         {
-            DialogResult result3 = MessageBox.Show(Lang.Get(ggStr.gsCompletelyDeleteBoundary),
-                                    Lang.Get(ggStr.gsDeleteForSure),
+            DialogResult result3 = MessageBox.Show(gStr.Get(gs.gsCompletelyDeleteBoundary),
+                                    gStr.Get(gs.gsDeleteForSure),
                                     MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Question,
                                     MessageBoxDefaultButton.Button2);
@@ -239,7 +239,7 @@ namespace AgOpenGPS
                 {
                     mf.bnd.isOkToAddPoints = false;
                     btnPausePlay.Image = Properties.Resources.BoundaryRecord;
-                    //btnPausePlay.Text = Lang.Get(ggStr.gsRecord;
+                    //btnPausePlay.Text = gStr.Get(gs.gsRecord;
                     btnAddPoint.Enabled = true;
                     btnDeleteLast.Enabled = true;
                 }
@@ -247,7 +247,7 @@ namespace AgOpenGPS
                 {
                     mf.bnd.isOkToAddPoints = true;
                     btnPausePlay.Image = Properties.Resources.boundaryPause;
-                    //btnPausePlay.Text = Lang.Get(ggStr.gsPause;
+                    //btnPausePlay.Text = gStr.Get(gs.gsPause;
                     btnAddPoint.Enabled = false;
                     btnDeleteLast.Enabled = false;
                 }

@@ -1,5 +1,5 @@
 ﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -36,7 +36,7 @@ namespace AgOpenGPS
             mf = _mf as FormGPS;
             InitializeComponent();
 
-            //btnPausePlay.Text = Lang.Get(ggStr.gsPause;
+            //btnPausePlay.Text = gStr.Get(gs.gsPause;
             this.Text = "Tracks";
         }
 
@@ -135,7 +135,7 @@ namespace AgOpenGPS
             if (mf.isBtnAutoSteerOn)
             {
                 mf.btnAutoSteer.PerformClick();
-                mf.TimedMessageBox(2000, Lang.Get(ggStr.gsGuidanceStopped), "Return From Editing");
+                mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Return From Editing");
             }
             if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
 
@@ -202,7 +202,7 @@ namespace AgOpenGPS
                     if (mf.isBtnAutoSteerOn)
                     {
                         mf.btnAutoSteer.PerformClick();
-                        mf.TimedMessageBox(2000, Lang.Get(ggStr.gsGuidanceStopped), Lang.Get(ggStr.gsNoGuidanceLines));
+                        mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), gStr.Get(gs.gsNoGuidanceLines));
                         Log.EventWriter("Autosteer Stop, No Tracks Available");
                     }
                     Close();
@@ -642,7 +642,7 @@ namespace AgOpenGPS
                 mf.trk.designPtA.easting = mf.pivotAxlePos.easting;
                 mf.trk.designPtA.northing = mf.pivotAxlePos.northing;
 
-                lblCurveExists.Text = Lang.Get(ggStr.gsDriving);
+                lblCurveExists.Text = gStr.Get(gs.gsDriving);
 
                 btnBCurve.Enabled = true;
                 btnACurve.Enabled = false;
@@ -754,14 +754,14 @@ namespace AgOpenGPS
             {
                 mf.trk.isRecordingCurveTrack = false;
                 btnPausePlay.Image = Properties.Resources.BoundaryRecord;
-                //btnPausePlay.Text = Lang.Get(ggStr.gsRecord;
+                //btnPausePlay.Text = gStr.Get(gs.gsRecord;
                 btnACurve.Enabled = true;
             }
             else
             {
                 mf.trk.isRecordingCurveTrack = true;
                 btnPausePlay.Image = Properties.Resources.boundaryPause;
-                //btnPausePlay.Text = Lang.Get(ggStr.gsPause;
+                //btnPausePlay.Text = gStr.Get(gs.gsPause;
                 btnACurve.Enabled = false;
             }
             btnBCurve.Enabled = mf.trk.designPtsList.Count > 3;
@@ -1099,7 +1099,7 @@ namespace AgOpenGPS
                     }
                     else
                     {
-                        mf.TimedMessageBox(2000, Lang.Get(ggStr.gsErrorreadingKML), Lang.Get(ggStr.gsMissingABLinesFile));
+                        mf.TimedMessageBox(2000, gStr.Get(gs.gsErrorreadingKML), gStr.Get(gs.gsMissingABLinesFile));
                     }
                 }
             }

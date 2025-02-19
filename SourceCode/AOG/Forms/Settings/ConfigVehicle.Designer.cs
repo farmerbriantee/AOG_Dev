@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using AgOpenGPS.Properties;
 using Microsoft.Win32;
 using OpenTK.Graphics.OpenGL;
@@ -52,7 +52,7 @@ namespace AgOpenGPS
             {
                 DialogResult result3 = MessageBox.Show(
                     "Open: " + lvVehicles.SelectedItems[0].SubItems[0].Text + ".XML ?",
-                    Lang.Get(ggStr.gsSaveAndReturn),
+                    gStr.Get(gs.gsSaveAndReturn),
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question,
                     MessageBoxDefaultButton.Button2);
@@ -141,7 +141,7 @@ namespace AgOpenGPS
                 {
                     DialogResult result3 = MessageBox.Show(
                     "Delete: " + lvVehicles.SelectedItems[0].SubItems[0].Text + ".XML",
-                    Lang.Get(ggStr.gsSaveAndReturn),
+                    gStr.Get(gs.gsSaveAndReturn),
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Error,
                     MessageBoxDefaultButton.Button2);

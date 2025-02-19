@@ -1,5 +1,5 @@
 ﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -142,7 +142,7 @@ namespace AgOpenGPS
 
             if (gTemp == null || gTemp.Count == 0)
             {
-                mf.YesMessageBox(Lang.Get(ggStr.gsNoGuidanceLines) + "\r\n\r\n  Exiting");
+                mf.YesMessageBox(gStr.Get(gs.gsNoGuidanceLines) + "\r\n\r\n  Exiting");
                 isCancel = true;
                 Close();
             }
@@ -751,7 +751,7 @@ namespace AgOpenGPS
 
         private void FixLabelsCurve()
         {
-            this.Text = Lang.Get(ggStr.gsTramLines);
+            this.Text = gStr.Get(gs.gsTramLines);
             this.Text += "    Track: " + (mf.vehicle.trackWidth * mf.m2FtOrM).ToString("N2") + mf.unitsFtM;
             this.Text += "    Tram: " + (mf.tram.tramWidth * mf.m2FtOrM).ToString("N2") + mf.unitsFtM;
             this.Text += "    Seed: " + (mf.tool.width * mf.m2FtOrM).ToString("N2") + mf.unitsFtM;

@@ -1,7 +1,7 @@
 ﻿//Please, if you use this, share the improvements
 
 using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using AgOpenGPS.Properties;
 using ExcelDataReader;
 using OpenTK;
@@ -365,7 +365,7 @@ namespace AgOpenGPS
 
         private void FormGPS_Load(object sender, EventArgs e)
         {
-            if (!Lang.Load()) YesMessageBox("Serious error loading languages");
+            if (!gStr.Load()) YesMessageBox("Serious error loading languages");
 
             if (!isTermsAccepted)
             {
@@ -405,9 +405,6 @@ namespace AgOpenGPS
             panelSim.Left = Width / 2 - 330;
             panelSim.Width = 700;
             panelSim.Top = Height - 60;
-
-            //set the language to last used
-            SetLanguage(RegistrySettings.culture);
 
             //make sure current field directory exists, null if not
             currentFieldDirectory = Settings.Default.setF_CurrentFieldDir;
@@ -602,7 +599,7 @@ namespace AgOpenGPS
 
             if (this.OwnedForms.Any())
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsWindowsStillOpen), Lang.Get(ggStr.gsCloseAllWindowsFirst));
+                TimedMessageBox(2000, gStr.Get(gs.gsWindowsStillOpen), gStr.Get(gs.gsCloseAllWindowsFirst));
                 e.Cancel = true;
                 return;
             }
@@ -732,7 +729,7 @@ namespace AgOpenGPS
         {
             panelRight.Enabled = false;
             FieldMenuButtonEnableDisable(false);
-            displayFieldName = Lang.Get(ggStr.gsNone);
+            displayFieldName = gStr.Get(gs.gsNone);
 
             JobClose();
             FieldClose();
@@ -902,7 +899,7 @@ namespace AgOpenGPS
                 isJobStarted = false;
             }
 
-            displayJobName = Lang.Get(ggStr.gsNone);
+            displayJobName = gStr.Get(gs.gsNone);
 
             //clear out contour and Lists
             btnContour.Enabled = false;
@@ -1026,7 +1023,7 @@ namespace AgOpenGPS
             //reset GUI areas
             fd.UpdateFieldBoundaryGUIAreas();
 
-            displayFieldName = Lang.Get(ggStr.gsNone);
+            displayFieldName = gStr.Get(gs.gsNone);
 
             isPanelBottomHidden = false;
 

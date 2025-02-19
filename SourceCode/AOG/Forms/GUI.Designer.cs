@@ -10,7 +10,7 @@ using System.IO;
 using System.Media;
 using System.Reflection;
 using System.Collections.Generic;
-using AgOpenGPS.Culture;
+
 using System.Text;
 using AgOpenGPS.Classes;
 
@@ -138,7 +138,7 @@ namespace AgOpenGPS
                     switch (currentFieldTextCounter)
                     {
                         case 0:
-                            lblCurrentField.Text = Lang.Get(ggStr.gsField) + ": " + displayFieldName + " * Job: " + displayJobName;
+                            lblCurrentField.Text = gStr.Get(gs.gsField) + ": " + displayFieldName + " * Job: " + displayJobName;
                             break;
 
                         case 1:
@@ -187,7 +187,7 @@ namespace AgOpenGPS
                             if (trk.idx > -1)
                                 lblCurrentField.Text = "Line: " + trk.gArr[trk.idx].name;
                             else
-                                lblCurrentField.Text = "Line: " + Lang.Get(ggStr.gsNoGuidanceLines);
+                                lblCurrentField.Text = "Line: " + gStr.Get(gs.gsNoGuidanceLines);
                             break;
 
                         case 3:
@@ -343,7 +343,7 @@ namespace AgOpenGPS
                 if (!ct.isContourBtnOn && trk.idx == -1 && isBtnAutoSteerOn) 
                 {
                     btnAutoSteer.PerformClick();
-                    TimedMessageBox(2000, Lang.Get(ggStr.gsGuidanceStopped), Lang.Get(ggStr.gsNoGuidanceLines));
+                    TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), gStr.Get(gs.gsNoGuidanceLines));
                     Log.EventWriter("Steer Safe Off, No Tracks, Idx -1");
                 }
 
@@ -626,11 +626,8 @@ namespace AgOpenGPS
             Properties.Settings.Default.setDisplay_customColors = "";
             for (int i = 0; i < 15; i++)
                 Properties.Settings.Default.setDisplay_customColors += customColorsList[i].ToString() + ",";
-            Properties.Settings.Default.setDisplay_customColors += customColorsList[15].ToString();
-
+            Properties.Settings.Default.setDisplay_customColors += customColorsList[15].ToString(); 
             
-
-
             isTextureOn = Settings.Default.setDisplay_isTextureOn;
             isLogElevation = Settings.Default.setDisplay_isLogElevation;
             isLineSmooth = Properties.Settings.Default.setDisplay_isLineSmooth;
@@ -882,42 +879,42 @@ namespace AgOpenGPS
                 btnChargeStatus.BackColor = Color.LightCoral;
             }
 
-            enterSimCoordsToolStripMenuItem.Text = Lang.Get(ggStr.gsEnterSimCoords);
-            menustripLanguage.Text = Lang.Get(ggStr.gsLanguage);
+            enterSimCoordsToolStripMenuItem.Text = gStr.Get(gs.gsEnterSimCoords);
+            menustripLanguage.Text = gStr.Get(gs.gsLanguage);
 
-            simulatorOnToolStripMenuItem.Text = Lang.Get(ggStr.gsSimulatorOn);
-            resetALLToolStripMenuItem.Text = Lang.Get(ggStr.gsResetAll);
+            simulatorOnToolStripMenuItem.Text = gStr.Get(gs.gsSimulatorOn);
+            resetALLToolStripMenuItem.Text = gStr.Get(gs.gsResetAll);
 
-            toolStripColors.Text = Lang.Get(ggStr.gsColors);
-            toolStripSectionColors.Text = "Section " + Lang.Get(ggStr.gsColors);
-            toolStripConfig.Text = Lang.Get(ggStr.gsConfiguration);
-            toolStripSteerSettings.Text = Lang.Get(ggStr.gsAutoSteer);
-            toolStripWorkingDirectories.Text = Lang.Get(ggStr.gsDirectories);
+            toolStripColors.Text = gStr.Get(gs.gsColors);
+            toolStripSectionColors.Text = "Section " + gStr.Get(gs.gsColors);
+            toolStripConfig.Text = gStr.Get(gs.gsConfiguration);
+            toolStripSteerSettings.Text = gStr.Get(gs.gsAutoSteer);
+            toolStripWorkingDirectories.Text = gStr.Get(gs.gsDirectories);
 
-            resetEverythingToolStripMenuItem.Text = Lang.Get(ggStr.gsResetAllForSure);
+            resetEverythingToolStripMenuItem.Text = gStr.Get(gs.gsResetAllForSure);
 
-            steerChartStripMenu.Text = Lang.Get(ggStr.gsCharts);
+            steerChartStripMenu.Text = gStr.Get(gs.gsCharts);
 
             //Tools Menu
-            SmoothABtoolStripMenu.Text = Lang.Get(ggStr.gsSmoothABCurve);
-            boundariesToolStripMenuItem.Text = Lang.Get(ggStr.gsBoundary);
-            headlandToolStripMenuItem.Text = Lang.Get(ggStr.gsHeadland);
-            headlandBuildToolStripMenuItem.Text = Lang.Get(ggStr.gsHeadland) + " Builder";
-            deleteContourPathsToolStripMenuItem.Text = Lang.Get(ggStr.gsDeleteContourPaths);
-            deleteAppliedToolStripMenuItem.Text = Lang.Get(ggStr.gsDeleteAppliedArea);
-            tramsMultiMenuField.Text = Lang.Get(ggStr.gsTramLines) + " Multi";
+            SmoothABtoolStripMenu.Text = gStr.Get(gs.gsSmoothABCurve);
+            boundariesToolStripMenuItem.Text = gStr.Get(gs.gsBoundary);
+            headlandToolStripMenuItem.Text = gStr.Get(gs.gsHeadland);
+            headlandBuildToolStripMenuItem.Text = gStr.Get(gs.gsHeadland) + " Builder";
+            deleteContourPathsToolStripMenuItem.Text = gStr.Get(gs.gsDeleteContourPaths);
+            deleteAppliedToolStripMenuItem.Text = gStr.Get(gs.gsDeleteAppliedArea);
+            tramsMultiMenuField.Text = gStr.Get(gs.gsTramLines) + " Multi";
 
-            recordedPathStripMenu.Text = Lang.Get(ggStr.gsRecordedPathMenu);
-            flagByLatLonToolStripMenuItem.Text = Lang.Get(ggStr.gsFlagByLatLon);
-            boundaryToolToolStripMenu.Text = Lang.Get(ggStr.gsBoundary) + " Tool";
+            recordedPathStripMenu.Text = gStr.Get(gs.gsRecordedPathMenu);
+            flagByLatLonToolStripMenuItem.Text = gStr.Get(gs.gsFlagByLatLon);
+            boundaryToolToolStripMenu.Text = gStr.Get(gs.gsBoundary) + " Tool";
 
-            webcamToolStrip.Text = Lang.Get(ggStr.gsWebCam);
-            offsetFixToolStrip.Text = Lang.Get(ggStr.gsOffsetFix);
-            wizardsMenu.Text = Lang.Get(ggStr.gsWizards);
-            steerWizardMenuItem.Text = Lang.Get(ggStr.gsSteerWizard);
-            steerChartToolStripMenuItem.Text = Lang.Get(ggStr.gsSteerChart);
-            headingChartToolStripMenuItem.Text = Lang.Get(ggStr.gsHeadingChart);
-            xTEChartToolStripMenuItem.Text = Lang.Get(ggStr.gsXTEChart);
+            webcamToolStrip.Text = gStr.Get(gs.gsWebCam);
+            offsetFixToolStrip.Text = gStr.Get(gs.gsOffsetFix);
+            wizardsMenu.Text = gStr.Get(gs.gsWizards);
+            steerWizardMenuItem.Text = gStr.Get(gs.gsSteerWizard);
+            steerChartToolStripMenuItem.Text = gStr.Get(gs.gsSteerChart);
+            headingChartToolStripMenuItem.Text = gStr.Get(gs.gsHeadingChart);
+            xTEChartToolStripMenuItem.Text = gStr.Get(gs.gsXTEChart);
         }
 
         public void PanelUpdateRightAndBottom()
@@ -948,7 +945,7 @@ namespace AgOpenGPS
                     if (isBtnAutoSteerOn)
                     {
                         btnAutoSteer.PerformClick();
-                        TimedMessageBox(2000, Lang.Get(ggStr.gsGuidanceStopped), Lang.Get(ggStr.gsNoGuidanceLines));
+                        TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), gStr.Get(gs.gsNoGuidanceLines));
                         Log.EventWriter("Steer Safe Off, No Tracks, Idx -1");
                     }
                     btnAutoSteer.Enabled = false;
@@ -1331,35 +1328,35 @@ namespace AgOpenGPS
 
             if (heading > 337.5 || heading < 22.5)
             {
-                return (" " +  Lang.Get(ggStr.gsNorth) + " ");
+                return (" " +  gStr.Get(gs.gsNorth) + " ");
             }
             if (heading > 22.5 && heading < 67.5)
             {
-                return (" " +  Lang.Get(ggStr.gsN_East) + " ");
+                return (" " +  gStr.Get(gs.gsN_East) + " ");
             }
             if (heading > 67.5 && heading < 111.5)
             {
-                return (" " +  Lang.Get(ggStr.gsEast) + " ");
+                return (" " +  gStr.Get(gs.gsEast) + " ");
             }
             if (heading > 111.5 && heading < 157.5)
             {
-                return (" " +  Lang.Get(ggStr.gsS_East) + " ");
+                return (" " +  gStr.Get(gs.gsS_East) + " ");
             }
             if (heading > 157.5 && heading < 202.5)
             {
-                return (" " +  Lang.Get(ggStr.gsSouth) + " ");
+                return (" " +  gStr.Get(gs.gsSouth) + " ");
             }
             if (heading > 202.5 && heading < 247.5)
             {
-                return (" " +  Lang.Get(ggStr.gsS_West) + " ");
+                return (" " +  gStr.Get(gs.gsS_West) + " ");
             }
             if (heading > 247.5 && heading < 292.5)
             {
-                return (" " +  Lang.Get(ggStr.gsWest) + " ");
+                return (" " +  gStr.Get(gs.gsWest) + " ");
             }
             if (heading > 292.5 && heading < 337.5)
             {
-                return (" " +  Lang.Get(ggStr.gsN_West) + " ");
+                return (" " +  gStr.Get(gs.gsN_West) + " ");
             }
             return (" ?? ");
         }
@@ -1600,13 +1597,13 @@ namespace AgOpenGPS
         {
             if (isMetric)
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsTooFast), Lang.Get(ggStr.gsSlowDownBelow) + " "
-                    + vehicle.functionSpeedLimit.ToString("N0") + " " + Lang.Get(ggStr.gsKMH));
+                TimedMessageBox(2000, gStr.Get(gs.gsTooFast), gStr.Get(gs.gsSlowDownBelow) + " "
+                    + vehicle.functionSpeedLimit.ToString("N0") + " " + gStr.Get(gs.gsKMH));
             }
             else
             {
-                TimedMessageBox(2000, Lang.Get(ggStr.gsTooFast), Lang.Get(ggStr.gsSlowDownBelow) + " "
-                    + (vehicle.functionSpeedLimit * 0.621371).ToString("N1") + " " + Lang.Get(ggStr.gsMPH));
+                TimedMessageBox(2000, gStr.Get(gs.gsTooFast), gStr.Get(gs.gsSlowDownBelow) + " "
+                    + (vehicle.functionSpeedLimit * 0.621371).ToString("N1") + " " + gStr.Get(gs.gsMPH));
             }
 
             Log.EventWriter("UTurn or Lateral Speed exceeded");

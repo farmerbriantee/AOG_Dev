@@ -1,5 +1,5 @@
 ﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using System;
 using System.Globalization;
 using System.IO;
@@ -20,8 +20,8 @@ namespace AgOpenGPS
 
             InitializeComponent();
 
-            label1.Text = Lang.Get(ggStr.gsEnterJobName);
-            this.Text = Lang.Get(ggStr.gsCreateNewJob);
+            label1.Text = gStr.Get(gs.gsEnterJobName);
+            this.Text = gStr.Get(gs.gsCreateNewJob);
         }
 
         private void FormJobNew_Load(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace AgOpenGPS
 
                 if (dirNewJob.Exists)
                 {
-                    mf.YesMessageBox($"Job Creation Error \r\n\r\n{Lang.Get(ggStr.gsChooseADifferentName)}\r\n\r\n{Lang.Get(ggStr.gsDirectoryExists)}");
+                    mf.YesMessageBox($"Job Creation Error \r\n\r\n{gStr.Get(gs.gsChooseADifferentName)}\r\n\r\n{gStr.Get(gs.gsDirectoryExists)}");
                     return;
                 }
                 else
@@ -113,7 +113,7 @@ namespace AgOpenGPS
             {
                 Log.EventWriter("Creating new Job " + ex);
 
-                MessageBox.Show(Lang.Get(ggStr.gsError), ex.ToString());
+                MessageBox.Show(gStr.Get(gs.gsError), ex.ToString());
                 mf.currentFieldDirectory = "";
             }
         }

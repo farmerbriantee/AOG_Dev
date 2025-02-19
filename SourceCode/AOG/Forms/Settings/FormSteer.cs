@@ -1,5 +1,5 @@
 ﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using AgOpenGPS.Properties;
 using System;
 using System.Drawing;
@@ -37,52 +37,52 @@ namespace AgOpenGPS
             nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);
             nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
 
-            this.lblDistance.Text = Lang.Get(ggStr.gsAgressiveness);
-            this.lblHeading.Text = Lang.Get(ggStr.gsOvershootReduction);
-            this.Text = Lang.Get(ggStr.gsAutoSteerConfiguration);
+            this.lblDistance.Text = gStr.Get(gs.gsAgressiveness);
+            this.lblHeading.Text = gStr.Get(gs.gsOvershootReduction);
+            this.Text = gStr.Get(gs.gsAutoSteerConfiguration);
             this.Width = 388;
             this.Height = 490;
-            label19.Text = Lang.Get(ggStr.gsSpeedFactor);
-            label82.Text = Lang.Get(ggStr.gsAquireFactor);
-            label51.Text = Lang.Get(ggStr.gsDeadzone);
-            label49.Text = Lang.Get(ggStr.gsHeading);
-            label54.Text = Lang.Get(ggStr.gsOnDelay);
+            label19.Text = gStr.Get(gs.gsSpeedFactor);
+            label82.Text = gStr.Get(gs.gsAquireFactor);
+            label51.Text = gStr.Get(gs.gsDeadzone);
+            label49.Text = gStr.Get(gs.gsHeading);
+            label54.Text = gStr.Get(gs.gsOnDelay);
 
-            lblTurnSensor.Text = Lang.Get(ggStr.gsTurnSensor);
-            labelCurrentTurnSensor.Text = Lang.Get(ggStr.gsCurrentTurnSensor);
-            labelPressureTurnSensor.Text = Lang.Get(ggStr.gsPressureTurnSensor);
+            lblTurnSensor.Text = gStr.Get(gs.gsTurnSensor);
+            labelCurrentTurnSensor.Text = gStr.Get(gs.gsCurrentTurnSensor);
+            labelPressureTurnSensor.Text = gStr.Get(gs.gsPressureTurnSensor);
 
-            lblSteerResponse.Text = Lang.Get(ggStr.gsSteerResponse);
-            lblIntegral.Text = Lang.Get(ggStr.gsIntegral);
-            lblDistance.Text = Lang.Get(ggStr.gsDistance);
-            lblHeading.Text = Lang.Get(ggStr.gsHeading);
-            lblPropGain.Text = Lang.Get(ggStr.gsProportionalGain);
-            lblMaxLimit.Text = Lang.Get(ggStr.gsMaxLimit);
-            lblMin2Move.Text = Lang.Get(ggStr.gsMinToMove);
-            lblGain.Text = Lang.Get(ggStr.gsProportionalGain);
-            lblWasZero.Text = Lang.Get(ggStr.gsWasZero);
-            lblMaxSteerAng.Text = Lang.Get(ggStr.gsMaxSteerAngle);
-            lblCPD.Text = Lang.Get(ggStr.gsCountsPerDegree);
-            lblAckermann.Text = Lang.Get(ggStr.gsAckermann);
-            lblInvertWAS.Text = Lang.Get(ggStr.gsInvertWas);
-            lblInvertMotor.Text = Lang.Get(ggStr.gsInvertMotor);
-            lblInvertRelays.Text = Lang.Get(ggStr.gsInvertRelays);
-            lblMotorDriver.Text = Lang.Get(ggStr.gsMotorDriver);
-            lblA2D.Text = Lang.Get(ggStr.gsADConverter);
-            lblIMUXY.Text = Lang.Get(ggStr.gsIMUAxis);
-            lblSteerEnable.Text = Lang.Get(ggStr.gsSteerEnable);
-            lblSendSave.Text = Lang.Get(ggStr.gsSendAndSave);
-            lblResetToDefaults.Text = Lang.Get(ggStr.gsResetAll);
-            lblWizard.Text = Lang.Get(ggStr.gsWizard);
-            lblUturnComp.Text = Lang.Get(ggStr.gsUturnCompensation);
-            lblSidehillDeg.Text = Lang.Get(ggStr.gsSideHillComp);
-            lblSteerInReverse.Text = Lang.Get(ggStr.gsSteerInReverse);
-            lblManualTurns.Text = Lang.Get(ggStr.gsManualTurns);
-            lblMinSpeed.Text = Lang.Get(ggStr.gsMinSpeed);
-            lblMaxSpeed.Text = Lang.Get(ggStr.gsMaxSpeed);
-            lblLightbar.Text = Lang.Get(ggStr.gsLightbar);
-            lblSteerBar.Text = Lang.Get(ggStr.gsSteerBar);
-            lblNextGuideLine.Text = Lang.Get(ggStr.gsNextGuidanceLine);
+            lblSteerResponse.Text = gStr.Get(gs.gsSteerResponse);
+            lblIntegral.Text = gStr.Get(gs.gsIntegral);
+            lblDistance.Text = gStr.Get(gs.gsDistance);
+            lblHeading.Text = gStr.Get(gs.gsHeading);
+            lblPropGain.Text = gStr.Get(gs.gsProportionalGain);
+            lblMaxLimit.Text = gStr.Get(gs.gsMaxLimit);
+            lblMin2Move.Text = gStr.Get(gs.gsMinToMove);
+            lblGain.Text = gStr.Get(gs.gsProportionalGain);
+            lblWasZero.Text = gStr.Get(gs.gsWasZero);
+            lblMaxSteerAng.Text = gStr.Get(gs.gsMaxSteerAngle);
+            lblCPD.Text = gStr.Get(gs.gsCountsPerDegree);
+            lblAckermann.Text = gStr.Get(gs.gsAckermann);
+            lblInvertWAS.Text = gStr.Get(gs.gsInvertWas);
+            lblInvertMotor.Text = gStr.Get(gs.gsInvertMotor);
+            lblInvertRelays.Text = gStr.Get(gs.gsInvertRelays);
+            lblMotorDriver.Text = gStr.Get(gs.gsMotorDriver);
+            lblA2D.Text = gStr.Get(gs.gsADConverter);
+            lblIMUXY.Text = gStr.Get(gs.gsIMUAxis);
+            lblSteerEnable.Text = gStr.Get(gs.gsSteerEnable);
+            lblSendSave.Text = gStr.Get(gs.gsSendAndSave);
+            lblResetToDefaults.Text = gStr.Get(gs.gsResetAll);
+            lblWizard.Text = gStr.Get(gs.gsWizard);
+            lblUturnComp.Text = gStr.Get(gs.gsUturnCompensation);
+            lblSidehillDeg.Text = gStr.Get(gs.gsSideHillComp);
+            lblSteerInReverse.Text = gStr.Get(gs.gsSteerInReverse);
+            lblManualTurns.Text = gStr.Get(gs.gsManualTurns);
+            lblMinSpeed.Text = gStr.Get(gs.gsMinSpeed);
+            lblMaxSpeed.Text = gStr.Get(gs.gsMaxSpeed);
+            lblLightbar.Text = gStr.Get(gs.gsLightbar);
+            lblSteerBar.Text = gStr.Get(gs.gsSteerBar);
+            lblNextGuideLine.Text = gStr.Get(gs.gsNextGuidanceLine);
 
         }
 
@@ -259,7 +259,7 @@ namespace AgOpenGPS
                 pbarSensor.Visible = false;
                 hsbarSensor.Visible = false;
                 lblhsbarSensor.Visible = false;
-                lblTurnSensor.Text = Lang.Get(ggStr.gsEncoderCounts);
+                lblTurnSensor.Text = gStr.Get(gs.gsEncoderCounts);
             }
             else if (cboxPressureSensor.Checked)
             {
@@ -557,7 +557,7 @@ namespace AgOpenGPS
                         pbarSensor.Visible = false;
                         hsbarSensor.Visible = false;
                         lblhsbarSensor.Visible = false;
-                        lblTurnSensor.Text = Lang.Get(ggStr.gsEncoderCounts);
+                        lblTurnSensor.Text = gStr.Get(gs.gsEncoderCounts);
                     }
                 }
             }
@@ -1235,7 +1235,7 @@ namespace AgOpenGPS
             pboxSendSteer.Visible = false;
             Log.EventWriter("Steer Form, Send and Save Pressed");
 
-            mf.TimedMessageBox(2000, Lang.Get(ggStr.gsAutoSteerPort), "Settings Sent To Steer Module");
+            mf.TimedMessageBox(2000, gStr.Get(gs.gsAutoSteerPort), "Settings Sent To Steer Module");
         }
 
         private void SaveSettings()

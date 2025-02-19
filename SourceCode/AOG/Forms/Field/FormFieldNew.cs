@@ -1,5 +1,5 @@
 ﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using System;
 using System.Globalization;
 using System.IO;
@@ -20,9 +20,9 @@ namespace AgOpenGPS
 
             InitializeComponent();
 
-            label1.Text = Lang.Get(ggStr.gsEnterFieldName);
+            label1.Text = gStr.Get(gs.gsEnterFieldName);
 
-            label6.Text = Lang.Get(ggStr.gsEnterJobName);
+            label6.Text = gStr.Get(gs.gsEnterJobName);
         }
 
         private void FormFieldDir_Load(object sender, EventArgs e)
@@ -134,7 +134,7 @@ namespace AgOpenGPS
                 //create it for first save
                 if (dirNewField.Exists)
                 {
-                    MessageBox.Show(Lang.Get(ggStr.gsChooseADifferentName), Lang.Get(ggStr.gsDirectoryExists), MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show(gStr.Get(gs.gsChooseADifferentName), gStr.Get(gs.gsDirectoryExists), MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
                 else
@@ -158,7 +158,7 @@ namespace AgOpenGPS
             {
                 Log.EventWriter("Creating new field " + ex);
 
-                MessageBox.Show(Lang.Get(ggStr.gsError), ex.ToString());
+                MessageBox.Show(gStr.Get(gs.gsError), ex.ToString());
                 mf.currentFieldDirectory = "";
             }
         }
@@ -181,7 +181,7 @@ namespace AgOpenGPS
                 //create it for first save
                 if (dirNewJob.Exists)
                 {
-                    MessageBox.Show(Lang.Get(ggStr.gsChooseADifferentName), Lang.Get(ggStr.gsDirectoryExists), MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show(gStr.Get(gs.gsChooseADifferentName), gStr.Get(gs.gsDirectoryExists), MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
                 }
                 else
@@ -206,7 +206,7 @@ namespace AgOpenGPS
             {
                 Log.EventWriter("Creating new Job " + ex);
 
-                MessageBox.Show(Lang.Get(ggStr.gsError), ex.ToString());
+                MessageBox.Show(gStr.Get(gs.gsError), ex.ToString());
                 mf.currentFieldDirectory = "";
             }
 
@@ -231,7 +231,7 @@ namespace AgOpenGPS
                     //create it for first save
                     if (dirNewField.Exists)
                     {
-                        mf.YesMessageBox($"{Lang.Get(ggStr.gsChooseADifferentName)} \r\n\r\n {Lang.Get(ggStr.gsDirectoryExists)}");
+                        mf.YesMessageBox($"{gStr.Get(gs.gsChooseADifferentName)} \r\n\r\n {gStr.Get(gs.gsDirectoryExists)}");
                         return;
                     }
                 }
@@ -253,7 +253,7 @@ namespace AgOpenGPS
                 //create it for first save
                 if (dirNewField.Exists)
                 {
-                    mf.YesMessageBox($"Job Creation Error \r\n\r\n{Lang.Get(ggStr.gsChooseADifferentName)}\r\n\r\n{Lang.Get(ggStr.gsDirectoryExists)}");
+                    mf.YesMessageBox($"Job Creation Error \r\n\r\n{gStr.Get(gs.gsChooseADifferentName)}\r\n\r\n{gStr.Get(gs.gsDirectoryExists)}");
                     return;
                 }
 

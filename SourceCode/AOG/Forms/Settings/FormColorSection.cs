@@ -25,7 +25,7 @@ namespace AgOpenGPS
             InitializeComponent();
 
             //Language keys
-            //this.Text = Lang.Get(ggStr.gsColors;
+            //this.Text = gStr.Get(gs.gsColors;
 
             string[] words = Properties.Settings.Default.setDisplay_customSectionColors.Split(',');
             for (int i = 0; i < 16; i++)

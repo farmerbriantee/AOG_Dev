@@ -1,5 +1,5 @@
 ﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using System;
 using System.Windows.Forms;
 
@@ -16,11 +16,11 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
             InitializeComponent();
 
-            label27.Text = Lang.Get(ggStr.gsNorth);
-            label2.Text = Lang.Get(ggStr.gsWest);
-            label3.Text = Lang.Get(ggStr.gsEast);
-            label4.Text = Lang.Get(ggStr.gsSouth);
-            this.Text = Lang.Get(ggStr.gsShiftGPSPosition);
+            label27.Text = gStr.Get(gs.gsNorth);
+            label2.Text = gStr.Get(gs.gsWest);
+            label3.Text = gStr.Get(gs.gsEast);
+            label4.Text = gStr.Get(gs.gsSouth);
+            this.Text = gStr.Get(gs.gsShiftGPSPosition);
             nudEast.Controls[0].Enabled = false;
             nudNorth.Controls[0].Enabled = false;
         }

@@ -1,5 +1,5 @@
 ﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using System;
 using System.Globalization;
 using System.Windows.Forms;
@@ -23,10 +23,10 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
             InitializeComponent();
 
-            this.label5.Text = Lang.Get(ggStr.gsSetPoint);
-            this.label1.Text = Lang.Get(ggStr.gsActual);
+            this.label5.Text = gStr.Get(gs.gsSetPoint);
+            this.label1.Text = gStr.Get(gs.gsActual);
 
-            this.Text = Lang.Get(ggStr.gsSteerChart);
+            this.Text = gStr.Get(gs.gsSteerChart);
         }
 
         private void timer1_Tick(object sender, EventArgs e)

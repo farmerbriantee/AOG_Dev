@@ -1,7 +1,7 @@
 ﻿//Please, if you use this, share the improvements
 
 using AgOpenGPS.Classes;
-using AgOpenGPS.Culture;
+
 using AgOpenGPS.Properties;
 using System;
 using System.Drawing;
@@ -25,7 +25,7 @@ namespace AgOpenGPS
             InitializeComponent();
 
             //Language keys
-            this.Text = Lang.Get(ggStr.gsColors);
+            this.Text = gStr.Get(gs.gsColors);
         }
 
         private void FormDisplaySettings_Load(object sender, EventArgs e)

@@ -21,13 +21,6 @@ namespace AgOpenGPS
         {
             mf = callingForm as FormGPS;
             InitializeComponent();
-            nudMaxCounts.Controls[0].Enabled = false;
-
-            nudAntennaHeight.Controls[0].Enabled = false;
-            nudAntennaOffset.Controls[0].Enabled = false;
-            nudAntennaPivot.Controls[0].Enabled = false;
-            nudVehicleTrack.Controls[0].Enabled = false;
-            nudWheelbase.Controls[0].Enabled = false;
 
             this.label3.Text = gStr.Get(gs.gsAgressiveness);
             this.label5.Text = gStr.Get(gs.gsOvershootReduction);

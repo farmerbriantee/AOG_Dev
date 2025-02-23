@@ -21,7 +21,6 @@ namespace AgOpenGPS
 
             label1.Text = gStr.Get(gs.gsArea) + ":";
             this.Text = gStr.Get(gs.gsStopRecordPauseBoundary);
-            nudOffset.Controls[0].Enabled = false;
         }
 
         private void FormBoundaryPlayer_Load(object sender, EventArgs e)

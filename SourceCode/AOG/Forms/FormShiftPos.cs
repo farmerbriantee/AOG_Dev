@@ -21,8 +21,6 @@ namespace AgOpenGPS
             label3.Text = gStr.Get(gs.gsEast);
             label4.Text = gStr.Get(gs.gsSouth);
             this.Text = gStr.Get(gs.gsShiftGPSPosition);
-            nudEast.Controls[0].Enabled = false;
-            nudNorth.Controls[0].Enabled = false;
         }
 
         private void FormShiftPos_Load(object sender, EventArgs e)

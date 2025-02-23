@@ -47,7 +47,6 @@ namespace AgOpenGPS
 
             Location = Properties.Settings.Default.setWindow_QuickABLocation;
 
-            nudHeading.Controls[0].Enabled = false;
             nudHeading.Value = 0;
 
             if (!mf.IsOnScreen(Location, Size, 1))

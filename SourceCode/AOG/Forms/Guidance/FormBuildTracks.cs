@@ -84,14 +84,6 @@ namespace AgOpenGPS
             selectedItem = -1;
             Location = Properties.Settings.Default.setWindow_buildTracksLocation;
 
-            nudLatitudeA.Controls[0].Enabled = false;
-            nudLongitudeA.Controls[0].Enabled = false;
-            nudLatitudeB.Controls[0].Enabled = false;
-            nudLatitudeB.Controls[0].Enabled = false;
-            nudHeading.Controls[0].Enabled = false;
-            nudLatitudePlus.Controls[0].Enabled = false;
-            nudLongitudePlus.Controls[0].Enabled = false;
-            nudHeadingLatLonPlus.Controls[0].Enabled = false;
 
             nudLatitudeA.Value = (decimal)mf.pn.latitude;
             nudLatitudeB.Value = (decimal)mf.pn.latitude + 0.000005m;

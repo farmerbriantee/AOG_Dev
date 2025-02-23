@@ -143,7 +143,7 @@ namespace AgOpenGPS
     {
         public NudlessNumericUpDown()
         {
-            Controls[0].Hide();
+            Controls[0].Visible = false;
         }
 
         protected override void OnTextBoxResize(object source, EventArgs e)

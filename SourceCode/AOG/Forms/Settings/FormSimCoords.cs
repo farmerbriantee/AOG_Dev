@@ -17,9 +17,6 @@ namespace AgOpenGPS
             InitializeComponent();
 
             this.Text = gStr.Get(gs.gsEnterCoordinatesForSimulator);
-
-            nudLatitude.Controls[0].Enabled = false;
-            nudLongitude.Controls[0].Enabled = false;
         }
 
         private void FormSimCoords_Load(object sender, EventArgs e)

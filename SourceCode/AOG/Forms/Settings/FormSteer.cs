@@ -22,14 +22,6 @@ namespace AgOpenGPS
         {
             mf = callingForm as FormGPS;
             InitializeComponent();
-            nudMaxCounts.Controls[0].Enabled = false;
-
-            nudSnapDistance.Controls[0].Enabled = false;
-            nudLineWidth.Controls[0].Enabled = false;
-            nudGuidanceLookAhead.Controls[0].Enabled = false;
-            nudGuidanceSpeedLimit.Controls[0].Enabled = false;
-            nudMaxSteerSpeed.Controls[0].Enabled = false;
-            nudMinSteerSpeed.Controls[0].Enabled = false;
 
             nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
             nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);

@@ -64,12 +64,8 @@
             0,
             -2147483648});
             this.nudNorth.Name = "nudNorth";
-            this.nudNorth.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.nudNorth.Size = new System.Drawing.Size(185, 65);
             this.nudNorth.TabIndex = 154;
-            this.nudNorth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudNorth.ThousandsSeparator = true;
-            this.nudNorth.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
             this.nudNorth.Value = new decimal(new int[] {
             9999,
             0,
@@ -92,12 +88,8 @@
             0,
             -2147483648});
             this.nudEast.Name = "nudEast";
-            this.nudEast.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.nudEast.Size = new System.Drawing.Size(185, 65);
             this.nudEast.TabIndex = 155;
-            this.nudEast.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudEast.ThousandsSeparator = true;
-            this.nudEast.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
             this.nudEast.Value = new decimal(new int[] {
             1,
             0,

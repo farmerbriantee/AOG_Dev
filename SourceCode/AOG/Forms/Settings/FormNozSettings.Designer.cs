@@ -302,10 +302,8 @@
             0,
             0});
             this.nudTankVolume.Name = "nudTankVolume";
-            this.nudTankVolume.ReadOnly = true;
             this.nudTankVolume.Size = new System.Drawing.Size(201, 65);
             this.nudTankVolume.TabIndex = 619;
-            this.nudTankVolume.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudTankVolume.Value = new decimal(new int[] {
             0,
             0,
@@ -324,10 +322,8 @@
             0,
             0});
             this.nudZeroVolume.Name = "nudZeroVolume";
-            this.nudZeroVolume.ReadOnly = true;
             this.nudZeroVolume.Size = new System.Drawing.Size(201, 65);
             this.nudZeroVolume.TabIndex = 615;
-            this.nudZeroVolume.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudZeroVolume.Value = new decimal(new int[] {
             0,
             0,
@@ -352,10 +348,8 @@
             0,
             0});
             this.nudSprayRateSet2.Name = "nudSprayRateSet2";
-            this.nudSprayRateSet2.ReadOnly = true;
             this.nudSprayRateSet2.Size = new System.Drawing.Size(186, 65);
             this.nudSprayRateSet2.TabIndex = 611;
-            this.nudSprayRateSet2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudSprayRateSet2.Value = new decimal(new int[] {
             9999,
             0,
@@ -375,10 +369,8 @@
             0,
             0});
             this.nudSprayMinPressure.Name = "nudSprayMinPressure";
-            this.nudSprayMinPressure.ReadOnly = true;
             this.nudSprayMinPressure.Size = new System.Drawing.Size(150, 65);
             this.nudSprayMinPressure.TabIndex = 591;
-            this.nudSprayMinPressure.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudSprayMinPressure.Value = new decimal(new int[] {
             9,
             0,
@@ -403,10 +395,8 @@
             0,
             0});
             this.nudSprayRateSet1.Name = "nudSprayRateSet1";
-            this.nudSprayRateSet1.ReadOnly = true;
             this.nudSprayRateSet1.Size = new System.Drawing.Size(186, 65);
             this.nudSprayRateSet1.TabIndex = 577;
-            this.nudSprayRateSet1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudSprayRateSet1.Value = new decimal(new int[] {
             9999,
             0,
@@ -438,10 +428,8 @@
             0,
             65536});
             this.nudNudge.Name = "nudNudge";
-            this.nudNudge.ReadOnly = true;
             this.nudNudge.Size = new System.Drawing.Size(150, 65);
             this.nudNudge.TabIndex = 623;
-            this.nudNudge.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudNudge.Value = new decimal(new int[] {
             10,
             0,
@@ -473,10 +461,8 @@
             0,
             0});
             this.nudRateAlarmPercent.Name = "nudRateAlarmPercent";
-            this.nudRateAlarmPercent.ReadOnly = true;
             this.nudRateAlarmPercent.Size = new System.Drawing.Size(150, 65);
             this.nudRateAlarmPercent.TabIndex = 625;
-            this.nudRateAlarmPercent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudRateAlarmPercent.Value = new decimal(new int[] {
             7,
             0,

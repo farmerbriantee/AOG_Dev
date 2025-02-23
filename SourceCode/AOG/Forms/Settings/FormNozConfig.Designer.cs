@@ -556,10 +556,8 @@
             0,
             0});
             this.nudSlowPWM.Name = "nudSlowPWM";
-            this.nudSlowPWM.ReadOnly = true;
             this.nudSlowPWM.Size = new System.Drawing.Size(155, 46);
             this.nudSlowPWM.TabIndex = 595;
-            this.nudSlowPWM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudSlowPWM.Value = new decimal(new int[] {
             45,
             0,
@@ -579,10 +577,8 @@
             0,
             0});
             this.nudFastPWM.Name = "nudFastPWM";
-            this.nudFastPWM.ReadOnly = true;
             this.nudFastPWM.Size = new System.Drawing.Size(155, 46);
             this.nudFastPWM.TabIndex = 593;
-            this.nudFastPWM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudFastPWM.Value = new decimal(new int[] {
             65,
             0,
@@ -602,10 +598,8 @@
             0,
             0});
             this.nudSwitchAtFlowError.Name = "nudSwitchAtFlowError";
-            this.nudSwitchAtFlowError.ReadOnly = true;
             this.nudSwitchAtFlowError.Size = new System.Drawing.Size(155, 46);
             this.nudSwitchAtFlowError.TabIndex = 600;
-            this.nudSwitchAtFlowError.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudSwitchAtFlowError.Value = new decimal(new int[] {
             25,
             0,
@@ -630,10 +624,8 @@
             0,
             0});
             this.nudSprayKp.Name = "nudSprayKp";
-            this.nudSprayKp.ReadOnly = true;
             this.nudSprayKp.Size = new System.Drawing.Size(155, 46);
             this.nudSprayKp.TabIndex = 587;
-            this.nudSprayKp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudSprayKp.Value = new decimal(new int[] {
             60,
             0,
@@ -653,10 +645,8 @@
             0,
             0});
             this.nudDeadbandError.Name = "nudDeadbandError";
-            this.nudDeadbandError.ReadOnly = true;
             this.nudDeadbandError.Size = new System.Drawing.Size(155, 46);
             this.nudDeadbandError.TabIndex = 598;
-            this.nudDeadbandError.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudDeadbandError.Value = new decimal(new int[] {
             8,
             0,
@@ -681,10 +671,8 @@
             0,
             0});
             this.nudSprayPressureCal.Name = "nudSprayPressureCal";
-            this.nudSprayPressureCal.ReadOnly = true;
             this.nudSprayPressureCal.Size = new System.Drawing.Size(137, 46);
             this.nudSprayPressureCal.TabIndex = 584;
-            this.nudSprayPressureCal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudSprayPressureCal.Value = new decimal(new int[] {
             2,
             0,
@@ -708,10 +696,8 @@
             0,
             0});
             this.nudSprayFlowCal.Name = "nudSprayFlowCal";
-            this.nudSprayFlowCal.ReadOnly = true;
             this.nudSprayFlowCal.Size = new System.Drawing.Size(137, 46);
             this.nudSprayFlowCal.TabIndex = 579;
-            this.nudSprayFlowCal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudSprayFlowCal.Value = new decimal(new int[] {
             1000,
             0,
@@ -736,10 +722,8 @@
             0,
             0});
             this.nudMaxHz.Name = "nudMaxHz";
-            this.nudMaxHz.ReadOnly = true;
             this.nudMaxHz.Size = new System.Drawing.Size(155, 46);
             this.nudMaxHz.TabIndex = 622;
-            this.nudMaxHz.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudMaxHz.Value = new decimal(new int[] {
             30,
             0,
@@ -763,10 +747,8 @@
             0,
             0});
             this.nudMinHz.Name = "nudMinHz";
-            this.nudMinHz.ReadOnly = true;
             this.nudMinHz.Size = new System.Drawing.Size(155, 46);
             this.nudMinHz.TabIndex = 624;
-            this.nudMinHz.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudMinHz.Value = new decimal(new int[] {
             10,
             0,

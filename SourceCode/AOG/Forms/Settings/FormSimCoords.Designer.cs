@@ -97,7 +97,6 @@
             0,
             -2147483648});
             this.nudLongitude.Name = "nudLongitude";
-            this.nudLongitude.ReadOnly = true;
             this.nudLongitude.Size = new System.Drawing.Size(298, 52);
             this.nudLongitude.TabIndex = 48;
             this.nudLongitude.Value = new decimal(new int[] {
@@ -124,7 +123,6 @@
             0,
             -2147483648});
             this.nudLatitude.Name = "nudLatitude";
-            this.nudLatitude.ReadOnly = true;
             this.nudLatitude.Size = new System.Drawing.Size(274, 52);
             this.nudLatitude.TabIndex = 49;
             this.nudLatitude.Value = new decimal(new int[] {

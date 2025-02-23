@@ -1664,7 +1664,6 @@
             // 
             this.nudDeadZoneDelay.BackColor = System.Drawing.Color.White;
             this.nudDeadZoneDelay.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudDeadZoneDelay.InterceptArrowKeys = false;
             this.nudDeadZoneDelay.Location = new System.Drawing.Point(224, 37);
             this.nudDeadZoneDelay.Maximum = new decimal(new int[] {
             10,
@@ -1677,10 +1676,8 @@
             0,
             0});
             this.nudDeadZoneDelay.Name = "nudDeadZoneDelay";
-            this.nudDeadZoneDelay.ReadOnly = true;
             this.nudDeadZoneDelay.Size = new System.Drawing.Size(107, 36);
             this.nudDeadZoneDelay.TabIndex = 542;
-            this.nudDeadZoneDelay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudDeadZoneDelay.Value = new decimal(new int[] {
             1,
             0,
@@ -1693,7 +1690,6 @@
             this.nudDeadZoneHeading.BackColor = System.Drawing.Color.White;
             this.nudDeadZoneHeading.DecimalPlaces = 1;
             this.nudDeadZoneHeading.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudDeadZoneHeading.InterceptArrowKeys = false;
             this.nudDeadZoneHeading.Location = new System.Drawing.Point(56, 38);
             this.nudDeadZoneHeading.Maximum = new decimal(new int[] {
             5,
@@ -1706,10 +1702,8 @@
             0,
             65536});
             this.nudDeadZoneHeading.Name = "nudDeadZoneHeading";
-            this.nudDeadZoneHeading.ReadOnly = true;
             this.nudDeadZoneHeading.Size = new System.Drawing.Size(107, 36);
             this.nudDeadZoneHeading.TabIndex = 538;
-            this.nudDeadZoneHeading.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudDeadZoneHeading.Value = new decimal(new int[] {
             1,
             0,
@@ -2258,7 +2252,6 @@
             // 
             this.nudMaxCounts.BackColor = System.Drawing.Color.White;
             this.nudMaxCounts.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudMaxCounts.InterceptArrowKeys = false;
             this.nudMaxCounts.Location = new System.Drawing.Point(61, 207);
             this.nudMaxCounts.Maximum = new decimal(new int[] {
             255,
@@ -2266,10 +2259,8 @@
             0,
             0});
             this.nudMaxCounts.Name = "nudMaxCounts";
-            this.nudMaxCounts.ReadOnly = true;
             this.nudMaxCounts.Size = new System.Drawing.Size(107, 52);
             this.nudMaxCounts.TabIndex = 493;
-            this.nudMaxCounts.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudMaxCounts.Value = new decimal(new int[] {
             15,
             0,
@@ -2709,7 +2700,6 @@
             this.nudMinSteerSpeed.BackColor = System.Drawing.Color.White;
             this.nudMinSteerSpeed.DecimalPlaces = 1;
             this.nudMinSteerSpeed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudMinSteerSpeed.InterceptArrowKeys = false;
             this.nudMinSteerSpeed.Location = new System.Drawing.Point(112, 354);
             this.nudMinSteerSpeed.Maximum = new decimal(new int[] {
             10,
@@ -2717,10 +2707,8 @@
             0,
             0});
             this.nudMinSteerSpeed.Name = "nudMinSteerSpeed";
-            this.nudMinSteerSpeed.ReadOnly = true;
             this.nudMinSteerSpeed.Size = new System.Drawing.Size(110, 52);
             this.nudMinSteerSpeed.TabIndex = 505;
-            this.nudMinSteerSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudMinSteerSpeed.Value = new decimal(new int[] {
             10,
             0,
@@ -2732,7 +2720,6 @@
             // 
             this.nudMaxSteerSpeed.BackColor = System.Drawing.Color.White;
             this.nudMaxSteerSpeed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudMaxSteerSpeed.InterceptArrowKeys = false;
             this.nudMaxSteerSpeed.Location = new System.Drawing.Point(302, 354);
             this.nudMaxSteerSpeed.Maximum = new decimal(new int[] {
             50,
@@ -2740,10 +2727,8 @@
             0,
             0});
             this.nudMaxSteerSpeed.Name = "nudMaxSteerSpeed";
-            this.nudMaxSteerSpeed.ReadOnly = true;
             this.nudMaxSteerSpeed.Size = new System.Drawing.Size(110, 52);
             this.nudMaxSteerSpeed.TabIndex = 501;
-            this.nudMaxSteerSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudMaxSteerSpeed.Value = new decimal(new int[] {
             12,
             0,
@@ -2755,7 +2740,6 @@
             // 
             this.nudGuidanceSpeedLimit.BackColor = System.Drawing.Color.White;
             this.nudGuidanceSpeedLimit.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudGuidanceSpeedLimit.InterceptArrowKeys = false;
             this.nudGuidanceSpeedLimit.Location = new System.Drawing.Point(207, 140);
             this.nudGuidanceSpeedLimit.Maximum = new decimal(new int[] {
             20,
@@ -2763,10 +2747,8 @@
             0,
             0});
             this.nudGuidanceSpeedLimit.Name = "nudGuidanceSpeedLimit";
-            this.nudGuidanceSpeedLimit.ReadOnly = true;
             this.nudGuidanceSpeedLimit.Size = new System.Drawing.Size(110, 52);
             this.nudGuidanceSpeedLimit.TabIndex = 492;
-            this.nudGuidanceSpeedLimit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudGuidanceSpeedLimit.Value = new decimal(new int[] {
             7,
             0,
@@ -3067,7 +3049,6 @@
             // 
             this.nudcmPerPixel.BackColor = System.Drawing.Color.White;
             this.nudcmPerPixel.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudcmPerPixel.InterceptArrowKeys = false;
             this.nudcmPerPixel.Location = new System.Drawing.Point(475, 193);
             this.nudcmPerPixel.Minimum = new decimal(new int[] {
             2,
@@ -3075,10 +3056,8 @@
             0,
             0});
             this.nudcmPerPixel.Name = "nudcmPerPixel";
-            this.nudcmPerPixel.ReadOnly = true;
             this.nudcmPerPixel.Size = new System.Drawing.Size(78, 46);
             this.nudcmPerPixel.TabIndex = 524;
-            this.nudcmPerPixel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudcmPerPixel.Value = new decimal(new int[] {
             3,
             0,
@@ -3090,7 +3069,6 @@
             // 
             this.nudLineWidth.BackColor = System.Drawing.Color.White;
             this.nudLineWidth.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudLineWidth.InterceptArrowKeys = false;
             this.nudLineWidth.Location = new System.Drawing.Point(191, 47);
             this.nudLineWidth.Maximum = new decimal(new int[] {
             8,
@@ -3103,10 +3081,8 @@
             0,
             0});
             this.nudLineWidth.Name = "nudLineWidth";
-            this.nudLineWidth.ReadOnly = true;
             this.nudLineWidth.Size = new System.Drawing.Size(78, 46);
             this.nudLineWidth.TabIndex = 520;
-            this.nudLineWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudLineWidth.Value = new decimal(new int[] {
             1,
             0,
@@ -3118,7 +3094,6 @@
             // 
             this.nudSnapDistance.BackColor = System.Drawing.Color.White;
             this.nudSnapDistance.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudSnapDistance.InterceptArrowKeys = false;
             this.nudSnapDistance.Location = new System.Drawing.Point(475, 47);
             this.nudSnapDistance.Maximum = new decimal(new int[] {
             1000,
@@ -3126,10 +3101,8 @@
             0,
             0});
             this.nudSnapDistance.Name = "nudSnapDistance";
-            this.nudSnapDistance.ReadOnly = true;
             this.nudSnapDistance.Size = new System.Drawing.Size(78, 46);
             this.nudSnapDistance.TabIndex = 516;
-            this.nudSnapDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudSnapDistance.Value = new decimal(new int[] {
             499,
             0,
@@ -3142,7 +3115,6 @@
             this.nudGuidanceLookAhead.BackColor = System.Drawing.Color.White;
             this.nudGuidanceLookAhead.DecimalPlaces = 1;
             this.nudGuidanceLookAhead.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudGuidanceLookAhead.InterceptArrowKeys = false;
             this.nudGuidanceLookAhead.Location = new System.Drawing.Point(180, 196);
             this.nudGuidanceLookAhead.Maximum = new decimal(new int[] {
             10,
@@ -3155,10 +3127,8 @@
             0,
             65536});
             this.nudGuidanceLookAhead.Name = "nudGuidanceLookAhead";
-            this.nudGuidanceLookAhead.ReadOnly = true;
             this.nudGuidanceLookAhead.Size = new System.Drawing.Size(100, 46);
             this.nudGuidanceLookAhead.TabIndex = 512;
-            this.nudGuidanceLookAhead.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudGuidanceLookAhead.Value = new decimal(new int[] {
             10,
             0,

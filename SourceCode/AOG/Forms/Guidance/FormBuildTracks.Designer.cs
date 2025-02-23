@@ -1199,7 +1199,6 @@
             this.nudHeading.BackColor = System.Drawing.Color.LightCyan;
             this.nudHeading.DecimalPlaces = 4;
             this.nudHeading.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudHeading.InterceptArrowKeys = false;
             this.nudHeading.Location = new System.Drawing.Point(9, 146);
             this.nudHeading.Maximum = new decimal(new int[] {
             360,
@@ -1207,11 +1206,8 @@
             0,
             0});
             this.nudHeading.Name = "nudHeading";
-            this.nudHeading.ReadOnly = true;
-            this.nudHeading.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.nudHeading.Size = new System.Drawing.Size(221, 52);
             this.nudHeading.TabIndex = 413;
-            this.nudHeading.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudHeading.Value = new decimal(new int[] {
             0,
             0,
@@ -1338,10 +1334,8 @@
             0,
             -2147483648});
             this.nudLatitudePlus.Name = "nudLatitudePlus";
-            this.nudLatitudePlus.ReadOnly = true;
             this.nudLatitudePlus.Size = new System.Drawing.Size(228, 43);
             this.nudLatitudePlus.TabIndex = 451;
-            this.nudLatitudePlus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudLatitudePlus.Value = new decimal(new int[] {
             0,
             0,
@@ -1366,10 +1360,8 @@
             0,
             -2147483648});
             this.nudLongitudePlus.Name = "nudLongitudePlus";
-            this.nudLongitudePlus.ReadOnly = true;
             this.nudLongitudePlus.Size = new System.Drawing.Size(228, 43);
             this.nudLongitudePlus.TabIndex = 450;
-            this.nudLongitudePlus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudLongitudePlus.Value = new decimal(new int[] {
             1661234567,
             0,
@@ -1418,7 +1410,6 @@
             this.nudHeadingLatLonPlus.BackColor = System.Drawing.Color.AliceBlue;
             this.nudHeadingLatLonPlus.DecimalPlaces = 4;
             this.nudHeadingLatLonPlus.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudHeadingLatLonPlus.InterceptArrowKeys = false;
             this.nudHeadingLatLonPlus.Location = new System.Drawing.Point(90, 250);
             this.nudHeadingLatLonPlus.Maximum = new decimal(new int[] {
             817405951,
@@ -1426,11 +1417,8 @@
             0,
             655360});
             this.nudHeadingLatLonPlus.Name = "nudHeadingLatLonPlus";
-            this.nudHeadingLatLonPlus.ReadOnly = true;
-            this.nudHeadingLatLonPlus.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.nudHeadingLatLonPlus.Size = new System.Drawing.Size(207, 46);
             this.nudHeadingLatLonPlus.TabIndex = 413;
-            this.nudHeadingLatLonPlus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudHeadingLatLonPlus.Value = new decimal(new int[] {
             3391234,
             0,
@@ -1575,10 +1563,8 @@
             0,
             -2147483648});
             this.nudLatitudeB.Name = "nudLatitudeB";
-            this.nudLatitudeB.ReadOnly = true;
             this.nudLatitudeB.Size = new System.Drawing.Size(228, 43);
             this.nudLatitudeB.TabIndex = 455;
-            this.nudLatitudeB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudLatitudeB.Value = new decimal(new int[] {
             0,
             0,
@@ -1603,10 +1589,8 @@
             0,
             -2147483648});
             this.nudLongitudeB.Name = "nudLongitudeB";
-            this.nudLongitudeB.ReadOnly = true;
             this.nudLongitudeB.Size = new System.Drawing.Size(228, 43);
             this.nudLongitudeB.TabIndex = 454;
-            this.nudLongitudeB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudLongitudeB.Value = new decimal(new int[] {
             1661234567,
             0,
@@ -1657,10 +1641,8 @@
             0,
             -2147483648});
             this.nudLatitudeA.Name = "nudLatitudeA";
-            this.nudLatitudeA.ReadOnly = true;
             this.nudLatitudeA.Size = new System.Drawing.Size(228, 43);
             this.nudLatitudeA.TabIndex = 451;
-            this.nudLatitudeA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudLatitudeA.Value = new decimal(new int[] {
             0,
             0,
@@ -1685,10 +1667,8 @@
             0,
             -2147483648});
             this.nudLongitudeA.Name = "nudLongitudeA";
-            this.nudLongitudeA.ReadOnly = true;
             this.nudLongitudeA.Size = new System.Drawing.Size(228, 43);
             this.nudLongitudeA.TabIndex = 450;
-            this.nudLongitudeA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudLongitudeA.Value = new decimal(new int[] {
             1661234567,
             0,
@@ -1820,10 +1800,8 @@
             0,
             -2147483648});
             this.nudLatitudePivot.Name = "nudLatitudePivot";
-            this.nudLatitudePivot.ReadOnly = true;
             this.nudLatitudePivot.Size = new System.Drawing.Size(253, 46);
             this.nudLatitudePivot.TabIndex = 451;
-            this.nudLatitudePivot.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudLatitudePivot.Value = new decimal(new int[] {
             0,
             0,
@@ -1848,10 +1826,8 @@
             0,
             -2147483648});
             this.nudLongitudePivot.Name = "nudLongitudePivot";
-            this.nudLongitudePivot.ReadOnly = true;
             this.nudLongitudePivot.Size = new System.Drawing.Size(253, 46);
             this.nudLongitudePivot.TabIndex = 450;
-            this.nudLongitudePivot.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudLongitudePivot.Value = new decimal(new int[] {
             1661234567,
             0,

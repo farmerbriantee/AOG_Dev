@@ -198,10 +198,8 @@
             0,
             0});
             this.nudSetDistance.Name = "nudSetDistance";
-            this.nudSetDistance.ReadOnly = true;
             this.nudSetDistance.Size = new System.Drawing.Size(143, 52);
             this.nudSetDistance.TabIndex = 464;
-            this.nudSetDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudSetDistance.Value = new decimal(new int[] {
             0,
             0,

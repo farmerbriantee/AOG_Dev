@@ -248,10 +248,8 @@
             0,
             0});
             this.nudOffset.Name = "nudOffset";
-            this.nudOffset.ReadOnly = true;
             this.nudOffset.Size = new System.Drawing.Size(125, 46);
             this.nudOffset.TabIndex = 149;
-            this.nudOffset.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudOffset.Value = new decimal(new int[] {
             4999,
             0,

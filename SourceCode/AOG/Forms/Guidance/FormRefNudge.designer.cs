@@ -136,10 +136,8 @@
             0,
             0});
             this.nudSnapDistance.Name = "nudSnapDistance";
-            this.nudSnapDistance.ReadOnly = true;
             this.nudSnapDistance.Size = new System.Drawing.Size(107, 36);
             this.nudSnapDistance.TabIndex = 415;
-            this.nudSnapDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudSnapDistance.Value = new decimal(new int[] {
             800,
             0,

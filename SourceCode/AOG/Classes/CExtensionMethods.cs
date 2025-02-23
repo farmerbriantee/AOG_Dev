@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -139,40 +141,189 @@ namespace AgOpenGPS
         }
     }
 
-    public class NudlessNumericUpDown : NumericUpDown
+    public class NudlessNumericUpDown : Button, ISupportInitialize
     {
+        decimal _value;
+        decimal minimum = 0;
+        decimal maximum = 100;
+        decimal increment = 1;
+        int decimalPlaces = 0;
+        bool initializing = true;
+        string format = "0";
+
         public NudlessNumericUpDown()
         {
-            Controls[0].Visible = false;
+            base.TextAlign = ContentAlignment.MiddleCenter;
         }
 
-        protected override void OnTextBoxResize(object source, EventArgs e)
-        {
-            Controls[1].Width = Width - 4;
-        }
+        //protected override void OnTextBoxResize(object source, EventArgs e)
+        //{
+        //this.Cursor = System.Windows.Forms.Cursors.IBeam;
+        //this.RightToLeft = System.Windows.Forms.RightToLeft.No;
 
-        public new decimal Value
+        //this.Appearance = System.Windows.Forms.Appearance.Button;
+        //this.BackColor = System.Drawing.Color.Transparent;
+        //this.BackColor = System.Drawing.Color.AliceBlue;
+        //this.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+        //    Controls[1].Width = Width - 4;
+        //}
+
+        public decimal Value
         {
             get
             {
-                return base.Value;
+                return _value;
             }
             set
             {
-                if (value != base.Value)
+                if (value != _value)
                 {
-                    if (value < Minimum)
+                    if (value < minimum)
                     {
-                        value = Minimum;
+                        value = minimum;
                     }
-                    if (value > Maximum)
+                    if (value > maximum)
                     {
-                        value = Maximum;
+                        value = maximum;
                     }
-                    base.Value = value;
+                    _value = value;
+
+                    //OnValueChanged(EventArgs.Empty);
+                    //currentValueChanged = true;
+                    UpdateEditText();
                 }
             }
         }
+
+        public decimal Minimum
+        {
+            get
+            {
+                return minimum;
+            }
+            set
+            {
+                minimum = value;
+                if (minimum > maximum)
+                {
+                    maximum = value;
+                }
+
+                Value = Constrain(_value);
+            }
+        }
+
+        public decimal Maximum
+        {
+            get
+            {
+                return maximum;
+            }
+            set
+            {
+                maximum = value;
+                if (minimum > maximum)
+                {
+                    minimum = maximum;
+                }
+
+                Value = Constrain(_value);
+            }
+        }
+
+        private decimal Constrain(decimal value)
+        {
+            if (value < minimum)
+            {
+                value = minimum;
+            }
+
+            if (value > maximum)
+            {
+                value = maximum;
+            }
+
+            return value;
+        }
+
+        public decimal Increment
+        {
+            get
+            {
+                return increment;
+            }
+            set
+            {
+                increment = value;
+            }
+        }
+
+        public int DecimalPlaces
+        {
+            get
+            {
+                return decimalPlaces;
+            }
+            set
+            {
+                decimalPlaces = value;
+
+                format = "0";
+
+                if (decimalPlaces > 0)
+                    format = "0.";
+
+                for (int i = 0; i < decimalPlaces; i++)
+                {
+                    format += "0";
+                }
+
+                UpdateEditText();
+            }
+        }
+
+        public void BeginInit()
+        {
+            initializing = true;
+        }
+
+        public void EndInit()
+        {
+            initializing = false;
+        }
+
+        public override string ToString()
+                    {
+            string text = base.ToString();
+            return text + ", Minimum = " + Minimum.ToString(CultureInfo.CurrentCulture) + ", Maximum = " + Maximum.ToString(CultureInfo.CurrentCulture);
+                    }
+
+        protected void UpdateEditText()
+                    {
+            if (!initializing)
+                Text = _value.ToString(format);
+        }
+
+        [Bindable(false)]
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override string Text { get => base.Text; set => base.Text = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new event EventHandler TextChanged { add => base.TextChanged += value; remove => base.TextChanged -= value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override ContentAlignment TextAlign { get => base.TextAlign; set => base.TextAlign = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override RightToLeft RightToLeft { get => base.RightToLeft; set => base.RightToLeft = value; }
     }
 
     public static class CExtensionMethods

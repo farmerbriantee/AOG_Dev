@@ -106,7 +106,6 @@
             this.nudLatitude.Name = "nudLatitude";
             this.nudLatitude.Size = new System.Drawing.Size(274, 52);
             this.nudLatitude.TabIndex = 198;
-            this.nudLatitude.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudLatitude.Click += new System.EventHandler(this.nudLatitude_Click);
             // 
             // nudLongitude
@@ -128,7 +127,6 @@
             this.nudLongitude.Name = "nudLongitude";
             this.nudLongitude.Size = new System.Drawing.Size(298, 52);
             this.nudLongitude.TabIndex = 197;
-            this.nudLongitude.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudLongitude.Click += new System.EventHandler(this.nudLongitude_Click);
             // 
             // label2

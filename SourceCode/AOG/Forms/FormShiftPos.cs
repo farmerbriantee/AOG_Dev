@@ -34,22 +34,22 @@ namespace AgOpenGPS
 
         private void btnNorth_MouseDown(object sender, MouseEventArgs e)
         {
-            nudNorth.UpButton();
+            nudNorth.Value++;
         }
 
         private void btnSouth_MouseDown(object sender, MouseEventArgs e)
         {
-            nudNorth.DownButton();
+            nudNorth.Value--;
         }
 
         private void btnWest_MouseDown(object sender, MouseEventArgs e)
         {
-            nudEast.DownButton();
+            nudEast.Value--;
         }
 
         private void btnEast_MouseDown(object sender, MouseEventArgs e)
         {
-            nudEast.UpButton();
+            nudEast.Value++;
         }
 
         private void btnZero_Click(object sender, EventArgs e)

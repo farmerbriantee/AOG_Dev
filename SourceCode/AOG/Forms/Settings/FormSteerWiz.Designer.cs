@@ -1374,7 +1374,6 @@
             this.nudMaxCounts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudMaxCounts.BackColor = System.Drawing.Color.AliceBlue;
             this.nudMaxCounts.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudMaxCounts.InterceptArrowKeys = false;
             this.nudMaxCounts.Location = new System.Drawing.Point(58, 239);
             this.nudMaxCounts.Maximum = new decimal(new int[] {
             255,
@@ -1382,10 +1381,8 @@
             0,
             0});
             this.nudMaxCounts.Name = "nudMaxCounts";
-            this.nudMaxCounts.ReadOnly = true;
             this.nudMaxCounts.Size = new System.Drawing.Size(107, 52);
             this.nudMaxCounts.TabIndex = 493;
-            this.nudMaxCounts.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudMaxCounts.Value = new decimal(new int[] {
             15,
             0,
@@ -1816,7 +1813,6 @@
             this.nudWheelbase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudWheelbase.BackColor = System.Drawing.Color.AliceBlue;
             this.nudWheelbase.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudWheelbase.InterceptArrowKeys = false;
             this.nudWheelbase.Location = new System.Drawing.Point(90, 231);
             this.nudWheelbase.Maximum = new decimal(new int[] {
             999,
@@ -1824,10 +1820,8 @@
             0,
             0});
             this.nudWheelbase.Name = "nudWheelbase";
-            this.nudWheelbase.ReadOnly = true;
             this.nudWheelbase.Size = new System.Drawing.Size(143, 65);
             this.nudWheelbase.TabIndex = 537;
-            this.nudWheelbase.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudWheelbase.Value = new decimal(new int[] {
             333,
             0,
@@ -1902,7 +1896,6 @@
             this.nudVehicleTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudVehicleTrack.BackColor = System.Drawing.Color.AliceBlue;
             this.nudVehicleTrack.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudVehicleTrack.InterceptArrowKeys = false;
             this.nudVehicleTrack.Location = new System.Drawing.Point(423, 185);
             this.nudVehicleTrack.Maximum = new decimal(new int[] {
             999,
@@ -1910,10 +1903,8 @@
             0,
             0});
             this.nudVehicleTrack.Name = "nudVehicleTrack";
-            this.nudVehicleTrack.ReadOnly = true;
             this.nudVehicleTrack.Size = new System.Drawing.Size(157, 65);
             this.nudVehicleTrack.TabIndex = 537;
-            this.nudVehicleTrack.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudVehicleTrack.Value = new decimal(new int[] {
             333,
             0,
@@ -2058,7 +2049,6 @@
             this.nudAntennaPivot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudAntennaPivot.BackColor = System.Drawing.Color.AliceBlue;
             this.nudAntennaPivot.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudAntennaPivot.InterceptArrowKeys = false;
             this.nudAntennaPivot.Location = new System.Drawing.Point(230, 226);
             this.nudAntennaPivot.Maximum = new decimal(new int[] {
             999,
@@ -2071,10 +2061,8 @@
             0,
             -2147483648});
             this.nudAntennaPivot.Name = "nudAntennaPivot";
-            this.nudAntennaPivot.ReadOnly = true;
             this.nudAntennaPivot.Size = new System.Drawing.Size(165, 65);
             this.nudAntennaPivot.TabIndex = 537;
-            this.nudAntennaPivot.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudAntennaPivot.Value = new decimal(new int[] {
             333,
             0,
@@ -2191,7 +2179,6 @@
             this.nudAntennaHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudAntennaHeight.BackColor = System.Drawing.Color.AliceBlue;
             this.nudAntennaHeight.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudAntennaHeight.InterceptArrowKeys = false;
             this.nudAntennaHeight.Location = new System.Drawing.Point(465, 87);
             this.nudAntennaHeight.Maximum = new decimal(new int[] {
             999,
@@ -2199,10 +2186,8 @@
             0,
             0});
             this.nudAntennaHeight.Name = "nudAntennaHeight";
-            this.nudAntennaHeight.ReadOnly = true;
             this.nudAntennaHeight.Size = new System.Drawing.Size(145, 65);
             this.nudAntennaHeight.TabIndex = 537;
-            this.nudAntennaHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudAntennaHeight.Value = new decimal(new int[] {
             333,
             0,
@@ -2293,7 +2278,6 @@
             this.nudAntennaOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudAntennaOffset.BackColor = System.Drawing.Color.AliceBlue;
             this.nudAntennaOffset.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudAntennaOffset.InterceptArrowKeys = false;
             this.nudAntennaOffset.Location = new System.Drawing.Point(250, 65);
             this.nudAntennaOffset.Maximum = new decimal(new int[] {
             999,
@@ -2306,10 +2290,8 @@
             0,
             -2147483648});
             this.nudAntennaOffset.Name = "nudAntennaOffset";
-            this.nudAntennaOffset.ReadOnly = true;
             this.nudAntennaOffset.Size = new System.Drawing.Size(165, 65);
             this.nudAntennaOffset.TabIndex = 537;
-            this.nudAntennaOffset.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudAntennaOffset.Value = new decimal(new int[] {
             333,
             0,

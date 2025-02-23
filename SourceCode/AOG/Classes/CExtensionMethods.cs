@@ -143,12 +143,14 @@ namespace AgOpenGPS
     public class NudlessNumericUpDown : Button, ISupportInitialize
     {
         private double _value;
+        private double _value = double.NaN;
         private double minimum = 0;
         private double maximum = 100;
         private double increment = 1;
         private int decimalPlaces = 0;
         private bool initializing = true;
         private string format = "0";
+        private EventHandler onValueChanged;
 
         public NudlessNumericUpDown()
         {
@@ -162,6 +164,19 @@ namespace AgOpenGPS
             //base.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         }
 
+        public event EventHandler ValueChanged { add => onValueChanged = (EventHandler)Delegate.Combine(onValueChanged, value); remove => onValueChanged = (EventHandler)Delegate.Remove(onValueChanged, value); }
+
+        protected override void OnClick(EventArgs e)
+        {
+            using (FormNumeric form = new FormNumeric(minimum, maximum, Math.Round(_value, decimalPlaces)))
+            {
+                DialogResult result = form.ShowDialog(this);
+                if (result == DialogResult.OK)
+                {
+                    Value = form.ReturnValue;
+                }
+            }
+        }
         public double Value
         {
             get
@@ -170,22 +185,36 @@ namespace AgOpenGPS
             }
             set
             {
-                if (value != _value)
+                if (!initializing)
                 {
                     if (value < minimum)
                     {
                         value = minimum;
                     }
-                    if (value > maximum)
+                    else if (value > maximum)
                     {
                         value = maximum;
                     }
+
+                    value = Math.Round(value, decimalPlaces);
+
+                    if (value != _value)
+                    {
+                        bool isnan = double.IsNaN(_value);
                     _value = value;
 
-                    //OnValueChanged(EventArgs.Empty);
-                    //currentValueChanged = true;
+                        if (!isnan && onValueChanged != null)
+                        {
+                            onValueChanged(this, EventArgs.Empty);
+                        }
                     UpdateEditText();
                 }
+            }
+                else if (DesignMode)
+                {
+                    _value = 0.0;
+                    UpdateEditText(true);
+        }
             }
         }
 
@@ -289,7 +318,8 @@ namespace AgOpenGPS
         public void EndInit()
         {
             initializing = false;
-            UpdateEditText();
+
+            Value = _value;
         }
 
         public override string ToString()
@@ -298,9 +328,9 @@ namespace AgOpenGPS
             return text + ", Minimum = " + minimum.ToString("0.0") + ", Maximum = " + maximum.ToString("0.0");
         }
 
-        protected void UpdateEditText()
+        protected void UpdateEditText(bool force = false)
         {
-            if (!initializing)
+            if (force || !initializing)
                 base.Text = _value.ToString(format);
         }
 
@@ -350,6 +380,21 @@ namespace AgOpenGPS
         [EditorBrowsable(EditorBrowsableState.Never)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public new Color ForeColor { get => base.ForeColor; set => base.ForeColor = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new event EventHandler Click { add => base.Click += value; remove => base.Click -= value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new event EventHandler Enter { add => base.Enter += value; remove => base.Enter -= value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new FlatStyle FlatStyle { get => base.FlatStyle; set => base.FlatStyle = value; }
 
         public override Font Font { get => base.Font; set => base.Font = value; }
     }

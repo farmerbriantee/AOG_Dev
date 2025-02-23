@@ -51,10 +51,5 @@ namespace AgOpenGPS
         {
             Close();
         }
-
-        private void nud_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-        }
     }
 }

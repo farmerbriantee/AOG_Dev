@@ -688,9 +688,8 @@ namespace AgOpenGPS
             Close();
         }
 
-        private void nudSetDistance_Click(object sender, EventArgs e)
+        private void nudSetDistance_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
             btnExit.Focus();
         }
 

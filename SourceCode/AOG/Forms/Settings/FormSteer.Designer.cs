@@ -1670,7 +1670,7 @@
             this.nudDeadZoneDelay.Size = new System.Drawing.Size(107, 36);
             this.nudDeadZoneDelay.TabIndex = 542;
             this.nudDeadZoneDelay.Value = 1D;
-            this.nudDeadZoneDelay.Click += new System.EventHandler(this.nudDeadZoneDelay_Click);
+            this.nudDeadZoneDelay.ValueChanged += new System.EventHandler(this.nudDeadZoneDelay_ValueChanged);
             // 
             // nudDeadZoneHeading
             // 
@@ -1683,7 +1683,7 @@
             this.nudDeadZoneHeading.Size = new System.Drawing.Size(107, 36);
             this.nudDeadZoneHeading.TabIndex = 538;
             this.nudDeadZoneHeading.Value = 1D;
-            this.nudDeadZoneHeading.Click += new System.EventHandler(this.nudDeadZoneHeading_Click);
+            this.nudDeadZoneHeading.ValueChanged += new System.EventHandler(this.nudDeadZoneHeading_ValueChanged);
             // 
             // imageList1
             // 
@@ -2231,7 +2231,7 @@
             this.nudMaxCounts.Size = new System.Drawing.Size(107, 52);
             this.nudMaxCounts.TabIndex = 493;
             this.nudMaxCounts.Value = 15D;
-            this.nudMaxCounts.Click += new System.EventHandler(this.nudMaxCounts_Click);
+            this.nudMaxCounts.ValueChanged += new System.EventHandler(this.nudMaxCounts_ValueChanged);
             // 
             // cboxCurrentSensor
             // 
@@ -2670,7 +2670,7 @@
             this.nudMinSteerSpeed.Size = new System.Drawing.Size(110, 52);
             this.nudMinSteerSpeed.TabIndex = 505;
             this.nudMinSteerSpeed.Value = 1D;
-            this.nudMinSteerSpeed.Click += new System.EventHandler(this.nudMinSteerSpeed_Click);
+            this.nudMinSteerSpeed.ValueChanged += new System.EventHandler(this.nudMinSteerSpeed_ValueChanged);
             // 
             // nudMaxSteerSpeed
             // 
@@ -2681,7 +2681,7 @@
             this.nudMaxSteerSpeed.Size = new System.Drawing.Size(110, 52);
             this.nudMaxSteerSpeed.TabIndex = 501;
             this.nudMaxSteerSpeed.Value = 12D;
-            this.nudMaxSteerSpeed.Click += new System.EventHandler(this.nudMaxSteerSpeed_Click);
+            this.nudMaxSteerSpeed.ValueChanged += new System.EventHandler(this.nudMaxSteerSpeed_ValueChanged);
             // 
             // nudGuidanceSpeedLimit
             // 
@@ -2692,7 +2692,7 @@
             this.nudGuidanceSpeedLimit.Size = new System.Drawing.Size(110, 52);
             this.nudGuidanceSpeedLimit.TabIndex = 492;
             this.nudGuidanceSpeedLimit.Value = 7D;
-            this.nudGuidanceSpeedLimit.Click += new System.EventHandler(this.nudGuidanceSpeedLimit_Click);
+            this.nudGuidanceSpeedLimit.ValueChanged += new System.EventHandler(this.nudGuidanceSpeedLimit_ValueChanged);
             // 
             // tabOnTheLine
             // 
@@ -2992,7 +2992,7 @@
             this.nudcmPerPixel.Size = new System.Drawing.Size(78, 46);
             this.nudcmPerPixel.TabIndex = 524;
             this.nudcmPerPixel.Value = 3D;
-            this.nudcmPerPixel.Click += new System.EventHandler(this.nudcmPerPixel_Click);
+            this.nudcmPerPixel.ValueChanged += new System.EventHandler(this.nudcmPerPixel_ValueChanged);
             // 
             // nudLineWidth
             // 
@@ -3004,7 +3004,7 @@
             this.nudLineWidth.Size = new System.Drawing.Size(78, 46);
             this.nudLineWidth.TabIndex = 520;
             this.nudLineWidth.Value = 1D;
-            this.nudLineWidth.Click += new System.EventHandler(this.nudLineWidth_Click);
+            this.nudLineWidth.ValueChanged += new System.EventHandler(this.nudLineWidth_ValueChanged);
             // 
             // nudSnapDistance
             // 
@@ -3015,7 +3015,7 @@
             this.nudSnapDistance.Size = new System.Drawing.Size(78, 46);
             this.nudSnapDistance.TabIndex = 516;
             this.nudSnapDistance.Value = 499D;
-            this.nudSnapDistance.Click += new System.EventHandler(this.nudSnapDistance_Click);
+            this.nudSnapDistance.ValueChanged += new System.EventHandler(this.nudSnapDistance_ValueChanged);
             // 
             // nudGuidanceLookAhead
             // 
@@ -3028,7 +3028,7 @@
             this.nudGuidanceLookAhead.Size = new System.Drawing.Size(100, 46);
             this.nudGuidanceLookAhead.TabIndex = 512;
             this.nudGuidanceLookAhead.Value = 10D;
-            this.nudGuidanceLookAhead.Click += new System.EventHandler(this.nudGuidanceLookAhead_Click);
+            this.nudGuidanceLookAhead.ValueChanged += new System.EventHandler(this.nudGuidanceLookAhead_ValueChanged);
             // 
             // tabTool
             // 

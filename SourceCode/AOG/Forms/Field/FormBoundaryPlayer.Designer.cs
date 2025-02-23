@@ -245,7 +245,7 @@
             this.nudOffset.Size = new System.Drawing.Size(125, 46);
             this.nudOffset.TabIndex = 149;
             this.nudOffset.Value = 4999D;
-            this.nudOffset.Click += new System.EventHandler(this.nudOffset_Click);
+            this.nudOffset.ValueChanged += new System.EventHandler(this.nudOffset_ValueChanged);
             // 
             // cboxIsRecBoundaryWhenSectionOn
             // 

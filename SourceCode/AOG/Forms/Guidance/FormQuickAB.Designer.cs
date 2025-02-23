@@ -576,7 +576,7 @@
             this.nudHeading.Size = new System.Drawing.Size(195, 46);
             this.nudHeading.TabIndex = 413;
             this.nudHeading.Value = 0D;
-            this.nudHeading.Click += new System.EventHandler(this.nudHeading_Click);
+            this.nudHeading.ValueChanged += new System.EventHandler(this.nudHeading_ValueChanged);
             // 
             // btnAPlus
             // 

@@ -450,30 +450,27 @@ namespace AgOpenGPS
             Properties.Settings.Default.setVehicle_antennaOffset = mf.vehicle.antennaOffset;
         }
 
-        private void nudAntennaOffset_Click(object sender, EventArgs e)
+        private void nudAntennaOffset_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if ((double)nudAntennaOffset.Value == 0)
             {
-                if ((double)nudAntennaOffset.Value == 0)
-                {
-                    rbtnAntennaLeft.Checked = false;
-                    rbtnAntennaRight.Checked = false;
-                    rbtnAntennaCenter.Checked = true;
-                    mf.vehicle.antennaOffset = 0;
-                }
-                else
-                {
-                    if (!rbtnAntennaLeft.Checked && !rbtnAntennaRight.Checked)
-                        rbtnAntennaRight.Checked = true;
-
-                    if (rbtnAntennaRight.Checked)
-                        mf.vehicle.antennaOffset = (double)nudAntennaOffset.Value * -mf.inchOrCm2m;
-                    else
-                        mf.vehicle.antennaOffset = (double)nudAntennaOffset.Value * mf.inchOrCm2m;
-                }
-
-                Properties.Settings.Default.setVehicle_antennaOffset = mf.vehicle.antennaOffset;
+                rbtnAntennaLeft.Checked = false;
+                rbtnAntennaRight.Checked = false;
+                rbtnAntennaCenter.Checked = true;
+                mf.vehicle.antennaOffset = 0;
             }
+            else
+            {
+                if (!rbtnAntennaLeft.Checked && !rbtnAntennaRight.Checked)
+                    rbtnAntennaRight.Checked = true;
+
+                if (rbtnAntennaRight.Checked)
+                    mf.vehicle.antennaOffset = (double)nudAntennaOffset.Value * -mf.inchOrCm2m;
+                else
+                    mf.vehicle.antennaOffset = (double)nudAntennaOffset.Value * mf.inchOrCm2m;
+            }
+
+            Properties.Settings.Default.setVehicle_antennaOffset = mf.vehicle.antennaOffset;
 
             //rbtnAntennaLeft.Checked = false;
             //rbtnAntennaRight.Checked = false;
@@ -481,23 +478,16 @@ namespace AgOpenGPS
             //rbtnAntennaRight.Checked = Properties.Settings.Default.setVehicle_antennaOffset < 0;
         }
 
-        private void nudAntennaPivot_Click(object sender, EventArgs e)
+        private void nudAntennaPivot_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setVehicle_antennaPivot = (double)nudAntennaPivot.Value * mf.inchOrCm2m;
-                mf.vehicle.antennaPivot = Properties.Settings.Default.setVehicle_antennaPivot;
-            }
+            Properties.Settings.Default.setVehicle_antennaPivot = (double)nudAntennaPivot.Value * mf.inchOrCm2m;
+            mf.vehicle.antennaPivot = Properties.Settings.Default.setVehicle_antennaPivot;
         }
 
-
-        private void nudAntennaHeight_Click(object sender, EventArgs e)
+        private void nudAntennaHeight_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setVehicle_antennaHeight = (double)nudAntennaHeight.Value * mf.inchOrCm2m;
-                mf.vehicle.antennaHeight = Properties.Settings.Default.setVehicle_antennaHeight;
-            }
+            Properties.Settings.Default.setVehicle_antennaHeight = (double)nudAntennaHeight.Value * mf.inchOrCm2m;
+            mf.vehicle.antennaHeight = Properties.Settings.Default.setVehicle_antennaHeight;
         }
 
         #endregion
@@ -546,40 +536,27 @@ namespace AgOpenGPS
             label97.Text = mf.unitsInCm;
         }
 
-        private void nudTractorHitchLength_Click(object sender, EventArgs e)
+        private void nudTractorHitchLength_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            mf.tool.hitchLength = (double)nudTractorHitchLength.Value * mf.inchOrCm2m;
+            if (!Properties.Settings.Default.setTool_isToolFront)
             {
-                mf.tool.hitchLength = (double)nudTractorHitchLength.Value * mf.inchOrCm2m;
-                if (!Properties.Settings.Default.setTool_isToolFront)
-                {
-                    mf.tool.hitchLength *= -1;
-                }
-                Properties.Settings.Default.setVehicle_hitchLength = mf.tool.hitchLength;
+                mf.tool.hitchLength *= -1;
             }
+            Properties.Settings.Default.setVehicle_hitchLength = mf.tool.hitchLength;
         }
 
-
-
-        private void nudWheelbase_Click(object sender, EventArgs e)
+        private void nudWheelbase_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setVehicle_wheelbase = (double)nudWheelbase.Value * mf.inchOrCm2m;
-                mf.vehicle.wheelbase = Properties.Settings.Default.setVehicle_wheelbase;
-                
-            }
+            Properties.Settings.Default.setVehicle_wheelbase = (double)nudWheelbase.Value * mf.inchOrCm2m;
+            mf.vehicle.wheelbase = Properties.Settings.Default.setVehicle_wheelbase;
         }
 
-        private void nudVehicleTrack_Click(object sender, EventArgs e)
+        private void nudVehicleTrack_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setVehicle_trackWidth = (double)nudVehicleTrack.Value * mf.inchOrCm2m;
-                mf.vehicle.trackWidth = Properties.Settings.Default.setVehicle_trackWidth;
-                mf.tram.halfWheelTrack = mf.vehicle.trackWidth * 0.5;
-                
-            }
+            Properties.Settings.Default.setVehicle_trackWidth = (double)nudVehicleTrack.Value * mf.inchOrCm2m;
+            mf.vehicle.trackWidth = Properties.Settings.Default.setVehicle_trackWidth;
+            mf.tram.halfWheelTrack = mf.vehicle.trackWidth * 0.5;
         }
 
         #endregion

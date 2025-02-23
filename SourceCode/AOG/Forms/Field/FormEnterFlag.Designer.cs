@@ -98,7 +98,6 @@
             this.nudLatitude.Size = new System.Drawing.Size(274, 52);
             this.nudLatitude.TabIndex = 198;
             this.nudLatitude.Value = 0D;
-            this.nudLatitude.Click += new System.EventHandler(this.nudLatitude_Click);
             // 
             // nudLongitude
             // 
@@ -111,7 +110,6 @@
             this.nudLongitude.Size = new System.Drawing.Size(298, 52);
             this.nudLongitude.TabIndex = 197;
             this.nudLongitude.Value = 0D;
-            this.nudLongitude.Click += new System.EventHandler(this.nudLongitude_Click);
             // 
             // label2
             // 

@@ -59,7 +59,7 @@
             this.nudNorth.Size = new System.Drawing.Size(185, 65);
             this.nudNorth.TabIndex = 154;
             this.nudNorth.Value = 0D;
-            this.nudNorth.Click += new System.EventHandler(this.nudNorth_Click);
+            this.nudNorth.ValueChanged += new System.EventHandler(this.nudNorth_ValueChanged);
             // 
             // nudEast
             // 
@@ -71,7 +71,7 @@
             this.nudEast.Size = new System.Drawing.Size(185, 65);
             this.nudEast.TabIndex = 155;
             this.nudEast.Value = 1D;
-            this.nudEast.Click += new System.EventHandler(this.nudEast_Click);
+            this.nudEast.ValueChanged += new System.EventHandler(this.nudEast_ValueChanged);
             // 
             // label27
             // 

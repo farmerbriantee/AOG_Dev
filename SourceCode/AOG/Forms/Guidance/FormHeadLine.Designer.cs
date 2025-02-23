@@ -196,7 +196,6 @@
             this.nudSetDistance.Size = new System.Drawing.Size(143, 52);
             this.nudSetDistance.TabIndex = 464;
             this.nudSetDistance.Value = 0D;
-            this.nudSetDistance.Click += new System.EventHandler(this.nudSetDistance_Click);
             // 
             // cboxIsZoom
             // 

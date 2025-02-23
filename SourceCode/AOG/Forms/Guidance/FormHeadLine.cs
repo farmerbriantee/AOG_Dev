@@ -681,12 +681,6 @@ namespace AgOpenGPS
             mf.hdl.desList?.Clear();
         }
 
-        private void nudSetDistance_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-            btnExit.Focus();
-        }
-
         // Returns 1 if the lines intersect, otherwis
         public double iE = 0, iN = 0;
 

@@ -53,66 +53,17 @@ namespace AgOpenGPS
 
             nudHydLiftLookAhead.Value = Properties.Settings.Default.setVehicle_hydraulicLiftLookAhead;
         }
+
         private void tabAMachine_Leave(object sender, EventArgs e)
         {
             pboxSendMachine.Visible = false;
         }
 
-        private void nudHydLiftSecs_Click(object sender, EventArgs e)
+        private void nudUser_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                pboxSendMachine.Visible = true;
-            }
+            pboxSendMachine.Visible = true;
         }
 
-        private void nudRaiseTime_Click(object sender, EventArgs e)
-        {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                pboxSendMachine.Visible = true;
-            }
-        }
-
-        private void nudLowerTime_Click(object sender, EventArgs e)
-        {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                pboxSendMachine.Visible = true;
-            }
-        }
-
-        private void nudUser1_Click(object sender, EventArgs e)
-        {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                pboxSendMachine.Visible = true;
-            }
-        }
-
-        private void nudUser2_Click(object sender, EventArgs e)
-        {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                pboxSendMachine.Visible = true;
-            }
-        }
-
-        private void nudUser3_Click(object sender, EventArgs e)
-        {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                pboxSendMachine.Visible = true;
-            }
-        }
-
-        private void nudUser4_Click(object sender, EventArgs e)
-        {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                pboxSendMachine.Visible = true;
-            }
-        }
         private void cboxIsHydOn_Click(object sender, EventArgs e)
         {
             if (cboxIsHydOn.Checked)
@@ -501,20 +452,14 @@ namespace AgOpenGPS
             }
         }
 
-        private void nudYouTurnRadius_Click(object sender, EventArgs e)
+        private void nudYouTurnRadius_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                mf.yt.youTurnRadius = (double)nudYouTurnRadius.Value * mf.ftOrMtoM;
-            }
+            mf.yt.youTurnRadius = (double)nudYouTurnRadius.Value * mf.ftOrMtoM;
         }
 
-        private void nudTurnDistanceFromBoundary_Click(object sender, EventArgs e)
+        private void nudTurnDistanceFromBoundary_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                mf.yt.uturnDistanceFromBoundary = (double)nudTurnDistanceFromBoundary.Value * mf.ftOrMtoM;
-            }
+            mf.yt.uturnDistanceFromBoundary = (double)nudTurnDistanceFromBoundary.Value * mf.ftOrMtoM;
         }
 
         private void btnDistanceDn_Click(object sender, EventArgs e)
@@ -562,17 +507,12 @@ namespace AgOpenGPS
             mf.tool.isDisplayTramControl = cboxDisplayTramControl.Checked;
 
             mf.tram.IsTramOuterOrInner();
-
-            
-
         }
-        private void nudTramWidth_Click(object sender, EventArgs e)
+
+        private void nudTramWidth_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                mf.tram.tramWidth = (double)nudTramWidth.Value * mf.inchOrCm2m;
-                Properties.Settings.Default.setTram_tramWidth = mf.tram.tramWidth;
-            }
+            mf.tram.tramWidth = (double)nudTramWidth.Value * mf.inchOrCm2m;
+            Properties.Settings.Default.setTram_tramWidth = mf.tram.tramWidth;
         }
 
         #endregion

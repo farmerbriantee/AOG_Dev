@@ -1075,22 +1075,6 @@ namespace AgOpenGPS
             }
         }
 
-        public bool KeypadToNUD(NudlessNumericUpDown sender, Form owner)
-        {
-            sender.Value = Math.Round(sender.Value, sender.DecimalPlaces);
-
-            using (FormNumeric form = new FormNumeric(sender.Minimum, sender.Maximum, sender.Value))
-            {
-                DialogResult result = form.ShowDialog(owner);
-                if (result == DialogResult.OK)
-                {
-                    sender.Value = form.ReturnValue;
-                    return true;
-                }
-                return false;
-            }
-        }
-
         public void KeyboardToText(TextBox sender, Form owner)
         {
             var colour = sender.BackColor;

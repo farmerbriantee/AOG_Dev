@@ -243,7 +243,7 @@
             this.nudSnapDistance.Size = new System.Drawing.Size(64, 36);
             this.nudSnapDistance.TabIndex = 415;
             this.nudSnapDistance.Value = 800D;
-            this.nudSnapDistance.Click += new System.EventHandler(this.nudSnapDistance_Click);
+            this.nudSnapDistance.ValueChanged += new System.EventHandler(this.nudSnapDistance_ValueChanged);
             // 
             // FormNudge
             // 

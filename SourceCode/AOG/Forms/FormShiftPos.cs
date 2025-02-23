@@ -74,15 +74,13 @@ namespace AgOpenGPS
             else chkOffsetsOn.Text = "Off";
         }
 
-        private void nudNorth_Click(object sender, EventArgs e)
+        private void nudNorth_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
             mf.pn.fixOffset.northing = (double)nudNorth.Value / 100;
         }
 
-        private void nudEast_Click(object sender, EventArgs e)
+        private void nudEast_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
             mf.pn.fixOffset.easting = (double)nudEast.Value / 100;
         }
     }

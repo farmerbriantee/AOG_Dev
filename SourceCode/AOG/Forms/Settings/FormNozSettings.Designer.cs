@@ -300,7 +300,7 @@
             this.nudTankVolume.Size = new System.Drawing.Size(201, 65);
             this.nudTankVolume.TabIndex = 619;
             this.nudTankVolume.Value = 0D;
-            this.nudTankVolume.Click += new System.EventHandler(this.nudTankVolume_Click);
+            this.nudTankVolume.ValueChanged += new System.EventHandler(this.nudTankVolume_ValueChanged);
             // 
             // nudZeroVolume
             // 
@@ -311,7 +311,7 @@
             this.nudZeroVolume.Size = new System.Drawing.Size(201, 65);
             this.nudZeroVolume.TabIndex = 615;
             this.nudZeroVolume.Value = 0D;
-            this.nudZeroVolume.Click += new System.EventHandler(this.nudZeroVolume_Click);
+            this.nudZeroVolume.ValueChanged += new System.EventHandler(this.nudZeroVolume_ValueChanged);
             // 
             // nudSprayRateSet2
             // 
@@ -324,7 +324,7 @@
             this.nudSprayRateSet2.Size = new System.Drawing.Size(186, 65);
             this.nudSprayRateSet2.TabIndex = 611;
             this.nudSprayRateSet2.Value = 999.9D;
-            this.nudSprayRateSet2.Click += new System.EventHandler(this.nudSprayRateSet2_Click);
+            this.nudSprayRateSet2.ValueChanged += new System.EventHandler(this.nudSprayRateSet2_ValueChanged);
             // 
             // nudSprayMinPressure
             // 
@@ -335,7 +335,7 @@
             this.nudSprayMinPressure.Size = new System.Drawing.Size(150, 65);
             this.nudSprayMinPressure.TabIndex = 591;
             this.nudSprayMinPressure.Value = 9D;
-            this.nudSprayMinPressure.Click += new System.EventHandler(this.nudSprayMinPressure_Click);
+            this.nudSprayMinPressure.ValueChanged += new System.EventHandler(this.nudSprayMinPressure_ValueChanged);
             // 
             // nudSprayRateSet1
             // 
@@ -348,7 +348,7 @@
             this.nudSprayRateSet1.Size = new System.Drawing.Size(186, 65);
             this.nudSprayRateSet1.TabIndex = 577;
             this.nudSprayRateSet1.Value = 999.9D;
-            this.nudSprayRateSet1.Click += new System.EventHandler(this.nudSprayRateSet1_Click);
+            this.nudSprayRateSet1.ValueChanged += new System.EventHandler(this.nudSprayRateSet1_ValueChanged);
             // 
             // timer1
             // 
@@ -367,7 +367,7 @@
             this.nudNudge.Size = new System.Drawing.Size(150, 65);
             this.nudNudge.TabIndex = 623;
             this.nudNudge.Value = 10D;
-            this.nudNudge.Click += new System.EventHandler(this.nudNudge_Click);
+            this.nudNudge.ValueChanged += new System.EventHandler(this.nudNudge_ValueChanged);
             // 
             // label5
             // 
@@ -390,7 +390,7 @@
             this.nudRateAlarmPercent.Size = new System.Drawing.Size(150, 65);
             this.nudRateAlarmPercent.TabIndex = 625;
             this.nudRateAlarmPercent.Value = 7D;
-            this.nudRateAlarmPercent.Click += new System.EventHandler(this.nudRateAlarmPercent_Click);
+            this.nudRateAlarmPercent.ValueChanged += new System.EventHandler(this.nudRateAlarmPercent_ValueChanged);
             // 
             // label6
             // 

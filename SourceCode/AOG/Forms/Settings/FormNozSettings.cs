@@ -69,38 +69,30 @@ namespace AgOpenGPS
             nudRateAlarmPercent.Value = (int)(mf.nozz.rateAlarmPercent * 100);
         }
 
-        private void nudSprayRateSet1_Click(object sender, EventArgs e)
+        private void nudSprayRateSet1_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (mf.isMetric)
             {
-                if (mf.isMetric)
-                {
-                    nudSprayRateSet1.Value = Math.Round(nudSprayRateSet1.Value, 0);
-                }
-                mf.nozz.volumePerAreaSet1 = (double)nudSprayRateSet1.Value;
-
-                Properties.Settings.Default.setNozzleSettings.volumePerAreaSet1 = (double)nudSprayRateSet1.Value;
+                nudSprayRateSet1.Value = Math.Round(nudSprayRateSet1.Value, 0);
             }
+            mf.nozz.volumePerAreaSet1 = nudSprayRateSet1.Value;
+
+            Properties.Settings.Default.setNozzleSettings.volumePerAreaSet1 = nudSprayRateSet1.Value;
         }
 
-        private void nudSprayRateSet2_Click(object sender, EventArgs e)
+        private void nudSprayRateSet2_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (mf.isMetric)
             {
-                if (mf.isMetric)
-                {
-                    nudSprayRateSet2.Value = Math.Round(nudSprayRateSet2.Value, 0);
-                }
-
-                mf.nozz.volumePerAreaSet2 = (double)nudSprayRateSet2.Value;
-                Properties.Settings.Default.setNozzleSettings.volumePerAreaSet2 = (double)nudSprayRateSet2.Value;
+                nudSprayRateSet2.Value = Math.Round(nudSprayRateSet2.Value, 0);
             }
+
+            mf.nozz.volumePerAreaSet2 = nudSprayRateSet2.Value;
+            Properties.Settings.Default.setNozzleSettings.volumePerAreaSet2 = nudSprayRateSet2.Value;
         }
 
-        private void nudSprayMinPressure_Click(object sender, EventArgs e)
+        private void nudSprayMinPressure_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-
             Properties.Settings.Default.setNozzleSettings.pressureMin = (int)nudSprayMinPressure.Value;
 
             PGN_226.pgn[PGN_226.minPressure] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.pressureMin));
@@ -116,48 +108,42 @@ namespace AgOpenGPS
             Close();
         }
 
-        private void nudTankVolume_Click(object sender, EventArgs e)
+        private void nudTankVolume_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                mf.nozz.volumeTankStart = (int)nudTankVolume.Value;
-                Properties.Settings.Default.setNozzleSettings.volumeTankStart = mf.nozz.volumeTankStart;
-            }
+            mf.nozz.volumeTankStart = (int)nudTankVolume.Value;
+            Properties.Settings.Default.setNozzleSettings.volumeTankStart = mf.nozz.volumeTankStart;
         }
 
-        private void nudZeroVolume_Click(object sender, EventArgs e)
+        private void nudZeroVolume_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (nudZeroVolume.Value < 2)
             {
-                if (nudZeroVolume.Value < 2)
-                {
-                    mf.nozz.volumeApplied = 0;
+                mf.nozz.volumeApplied = 0;
 
-                    PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 1;
-                    PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
+                PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 1;
+                PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
 
-                    mf.SendPgnToLoop(PGN_225.pgn);
+                mf.SendPgnToLoop(PGN_225.pgn);
 
-                    PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 0;
-                    PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
-                }
-                else
-                {
-                    mf.nozz.volumeApplied = (double)nudZeroVolume.Value;
+                PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 0;
+                PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
+            }
+            else
+            {
+                mf.nozz.volumeApplied = (double)nudZeroVolume.Value;
 
-                    int vol = (int)nudZeroVolume.Value;
+                int vol = (int)nudZeroVolume.Value;
 
-                    PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(vol >> 8));
-                    PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(vol));
+                PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(vol >> 8));
+                PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(vol));
 
-                    PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 1;
-                    PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
+                PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 1;
+                PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
 
-                    mf.SendPgnToLoop(PGN_225.pgn);
+                mf.SendPgnToLoop(PGN_225.pgn);
 
-                    PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 0;
-                    PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
-                }
+                PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 0;
+                PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
             }
         }
 
@@ -183,23 +169,16 @@ namespace AgOpenGPS
             lblAcresAvailable.Text = ((mf.nozz.volumeTankStart - mf.nozz.volumeApplied) / mf.nozz.volumePerAreaSetSelected).ToString("N1");
         }
 
-        private void nudNudge_Click(object sender, EventArgs e)
+        private void nudNudge_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setNozzleSettings.rateNudge = (double)nudNudge.Value;
-
-                mf.nozz.rateNudge = (double)nudNudge.Value;
-            }
+            Properties.Settings.Default.setNozzleSettings.rateNudge = nudNudge.Value;
+            mf.nozz.rateNudge = nudNudge.Value;
         }
 
-        private void nudRateAlarmPercent_Click(object sender, EventArgs e)
+        private void nudRateAlarmPercent_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                mf.nozz.rateAlarmPercent = (double)nudRateAlarmPercent.Value * 0.01;
-                Properties.Settings.Default.setNozzleSettings.rateAlarmPercent = mf.nozz.rateAlarmPercent;
-            }
+            mf.nozz.rateAlarmPercent = nudRateAlarmPercent.Value * 0.01;
+            Properties.Settings.Default.setNozzleSettings.rateAlarmPercent = mf.nozz.rateAlarmPercent;
         }
     }
 }

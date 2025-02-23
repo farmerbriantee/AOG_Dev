@@ -2561,7 +2561,7 @@
             this.nudAntennaOffset.Size = new System.Drawing.Size(144, 52);
             this.nudAntennaOffset.TabIndex = 2;
             this.nudAntennaOffset.Value = 0D;
-            this.nudAntennaOffset.Click += new System.EventHandler(this.nudAntennaOffset_Click);
+            this.nudAntennaOffset.ValueChanged += new System.EventHandler(this.nudAntennaOffset_ValueChanged);
             // 
             // nudAntennaHeight
             // 
@@ -2572,7 +2572,7 @@
             this.nudAntennaHeight.Size = new System.Drawing.Size(144, 52);
             this.nudAntennaHeight.TabIndex = 3;
             this.nudAntennaHeight.Value = 300D;
-            this.nudAntennaHeight.Click += new System.EventHandler(this.nudAntennaHeight_Click);
+            this.nudAntennaHeight.ValueChanged += new System.EventHandler(this.nudAntennaHeight_ValueChanged);
             // 
             // nudAntennaPivot
             // 
@@ -2584,7 +2584,7 @@
             this.nudAntennaPivot.Size = new System.Drawing.Size(144, 52);
             this.nudAntennaPivot.TabIndex = 1;
             this.nudAntennaPivot.Value = 111D;
-            this.nudAntennaPivot.Click += new System.EventHandler(this.nudAntennaPivot_Click);
+            this.nudAntennaPivot.ValueChanged += new System.EventHandler(this.nudAntennaPivot_ValueChanged);
             // 
             // pboxAntenna
             // 
@@ -2694,7 +2694,7 @@
             this.nudTractorHitchLength.Size = new System.Drawing.Size(152, 52);
             this.nudTractorHitchLength.TabIndex = 478;
             this.nudTractorHitchLength.Value = 301D;
-            this.nudTractorHitchLength.Click += new System.EventHandler(this.nudTractorHitchLength_Click);
+            this.nudTractorHitchLength.ValueChanged += new System.EventHandler(this.nudTractorHitchLength_ValueChanged);
             // 
             // nudVehicleTrack
             // 
@@ -2706,7 +2706,7 @@
             this.nudVehicleTrack.Size = new System.Drawing.Size(133, 52);
             this.nudVehicleTrack.TabIndex = 53;
             this.nudVehicleTrack.Value = 301D;
-            this.nudVehicleTrack.Click += new System.EventHandler(this.nudVehicleTrack_Click);
+            this.nudVehicleTrack.ValueChanged += new System.EventHandler(this.nudVehicleTrack_ValueChanged);
             // 
             // nudWheelbase
             // 
@@ -2718,7 +2718,7 @@
             this.nudWheelbase.Size = new System.Drawing.Size(152, 52);
             this.nudWheelbase.TabIndex = 52;
             this.nudWheelbase.Value = 499D;
-            this.nudWheelbase.Click += new System.EventHandler(this.nudWheelbase_Click);
+            this.nudWheelbase.ValueChanged += new System.EventHandler(this.nudWheelbase_ValueChanged);
             // 
             // pictureBox1
             // 
@@ -2896,7 +2896,7 @@
             this.nudTrailingHitchLength.Size = new System.Drawing.Size(124, 52);
             this.nudTrailingHitchLength.TabIndex = 3;
             this.nudTrailingHitchLength.Value = 520D;
-            this.nudTrailingHitchLength.Click += new System.EventHandler(this.nudTrailingHitchLength_Click);
+            this.nudTrailingHitchLength.ValueChanged += new System.EventHandler(this.nudTrailingHitchLength_ValueChanged);
             // 
             // nudDrawbarLength
             // 
@@ -2907,7 +2907,7 @@
             this.nudDrawbarLength.Size = new System.Drawing.Size(124, 52);
             this.nudDrawbarLength.TabIndex = 1;
             this.nudDrawbarLength.Value = 51D;
-            this.nudDrawbarLength.Click += new System.EventHandler(this.nudDrawbarLength_Click);
+            this.nudDrawbarLength.ValueChanged += new System.EventHandler(this.nudDrawbarLength_ValueChanged);
             // 
             // nudTankHitch
             // 
@@ -2919,7 +2919,7 @@
             this.nudTankHitch.Size = new System.Drawing.Size(124, 52);
             this.nudTankHitch.TabIndex = 2;
             this.nudTankHitch.Value = 326D;
-            this.nudTankHitch.Click += new System.EventHandler(this.nudTankHitch_Click);
+            this.nudTankHitch.ValueChanged += new System.EventHandler(this.nudTankHitch_ValueChanged);
             // 
             // picboxToolHitch
             // 
@@ -3159,7 +3159,7 @@
             this.nudOverlap.Size = new System.Drawing.Size(114, 52);
             this.nudOverlap.TabIndex = 116;
             this.nudOverlap.Value = 8D;
-            this.nudOverlap.Click += new System.EventHandler(this.nudOverlaPGN_Click);
+            this.nudOverlap.ValueChanged += new System.EventHandler(this.nudOverlaPGN_ValueChanged);
             // 
             // nudOffset
             // 
@@ -3170,7 +3170,7 @@
             this.nudOffset.Size = new System.Drawing.Size(114, 52);
             this.nudOffset.TabIndex = 115;
             this.nudOffset.Value = 25D;
-            this.nudOffset.Click += new System.EventHandler(this.nudOffset_Click);
+            this.nudOffset.ValueChanged += new System.EventHandler(this.nudOffset_ValueChanged);
             // 
             // tabToolPivot
             // 
@@ -3259,7 +3259,7 @@
             this.nudTrailingToolToPivotLength.Size = new System.Drawing.Size(205, 52);
             this.nudTrailingToolToPivotLength.TabIndex = 214;
             this.nudTrailingToolToPivotLength.Value = 51D;
-            this.nudTrailingToolToPivotLength.Click += new System.EventHandler(this.nudTrailingToolToPivotLength_Click);
+            this.nudTrailingToolToPivotLength.ValueChanged += new System.EventHandler(this.nudTrailingToolToPivotLength_ValueChanged);
             // 
             // tabTSections
             // 
@@ -3375,7 +3375,7 @@
             this.nudZone8To.Size = new System.Drawing.Size(87, 43);
             this.nudZone8To.TabIndex = 509;
             this.nudZone8To.Value = 98D;
-            this.nudZone8To.Click += new System.EventHandler(this.nudZone8To_Click);
+            this.nudZone8To.ValueChanged += new System.EventHandler(this.nudZone8To_ValueChanged);
             // 
             // lblZoneStart8
             // 
@@ -3428,7 +3428,7 @@
             this.nudZone7To.Size = new System.Drawing.Size(87, 43);
             this.nudZone7To.TabIndex = 505;
             this.nudZone7To.Value = 98D;
-            this.nudZone7To.Click += new System.EventHandler(this.nudZone7To_Click);
+            this.nudZone7To.ValueChanged += new System.EventHandler(this.nudZone7To_ValueChanged);
             // 
             // lblZoneStart7
             // 
@@ -3481,7 +3481,7 @@
             this.nudZone6To.Size = new System.Drawing.Size(87, 43);
             this.nudZone6To.TabIndex = 480;
             this.nudZone6To.Value = 98D;
-            this.nudZone6To.Click += new System.EventHandler(this.nudZone6To_Click);
+            this.nudZone6To.ValueChanged += new System.EventHandler(this.nudZone6To_ValueChanged);
             // 
             // nudZone4To
             // 
@@ -3493,7 +3493,7 @@
             this.nudZone4To.Size = new System.Drawing.Size(87, 43);
             this.nudZone4To.TabIndex = 476;
             this.nudZone4To.Value = 98D;
-            this.nudZone4To.Click += new System.EventHandler(this.nudZone4To_Click);
+            this.nudZone4To.ValueChanged += new System.EventHandler(this.nudZone4To_ValueChanged);
             // 
             // nudZone1To
             // 
@@ -3505,7 +3505,7 @@
             this.nudZone1To.Size = new System.Drawing.Size(87, 43);
             this.nudZone1To.TabIndex = 461;
             this.nudZone1To.Value = 98D;
-            this.nudZone1To.Click += new System.EventHandler(this.nudZone1To_Click);
+            this.nudZone1To.ValueChanged += new System.EventHandler(this.nudZone1To_ValueChanged);
             // 
             // nudZone5To
             // 
@@ -3517,7 +3517,7 @@
             this.nudZone5To.Size = new System.Drawing.Size(87, 43);
             this.nudZone5To.TabIndex = 478;
             this.nudZone5To.Value = 98D;
-            this.nudZone5To.Click += new System.EventHandler(this.nudZone5To_Click);
+            this.nudZone5To.ValueChanged += new System.EventHandler(this.nudZone5To_ValueChanged);
             // 
             // nudZone3To
             // 
@@ -3529,7 +3529,7 @@
             this.nudZone3To.Size = new System.Drawing.Size(87, 43);
             this.nudZone3To.TabIndex = 467;
             this.nudZone3To.Value = 98D;
-            this.nudZone3To.Click += new System.EventHandler(this.nudZone3To_Click);
+            this.nudZone3To.ValueChanged += new System.EventHandler(this.nudZone3To_ValueChanged);
             // 
             // nudZone2To
             // 
@@ -3541,7 +3541,7 @@
             this.nudZone2To.Size = new System.Drawing.Size(87, 43);
             this.nudZone2To.TabIndex = 464;
             this.nudZone2To.Value = 98D;
-            this.nudZone2To.Click += new System.EventHandler(this.nudZone2To_Click);
+            this.nudZone2To.ValueChanged += new System.EventHandler(this.nudZone2To_ValueChanged);
             // 
             // lblZoneStart6
             // 
@@ -4254,7 +4254,7 @@
             this.nudCutoffSpeed.Size = new System.Drawing.Size(127, 52);
             this.nudCutoffSpeed.TabIndex = 499;
             this.nudCutoffSpeed.Value = 1.1D;
-            this.nudCutoffSpeed.Click += new System.EventHandler(this.nudCutoffSpeed_Click);
+            this.nudCutoffSpeed.ValueChanged += new System.EventHandler(this.nudCutoffSpeed_ValueChanged);
             // 
             // nudDefaultSectionWidth
             // 
@@ -4267,7 +4267,7 @@
             this.nudDefaultSectionWidth.Size = new System.Drawing.Size(179, 52);
             this.nudDefaultSectionWidth.TabIndex = 296;
             this.nudDefaultSectionWidth.Value = 50D;
-            this.nudDefaultSectionWidth.Click += new System.EventHandler(this.nudDefaultSectionWidth_Click);
+            this.nudDefaultSectionWidth.ValueChanged += new System.EventHandler(this.nudDefaultSectionWidth_ValueChanged);
             // 
             // nudMinCoverage
             // 
@@ -4278,7 +4278,7 @@
             this.nudMinCoverage.Size = new System.Drawing.Size(132, 52);
             this.nudMinCoverage.TabIndex = 292;
             this.nudMinCoverage.Value = 100D;
-            this.nudMinCoverage.Click += new System.EventHandler(this.nudMinCoverage_Click);
+            this.nudMinCoverage.ValueChanged += new System.EventHandler(this.nudMinCoverage_ValueChanged);
             // 
             // nudSection16
             // 
@@ -4290,7 +4290,7 @@
             this.nudSection16.Size = new System.Drawing.Size(87, 36);
             this.nudSection16.TabIndex = 289;
             this.nudSection16.Value = 92D;
-            this.nudSection16.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection16.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection15
             // 
@@ -4302,7 +4302,7 @@
             this.nudSection15.Size = new System.Drawing.Size(87, 36);
             this.nudSection15.TabIndex = 285;
             this.nudSection15.Value = 92D;
-            this.nudSection15.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection15.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection14
             // 
@@ -4314,7 +4314,7 @@
             this.nudSection14.Size = new System.Drawing.Size(87, 36);
             this.nudSection14.TabIndex = 284;
             this.nudSection14.Value = 92D;
-            this.nudSection14.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection14.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection13
             // 
@@ -4326,7 +4326,7 @@
             this.nudSection13.Size = new System.Drawing.Size(87, 36);
             this.nudSection13.TabIndex = 283;
             this.nudSection13.Value = 92D;
-            this.nudSection13.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection13.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection12
             // 
@@ -4338,7 +4338,7 @@
             this.nudSection12.Size = new System.Drawing.Size(87, 36);
             this.nudSection12.TabIndex = 270;
             this.nudSection12.Value = 92D;
-            this.nudSection12.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection12.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection11
             // 
@@ -4350,7 +4350,7 @@
             this.nudSection11.Size = new System.Drawing.Size(87, 36);
             this.nudSection11.TabIndex = 269;
             this.nudSection11.Value = 92D;
-            this.nudSection11.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection11.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection10
             // 
@@ -4362,7 +4362,7 @@
             this.nudSection10.Size = new System.Drawing.Size(87, 36);
             this.nudSection10.TabIndex = 268;
             this.nudSection10.Value = 92D;
-            this.nudSection10.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection10.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection09
             // 
@@ -4374,7 +4374,7 @@
             this.nudSection09.Size = new System.Drawing.Size(87, 36);
             this.nudSection09.TabIndex = 267;
             this.nudSection09.Value = 92D;
-            this.nudSection09.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection09.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection08
             // 
@@ -4386,7 +4386,7 @@
             this.nudSection08.Size = new System.Drawing.Size(87, 36);
             this.nudSection08.TabIndex = 266;
             this.nudSection08.Value = 92D;
-            this.nudSection08.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection08.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection07
             // 
@@ -4398,7 +4398,7 @@
             this.nudSection07.Size = new System.Drawing.Size(87, 36);
             this.nudSection07.TabIndex = 265;
             this.nudSection07.Value = 93D;
-            this.nudSection07.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection07.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection06
             // 
@@ -4410,7 +4410,7 @@
             this.nudSection06.Size = new System.Drawing.Size(87, 36);
             this.nudSection06.TabIndex = 264;
             this.nudSection06.Value = 3888D;
-            this.nudSection06.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection06.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection05
             // 
@@ -4422,7 +4422,7 @@
             this.nudSection05.Size = new System.Drawing.Size(87, 36);
             this.nudSection05.TabIndex = 263;
             this.nudSection05.Value = 95D;
-            this.nudSection05.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection05.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection04
             // 
@@ -4434,7 +4434,7 @@
             this.nudSection04.Size = new System.Drawing.Size(87, 36);
             this.nudSection04.TabIndex = 262;
             this.nudSection04.Value = 96D;
-            this.nudSection04.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection04.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection03
             // 
@@ -4446,7 +4446,7 @@
             this.nudSection03.Size = new System.Drawing.Size(87, 36);
             this.nudSection03.TabIndex = 261;
             this.nudSection03.Value = 97D;
-            this.nudSection03.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection03.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection02
             // 
@@ -4458,7 +4458,7 @@
             this.nudSection02.Size = new System.Drawing.Size(87, 36);
             this.nudSection02.TabIndex = 260;
             this.nudSection02.Value = 98D;
-            this.nudSection02.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection02.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection01
             // 
@@ -4470,7 +4470,7 @@
             this.nudSection01.Size = new System.Drawing.Size(87, 36);
             this.nudSection01.TabIndex = 259;
             this.nudSection01.Value = 99D;
-            this.nudSection01.Click += new System.EventHandler(this.NudSection1_Click);
+            this.nudSection01.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudNumberOfSections
             // 
@@ -4482,7 +4482,7 @@
             this.nudNumberOfSections.Size = new System.Drawing.Size(108, 52);
             this.nudNumberOfSections.TabIndex = 458;
             this.nudNumberOfSections.Value = 48D;
-            this.nudNumberOfSections.Click += new System.EventHandler(this.nudNumberOfSections_Click);
+            this.nudNumberOfSections.ValueChanged += new System.EventHandler(this.nudNumberOfSections_ValueChanged);
             // 
             // tabTSwitches
             // 
@@ -4783,7 +4783,7 @@
             this.nudLookAheadOff.Size = new System.Drawing.Size(114, 52);
             this.nudLookAheadOff.TabIndex = 124;
             this.nudLookAheadOff.Value = 0.5D;
-            this.nudLookAheadOff.Click += new System.EventHandler(this.nudLookAheadOff_Click);
+            this.nudLookAheadOff.ValueChanged += new System.EventHandler(this.nudLookAheadOff_ValueChanged);
             // 
             // nudTurnOffDelay
             // 
@@ -4797,7 +4797,7 @@
             this.nudTurnOffDelay.Size = new System.Drawing.Size(114, 52);
             this.nudTurnOffDelay.TabIndex = 119;
             this.nudTurnOffDelay.Value = 0D;
-            this.nudTurnOffDelay.Click += new System.EventHandler(this.nudTurnOffDelay_Click);
+            this.nudTurnOffDelay.ValueChanged += new System.EventHandler(this.nudTurnOffDelay_ValueChanged);
             // 
             // nudLookAhead
             // 
@@ -4812,7 +4812,7 @@
             this.nudLookAhead.Size = new System.Drawing.Size(114, 52);
             this.nudLookAhead.TabIndex = 117;
             this.nudLookAhead.Value = 1D;
-            this.nudLookAhead.Click += new System.EventHandler(this.nudLookAhead_Click);
+            this.nudLookAhead.ValueChanged += new System.EventHandler(this.nudLookAhead_ValueChanged);
             // 
             // tabDHeading
             // 
@@ -4933,7 +4933,7 @@
             this.nudDualReverseDistance.Size = new System.Drawing.Size(144, 52);
             this.nudDualReverseDistance.TabIndex = 472;
             this.nudDualReverseDistance.Value = 0.1D;
-            this.nudDualReverseDistance.Click += new System.EventHandler(this.nudDualReverseDistance_Click);
+            this.nudDualReverseDistance.ValueChanged += new System.EventHandler(this.nudDualReverseDistance_ValueChanged);
             // 
             // pictureBox13
             // 
@@ -4956,7 +4956,7 @@
             this.nudDualHeadingOffset.Size = new System.Drawing.Size(144, 52);
             this.nudDualHeadingOffset.TabIndex = 470;
             this.nudDualHeadingOffset.Value = -99.9D;
-            this.nudDualHeadingOffset.Click += new System.EventHandler(this.nudDualHeadingOffset_Click);
+            this.nudDualHeadingOffset.ValueChanged += new System.EventHandler(this.nudDualHeadingOffset_ValueChanged);
             // 
             // lblHeadingOffset
             // 
@@ -5242,7 +5242,7 @@
             this.nudFixJumpDistance.Size = new System.Drawing.Size(144, 52);
             this.nudFixJumpDistance.TabIndex = 474;
             this.nudFixJumpDistance.Value = 0D;
-            this.nudFixJumpDistance.Click += new System.EventHandler(this.nudFixJumpDistance_Click);
+            this.nudFixJumpDistance.ValueChanged += new System.EventHandler(this.nudFixJumpDistance_ValueChanged);
             // 
             // tabDRoll
             // 
@@ -5714,7 +5714,7 @@
             this.nudYouTurnRadius.Size = new System.Drawing.Size(160, 52);
             this.nudYouTurnRadius.TabIndex = 471;
             this.nudYouTurnRadius.Value = 2D;
-            this.nudYouTurnRadius.Click += new System.EventHandler(this.nudYouTurnRadius_Click);
+            this.nudYouTurnRadius.ValueChanged += new System.EventHandler(this.nudYouTurnRadius_ValueChanged);
             // 
             // nudTurnDistanceFromBoundary
             // 
@@ -5726,8 +5726,7 @@
             this.nudTurnDistanceFromBoundary.Size = new System.Drawing.Size(160, 52);
             this.nudTurnDistanceFromBoundary.TabIndex = 468;
             this.nudTurnDistanceFromBoundary.Value = 1D;
-            this.nudTurnDistanceFromBoundary.Click += new System.EventHandler(this.nudTurnDistanceFromBoundary_Click);
-            this.nudTurnDistanceFromBoundary.Enter += new System.EventHandler(this.nudTurnDistanceFromBoundary_Click);
+            this.nudTurnDistanceFromBoundary.ValueChanged += new System.EventHandler(this.nudTurnDistanceFromBoundary_ValueChanged);
             // 
             // tabRelay
             // 
@@ -7019,7 +7018,7 @@
             this.nudHydLiftLookAhead.Size = new System.Drawing.Size(148, 52);
             this.nudHydLiftLookAhead.TabIndex = 117;
             this.nudHydLiftLookAhead.Value = 5D;
-            this.nudHydLiftLookAhead.Click += new System.EventHandler(this.nudHydLiftSecs_Click);
+            this.nudHydLiftLookAhead.ValueChanged += new System.EventHandler(this.nudUser_ValueChanged);
             // 
             // lblHydLookAhead
             // 
@@ -7105,7 +7104,7 @@
             this.nudLowerTime.Size = new System.Drawing.Size(114, 52);
             this.nudLowerTime.TabIndex = 4;
             this.nudLowerTime.Value = 255D;
-            this.nudLowerTime.Click += new System.EventHandler(this.nudLowerTime_Click);
+            this.nudLowerTime.ValueChanged += new System.EventHandler(this.nudUser_ValueChanged);
             // 
             // pictureBox7
             // 
@@ -7127,7 +7126,7 @@
             this.nudRaiseTime.Size = new System.Drawing.Size(114, 52);
             this.nudRaiseTime.TabIndex = 3;
             this.nudRaiseTime.Value = 255D;
-            this.nudRaiseTime.Click += new System.EventHandler(this.nudRaiseTime_Click);
+            this.nudRaiseTime.ValueChanged += new System.EventHandler(this.nudUser_ValueChanged);
             // 
             // lblHydInvertRelays
             // 
@@ -7227,7 +7226,7 @@
             this.nudUser4.Size = new System.Drawing.Size(114, 52);
             this.nudUser4.TabIndex = 488;
             this.nudUser4.Value = 255D;
-            this.nudUser4.Click += new System.EventHandler(this.nudUser4_Click);
+            this.nudUser4.ValueChanged += new System.EventHandler(this.nudUser_ValueChanged);
             // 
             // nudUser3
             // 
@@ -7239,7 +7238,7 @@
             this.nudUser3.Size = new System.Drawing.Size(114, 52);
             this.nudUser3.TabIndex = 487;
             this.nudUser3.Value = 255D;
-            this.nudUser3.Click += new System.EventHandler(this.nudUser3_Click);
+            this.nudUser3.ValueChanged += new System.EventHandler(this.nudUser_ValueChanged);
             // 
             // nudUser2
             // 
@@ -7251,7 +7250,7 @@
             this.nudUser2.Size = new System.Drawing.Size(114, 52);
             this.nudUser2.TabIndex = 486;
             this.nudUser2.Value = 255D;
-            this.nudUser2.Click += new System.EventHandler(this.nudUser2_Click);
+            this.nudUser2.ValueChanged += new System.EventHandler(this.nudUser_ValueChanged);
             // 
             // nudUser1
             // 
@@ -7263,7 +7262,7 @@
             this.nudUser1.Size = new System.Drawing.Size(114, 52);
             this.nudUser1.TabIndex = 485;
             this.nudUser1.Value = 255D;
-            this.nudUser1.Click += new System.EventHandler(this.nudUser1_Click);
+            this.nudUser1.ValueChanged += new System.EventHandler(this.nudUser_ValueChanged);
             // 
             // tabTram
             // 
@@ -7397,7 +7396,7 @@
             this.nudTramWidth.Size = new System.Drawing.Size(157, 52);
             this.nudTramWidth.TabIndex = 1;
             this.nudTramWidth.Value = 5000D;
-            this.nudTramWidth.Click += new System.EventHandler(this.nudTramWidth_Click);
+            this.nudTramWidth.ValueChanged += new System.EventHandler(this.nudTramWidth_ValueChanged);
             // 
             // tabBtns
             // 
@@ -8712,7 +8711,7 @@
             this.nudNumGuideLines.Size = new System.Drawing.Size(100, 52);
             this.nudNumGuideLines.TabIndex = 534;
             this.nudNumGuideLines.Value = 50D;
-            this.nudNumGuideLines.Click += new System.EventHandler(this.nudNumGuideLines_Click);
+            this.nudNumGuideLines.ValueChanged += new System.EventHandler(this.nudNumGuideLines_ValueChanged);
             // 
             // lblCurrentVehicle
             // 

@@ -876,25 +876,23 @@ namespace AgOpenGPS
             mf.Activate();
         }
 
-        private void nudHeading_Click(object sender, EventArgs e)
+        private void nudHeading_ValueChanged(object sender, EventArgs e)
         {
             timer1.Enabled = false;
 
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                //original A pt.
-                mf.trk.designHeading = glm.toRadians((double)nudHeading.Value);
+            //original A pt.
+            mf.trk.designHeading = glm.toRadians((double)nudHeading.Value);
 
-                //start end of line
-                mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
-                mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
+            //start end of line
+            mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
+            mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
 
-                mf.trk.designLineEndA.easting = mf.trk.designPtA.easting - (Math.Sin(mf.trk.designHeading) * 1000);
-                mf.trk.designLineEndA.northing = mf.trk.designPtA.northing - (Math.Cos(mf.trk.designHeading) * 1000);
+            mf.trk.designLineEndA.easting = mf.trk.designPtA.easting - (Math.Sin(mf.trk.designHeading) * 1000);
+            mf.trk.designLineEndA.northing = mf.trk.designPtA.northing - (Math.Cos(mf.trk.designHeading) * 1000);
 
-                mf.trk.designLineEndB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 1000);
-                mf.trk.designLineEndB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 1000);
-            }
+            mf.trk.designLineEndB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 1000);
+            mf.trk.designLineEndB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 1000);
+
             mf.Activate();
         }
 
@@ -1117,26 +1115,6 @@ namespace AgOpenGPS
 
         #region LatLon LatLon
 
-        private void nudLatitudeA_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-        }
-
-        private void nudLongitudeA_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-        }
-
-        private void nudLatitudeB_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-        }
-
-        private void nudLongitudeB_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-        }
-
         private void btnFillLatLonLatLonA_Click(object sender, EventArgs e)
         {
             nudLatitudeA.Value = mf.pn.latitude;
@@ -1195,21 +1173,6 @@ namespace AgOpenGPS
         #endregion LatLon LatLon
 
         #region LatLon +
-
-        private void nudLatitudePlus_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-        }
-
-        private void nudLongitudePlus_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-        }
-
-        private void nudHeadingLatLonPlus_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-        }
 
         private void btnFillLatLonPlus_Click(object sender, EventArgs e)
         {
@@ -1328,16 +1291,6 @@ namespace AgOpenGPS
         #endregion
 
         #region Lat Lon Pivot
-
-        private void nudLatitudePivot_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-        }
-
-        private void nudLongitudePivot_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-        }
 
         private void btnEnter_Pivot_Click(object sender, EventArgs e)
         {

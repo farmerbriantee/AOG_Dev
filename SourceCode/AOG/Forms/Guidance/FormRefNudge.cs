@@ -58,9 +58,8 @@ namespace AgOpenGPS
             mf.panelRight.Visible = true;
         }
 
-        private void nudSnapDistance_Click(object sender, EventArgs e)
+        private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
             snapAdj = (double)nudSnapDistance.Value * mf.inchOrCm2m;
             Properties.Settings.Default.setAS_snapDistanceRef = snapAdj * 100;
 

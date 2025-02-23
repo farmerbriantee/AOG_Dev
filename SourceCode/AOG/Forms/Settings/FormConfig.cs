@@ -318,12 +318,9 @@ namespace AgOpenGPS
             //FormConfig_Load(this, e);
         }
 
-        private void nudNumGuideLines_Click(object sender, EventArgs e)
+        private void nudNumGuideLines_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                mf.trk.numGuideLines = (int)nudNumGuideLines.Value;
-            }
+            mf.trk.numGuideLines = (int)nudNumGuideLines.Value;
         }
     }
 }

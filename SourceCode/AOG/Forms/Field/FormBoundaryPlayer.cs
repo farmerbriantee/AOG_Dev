@@ -66,9 +66,8 @@ namespace AgOpenGPS
             }
         }
 
-        private void nudOffset_Click(object sender, EventArgs e)
+        private void nudOffset_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
             btnPausePlay.Focus();
             if (mf.isMetric)
             {

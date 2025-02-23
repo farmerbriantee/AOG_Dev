@@ -1379,7 +1379,7 @@
             this.nudMaxCounts.Size = new System.Drawing.Size(107, 52);
             this.nudMaxCounts.TabIndex = 493;
             this.nudMaxCounts.Value = 15D;
-            this.nudMaxCounts.Click += new System.EventHandler(this.nudMaxCounts_Click);
+            this.nudMaxCounts.ValueChanged += new System.EventHandler(this.nudMaxCounts_ValueChanged);
             // 
             // label55
             // 
@@ -1809,7 +1809,7 @@
             this.nudWheelbase.Size = new System.Drawing.Size(143, 65);
             this.nudWheelbase.TabIndex = 537;
             this.nudWheelbase.Value = 333D;
-            this.nudWheelbase.Click += new System.EventHandler(this.nudWheelbase_Click);
+            this.nudWheelbase.ValueChanged += new System.EventHandler(this.nudWheelbase_ValueChanged);
             // 
             // label91
             // 
@@ -1883,7 +1883,7 @@
             this.nudVehicleTrack.Size = new System.Drawing.Size(157, 65);
             this.nudVehicleTrack.TabIndex = 537;
             this.nudVehicleTrack.Value = 333D;
-            this.nudVehicleTrack.Click += new System.EventHandler(this.nudVehicleTrack_Click);
+            this.nudVehicleTrack.ValueChanged += new System.EventHandler(this.nudVehicleTrack_ValueChanged);
             // 
             // label95
             // 
@@ -2028,7 +2028,7 @@
             this.nudAntennaPivot.Size = new System.Drawing.Size(165, 65);
             this.nudAntennaPivot.TabIndex = 537;
             this.nudAntennaPivot.Value = 333D;
-            this.nudAntennaPivot.Click += new System.EventHandler(this.nudAntennaPivot_Click);
+            this.nudAntennaPivot.ValueChanged += new System.EventHandler(this.nudAntennaPivot_ValueChanged);
             // 
             // button10
             // 
@@ -2144,7 +2144,7 @@
             this.nudAntennaHeight.Size = new System.Drawing.Size(145, 65);
             this.nudAntennaHeight.TabIndex = 537;
             this.nudAntennaHeight.Value = 333D;
-            this.nudAntennaHeight.Click += new System.EventHandler(this.nudAntennaHeight_Click);
+            this.nudAntennaHeight.ValueChanged += new System.EventHandler(this.nudAntennaHeight_ValueChanged);
             // 
             // label93
             // 
@@ -2235,7 +2235,7 @@
             this.nudAntennaOffset.Size = new System.Drawing.Size(165, 65);
             this.nudAntennaOffset.TabIndex = 537;
             this.nudAntennaOffset.Value = 333D;
-            this.nudAntennaOffset.Click += new System.EventHandler(this.nudAntennaOffset_Click);
+            this.nudAntennaOffset.ValueChanged += new System.EventHandler(this.nudAntennaOffset_ValueChanged);
             // 
             // label104
             // 

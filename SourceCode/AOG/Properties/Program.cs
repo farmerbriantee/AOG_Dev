@@ -16,18 +16,14 @@ namespace AgOpenGPS
         [STAThread]
         private static void Main()
         {
-            //reset to default Vehicle and save
-            Settings.Default.Reset();
-            Settings.Default.Save();
-
-            Log.EventWriter("Program Started: "
-                + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
-            Log.EventWriter("AgOpenGPS Version: " + Application.ProductVersion.ToString(CultureInfo.InvariantCulture));
-
-            RegistrySettings.Load();
-
             if (Mutex.WaitOne(TimeSpan.Zero, true))
             {
+                Log.EventWriter("Program Started: "
+                    + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
+                Log.EventWriter("AgOpenGPS Version: " + Application.ProductVersion.ToString(CultureInfo.InvariantCulture));
+
+                RegistrySettings.Load();
+
                 Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(RegistrySettings.culture);
                 Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(RegistrySettings.culture);
                 Application.EnableVisualStyles();

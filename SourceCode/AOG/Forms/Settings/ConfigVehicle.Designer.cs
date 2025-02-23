@@ -43,11 +43,6 @@ namespace AgOpenGPS
 
         private void btnVehicleLoad_Click(object sender, EventArgs e)
         {
-            TurnOffSectionsSafely();
-
-            //save current vehicle
-            RegistrySettings.Save();
-
             if (lvVehicles.SelectedItems.Count > 0)
             {
                 DialogResult result3 = MessageBox.Show(
@@ -59,12 +54,11 @@ namespace AgOpenGPS
 
                 if (result3 == DialogResult.Yes)
                 {
-                    bool success = SettingsIO.ImportSettings(Path.Combine(RegistrySettings.vehiclesDirectory, lvVehicles.SelectedItems[0].SubItems[0].Text + ".XML"));
-                    if (!success) return;
+                    TurnOffSectionsSafely();
 
-                    RegistrySettings.vehicleFileName = lvVehicles.SelectedItems[0].SubItems[0].Text;
-
-                    RegistrySettings.Save();
+                    Properties.Settings.Default.Save();//necessary???
+                    RegistrySettings.Save("VehicleFileName", lvVehicles.SelectedItems[0].SubItems[0].Text);
+                    if (Properties.Settings.Default.Load() != Settings.LoadResult.Ok) return;
 
                     LoadBrandImage();
 
@@ -73,8 +67,6 @@ namespace AgOpenGPS
 
                     //reset AgOpenGPS
                     mf.LoadSettings();
-
-                    SectionFeetInchesTotalWidthLabelUpdate();
 
                     //Form Steer Settings
                     PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Properties.Settings.Default.setAS_countsPerDegree);
@@ -121,22 +113,16 @@ namespace AgOpenGPS
                     mf.TimedMessageBox(2500, "Steer and Machine Settings Sent", "Were Modules Connected?");
 
                     Log.EventWriter("Vehicle Loaded: " + RegistrySettings.vehicleFileName + ".XML");
-                    btnOK.PerformClick();
+
+                    Close();
                 }
-
-                UpdateVehicleListView();
             }
-
-            UpdateSummary();
-
-            btnOK.PerformClick();
         }
 
         private void btnVehicleDelete_Click(object sender, EventArgs e)
         {
             if (lvVehicles.SelectedItems.Count > 0)
             {
-
                 if (lvVehicles.SelectedItems[0].SubItems[0].Text != RegistrySettings.vehicleFileName)
                 {
                     DialogResult result3 = MessageBox.Show(
@@ -154,11 +140,10 @@ namespace AgOpenGPS
                 {
                     mf.TimedMessageBox(2000, "Vehicle In Use", "Select Different Vehicle");
                 }
-
             }
             UpdateVehicleListView();
-
         }
+
         //Save As Vehicle
         private void btnVehicleSave_Click(object sender, EventArgs e)
         {
@@ -167,32 +152,19 @@ namespace AgOpenGPS
             btnVehicleSave.BackColor = Color.Transparent;
             btnVehicleSave.Enabled = false;            
 
-            //save current vehicle
-            RegistrySettings.Save();
+            string vehicleName = SanitizeFileName(tboxVehicleNameSave.Text.Trim()).Trim();
+            tboxVehicleNameSave.Text = "";
 
-            tboxVehicleNameSave.Text = SanitizeFileName(tboxVehicleNameSave.Text.Trim());
-
-            if (tboxVehicleNameSave.Text.Trim().Length > 0)
+            if (vehicleName.Length > 0)
             {
-                RegistrySettings.vehicleFileName = tboxVehicleNameSave.Text.Trim();               
-                RegistrySettings.Save();
+                Settings.Default.Save();//necessary???
+                RegistrySettings.Save("VehicleFileName", vehicleName);
+                Settings.Default.Save();
 
-                tboxVehicleNameSave.Text = "";
-
-                LoadBrandImage();
-
-                mf.vehicle = new CVehicle(mf);
-                mf.tool = new CTool(mf);
-
-                //reset AgOpenGPS
-                mf.LoadSettings();
-
-                SectionFeetInchesTotalWidthLabelUpdate();
+                UpdateVehicleListView();
             }
-
-            UpdateVehicleListView();
-            UpdateSummary();
         }
+
         private void tboxVehicleNameSave_TextChanged(object sender, EventArgs e)
         {
             var textboxSender = (TextBox)sender;
@@ -275,18 +247,14 @@ namespace AgOpenGPS
             btnVehicleNewSave.BackColor = Color.Transparent;
             btnVehicleNewSave.Enabled = false;
 
-            tboxCreateNewVehicle.Text = SanitizeFileName(tboxCreateNewVehicle.Text.Trim());
+            string vehicleName = SanitizeFileName(tboxCreateNewVehicle.Text.Trim()).Trim();
+            tboxCreateNewVehicle.Text = "";
 
-            if (tboxCreateNewVehicle.Text.Trim().Length > 0)
+            if (vehicleName.Length > 0)
             {
-                Settings.Default.Reset();                
-
-                RegistrySettings.Save();
-
-                lblCurrentVehicle.Text = RegistrySettings.vehicleFileName = tboxCreateNewVehicle.Text.Trim();
-                tboxCreateNewVehicle.Text = "";
-
-                RegistrySettings.Save();
+                Properties.Settings.Default.Save();//necessary???
+                RegistrySettings.Save("VehicleFileName", vehicleName);
+                Settings.Default.Reset();
 
                 LoadBrandImage();
 
@@ -351,9 +319,8 @@ namespace AgOpenGPS
 
                 Log.EventWriter("New Vehicle Loaded: " + RegistrySettings.vehicleFileName + ".XML");
 
+                UpdateVehicleListView();
             }
-
-            UpdateVehicleListView();
         }        
 
         //Functions
@@ -665,25 +632,6 @@ namespace AgOpenGPS
                 Properties.Settings.Default.setVehicle_vehicleType = 2;
             }
 
-            if (mf.vehicle.vehicleType == 0) //2WD tractor
-            {
-                Properties.Settings.Default.setVehicle_isPivotBehindAntenna = true;
-                Properties.Settings.Default.setVehicle_isSteerAxleAhead = true;
-            }
-            if (mf.vehicle.vehicleType == 1) //harvestor
-            {
-                Properties.Settings.Default.setVehicle_isPivotBehindAntenna = true;
-                Properties.Settings.Default.setVehicle_isSteerAxleAhead = false;
-            }
-            if (mf.vehicle.vehicleType == 2) //4WD
-            {
-                Properties.Settings.Default.setVehicle_isPivotBehindAntenna = false;
-                Properties.Settings.Default.setVehicle_isSteerAxleAhead = true;
-            }
-
-            mf.vehicle.isPivotBehindAntenna = Properties.Settings.Default.setVehicle_isPivotBehindAntenna;
-            mf.vehicle.isSteerAxleAhead = Properties.Settings.Default.setVehicle_isSteerAxleAhead;
-
             //the old brand code
             if (cboxIsImage.Checked)
                 Properties.Settings.Default.setDisplay_isVehicleImage = false;
@@ -695,7 +643,7 @@ namespace AgOpenGPS
 
             Properties.Settings.Default.setDisplay_colorVehicle = mf.vehicleColor;
 
-            if (rbtnTractor.Checked == true)
+            if (rbtnTractor.Checked)
             {
                 Settings.Default.setBrand_TBrand = brand;
 
@@ -708,7 +656,7 @@ namespace AgOpenGPS
 
             }
 
-            if (rbtnHarvester.Checked == true)
+            if (rbtnHarvester.Checked)
 
             {
                 Settings.Default.setBrand_HBrand = brandH;
@@ -721,7 +669,7 @@ namespace AgOpenGPS
 
             }
 
-            if (rbtn4WD.Checked == true)
+            if (rbtn4WD.Checked)
             {
                 Settings.Default.setBrand_WDBrand = brand4WD;
                 Bitmap bitmap = mf.Get4WDBrandFront(brand4WD);
@@ -739,8 +687,6 @@ namespace AgOpenGPS
                 GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmapData.Width, bitmapData.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmapData.Scan0);
                 bitmap.UnlockBits(bitmapData);
             }
-
-            
         }
 
         //brand variables
@@ -942,7 +888,7 @@ namespace AgOpenGPS
 
         private void LoadBrandImage()
         {
-            if (rbtnTractor.Checked == true)
+            if (rbtnTractor.Checked)
             {
                 Bitmap bitmap = mf.GetTractorBrand(Settings.Default.setBrand_TBrand);
 
@@ -950,11 +896,8 @@ namespace AgOpenGPS
                 BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
                 GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmapData.Width, bitmapData.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmapData.Scan0);
                 bitmap.UnlockBits(bitmapData);
-
             }
-
-            if (rbtnHarvester.Checked == true)
-
+            else if (rbtnHarvester.Checked)
             {
                 Bitmap bitmap = mf.GetHarvesterBrand(Settings.Default.setBrand_HBrand);
 
@@ -964,9 +907,7 @@ namespace AgOpenGPS
                 bitmap.UnlockBits(bitmapData);
 
             }
-
-            if (rbtn4WD.Checked == true)
-
+            else if (rbtn4WD.Checked)
             {
                 Bitmap bitmap = mf.Get4WDBrandFront(Settings.Default.setBrand_WDBrand);
 

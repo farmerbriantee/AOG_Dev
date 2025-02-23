@@ -169,7 +169,7 @@
     <Compile Include="Classes\CNozzle.cs" />
     <Compile Include="Classes\CPolygon.cs" />
     <Compile Include="Classes\CPatches.cs" />
-    <Compile Include="Classes\CRegistrySettings.cs" />
+    <Compile Include="Properties\CRegistrySettings.cs" />
     <Compile Include="Classes\CSettings.cs" />
     <Compile Include="Classes\CSound.cs" />
     <Compile Include="Classes\CFieldData.cs" />
@@ -567,19 +567,19 @@
     <Compile Include="Forms\FormGPS.Designer.cs">
       <DependentUpon>FormGPS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Properties\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\UDPComm.Designer.cs">
       <SubType>Form</SubType>
       <DependentUpon>FormGPS.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\vec3.cs" />
+    <Compile Include="Properties\Settings.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="Forms\Field\FormEnterFlag.resx">
       <DependentUpon>FormEnterFlag.cs</DependentUpon>
     </EmbeddedResource>
@@ -756,22 +756,11 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
     <None Include="PGN 9.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <None Include="Translations.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -834,7 +823,6 @@
     <None Include="btnImages\Screen2PNG.png" />
     <None Include="btnImages\ChargingNo.png" />
     <None Include="btnImages\ChargeIndicator.png" />
-    <None Include="Resources\ChargeIndicator.png" />
     <None Include="btnImages\HardwareMessage.png" />
     <Content Include="Resources\TF012.WAV" />
     <None Include="Resources\SectionOn.wav" />

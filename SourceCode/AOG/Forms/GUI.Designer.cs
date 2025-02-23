@@ -57,7 +57,7 @@ namespace AgOpenGPS
         public bool isPureDisplayOn = true, isSkyOn = true, isRollMeterOn = false, isTextureOn = true;
         public bool isDay = true, isDayTime = true, isBrightnessOn = true;
         public bool isLogElevation = false, isDirectionMarkers;
-        public bool isKeyboardOn = true, isAutoStartAgOne = true, isSvennArrowOn = true, isTermsAccepted = false;
+        public bool isKeyboardOn = true, isAutoStartAgOne = true, isSvennArrowOn = true;
         public bool isSectionlinesOn = true, isLineSmooth = true;
 
         public bool isLightBarNotSteerBar = false;
@@ -256,6 +256,7 @@ namespace AgOpenGPS
                 //hide the Nav panel in 6  secs
                 if (panelNavigation.Visible)
                 {
+                    Settings.Default.Save();
                     if (navPanelCounter-- <= 0) panelNavigation.Visible = false;
                     lblHz.Text = gpsHz.ToString("N1") + " ~ " + (frameTime.ToString("N1")) + " " + FixQuality;
                 }
@@ -439,9 +440,7 @@ namespace AgOpenGPS
         }//wait till timer fires again.         
 
         public void LoadSettings()
-        {            
-            CheckSettingsNotNull();
-
+        {
             //metric settings
             isMetric = Settings.Default.setMenu_isMetric;
 
@@ -513,8 +512,6 @@ namespace AgOpenGPS
             //Nozzz
             //Nozzle Spray Controller
 
-            CheckNozzleSettingsNotNull();
-
             isNozzleApp = Properties.Settings.Default.setApPGN_isNozzleApp;
 
             if (isNozzleApp)
@@ -573,7 +570,6 @@ namespace AgOpenGPS
             }
 
             //Tool GPS on
-            CheckToolSteerSettingsNotNull();
             isGPSToolActive = Properties.Settings.Default.setToolSteer.isGPSToolActive;
 
             if (isGPSToolActive)

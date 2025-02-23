@@ -4567,7 +4567,6 @@
             0,
             0,
             0});
-            this.nudDefaultSectionWidth.ValueChanged += new System.EventHandler(this.nudDefaultSectionWidth_ValueChanged);
             this.nudDefaultSectionWidth.Click += new System.EventHandler(this.nudDefaultSectionWidth_Click);
             // 
             // nudMinCoverage
@@ -4995,7 +4994,6 @@
             0,
             0,
             0});
-            this.nudNumberOfSections.ValueChanged += new System.EventHandler(this.nudNumberOfSections_ValueChanged);
             this.nudNumberOfSections.Click += new System.EventHandler(this.nudNumberOfSections_Click);
             // 
             // tabTSwitches

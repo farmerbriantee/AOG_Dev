@@ -12,9 +12,6 @@ namespace AgOpenGPS
         //class variables
         private readonly FormGPS mf = null;
 
-        private bool isClosing = false;
-
-        //constructor
         public FormConfig(Form callingForm)
         {
             //get copy of the calling main form
@@ -220,17 +217,11 @@ namespace AgOpenGPS
 
         private void FormConfig_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!isClosing)
-            {
-                e.Cancel = true;
-                return;
-            }
-
             //reload all the settings from default and user.config
             mf.LoadSettings();
 
             //save current vehicle
-            RegistrySettings.Save();
+            Properties.Settings.Default.Save();
         }
 
         private void FixMinMaxSpinners()
@@ -313,7 +304,6 @@ namespace AgOpenGPS
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            isClosing = true;
             Close();
         }
 
@@ -379,7 +369,6 @@ namespace AgOpenGPS
             mf.isMetric = false;
             Properties.Settings.Default.setMenu_isMetric = mf.isMetric;
 
-            isClosing = true;
             Close();
         }
 
@@ -391,7 +380,6 @@ namespace AgOpenGPS
             mf.isMetric = true;
             Properties.Settings.Default.setMenu_isMetric = mf.isMetric;
 
-            isClosing = true;
             Close();
             //FormConfig_Load(this, e);
         }
@@ -402,16 +390,6 @@ namespace AgOpenGPS
             {
                 mf.trk.numGuideLines = (int)nudNumGuideLines.Value;
             }
-        }
-
-        private void nudDefaultSectionWidth_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void nudNumberOfSections_ValueChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

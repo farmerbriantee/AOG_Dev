@@ -17,68 +17,36 @@ namespace AgOpenGPS
         public static string logsDirectory =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Logs");
 
-        public static string vehicleFileName = "Default Vehicle";
-        public static string workingDirectory = "Default";
+        public static string vehicleFileName = "";
+        public static string workingDirectory = "";
         public static string baseDirectory = workingDirectory;
         public static string fieldsDirectory = workingDirectory;
 
         public static void Load()
         {
             try
-            {
-                //opening the subkey
-                RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AOG");
-
-                ////create default keys if not existing
-                if (regKey == null)
-                {
-                    RegistryKey Key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
-
-                    //storing the values
-                    Key.SetValue("Language", "en");
-                    Key.SetValue("VehicleFileName", "Default Vehicle");
-                    Key.SetValue("WorkingDirectory", "Default");
-                    Key.Close();
-                }
-
+            {   
                 //Base Directory Registry Key
-                regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AOG");
+                RegistryKey regKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
 
-                if (regKey.GetValue("WorkingDirectory") == null || regKey.GetValue("WorkingDirectory").ToString() == "")
+                if (regKey.GetValue("WorkingDirectory") == null)
                 {
-                    RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
-                    key.SetValue("WorkingDirectory", "Default");
-                    key.Close();
+                    regKey.SetValue("WorkingDirectory", "");
                 }
                 workingDirectory = regKey.GetValue("WorkingDirectory").ToString();
 
-                if (workingDirectory == "Default")
-                {
-                    baseDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS");
-                }
-                else //user set to other
-                {
-                    baseDirectory = Path.Combine(workingDirectory, "AgOpenGPS");
-                }
-
                 //Vehicle File Name Registry Key
-                if (regKey.GetValue("VehicleFileName") == null || regKey.GetValue("VehicleFileName").ToString() == "")
+                if (regKey.GetValue("VehicleFileName") == null)
                 {
-                    RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
-                    key.SetValue("VehicleFileName", "Default Vehicle");
-                    key.Close();
+                    regKey.SetValue("VehicleFileName", "");
                 }
-
                 vehicleFileName = regKey.GetValue("VehicleFileName").ToString();
 
                 //Language Registry Key
                 if (regKey.GetValue("Language") == null || regKey.GetValue("Language").ToString() == "")
                 {
-                    RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
-                    key.SetValue("Language", "en");
-                    key.Close();
+                    regKey.SetValue("Language", "en");
                 }
-
                 culture = regKey.GetValue("Language").ToString();
 
                 //close registry
@@ -96,80 +64,39 @@ namespace AgOpenGPS
             //keep below 500 kb
             Log.CheckLogSize(Path.Combine(logsDirectory, "AgOpenGPS_Events_Log.txt"), 500000);
 
-            //what's in the vehicle directory
-            try
-            {
-                DirectoryInfo dinfo = new DirectoryInfo(vehiclesDirectory);
-                FileInfo[] vehicleFiles = dinfo.GetFiles("*.xml");
 
-                bool isVehicleExist = false;
 
-                foreach (FileInfo file in vehicleFiles)
-                {
-                    string temp = Path.GetFileNameWithoutExtension(file.Name).Trim();
-
-                    if (temp == vehicleFileName)
-                    {
-                        isVehicleExist = true;
-                    }
-                }
-
-                //does current vehicle exist?
-                if (isVehicleExist && vehicleFileName != "Default Vehicle")
-                {
-                    SettingsIO.ImportSettings(Path.Combine(RegistrySettings.vehiclesDirectory, vehicleFileName + ".XML"));
-                }
-                else
-                {
-                    vehicleFileName = "Default Vehicle";
-                    Log.EventWriter("Vehicle file does not exist or is Default, Default Vehicle selected");
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.EventWriter("Registry -> Catch, Serious Problem Loading Vehicle, Doing Registry Reset: " + ex.ToString());
-                Reset();
-
-                //reset to Default Vehicle and save
-                Settings.Default.Reset();
-                Settings.Default.Save();
-            }
+            Settings.Default.Load();
         }
 
-        public static void Save()
+        public static void Save(string name, string value)
         {
-            Properties.Settings.Default.Save();
-            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
             try
             {
-                key.SetValue("VehicleFileName", vehicleFileName);
-                key.SetValue("Language", culture);
-                key.SetValue("WorkingDirectory", workingDirectory);
+                //adding or editing "Language" subkey to the "SOFTWARE" subkey  
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AgOpenGPS");
 
-                Log.EventWriter(vehicleFileName + " Saved to registry key");
+                if (name == "VehicleFileName")
+                    vehicleFileName = value;
+                else if (name == "Language")
+                    culture = value;
+
+                if (name == "WorkingDirectory" && value == Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
+                {
+                    key.SetValue(name, "");
+                    Log.EventWriter("Registry -> Key " + name + " Saved to registry key with value: ");
+                }
+                else//storing the value
+                {
+                    key.SetValue(name, value);
+                    Log.EventWriter("Registry -> Key " + name + " Saved to registry key with value: " + value);
+                }
+
+                key.Close();
             }
             catch (Exception ex)
             {
-                Thread.Sleep(500);
-                Log.EventWriter("Registry -> Catch, Serious Problem Saving keys: " + ex.ToString());
-            }
-            key.Close();
-
-            try
-            {
-                if (vehicleFileName != "Default Vehicle")
-                {
-                    Thread.Sleep(500);
-                    SettingsIO.ExportSettings(Path.Combine(vehiclesDirectory, vehicleFileName + ".xml"));
-                }
-                else
-                {
-                    Log.EventWriter("Default Vehicle Not saved to Vehicles");
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.EventWriter("Registry -> Catch, Unable to save Vehicle FileName: " + ex.ToString());
+                Log.EventWriter("Registry -> Catch, Unable to save " + name + ": " + ex.ToString());
             }
         }
 
@@ -208,6 +135,16 @@ namespace AgOpenGPS
 
         public static void CreateDirectories()
         {
+            if (workingDirectory == "Default" || workingDirectory == "")
+            {
+                baseDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS");
+            }
+            else //user set to other
+            {
+                baseDirectory = Path.Combine(workingDirectory, "AgOpenGPS");
+            }
+
+
             //get the vehicles directory, if not exist, create
             try
             {

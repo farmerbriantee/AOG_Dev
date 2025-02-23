@@ -449,8 +449,8 @@
             // 
             // unoChart
             // 
-            this.unoChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.unoChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.unoChart.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.None;
             this.unoChart.BackColor = System.Drawing.Color.Black;
@@ -546,9 +546,7 @@
             // 
             // nudSlowPWM
             // 
-            this.nudSlowPWM.BackColor = System.Drawing.Color.White;
             this.nudSlowPWM.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudSlowPWM.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudSlowPWM.Location = new System.Drawing.Point(16, 108);
             this.nudSlowPWM.Minimum = new decimal(new int[] {
             10,
@@ -567,9 +565,7 @@
             // 
             // nudFastPWM
             // 
-            this.nudFastPWM.BackColor = System.Drawing.Color.White;
             this.nudFastPWM.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudFastPWM.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudFastPWM.Location = new System.Drawing.Point(16, 22);
             this.nudFastPWM.Minimum = new decimal(new int[] {
             10,
@@ -588,9 +584,7 @@
             // 
             // nudSwitchAtFlowError
             // 
-            this.nudSwitchAtFlowError.BackColor = System.Drawing.Color.White;
             this.nudSwitchAtFlowError.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudSwitchAtFlowError.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudSwitchAtFlowError.Location = new System.Drawing.Point(16, 205);
             this.nudSwitchAtFlowError.Minimum = new decimal(new int[] {
             1,
@@ -609,9 +603,7 @@
             // 
             // nudSprayKp
             // 
-            this.nudSprayKp.BackColor = System.Drawing.Color.White;
             this.nudSprayKp.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudSprayKp.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudSprayKp.Location = new System.Drawing.Point(208, 107);
             this.nudSprayKp.Maximum = new decimal(new int[] {
             200,
@@ -635,9 +627,7 @@
             // 
             // nudDeadbandError
             // 
-            this.nudDeadbandError.BackColor = System.Drawing.Color.White;
             this.nudDeadbandError.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudDeadbandError.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudDeadbandError.Location = new System.Drawing.Point(210, 18);
             this.nudDeadbandError.Minimum = new decimal(new int[] {
             1,
@@ -656,9 +646,7 @@
             // 
             // nudSprayPressureCal
             // 
-            this.nudSprayPressureCal.BackColor = System.Drawing.Color.White;
             this.nudSprayPressureCal.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudSprayPressureCal.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudSprayPressureCal.Location = new System.Drawing.Point(17, 201);
             this.nudSprayPressureCal.Maximum = new decimal(new int[] {
             200,
@@ -682,7 +670,6 @@
             // 
             // nudSprayFlowCal
             // 
-            this.nudSprayFlowCal.BackColor = System.Drawing.Color.White;
             this.nudSprayFlowCal.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSprayFlowCal.Location = new System.Drawing.Point(17, 111);
             this.nudSprayFlowCal.Maximum = new decimal(new int[] {
@@ -707,9 +694,7 @@
             // 
             // nudMaxHz
             // 
-            this.nudMaxHz.BackColor = System.Drawing.Color.White;
             this.nudMaxHz.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudMaxHz.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudMaxHz.Location = new System.Drawing.Point(217, 21);
             this.nudMaxHz.Maximum = new decimal(new int[] {
             200,
@@ -732,9 +717,7 @@
             // 
             // nudMinHz
             // 
-            this.nudMinHz.BackColor = System.Drawing.Color.White;
             this.nudMinHz.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudMinHz.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudMinHz.Location = new System.Drawing.Point(14, 21);
             this.nudMinHz.Maximum = new decimal(new int[] {
             200,

@@ -51,7 +51,7 @@
             this.nudZeroVolume = new AgOpenGPS.NudlessNumericUpDown();
             this.nudSprayRateSet2 = new AgOpenGPS.NudlessNumericUpDown();
             this.nudSprayMinPressure = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSprayRateSet1 = new AgOpenGPS   .NudlessNumericUpDown();
+            this.nudSprayRateSet1 = new AgOpenGPS.NudlessNumericUpDown();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.nudNudge = new AgOpenGPS.NudlessNumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
@@ -293,7 +293,6 @@
             // 
             // nudTankVolume
             // 
-            this.nudTankVolume.BackColor = System.Drawing.Color.White;
             this.nudTankVolume.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTankVolume.Location = new System.Drawing.Point(259, 84);
             this.nudTankVolume.Maximum = new decimal(new int[] {
@@ -313,7 +312,6 @@
             // 
             // nudZeroVolume
             // 
-            this.nudZeroVolume.BackColor = System.Drawing.Color.White;
             this.nudZeroVolume.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZeroVolume.Location = new System.Drawing.Point(259, 225);
             this.nudZeroVolume.Maximum = new decimal(new int[] {
@@ -333,7 +331,6 @@
             // 
             // nudSprayRateSet2
             // 
-            this.nudSprayRateSet2.BackColor = System.Drawing.Color.PaleGreen;
             this.nudSprayRateSet2.DecimalPlaces = 1;
             this.nudSprayRateSet2.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSprayRateSet2.Location = new System.Drawing.Point(541, 222);
@@ -359,9 +356,7 @@
             // 
             // nudSprayMinPressure
             // 
-            this.nudSprayMinPressure.BackColor = System.Drawing.Color.White;
             this.nudSprayMinPressure.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudSprayMinPressure.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudSprayMinPressure.Location = new System.Drawing.Point(37, 84);
             this.nudSprayMinPressure.Minimum = new decimal(new int[] {
             1,
@@ -380,7 +375,6 @@
             // 
             // nudSprayRateSet1
             // 
-            this.nudSprayRateSet1.BackColor = System.Drawing.Color.PaleGreen;
             this.nudSprayRateSet1.DecimalPlaces = 1;
             this.nudSprayRateSet1.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSprayRateSet1.Location = new System.Drawing.Point(541, 82);
@@ -412,10 +406,8 @@
             // 
             // nudNudge
             // 
-            this.nudNudge.BackColor = System.Drawing.Color.White;
             this.nudNudge.DecimalPlaces = 1;
             this.nudNudge.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudNudge.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudNudge.Location = new System.Drawing.Point(37, 366);
             this.nudNudge.Maximum = new decimal(new int[] {
             30,
@@ -451,9 +443,7 @@
             // 
             // nudRateAlarmPercent
             // 
-            this.nudRateAlarmPercent.BackColor = System.Drawing.Color.White;
             this.nudRateAlarmPercent.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudRateAlarmPercent.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudRateAlarmPercent.Location = new System.Drawing.Point(37, 222);
             this.nudRateAlarmPercent.Minimum = new decimal(new int[] {
             1,

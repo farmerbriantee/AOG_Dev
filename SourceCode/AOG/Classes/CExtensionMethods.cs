@@ -146,7 +146,7 @@ namespace AgOpenGPS
         decimal _value;
         decimal minimum = 0;
         decimal maximum = 100;
-        decimal increment = 1;
+        double increment = 1;
         int decimalPlaces = 0;
         bool initializing = true;
         string format = "0";
@@ -154,19 +154,12 @@ namespace AgOpenGPS
         public NudlessNumericUpDown()
         {
             base.TextAlign = ContentAlignment.MiddleCenter;
+            //base.BackColor = Color.AliceBlue;
+            base.BackColor = Color.White;
+            base.UseVisualStyleBackColor = false;
+
+            //base.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         }
-
-        //protected override void OnTextBoxResize(object source, EventArgs e)
-        //{
-        //this.Cursor = System.Windows.Forms.Cursors.IBeam;
-        //this.RightToLeft = System.Windows.Forms.RightToLeft.No;
-
-        //this.Appearance = System.Windows.Forms.Appearance.Button;
-        //this.BackColor = System.Drawing.Color.Transparent;
-        //this.BackColor = System.Drawing.Color.AliceBlue;
-        //this.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-        //    Controls[1].Width = Width - 4;
-        //}
 
         public decimal Value
         {
@@ -195,6 +188,7 @@ namespace AgOpenGPS
             }
         }
 
+        [DefaultValue(typeof(decimal), "0")]
         public decimal Minimum
         {
             get
@@ -213,6 +207,7 @@ namespace AgOpenGPS
             }
         }
 
+        [DefaultValue(typeof(decimal), "100")]
         public decimal Maximum
         {
             get
@@ -246,7 +241,8 @@ namespace AgOpenGPS
             return value;
         }
 
-        public decimal Increment
+        [DefaultValue(typeof(double), "1")]
+        public double Increment
         {
             get
             {
@@ -258,6 +254,8 @@ namespace AgOpenGPS
             }
         }
 
+
+        [DefaultValue(typeof(int), "0")]
         public int DecimalPlaces
         {
             get
@@ -290,19 +288,26 @@ namespace AgOpenGPS
         public void EndInit()
         {
             initializing = false;
+            UpdateEditText();
         }
 
         public override string ToString()
-                    {
+        {
             string text = base.ToString();
             return text + ", Minimum = " + Minimum.ToString(CultureInfo.CurrentCulture) + ", Maximum = " + Maximum.ToString(CultureInfo.CurrentCulture);
-                    }
+        }
 
         protected void UpdateEditText()
-                    {
+        {
             if (!initializing)
-                Text = _value.ToString(format);
+                base.Text = _value.ToString(format);
         }
+
+        [Bindable(false)]
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override Color BackColor { get => base.BackColor; set => base.BackColor = value; }
 
         [Bindable(false)]
         [Browsable(false)]
@@ -324,6 +329,28 @@ namespace AgOpenGPS
         [EditorBrowsable(EditorBrowsableState.Never)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public override RightToLeft RightToLeft { get => base.RightToLeft; set => base.RightToLeft = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override bool AutoSize { get => base.AutoSize; set => base.AutoSize = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override Cursor Cursor { get => base.Cursor; set => base.Cursor = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new bool UseVisualStyleBackColor { get => base.UseVisualStyleBackColor; set => base.UseVisualStyleBackColor = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new Color ForeColor { get => base.ForeColor; set => base.ForeColor = value; }
+
+        public override Font Font { get => base.Font; set => base.Font = value; }
     }
 
     public static class CExtensionMethods

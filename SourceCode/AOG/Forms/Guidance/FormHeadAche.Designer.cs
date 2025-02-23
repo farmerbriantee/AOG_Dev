@@ -477,7 +477,6 @@
             // nudSetDistance
             // 
             this.nudSetDistance.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.nudSetDistance.BackColor = System.Drawing.Color.White;
             this.tlp1.SetColumnSpan(this.nudSetDistance, 4);
             this.nudSetDistance.DecimalPlaces = 1;
             this.nudSetDistance.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

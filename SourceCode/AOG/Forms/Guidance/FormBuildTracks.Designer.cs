@@ -1196,7 +1196,6 @@
             // 
             // nudHeading
             // 
-            this.nudHeading.BackColor = System.Drawing.Color.LightCyan;
             this.nudHeading.DecimalPlaces = 4;
             this.nudHeading.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudHeading.Location = new System.Drawing.Point(9, 146);
@@ -1319,7 +1318,6 @@
             // 
             // nudLatitudePlus
             // 
-            this.nudLatitudePlus.BackColor = System.Drawing.Color.AliceBlue;
             this.nudLatitudePlus.DecimalPlaces = 7;
             this.nudLatitudePlus.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitudePlus.Location = new System.Drawing.Point(90, 58);
@@ -1345,7 +1343,6 @@
             // 
             // nudLongitudePlus
             // 
-            this.nudLongitudePlus.BackColor = System.Drawing.Color.AliceBlue;
             this.nudLongitudePlus.DecimalPlaces = 7;
             this.nudLongitudePlus.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitudePlus.Location = new System.Drawing.Point(90, 138);
@@ -1407,7 +1404,6 @@
             // 
             // nudHeadingLatLonPlus
             // 
-            this.nudHeadingLatLonPlus.BackColor = System.Drawing.Color.AliceBlue;
             this.nudHeadingLatLonPlus.DecimalPlaces = 4;
             this.nudHeadingLatLonPlus.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudHeadingLatLonPlus.Location = new System.Drawing.Point(90, 250);
@@ -1548,7 +1544,6 @@
             // 
             // nudLatitudeB
             // 
-            this.nudLatitudeB.BackColor = System.Drawing.Color.AliceBlue;
             this.nudLatitudeB.DecimalPlaces = 7;
             this.nudLatitudeB.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitudeB.Location = new System.Drawing.Point(81, 194);
@@ -1574,7 +1569,6 @@
             // 
             // nudLongitudeB
             // 
-            this.nudLongitudeB.BackColor = System.Drawing.Color.AliceBlue;
             this.nudLongitudeB.DecimalPlaces = 7;
             this.nudLongitudeB.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitudeB.Location = new System.Drawing.Point(81, 273);
@@ -1626,7 +1620,6 @@
             // 
             // nudLatitudeA
             // 
-            this.nudLatitudeA.BackColor = System.Drawing.Color.AliceBlue;
             this.nudLatitudeA.DecimalPlaces = 7;
             this.nudLatitudeA.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitudeA.Location = new System.Drawing.Point(81, 27);
@@ -1652,7 +1645,6 @@
             // 
             // nudLongitudeA
             // 
-            this.nudLongitudeA.BackColor = System.Drawing.Color.AliceBlue;
             this.nudLongitudeA.DecimalPlaces = 7;
             this.nudLongitudeA.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitudeA.Location = new System.Drawing.Point(81, 107);
@@ -1785,7 +1777,6 @@
             // 
             // nudLatitudePivot
             // 
-            this.nudLatitudePivot.BackColor = System.Drawing.Color.AliceBlue;
             this.nudLatitudePivot.DecimalPlaces = 7;
             this.nudLatitudePivot.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitudePivot.Location = new System.Drawing.Point(72, 58);
@@ -1811,7 +1802,6 @@
             // 
             // nudLongitudePivot
             // 
-            this.nudLongitudePivot.BackColor = System.Drawing.Color.AliceBlue;
             this.nudLongitudePivot.DecimalPlaces = 7;
             this.nudLongitudePivot.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitudePivot.Location = new System.Drawing.Point(72, 138);

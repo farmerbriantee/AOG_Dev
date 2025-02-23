@@ -2554,7 +2554,6 @@
             // 
             // nudAntennaOffset
             // 
-            this.nudAntennaOffset.BackColor = System.Drawing.Color.AliceBlue;
             this.nudAntennaOffset.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaOffset.Location = new System.Drawing.Point(474, 352);
             this.nudAntennaOffset.Maximum = new decimal(new int[] {
@@ -2574,7 +2573,6 @@
             // 
             // nudAntennaHeight
             // 
-            this.nudAntennaHeight.BackColor = System.Drawing.Color.AliceBlue;
             this.nudAntennaHeight.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaHeight.Location = new System.Drawing.Point(392, 208);
             this.nudAntennaHeight.Maximum = new decimal(new int[] {
@@ -2594,7 +2592,6 @@
             // 
             // nudAntennaPivot
             // 
-            this.nudAntennaPivot.BackColor = System.Drawing.Color.AliceBlue;
             this.nudAntennaPivot.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaPivot.Location = new System.Drawing.Point(126, 43);
             this.nudAntennaPivot.Maximum = new decimal(new int[] {
@@ -2718,7 +2715,6 @@
             // 
             // nudTractorHitchLength
             // 
-            this.nudTractorHitchLength.BackColor = System.Drawing.Color.AliceBlue;
             this.nudTractorHitchLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTractorHitchLength.Location = new System.Drawing.Point(37, 272);
             this.nudTractorHitchLength.Maximum = new decimal(new int[] {
@@ -2738,7 +2734,6 @@
             // 
             // nudVehicleTrack
             // 
-            this.nudVehicleTrack.BackColor = System.Drawing.Color.AliceBlue;
             this.nudVehicleTrack.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudVehicleTrack.Location = new System.Drawing.Point(700, 165);
             this.nudVehicleTrack.Maximum = new decimal(new int[] {
@@ -2763,7 +2758,6 @@
             // 
             // nudWheelbase
             // 
-            this.nudWheelbase.BackColor = System.Drawing.Color.AliceBlue;
             this.nudWheelbase.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudWheelbase.Location = new System.Drawing.Point(179, 397);
             this.nudWheelbase.Maximum = new decimal(new int[] {
@@ -2954,7 +2948,6 @@
             // 
             // nudTrailingHitchLength
             // 
-            this.nudTrailingHitchLength.BackColor = System.Drawing.Color.AliceBlue;
             this.nudTrailingHitchLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTrailingHitchLength.Location = new System.Drawing.Point(456, 407);
             this.nudTrailingHitchLength.Maximum = new decimal(new int[] {
@@ -2979,7 +2972,6 @@
             // 
             // nudDrawbarLength
             // 
-            this.nudDrawbarLength.BackColor = System.Drawing.Color.AliceBlue;
             this.nudDrawbarLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDrawbarLength.Location = new System.Drawing.Point(401, 407);
             this.nudDrawbarLength.Maximum = new decimal(new int[] {
@@ -2999,7 +2991,6 @@
             // 
             // nudTankHitch
             // 
-            this.nudTankHitch.BackColor = System.Drawing.Color.AliceBlue;
             this.nudTankHitch.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTankHitch.Location = new System.Drawing.Point(643, 407);
             this.nudTankHitch.Maximum = new decimal(new int[] {
@@ -3253,7 +3244,6 @@
             // 
             // nudOverlap
             // 
-            this.nudOverlap.BackColor = System.Drawing.Color.AliceBlue;
             this.nudOverlap.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudOverlap.Location = new System.Drawing.Point(656, 109);
             this.nudOverlap.Maximum = new decimal(new int[] {
@@ -3273,7 +3263,6 @@
             // 
             // nudOffset
             // 
-            this.nudOffset.BackColor = System.Drawing.Color.AliceBlue;
             this.nudOffset.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudOffset.Location = new System.Drawing.Point(233, 109);
             this.nudOffset.Maximum = new decimal(new int[] {
@@ -3371,7 +3360,6 @@
             // 
             // nudTrailingToolToPivotLength
             // 
-            this.nudTrailingToolToPivotLength.BackColor = System.Drawing.Color.AliceBlue;
             this.nudTrailingToolToPivotLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTrailingToolToPivotLength.Location = new System.Drawing.Point(320, 337);
             this.nudTrailingToolToPivotLength.Maximum = new decimal(new int[] {
@@ -3496,7 +3484,6 @@
             // nudZone8To
             // 
             this.nudZone8To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone8To.BackColor = System.Drawing.Color.AliceBlue;
             this.nudZone8To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone8To.Location = new System.Drawing.Point(751, 186);
             this.nudZone8To.Maximum = new decimal(new int[] {
@@ -3558,7 +3545,6 @@
             // nudZone7To
             // 
             this.nudZone7To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone7To.BackColor = System.Drawing.Color.AliceBlue;
             this.nudZone7To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone7To.Location = new System.Drawing.Point(526, 189);
             this.nudZone7To.Maximum = new decimal(new int[] {
@@ -3620,7 +3606,6 @@
             // nudZone6To
             // 
             this.nudZone6To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone6To.BackColor = System.Drawing.Color.AliceBlue;
             this.nudZone6To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone6To.Location = new System.Drawing.Point(302, 188);
             this.nudZone6To.Maximum = new decimal(new int[] {
@@ -3641,7 +3626,6 @@
             // nudZone4To
             // 
             this.nudZone4To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone4To.BackColor = System.Drawing.Color.AliceBlue;
             this.nudZone4To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone4To.Location = new System.Drawing.Point(751, 68);
             this.nudZone4To.Maximum = new decimal(new int[] {
@@ -3662,7 +3646,6 @@
             // nudZone1To
             // 
             this.nudZone1To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone1To.BackColor = System.Drawing.Color.AliceBlue;
             this.nudZone1To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone1To.Location = new System.Drawing.Point(81, 69);
             this.nudZone1To.Maximum = new decimal(new int[] {
@@ -3683,7 +3666,6 @@
             // nudZone5To
             // 
             this.nudZone5To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone5To.BackColor = System.Drawing.Color.AliceBlue;
             this.nudZone5To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone5To.Location = new System.Drawing.Point(81, 187);
             this.nudZone5To.Maximum = new decimal(new int[] {
@@ -3704,7 +3686,6 @@
             // nudZone3To
             // 
             this.nudZone3To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone3To.BackColor = System.Drawing.Color.AliceBlue;
             this.nudZone3To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone3To.Location = new System.Drawing.Point(526, 70);
             this.nudZone3To.Maximum = new decimal(new int[] {
@@ -3725,7 +3706,6 @@
             // nudZone2To
             // 
             this.nudZone2To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone2To.BackColor = System.Drawing.Color.AliceBlue;
             this.nudZone2To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone2To.Location = new System.Drawing.Point(302, 70);
             this.nudZone2To.Maximum = new decimal(new int[] {
@@ -4446,14 +4426,8 @@
             // nudCutoffSpeed
             // 
             this.nudCutoffSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudCutoffSpeed.BackColor = System.Drawing.Color.AliceBlue;
             this.nudCutoffSpeed.DecimalPlaces = 1;
             this.nudCutoffSpeed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudCutoffSpeed.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
             this.nudCutoffSpeed.Location = new System.Drawing.Point(654, 508);
             this.nudCutoffSpeed.Maximum = new decimal(new int[] {
             30,
@@ -4473,7 +4447,6 @@
             // nudDefaultSectionWidth
             // 
             this.nudDefaultSectionWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudDefaultSectionWidth.BackColor = System.Drawing.Color.AliceBlue;
             this.nudDefaultSectionWidth.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDefaultSectionWidth.Location = new System.Drawing.Point(216, 353);
             this.nudDefaultSectionWidth.Maximum = new decimal(new int[] {
@@ -4499,7 +4472,6 @@
             // nudMinCoverage
             // 
             this.nudMinCoverage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudMinCoverage.BackColor = System.Drawing.Color.AliceBlue;
             this.nudMinCoverage.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMinCoverage.Location = new System.Drawing.Point(258, 508);
             this.nudMinCoverage.Name = "nudMinCoverage";
@@ -4515,7 +4487,6 @@
             // nudSection16
             // 
             this.nudSection16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection16.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection16.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection16.Location = new System.Drawing.Point(743, 104);
             this.nudSection16.Maximum = new decimal(new int[] {
@@ -4536,7 +4507,6 @@
             // nudSection15
             // 
             this.nudSection15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection15.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection15.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection15.Location = new System.Drawing.Point(638, 104);
             this.nudSection15.Maximum = new decimal(new int[] {
@@ -4557,7 +4527,6 @@
             // nudSection14
             // 
             this.nudSection14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection14.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection14.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection14.Location = new System.Drawing.Point(533, 104);
             this.nudSection14.Maximum = new decimal(new int[] {
@@ -4578,7 +4547,6 @@
             // nudSection13
             // 
             this.nudSection13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection13.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection13.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection13.Location = new System.Drawing.Point(428, 104);
             this.nudSection13.Maximum = new decimal(new int[] {
@@ -4599,7 +4567,6 @@
             // nudSection12
             // 
             this.nudSection12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection12.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection12.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection12.Location = new System.Drawing.Point(323, 104);
             this.nudSection12.Maximum = new decimal(new int[] {
@@ -4620,7 +4587,6 @@
             // nudSection11
             // 
             this.nudSection11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection11.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection11.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection11.Location = new System.Drawing.Point(218, 104);
             this.nudSection11.Maximum = new decimal(new int[] {
@@ -4641,7 +4607,6 @@
             // nudSection10
             // 
             this.nudSection10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection10.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection10.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection10.Location = new System.Drawing.Point(113, 104);
             this.nudSection10.Maximum = new decimal(new int[] {
@@ -4662,7 +4627,6 @@
             // nudSection09
             // 
             this.nudSection09.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection09.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection09.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection09.Location = new System.Drawing.Point(8, 104);
             this.nudSection09.Maximum = new decimal(new int[] {
@@ -4683,7 +4647,6 @@
             // nudSection08
             // 
             this.nudSection08.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection08.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection08.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection08.Location = new System.Drawing.Point(743, 233);
             this.nudSection08.Maximum = new decimal(new int[] {
@@ -4704,7 +4667,6 @@
             // nudSection07
             // 
             this.nudSection07.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection07.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection07.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection07.Location = new System.Drawing.Point(638, 233);
             this.nudSection07.Maximum = new decimal(new int[] {
@@ -4725,7 +4687,6 @@
             // nudSection06
             // 
             this.nudSection06.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection06.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection06.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection06.Location = new System.Drawing.Point(533, 233);
             this.nudSection06.Maximum = new decimal(new int[] {
@@ -4746,7 +4707,6 @@
             // nudSection05
             // 
             this.nudSection05.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection05.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection05.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection05.Location = new System.Drawing.Point(428, 233);
             this.nudSection05.Maximum = new decimal(new int[] {
@@ -4767,7 +4727,6 @@
             // nudSection04
             // 
             this.nudSection04.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection04.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection04.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection04.Location = new System.Drawing.Point(323, 233);
             this.nudSection04.Maximum = new decimal(new int[] {
@@ -4788,7 +4747,6 @@
             // nudSection03
             // 
             this.nudSection03.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection03.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection03.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection03.Location = new System.Drawing.Point(218, 233);
             this.nudSection03.Maximum = new decimal(new int[] {
@@ -4809,7 +4767,6 @@
             // nudSection02
             // 
             this.nudSection02.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection02.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection02.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection02.Location = new System.Drawing.Point(113, 233);
             this.nudSection02.Maximum = new decimal(new int[] {
@@ -4830,7 +4787,6 @@
             // nudSection01
             // 
             this.nudSection01.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection01.BackColor = System.Drawing.Color.AliceBlue;
             this.nudSection01.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection01.Location = new System.Drawing.Point(8, 233);
             this.nudSection01.Maximum = new decimal(new int[] {
@@ -4851,7 +4807,6 @@
             // nudNumberOfSections
             // 
             this.nudNumberOfSections.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudNumberOfSections.BackColor = System.Drawing.Color.AliceBlue;
             this.nudNumberOfSections.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudNumberOfSections.Location = new System.Drawing.Point(486, 355);
             this.nudNumberOfSections.Minimum = new decimal(new int[] {
@@ -5059,7 +5014,6 @@
             this.tabTSettings.Controls.Add(this.nudLookAheadOff);
             this.tabTSettings.Controls.Add(this.nudTurnOffDelay);
             this.tabTSettings.Controls.Add(this.nudLookAhead);
-            this.tabTSettings.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.tabTSettings.Location = new System.Drawing.Point(4, 44);
             this.tabTSettings.Name = "tabTSettings";
             this.tabTSettings.Size = new System.Drawing.Size(851, 584);
@@ -5160,14 +5114,9 @@
             // nudLookAheadOff
             // 
             this.nudLookAheadOff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudLookAheadOff.BackColor = System.Drawing.Color.AliceBlue;
             this.nudLookAheadOff.DecimalPlaces = 1;
             this.nudLookAheadOff.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudLookAheadOff.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+            this.nudLookAheadOff.Increment = 0.1D;
             this.nudLookAheadOff.Location = new System.Drawing.Point(363, 467);
             this.nudLookAheadOff.Maximum = new decimal(new int[] {
             20,
@@ -5187,14 +5136,9 @@
             // nudTurnOffDelay
             // 
             this.nudTurnOffDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudTurnOffDelay.BackColor = System.Drawing.Color.AliceBlue;
             this.nudTurnOffDelay.DecimalPlaces = 1;
             this.nudTurnOffDelay.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudTurnOffDelay.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+            this.nudTurnOffDelay.Increment = 0.1D;
             this.nudTurnOffDelay.Location = new System.Drawing.Point(649, 467);
             this.nudTurnOffDelay.Maximum = new decimal(new int[] {
             10,
@@ -5214,14 +5158,9 @@
             // nudLookAhead
             // 
             this.nudLookAhead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudLookAhead.BackColor = System.Drawing.Color.AliceBlue;
             this.nudLookAhead.DecimalPlaces = 1;
             this.nudLookAhead.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudLookAhead.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+            this.nudLookAhead.Increment = 0.1D;
             this.nudLookAhead.Location = new System.Drawing.Point(78, 467);
             this.nudLookAhead.Maximum = new decimal(new int[] {
             22,
@@ -5353,8 +5292,6 @@
             // nudDualReverseDistance
             // 
             this.nudDualReverseDistance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudDualReverseDistance.AutoSize = true;
-            this.nudDualReverseDistance.BackColor = System.Drawing.Color.AliceBlue;
             this.nudDualReverseDistance.DecimalPlaces = 2;
             this.nudDualReverseDistance.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDualReverseDistance.Location = new System.Drawing.Point(191, 218);
@@ -5391,8 +5328,6 @@
             // nudDualHeadingOffset
             // 
             this.nudDualHeadingOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudDualHeadingOffset.AutoSize = true;
-            this.nudDualHeadingOffset.BackColor = System.Drawing.Color.AliceBlue;
             this.nudDualHeadingOffset.DecimalPlaces = 1;
             this.nudDualHeadingOffset.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDualHeadingOffset.Location = new System.Drawing.Point(191, 90);
@@ -5688,8 +5623,6 @@
             // nudFixJumpDistance
             // 
             this.nudFixJumpDistance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudFixJumpDistance.AutoSize = true;
-            this.nudFixJumpDistance.BackColor = System.Drawing.Color.AliceBlue;
             this.nudFixJumpDistance.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudFixJumpDistance.Location = new System.Drawing.Point(965, 279);
             this.nudFixJumpDistance.Maximum = new decimal(new int[] {
@@ -6168,15 +6101,9 @@
             // 
             // nudYouTurnRadius
             // 
-            this.nudYouTurnRadius.BackColor = System.Drawing.Color.White;
             this.nudYouTurnRadius.DecimalPlaces = 2;
             this.nudYouTurnRadius.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudYouTurnRadius.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.nudYouTurnRadius.Increment = new decimal(new int[] {
-            2,
-            0,
-            0,
-            65536});
+            this.nudYouTurnRadius.Increment = 0.2D;
             this.nudYouTurnRadius.Location = new System.Drawing.Point(582, 154);
             this.nudYouTurnRadius.Minimum = new decimal(new int[] {
             2,
@@ -6195,15 +6122,9 @@
             // 
             // nudTurnDistanceFromBoundary
             // 
-            this.nudTurnDistanceFromBoundary.BackColor = System.Drawing.Color.White;
             this.nudTurnDistanceFromBoundary.DecimalPlaces = 2;
             this.nudTurnDistanceFromBoundary.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudTurnDistanceFromBoundary.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.nudTurnDistanceFromBoundary.Increment = new decimal(new int[] {
-            2,
-            0,
-            0,
-            65536});
+            this.nudTurnDistanceFromBoundary.Increment = 0.2D;
             this.nudTurnDistanceFromBoundary.Location = new System.Drawing.Point(582, 434);
             this.nudTurnDistanceFromBoundary.Name = "nudTurnDistanceFromBoundary";
             this.nudTurnDistanceFromBoundary.Size = new System.Drawing.Size(160, 52);
@@ -7497,7 +7418,6 @@
             // 
             // nudHydLiftLookAhead
             // 
-            this.nudHydLiftLookAhead.BackColor = System.Drawing.Color.White;
             this.nudHydLiftLookAhead.DecimalPlaces = 1;
             this.nudHydLiftLookAhead.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudHydLiftLookAhead.Location = new System.Drawing.Point(34, 278);
@@ -7597,7 +7517,6 @@
             // 
             // nudLowerTime
             // 
-            this.nudLowerTime.BackColor = System.Drawing.Color.White;
             this.nudLowerTime.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLowerTime.Location = new System.Drawing.Point(226, 279);
             this.nudLowerTime.Maximum = new decimal(new int[] {
@@ -7632,7 +7551,6 @@
             // 
             // nudRaiseTime
             // 
-            this.nudRaiseTime.BackColor = System.Drawing.Color.White;
             this.nudRaiseTime.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudRaiseTime.Location = new System.Drawing.Point(226, 75);
             this.nudRaiseTime.Maximum = new decimal(new int[] {
@@ -7746,7 +7664,6 @@
             // nudUser4
             // 
             this.nudUser4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudUser4.BackColor = System.Drawing.Color.White;
             this.nudUser4.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudUser4.Location = new System.Drawing.Point(659, 342);
             this.nudUser4.Maximum = new decimal(new int[] {
@@ -7767,7 +7684,6 @@
             // nudUser3
             // 
             this.nudUser3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudUser3.BackColor = System.Drawing.Color.White;
             this.nudUser3.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudUser3.Location = new System.Drawing.Point(659, 253);
             this.nudUser3.Maximum = new decimal(new int[] {
@@ -7788,7 +7704,6 @@
             // nudUser2
             // 
             this.nudUser2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudUser2.BackColor = System.Drawing.Color.White;
             this.nudUser2.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudUser2.Location = new System.Drawing.Point(659, 164);
             this.nudUser2.Maximum = new decimal(new int[] {
@@ -7809,7 +7724,6 @@
             // nudUser1
             // 
             this.nudUser1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudUser1.BackColor = System.Drawing.Color.White;
             this.nudUser1.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudUser1.Location = new System.Drawing.Point(659, 75);
             this.nudUser1.Maximum = new decimal(new int[] {
@@ -7951,8 +7865,6 @@
             // nudTramWidth
             // 
             this.nudTramWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudTramWidth.BackColor = System.Drawing.Color.AliceBlue;
-            this.nudTramWidth.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.nudTramWidth.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTramWidth.Location = new System.Drawing.Point(291, 105);
             this.nudTramWidth.Maximum = new decimal(new int[] {
@@ -9280,7 +9192,6 @@
             // nudNumGuideLines
             // 
             this.nudNumGuideLines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudNumGuideLines.BackColor = System.Drawing.Color.AliceBlue;
             this.nudNumGuideLines.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudNumGuideLines.Location = new System.Drawing.Point(531, 285);
             this.nudNumGuideLines.Maximum = new decimal(new int[] {
@@ -9561,9 +9472,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudTurnOffDelay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLookAhead)).EndInit();
             this.tabDHeading.ResumeLayout(false);
-            this.tabDHeading.PerformLayout();
             this.gboxDual.ResumeLayout(false);
-            this.gboxDual.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudDualReverseDistance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDualHeadingOffset)).EndInit();

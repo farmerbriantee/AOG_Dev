@@ -239,8 +239,6 @@
             // 
             // nudOffset
             // 
-            this.nudOffset.BackColor = System.Drawing.Color.AliceBlue;
-            this.nudOffset.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudOffset.Location = new System.Drawing.Point(8, 10);
             this.nudOffset.Maximum = new decimal(new int[] {
             4999,

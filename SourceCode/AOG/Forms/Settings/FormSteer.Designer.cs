@@ -1662,7 +1662,6 @@
             // 
             // nudDeadZoneDelay
             // 
-            this.nudDeadZoneDelay.BackColor = System.Drawing.Color.White;
             this.nudDeadZoneDelay.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDeadZoneDelay.Location = new System.Drawing.Point(224, 37);
             this.nudDeadZoneDelay.Maximum = new decimal(new int[] {
@@ -1687,7 +1686,6 @@
             // 
             // nudDeadZoneHeading
             // 
-            this.nudDeadZoneHeading.BackColor = System.Drawing.Color.White;
             this.nudDeadZoneHeading.DecimalPlaces = 1;
             this.nudDeadZoneHeading.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDeadZoneHeading.Location = new System.Drawing.Point(56, 38);
@@ -2250,7 +2248,6 @@
             // 
             // nudMaxCounts
             // 
-            this.nudMaxCounts.BackColor = System.Drawing.Color.White;
             this.nudMaxCounts.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMaxCounts.Location = new System.Drawing.Point(61, 207);
             this.nudMaxCounts.Maximum = new decimal(new int[] {
@@ -2697,7 +2694,6 @@
             // 
             // nudMinSteerSpeed
             // 
-            this.nudMinSteerSpeed.BackColor = System.Drawing.Color.White;
             this.nudMinSteerSpeed.DecimalPlaces = 1;
             this.nudMinSteerSpeed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMinSteerSpeed.Location = new System.Drawing.Point(112, 354);
@@ -2718,7 +2714,6 @@
             // 
             // nudMaxSteerSpeed
             // 
-            this.nudMaxSteerSpeed.BackColor = System.Drawing.Color.White;
             this.nudMaxSteerSpeed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMaxSteerSpeed.Location = new System.Drawing.Point(302, 354);
             this.nudMaxSteerSpeed.Maximum = new decimal(new int[] {
@@ -2738,7 +2733,6 @@
             // 
             // nudGuidanceSpeedLimit
             // 
-            this.nudGuidanceSpeedLimit.BackColor = System.Drawing.Color.White;
             this.nudGuidanceSpeedLimit.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudGuidanceSpeedLimit.Location = new System.Drawing.Point(207, 140);
             this.nudGuidanceSpeedLimit.Maximum = new decimal(new int[] {
@@ -3047,7 +3041,6 @@
             // 
             // nudcmPerPixel
             // 
-            this.nudcmPerPixel.BackColor = System.Drawing.Color.White;
             this.nudcmPerPixel.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudcmPerPixel.Location = new System.Drawing.Point(475, 193);
             this.nudcmPerPixel.Minimum = new decimal(new int[] {
@@ -3067,7 +3060,6 @@
             // 
             // nudLineWidth
             // 
-            this.nudLineWidth.BackColor = System.Drawing.Color.White;
             this.nudLineWidth.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLineWidth.Location = new System.Drawing.Point(191, 47);
             this.nudLineWidth.Maximum = new decimal(new int[] {
@@ -3092,7 +3084,6 @@
             // 
             // nudSnapDistance
             // 
-            this.nudSnapDistance.BackColor = System.Drawing.Color.White;
             this.nudSnapDistance.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSnapDistance.Location = new System.Drawing.Point(475, 47);
             this.nudSnapDistance.Maximum = new decimal(new int[] {
@@ -3112,7 +3103,6 @@
             // 
             // nudGuidanceLookAhead
             // 
-            this.nudGuidanceLookAhead.BackColor = System.Drawing.Color.White;
             this.nudGuidanceLookAhead.DecimalPlaces = 1;
             this.nudGuidanceLookAhead.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudGuidanceLookAhead.Location = new System.Drawing.Point(180, 196);

@@ -82,7 +82,6 @@
             // 
             // nudLongitude
             // 
-            this.nudLongitude.BackColor = System.Drawing.Color.White;
             this.nudLongitude.DecimalPlaces = 7;
             this.nudLongitude.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitude.Location = new System.Drawing.Point(340, 483);
@@ -108,7 +107,6 @@
             // 
             // nudLatitude
             // 
-            this.nudLatitude.BackColor = System.Drawing.Color.White;
             this.nudLatitude.DecimalPlaces = 7;
             this.nudLatitude.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitude.Location = new System.Drawing.Point(29, 483);

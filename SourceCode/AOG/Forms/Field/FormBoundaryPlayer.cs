@@ -28,14 +28,14 @@ namespace AgOpenGPS
             if (mf.isMetric)
             {
                 nudOffset.Maximum = 4999;
-                nudOffset.Value = (decimal)(mf.tool.width * 0.5 * 100);
+                nudOffset.Value = mf.tool.width * 0.5 * 100;
                 lblMetersInches.Text = "cm";
             }
             else
             {
                 nudOffset.Maximum = 1968;
-                nudOffset.Value = (decimal)(mf.tool.width * 0.5 * 39.3701);
-                double ftInches = (double)nudOffset.Value;
+                nudOffset.Value = mf.tool.width * 0.5 * 39.3701;
+                double ftInches = nudOffset.Value;
                 lblMetersInches.Text = ((int)(ftInches / 12)).ToString() + "' " + ((int)(ftInches % 12)).ToString() + '"';
             }
 

@@ -240,19 +240,11 @@
             // nudOffset
             // 
             this.nudOffset.Location = new System.Drawing.Point(8, 10);
-            this.nudOffset.Maximum = new decimal(new int[] {
-            4999,
-            0,
-            0,
-            0});
+            this.nudOffset.Maximum = 4999D;
             this.nudOffset.Name = "nudOffset";
             this.nudOffset.Size = new System.Drawing.Size(125, 46);
             this.nudOffset.TabIndex = 149;
-            this.nudOffset.Value = new decimal(new int[] {
-            4999,
-            0,
-            0,
-            0});
+            this.nudOffset.Value = 4999D;
             this.nudOffset.Click += new System.EventHandler(this.nudOffset_Click);
             // 
             // cboxIsRecBoundaryWhenSectionOn

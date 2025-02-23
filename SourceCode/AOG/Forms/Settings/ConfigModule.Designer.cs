@@ -41,8 +41,8 @@ namespace AgOpenGPS
                 nudRaiseTime.Enabled = false;
             }
 
-            nudRaiseTime.Value = (decimal)Properties.Settings.Default.setArdMac_hydRaiseTime;
-            nudLowerTime.Value = (decimal)Properties.Settings.Default.setArdMac_hydLowerTime;
+            nudRaiseTime.Value = Properties.Settings.Default.setArdMac_hydRaiseTime;
+            nudLowerTime.Value = Properties.Settings.Default.setArdMac_hydLowerTime;
 
             nudUser1.Value = Properties.Settings.Default.setArdMac_user1;
             nudUser2.Value = Properties.Settings.Default.setArdMac_user2;
@@ -51,7 +51,7 @@ namespace AgOpenGPS
 
             btnSendMachinePGN.Focus();
 
-            nudHydLiftLookAhead.Value = (decimal)Properties.Settings.Default.setVehicle_hydraulicLiftLookAhead;
+            nudHydLiftLookAhead.Value = Properties.Settings.Default.setVehicle_hydraulicLiftLookAhead;
         }
         private void tabAMachine_Leave(object sender, EventArgs e)
         {
@@ -454,11 +454,11 @@ namespace AgOpenGPS
 
             double bob = Properties.Settings.Default.set_youTurnDistanceFromBoundary * mf.m2FtOrM;
             if (bob < 0.2) bob = 0.2;
-            nudTurnDistanceFromBoundary.Value = (decimal)(Math.Round(bob, 2));
+            nudTurnDistanceFromBoundary.Value = Math.Round(bob, 2);
 
             bob = Properties.Settings.Default.set_youTurnRadius * mf.m2FtOrM;
             if (bob < 2) bob = 2;
-            nudYouTurnRadius.Value = (decimal)(Math.Round(bob, 2));
+            nudYouTurnRadius.Value = Math.Round(bob, 2);
 
             lblFtMUTurn.Text = lblFtMTurnRadius.Text = mf.unitsFtM;
         }

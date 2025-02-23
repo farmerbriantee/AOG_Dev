@@ -1664,24 +1664,12 @@
             // 
             this.nudDeadZoneDelay.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDeadZoneDelay.Location = new System.Drawing.Point(224, 37);
-            this.nudDeadZoneDelay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.nudDeadZoneDelay.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudDeadZoneDelay.Maximum = 10D;
+            this.nudDeadZoneDelay.Minimum = 1D;
             this.nudDeadZoneDelay.Name = "nudDeadZoneDelay";
             this.nudDeadZoneDelay.Size = new System.Drawing.Size(107, 36);
             this.nudDeadZoneDelay.TabIndex = 542;
-            this.nudDeadZoneDelay.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudDeadZoneDelay.Value = 1D;
             this.nudDeadZoneDelay.Click += new System.EventHandler(this.nudDeadZoneDelay_Click);
             // 
             // nudDeadZoneHeading
@@ -1689,24 +1677,12 @@
             this.nudDeadZoneHeading.DecimalPlaces = 1;
             this.nudDeadZoneHeading.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDeadZoneHeading.Location = new System.Drawing.Point(56, 38);
-            this.nudDeadZoneHeading.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nudDeadZoneHeading.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+            this.nudDeadZoneHeading.Maximum = 5D;
+            this.nudDeadZoneHeading.Minimum = 0.1D;
             this.nudDeadZoneHeading.Name = "nudDeadZoneHeading";
             this.nudDeadZoneHeading.Size = new System.Drawing.Size(107, 36);
             this.nudDeadZoneHeading.TabIndex = 538;
-            this.nudDeadZoneHeading.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudDeadZoneHeading.Value = 1D;
             this.nudDeadZoneHeading.Click += new System.EventHandler(this.nudDeadZoneHeading_Click);
             // 
             // imageList1
@@ -2250,19 +2226,11 @@
             // 
             this.nudMaxCounts.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMaxCounts.Location = new System.Drawing.Point(61, 207);
-            this.nudMaxCounts.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.nudMaxCounts.Maximum = 255D;
             this.nudMaxCounts.Name = "nudMaxCounts";
             this.nudMaxCounts.Size = new System.Drawing.Size(107, 52);
             this.nudMaxCounts.TabIndex = 493;
-            this.nudMaxCounts.Value = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
+            this.nudMaxCounts.Value = 15D;
             this.nudMaxCounts.Click += new System.EventHandler(this.nudMaxCounts_Click);
             // 
             // cboxCurrentSensor
@@ -2697,57 +2665,33 @@
             this.nudMinSteerSpeed.DecimalPlaces = 1;
             this.nudMinSteerSpeed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMinSteerSpeed.Location = new System.Drawing.Point(112, 354);
-            this.nudMinSteerSpeed.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.nudMinSteerSpeed.Maximum = 10D;
             this.nudMinSteerSpeed.Name = "nudMinSteerSpeed";
             this.nudMinSteerSpeed.Size = new System.Drawing.Size(110, 52);
             this.nudMinSteerSpeed.TabIndex = 505;
-            this.nudMinSteerSpeed.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            65536});
+            this.nudMinSteerSpeed.Value = 1D;
             this.nudMinSteerSpeed.Click += new System.EventHandler(this.nudMinSteerSpeed_Click);
             // 
             // nudMaxSteerSpeed
             // 
             this.nudMaxSteerSpeed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMaxSteerSpeed.Location = new System.Drawing.Point(302, 354);
-            this.nudMaxSteerSpeed.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
+            this.nudMaxSteerSpeed.Maximum = 50D;
             this.nudMaxSteerSpeed.Name = "nudMaxSteerSpeed";
             this.nudMaxSteerSpeed.Size = new System.Drawing.Size(110, 52);
             this.nudMaxSteerSpeed.TabIndex = 501;
-            this.nudMaxSteerSpeed.Value = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
+            this.nudMaxSteerSpeed.Value = 12D;
             this.nudMaxSteerSpeed.Click += new System.EventHandler(this.nudMaxSteerSpeed_Click);
             // 
             // nudGuidanceSpeedLimit
             // 
             this.nudGuidanceSpeedLimit.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudGuidanceSpeedLimit.Location = new System.Drawing.Point(207, 140);
-            this.nudGuidanceSpeedLimit.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
+            this.nudGuidanceSpeedLimit.Maximum = 20D;
             this.nudGuidanceSpeedLimit.Name = "nudGuidanceSpeedLimit";
             this.nudGuidanceSpeedLimit.Size = new System.Drawing.Size(110, 52);
             this.nudGuidanceSpeedLimit.TabIndex = 492;
-            this.nudGuidanceSpeedLimit.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
+            this.nudGuidanceSpeedLimit.Value = 7D;
             this.nudGuidanceSpeedLimit.Click += new System.EventHandler(this.nudGuidanceSpeedLimit_Click);
             // 
             // tabOnTheLine
@@ -3043,62 +2987,34 @@
             // 
             this.nudcmPerPixel.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudcmPerPixel.Location = new System.Drawing.Point(475, 193);
-            this.nudcmPerPixel.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
+            this.nudcmPerPixel.Minimum = 2D;
             this.nudcmPerPixel.Name = "nudcmPerPixel";
             this.nudcmPerPixel.Size = new System.Drawing.Size(78, 46);
             this.nudcmPerPixel.TabIndex = 524;
-            this.nudcmPerPixel.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
+            this.nudcmPerPixel.Value = 3D;
             this.nudcmPerPixel.Click += new System.EventHandler(this.nudcmPerPixel_Click);
             // 
             // nudLineWidth
             // 
             this.nudLineWidth.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLineWidth.Location = new System.Drawing.Point(191, 47);
-            this.nudLineWidth.Maximum = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            this.nudLineWidth.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudLineWidth.Maximum = 8D;
+            this.nudLineWidth.Minimum = 1D;
             this.nudLineWidth.Name = "nudLineWidth";
             this.nudLineWidth.Size = new System.Drawing.Size(78, 46);
             this.nudLineWidth.TabIndex = 520;
-            this.nudLineWidth.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudLineWidth.Value = 1D;
             this.nudLineWidth.Click += new System.EventHandler(this.nudLineWidth_Click);
             // 
             // nudSnapDistance
             // 
             this.nudSnapDistance.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSnapDistance.Location = new System.Drawing.Point(475, 47);
-            this.nudSnapDistance.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
+            this.nudSnapDistance.Maximum = 1000D;
             this.nudSnapDistance.Name = "nudSnapDistance";
             this.nudSnapDistance.Size = new System.Drawing.Size(78, 46);
             this.nudSnapDistance.TabIndex = 516;
-            this.nudSnapDistance.Value = new decimal(new int[] {
-            499,
-            0,
-            0,
-            0});
+            this.nudSnapDistance.Value = 499D;
             this.nudSnapDistance.Click += new System.EventHandler(this.nudSnapDistance_Click);
             // 
             // nudGuidanceLookAhead
@@ -3106,24 +3022,12 @@
             this.nudGuidanceLookAhead.DecimalPlaces = 1;
             this.nudGuidanceLookAhead.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudGuidanceLookAhead.Location = new System.Drawing.Point(180, 196);
-            this.nudGuidanceLookAhead.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.nudGuidanceLookAhead.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+            this.nudGuidanceLookAhead.Maximum = 10D;
+            this.nudGuidanceLookAhead.Minimum = 0.1D;
             this.nudGuidanceLookAhead.Name = "nudGuidanceLookAhead";
             this.nudGuidanceLookAhead.Size = new System.Drawing.Size(100, 46);
             this.nudGuidanceLookAhead.TabIndex = 512;
-            this.nudGuidanceLookAhead.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.nudGuidanceLookAhead.Value = 10D;
             this.nudGuidanceLookAhead.Click += new System.EventHandler(this.nudGuidanceLookAhead_Click);
             // 
             // tabTool

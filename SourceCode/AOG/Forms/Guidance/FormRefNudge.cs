@@ -26,12 +26,12 @@ namespace AgOpenGPS
             if (mf.isMetric)
             {
                 nudSnapDistance.DecimalPlaces = 0;
-                nudSnapDistance.Value = (int)((double)Properties.Settings.Default.setAS_snapDistanceRef);
+                nudSnapDistance.Value = (int)Properties.Settings.Default.setAS_snapDistanceRef;
             }
             else
             {
                 nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistanceRef * mf.cm2CmOrIn), 1);
+                nudSnapDistance.Value = Math.Round(Properties.Settings.Default.setAS_snapDistanceRef * mf.cm2CmOrIn, 1);
             }
 
             snapAdj = Properties.Settings.Default.setAS_snapDistanceRef * 0.01;

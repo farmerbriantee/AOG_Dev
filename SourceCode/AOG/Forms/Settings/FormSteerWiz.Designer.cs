@@ -1374,19 +1374,11 @@
             this.nudMaxCounts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudMaxCounts.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMaxCounts.Location = new System.Drawing.Point(58, 239);
-            this.nudMaxCounts.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.nudMaxCounts.Maximum = 255D;
             this.nudMaxCounts.Name = "nudMaxCounts";
             this.nudMaxCounts.Size = new System.Drawing.Size(107, 52);
             this.nudMaxCounts.TabIndex = 493;
-            this.nudMaxCounts.Value = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
+            this.nudMaxCounts.Value = 15D;
             this.nudMaxCounts.Click += new System.EventHandler(this.nudMaxCounts_Click);
             // 
             // label55
@@ -1812,19 +1804,11 @@
             this.nudWheelbase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudWheelbase.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudWheelbase.Location = new System.Drawing.Point(90, 231);
-            this.nudWheelbase.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
+            this.nudWheelbase.Maximum = 999D;
             this.nudWheelbase.Name = "nudWheelbase";
             this.nudWheelbase.Size = new System.Drawing.Size(143, 65);
             this.nudWheelbase.TabIndex = 537;
-            this.nudWheelbase.Value = new decimal(new int[] {
-            333,
-            0,
-            0,
-            0});
+            this.nudWheelbase.Value = 333D;
             this.nudWheelbase.Click += new System.EventHandler(this.nudWheelbase_Click);
             // 
             // label91
@@ -1894,19 +1878,11 @@
             this.nudVehicleTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudVehicleTrack.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudVehicleTrack.Location = new System.Drawing.Point(423, 185);
-            this.nudVehicleTrack.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
+            this.nudVehicleTrack.Maximum = 999D;
             this.nudVehicleTrack.Name = "nudVehicleTrack";
             this.nudVehicleTrack.Size = new System.Drawing.Size(157, 65);
             this.nudVehicleTrack.TabIndex = 537;
-            this.nudVehicleTrack.Value = new decimal(new int[] {
-            333,
-            0,
-            0,
-            0});
+            this.nudVehicleTrack.Value = 333D;
             this.nudVehicleTrack.Click += new System.EventHandler(this.nudVehicleTrack_Click);
             // 
             // label95
@@ -2046,24 +2022,12 @@
             this.nudAntennaPivot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudAntennaPivot.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaPivot.Location = new System.Drawing.Point(230, 226);
-            this.nudAntennaPivot.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.nudAntennaPivot.Minimum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            -2147483648});
+            this.nudAntennaPivot.Maximum = 999D;
+            this.nudAntennaPivot.Minimum = -999D;
             this.nudAntennaPivot.Name = "nudAntennaPivot";
             this.nudAntennaPivot.Size = new System.Drawing.Size(165, 65);
             this.nudAntennaPivot.TabIndex = 537;
-            this.nudAntennaPivot.Value = new decimal(new int[] {
-            333,
-            0,
-            0,
-            0});
+            this.nudAntennaPivot.Value = 333D;
             this.nudAntennaPivot.Click += new System.EventHandler(this.nudAntennaPivot_Click);
             // 
             // button10
@@ -2175,19 +2139,11 @@
             this.nudAntennaHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudAntennaHeight.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaHeight.Location = new System.Drawing.Point(465, 87);
-            this.nudAntennaHeight.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
+            this.nudAntennaHeight.Maximum = 999D;
             this.nudAntennaHeight.Name = "nudAntennaHeight";
             this.nudAntennaHeight.Size = new System.Drawing.Size(145, 65);
             this.nudAntennaHeight.TabIndex = 537;
-            this.nudAntennaHeight.Value = new decimal(new int[] {
-            333,
-            0,
-            0,
-            0});
+            this.nudAntennaHeight.Value = 333D;
             this.nudAntennaHeight.Click += new System.EventHandler(this.nudAntennaHeight_Click);
             // 
             // label93
@@ -2273,24 +2229,12 @@
             this.nudAntennaOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudAntennaOffset.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaOffset.Location = new System.Drawing.Point(250, 65);
-            this.nudAntennaOffset.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.nudAntennaOffset.Minimum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            -2147483648});
+            this.nudAntennaOffset.Maximum = 999D;
+            this.nudAntennaOffset.Minimum = -999D;
             this.nudAntennaOffset.Name = "nudAntennaOffset";
             this.nudAntennaOffset.Size = new System.Drawing.Size(165, 65);
             this.nudAntennaOffset.TabIndex = 537;
-            this.nudAntennaOffset.Value = new decimal(new int[] {
-            333,
-            0,
-            0,
-            0});
+            this.nudAntennaOffset.Value = 333D;
             this.nudAntennaOffset.Click += new System.EventHandler(this.nudAntennaOffset_Click);
             // 
             // label104

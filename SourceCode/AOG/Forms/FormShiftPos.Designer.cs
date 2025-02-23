@@ -53,48 +53,24 @@
             // 
             this.nudNorth.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold);
             this.nudNorth.Location = new System.Drawing.Point(61, 256);
-            this.nudNorth.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.nudNorth.Minimum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            -2147483648});
+            this.nudNorth.Maximum = 9999D;
+            this.nudNorth.Minimum = -9999D;
             this.nudNorth.Name = "nudNorth";
             this.nudNorth.Size = new System.Drawing.Size(185, 65);
             this.nudNorth.TabIndex = 154;
-            this.nudNorth.Value = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            -2147483648});
+            this.nudNorth.Value = 0D;
             this.nudNorth.Click += new System.EventHandler(this.nudNorth_Click);
             // 
             // nudEast
             // 
             this.nudEast.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold);
             this.nudEast.Location = new System.Drawing.Point(387, 256);
-            this.nudEast.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.nudEast.Minimum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            -2147483648});
+            this.nudEast.Maximum = 9999D;
+            this.nudEast.Minimum = -9999D;
             this.nudEast.Name = "nudEast";
             this.nudEast.Size = new System.Drawing.Size(185, 65);
             this.nudEast.TabIndex = 155;
-            this.nudEast.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudEast.Value = 1D;
             this.nudEast.Click += new System.EventHandler(this.nudEast_Click);
             // 
             // label27

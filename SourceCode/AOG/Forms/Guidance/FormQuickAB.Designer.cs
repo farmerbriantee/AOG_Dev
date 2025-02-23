@@ -571,19 +571,11 @@
             this.nudHeading.DecimalPlaces = 4;
             this.nudHeading.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudHeading.Location = new System.Drawing.Point(25, 174);
-            this.nudHeading.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
+            this.nudHeading.Maximum = 360D;
             this.nudHeading.Name = "nudHeading";
             this.nudHeading.Size = new System.Drawing.Size(195, 46);
             this.nudHeading.TabIndex = 413;
-            this.nudHeading.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
+            this.nudHeading.Value = 0D;
             this.nudHeading.Click += new System.EventHandler(this.nudHeading_Click);
             // 
             // btnAPlus

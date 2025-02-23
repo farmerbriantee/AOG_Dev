@@ -130,19 +130,11 @@
             this.tableLayoutPanel1.SetColumnSpan(this.nudSnapDistance, 2);
             this.nudSnapDistance.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSnapDistance.Location = new System.Drawing.Point(37, 214);
-            this.nudSnapDistance.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
+            this.nudSnapDistance.Maximum = 1000D;
             this.nudSnapDistance.Name = "nudSnapDistance";
             this.nudSnapDistance.Size = new System.Drawing.Size(107, 36);
             this.nudSnapDistance.TabIndex = 415;
-            this.nudSnapDistance.Value = new decimal(new int[] {
-            800,
-            0,
-            0,
-            0});
+            this.nudSnapDistance.Value = 800D;
             this.nudSnapDistance.Click += new System.EventHandler(this.nudSnapDistance_Click);
             // 
             // btnHalfToolRight

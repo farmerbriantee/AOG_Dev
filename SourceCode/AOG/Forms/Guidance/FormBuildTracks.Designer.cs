@@ -1199,19 +1199,11 @@
             this.nudHeading.DecimalPlaces = 4;
             this.nudHeading.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudHeading.Location = new System.Drawing.Point(9, 146);
-            this.nudHeading.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
+            this.nudHeading.Maximum = 360D;
             this.nudHeading.Name = "nudHeading";
             this.nudHeading.Size = new System.Drawing.Size(221, 52);
             this.nudHeading.TabIndex = 413;
-            this.nudHeading.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
+            this.nudHeading.Value = 0D;
             this.nudHeading.Click += new System.EventHandler(this.nudHeading_Click);
             // 
             // btnAPlus
@@ -1321,24 +1313,12 @@
             this.nudLatitudePlus.DecimalPlaces = 7;
             this.nudLatitudePlus.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitudePlus.Location = new System.Drawing.Point(90, 58);
-            this.nudLatitudePlus.Maximum = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            this.nudLatitudePlus.Minimum = new decimal(new int[] {
-            90,
-            0,
-            0,
-            -2147483648});
+            this.nudLatitudePlus.Maximum = 90D;
+            this.nudLatitudePlus.Minimum = -90D;
             this.nudLatitudePlus.Name = "nudLatitudePlus";
             this.nudLatitudePlus.Size = new System.Drawing.Size(228, 43);
             this.nudLatitudePlus.TabIndex = 451;
-            this.nudLatitudePlus.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
+            this.nudLatitudePlus.Value = 0D;
             this.nudLatitudePlus.Click += new System.EventHandler(this.nudLatitudePlus_Click);
             // 
             // nudLongitudePlus
@@ -1346,24 +1326,12 @@
             this.nudLongitudePlus.DecimalPlaces = 7;
             this.nudLongitudePlus.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitudePlus.Location = new System.Drawing.Point(90, 138);
-            this.nudLongitudePlus.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.nudLongitudePlus.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
+            this.nudLongitudePlus.Maximum = 180D;
+            this.nudLongitudePlus.Minimum = -180D;
             this.nudLongitudePlus.Name = "nudLongitudePlus";
             this.nudLongitudePlus.Size = new System.Drawing.Size(228, 43);
             this.nudLongitudePlus.TabIndex = 450;
-            this.nudLongitudePlus.Value = new decimal(new int[] {
-            1661234567,
-            0,
-            0,
-            -2147024896});
+            this.nudLongitudePlus.Value = -166.1234567D;
             this.nudLongitudePlus.Click += new System.EventHandler(this.nudLongitudePlus_Click);
             // 
             // btnCancel_LatLonPlus
@@ -1407,19 +1375,11 @@
             this.nudHeadingLatLonPlus.DecimalPlaces = 4;
             this.nudHeadingLatLonPlus.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudHeadingLatLonPlus.Location = new System.Drawing.Point(90, 250);
-            this.nudHeadingLatLonPlus.Maximum = new decimal(new int[] {
-            817405951,
-            838,
-            0,
-            655360});
+            this.nudHeadingLatLonPlus.Maximum = 360D;
             this.nudHeadingLatLonPlus.Name = "nudHeadingLatLonPlus";
             this.nudHeadingLatLonPlus.Size = new System.Drawing.Size(207, 46);
             this.nudHeadingLatLonPlus.TabIndex = 413;
-            this.nudHeadingLatLonPlus.Value = new decimal(new int[] {
-            3391234,
-            0,
-            0,
-            262144});
+            this.nudHeadingLatLonPlus.Value = 339.1234D;
             this.nudHeadingLatLonPlus.Click += new System.EventHandler(this.nudHeadingLatLonPlus_Click);
             // 
             // panelLatLonLatLon
@@ -1547,24 +1507,12 @@
             this.nudLatitudeB.DecimalPlaces = 7;
             this.nudLatitudeB.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitudeB.Location = new System.Drawing.Point(81, 194);
-            this.nudLatitudeB.Maximum = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            this.nudLatitudeB.Minimum = new decimal(new int[] {
-            90,
-            0,
-            0,
-            -2147483648});
+            this.nudLatitudeB.Maximum = 90D;
+            this.nudLatitudeB.Minimum = -90D;
             this.nudLatitudeB.Name = "nudLatitudeB";
             this.nudLatitudeB.Size = new System.Drawing.Size(228, 43);
             this.nudLatitudeB.TabIndex = 455;
-            this.nudLatitudeB.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
+            this.nudLatitudeB.Value = 0D;
             this.nudLatitudeB.Click += new System.EventHandler(this.nudLatitudeB_Click);
             // 
             // nudLongitudeB
@@ -1572,24 +1520,12 @@
             this.nudLongitudeB.DecimalPlaces = 7;
             this.nudLongitudeB.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitudeB.Location = new System.Drawing.Point(81, 273);
-            this.nudLongitudeB.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.nudLongitudeB.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
+            this.nudLongitudeB.Maximum = 180D;
+            this.nudLongitudeB.Minimum = -180D;
             this.nudLongitudeB.Name = "nudLongitudeB";
             this.nudLongitudeB.Size = new System.Drawing.Size(228, 43);
             this.nudLongitudeB.TabIndex = 454;
-            this.nudLongitudeB.Value = new decimal(new int[] {
-            1661234567,
-            0,
-            0,
-            -2147024896});
+            this.nudLongitudeB.Value = -166.1234567D;
             this.nudLongitudeB.Click += new System.EventHandler(this.nudLongitudeB_Click);
             // 
             // label19
@@ -1623,24 +1559,12 @@
             this.nudLatitudeA.DecimalPlaces = 7;
             this.nudLatitudeA.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitudeA.Location = new System.Drawing.Point(81, 27);
-            this.nudLatitudeA.Maximum = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            this.nudLatitudeA.Minimum = new decimal(new int[] {
-            90,
-            0,
-            0,
-            -2147483648});
+            this.nudLatitudeA.Maximum = 90D;
+            this.nudLatitudeA.Minimum = -90D;
             this.nudLatitudeA.Name = "nudLatitudeA";
             this.nudLatitudeA.Size = new System.Drawing.Size(228, 43);
             this.nudLatitudeA.TabIndex = 451;
-            this.nudLatitudeA.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
+            this.nudLatitudeA.Value = 0D;
             this.nudLatitudeA.Click += new System.EventHandler(this.nudLatitudeA_Click);
             // 
             // nudLongitudeA
@@ -1648,24 +1572,12 @@
             this.nudLongitudeA.DecimalPlaces = 7;
             this.nudLongitudeA.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitudeA.Location = new System.Drawing.Point(81, 107);
-            this.nudLongitudeA.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.nudLongitudeA.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
+            this.nudLongitudeA.Maximum = 180D;
+            this.nudLongitudeA.Minimum = -180D;
             this.nudLongitudeA.Name = "nudLongitudeA";
             this.nudLongitudeA.Size = new System.Drawing.Size(228, 43);
             this.nudLongitudeA.TabIndex = 450;
-            this.nudLongitudeA.Value = new decimal(new int[] {
-            1661234567,
-            0,
-            0,
-            -2147024896});
+            this.nudLongitudeA.Value = -166.1234567D;
             this.nudLongitudeA.Click += new System.EventHandler(this.nudLongitudeA_Click);
             // 
             // btnCancelLatLonLatLon
@@ -1780,24 +1692,12 @@
             this.nudLatitudePivot.DecimalPlaces = 7;
             this.nudLatitudePivot.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitudePivot.Location = new System.Drawing.Point(72, 58);
-            this.nudLatitudePivot.Maximum = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            this.nudLatitudePivot.Minimum = new decimal(new int[] {
-            90,
-            0,
-            0,
-            -2147483648});
+            this.nudLatitudePivot.Maximum = 90D;
+            this.nudLatitudePivot.Minimum = -90D;
             this.nudLatitudePivot.Name = "nudLatitudePivot";
             this.nudLatitudePivot.Size = new System.Drawing.Size(253, 46);
             this.nudLatitudePivot.TabIndex = 451;
-            this.nudLatitudePivot.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
+            this.nudLatitudePivot.Value = 0D;
             this.nudLatitudePivot.Click += new System.EventHandler(this.nudLatitudePivot_Click);
             // 
             // nudLongitudePivot
@@ -1805,24 +1705,12 @@
             this.nudLongitudePivot.DecimalPlaces = 7;
             this.nudLongitudePivot.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitudePivot.Location = new System.Drawing.Point(72, 138);
-            this.nudLongitudePivot.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.nudLongitudePivot.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
+            this.nudLongitudePivot.Maximum = 180D;
+            this.nudLongitudePivot.Minimum = -180D;
             this.nudLongitudePivot.Name = "nudLongitudePivot";
             this.nudLongitudePivot.Size = new System.Drawing.Size(253, 46);
             this.nudLongitudePivot.TabIndex = 450;
-            this.nudLongitudePivot.Value = new decimal(new int[] {
-            1661234567,
-            0,
-            0,
-            -2147024896});
+            this.nudLongitudePivot.Value = -166.1234567D;
             this.nudLongitudePivot.Click += new System.EventHandler(this.nudLongitudePivot_Click);
             // 
             // btnCancel_Pivot

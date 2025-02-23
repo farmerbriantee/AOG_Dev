@@ -25,8 +25,8 @@ namespace AgOpenGPS
 
         private void FormShiftPos_Load(object sender, EventArgs e)
         {
-            nudEast.Value = (decimal)mf.pn.fixOffset.easting * 100;
-            nudNorth.Value = (decimal)mf.pn.fixOffset.northing * 100;
+            nudEast.Value = mf.pn.fixOffset.easting * 100;
+            nudNorth.Value = mf.pn.fixOffset.northing * 100;
             chkOffsetsOn.Checked = mf.isKeepOffsetsOn;
             if (chkOffsetsOn.Checked) chkOffsetsOn.Text = "On";
             else chkOffsetsOn.Text = "Off";

@@ -27,16 +27,16 @@ namespace AgOpenGPS
 
         private void FormDisplaySettings_Load(object sender, EventArgs e)
         {
-            nudSprayFlowCal.Value = (decimal)(Properties.Settings.Default.setNozzleSettings.flowCal);
-            nudSprayPressureCal.Value = (decimal)(Properties.Settings.Default.setNozzleSettings.pressureCal);
+            nudSprayFlowCal.Value = Properties.Settings.Default.setNozzleSettings.flowCal;
+            nudSprayPressureCal.Value = Properties.Settings.Default.setNozzleSettings.pressureCal;
 
             nudSprayKp.Value = Properties.Settings.Default.setNozzleSettings.Kp;
             //nudSprayKi.Value = Properties.Settings.Default.setNozzleSettings.Ki;
 
             nudFastPWM.Value = Properties.Settings.Default.setNozzleSettings.fastPWM;
             nudSlowPWM.Value = Properties.Settings.Default.setNozzleSettings.slowPWM;
-            nudDeadbandError.Value = (decimal)(Properties.Settings.Default.setNozzleSettings.deadbandError) * 0.01M;
-            nudSwitchAtFlowError.Value = (decimal)(Properties.Settings.Default.setNozzleSettings.switchAtFlowError) * 0.01M;
+            nudDeadbandError.Value = Properties.Settings.Default.setNozzleSettings.deadbandError * 0.01;
+            nudSwitchAtFlowError.Value = Properties.Settings.Default.setNozzleSettings.switchAtFlowError * 0.01;
 
             cboxBypass.Checked = Properties.Settings.Default.setNozzleSettings.isBypass;
             if (cboxBypass.Checked)

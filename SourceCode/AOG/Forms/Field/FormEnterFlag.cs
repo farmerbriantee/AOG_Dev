@@ -18,8 +18,8 @@ namespace AgOpenGPS
 
             this.Text = gStr.Get(gs.gsEditABLine);
 
-            nudLatitude.Value = (decimal)mf.pn.latitude;
-            nudLongitude.Value = (decimal)mf.pn.longitude;
+            nudLatitude.Value = mf.pn.latitude;
+            nudLongitude.Value = mf.pn.longitude;
         }
 
         private void FormEnterAB_Load(object sender, EventArgs e)

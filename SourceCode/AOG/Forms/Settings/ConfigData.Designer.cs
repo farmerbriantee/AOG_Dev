@@ -25,8 +25,8 @@ namespace AgOpenGPS
                 gboxDual.Enabled = false;
             }
 
-            nudDualHeadingOffset.Value = (decimal)Properties.Settings.Default.setGPS_dualHeadingOffset;
-            nudDualReverseDistance.Value = (decimal)Properties.Settings.Default.setGPS_dualReverseDetectionDistance;
+            nudDualHeadingOffset.Value = Properties.Settings.Default.setGPS_dualHeadingOffset;
+            nudDualReverseDistance.Value = Properties.Settings.Default.setGPS_dualReverseDetectionDistance;
 
             hsbarFusion.Value = (int)(Properties.Settings.Default.setIMU_fusionWeight2 * 500);
             lblFusion.Text = (hsbarFusion.Value).ToString();

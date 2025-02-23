@@ -1079,12 +1079,12 @@ namespace AgOpenGPS
         {
             sender.Value = Math.Round(sender.Value, sender.DecimalPlaces);
 
-            using (FormNumeric form = new FormNumeric((double)sender.Minimum, (double)sender.Maximum, (double)sender.Value))
+            using (FormNumeric form = new FormNumeric(sender.Minimum, sender.Maximum, sender.Value))
             {
                 DialogResult result = form.ShowDialog(owner);
                 if (result == DialogResult.OK)
                 {
-                    sender.Value = (decimal)form.ReturnValue;
+                    sender.Value = form.ReturnValue;
                     return true;
                 }
                 return false;

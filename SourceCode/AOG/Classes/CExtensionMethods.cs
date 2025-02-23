@@ -3,7 +3,6 @@ using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Globalization;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -143,25 +142,27 @@ namespace AgOpenGPS
 
     public class NudlessNumericUpDown : Button, ISupportInitialize
     {
-        decimal _value;
-        decimal minimum = 0;
-        decimal maximum = 100;
-        double increment = 1;
-        int decimalPlaces = 0;
-        bool initializing = true;
-        string format = "0";
+        private double _value;
+        private double minimum = 0;
+        private double maximum = 100;
+        private double increment = 1;
+        private int decimalPlaces = 0;
+        private bool initializing = true;
+        private string format = "0";
 
         public NudlessNumericUpDown()
         {
             base.TextAlign = ContentAlignment.MiddleCenter;
-            //base.BackColor = Color.AliceBlue;
-            base.BackColor = Color.White;
+            base.BackColor = Color.AliceBlue;
+            base.ForeColor = Color.Black;
             base.UseVisualStyleBackColor = false;
+
+            base.FlatStyle = FlatStyle.Flat;
 
             //base.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         }
 
-        public decimal Value
+        public double Value
         {
             get
             {
@@ -188,8 +189,8 @@ namespace AgOpenGPS
             }
         }
 
-        [DefaultValue(typeof(decimal), "0")]
-        public decimal Minimum
+        [DefaultValue(typeof(double), "0")]
+        public double Minimum
         {
             get
             {
@@ -207,8 +208,8 @@ namespace AgOpenGPS
             }
         }
 
-        [DefaultValue(typeof(decimal), "100")]
-        public decimal Maximum
+        [DefaultValue(typeof(double), "100")]
+        public double Maximum
         {
             get
             {
@@ -226,7 +227,7 @@ namespace AgOpenGPS
             }
         }
 
-        private decimal Constrain(decimal value)
+        private double Constrain(double value)
         {
             if (value < minimum)
             {
@@ -294,7 +295,7 @@ namespace AgOpenGPS
         public override string ToString()
         {
             string text = base.ToString();
-            return text + ", Minimum = " + Minimum.ToString(CultureInfo.CurrentCulture) + ", Maximum = " + Maximum.ToString(CultureInfo.CurrentCulture);
+            return text + ", Minimum = " + minimum.ToString("0.0") + ", Maximum = " + maximum.ToString("0.0");
         }
 
         protected void UpdateEditText()

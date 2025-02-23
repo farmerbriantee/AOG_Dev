@@ -295,38 +295,22 @@
             // 
             this.nudTankVolume.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTankVolume.Location = new System.Drawing.Point(259, 84);
-            this.nudTankVolume.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
+            this.nudTankVolume.Maximum = 10000D;
             this.nudTankVolume.Name = "nudTankVolume";
             this.nudTankVolume.Size = new System.Drawing.Size(201, 65);
             this.nudTankVolume.TabIndex = 619;
-            this.nudTankVolume.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
+            this.nudTankVolume.Value = 0D;
             this.nudTankVolume.Click += new System.EventHandler(this.nudTankVolume_Click);
             // 
             // nudZeroVolume
             // 
             this.nudZeroVolume.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZeroVolume.Location = new System.Drawing.Point(259, 225);
-            this.nudZeroVolume.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
+            this.nudZeroVolume.Maximum = 10000D;
             this.nudZeroVolume.Name = "nudZeroVolume";
             this.nudZeroVolume.Size = new System.Drawing.Size(201, 65);
             this.nudZeroVolume.TabIndex = 615;
-            this.nudZeroVolume.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
+            this.nudZeroVolume.Value = 0D;
             this.nudZeroVolume.Click += new System.EventHandler(this.nudZeroVolume_Click);
             // 
             // nudSprayRateSet2
@@ -334,43 +318,23 @@
             this.nudSprayRateSet2.DecimalPlaces = 1;
             this.nudSprayRateSet2.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSprayRateSet2.Location = new System.Drawing.Point(541, 222);
-            this.nudSprayRateSet2.Maximum = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
-            this.nudSprayRateSet2.Minimum = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
+            this.nudSprayRateSet2.Maximum = 2000D;
+            this.nudSprayRateSet2.Minimum = 3D;
             this.nudSprayRateSet2.Name = "nudSprayRateSet2";
             this.nudSprayRateSet2.Size = new System.Drawing.Size(186, 65);
             this.nudSprayRateSet2.TabIndex = 611;
-            this.nudSprayRateSet2.Value = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            65536});
+            this.nudSprayRateSet2.Value = 999.9D;
             this.nudSprayRateSet2.Click += new System.EventHandler(this.nudSprayRateSet2_Click);
             // 
             // nudSprayMinPressure
             // 
             this.nudSprayMinPressure.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSprayMinPressure.Location = new System.Drawing.Point(37, 84);
-            this.nudSprayMinPressure.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudSprayMinPressure.Minimum = 1D;
             this.nudSprayMinPressure.Name = "nudSprayMinPressure";
             this.nudSprayMinPressure.Size = new System.Drawing.Size(150, 65);
             this.nudSprayMinPressure.TabIndex = 591;
-            this.nudSprayMinPressure.Value = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
+            this.nudSprayMinPressure.Value = 9D;
             this.nudSprayMinPressure.Click += new System.EventHandler(this.nudSprayMinPressure_Click);
             // 
             // nudSprayRateSet1
@@ -378,24 +342,12 @@
             this.nudSprayRateSet1.DecimalPlaces = 1;
             this.nudSprayRateSet1.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSprayRateSet1.Location = new System.Drawing.Point(541, 82);
-            this.nudSprayRateSet1.Maximum = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
-            this.nudSprayRateSet1.Minimum = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
+            this.nudSprayRateSet1.Maximum = 2000D;
+            this.nudSprayRateSet1.Minimum = 3D;
             this.nudSprayRateSet1.Name = "nudSprayRateSet1";
             this.nudSprayRateSet1.Size = new System.Drawing.Size(186, 65);
             this.nudSprayRateSet1.TabIndex = 577;
-            this.nudSprayRateSet1.Value = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            65536});
+            this.nudSprayRateSet1.Value = 999.9D;
             this.nudSprayRateSet1.Click += new System.EventHandler(this.nudSprayRateSet1_Click);
             // 
             // timer1
@@ -409,24 +361,12 @@
             this.nudNudge.DecimalPlaces = 1;
             this.nudNudge.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudNudge.Location = new System.Drawing.Point(37, 366);
-            this.nudNudge.Maximum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            this.nudNudge.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+            this.nudNudge.Maximum = 30D;
+            this.nudNudge.Minimum = 0.1D;
             this.nudNudge.Name = "nudNudge";
             this.nudNudge.Size = new System.Drawing.Size(150, 65);
             this.nudNudge.TabIndex = 623;
-            this.nudNudge.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.nudNudge.Value = 10D;
             this.nudNudge.Click += new System.EventHandler(this.nudNudge_Click);
             // 
             // label5
@@ -445,19 +385,11 @@
             // 
             this.nudRateAlarmPercent.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudRateAlarmPercent.Location = new System.Drawing.Point(37, 222);
-            this.nudRateAlarmPercent.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudRateAlarmPercent.Minimum = 1D;
             this.nudRateAlarmPercent.Name = "nudRateAlarmPercent";
             this.nudRateAlarmPercent.Size = new System.Drawing.Size(150, 65);
             this.nudRateAlarmPercent.TabIndex = 625;
-            this.nudRateAlarmPercent.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
+            this.nudRateAlarmPercent.Value = 7D;
             this.nudRateAlarmPercent.Click += new System.EventHandler(this.nudRateAlarmPercent_Click);
             // 
             // label6

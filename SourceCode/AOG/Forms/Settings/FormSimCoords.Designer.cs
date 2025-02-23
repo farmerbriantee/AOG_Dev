@@ -85,24 +85,12 @@
             this.nudLongitude.DecimalPlaces = 7;
             this.nudLongitude.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitude.Location = new System.Drawing.Point(340, 483);
-            this.nudLongitude.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.nudLongitude.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
+            this.nudLongitude.Maximum = 180D;
+            this.nudLongitude.Minimum = -180D;
             this.nudLongitude.Name = "nudLongitude";
             this.nudLongitude.Size = new System.Drawing.Size(298, 52);
             this.nudLongitude.TabIndex = 48;
-            this.nudLongitude.Value = new decimal(new int[] {
-            1781234567,
-            0,
-            0,
-            -2147024896});
+            this.nudLongitude.Value = -178.1234567D;
             this.nudLongitude.Click += new System.EventHandler(this.nud_Click);
             // 
             // nudLatitude
@@ -110,24 +98,12 @@
             this.nudLatitude.DecimalPlaces = 7;
             this.nudLatitude.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitude.Location = new System.Drawing.Point(29, 483);
-            this.nudLatitude.Maximum = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            this.nudLatitude.Minimum = new decimal(new int[] {
-            90,
-            0,
-            0,
-            -2147483648});
+            this.nudLatitude.Maximum = 90D;
+            this.nudLatitude.Minimum = -90D;
             this.nudLatitude.Name = "nudLatitude";
             this.nudLatitude.Size = new System.Drawing.Size(274, 52);
             this.nudLatitude.TabIndex = 49;
-            this.nudLatitude.Value = new decimal(new int[] {
-            881234567,
-            0,
-            0,
-            -2147024896});
+            this.nudLatitude.Value = -88.1234567D;
             this.nudLatitude.Click += new System.EventHandler(this.nud_Click);
             // 
             // label18

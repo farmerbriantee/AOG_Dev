@@ -23,11 +23,11 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
             InitializeComponent();
 
-            nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
-            nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);
+            nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54);
+            nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54);
 
-            nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);
-            nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
+            nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54);
+            nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54);
 
             this.lblDistance.Text = gStr.Get(gs.gsAgressiveness);
             this.lblHeading.Text = gStr.Get(gs.gsOvershootReduction);
@@ -194,8 +194,8 @@ namespace AgOpenGPS
             mf.vehicle.driveFreeSteerAngle = 0;
 
             //nudDeadZoneDistance.Value = (decimal)((double)(Properties.Settings.Default.setAS_deadZoneDistance)/10);
-            nudDeadZoneHeading.Value = (decimal)((double)(Properties.Settings.Default.setAS_deadZoneHeading) / 100);
-            nudDeadZoneDelay.Value = (decimal)(mf.vehicle.deadZoneDelay);
+            nudDeadZoneHeading.Value = (double)(Properties.Settings.Default.setAS_deadZoneHeading) / 100;
+            nudDeadZoneDelay.Value = mf.vehicle.deadZoneDelay;
 
             toSend = false;
 
@@ -223,9 +223,9 @@ namespace AgOpenGPS
             if ((sett & 128) == 0) cboxEncoder.Checked = false;
             else cboxEncoder.Checked = true;
 
-            nudMaxCounts.Value = (decimal)Properties.Settings.Default.setArdSteer_maxPulseCounts;
-            hsbarSensor.Value = (int)Properties.Settings.Default.setArdSteer_maxPulseCounts;
-            lblhsbarSensor.Text = ((int)((double)hsbarSensor.Value * 0.3921568627)).ToString() + "%";
+            nudMaxCounts.Value = Properties.Settings.Default.setArdSteer_maxPulseCounts;
+            hsbarSensor.Value = Properties.Settings.Default.setArdSteer_maxPulseCounts;
+            lblhsbarSensor.Text = ((int)(hsbarSensor.Value * 0.3921568627)).ToString() + "%";
 
             sett = Properties.Settings.Default.setArdSteer_setting1;
 
@@ -662,16 +662,16 @@ namespace AgOpenGPS
         {
             if (mf.isMetric)
             {
-                nudMaxSteerSpeed.Value = (decimal)(Properties.Settings.Default.setAS_maxSteerSpeed);
-                nudMinSteerSpeed.Value = (decimal)(Properties.Settings.Default.setAS_minSteerSpeed);
-                nudGuidanceSpeedLimit.Value = (decimal)Properties.Settings.Default.setAS_functionSpeedLimit;
+                nudMaxSteerSpeed.Value = Properties.Settings.Default.setAS_maxSteerSpeed;
+                nudMinSteerSpeed.Value = Properties.Settings.Default.setAS_minSteerSpeed;
+                nudGuidanceSpeedLimit.Value = Properties.Settings.Default.setAS_functionSpeedLimit;
                 label160.Text = label163.Text = label166.Text = "kmh";
             }
             else
             {
-                nudMaxSteerSpeed.Value = (decimal)(Properties.Settings.Default.setAS_maxSteerSpeed * 0.62137);
-                nudMinSteerSpeed.Value = (decimal)(Properties.Settings.Default.setAS_minSteerSpeed * 0.62137);
-                nudGuidanceSpeedLimit.Value = (decimal)(Properties.Settings.Default.setAS_functionSpeedLimit * 0.62137);
+                nudMaxSteerSpeed.Value = Properties.Settings.Default.setAS_maxSteerSpeed * 0.62137;
+                nudMinSteerSpeed.Value = Properties.Settings.Default.setAS_minSteerSpeed * 0.62137;
+                nudGuidanceSpeedLimit.Value = Properties.Settings.Default.setAS_functionSpeedLimit * 0.62137;
                 label160.Text = label163.Text = label166.Text = "mph";
             }
 
@@ -725,15 +725,15 @@ namespace AgOpenGPS
             if (mf.isMetric)
             {
                 nudSnapDistance.DecimalPlaces = 0;
-                nudSnapDistance.Value = (int)((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn);
+                nudSnapDistance.Value = (int)(Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn);
             }
             else
             {
                 nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn), 1, MidpointRounding.AwayFromZero);
+                nudSnapDistance.Value = Math.Round(Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn, 1, MidpointRounding.AwayFromZero);
             }
 
-            nudGuidanceLookAhead.Value = (decimal)Properties.Settings.Default.setAS_guidanceLookAheadTime;
+            nudGuidanceLookAhead.Value = Properties.Settings.Default.setAS_guidanceLookAheadTime;
 
             nudLineWidth.Value = Properties.Settings.Default.setDisplay_lineWidth;
 

@@ -2556,62 +2556,34 @@
             // 
             this.nudAntennaOffset.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaOffset.Location = new System.Drawing.Point(474, 352);
-            this.nudAntennaOffset.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
+            this.nudAntennaOffset.Maximum = 500D;
             this.nudAntennaOffset.Name = "nudAntennaOffset";
             this.nudAntennaOffset.Size = new System.Drawing.Size(144, 52);
             this.nudAntennaOffset.TabIndex = 2;
-            this.nudAntennaOffset.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
+            this.nudAntennaOffset.Value = 0D;
             this.nudAntennaOffset.Click += new System.EventHandler(this.nudAntennaOffset_Click);
             // 
             // nudAntennaHeight
             // 
             this.nudAntennaHeight.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaHeight.Location = new System.Drawing.Point(392, 208);
-            this.nudAntennaHeight.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
+            this.nudAntennaHeight.Maximum = 1000D;
             this.nudAntennaHeight.Name = "nudAntennaHeight";
             this.nudAntennaHeight.Size = new System.Drawing.Size(144, 52);
             this.nudAntennaHeight.TabIndex = 3;
-            this.nudAntennaHeight.Value = new decimal(new int[] {
-            300,
-            0,
-            0,
-            0});
+            this.nudAntennaHeight.Value = 300D;
             this.nudAntennaHeight.Click += new System.EventHandler(this.nudAntennaHeight_Click);
             // 
             // nudAntennaPivot
             // 
             this.nudAntennaPivot.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaPivot.Location = new System.Drawing.Point(126, 43);
-            this.nudAntennaPivot.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.nudAntennaPivot.Minimum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            -2147483648});
+            this.nudAntennaPivot.Maximum = 999D;
+            this.nudAntennaPivot.Minimum = -999D;
             this.nudAntennaPivot.Name = "nudAntennaPivot";
             this.nudAntennaPivot.Size = new System.Drawing.Size(144, 52);
             this.nudAntennaPivot.TabIndex = 1;
-            this.nudAntennaPivot.Value = new decimal(new int[] {
-            111,
-            0,
-            0,
-            0});
+            this.nudAntennaPivot.Value = 111D;
             this.nudAntennaPivot.Click += new System.EventHandler(this.nudAntennaPivot_Click);
             // 
             // pboxAntenna
@@ -2717,67 +2689,35 @@
             // 
             this.nudTractorHitchLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTractorHitchLength.Location = new System.Drawing.Point(37, 272);
-            this.nudTractorHitchLength.Maximum = new decimal(new int[] {
-            4000,
-            0,
-            0,
-            0});
+            this.nudTractorHitchLength.Maximum = 4000D;
             this.nudTractorHitchLength.Name = "nudTractorHitchLength";
             this.nudTractorHitchLength.Size = new System.Drawing.Size(152, 52);
             this.nudTractorHitchLength.TabIndex = 478;
-            this.nudTractorHitchLength.Value = new decimal(new int[] {
-            301,
-            0,
-            0,
-            0});
+            this.nudTractorHitchLength.Value = 301D;
             this.nudTractorHitchLength.Click += new System.EventHandler(this.nudTractorHitchLength_Click);
             // 
             // nudVehicleTrack
             // 
             this.nudVehicleTrack.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudVehicleTrack.Location = new System.Drawing.Point(700, 165);
-            this.nudVehicleTrack.Maximum = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
-            this.nudVehicleTrack.Minimum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
+            this.nudVehicleTrack.Maximum = 2000D;
+            this.nudVehicleTrack.Minimum = 20D;
             this.nudVehicleTrack.Name = "nudVehicleTrack";
             this.nudVehicleTrack.Size = new System.Drawing.Size(133, 52);
             this.nudVehicleTrack.TabIndex = 53;
-            this.nudVehicleTrack.Value = new decimal(new int[] {
-            301,
-            0,
-            0,
-            0});
+            this.nudVehicleTrack.Value = 301D;
             this.nudVehicleTrack.Click += new System.EventHandler(this.nudVehicleTrack_Click);
             // 
             // nudWheelbase
             // 
             this.nudWheelbase.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudWheelbase.Location = new System.Drawing.Point(179, 397);
-            this.nudWheelbase.Maximum = new decimal(new int[] {
-            1999,
-            0,
-            0,
-            0});
-            this.nudWheelbase.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
+            this.nudWheelbase.Maximum = 1999D;
+            this.nudWheelbase.Minimum = 50D;
             this.nudWheelbase.Name = "nudWheelbase";
             this.nudWheelbase.Size = new System.Drawing.Size(152, 52);
             this.nudWheelbase.TabIndex = 52;
-            this.nudWheelbase.Value = new decimal(new int[] {
-            499,
-            0,
-            0,
-            0});
+            this.nudWheelbase.Value = 499D;
             this.nudWheelbase.Click += new System.EventHandler(this.nudWheelbase_Click);
             // 
             // pictureBox1
@@ -2950,67 +2890,35 @@
             // 
             this.nudTrailingHitchLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTrailingHitchLength.Location = new System.Drawing.Point(456, 407);
-            this.nudTrailingHitchLength.Maximum = new decimal(new int[] {
-            3000,
-            0,
-            0,
-            0});
-            this.nudTrailingHitchLength.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.nudTrailingHitchLength.Maximum = 3000D;
+            this.nudTrailingHitchLength.Minimum = 10D;
             this.nudTrailingHitchLength.Name = "nudTrailingHitchLength";
             this.nudTrailingHitchLength.Size = new System.Drawing.Size(124, 52);
             this.nudTrailingHitchLength.TabIndex = 3;
-            this.nudTrailingHitchLength.Value = new decimal(new int[] {
-            520,
-            0,
-            0,
-            0});
+            this.nudTrailingHitchLength.Value = 520D;
             this.nudTrailingHitchLength.Click += new System.EventHandler(this.nudTrailingHitchLength_Click);
             // 
             // nudDrawbarLength
             // 
             this.nudDrawbarLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDrawbarLength.Location = new System.Drawing.Point(401, 407);
-            this.nudDrawbarLength.Maximum = new decimal(new int[] {
-            3000,
-            0,
-            0,
-            0});
+            this.nudDrawbarLength.Maximum = 3000D;
             this.nudDrawbarLength.Name = "nudDrawbarLength";
             this.nudDrawbarLength.Size = new System.Drawing.Size(124, 52);
             this.nudDrawbarLength.TabIndex = 1;
-            this.nudDrawbarLength.Value = new decimal(new int[] {
-            51,
-            0,
-            0,
-            0});
+            this.nudDrawbarLength.Value = 51D;
             this.nudDrawbarLength.Click += new System.EventHandler(this.nudDrawbarLength_Click);
             // 
             // nudTankHitch
             // 
             this.nudTankHitch.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTankHitch.Location = new System.Drawing.Point(643, 407);
-            this.nudTankHitch.Maximum = new decimal(new int[] {
-            3000,
-            0,
-            0,
-            0});
-            this.nudTankHitch.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.nudTankHitch.Maximum = 3000D;
+            this.nudTankHitch.Minimum = 10D;
             this.nudTankHitch.Name = "nudTankHitch";
             this.nudTankHitch.Size = new System.Drawing.Size(124, 52);
             this.nudTankHitch.TabIndex = 2;
-            this.nudTankHitch.Value = new decimal(new int[] {
-            326,
-            0,
-            0,
-            0});
+            this.nudTankHitch.Value = 326D;
             this.nudTankHitch.Click += new System.EventHandler(this.nudTankHitch_Click);
             // 
             // picboxToolHitch
@@ -3246,38 +3154,22 @@
             // 
             this.nudOverlap.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudOverlap.Location = new System.Drawing.Point(656, 109);
-            this.nudOverlap.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
+            this.nudOverlap.Maximum = 1000D;
             this.nudOverlap.Name = "nudOverlap";
             this.nudOverlap.Size = new System.Drawing.Size(114, 52);
             this.nudOverlap.TabIndex = 116;
-            this.nudOverlap.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
+            this.nudOverlap.Value = 8D;
             this.nudOverlap.Click += new System.EventHandler(this.nudOverlaPGN_Click);
             // 
             // nudOffset
             // 
             this.nudOffset.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudOffset.Location = new System.Drawing.Point(233, 109);
-            this.nudOffset.Maximum = new decimal(new int[] {
-            2500,
-            0,
-            0,
-            0});
+            this.nudOffset.Maximum = 2500D;
             this.nudOffset.Name = "nudOffset";
             this.nudOffset.Size = new System.Drawing.Size(114, 52);
             this.nudOffset.TabIndex = 115;
-            this.nudOffset.Value = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
+            this.nudOffset.Value = 25D;
             this.nudOffset.Click += new System.EventHandler(this.nudOffset_Click);
             // 
             // tabToolPivot
@@ -3362,19 +3254,11 @@
             // 
             this.nudTrailingToolToPivotLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTrailingToolToPivotLength.Location = new System.Drawing.Point(320, 337);
-            this.nudTrailingToolToPivotLength.Maximum = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
+            this.nudTrailingToolToPivotLength.Maximum = 2000D;
             this.nudTrailingToolToPivotLength.Name = "nudTrailingToolToPivotLength";
             this.nudTrailingToolToPivotLength.Size = new System.Drawing.Size(205, 52);
             this.nudTrailingToolToPivotLength.TabIndex = 214;
-            this.nudTrailingToolToPivotLength.Value = new decimal(new int[] {
-            51,
-            0,
-            0,
-            0});
+            this.nudTrailingToolToPivotLength.Value = 51D;
             this.nudTrailingToolToPivotLength.Click += new System.EventHandler(this.nudTrailingToolToPivotLength_Click);
             // 
             // tabTSections
@@ -3486,19 +3370,11 @@
             this.nudZone8To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone8To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone8To.Location = new System.Drawing.Point(751, 186);
-            this.nudZone8To.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudZone8To.Maximum = 5000D;
             this.nudZone8To.Name = "nudZone8To";
             this.nudZone8To.Size = new System.Drawing.Size(87, 43);
             this.nudZone8To.TabIndex = 509;
-            this.nudZone8To.Value = new decimal(new int[] {
-            98,
-            0,
-            0,
-            0});
+            this.nudZone8To.Value = 98D;
             this.nudZone8To.Click += new System.EventHandler(this.nudZone8To_Click);
             // 
             // lblZoneStart8
@@ -3547,19 +3423,11 @@
             this.nudZone7To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone7To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone7To.Location = new System.Drawing.Point(526, 189);
-            this.nudZone7To.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudZone7To.Maximum = 5000D;
             this.nudZone7To.Name = "nudZone7To";
             this.nudZone7To.Size = new System.Drawing.Size(87, 43);
             this.nudZone7To.TabIndex = 505;
-            this.nudZone7To.Value = new decimal(new int[] {
-            98,
-            0,
-            0,
-            0});
+            this.nudZone7To.Value = 98D;
             this.nudZone7To.Click += new System.EventHandler(this.nudZone7To_Click);
             // 
             // lblZoneStart7
@@ -3608,19 +3476,11 @@
             this.nudZone6To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone6To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone6To.Location = new System.Drawing.Point(302, 188);
-            this.nudZone6To.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudZone6To.Maximum = 5000D;
             this.nudZone6To.Name = "nudZone6To";
             this.nudZone6To.Size = new System.Drawing.Size(87, 43);
             this.nudZone6To.TabIndex = 480;
-            this.nudZone6To.Value = new decimal(new int[] {
-            98,
-            0,
-            0,
-            0});
+            this.nudZone6To.Value = 98D;
             this.nudZone6To.Click += new System.EventHandler(this.nudZone6To_Click);
             // 
             // nudZone4To
@@ -3628,19 +3488,11 @@
             this.nudZone4To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone4To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone4To.Location = new System.Drawing.Point(751, 68);
-            this.nudZone4To.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudZone4To.Maximum = 5000D;
             this.nudZone4To.Name = "nudZone4To";
             this.nudZone4To.Size = new System.Drawing.Size(87, 43);
             this.nudZone4To.TabIndex = 476;
-            this.nudZone4To.Value = new decimal(new int[] {
-            98,
-            0,
-            0,
-            0});
+            this.nudZone4To.Value = 98D;
             this.nudZone4To.Click += new System.EventHandler(this.nudZone4To_Click);
             // 
             // nudZone1To
@@ -3648,19 +3500,11 @@
             this.nudZone1To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone1To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone1To.Location = new System.Drawing.Point(81, 69);
-            this.nudZone1To.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudZone1To.Maximum = 5000D;
             this.nudZone1To.Name = "nudZone1To";
             this.nudZone1To.Size = new System.Drawing.Size(87, 43);
             this.nudZone1To.TabIndex = 461;
-            this.nudZone1To.Value = new decimal(new int[] {
-            98,
-            0,
-            0,
-            0});
+            this.nudZone1To.Value = 98D;
             this.nudZone1To.Click += new System.EventHandler(this.nudZone1To_Click);
             // 
             // nudZone5To
@@ -3668,19 +3512,11 @@
             this.nudZone5To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone5To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone5To.Location = new System.Drawing.Point(81, 187);
-            this.nudZone5To.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudZone5To.Maximum = 5000D;
             this.nudZone5To.Name = "nudZone5To";
             this.nudZone5To.Size = new System.Drawing.Size(87, 43);
             this.nudZone5To.TabIndex = 478;
-            this.nudZone5To.Value = new decimal(new int[] {
-            98,
-            0,
-            0,
-            0});
+            this.nudZone5To.Value = 98D;
             this.nudZone5To.Click += new System.EventHandler(this.nudZone5To_Click);
             // 
             // nudZone3To
@@ -3688,19 +3524,11 @@
             this.nudZone3To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone3To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone3To.Location = new System.Drawing.Point(526, 70);
-            this.nudZone3To.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudZone3To.Maximum = 5000D;
             this.nudZone3To.Name = "nudZone3To";
             this.nudZone3To.Size = new System.Drawing.Size(87, 43);
             this.nudZone3To.TabIndex = 467;
-            this.nudZone3To.Value = new decimal(new int[] {
-            98,
-            0,
-            0,
-            0});
+            this.nudZone3To.Value = 98D;
             this.nudZone3To.Click += new System.EventHandler(this.nudZone3To_Click);
             // 
             // nudZone2To
@@ -3708,19 +3536,11 @@
             this.nudZone2To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone2To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone2To.Location = new System.Drawing.Point(302, 70);
-            this.nudZone2To.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudZone2To.Maximum = 5000D;
             this.nudZone2To.Name = "nudZone2To";
             this.nudZone2To.Size = new System.Drawing.Size(87, 43);
             this.nudZone2To.TabIndex = 464;
-            this.nudZone2To.Value = new decimal(new int[] {
-            98,
-            0,
-            0,
-            0});
+            this.nudZone2To.Value = 98D;
             this.nudZone2To.Click += new System.EventHandler(this.nudZone2To_Click);
             // 
             // lblZoneStart6
@@ -4429,19 +4249,11 @@
             this.nudCutoffSpeed.DecimalPlaces = 1;
             this.nudCutoffSpeed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCutoffSpeed.Location = new System.Drawing.Point(654, 508);
-            this.nudCutoffSpeed.Maximum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
+            this.nudCutoffSpeed.Maximum = 30D;
             this.nudCutoffSpeed.Name = "nudCutoffSpeed";
             this.nudCutoffSpeed.Size = new System.Drawing.Size(127, 52);
             this.nudCutoffSpeed.TabIndex = 499;
-            this.nudCutoffSpeed.Value = new decimal(new int[] {
-            11,
-            0,
-            0,
-            65536});
+            this.nudCutoffSpeed.Value = 1.1D;
             this.nudCutoffSpeed.Click += new System.EventHandler(this.nudCutoffSpeed_Click);
             // 
             // nudDefaultSectionWidth
@@ -4449,24 +4261,12 @@
             this.nudDefaultSectionWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudDefaultSectionWidth.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDefaultSectionWidth.Location = new System.Drawing.Point(216, 353);
-            this.nudDefaultSectionWidth.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.nudDefaultSectionWidth.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.nudDefaultSectionWidth.Maximum = 1000D;
+            this.nudDefaultSectionWidth.Minimum = 10D;
             this.nudDefaultSectionWidth.Name = "nudDefaultSectionWidth";
             this.nudDefaultSectionWidth.Size = new System.Drawing.Size(179, 52);
             this.nudDefaultSectionWidth.TabIndex = 296;
-            this.nudDefaultSectionWidth.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
+            this.nudDefaultSectionWidth.Value = 50D;
             this.nudDefaultSectionWidth.Click += new System.EventHandler(this.nudDefaultSectionWidth_Click);
             // 
             // nudMinCoverage
@@ -4477,11 +4277,7 @@
             this.nudMinCoverage.Name = "nudMinCoverage";
             this.nudMinCoverage.Size = new System.Drawing.Size(132, 52);
             this.nudMinCoverage.TabIndex = 292;
-            this.nudMinCoverage.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
+            this.nudMinCoverage.Value = 100D;
             this.nudMinCoverage.Click += new System.EventHandler(this.nudMinCoverage_Click);
             // 
             // nudSection16
@@ -4489,19 +4285,11 @@
             this.nudSection16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection16.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection16.Location = new System.Drawing.Point(743, 104);
-            this.nudSection16.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection16.Maximum = 5000D;
             this.nudSection16.Name = "nudSection16";
             this.nudSection16.Size = new System.Drawing.Size(87, 36);
             this.nudSection16.TabIndex = 289;
-            this.nudSection16.Value = new decimal(new int[] {
-            92,
-            0,
-            0,
-            0});
+            this.nudSection16.Value = 92D;
             this.nudSection16.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection15
@@ -4509,19 +4297,11 @@
             this.nudSection15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection15.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection15.Location = new System.Drawing.Point(638, 104);
-            this.nudSection15.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection15.Maximum = 5000D;
             this.nudSection15.Name = "nudSection15";
             this.nudSection15.Size = new System.Drawing.Size(87, 36);
             this.nudSection15.TabIndex = 285;
-            this.nudSection15.Value = new decimal(new int[] {
-            92,
-            0,
-            0,
-            0});
+            this.nudSection15.Value = 92D;
             this.nudSection15.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection14
@@ -4529,19 +4309,11 @@
             this.nudSection14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection14.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection14.Location = new System.Drawing.Point(533, 104);
-            this.nudSection14.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection14.Maximum = 5000D;
             this.nudSection14.Name = "nudSection14";
             this.nudSection14.Size = new System.Drawing.Size(87, 36);
             this.nudSection14.TabIndex = 284;
-            this.nudSection14.Value = new decimal(new int[] {
-            92,
-            0,
-            0,
-            0});
+            this.nudSection14.Value = 92D;
             this.nudSection14.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection13
@@ -4549,19 +4321,11 @@
             this.nudSection13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection13.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection13.Location = new System.Drawing.Point(428, 104);
-            this.nudSection13.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection13.Maximum = 5000D;
             this.nudSection13.Name = "nudSection13";
             this.nudSection13.Size = new System.Drawing.Size(87, 36);
             this.nudSection13.TabIndex = 283;
-            this.nudSection13.Value = new decimal(new int[] {
-            92,
-            0,
-            0,
-            0});
+            this.nudSection13.Value = 92D;
             this.nudSection13.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection12
@@ -4569,19 +4333,11 @@
             this.nudSection12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection12.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection12.Location = new System.Drawing.Point(323, 104);
-            this.nudSection12.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection12.Maximum = 5000D;
             this.nudSection12.Name = "nudSection12";
             this.nudSection12.Size = new System.Drawing.Size(87, 36);
             this.nudSection12.TabIndex = 270;
-            this.nudSection12.Value = new decimal(new int[] {
-            92,
-            0,
-            0,
-            0});
+            this.nudSection12.Value = 92D;
             this.nudSection12.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection11
@@ -4589,19 +4345,11 @@
             this.nudSection11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection11.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection11.Location = new System.Drawing.Point(218, 104);
-            this.nudSection11.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection11.Maximum = 5000D;
             this.nudSection11.Name = "nudSection11";
             this.nudSection11.Size = new System.Drawing.Size(87, 36);
             this.nudSection11.TabIndex = 269;
-            this.nudSection11.Value = new decimal(new int[] {
-            92,
-            0,
-            0,
-            0});
+            this.nudSection11.Value = 92D;
             this.nudSection11.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection10
@@ -4609,19 +4357,11 @@
             this.nudSection10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection10.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection10.Location = new System.Drawing.Point(113, 104);
-            this.nudSection10.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection10.Maximum = 5000D;
             this.nudSection10.Name = "nudSection10";
             this.nudSection10.Size = new System.Drawing.Size(87, 36);
             this.nudSection10.TabIndex = 268;
-            this.nudSection10.Value = new decimal(new int[] {
-            92,
-            0,
-            0,
-            0});
+            this.nudSection10.Value = 92D;
             this.nudSection10.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection09
@@ -4629,19 +4369,11 @@
             this.nudSection09.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection09.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection09.Location = new System.Drawing.Point(8, 104);
-            this.nudSection09.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection09.Maximum = 5000D;
             this.nudSection09.Name = "nudSection09";
             this.nudSection09.Size = new System.Drawing.Size(87, 36);
             this.nudSection09.TabIndex = 267;
-            this.nudSection09.Value = new decimal(new int[] {
-            92,
-            0,
-            0,
-            0});
+            this.nudSection09.Value = 92D;
             this.nudSection09.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection08
@@ -4649,19 +4381,11 @@
             this.nudSection08.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection08.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection08.Location = new System.Drawing.Point(743, 233);
-            this.nudSection08.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection08.Maximum = 5000D;
             this.nudSection08.Name = "nudSection08";
             this.nudSection08.Size = new System.Drawing.Size(87, 36);
             this.nudSection08.TabIndex = 266;
-            this.nudSection08.Value = new decimal(new int[] {
-            92,
-            0,
-            0,
-            0});
+            this.nudSection08.Value = 92D;
             this.nudSection08.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection07
@@ -4669,19 +4393,11 @@
             this.nudSection07.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection07.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection07.Location = new System.Drawing.Point(638, 233);
-            this.nudSection07.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection07.Maximum = 5000D;
             this.nudSection07.Name = "nudSection07";
             this.nudSection07.Size = new System.Drawing.Size(87, 36);
             this.nudSection07.TabIndex = 265;
-            this.nudSection07.Value = new decimal(new int[] {
-            93,
-            0,
-            0,
-            0});
+            this.nudSection07.Value = 93D;
             this.nudSection07.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection06
@@ -4689,19 +4405,11 @@
             this.nudSection06.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection06.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection06.Location = new System.Drawing.Point(533, 233);
-            this.nudSection06.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection06.Maximum = 5000D;
             this.nudSection06.Name = "nudSection06";
             this.nudSection06.Size = new System.Drawing.Size(87, 36);
             this.nudSection06.TabIndex = 264;
-            this.nudSection06.Value = new decimal(new int[] {
-            3888,
-            0,
-            0,
-            0});
+            this.nudSection06.Value = 3888D;
             this.nudSection06.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection05
@@ -4709,19 +4417,11 @@
             this.nudSection05.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection05.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection05.Location = new System.Drawing.Point(428, 233);
-            this.nudSection05.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection05.Maximum = 5000D;
             this.nudSection05.Name = "nudSection05";
             this.nudSection05.Size = new System.Drawing.Size(87, 36);
             this.nudSection05.TabIndex = 263;
-            this.nudSection05.Value = new decimal(new int[] {
-            95,
-            0,
-            0,
-            0});
+            this.nudSection05.Value = 95D;
             this.nudSection05.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection04
@@ -4729,19 +4429,11 @@
             this.nudSection04.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection04.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection04.Location = new System.Drawing.Point(323, 233);
-            this.nudSection04.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection04.Maximum = 5000D;
             this.nudSection04.Name = "nudSection04";
             this.nudSection04.Size = new System.Drawing.Size(87, 36);
             this.nudSection04.TabIndex = 262;
-            this.nudSection04.Value = new decimal(new int[] {
-            96,
-            0,
-            0,
-            0});
+            this.nudSection04.Value = 96D;
             this.nudSection04.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection03
@@ -4749,19 +4441,11 @@
             this.nudSection03.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection03.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection03.Location = new System.Drawing.Point(218, 233);
-            this.nudSection03.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection03.Maximum = 5000D;
             this.nudSection03.Name = "nudSection03";
             this.nudSection03.Size = new System.Drawing.Size(87, 36);
             this.nudSection03.TabIndex = 261;
-            this.nudSection03.Value = new decimal(new int[] {
-            97,
-            0,
-            0,
-            0});
+            this.nudSection03.Value = 97D;
             this.nudSection03.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection02
@@ -4769,19 +4453,11 @@
             this.nudSection02.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection02.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection02.Location = new System.Drawing.Point(113, 233);
-            this.nudSection02.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection02.Maximum = 5000D;
             this.nudSection02.Name = "nudSection02";
             this.nudSection02.Size = new System.Drawing.Size(87, 36);
             this.nudSection02.TabIndex = 260;
-            this.nudSection02.Value = new decimal(new int[] {
-            98,
-            0,
-            0,
-            0});
+            this.nudSection02.Value = 98D;
             this.nudSection02.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudSection01
@@ -4789,19 +4465,11 @@
             this.nudSection01.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection01.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection01.Location = new System.Drawing.Point(8, 233);
-            this.nudSection01.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudSection01.Maximum = 5000D;
             this.nudSection01.Name = "nudSection01";
             this.nudSection01.Size = new System.Drawing.Size(87, 36);
             this.nudSection01.TabIndex = 259;
-            this.nudSection01.Value = new decimal(new int[] {
-            99,
-            0,
-            0,
-            0});
+            this.nudSection01.Value = 99D;
             this.nudSection01.Click += new System.EventHandler(this.NudSection1_Click);
             // 
             // nudNumberOfSections
@@ -4809,19 +4477,11 @@
             this.nudNumberOfSections.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudNumberOfSections.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudNumberOfSections.Location = new System.Drawing.Point(486, 355);
-            this.nudNumberOfSections.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudNumberOfSections.Minimum = 1D;
             this.nudNumberOfSections.Name = "nudNumberOfSections";
             this.nudNumberOfSections.Size = new System.Drawing.Size(108, 52);
             this.nudNumberOfSections.TabIndex = 458;
-            this.nudNumberOfSections.Value = new decimal(new int[] {
-            48,
-            0,
-            0,
-            0});
+            this.nudNumberOfSections.Value = 48D;
             this.nudNumberOfSections.Click += new System.EventHandler(this.nudNumberOfSections_Click);
             // 
             // tabTSwitches
@@ -5118,19 +4778,11 @@
             this.nudLookAheadOff.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLookAheadOff.Increment = 0.1D;
             this.nudLookAheadOff.Location = new System.Drawing.Point(363, 467);
-            this.nudLookAheadOff.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
+            this.nudLookAheadOff.Maximum = 20D;
             this.nudLookAheadOff.Name = "nudLookAheadOff";
             this.nudLookAheadOff.Size = new System.Drawing.Size(114, 52);
             this.nudLookAheadOff.TabIndex = 124;
-            this.nudLookAheadOff.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
+            this.nudLookAheadOff.Value = 0.5D;
             this.nudLookAheadOff.Click += new System.EventHandler(this.nudLookAheadOff_Click);
             // 
             // nudTurnOffDelay
@@ -5140,19 +4792,11 @@
             this.nudTurnOffDelay.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTurnOffDelay.Increment = 0.1D;
             this.nudTurnOffDelay.Location = new System.Drawing.Point(649, 467);
-            this.nudTurnOffDelay.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.nudTurnOffDelay.Maximum = 10D;
             this.nudTurnOffDelay.Name = "nudTurnOffDelay";
             this.nudTurnOffDelay.Size = new System.Drawing.Size(114, 52);
             this.nudTurnOffDelay.TabIndex = 119;
-            this.nudTurnOffDelay.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
+            this.nudTurnOffDelay.Value = 0D;
             this.nudTurnOffDelay.Click += new System.EventHandler(this.nudTurnOffDelay_Click);
             // 
             // nudLookAhead
@@ -5162,24 +4806,12 @@
             this.nudLookAhead.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLookAhead.Increment = 0.1D;
             this.nudLookAhead.Location = new System.Drawing.Point(78, 467);
-            this.nudLookAhead.Maximum = new decimal(new int[] {
-            22,
-            0,
-            0,
-            0});
-            this.nudLookAhead.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            65536});
+            this.nudLookAhead.Maximum = 22D;
+            this.nudLookAhead.Minimum = 0.2D;
             this.nudLookAhead.Name = "nudLookAhead";
             this.nudLookAhead.Size = new System.Drawing.Size(114, 52);
             this.nudLookAhead.TabIndex = 117;
-            this.nudLookAhead.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            65536});
+            this.nudLookAhead.Value = 1D;
             this.nudLookAhead.Click += new System.EventHandler(this.nudLookAhead_Click);
             // 
             // tabDHeading
@@ -5295,24 +4927,12 @@
             this.nudDualReverseDistance.DecimalPlaces = 2;
             this.nudDualReverseDistance.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDualReverseDistance.Location = new System.Drawing.Point(191, 218);
-            this.nudDualReverseDistance.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            65536});
-            this.nudDualReverseDistance.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+            this.nudDualReverseDistance.Maximum = 0.9D;
+            this.nudDualReverseDistance.Minimum = 0.1D;
             this.nudDualReverseDistance.Name = "nudDualReverseDistance";
             this.nudDualReverseDistance.Size = new System.Drawing.Size(144, 52);
             this.nudDualReverseDistance.TabIndex = 472;
-            this.nudDualReverseDistance.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+            this.nudDualReverseDistance.Value = 0.1D;
             this.nudDualReverseDistance.Click += new System.EventHandler(this.nudDualReverseDistance_Click);
             // 
             // pictureBox13
@@ -5331,19 +4951,11 @@
             this.nudDualHeadingOffset.DecimalPlaces = 1;
             this.nudDualHeadingOffset.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDualHeadingOffset.Location = new System.Drawing.Point(191, 90);
-            this.nudDualHeadingOffset.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
+            this.nudDualHeadingOffset.Minimum = -100D;
             this.nudDualHeadingOffset.Name = "nudDualHeadingOffset";
             this.nudDualHeadingOffset.Size = new System.Drawing.Size(144, 52);
             this.nudDualHeadingOffset.TabIndex = 470;
-            this.nudDualHeadingOffset.Value = new decimal(new int[] {
-            999,
-            0,
-            0,
-            -2147418112});
+            this.nudDualHeadingOffset.Value = -99.9D;
             this.nudDualHeadingOffset.Click += new System.EventHandler(this.nudDualHeadingOffset_Click);
             // 
             // lblHeadingOffset
@@ -5625,19 +5237,11 @@
             this.nudFixJumpDistance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudFixJumpDistance.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudFixJumpDistance.Location = new System.Drawing.Point(965, 279);
-            this.nudFixJumpDistance.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
+            this.nudFixJumpDistance.Maximum = 1000D;
             this.nudFixJumpDistance.Name = "nudFixJumpDistance";
             this.nudFixJumpDistance.Size = new System.Drawing.Size(144, 52);
             this.nudFixJumpDistance.TabIndex = 474;
-            this.nudFixJumpDistance.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
+            this.nudFixJumpDistance.Value = 0D;
             this.nudFixJumpDistance.Click += new System.EventHandler(this.nudFixJumpDistance_Click);
             // 
             // tabDRoll
@@ -6105,19 +5709,11 @@
             this.nudYouTurnRadius.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudYouTurnRadius.Increment = 0.2D;
             this.nudYouTurnRadius.Location = new System.Drawing.Point(582, 154);
-            this.nudYouTurnRadius.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
+            this.nudYouTurnRadius.Minimum = 2D;
             this.nudYouTurnRadius.Name = "nudYouTurnRadius";
             this.nudYouTurnRadius.Size = new System.Drawing.Size(160, 52);
             this.nudYouTurnRadius.TabIndex = 471;
-            this.nudYouTurnRadius.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
+            this.nudYouTurnRadius.Value = 2D;
             this.nudYouTurnRadius.Click += new System.EventHandler(this.nudYouTurnRadius_Click);
             // 
             // nudTurnDistanceFromBoundary
@@ -6129,11 +5725,7 @@
             this.nudTurnDistanceFromBoundary.Name = "nudTurnDistanceFromBoundary";
             this.nudTurnDistanceFromBoundary.Size = new System.Drawing.Size(160, 52);
             this.nudTurnDistanceFromBoundary.TabIndex = 468;
-            this.nudTurnDistanceFromBoundary.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            65536});
+            this.nudTurnDistanceFromBoundary.Value = 1D;
             this.nudTurnDistanceFromBoundary.Click += new System.EventHandler(this.nudTurnDistanceFromBoundary_Click);
             this.nudTurnDistanceFromBoundary.Enter += new System.EventHandler(this.nudTurnDistanceFromBoundary_Click);
             // 
@@ -7421,24 +7013,12 @@
             this.nudHydLiftLookAhead.DecimalPlaces = 1;
             this.nudHydLiftLookAhead.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudHydLiftLookAhead.Location = new System.Drawing.Point(34, 278);
-            this.nudHydLiftLookAhead.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.nudHydLiftLookAhead.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudHydLiftLookAhead.Maximum = 20D;
+            this.nudHydLiftLookAhead.Minimum = 1D;
             this.nudHydLiftLookAhead.Name = "nudHydLiftLookAhead";
             this.nudHydLiftLookAhead.Size = new System.Drawing.Size(148, 52);
             this.nudHydLiftLookAhead.TabIndex = 117;
-            this.nudHydLiftLookAhead.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
+            this.nudHydLiftLookAhead.Value = 5D;
             this.nudHydLiftLookAhead.Click += new System.EventHandler(this.nudHydLiftSecs_Click);
             // 
             // lblHydLookAhead
@@ -7519,24 +7099,12 @@
             // 
             this.nudLowerTime.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLowerTime.Location = new System.Drawing.Point(226, 279);
-            this.nudLowerTime.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nudLowerTime.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudLowerTime.Maximum = 255D;
+            this.nudLowerTime.Minimum = 1D;
             this.nudLowerTime.Name = "nudLowerTime";
             this.nudLowerTime.Size = new System.Drawing.Size(114, 52);
             this.nudLowerTime.TabIndex = 4;
-            this.nudLowerTime.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.nudLowerTime.Value = 255D;
             this.nudLowerTime.Click += new System.EventHandler(this.nudLowerTime_Click);
             // 
             // pictureBox7
@@ -7553,24 +7121,12 @@
             // 
             this.nudRaiseTime.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudRaiseTime.Location = new System.Drawing.Point(226, 75);
-            this.nudRaiseTime.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nudRaiseTime.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudRaiseTime.Maximum = 255D;
+            this.nudRaiseTime.Minimum = 1D;
             this.nudRaiseTime.Name = "nudRaiseTime";
             this.nudRaiseTime.Size = new System.Drawing.Size(114, 52);
             this.nudRaiseTime.TabIndex = 3;
-            this.nudRaiseTime.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.nudRaiseTime.Value = 255D;
             this.nudRaiseTime.Click += new System.EventHandler(this.nudRaiseTime_Click);
             // 
             // lblHydInvertRelays
@@ -7666,19 +7222,11 @@
             this.nudUser4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudUser4.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudUser4.Location = new System.Drawing.Point(659, 342);
-            this.nudUser4.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.nudUser4.Maximum = 255D;
             this.nudUser4.Name = "nudUser4";
             this.nudUser4.Size = new System.Drawing.Size(114, 52);
             this.nudUser4.TabIndex = 488;
-            this.nudUser4.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.nudUser4.Value = 255D;
             this.nudUser4.Click += new System.EventHandler(this.nudUser4_Click);
             // 
             // nudUser3
@@ -7686,19 +7234,11 @@
             this.nudUser3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudUser3.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudUser3.Location = new System.Drawing.Point(659, 253);
-            this.nudUser3.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.nudUser3.Maximum = 255D;
             this.nudUser3.Name = "nudUser3";
             this.nudUser3.Size = new System.Drawing.Size(114, 52);
             this.nudUser3.TabIndex = 487;
-            this.nudUser3.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.nudUser3.Value = 255D;
             this.nudUser3.Click += new System.EventHandler(this.nudUser3_Click);
             // 
             // nudUser2
@@ -7706,19 +7246,11 @@
             this.nudUser2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudUser2.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudUser2.Location = new System.Drawing.Point(659, 164);
-            this.nudUser2.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.nudUser2.Maximum = 255D;
             this.nudUser2.Name = "nudUser2";
             this.nudUser2.Size = new System.Drawing.Size(114, 52);
             this.nudUser2.TabIndex = 486;
-            this.nudUser2.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.nudUser2.Value = 255D;
             this.nudUser2.Click += new System.EventHandler(this.nudUser2_Click);
             // 
             // nudUser1
@@ -7726,19 +7258,11 @@
             this.nudUser1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudUser1.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudUser1.Location = new System.Drawing.Point(659, 75);
-            this.nudUser1.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.nudUser1.Maximum = 255D;
             this.nudUser1.Name = "nudUser1";
             this.nudUser1.Size = new System.Drawing.Size(114, 52);
             this.nudUser1.TabIndex = 485;
-            this.nudUser1.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.nudUser1.Value = 255D;
             this.nudUser1.Click += new System.EventHandler(this.nudUser1_Click);
             // 
             // tabTram
@@ -7867,24 +7391,12 @@
             this.nudTramWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudTramWidth.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTramWidth.Location = new System.Drawing.Point(291, 105);
-            this.nudTramWidth.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.nudTramWidth.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudTramWidth.Maximum = 5000D;
+            this.nudTramWidth.Minimum = 1D;
             this.nudTramWidth.Name = "nudTramWidth";
             this.nudTramWidth.Size = new System.Drawing.Size(157, 52);
             this.nudTramWidth.TabIndex = 1;
-            this.nudTramWidth.Value = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
+            this.nudTramWidth.Value = 5000D;
             this.nudTramWidth.Click += new System.EventHandler(this.nudTramWidth_Click);
             // 
             // tabBtns
@@ -9194,24 +8706,12 @@
             this.nudNumGuideLines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudNumGuideLines.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudNumGuideLines.Location = new System.Drawing.Point(531, 285);
-            this.nudNumGuideLines.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.nudNumGuideLines.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudNumGuideLines.Maximum = 5000D;
+            this.nudNumGuideLines.Minimum = 1D;
             this.nudNumGuideLines.Name = "nudNumGuideLines";
             this.nudNumGuideLines.Size = new System.Drawing.Size(100, 52);
             this.nudNumGuideLines.TabIndex = 534;
-            this.nudNumGuideLines.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
+            this.nudNumGuideLines.Value = 50D;
             this.nudNumGuideLines.Click += new System.EventHandler(this.nudNumGuideLines_Click);
             // 
             // lblCurrentVehicle

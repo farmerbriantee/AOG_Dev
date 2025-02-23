@@ -23,19 +23,19 @@ namespace AgOpenGPS
 
         private void FormDisplaySettings_Load(object sender, EventArgs e)
         {
-            nudSprayRateSet1.Value = (decimal)(Properties.Settings.Default.setNozzleSettings.volumePerAreaSet1);
-            nudSprayRateSet2.Value = (decimal)(Properties.Settings.Default.setNozzleSettings.volumePerAreaSet2);
+            nudSprayRateSet1.Value = Properties.Settings.Default.setNozzleSettings.volumePerAreaSet1;
+            nudSprayRateSet2.Value = Properties.Settings.Default.setNozzleSettings.volumePerAreaSet2;
             nudSprayMinPressure.Value = Properties.Settings.Default.setNozzleSettings.pressureMin;
 
             if (mf.isMetric)
             {
                 lblRateSet1.Text = mf.nozz.unitsPerArea;
                 lblRateSet2.Text = mf.nozz.unitsPerArea;
-                nudSprayRateSet1.Maximum = 999M;
-                nudSprayRateSet1.Minimum = 5M;
+                nudSprayRateSet1.Maximum = 999;
+                nudSprayRateSet1.Minimum = 5;
                 nudSprayRateSet1.DecimalPlaces = 0;
-                nudSprayRateSet2.Maximum = 999M;
-                nudSprayRateSet2.Minimum = 5M;
+                nudSprayRateSet2.Maximum = 999;
+                nudSprayRateSet2.Minimum = 5;
                 nudSprayRateSet2.DecimalPlaces = 0;
 
                 lblVolumeTank.Text = mf.nozz.volumeTankStart.ToString();
@@ -47,25 +47,25 @@ namespace AgOpenGPS
             {
                 lblRateSet1.Text = mf.nozz.unitsPerArea;
                 lblRateSet2.Text = mf.nozz.unitsPerArea;
-                nudSprayRateSet1.Maximum = 99.9M;
-                nudSprayRateSet1.Minimum = 1M;
+                nudSprayRateSet1.Maximum = 99.9;
+                nudSprayRateSet1.Minimum = 1;
                 nudSprayRateSet1.DecimalPlaces = 1;
-                nudSprayRateSet2.Maximum = 99.9M;
-                nudSprayRateSet2.Minimum = 1M;
+                nudSprayRateSet2.Maximum = 99.9;
+                nudSprayRateSet2.Minimum = 1;
                 nudSprayRateSet2.DecimalPlaces = 1;
                 lblRateSet.Text = mf.nozz.unitsApplied + "Applied";
                 lblStatArea.Text = "Acre";
             }
 
             nudTankVolume.Value = Properties.Settings.Default.setNozzleSettings.volumeTankStart;
-            nudZeroVolume.Value = (decimal)mf.nozz.volumeApplied;
+            nudZeroVolume.Value = mf.nozz.volumeApplied;
 
             lblVolumeTank.Text = mf.nozz.volumeTankStart.ToString();
             lblVolumeApplied.Text = mf.nozz.volumeApplied.ToString("N1");
             lblTankRemain.Text = (mf.nozz.volumeTankStart - mf.nozz.volumeApplied).ToString("N1");
             lblAcresAvailable.Text = ((mf.nozz.volumeTankStart - mf.nozz.volumeApplied) / mf.nozz.volumePerAreaSetSelected).ToString("N1");
 
-            nudNudge.Value = (decimal)Properties.Settings.Default.setNozzleSettings.rateNudge;
+            nudNudge.Value = Properties.Settings.Default.setNozzleSettings.rateNudge;
             nudRateAlarmPercent.Value = (int)(mf.nozz.rateAlarmPercent * 100);
         }
 

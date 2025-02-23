@@ -361,7 +361,7 @@ namespace AgOpenGPS
             btnEnter_AB.Enabled = true;
             nudHeading.Enabled = true;
 
-            nudHeading.Value = (decimal)(glm.toDegrees(mf.trk.designHeading));
+            nudHeading.Value = glm.toDegrees(mf.trk.designHeading);
             timer1.Enabled = true;
             mf.Activate();
         }

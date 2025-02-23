@@ -133,9 +133,9 @@ namespace AgOpenGPS
             if ((sett & 128) == 0) cboxEncoder.Checked = false;
             else cboxEncoder.Checked = true;
 
-            nudMaxCounts.Value = (decimal)Properties.Settings.Default.setArdSteer_maxPulseCounts;
-            hsbarSensor.Value = (int)Properties.Settings.Default.setArdSteer_maxPulseCounts;
-            lblhsbarSensor.Text = ((int)((double)hsbarSensor.Value * 0.3921568627)).ToString() + "%";
+            nudMaxCounts.Value = Properties.Settings.Default.setArdSteer_maxPulseCounts;
+            hsbarSensor.Value = Properties.Settings.Default.setArdSteer_maxPulseCounts;
+            lblhsbarSensor.Text = ((int)(hsbarSensor.Value * 0.3921568627)).ToString() + "%";
 
             sett = Properties.Settings.Default.setArdSteer_setting1;
 

@@ -66,7 +66,7 @@ namespace AgOpenGPS
             lblAcresAvailable.Text = ((mf.nozz.volumeTankStart - mf.nozz.volumeApplied) / mf.nozz.volumePerAreaSetSelected).ToString("N1");
 
             nudNudge.Value = Properties.Settings.Default.setNozzleSettings.rateNudge;
-            nudRateAlarmPercent.Value = (int)(mf.nozz.rateAlarmPercent * 100);
+            nudRateAlarmPercent.Value = mf.nozz.rateAlarmPercent * 100;
         }
 
         private void nudSprayRateSet1_ValueChanged(object sender, EventArgs e)

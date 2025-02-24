@@ -25,8 +25,8 @@ namespace AgOpenGPS
 
         private void FormShiftPos_Load(object sender, EventArgs e)
         {
-            nudEast.Value = mf.pn.fixOffset.easting * 100;
-            nudNorth.Value = mf.pn.fixOffset.northing * 100;
+            nudEast.Value = mf.pn.fixOffset.easting;
+            nudNorth.Value = mf.pn.fixOffset.northing;
             chkOffsetsOn.Checked = mf.isKeepOffsetsOn;
             if (chkOffsetsOn.Checked) chkOffsetsOn.Text = "On";
             else chkOffsetsOn.Text = "Off";
@@ -63,8 +63,6 @@ namespace AgOpenGPS
         private void bntOK_Click(object sender, EventArgs e)
         {
             mf.isKeepOffsetsOn = chkOffsetsOn.Checked;
-            mf.pn.fixOffset.northing = (double)nudNorth.Value / 100;
-            mf.pn.fixOffset.easting = (double)nudEast.Value / 100;
             Close();
         }
 
@@ -76,12 +74,12 @@ namespace AgOpenGPS
 
         private void nudNorth_ValueChanged(object sender, EventArgs e)
         {
-            mf.pn.fixOffset.northing = (double)nudNorth.Value / 100;
+            mf.pn.fixOffset.northing = nudNorth.Value;
         }
 
         private void nudEast_ValueChanged(object sender, EventArgs e)
         {
-            mf.pn.fixOffset.easting = (double)nudEast.Value / 100;
+            mf.pn.fixOffset.easting = nudEast.Value;
         }
     }
 }

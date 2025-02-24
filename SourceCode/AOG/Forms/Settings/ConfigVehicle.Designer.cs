@@ -402,12 +402,12 @@ namespace AgOpenGPS
         #region Antenna Enter/Leave
         private void tabVAntenna_Enter(object sender, EventArgs e)
         {
-            nudAntennaHeight.Value = (int)(Properties.Settings.Default.setVehicle_antennaHeight * glm.m2InchOrCm);
+            nudAntennaHeight.Value = Properties.Settings.Default.setVehicle_antennaHeight;
 
-            nudAntennaPivot.Value = (int)((Properties.Settings.Default.setVehicle_antennaPivot) * glm.m2InchOrCm);
+            nudAntennaPivot.Value = Properties.Settings.Default.setVehicle_antennaPivot;
 
             //negative is to the right
-            nudAntennaOffset.Value = (int)(Math.Abs(Properties.Settings.Default.setVehicle_antennaOffset) * glm.m2InchOrCm);
+            nudAntennaOffset.Value = Math.Abs(Properties.Settings.Default.setVehicle_antennaOffset);
 
             rbtnAntennaLeft.Checked = false;
             rbtnAntennaRight.Checked = false;
@@ -438,9 +438,9 @@ namespace AgOpenGPS
         private void rbtnAntennaLeft_Click(object sender, EventArgs e)
         {
             if (rbtnAntennaRight.Checked)
-                mf.vehicle.antennaOffset = (double)nudAntennaOffset.Value * -glm.inchOrCm2m;
+                mf.vehicle.antennaOffset = -nudAntennaOffset.Value;
             else if (rbtnAntennaLeft.Checked)
-                mf.vehicle.antennaOffset = (double)nudAntennaOffset.Value * glm.inchOrCm2m;
+                mf.vehicle.antennaOffset = nudAntennaOffset.Value;
             else
             {
                 mf.vehicle.antennaOffset = 0;
@@ -465,9 +465,9 @@ namespace AgOpenGPS
                     rbtnAntennaRight.Checked = true;
 
                 if (rbtnAntennaRight.Checked)
-                    mf.vehicle.antennaOffset = (double)nudAntennaOffset.Value * -glm.inchOrCm2m;
+                    mf.vehicle.antennaOffset = -nudAntennaOffset.Value;
                 else
-                    mf.vehicle.antennaOffset = (double)nudAntennaOffset.Value * glm.inchOrCm2m;
+                    mf.vehicle.antennaOffset = nudAntennaOffset.Value;
             }
 
             Properties.Settings.Default.setVehicle_antennaOffset = mf.vehicle.antennaOffset;
@@ -480,13 +480,13 @@ namespace AgOpenGPS
 
         private void nudAntennaPivot_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setVehicle_antennaPivot = (double)nudAntennaPivot.Value * glm.inchOrCm2m;
+            Properties.Settings.Default.setVehicle_antennaPivot = nudAntennaPivot.Value;
             mf.vehicle.antennaPivot = Properties.Settings.Default.setVehicle_antennaPivot;
         }
 
         private void nudAntennaHeight_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setVehicle_antennaHeight = (double)nudAntennaHeight.Value * glm.inchOrCm2m;
+            Properties.Settings.Default.setVehicle_antennaHeight = nudAntennaHeight.Value;
             mf.vehicle.antennaHeight = Properties.Settings.Default.setVehicle_antennaHeight;
         }
 
@@ -496,11 +496,11 @@ namespace AgOpenGPS
 
         private void tabVDimensions_Enter(object sender, EventArgs e)
         {
-            nudWheelbase.Value = (int)(Math.Abs(Properties.Settings.Default.setVehicle_wheelbase) * glm.m2InchOrCm);
+            nudWheelbase.Value = Math.Abs(Properties.Settings.Default.setVehicle_wheelbase);
 
-            nudVehicleTrack.Value = (int)(Math.Abs(Properties.Settings.Default.setVehicle_trackWidth) * glm.m2InchOrCm);
+            nudVehicleTrack.Value = Properties.Settings.Default.setVehicle_trackWidth;
 
-            nudTractorHitchLength.Value = (int)(Math.Abs(Properties.Settings.Default.setVehicle_hitchLength) * glm.m2InchOrCm);
+            nudTractorHitchLength.Value = Math.Abs(Properties.Settings.Default.setVehicle_hitchLength);
 
             if (mf.vehicle.vehicleType == 0)
             {
@@ -538,7 +538,7 @@ namespace AgOpenGPS
 
         private void nudTractorHitchLength_ValueChanged(object sender, EventArgs e)
         {
-            mf.tool.hitchLength = (double)nudTractorHitchLength.Value * glm.inchOrCm2m;
+            mf.tool.hitchLength = nudTractorHitchLength.Value;
             if (!Properties.Settings.Default.setTool_isToolFront)
             {
                 mf.tool.hitchLength *= -1;
@@ -548,13 +548,13 @@ namespace AgOpenGPS
 
         private void nudWheelbase_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setVehicle_wheelbase = (double)nudWheelbase.Value * glm.inchOrCm2m;
+            Properties.Settings.Default.setVehicle_wheelbase = nudWheelbase.Value;
             mf.vehicle.wheelbase = Properties.Settings.Default.setVehicle_wheelbase;
         }
 
         private void nudVehicleTrack_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setVehicle_trackWidth = (double)nudVehicleTrack.Value * glm.inchOrCm2m;
+            Properties.Settings.Default.setVehicle_trackWidth = nudVehicleTrack.Value;
             mf.vehicle.trackWidth = Properties.Settings.Default.setVehicle_trackWidth;
             mf.tram.halfWheelTrack = mf.vehicle.trackWidth * 0.5;
         }

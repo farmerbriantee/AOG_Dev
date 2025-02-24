@@ -240,11 +240,11 @@
             // nudOffset
             // 
             this.nudOffset.Location = new System.Drawing.Point(8, 10);
-            this.nudOffset.Maximum = 4999D;
+            this.nudOffset.Maximum = 50D;
+            this.nudOffset.Mode = AgOpenGPS.UnitMode.Small;
             this.nudOffset.Name = "nudOffset";
             this.nudOffset.Size = new System.Drawing.Size(125, 46);
             this.nudOffset.TabIndex = 149;
-            this.nudOffset.Value = 4999D;
             this.nudOffset.ValueChanged += new System.EventHandler(this.nudOffset_ValueChanged);
             // 
             // cboxIsRecBoundaryWhenSectionOn

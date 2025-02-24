@@ -482,10 +482,10 @@
             this.nudSetDistance.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSetDistance.Location = new System.Drawing.Point(17, 298);
             this.nudSetDistance.Maximum = 200D;
+            this.nudSetDistance.Mode = UnitMode.Large;
             this.nudSetDistance.Name = "nudSetDistance";
             this.nudSetDistance.Size = new System.Drawing.Size(161, 52);
             this.nudSetDistance.TabIndex = 464;
-            this.nudSetDistance.Value = 0D;
             this.nudSetDistance.ValueChanged += new System.EventHandler(this.nudSetDistance_ValueChanged);
             // 
             // FormHeadAche

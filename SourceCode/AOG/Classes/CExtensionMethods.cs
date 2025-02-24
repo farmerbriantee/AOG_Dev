@@ -140,9 +140,38 @@ namespace AgOpenGPS
         }
     }
 
+    public enum UnitMode
+    {
+        None,
+        Large,
+        Small,
+        Speed,
+        Area,
+        Distance,
+        Temperature
+    }
+
+    public class NumericUnitModeConverter : EnumConverter
+    {
+        public NumericUnitModeConverter(Type type) : base(type) { }
+
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        {
+            return new StandardValuesCollection(new UnitMode[]
+            {
+                UnitMode.None,
+                UnitMode.Large,
+                UnitMode.Small,
+                UnitMode.Speed
+            });
+        }
+
+        public override bool GetStandardValuesExclusive(ITypeDescriptorContext context) => true; // Prevents entering custom values
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) => true; // Enables dropdown in Designer
+    }
+
     public class NudlessNumericUpDown : Button, ISupportInitialize
     {
-        private double _value;
         private double _value = double.NaN;
         private double minimum = 0;
         private double maximum = 100;
@@ -151,6 +180,7 @@ namespace AgOpenGPS
         private bool initializing = true;
         private string format = "0";
         private EventHandler onValueChanged;
+        private UnitMode mode;
 
         public NudlessNumericUpDown()
         {
@@ -168,15 +198,68 @@ namespace AgOpenGPS
 
         protected override void OnClick(EventArgs e)
         {
-            using (FormNumeric form = new FormNumeric(minimum, maximum, Math.Round(_value, decimalPlaces)))
+            var localMin = minimum;
+            var localMax = maximum;
+            var localVal = _value;
+
+            if (mode == UnitMode.Small)
+            {
+                localMin *= glm.m2InchOrCm;
+                localMax *= glm.m2InchOrCm;
+                localVal *= glm.m2InchOrCm;
+            }
+            else if (mode == UnitMode.Large)
+            {
+                localMin *= glm.m2FtOrM;
+                localMax *= glm.m2FtOrM;
+                localVal *= glm.m2FtOrM;
+            }
+            else if (mode == UnitMode.Speed)
+            {
+                localMin *= glm.kmhToMphOrKmh;
+                localMax *= glm.kmhToMphOrKmh;
+                localVal *= glm.kmhToMphOrKmh;
+            }
+            localVal = Math.Round(localVal, decimalPlaces);
+
+            using (FormNumeric form = new FormNumeric(localMin, localMax, localVal))
             {
                 DialogResult result = form.ShowDialog(this);
                 if (result == DialogResult.OK)
                 {
-                    Value = form.ReturnValue;
+                    var localReturn = Math.Round(form.ReturnValue, decimalPlaces);
+
+                    if (mode == UnitMode.Small)
+                        Value = localReturn * glm.inchOrCm2m;
+                    else if (mode == UnitMode.Large)
+                        Value = localReturn * glm.ftOrMtoM;
+                    else if (mode == UnitMode.Speed)
+                        Value = localReturn * glm.mphOrKmhToKmh;
+                    else
+                        Value = localReturn;
                 }
             }
         }
+
+        [DefaultValue(typeof(UnitMode), "None")]
+        [TypeConverter(typeof(NumericUnitModeConverter))] // Restricts designer dropdown
+        public UnitMode Mode
+        {
+            get
+            {
+                return mode;
+            }
+            set
+            {
+                mode = value;
+            }
+        }
+
+
+        [Bindable(false)]
+        [Browsable(false)]
+        //[EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Value
         {
             get
@@ -185,7 +268,12 @@ namespace AgOpenGPS
             }
             set
             {
-                if (!initializing)
+                if (DesignMode)
+                {
+                    //base.AutoSize = false; // Ensures it fits in one line
+                    base.Text = minimum.ToString(format) + "|" + maximum.ToString(format)+ "|" + mode.ToString();
+                }
+                else if (!initializing)
                 {
                     if (value < minimum)
                     {
@@ -195,27 +283,41 @@ namespace AgOpenGPS
                     {
                         value = maximum;
                     }
-
-                    value = Math.Round(value, decimalPlaces);
-
+                    
                     if (value != _value)
                     {
                         bool isnan = double.IsNaN(_value);
-                    _value = value;
+                        _value = value;
 
                         if (!isnan && onValueChanged != null)
                         {
                             onValueChanged(this, EventArgs.Empty);
                         }
-                    UpdateEditText();
+                        UpdateEditText();
+                    }
                 }
             }
-                else if (DesignMode)
-                {
-                    _value = 0.0;
-                    UpdateEditText(true);
         }
+
+        protected override void OnPaint(PaintEventArgs pevent)
+        {
+            if (DesignMode)
+            {
+                using (Graphics g = CreateGraphics())
+                {
+                    float fontSize = base.Font.Size;
+                    SizeF textSize = g.MeasureString(base.Text, base.Font);
+
+                    while ((textSize.Width > base.Width - 10 || textSize.Height > base.Height - 5) && fontSize > 5)
+                    {
+                        fontSize -= 0.5f;
+                        textSize = g.MeasureString(base.Text, new Font(base.Font.FontFamily, fontSize, base.Font.Style));
+                    }
+
+                    base.Font = new Font(base.Font.FontFamily, fontSize, base.Font.Style);
+                }
             }
+            base.OnPaint(pevent);
         }
 
         [DefaultValue(typeof(double), "0")]
@@ -232,8 +334,8 @@ namespace AgOpenGPS
                 {
                     maximum = value;
                 }
-
-                Value = Constrain(_value);
+                if (!initializing)
+                    Value = _value;
             }
         }
 
@@ -252,23 +354,9 @@ namespace AgOpenGPS
                     minimum = maximum;
                 }
 
-                Value = Constrain(_value);
+                if (!initializing)
+                    Value = _value;
             }
-        }
-
-        private double Constrain(double value)
-        {
-            if (value < minimum)
-            {
-                value = minimum;
-            }
-
-            if (value > maximum)
-            {
-                value = maximum;
-            }
-
-            return value;
         }
 
         [DefaultValue(typeof(double), "1")]
@@ -306,7 +394,8 @@ namespace AgOpenGPS
                     format += "0";
                 }
 
-                UpdateEditText();
+                if (!initializing)
+                    UpdateEditText();
             }
         }
 
@@ -328,10 +417,16 @@ namespace AgOpenGPS
             return text + ", Minimum = " + minimum.ToString("0.0") + ", Maximum = " + maximum.ToString("0.0");
         }
 
-        protected void UpdateEditText(bool force = false)
+        protected void UpdateEditText()
         {
-            if (force || !initializing)
+            if (mode == UnitMode.None)
                 base.Text = _value.ToString(format);
+            if (Mode == UnitMode.Small)
+                base.Text = (_value * glm.m2InchOrCm).ToString(format);
+            else if (Mode == UnitMode.Large)
+                base.Text = (_value * glm.m2FtOrM).ToString(format);
+            else
+                base.Text = (_value * glm.kmhToMphOrKmh).ToString(format);
         }
 
         [Bindable(false)]

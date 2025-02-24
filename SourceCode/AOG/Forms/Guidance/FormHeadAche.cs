@@ -458,7 +458,7 @@ namespace AgOpenGPS
 
                 if (mf.hdl.tracksArr.Count < 1 || mf.hdl.idx == -1) return;
 
-                double distAway = (double)nudSetDistance.Value * glm.ftOrMtoM;
+                double distAway = nudSetDistance.Value;
                 mf.hdl.tracksArr[mf.hdl.idx].moveDistance += distAway;
 
                 double distSqAway = (distAway * distAway) - 0.01;
@@ -856,7 +856,7 @@ namespace AgOpenGPS
 
         private void cboxToolWidths_SelectedIndexChanged(object sender, EventArgs e)
         {
-            nudSetDistance.Value = Math.Round((mf.tool.width - mf.tool.overlap) * cboxToolWidths.SelectedIndex, 1) * glm.m2FtOrM;
+            nudSetDistance.Value = Math.Round((mf.tool.width - mf.tool.overlap) * cboxToolWidths.SelectedIndex, 1);
         }
 
         private void btnHeadlandOff_Click(object sender, EventArgs e)

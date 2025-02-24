@@ -26,13 +26,13 @@ namespace AgOpenGPS
             if (mf.isMetric)
             {
                 nudSnapDistance.DecimalPlaces = 0;
-                nudSnapDistance.Value = (int)Properties.Settings.Default.setAS_snapDistanceRef;
             }
             else
             {
                 nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = Math.Round(Properties.Settings.Default.setAS_snapDistanceRef * glm.cm2CmOrIn, 1);
             }
+
+            nudSnapDistance.Value = Properties.Settings.Default.setAS_snapDistanceRef * 0.01;
 
             snapAdj = Properties.Settings.Default.setAS_snapDistanceRef * 0.01;
 
@@ -60,7 +60,7 @@ namespace AgOpenGPS
 
         private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
         {
-            snapAdj = (double)nudSnapDistance.Value * glm.inchOrCm2m;
+            snapAdj = nudSnapDistance.Value;
             Properties.Settings.Default.setAS_snapDistanceRef = snapAdj * 100;
 
             mf.Activate();

@@ -25,16 +25,14 @@ namespace AgOpenGPS
 
         private void FormBoundaryPlayer_Load(object sender, EventArgs e)
         {
+            nudOffset.Value = mf.tool.width * 0.5;
+
             if (mf.isMetric)
             {
-                nudOffset.Maximum = 4999;
-                nudOffset.Value = mf.tool.width * 0.5 * 100;
                 lblMetersInches.Text = "cm";
             }
             else
             {
-                nudOffset.Maximum = 1968;
-                nudOffset.Value = mf.tool.width * 0.5 * glm.m2InchOrCm;
                 double ftInches = nudOffset.Value;
                 lblMetersInches.Text = ((int)(ftInches / 12)).ToString() + "' " + ((int)(ftInches % 12)).ToString() + '"';
             }
@@ -69,13 +67,10 @@ namespace AgOpenGPS
         private void nudOffset_ValueChanged(object sender, EventArgs e)
         {
             btnPausePlay.Focus();
-            if (mf.isMetric)
+            mf.bnd.createFenceOffset = nudOffset.Value;
+
+            if (!mf.isMetric)
             {
-                mf.bnd.createFenceOffset = (double)nudOffset.Value * 0.01;
-            }
-            else
-            {
-                mf.bnd.createFenceOffset = (double)nudOffset.Value / glm.m2InchOrCm;
                 double ftInches = (double)nudOffset.Value;
                 lblMetersInches.Text = ((int)(ftInches / 12)).ToString() + "' " + (ftInches % 12).ToString("N1") + '"';
             }

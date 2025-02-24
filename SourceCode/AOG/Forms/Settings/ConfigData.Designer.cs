@@ -124,13 +124,13 @@ namespace AgOpenGPS
 
         private void nudDualHeadingOffset_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setGPS_dualHeadingOffset = ((double)nudDualHeadingOffset.Value);
+            Properties.Settings.Default.setGPS_dualHeadingOffset = nudDualHeadingOffset.Value;
             mf.pn.headingTrueDualOffset = Properties.Settings.Default.setGPS_dualHeadingOffset;
         }
 
         private void nudDualReverseDistance_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setGPS_dualReverseDetectionDistance = ((double)nudDualReverseDistance.Value);
+            Properties.Settings.Default.setGPS_dualReverseDetectionDistance = nudDualReverseDistance.Value;
             mf.dualReverseDetectionDistance = Properties.Settings.Default.setGPS_dualReverseDetectionDistance;
         }
         //private void nudMinimumFrameTime_Click(object sender, EventArgs e)

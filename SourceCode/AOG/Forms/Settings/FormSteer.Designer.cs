@@ -1669,7 +1669,6 @@
             this.nudDeadZoneDelay.Name = "nudDeadZoneDelay";
             this.nudDeadZoneDelay.Size = new System.Drawing.Size(107, 36);
             this.nudDeadZoneDelay.TabIndex = 542;
-            this.nudDeadZoneDelay.Value = 1D;
             this.nudDeadZoneDelay.ValueChanged += new System.EventHandler(this.nudDeadZoneDelay_ValueChanged);
             // 
             // nudDeadZoneHeading
@@ -1682,7 +1681,6 @@
             this.nudDeadZoneHeading.Name = "nudDeadZoneHeading";
             this.nudDeadZoneHeading.Size = new System.Drawing.Size(107, 36);
             this.nudDeadZoneHeading.TabIndex = 538;
-            this.nudDeadZoneHeading.Value = 1D;
             this.nudDeadZoneHeading.ValueChanged += new System.EventHandler(this.nudDeadZoneHeading_ValueChanged);
             // 
             // imageList1
@@ -2230,7 +2228,6 @@
             this.nudMaxCounts.Name = "nudMaxCounts";
             this.nudMaxCounts.Size = new System.Drawing.Size(107, 52);
             this.nudMaxCounts.TabIndex = 493;
-            this.nudMaxCounts.Value = 15D;
             this.nudMaxCounts.ValueChanged += new System.EventHandler(this.nudMaxCounts_ValueChanged);
             // 
             // cboxCurrentSensor
@@ -2666,10 +2663,10 @@
             this.nudMinSteerSpeed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMinSteerSpeed.Location = new System.Drawing.Point(112, 354);
             this.nudMinSteerSpeed.Maximum = 10D;
+            this.nudMinSteerSpeed.Mode = UnitMode.Speed;
             this.nudMinSteerSpeed.Name = "nudMinSteerSpeed";
             this.nudMinSteerSpeed.Size = new System.Drawing.Size(110, 52);
             this.nudMinSteerSpeed.TabIndex = 505;
-            this.nudMinSteerSpeed.Value = 1D;
             this.nudMinSteerSpeed.ValueChanged += new System.EventHandler(this.nudMinSteerSpeed_ValueChanged);
             // 
             // nudMaxSteerSpeed
@@ -2677,10 +2674,10 @@
             this.nudMaxSteerSpeed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMaxSteerSpeed.Location = new System.Drawing.Point(302, 354);
             this.nudMaxSteerSpeed.Maximum = 50D;
+            this.nudMaxSteerSpeed.Mode = UnitMode.Speed;
             this.nudMaxSteerSpeed.Name = "nudMaxSteerSpeed";
             this.nudMaxSteerSpeed.Size = new System.Drawing.Size(110, 52);
             this.nudMaxSteerSpeed.TabIndex = 501;
-            this.nudMaxSteerSpeed.Value = 12D;
             this.nudMaxSteerSpeed.ValueChanged += new System.EventHandler(this.nudMaxSteerSpeed_ValueChanged);
             // 
             // nudGuidanceSpeedLimit
@@ -2688,10 +2685,10 @@
             this.nudGuidanceSpeedLimit.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudGuidanceSpeedLimit.Location = new System.Drawing.Point(207, 140);
             this.nudGuidanceSpeedLimit.Maximum = 20D;
+            this.nudGuidanceSpeedLimit.Mode = UnitMode.Speed;
             this.nudGuidanceSpeedLimit.Name = "nudGuidanceSpeedLimit";
             this.nudGuidanceSpeedLimit.Size = new System.Drawing.Size(110, 52);
             this.nudGuidanceSpeedLimit.TabIndex = 492;
-            this.nudGuidanceSpeedLimit.Value = 7D;
             this.nudGuidanceSpeedLimit.ValueChanged += new System.EventHandler(this.nudGuidanceSpeedLimit_ValueChanged);
             // 
             // tabOnTheLine
@@ -2987,11 +2984,10 @@
             // 
             this.nudcmPerPixel.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudcmPerPixel.Location = new System.Drawing.Point(475, 193);
-            this.nudcmPerPixel.Minimum = 2D;
+            this.nudcmPerPixel.Minimum = 1D;
             this.nudcmPerPixel.Name = "nudcmPerPixel";
             this.nudcmPerPixel.Size = new System.Drawing.Size(78, 46);
             this.nudcmPerPixel.TabIndex = 524;
-            this.nudcmPerPixel.Value = 3D;
             this.nudcmPerPixel.ValueChanged += new System.EventHandler(this.nudcmPerPixel_ValueChanged);
             // 
             // nudLineWidth
@@ -3003,18 +2999,17 @@
             this.nudLineWidth.Name = "nudLineWidth";
             this.nudLineWidth.Size = new System.Drawing.Size(78, 46);
             this.nudLineWidth.TabIndex = 520;
-            this.nudLineWidth.Value = 1D;
             this.nudLineWidth.ValueChanged += new System.EventHandler(this.nudLineWidth_ValueChanged);
             // 
             // nudSnapDistance
             // 
             this.nudSnapDistance.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSnapDistance.Location = new System.Drawing.Point(475, 47);
-            this.nudSnapDistance.Maximum = 1000D;
+            this.nudSnapDistance.Maximum = 10D;
+            this.nudSnapDistance.Mode = UnitMode.Small;
             this.nudSnapDistance.Name = "nudSnapDistance";
             this.nudSnapDistance.Size = new System.Drawing.Size(78, 46);
             this.nudSnapDistance.TabIndex = 516;
-            this.nudSnapDistance.Value = 499D;
             this.nudSnapDistance.ValueChanged += new System.EventHandler(this.nudSnapDistance_ValueChanged);
             // 
             // nudGuidanceLookAhead
@@ -3027,7 +3022,6 @@
             this.nudGuidanceLookAhead.Name = "nudGuidanceLookAhead";
             this.nudGuidanceLookAhead.Size = new System.Drawing.Size(100, 46);
             this.nudGuidanceLookAhead.TabIndex = 512;
-            this.nudGuidanceLookAhead.Value = 10D;
             this.nudGuidanceLookAhead.ValueChanged += new System.EventHandler(this.nudGuidanceLookAhead_ValueChanged);
             // 
             // tabTool

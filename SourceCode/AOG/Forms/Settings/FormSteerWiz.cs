@@ -84,11 +84,11 @@ namespace AgOpenGPS
             hsbarLookAheadMult.Value = (Int16)(mf.vehicle.goalPointLookAheadMult * 10);
             lblLookAheadMult.Text = mf.vehicle.goalPointLookAheadMult.ToString();
 
-            nudAntennaPivot.Value = (int)((Properties.Settings.Default.setVehicle_antennaPivot) * glm.m2InchOrCm);
-            nudAntennaHeight.Value = (int)(Properties.Settings.Default.setVehicle_antennaHeight * glm.m2InchOrCm);
-            nudAntennaOffset.Value = (int)(Properties.Settings.Default.setVehicle_antennaOffset * glm.m2InchOrCm);
-            nudWheelbase.Value = (int)(Math.Abs(Properties.Settings.Default.setVehicle_wheelbase) * glm.m2InchOrCm);
-            nudVehicleTrack.Value = (int)(Math.Abs(Properties.Settings.Default.setVehicle_trackWidth) * glm.m2InchOrCm);
+            nudAntennaPivot.Value = Properties.Settings.Default.setVehicle_antennaPivot;
+            nudAntennaHeight.Value = Properties.Settings.Default.setVehicle_antennaHeight;
+            nudAntennaOffset.Value = Properties.Settings.Default.setVehicle_antennaOffset;
+            nudWheelbase.Value = Math.Abs(Properties.Settings.Default.setVehicle_wheelbase);
+            nudVehicleTrack.Value = Math.Abs(Properties.Settings.Default.setVehicle_trackWidth);
 
             cboxDataInvertRoll.Checked = Properties.Settings.Default.setIMU_invertRoll;
             mf.ahrs.isRollInvert = Properties.Settings.Default.setIMU_invertRoll;
@@ -1143,20 +1143,20 @@ namespace AgOpenGPS
 
         private void nudWheelbase_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setVehicle_wheelbase = (double)nudWheelbase.Value * glm.inchOrCm2m;
+            Properties.Settings.Default.setVehicle_wheelbase = nudWheelbase.Value;
             mf.vehicle.wheelbase = Properties.Settings.Default.setVehicle_wheelbase;
         }
 
         private void nudVehicleTrack_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setVehicle_trackWidth = (double)nudVehicleTrack.Value * glm.inchOrCm2m;
+            Properties.Settings.Default.setVehicle_trackWidth = nudVehicleTrack.Value;
             mf.vehicle.trackWidth = Properties.Settings.Default.setVehicle_trackWidth;
             mf.tram.halfWheelTrack = mf.vehicle.trackWidth * 0.5;
         }
 
         private void nudAntennaPivot_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setVehicle_antennaPivot = (double)nudAntennaPivot.Value * glm.inchOrCm2m;
+            Properties.Settings.Default.setVehicle_antennaPivot = nudAntennaPivot.Value;
             mf.vehicle.antennaPivot = Properties.Settings.Default.setVehicle_antennaPivot;
         }
 
@@ -1196,13 +1196,13 @@ namespace AgOpenGPS
 
         private void nudAntennaHeight_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setVehicle_antennaHeight = (double)nudAntennaHeight.Value * glm.inchOrCm2m;
+            Properties.Settings.Default.setVehicle_antennaHeight = nudAntennaHeight.Value;
             mf.vehicle.antennaHeight = Properties.Settings.Default.setVehicle_antennaHeight;
         }
 
         private void nudAntennaOffset_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setVehicle_antennaOffset = (double)nudAntennaOffset.Value * glm.inchOrCm2m;
+            Properties.Settings.Default.setVehicle_antennaOffset = nudAntennaOffset.Value;
             mf.vehicle.antennaOffset = Properties.Settings.Default.setVehicle_antennaOffset;
         }
 

@@ -90,7 +90,6 @@
             this.nudLongitude.Name = "nudLongitude";
             this.nudLongitude.Size = new System.Drawing.Size(298, 52);
             this.nudLongitude.TabIndex = 48;
-            this.nudLongitude.Value = -178.1234567D;
             // 
             // nudLatitude
             // 
@@ -102,7 +101,6 @@
             this.nudLatitude.Name = "nudLatitude";
             this.nudLatitude.Size = new System.Drawing.Size(274, 52);
             this.nudLatitude.TabIndex = 49;
-            this.nudLatitude.Value = -88.1234567D;
             // 
             // label18
             // 

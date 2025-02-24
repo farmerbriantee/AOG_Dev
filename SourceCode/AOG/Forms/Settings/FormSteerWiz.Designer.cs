@@ -1378,7 +1378,6 @@
             this.nudMaxCounts.Name = "nudMaxCounts";
             this.nudMaxCounts.Size = new System.Drawing.Size(107, 52);
             this.nudMaxCounts.TabIndex = 493;
-            this.nudMaxCounts.Value = 15D;
             this.nudMaxCounts.ValueChanged += new System.EventHandler(this.nudMaxCounts_ValueChanged);
             // 
             // label55
@@ -1804,11 +1803,11 @@
             this.nudWheelbase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudWheelbase.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudWheelbase.Location = new System.Drawing.Point(90, 231);
-            this.nudWheelbase.Maximum = 999D;
+            this.nudWheelbase.Maximum = 10D;
+            this.nudWheelbase.Mode = UnitMode.Small;
             this.nudWheelbase.Name = "nudWheelbase";
             this.nudWheelbase.Size = new System.Drawing.Size(143, 65);
             this.nudWheelbase.TabIndex = 537;
-            this.nudWheelbase.Value = 333D;
             this.nudWheelbase.ValueChanged += new System.EventHandler(this.nudWheelbase_ValueChanged);
             // 
             // label91
@@ -1878,11 +1877,11 @@
             this.nudVehicleTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudVehicleTrack.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudVehicleTrack.Location = new System.Drawing.Point(423, 185);
-            this.nudVehicleTrack.Maximum = 999D;
+            this.nudVehicleTrack.Maximum = 10D;
+            this.nudVehicleTrack.Mode = UnitMode.Small;
             this.nudVehicleTrack.Name = "nudVehicleTrack";
             this.nudVehicleTrack.Size = new System.Drawing.Size(157, 65);
             this.nudVehicleTrack.TabIndex = 537;
-            this.nudVehicleTrack.Value = 333D;
             this.nudVehicleTrack.ValueChanged += new System.EventHandler(this.nudVehicleTrack_ValueChanged);
             // 
             // label95
@@ -2022,12 +2021,12 @@
             this.nudAntennaPivot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudAntennaPivot.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaPivot.Location = new System.Drawing.Point(230, 226);
-            this.nudAntennaPivot.Maximum = 999D;
-            this.nudAntennaPivot.Minimum = -999D;
+            this.nudAntennaPivot.Maximum = 10D;
+            this.nudAntennaPivot.Mode = UnitMode.Small;
+            this.nudAntennaPivot.Minimum = -10D;
             this.nudAntennaPivot.Name = "nudAntennaPivot";
             this.nudAntennaPivot.Size = new System.Drawing.Size(165, 65);
             this.nudAntennaPivot.TabIndex = 537;
-            this.nudAntennaPivot.Value = 333D;
             this.nudAntennaPivot.ValueChanged += new System.EventHandler(this.nudAntennaPivot_ValueChanged);
             // 
             // button10
@@ -2139,11 +2138,11 @@
             this.nudAntennaHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudAntennaHeight.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaHeight.Location = new System.Drawing.Point(465, 87);
-            this.nudAntennaHeight.Maximum = 999D;
+            this.nudAntennaHeight.Maximum = 10D;
+            this.nudAntennaHeight.Mode = UnitMode.Small;
             this.nudAntennaHeight.Name = "nudAntennaHeight";
             this.nudAntennaHeight.Size = new System.Drawing.Size(145, 65);
             this.nudAntennaHeight.TabIndex = 537;
-            this.nudAntennaHeight.Value = 333D;
             this.nudAntennaHeight.ValueChanged += new System.EventHandler(this.nudAntennaHeight_ValueChanged);
             // 
             // label93
@@ -2229,12 +2228,12 @@
             this.nudAntennaOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudAntennaOffset.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaOffset.Location = new System.Drawing.Point(250, 65);
-            this.nudAntennaOffset.Maximum = 999D;
-            this.nudAntennaOffset.Minimum = -999D;
+            this.nudAntennaOffset.Maximum = 10D;
+            this.nudAntennaOffset.Mode = UnitMode.Small;
+            this.nudAntennaOffset.Minimum = -10D;
             this.nudAntennaOffset.Name = "nudAntennaOffset";
             this.nudAntennaOffset.Size = new System.Drawing.Size(165, 65);
             this.nudAntennaOffset.TabIndex = 537;
-            this.nudAntennaOffset.Value = 333D;
             this.nudAntennaOffset.ValueChanged += new System.EventHandler(this.nudAntennaOffset_ValueChanged);
             // 
             // label104

@@ -633,7 +633,7 @@ namespace AgOpenGPS
 
             if (sliceArr.Count < 1) return;
 
-            double distAway = (double)nudSetDistance.Value * glm.ftOrMtoM;
+            double distAway = nudSetDistance.Value;
 
             double distSqAway = (distAway * distAway) - 0.01;
             vec3 point;
@@ -708,7 +708,7 @@ namespace AgOpenGPS
                 //outside point
                 vec3 pt3 = new vec3();
 
-                double moveDist = (double)nudSetDistance.Value * glm.ftOrMtoM;
+                double moveDist = nudSetDistance.Value;
                 double distSq = (moveDist) * (moveDist) * 0.999;
 
                 //make the boundary tram outer array
@@ -933,7 +933,7 @@ namespace AgOpenGPS
 
         private void cboxToolWidths_SelectedIndexChanged(object sender, EventArgs e)
         {
-            nudSetDistance.Value = Math.Round((mf.tool.width - mf.tool.overlap) * cboxToolWidths.SelectedIndex, 1) * glm.m2FtOrM;
+            nudSetDistance.Value = Math.Round((mf.tool.width - mf.tool.overlap) * cboxToolWidths.SelectedIndex, 1);
         }
 
         private void btnALength_Click(object sender, EventArgs e)

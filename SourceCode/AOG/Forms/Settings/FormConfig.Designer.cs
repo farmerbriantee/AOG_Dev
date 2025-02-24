@@ -2556,34 +2556,33 @@
             // 
             this.nudAntennaOffset.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaOffset.Location = new System.Drawing.Point(474, 352);
-            this.nudAntennaOffset.Maximum = 500D;
+            this.nudAntennaOffset.Maximum = 10D;
+            this.nudAntennaOffset.Mode = UnitMode.Small;
             this.nudAntennaOffset.Name = "nudAntennaOffset";
             this.nudAntennaOffset.Size = new System.Drawing.Size(144, 52);
             this.nudAntennaOffset.TabIndex = 2;
-            this.nudAntennaOffset.Value = 0D;
             this.nudAntennaOffset.ValueChanged += new System.EventHandler(this.nudAntennaOffset_ValueChanged);
             // 
             // nudAntennaHeight
             // 
             this.nudAntennaHeight.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaHeight.Location = new System.Drawing.Point(392, 208);
-            this.nudAntennaHeight.Maximum = 1000D;
+            this.nudAntennaHeight.Maximum = 10D;
+            this.nudAntennaHeight.Mode = UnitMode.Small;
             this.nudAntennaHeight.Name = "nudAntennaHeight";
             this.nudAntennaHeight.Size = new System.Drawing.Size(144, 52);
             this.nudAntennaHeight.TabIndex = 3;
-            this.nudAntennaHeight.Value = 300D;
             this.nudAntennaHeight.ValueChanged += new System.EventHandler(this.nudAntennaHeight_ValueChanged);
             // 
             // nudAntennaPivot
             // 
             this.nudAntennaPivot.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaPivot.Location = new System.Drawing.Point(126, 43);
-            this.nudAntennaPivot.Maximum = 999D;
-            this.nudAntennaPivot.Minimum = -999D;
+            this.nudAntennaPivot.Maximum = 10D;
+            this.nudAntennaPivot.Mode = UnitMode.Small;
             this.nudAntennaPivot.Name = "nudAntennaPivot";
             this.nudAntennaPivot.Size = new System.Drawing.Size(144, 52);
             this.nudAntennaPivot.TabIndex = 1;
-            this.nudAntennaPivot.Value = 111D;
             this.nudAntennaPivot.ValueChanged += new System.EventHandler(this.nudAntennaPivot_ValueChanged);
             // 
             // pboxAntenna
@@ -2689,35 +2688,35 @@
             // 
             this.nudTractorHitchLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTractorHitchLength.Location = new System.Drawing.Point(37, 272);
-            this.nudTractorHitchLength.Maximum = 4000D;
+            this.nudTractorHitchLength.Maximum = 40D;
+            this.nudTractorHitchLength.Mode = UnitMode.Small;
             this.nudTractorHitchLength.Name = "nudTractorHitchLength";
             this.nudTractorHitchLength.Size = new System.Drawing.Size(152, 52);
             this.nudTractorHitchLength.TabIndex = 478;
-            this.nudTractorHitchLength.Value = 301D;
             this.nudTractorHitchLength.ValueChanged += new System.EventHandler(this.nudTractorHitchLength_ValueChanged);
             // 
             // nudVehicleTrack
             // 
             this.nudVehicleTrack.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudVehicleTrack.Location = new System.Drawing.Point(700, 165);
-            this.nudVehicleTrack.Maximum = 2000D;
-            this.nudVehicleTrack.Minimum = 20D;
+            this.nudVehicleTrack.Maximum = 20D;
+            this.nudVehicleTrack.Mode = UnitMode.Small;
+            this.nudVehicleTrack.Minimum = 0.2D;
             this.nudVehicleTrack.Name = "nudVehicleTrack";
             this.nudVehicleTrack.Size = new System.Drawing.Size(133, 52);
             this.nudVehicleTrack.TabIndex = 53;
-            this.nudVehicleTrack.Value = 301D;
             this.nudVehicleTrack.ValueChanged += new System.EventHandler(this.nudVehicleTrack_ValueChanged);
             // 
             // nudWheelbase
             // 
             this.nudWheelbase.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudWheelbase.Location = new System.Drawing.Point(179, 397);
-            this.nudWheelbase.Maximum = 1999D;
-            this.nudWheelbase.Minimum = 50D;
+            this.nudWheelbase.Maximum = 20D;
+            this.nudWheelbase.Mode = UnitMode.Small;
+            this.nudWheelbase.Minimum = 0.5D;
             this.nudWheelbase.Name = "nudWheelbase";
             this.nudWheelbase.Size = new System.Drawing.Size(152, 52);
             this.nudWheelbase.TabIndex = 52;
-            this.nudWheelbase.Value = 499D;
             this.nudWheelbase.ValueChanged += new System.EventHandler(this.nudWheelbase_ValueChanged);
             // 
             // pictureBox1
@@ -2890,35 +2889,35 @@
             // 
             this.nudTrailingHitchLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTrailingHitchLength.Location = new System.Drawing.Point(456, 407);
-            this.nudTrailingHitchLength.Maximum = 3000D;
-            this.nudTrailingHitchLength.Minimum = 10D;
+            this.nudTrailingHitchLength.Maximum = 30D;
+            this.nudTrailingHitchLength.Mode = UnitMode.Small;
+            this.nudTrailingHitchLength.Minimum = 0.1D;
             this.nudTrailingHitchLength.Name = "nudTrailingHitchLength";
             this.nudTrailingHitchLength.Size = new System.Drawing.Size(124, 52);
             this.nudTrailingHitchLength.TabIndex = 3;
-            this.nudTrailingHitchLength.Value = 520D;
             this.nudTrailingHitchLength.ValueChanged += new System.EventHandler(this.nudTrailingHitchLength_ValueChanged);
             // 
             // nudDrawbarLength
             // 
             this.nudDrawbarLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDrawbarLength.Location = new System.Drawing.Point(401, 407);
-            this.nudDrawbarLength.Maximum = 3000D;
+            this.nudDrawbarLength.Maximum = 30D;
+            this.nudDrawbarLength.Mode = UnitMode.Small;
             this.nudDrawbarLength.Name = "nudDrawbarLength";
             this.nudDrawbarLength.Size = new System.Drawing.Size(124, 52);
             this.nudDrawbarLength.TabIndex = 1;
-            this.nudDrawbarLength.Value = 51D;
             this.nudDrawbarLength.ValueChanged += new System.EventHandler(this.nudDrawbarLength_ValueChanged);
             // 
             // nudTankHitch
             // 
             this.nudTankHitch.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTankHitch.Location = new System.Drawing.Point(643, 407);
-            this.nudTankHitch.Maximum = 3000D;
-            this.nudTankHitch.Minimum = 10D;
+            this.nudTankHitch.Maximum = 30D;
+            this.nudTankHitch.Mode = UnitMode.Small;
+            this.nudTankHitch.Minimum = 0.1D;
             this.nudTankHitch.Name = "nudTankHitch";
             this.nudTankHitch.Size = new System.Drawing.Size(124, 52);
             this.nudTankHitch.TabIndex = 2;
-            this.nudTankHitch.Value = 326D;
             this.nudTankHitch.ValueChanged += new System.EventHandler(this.nudTankHitch_ValueChanged);
             // 
             // picboxToolHitch
@@ -3154,22 +3153,22 @@
             // 
             this.nudOverlap.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudOverlap.Location = new System.Drawing.Point(656, 109);
-            this.nudOverlap.Maximum = 1000D;
+            this.nudOverlap.Maximum = 10D;
+            this.nudOverlap.Mode = UnitMode.Small;
             this.nudOverlap.Name = "nudOverlap";
             this.nudOverlap.Size = new System.Drawing.Size(114, 52);
             this.nudOverlap.TabIndex = 116;
-            this.nudOverlap.Value = 8D;
             this.nudOverlap.ValueChanged += new System.EventHandler(this.nudOverlaPGN_ValueChanged);
             // 
             // nudOffset
             // 
             this.nudOffset.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudOffset.Location = new System.Drawing.Point(233, 109);
-            this.nudOffset.Maximum = 2500D;
+            this.nudOffset.Maximum = 25D;
+            this.nudOffset.Mode = UnitMode.Small;
             this.nudOffset.Name = "nudOffset";
             this.nudOffset.Size = new System.Drawing.Size(114, 52);
             this.nudOffset.TabIndex = 115;
-            this.nudOffset.Value = 25D;
             this.nudOffset.ValueChanged += new System.EventHandler(this.nudOffset_ValueChanged);
             // 
             // tabToolPivot
@@ -3254,11 +3253,11 @@
             // 
             this.nudTrailingToolToPivotLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTrailingToolToPivotLength.Location = new System.Drawing.Point(320, 337);
-            this.nudTrailingToolToPivotLength.Maximum = 2000D;
+            this.nudTrailingToolToPivotLength.Maximum = 20D;
+            this.nudTrailingToolToPivotLength.Mode = UnitMode.Small;
             this.nudTrailingToolToPivotLength.Name = "nudTrailingToolToPivotLength";
             this.nudTrailingToolToPivotLength.Size = new System.Drawing.Size(205, 52);
             this.nudTrailingToolToPivotLength.TabIndex = 214;
-            this.nudTrailingToolToPivotLength.Value = 51D;
             this.nudTrailingToolToPivotLength.ValueChanged += new System.EventHandler(this.nudTrailingToolToPivotLength_ValueChanged);
             // 
             // tabTSections
@@ -3370,11 +3369,12 @@
             this.nudZone8To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone8To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone8To.Location = new System.Drawing.Point(751, 186);
-            this.nudZone8To.Maximum = 5000D;
+            this.nudZone8To.Maximum = 50D;
+            this.nudZone8To.Mode = UnitMode.Small;
+            this.nudZone8To.Minimum = 0.01D;
             this.nudZone8To.Name = "nudZone8To";
             this.nudZone8To.Size = new System.Drawing.Size(87, 43);
             this.nudZone8To.TabIndex = 509;
-            this.nudZone8To.Value = 98D;
             this.nudZone8To.ValueChanged += new System.EventHandler(this.nudZone8To_ValueChanged);
             // 
             // lblZoneStart8
@@ -3423,11 +3423,12 @@
             this.nudZone7To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone7To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone7To.Location = new System.Drawing.Point(526, 189);
-            this.nudZone7To.Maximum = 5000D;
+            this.nudZone7To.Maximum = 50D;
+            this.nudZone7To.Mode = UnitMode.Small;
+            this.nudZone7To.Minimum = 0.01D;
             this.nudZone7To.Name = "nudZone7To";
             this.nudZone7To.Size = new System.Drawing.Size(87, 43);
             this.nudZone7To.TabIndex = 505;
-            this.nudZone7To.Value = 98D;
             this.nudZone7To.ValueChanged += new System.EventHandler(this.nudZone7To_ValueChanged);
             // 
             // lblZoneStart7
@@ -3476,11 +3477,12 @@
             this.nudZone6To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone6To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone6To.Location = new System.Drawing.Point(302, 188);
-            this.nudZone6To.Maximum = 5000D;
+            this.nudZone6To.Maximum = 50D;
+            this.nudZone6To.Mode = UnitMode.Small;
+            this.nudZone6To.Minimum = 0.01D;
             this.nudZone6To.Name = "nudZone6To";
             this.nudZone6To.Size = new System.Drawing.Size(87, 43);
             this.nudZone6To.TabIndex = 480;
-            this.nudZone6To.Value = 98D;
             this.nudZone6To.ValueChanged += new System.EventHandler(this.nudZone6To_ValueChanged);
             // 
             // nudZone4To
@@ -3488,11 +3490,12 @@
             this.nudZone4To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone4To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone4To.Location = new System.Drawing.Point(751, 68);
-            this.nudZone4To.Maximum = 5000D;
+            this.nudZone4To.Maximum = 50D;
+            this.nudZone4To.Mode = UnitMode.Small;
+            this.nudZone4To.Minimum = 0.01D;
             this.nudZone4To.Name = "nudZone4To";
             this.nudZone4To.Size = new System.Drawing.Size(87, 43);
             this.nudZone4To.TabIndex = 476;
-            this.nudZone4To.Value = 98D;
             this.nudZone4To.ValueChanged += new System.EventHandler(this.nudZone4To_ValueChanged);
             // 
             // nudZone1To
@@ -3500,11 +3503,12 @@
             this.nudZone1To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone1To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone1To.Location = new System.Drawing.Point(81, 69);
-            this.nudZone1To.Maximum = 5000D;
+            this.nudZone1To.Maximum = 50D;
+            this.nudZone1To.Mode = UnitMode.Small;
+            this.nudZone1To.Minimum = 0.01D;
             this.nudZone1To.Name = "nudZone1To";
             this.nudZone1To.Size = new System.Drawing.Size(87, 43);
             this.nudZone1To.TabIndex = 461;
-            this.nudZone1To.Value = 98D;
             this.nudZone1To.ValueChanged += new System.EventHandler(this.nudZone1To_ValueChanged);
             // 
             // nudZone5To
@@ -3512,11 +3516,12 @@
             this.nudZone5To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone5To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone5To.Location = new System.Drawing.Point(81, 187);
-            this.nudZone5To.Maximum = 5000D;
+            this.nudZone5To.Maximum = 50D;
+            this.nudZone5To.Mode = UnitMode.Small;
+            this.nudZone5To.Minimum = 0.01D;
             this.nudZone5To.Name = "nudZone5To";
             this.nudZone5To.Size = new System.Drawing.Size(87, 43);
             this.nudZone5To.TabIndex = 478;
-            this.nudZone5To.Value = 98D;
             this.nudZone5To.ValueChanged += new System.EventHandler(this.nudZone5To_ValueChanged);
             // 
             // nudZone3To
@@ -3524,11 +3529,12 @@
             this.nudZone3To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone3To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone3To.Location = new System.Drawing.Point(526, 70);
-            this.nudZone3To.Maximum = 5000D;
+            this.nudZone3To.Maximum = 50D;
+            this.nudZone3To.Mode = UnitMode.Small;
+            this.nudZone3To.Minimum = 0.01D;
             this.nudZone3To.Name = "nudZone3To";
             this.nudZone3To.Size = new System.Drawing.Size(87, 43);
             this.nudZone3To.TabIndex = 467;
-            this.nudZone3To.Value = 98D;
             this.nudZone3To.ValueChanged += new System.EventHandler(this.nudZone3To_ValueChanged);
             // 
             // nudZone2To
@@ -3536,11 +3542,12 @@
             this.nudZone2To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone2To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone2To.Location = new System.Drawing.Point(302, 70);
-            this.nudZone2To.Maximum = 5000D;
+            this.nudZone2To.Maximum = 50D;
+            this.nudZone2To.Mode = UnitMode.Small;
+            this.nudZone2To.Minimum = 0.01D;
             this.nudZone2To.Name = "nudZone2To";
             this.nudZone2To.Size = new System.Drawing.Size(87, 43);
             this.nudZone2To.TabIndex = 464;
-            this.nudZone2To.Value = 98D;
             this.nudZone2To.ValueChanged += new System.EventHandler(this.nudZone2To_ValueChanged);
             // 
             // lblZoneStart6
@@ -4250,10 +4257,10 @@
             this.nudCutoffSpeed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCutoffSpeed.Location = new System.Drawing.Point(654, 508);
             this.nudCutoffSpeed.Maximum = 30D;
+            this.nudCutoffSpeed.Mode = UnitMode.Speed;
             this.nudCutoffSpeed.Name = "nudCutoffSpeed";
             this.nudCutoffSpeed.Size = new System.Drawing.Size(127, 52);
             this.nudCutoffSpeed.TabIndex = 499;
-            this.nudCutoffSpeed.Value = 1.1D;
             this.nudCutoffSpeed.ValueChanged += new System.EventHandler(this.nudCutoffSpeed_ValueChanged);
             // 
             // nudDefaultSectionWidth
@@ -4261,12 +4268,12 @@
             this.nudDefaultSectionWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudDefaultSectionWidth.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDefaultSectionWidth.Location = new System.Drawing.Point(216, 353);
-            this.nudDefaultSectionWidth.Maximum = 1000D;
-            this.nudDefaultSectionWidth.Minimum = 10D;
+            this.nudDefaultSectionWidth.Maximum = 10D;
+            this.nudDefaultSectionWidth.Mode = UnitMode.Small;
+            this.nudDefaultSectionWidth.Minimum = 0.1D;
             this.nudDefaultSectionWidth.Name = "nudDefaultSectionWidth";
             this.nudDefaultSectionWidth.Size = new System.Drawing.Size(179, 52);
             this.nudDefaultSectionWidth.TabIndex = 296;
-            this.nudDefaultSectionWidth.Value = 50D;
             this.nudDefaultSectionWidth.ValueChanged += new System.EventHandler(this.nudDefaultSectionWidth_ValueChanged);
             // 
             // nudMinCoverage
@@ -4277,7 +4284,6 @@
             this.nudMinCoverage.Name = "nudMinCoverage";
             this.nudMinCoverage.Size = new System.Drawing.Size(132, 52);
             this.nudMinCoverage.TabIndex = 292;
-            this.nudMinCoverage.Value = 100D;
             this.nudMinCoverage.ValueChanged += new System.EventHandler(this.nudMinCoverage_ValueChanged);
             // 
             // nudSection16
@@ -4285,11 +4291,12 @@
             this.nudSection16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection16.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection16.Location = new System.Drawing.Point(743, 104);
-            this.nudSection16.Maximum = 5000D;
+            this.nudSection16.Maximum = 50D;
+            this.nudSection16.Mode = UnitMode.Small;
+            this.nudSection16.Minimum = 0.01D;
             this.nudSection16.Name = "nudSection16";
             this.nudSection16.Size = new System.Drawing.Size(87, 36);
             this.nudSection16.TabIndex = 289;
-            this.nudSection16.Value = 92D;
             this.nudSection16.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection15
@@ -4297,11 +4304,12 @@
             this.nudSection15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection15.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection15.Location = new System.Drawing.Point(638, 104);
-            this.nudSection15.Maximum = 5000D;
+            this.nudSection15.Maximum = 50D;
+            this.nudSection15.Mode = UnitMode.Small;
+            this.nudSection15.Minimum = 0.01D;
             this.nudSection15.Name = "nudSection15";
             this.nudSection15.Size = new System.Drawing.Size(87, 36);
             this.nudSection15.TabIndex = 285;
-            this.nudSection15.Value = 92D;
             this.nudSection15.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection14
@@ -4309,11 +4317,12 @@
             this.nudSection14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection14.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection14.Location = new System.Drawing.Point(533, 104);
-            this.nudSection14.Maximum = 5000D;
+            this.nudSection14.Maximum = 50D;
+            this.nudSection14.Mode = UnitMode.Small;
+            this.nudSection14.Minimum = 0.01D;
             this.nudSection14.Name = "nudSection14";
             this.nudSection14.Size = new System.Drawing.Size(87, 36);
             this.nudSection14.TabIndex = 284;
-            this.nudSection14.Value = 92D;
             this.nudSection14.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection13
@@ -4321,11 +4330,12 @@
             this.nudSection13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection13.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection13.Location = new System.Drawing.Point(428, 104);
-            this.nudSection13.Maximum = 5000D;
+            this.nudSection13.Maximum = 50D;
+            this.nudSection13.Mode = UnitMode.Small;
+            this.nudSection13.Minimum = 0.01D;
             this.nudSection13.Name = "nudSection13";
             this.nudSection13.Size = new System.Drawing.Size(87, 36);
             this.nudSection13.TabIndex = 283;
-            this.nudSection13.Value = 92D;
             this.nudSection13.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection12
@@ -4333,11 +4343,12 @@
             this.nudSection12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection12.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection12.Location = new System.Drawing.Point(323, 104);
-            this.nudSection12.Maximum = 5000D;
+            this.nudSection12.Maximum = 50D;
+            this.nudSection12.Mode = UnitMode.Small;
+            this.nudSection12.Minimum = 0.01D;
             this.nudSection12.Name = "nudSection12";
             this.nudSection12.Size = new System.Drawing.Size(87, 36);
             this.nudSection12.TabIndex = 270;
-            this.nudSection12.Value = 92D;
             this.nudSection12.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection11
@@ -4345,11 +4356,12 @@
             this.nudSection11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection11.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection11.Location = new System.Drawing.Point(218, 104);
-            this.nudSection11.Maximum = 5000D;
+            this.nudSection11.Maximum = 50D;
+            this.nudSection11.Mode = UnitMode.Small;
+            this.nudSection11.Minimum = 0.01D;
             this.nudSection11.Name = "nudSection11";
             this.nudSection11.Size = new System.Drawing.Size(87, 36);
             this.nudSection11.TabIndex = 269;
-            this.nudSection11.Value = 92D;
             this.nudSection11.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection10
@@ -4357,11 +4369,12 @@
             this.nudSection10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection10.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection10.Location = new System.Drawing.Point(113, 104);
-            this.nudSection10.Maximum = 5000D;
+            this.nudSection10.Maximum = 50D;
+            this.nudSection10.Mode = UnitMode.Small;
+            this.nudSection10.Minimum = 0.01D;
             this.nudSection10.Name = "nudSection10";
             this.nudSection10.Size = new System.Drawing.Size(87, 36);
             this.nudSection10.TabIndex = 268;
-            this.nudSection10.Value = 92D;
             this.nudSection10.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection09
@@ -4369,11 +4382,12 @@
             this.nudSection09.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection09.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection09.Location = new System.Drawing.Point(8, 104);
-            this.nudSection09.Maximum = 5000D;
+            this.nudSection09.Maximum = 50D;
+            this.nudSection09.Mode = UnitMode.Small;
+            this.nudSection09.Minimum = 0.01D;
             this.nudSection09.Name = "nudSection09";
             this.nudSection09.Size = new System.Drawing.Size(87, 36);
             this.nudSection09.TabIndex = 267;
-            this.nudSection09.Value = 92D;
             this.nudSection09.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection08
@@ -4381,11 +4395,12 @@
             this.nudSection08.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection08.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection08.Location = new System.Drawing.Point(743, 233);
-            this.nudSection08.Maximum = 5000D;
+            this.nudSection08.Maximum = 50D;
+            this.nudSection08.Mode = UnitMode.Small;
+            this.nudSection08.Minimum = 0.01D;
             this.nudSection08.Name = "nudSection08";
             this.nudSection08.Size = new System.Drawing.Size(87, 36);
             this.nudSection08.TabIndex = 266;
-            this.nudSection08.Value = 92D;
             this.nudSection08.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection07
@@ -4393,11 +4408,12 @@
             this.nudSection07.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection07.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection07.Location = new System.Drawing.Point(638, 233);
-            this.nudSection07.Maximum = 5000D;
+            this.nudSection07.Maximum = 50D;
+            this.nudSection07.Mode = UnitMode.Small;
+            this.nudSection07.Minimum = 0.01D;
             this.nudSection07.Name = "nudSection07";
             this.nudSection07.Size = new System.Drawing.Size(87, 36);
             this.nudSection07.TabIndex = 265;
-            this.nudSection07.Value = 93D;
             this.nudSection07.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection06
@@ -4405,11 +4421,12 @@
             this.nudSection06.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection06.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection06.Location = new System.Drawing.Point(533, 233);
-            this.nudSection06.Maximum = 5000D;
+            this.nudSection06.Maximum = 50D;
+            this.nudSection06.Mode = UnitMode.Small;
+            this.nudSection06.Minimum = 0.01D;
             this.nudSection06.Name = "nudSection06";
             this.nudSection06.Size = new System.Drawing.Size(87, 36);
             this.nudSection06.TabIndex = 264;
-            this.nudSection06.Value = 3888D;
             this.nudSection06.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection05
@@ -4417,11 +4434,12 @@
             this.nudSection05.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection05.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection05.Location = new System.Drawing.Point(428, 233);
-            this.nudSection05.Maximum = 5000D;
+            this.nudSection05.Maximum = 50D;
+            this.nudSection05.Mode = UnitMode.Small;
+            this.nudSection05.Minimum = 0.01D;
             this.nudSection05.Name = "nudSection05";
             this.nudSection05.Size = new System.Drawing.Size(87, 36);
             this.nudSection05.TabIndex = 263;
-            this.nudSection05.Value = 95D;
             this.nudSection05.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection04
@@ -4429,11 +4447,12 @@
             this.nudSection04.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection04.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection04.Location = new System.Drawing.Point(323, 233);
-            this.nudSection04.Maximum = 5000D;
+            this.nudSection04.Maximum = 50D;
+            this.nudSection04.Mode = UnitMode.Small;
+            this.nudSection04.Minimum = 0.01D;
             this.nudSection04.Name = "nudSection04";
             this.nudSection04.Size = new System.Drawing.Size(87, 36);
             this.nudSection04.TabIndex = 262;
-            this.nudSection04.Value = 96D;
             this.nudSection04.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection03
@@ -4441,11 +4460,12 @@
             this.nudSection03.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection03.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection03.Location = new System.Drawing.Point(218, 233);
-            this.nudSection03.Maximum = 5000D;
+            this.nudSection03.Maximum = 50D;
+            this.nudSection03.Mode = UnitMode.Small;
+            this.nudSection03.Minimum = 0.01D;
             this.nudSection03.Name = "nudSection03";
             this.nudSection03.Size = new System.Drawing.Size(87, 36);
             this.nudSection03.TabIndex = 261;
-            this.nudSection03.Value = 97D;
             this.nudSection03.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection02
@@ -4453,11 +4473,12 @@
             this.nudSection02.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection02.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection02.Location = new System.Drawing.Point(113, 233);
-            this.nudSection02.Maximum = 5000D;
+            this.nudSection02.Maximum = 50D;
+            this.nudSection02.Mode = UnitMode.Small;
+            this.nudSection02.Minimum = 0.01D;
             this.nudSection02.Name = "nudSection02";
             this.nudSection02.Size = new System.Drawing.Size(87, 36);
             this.nudSection02.TabIndex = 260;
-            this.nudSection02.Value = 98D;
             this.nudSection02.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudSection01
@@ -4465,11 +4486,12 @@
             this.nudSection01.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudSection01.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection01.Location = new System.Drawing.Point(8, 233);
-            this.nudSection01.Maximum = 5000D;
+            this.nudSection01.Maximum = 50D;
+            this.nudSection01.Mode = UnitMode.Small;
+            this.nudSection01.Minimum = 0.01D;
             this.nudSection01.Name = "nudSection01";
             this.nudSection01.Size = new System.Drawing.Size(87, 36);
             this.nudSection01.TabIndex = 259;
-            this.nudSection01.Value = 99D;
             this.nudSection01.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
             // nudNumberOfSections
@@ -4481,7 +4503,6 @@
             this.nudNumberOfSections.Name = "nudNumberOfSections";
             this.nudNumberOfSections.Size = new System.Drawing.Size(108, 52);
             this.nudNumberOfSections.TabIndex = 458;
-            this.nudNumberOfSections.Value = 48D;
             this.nudNumberOfSections.ValueChanged += new System.EventHandler(this.nudNumberOfSections_ValueChanged);
             // 
             // tabTSwitches
@@ -4776,13 +4797,11 @@
             this.nudLookAheadOff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudLookAheadOff.DecimalPlaces = 1;
             this.nudLookAheadOff.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudLookAheadOff.Increment = 0.1D;
             this.nudLookAheadOff.Location = new System.Drawing.Point(363, 467);
             this.nudLookAheadOff.Maximum = 20D;
             this.nudLookAheadOff.Name = "nudLookAheadOff";
             this.nudLookAheadOff.Size = new System.Drawing.Size(114, 52);
             this.nudLookAheadOff.TabIndex = 124;
-            this.nudLookAheadOff.Value = 0.5D;
             this.nudLookAheadOff.ValueChanged += new System.EventHandler(this.nudLookAheadOff_ValueChanged);
             // 
             // nudTurnOffDelay
@@ -4790,13 +4809,11 @@
             this.nudTurnOffDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudTurnOffDelay.DecimalPlaces = 1;
             this.nudTurnOffDelay.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudTurnOffDelay.Increment = 0.1D;
             this.nudTurnOffDelay.Location = new System.Drawing.Point(649, 467);
             this.nudTurnOffDelay.Maximum = 10D;
             this.nudTurnOffDelay.Name = "nudTurnOffDelay";
             this.nudTurnOffDelay.Size = new System.Drawing.Size(114, 52);
             this.nudTurnOffDelay.TabIndex = 119;
-            this.nudTurnOffDelay.Value = 0D;
             this.nudTurnOffDelay.ValueChanged += new System.EventHandler(this.nudTurnOffDelay_ValueChanged);
             // 
             // nudLookAhead
@@ -4804,14 +4821,12 @@
             this.nudLookAhead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudLookAhead.DecimalPlaces = 1;
             this.nudLookAhead.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudLookAhead.Increment = 0.1D;
             this.nudLookAhead.Location = new System.Drawing.Point(78, 467);
             this.nudLookAhead.Maximum = 22D;
             this.nudLookAhead.Minimum = 0.2D;
             this.nudLookAhead.Name = "nudLookAhead";
             this.nudLookAhead.Size = new System.Drawing.Size(114, 52);
             this.nudLookAhead.TabIndex = 117;
-            this.nudLookAhead.Value = 1D;
             this.nudLookAhead.ValueChanged += new System.EventHandler(this.nudLookAhead_ValueChanged);
             // 
             // tabDHeading
@@ -4928,11 +4943,11 @@
             this.nudDualReverseDistance.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDualReverseDistance.Location = new System.Drawing.Point(191, 218);
             this.nudDualReverseDistance.Maximum = 0.9D;
+            this.nudDualReverseDistance.Mode = UnitMode.Small;
             this.nudDualReverseDistance.Minimum = 0.1D;
             this.nudDualReverseDistance.Name = "nudDualReverseDistance";
             this.nudDualReverseDistance.Size = new System.Drawing.Size(144, 52);
             this.nudDualReverseDistance.TabIndex = 472;
-            this.nudDualReverseDistance.Value = 0.1D;
             this.nudDualReverseDistance.ValueChanged += new System.EventHandler(this.nudDualReverseDistance_ValueChanged);
             // 
             // pictureBox13
@@ -4955,7 +4970,6 @@
             this.nudDualHeadingOffset.Name = "nudDualHeadingOffset";
             this.nudDualHeadingOffset.Size = new System.Drawing.Size(144, 52);
             this.nudDualHeadingOffset.TabIndex = 470;
-            this.nudDualHeadingOffset.Value = -99.9D;
             this.nudDualHeadingOffset.ValueChanged += new System.EventHandler(this.nudDualHeadingOffset_ValueChanged);
             // 
             // lblHeadingOffset
@@ -5241,7 +5255,6 @@
             this.nudFixJumpDistance.Name = "nudFixJumpDistance";
             this.nudFixJumpDistance.Size = new System.Drawing.Size(144, 52);
             this.nudFixJumpDistance.TabIndex = 474;
-            this.nudFixJumpDistance.Value = 0D;
             this.nudFixJumpDistance.ValueChanged += new System.EventHandler(this.nudFixJumpDistance_ValueChanged);
             // 
             // tabDRoll
@@ -5707,25 +5720,23 @@
             // 
             this.nudYouTurnRadius.DecimalPlaces = 2;
             this.nudYouTurnRadius.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudYouTurnRadius.Increment = 0.2D;
             this.nudYouTurnRadius.Location = new System.Drawing.Point(582, 154);
-            this.nudYouTurnRadius.Minimum = 2D;
+            this.nudYouTurnRadius.Mode = UnitMode.Large;
+            this.nudYouTurnRadius.Minimum = 0.02D;
             this.nudYouTurnRadius.Name = "nudYouTurnRadius";
             this.nudYouTurnRadius.Size = new System.Drawing.Size(160, 52);
             this.nudYouTurnRadius.TabIndex = 471;
-            this.nudYouTurnRadius.Value = 2D;
             this.nudYouTurnRadius.ValueChanged += new System.EventHandler(this.nudYouTurnRadius_ValueChanged);
             // 
             // nudTurnDistanceFromBoundary
             // 
             this.nudTurnDistanceFromBoundary.DecimalPlaces = 2;
             this.nudTurnDistanceFromBoundary.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudTurnDistanceFromBoundary.Increment = 0.2D;
             this.nudTurnDistanceFromBoundary.Location = new System.Drawing.Point(582, 434);
+            this.nudTurnDistanceFromBoundary.Mode = UnitMode.Large;
             this.nudTurnDistanceFromBoundary.Name = "nudTurnDistanceFromBoundary";
             this.nudTurnDistanceFromBoundary.Size = new System.Drawing.Size(160, 52);
             this.nudTurnDistanceFromBoundary.TabIndex = 468;
-            this.nudTurnDistanceFromBoundary.Value = 1D;
             this.nudTurnDistanceFromBoundary.ValueChanged += new System.EventHandler(this.nudTurnDistanceFromBoundary_ValueChanged);
             // 
             // tabRelay
@@ -7017,7 +7028,6 @@
             this.nudHydLiftLookAhead.Name = "nudHydLiftLookAhead";
             this.nudHydLiftLookAhead.Size = new System.Drawing.Size(148, 52);
             this.nudHydLiftLookAhead.TabIndex = 117;
-            this.nudHydLiftLookAhead.Value = 5D;
             this.nudHydLiftLookAhead.ValueChanged += new System.EventHandler(this.nudUser_ValueChanged);
             // 
             // lblHydLookAhead
@@ -7103,7 +7113,6 @@
             this.nudLowerTime.Name = "nudLowerTime";
             this.nudLowerTime.Size = new System.Drawing.Size(114, 52);
             this.nudLowerTime.TabIndex = 4;
-            this.nudLowerTime.Value = 255D;
             this.nudLowerTime.ValueChanged += new System.EventHandler(this.nudUser_ValueChanged);
             // 
             // pictureBox7
@@ -7125,7 +7134,6 @@
             this.nudRaiseTime.Name = "nudRaiseTime";
             this.nudRaiseTime.Size = new System.Drawing.Size(114, 52);
             this.nudRaiseTime.TabIndex = 3;
-            this.nudRaiseTime.Value = 255D;
             this.nudRaiseTime.ValueChanged += new System.EventHandler(this.nudUser_ValueChanged);
             // 
             // lblHydInvertRelays
@@ -7225,7 +7233,6 @@
             this.nudUser4.Name = "nudUser4";
             this.nudUser4.Size = new System.Drawing.Size(114, 52);
             this.nudUser4.TabIndex = 488;
-            this.nudUser4.Value = 255D;
             this.nudUser4.ValueChanged += new System.EventHandler(this.nudUser_ValueChanged);
             // 
             // nudUser3
@@ -7237,7 +7244,6 @@
             this.nudUser3.Name = "nudUser3";
             this.nudUser3.Size = new System.Drawing.Size(114, 52);
             this.nudUser3.TabIndex = 487;
-            this.nudUser3.Value = 255D;
             this.nudUser3.ValueChanged += new System.EventHandler(this.nudUser_ValueChanged);
             // 
             // nudUser2
@@ -7249,7 +7255,6 @@
             this.nudUser2.Name = "nudUser2";
             this.nudUser2.Size = new System.Drawing.Size(114, 52);
             this.nudUser2.TabIndex = 486;
-            this.nudUser2.Value = 255D;
             this.nudUser2.ValueChanged += new System.EventHandler(this.nudUser_ValueChanged);
             // 
             // nudUser1
@@ -7261,7 +7266,6 @@
             this.nudUser1.Name = "nudUser1";
             this.nudUser1.Size = new System.Drawing.Size(114, 52);
             this.nudUser1.TabIndex = 485;
-            this.nudUser1.Value = 255D;
             this.nudUser1.ValueChanged += new System.EventHandler(this.nudUser_ValueChanged);
             // 
             // tabTram
@@ -7390,12 +7394,12 @@
             this.nudTramWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudTramWidth.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTramWidth.Location = new System.Drawing.Point(291, 105);
-            this.nudTramWidth.Maximum = 5000D;
+            this.nudTramWidth.Maximum = 50D;
+            this.nudTramWidth.Mode = UnitMode.Small;
             this.nudTramWidth.Minimum = 1D;
             this.nudTramWidth.Name = "nudTramWidth";
             this.nudTramWidth.Size = new System.Drawing.Size(157, 52);
             this.nudTramWidth.TabIndex = 1;
-            this.nudTramWidth.Value = 5000D;
             this.nudTramWidth.ValueChanged += new System.EventHandler(this.nudTramWidth_ValueChanged);
             // 
             // tabBtns
@@ -8705,12 +8709,11 @@
             this.nudNumGuideLines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudNumGuideLines.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudNumGuideLines.Location = new System.Drawing.Point(531, 285);
-            this.nudNumGuideLines.Maximum = 5000D;
+            this.nudNumGuideLines.Maximum = 500D;
             this.nudNumGuideLines.Minimum = 1D;
             this.nudNumGuideLines.Name = "nudNumGuideLines";
             this.nudNumGuideLines.Size = new System.Drawing.Size(100, 52);
             this.nudNumGuideLines.TabIndex = 534;
-            this.nudNumGuideLines.Value = 50D;
             this.nudNumGuideLines.ValueChanged += new System.EventHandler(this.nudNumGuideLines_ValueChanged);
             // 
             // lblCurrentVehicle

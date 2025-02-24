@@ -1203,7 +1203,6 @@
             this.nudHeading.Name = "nudHeading";
             this.nudHeading.Size = new System.Drawing.Size(221, 52);
             this.nudHeading.TabIndex = 413;
-            this.nudHeading.Value = 0D;
             this.nudHeading.ValueChanged += new System.EventHandler(this.nudHeading_ValueChanged);
             // 
             // btnAPlus
@@ -1318,7 +1317,6 @@
             this.nudLatitudePlus.Name = "nudLatitudePlus";
             this.nudLatitudePlus.Size = new System.Drawing.Size(228, 43);
             this.nudLatitudePlus.TabIndex = 451;
-            this.nudLatitudePlus.Value = 0D;
             // 
             // nudLongitudePlus
             // 
@@ -1330,7 +1328,6 @@
             this.nudLongitudePlus.Name = "nudLongitudePlus";
             this.nudLongitudePlus.Size = new System.Drawing.Size(228, 43);
             this.nudLongitudePlus.TabIndex = 450;
-            this.nudLongitudePlus.Value = -166.1234567D;
             // 
             // btnCancel_LatLonPlus
             // 
@@ -1377,7 +1374,6 @@
             this.nudHeadingLatLonPlus.Name = "nudHeadingLatLonPlus";
             this.nudHeadingLatLonPlus.Size = new System.Drawing.Size(207, 46);
             this.nudHeadingLatLonPlus.TabIndex = 413;
-            this.nudHeadingLatLonPlus.Value = 339.1234D;
             // 
             // panelLatLonLatLon
             // 
@@ -1509,7 +1505,6 @@
             this.nudLatitudeB.Name = "nudLatitudeB";
             this.nudLatitudeB.Size = new System.Drawing.Size(228, 43);
             this.nudLatitudeB.TabIndex = 455;
-            this.nudLatitudeB.Value = 0D;
             // 
             // nudLongitudeB
             // 
@@ -1521,7 +1516,6 @@
             this.nudLongitudeB.Name = "nudLongitudeB";
             this.nudLongitudeB.Size = new System.Drawing.Size(228, 43);
             this.nudLongitudeB.TabIndex = 454;
-            this.nudLongitudeB.Value = -166.1234567D;
             // 
             // label19
             // 
@@ -1559,7 +1553,6 @@
             this.nudLatitudeA.Name = "nudLatitudeA";
             this.nudLatitudeA.Size = new System.Drawing.Size(228, 43);
             this.nudLatitudeA.TabIndex = 451;
-            this.nudLatitudeA.Value = 0D;
             // 
             // nudLongitudeA
             // 
@@ -1571,7 +1564,6 @@
             this.nudLongitudeA.Name = "nudLongitudeA";
             this.nudLongitudeA.Size = new System.Drawing.Size(228, 43);
             this.nudLongitudeA.TabIndex = 450;
-            this.nudLongitudeA.Value = -166.1234567D;
             // 
             // btnCancelLatLonLatLon
             // 
@@ -1690,7 +1682,6 @@
             this.nudLatitudePivot.Name = "nudLatitudePivot";
             this.nudLatitudePivot.Size = new System.Drawing.Size(253, 46);
             this.nudLatitudePivot.TabIndex = 451;
-            this.nudLatitudePivot.Value = 0D;
             // 
             // nudLongitudePivot
             // 
@@ -1702,7 +1693,6 @@
             this.nudLongitudePivot.Name = "nudLongitudePivot";
             this.nudLongitudePivot.Size = new System.Drawing.Size(253, 46);
             this.nudLongitudePivot.TabIndex = 450;
-            this.nudLongitudePivot.Value = -166.1234567D;
             // 
             // btnCancel_Pivot
             // 

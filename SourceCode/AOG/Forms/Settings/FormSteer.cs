@@ -23,12 +23,6 @@ namespace AgOpenGPS
             mf = callingForm as FormGPS;
             InitializeComponent();
 
-            nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54);
-            nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54);
-
-            nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54);
-            nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54);
-
             this.lblDistance.Text = gStr.Get(gs.gsAgressiveness);
             this.lblHeading.Text = gStr.Get(gs.gsOvershootReduction);
             this.Text = gStr.Get(gs.gsAutoSteerConfiguration);
@@ -194,7 +188,7 @@ namespace AgOpenGPS
             mf.vehicle.driveFreeSteerAngle = 0;
 
             //nudDeadZoneDistance.Value = (decimal)((double)(Properties.Settings.Default.setAS_deadZoneDistance)/10);
-            nudDeadZoneHeading.Value = (double)(Properties.Settings.Default.setAS_deadZoneHeading) / 100;
+            nudDeadZoneHeading.Value = Properties.Settings.Default.setAS_deadZoneHeading * 0.01;
             nudDeadZoneDelay.Value = mf.vehicle.deadZoneDelay;
 
             toSend = false;
@@ -657,18 +651,16 @@ namespace AgOpenGPS
 
         private void tabAlarm_Enter(object sender, EventArgs e)
         {
+            nudMaxSteerSpeed.Value = Properties.Settings.Default.setAS_maxSteerSpeed;
+            nudMinSteerSpeed.Value = Properties.Settings.Default.setAS_minSteerSpeed;
+            nudGuidanceSpeedLimit.Value = Properties.Settings.Default.setAS_functionSpeedLimit;
+
             if (mf.isMetric)
             {
-                nudMaxSteerSpeed.Value = Properties.Settings.Default.setAS_maxSteerSpeed;
-                nudMinSteerSpeed.Value = Properties.Settings.Default.setAS_minSteerSpeed;
-                nudGuidanceSpeedLimit.Value = Properties.Settings.Default.setAS_functionSpeedLimit;
                 label160.Text = label163.Text = label166.Text = "kmh";
             }
             else
             {
-                nudMaxSteerSpeed.Value = Properties.Settings.Default.setAS_maxSteerSpeed * glm.kmhToMphOrKmh;
-                nudMinSteerSpeed.Value = Properties.Settings.Default.setAS_minSteerSpeed * glm.kmhToMphOrKmh;
-                nudGuidanceSpeedLimit.Value = Properties.Settings.Default.setAS_functionSpeedLimit * glm.kmhToMphOrKmh;
                 label160.Text = label163.Text = label166.Text = "mph";
             }
 
@@ -681,19 +673,19 @@ namespace AgOpenGPS
 
         private void nudMinSteerSpeed_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_minSteerSpeed = nudMinSteerSpeed.Value * glm.mphOrKmhToKmh;
+            Properties.Settings.Default.setAS_minSteerSpeed = nudMinSteerSpeed.Value;
             mf.vehicle.minSteerSpeed = Properties.Settings.Default.setAS_minSteerSpeed;
         }
 
         private void nudMaxSteerSpeed_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_maxSteerSpeed = nudMaxSteerSpeed.Value * glm.mphOrKmhToKmh;
+            Properties.Settings.Default.setAS_maxSteerSpeed = nudMaxSteerSpeed.Value;
             mf.vehicle.maxSteerSpeed = Properties.Settings.Default.setAS_maxSteerSpeed;
         }
 
         private void nudGuidanceSpeedLimit_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_functionSpeedLimit = nudGuidanceSpeedLimit.Value * glm.mphOrKmhToKmh;
+            Properties.Settings.Default.setAS_functionSpeedLimit = nudGuidanceSpeedLimit.Value;
             mf.vehicle.functionSpeedLimit = Properties.Settings.Default.setAS_functionSpeedLimit;
         }
 
@@ -710,13 +702,13 @@ namespace AgOpenGPS
             if (mf.isMetric)
             {
                 nudSnapDistance.DecimalPlaces = 0;
-                nudSnapDistance.Value = (int)(Properties.Settings.Default.setAS_snapDistance * glm.cm2CmOrIn);
             }
             else
             {
                 nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = Math.Round(Properties.Settings.Default.setAS_snapDistance * glm.cm2CmOrIn, 1, MidpointRounding.AwayFromZero);
             }
+            
+            nudSnapDistance.Value = Properties.Settings.Default.setAS_snapDistance * 0.01;
 
             nudGuidanceLookAhead.Value = Properties.Settings.Default.setAS_guidanceLookAheadTime;
 
@@ -745,7 +737,7 @@ namespace AgOpenGPS
 
         private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_snapDistance = ((double)nudSnapDistance.Value * glm.inOrCm2Cm);
+            Properties.Settings.Default.setAS_snapDistance = nudSnapDistance.Value * 100;
         }
 
         private void nudGuidanceLookAhead_ValueChanged(object sender, EventArgs e)

@@ -39,8 +39,8 @@ namespace AgOpenGPS
                 Close();
             }
 
-            CNMEA.latStart = (double)nudLatitude.Value;
-            CNMEA.lonStart = (double)nudLongitude.Value;
+            CNMEA.latStart = nudLatitude.Value;
+            CNMEA.lonStart = nudLongitude.Value;
 
             mf.pn.SetLocalMetersPerDegree(true);
 

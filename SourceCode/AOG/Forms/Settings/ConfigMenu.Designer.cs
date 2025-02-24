@@ -76,15 +76,9 @@ namespace AgOpenGPS
                 ((Properties.Settings.Default.setTram_tramWidth).ToString() + " m") :
                 ConvertMeterToFeet(Properties.Settings.Default.setTram_tramWidth);
 
-            lblToolOffset.Text = (mf.isMetric ?
-                (Properties.Settings.Default.setVehicle_toolOffset * glm.m2InchOrCm).ToString() :
-                (Properties.Settings.Default.setVehicle_toolOffset * glm.m2InchOrCm).ToString("N1")) +
-                glm.unitsInCm;
+            lblToolOffset.Text = (Properties.Settings.Default.setVehicle_toolOffset * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
 
-            lblOverlap.Text = (mf.isMetric ?
-                (Properties.Settings.Default.setVehicle_toolOverlap * glm.m2InchOrCm).ToString() :
-                (Properties.Settings.Default.setVehicle_toolOverlap * glm.m2InchOrCm).ToString("N1")) +
-                glm.unitsInCm;
+            lblOverlap.Text = (Properties.Settings.Default.setVehicle_toolOverlap * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
 
             lblLookahead.Text = Properties.Settings.Default.setVehicle_toolLookAheadOn.ToString() + " sec";
         }

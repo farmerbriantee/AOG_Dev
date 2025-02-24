@@ -107,7 +107,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setArdMac_user3 = (byte)nudUser3.Value;
             Properties.Settings.Default.setArdMac_user4 = (byte)nudUser4.Value;
 
-            Properties.Settings.Default.setVehicle_hydraulicLiftLookAhead = (double)nudHydLiftLookAhead.Value;
+            Properties.Settings.Default.setVehicle_hydraulicLiftLookAhead = nudHydLiftLookAhead.Value;
             mf.vehicle.hydLiftLookAheadTime = Properties.Settings.Default.setVehicle_hydraulicLiftLookAhead;
 
             PGN_238.pgn[PGN_238.set0] = (byte)sett;
@@ -403,13 +403,9 @@ namespace AgOpenGPS
 
             lblSmoothing.Text = mf.yt.uTurnSmoothing.ToString();
 
-            double bob = Properties.Settings.Default.set_youTurnDistanceFromBoundary * glm.m2FtOrM;
-            if (bob < 0.2) bob = 0.2;
-            nudTurnDistanceFromBoundary.Value = Math.Round(bob, 2);
+            nudTurnDistanceFromBoundary.Value = Properties.Settings.Default.set_youTurnDistanceFromBoundary;
 
-            bob = Properties.Settings.Default.set_youTurnRadius * glm.m2FtOrM;
-            if (bob < 2) bob = 2;
-            nudYouTurnRadius.Value = Math.Round(bob, 2);
+            nudYouTurnRadius.Value = Properties.Settings.Default.set_youTurnRadius;
 
             lblFtMUTurn.Text = lblFtMTurnRadius.Text = glm.unitsFtM;
         }
@@ -454,12 +450,12 @@ namespace AgOpenGPS
 
         private void nudYouTurnRadius_ValueChanged(object sender, EventArgs e)
         {
-            mf.yt.youTurnRadius = (double)nudYouTurnRadius.Value * glm.ftOrMtoM;
+            mf.yt.youTurnRadius = nudYouTurnRadius.Value;
         }
 
         private void nudTurnDistanceFromBoundary_ValueChanged(object sender, EventArgs e)
         {
-            mf.yt.uturnDistanceFromBoundary = (double)nudTurnDistanceFromBoundary.Value * glm.ftOrMtoM;
+            mf.yt.uturnDistanceFromBoundary = nudTurnDistanceFromBoundary.Value;
         }
 
         private void btnDistanceDn_Click(object sender, EventArgs e)
@@ -494,7 +490,7 @@ namespace AgOpenGPS
         {
             lblTramWidthUnits.Text = glm.unitsInCm;
 
-            nudTramWidth.Value = (int)(Math.Abs(Properties.Settings.Default.setTram_tramWidth) * glm.m2InchOrCm);
+            nudTramWidth.Value = Properties.Settings.Default.setTram_tramWidth;
             chkBoxOverrideTramControlPos.Checked = Properties.Settings.Default.setTool_isTramOuterInverted;
             cboxDisplayTramControl.Checked = Properties.Settings.Default.setTool_isDisplayTramControl;
         }
@@ -511,7 +507,7 @@ namespace AgOpenGPS
 
         private void nudTramWidth_ValueChanged(object sender, EventArgs e)
         {
-            mf.tram.tramWidth = (double)nudTramWidth.Value * glm.inchOrCm2m;
+            mf.tram.tramWidth = nudTramWidth.Value;
             Properties.Settings.Default.setTram_tramWidth = mf.tram.tramWidth;
         }
 

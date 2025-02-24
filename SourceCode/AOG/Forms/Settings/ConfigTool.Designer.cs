@@ -855,58 +855,58 @@ namespace AgOpenGPS
                 int defa = numberOfSections / mf.tool.zones;
                 if (mf.tool.zones == 2)
                 {
-                    nudZone1To.Value += defa;
+                    nudZone1To.Value = defa;
                     nudZone2To.Value = numberOfSections;
                 }
                 else if (mf.tool.zones == 3)
                 {
-                    nudZone1To.Value += defa;
-                    nudZone2To.Value += 2 * defa;
+                    nudZone1To.Value = defa;
+                    nudZone2To.Value = 2 * defa;
                     nudZone3To.Value = numberOfSections;
                 }
                 else if (mf.tool.zones == 4)
                 {
-                    nudZone1To.Value += defa;
-                    nudZone2To.Value += 2 * defa;
-                    nudZone3To.Value += 3 * defa;
+                    nudZone1To.Value = defa;
+                    nudZone2To.Value = 2 * defa;
+                    nudZone3To.Value = 3 * defa;
                     nudZone4To.Value = numberOfSections;
                 }
                 else if (mf.tool.zones == 5)
                 {
-                    nudZone1To.Value += defa;
-                    nudZone2To.Value += 2 * defa;
-                    nudZone3To.Value += 3 * defa;
-                    nudZone4To.Value += 4 * defa;
+                    nudZone1To.Value = defa;
+                    nudZone2To.Value = 2 * defa;
+                    nudZone3To.Value = 3 * defa;
+                    nudZone4To.Value = 4 * defa;
                     nudZone5To.Value = numberOfSections;
                 }
                 else if (mf.tool.zones == 6)
                 {
-                    nudZone1To.Value += defa;
-                    nudZone2To.Value += 2 * defa;
-                    nudZone3To.Value += 3 * defa;
-                    nudZone4To.Value += 4 * defa;
-                    nudZone5To.Value += 5 * defa;
+                    nudZone1To.Value = defa;
+                    nudZone2To.Value = 2 * defa;
+                    nudZone3To.Value = 3 * defa;
+                    nudZone4To.Value = 4 * defa;
+                    nudZone5To.Value = 5 * defa;
                     nudZone6To.Value = numberOfSections;
                 }
                 else if (mf.tool.zones == 7)
                 {
-                    nudZone1To.Value += defa;
-                    nudZone2To.Value += 2 * defa;
-                    nudZone3To.Value += 3 * defa;
-                    nudZone4To.Value += 4 * defa;
-                    nudZone5To.Value += 5 * defa;
-                    nudZone6To.Value += 6 * defa;
+                    nudZone1To.Value = defa;
+                    nudZone2To.Value = 2 * defa;
+                    nudZone3To.Value = 3 * defa;
+                    nudZone4To.Value = 4 * defa;
+                    nudZone5To.Value = 5 * defa;
+                    nudZone6To.Value = 6 * defa;
                     nudZone7To.Value = numberOfSections;
                 }
                 else if (mf.tool.zones == 8)
                 {
-                    nudZone1To.Value += defa;
-                    nudZone2To.Value += 2 * defa;
-                    nudZone3To.Value += 3 * defa;
-                    nudZone4To.Value += 4 * defa;
-                    nudZone5To.Value += 5 * defa;
-                    nudZone6To.Value += 6 * defa;
-                    nudZone7To.Value += 7 * defa;
+                    nudZone1To.Value = defa;
+                    nudZone2To.Value = 2 * defa;
+                    nudZone3To.Value = 3 * defa;
+                    nudZone4To.Value = 4 * defa;
+                    nudZone5To.Value = 5 * defa;
+                    nudZone6To.Value = 6 * defa;
+                    nudZone7To.Value = 7 * defa;
                     nudZone8To.Value = numberOfSections;
                 }
             }

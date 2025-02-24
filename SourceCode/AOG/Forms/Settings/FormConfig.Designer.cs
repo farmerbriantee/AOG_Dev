@@ -3300,8 +3300,7 @@
             this.nudZone8To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone8To.Location = new System.Drawing.Point(751, 186);
             this.nudZone8To.Maximum = 50D;
-            this.nudZone8To.Mode = UnitMode.Small;
-            this.nudZone8To.Minimum = 0.01D;
+            this.nudZone8To.Minimum = 1D;
             this.nudZone8To.Name = "nudZone8To";
             this.nudZone8To.Size = new System.Drawing.Size(87, 43);
             this.nudZone8To.TabIndex = 509;
@@ -3353,8 +3352,7 @@
             this.nudZone7To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone7To.Location = new System.Drawing.Point(526, 189);
             this.nudZone7To.Maximum = 50D;
-            this.nudZone7To.Mode = UnitMode.Small;
-            this.nudZone7To.Minimum = 0.01D;
+            this.nudZone7To.Minimum = 1D;
             this.nudZone7To.Name = "nudZone7To";
             this.nudZone7To.Size = new System.Drawing.Size(87, 43);
             this.nudZone7To.TabIndex = 505;
@@ -3406,8 +3404,7 @@
             this.nudZone6To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone6To.Location = new System.Drawing.Point(302, 188);
             this.nudZone6To.Maximum = 50D;
-            this.nudZone6To.Mode = UnitMode.Small;
-            this.nudZone6To.Minimum = 0.01D;
+            this.nudZone6To.Minimum = 1D;
             this.nudZone6To.Name = "nudZone6To";
             this.nudZone6To.Size = new System.Drawing.Size(87, 43);
             this.nudZone6To.TabIndex = 480;
@@ -3418,8 +3415,7 @@
             this.nudZone4To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone4To.Location = new System.Drawing.Point(751, 68);
             this.nudZone4To.Maximum = 50D;
-            this.nudZone4To.Mode = UnitMode.Small;
-            this.nudZone4To.Minimum = 0.01D;
+            this.nudZone4To.Minimum = 1D;
             this.nudZone4To.Name = "nudZone4To";
             this.nudZone4To.Size = new System.Drawing.Size(87, 43);
             this.nudZone4To.TabIndex = 476;
@@ -3430,8 +3426,7 @@
             this.nudZone1To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone1To.Location = new System.Drawing.Point(81, 69);
             this.nudZone1To.Maximum = 50D;
-            this.nudZone1To.Mode = UnitMode.Small;
-            this.nudZone1To.Minimum = 0.01D;
+            this.nudZone1To.Minimum = 1D;
             this.nudZone1To.Name = "nudZone1To";
             this.nudZone1To.Size = new System.Drawing.Size(87, 43);
             this.nudZone1To.TabIndex = 461;
@@ -3442,8 +3437,7 @@
             this.nudZone5To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone5To.Location = new System.Drawing.Point(81, 187);
             this.nudZone5To.Maximum = 50D;
-            this.nudZone5To.Mode = UnitMode.Small;
-            this.nudZone5To.Minimum = 0.01D;
+            this.nudZone5To.Minimum = 1D;
             this.nudZone5To.Name = "nudZone5To";
             this.nudZone5To.Size = new System.Drawing.Size(87, 43);
             this.nudZone5To.TabIndex = 478;
@@ -3454,8 +3448,7 @@
             this.nudZone3To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone3To.Location = new System.Drawing.Point(526, 70);
             this.nudZone3To.Maximum = 50D;
-            this.nudZone3To.Mode = UnitMode.Small;
-            this.nudZone3To.Minimum = 0.01D;
+            this.nudZone3To.Minimum = 1D;
             this.nudZone3To.Name = "nudZone3To";
             this.nudZone3To.Size = new System.Drawing.Size(87, 43);
             this.nudZone3To.TabIndex = 467;
@@ -3466,8 +3459,7 @@
             this.nudZone2To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudZone2To.Location = new System.Drawing.Point(302, 70);
             this.nudZone2To.Maximum = 50D;
-            this.nudZone2To.Mode = UnitMode.Small;
-            this.nudZone2To.Minimum = 0.01D;
+            this.nudZone2To.Minimum = 1D;
             this.nudZone2To.Name = "nudZone2To";
             this.nudZone2To.Size = new System.Drawing.Size(87, 43);
             this.nudZone2To.TabIndex = 464;
@@ -4214,7 +4206,7 @@
             this.nudSection16.Minimum = 0.01D;
             this.nudSection16.Mode = UnitMode.Small;
             this.nudSection16.Name = "nudSection16";
-            this.nudSection16.Size = new System.Drawing.Size(87, 36);
+            this.nudSection16.Size = new System.Drawing.Size(87, 44);
             this.nudSection16.TabIndex = 289;
             this.nudSection16.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4226,7 +4218,7 @@
             this.nudSection15.Minimum = 0.01D;
             this.nudSection15.Mode = UnitMode.Small;
             this.nudSection15.Name = "nudSection15";
-            this.nudSection15.Size = new System.Drawing.Size(87, 36);
+            this.nudSection15.Size = new System.Drawing.Size(87, 44);
             this.nudSection15.TabIndex = 285;
             this.nudSection15.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4238,7 +4230,7 @@
             this.nudSection14.Minimum = 0.01D;
             this.nudSection14.Mode = UnitMode.Small;
             this.nudSection14.Name = "nudSection14";
-            this.nudSection14.Size = new System.Drawing.Size(87, 36);
+            this.nudSection14.Size = new System.Drawing.Size(87, 44);
             this.nudSection14.TabIndex = 284;
             this.nudSection14.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4250,7 +4242,7 @@
             this.nudSection13.Minimum = 0.01D;
             this.nudSection13.Mode = UnitMode.Small;
             this.nudSection13.Name = "nudSection13";
-            this.nudSection13.Size = new System.Drawing.Size(87, 36);
+            this.nudSection13.Size = new System.Drawing.Size(87, 44);
             this.nudSection13.TabIndex = 283;
             this.nudSection13.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4262,7 +4254,7 @@
             this.nudSection12.Minimum = 0.01D;
             this.nudSection12.Mode = UnitMode.Small;
             this.nudSection12.Name = "nudSection12";
-            this.nudSection12.Size = new System.Drawing.Size(87, 36);
+            this.nudSection12.Size = new System.Drawing.Size(87, 44);
             this.nudSection12.TabIndex = 270;
             this.nudSection12.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4274,7 +4266,7 @@
             this.nudSection11.Minimum = 0.01D;
             this.nudSection11.Mode = UnitMode.Small;
             this.nudSection11.Name = "nudSection11";
-            this.nudSection11.Size = new System.Drawing.Size(87, 36);
+            this.nudSection11.Size = new System.Drawing.Size(87, 44);
             this.nudSection11.TabIndex = 269;
             this.nudSection11.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4286,7 +4278,7 @@
             this.nudSection10.Minimum = 0.01D;
             this.nudSection10.Mode = UnitMode.Small;
             this.nudSection10.Name = "nudSection10";
-            this.nudSection10.Size = new System.Drawing.Size(87, 36);
+            this.nudSection10.Size = new System.Drawing.Size(87, 44);
             this.nudSection10.TabIndex = 268;
             this.nudSection10.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4298,7 +4290,7 @@
             this.nudSection09.Minimum = 0.01D;
             this.nudSection09.Mode = UnitMode.Small;
             this.nudSection09.Name = "nudSection09";
-            this.nudSection09.Size = new System.Drawing.Size(87, 36);
+            this.nudSection09.Size = new System.Drawing.Size(87, 44);
             this.nudSection09.TabIndex = 267;
             this.nudSection09.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4310,7 +4302,7 @@
             this.nudSection08.Minimum = 0.01D;
             this.nudSection08.Mode = UnitMode.Small;
             this.nudSection08.Name = "nudSection08";
-            this.nudSection08.Size = new System.Drawing.Size(87, 36);
+            this.nudSection08.Size = new System.Drawing.Size(87, 44);
             this.nudSection08.TabIndex = 266;
             this.nudSection08.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4322,7 +4314,7 @@
             this.nudSection07.Minimum = 0.01D;
             this.nudSection07.Mode = UnitMode.Small;
             this.nudSection07.Name = "nudSection07";
-            this.nudSection07.Size = new System.Drawing.Size(87, 36);
+            this.nudSection07.Size = new System.Drawing.Size(87, 44);
             this.nudSection07.TabIndex = 265;
             this.nudSection07.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4334,7 +4326,7 @@
             this.nudSection06.Minimum = 0.01D;
             this.nudSection06.Mode = UnitMode.Small;
             this.nudSection06.Name = "nudSection06";
-            this.nudSection06.Size = new System.Drawing.Size(87, 36);
+            this.nudSection06.Size = new System.Drawing.Size(87, 44);
             this.nudSection06.TabIndex = 264;
             this.nudSection06.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4346,7 +4338,7 @@
             this.nudSection05.Minimum = 0.01D;
             this.nudSection05.Mode = UnitMode.Small;
             this.nudSection05.Name = "nudSection05";
-            this.nudSection05.Size = new System.Drawing.Size(87, 36);
+            this.nudSection05.Size = new System.Drawing.Size(87, 44);
             this.nudSection05.TabIndex = 263;
             this.nudSection05.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4358,7 +4350,7 @@
             this.nudSection04.Minimum = 0.01D;
             this.nudSection04.Mode = UnitMode.Small;
             this.nudSection04.Name = "nudSection04";
-            this.nudSection04.Size = new System.Drawing.Size(87, 36);
+            this.nudSection04.Size = new System.Drawing.Size(87, 44);
             this.nudSection04.TabIndex = 262;
             this.nudSection04.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4370,7 +4362,7 @@
             this.nudSection03.Minimum = 0.01D;
             this.nudSection03.Mode = UnitMode.Small;
             this.nudSection03.Name = "nudSection03";
-            this.nudSection03.Size = new System.Drawing.Size(87, 36);
+            this.nudSection03.Size = new System.Drawing.Size(87, 44);
             this.nudSection03.TabIndex = 261;
             this.nudSection03.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4382,7 +4374,7 @@
             this.nudSection02.Minimum = 0.01D;
             this.nudSection02.Mode = UnitMode.Small;
             this.nudSection02.Name = "nudSection02";
-            this.nudSection02.Size = new System.Drawing.Size(87, 36);
+            this.nudSection02.Size = new System.Drawing.Size(87, 44);
             this.nudSection02.TabIndex = 260;
             this.nudSection02.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 
@@ -4394,7 +4386,7 @@
             this.nudSection01.Minimum = 0.01D;
             this.nudSection01.Mode = UnitMode.Small;
             this.nudSection01.Name = "nudSection01";
-            this.nudSection01.Size = new System.Drawing.Size(87, 36);
+            this.nudSection01.Size = new System.Drawing.Size(87, 44);
             this.nudSection01.TabIndex = 259;
             this.nudSection01.ValueChanged += new System.EventHandler(this.NudSection_ValueChanged);
             // 

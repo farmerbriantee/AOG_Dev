@@ -160,80 +160,80 @@ namespace AgOpenGPS
 
         private void FixMinMaxSpinners()
         {
-            nudTankHitch.Maximum = (Math.Round(nudTankHitch.Maximum / 2.54));
-            nudTankHitch.Minimum = Math.Round(nudTankHitch.Minimum / 2.54);
+            nudTankHitch.Maximum = (Math.Round(nudTankHitch.Maximum / glm.inOrCm2Cm));
+            nudTankHitch.Minimum = Math.Round(nudTankHitch.Minimum / glm.inOrCm2Cm);
 
-            nudDrawbarLength.Maximum = Math.Round(nudDrawbarLength.Maximum / 2.54);
-            nudDrawbarLength.Minimum = Math.Round(nudDrawbarLength.Minimum / 2.54);
+            nudDrawbarLength.Maximum = Math.Round(nudDrawbarLength.Maximum / glm.inOrCm2Cm);
+            nudDrawbarLength.Minimum = Math.Round(nudDrawbarLength.Minimum / glm.inOrCm2Cm);
 
-            nudTrailingHitchLength.Maximum = Math.Round(nudTrailingHitchLength.Maximum / 2.54);
-            nudTrailingHitchLength.Minimum = Math.Round(nudTrailingHitchLength.Minimum / 2.54);
+            nudTrailingHitchLength.Maximum = Math.Round(nudTrailingHitchLength.Maximum / glm.inOrCm2Cm);
+            nudTrailingHitchLength.Minimum = Math.Round(nudTrailingHitchLength.Minimum / glm.inOrCm2Cm);
 
-            nudTractorHitchLength.Maximum = Math.Round(nudTractorHitchLength.Maximum / 2.54);
-            nudTractorHitchLength.Minimum = Math.Round(nudTractorHitchLength.Minimum / 2.54);
+            nudTractorHitchLength.Maximum = Math.Round(nudTractorHitchLength.Maximum / glm.inOrCm2Cm);
+            nudTractorHitchLength.Minimum = Math.Round(nudTractorHitchLength.Minimum / glm.inOrCm2Cm);
 
-            nudVehicleTrack.Maximum = Math.Round(nudVehicleTrack.Maximum / 2.54);
-            nudVehicleTrack.Minimum = Math.Round(nudVehicleTrack.Minimum / 2.54);
+            nudVehicleTrack.Maximum = Math.Round(nudVehicleTrack.Maximum / glm.inOrCm2Cm);
+            nudVehicleTrack.Minimum = Math.Round(nudVehicleTrack.Minimum / glm.inOrCm2Cm);
 
-            nudWheelbase.Maximum = Math.Round(nudWheelbase.Maximum / 2.54);
-            nudWheelbase.Minimum = Math.Round(nudWheelbase.Minimum / 2.54);
+            nudWheelbase.Maximum = Math.Round(nudWheelbase.Maximum / glm.inOrCm2Cm);
+            nudWheelbase.Minimum = Math.Round(nudWheelbase.Minimum / glm.inOrCm2Cm);
 
-            nudOverlap.Maximum = Math.Round(nudOverlap.Maximum / 2.54);
-            nudOverlap.Minimum = Math.Round(nudOverlap.Minimum / 2.54);
+            nudOverlap.Maximum = Math.Round(nudOverlap.Maximum / glm.inOrCm2Cm);
+            nudOverlap.Minimum = Math.Round(nudOverlap.Minimum / glm.inOrCm2Cm);
 
-            nudOffset.Maximum = Math.Round(nudOffset.Maximum / 2.54);
-            nudOffset.Minimum = Math.Round(nudOffset.Minimum / 2.54);
+            nudOffset.Maximum = Math.Round(nudOffset.Maximum / glm.inOrCm2Cm);
+            nudOffset.Minimum = Math.Round(nudOffset.Minimum / glm.inOrCm2Cm);
 
-            nudDefaultSectionWidth.Maximum = Math.Round(nudDefaultSectionWidth.Maximum / 2.54);
-            nudDefaultSectionWidth.Minimum = Math.Round(nudDefaultSectionWidth.Minimum / 2.54);
+            nudDefaultSectionWidth.Maximum = Math.Round(nudDefaultSectionWidth.Maximum / glm.inOrCm2Cm);
+            nudDefaultSectionWidth.Minimum = Math.Round(nudDefaultSectionWidth.Minimum / glm.inOrCm2Cm);
 
-            nudSection01.Maximum = Math.Round(nudSection01.Maximum / 2.54);
-            nudSection01.Minimum = Math.Round(nudSection01.Minimum / 2.54);
-            nudSection02.Maximum = Math.Round(nudSection02.Maximum / 2.54);
-            nudSection02.Minimum = Math.Round(nudSection02.Minimum / 2.54);
-            nudSection03.Maximum = Math.Round(nudSection03.Maximum / 2.54);
-            nudSection03.Minimum = Math.Round(nudSection03.Minimum / 2.54);
-            nudSection04.Maximum = Math.Round(nudSection04.Maximum / 2.54);
-            nudSection04.Minimum = Math.Round(nudSection04.Minimum / 2.54);
-            nudSection05.Maximum = Math.Round(nudSection05.Maximum / 2.54);
-            nudSection05.Minimum = Math.Round(nudSection05.Minimum / 2.54);
-            nudSection06.Maximum = Math.Round(nudSection06.Maximum / 2.54);
-            nudSection06.Minimum = Math.Round(nudSection06.Minimum / 2.54);
-            nudSection07.Maximum = Math.Round(nudSection07.Maximum / 2.54);
-            nudSection07.Minimum = Math.Round(nudSection07.Minimum / 2.54);
-            nudSection08.Maximum = Math.Round(nudSection08.Maximum / 2.54);
-            nudSection08.Minimum = Math.Round(nudSection08.Minimum / 2.54);
-            nudSection09.Maximum = Math.Round(nudSection09.Maximum / 2.54);
-            nudSection09.Minimum = Math.Round(nudSection09.Minimum / 2.54);
-            nudSection10.Maximum = Math.Round(nudSection10.Maximum / 2.54);
-            nudSection10.Minimum = Math.Round(nudSection10.Minimum / 2.54);
-            nudSection11.Maximum = Math.Round(nudSection11.Maximum / 2.54);
-            nudSection11.Minimum = Math.Round(nudSection11.Minimum / 2.54);
-            nudSection12.Maximum = Math.Round(nudSection12.Maximum / 2.54);
-            nudSection12.Minimum = Math.Round(nudSection12.Minimum / 2.54);
-            nudSection13.Maximum = Math.Round(nudSection13.Maximum / 2.54);
-            nudSection13.Minimum = Math.Round(nudSection13.Minimum / 2.54);
-            nudSection14.Maximum = Math.Round(nudSection14.Maximum / 2.54);
-            nudSection14.Minimum = Math.Round(nudSection14.Minimum / 2.54);
-            nudSection15.Maximum = Math.Round(nudSection15.Maximum / 2.54);
-            nudSection15.Minimum = Math.Round(nudSection15.Minimum / 2.54);
-            nudSection16.Maximum = Math.Round(nudSection16.Maximum / 2.54);
-            nudSection16.Minimum = Math.Round(nudSection16.Minimum / 2.54);
+            nudSection01.Maximum = Math.Round(nudSection01.Maximum / glm.inOrCm2Cm);
+            nudSection01.Minimum = Math.Round(nudSection01.Minimum / glm.inOrCm2Cm);
+            nudSection02.Maximum = Math.Round(nudSection02.Maximum / glm.inOrCm2Cm);
+            nudSection02.Minimum = Math.Round(nudSection02.Minimum / glm.inOrCm2Cm);
+            nudSection03.Maximum = Math.Round(nudSection03.Maximum / glm.inOrCm2Cm);
+            nudSection03.Minimum = Math.Round(nudSection03.Minimum / glm.inOrCm2Cm);
+            nudSection04.Maximum = Math.Round(nudSection04.Maximum / glm.inOrCm2Cm);
+            nudSection04.Minimum = Math.Round(nudSection04.Minimum / glm.inOrCm2Cm);
+            nudSection05.Maximum = Math.Round(nudSection05.Maximum / glm.inOrCm2Cm);
+            nudSection05.Minimum = Math.Round(nudSection05.Minimum / glm.inOrCm2Cm);
+            nudSection06.Maximum = Math.Round(nudSection06.Maximum / glm.inOrCm2Cm);
+            nudSection06.Minimum = Math.Round(nudSection06.Minimum / glm.inOrCm2Cm);
+            nudSection07.Maximum = Math.Round(nudSection07.Maximum / glm.inOrCm2Cm);
+            nudSection07.Minimum = Math.Round(nudSection07.Minimum / glm.inOrCm2Cm);
+            nudSection08.Maximum = Math.Round(nudSection08.Maximum / glm.inOrCm2Cm);
+            nudSection08.Minimum = Math.Round(nudSection08.Minimum / glm.inOrCm2Cm);
+            nudSection09.Maximum = Math.Round(nudSection09.Maximum / glm.inOrCm2Cm);
+            nudSection09.Minimum = Math.Round(nudSection09.Minimum / glm.inOrCm2Cm);
+            nudSection10.Maximum = Math.Round(nudSection10.Maximum / glm.inOrCm2Cm);
+            nudSection10.Minimum = Math.Round(nudSection10.Minimum / glm.inOrCm2Cm);
+            nudSection11.Maximum = Math.Round(nudSection11.Maximum / glm.inOrCm2Cm);
+            nudSection11.Minimum = Math.Round(nudSection11.Minimum / glm.inOrCm2Cm);
+            nudSection12.Maximum = Math.Round(nudSection12.Maximum / glm.inOrCm2Cm);
+            nudSection12.Minimum = Math.Round(nudSection12.Minimum / glm.inOrCm2Cm);
+            nudSection13.Maximum = Math.Round(nudSection13.Maximum / glm.inOrCm2Cm);
+            nudSection13.Minimum = Math.Round(nudSection13.Minimum / glm.inOrCm2Cm);
+            nudSection14.Maximum = Math.Round(nudSection14.Maximum / glm.inOrCm2Cm);
+            nudSection14.Minimum = Math.Round(nudSection14.Minimum / glm.inOrCm2Cm);
+            nudSection15.Maximum = Math.Round(nudSection15.Maximum / glm.inOrCm2Cm);
+            nudSection15.Minimum = Math.Round(nudSection15.Minimum / glm.inOrCm2Cm);
+            nudSection16.Maximum = Math.Round(nudSection16.Maximum / glm.inOrCm2Cm);
+            nudSection16.Minimum = Math.Round(nudSection16.Minimum / glm.inOrCm2Cm);
 
-            nudTramWidth.Minimum = Math.Round(nudTramWidth.Minimum / 2.54);
-            nudTramWidth.Maximum = Math.Round(nudTramWidth.Maximum / 2.54);
+            nudTramWidth.Minimum = Math.Round(nudTramWidth.Minimum / glm.inOrCm2Cm);
+            nudTramWidth.Maximum = Math.Round(nudTramWidth.Maximum / glm.inOrCm2Cm);
 
             //Meters to feet
-            nudTurnDistanceFromBoundary.Minimum = Math.Round(nudTurnDistanceFromBoundary.Minimum * 3.28);
-            nudTurnDistanceFromBoundary.Maximum = Math.Round(nudTurnDistanceFromBoundary.Maximum * 3.28);
+            nudTurnDistanceFromBoundary.Minimum = Math.Round(nudTurnDistanceFromBoundary.Minimum * glm.m2FtOrM);
+            nudTurnDistanceFromBoundary.Maximum = Math.Round(nudTurnDistanceFromBoundary.Maximum * glm.m2FtOrM);
 
-            nudOffset.Maximum = Math.Round(nudOffset.Maximum / 2.54);
-            nudOffset.Minimum = Math.Round(nudOffset.Minimum / 2.54);
-            nudOverlap.Maximum = Math.Round(nudOverlap.Maximum / 2.54);
-            nudOverlap.Minimum = Math.Round(nudOverlap.Minimum / 2.54);
+            nudOffset.Maximum = Math.Round(nudOffset.Maximum / glm.inOrCm2Cm);
+            nudOffset.Minimum = Math.Round(nudOffset.Minimum / glm.inOrCm2Cm);
+            nudOverlap.Maximum = Math.Round(nudOverlap.Maximum / glm.inOrCm2Cm);
+            nudOverlap.Minimum = Math.Round(nudOverlap.Minimum / glm.inOrCm2Cm);
 
-            nudTrailingToolToPivotLength.Maximum = Math.Round(nudTrailingToolToPivotLength.Maximum / 2.54);
-            nudTrailingToolToPivotLength.Minimum = Math.Round(nudTrailingToolToPivotLength.Minimum / 2.54);
+            nudTrailingToolToPivotLength.Maximum = Math.Round(nudTrailingToolToPivotLength.Maximum / glm.inOrCm2Cm);
+            nudTrailingToolToPivotLength.Minimum = Math.Round(nudTrailingToolToPivotLength.Minimum / glm.inOrCm2Cm);
         }
 
         private void btnOK_Click(object sender, EventArgs e)

@@ -889,7 +889,7 @@ namespace AgOpenGPS
                             if (isMetric)
                                 TimedMessageBox(3000, "AutoSteer Disabled", "Below Minimum Safe Steering Speed: " + vehicle.minSteerSpeed.ToString("N0") + " Kmh");
                             else
-                                TimedMessageBox(3000, "AutoSteer Disabled", "Below Minimum Safe Steering Speed: " + (vehicle.minSteerSpeed * 0.621371).ToString("N1") + " MPH");
+                                TimedMessageBox(3000, "AutoSteer Disabled", "Below Minimum Safe Steering Speed: " + (vehicle.minSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + " MPH");
 
                             Log.EventWriter("Steer Off, Below Min Steering Speed");
                         }

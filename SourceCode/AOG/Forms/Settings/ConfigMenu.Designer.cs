@@ -91,7 +91,7 @@ namespace AgOpenGPS
 
         public string ConvertMeterToFeet(double meter)
         {
-            double toFeet = meter * 3.28;
+            double toFeet = meter * glm.m2FtOrM;
             string feetInch = Convert.ToString((int)toFeet) + "' ";
             double temp = Math.Round((toFeet - Math.Truncate(toFeet)) * 12, 0);
             feetInch += Convert.ToString(temp) + '"';

@@ -448,7 +448,7 @@ namespace AgOpenGPS
             }
             else
             {
-                lblDistance.Text = Math.Abs((int)(mf.yt.youTurnStartOffset * glm.m2ft)).ToString() + " ft";
+                lblDistance.Text = Math.Abs((int)(mf.yt.youTurnStartOffset * glm.m2FtOrM)).ToString() + " ft";
             }
         }
 

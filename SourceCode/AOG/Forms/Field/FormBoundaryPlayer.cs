@@ -34,7 +34,7 @@ namespace AgOpenGPS
             else
             {
                 nudOffset.Maximum = 1968;
-                nudOffset.Value = mf.tool.width * 0.5 * 39.3701;
+                nudOffset.Value = mf.tool.width * 0.5 * glm.m2InchOrCm;
                 double ftInches = nudOffset.Value;
                 lblMetersInches.Text = ((int)(ftInches / 12)).ToString() + "' " + ((int)(ftInches % 12)).ToString() + '"';
             }
@@ -75,7 +75,7 @@ namespace AgOpenGPS
             }
             else
             {
-                mf.bnd.createFenceOffset = (double)nudOffset.Value / 39.3701;
+                mf.bnd.createFenceOffset = (double)nudOffset.Value / glm.m2InchOrCm;
                 double ftInches = (double)nudOffset.Value;
                 lblMetersInches.Text = ((int)(ftInches / 12)).ToString() + "' " + (ftInches % 12).ToString("N1") + '"';
             }

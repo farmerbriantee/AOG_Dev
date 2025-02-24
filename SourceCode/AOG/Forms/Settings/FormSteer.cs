@@ -666,9 +666,9 @@ namespace AgOpenGPS
             }
             else
             {
-                nudMaxSteerSpeed.Value = Properties.Settings.Default.setAS_maxSteerSpeed * 0.62137;
-                nudMinSteerSpeed.Value = Properties.Settings.Default.setAS_minSteerSpeed * 0.62137;
-                nudGuidanceSpeedLimit.Value = Properties.Settings.Default.setAS_functionSpeedLimit * 0.62137;
+                nudMaxSteerSpeed.Value = Properties.Settings.Default.setAS_maxSteerSpeed * glm.kmhToMphOrKmh;
+                nudMinSteerSpeed.Value = Properties.Settings.Default.setAS_minSteerSpeed * glm.kmhToMphOrKmh;
+                nudGuidanceSpeedLimit.Value = Properties.Settings.Default.setAS_functionSpeedLimit * glm.kmhToMphOrKmh;
                 label160.Text = label163.Text = label166.Text = "mph";
             }
 
@@ -681,22 +681,19 @@ namespace AgOpenGPS
 
         private void nudMinSteerSpeed_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_minSteerSpeed = ((double)nudMinSteerSpeed.Value);
-            if (!mf.isMetric) Properties.Settings.Default.setAS_minSteerSpeed *= 1.609344;
+            Properties.Settings.Default.setAS_minSteerSpeed = nudMinSteerSpeed.Value * glm.mphOrKmhToKmh;
             mf.vehicle.minSteerSpeed = Properties.Settings.Default.setAS_minSteerSpeed;
         }
 
         private void nudMaxSteerSpeed_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_maxSteerSpeed = ((double)nudMaxSteerSpeed.Value);
-            if (!mf.isMetric) Properties.Settings.Default.setAS_maxSteerSpeed *= 1.609344;
+            Properties.Settings.Default.setAS_maxSteerSpeed = nudMaxSteerSpeed.Value * glm.mphOrKmhToKmh;
             mf.vehicle.maxSteerSpeed = Properties.Settings.Default.setAS_maxSteerSpeed;
         }
 
         private void nudGuidanceSpeedLimit_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_functionSpeedLimit = ((double)nudGuidanceSpeedLimit.Value);
-            if (!mf.isMetric) Properties.Settings.Default.setAS_functionSpeedLimit *= 1.609344;
+            Properties.Settings.Default.setAS_functionSpeedLimit = nudGuidanceSpeedLimit.Value * glm.mphOrKmhToKmh;
             mf.vehicle.functionSpeedLimit = Properties.Settings.Default.setAS_functionSpeedLimit;
         }
 

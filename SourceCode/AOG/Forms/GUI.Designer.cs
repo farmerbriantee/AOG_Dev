@@ -348,19 +348,7 @@ namespace AgOpenGPS
                     Log.EventWriter("Steer Safe Off, No Tracks, Idx -1");
                 }
 
-
-                //the main formgps window
-                if (isMetric)  //metric or imperial
-                {
-                    lblSpeed.Text = SpeedKPH;
-                    //btnContour.Text = XTE; //cross track error
-
-                }
-                else  //Imperial Measurements
-                {
-                    lblSpeed.Text = SpeedMPH;
-                    //btnContour.Text = InchXTE; //cross track error
-                }
+                lblSpeed.Text = Speed;
 
                 //Nozzz
                 if (isNozzleApp)
@@ -397,7 +385,7 @@ namespace AgOpenGPS
                         {
                             //(GPM x 5,940) / (MPH x Width in inches)
                             nozz.volumePerAreaActualFiltered = (nozz.volumePerAreaActualFiltered * 0.6)
-                                + ((nozz.volumePerMinuteActual * 59.4) / (nozz.currentSectionsWidthMeters * 39.3701 * avgSpeed * 0.621 + 0.01) * 0.4);
+                                + ((nozz.volumePerMinuteActual * 59.4) / (nozz.currentSectionsWidthMeters * glm.m2InchOrCm * avgSpeed * glm.kmhToMphOrKmh + 0.01) * 0.4);
                         }
 
                         //display actual rate
@@ -489,28 +477,36 @@ namespace AgOpenGPS
                 glm.inOrCm2Cm = 1.0;
                 glm.cm2CmOrIn = 1.0;
 
+                glm.kmhToMphOrKmh = 1;
+                glm.mphOrKmhToKmh = 1;
+
                 glm.unitsFtM = " m";
                 glm.unitsInCm = " cm";
                 glm.unitsInCmNS = "cm";
+                glm.unitsKmhMph = gStr.Get(gs.gsKMH);
             }
             else
             {
                 //inches to meters
                 glm.inchOrCm2m = 0.0254;
-
                 //meters to inches
                 glm.m2InchOrCm = 39.3701;
 
-                glm.m2FtOrM = glm.m2ft;
+                //meters to feet
+                glm.m2FtOrM = 3.28084;
                 //feet to meters
                 glm.ftOrMtoM = 0.3048;
 
                 glm.inOrCm2Cm = 2.54;
                 glm.cm2CmOrIn = 0.394;
 
+                glm.kmhToMphOrKmh = 0.621371;//Km/H to mph
+                glm.mphOrKmhToKmh = 1.60934;//mph to Km/H
+
                 glm.unitsInCm = " in";
                 glm.unitsInCmNS = "in";
                 glm.unitsFtM = " ft";
+                glm.unitsKmhMph = gStr.Get(gs.gsMPH);
             }
 
             //Nozzz
@@ -1601,7 +1597,7 @@ namespace AgOpenGPS
             else
             {
                 TimedMessageBox(2000, gStr.Get(gs.gsTooFast), gStr.Get(gs.gsSlowDownBelow) + " "
-                    + (vehicle.functionSpeedLimit * 0.621371).ToString("N1") + " " + gStr.Get(gs.gsMPH));
+                    + (vehicle.functionSpeedLimit * glm.kmhToMphOrKmh).ToString("N1") + " " + gStr.Get(gs.gsMPH));
             }
 
             Log.EventWriter("UTurn or Lateral Speed exceeded");
@@ -1700,29 +1696,18 @@ namespace AgOpenGPS
         public string ActualSteerAngle { get { return ((mc.actualSteerAngleDegrees) ).ToString("N1") ; } }
 
         //Metric and Imperial Properties
-        public string SpeedMPH
+        public string Speed
         {
             get
             {
                 if (avgSpeed > 2)
-                    return (avgSpeed * 0.62137).ToString("N1");
+                    return (avgSpeed * glm.kmhToMphOrKmh).ToString("N1");
                 else
-                    return(avgSpeed * 0.62137).ToString("N2");
-            }
-        }
-        public string SpeedKPH
-        {
-            get
-            {
-                if (avgSpeed > 2)
-                    return (avgSpeed).ToString("N1");
-                else
-                    return (avgSpeed).ToString("N2");
+                    return(avgSpeed * glm.kmhToMphOrKmh).ToString("N2");
             }
         }
 
-        public string Altitude { get { return Convert.ToString(Math.Round(pn.altitude,2)); } }
-        public string AltitudeFeet { get { return Convert.ToString((Math.Round((pn.altitude * glm.m2ft),1))); } }
+        public string Altitude { get { return Convert.ToString((Math.Round((pn.altitude * glm.m2FtOrM), 2))); } }
 
         public string DistPivotM
         {
@@ -1737,7 +1722,7 @@ namespace AgOpenGPS
         {
             get
             {
-                if (distancePivotToTurnLine > 0 ) return (((int)(glm.m2ft * (distancePivotToTurnLine))) + " ft");
+                if (distancePivotToTurnLine > 0 ) return (((int)(glm.m2FtOrM * (distancePivotToTurnLine))) + " ft");
                 else return "--";
             }
         }

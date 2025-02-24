@@ -140,14 +140,7 @@ namespace AgOpenGPS
 
             lbludpWatchCounts.Text = mf.missedSentenceCount.ToString();
 
-            if (mf.isMetric)
-            {
-                lblAltitude.Text = mf.Altitude;
-            }
-            else //imperial
-            {
-                lblAltitude.Text = mf.AltitudeFeet;
-            }
+            lblAltitude.Text = mf.Altitude;
 
             label254.Text = mf.FixQuality;
         }

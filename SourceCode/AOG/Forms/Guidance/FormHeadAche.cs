@@ -43,8 +43,8 @@ namespace AgOpenGPS
             mf.FileLoadHeadLines();
             FixLabelsCurve();
 
-            lblToolWidth.Text = "( " + mf.unitsFtM + " )      Tool: "
-                + ((mf.tool.width - mf.tool.overlap) * mf.m2FtOrM).ToString("N1") + mf.unitsFtM + " ";
+            lblToolWidth.Text = "( " + glm.unitsFtM + " )      Tool: "
+                + ((mf.tool.width - mf.tool.overlap) * glm.m2FtOrM).ToString("N1") + glm.unitsFtM + " ";
 
             mf.bnd.bndList[0].hdLine?.Clear();
 
@@ -458,7 +458,7 @@ namespace AgOpenGPS
 
                 if (mf.hdl.tracksArr.Count < 1 || mf.hdl.idx == -1) return;
 
-                double distAway = (double)nudSetDistance.Value * mf.ftOrMtoM;
+                double distAway = (double)nudSetDistance.Value * glm.ftOrMtoM;
                 mf.hdl.tracksArr[mf.hdl.idx].moveDistance += distAway;
 
                 double distSqAway = (distAway * distAway) - 0.01;
@@ -856,7 +856,7 @@ namespace AgOpenGPS
 
         private void cboxToolWidths_SelectedIndexChanged(object sender, EventArgs e)
         {
-            nudSetDistance.Value = Math.Round((mf.tool.width - mf.tool.overlap) * cboxToolWidths.SelectedIndex, 1) * mf.m2FtOrM;
+            nudSetDistance.Value = Math.Round((mf.tool.width - mf.tool.overlap) * cboxToolWidths.SelectedIndex, 1) * glm.m2FtOrM;
         }
 
         private void btnHeadlandOff_Click(object sender, EventArgs e)

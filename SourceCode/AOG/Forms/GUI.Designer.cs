@@ -207,7 +207,7 @@ namespace AgOpenGPS
                     switch (currentFieldTextCounter)
                     {
                         case 0:
-                            lblCurrentField.Text = (tool.width * m2FtOrM).ToString("N2") + unitsFtM + " - " + RegistrySettings.vehicleFileName;
+                            lblCurrentField.Text = (tool.width * glm.m2FtOrM).ToString("N2") + glm.unitsFtM + " - " + RegistrySettings.vehicleFileName;
                             break;
 
                         case 1:
@@ -480,33 +480,37 @@ namespace AgOpenGPS
 
             if (isMetric)
             {
-                inchOrCm2m = 0.01;
-                m2InchOrCm = 100.0;
+                glm.inchOrCm2m = 0.01;
+                glm.m2InchOrCm = 100.0;
 
-                m2FtOrM = 1.0;
-                ftOrMtoM = 1.0;
+                glm.m2FtOrM = 1.0;
+                glm.ftOrMtoM = 1.0;
 
-                inOrCm2Cm = 1.0;
-                cm2CmOrIn = 1.0;
+                glm.inOrCm2Cm = 1.0;
+                glm.cm2CmOrIn = 1.0;
 
-                unitsFtM = " m";
-                unitsInCm = " cm";
-                unitsInCmNS = "cm";
+                glm.unitsFtM = " m";
+                glm.unitsInCm = " cm";
+                glm.unitsInCmNS = "cm";
             }
             else
             {
-                inchOrCm2m = glm.in2m;
-                m2InchOrCm = glm.m2in;
+                //inches to meters
+                glm.inchOrCm2m = 0.0254;
 
-                m2FtOrM = glm.m2ft;
-                ftOrMtoM = glm.ft2m;
+                //meters to inches
+                glm.m2InchOrCm = 39.3701;
 
-                inOrCm2Cm = 2.54;
-                cm2CmOrIn = 0.394;
+                glm.m2FtOrM = glm.m2ft;
+                //feet to meters
+                glm.ftOrMtoM = 0.3048;
 
-                unitsInCm = " in";
-                unitsInCmNS = "in";
-                unitsFtM = " ft";
+                glm.inOrCm2Cm = 2.54;
+                glm.cm2CmOrIn = 0.394;
+
+                glm.unitsInCm = " in";
+                glm.unitsInCmNS = "in";
+                glm.unitsFtM = " ft";
             }
 
             //Nozzz
@@ -1717,11 +1721,9 @@ namespace AgOpenGPS
             }
         }
 
-        public string FixOffset { get { return (pn.fixOffset.easting.ToString("N2") + ", " + pn.fixOffset.northing.ToString("N2")); } }
-        public string FixOffsetInch { get { return ((pn.fixOffset.easting*glm.m2in).ToString("N0")+ ", " + (pn.fixOffset.northing*glm.m2in).ToString("N0")); } }
-
         public string Altitude { get { return Convert.ToString(Math.Round(pn.altitude,2)); } }
-        public string AltitudeFeet { get { return Convert.ToString((Math.Round((pn.altitude * 3.28084),1))); } }
+        public string AltitudeFeet { get { return Convert.ToString((Math.Round((pn.altitude * glm.m2ft),1))); } }
+
         public string DistPivotM
         {
             get

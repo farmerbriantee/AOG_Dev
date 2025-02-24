@@ -216,17 +216,12 @@ namespace AgOpenGPS
         //Regex file expression
         public const string fileRegex = " /^(?!.{256,})(?!(aux|clock\\$|con|nul|prn|com[1-9]|lpt[1-9])(?:$|\\.))[^ ][ \\.\\w-$()+=[\\];#@~,&amp;']+[^\\. ]$/i";
 
-        //inches to meters
-        public const double in2m = 0.0254;
+        public static double m2InchOrCm, inchOrCm2m, m2FtOrM, ftOrMtoM, cm2CmOrIn, inOrCm2Cm;
+        public static string unitsFtM, unitsInCm, unitsInCmNS;
 
-        //meters to inches
-        public const double m2in = 39.3701;
 
         //meters to feet
         public const double m2ft = 3.28084;
-
-        //feet to meters
-        public const double ft2m = 0.3048;
 
         //Hectare to Acres
         public const double ha2ac = 2.47105;

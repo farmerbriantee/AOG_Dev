@@ -31,7 +31,7 @@ namespace AgOpenGPS
             else
             {
                 nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = Math.Round(Properties.Settings.Default.setAS_snapDistanceRef * mf.cm2CmOrIn, 1);
+                nudSnapDistance.Value = Math.Round(Properties.Settings.Default.setAS_snapDistanceRef * glm.cm2CmOrIn, 1);
             }
 
             snapAdj = Properties.Settings.Default.setAS_snapDistanceRef * 0.01;
@@ -41,7 +41,7 @@ namespace AgOpenGPS
                 gTemp.Add(new CTrk(item));
             }
 
-            lblOffset.Text = ((int)(distanceMoved * mf.m2InchOrCm)).ToString() + " " + mf.unitsInCm;
+            lblOffset.Text = ((int)(distanceMoved * glm.m2InchOrCm)).ToString() + " " + glm.unitsInCm;
 
             //Location = Properties.Settings.Default.setWindow_formNudgeLocation;
             //Size = Properties.Settings.Default.setWindow_formNudgeSize;
@@ -60,7 +60,7 @@ namespace AgOpenGPS
 
         private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
         {
-            snapAdj = (double)nudSnapDistance.Value * mf.inchOrCm2m;
+            snapAdj = (double)nudSnapDistance.Value * glm.inchOrCm2m;
             Properties.Settings.Default.setAS_snapDistanceRef = snapAdj * 100;
 
             mf.Activate();
@@ -100,7 +100,7 @@ namespace AgOpenGPS
 
         private void DistanceMovedLabel()
         {
-            lblOffset.Text = ((int)(distanceMoved * mf.m2InchOrCm)).ToString() + " " + mf.unitsInCm;
+            lblOffset.Text = ((int)(distanceMoved * glm.m2InchOrCm)).ToString() + " " + glm.unitsInCm;
             mf.Focus();
         }
 

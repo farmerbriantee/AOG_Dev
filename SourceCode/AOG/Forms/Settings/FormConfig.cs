@@ -132,7 +132,7 @@ namespace AgOpenGPS
             UpdateVehicleListView();
 
             //tabTSections_Enter(this, e);
-            lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * 100 * mf.cm2CmOrIn));
+            lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * 100 * glm.cm2CmOrIn));
             SectionFeetInchesTotalWidthLabelUpdate();
 
             tab1.SelectedTab = tabSummary;

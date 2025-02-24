@@ -93,9 +93,6 @@ namespace AgOpenGPS
 
         public double nudNumber = 0;
 
-        public double m2InchOrCm, inchOrCm2m, m2FtOrM, ftOrMtoM, cm2CmOrIn, inOrCm2Cm;
-        public string unitsFtM, unitsInCm, unitsInCmNS;
-
         public char[] hotkeys;
 
         //used by filePicker Form to return picked file and directory

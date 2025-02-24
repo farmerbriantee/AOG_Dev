@@ -403,15 +403,15 @@ namespace AgOpenGPS
 
             lblSmoothing.Text = mf.yt.uTurnSmoothing.ToString();
 
-            double bob = Properties.Settings.Default.set_youTurnDistanceFromBoundary * mf.m2FtOrM;
+            double bob = Properties.Settings.Default.set_youTurnDistanceFromBoundary * glm.m2FtOrM;
             if (bob < 0.2) bob = 0.2;
             nudTurnDistanceFromBoundary.Value = Math.Round(bob, 2);
 
-            bob = Properties.Settings.Default.set_youTurnRadius * mf.m2FtOrM;
+            bob = Properties.Settings.Default.set_youTurnRadius * glm.m2FtOrM;
             if (bob < 2) bob = 2;
             nudYouTurnRadius.Value = Math.Round(bob, 2);
 
-            lblFtMUTurn.Text = lblFtMTurnRadius.Text = mf.unitsFtM;
+            lblFtMUTurn.Text = lblFtMTurnRadius.Text = glm.unitsFtM;
         }
 
         private void tabUTurn_Leave(object sender, EventArgs e)
@@ -454,12 +454,12 @@ namespace AgOpenGPS
 
         private void nudYouTurnRadius_ValueChanged(object sender, EventArgs e)
         {
-            mf.yt.youTurnRadius = (double)nudYouTurnRadius.Value * mf.ftOrMtoM;
+            mf.yt.youTurnRadius = (double)nudYouTurnRadius.Value * glm.ftOrMtoM;
         }
 
         private void nudTurnDistanceFromBoundary_ValueChanged(object sender, EventArgs e)
         {
-            mf.yt.uturnDistanceFromBoundary = (double)nudTurnDistanceFromBoundary.Value * mf.ftOrMtoM;
+            mf.yt.uturnDistanceFromBoundary = (double)nudTurnDistanceFromBoundary.Value * glm.ftOrMtoM;
         }
 
         private void btnDistanceDn_Click(object sender, EventArgs e)
@@ -492,9 +492,9 @@ namespace AgOpenGPS
         #region Tram
         private void tabTram_Enter(object sender, EventArgs e)
         {
-            lblTramWidthUnits.Text = mf.unitsInCm;
+            lblTramWidthUnits.Text = glm.unitsInCm;
 
-            nudTramWidth.Value = (int)(Math.Abs(Properties.Settings.Default.setTram_tramWidth) * mf.m2InchOrCm);
+            nudTramWidth.Value = (int)(Math.Abs(Properties.Settings.Default.setTram_tramWidth) * glm.m2InchOrCm);
             chkBoxOverrideTramControlPos.Checked = Properties.Settings.Default.setTool_isTramOuterInverted;
             cboxDisplayTramControl.Checked = Properties.Settings.Default.setTool_isDisplayTramControl;
         }
@@ -511,7 +511,7 @@ namespace AgOpenGPS
 
         private void nudTramWidth_ValueChanged(object sender, EventArgs e)
         {
-            mf.tram.tramWidth = (double)nudTramWidth.Value * mf.inchOrCm2m;
+            mf.tram.tramWidth = (double)nudTramWidth.Value * glm.inchOrCm2m;
             Properties.Settings.Default.setTram_tramWidth = mf.tram.tramWidth;
         }
 

@@ -672,7 +672,7 @@ namespace AgOpenGPS
                 label160.Text = label163.Text = label166.Text = "mph";
             }
 
-            label20.Text = mf.unitsInCm;
+            label20.Text = glm.unitsInCm;
         }
 
         private void tabAlarm_Leave(object sender, EventArgs e)
@@ -713,12 +713,12 @@ namespace AgOpenGPS
             if (mf.isMetric)
             {
                 nudSnapDistance.DecimalPlaces = 0;
-                nudSnapDistance.Value = (int)(Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn);
+                nudSnapDistance.Value = (int)(Properties.Settings.Default.setAS_snapDistance * glm.cm2CmOrIn);
             }
             else
             {
                 nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = Math.Round(Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn, 1, MidpointRounding.AwayFromZero);
+                nudSnapDistance.Value = Math.Round(Properties.Settings.Default.setAS_snapDistance * glm.cm2CmOrIn, 1, MidpointRounding.AwayFromZero);
             }
 
             nudGuidanceLookAhead.Value = Properties.Settings.Default.setAS_guidanceLookAheadTime;
@@ -727,7 +727,7 @@ namespace AgOpenGPS
 
             nudcmPerPixel.Value = Properties.Settings.Default.setDisplay_lightbarCmPerPixel;
 
-            label20.Text = mf.unitsInCm;
+            label20.Text = glm.unitsInCm;
         }
 
         private void tabOnTheLine_Leave(object sender, EventArgs e)
@@ -748,7 +748,7 @@ namespace AgOpenGPS
 
         private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_snapDistance = ((double)nudSnapDistance.Value * mf.inOrCm2Cm);
+            Properties.Settings.Default.setAS_snapDistance = ((double)nudSnapDistance.Value * glm.inOrCm2Cm);
         }
 
         private void nudGuidanceLookAhead_ValueChanged(object sender, EventArgs e)

@@ -2416,7 +2416,7 @@ namespace AgOpenGPS
             string offs = "";
 
             if (trk.gArr[trk.idx].nudgeDistance != 0)
-                offs = ((int)(trk.gArr[trk.idx].nudgeDistance * m2InchOrCm)).ToString() + unitsInCmNS;
+                offs = ((int)(trk.gArr[trk.idx].nudgeDistance * glm.m2InchOrCm)).ToString() + glm.unitsInCmNS;
 
             string dire;
 

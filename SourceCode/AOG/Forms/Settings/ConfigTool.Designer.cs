@@ -25,7 +25,7 @@ namespace AgOpenGPS
         #region Config
         private void tabTConfig_Enter(object sender, EventArgs e)
         {
-            lblInchCm2.Text = mf.unitsInCm.ToString();
+            lblInchCm2.Text = glm.unitsInCm.ToString();
 
             if (mf.vehicle.vehicleType != 1)
             {
@@ -123,7 +123,7 @@ namespace AgOpenGPS
             mf.tool.isToolTBT = Properties.Settings.Default.setTool_isToolTBT;
             mf.tool.isToolFrontFixed = Properties.Settings.Default.setTool_isToolFront;
 
-            //mf.tool.hitchLength = (double)nudDrawbarLength.Value * mf.inchOrCm2m;
+            //mf.tool.hitchLength = (double)nudDrawbarLength.Value * glm.inchOrCm2m;
             if (Properties.Settings.Default.setTool_isToolFront && mf.tool.hitchLength < 0)
                 mf.tool.hitchLength *= -1;
             else if (!Properties.Settings.Default.setTool_isToolFront && mf.tool.hitchLength > 0)
@@ -186,7 +186,7 @@ namespace AgOpenGPS
                     picboxToolHitch.BackgroundImage = Properties.Resources.ToolHitchPageTrailing;
                 }
 
-                label112.Text = mf.unitsInCm;
+                label112.Text = glm.unitsInCm;
             }
             else
             {
@@ -199,10 +199,10 @@ namespace AgOpenGPS
                 picboxToolHitch.BackgroundImage = Properties.Resources.ToolHitchPageFrontHarvester;
             }
 
-            nudDrawbarLength.Value = (int)(Math.Abs(Properties.Settings.Default.setVehicle_hitchLength) * mf.m2InchOrCm);
+            nudDrawbarLength.Value = (int)(Math.Abs(Properties.Settings.Default.setVehicle_hitchLength) * glm.m2InchOrCm);
 
-            nudTrailingHitchLength.Value = (int)(Math.Abs(Properties.Settings.Default.setTool_toolTrailingHitchLength) * mf.m2InchOrCm);
-            nudTankHitch.Value = (int)(Math.Abs(Properties.Settings.Default.setVehicle_tankTrailingHitchLength) * mf.m2InchOrCm);
+            nudTrailingHitchLength.Value = (int)(Math.Abs(Properties.Settings.Default.setTool_toolTrailingHitchLength) * glm.m2InchOrCm);
+            nudTankHitch.Value = (int)(Math.Abs(Properties.Settings.Default.setVehicle_tankTrailingHitchLength) * glm.m2InchOrCm);
         }
 
         private void tabTHitch_Leave(object sender, EventArgs e)
@@ -212,7 +212,7 @@ namespace AgOpenGPS
 
         private void nudDrawbarLength_ValueChanged(object sender, EventArgs e)
         {
-            mf.tool.hitchLength = (double)nudDrawbarLength.Value * mf.inchOrCm2m;
+            mf.tool.hitchLength = (double)nudDrawbarLength.Value * glm.inchOrCm2m;
             if (!Properties.Settings.Default.setTool_isToolFront)
             {
                 mf.tool.hitchLength *= -1;
@@ -222,13 +222,13 @@ namespace AgOpenGPS
 
         private void nudTankHitch_ValueChanged(object sender, EventArgs e)
         {
-            mf.tool.tankTrailingHitchLength = (double)nudTankHitch.Value * -mf.inchOrCm2m;
+            mf.tool.tankTrailingHitchLength = (double)nudTankHitch.Value * -glm.inchOrCm2m;
             Properties.Settings.Default.setVehicle_tankTrailingHitchLength = mf.tool.tankTrailingHitchLength;
         }
 
         private void nudTrailingHitchLength_ValueChanged(object sender, EventArgs e)
         {
-            mf.tool.trailingHitchLength = (double)nudTrailingHitchLength.Value * -mf.inchOrCm2m;
+            mf.tool.trailingHitchLength = (double)nudTrailingHitchLength.Value * -glm.inchOrCm2m;
             Properties.Settings.Default.setTool_toolTrailingHitchLength = mf.tool.trailingHitchLength;
         }
 
@@ -310,22 +310,22 @@ namespace AgOpenGPS
         #region offset
         private void tabToolOffset_Enter(object sender, EventArgs e)
         {
-            nudOffset.Value = Math.Abs(Properties.Settings.Default.setVehicle_toolOffset) * mf.m2InchOrCm;
+            nudOffset.Value = Math.Abs(Properties.Settings.Default.setVehicle_toolOffset) * glm.m2InchOrCm;
 
             rbtnToolRightPositive.Checked = false;
             rbtnLeftNegative.Checked = false;
             rbtnToolRightPositive.Checked = Properties.Settings.Default.setVehicle_toolOffset > 0;
             rbtnLeftNegative.Checked = Properties.Settings.Default.setVehicle_toolOffset < 0;
 
-            nudOverlap.Value = Math.Abs(Properties.Settings.Default.setVehicle_toolOverlap) * mf.m2InchOrCm;
+            nudOverlap.Value = Math.Abs(Properties.Settings.Default.setVehicle_toolOverlap) * glm.m2InchOrCm;
 
             rbtnToolOverlap.Checked = false;
             rbtnToolGap.Checked = false;
             rbtnToolOverlap.Checked = Properties.Settings.Default.setVehicle_toolOverlap > 0;
             rbtnToolGap.Checked = Properties.Settings.Default.setVehicle_toolOverlap < 0;
 
-            label175.Text = mf.unitsInCm;
-            label176.Text = mf.unitsInCm;
+            label175.Text = glm.unitsInCm;
+            label176.Text = glm.unitsInCm;
         }
 
         private void tabToolOffset_Leave(object sender, EventArgs e)
@@ -339,9 +339,9 @@ namespace AgOpenGPS
                 rbtnToolRightPositive.Checked = true;
 
             if (rbtnToolRightPositive.Checked)
-                mf.tool.offset = (double)nudOffset.Value * mf.inchOrCm2m;
+                mf.tool.offset = (double)nudOffset.Value * glm.inchOrCm2m;
             else
-                mf.tool.offset = (double)nudOffset.Value * -mf.inchOrCm2m;
+                mf.tool.offset = (double)nudOffset.Value * -glm.inchOrCm2m;
 
             Properties.Settings.Default.setVehicle_toolOffset = mf.tool.offset;
 
@@ -364,9 +364,9 @@ namespace AgOpenGPS
         private void rbtnToolRightPositive_Click(object sender, EventArgs e)
         {
             if (rbtnToolRightPositive.Checked)
-                mf.tool.offset = (double)nudOffset.Value * mf.inchOrCm2m;
+                mf.tool.offset = (double)nudOffset.Value * glm.inchOrCm2m;
             else
-                mf.tool.offset = (double)nudOffset.Value * -mf.inchOrCm2m;
+                mf.tool.offset = (double)nudOffset.Value * -glm.inchOrCm2m;
             Properties.Settings.Default.setVehicle_toolOffset = mf.tool.offset;
 
             rbtnToolRightPositive.Checked = false;
@@ -381,9 +381,9 @@ namespace AgOpenGPS
                 rbtnToolOverlap.Checked = true;
 
             if (rbtnToolOverlap.Checked)
-                mf.tool.overlap = (double)nudOverlap.Value * mf.inchOrCm2m;
+                mf.tool.overlap = (double)nudOverlap.Value * glm.inchOrCm2m;
             else
-                mf.tool.overlap = (double)nudOverlap.Value * -mf.inchOrCm2m;
+                mf.tool.overlap = (double)nudOverlap.Value * -glm.inchOrCm2m;
 
             Properties.Settings.Default.setVehicle_toolOverlap = mf.tool.overlap;
 
@@ -406,9 +406,9 @@ namespace AgOpenGPS
         private void rbtnToolOverlaPGN_Click(object sender, EventArgs e)
         {
             if (rbtnToolOverlap.Checked)
-                mf.tool.overlap = (double)nudOverlap.Value * mf.inchOrCm2m;
+                mf.tool.overlap = (double)nudOverlap.Value * glm.inchOrCm2m;
             else
-                mf.tool.overlap = (double)nudOverlap.Value * -mf.inchOrCm2m;
+                mf.tool.overlap = (double)nudOverlap.Value * -glm.inchOrCm2m;
             Properties.Settings.Default.setVehicle_toolOverlap = mf.tool.overlap;
             
 
@@ -424,14 +424,14 @@ namespace AgOpenGPS
 
         private void tabToolPivot_Enter(object sender, EventArgs e)
         {
-            nudTrailingToolToPivotLength.Value = Math.Abs(Properties.Settings.Default.setTool_trailingToolToPivotLength) * mf.m2InchOrCm;
+            nudTrailingToolToPivotLength.Value = Math.Abs(Properties.Settings.Default.setTool_trailingToolToPivotLength) * glm.m2InchOrCm;
 
             rbtnPivotBehindPos.Checked = false;
             rbtnPivotAheadNeg.Checked = false;
             rbtnPivotBehindPos.Checked = Properties.Settings.Default.setTool_trailingToolToPivotLength > 0;
             rbtnPivotAheadNeg.Checked = Properties.Settings.Default.setTool_trailingToolToPivotLength < 0;
 
-            label177.Text = mf.unitsInCm;
+            label177.Text = glm.unitsInCm;
         }
 
         private void tabToolPivot_Leave(object sender, EventArgs e)
@@ -454,9 +454,9 @@ namespace AgOpenGPS
         private void rbtnPivotBehindPos_Click(object sender, EventArgs e)
         {
             if (rbtnPivotBehindPos.Checked)
-                mf.tool.trailingToolToPivotLength = (double)nudTrailingToolToPivotLength.Value * mf.inchOrCm2m;
+                mf.tool.trailingToolToPivotLength = (double)nudTrailingToolToPivotLength.Value * glm.inchOrCm2m;
             else
-                mf.tool.trailingToolToPivotLength = (double)nudTrailingToolToPivotLength.Value * -mf.inchOrCm2m;
+                mf.tool.trailingToolToPivotLength = (double)nudTrailingToolToPivotLength.Value * -glm.inchOrCm2m;
             Properties.Settings.Default.setTool_trailingToolToPivotLength = mf.tool.trailingToolToPivotLength;
 
             rbtnPivotBehindPos.Checked = false;
@@ -468,9 +468,9 @@ namespace AgOpenGPS
         private void nudTrailingToolToPivotLength_ValueChanged(object sender, EventArgs e)
         {
             if (rbtnPivotBehindPos.Checked)
-                mf.tool.trailingToolToPivotLength = (double)nudTrailingToolToPivotLength.Value * mf.inchOrCm2m;
+                mf.tool.trailingToolToPivotLength = (double)nudTrailingToolToPivotLength.Value * glm.inchOrCm2m;
             else
-                mf.tool.trailingToolToPivotLength = (double)nudTrailingToolToPivotLength.Value * -mf.inchOrCm2m;
+                mf.tool.trailingToolToPivotLength = (double)nudTrailingToolToPivotLength.Value * -glm.inchOrCm2m;
 
             Properties.Settings.Default.setTool_trailingToolToPivotLength = mf.tool.trailingToolToPivotLength;
 
@@ -566,29 +566,29 @@ namespace AgOpenGPS
 
                 cboxNumSections.Text = numberOfSections.ToString();
                 defaultSectionWidth = Properties.Settings.Default.setTool_defaultSectionWidth;
-                nudDefaultSectionWidth.Value = (int)(defaultSectionWidth * mf.m2InchOrCm);
+                nudDefaultSectionWidth.Value = (int)(defaultSectionWidth * glm.m2InchOrCm);
 
                 panelSymmetricSections.Visible = false;
 
                 nudNumberOfSections.Visible = false;
                 cboxNumSections.Visible = true;
 
-                nudSection01.Value = Math.Abs((Properties.Settings.Default.setSection_position2 - Properties.Settings.Default.setSection_position1) * mf.m2InchOrCm);
-                nudSection02.Value = Math.Abs((Properties.Settings.Default.setSection_position3 - Properties.Settings.Default.setSection_position2) * mf.m2InchOrCm);
-                nudSection03.Value = Math.Abs((Properties.Settings.Default.setSection_position4 - Properties.Settings.Default.setSection_position3) * mf.m2InchOrCm);
-                nudSection04.Value = Math.Abs((Properties.Settings.Default.setSection_position5 - Properties.Settings.Default.setSection_position4) * mf.m2InchOrCm);
-                nudSection05.Value = Math.Abs((Properties.Settings.Default.setSection_position6 - Properties.Settings.Default.setSection_position5) * mf.m2InchOrCm);
-                nudSection06.Value = Math.Abs((Properties.Settings.Default.setSection_position7 - Properties.Settings.Default.setSection_position6) * mf.m2InchOrCm);
-                nudSection07.Value = Math.Abs((Properties.Settings.Default.setSection_position8 - Properties.Settings.Default.setSection_position7) * mf.m2InchOrCm);
-                nudSection08.Value = Math.Abs((Properties.Settings.Default.setSection_position9 - Properties.Settings.Default.setSection_position8) * mf.m2InchOrCm);
-                nudSection09.Value = Math.Abs((Properties.Settings.Default.setSection_position10 - Properties.Settings.Default.setSection_position9) * mf.m2InchOrCm);
-                nudSection10.Value = Math.Abs((Properties.Settings.Default.setSection_position11 - Properties.Settings.Default.setSection_position10) * mf.m2InchOrCm);
-                nudSection11.Value = Math.Abs((Properties.Settings.Default.setSection_position12 - Properties.Settings.Default.setSection_position11) * mf.m2InchOrCm);
-                nudSection12.Value = Math.Abs((Properties.Settings.Default.setSection_position13 - Properties.Settings.Default.setSection_position12) * mf.m2InchOrCm);
-                nudSection13.Value = Math.Abs((Properties.Settings.Default.setSection_position14 - Properties.Settings.Default.setSection_position13) * mf.m2InchOrCm);
-                nudSection14.Value = Math.Abs((Properties.Settings.Default.setSection_position15 - Properties.Settings.Default.setSection_position14) * mf.m2InchOrCm);
-                nudSection15.Value = Math.Abs((Properties.Settings.Default.setSection_position16 - Properties.Settings.Default.setSection_position15) * mf.m2InchOrCm);
-                nudSection16.Value = Math.Abs((Properties.Settings.Default.setSection_position17 - Properties.Settings.Default.setSection_position16) * mf.m2InchOrCm);
+                nudSection01.Value = Math.Abs((Properties.Settings.Default.setSection_position2 - Properties.Settings.Default.setSection_position1) * glm.m2InchOrCm);
+                nudSection02.Value = Math.Abs((Properties.Settings.Default.setSection_position3 - Properties.Settings.Default.setSection_position2) * glm.m2InchOrCm);
+                nudSection03.Value = Math.Abs((Properties.Settings.Default.setSection_position4 - Properties.Settings.Default.setSection_position3) * glm.m2InchOrCm);
+                nudSection04.Value = Math.Abs((Properties.Settings.Default.setSection_position5 - Properties.Settings.Default.setSection_position4) * glm.m2InchOrCm);
+                nudSection05.Value = Math.Abs((Properties.Settings.Default.setSection_position6 - Properties.Settings.Default.setSection_position5) * glm.m2InchOrCm);
+                nudSection06.Value = Math.Abs((Properties.Settings.Default.setSection_position7 - Properties.Settings.Default.setSection_position6) * glm.m2InchOrCm);
+                nudSection07.Value = Math.Abs((Properties.Settings.Default.setSection_position8 - Properties.Settings.Default.setSection_position7) * glm.m2InchOrCm);
+                nudSection08.Value = Math.Abs((Properties.Settings.Default.setSection_position9 - Properties.Settings.Default.setSection_position8) * glm.m2InchOrCm);
+                nudSection09.Value = Math.Abs((Properties.Settings.Default.setSection_position10 - Properties.Settings.Default.setSection_position9) * glm.m2InchOrCm);
+                nudSection10.Value = Math.Abs((Properties.Settings.Default.setSection_position11 - Properties.Settings.Default.setSection_position10) * glm.m2InchOrCm);
+                nudSection11.Value = Math.Abs((Properties.Settings.Default.setSection_position12 - Properties.Settings.Default.setSection_position11) * glm.m2InchOrCm);
+                nudSection12.Value = Math.Abs((Properties.Settings.Default.setSection_position13 - Properties.Settings.Default.setSection_position12) * glm.m2InchOrCm);
+                nudSection13.Value = Math.Abs((Properties.Settings.Default.setSection_position14 - Properties.Settings.Default.setSection_position13) * glm.m2InchOrCm);
+                nudSection14.Value = Math.Abs((Properties.Settings.Default.setSection_position15 - Properties.Settings.Default.setSection_position14) * glm.m2InchOrCm);
+                nudSection15.Value = Math.Abs((Properties.Settings.Default.setSection_position16 - Properties.Settings.Default.setSection_position15) * glm.m2InchOrCm);
+                nudSection16.Value = Math.Abs((Properties.Settings.Default.setSection_position17 - Properties.Settings.Default.setSection_position16) * glm.m2InchOrCm);
 
                 //based on number of sections and values update the page before displaying
                 UpdateSpinners();
@@ -607,7 +607,7 @@ namespace AgOpenGPS
                 nudNumberOfSections.Value = numberOfSections;
 
                 defaultSectionWidth = Properties.Settings.Default.setTool_sectionWidthMulti;
-                nudDefaultSectionWidth.Value = Math.Round((defaultSectionWidth * mf.m2InchOrCm),1);
+                nudDefaultSectionWidth.Value = Math.Round((defaultSectionWidth * glm.m2InchOrCm),1);
 
                 SetNudZoneMinMax();
 
@@ -625,13 +625,13 @@ namespace AgOpenGPS
                 cboxNumberOfZones.SelectedIndexChanged += cboxNumberOfZones_SelectedIndexChanged;
 
                 words = Properties.Settings.Default.setTool_zones.Split(',');
-                lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * 100 * mf.cm2CmOrIn));
+                lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * 100 * glm.cm2CmOrIn));
 
                 mf.LineUpAllZoneButtons();
                 SetNudZoneVisibility();
             }
 
-            label178.Text = mf.unitsInCm;
+            label178.Text = glm.unitsInCm;
         }
 
         private void tabTSections_Leave(object sender, EventArgs e)
@@ -1052,7 +1052,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setTool_numSectionsMulti = numberOfSections;
 
 
-            lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * 100 * mf.cm2CmOrIn));
+            lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * 100 * glm.cm2CmOrIn));
             SectionFeetInchesTotalWidthLabelUpdate();
             FillZoneNudsWithDefaultValues();
             SetNudZoneVisibility();
@@ -1060,14 +1060,14 @@ namespace AgOpenGPS
 
         private void nudDefaultSectionWidth_ValueChanged(object sender, EventArgs e)
         {
-            defaultSectionWidth = (double)nudDefaultSectionWidth.Value * mf.inchOrCm2m;
+            defaultSectionWidth = (double)nudDefaultSectionWidth.Value * glm.inchOrCm2m;
 
             if (mf.tool.isSectionsNotZones)
                 Properties.Settings.Default.setTool_defaultSectionWidth = defaultSectionWidth;
             else
                 Properties.Settings.Default.setTool_sectionWidthMulti = defaultSectionWidth;
 
-            //lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * 100 * mf.cm2CmOrIn));
+            //lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * 100 * glm.cm2CmOrIn));
             //SectionFeetInchesTotalWidthLabelUpdate();
         }
 
@@ -1278,22 +1278,22 @@ namespace AgOpenGPS
             int i = numberOfSections;
 
             //convert to meters spinner value
-            sectionWidthArr[0] = nudSection01.Value * mf.inchOrCm2m;
-            sectionWidthArr[1] = nudSection02.Value * mf.inchOrCm2m;
-            sectionWidthArr[2] = nudSection03.Value * mf.inchOrCm2m;
-            sectionWidthArr[3] = nudSection04.Value * mf.inchOrCm2m;
-            sectionWidthArr[4] = nudSection05.Value * mf.inchOrCm2m;
-            sectionWidthArr[5] = nudSection06.Value * mf.inchOrCm2m;
-            sectionWidthArr[6] = nudSection07.Value * mf.inchOrCm2m;
-            sectionWidthArr[7] = nudSection08.Value * mf.inchOrCm2m;
-            sectionWidthArr[8] = nudSection09.Value * mf.inchOrCm2m;
-            sectionWidthArr[9] = nudSection10.Value * mf.inchOrCm2m;
-            sectionWidthArr[10] = nudSection11.Value * mf.inchOrCm2m;
-            sectionWidthArr[11] = nudSection12.Value * mf.inchOrCm2m;
-            sectionWidthArr[12] = nudSection13.Value * mf.inchOrCm2m;
-            sectionWidthArr[13] = nudSection14.Value * mf.inchOrCm2m;
-            sectionWidthArr[14] = nudSection15.Value * mf.inchOrCm2m;
-            sectionWidthArr[15] = nudSection16.Value * mf.inchOrCm2m;
+            sectionWidthArr[0] = nudSection01.Value * glm.inchOrCm2m;
+            sectionWidthArr[1] = nudSection02.Value * glm.inchOrCm2m;
+            sectionWidthArr[2] = nudSection03.Value * glm.inchOrCm2m;
+            sectionWidthArr[3] = nudSection04.Value * glm.inchOrCm2m;
+            sectionWidthArr[4] = nudSection05.Value * glm.inchOrCm2m;
+            sectionWidthArr[5] = nudSection06.Value * glm.inchOrCm2m;
+            sectionWidthArr[6] = nudSection07.Value * glm.inchOrCm2m;
+            sectionWidthArr[7] = nudSection08.Value * glm.inchOrCm2m;
+            sectionWidthArr[8] = nudSection09.Value * glm.inchOrCm2m;
+            sectionWidthArr[9] = nudSection10.Value * glm.inchOrCm2m;
+            sectionWidthArr[10] = nudSection11.Value * glm.inchOrCm2m;
+            sectionWidthArr[11] = nudSection12.Value * glm.inchOrCm2m;
+            sectionWidthArr[12] = nudSection13.Value * glm.inchOrCm2m;
+            sectionWidthArr[13] = nudSection14.Value * glm.inchOrCm2m;
+            sectionWidthArr[14] = nudSection15.Value * glm.inchOrCm2m;
+            sectionWidthArr[15] = nudSection16.Value * glm.inchOrCm2m;
 
             //add up the set widths
             double setWidth = 0;

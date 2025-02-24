@@ -59,18 +59,14 @@ namespace AgOpenGPS
 
         private void UpdateSummary()
         {
-            lblSumWheelbase.Text = (mf.isMetric ?
-                (Properties.Settings.Default.setVehicle_wheelbase * mf.m2InchOrCm).ToString("N0") :
-                (Properties.Settings.Default.setVehicle_wheelbase * mf.m2InchOrCm).ToString("N0"))
-                + mf.unitsInCm;
+            lblSumWheelbase.Text = (Properties.Settings.Default.setVehicle_wheelbase * glm.m2InchOrCm).ToString("N0")
+                + glm.unitsInCm;
 
             lblSumNumSections.Text = mf.tool.numOfSections.ToString();
 
-            string snapDist = mf.isMetric ?
-                Properties.Settings.Default.setAS_snapDistance.ToString() :
-                (Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn).ToString("N1");
+            string snapDist = (Properties.Settings.Default.setAS_snapDistance * glm.cm2CmOrIn).ToString("N1");
 
-            lblNudgeDistance.Text = snapDist + mf.unitsInCm.ToString();
+            lblNudgeDistance.Text = snapDist + glm.unitsInCm.ToString();
             lblUnits.Text = mf.isMetric ? "Metric" : "Imperial";
 
             lblCurrentVehicle.Text = gStr.Get(gs.gsCurrent) + ": "+ RegistrySettings.vehicleFileName;
@@ -81,14 +77,14 @@ namespace AgOpenGPS
                 ConvertMeterToFeet(Properties.Settings.Default.setTram_tramWidth);
 
             lblToolOffset.Text = (mf.isMetric ?
-                (Properties.Settings.Default.setVehicle_toolOffset * mf.m2InchOrCm).ToString() :
-                (Properties.Settings.Default.setVehicle_toolOffset * mf.m2InchOrCm).ToString("N1")) +
-                mf.unitsInCm;
+                (Properties.Settings.Default.setVehicle_toolOffset * glm.m2InchOrCm).ToString() :
+                (Properties.Settings.Default.setVehicle_toolOffset * glm.m2InchOrCm).ToString("N1")) +
+                glm.unitsInCm;
 
             lblOverlap.Text = (mf.isMetric ?
-                (Properties.Settings.Default.setVehicle_toolOverlap * mf.m2InchOrCm).ToString() :
-                (Properties.Settings.Default.setVehicle_toolOverlap * mf.m2InchOrCm).ToString("N1")) +
-                mf.unitsInCm;
+                (Properties.Settings.Default.setVehicle_toolOverlap * glm.m2InchOrCm).ToString() :
+                (Properties.Settings.Default.setVehicle_toolOverlap * glm.m2InchOrCm).ToString("N1")) +
+                glm.unitsInCm;
 
             lblLookahead.Text = Properties.Settings.Default.setVehicle_toolLookAheadOn.ToString() + " sec";
         }

@@ -32,7 +32,7 @@ namespace AgOpenGPS
             else
             {
                 nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = Math.Round(Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn, 1);
+                nudSnapDistance.Value = Math.Round(Properties.Settings.Default.setAS_snapDistance * glm.cm2CmOrIn, 1);
             }
 
             snapAdj = Properties.Settings.Default.setAS_snapDistance * 0.01;
@@ -67,11 +67,11 @@ namespace AgOpenGPS
             if (mf.trk.idx > -1)
             {
                 if (mf.trk.gArr[mf.trk.idx].nudgeDistance == 0)
-                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * mf.m2InchOrCm * -1)).ToString() + mf.unitsInCm;
+                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm * -1)).ToString() + glm.unitsInCm;
                 else if (mf.trk.gArr[mf.trk.idx].nudgeDistance < 0)
-                    lblOffset.Text = "< " + ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * mf.m2InchOrCm * -1)).ToString() + mf.unitsInCm;
+                    lblOffset.Text = "< " + ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm * -1)).ToString() + glm.unitsInCm;
                 else
-                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * mf.m2InchOrCm)).ToString() + " >" + mf.unitsInCm;
+                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm)).ToString() + " >" + glm.unitsInCm;
             }
         }
 
@@ -84,7 +84,7 @@ namespace AgOpenGPS
 
         private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
         {
-            snapAdj = (double)nudSnapDistance.Value * mf.inchOrCm2m;
+            snapAdj = (double)nudSnapDistance.Value * glm.inchOrCm2m;
             Properties.Settings.Default.setAS_snapDistance = snapAdj * 100;
 
             mf.Activate();
@@ -121,9 +121,9 @@ namespace AgOpenGPS
             if (mf.trk.idx > -1 && mf.trk.gArr.Count > 0)
             {
                 if (mf.trk.gArr[mf.trk.idx].nudgeDistance < 0)
-                    lblOffset.Text = "< " + ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * mf.m2InchOrCm * -1)).ToString();
+                    lblOffset.Text = "< " + ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm * -1)).ToString();
                 else
-                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * mf.m2InchOrCm)).ToString() + " >";
+                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm)).ToString() + " >";
             }
         }
 

@@ -45,8 +45,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.chkOffsetsOn = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.nudNorth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEast)).BeginInit();
             this.SuspendLayout();
             // 
             // nudNorth
@@ -288,8 +286,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Shift GPS Position (cm)";
             this.Load += new System.EventHandler(this.FormShiftPos_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.nudNorth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEast)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

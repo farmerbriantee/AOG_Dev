@@ -38,8 +38,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLongitude)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLatitude)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -192,8 +190,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Enter Coordinates For Simulator";
             this.Load += new System.EventHandler(this.FormSimCoords_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.nudLongitude)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLatitude)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

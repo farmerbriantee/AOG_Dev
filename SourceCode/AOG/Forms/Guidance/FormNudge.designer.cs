@@ -41,7 +41,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.nudSnapDistance = new AgOpenGPS.NudlessNumericUpDown();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSnapDistance)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSnapToPivot
@@ -265,7 +264,6 @@
             this.Load += new System.EventHandler(this.FormEditTrack_Load);
             this.MouseEnter += new System.EventHandler(this.FormEditTrack_MouseEnter);
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudSnapDistance)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

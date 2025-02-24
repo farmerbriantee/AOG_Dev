@@ -52,7 +52,6 @@
             this.btnCancelTouch = new System.Windows.Forms.Button();
             this.nudSetDistance = new AgOpenGPS.NudlessNumericUpDown();
             this.tlp1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSetDistance)).BeginInit();
             this.SuspendLayout();
             // 
             // oglSelf
@@ -510,7 +509,6 @@
             this.Load += new System.EventHandler(this.FormHeadLine_Load);
             this.ResizeEnd += new System.EventHandler(this.FormHeadAche_ResizeEnd);
             this.tlp1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudSetDistance)).EndInit();
             this.ResumeLayout(false);
 
         }

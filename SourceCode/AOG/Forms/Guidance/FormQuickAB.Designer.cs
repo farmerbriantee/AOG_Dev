@@ -69,7 +69,6 @@
             this.panelChoose.SuspendLayout();
             this.panelABLine.SuspendLayout();
             this.panelAPlus.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudHeading)).BeginInit();
             this.SuspendLayout();
             // 
             // lblCurveExists
@@ -629,7 +628,6 @@
             this.panelABLine.PerformLayout();
             this.panelAPlus.ResumeLayout(false);
             this.panelAPlus.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudHeading)).EndInit();
             this.ResumeLayout(false);
 
         }

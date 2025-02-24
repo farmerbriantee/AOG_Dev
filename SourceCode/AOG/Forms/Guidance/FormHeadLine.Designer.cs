@@ -50,7 +50,6 @@
             this.rbtnCurve = new System.Windows.Forms.RadioButton();
             this.btnUndo = new System.Windows.Forms.Button();
             this.tlp1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSetDistance)).BeginInit();
             this.SuspendLayout();
             // 
             // oglSelf
@@ -453,7 +452,6 @@
             this.Load += new System.EventHandler(this.FormHeadLine_Load);
             this.ResizeEnd += new System.EventHandler(this.FormHeadLine_ResizeEnd);
             this.tlp1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudSetDistance)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -47,7 +47,6 @@
             this.cboxIsRecBoundaryWhenSectionOn = new System.Windows.Forms.CheckBox();
             this.lblPoints = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.nudOffset)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -239,9 +238,11 @@
             // 
             // nudOffset
             // 
+            this.nudOffset.DecimalPlaces = 2;
+            this.nudOffset.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudOffset.Location = new System.Drawing.Point(8, 10);
             this.nudOffset.Maximum = 50D;
-            this.nudOffset.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudOffset.Mode = AgOpenGPS.UnitMode.Large;
             this.nudOffset.Name = "nudOffset";
             this.nudOffset.Size = new System.Drawing.Size(125, 46);
             this.nudOffset.TabIndex = 149;
@@ -329,7 +330,6 @@
             this.Text = "Stop Record Pause Boundary";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormBoundaryPlayer_FormClosing);
             this.Load += new System.EventHandler(this.FormBoundaryPlayer_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.nudOffset)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

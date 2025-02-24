@@ -38,7 +38,6 @@
             this.btnCancelMain = new System.Windows.Forms.Button();
             this.lblOffset = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSnapDistance)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAdjLeft
@@ -229,7 +228,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormEditTrack_FormClosing);
             this.Load += new System.EventHandler(this.FormEditTrack_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudSnapDistance)).EndInit();
             this.ResumeLayout(false);
 
         }

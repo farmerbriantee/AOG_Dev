@@ -57,13 +57,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.nudRateAlarmPercent = new AgOpenGPS.NudlessNumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTankVolume)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudZeroVolume)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayRateSet2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayMinPressure)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayRateSet1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudNudge)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRateAlarmPercent)).BeginInit();
             this.SuspendLayout();
             // 
             // bntOK
@@ -443,13 +436,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Nozzle Configuration";
             this.Load += new System.EventHandler(this.FormDisplaySettings_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.nudTankVolume)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudZeroVolume)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayRateSet2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayMinPressure)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayRateSet1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudNudge)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRateAlarmPercent)).EndInit();
             this.ResumeLayout(false);
 
         }

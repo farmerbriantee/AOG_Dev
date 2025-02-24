@@ -77,15 +77,6 @@
             this.tabUnits.SuspendLayout();
             this.tabGain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.unoChart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSlowPWM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFastPWM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSwitchAtFlowError)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayKp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudDeadbandError)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayPressureCal)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayFlowCal)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxHz)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinHz)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -671,15 +662,6 @@
             this.tabUnits.PerformLayout();
             this.tabGain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.unoChart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSlowPWM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFastPWM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSwitchAtFlowError)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayKp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudDeadbandError)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayPressureCal)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayFlowCal)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxHz)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinHz)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

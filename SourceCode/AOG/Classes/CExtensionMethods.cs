@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -170,12 +171,11 @@ namespace AgOpenGPS
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) => true; // Enables dropdown in Designer
     }
 
-    public class NudlessNumericUpDown : Button, ISupportInitialize
+    public class NudlessNumericUpDown : Button
     {
         private double _value = double.NaN;
         private double minimum = 0;
         private double maximum = 100;
-        private double increment = 1;
         private int decimalPlaces = 0;
         private bool initializing = true;
         private string format = "0";
@@ -185,7 +185,7 @@ namespace AgOpenGPS
         public NudlessNumericUpDown()
         {
             base.TextAlign = ContentAlignment.MiddleCenter;
-            base.BackColor = Color.AliceBlue;
+            base.BackColor = SystemColors.Control;
             base.ForeColor = Color.Black;
             base.UseVisualStyleBackColor = false;
 
@@ -252,6 +252,7 @@ namespace AgOpenGPS
             set
             {
                 mode = value;
+                RefreshDesigner();
             }
         }
 
@@ -268,33 +269,25 @@ namespace AgOpenGPS
             }
             set
             {
-                if (DesignMode)
+                if (value < minimum)
                 {
-                    //base.AutoSize = false; // Ensures it fits in one line
-                    base.Text = minimum.ToString(format) + "|" + maximum.ToString(format)+ "|" + mode.ToString();
+                    value = minimum;
                 }
-                else if (!initializing)
+                else if (value > maximum)
                 {
-                    if (value < minimum)
-                    {
-                        value = minimum;
-                    }
-                    else if (value > maximum)
-                    {
-                        value = maximum;
-                    }
-                    
-                    if (value != _value)
-                    {
-                        bool isnan = double.IsNaN(_value);
-                        _value = value;
+                    value = maximum;
+                }
 
-                        if (!isnan && onValueChanged != null)
-                        {
-                            onValueChanged(this, EventArgs.Empty);
-                        }
-                        UpdateEditText();
+                if (value != _value)
+                {
+                    _value = value;
+                    initializing = false;
+
+                    if (!initializing && onValueChanged != null)
+                    {
+                        onValueChanged(this, EventArgs.Empty);
                     }
+                    UpdateEditText();
                 }
             }
         }
@@ -336,6 +329,26 @@ namespace AgOpenGPS
                 }
                 if (!initializing)
                     Value = _value;
+
+                RefreshDesigner();
+            }
+        }
+
+        // Force Visual Studio Designer to update when the property changes
+        private void RefreshDesigner()
+        {
+            if (DesignMode)
+            {
+                //base.AutoSize = false; // Ensures it fits in one line
+                if (decimalPlaces > 0)
+                    base.Text = minimum.ToString("0.0#######") + "|" + maximum.ToString("0.0#######") + "|" + mode.ToString();
+                else
+                    base.Text = minimum.ToString("0") + "|" + maximum.ToString("0") + "|" + mode.ToString();
+
+                var host = (IComponentChangeService)GetService(typeof(IComponentChangeService));
+                host?.OnComponentChanged(this, null, null, null);
+                Parent?.Invalidate(); // Force parent container to redraw
+                Parent?.Update();
             }
         }
 
@@ -356,19 +369,8 @@ namespace AgOpenGPS
 
                 if (!initializing)
                     Value = _value;
-            }
-        }
 
-        [DefaultValue(typeof(double), "1")]
-        public double Increment
-        {
-            get
-            {
-                return increment;
-            }
-            set
-            {
-                increment = value;
+                    RefreshDesigner();
             }
         }
 
@@ -387,34 +389,25 @@ namespace AgOpenGPS
                 format = "0";
 
                 if (decimalPlaces > 0)
-                    format = "0.";
 
                 for (int i = 0; i < decimalPlaces; i++)
                 {
-                    format += "0";
+                    if (i == 0)
+                        format = "0.0";
+                    else
+                        format += "0";
                 }
 
                 if (!initializing)
                     UpdateEditText();
+                
+                RefreshDesigner();
             }
-        }
-
-        public void BeginInit()
-        {
-            initializing = true;
-        }
-
-        public void EndInit()
-        {
-            initializing = false;
-
-            Value = _value;
         }
 
         public override string ToString()
         {
-            string text = base.ToString();
-            return text + ", Minimum = " + minimum.ToString("0.0") + ", Maximum = " + maximum.ToString("0.0");
+            return base.ToString() + ", Minimum = " + minimum.ToString("0.0") + ", Maximum = " + maximum.ToString("0.0");
         }
 
         protected void UpdateEditText()

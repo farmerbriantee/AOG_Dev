@@ -39,8 +39,6 @@
             this.btnYellow = new System.Windows.Forms.Button();
             this.btnRed = new System.Windows.Forms.Button();
             this.btnGreen = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLatitude)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLongitude)).BeginInit();
             this.SuspendLayout();
             // 
             // label9
@@ -212,8 +210,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Enter AB or A+";
             this.Load += new System.EventHandler(this.FormEnterAB_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.nudLatitude)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLongitude)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

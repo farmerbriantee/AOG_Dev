@@ -239,7 +239,6 @@
             // nudOffset
             // 
             this.nudOffset.DecimalPlaces = 2;
-            this.nudOffset.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudOffset.Location = new System.Drawing.Point(8, 10);
             this.nudOffset.Maximum = 50D;
             this.nudOffset.Mode = AgOpenGPS.UnitMode.Large;

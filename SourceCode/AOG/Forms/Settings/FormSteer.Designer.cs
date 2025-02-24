@@ -1652,7 +1652,6 @@
             // 
             // nudDeadZoneDelay
             // 
-            this.nudDeadZoneDelay.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDeadZoneDelay.Location = new System.Drawing.Point(224, 37);
             this.nudDeadZoneDelay.Maximum = 10D;
             this.nudDeadZoneDelay.Minimum = 1D;
@@ -1664,7 +1663,6 @@
             // nudDeadZoneHeading
             // 
             this.nudDeadZoneHeading.DecimalPlaces = 1;
-            this.nudDeadZoneHeading.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDeadZoneHeading.Location = new System.Drawing.Point(56, 38);
             this.nudDeadZoneHeading.Maximum = 5D;
             this.nudDeadZoneHeading.Minimum = 0.1D;
@@ -2212,7 +2210,6 @@
             // 
             // nudMaxCounts
             // 
-            this.nudMaxCounts.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMaxCounts.Location = new System.Drawing.Point(61, 207);
             this.nudMaxCounts.Maximum = 255D;
             this.nudMaxCounts.Name = "nudMaxCounts";
@@ -2650,7 +2647,6 @@
             // nudMinSteerSpeed
             // 
             this.nudMinSteerSpeed.DecimalPlaces = 1;
-            this.nudMinSteerSpeed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMinSteerSpeed.Location = new System.Drawing.Point(112, 354);
             this.nudMinSteerSpeed.Maximum = 10D;
             this.nudMinSteerSpeed.Mode = UnitMode.Speed;
@@ -2661,7 +2657,6 @@
             // 
             // nudMaxSteerSpeed
             // 
-            this.nudMaxSteerSpeed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMaxSteerSpeed.Location = new System.Drawing.Point(302, 354);
             this.nudMaxSteerSpeed.Maximum = 50D;
             this.nudMaxSteerSpeed.Mode = UnitMode.Speed;
@@ -2672,7 +2667,6 @@
             // 
             // nudGuidanceSpeedLimit
             // 
-            this.nudGuidanceSpeedLimit.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudGuidanceSpeedLimit.Location = new System.Drawing.Point(207, 140);
             this.nudGuidanceSpeedLimit.Maximum = 20D;
             this.nudGuidanceSpeedLimit.Mode = UnitMode.Speed;
@@ -2972,7 +2966,6 @@
             // 
             // nudcmPerPixel
             // 
-            this.nudcmPerPixel.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudcmPerPixel.Location = new System.Drawing.Point(475, 193);
             this.nudcmPerPixel.Minimum = 1D;
             this.nudcmPerPixel.Name = "nudcmPerPixel";
@@ -2982,7 +2975,6 @@
             // 
             // nudLineWidth
             // 
-            this.nudLineWidth.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLineWidth.Location = new System.Drawing.Point(191, 47);
             this.nudLineWidth.Maximum = 8D;
             this.nudLineWidth.Minimum = 1D;
@@ -2993,7 +2985,6 @@
             // 
             // nudSnapDistance
             // 
-            this.nudSnapDistance.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSnapDistance.Location = new System.Drawing.Point(475, 47);
             this.nudSnapDistance.Maximum = 10D;
             this.nudSnapDistance.Mode = UnitMode.Small;
@@ -3005,7 +2996,6 @@
             // nudGuidanceLookAhead
             // 
             this.nudGuidanceLookAhead.DecimalPlaces = 1;
-            this.nudGuidanceLookAhead.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudGuidanceLookAhead.Location = new System.Drawing.Point(180, 196);
             this.nudGuidanceLookAhead.Maximum = 10D;
             this.nudGuidanceLookAhead.Minimum = 0.1D;

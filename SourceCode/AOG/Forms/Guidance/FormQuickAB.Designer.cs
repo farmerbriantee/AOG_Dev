@@ -568,7 +568,6 @@
             // nudHeading
             // 
             this.nudHeading.DecimalPlaces = 4;
-            this.nudHeading.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudHeading.Location = new System.Drawing.Point(25, 174);
             this.nudHeading.Maximum = 360D;
             this.nudHeading.Name = "nudHeading";

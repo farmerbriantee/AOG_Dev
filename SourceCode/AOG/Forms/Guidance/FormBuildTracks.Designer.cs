@@ -1187,7 +1187,6 @@
             // nudHeading
             // 
             this.nudHeading.DecimalPlaces = 4;
-            this.nudHeading.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudHeading.Location = new System.Drawing.Point(9, 146);
             this.nudHeading.Maximum = 360D;
             this.nudHeading.Name = "nudHeading";
@@ -1300,7 +1299,6 @@
             // nudLatitudePlus
             // 
             this.nudLatitudePlus.DecimalPlaces = 7;
-            this.nudLatitudePlus.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitudePlus.Location = new System.Drawing.Point(90, 58);
             this.nudLatitudePlus.Maximum = 90D;
             this.nudLatitudePlus.Minimum = -90D;
@@ -1311,7 +1309,6 @@
             // nudLongitudePlus
             // 
             this.nudLongitudePlus.DecimalPlaces = 7;
-            this.nudLongitudePlus.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitudePlus.Location = new System.Drawing.Point(90, 138);
             this.nudLongitudePlus.Maximum = 180D;
             this.nudLongitudePlus.Minimum = -180D;
@@ -1358,7 +1355,6 @@
             // nudHeadingLatLonPlus
             // 
             this.nudHeadingLatLonPlus.DecimalPlaces = 4;
-            this.nudHeadingLatLonPlus.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudHeadingLatLonPlus.Location = new System.Drawing.Point(90, 250);
             this.nudHeadingLatLonPlus.Maximum = 360D;
             this.nudHeadingLatLonPlus.Name = "nudHeadingLatLonPlus";
@@ -1488,7 +1484,6 @@
             // nudLatitudeB
             // 
             this.nudLatitudeB.DecimalPlaces = 7;
-            this.nudLatitudeB.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitudeB.Location = new System.Drawing.Point(81, 194);
             this.nudLatitudeB.Maximum = 90D;
             this.nudLatitudeB.Minimum = -90D;
@@ -1499,7 +1494,6 @@
             // nudLongitudeB
             // 
             this.nudLongitudeB.DecimalPlaces = 7;
-            this.nudLongitudeB.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitudeB.Location = new System.Drawing.Point(81, 273);
             this.nudLongitudeB.Maximum = 180D;
             this.nudLongitudeB.Minimum = -180D;
@@ -1536,7 +1530,6 @@
             // nudLatitudeA
             // 
             this.nudLatitudeA.DecimalPlaces = 7;
-            this.nudLatitudeA.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitudeA.Location = new System.Drawing.Point(81, 27);
             this.nudLatitudeA.Maximum = 90D;
             this.nudLatitudeA.Minimum = -90D;
@@ -1547,7 +1540,6 @@
             // nudLongitudeA
             // 
             this.nudLongitudeA.DecimalPlaces = 7;
-            this.nudLongitudeA.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitudeA.Location = new System.Drawing.Point(81, 107);
             this.nudLongitudeA.Maximum = 180D;
             this.nudLongitudeA.Minimum = -180D;
@@ -1665,7 +1657,6 @@
             // nudLatitudePivot
             // 
             this.nudLatitudePivot.DecimalPlaces = 7;
-            this.nudLatitudePivot.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitudePivot.Location = new System.Drawing.Point(72, 58);
             this.nudLatitudePivot.Maximum = 90D;
             this.nudLatitudePivot.Minimum = -90D;
@@ -1676,7 +1667,6 @@
             // nudLongitudePivot
             // 
             this.nudLongitudePivot.DecimalPlaces = 7;
-            this.nudLongitudePivot.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitudePivot.Location = new System.Drawing.Point(72, 138);
             this.nudLongitudePivot.Maximum = 180D;
             this.nudLongitudePivot.Minimum = -180D;

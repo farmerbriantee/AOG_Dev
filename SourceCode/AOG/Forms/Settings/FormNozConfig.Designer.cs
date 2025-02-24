@@ -537,7 +537,6 @@
             // 
             // nudSlowPWM
             // 
-            this.nudSlowPWM.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSlowPWM.Location = new System.Drawing.Point(16, 108);
             this.nudSlowPWM.Minimum = 10D;
             this.nudSlowPWM.Name = "nudSlowPWM";
@@ -547,7 +546,6 @@
             // 
             // nudFastPWM
             // 
-            this.nudFastPWM.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudFastPWM.Location = new System.Drawing.Point(16, 22);
             this.nudFastPWM.Minimum = 10D;
             this.nudFastPWM.Name = "nudFastPWM";
@@ -557,7 +555,6 @@
             // 
             // nudSwitchAtFlowError
             // 
-            this.nudSwitchAtFlowError.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSwitchAtFlowError.Location = new System.Drawing.Point(16, 205);
             this.nudSwitchAtFlowError.Minimum = 1D;
             this.nudSwitchAtFlowError.Name = "nudSwitchAtFlowError";
@@ -567,7 +564,6 @@
             // 
             // nudSprayKp
             // 
-            this.nudSprayKp.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSprayKp.Location = new System.Drawing.Point(208, 107);
             this.nudSprayKp.Maximum = 200D;
             this.nudSprayKp.Minimum = 10D;
@@ -578,7 +574,6 @@
             // 
             // nudDeadbandError
             // 
-            this.nudDeadbandError.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDeadbandError.Location = new System.Drawing.Point(210, 18);
             this.nudDeadbandError.Minimum = 1D;
             this.nudDeadbandError.Name = "nudDeadbandError";
@@ -588,7 +583,6 @@
             // 
             // nudSprayPressureCal
             // 
-            this.nudSprayPressureCal.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSprayPressureCal.Location = new System.Drawing.Point(17, 201);
             this.nudSprayPressureCal.Maximum = 200D;
             this.nudSprayPressureCal.Minimum = 1D;
@@ -599,7 +593,6 @@
             // 
             // nudSprayFlowCal
             // 
-            this.nudSprayFlowCal.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSprayFlowCal.Location = new System.Drawing.Point(17, 111);
             this.nudSprayFlowCal.Maximum = 20000D;
             this.nudSprayFlowCal.Minimum = 100D;
@@ -610,7 +603,6 @@
             // 
             // nudMaxHz
             // 
-            this.nudMaxHz.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMaxHz.Location = new System.Drawing.Point(217, 21);
             this.nudMaxHz.Maximum = 200D;
             this.nudMaxHz.Minimum = 10D;
@@ -620,7 +612,6 @@
             // 
             // nudMinHz
             // 
-            this.nudMinHz.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMinHz.Location = new System.Drawing.Point(14, 21);
             this.nudMinHz.Maximum = 200D;
             this.nudMinHz.Minimum = 10D;

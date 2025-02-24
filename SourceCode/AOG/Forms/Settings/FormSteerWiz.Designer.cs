@@ -1366,7 +1366,6 @@
             // nudMaxCounts
             // 
             this.nudMaxCounts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudMaxCounts.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMaxCounts.Location = new System.Drawing.Point(58, 239);
             this.nudMaxCounts.Maximum = 255D;
             this.nudMaxCounts.Name = "nudMaxCounts";
@@ -1795,7 +1794,6 @@
             // nudWheelbase
             // 
             this.nudWheelbase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudWheelbase.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudWheelbase.Location = new System.Drawing.Point(90, 231);
             this.nudWheelbase.Maximum = 10D;
             this.nudWheelbase.Mode = UnitMode.Small;
@@ -1869,7 +1867,6 @@
             // nudVehicleTrack
             // 
             this.nudVehicleTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudVehicleTrack.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudVehicleTrack.Location = new System.Drawing.Point(423, 185);
             this.nudVehicleTrack.Maximum = 10D;
             this.nudVehicleTrack.Mode = UnitMode.Small;
@@ -2013,7 +2010,6 @@
             // nudAntennaPivot
             // 
             this.nudAntennaPivot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudAntennaPivot.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaPivot.Location = new System.Drawing.Point(230, 226);
             this.nudAntennaPivot.Maximum = 10D;
             this.nudAntennaPivot.Mode = UnitMode.Small;
@@ -2130,7 +2126,6 @@
             // nudAntennaHeight
             // 
             this.nudAntennaHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudAntennaHeight.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaHeight.Location = new System.Drawing.Point(465, 87);
             this.nudAntennaHeight.Maximum = 10D;
             this.nudAntennaHeight.Mode = UnitMode.Small;
@@ -2220,7 +2215,6 @@
             // nudAntennaOffset
             // 
             this.nudAntennaOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudAntennaOffset.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaOffset.Location = new System.Drawing.Point(250, 65);
             this.nudAntennaOffset.Maximum = 10D;
             this.nudAntennaOffset.Mode = UnitMode.Small;

@@ -127,7 +127,6 @@
             // 
             this.nudSnapDistance.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tableLayoutPanel1.SetColumnSpan(this.nudSnapDistance, 2);
-            this.nudSnapDistance.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSnapDistance.Location = new System.Drawing.Point(37, 214);
             this.nudSnapDistance.Maximum = 10D;
             this.nudSnapDistance.Mode = UnitMode.Small;

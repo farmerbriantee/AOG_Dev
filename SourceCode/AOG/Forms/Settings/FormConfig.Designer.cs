@@ -2497,7 +2497,6 @@
             // 
             // nudAntennaOffset
             // 
-            this.nudAntennaOffset.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaOffset.Location = new System.Drawing.Point(474, 352);
             this.nudAntennaOffset.Maximum = 10D;
             this.nudAntennaOffset.Mode = UnitMode.Small;
@@ -2508,7 +2507,6 @@
             // 
             // nudAntennaHeight
             // 
-            this.nudAntennaHeight.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaHeight.Location = new System.Drawing.Point(392, 208);
             this.nudAntennaHeight.Maximum = 10D;
             this.nudAntennaHeight.Mode = UnitMode.Small;
@@ -2519,7 +2517,6 @@
             // 
             // nudAntennaPivot
             // 
-            this.nudAntennaPivot.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudAntennaPivot.Location = new System.Drawing.Point(126, 43);
             this.nudAntennaPivot.Maximum = 10D;
             this.nudAntennaPivot.Mode = UnitMode.Small;
@@ -2629,7 +2626,6 @@
             // 
             // nudTractorHitchLength
             // 
-            this.nudTractorHitchLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTractorHitchLength.Location = new System.Drawing.Point(37, 272);
             this.nudTractorHitchLength.Maximum = 40D;
             this.nudTractorHitchLength.Mode = UnitMode.Small;
@@ -2640,11 +2636,10 @@
             // 
             // nudVehicleTrack
             // 
-            this.nudVehicleTrack.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudVehicleTrack.Location = new System.Drawing.Point(700, 165);
             this.nudVehicleTrack.Maximum = 20D;
-            this.nudVehicleTrack.Mode = UnitMode.Small;
             this.nudVehicleTrack.Minimum = 0.2D;
+            this.nudVehicleTrack.Mode = UnitMode.Small;
             this.nudVehicleTrack.Name = "nudVehicleTrack";
             this.nudVehicleTrack.Size = new System.Drawing.Size(133, 52);
             this.nudVehicleTrack.TabIndex = 53;
@@ -2652,11 +2647,10 @@
             // 
             // nudWheelbase
             // 
-            this.nudWheelbase.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudWheelbase.Location = new System.Drawing.Point(179, 397);
             this.nudWheelbase.Maximum = 20D;
-            this.nudWheelbase.Mode = UnitMode.Small;
             this.nudWheelbase.Minimum = 0.5D;
+            this.nudWheelbase.Mode = UnitMode.Small;
             this.nudWheelbase.Name = "nudWheelbase";
             this.nudWheelbase.Size = new System.Drawing.Size(152, 52);
             this.nudWheelbase.TabIndex = 52;
@@ -2830,11 +2824,10 @@
             // 
             // nudTrailingHitchLength
             // 
-            this.nudTrailingHitchLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTrailingHitchLength.Location = new System.Drawing.Point(456, 407);
             this.nudTrailingHitchLength.Maximum = 30D;
-            this.nudTrailingHitchLength.Mode = UnitMode.Small;
             this.nudTrailingHitchLength.Minimum = 0.1D;
+            this.nudTrailingHitchLength.Mode = UnitMode.Small;
             this.nudTrailingHitchLength.Name = "nudTrailingHitchLength";
             this.nudTrailingHitchLength.Size = new System.Drawing.Size(124, 52);
             this.nudTrailingHitchLength.TabIndex = 3;
@@ -2842,7 +2835,6 @@
             // 
             // nudDrawbarLength
             // 
-            this.nudDrawbarLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDrawbarLength.Location = new System.Drawing.Point(401, 407);
             this.nudDrawbarLength.Maximum = 30D;
             this.nudDrawbarLength.Mode = UnitMode.Small;
@@ -2853,11 +2845,10 @@
             // 
             // nudTankHitch
             // 
-            this.nudTankHitch.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTankHitch.Location = new System.Drawing.Point(643, 407);
             this.nudTankHitch.Maximum = 30D;
-            this.nudTankHitch.Mode = UnitMode.Small;
             this.nudTankHitch.Minimum = 0.1D;
+            this.nudTankHitch.Mode = UnitMode.Small;
             this.nudTankHitch.Name = "nudTankHitch";
             this.nudTankHitch.Size = new System.Drawing.Size(124, 52);
             this.nudTankHitch.TabIndex = 2;
@@ -3094,7 +3085,6 @@
             // 
             // nudOverlap
             // 
-            this.nudOverlap.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudOverlap.Location = new System.Drawing.Point(656, 109);
             this.nudOverlap.Maximum = 10D;
             this.nudOverlap.Mode = UnitMode.Small;
@@ -3105,7 +3095,6 @@
             // 
             // nudOffset
             // 
-            this.nudOffset.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudOffset.Location = new System.Drawing.Point(233, 109);
             this.nudOffset.Maximum = 25D;
             this.nudOffset.Mode = UnitMode.Small;
@@ -3194,7 +3183,6 @@
             // 
             // nudTrailingToolToPivotLength
             // 
-            this.nudTrailingToolToPivotLength.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTrailingToolToPivotLength.Location = new System.Drawing.Point(320, 337);
             this.nudTrailingToolToPivotLength.Maximum = 20D;
             this.nudTrailingToolToPivotLength.Mode = UnitMode.Small;
@@ -3310,7 +3298,6 @@
             // nudZone8To
             // 
             this.nudZone8To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone8To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone8To.Location = new System.Drawing.Point(751, 186);
             this.nudZone8To.Maximum = 50D;
             this.nudZone8To.Mode = UnitMode.Small;
@@ -3364,7 +3351,6 @@
             // nudZone7To
             // 
             this.nudZone7To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone7To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone7To.Location = new System.Drawing.Point(526, 189);
             this.nudZone7To.Maximum = 50D;
             this.nudZone7To.Mode = UnitMode.Small;
@@ -3418,7 +3404,6 @@
             // nudZone6To
             // 
             this.nudZone6To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone6To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone6To.Location = new System.Drawing.Point(302, 188);
             this.nudZone6To.Maximum = 50D;
             this.nudZone6To.Mode = UnitMode.Small;
@@ -3431,7 +3416,6 @@
             // nudZone4To
             // 
             this.nudZone4To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone4To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone4To.Location = new System.Drawing.Point(751, 68);
             this.nudZone4To.Maximum = 50D;
             this.nudZone4To.Mode = UnitMode.Small;
@@ -3444,7 +3428,6 @@
             // nudZone1To
             // 
             this.nudZone1To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone1To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone1To.Location = new System.Drawing.Point(81, 69);
             this.nudZone1To.Maximum = 50D;
             this.nudZone1To.Mode = UnitMode.Small;
@@ -3457,7 +3440,6 @@
             // nudZone5To
             // 
             this.nudZone5To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone5To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone5To.Location = new System.Drawing.Point(81, 187);
             this.nudZone5To.Maximum = 50D;
             this.nudZone5To.Mode = UnitMode.Small;
@@ -3470,7 +3452,6 @@
             // nudZone3To
             // 
             this.nudZone3To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone3To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone3To.Location = new System.Drawing.Point(526, 70);
             this.nudZone3To.Maximum = 50D;
             this.nudZone3To.Mode = UnitMode.Small;
@@ -3483,7 +3464,6 @@
             // nudZone2To
             // 
             this.nudZone2To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone2To.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZone2To.Location = new System.Drawing.Point(302, 70);
             this.nudZone2To.Maximum = 50D;
             this.nudZone2To.Mode = UnitMode.Small;
@@ -4197,7 +4177,6 @@
             // 
             this.nudCutoffSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudCutoffSpeed.DecimalPlaces = 1;
-            this.nudCutoffSpeed.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCutoffSpeed.Location = new System.Drawing.Point(654, 508);
             this.nudCutoffSpeed.Maximum = 30D;
             this.nudCutoffSpeed.Mode = UnitMode.Speed;
@@ -4209,11 +4188,10 @@
             // nudDefaultSectionWidth
             // 
             this.nudDefaultSectionWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudDefaultSectionWidth.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDefaultSectionWidth.Location = new System.Drawing.Point(216, 353);
             this.nudDefaultSectionWidth.Maximum = 10D;
-            this.nudDefaultSectionWidth.Mode = UnitMode.Small;
             this.nudDefaultSectionWidth.Minimum = 0.1D;
+            this.nudDefaultSectionWidth.Mode = UnitMode.Small;
             this.nudDefaultSectionWidth.Name = "nudDefaultSectionWidth";
             this.nudDefaultSectionWidth.Size = new System.Drawing.Size(179, 52);
             this.nudDefaultSectionWidth.TabIndex = 296;
@@ -4222,7 +4200,6 @@
             // nudMinCoverage
             // 
             this.nudMinCoverage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudMinCoverage.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudMinCoverage.Location = new System.Drawing.Point(258, 508);
             this.nudMinCoverage.Name = "nudMinCoverage";
             this.nudMinCoverage.Size = new System.Drawing.Size(132, 52);
@@ -4232,11 +4209,10 @@
             // nudSection16
             // 
             this.nudSection16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection16.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection16.Location = new System.Drawing.Point(743, 104);
             this.nudSection16.Maximum = 50D;
-            this.nudSection16.Mode = UnitMode.Small;
             this.nudSection16.Minimum = 0.01D;
+            this.nudSection16.Mode = UnitMode.Small;
             this.nudSection16.Name = "nudSection16";
             this.nudSection16.Size = new System.Drawing.Size(87, 36);
             this.nudSection16.TabIndex = 289;
@@ -4245,11 +4221,10 @@
             // nudSection15
             // 
             this.nudSection15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection15.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection15.Location = new System.Drawing.Point(638, 104);
             this.nudSection15.Maximum = 50D;
-            this.nudSection15.Mode = UnitMode.Small;
             this.nudSection15.Minimum = 0.01D;
+            this.nudSection15.Mode = UnitMode.Small;
             this.nudSection15.Name = "nudSection15";
             this.nudSection15.Size = new System.Drawing.Size(87, 36);
             this.nudSection15.TabIndex = 285;
@@ -4258,11 +4233,10 @@
             // nudSection14
             // 
             this.nudSection14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection14.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection14.Location = new System.Drawing.Point(533, 104);
             this.nudSection14.Maximum = 50D;
-            this.nudSection14.Mode = UnitMode.Small;
             this.nudSection14.Minimum = 0.01D;
+            this.nudSection14.Mode = UnitMode.Small;
             this.nudSection14.Name = "nudSection14";
             this.nudSection14.Size = new System.Drawing.Size(87, 36);
             this.nudSection14.TabIndex = 284;
@@ -4271,11 +4245,10 @@
             // nudSection13
             // 
             this.nudSection13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection13.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection13.Location = new System.Drawing.Point(428, 104);
             this.nudSection13.Maximum = 50D;
-            this.nudSection13.Mode = UnitMode.Small;
             this.nudSection13.Minimum = 0.01D;
+            this.nudSection13.Mode = UnitMode.Small;
             this.nudSection13.Name = "nudSection13";
             this.nudSection13.Size = new System.Drawing.Size(87, 36);
             this.nudSection13.TabIndex = 283;
@@ -4284,11 +4257,10 @@
             // nudSection12
             // 
             this.nudSection12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection12.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection12.Location = new System.Drawing.Point(323, 104);
             this.nudSection12.Maximum = 50D;
-            this.nudSection12.Mode = UnitMode.Small;
             this.nudSection12.Minimum = 0.01D;
+            this.nudSection12.Mode = UnitMode.Small;
             this.nudSection12.Name = "nudSection12";
             this.nudSection12.Size = new System.Drawing.Size(87, 36);
             this.nudSection12.TabIndex = 270;
@@ -4297,11 +4269,10 @@
             // nudSection11
             // 
             this.nudSection11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection11.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection11.Location = new System.Drawing.Point(218, 104);
             this.nudSection11.Maximum = 50D;
-            this.nudSection11.Mode = UnitMode.Small;
             this.nudSection11.Minimum = 0.01D;
+            this.nudSection11.Mode = UnitMode.Small;
             this.nudSection11.Name = "nudSection11";
             this.nudSection11.Size = new System.Drawing.Size(87, 36);
             this.nudSection11.TabIndex = 269;
@@ -4310,11 +4281,10 @@
             // nudSection10
             // 
             this.nudSection10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection10.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection10.Location = new System.Drawing.Point(113, 104);
             this.nudSection10.Maximum = 50D;
-            this.nudSection10.Mode = UnitMode.Small;
             this.nudSection10.Minimum = 0.01D;
+            this.nudSection10.Mode = UnitMode.Small;
             this.nudSection10.Name = "nudSection10";
             this.nudSection10.Size = new System.Drawing.Size(87, 36);
             this.nudSection10.TabIndex = 268;
@@ -4323,11 +4293,10 @@
             // nudSection09
             // 
             this.nudSection09.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection09.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection09.Location = new System.Drawing.Point(8, 104);
             this.nudSection09.Maximum = 50D;
-            this.nudSection09.Mode = UnitMode.Small;
             this.nudSection09.Minimum = 0.01D;
+            this.nudSection09.Mode = UnitMode.Small;
             this.nudSection09.Name = "nudSection09";
             this.nudSection09.Size = new System.Drawing.Size(87, 36);
             this.nudSection09.TabIndex = 267;
@@ -4336,11 +4305,10 @@
             // nudSection08
             // 
             this.nudSection08.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection08.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection08.Location = new System.Drawing.Point(743, 233);
             this.nudSection08.Maximum = 50D;
-            this.nudSection08.Mode = UnitMode.Small;
             this.nudSection08.Minimum = 0.01D;
+            this.nudSection08.Mode = UnitMode.Small;
             this.nudSection08.Name = "nudSection08";
             this.nudSection08.Size = new System.Drawing.Size(87, 36);
             this.nudSection08.TabIndex = 266;
@@ -4349,11 +4317,10 @@
             // nudSection07
             // 
             this.nudSection07.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection07.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection07.Location = new System.Drawing.Point(638, 233);
             this.nudSection07.Maximum = 50D;
-            this.nudSection07.Mode = UnitMode.Small;
             this.nudSection07.Minimum = 0.01D;
+            this.nudSection07.Mode = UnitMode.Small;
             this.nudSection07.Name = "nudSection07";
             this.nudSection07.Size = new System.Drawing.Size(87, 36);
             this.nudSection07.TabIndex = 265;
@@ -4362,11 +4329,10 @@
             // nudSection06
             // 
             this.nudSection06.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection06.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection06.Location = new System.Drawing.Point(533, 233);
             this.nudSection06.Maximum = 50D;
-            this.nudSection06.Mode = UnitMode.Small;
             this.nudSection06.Minimum = 0.01D;
+            this.nudSection06.Mode = UnitMode.Small;
             this.nudSection06.Name = "nudSection06";
             this.nudSection06.Size = new System.Drawing.Size(87, 36);
             this.nudSection06.TabIndex = 264;
@@ -4375,11 +4341,10 @@
             // nudSection05
             // 
             this.nudSection05.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection05.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection05.Location = new System.Drawing.Point(428, 233);
             this.nudSection05.Maximum = 50D;
-            this.nudSection05.Mode = UnitMode.Small;
             this.nudSection05.Minimum = 0.01D;
+            this.nudSection05.Mode = UnitMode.Small;
             this.nudSection05.Name = "nudSection05";
             this.nudSection05.Size = new System.Drawing.Size(87, 36);
             this.nudSection05.TabIndex = 263;
@@ -4388,11 +4353,10 @@
             // nudSection04
             // 
             this.nudSection04.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection04.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection04.Location = new System.Drawing.Point(323, 233);
             this.nudSection04.Maximum = 50D;
-            this.nudSection04.Mode = UnitMode.Small;
             this.nudSection04.Minimum = 0.01D;
+            this.nudSection04.Mode = UnitMode.Small;
             this.nudSection04.Name = "nudSection04";
             this.nudSection04.Size = new System.Drawing.Size(87, 36);
             this.nudSection04.TabIndex = 262;
@@ -4401,11 +4365,10 @@
             // nudSection03
             // 
             this.nudSection03.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection03.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection03.Location = new System.Drawing.Point(218, 233);
             this.nudSection03.Maximum = 50D;
-            this.nudSection03.Mode = UnitMode.Small;
             this.nudSection03.Minimum = 0.01D;
+            this.nudSection03.Mode = UnitMode.Small;
             this.nudSection03.Name = "nudSection03";
             this.nudSection03.Size = new System.Drawing.Size(87, 36);
             this.nudSection03.TabIndex = 261;
@@ -4414,11 +4377,10 @@
             // nudSection02
             // 
             this.nudSection02.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection02.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection02.Location = new System.Drawing.Point(113, 233);
             this.nudSection02.Maximum = 50D;
-            this.nudSection02.Mode = UnitMode.Small;
             this.nudSection02.Minimum = 0.01D;
+            this.nudSection02.Mode = UnitMode.Small;
             this.nudSection02.Name = "nudSection02";
             this.nudSection02.Size = new System.Drawing.Size(87, 36);
             this.nudSection02.TabIndex = 260;
@@ -4427,11 +4389,10 @@
             // nudSection01
             // 
             this.nudSection01.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudSection01.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSection01.Location = new System.Drawing.Point(8, 233);
             this.nudSection01.Maximum = 50D;
-            this.nudSection01.Mode = UnitMode.Small;
             this.nudSection01.Minimum = 0.01D;
+            this.nudSection01.Mode = UnitMode.Small;
             this.nudSection01.Name = "nudSection01";
             this.nudSection01.Size = new System.Drawing.Size(87, 36);
             this.nudSection01.TabIndex = 259;
@@ -4440,7 +4401,6 @@
             // nudNumberOfSections
             // 
             this.nudNumberOfSections.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudNumberOfSections.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudNumberOfSections.Location = new System.Drawing.Point(486, 355);
             this.nudNumberOfSections.Minimum = 1D;
             this.nudNumberOfSections.Name = "nudNumberOfSections";
@@ -4739,7 +4699,6 @@
             // 
             this.nudLookAheadOff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudLookAheadOff.DecimalPlaces = 1;
-            this.nudLookAheadOff.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLookAheadOff.Location = new System.Drawing.Point(363, 467);
             this.nudLookAheadOff.Maximum = 20D;
             this.nudLookAheadOff.Name = "nudLookAheadOff";
@@ -4751,7 +4710,6 @@
             // 
             this.nudTurnOffDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudTurnOffDelay.DecimalPlaces = 1;
-            this.nudTurnOffDelay.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTurnOffDelay.Location = new System.Drawing.Point(649, 467);
             this.nudTurnOffDelay.Maximum = 10D;
             this.nudTurnOffDelay.Name = "nudTurnOffDelay";
@@ -4763,7 +4721,6 @@
             // 
             this.nudLookAhead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudLookAhead.DecimalPlaces = 1;
-            this.nudLookAhead.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLookAhead.Location = new System.Drawing.Point(78, 467);
             this.nudLookAhead.Maximum = 22D;
             this.nudLookAhead.Minimum = 0.2D;
@@ -4882,11 +4839,10 @@
             // nudDualReverseDistance
             // 
             this.nudDualReverseDistance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudDualReverseDistance.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDualReverseDistance.Location = new System.Drawing.Point(191, 218);
             this.nudDualReverseDistance.Maximum = 0.9D;
-            this.nudDualReverseDistance.Mode = UnitMode.Small;
             this.nudDualReverseDistance.Minimum = 0.1D;
+            this.nudDualReverseDistance.Mode = UnitMode.Small;
             this.nudDualReverseDistance.Name = "nudDualReverseDistance";
             this.nudDualReverseDistance.Size = new System.Drawing.Size(144, 52);
             this.nudDualReverseDistance.TabIndex = 472;
@@ -4906,7 +4862,6 @@
             // 
             this.nudDualHeadingOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudDualHeadingOffset.DecimalPlaces = 1;
-            this.nudDualHeadingOffset.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDualHeadingOffset.Location = new System.Drawing.Point(191, 90);
             this.nudDualHeadingOffset.Minimum = -100D;
             this.nudDualHeadingOffset.Name = "nudDualHeadingOffset";
@@ -5191,7 +5146,6 @@
             // nudFixJumpDistance
             // 
             this.nudFixJumpDistance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudFixJumpDistance.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudFixJumpDistance.Location = new System.Drawing.Point(965, 279);
             this.nudFixJumpDistance.Maximum = 1000D;
             this.nudFixJumpDistance.Name = "nudFixJumpDistance";
@@ -5661,10 +5615,9 @@
             // nudYouTurnRadius
             // 
             this.nudYouTurnRadius.DecimalPlaces = 2;
-            this.nudYouTurnRadius.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudYouTurnRadius.Location = new System.Drawing.Point(582, 154);
-            this.nudYouTurnRadius.Mode = UnitMode.Large;
             this.nudYouTurnRadius.Minimum = 0.02D;
+            this.nudYouTurnRadius.Mode = UnitMode.Large;
             this.nudYouTurnRadius.Name = "nudYouTurnRadius";
             this.nudYouTurnRadius.Size = new System.Drawing.Size(160, 52);
             this.nudYouTurnRadius.TabIndex = 471;
@@ -5673,7 +5626,6 @@
             // nudTurnDistanceFromBoundary
             // 
             this.nudTurnDistanceFromBoundary.DecimalPlaces = 2;
-            this.nudTurnDistanceFromBoundary.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTurnDistanceFromBoundary.Location = new System.Drawing.Point(582, 434);
             this.nudTurnDistanceFromBoundary.Mode = UnitMode.Large;
             this.nudTurnDistanceFromBoundary.Name = "nudTurnDistanceFromBoundary";
@@ -6963,7 +6915,6 @@
             // nudHydLiftLookAhead
             // 
             this.nudHydLiftLookAhead.DecimalPlaces = 1;
-            this.nudHydLiftLookAhead.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudHydLiftLookAhead.Location = new System.Drawing.Point(34, 278);
             this.nudHydLiftLookAhead.Maximum = 20D;
             this.nudHydLiftLookAhead.Minimum = 1D;
@@ -7048,7 +6999,6 @@
             // 
             // nudLowerTime
             // 
-            this.nudLowerTime.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLowerTime.Location = new System.Drawing.Point(226, 279);
             this.nudLowerTime.Maximum = 255D;
             this.nudLowerTime.Minimum = 1D;
@@ -7069,7 +7019,6 @@
             // 
             // nudRaiseTime
             // 
-            this.nudRaiseTime.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudRaiseTime.Location = new System.Drawing.Point(226, 75);
             this.nudRaiseTime.Maximum = 255D;
             this.nudRaiseTime.Minimum = 1D;
@@ -7169,7 +7118,6 @@
             // nudUser4
             // 
             this.nudUser4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudUser4.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudUser4.Location = new System.Drawing.Point(659, 342);
             this.nudUser4.Maximum = 255D;
             this.nudUser4.Name = "nudUser4";
@@ -7180,7 +7128,6 @@
             // nudUser3
             // 
             this.nudUser3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudUser3.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudUser3.Location = new System.Drawing.Point(659, 253);
             this.nudUser3.Maximum = 255D;
             this.nudUser3.Name = "nudUser3";
@@ -7191,7 +7138,6 @@
             // nudUser2
             // 
             this.nudUser2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudUser2.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudUser2.Location = new System.Drawing.Point(659, 164);
             this.nudUser2.Maximum = 255D;
             this.nudUser2.Name = "nudUser2";
@@ -7202,7 +7148,6 @@
             // nudUser1
             // 
             this.nudUser1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudUser1.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudUser1.Location = new System.Drawing.Point(659, 75);
             this.nudUser1.Maximum = 255D;
             this.nudUser1.Name = "nudUser1";
@@ -7334,11 +7279,10 @@
             // nudTramWidth
             // 
             this.nudTramWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudTramWidth.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTramWidth.Location = new System.Drawing.Point(291, 105);
             this.nudTramWidth.Maximum = 50D;
-            this.nudTramWidth.Mode = UnitMode.Small;
             this.nudTramWidth.Minimum = 1D;
+            this.nudTramWidth.Mode = UnitMode.Small;
             this.nudTramWidth.Name = "nudTramWidth";
             this.nudTramWidth.Size = new System.Drawing.Size(157, 52);
             this.nudTramWidth.TabIndex = 1;
@@ -8649,7 +8593,6 @@
             // nudNumGuideLines
             // 
             this.nudNumGuideLines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudNumGuideLines.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudNumGuideLines.Location = new System.Drawing.Point(531, 285);
             this.nudNumGuideLines.Maximum = 500D;
             this.nudNumGuideLines.Minimum = 1D;

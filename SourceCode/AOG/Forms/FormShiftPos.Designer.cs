@@ -49,7 +49,6 @@
             // 
             // nudNorth
             // 
-            this.nudNorth.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold);
             this.nudNorth.Location = new System.Drawing.Point(61, 256);
             this.nudNorth.Maximum = 100D;
             this.nudNorth.Mode = UnitMode.Small;
@@ -61,7 +60,6 @@
             // 
             // nudEast
             // 
-            this.nudEast.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold);
             this.nudEast.Location = new System.Drawing.Point(387, 256);
             this.nudEast.Maximum = 100D;
             this.nudEast.Mode = UnitMode.Small;

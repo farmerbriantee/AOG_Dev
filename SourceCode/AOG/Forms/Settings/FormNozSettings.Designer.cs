@@ -286,7 +286,6 @@
             // 
             // nudTankVolume
             // 
-            this.nudTankVolume.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudTankVolume.Location = new System.Drawing.Point(259, 84);
             this.nudTankVolume.Maximum = 10000D;
             this.nudTankVolume.Name = "nudTankVolume";
@@ -296,7 +295,6 @@
             // 
             // nudZeroVolume
             // 
-            this.nudZeroVolume.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudZeroVolume.Location = new System.Drawing.Point(259, 225);
             this.nudZeroVolume.Maximum = 10000D;
             this.nudZeroVolume.Name = "nudZeroVolume";
@@ -307,7 +305,6 @@
             // nudSprayRateSet2
             // 
             this.nudSprayRateSet2.DecimalPlaces = 1;
-            this.nudSprayRateSet2.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSprayRateSet2.Location = new System.Drawing.Point(541, 222);
             this.nudSprayRateSet2.Maximum = 2000D;
             this.nudSprayRateSet2.Minimum = 3D;
@@ -318,7 +315,6 @@
             // 
             // nudSprayMinPressure
             // 
-            this.nudSprayMinPressure.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSprayMinPressure.Location = new System.Drawing.Point(37, 84);
             this.nudSprayMinPressure.Minimum = 1D;
             this.nudSprayMinPressure.Name = "nudSprayMinPressure";
@@ -329,7 +325,6 @@
             // nudSprayRateSet1
             // 
             this.nudSprayRateSet1.DecimalPlaces = 1;
-            this.nudSprayRateSet1.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSprayRateSet1.Location = new System.Drawing.Point(541, 82);
             this.nudSprayRateSet1.Maximum = 2000D;
             this.nudSprayRateSet1.Minimum = 3D;
@@ -347,7 +342,6 @@
             // nudNudge
             // 
             this.nudNudge.DecimalPlaces = 1;
-            this.nudNudge.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudNudge.Location = new System.Drawing.Point(37, 366);
             this.nudNudge.Maximum = 30D;
             this.nudNudge.Minimum = 0.1D;
@@ -370,7 +364,6 @@
             // 
             // nudRateAlarmPercent
             // 
-            this.nudRateAlarmPercent.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudRateAlarmPercent.Location = new System.Drawing.Point(37, 222);
             this.nudRateAlarmPercent.Minimum = 1D;
             this.nudRateAlarmPercent.Name = "nudRateAlarmPercent";

@@ -191,7 +191,7 @@ namespace AgOpenGPS
 
             base.FlatStyle = FlatStyle.Flat;
 
-            //base.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            base.Font = new System.Drawing.Font("Tahoma", this.Height, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         }
 
         public event EventHandler ValueChanged { add => onValueChanged = (EventHandler)Delegate.Combine(onValueChanged, value); remove => onValueChanged = (EventHandler)Delegate.Remove(onValueChanged, value); }
@@ -484,6 +484,9 @@ namespace AgOpenGPS
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public new FlatStyle FlatStyle { get => base.FlatStyle; set => base.FlatStyle = value; }
 
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public override Font Font { get => base.Font; set => base.Font = value; }
     }
 

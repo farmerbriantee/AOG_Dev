@@ -95,6 +95,8 @@
   <ItemGroup>
     <Compile Include="Classes\CGLM.cs" />
     <Compile Include="Classes\CLog.cs" />
+    <Compile Include="Classes\CNMEA.cs" />
+    <Compile Include="Classes\CNMEA_Tool.cs" />
     <Compile Include="Classes\CRegistrySettings.cs" />
     <Compile Include="Classes\ListViewColumnSorterExt.cs" />
     <Compile Include="Classes\CRadioChannel.cs" />

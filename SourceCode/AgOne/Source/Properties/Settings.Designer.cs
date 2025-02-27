@@ -729,5 +729,29 @@ namespace AgOne.Properties {
                 this["setDisplay_isAutoRunGPS_Out"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("18888")]
+        public int setIP_autoSteerPortTool {
+            get {
+                return ((int)(this["setIP_autoSteerPortTool"]));
+            }
+            set {
+                this["setIP_autoSteerPortTool"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("19999")]
+        public int setIP_thisPortTool {
+            get {
+                return ((int)(this["setIP_thisPortTool"]));
+            }
+            set {
+                this["setIP_thisPortTool"] = value;
+            }
+        }
     }
 }

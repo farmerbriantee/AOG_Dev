@@ -179,5 +179,11 @@
     <Setting Name="setDisplay_isAutoRunGPS_Out" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="setIP_autoSteerPortTool" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">18888</Value>
+    </Setting>
+    <Setting Name="setIP_thisPortTool" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">19999</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

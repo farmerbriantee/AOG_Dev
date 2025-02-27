@@ -743,8 +743,8 @@ namespace AgOne
             }
             else
             {
-                latitude = this.latitude;
-                longitude = this.longitude;
+                latitude = this.pnGPS.latitude;
+                longitude = this.pnGPS.longitude;
             }
 
             //convert to DMS from Degrees
@@ -773,31 +773,22 @@ namespace AgOne
             if (longitude >= 0) EW = 'E';
             else EW = 'W';
 
-            //sbGGA.Clear();
-            //sbGGA.Append("$GPGGA,");
-            //sbGGA.Append(DateTime.Now.ToString("HHmmss.00,", CultureInfo.InvariantCulture));
-            //sbGGA.Append(Math.Abs(latNMEA).ToString("0000.000", CultureInfo.InvariantCulture)).Append(',').Append(NS).Append(',');
-            //sbGGA.Append(Math.Abs(longNMEA).ToString("00000.000", CultureInfo.InvariantCulture)).Append(',').Append(EW);
-            //sbGGA.Append(",1,10,1,43.4,M,46.4,M,5,0*");
-
-            //sbGGA.Append(CalculateChecksum(sbGGA.ToString()));
-            //sbGGA.Append("\r\n");
             sbGGA.Clear();
             sbGGA.Append("$GPGGA,");
             sbGGA.Append(DateTime.Now.ToString("HHmmss.00,", CultureInfo.InvariantCulture));
             sbGGA.Append(Math.Abs(latNMEA).ToString("0000.000", CultureInfo.InvariantCulture)).Append(',').Append(NS).Append(',');
             sbGGA.Append(Math.Abs(longNMEA).ToString("00000.000", CultureInfo.InvariantCulture)).Append(',').Append(EW);
-            sbGGA.Append(',').Append(fixQualityData.ToString()).Append(',');
-            sbGGA.Append(satellitesData.ToString()).Append(',');
+            sbGGA.Append(',').Append(pnGPS.fixQualityData.ToString()).Append(',');
+            sbGGA.Append(pnGPS.satellitesData.ToString()).Append(',');
 
-            if (hdopData > 0) sbGGA.Append(hdopData.ToString("0.##", CultureInfo.InvariantCulture)).Append(',');
+            if (pnGPS.hdopData > 0) sbGGA.Append(pnGPS.hdopData.ToString("0.##", CultureInfo.InvariantCulture)).Append(',');
 
             else sbGGA.Append("1,");
 
-            sbGGA.Append(altitudeData.ToString("0.###", CultureInfo.InvariantCulture)).Append(',');
+            sbGGA.Append(pnGPS.altitudeData.ToString("0.###", CultureInfo.InvariantCulture)).Append(',');
             sbGGA.Append("M,");
             sbGGA.Append("46.4,M,");  //udulation
-            sbGGA.Append(ageData.ToString("0.#", CultureInfo.InvariantCulture)).Append(','); //age
+            sbGGA.Append(pnGPS.ageData.ToString("0.#", CultureInfo.InvariantCulture)).Append(','); //age
             sbGGA.Append("0*");
 
             sbGGA.Append(CalculateChecksum(sbGGA.ToString()));

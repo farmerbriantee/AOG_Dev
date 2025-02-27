@@ -85,7 +85,7 @@ namespace AgOne
         #region IMUSerialPort //--------------------------------------------------------------------
         private void ReceiveIMUPort(byte[] Data)
         {
-            SendToLoopBackMessageAby(Data);
+            SendToLoopBackMessageAOG(Data);
             traffic.helloFromIMU = 0;
         }
 
@@ -159,7 +159,7 @@ namespace AgOne
                     byte[] imuClose = new byte[] { 0x80, 0x81, 0x7C, 0xD4, 2, 1, 0, 0xCC };
 
                     //tell AgOpenGPS IMU is disconnected
-                    SendToLoopBackMessageAby(imuClose);
+                    SendToLoopBackMessageAOG(imuClose);
                 }
 
                 catch (Exception e)
@@ -180,7 +180,7 @@ namespace AgOne
                 byte[] imuClose = new byte[] { 0x80, 0x81, 0x7C, 0xD4, 2, 1, 0, 0xCC };
 
                 //tell AgOpenGPS IMU is disconnected
-                SendToLoopBackMessageAby(imuClose);
+                SendToLoopBackMessageAOG(imuClose);
                 wasIMUConnectedLastRun = false;
             }
 
@@ -304,7 +304,7 @@ namespace AgOne
         #region SteerModuleSerialPort //--------------------------------------------------------------------
         private void ReceiveSteerModulePort(byte[] Data)
         {
-            SendToLoopBackMessageAby(Data);
+            SendToLoopBackMessageAOG(Data);
             traffic.helloFromAutoSteer = 0;
         }
 
@@ -514,7 +514,7 @@ namespace AgOne
         {
             try
             {
-                SendToLoopBackMessageAby(Data);
+                SendToLoopBackMessageAOG(Data);
                 traffic.helloFromMachine = 0;
             }
             catch { }
@@ -725,7 +725,7 @@ namespace AgOne
         //{
         //    try
         //    {
-        //        SendToLoopBackMessageAby(Data);
+        //        SendToLoopBackMessageAOG(Data);
         //        if (isPluginUsed) SendToLoopBackMessageVR(Data);
         //        //traffic.cntrModule3Out += Data.Length;
         //    }
@@ -1015,10 +1015,10 @@ namespace AgOne
         //called by the GPS delegate every time a chunk is rec'd
         private void ReceiveGPSPort(string sentence)
         {
-            rawBuffer += sentence;
-            ParseNMEA(ref rawBuffer);
+            pnGPS.rawBuffer += sentence;
+            pnGPS.ParseNMEA(ref pnGPS.rawBuffer);
 
-            //SendToLoopBackMessageAby(sentence);
+            //SendToLoopBackMessageAOG(sentence);
             traffic.cntrGPSOut += sentence.Length;
             if (isGPSCommOpen) recvGPSSentence = sentence;
         }

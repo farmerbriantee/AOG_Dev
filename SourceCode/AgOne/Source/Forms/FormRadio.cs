@@ -26,8 +26,8 @@ namespace AgOne
             Icon = mf.Icon;
             //_listViewColumnSorter = new ListViewColumnSorterExt(lvChannels);
 
-            _currentLat = mf.latitude;
-            _currentLon = mf.longitude;
+            _currentLat = mf.pnGPS.latitude;
+            _currentLon = mf.pnGPS.longitude;
 
             // Load radio channels
             _channels = Properties.Settings.Default.setRadio_Channels;

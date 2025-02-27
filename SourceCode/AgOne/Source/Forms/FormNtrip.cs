@@ -267,14 +267,14 @@ namespace AgOne
 
         private void btnSetManualPosition_Click(object sender, EventArgs e)
         {
-            nudLatitude.Value = (decimal)mf.latitude;
-            nudLongitude.Value = (decimal)mf.longitude;
+            nudLatitude.Value = (decimal)mf.pnGPS.latitude;
+            nudLongitude.Value = (decimal)mf.pnGPS.longitude;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            tboxCurrentLat.Text = mf.latitude.ToString();
-            tboxCurrentLon.Text = mf.longitude.ToString();
+            tboxCurrentLat.Text = mf.pnGPS.latitude.ToString();
+            tboxCurrentLon.Text = mf.pnGPS.longitude.ToString();
         }
 
         private readonly List<string> dataList = new List<string>();
@@ -349,7 +349,7 @@ namespace AgOne
             if (dataList.Count > 0)
             {
                 string syte = "http://monitor.use-snip.com/?hostUrl=" + tboxCasterIP.Text + "&port=" + nudCasterPort.Value.ToString();
-                using (FormSource form = new FormSource(this, dataList, mf.latitude, mf.longitude, syte))
+                using (FormSource form = new FormSource(this, dataList, mf.pnGPS.latitude, mf.pnGPS.longitude, syte))
                 {
                     form.ShowDialog(this);
                 }

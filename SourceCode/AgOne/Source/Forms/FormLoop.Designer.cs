@@ -105,6 +105,8 @@ namespace AgOne
             this.btnRunAby = new System.Windows.Forms.Button();
             this.btnUDP = new System.Windows.Forms.Button();
             this.btnGPSData = new System.Windows.Forms.Button();
+            this.btnGPSTool = new System.Windows.Forms.Button();
+            this.lblFromGPSTool = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -196,36 +198,37 @@ namespace AgOne
             // lblMod2Comm
             // 
             this.lblMod2Comm.BackColor = System.Drawing.Color.Transparent;
-            this.lblMod2Comm.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMod2Comm.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMod2Comm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblMod2Comm.Location = new System.Drawing.Point(167, 342);
+            this.lblMod2Comm.Location = new System.Drawing.Point(180, 363);
             this.lblMod2Comm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMod2Comm.Name = "lblMod2Comm";
-            this.lblMod2Comm.Size = new System.Drawing.Size(64, 25);
+            this.lblMod2Comm.Size = new System.Drawing.Size(52, 24);
             this.lblMod2Comm.TabIndex = 178;
+            this.lblMod2Comm.Text = "com 21";
             this.lblMod2Comm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblMod1Comm
             // 
             this.lblMod1Comm.BackColor = System.Drawing.Color.Transparent;
-            this.lblMod1Comm.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMod1Comm.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMod1Comm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblMod1Comm.Location = new System.Drawing.Point(167, 170);
+            this.lblMod1Comm.Location = new System.Drawing.Point(180, 215);
             this.lblMod1Comm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMod1Comm.Name = "lblMod1Comm";
-            this.lblMod1Comm.Size = new System.Drawing.Size(64, 25);
+            this.lblMod1Comm.Size = new System.Drawing.Size(52, 24);
             this.lblMod1Comm.TabIndex = 177;
             this.lblMod1Comm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblIMUComm
             // 
             this.lblIMUComm.BackColor = System.Drawing.Color.Transparent;
-            this.lblIMUComm.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIMUComm.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIMUComm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblIMUComm.Location = new System.Drawing.Point(167, 86);
+            this.lblIMUComm.Location = new System.Drawing.Point(178, 141);
             this.lblIMUComm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblIMUComm.Name = "lblIMUComm";
-            this.lblIMUComm.Size = new System.Drawing.Size(64, 25);
+            this.lblIMUComm.Size = new System.Drawing.Size(52, 24);
             this.lblIMUComm.TabIndex = 175;
             this.lblIMUComm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -235,7 +238,7 @@ namespace AgOne
             this.lblFromGPS.BackColor = System.Drawing.Color.Transparent;
             this.lblFromGPS.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFromGPS.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblFromGPS.Location = new System.Drawing.Point(330, 273);
+            this.lblFromGPS.Location = new System.Drawing.Point(323, 306);
             this.lblFromGPS.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFromGPS.Name = "lblFromGPS";
             this.lblFromGPS.Size = new System.Drawing.Size(26, 18);
@@ -246,12 +249,12 @@ namespace AgOne
             // lblGPS1Comm
             // 
             this.lblGPS1Comm.BackColor = System.Drawing.Color.Transparent;
-            this.lblGPS1Comm.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGPS1Comm.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGPS1Comm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblGPS1Comm.Location = new System.Drawing.Point(167, 257);
+            this.lblGPS1Comm.Location = new System.Drawing.Point(180, 288);
             this.lblGPS1Comm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblGPS1Comm.Name = "lblGPS1Comm";
-            this.lblGPS1Comm.Size = new System.Drawing.Size(64, 25);
+            this.lblGPS1Comm.Size = new System.Drawing.Size(52, 24);
             this.lblGPS1Comm.TabIndex = 176;
             this.lblGPS1Comm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -745,7 +748,7 @@ namespace AgOne
             this.lblToGPS.BackColor = System.Drawing.Color.Transparent;
             this.lblToGPS.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblToGPS.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblToGPS.Location = new System.Drawing.Point(330, 246);
+            this.lblToGPS.Location = new System.Drawing.Point(323, 280);
             this.lblToGPS.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblToGPS.Name = "lblToGPS";
             this.lblToGPS.Size = new System.Drawing.Size(26, 18);
@@ -807,7 +810,7 @@ namespace AgOne
             this.btnMinimizeMainForm.ForeColor = System.Drawing.Color.DimGray;
             this.btnMinimizeMainForm.Image = global::AgOne.Properties.Resources.WindowMinimize;
             this.btnMinimizeMainForm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnMinimizeMainForm.Location = new System.Drawing.Point(581, 4);
+            this.btnMinimizeMainForm.Location = new System.Drawing.Point(606, 4);
             this.btnMinimizeMainForm.Name = "btnMinimizeMainForm";
             this.btnMinimizeMainForm.Size = new System.Drawing.Size(62, 38);
             this.btnMinimizeMainForm.TabIndex = 529;
@@ -914,10 +917,10 @@ namespace AgOne
             this.btnIMU.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIMU.ForeColor = System.Drawing.Color.White;
             this.btnIMU.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnIMU.Location = new System.Drawing.Point(238, 70);
+            this.btnIMU.Location = new System.Drawing.Point(238, 132);
             this.btnIMU.Margin = new System.Windows.Forms.Padding(4);
             this.btnIMU.Name = "btnIMU";
-            this.btnIMU.Size = new System.Drawing.Size(84, 59);
+            this.btnIMU.Size = new System.Drawing.Size(78, 43);
             this.btnIMU.TabIndex = 185;
             this.btnIMU.UseVisualStyleBackColor = false;
             this.btnIMU.Click += new System.EventHandler(this.btnBringUpCommSettings_Click);
@@ -933,10 +936,10 @@ namespace AgOne
             this.btnSteer.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSteer.ForeColor = System.Drawing.Color.White;
             this.btnSteer.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSteer.Location = new System.Drawing.Point(238, 155);
+            this.btnSteer.Location = new System.Drawing.Point(238, 206);
             this.btnSteer.Margin = new System.Windows.Forms.Padding(4);
             this.btnSteer.Name = "btnSteer";
-            this.btnSteer.Size = new System.Drawing.Size(84, 59);
+            this.btnSteer.Size = new System.Drawing.Size(78, 43);
             this.btnSteer.TabIndex = 189;
             this.btnSteer.UseVisualStyleBackColor = false;
             this.btnSteer.Click += new System.EventHandler(this.btnBringUpCommSettings_Click);
@@ -952,10 +955,10 @@ namespace AgOne
             this.btnMachine.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMachine.ForeColor = System.Drawing.Color.White;
             this.btnMachine.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnMachine.Location = new System.Drawing.Point(238, 325);
+            this.btnMachine.Location = new System.Drawing.Point(238, 354);
             this.btnMachine.Margin = new System.Windows.Forms.Padding(4);
             this.btnMachine.Name = "btnMachine";
-            this.btnMachine.Size = new System.Drawing.Size(84, 59);
+            this.btnMachine.Size = new System.Drawing.Size(78, 43);
             this.btnMachine.TabIndex = 188;
             this.btnMachine.UseVisualStyleBackColor = false;
             this.btnMachine.Click += new System.EventHandler(this.btnBringUpCommSettings_Click);
@@ -971,10 +974,10 @@ namespace AgOne
             this.btnGPS.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGPS.ForeColor = System.Drawing.Color.White;
             this.btnGPS.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnGPS.Location = new System.Drawing.Point(238, 240);
+            this.btnGPS.Location = new System.Drawing.Point(238, 280);
             this.btnGPS.Margin = new System.Windows.Forms.Padding(4);
             this.btnGPS.Name = "btnGPS";
-            this.btnGPS.Size = new System.Drawing.Size(84, 59);
+            this.btnGPS.Size = new System.Drawing.Size(78, 43);
             this.btnGPS.TabIndex = 187;
             this.btnGPS.UseVisualStyleBackColor = false;
             this.btnGPS.Click += new System.EventHandler(this.btnBringUpCommSettings_Click);
@@ -1022,7 +1025,7 @@ namespace AgOne
             this.btnExit.Image = global::AgOne.Properties.Resources.WindowClose;
             this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnExit.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnExit.Location = new System.Drawing.Point(652, 4);
+            this.btnExit.Location = new System.Drawing.Point(677, 4);
             this.btnExit.Margin = new System.Windows.Forms.Padding(4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(80, 38);
@@ -1086,14 +1089,49 @@ namespace AgOne
             this.btnGPSData.UseVisualStyleBackColor = false;
             this.btnGPSData.Click += new System.EventHandler(this.btnGPSData_Click);
             // 
+            // btnGPSTool
+            // 
+            this.btnGPSTool.BackColor = System.Drawing.Color.Transparent;
+            this.btnGPSTool.BackgroundImage = global::AgOne.Properties.Resources.B_GPS;
+            this.btnGPSTool.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnGPSTool.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.btnGPSTool.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGPSTool.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGPSTool.ForeColor = System.Drawing.Color.White;
+            this.btnGPSTool.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnGPSTool.Location = new System.Drawing.Point(238, 58);
+            this.btnGPSTool.Margin = new System.Windows.Forms.Padding(4);
+            this.btnGPSTool.Name = "btnGPSTool";
+            this.btnGPSTool.Size = new System.Drawing.Size(78, 43);
+            this.btnGPSTool.TabIndex = 530;
+            this.btnGPSTool.UseVisualStyleBackColor = false;
+            // 
+            // lblFromGPSTool
+            // 
+            this.lblFromGPSTool.AutoSize = true;
+            this.lblFromGPSTool.BackColor = System.Drawing.Color.Transparent;
+            this.lblFromGPSTool.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFromGPSTool.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblFromGPSTool.Location = new System.Drawing.Point(323, 81);
+            this.lblFromGPSTool.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFromGPSTool.Name = "lblFromGPSTool";
+            this.lblFromGPSTool.Size = new System.Drawing.Size(26, 18);
+            this.lblFromGPSTool.TabIndex = 532;
+            this.lblFromGPSTool.Text = "---";
+            this.lblFromGPSTool.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // FormLoop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(733, 489);
+            this.ClientSize = new System.Drawing.Size(758, 489);
             this.ControlBox = false;
+            this.Controls.Add(this.lblFromGPSTool);
+            this.Controls.Add(this.btnGPSTool);
+            this.Controls.Add(this.lblToGPS);
+            this.Controls.Add(this.lblFromGPS);
             this.Controls.Add(this.btnMinimizeMainForm);
             this.Controls.Add(this.cboxAutoRunGPS_Out);
             this.Controls.Add(this.label11);
@@ -1148,8 +1186,6 @@ namespace AgOne
             this.Controls.Add(this.lblCurrentLat);
             this.Controls.Add(this.btnUDP);
             this.Controls.Add(this.lblIP);
-            this.Controls.Add(this.lblToGPS);
-            this.Controls.Add(this.lblFromGPS);
             this.Controls.Add(this.btnGPSData);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -1241,6 +1277,8 @@ namespace AgOne
         private Button btnMinimizeMainForm;
         private ToolStripMenuItem modSimToolStrip;
         private ToolStripMenuItem toolStripLogViewer;
+        public Button btnGPSTool;
+        private Label lblFromGPSTool;
     }
 }
 

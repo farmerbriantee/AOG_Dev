@@ -60,7 +60,7 @@ namespace AgOne
 
         public bool isSendToSerial = true, isSendToUDP = false;
 
-        public bool isGPSSentencesOn = false, isSendNMEAToUDP;
+        public bool isGPSSentencesOn = false; //, isSendNMEAToUDP;
 
         //timer variables
         public double secondsSinceStart, twoSecondTimer, tenSecondTimer, threeMinuteTimer, pingSecondsStart;
@@ -72,8 +72,10 @@ namespace AgOne
         //usually 256 - send ntrip to serial in chunks
         public int packetSizeNTRIP;
 
-        public bool lastHelloGPS, lastHelloAutoSteer, lastHelloMachine, lastHelloIMU;
+        public bool lastHelloGPS, lastHelloAutoSteer, lastHelloMachine, lastHelloIMU, lastHelloGPSTool;
         public bool isConnectedIMU, isConnectedSteer, isConnectedMachine;
+
+        public bool lastHelloGPSTuu, isConnectedSteerTuu;
 
         //is the fly out displayed
         public bool isViewAdvanced = false;
@@ -83,6 +85,9 @@ namespace AgOne
 
         public int focusSkipCounter = 310;
 
+        public CNMEA pnGPS;
+        public CNMEA_Tool pnGPSTool;
+
         public FormLoop()
         {
             InitializeComponent();
@@ -91,6 +96,9 @@ namespace AgOne
         //First run
         private void FormLoop_Load(object sender, EventArgs e)
         {
+            pnGPS = new CNMEA(this);
+            pnGPSTool = new CNMEA_Tool(this);
+
             if (Settings.Default.setUDP_isOn)
             {
                 LoadUDPNetwork();
@@ -122,7 +130,7 @@ namespace AgOne
 
             LoadLoopback();
 
-            isSendNMEAToUDP = Properties.Settings.Default.setUDP_isSendNMEAToUDP;
+            //isSendNMEAToUDP = Properties.Settings.Default.setUDP_isSendNMEAToUDP;
 
             packetSizeNTRIP = Properties.Settings.Default.setNTRIP_packetSize;
 
@@ -372,8 +380,8 @@ namespace AgOne
 
             if (focusSkipCounter != 0)
             {
-                lblCurentLon.Text = longitude.ToString("N7");
-                lblCurrentLat.Text = latitude.ToString("N7");
+                lblCurentLon.Text = pnGPS.longitude.ToString("N7");
+                lblCurrentLat.Text = pnGPS.latitude.ToString("N7");
             }
 
             //do all the NTRIP routines
@@ -561,7 +569,7 @@ namespace AgOne
                         byte[] imuClose = new byte[] { 0x80, 0x81, 0x7C, 0xD4, 2, 1, 0, 83 };
 
                         //tell AgOpenGPS IMU is disconnected
-                        SendToLoopBackMessageAby(imuClose);
+                        SendToLoopBackMessageAOG(imuClose);
                         wasIMUConnectedLastRun = false;
                         lblIMUComm.Text = "";
                     }
@@ -656,6 +664,16 @@ namespace AgOne
                 if (currentHello) btnGPS.BackColor = Color.LimeGreen;
                 else btnGPS.BackColor = Color.Red;
                 lastHelloGPS = currentHello;
+                ShowAgOne();
+            }
+
+            currentHello = traffic.cntrGPSOutTool != 0;
+
+            if (currentHello != lastHelloGPSTool)
+            {
+                if (currentHello) btnGPSTool.BackColor = Color.LimeGreen;
+                else btnGPSTool.BackColor = Color.Red;
+                lastHelloGPSTool = currentHello;
                 ShowAgOne();
             }
         }
@@ -757,12 +775,14 @@ namespace AgOne
             if (focusSkipCounter != 0)
             {
                 lblFromGPS.Text = traffic.cntrGPSOut == 0 ? "---" : ((traffic.cntrGPSOut >> 1)).ToString();
+                lblFromGPSTool.Text = traffic.cntrGPSOutTool == 0 ? "---" : ((traffic.cntrGPSOutTool >> 1)).ToString();
 
                 //reset all counters
                 traffic.cntrGPSOut = 0;
+                traffic.cntrGPSOutTool = 0;
 
-                lblCurentLon.Text = longitude.ToString("N7");
-                lblCurrentLat.Text = latitude.ToString("N7");
+                lblCurentLon.Text = pnGPS.longitude.ToString("N7");
+                lblCurrentLat.Text = pnGPS.latitude.ToString("N7");
             }
         }
 

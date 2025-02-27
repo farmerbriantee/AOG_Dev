@@ -246,6 +246,7 @@ namespace AgOne
                                         {
                                             scanSocket.Bind(new IPEndPoint(info.Address, 9999));
                                             scanSocket.SendTo(sendIPToModules, 0, sendIPToModules.Length, SocketFlags.None, mf.epModuleSet);
+                                            scanSocket.SendTo(sendIPToModules, 0, sendIPToModules.Length, SocketFlags.None, mf.epModuleSetTool);
                                         }
                                         catch (Exception ex)
                                         {
@@ -272,6 +273,11 @@ namespace AgOne
                     Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
                     Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
                     Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 8888);
+
+                mf.epModuleTool = new IPEndPoint(IPAddress.Parse(
+                    Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
+                    Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
+                    Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 18888);
 
                 lblNetworkHelp.Text =
                     Properties.Settings.Default.etIP_SubnetOne.ToString() + " . " +

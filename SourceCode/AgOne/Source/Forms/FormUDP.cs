@@ -94,6 +94,20 @@ namespace AgOne
                 lblNewSubnet.Text = mf.scanReply.subnetStr;
             }
 
+            if (mf.scanReplyTool.isNewGPS)
+            {
+                //lblGPSIP.Text = mf.scanReply.GPS_IP;
+                mf.scanReplyTool.isNewGPS = false;
+                lblNewSubnetTool.Text = $"Tool IP: {mf.scanReplyTool.subnetStr}";
+            }
+
+            //if (mf.scanReplyTool.isNewSteer)
+            //{
+            //    //lblGPSIP.Text = mf.scanReply.GPS_IP;
+            //    mf.scanReplyTool.isNewGPS = false;
+            //    lblNewSubnetTool.Text = mf.scanReplyTool.subnetStr;
+            //}
+
             if (tickCounter == 4)
             {
                 if (mf.btnSteer.BackColor == Color.LimeGreen) lblBtnSteer.BackColor = Color.LimeGreen;
@@ -107,6 +121,9 @@ namespace AgOne
 
                 if (mf.btnIMU.BackColor == Color.LimeGreen) lblBtnIMU.BackColor = Color.LimeGreen;
                 else lblBtnIMU.BackColor = Color.Red;
+
+                if (mf.btnGPSTool.BackColor == Color.LimeGreen) lblBtnGPSTool.BackColor = Color.LimeGreen;
+                else lblBtnGPSTool.BackColor = Color.Red;
             }
 
             if (tickCounter > 5)
@@ -182,6 +199,7 @@ namespace AgOne
                                     {
                                         scanSocket.Bind(new IPEndPoint(info.Address, 9999));
                                         scanSocket.SendTo(scanModules, 0, scanModules.Length, SocketFlags.None, mf.epModuleSet);
+                                        scanSocket.SendTo(scanModules, 0, scanModules.Length, SocketFlags.None, mf.epModuleSetTool);
                                     }
                                     catch (Exception ex)
                                     {

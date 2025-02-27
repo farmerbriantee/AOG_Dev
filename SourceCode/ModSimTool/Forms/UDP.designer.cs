@@ -166,13 +166,13 @@ namespace ModSimTool
         int PGN_253_Size = PGN_253.Length - 1;
 
         //Heart beat hello AgIO
-        static byte [] helloFromAutoSteer = { 128, 129, 126, 126, 5, 0, 0, 0, 0, 0, 71 };
+        static byte [] helloFromAutoSteer = { 128, 129, 226, 226, 5, 0, 0, 0, 0, 0, 71 };
 
-        //hello from AgIO
-        static byte[] helloFromMachine = { 128, 129, 123, 123, 5, 0, 0, 0, 0, 0, 71 };
+        ////hello from AgIO
+        //static byte[] helloFromMachine = { 128, 129, 123, 123, 5, 0, 0, 0, 0, 0, 71 };
 
-        //hello from AgIO
-        static byte[] helloFromIMU = { 128, 129, 121, 121, 5, 0, 0, 0, 0, 0, 71 };
+        ////hello from AgIO
+        //static byte[] helloFromIMU = { 128, 129, 121, 121, 5, 0, 0, 0, 0, 0, 71 };
 
         //steer reply pgn
         static byte[] PGN_230 = { 0x80, 0x81, 0x7f, 230, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
@@ -306,14 +306,6 @@ namespace ModSimTool
                                 helloFromAutoSteer[9] = (byte)1;
 
                                 SendUDPMessage(helloFromAutoSteer);
-
-                                helloFromMachine[5] = (byte)1;
-                                helloFromMachine[6] = (byte)1;
-
-                                SendUDPMessage(helloFromMachine);
-
-                                SendUDPMessage(helloFromIMU);
-
                                 break;
                             }
 
@@ -350,10 +342,10 @@ namespace ModSimTool
                                 //make really sure this is the reply pgn
                                 if (data[4] == 3 && data[5] == 202 && data[6] == 202)
                                 {
-                                    byte [] scanReply = { 128, 129, 126, 203, 7,
+                                    byte [] scanReply = { 128, 129, 226, 203, 7,
                                         Properties.Settings.Default.etIP_SubnetOne,
                                         Properties.Settings.Default.etIP_SubnetTwo,
-                                        Properties.Settings.Default.etIP_SubnetThree, 126,
+                                        Properties.Settings.Default.etIP_SubnetThree, 226,
 
                                         //source ips
 
@@ -375,8 +367,8 @@ namespace ModSimTool
                                     SendUDPMessage(scanReply);
 
                                     //reset to Machine Module
-                                    scanReply[2] = 123;
-                                    scanReply[8] = 123;
+                                    scanReply[2] = 220;
+                                    scanReply[8] = 220;
 
                                     //checksum
                                     CK_A = 0;
@@ -387,21 +379,6 @@ namespace ModSimTool
                                     scanReply[scanReply.Length - 1] = unchecked((byte)((int)(CK_A)));
 
                                     SendUDPMessage(scanReply);
-
-                                    //reset to Machine Module
-                                    scanReply[2] = 121;
-                                    scanReply[8] = 121;
-
-                                    //checksum
-                                    CK_A = 0;
-                                    for (int i = 2; i < scanReply.Length - 1; i++)
-                                    {
-                                        CK_A = (CK_A + scanReply[i]);
-                                    }
-                                    scanReply[scanReply.Length - 1] = unchecked((byte)((int)(CK_A)));
-
-                                    SendUDPMessage(scanReply);
-
                                 }
                                 break;
                             }

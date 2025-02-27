@@ -479,6 +479,7 @@ namespace AgOne
 
             //send a hello to modules
             SendUDPMessage(helloFromAgOne, epModule);
+            //SendUDPMessageTool(helloFromAgOne, epModuleTool);
 
             //if (isLogNMEA)
             //{

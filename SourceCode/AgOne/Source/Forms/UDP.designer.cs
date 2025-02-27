@@ -91,6 +91,7 @@ namespace AgOne
         //class for counting bytes
         public CTraffic traffic = new CTraffic();
         public CScanReply scanReply = new CScanReply();
+        public CScanReply scanReplyTool = new CScanReply();
 
         //scan results placed here
         public string scanReturn = "Scanning...";
@@ -642,7 +643,7 @@ namespace AgOne
                 Array.Copy(bufferTool, localMsg, msgLen);
 
                 // Listen for more connections again...
-                UDPSocketTool.BeginReceiveFrom(buffer, 0, bufferTool.Length, SocketFlags.None, ref endPointUDPTool,
+                UDPSocketTool.BeginReceiveFrom(bufferTool, 0, bufferTool.Length, SocketFlags.None, ref endPointUDPTool,
                     new AsyncCallback(ReceiveDataUDPAsyncTool), null);
 
                 BeginInvoke((MethodInvoker)(() => ReceiveFromUDPTool(localMsg)));
@@ -663,117 +664,68 @@ namespace AgOne
                     SendToLoopBackMessageAOGTool(data);
 
                     //    check for Scan and Hello
-                    //    if (data[3] == 126 && data.Length == 11)
-                    //        {
-
-                    //            traffic.helloFromAutoSteer = 0;
-                    //            if (isViewAdvanced)
-                    //            {
-                    //                lblPing.Text = (((DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds - pingSecondsStart) * 1000).ToString("N0");
-                    //                double actualSteerAngle = (Int16)((data[6] << 8) + data[5]);
-                    //                lblSteerAngle.Text = (actualSteerAngle * 0.01).ToString("N1");
-                    //                lblWASCounts.Text = ((Int16)((data[8] << 8) + data[7])).ToString();
-
-                    //                lblSwitchStatus.Text = ((data[9] & 2) == 2).ToString();
-                    //                lblWorkSwitchStatus.Text = ((data[9] & 1) == 1).ToString();
-                    //            }
-                    //        }
-
-                    //        else if (data[3] == 123 && data.Length == 11)
-                    //        {
-
-                    //            traffic.helloFromMachine = 0;
-
-                    //            if (isViewAdvanced)
-                    //            {
-                    //                lblPingMachine.Text = (((DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds - pingSecondsStart) * 1000).ToString("N0");
-                    //                lbl1To8.Text = Convert.ToString(data[5], 2).PadLeft(8, '0');
-                    //                lbl9To16.Text = Convert.ToString(data[6], 2).PadLeft(8, '0');
-                    //            }
-                    //        }
-
-                    //        else if (data[3] == 121 && data.Length == 11)
-                    //            traffic.helloFromIMU = 0;
-
-                    //    scan Reply
-                    //    else if (data[3] == 203 && data.Length == 13) //
-                    //    {
-                    //        if (data[2] == 126)  //steer module
-                    //        {
-                    //            scanReply.steerIP = data[5].ToString() + "." + data[6].ToString() + "." + data[7].ToString() + "." + data[8].ToString();
-
-                    //            scanReply.subnet[0] = data[09];
-                    //            scanReply.subnet[1] = data[10];
-                    //            scanReply.subnet[2] = data[11];
-
-                    //            scanReply.subnetStr = data[9].ToString() + "." + data[10].ToString() + "." + data[11].ToString();
-
-                    //            scanReply.isNewData = true;
-                    //            scanReply.isNewSteer = true;
-                    //        }
-
-                    //        else if (data[2] == 123)   //machine module
-                    //        {
-                    //            scanReply.machineIP = data[5].ToString() + "." + data[6].ToString() + "." + data[7].ToString() + "." + data[8].ToString();
-
-                    //            scanReply.subnet[0] = data[09];
-                    //            scanReply.subnet[1] = data[10];
-                    //            scanReply.subnet[2] = data[11];
-
-                    //            scanReply.subnetStr = data[9].ToString() + "." + data[10].ToString() + "." + data[11].ToString();
-
-                    //            scanReply.isNewData = true;
-                    //            scanReply.isNewMachine = true;
-
-                    //        }
-                    //        else if (data[2] == 121)   //IMU Module
-                    //        {
-                    //            scanReply.IMU_IP = data[5].ToString() + "." + data[6].ToString() + "." + data[7].ToString() + "." + data[8].ToString();
-
-                    //            scanReply.subnet[0] = data[09];
-                    //            scanReply.subnet[1] = data[10];
-                    //            scanReply.subnet[2] = data[11];
-
-                    //            scanReply.subnetStr = data[9].ToString() + "." + data[10].ToString() + "." + data[11].ToString();
-
-                    //            scanReply.isNewData = true;
-                    //            scanReply.isNewIMU = true;
-                    //        }
-
-                    //        else if (data[2] == 120)    //GPS module
-                    //        {
-                    //            scanReply.GPS_IP = data[5].ToString() + "." + data[6].ToString() + "." + data[7].ToString() + "." + data[8].ToString();
-
-                    //            scanReply.subnet[0] = data[09];
-                    //            scanReply.subnet[1] = data[10];
-                    //            scanReply.subnet[2] = data[11];
-
-                    //            scanReply.subnetStr = data[9].ToString() + "." + data[10].ToString() + "." + data[11].ToString();
-
-                    //            scanReply.isNewData = true;
-                    //            scanReply.isNewGPS = true;
-                    //        }
-                    //    }
-
-                    //    if (isUDPMonitorOn)
-                    //    {
-                    //        logUDPSentence.Append(DateTime.Now.ToString("ss.fff\t") + endPointUDP.ToString() + "\t" + " < " + data[3].ToString() + "\r\n");
-                    //    }
-
-                    //} // end of pgns
-
-                    if (data[0] == 36 && (data[1] == 71 || data[1] == 80 || data[1] == 75))
+                    if (data[3] == 226 && data.Length == 11)
                     {
-                        traffic.cntrGPSOutTool += data.Length;
-                        pnGPSTool.rawBuffer += Encoding.ASCII.GetString(data);
-                        pnGPSTool.ParseNMEA(ref pnGPSTool.rawBuffer);
 
-                        //if (isUDPMonitorOn && isGPSLogOn)
-                        //{
-                        //    logUDPSentence.Append(DateTime.Now.ToString("ss.fff\t") + System.Text.Encoding.ASCII.GetString(data));
-                        //}
+                        traffic.helloFromAutoSteer = 0;
+                        if (isViewAdvanced)
+                        {
+                            //lblPing.Text = (((DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds - pingSecondsStart) * 1000).ToString("N0");
+                            //double actualSteerAngle = (Int16)((data[6] << 8) + data[5]);
+                            //lblSteerAngle.Text = (actualSteerAngle * 0.01).ToString("N1");
+                            //lblWASCounts.Text = ((Int16)((data[8] << 8) + data[7])).ToString();
+
+                            //lblSwitchStatus.Text = ((data[9] & 2) == 2).ToString();
+                            //lblWorkSwitchStatus.Text = ((data[9] & 1) == 1).ToString();
+                        }
                     }
+
+                    // scan Reply
+                    else if (data[3] == 203 && data.Length == 13) //
+                    {
+                        if (data[2] == 226)  //steer module
+                        {
+                            //scanReplyTool.steerIP = data[5].ToString() + "." + data[6].ToString() + "." + data[7].ToString() + "." + data[8].ToString();
+
+                            //scanReplyTool.subnet[0] = data[09];
+                            //scanReplyTool.subnet[1] = data[10];
+                            //scanReplyTool.subnet[2] = data[11];
+
+                            //scanReplyTool.subnetStr = data[9].ToString() + "." + data[10].ToString() + "." + data[11].ToString();
+
+                            //scanReplyTool.isNewData = true;
+                            //scanReplyTool.isNewSteer = true;
+                        }
+
+                        else if (data[2] == 220)    //GPS module
+                        {
+                            scanReplyTool.GPS_IP = data[5].ToString() + "." + data[6].ToString() + "." + data[7].ToString() + "." + data[8].ToString();
+
+                            scanReplyTool.subnet[0] = data[09];
+                            scanReplyTool.subnet[1] = data[10];
+                            scanReplyTool.subnet[2] = data[11];
+
+                            scanReplyTool.subnetStr = data[9].ToString() + "." + data[10].ToString() + "." + data[11].ToString();
+
+                            scanReplyTool.isNewData = true;
+                            scanReplyTool.isNewGPS = true;
+                        }
+                    } 
+                }// end of pgns
+
+                //gps data
+                else if (data[0] == 36 && (data[1] == 71 || data[1] == 80 || data[1] == 75))
+                {
+                    traffic.cntrGPSOutTool += data.Length;
+                    pnGPSTool.rawBuffer += Encoding.ASCII.GetString(data);
+                    pnGPSTool.ParseNMEA(ref pnGPSTool.rawBuffer);
+
+                    //if (isUDPMonitorOn && isGPSLogOn)
+                    //{
+                    //    logUDPSentence.Append(DateTime.Now.ToString("ss.fff\t") + System.Text.Encoding.ASCII.GetString(data));
+                    //}
                 }
+
             }
             catch
             {

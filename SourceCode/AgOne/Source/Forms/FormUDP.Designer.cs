@@ -72,6 +72,9 @@
             this.btnAutoSet = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.lblBtnSteerTool = new System.Windows.Forms.Label();
+            this.lblBtnGPSTool = new System.Windows.Forms.Label();
+            this.lblNewSubnetTool = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudFirstIP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSecndIP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudThirdIP)).BeginInit();
@@ -83,7 +86,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(453, 550);
+            this.label6.Location = new System.Drawing.Point(453, 554);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(139, 23);
             this.label6.TabIndex = 144;
@@ -95,7 +98,7 @@
             this.lblNetworkHelp.BackColor = System.Drawing.Color.WhiteSmoke;
             this.lblNetworkHelp.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNetworkHelp.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblNetworkHelp.Location = new System.Drawing.Point(376, 500);
+            this.lblNetworkHelp.Location = new System.Drawing.Point(376, 504);
             this.lblNetworkHelp.Name = "lblNetworkHelp";
             this.lblNetworkHelp.Size = new System.Drawing.Size(279, 46);
             this.lblNetworkHelp.TabIndex = 143;
@@ -112,7 +115,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(395, 370);
+            this.label1.Location = new System.Drawing.Point(395, 382);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(236, 23);
             this.label1.TabIndex = 147;
@@ -123,7 +126,7 @@
             // 
             this.nudFirstIP.BackColor = System.Drawing.Color.White;
             this.nudFirstIP.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudFirstIP.Location = new System.Drawing.Point(338, 398);
+            this.nudFirstIP.Location = new System.Drawing.Point(338, 410);
             this.nudFirstIP.Maximum = new decimal(new int[] {
             255,
             0,
@@ -145,7 +148,7 @@
             // 
             this.nudSecndIP.BackColor = System.Drawing.Color.White;
             this.nudSecndIP.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudSecndIP.Location = new System.Drawing.Point(455, 398);
+            this.nudSecndIP.Location = new System.Drawing.Point(455, 410);
             this.nudSecndIP.Maximum = new decimal(new int[] {
             255,
             0,
@@ -167,7 +170,7 @@
             // 
             this.nudThirdIP.BackColor = System.Drawing.Color.White;
             this.nudThirdIP.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudThirdIP.Location = new System.Drawing.Point(572, 398);
+            this.nudThirdIP.Location = new System.Drawing.Point(572, 410);
             this.nudThirdIP.Maximum = new decimal(new int[] {
             255,
             0,
@@ -189,7 +192,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(438, 392);
+            this.label2.Location = new System.Drawing.Point(438, 404);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(24, 35);
             this.label2.TabIndex = 152;
@@ -200,7 +203,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(555, 392);
+            this.label3.Location = new System.Drawing.Point(555, 404);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(24, 35);
             this.label3.TabIndex = 153;
@@ -222,7 +225,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(319, 10);
+            this.label7.Location = new System.Drawing.Point(319, 31);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(118, 23);
             this.label7.TabIndex = 161;
@@ -267,7 +270,7 @@
             this.lblNoAdapter.AutoSize = true;
             this.lblNoAdapter.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNoAdapter.ForeColor = System.Drawing.Color.Red;
-            this.lblNoAdapter.Location = new System.Drawing.Point(366, 469);
+            this.lblNoAdapter.Location = new System.Drawing.Point(366, 473);
             this.lblNoAdapter.Name = "lblNoAdapter";
             this.lblNoAdapter.Size = new System.Drawing.Size(298, 25);
             this.lblNoAdapter.TabIndex = 166;
@@ -307,7 +310,7 @@
             // lblSubTimer
             // 
             this.lblSubTimer.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubTimer.Location = new System.Drawing.Point(300, 232);
+            this.lblSubTimer.Location = new System.Drawing.Point(300, 248);
             this.lblSubTimer.Name = "lblSubTimer";
             this.lblSubTimer.Size = new System.Drawing.Size(100, 23);
             this.lblSubTimer.TabIndex = 514;
@@ -318,7 +321,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(484, 10);
+            this.label11.Location = new System.Drawing.Point(484, 31);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(99, 23);
             this.label11.TabIndex = 516;
@@ -328,10 +331,13 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnCount = 4;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel1.Controls.Add(this.lblBtnGPSTool, 3, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lblBtnSteerTool, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.lblBtnIMU, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblBtnGPS, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.label18, 0, 0);
@@ -344,14 +350,14 @@
             this.tableLayoutPanel1.Controls.Add(this.label16, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.lblMachineIP, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label17, 0, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(323, 35);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(304, 56);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(341, 177);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(370, 177);
             this.tableLayoutPanel1.TabIndex = 519;
             // 
             // lblBtnIMU
@@ -360,9 +366,9 @@
             this.lblBtnIMU.BackColor = System.Drawing.Color.Transparent;
             this.lblBtnIMU.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblBtnIMU.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBtnIMU.Location = new System.Drawing.Point(310, 1);
+            this.lblBtnIMU.Location = new System.Drawing.Point(303, 1);
             this.lblBtnIMU.Name = "lblBtnIMU";
-            this.lblBtnIMU.Size = new System.Drawing.Size(27, 43);
+            this.lblBtnIMU.Size = new System.Drawing.Size(28, 43);
             this.lblBtnIMU.TabIndex = 533;
             this.lblBtnIMU.Text = "-";
             this.lblBtnIMU.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -373,9 +379,9 @@
             this.lblBtnGPS.BackColor = System.Drawing.Color.Transparent;
             this.lblBtnGPS.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblBtnGPS.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBtnGPS.Location = new System.Drawing.Point(310, 89);
+            this.lblBtnGPS.Location = new System.Drawing.Point(303, 89);
             this.lblBtnGPS.Name = "lblBtnGPS";
-            this.lblBtnGPS.Size = new System.Drawing.Size(27, 43);
+            this.lblBtnGPS.Size = new System.Drawing.Size(28, 43);
             this.lblBtnGPS.TabIndex = 532;
             this.lblBtnGPS.Text = "-";
             this.lblBtnGPS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -401,7 +407,7 @@
             this.lblIMU_IP.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIMU_IP.Location = new System.Drawing.Point(100, 1);
             this.lblIMU_IP.Name = "lblIMU_IP";
-            this.lblIMU_IP.Size = new System.Drawing.Size(203, 43);
+            this.lblIMU_IP.Size = new System.Drawing.Size(196, 43);
             this.lblIMU_IP.TabIndex = 526;
             this.lblIMU_IP.Text = "..";
             this.lblIMU_IP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -412,9 +418,9 @@
             this.lblBtnMachine.BackColor = System.Drawing.Color.Transparent;
             this.lblBtnMachine.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblBtnMachine.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBtnMachine.Location = new System.Drawing.Point(310, 133);
+            this.lblBtnMachine.Location = new System.Drawing.Point(303, 133);
             this.lblBtnMachine.Name = "lblBtnMachine";
-            this.lblBtnMachine.Size = new System.Drawing.Size(27, 43);
+            this.lblBtnMachine.Size = new System.Drawing.Size(28, 43);
             this.lblBtnMachine.TabIndex = 531;
             this.lblBtnMachine.Text = "-";
             this.lblBtnMachine.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -440,7 +446,7 @@
             this.lblGPSIP.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGPSIP.Location = new System.Drawing.Point(100, 89);
             this.lblGPSIP.Name = "lblGPSIP";
-            this.lblGPSIP.Size = new System.Drawing.Size(203, 43);
+            this.lblGPSIP.Size = new System.Drawing.Size(196, 43);
             this.lblGPSIP.TabIndex = 530;
             this.lblGPSIP.Text = "..";
             this.lblGPSIP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -453,7 +459,7 @@
             this.lblSteerIP.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSteerIP.Location = new System.Drawing.Point(100, 45);
             this.lblSteerIP.Name = "lblSteerIP";
-            this.lblSteerIP.Size = new System.Drawing.Size(203, 43);
+            this.lblSteerIP.Size = new System.Drawing.Size(196, 43);
             this.lblSteerIP.TabIndex = 526;
             this.lblSteerIP.Text = "..";
             this.lblSteerIP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -464,9 +470,9 @@
             this.lblBtnSteer.BackColor = System.Drawing.Color.Transparent;
             this.lblBtnSteer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblBtnSteer.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBtnSteer.Location = new System.Drawing.Point(310, 45);
+            this.lblBtnSteer.Location = new System.Drawing.Point(303, 45);
             this.lblBtnSteer.Name = "lblBtnSteer";
-            this.lblBtnSteer.Size = new System.Drawing.Size(27, 43);
+            this.lblBtnSteer.Size = new System.Drawing.Size(28, 43);
             this.lblBtnSteer.TabIndex = 521;
             this.lblBtnSteer.Text = "-";
             this.lblBtnSteer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -492,7 +498,7 @@
             this.lblMachineIP.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMachineIP.Location = new System.Drawing.Point(100, 133);
             this.lblMachineIP.Name = "lblMachineIP";
-            this.lblMachineIP.Size = new System.Drawing.Size(203, 43);
+            this.lblMachineIP.Size = new System.Drawing.Size(196, 43);
             this.lblMachineIP.TabIndex = 528;
             this.lblMachineIP.Text = "..";
             this.lblMachineIP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -516,7 +522,7 @@
             this.lblNewSubnet.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblNewSubnet.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNewSubnet.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblNewSubnet.Location = new System.Drawing.Point(404, 223);
+            this.lblNewSubnet.Location = new System.Drawing.Point(404, 239);
             this.lblNewSubnet.Name = "lblNewSubnet";
             this.lblNewSubnet.Size = new System.Drawing.Size(244, 45);
             this.lblNewSubnet.TabIndex = 520;
@@ -633,7 +639,7 @@
             this.btnAutoSet.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAutoSet.Image = global::AgOne.Properties.Resources.DnArrow64;
             this.btnAutoSet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAutoSet.Location = new System.Drawing.Point(440, 279);
+            this.btnAutoSet.Location = new System.Drawing.Point(440, 295);
             this.btnAutoSet.Name = "btnAutoSet";
             this.btnAutoSet.Size = new System.Drawing.Size(162, 58);
             this.btnAutoSet.TabIndex = 524;
@@ -664,6 +670,43 @@
             this.label12.Text = "Network Prop";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblBtnSteerTool
+            // 
+            this.lblBtnSteerTool.AutoSize = true;
+            this.lblBtnSteerTool.BackColor = System.Drawing.Color.Transparent;
+            this.lblBtnSteerTool.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblBtnSteerTool.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBtnSteerTool.Location = new System.Drawing.Point(338, 45);
+            this.lblBtnSteerTool.Name = "lblBtnSteerTool";
+            this.lblBtnSteerTool.Size = new System.Drawing.Size(28, 43);
+            this.lblBtnSteerTool.TabIndex = 535;
+            this.lblBtnSteerTool.Text = "-";
+            this.lblBtnSteerTool.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblBtnGPSTool
+            // 
+            this.lblBtnGPSTool.AutoSize = true;
+            this.lblBtnGPSTool.BackColor = System.Drawing.Color.Transparent;
+            this.lblBtnGPSTool.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblBtnGPSTool.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBtnGPSTool.Location = new System.Drawing.Point(338, 89);
+            this.lblBtnGPSTool.Name = "lblBtnGPSTool";
+            this.lblBtnGPSTool.Size = new System.Drawing.Size(28, 43);
+            this.lblBtnGPSTool.TabIndex = 536;
+            this.lblBtnGPSTool.Text = "-";
+            this.lblBtnGPSTool.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblNewSubnetTool
+            // 
+            this.lblNewSubnetTool.BackColor = System.Drawing.Color.Gainsboro;
+            this.lblNewSubnetTool.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNewSubnetTool.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblNewSubnetTool.Location = new System.Drawing.Point(399, 2);
+            this.lblNewSubnetTool.Name = "lblNewSubnetTool";
+            this.lblNewSubnetTool.Size = new System.Drawing.Size(275, 24);
+            this.lblNewSubnetTool.TabIndex = 527;
+            this.lblNewSubnetTool.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FormUDP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -671,6 +714,7 @@
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(861, 584);
             this.ControlBox = false;
+            this.Controls.Add(this.lblNewSubnetTool);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label5);
@@ -766,5 +810,8 @@
         private System.Windows.Forms.Button btnAutoSet;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblBtnGPSTool;
+        private System.Windows.Forms.Label lblBtnSteerTool;
+        private System.Windows.Forms.Label lblNewSubnetTool;
     }
 }

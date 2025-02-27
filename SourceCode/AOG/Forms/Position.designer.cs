@@ -1527,9 +1527,7 @@ namespace AgOpenGPS
             {
                 if (!isFieldStarted)
                 {
-                    CNMEA.latStart = pn.latitude;
-                    CNMEA.lonStart = pn.longitude;
-                    pn.SetLocalMetersPerDegree(false);
+                    pn.SetLocalMetersPerDegree(false, pn.latitude, pn.longitude);
                 }
 
                 pn.ConvertWGS84ToLocal(pn.latitude, pn.longitude, out pn.fix.northing, out pn.fix.easting);

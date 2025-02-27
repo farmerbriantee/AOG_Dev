@@ -323,10 +323,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    CNMEA.latStart = latK;
-                    CNMEA.lonStart = lonK;
-
-                    mf.pn.SetLocalMetersPerDegree(true);
+                    mf.pn.SetLocalMetersPerDegree(true, latK, lonK);
 
                     //make sure directory exists, or create it
                     if ((!string.IsNullOrEmpty(directoryName)) && (!Directory.Exists(directoryName)))

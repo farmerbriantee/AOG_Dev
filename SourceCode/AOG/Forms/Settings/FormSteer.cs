@@ -322,7 +322,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setAS_Kp = PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)hsbarProportionalGain.Value);
             Properties.Settings.Default.setAS_minSteerPWM = PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)hsbarMinPWM.Value);
 
-            Properties.Settings.Default.setAS_deadZoneHeading = mf.vehicle.deadZoneHeading;
+            Properties.Settings.Default.setAS_deadZoneHeading = (int)(mf.vehicle.deadZoneHeading * 100);
             Properties.Settings.Default.setAS_deadZoneDelay = mf.vehicle.deadZoneDelay;
 
             Properties.Settings.Default.setAS_ModeXTE = mf.vehicle.modeXTE;
@@ -382,7 +382,7 @@ namespace AgOpenGPS
             lblSteerAngle.Text = mf.SetSteerAngle;
             lblSteerAngleActual.Text = mf.mc.actualSteerAngleDegrees.ToString("N1") + "\u00B0";
             lblActualSteerAngleUpper.Text = lblSteerAngleActual.Text;
-            double err = (mf.mc.actualSteerAngleDegrees - mf.guidanceLineSteerAngle * 0.01);
+            double err = mf.mc.actualSteerAngleDegrees - mf.guidanceLineSteerAngle;
             lblError.Text = Math.Abs(err).ToString("N1") + "\u00B0";
             if (err > 0) lblError.ForeColor = Color.Red;
             else lblError.ForeColor = Color.DarkGreen;
@@ -1088,12 +1088,12 @@ namespace AgOpenGPS
 
         private void nudDeadZoneHeading_ValueChanged(object sender, EventArgs e)
         {
-            mf.vehicle.deadZoneHeading = (int)(nudDeadZoneHeading.Value * 100);
+            mf.vehicle.deadZoneHeading = nudDeadZoneHeading.Value;
         }
 
         private void nudDeadZoneDelay_ValueChanged(object sender, EventArgs e)
         {
-            mf.vehicle.deadZoneDelay = (int)(nudDeadZoneDelay.Value);
+            mf.vehicle.deadZoneDelay = (int)nudDeadZoneDelay.Value;
         }
 
         private void expandWindow_Click(object sender, EventArgs e)
@@ -1312,7 +1312,7 @@ namespace AgOpenGPS
                 Properties.Settings.Default.setAS_countsPerDegree = 110;
 
                 Properties.Settings.Default.setAS_ackerman = 100;
-
+                
                 Properties.Settings.Default.setAS_wasOffset = 3;
 
                 Properties.Settings.Default.setAS_highSteerPWM = 180;

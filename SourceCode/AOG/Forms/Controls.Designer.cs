@@ -2123,15 +2123,15 @@ namespace AgOpenGPS
         double lastSimGuidanceAngle = 0;
         private void timerSim_Tick(object sender, EventArgs e)
         {
-            if (isBtnAutoSteerOn && (guidanceLineDistanceOff != 32000))
+            if (isBtnAutoSteerOn && !double.IsNaN(guidanceLineDistanceOff))
             {
                 if (vehicle.isInDeadZone)
                 {
-                    sim.DoSimTick((double)lastSimGuidanceAngle);
+                    sim.DoSimTick(lastSimGuidanceAngle);
                 }
                 else
                 {
-                    lastSimGuidanceAngle = (double)guidanceLineSteerAngle * 0.01 * 0.9;
+                    lastSimGuidanceAngle = guidanceLineSteerAngle * 0.9;
                     sim.DoSimTick(lastSimGuidanceAngle);
                 }
             }

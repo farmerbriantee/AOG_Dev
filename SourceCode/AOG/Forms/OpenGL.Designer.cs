@@ -41,7 +41,7 @@ namespace AgOpenGPS
         vec2 right = new vec2();
         vec2 ptTip = new vec2();
 
-        public double avgPivDistance, avgPivDistanceTool, lightbarDistance, lightbarDistanceTool, longAvgPivDistance;
+        public double avgPivDistance, avgPivDistanceTool, longAvgPivDistance;
 
         Thread thread_oglBack;
         AutoResetEvent pauseOglBack = new AutoResetEvent(false);
@@ -253,139 +253,139 @@ namespace AgOpenGPS
 
                     GL.LineWidth(2);
 
-                            //initialize the steps for mipmap of triangles (skipping detail while zooming out)
-                            int mipmap = 0;
-                            if (camera.camSetDistance < -800) mipmap = 2;
-                            if (camera.camSetDistance < -1500) mipmap = 4;
-                            if (camera.camSetDistance < -2400) mipmap = 8;
-                            if (camera.camSetDistance < -5000) mipmap = 16;
+                    //initialize the steps for mipmap of triangles (skipping detail while zooming out)
+                    int mipmap = 0;
+                    if (camera.camSetDistance < -800) mipmap = 2;
+                    if (camera.camSetDistance < -1500) mipmap = 4;
+                    if (camera.camSetDistance < -2400) mipmap = 8;
+                    if (camera.camSetDistance < -5000) mipmap = 16;
 
 
-                            //for every new chunk of patch
+                    //for every new chunk of patch
                     foreach (var triList in patchList)
-                            {
-                                //check for even
-                                if (triList.Count % 2 == 0)
-                                    break;
+                    {
+                        //check for even
+                        if (triList.Count % 2 == 0)
+                            break;
 
                         bool isDraw = false;
-                                int count2 = triList.Count;
-                                for (int i = 1; i < count2; i += 3)
+                        int count2 = triList.Count;
+                        for (int i = 1; i < count2; i += 3)
+                        {
+                            //determine if point is in frustum or not, if < 0, its outside so abort, z always is 0                            
+                            if (frustum[0] * triList[i].easting + frustum[1] * triList[i].northing + frustum[3] <= 0)
+                                continue;//right
+                            if (frustum[4] * triList[i].easting + frustum[5] * triList[i].northing + frustum[7] <= 0)
+                                continue;//left
+                            if (frustum[16] * triList[i].easting + frustum[17] * triList[i].northing + frustum[19] <= 0)
+                                continue;//bottom
+                            if (frustum[20] * triList[i].easting + frustum[21] * triList[i].northing + frustum[23] <= 0)
+                                continue;//top
+                            if (frustum[8] * triList[i].easting + frustum[9] * triList[i].northing + frustum[11] <= 0)
+                                continue;//far
+                            if (frustum[12] * triList[i].easting + frustum[13] * triList[i].northing + frustum[15] <= 0)
+                                continue;//near
+
+                            //point is in frustum so draw the entire patch. The downside of triangle strips.
+                            isDraw = true;
+                            break;
+                        }
+
+                        if (isDraw)
+                        {
+                            count2 = triList.Count;
+                            GL.Begin(PrimitiveType.TriangleStrip);
+
+                            if (isDay) GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)152);
+                            else GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)(152 * 0.5));
+
+                            //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
+                            if (count2 >= (mipmap + 2))
+                            {
+                                int step = mipmap;
+                                for (int i = 1; i < count2; i += step)
                                 {
-                                    //determine if point is in frustum or not, if < 0, its outside so abort, z always is 0                            
-                                    if (frustum[0] * triList[i].easting + frustum[1] * triList[i].northing + frustum[3] <= 0)
-                                        continue;//right
-                                    if (frustum[4] * triList[i].easting + frustum[5] * triList[i].northing + frustum[7] <= 0)
-                                        continue;//left
-                                    if (frustum[16] * triList[i].easting + frustum[17] * triList[i].northing + frustum[19] <= 0)
-                                        continue;//bottom
-                                    if (frustum[20] * triList[i].easting + frustum[21] * triList[i].northing + frustum[23] <= 0)
-                                        continue;//top
-                                    if (frustum[8] * triList[i].easting + frustum[9] * triList[i].northing + frustum[11] <= 0)
-                                        continue;//far
-                                    if (frustum[12] * triList[i].easting + frustum[13] * triList[i].northing + frustum[15] <= 0)
-                                        continue;//near
-
-                                    //point is in frustum so draw the entire patch. The downside of triangle strips.
-                                    isDraw = true;
-                                    break;
-                                }
-
-                                if (isDraw)
-                                {
-                                    count2 = triList.Count;
-                                    GL.Begin(PrimitiveType.TriangleStrip);
-
-                                    if (isDay) GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)152);
-                                    else GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)(152 * 0.5));
-
-                                    //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
-                                    if (count2 >= (mipmap + 2))
-                                    {
-                                        int step = mipmap;
-                                        for (int i = 1; i < count2; i += step)
-                                        {
-                                            GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
-                                            GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
-                                            if (count2 - i <= (mipmap + 2)) step = 0;//too small to mipmap it
-                                        }
-                                    }
-                                    else { for (int i = 1; i < count2; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
-                                    GL.End();
-
-                                    if (isSectionlinesOn)
-                                    {
-                                        //highlight lines
-                                        GL.Color4(0.2, 0.2, 0.2, 1.0);
-                                        GL.Begin(PrimitiveType.LineStrip);
-
-                                        //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
-                                        if (count2 >= (mipmap + 2))
-                                        {
-                                            int step = mipmap;
-                                            for (int i = 1; i < count2; i += step + 2)
-                                            {
-                                                GL.Vertex3(triList[i].easting, triList[i].northing, 0);
-                                                if (count2 - i <= (mipmap + 2)) step = 0;//too small to mipmap it
-                                            }
-                                        }
-                                        else { for (int i = 1; i < count2; i += 2) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
-                                        GL.End();
-
-                                        GL.Begin(PrimitiveType.LineStrip);
-                                        //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
-                                        if (count2 >= (mipmap + 2))
-                                        {
-                                            int step = mipmap;
-                                            for (int i = 2; i < count2; i += step + 2)
-                                            {
-                                                GL.Vertex3(triList[i].easting, triList[i].northing, 0);
-                                                if (count2 - i <= (mipmap + 2)) step = 0;//too small to mipmap it
-                                            }
-                                        }
-                                        else { for (int i = 2; i < count2; i += 2) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
-                                        GL.End();
-                                    }
-
-
-                                    if (isDirectionMarkers)
-                                    {
-                                        if (triList.Count > 31)
-                                        {
-                                            double headz =
-                                                Math.Atan2(triList[29].easting - triList[27].easting, triList[29].northing - triList[27].northing);
-
-                                            left = new vec2(
-                                                (triList[27].easting + factor * (triList[28].easting - triList[27].easting)),
-                                                (triList[27].northing + factor * (triList[28].northing - triList[27].northing)));
-
-                                            factor = 1 - factor;
-
-                                            right = new vec2(
-                                                (triList[27].easting + factor * (triList[28].easting - triList[27].easting)),
-                                                (triList[27].northing + factor * (triList[28].northing - triList[27].northing)));
-
-                                            double disst = glm.Distance(left, right);
-                                            disst *= 1.5;
-
-                                            ptTip = new vec2((left.easting + right.easting) / 2, (left.northing + right.northing) / 2);
-
-                                            ptTip = new vec2(ptTip.easting + (Math.Sin(headz) * disst), ptTip.northing + (Math.Cos(headz) * disst));
-
-                                            GL.Color4((byte)(255 - triList[0].easting), (byte)(255 - triList[0].northing), (byte)(255 - triList[0].heading), (byte)150);
-                                            //GL.LineWidth(3.0f);
-
-                                            GL.Begin(PrimitiveType.Triangles);
-                                            GL.Vertex3(left.easting, left.northing, 0);
-                                            GL.Vertex3(right.easting, right.northing, 0);
-
-                                            GL.Color4(0.85, 0.85, 1, 1.0);
-                                            GL.Vertex3(ptTip.easting, ptTip.northing, 0);
-                                            GL.End();
-                                        }
-                                    }
+                                    GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
+                                    GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
+                                    if (count2 - i <= (mipmap + 2)) step = 0;//too small to mipmap it
                                 }
                             }
+                            else { for (int i = 1; i < count2; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
+                            GL.End();
+
+                            if (isSectionlinesOn)
+                            {
+                                //highlight lines
+                                GL.Color4(0.2, 0.2, 0.2, 1.0);
+                                GL.Begin(PrimitiveType.LineStrip);
+
+                                //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
+                                if (count2 >= (mipmap + 2))
+                                {
+                                    int step = mipmap;
+                                    for (int i = 1; i < count2; i += step + 2)
+                                    {
+                                        GL.Vertex3(triList[i].easting, triList[i].northing, 0);
+                                        if (count2 - i <= (mipmap + 2)) step = 0;//too small to mipmap it
+                                    }
+                                }
+                                else { for (int i = 1; i < count2; i += 2) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
+                                GL.End();
+
+                                GL.Begin(PrimitiveType.LineStrip);
+                                //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
+                                if (count2 >= (mipmap + 2))
+                                {
+                                    int step = mipmap;
+                                    for (int i = 2; i < count2; i += step + 2)
+                                    {
+                                        GL.Vertex3(triList[i].easting, triList[i].northing, 0);
+                                        if (count2 - i <= (mipmap + 2)) step = 0;//too small to mipmap it
+                                    }
+                                }
+                                else { for (int i = 2; i < count2; i += 2) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
+                                GL.End();
+                            }
+
+
+                            if (isDirectionMarkers)
+                            {
+                                if (triList.Count > 31)
+                                {
+                                    double headz =
+                                        Math.Atan2(triList[29].easting - triList[27].easting, triList[29].northing - triList[27].northing);
+
+                                    left = new vec2(
+                                        (triList[27].easting + factor * (triList[28].easting - triList[27].easting)),
+                                        (triList[27].northing + factor * (triList[28].northing - triList[27].northing)));
+
+                                    factor = 1 - factor;
+
+                                    right = new vec2(
+                                        (triList[27].easting + factor * (triList[28].easting - triList[27].easting)),
+                                        (triList[27].northing + factor * (triList[28].northing - triList[27].northing)));
+
+                                    double disst = glm.Distance(left, right);
+                                    disst *= 1.5;
+
+                                    ptTip = new vec2((left.easting + right.easting) / 2, (left.northing + right.northing) / 2);
+
+                                    ptTip = new vec2(ptTip.easting + (Math.Sin(headz) * disst), ptTip.northing + (Math.Cos(headz) * disst));
+
+                                    GL.Color4((byte)(255 - triList[0].easting), (byte)(255 - triList[0].northing), (byte)(255 - triList[0].heading), (byte)150);
+                                    //GL.LineWidth(3.0f);
+
+                                    GL.Begin(PrimitiveType.Triangles);
+                                    GL.Vertex3(left.easting, left.northing, 0);
+                                    GL.Vertex3(right.easting, right.northing, 0);
+
+                                    GL.Color4(0.85, 0.85, 1, 1.0);
+                                    GL.Vertex3(ptTip.easting, ptTip.northing, 0);
+                                    GL.End();
+                                }
+                            }
+                        }
+                    }
 
                     if (patchCounter > 0)
                     {
@@ -1716,15 +1716,15 @@ namespace AgOpenGPS
             two3 -= 140;
             GL.Color3(0.927f, 0.9635f, 0.74f);
 
-                if (!yt.isYouTurnTriggered)
-                {
+            if (!yt.isYouTurnTriggered)
+            {
                 font.DrawText(-40 + two3, 120, DistPivot);
-                }
-                else
-                {
-                    font.DrawText(-40 + two3, 120, yt.onA.ToString());
-                }
             }
+            else
+            {
+                font.DrawText(-40 + two3, 120, yt.onA.ToString());
+            }
+        }
 
         private void DrawSteerCircle()
         {
@@ -2077,28 +2077,16 @@ namespace AgOpenGPS
         {
             GL.Disable(EnableCap.DepthTest);
 
-            if (ct.isContourBtnOn || trk.idx > -1)
+            if ((ct.isContourBtnOn || trk.idx > -1) && !double.IsNaN(guidanceLineDistanceOff))
             {
+                avgPivDistance = avgPivDistance * 0.5 + guidanceLineDistanceOff * 0.5;
 
-                // in millimeters
-                avgPivDistance = avgPivDistance * 0.5 + lightbarDistance * 0.5;
-
-                if (avgPivDistance > 150) longAvgPivDistance = 150;
-                longAvgPivDistance = longAvgPivDistance * 0.97 + Math.Abs(avgPivDistance) * 0.03;
-
-                double avgPivotDistance = avgPivDistance * (isMetric ? 0.1 : 0.03937);
+                double avgPivotDistance = avgPivDistance * glm.m2InchOrCm;
 
                 if (isLightbarOn) DrawLightBar(avgPivotDistance);
 
                 if (avgPivotDistance > 999) avgPivotDistance = 999;
                 if (avgPivotDistance < -999) avgPivotDistance = -999;
-
-                //tool xte
-                avgPivDistanceTool =  avgPivDistanceTool * 0.5 + lightbarDistanceTool * 0.5;
-                double avgPivotDistanceTool = avgPivDistanceTool * (isMetric ? 0.1 : 0.03937);
-                if (avgPivotDistanceTool > 999) avgPivotDistanceTool = 999;
-                if (avgPivotDistanceTool < -999) avgPivotDistanceTool = -999;
-
 
                 string hede = ".0.";
 
@@ -2120,12 +2108,11 @@ namespace AgOpenGPS
 
                 double green = Math.Abs(avgPivDistance);
                 double red = green;
-                if (green > 400) green = 400;
-                green *= .001;
+                if (green > 0.4) green = 0.4;
                 green = (0.4 - green) + 0.58;
 
-                if (red > 400) red = 400;
-                red = 0.002 * red;
+                if (red > 0.4) red = 0.4;
+                red = 2 * red;
 
                 GL.Color4(red, green, 0.3, 1.0);
 
@@ -2146,9 +2133,12 @@ namespace AgOpenGPS
                 GL.Color4(0.0, 0.0, 0.0, 1.0);
                 font.DrawText(center, 2, hede, 1.5);
 
+                if (avgPivDistance > 0.15) longAvgPivDistance = 0.15;
+                longAvgPivDistance = longAvgPivDistance * 0.97 + Math.Abs(avgPivDistance) * 0.03;
+
                 if (longAvgPivDistance < 150)
                 {
-                    hede = (Math.Abs(longAvgPivDistance * (isMetric ? 0.1 : 0.03937))).ToString("N1");
+                    hede = (Math.Abs(longAvgPivDistance * glm.m2InchOrCm)).ToString("N1");
 
                     GL.Color3(0.950f, 0.952f, 0.3f);
                     center = -(int)(((double)(hede.Length) * 0.5) * 16);
@@ -2164,8 +2154,7 @@ namespace AgOpenGPS
 
         private void DrawSteerBarText()
         {
-
-            if (ct.isContourBtnOn || trk.idx > -1)
+            if ((ct.isContourBtnOn || trk.idx > -1) && !double.IsNaN(guidanceLineDistanceOff))
             {
                 GL.Disable(EnableCap.DepthTest);
                 int spacing = oglMain.Width / 50;
@@ -2184,11 +2173,11 @@ namespace AgOpenGPS
                 double alphaBar = 1.0;
                 if (isBtnAutoSteerOn) alphaBar = 0.5;
 
-                avgPivDistance = avgPivDistance * 0.8 + lightbarDistance * 0.2;
+                avgPivDistance = avgPivDistance * 0.8 + guidanceLineDistanceOff * 0.2;
 
                 // in millimeters
-                double avgPivotDistance = avgPivDistance * (isMetric ? 0.1 : 0.03937);
-                double err = (mc.actualSteerAngleDegrees - (double)(guidanceLineSteerAngle) * 0.01);
+                double avgPivotDistance = avgPivDistance * glm.m2InchOrCm;
+                double err = mc.actualSteerAngleDegrees - guidanceLineSteerAngle;
 
 
                 if (isBtnAutoSteerOn)
@@ -2299,12 +2288,11 @@ namespace AgOpenGPS
 
                 double green = Math.Abs(avgPivDistance);
                 double red = green;
-                if (green > 400) green = 400;
-                green *= .001;
+                if (green > 0.4) green = 0.4;
                 green = (0.7 - green) + 0.28;
 
-                if (red > 400) red = 400;
-                red = 0.01 * red;
+                if (red > 0.4) red = 0.4;
+                red = 2 * red;
 
                 GL.Color4(red, green, 0.13, 1.0);
 
@@ -2321,11 +2309,11 @@ namespace AgOpenGPS
 
                 font.DrawText(center, 2, hede, textSize);
 
-                if (isGPSToolActive)
+                if (isGPSToolActive && !double.IsNaN(gyd.distanceFromCurrentLineTool))
                 {
                     //tool xte
-                    avgPivDistanceTool = avgPivDistanceTool * 0.5 + lightbarDistanceTool * 0.5;
-                    double avgPivotDistanceTool = avgPivDistanceTool * (isMetric ? 0.1 : 0.03937);
+                    avgPivDistanceTool = avgPivDistanceTool * 0.5 + gyd.distanceFromCurrentLineTool * 0.5;
+                    double avgPivotDistanceTool = avgPivDistanceTool * glm.m2InchOrCm;
                     if (avgPivotDistanceTool > 999) avgPivotDistanceTool = 999;
                     if (avgPivotDistanceTool < -999) avgPivotDistanceTool = -999;
 
@@ -2357,12 +2345,11 @@ namespace AgOpenGPS
 
                     green = Math.Abs(avgPivDistanceTool);
                     red = green;
-                    if (green > 400) green = 400;
-                    green *= .001;
+                    if (green > 0.4) green = 0.4;
                     green = (0.7 - green) + 0.28;
 
-                    if (red > 400) red = 400;
-                    red = 0.01 * red;
+                    if (red > 0.4) red = 0.4;
+                    red = 2 * red;
 
                     GL.Color4(red, green, 0.3, 1.0);
 

@@ -145,7 +145,7 @@ namespace AgOpenGPS
                             lblCurrentField.Text = (bnd.bndList.Count > 0 ? fd.AreaBoundaryLessInners
                                 + "  " : "") + "App: " + fd.WorkedArea
                                 + "  Actual: " + fd.ActualAreaWorked
-                                        + "  " + fd.WorkedAreaRemainPercentage
+                                + "  " + fd.WorkedAreaRemainPercentage
                                 + "  " + fd.WorkRateHour;
                             break;
 
@@ -293,7 +293,7 @@ namespace AgOpenGPS
                 isFlashOnOff = !isFlashOnOff;
 
                 //the main formgps window
-                    //status strip values
+                //status strip values
                 distanceToolBtn.Text = fd.DistanceUser + "\r\n" + fd.WorkedUserArea;
 
                 //Make sure it is off when it should
@@ -1549,7 +1549,7 @@ namespace AgOpenGPS
         }
         private void SpeedLimitExceeded()
         {
-                TimedMessageBox(2000, gStr.Get(gs.gsTooFast), gStr.Get(gs.gsSlowDownBelow) + " "
+            TimedMessageBox(2000, gStr.Get(gs.gsTooFast), gStr.Get(gs.gsSlowDownBelow) + " "
                 + (vehicle.functionSpeedLimit * glm.kmhToMphOrKmh).ToString("N1") + " " + glm.unitsKmhMph);
 
             Log.EventWriter("UTurn or Lateral Speed exceeded");
@@ -1644,8 +1644,8 @@ namespace AgOpenGPS
                 else return "-";
             }
         }
-        public string SetSteerAngle { get { return ((double)(guidanceLineSteerAngle) * 0.01).ToString("N1"); } }
-        public string ActualSteerAngle { get { return ((mc.actualSteerAngleDegrees) ).ToString("N1") ; } }
+        public string SetSteerAngle { get { return (guidanceLineSteerAngle).ToString("N1"); } }
+        public string ActualSteerAngle { get { return (mc.actualSteerAngleDegrees).ToString("N1") ; } }
 
         //Metric and Imperial Properties
         public string Speed

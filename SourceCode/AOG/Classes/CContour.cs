@@ -14,7 +14,7 @@ namespace AgOpenGPS
         // for closest line point to current fix
         public double minDistance = 99999.0, refX, refZ;
 
-        public double distanceFromCurrentLinePivot;
+        public double distanceFromCurrentLine;
 
         private int A, B, C, stripNum, lastLockPt = int.MaxValue;
 
@@ -553,7 +553,7 @@ namespace AgOpenGPS
         {
             double minDistA = 1000000, minDistB = 1000000;
             int ptCount = ctList.Count;
-            //distanceFromCurrentLine = 9999;
+
             if (ptCount > 8)
             {
                 if (mf.isStanleyUsed)
@@ -589,7 +589,7 @@ namespace AgOpenGPS
                     if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dy) < Double.Epsilon) return;
 
                     //how far from current AB Line is fix
-                    distanceFromCurrentLinePivot = ((dy * steer.easting) - (dx * steer.northing) + (ctList[B].easting
+                    distanceFromCurrentLine = ((dy * steer.easting) - (dx * steer.northing) + (ctList[B].easting
                                 * ctList[A].northing) - (ctList[B].northing * ctList[A].easting))
                                     / Math.Sqrt((dy * dy) + (dx * dx));
 
@@ -612,7 +612,7 @@ namespace AgOpenGPS
                     }
                     else
                     {
-                        distanceFromCurrentLinePivot *= -1.0;
+                        distanceFromCurrentLine *= -1.0;
                         abFixHeadingDelta = (steer.heading - abHeading + Math.PI);
                     }
 
@@ -629,7 +629,7 @@ namespace AgOpenGPS
                     if (abFixHeadingDelta > 0.74) abFixHeadingDelta = 0.74;
                     if (abFixHeadingDelta < -0.74) abFixHeadingDelta = -0.74;
 
-                    steerAngleCT = Math.Atan((distanceFromCurrentLinePivot * mf.vehicle.stanleyDistanceErrorGain)
+                    steerAngleCT = Math.Atan((distanceFromCurrentLine * mf.vehicle.stanleyDistanceErrorGain)
                         / ((Math.Abs(mf.avgSpeed) * 0.277777) + 1));
 
                     if (steerAngleCT > 0.74) steerAngleCT = 0.74;
@@ -682,14 +682,14 @@ namespace AgOpenGPS
                     if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dy) < Double.Epsilon) return;
 
                     //how far from current AB Line is fix
-                    distanceFromCurrentLinePivot = ((dy * mf.pn.fix.easting) - (dx * mf.pn.fix.northing) + (ctList[B].easting
+                    distanceFromCurrentLine = ((dy * pivot.easting) - (dx * pivot.northing) + (ctList[B].easting
                                 * ctList[A].northing) - (ctList[B].northing * ctList[A].easting))
                                     / Math.Sqrt((dy * dy) + (dx * dx));
 
                     //integral slider is set to 0
                     if (mf.vehicle.purePursuitIntegralGain != 0)
                     {
-                        pivotDistanceError = distanceFromCurrentLinePivot * 0.2 + pivotDistanceError * 0.8;
+                        pivotDistanceError = distanceFromCurrentLine * 0.2 + pivotDistanceError * 0.8;
 
                         if (counter2++ > 4)
                         {
@@ -712,13 +712,13 @@ namespace AgOpenGPS
                             && !mf.yt.isYouTurnTriggered)
                         {
                             //if over the line heading wrong way, rapidly decrease integral
-                            if ((inty < 0 && distanceFromCurrentLinePivot < 0) || (inty > 0 && distanceFromCurrentLinePivot > 0))
+                            if ((inty < 0 && distanceFromCurrentLine < 0) || (inty > 0 && distanceFromCurrentLine > 0))
                             {
                                 inty += pivotDistanceError * mf.vehicle.purePursuitIntegralGain * -0.06;
                             }
                             else
                             {
-                                if (Math.Abs(distanceFromCurrentLinePivot) > 0.02)
+                                if (Math.Abs(distanceFromCurrentLine) > 0.02)
                                 {
                                     inty += pivotDistanceError * mf.vehicle.purePursuitIntegralGain * -0.02;
                                     if (inty > 0.2) inty = 0.2;
@@ -735,7 +735,7 @@ namespace AgOpenGPS
                     isHeadingSameWay = Math.PI - Math.Abs(Math.Abs(pivot.heading - ctList[A].heading) - Math.PI) < glm.PIBy2;
 
                     if (!isHeadingSameWay)
-                        distanceFromCurrentLinePivot *= -1.0;
+                        distanceFromCurrentLine *= -1.0;
 
                     // ** Pure pursuit ** - calc point on AB Line closest to current position
                     double U = (((pivot.easting - ctList[A].easting) * dx) + ((pivot.northing - ctList[A].northing) * dy))
@@ -802,17 +802,17 @@ namespace AgOpenGPS
                 }
 
                 //used for smooth mode
-                mf.vehicle.modeActualXTE = (distanceFromCurrentLinePivot);
+                mf.vehicle.modeActualXTE = distanceFromCurrentLine;
 
                 //fill in the autosteer variables
-                mf.guidanceLineDistanceOff = (short)Math.Round(distanceFromCurrentLinePivot * 1000.0, MidpointRounding.AwayFromZero);
-                mf.guidanceLineSteerAngle = (short)(steerAngleCT * 100);
+                mf.guidanceLineDistanceOff = distanceFromCurrentLine;
+                mf.guidanceLineSteerAngle = steerAngleCT;
             }
             else
             {
                 //invalid distance so tell AS module
-                distanceFromCurrentLinePivot = 0;
-                mf.guidanceLineDistanceOff = 0;
+                distanceFromCurrentLine = double.NaN;
+                mf.guidanceLineDistanceOff = double.NaN;
             }
         }
 
@@ -1039,7 +1039,7 @@ namespace AgOpenGPS
             GL.End();
             //}
 
-            if (mf.isPureDisplayOn && distanceFromCurrentLinePivot != 32000 && !mf.isStanleyUsed)
+            if (mf.isPureDisplayOn && !mf.isStanleyUsed && !double.IsNaN(distanceFromCurrentLine))
             {
                 //if (ppRadiusCT < 50 && ppRadiusCT > -50)
                 //{

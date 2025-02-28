@@ -20,7 +20,6 @@ namespace AgOpenGPS
 
         public bool isBtnTrackOn;
 
-        public double distanceFromCurrentLinePivot;
         public double distanceFromRefLine;
 
         public bool isHeadingSameWay = true, lastIsHeadingSameWay = true;
@@ -492,8 +491,8 @@ namespace AgOpenGPS
             else
             {
                 //invalid distance so tell AS module
-                distanceFromCurrentLinePivot = 32000;
-                mf.guidanceLineDistanceOff = 32000;
+                mf.gyd.distanceFromCurrentLine = 0;
+                mf.guidanceLineDistanceOff = double.NaN;
             }
         }
 
@@ -1059,7 +1058,7 @@ namespace AgOpenGPS
         {
             if (idx > -1)
             {
-                NudgeTrack(distanceFromCurrentLinePivot);
+                NudgeTrack(mf.gyd.distanceFromCurrentLine);
             }
         }
 

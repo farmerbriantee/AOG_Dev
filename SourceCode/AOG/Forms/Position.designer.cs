@@ -23,8 +23,8 @@ namespace AgOpenGPS
         public StringBuilder sbElevationString = new StringBuilder();
 
         // autosteer variables for sending serial
-        public short guidanceLineDistanceOff, guidanceLineSteerAngle, guidanceLineDistanceOffTool;
-        public double avGuidanceSteerAngle;
+        public double guidanceLineDistanceOff;
+        public double guidanceLineSteerAngle;
 
         public short errorAngVel;
         public double setAngVel, actAngVel;
@@ -77,7 +77,7 @@ namespace AgOpenGPS
         //public double totalSquareMetersWorked = 0, totalUserSquareMeters = 0, userSquareMetersAlarm = 0;
 
         public double avgSpeed, previousSpeed;//for average speed
-        public int crossTrackError;
+        public double crossTrackError;
 
         //youturn
         public double distancePivotToTurnLine = -2222;
@@ -537,7 +537,7 @@ namespace AgOpenGPS
             #region AutoSteer
 
             //preset the values
-            guidanceLineDistanceOff = 32000;
+            guidanceLineDistanceOff = double.NaN;
 
             if (ct.isContourBtnOn)
             {
@@ -565,29 +565,21 @@ namespace AgOpenGPS
                 PGN_254.pgn[PGN_254.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
                 //mc.machineControlData[mc.cnSpeed] = mc.autoSteerData[mc.sdSpeed];
 
-                //save distance for display
-                lightbarDistance = guidanceLineDistanceOff;
-                lightbarDistanceTool = guidanceLineDistanceOffTool;
-
                 if (!isBtnAutoSteerOn) //32020 means auto steer is off
                 {
-                    guidanceLineDistanceOff = 32020;
+                    guidanceLineDistanceOff = double.NaN;
                     PGN_254.pgn[PGN_254.status] = 0;
                 }
 
                 else PGN_254.pgn[PGN_254.status] = 1;
 
-                //mc.autoSteerData[7] = unchecked((byte)(guidanceLineDistanceOff >> 8));
-                //mc.autoSteerData[8] = unchecked((byte)(guidanceLineDistanceOff));
-
                 //convert to cm from mm and divide by 2 - lightbar
                 int distanceX2;
-                if (guidanceLineDistanceOff == 32020 || guidanceLineDistanceOff == 32000)
+                if (double.IsNaN(guidanceLineDistanceOff))
                     distanceX2 = 255;
-
                 else
                 {
-                    distanceX2 = (int)(guidanceLineDistanceOff * 0.05);
+                    distanceX2 = (int)((guidanceLineDistanceOff * glm.m2InchOrCm) / lightbarCmPerPixel);
 
                     if (distanceX2 < -127) distanceX2 = -127;
                     else if (distanceX2 > 127) distanceX2 = 127;
@@ -630,7 +622,7 @@ namespace AgOpenGPS
 
                 // delay on dead zone.
                 if (PGN_254.pgn[PGN_254.status] == 1 && !isReverse
-                    && Math.Abs(guidanceLineSteerAngle - mc.actualSteerAngleDegrees * 100) < vehicle.deadZoneHeading)
+                    && Math.Abs(guidanceLineSteerAngle - mc.actualSteerAngleDegrees) < vehicle.deadZoneHeading)
                 {
                     if (vehicle.deadZoneDelayCounter > vehicle.deadZoneDelay)
                     {
@@ -645,18 +637,25 @@ namespace AgOpenGPS
 
                 if (!vehicle.isInDeadZone)
                 {
-                    PGN_254.pgn[PGN_254.steerAngleHi] = unchecked((byte)(guidanceLineSteerAngle >> 8));
-                    PGN_254.pgn[PGN_254.steerAngleLo] = unchecked((byte)(guidanceLineSteerAngle));
+                    var angleX100 = (Int16)(guidanceLineSteerAngle * 100);
+
+                    PGN_254.pgn[PGN_254.steerAngleHi] = unchecked((byte)(angleX100 >> 8));
+                    PGN_254.pgn[PGN_254.steerAngleLo] = unchecked((byte)(angleX100));
                 }
 
                 if (isGPSToolActive)
                 {
                     PGN_233.pgn[PGN_233.speedHi] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0) >> 8));
                     PGN_233.pgn[PGN_233.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
-                    PGN_233.pgn[PGN_233.xteHi] = unchecked((byte)(guidanceLineDistanceOffTool >> 8));
-                    PGN_233.pgn[PGN_233.xteLo] = unchecked((byte)(guidanceLineDistanceOffTool));
 
-                    if (!vehicle.isInFreeDriveMode || guidanceLineDistanceOffTool < 27000)
+                    if (!double.IsNaN(gyd.distanceFromCurrentLineTool))
+                    {
+                        var distX1000 = (Int16)(gyd.distanceFromCurrentLineTool * 1000);
+                        PGN_233.pgn[PGN_233.xteHi] = unchecked((byte)(distX1000 >> 8));
+                        PGN_233.pgn[PGN_233.xteLo] = unchecked((byte)(distX1000));
+                    }
+
+                    if (!vehicle.isInFreeDriveMode || !double.IsNaN(gyd.distanceFromCurrentLineTool))
                     {
                         if (PGN_254.pgn[PGN_254.status] == 1) PGN_233.pgn[PGN_233.status] = 1;
                         else PGN_233.pgn[PGN_233.status] = 0;
@@ -681,10 +680,10 @@ namespace AgOpenGPS
                 PGN_254.pgn[PGN_254.status] = 1;
 
                 //send the steer angle
-                guidanceLineSteerAngle = (Int16)(vehicle.driveFreeSteerAngle * 100);
+                var angleX100 = (Int16)(vehicle.driveFreeSteerAngle * 100);
 
-                PGN_254.pgn[PGN_254.steerAngleHi] = unchecked((byte)(guidanceLineSteerAngle >> 8));
-                PGN_254.pgn[PGN_254.steerAngleLo] = unchecked((byte)(guidanceLineSteerAngle));
+                PGN_254.pgn[PGN_254.steerAngleHi] = unchecked((byte)(angleX100 >> 8));
+                PGN_254.pgn[PGN_254.steerAngleLo] = unchecked((byte)(angleX100));
             }
 
             //out serial to autosteer module  //indivdual classes load the distance and heading deltas 
@@ -693,13 +692,9 @@ namespace AgOpenGPS
 
 
             //for average cross track error
-            if (guidanceLineDistanceOff < 29000)
+            if (!double.IsNaN(guidanceLineDistanceOff))
             {
-                crossTrackError = (int)((double)crossTrackError * 0.90 + Math.Abs((double)guidanceLineDistanceOff) * 0.1);
-            }
-            else
-            {
-                crossTrackError = 0;
+                crossTrackError = crossTrackError * 0.90 + Math.Abs(guidanceLineDistanceOff) * 0.1;
             }
 
             #endregion
@@ -726,7 +721,7 @@ namespace AgOpenGPS
                         //now check to make sure we are not in an inner turn boundary - drive thru is ok
                         if (yt.youTurnPhase != 10)
                         {
-                            if (crossTrackError > 1000)
+                            if (crossTrackError > 1)
                             {
                                 yt.ResetCreatedYouTurn();
                             }

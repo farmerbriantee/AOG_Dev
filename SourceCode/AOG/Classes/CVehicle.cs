@@ -13,8 +13,8 @@ namespace AgOpenGPS
         public double antennaPivot;
         public double wheelbase;
         public double antennaOffset;
-        public int deadZoneHeading, deadZoneDelay;
-        public int vehicleType, deadZoneDelayCounter;
+        public double deadZoneHeading;
+        public int vehicleType, deadZoneDelayCounter, deadZoneDelay;
         public bool isInDeadZone;
 
         //min vehicle speed allowed before turning shit off
@@ -80,7 +80,7 @@ namespace AgOpenGPS
 
             hydLiftLookAheadTime = Properties.Settings.Default.setVehicle_hydraulicLiftLookAhead;
 
-            deadZoneHeading = Properties.Settings.Default.setAS_deadZoneHeading;
+            deadZoneHeading = Properties.Settings.Default.setAS_deadZoneHeading * 0.01;
             deadZoneDelay = Properties.Settings.Default.setAS_deadZoneDelay;
 
             isInFreeDriveMode = false;

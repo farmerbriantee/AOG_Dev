@@ -387,9 +387,6 @@ namespace AgOpenGPS
                                 }
                             }
 
-                    // the follow up to sections patches
-                    int patchCount = 0;
-
                     if (patchCounter > 0)
                     {
                         foreach (var patch in triStrip)
@@ -1719,29 +1716,15 @@ namespace AgOpenGPS
             two3 -= 140;
             GL.Color3(0.927f, 0.9635f, 0.74f);
 
-            if (isMetric)
-            {
                 if (!yt.isYouTurnTriggered)
                 {
-                    font.DrawText(-40 + two3, 120, DistPivotM);
+                font.DrawText(-40 + two3, 120, DistPivot);
                 }
                 else
                 {
                     font.DrawText(-40 + two3, 120, yt.onA.ToString());
                 }
             }
-            else
-            {
-                if (!yt.isYouTurnTriggered)
-                {
-                    font.DrawText(-40 + two3, 120, DistPivotFt);
-                }
-                else
-                {
-                    font.DrawText(-40 + two3, 120, yt.onA.ToString());
-                }
-            }
-        }
 
         private void DrawSteerCircle()
         {

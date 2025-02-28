@@ -139,20 +139,10 @@ namespace AgOpenGPS
                     b.Anchor = System.Windows.Forms.AnchorStyles.None;
                 }
 
-                if (mf.isMetric)
-                {
-                    int length = (mf.bnd.bndList[i].area * 0.0001).ToString("0").Length;
-                    if (length > 10) length = 10;
-                    if (length < 3) length = 3;
-                    b.Text = (mf.bnd.bndList[i].area * 0.0001).ToString("0.########".Substring(0, 11 - length)) + " Ha";
-                }
-                else
-                {
-                    int length = (mf.bnd.bndList[i].area * 0.000247105).ToString("0").Length;
-                    if (length > 10) length = 10;
-                    if (length < 3) length = 3;
-                    b.Text = (mf.bnd.bndList[i].area * 0.000247105).ToString("0.########".Substring(0, 11 - length)) + " Ac";
-                }
+                int length = (mf.bnd.bndList[i].area * glm.m22HaOrAc).ToString("0").Length;
+                if (length > 10) length = 10;
+                if (length < 3) length = 3;
+                b.Text = (mf.bnd.bndList[i].area * glm.m22HaOrAc).ToString("0.########".Substring(0, 11 - length)) + glm.unitsHaOrAc;
 
                 if (i == fenceSelected)
                 {

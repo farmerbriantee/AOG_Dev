@@ -129,7 +129,7 @@ namespace AgOpenGPS
             UpdateVehicleListView();
 
             //tabTSections_Enter(this, e);
-            lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * 100 * glm.cm2CmOrIn));
+            lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * glm.m2InchOrCm));
             SectionFeetInchesTotalWidthLabelUpdate();
 
             tab1.SelectedTab = tabSummary;
@@ -203,8 +203,8 @@ namespace AgOpenGPS
             chkSectionLines.Checked = Properties.Settings.Default.setDisplay_isSectionLinesOn;
             chkLineSmooth.Checked = Properties.Settings.Default.setDisplay_isLineSmooth;
 
-            if (mf.isMetric) rbtnDisplayMetric.Checked = true;
-            else rbtnDisplayImperial.Checked = true;
+            rbtnDisplayMetric.Checked = mf.isMetric;
+            rbtnDisplayImperial.Checked = !rbtnDisplayMetric.Checked;
 
             nudNumGuideLines.Value = mf.trk.numGuideLines;
         }
@@ -219,8 +219,7 @@ namespace AgOpenGPS
             mf.TimedMessageBox(2000, "Units Set", "Imperial");
             Log.EventWriter("Units To Imperial");
 
-            mf.isMetric = false;
-            Properties.Settings.Default.setMenu_isMetric = mf.isMetric;
+            Properties.Settings.Default.setMenu_isMetric = mf.isMetric = false;
 
             Close();
         }
@@ -230,8 +229,7 @@ namespace AgOpenGPS
             mf.TimedMessageBox(2000, "Units Set", "Metric");
             Log.EventWriter("Units to Metric");
 
-            mf.isMetric = true;
-            Properties.Settings.Default.setMenu_isMetric = mf.isMetric;
+            Properties.Settings.Default.setMenu_isMetric = mf.isMetric = true;
 
             Close();
             //FormConfig_Load(this, e);

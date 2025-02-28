@@ -77,7 +77,7 @@ namespace AgOpenGPS
                     foreach (XmlNode nodePFD in pfd)
                     {
                         double.TryParse(nodePFD.Attributes["D"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out double area);
-                        area *= 0.0001;
+                        area *= glm.m2ha;
 
                         // PFD - A=ID, C=FieldName, D = Area in sq m
                         tree.Nodes.Add(nodePFD.Attributes["C"].Value + " Area: " + area + " Ha  " + nodePFD.Attributes["A"].Value);

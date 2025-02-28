@@ -64,7 +64,7 @@ namespace AgOpenGPS
 
             lblSumNumSections.Text = mf.tool.numOfSections.ToString();
 
-            string snapDist = (Properties.Settings.Default.setAS_snapDistance * glm.cm2CmOrIn).ToString("N1");
+            string snapDist = (Properties.Settings.Default.setAS_snapDistance * glm.m2InchOrCm).ToString("N1");
 
             lblNudgeDistance.Text = snapDist + glm.unitsInCm.ToString();
             lblUnits.Text = mf.isMetric ? "Metric" : "Imperial";

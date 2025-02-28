@@ -71,22 +71,12 @@ namespace AgOpenGPS
 
         private void nudSprayRateSet1_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.isMetric)
-            {
-                nudSprayRateSet1.Value = Math.Round(nudSprayRateSet1.Value, 0);
-            }
             mf.nozz.volumePerAreaSet1 = nudSprayRateSet1.Value;
-
             Properties.Settings.Default.setNozzleSettings.volumePerAreaSet1 = nudSprayRateSet1.Value;
         }
 
         private void nudSprayRateSet2_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.isMetric)
-            {
-                nudSprayRateSet2.Value = Math.Round(nudSprayRateSet2.Value, 0);
-            }
-
             mf.nozz.volumePerAreaSet2 = nudSprayRateSet2.Value;
             Properties.Settings.Default.setNozzleSettings.volumePerAreaSet2 = nudSprayRateSet2.Value;
         }

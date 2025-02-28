@@ -438,14 +438,7 @@ namespace AgOpenGPS
 
         private void UpdateUturnText()
         {
-            if (mf.isMetric)
-            {
-                lblDistance.Text = Math.Abs(mf.yt.youTurnStartOffset).ToString() + " m";
-            }
-            else
-            {
-                lblDistance.Text = Math.Abs((int)(mf.yt.youTurnStartOffset * glm.m2FtOrM)).ToString() + " ft";
-            }
+            lblDistance.Text = Math.Abs(mf.yt.youTurnStartOffset * glm.m2FtOrM).ToString("0") + glm.unitsFtM;
         }
 
         private void nudYouTurnRadius_ValueChanged(object sender, EventArgs e)

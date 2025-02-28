@@ -24,17 +24,10 @@ namespace AgOpenGPS
 
         private void FormEditTrack_Load(object sender, EventArgs e)
         {
-            nudSnapDistance.Value = Properties.Settings.Default.setAS_snapDistance * 0.01;
-            if (mf.isMetric)
-            {
-                nudSnapDistance.DecimalPlaces = 0;
-            }
-            else
-            {
-                nudSnapDistance.DecimalPlaces = 1;
-            }
+            nudSnapDistance.DecimalPlaces = mf.isMetric ? 0 : 1;
+            nudSnapDistance.Value = Properties.Settings.Default.setAS_snapDistance;
 
-            snapAdj = Properties.Settings.Default.setAS_snapDistance * 0.01;
+            snapAdj = Properties.Settings.Default.setAS_snapDistance;
 
             Location = Properties.Settings.Default.setWindow_formNudgeLocation;
             Size = Properties.Settings.Default.setWindow_formNudgeSize;
@@ -83,8 +76,7 @@ namespace AgOpenGPS
 
         private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
         {
-            snapAdj = nudSnapDistance.Value;
-            Properties.Settings.Default.setAS_snapDistance = snapAdj * 100;
+            Properties.Settings.Default.setAS_snapDistance = snapAdj = nudSnapDistance.Value;
 
             mf.Activate();
         }

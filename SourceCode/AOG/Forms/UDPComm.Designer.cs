@@ -769,7 +769,7 @@ namespace AgOpenGPS
             {
                 if (trk.idx > -1) //
                 {
-                    trk.NudgeTrack((double)Properties.Settings.Default.setAS_snapDistance * -0.01);
+                    trk.NudgeTrack(-Properties.Settings.Default.setAS_snapDistance);
                 }
                 return true;
             }
@@ -778,7 +778,7 @@ namespace AgOpenGPS
             {
                 if (trk.idx > -1)
                 {
-                    trk.NudgeTrack((double)Properties.Settings.Default.setAS_snapDistance * 0.01);
+                    trk.NudgeTrack(Properties.Settings.Default.setAS_snapDistance);
                 }
                 return true;
             }

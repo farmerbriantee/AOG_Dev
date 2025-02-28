@@ -45,65 +45,29 @@
             this.label6 = new System.Windows.Forms.Label();
             this.chkOffsetsOn = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.nudNorth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEast)).BeginInit();
             this.SuspendLayout();
             // 
             // nudNorth
             // 
-            this.nudNorth.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold);
             this.nudNorth.Location = new System.Drawing.Point(61, 256);
-            this.nudNorth.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.nudNorth.Minimum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            -2147483648});
+            this.nudNorth.Maximum = 100D;
+            this.nudNorth.Mode = UnitMode.Small;
+            this.nudNorth.Minimum = -100D;
             this.nudNorth.Name = "nudNorth";
-            this.nudNorth.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.nudNorth.Size = new System.Drawing.Size(185, 65);
             this.nudNorth.TabIndex = 154;
-            this.nudNorth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudNorth.ThousandsSeparator = true;
-            this.nudNorth.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
-            this.nudNorth.Value = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            -2147483648});
-            this.nudNorth.Click += new System.EventHandler(this.nudNorth_Click);
+            this.nudNorth.ValueChanged += new System.EventHandler(this.nudNorth_ValueChanged);
             // 
             // nudEast
             // 
-            this.nudEast.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold);
             this.nudEast.Location = new System.Drawing.Point(387, 256);
-            this.nudEast.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.nudEast.Minimum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            -2147483648});
+            this.nudEast.Maximum = 100D;
+            this.nudEast.Mode = UnitMode.Small;
+            this.nudEast.Minimum = -100D;
             this.nudEast.Name = "nudEast";
-            this.nudEast.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.nudEast.Size = new System.Drawing.Size(185, 65);
             this.nudEast.TabIndex = 155;
-            this.nudEast.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudEast.ThousandsSeparator = true;
-            this.nudEast.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
-            this.nudEast.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudEast.Click += new System.EventHandler(this.nudEast_Click);
+            this.nudEast.ValueChanged += new System.EventHandler(this.nudEast_ValueChanged);
             // 
             // label27
             // 
@@ -320,8 +284,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Shift GPS Position (cm)";
             this.Load += new System.EventHandler(this.FormShiftPos_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.nudNorth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEast)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

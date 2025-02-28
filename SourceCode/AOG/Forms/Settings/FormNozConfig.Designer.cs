@@ -77,15 +77,6 @@
             this.tabUnits.SuspendLayout();
             this.tabGain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.unoChart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSlowPWM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFastPWM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSwitchAtFlowError)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayKp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudDeadbandError)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayPressureCal)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayFlowCal)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxHz)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinHz)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -546,232 +537,87 @@
             // 
             // nudSlowPWM
             // 
-            this.nudSlowPWM.BackColor = System.Drawing.Color.White;
-            this.nudSlowPWM.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudSlowPWM.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudSlowPWM.Location = new System.Drawing.Point(16, 108);
-            this.nudSlowPWM.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.nudSlowPWM.Minimum = 10D;
             this.nudSlowPWM.Name = "nudSlowPWM";
-            this.nudSlowPWM.ReadOnly = true;
             this.nudSlowPWM.Size = new System.Drawing.Size(155, 46);
             this.nudSlowPWM.TabIndex = 595;
-            this.nudSlowPWM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudSlowPWM.Value = new decimal(new int[] {
-            45,
-            0,
-            0,
-            0});
-            this.nudSlowPWM.Click += new System.EventHandler(this.nudSlowPWM_Click);
+            this.nudSlowPWM.ValueChanged += new System.EventHandler(this.nudSlowPWM_ValueChanged);
             // 
             // nudFastPWM
             // 
-            this.nudFastPWM.BackColor = System.Drawing.Color.White;
-            this.nudFastPWM.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudFastPWM.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudFastPWM.Location = new System.Drawing.Point(16, 22);
-            this.nudFastPWM.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.nudFastPWM.Minimum = 10D;
             this.nudFastPWM.Name = "nudFastPWM";
-            this.nudFastPWM.ReadOnly = true;
             this.nudFastPWM.Size = new System.Drawing.Size(155, 46);
             this.nudFastPWM.TabIndex = 593;
-            this.nudFastPWM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudFastPWM.Value = new decimal(new int[] {
-            65,
-            0,
-            0,
-            0});
-            this.nudFastPWM.Click += new System.EventHandler(this.nudFastPWM_Click);
+            this.nudFastPWM.ValueChanged += new System.EventHandler(this.nudFastPWM_ValueChanged);
             // 
             // nudSwitchAtFlowError
             // 
-            this.nudSwitchAtFlowError.BackColor = System.Drawing.Color.White;
-            this.nudSwitchAtFlowError.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudSwitchAtFlowError.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudSwitchAtFlowError.Location = new System.Drawing.Point(16, 205);
-            this.nudSwitchAtFlowError.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudSwitchAtFlowError.Minimum = 1D;
             this.nudSwitchAtFlowError.Name = "nudSwitchAtFlowError";
-            this.nudSwitchAtFlowError.ReadOnly = true;
             this.nudSwitchAtFlowError.Size = new System.Drawing.Size(155, 46);
             this.nudSwitchAtFlowError.TabIndex = 600;
-            this.nudSwitchAtFlowError.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudSwitchAtFlowError.Value = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.nudSwitchAtFlowError.Click += new System.EventHandler(this.nudSwitchAtFlowError_Click);
+            this.nudSwitchAtFlowError.ValueChanged += new System.EventHandler(this.nudSwitchAtFlowError_ValueChanged);
             // 
             // nudSprayKp
             // 
-            this.nudSprayKp.BackColor = System.Drawing.Color.White;
-            this.nudSprayKp.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudSprayKp.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudSprayKp.Location = new System.Drawing.Point(208, 107);
-            this.nudSprayKp.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.nudSprayKp.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.nudSprayKp.Maximum = 200D;
+            this.nudSprayKp.Minimum = 10D;
             this.nudSprayKp.Name = "nudSprayKp";
-            this.nudSprayKp.ReadOnly = true;
             this.nudSprayKp.Size = new System.Drawing.Size(155, 46);
             this.nudSprayKp.TabIndex = 587;
-            this.nudSprayKp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudSprayKp.Value = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
-            this.nudSprayKp.Click += new System.EventHandler(this.nudSprayKpClick);
+            this.nudSprayKp.ValueChanged += new System.EventHandler(this.nudSprayKp_ValueChanged);
             // 
             // nudDeadbandError
             // 
-            this.nudDeadbandError.BackColor = System.Drawing.Color.White;
-            this.nudDeadbandError.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudDeadbandError.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudDeadbandError.Location = new System.Drawing.Point(210, 18);
-            this.nudDeadbandError.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudDeadbandError.Minimum = 1D;
             this.nudDeadbandError.Name = "nudDeadbandError";
-            this.nudDeadbandError.ReadOnly = true;
             this.nudDeadbandError.Size = new System.Drawing.Size(155, 46);
             this.nudDeadbandError.TabIndex = 598;
-            this.nudDeadbandError.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudDeadbandError.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            this.nudDeadbandError.Click += new System.EventHandler(this.nudDeadbandError_Click);
+            this.nudDeadbandError.ValueChanged += new System.EventHandler(this.nudDeadbandError_ValueChanged);
             // 
             // nudSprayPressureCal
             // 
-            this.nudSprayPressureCal.BackColor = System.Drawing.Color.White;
-            this.nudSprayPressureCal.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudSprayPressureCal.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudSprayPressureCal.Location = new System.Drawing.Point(17, 201);
-            this.nudSprayPressureCal.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.nudSprayPressureCal.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.nudSprayPressureCal.Maximum = 200D;
+            this.nudSprayPressureCal.Minimum = 1D;
             this.nudSprayPressureCal.Name = "nudSprayPressureCal";
-            this.nudSprayPressureCal.ReadOnly = true;
             this.nudSprayPressureCal.Size = new System.Drawing.Size(137, 46);
             this.nudSprayPressureCal.TabIndex = 584;
-            this.nudSprayPressureCal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudSprayPressureCal.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.nudSprayPressureCal.Click += new System.EventHandler(this.nudSprayPressureCal_Click);
+            this.nudSprayPressureCal.ValueChanged += new System.EventHandler(this.nudSprayPressureCal_ValueChanged);
             // 
             // nudSprayFlowCal
             // 
-            this.nudSprayFlowCal.BackColor = System.Drawing.Color.White;
-            this.nudSprayFlowCal.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSprayFlowCal.Location = new System.Drawing.Point(17, 111);
-            this.nudSprayFlowCal.Maximum = new decimal(new int[] {
-            20000,
-            0,
-            0,
-            0});
-            this.nudSprayFlowCal.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
+            this.nudSprayFlowCal.Maximum = 20000D;
+            this.nudSprayFlowCal.Minimum = 100D;
             this.nudSprayFlowCal.Name = "nudSprayFlowCal";
-            this.nudSprayFlowCal.ReadOnly = true;
             this.nudSprayFlowCal.Size = new System.Drawing.Size(137, 46);
             this.nudSprayFlowCal.TabIndex = 579;
-            this.nudSprayFlowCal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudSprayFlowCal.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.nudSprayFlowCal.Click += new System.EventHandler(this.nudSprayFlowCal_Click);
+            this.nudSprayFlowCal.ValueChanged += new System.EventHandler(this.nudSprayFlowCal_ValueChanged);
             // 
             // nudMaxHz
             // 
-            this.nudMaxHz.BackColor = System.Drawing.Color.White;
-            this.nudMaxHz.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudMaxHz.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudMaxHz.Location = new System.Drawing.Point(217, 21);
-            this.nudMaxHz.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.nudMaxHz.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.nudMaxHz.Maximum = 200D;
+            this.nudMaxHz.Minimum = 10D;
             this.nudMaxHz.Name = "nudMaxHz";
-            this.nudMaxHz.ReadOnly = true;
             this.nudMaxHz.Size = new System.Drawing.Size(155, 46);
             this.nudMaxHz.TabIndex = 622;
-            this.nudMaxHz.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudMaxHz.Value = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
             // 
             // nudMinHz
             // 
-            this.nudMinHz.BackColor = System.Drawing.Color.White;
-            this.nudMinHz.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudMinHz.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.nudMinHz.Location = new System.Drawing.Point(14, 21);
-            this.nudMinHz.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.nudMinHz.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
+            this.nudMinHz.Maximum = 200D;
+            this.nudMinHz.Minimum = 10D;
             this.nudMinHz.Name = "nudMinHz";
-            this.nudMinHz.ReadOnly = true;
             this.nudMinHz.Size = new System.Drawing.Size(155, 46);
             this.nudMinHz.TabIndex = 624;
-            this.nudMinHz.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudMinHz.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
             // 
             // FormNozConfig
             // 
@@ -807,15 +653,6 @@
             this.tabUnits.PerformLayout();
             this.tabGain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.unoChart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSlowPWM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFastPWM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSwitchAtFlowError)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayKp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudDeadbandError)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayPressureCal)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSprayFlowCal)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxHz)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMinHz)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

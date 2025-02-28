@@ -1,12 +1,4 @@
-﻿using System;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using System.Xml.Linq;
-using System.Xml.XPath;
-
-namespace AgOpenGPS
+﻿namespace AgOpenGPS
 {
     public class CFeatureSettings
     {
@@ -110,58 +102,6 @@ namespace AgOpenGPS
             isInvertSteer = _setting.isInvertSteer;
             maxSteerAngle = _setting.maxSteerAngle;
             isSteerNotSlide = _setting.isSteerNotSlide;
-        }
-    }
-
-    public static class SettingsIO
-    {
-        /// <summary>
-        /// Import an XML and save to 1 section of user.config
-        /// </summary>
-        /// <param name="settingFile">Either Settings or Vehicle or Tools</param>
-        /// <param name="settingsFilePath">Usually Documents.Drive.Folder</param>
-        internal static bool ImportSettings(string settingsFilePath)
-        {
-            if (!File.Exists(settingsFilePath))
-            {
-                return (false);
-            }
-
-            //var appSettings = Properties.Settings.Default;
-            try
-            {
-                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-
-                string sectionName = "";
-
-                sectionName = Properties.Settings.Default.Context["GroupName"].ToString();
-
-                XDocument document = XDocument.Load(Path.Combine(settingsFilePath));
-                string settingsSection = document.XPathSelectElements($"//{sectionName}").Single().ToString();
-                config.GetSectionGroup("userSettings").Sections[sectionName].SectionInformation.SetRawXml(settingsSection);
-                config.Save(ConfigurationSaveMode.Modified);
-
-                {
-                    Properties.Settings.Default.Reload();
-                }
-                return (true);
-            }
-            catch (Exception ex) // Should make this more specific
-            {
-                // Could not import settings.
-                {
-                    Properties.Settings.Default.Reload();
-                    Log.EventWriter("Catch -> Failed to Import Settings: " + ex.ToString());
-                }
-                return (false);
-            }
-        }
-
-        internal static void ExportSettings(string settingsFilePath)
-        {
-            //Export the entire settings as an xml
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-            config.SaveAs(settingsFilePath);
         }
     }
 }

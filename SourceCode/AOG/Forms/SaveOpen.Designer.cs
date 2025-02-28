@@ -348,10 +348,7 @@ namespace AgOpenGPS
                         line = reader.ReadLine();
                         offs = line.Split(',');
 
-                        CNMEA.latStart = double.Parse(offs[0], CultureInfo.InvariantCulture);
-                        CNMEA.lonStart = double.Parse(offs[1], CultureInfo.InvariantCulture);
-
-                        pn.SetLocalMetersPerDegree(true);
+                        pn.SetLocalMetersPerDegree(true, double.Parse(offs[0], CultureInfo.InvariantCulture), double.Parse(offs[1], CultureInfo.InvariantCulture));
                     }
                 }
 

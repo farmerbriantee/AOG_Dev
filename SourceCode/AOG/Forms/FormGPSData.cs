@@ -46,14 +46,7 @@ namespace AgOpenGPS
 
             lbludpWatchCounts.Text = mf.missedSentenceCount.ToString();
 
-            if (mf.isMetric)
-            {
-                lblAltitude.Text = mf.Altitude;
-            }
-            else //imperial
-            {
-                lblAltitude.Text = mf.AltitudeFeet;
-            }
+            lblAltitude.Text = mf.Altitude;
         }
 
         private void FormGPSData_Load(object sender, EventArgs e)

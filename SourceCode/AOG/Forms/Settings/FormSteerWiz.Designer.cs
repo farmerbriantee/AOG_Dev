@@ -337,22 +337,16 @@
             this.tabSteer.SuspendLayout();
             this.tabStan.SuspendLayout();
             this.tabInt.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxCounts)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabWiz.SuspendLayout();
             this.tabStart.SuspendLayout();
             this.tabLoadDef.SuspendLayout();
             this.tabWheelBase.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWheelbase)).BeginInit();
             this.tabWheelTrack.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudVehicleTrack)).BeginInit();
             this.tabAntennaDistance.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudAntennaPivot)).BeginInit();
             this.tabAntennaHeight.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudAntennaHeight)).BeginInit();
             this.tabAntennaOffset.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudAntennaOffset)).BeginInit();
             this.tabButtonSwitch.SuspendLayout();
             this.tabA2DConv.SuspendLayout();
             this.tabMotorDriver.SuspendLayout();
@@ -1372,26 +1366,12 @@
             // nudMaxCounts
             // 
             this.nudMaxCounts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudMaxCounts.BackColor = System.Drawing.Color.AliceBlue;
-            this.nudMaxCounts.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudMaxCounts.InterceptArrowKeys = false;
             this.nudMaxCounts.Location = new System.Drawing.Point(58, 239);
-            this.nudMaxCounts.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.nudMaxCounts.Maximum = 255D;
             this.nudMaxCounts.Name = "nudMaxCounts";
-            this.nudMaxCounts.ReadOnly = true;
             this.nudMaxCounts.Size = new System.Drawing.Size(107, 52);
             this.nudMaxCounts.TabIndex = 493;
-            this.nudMaxCounts.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudMaxCounts.Value = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            this.nudMaxCounts.Click += new System.EventHandler(this.nudMaxCounts_Click);
+            this.nudMaxCounts.ValueChanged += new System.EventHandler(this.nudMaxCounts_ValueChanged);
             // 
             // label55
             // 
@@ -1814,26 +1794,13 @@
             // nudWheelbase
             // 
             this.nudWheelbase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudWheelbase.BackColor = System.Drawing.Color.AliceBlue;
-            this.nudWheelbase.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudWheelbase.InterceptArrowKeys = false;
             this.nudWheelbase.Location = new System.Drawing.Point(90, 231);
-            this.nudWheelbase.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
+            this.nudWheelbase.Maximum = 10D;
+            this.nudWheelbase.Mode = UnitMode.Small;
             this.nudWheelbase.Name = "nudWheelbase";
-            this.nudWheelbase.ReadOnly = true;
             this.nudWheelbase.Size = new System.Drawing.Size(143, 65);
             this.nudWheelbase.TabIndex = 537;
-            this.nudWheelbase.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudWheelbase.Value = new decimal(new int[] {
-            333,
-            0,
-            0,
-            0});
-            this.nudWheelbase.Click += new System.EventHandler(this.nudWheelbase_Click);
+            this.nudWheelbase.ValueChanged += new System.EventHandler(this.nudWheelbase_ValueChanged);
             // 
             // label91
             // 
@@ -1900,26 +1867,13 @@
             // nudVehicleTrack
             // 
             this.nudVehicleTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudVehicleTrack.BackColor = System.Drawing.Color.AliceBlue;
-            this.nudVehicleTrack.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudVehicleTrack.InterceptArrowKeys = false;
             this.nudVehicleTrack.Location = new System.Drawing.Point(423, 185);
-            this.nudVehicleTrack.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
+            this.nudVehicleTrack.Maximum = 10D;
+            this.nudVehicleTrack.Mode = UnitMode.Small;
             this.nudVehicleTrack.Name = "nudVehicleTrack";
-            this.nudVehicleTrack.ReadOnly = true;
             this.nudVehicleTrack.Size = new System.Drawing.Size(157, 65);
             this.nudVehicleTrack.TabIndex = 537;
-            this.nudVehicleTrack.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudVehicleTrack.Value = new decimal(new int[] {
-            333,
-            0,
-            0,
-            0});
-            this.nudVehicleTrack.Click += new System.EventHandler(this.nudVehicleTrack_Click);
+            this.nudVehicleTrack.ValueChanged += new System.EventHandler(this.nudVehicleTrack_ValueChanged);
             // 
             // label95
             // 
@@ -2056,31 +2010,14 @@
             // nudAntennaPivot
             // 
             this.nudAntennaPivot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudAntennaPivot.BackColor = System.Drawing.Color.AliceBlue;
-            this.nudAntennaPivot.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudAntennaPivot.InterceptArrowKeys = false;
             this.nudAntennaPivot.Location = new System.Drawing.Point(230, 226);
-            this.nudAntennaPivot.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.nudAntennaPivot.Minimum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            -2147483648});
+            this.nudAntennaPivot.Maximum = 10D;
+            this.nudAntennaPivot.Mode = UnitMode.Small;
+            this.nudAntennaPivot.Minimum = -10D;
             this.nudAntennaPivot.Name = "nudAntennaPivot";
-            this.nudAntennaPivot.ReadOnly = true;
             this.nudAntennaPivot.Size = new System.Drawing.Size(165, 65);
             this.nudAntennaPivot.TabIndex = 537;
-            this.nudAntennaPivot.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudAntennaPivot.Value = new decimal(new int[] {
-            333,
-            0,
-            0,
-            0});
-            this.nudAntennaPivot.Click += new System.EventHandler(this.nudAntennaPivot_Click);
+            this.nudAntennaPivot.ValueChanged += new System.EventHandler(this.nudAntennaPivot_ValueChanged);
             // 
             // button10
             // 
@@ -2189,26 +2126,13 @@
             // nudAntennaHeight
             // 
             this.nudAntennaHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudAntennaHeight.BackColor = System.Drawing.Color.AliceBlue;
-            this.nudAntennaHeight.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudAntennaHeight.InterceptArrowKeys = false;
             this.nudAntennaHeight.Location = new System.Drawing.Point(465, 87);
-            this.nudAntennaHeight.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
+            this.nudAntennaHeight.Maximum = 10D;
+            this.nudAntennaHeight.Mode = UnitMode.Small;
             this.nudAntennaHeight.Name = "nudAntennaHeight";
-            this.nudAntennaHeight.ReadOnly = true;
             this.nudAntennaHeight.Size = new System.Drawing.Size(145, 65);
             this.nudAntennaHeight.TabIndex = 537;
-            this.nudAntennaHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudAntennaHeight.Value = new decimal(new int[] {
-            333,
-            0,
-            0,
-            0});
-            this.nudAntennaHeight.Click += new System.EventHandler(this.nudAntennaHeight_Click);
+            this.nudAntennaHeight.ValueChanged += new System.EventHandler(this.nudAntennaHeight_ValueChanged);
             // 
             // label93
             // 
@@ -2291,31 +2215,14 @@
             // nudAntennaOffset
             // 
             this.nudAntennaOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudAntennaOffset.BackColor = System.Drawing.Color.AliceBlue;
-            this.nudAntennaOffset.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudAntennaOffset.InterceptArrowKeys = false;
             this.nudAntennaOffset.Location = new System.Drawing.Point(250, 65);
-            this.nudAntennaOffset.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.nudAntennaOffset.Minimum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            -2147483648});
+            this.nudAntennaOffset.Maximum = 10D;
+            this.nudAntennaOffset.Mode = UnitMode.Small;
+            this.nudAntennaOffset.Minimum = -10D;
             this.nudAntennaOffset.Name = "nudAntennaOffset";
-            this.nudAntennaOffset.ReadOnly = true;
             this.nudAntennaOffset.Size = new System.Drawing.Size(165, 65);
             this.nudAntennaOffset.TabIndex = 537;
-            this.nudAntennaOffset.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudAntennaOffset.Value = new decimal(new int[] {
-            333,
-            0,
-            0,
-            0});
-            this.nudAntennaOffset.Click += new System.EventHandler(this.nudAntennaOffset_Click);
+            this.nudAntennaOffset.ValueChanged += new System.EventHandler(this.nudAntennaOffset_ValueChanged);
             // 
             // label104
             // 
@@ -4875,7 +4782,6 @@
             this.tabSteer.PerformLayout();
             this.tabStan.ResumeLayout(false);
             this.tabInt.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxCounts)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -4886,19 +4792,14 @@
             this.tabLoadDef.PerformLayout();
             this.tabWheelBase.ResumeLayout(false);
             this.tabWheelBase.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudWheelbase)).EndInit();
             this.tabWheelTrack.ResumeLayout(false);
             this.tabWheelTrack.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudVehicleTrack)).EndInit();
             this.tabAntennaDistance.ResumeLayout(false);
             this.tabAntennaDistance.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudAntennaPivot)).EndInit();
             this.tabAntennaHeight.ResumeLayout(false);
             this.tabAntennaHeight.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudAntennaHeight)).EndInit();
             this.tabAntennaOffset.ResumeLayout(false);
             this.tabAntennaOffset.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudAntennaOffset)).EndInit();
             this.tabButtonSwitch.ResumeLayout(false);
             this.tabButtonSwitch.PerformLayout();
             this.tabA2DConv.ResumeLayout(false);

@@ -69,7 +69,6 @@
             this.panelChoose.SuspendLayout();
             this.panelABLine.SuspendLayout();
             this.panelAPlus.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudHeading)).BeginInit();
             this.SuspendLayout();
             // 
             // lblCurveExists
@@ -568,28 +567,13 @@
             // 
             // nudHeading
             // 
-            this.nudHeading.BackColor = System.Drawing.Color.LightCyan;
             this.nudHeading.DecimalPlaces = 4;
-            this.nudHeading.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudHeading.InterceptArrowKeys = false;
             this.nudHeading.Location = new System.Drawing.Point(25, 174);
-            this.nudHeading.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
+            this.nudHeading.Maximum = 360D;
             this.nudHeading.Name = "nudHeading";
-            this.nudHeading.ReadOnly = true;
-            this.nudHeading.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.nudHeading.Size = new System.Drawing.Size(195, 46);
             this.nudHeading.TabIndex = 413;
-            this.nudHeading.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudHeading.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudHeading.Click += new System.EventHandler(this.nudHeading_Click);
+            this.nudHeading.ValueChanged += new System.EventHandler(this.nudHeading_ValueChanged);
             // 
             // btnAPlus
             // 
@@ -643,7 +627,6 @@
             this.panelABLine.PerformLayout();
             this.panelAPlus.ResumeLayout(false);
             this.panelAPlus.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudHeading)).EndInit();
             this.ResumeLayout(false);
 
         }

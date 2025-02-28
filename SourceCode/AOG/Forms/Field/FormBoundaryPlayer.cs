@@ -21,22 +21,19 @@ namespace AgOpenGPS
 
             label1.Text = gStr.Get(gs.gsArea) + ":";
             this.Text = gStr.Get(gs.gsStopRecordPauseBoundary);
-            nudOffset.Controls[0].Enabled = false;
         }
 
         private void FormBoundaryPlayer_Load(object sender, EventArgs e)
         {
+            nudOffset.Value = mf.tool.width * 0.5;
+
             if (mf.isMetric)
             {
-                nudOffset.Maximum = 4999;
-                nudOffset.Value = (decimal)(mf.tool.width * 0.5 * 100);
                 lblMetersInches.Text = "cm";
             }
             else
             {
-                nudOffset.Maximum = 1968;
-                nudOffset.Value = (decimal)(mf.tool.width * 0.5 * 39.3701);
-                double ftInches = (double)nudOffset.Value;
+                double ftInches = nudOffset.Value;
                 lblMetersInches.Text = ((int)(ftInches / 12)).ToString() + "' " + ((int)(ftInches % 12)).ToString() + '"';
             }
 
@@ -67,17 +64,13 @@ namespace AgOpenGPS
             }
         }
 
-        private void nudOffset_Click(object sender, EventArgs e)
+        private void nudOffset_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
             btnPausePlay.Focus();
-            if (mf.isMetric)
+            mf.bnd.createFenceOffset = nudOffset.Value;
+
+            if (!mf.isMetric)
             {
-                mf.bnd.createFenceOffset = (double)nudOffset.Value * 0.01;
-            }
-            else
-            {
-                mf.bnd.createFenceOffset = (double)nudOffset.Value / 39.3701;
                 double ftInches = (double)nudOffset.Value;
                 lblMetersInches.Text = ((int)(ftInches / 12)).ToString() + "' " + (ftInches % 12).ToString("N1") + '"';
             }
@@ -98,15 +91,8 @@ namespace AgOpenGPS
                 }
                 area = Math.Abs(area / 2);
             }
-            if (mf.isMetric)
-            {
-                lblArea.Text = Math.Round(area * 0.0001, 2).ToString();
-            }
-            else
-            {
-                lblArea.Text = Math.Round(area * 0.000247105, 2).ToString();
-            }
 
+            lblArea.Text = Math.Round(area * glm.m22HaOrAc, 2).ToString();
             lblPoints.Text = mf.bnd.fenceBeingMadePts.Count.ToString();
         }
 

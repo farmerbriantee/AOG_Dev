@@ -93,9 +93,6 @@ namespace AgOpenGPS
 
         public double nudNumber = 0;
 
-        public double m2InchOrCm, inchOrCm2m, m2FtOrM, ftOrMtoM, cm2CmOrIn, inOrCm2Cm;
-        public string unitsFtM, unitsInCm, unitsInCmNS;
-
         public char[] hotkeys;
 
         //used by filePicker Form to return picked file and directory
@@ -113,7 +110,7 @@ namespace AgOpenGPS
         /// <summary>
         /// create the scene camera
         /// </summary>
-        public CCamera camera = new CCamera();
+        public CCamera camera;
 
         /// <summary>
         /// create world grid
@@ -190,11 +187,6 @@ namespace AgOpenGPS
         /// The internal simulator
         /// </summary>
         public CSim sim;
-
-        /// <summary>
-        /// Resource manager for gloabal strings
-        /// </summary>
-        public ResourceManager _rm;
 
         /// <summary>
         /// Heading, Roll, Pitch, GPS, Properties
@@ -278,13 +270,10 @@ namespace AgOpenGPS
             //winform initialization
             InitializeComponent();
 
-            CheckSettingsNotNull();
-
-            CheckNozzleSettingsNotNull();
-            CheckToolSteerSettingsNotNull();
-
             //time keeper
             secondsSinceStart = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds;
+
+            camera = new CCamera();
 
             //create the world grid
             worldGrid = new CWorldGrid(this);
@@ -344,9 +333,6 @@ namespace AgOpenGPS
             //instance of tram
             tram = new CTram(this);
 
-            //resource for gloabal language strings
-            _rm = new ResourceManager("AgOpenGPS.gStr", Assembly.GetExecutingAssembly());
-
             //access to font class
             font = new CFont(this);
 
@@ -367,25 +353,23 @@ namespace AgOpenGPS
         {
             if (!gStr.Load()) YesMessageBox("Serious error loading languages");
 
-            if (!isTermsAccepted)
+            if (!Properties.Settings.Default.setDisplay_isTermsAccepted)
             {
-                if (!Properties.Settings.Default.setDisplay_isTermsAccepted)
+                using (var form = new Form_First(this))
                 {
-                    using (var form = new Form_First(this))
+                    if (form.ShowDialog(this) != DialogResult.OK)
                     {
-                        if (form.ShowDialog(this) != DialogResult.OK)
-                        {
-                            Log.EventWriter("Terms Not Accepted");
-                            Close();
-                        }
-                        else
-                        {
-                            Log.EventWriter("Terms Accepted");
-                        }
+                        Log.EventWriter("Terms Not Accepted");
+                        Close();
+                    }
+                    else
+                    {
+                        Log.EventWriter("Terms Accepted");
                     }
                 }
-            }
 
+            }
+            
             this.MouseWheel += ZoomByMouseWheel;
 
             //System Event to check when Power Mode has changed.
@@ -482,7 +466,7 @@ namespace AgOpenGPS
             // load all the gui elements in gui.designer.cs
             LoadSettings();
 
-            if (RegistrySettings.vehicleFileName != "Default Vehicle" && Properties.Settings.Default.setDisplay_isAutoStartAgOne)
+            if (RegistrySettings.vehicleFileName != "" && Properties.Settings.Default.setDisplay_isAutoStartAgOne)
             {
                 //Start AgOne process
                 Process[] processName = Process.GetProcessesByName("AgOne");
@@ -545,15 +529,12 @@ namespace AgOpenGPS
 
             Log.EventWriter("Terms Accepted");
 
-            if (RegistrySettings.vehicleFileName == "Default Vehicle")
+            if (RegistrySettings.vehicleFileName == "")
             {
                 Log.EventWriter("Using Default Vehicle At Start Warning");
 
                 YesMessageBox("Using Default Vehicle" + "\r\n\r\n" + "Load Existing Vehicle or Save As a New One !!!"
                     + "\r\n\r\n" + "Changes will NOT be Saved for Default Vehicle");
-
-                //Doesn't save Default Vehicle
-                RegistrySettings.Save();
 
                 using (FormConfig form = new FormConfig(this))
                 {
@@ -645,7 +626,7 @@ namespace AgOpenGPS
                 thread_oglBack.Abort();
 
             //save current vehicle
-            RegistrySettings.Save();
+            Settings.Default.Save();
 
             if (displayBrightness.isWmiMonitor)
                 displayBrightness.SetBrightness(Settings.Default.setDisplay_brightnessSystem);
@@ -1091,29 +1072,6 @@ namespace AgOpenGPS
             }
         }
 
-        public bool KeypadToNUD(NudlessNumericUpDown sender, Form owner)
-        {
-            var colour = sender.BackColor;
-            sender.BackColor = Color.Red;
-            sender.Value = Math.Round(sender.Value, sender.DecimalPlaces);
-
-            using (FormNumeric form = new FormNumeric((double)sender.Minimum, (double)sender.Maximum, (double)sender.Value))
-            {
-                DialogResult result = form.ShowDialog(owner);
-                if (result == DialogResult.OK)
-                {
-                    sender.Value = (decimal)form.ReturnValue;
-                    sender.BackColor = colour;
-                    return true;
-                }
-                else if (result == DialogResult.Cancel)
-                {
-                    sender.BackColor = colour;
-                }
-                return false;
-            }
-        }
-
         public void KeyboardToText(TextBox sender, Form owner)
         {
             var colour = sender.BackColor;
@@ -1172,30 +1130,6 @@ namespace AgOpenGPS
         {
             var form = new FormYes(s1);
             form.ShowDialog(this);
-        }
-
-        public void CheckSettingsNotNull()
-        {
-            if (Settings.Default.setFeatures == null)
-            {
-                Settings.Default.setFeatures = new CFeatureSettings();
-            }
-        }
-
-        public void CheckNozzleSettingsNotNull()
-        {
-            if (Settings.Default.setNozzleSettings == null)
-            {
-                Settings.Default.setNozzleSettings = new CNozzleSettings();
-            }
-        }
-
-        public void CheckToolSteerSettingsNotNull()
-        {
-            if (Settings.Default.setToolSteer == null)
-            {
-                Settings.Default.setToolSteer = new CToolSteerSettings();
-            }
         }
 
         public enum textures : uint

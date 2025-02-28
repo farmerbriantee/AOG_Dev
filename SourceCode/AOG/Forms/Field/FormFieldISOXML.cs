@@ -77,7 +77,7 @@ namespace AgOpenGPS
                     foreach (XmlNode nodePFD in pfd)
                     {
                         double.TryParse(nodePFD.Attributes["D"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out double area);
-                        area *= 0.0001;
+                        area *= glm.m2ha;
 
                         // PFD - A=ID, C=FieldName, D = Area in sq m
                         tree.Nodes.Add(nodePFD.Attributes["C"].Value + " Area: " + area + " Ha  " + nodePFD.Attributes["A"].Value);
@@ -287,19 +287,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    CNMEA.latStart = latK;
-                    CNMEA.lonStart = lonK;
-
-                    if (mf.timerSim.Enabled)
-                    {
-                        mf.sim.latitude = Properties.Settings.Default.setGPS_SimLatitude = latK;
-                        mf.sim.longitude = Properties.Settings.Default.setGPS_SimLongitude = lonK;
-
-                        mf.pn.latitude = latK;
-                        mf.pn.longitude = lonK;
-                    }
-
-                    mf.pn.SetLocalMetersPerDegree(true);
+                    mf.pn.SetLocalMetersPerDegree(true, latK, lonK);
 
                     //make sure directory exists, or create it
                     if ((!string.IsNullOrEmpty(directoryName)) && (!Directory.Exists(directoryName)))

@@ -38,7 +38,6 @@
             this.btnCancelMain = new System.Windows.Forms.Button();
             this.lblOffset = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSnapDistance)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAdjLeft
@@ -128,24 +127,13 @@
             // 
             this.nudSnapDistance.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tableLayoutPanel1.SetColumnSpan(this.nudSnapDistance, 2);
-            this.nudSnapDistance.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSnapDistance.Location = new System.Drawing.Point(37, 214);
-            this.nudSnapDistance.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
+            this.nudSnapDistance.Maximum = 10D;
+            this.nudSnapDistance.Mode = UnitMode.Small;
             this.nudSnapDistance.Name = "nudSnapDistance";
-            this.nudSnapDistance.ReadOnly = true;
             this.nudSnapDistance.Size = new System.Drawing.Size(107, 36);
             this.nudSnapDistance.TabIndex = 415;
-            this.nudSnapDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudSnapDistance.Value = new decimal(new int[] {
-            800,
-            0,
-            0,
-            0});
-            this.nudSnapDistance.Click += new System.EventHandler(this.nudSnapDistance_Click);
+            this.nudSnapDistance.ValueChanged += new System.EventHandler(this.nudSnapDistance_ValueChanged);
             // 
             // btnHalfToolRight
             // 
@@ -239,7 +227,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormEditTrack_FormClosing);
             this.Load += new System.EventHandler(this.FormEditTrack_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudSnapDistance)).EndInit();
             this.ResumeLayout(false);
 
         }

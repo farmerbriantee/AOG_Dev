@@ -9,15 +9,12 @@ namespace AgOpenGPS
     {
         private readonly FormGPS mf;
 
-        public bool isSteerAxleAhead;
-        public bool isPivotBehindAntenna;
-
         public double antennaHeight;
         public double antennaPivot;
         public double wheelbase;
         public double antennaOffset;
-        public int deadZoneHeading, deadZoneDelay;
-        public int vehicleType, deadZoneDelayCounter;
+        public double deadZoneHeading;
+        public int vehicleType, deadZoneDelayCounter, deadZoneDelay;
         public bool isInDeadZone;
 
         //min vehicle speed allowed before turning shit off
@@ -53,13 +50,11 @@ namespace AgOpenGPS
             //constructor
             mf = _f;
 
-            isPivotBehindAntenna = Properties.Settings.Default.setVehicle_isPivotBehindAntenna;
             antennaHeight = Properties.Settings.Default.setVehicle_antennaHeight;
             antennaPivot = Properties.Settings.Default.setVehicle_antennaPivot;
             antennaOffset = Properties.Settings.Default.setVehicle_antennaOffset;
 
             wheelbase = Properties.Settings.Default.setVehicle_wheelbase;
-            isSteerAxleAhead = Properties.Settings.Default.setVehicle_isSteerAxleAhead;
 
             slowSpeedCutoff = Properties.Settings.Default.setVehicle_slowSpeedCutoff;
 
@@ -85,7 +80,7 @@ namespace AgOpenGPS
 
             hydLiftLookAheadTime = Properties.Settings.Default.setVehicle_hydraulicLiftLookAhead;
 
-            deadZoneHeading = Properties.Settings.Default.setAS_deadZoneHeading;
+            deadZoneHeading = Properties.Settings.Default.setAS_deadZoneHeading * 0.01;
             deadZoneDelay = Properties.Settings.Default.setAS_deadZoneDelay;
 
             isInFreeDriveMode = false;

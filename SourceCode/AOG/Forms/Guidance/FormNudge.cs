@@ -24,18 +24,10 @@ namespace AgOpenGPS
 
         private void FormEditTrack_Load(object sender, EventArgs e)
         {
-            if (mf.isMetric)
-            {
-                nudSnapDistance.DecimalPlaces = 0;
-                nudSnapDistance.Value = (int)((double)Properties.Settings.Default.setAS_snapDistance);
-            }
-            else
-            {
-                nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn), 1);
-            }
+            nudSnapDistance.DecimalPlaces = mf.isMetric ? 0 : 1;
+            nudSnapDistance.Value = Properties.Settings.Default.setAS_snapDistance;
 
-            snapAdj = Properties.Settings.Default.setAS_snapDistance * 0.01;
+            snapAdj = Properties.Settings.Default.setAS_snapDistance;
 
             Location = Properties.Settings.Default.setWindow_formNudgeLocation;
             Size = Properties.Settings.Default.setWindow_formNudgeSize;
@@ -67,11 +59,11 @@ namespace AgOpenGPS
             if (mf.trk.idx > -1)
             {
                 if (mf.trk.gArr[mf.trk.idx].nudgeDistance == 0)
-                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * mf.m2InchOrCm * -1)).ToString() + mf.unitsInCm;
+                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm * -1)).ToString() + glm.unitsInCm;
                 else if (mf.trk.gArr[mf.trk.idx].nudgeDistance < 0)
-                    lblOffset.Text = "< " + ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * mf.m2InchOrCm * -1)).ToString() + mf.unitsInCm;
+                    lblOffset.Text = "< " + ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm * -1)).ToString() + glm.unitsInCm;
                 else
-                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * mf.m2InchOrCm)).ToString() + " >" + mf.unitsInCm;
+                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm)).ToString() + " >" + glm.unitsInCm;
             }
         }
 
@@ -82,11 +74,9 @@ namespace AgOpenGPS
             mf.Activate();
         }
 
-        private void nudSnapDistance_Click(object sender, EventArgs e)
+        private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-            snapAdj = (double)nudSnapDistance.Value * mf.inchOrCm2m;
-            Properties.Settings.Default.setAS_snapDistance = snapAdj * 100;
+            Properties.Settings.Default.setAS_snapDistance = snapAdj = nudSnapDistance.Value;
 
             mf.Activate();
         }
@@ -122,9 +112,9 @@ namespace AgOpenGPS
             if (mf.trk.idx > -1 && mf.trk.gArr.Count > 0)
             {
                 if (mf.trk.gArr[mf.trk.idx].nudgeDistance < 0)
-                    lblOffset.Text = "< " + ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * mf.m2InchOrCm * -1)).ToString();
+                    lblOffset.Text = "< " + ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm * -1)).ToString();
                 else
-                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * mf.m2InchOrCm)).ToString() + " >";
+                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm)).ToString() + " >";
             }
         }
 

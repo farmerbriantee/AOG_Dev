@@ -25,8 +25,8 @@ namespace AgOpenGPS
                 gboxDual.Enabled = false;
             }
 
-            nudDualHeadingOffset.Value = (decimal)Properties.Settings.Default.setGPS_dualHeadingOffset;
-            nudDualReverseDistance.Value = (decimal)Properties.Settings.Default.setGPS_dualReverseDetectionDistance;
+            nudDualHeadingOffset.Value = Properties.Settings.Default.setGPS_dualHeadingOffset;
+            nudDualReverseDistance.Value = Properties.Settings.Default.setGPS_dualReverseDetectionDistance;
 
             hsbarFusion.Value = (int)(Properties.Settings.Default.setIMU_fusionWeight2 * 500);
             lblFusion.Text = (hsbarFusion.Value).ToString();
@@ -116,31 +116,22 @@ namespace AgOpenGPS
             }
         }
 
-        private void nudFixJumpDistance_Click(object sender, EventArgs e)
+        private void nudFixJumpDistance_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setGPS_jumpFixAlarmDistance = ((int)nudFixJumpDistance.Value);
-                //mf.jumpDistanceAlarm = Properties.Settings.Default.setGPS_dualHeadingOffset;
-            }
+            Properties.Settings.Default.setGPS_jumpFixAlarmDistance = ((int)nudFixJumpDistance.Value);
+            //mf.jumpDistanceAlarm = Properties.Settings.Default.setGPS_dualHeadingOffset;
         }
 
-        private void nudDualHeadingOffset_Click(object sender, EventArgs e)
+        private void nudDualHeadingOffset_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setGPS_dualHeadingOffset = ((double)nudDualHeadingOffset.Value);
-                mf.pn.headingTrueDualOffset = Properties.Settings.Default.setGPS_dualHeadingOffset;
-            }
+            Properties.Settings.Default.setGPS_dualHeadingOffset = nudDualHeadingOffset.Value;
+            mf.pn.headingTrueDualOffset = Properties.Settings.Default.setGPS_dualHeadingOffset;
         }
 
-         private void nudDualReverseDistance_Click(object sender, EventArgs e)
+        private void nudDualReverseDistance_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setGPS_dualReverseDetectionDistance = ((double)nudDualReverseDistance.Value);
-                mf.dualReverseDetectionDistance = Properties.Settings.Default.setGPS_dualReverseDetectionDistance;
-            }
+            Properties.Settings.Default.setGPS_dualReverseDetectionDistance = nudDualReverseDistance.Value;
+            mf.dualReverseDetectionDistance = Properties.Settings.Default.setGPS_dualReverseDetectionDistance;
         }
         //private void nudMinimumFrameTime_Click(object sender, EventArgs e)
         //{

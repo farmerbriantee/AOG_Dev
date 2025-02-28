@@ -21,13 +21,6 @@ namespace AgOpenGPS
         {
             mf = callingForm as FormGPS;
             InitializeComponent();
-            nudMaxCounts.Controls[0].Enabled = false;
-
-            nudAntennaHeight.Controls[0].Enabled = false;
-            nudAntennaOffset.Controls[0].Enabled = false;
-            nudAntennaPivot.Controls[0].Enabled = false;
-            nudVehicleTrack.Controls[0].Enabled = false;
-            nudWheelbase.Controls[0].Enabled = false;
 
             this.label3.Text = gStr.Get(gs.gsAgressiveness);
             this.label5.Text = gStr.Get(gs.gsOvershootReduction);
@@ -91,11 +84,11 @@ namespace AgOpenGPS
             hsbarLookAheadMult.Value = (Int16)(mf.vehicle.goalPointLookAheadMult * 10);
             lblLookAheadMult.Text = mf.vehicle.goalPointLookAheadMult.ToString();
 
-            nudAntennaPivot.Value = (int)((Properties.Settings.Default.setVehicle_antennaPivot) * mf.m2InchOrCm);
-            nudAntennaHeight.Value = (int)(Properties.Settings.Default.setVehicle_antennaHeight * mf.m2InchOrCm);
-            nudAntennaOffset.Value = (int)(Properties.Settings.Default.setVehicle_antennaOffset * mf.m2InchOrCm);
-            nudWheelbase.Value = (int)(Math.Abs(Properties.Settings.Default.setVehicle_wheelbase) * mf.m2InchOrCm);
-            nudVehicleTrack.Value = (int)(Math.Abs(Properties.Settings.Default.setVehicle_trackWidth) * mf.m2InchOrCm);
+            nudAntennaPivot.Value = Properties.Settings.Default.setVehicle_antennaPivot;
+            nudAntennaHeight.Value = Properties.Settings.Default.setVehicle_antennaHeight;
+            nudAntennaOffset.Value = Properties.Settings.Default.setVehicle_antennaOffset;
+            nudWheelbase.Value = Math.Abs(Properties.Settings.Default.setVehicle_wheelbase);
+            nudVehicleTrack.Value = Math.Abs(Properties.Settings.Default.setVehicle_trackWidth);
 
             cboxDataInvertRoll.Checked = Properties.Settings.Default.setIMU_invertRoll;
             mf.ahrs.isRollInvert = Properties.Settings.Default.setIMU_invertRoll;
@@ -140,9 +133,9 @@ namespace AgOpenGPS
             if ((sett & 128) == 0) cboxEncoder.Checked = false;
             else cboxEncoder.Checked = true;
 
-            nudMaxCounts.Value = (decimal)Properties.Settings.Default.setArdSteer_maxPulseCounts;
-            hsbarSensor.Value = (int)Properties.Settings.Default.setArdSteer_maxPulseCounts;
-            lblhsbarSensor.Text = ((int)((double)hsbarSensor.Value * 0.3921568627)).ToString() + "%";
+            nudMaxCounts.Value = Properties.Settings.Default.setArdSteer_maxPulseCounts;
+            hsbarSensor.Value = Properties.Settings.Default.setArdSteer_maxPulseCounts;
+            lblhsbarSensor.Text = ((int)(hsbarSensor.Value * 0.3921568627)).ToString() + "%";
 
             sett = Properties.Settings.Default.setArdSteer_setting1;
 
@@ -244,7 +237,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setIMU_invertRoll = mf.ahrs.isRollInvert;
 
             //save current vehicle
-            RegistrySettings.Save();
+            Properties.Settings.Default.Save();
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -343,7 +336,7 @@ namespace AgOpenGPS
             lblSteerAngle.Text = mf.SetSteerAngle;
             lblSteerAngleActual.Text = mf.mc.actualSteerAngleDegrees.ToString("N1") + "\u00B0";
             //lblActualSteerAngleUpper.Text = lblSteerAngleActual.Text;
-            double err = (mf.mc.actualSteerAngleDegrees - mf.guidanceLineSteerAngle * 0.01);
+            double err = mf.mc.actualSteerAngleDegrees - mf.guidanceLineSteerAngle;
             lblError.Text = Math.Abs(err).ToString("N1") + "\u00B0";
             if (err > 0) lblError.ForeColor = Color.Red;
             else lblError.ForeColor = Color.DarkGreen;
@@ -588,9 +581,6 @@ namespace AgOpenGPS
             toSend251 = true;
             counter251 = 2;
 
-            //save current vehicle
-            RegistrySettings.Save();
-
             FormSteer_Load(this, e);
         }
 
@@ -618,15 +608,12 @@ namespace AgOpenGPS
 
         #region Wizard
 
-        private void nudMaxCounts_Click(object sender, EventArgs e)
+        private void nudMaxCounts_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
+            if (isWizardStarted)
             {
-                if (isWizardStarted)
-                {
-                    toSend251 = true;
-                    counter251 = 0;
-                }
+                toSend251 = true;
+                counter251 = 0;
             }
         }
 
@@ -1154,32 +1141,23 @@ namespace AgOpenGPS
             if (mf.vehicle.driveFreeSteerAngle > 40) mf.vehicle.driveFreeSteerAngle = 40;
         }
 
-        private void nudWheelbase_Click(object sender, EventArgs e)
+        private void nudWheelbase_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setVehicle_wheelbase = (double)nudWheelbase.Value * mf.inchOrCm2m;
-                mf.vehicle.wheelbase = Properties.Settings.Default.setVehicle_wheelbase;
-            }
+            Properties.Settings.Default.setVehicle_wheelbase = nudWheelbase.Value;
+            mf.vehicle.wheelbase = Properties.Settings.Default.setVehicle_wheelbase;
         }
 
-        private void nudVehicleTrack_Click(object sender, EventArgs e)
+        private void nudVehicleTrack_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setVehicle_trackWidth = (double)nudVehicleTrack.Value * mf.inchOrCm2m;
-                mf.vehicle.trackWidth = Properties.Settings.Default.setVehicle_trackWidth;
-                mf.tram.halfWheelTrack = mf.vehicle.trackWidth * 0.5;
-            }
+            Properties.Settings.Default.setVehicle_trackWidth = nudVehicleTrack.Value;
+            mf.vehicle.trackWidth = Properties.Settings.Default.setVehicle_trackWidth;
+            mf.tram.halfWheelTrack = mf.vehicle.trackWidth * 0.5;
         }
 
-        private void nudAntennaPivot_Click(object sender, EventArgs e)
+        private void nudAntennaPivot_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setVehicle_antennaPivot = (double)nudAntennaPivot.Value * mf.inchOrCm2m;
-                mf.vehicle.antennaPivot = Properties.Settings.Default.setVehicle_antennaPivot;
-            }
+            Properties.Settings.Default.setVehicle_antennaPivot = nudAntennaPivot.Value;
+            mf.vehicle.antennaPivot = Properties.Settings.Default.setVehicle_antennaPivot;
         }
 
         private void btnAckReset_Click(object sender, EventArgs e)
@@ -1216,22 +1194,16 @@ namespace AgOpenGPS
             Properties.Settings.Default.setIMU_rollZero = mf.ahrs.rollZero;
         }
 
-        private void nudAntennaHeight_Click(object sender, EventArgs e)
+        private void nudAntennaHeight_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setVehicle_antennaHeight = (double)nudAntennaHeight.Value * mf.inchOrCm2m;
-                mf.vehicle.antennaHeight = Properties.Settings.Default.setVehicle_antennaHeight;
-            }
+            Properties.Settings.Default.setVehicle_antennaHeight = nudAntennaHeight.Value;
+            mf.vehicle.antennaHeight = Properties.Settings.Default.setVehicle_antennaHeight;
         }
 
-        private void nudAntennaOffset_Click(object sender, EventArgs e)
+        private void nudAntennaOffset_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setVehicle_antennaOffset = (double)nudAntennaOffset.Value * mf.inchOrCm2m;
-                mf.vehicle.antennaOffset = Properties.Settings.Default.setVehicle_antennaOffset;
-            }
+            Properties.Settings.Default.setVehicle_antennaOffset = nudAntennaOffset.Value;
+            mf.vehicle.antennaOffset = Properties.Settings.Default.setVehicle_antennaOffset;
         }
 
         private bool CheckSteerSwitch()

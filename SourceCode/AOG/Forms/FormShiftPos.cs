@@ -21,14 +21,12 @@ namespace AgOpenGPS
             label3.Text = gStr.Get(gs.gsEast);
             label4.Text = gStr.Get(gs.gsSouth);
             this.Text = gStr.Get(gs.gsShiftGPSPosition);
-            nudEast.Controls[0].Enabled = false;
-            nudNorth.Controls[0].Enabled = false;
         }
 
         private void FormShiftPos_Load(object sender, EventArgs e)
         {
-            nudEast.Value = (decimal)mf.pn.fixOffset.easting * 100;
-            nudNorth.Value = (decimal)mf.pn.fixOffset.northing * 100;
+            nudEast.Value = mf.pn.fixOffset.easting;
+            nudNorth.Value = mf.pn.fixOffset.northing;
             chkOffsetsOn.Checked = mf.isKeepOffsetsOn;
             if (chkOffsetsOn.Checked) chkOffsetsOn.Text = "On";
             else chkOffsetsOn.Text = "Off";
@@ -36,22 +34,22 @@ namespace AgOpenGPS
 
         private void btnNorth_MouseDown(object sender, MouseEventArgs e)
         {
-            nudNorth.UpButton();
+            nudNorth.Value++;
         }
 
         private void btnSouth_MouseDown(object sender, MouseEventArgs e)
         {
-            nudNorth.DownButton();
+            nudNorth.Value--;
         }
 
         private void btnWest_MouseDown(object sender, MouseEventArgs e)
         {
-            nudEast.DownButton();
+            nudEast.Value--;
         }
 
         private void btnEast_MouseDown(object sender, MouseEventArgs e)
         {
-            nudEast.UpButton();
+            nudEast.Value++;
         }
 
         private void btnZero_Click(object sender, EventArgs e)
@@ -65,8 +63,6 @@ namespace AgOpenGPS
         private void bntOK_Click(object sender, EventArgs e)
         {
             mf.isKeepOffsetsOn = chkOffsetsOn.Checked;
-            mf.pn.fixOffset.northing = (double)nudNorth.Value / 100;
-            mf.pn.fixOffset.easting = (double)nudEast.Value / 100;
             Close();
         }
 
@@ -76,16 +72,14 @@ namespace AgOpenGPS
             else chkOffsetsOn.Text = "Off";
         }
 
-        private void nudNorth_Click(object sender, EventArgs e)
+        private void nudNorth_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-            mf.pn.fixOffset.northing = (double)nudNorth.Value / 100;
+            mf.pn.fixOffset.northing = nudNorth.Value;
         }
 
-        private void nudEast_Click(object sender, EventArgs e)
+        private void nudEast_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-            mf.pn.fixOffset.easting = (double)nudEast.Value / 100;
+            mf.pn.fixOffset.easting = nudEast.Value;
         }
     }
 }

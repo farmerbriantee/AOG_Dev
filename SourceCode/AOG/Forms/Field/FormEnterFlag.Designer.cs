@@ -39,8 +39,6 @@
             this.btnYellow = new System.Windows.Forms.Button();
             this.btnRed = new System.Windows.Forms.Button();
             this.btnGreen = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLatitude)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLongitude)).BeginInit();
             this.SuspendLayout();
             // 
             // label9
@@ -89,47 +87,23 @@
             // 
             // nudLatitude
             // 
-            this.nudLatitude.BackColor = System.Drawing.Color.AliceBlue;
             this.nudLatitude.DecimalPlaces = 7;
-            this.nudLatitude.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitude.Location = new System.Drawing.Point(152, 68);
-            this.nudLatitude.Maximum = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            this.nudLatitude.Minimum = new decimal(new int[] {
-            90,
-            0,
-            0,
-            -2147483648});
+            this.nudLatitude.Maximum = 90D;
+            this.nudLatitude.Minimum = -90D;
             this.nudLatitude.Name = "nudLatitude";
             this.nudLatitude.Size = new System.Drawing.Size(274, 52);
             this.nudLatitude.TabIndex = 198;
-            this.nudLatitude.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudLatitude.Click += new System.EventHandler(this.nudLatitude_Click);
             // 
             // nudLongitude
             // 
-            this.nudLongitude.BackColor = System.Drawing.Color.AliceBlue;
             this.nudLongitude.DecimalPlaces = 7;
-            this.nudLongitude.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitude.Location = new System.Drawing.Point(448, 68);
-            this.nudLongitude.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.nudLongitude.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
+            this.nudLongitude.Maximum = 180D;
+            this.nudLongitude.Minimum = -180D;
             this.nudLongitude.Name = "nudLongitude";
             this.nudLongitude.Size = new System.Drawing.Size(298, 52);
             this.nudLongitude.TabIndex = 197;
-            this.nudLongitude.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudLongitude.Click += new System.EventHandler(this.nudLongitude_Click);
             // 
             // label2
             // 
@@ -234,8 +208,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Enter AB or A+";
             this.Load += new System.EventHandler(this.FormEnterAB_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.nudLatitude)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLongitude)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

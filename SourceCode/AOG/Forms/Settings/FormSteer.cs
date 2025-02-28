@@ -22,20 +22,6 @@ namespace AgOpenGPS
         {
             mf = callingForm as FormGPS;
             InitializeComponent();
-            nudMaxCounts.Controls[0].Enabled = false;
-
-            nudSnapDistance.Controls[0].Enabled = false;
-            nudLineWidth.Controls[0].Enabled = false;
-            nudGuidanceLookAhead.Controls[0].Enabled = false;
-            nudGuidanceSpeedLimit.Controls[0].Enabled = false;
-            nudMaxSteerSpeed.Controls[0].Enabled = false;
-            nudMinSteerSpeed.Controls[0].Enabled = false;
-
-            nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
-            nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);
-
-            nudSnapDistance.Minimum = Math.Round(nudSnapDistance.Minimum / 2.54M);
-            nudSnapDistance.Maximum = Math.Round(nudSnapDistance.Maximum / 2.54M);
 
             this.lblDistance.Text = gStr.Get(gs.gsAgressiveness);
             this.lblHeading.Text = gStr.Get(gs.gsOvershootReduction);
@@ -202,8 +188,8 @@ namespace AgOpenGPS
             mf.vehicle.driveFreeSteerAngle = 0;
 
             //nudDeadZoneDistance.Value = (decimal)((double)(Properties.Settings.Default.setAS_deadZoneDistance)/10);
-            nudDeadZoneHeading.Value = (decimal)((double)(Properties.Settings.Default.setAS_deadZoneHeading) / 100);
-            nudDeadZoneDelay.Value = (decimal)(mf.vehicle.deadZoneDelay);
+            nudDeadZoneHeading.Value = Properties.Settings.Default.setAS_deadZoneHeading * 0.01;
+            nudDeadZoneDelay.Value = mf.vehicle.deadZoneDelay;
 
             toSend = false;
 
@@ -231,9 +217,9 @@ namespace AgOpenGPS
             if ((sett & 128) == 0) cboxEncoder.Checked = false;
             else cboxEncoder.Checked = true;
 
-            nudMaxCounts.Value = (decimal)Properties.Settings.Default.setArdSteer_maxPulseCounts;
-            hsbarSensor.Value = (int)Properties.Settings.Default.setArdSteer_maxPulseCounts;
-            lblhsbarSensor.Text = ((int)((double)hsbarSensor.Value * 0.3921568627)).ToString() + "%";
+            nudMaxCounts.Value = Properties.Settings.Default.setArdSteer_maxPulseCounts;
+            hsbarSensor.Value = Properties.Settings.Default.setArdSteer_maxPulseCounts;
+            lblhsbarSensor.Text = ((int)(hsbarSensor.Value * 0.3921568627)).ToString() + "%";
 
             sett = Properties.Settings.Default.setArdSteer_setting1;
 
@@ -336,7 +322,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setAS_Kp = PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)hsbarProportionalGain.Value);
             Properties.Settings.Default.setAS_minSteerPWM = PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)hsbarMinPWM.Value);
 
-            Properties.Settings.Default.setAS_deadZoneHeading = mf.vehicle.deadZoneHeading;
+            Properties.Settings.Default.setAS_deadZoneHeading = (int)(mf.vehicle.deadZoneHeading * 100);
             Properties.Settings.Default.setAS_deadZoneDelay = mf.vehicle.deadZoneDelay;
 
             Properties.Settings.Default.setAS_ModeXTE = mf.vehicle.modeXTE;
@@ -347,7 +333,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setAS_uTurnCompensation = mf.vehicle.uturnCompensation;
 
             //save current vehicle
-            RegistrySettings.Save();
+            Properties.Settings.Default.Save();
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -396,7 +382,7 @@ namespace AgOpenGPS
             lblSteerAngle.Text = mf.SetSteerAngle;
             lblSteerAngleActual.Text = mf.mc.actualSteerAngleDegrees.ToString("N1") + "\u00B0";
             lblActualSteerAngleUpper.Text = lblSteerAngleActual.Text;
-            double err = (mf.mc.actualSteerAngleDegrees - mf.guidanceLineSteerAngle * 0.01);
+            double err = mf.mc.actualSteerAngleDegrees - mf.guidanceLineSteerAngle;
             lblError.Text = Math.Abs(err).ToString("N1") + "\u00B0";
             if (err > 0) lblError.ForeColor = Color.Red;
             else lblError.ForeColor = Color.DarkGreen;
@@ -563,12 +549,9 @@ namespace AgOpenGPS
             }
         }
 
-        private void nudMaxCounts_Click(object sender, EventArgs e)
+        private void nudMaxCounts_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                pboxSendSteer.Visible = true;
-            }
+            pboxSendSteer.Visible = true;
         }
 
         private void hsbarSensor_Scroll(object sender, ScrollEventArgs e)
@@ -668,56 +651,34 @@ namespace AgOpenGPS
 
         private void tabAlarm_Enter(object sender, EventArgs e)
         {
-            if (mf.isMetric)
-            {
-                nudMaxSteerSpeed.Value = (decimal)(Properties.Settings.Default.setAS_maxSteerSpeed);
-                nudMinSteerSpeed.Value = (decimal)(Properties.Settings.Default.setAS_minSteerSpeed);
-                nudGuidanceSpeedLimit.Value = (decimal)Properties.Settings.Default.setAS_functionSpeedLimit;
-                label160.Text = label163.Text = label166.Text = "kmh";
-            }
-            else
-            {
-                nudMaxSteerSpeed.Value = (decimal)(Properties.Settings.Default.setAS_maxSteerSpeed * 0.62137);
-                nudMinSteerSpeed.Value = (decimal)(Properties.Settings.Default.setAS_minSteerSpeed * 0.62137);
-                nudGuidanceSpeedLimit.Value = (decimal)(Properties.Settings.Default.setAS_functionSpeedLimit * 0.62137);
-                label160.Text = label163.Text = label166.Text = "mph";
-            }
+            nudMaxSteerSpeed.Value = Properties.Settings.Default.setAS_maxSteerSpeed;
+            nudMinSteerSpeed.Value = Properties.Settings.Default.setAS_minSteerSpeed;
+            nudGuidanceSpeedLimit.Value = Properties.Settings.Default.setAS_functionSpeedLimit;
 
-            label20.Text = mf.unitsInCm;
+            label160.Text = label163.Text = label166.Text = glm.unitsKmhMph;
+            label20.Text = glm.unitsInCm;
         }
 
         private void tabAlarm_Leave(object sender, EventArgs e)
         {
         }
 
-        private void nudMinSteerSpeed_Click(object sender, EventArgs e)
+        private void nudMinSteerSpeed_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setAS_minSteerSpeed = ((double)nudMinSteerSpeed.Value);
-                if (!mf.isMetric) Properties.Settings.Default.setAS_minSteerSpeed *= 1.609344;
-                mf.vehicle.minSteerSpeed = Properties.Settings.Default.setAS_minSteerSpeed;
-            }
+            Properties.Settings.Default.setAS_minSteerSpeed = nudMinSteerSpeed.Value;
+            mf.vehicle.minSteerSpeed = Properties.Settings.Default.setAS_minSteerSpeed;
         }
 
-        private void nudMaxSteerSpeed_Click(object sender, EventArgs e)
+        private void nudMaxSteerSpeed_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setAS_maxSteerSpeed = ((double)nudMaxSteerSpeed.Value);
-                if (!mf.isMetric) Properties.Settings.Default.setAS_maxSteerSpeed *= 1.609344;
-                mf.vehicle.maxSteerSpeed = Properties.Settings.Default.setAS_maxSteerSpeed;
-            }
+            Properties.Settings.Default.setAS_maxSteerSpeed = nudMaxSteerSpeed.Value;
+            mf.vehicle.maxSteerSpeed = Properties.Settings.Default.setAS_maxSteerSpeed;
         }
 
-        private void nudGuidanceSpeedLimit_Click(object sender, EventArgs e)
+        private void nudGuidanceSpeedLimit_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setAS_functionSpeedLimit = ((double)nudGuidanceSpeedLimit.Value);
-                if (!mf.isMetric) Properties.Settings.Default.setAS_functionSpeedLimit *= 1.609344;
-                mf.vehicle.functionSpeedLimit = Properties.Settings.Default.setAS_functionSpeedLimit;
-            }
+            Properties.Settings.Default.setAS_functionSpeedLimit = nudGuidanceSpeedLimit.Value;
+            mf.vehicle.functionSpeedLimit = Properties.Settings.Default.setAS_functionSpeedLimit;
         }
 
         #endregion Alarms Tab
@@ -727,66 +688,45 @@ namespace AgOpenGPS
         private void tabOnTheLine_Enter(object sender, EventArgs e)
         {
             chkDisplayLightbar.Checked = mf.isLightbarOn;
-            if (chkDisplayLightbar.Checked) { chkDisplayLightbar.Image = Resources.SwitchOn; }
-            else { chkDisplayLightbar.Image = Resources.SwitchOff; }
+            chkDisplayLightbar.Image = chkDisplayLightbar.Checked ? Resources.SwitchOn : Resources.SwitchOff;
 
-            if (mf.isMetric)
-            {
-                nudSnapDistance.DecimalPlaces = 0;
-                nudSnapDistance.Value = (int)((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn);
-            }
-            else
-            {
-                nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn), 1, MidpointRounding.AwayFromZero);
-            }
+            nudSnapDistance.DecimalPlaces = mf.isMetric ? 0 : 1;
+            nudSnapDistance.Value = Properties.Settings.Default.setAS_snapDistance;
 
-            nudGuidanceLookAhead.Value = (decimal)Properties.Settings.Default.setAS_guidanceLookAheadTime;
+            nudGuidanceLookAhead.Value = Properties.Settings.Default.setAS_guidanceLookAheadTime;
 
             nudLineWidth.Value = Properties.Settings.Default.setDisplay_lineWidth;
 
             nudcmPerPixel.Value = Properties.Settings.Default.setDisplay_lightbarCmPerPixel;
 
-            label20.Text = mf.unitsInCm;
+            label20.Text = glm.unitsInCm;
         }
 
         private void tabOnTheLine_Leave(object sender, EventArgs e)
         {
         }
 
-        private void nudcmPerPixel_Click(object sender, EventArgs e)
+        private void nudcmPerPixel_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setDisplay_lightbarCmPerPixel = ((int)nudcmPerPixel.Value);
-                mf.lightbarCmPerPixel = Properties.Settings.Default.setDisplay_lightbarCmPerPixel;
-            }
+            Properties.Settings.Default.setDisplay_lightbarCmPerPixel = ((int)nudcmPerPixel.Value);
+            mf.lightbarCmPerPixel = Properties.Settings.Default.setDisplay_lightbarCmPerPixel;
         }
 
-        private void nudLineWidth_Click(object sender, EventArgs e)
+        private void nudLineWidth_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setDisplay_lineWidth = (int)nudLineWidth.Value;
-                mf.trk.lineWidth = Properties.Settings.Default.setDisplay_lineWidth;
-            }
+            Properties.Settings.Default.setDisplay_lineWidth = (int)nudLineWidth.Value;
+            mf.trk.lineWidth = Properties.Settings.Default.setDisplay_lineWidth;
         }
 
-        private void nudSnapDistance_Click(object sender, EventArgs e)
+        private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setAS_snapDistance = ((double)nudSnapDistance.Value * mf.inOrCm2Cm);
-            }
+            Properties.Settings.Default.setAS_snapDistance = nudSnapDistance.Value;
         }
 
-        private void nudGuidanceLookAhead_Click(object sender, EventArgs e)
+        private void nudGuidanceLookAhead_ValueChanged(object sender, EventArgs e)
         {
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                Properties.Settings.Default.setAS_guidanceLookAheadTime = ((double)nudGuidanceLookAhead.Value);
-                mf.guidanceLookAheadTime = Properties.Settings.Default.setAS_guidanceLookAheadTime;
-            }
+            Properties.Settings.Default.setAS_guidanceLookAheadTime = ((double)nudGuidanceLookAhead.Value);
+            mf.guidanceLookAheadTime = Properties.Settings.Default.setAS_guidanceLookAheadTime;
         }
 
         private void rbtnLightBar_Click(object sender, EventArgs e)
@@ -1146,16 +1086,14 @@ namespace AgOpenGPS
             lblAcquireFactor.Text = mf.vehicle.goalPointAcquireFactor.ToString();
         }
 
-        private void nudDeadZoneHeading_Click(object sender, EventArgs e)
+        private void nudDeadZoneHeading_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-            mf.vehicle.deadZoneHeading = (int)(nudDeadZoneHeading.Value * 100);
+            mf.vehicle.deadZoneHeading = nudDeadZoneHeading.Value;
         }
 
-        private void nudDeadZoneDelay_Click(object sender, EventArgs e)
+        private void nudDeadZoneDelay_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-            mf.vehicle.deadZoneDelay = (int)(nudDeadZoneDelay.Value);
+            mf.vehicle.deadZoneDelay = (int)nudDeadZoneDelay.Value;
         }
 
         private void expandWindow_Click(object sender, EventArgs e)
@@ -1374,7 +1312,7 @@ namespace AgOpenGPS
                 Properties.Settings.Default.setAS_countsPerDegree = 110;
 
                 Properties.Settings.Default.setAS_ackerman = 100;
-
+                
                 Properties.Settings.Default.setAS_wasOffset = 3;
 
                 Properties.Settings.Default.setAS_highSteerPWM = 180;
@@ -1410,7 +1348,7 @@ namespace AgOpenGPS
                 Properties.Settings.Default.setAS_functionSpeedLimit = 12;
                 Properties.Settings.Default.setDisplay_lightbarCmPerPixel = 5;
                 Properties.Settings.Default.setDisplay_lineWidth = 2;
-                Properties.Settings.Default.setAS_snapDistance = 20;
+                Properties.Settings.Default.setAS_snapDistance = 0.2;
                 Properties.Settings.Default.setAS_guidanceLookAheadTime = 1.5;
                 Properties.Settings.Default.setAS_uTurnCompensation = 1;
 
@@ -1419,9 +1357,6 @@ namespace AgOpenGPS
 
                 Properties.Settings.Default.setAS_isSteerInReverse = false;
                 mf.isSteerInReverse = false;
-
-                //save current vehicle
-                RegistrySettings.Save();
 
                 mf.vehicle = new CVehicle(mf);
 

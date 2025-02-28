@@ -28,36 +28,18 @@ namespace AgOpenGPS
 
             lblOverlapPercent.Text = mf.fd.ActualOverlapPercent;
 
-            if (mf.isMetric)
-            {
-                lblWorkRate.Text = mf.fd.WorkRateHectares;
-                lblApplied.Text = mf.fd.WorkedHectares;
-                lblActualLessOverlap.Text = mf.fd.ActualAreaWorkedHectares;
-            }
-            else
-            {
-                lblWorkRate.Text = mf.fd.WorkRateAcres;
-                lblApplied.Text = mf.fd.WorkedAcres;
-                lblActualLessOverlap.Text = mf.fd.ActualAreaWorkedAcres;
-            }
+            lblWorkRate.Text = mf.fd.WorkRateHour;
+            lblApplied.Text = mf.fd.WorkedArea;
+            lblActualLessOverlap.Text = mf.fd.ActualAreaWorked;
 
             if (mf.bnd.bndList.Count > 0)
             {
                 lblTimeRemaining.Text = mf.fd.TimeTillFinished;
                 lblRemainPercent.Text = mf.fd.WorkedAreaRemainPercentage;
 
-                if (mf.isMetric)
-                {
-                    lblTotalArea.Text = mf.fd.AreaBoundaryLessInnersHectares;
-                    lblAreaRemain.Text = mf.fd.WorkedAreaRemainHectares;
-                    lblActualRemain.Text = mf.fd.ActualRemainHectares;
-                }
-                else
-                {
-                    lblTotalArea.Text = mf.fd.AreaBoundaryLessInnersAcres;
-                    lblAreaRemain.Text = mf.fd.WorkedAreaRemainAcres;
-                    lblActualRemain.Text = mf.fd.ActualRemainAcres;
-                }
+                lblTotalArea.Text = mf.fd.AreaBoundaryLessInners;
+                lblAreaRemain.Text = mf.fd.WorkedAreaRemain;
+                lblActualRemain.Text = mf.fd.ActualRemain;
             }
             else
             {
@@ -65,12 +47,6 @@ namespace AgOpenGPS
                 lblAreaRemain.Text = "-";
                 lblTimeRemaining.Text = "-";
                 lblRemainPercent.Text = "-";
-
-                //if (mf.isMetric) lblActualLessOverlap.Text =
-                //        ((100-mf.fd.overlapPercent) * 0.01 * mf.fd.workedAreaTotal * glm.m2ha).ToString("N2");
-                //else
-                //    lblActualLessOverlap.Text =
-                //    ((100-mf.fd.overlapPercent) * 0.01 * mf.fd.workedAreaTotal * glm.m2ac).ToString("N2");
             }
         }
     }

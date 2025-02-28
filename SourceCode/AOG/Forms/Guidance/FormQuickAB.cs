@@ -47,7 +47,6 @@ namespace AgOpenGPS
 
             Location = Properties.Settings.Default.setWindow_QuickABLocation;
 
-            nudHeading.Controls[0].Enabled = false;
             nudHeading.Value = 0;
 
             if (!mf.IsOnScreen(Location, Size, 1))
@@ -362,30 +361,28 @@ namespace AgOpenGPS
             btnEnter_AB.Enabled = true;
             nudHeading.Enabled = true;
 
-            nudHeading.Value = (decimal)(glm.toDegrees(mf.trk.designHeading));
+            nudHeading.Value = glm.toDegrees(mf.trk.designHeading);
             timer1.Enabled = true;
             mf.Activate();
         }
 
-        private void nudHeading_Click(object sender, EventArgs e)
+        private void nudHeading_ValueChanged(object sender, EventArgs e)
         {
             timer1.Enabled = false;
 
-            if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-            {
-                //original A pt.
-                mf.trk.designHeading = glm.toRadians((double)nudHeading.Value);
+            //original A pt.
+            mf.trk.designHeading = glm.toRadians((double)nudHeading.Value);
 
-                //start end of line
-                mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
-                mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
+            //start end of line
+            mf.trk.designPtB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 30);
+            mf.trk.designPtB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 30);
 
-                mf.trk.designLineEndA.easting = mf.trk.designPtA.easting - (Math.Sin(mf.trk.designHeading) * 1000);
-                mf.trk.designLineEndA.northing = mf.trk.designPtA.northing - (Math.Cos(mf.trk.designHeading) * 1000);
+            mf.trk.designLineEndA.easting = mf.trk.designPtA.easting - (Math.Sin(mf.trk.designHeading) * 1000);
+            mf.trk.designLineEndA.northing = mf.trk.designPtA.northing - (Math.Cos(mf.trk.designHeading) * 1000);
 
-                mf.trk.designLineEndB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 1000);
-                mf.trk.designLineEndB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 1000);
-            }
+            mf.trk.designLineEndB.easting = mf.trk.designPtA.easting + (Math.Sin(mf.trk.designHeading) * 1000);
+            mf.trk.designLineEndB.northing = mf.trk.designPtA.northing + (Math.Cos(mf.trk.designHeading) * 1000);
+
             mf.Activate();
         }
 

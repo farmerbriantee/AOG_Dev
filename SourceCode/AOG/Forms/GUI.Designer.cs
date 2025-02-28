@@ -57,7 +57,7 @@ namespace AgOpenGPS
         public bool isPureDisplayOn = true, isSkyOn = true, isRollMeterOn = false, isTextureOn = true;
         public bool isDay = true, isDayTime = true, isBrightnessOn = true;
         public bool isLogElevation = false, isDirectionMarkers;
-        public bool isKeyboardOn = true, isAutoStartAgOne = true, isSvennArrowOn = true, isTermsAccepted = false;
+        public bool isKeyboardOn = true, isAutoStartAgOne = true, isSvennArrowOn = true;
         public bool isSectionlinesOn = true, isLineSmooth = true;
 
         public bool isLightBarNotSteerBar = false;
@@ -142,45 +142,11 @@ namespace AgOpenGPS
                             break;
 
                         case 1:
-                            if (bnd.bndList.Count > 0)
-                            {
-                                if (isMetric)
-                                {
-                                    lblCurrentField.Text = fd.AreaBoundaryLessInnersHectares
-                                        + "  App: " + fd.WorkedHectares
-                                        + "  Actual: " + fd.ActualAreaWorkedHectares
-                                        + "  " + fd.WorkedAreaRemainPercentage
-                                        + "  " + fd.WorkRateHectares;
-
-                                }
-                                else
-                                {
-                                    lblCurrentField.Text = fd.AreaBoundaryLessInnersAcres
-                                        + "  App: " + fd.WorkedAcres
-                                        + "  Actual: " + fd.ActualAreaWorkedAcres
-                                        + "  " + fd.WorkedAreaRemainPercentage
-                                        + "  " + fd.WorkRateAcres;
-                                }
-                            }
-                            else
-                            {
-                                if (isMetric)
-                                {
-                                    lblCurrentField.Text = "App: "
-                                + fd.WorkedHectares + " Actual: "
-                                + fd.ActualAreaWorkedHectares + "  "
-                                + fd.ActualOverlapPercent + "   "
-                                + fd.WorkRateHectares;
-                                }
-                                else
-                                {
-                                    lblCurrentField.Text = fieldData + "App: "
-                                + fd.WorkedAcres + "  Actual: "
-                                + fd.ActualAreaWorkedAcres + " *"
-                                + fd.ActualOverlapPercent + "   "
-                                + fd.WorkRateAcres;
-                                }
-                            }
+                            lblCurrentField.Text = (bnd.bndList.Count > 0 ? fd.AreaBoundaryLessInners
+                                + "  " : "") + "App: " + fd.WorkedArea
+                                + "  Actual: " + fd.ActualAreaWorked
+                                + "  " + fd.WorkedAreaRemainPercentage
+                                + "  " + fd.WorkRateHour;
                             break;
 
                         case 2:
@@ -207,7 +173,7 @@ namespace AgOpenGPS
                     switch (currentFieldTextCounter)
                     {
                         case 0:
-                            lblCurrentField.Text = (tool.width * m2FtOrM).ToString("N2") + unitsFtM + " - " + RegistrySettings.vehicleFileName;
+                            lblCurrentField.Text = (tool.width * glm.m2FtOrM).ToString("N2") + glm.unitsFtM + " - " + RegistrySettings.vehicleFileName;
                             break;
 
                         case 1:
@@ -256,6 +222,7 @@ namespace AgOpenGPS
                 //hide the Nav panel in 6  secs
                 if (panelNavigation.Visible)
                 {
+                    Settings.Default.Save();
                     if (navPanelCounter-- <= 0) panelNavigation.Visible = false;
                     lblHz.Text = gpsHz.ToString("N1") + " ~ " + (frameTime.ToString("N1")) + " " + FixQuality;
                 }
@@ -326,18 +293,8 @@ namespace AgOpenGPS
                 isFlashOnOff = !isFlashOnOff;
 
                 //the main formgps window
-                if (isMetric)  //metric or imperial
-                {
-                    //status strip values
-                    distanceToolBtn.Text = fd.DistanceUserMeters + "\r\n" + fd.WorkedUserHectares;
-
-                }
-                else  //Imperial Measurements
-                {
-                    //acres on the master section soft control and sections
-                    //status strip values
-                    distanceToolBtn.Text = fd.DistanceUserFeet + "\r\n" + fd.WorkedUserAcres;
-                }
+                //status strip values
+                distanceToolBtn.Text = fd.DistanceUser + "\r\n" + fd.WorkedUserArea;
 
                 //Make sure it is off when it should
                 if (!ct.isContourBtnOn && trk.idx == -1 && isBtnAutoSteerOn) 
@@ -347,19 +304,7 @@ namespace AgOpenGPS
                     Log.EventWriter("Steer Safe Off, No Tracks, Idx -1");
                 }
 
-
-                //the main formgps window
-                if (isMetric)  //metric or imperial
-                {
-                    lblSpeed.Text = SpeedKPH;
-                    //btnContour.Text = XTE; //cross track error
-
-                }
-                else  //Imperial Measurements
-                {
-                    lblSpeed.Text = SpeedMPH;
-                    //btnContour.Text = InchXTE; //cross track error
-                }
+                lblSpeed.Text = Speed;
 
                 //Nozzz
                 if (isNozzleApp)
@@ -396,7 +341,7 @@ namespace AgOpenGPS
                         {
                             //(GPM x 5,940) / (MPH x Width in inches)
                             nozz.volumePerAreaActualFiltered = (nozz.volumePerAreaActualFiltered * 0.6)
-                                + ((nozz.volumePerMinuteActual * 59.4) / (nozz.currentSectionsWidthMeters * 39.3701 * avgSpeed * 0.621 + 0.01) * 0.4);
+                                + ((nozz.volumePerMinuteActual * 59.4) / (nozz.currentSectionsWidthMeters * glm.m2InchOrCm * avgSpeed * glm.kmhToMphOrKmh + 0.01) * 0.4);
                         }
 
                         //display actual rate
@@ -439,9 +384,7 @@ namespace AgOpenGPS
         }//wait till timer fires again.         
 
         public void LoadSettings()
-        {            
-            CheckSettingsNotNull();
-
+        {
             //metric settings
             isMetric = Settings.Default.setMenu_isMetric;
 
@@ -481,39 +424,53 @@ namespace AgOpenGPS
 
             if (isMetric)
             {
-                inchOrCm2m = 0.01;
-                m2InchOrCm = 100.0;
+                glm.inchOrCm2m = 0.01;
+                glm.m2InchOrCm = 100.0;
 
-                m2FtOrM = 1.0;
-                ftOrMtoM = 1.0;
+                glm.m2FtOrM = 1.0;
+                glm.ftOrMtoM = 1.0;
 
-                inOrCm2Cm = 1.0;
-                cm2CmOrIn = 1.0;
+                glm.kmhToMphOrKmh = 1;
+                glm.mphOrKmhToKmh = 1;
 
-                unitsFtM = " m";
-                unitsInCm = " cm";
-                unitsInCmNS = "cm";
+                glm.unitsFtM = " m";
+                glm.unitsInCm = " cm";
+                glm.unitsInCmNS = "cm";
+                glm.unitsKmhMph = gStr.Get(gs.gsKMH);
+                glm.unitsHaOrAc = " Ha";
+                glm.unitsHaOrAcHr = " ha/hr";
+
+                //m2 to Hectare
+                glm.m22HaOrAc = 0.0001;
             }
             else
             {
-                inchOrCm2m = glm.in2m;
-                m2InchOrCm = glm.m2in;
+                //inches to meters
+                glm.inchOrCm2m = 0.0254;
+                //meters to inches
+                glm.m2InchOrCm = 39.3701;
 
-                m2FtOrM = glm.m2ft;
-                ftOrMtoM = glm.ft2m;
+                //meters to feet
+                glm.m2FtOrM = 3.28084;
+                //feet to meters
+                glm.ftOrMtoM = 0.3048;
 
-                inOrCm2Cm = 2.54;
-                cm2CmOrIn = 0.394;
+                glm.kmhToMphOrKmh = 0.621371;//Km/H to mph
+                glm.mphOrKmhToKmh = 1.60934;//mph to Km/H
 
-                unitsInCm = " in";
-                unitsInCmNS = "in";
-                unitsFtM = " ft";
+                glm.unitsInCm = " in";
+                glm.unitsInCmNS = "in";
+                glm.unitsFtM = " ft";
+                glm.unitsKmhMph = gStr.Get(gs.gsMPH);
+                glm.unitsHaOrAc = " Ac";
+                glm.unitsHaOrAcHr = " ac/hr";
+
+                //Meters to Acres
+                glm.m22HaOrAc = 0.000247105;
             }
 
             //Nozzz
             //Nozzle Spray Controller
-
-            CheckNozzleSettingsNotNull();
 
             isNozzleApp = Properties.Settings.Default.setApPGN_isNozzleApp;
 
@@ -573,7 +530,6 @@ namespace AgOpenGPS
             }
 
             //Tool GPS on
-            CheckToolSteerSettingsNotNull();
             isGPSToolActive = Properties.Settings.Default.setToolSteer.isGPSToolActive;
 
             if (isGPSToolActive)
@@ -1593,16 +1549,8 @@ namespace AgOpenGPS
         }
         private void SpeedLimitExceeded()
         {
-            if (isMetric)
-            {
-                TimedMessageBox(2000, gStr.Get(gs.gsTooFast), gStr.Get(gs.gsSlowDownBelow) + " "
-                    + vehicle.functionSpeedLimit.ToString("N0") + " " + gStr.Get(gs.gsKMH));
-            }
-            else
-            {
-                TimedMessageBox(2000, gStr.Get(gs.gsTooFast), gStr.Get(gs.gsSlowDownBelow) + " "
-                    + (vehicle.functionSpeedLimit * 0.621371).ToString("N1") + " " + gStr.Get(gs.gsMPH));
-            }
+            TimedMessageBox(2000, gStr.Get(gs.gsTooFast), gStr.Get(gs.gsSlowDownBelow) + " "
+                + (vehicle.functionSpeedLimit * glm.kmhToMphOrKmh).ToString("N1") + " " + glm.unitsKmhMph);
 
             Log.EventWriter("UTurn or Lateral Speed exceeded");
 
@@ -1696,50 +1644,29 @@ namespace AgOpenGPS
                 else return "-";
             }
         }
-        public string SetSteerAngle { get { return ((double)(guidanceLineSteerAngle) * 0.01).ToString("N1"); } }
-        public string ActualSteerAngle { get { return ((mc.actualSteerAngleDegrees) ).ToString("N1") ; } }
+        public string SetSteerAngle { get { return (guidanceLineSteerAngle).ToString("N1"); } }
+        public string ActualSteerAngle { get { return (mc.actualSteerAngleDegrees).ToString("N1") ; } }
 
         //Metric and Imperial Properties
-        public string SpeedMPH
+        public string Speed
         {
             get
             {
                 if (avgSpeed > 2)
-                    return (avgSpeed * 0.62137).ToString("N1");
+                    return (avgSpeed * glm.kmhToMphOrKmh).ToString("N1");
                 else
-                    return(avgSpeed * 0.62137).ToString("N2");
-            }
-        }
-        public string SpeedKPH
-        {
-            get
-            {
-                if (avgSpeed > 2)
-                    return (avgSpeed).ToString("N1");
-                else
-                    return (avgSpeed).ToString("N2");
+                    return(avgSpeed * glm.kmhToMphOrKmh).ToString("N2");
             }
         }
 
-        public string FixOffset { get { return (pn.fixOffset.easting.ToString("N2") + ", " + pn.fixOffset.northing.ToString("N2")); } }
-        public string FixOffsetInch { get { return ((pn.fixOffset.easting*glm.m2in).ToString("N0")+ ", " + (pn.fixOffset.northing*glm.m2in).ToString("N0")); } }
+        public string Altitude { get { return Convert.ToString((Math.Round((pn.altitude * glm.m2FtOrM), 2))); } }
 
-        public string Altitude { get { return Convert.ToString(Math.Round(pn.altitude,2)); } }
-        public string AltitudeFeet { get { return Convert.ToString((Math.Round((pn.altitude * 3.28084),1))); } }
-        public string DistPivotM
+        public string DistPivot
         {
             get
             {
                 if (distancePivotToTurnLine > 0 )
-                    return ((int)(distancePivotToTurnLine)) + " m";
-                else return "--";
-            }
-        }
-        public string DistPivotFt
-        {
-            get
-            {
-                if (distancePivotToTurnLine > 0 ) return (((int)(glm.m2ft * (distancePivotToTurnLine))) + " ft");
+                    return (glm.m2FtOrM * distancePivotToTurnLine).ToString("0") + glm.unitsFtM;
                 else return "--";
             }
         }

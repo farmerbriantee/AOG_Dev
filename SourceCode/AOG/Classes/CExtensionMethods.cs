@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -139,40 +141,357 @@ namespace AgOpenGPS
         }
     }
 
-    public class NudlessNumericUpDown : NumericUpDown
+    public enum UnitMode
     {
+        None,
+        Large,
+        Small,
+        Speed,
+        Area,
+        Distance,
+        Temperature
+    }
+
+    public class NumericUnitModeConverter : EnumConverter
+    {
+        public NumericUnitModeConverter(Type type) : base(type) { }
+
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        {
+            return new StandardValuesCollection(new UnitMode[]
+            {
+                UnitMode.None,
+                UnitMode.Large,
+                UnitMode.Small,
+                UnitMode.Speed
+            });
+        }
+
+        public override bool GetStandardValuesExclusive(ITypeDescriptorContext context) => true; // Prevents entering custom values
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) => true; // Enables dropdown in Designer
+    }
+
+    public class NudlessNumericUpDown : Button
+    {
+        private double _value = double.NaN;
+        private double minimum = 0;
+        private double maximum = 100;
+        private int decimalPlaces = 0;
+        private bool initializing = true;
+        private string format = "0";
+        private EventHandler onValueChanged;
+        private UnitMode mode;
+
         public NudlessNumericUpDown()
         {
-            Controls[0].Hide();
+            base.TextAlign = ContentAlignment.MiddleCenter;
+            base.BackColor = SystemColors.Control;
+            base.ForeColor = Color.Black;
+            base.UseVisualStyleBackColor = false;
+
+            base.FlatStyle = FlatStyle.Flat;
         }
 
-        protected override void OnTextBoxResize(object source, EventArgs e)
+        protected override void OnHandleCreated(EventArgs e)
         {
-            Controls[1].Width = Width - 4;
+            base.OnHandleCreated(e);
+            base.Font = new System.Drawing.Font("Tahoma", this.Height / 2, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         }
 
-        public new decimal Value
+        public event EventHandler ValueChanged { add => onValueChanged = (EventHandler)Delegate.Combine(onValueChanged, value); remove => onValueChanged = (EventHandler)Delegate.Remove(onValueChanged, value); }
+
+        protected override void OnClick(EventArgs e)
         {
-            get
+            var localMin = minimum;
+            var localMax = maximum;
+            var localVal = _value;
+
+            if (mode == UnitMode.Small)
             {
-                return base.Value;
+                localMin *= glm.m2InchOrCm;
+                localMax *= glm.m2InchOrCm;
+                localVal *= glm.m2InchOrCm;
             }
-            set
+            else if (mode == UnitMode.Large)
             {
-                if (value != base.Value)
+                localMin *= glm.m2FtOrM;
+                localMax *= glm.m2FtOrM;
+                localVal *= glm.m2FtOrM;
+            }
+            else if (mode == UnitMode.Speed)
+            {
+                localMin *= glm.kmhToMphOrKmh;
+                localMax *= glm.kmhToMphOrKmh;
+                localVal *= glm.kmhToMphOrKmh;
+            }
+            localVal = Math.Round(localVal, decimalPlaces);
+
+            using (FormNumeric form = new FormNumeric(localMin, localMax, localVal))
+            {
+                DialogResult result = form.ShowDialog(this);
+                if (result == DialogResult.OK)
                 {
-                    if (value < Minimum)
-                    {
-                        value = Minimum;
-                    }
-                    if (value > Maximum)
-                    {
-                        value = Maximum;
-                    }
-                    base.Value = value;
+                    var localReturn = Math.Round(form.ReturnValue, decimalPlaces);
+
+                    if (mode == UnitMode.Small)
+                        Value = localReturn * glm.inchOrCm2m;
+                    else if (mode == UnitMode.Large)
+                        Value = localReturn * glm.ftOrMtoM;
+                    else if (mode == UnitMode.Speed)
+                        Value = localReturn * glm.mphOrKmhToKmh;
+                    else
+                        Value = localReturn;
                 }
             }
         }
+
+        [DefaultValue(typeof(UnitMode), "None")]
+        [TypeConverter(typeof(NumericUnitModeConverter))] // Restricts designer dropdown
+        public UnitMode Mode
+        {
+            get
+            {
+                return mode;
+            }
+            set
+            {
+                mode = value;
+                RefreshDesigner();
+            }
+        }
+
+
+        [Bindable(false)]
+        [Browsable(false)]
+        //[EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public double Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                if (value < minimum)
+                {
+                    value = minimum;
+                }
+                else if (value > maximum)
+                {
+                    value = maximum;
+                }
+
+                if (value != _value)
+                {
+                    _value = value;
+                    initializing = false;
+
+                    if (!initializing && onValueChanged != null)
+                    {
+                        onValueChanged(this, EventArgs.Empty);
+                    }
+                    UpdateEditText();
+                }
+            }
+        }
+
+        protected override void OnPaint(PaintEventArgs pevent)
+        {
+            if (DesignMode)
+            {
+                using (Graphics g = CreateGraphics())
+                {
+                    float fontSize = base.Font.Size;
+                    SizeF textSize = g.MeasureString(base.Text, base.Font);
+
+                    while ((textSize.Width > base.Width - 10 || textSize.Height > base.Height - 5) && fontSize > 5)
+                    {
+                        fontSize -= 0.5f;
+                        textSize = g.MeasureString(base.Text, new Font(base.Font.FontFamily, fontSize, base.Font.Style));
+                    }
+
+                    base.Font = new Font(base.Font.FontFamily, fontSize, base.Font.Style);
+                }
+            }
+            base.OnPaint(pevent);
+        }
+
+        [DefaultValue(typeof(double), "0")]
+        public double Minimum
+        {
+            get
+            {
+                return minimum;
+            }
+            set
+            {
+                minimum = value;
+                if (minimum > maximum)
+                {
+                    maximum = value;
+                }
+                if (!initializing)
+                    Value = _value;
+
+                RefreshDesigner();
+            }
+        }
+
+        // Force Visual Studio Designer to update when the property changes
+        private void RefreshDesigner()
+        {
+            if (DesignMode)
+            {
+                //base.AutoSize = false; // Ensures it fits in one line
+                if (decimalPlaces > 0)
+                    base.Text = minimum.ToString("0.0#######") + "|" + maximum.ToString("0.0#######") + "|" + mode.ToString();
+                else
+                    base.Text = minimum.ToString("0") + "|" + maximum.ToString("0") + "|" + mode.ToString();
+
+                var host = (IComponentChangeService)GetService(typeof(IComponentChangeService));
+                host?.OnComponentChanged(this, null, null, null);
+                Parent?.Invalidate(); // Force parent container to redraw
+                Parent?.Update();
+            }
+        }
+
+        [DefaultValue(typeof(double), "100")]
+        public double Maximum
+        {
+            get
+            {
+                return maximum;
+            }
+            set
+            {
+                maximum = value;
+                if (minimum > maximum)
+                {
+                    minimum = maximum;
+                }
+
+                if (!initializing)
+                    Value = _value;
+
+                    RefreshDesigner();
+            }
+        }
+
+
+        [DefaultValue(typeof(int), "0")]
+        public int DecimalPlaces
+        {
+            get
+            {
+                return decimalPlaces;
+            }
+            set
+            {
+                decimalPlaces = value;
+
+                format = "0";
+
+                if (decimalPlaces > 0)
+
+                for (int i = 0; i < decimalPlaces; i++)
+                {
+                    if (i == 0)
+                        format = "0.0";
+                    else
+                        format += "0";
+                }
+
+                if (!initializing)
+                    UpdateEditText();
+                
+                RefreshDesigner();
+            }
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + ", Minimum = " + minimum.ToString("0.0") + ", Maximum = " + maximum.ToString("0.0");
+        }
+
+        protected void UpdateEditText()
+        {
+            if (mode == UnitMode.None)
+                base.Text = _value.ToString(format);
+            if (Mode == UnitMode.Small)
+                base.Text = (_value * glm.m2InchOrCm).ToString(format);
+            else if (Mode == UnitMode.Large)
+                base.Text = (_value * glm.m2FtOrM).ToString(format);
+            else
+                base.Text = (_value * glm.kmhToMphOrKmh).ToString(format);
+        }
+
+        [Bindable(false)]
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override Color BackColor { get => base.BackColor; set => base.BackColor = value; }
+
+        [Bindable(false)]
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override string Text { get => base.Text; set => base.Text = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new event EventHandler TextChanged { add => base.TextChanged += value; remove => base.TextChanged -= value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override ContentAlignment TextAlign { get => base.TextAlign; set => base.TextAlign = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override RightToLeft RightToLeft { get => base.RightToLeft; set => base.RightToLeft = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override bool AutoSize { get => base.AutoSize; set => base.AutoSize = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override Cursor Cursor { get => base.Cursor; set => base.Cursor = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new bool UseVisualStyleBackColor { get => base.UseVisualStyleBackColor; set => base.UseVisualStyleBackColor = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new Color ForeColor { get => base.ForeColor; set => base.ForeColor = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new event EventHandler Click { add => base.Click += value; remove => base.Click -= value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new event EventHandler Enter { add => base.Enter += value; remove => base.Enter -= value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new FlatStyle FlatStyle { get => base.FlatStyle; set => base.FlatStyle = value; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public override Font Font { get => base.Font; set => base.Font = value; }
     }
 
     public static class CExtensionMethods

@@ -39,9 +39,9 @@ namespace AgOpenGPS
         {
             this.Text = "1: Set distance, 2: Tap Build, 3: Create Clip Lines";
             mf.hdl.idx = -1;
-            //label3.Text = mf.unitsFtM +"       Tool: ";
+            //label3.Text = glm.unitsFtM +"       Tool: ";
 
-            lblToolWidth.Text = "( " + mf.unitsFtM + " )           Tool: " + ((mf.tool.width - mf.tool.overlap) * mf.m2FtOrM).ToString("N1") + " " + mf.unitsFtM;
+            lblToolWidth.Text = "( " + glm.unitsFtM + " )           Tool: " + ((mf.tool.width - mf.tool.overlap) * glm.m2FtOrM).ToString("N1") + " " + glm.unitsFtM;
 
             start = 99999; end = 99999;
             isA = true;
@@ -633,7 +633,7 @@ namespace AgOpenGPS
 
             if (sliceArr.Count < 1) return;
 
-            double distAway = (double)nudSetDistance.Value * mf.ftOrMtoM;
+            double distAway = nudSetDistance.Value;
 
             double distSqAway = (distAway * distAway) - 0.01;
             vec3 point;
@@ -681,12 +681,6 @@ namespace AgOpenGPS
             mf.hdl.desList?.Clear();
         }
 
-        private void nudSetDistance_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-            btnExit.Focus();
-        }
-
         // Returns 1 if the lines intersect, otherwis
         public double iE = 0, iN = 0;
 
@@ -714,7 +708,7 @@ namespace AgOpenGPS
                 //outside point
                 vec3 pt3 = new vec3();
 
-                double moveDist = (double)nudSetDistance.Value * mf.ftOrMtoM;
+                double moveDist = nudSetDistance.Value;
                 double distSq = (moveDist) * (moveDist) * 0.999;
 
                 //make the boundary tram outer array
@@ -939,7 +933,7 @@ namespace AgOpenGPS
 
         private void cboxToolWidths_SelectedIndexChanged(object sender, EventArgs e)
         {
-            nudSetDistance.Value = (decimal)((Math.Round((mf.tool.width - mf.tool.overlap) * cboxToolWidths.SelectedIndex, 1)) * mf.m2FtOrM);
+            nudSetDistance.Value = Math.Round((mf.tool.width - mf.tool.overlap) * cboxToolWidths.SelectedIndex, 1);
         }
 
         private void btnALength_Click(object sender, EventArgs e)

@@ -47,7 +47,6 @@
             this.cboxIsRecBoundaryWhenSectionOn = new System.Windows.Forms.CheckBox();
             this.lblPoints = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.nudOffset)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -239,25 +238,14 @@
             // 
             // nudOffset
             // 
-            this.nudOffset.BackColor = System.Drawing.Color.AliceBlue;
-            this.nudOffset.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudOffset.DecimalPlaces = 2;
             this.nudOffset.Location = new System.Drawing.Point(8, 10);
-            this.nudOffset.Maximum = new decimal(new int[] {
-            4999,
-            0,
-            0,
-            0});
+            this.nudOffset.Maximum = 50D;
+            this.nudOffset.Mode = AgOpenGPS.UnitMode.Large;
             this.nudOffset.Name = "nudOffset";
-            this.nudOffset.ReadOnly = true;
             this.nudOffset.Size = new System.Drawing.Size(125, 46);
             this.nudOffset.TabIndex = 149;
-            this.nudOffset.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudOffset.Value = new decimal(new int[] {
-            4999,
-            0,
-            0,
-            0});
-            this.nudOffset.Click += new System.EventHandler(this.nudOffset_Click);
+            this.nudOffset.ValueChanged += new System.EventHandler(this.nudOffset_ValueChanged);
             // 
             // cboxIsRecBoundaryWhenSectionOn
             // 
@@ -341,7 +329,6 @@
             this.Text = "Stop Record Pause Boundary";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormBoundaryPlayer_FormClosing);
             this.Load += new System.EventHandler(this.FormBoundaryPlayer_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.nudOffset)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

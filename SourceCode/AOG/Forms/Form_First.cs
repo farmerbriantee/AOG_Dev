@@ -39,7 +39,6 @@ namespace AgOpenGPS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            mf.isTermsAccepted = true;
             Close();
         }
 
@@ -54,14 +53,11 @@ namespace AgOpenGPS
         private void button3_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.setDisplay_isTermsAccepted = true;
-
-            mf.isTermsAccepted = true;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             Properties.Settings.Default.setDisplay_isTermsAccepted = true;
-            mf.isTermsAccepted = true;
             DialogResult = DialogResult.OK;
             Close();
         }

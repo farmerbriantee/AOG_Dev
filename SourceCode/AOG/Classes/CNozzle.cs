@@ -102,7 +102,7 @@
                 else
                 {
                     mf.nozz.volumePerMinuteSet = (int)(mf.nozz.volumePerAreaSetSelected *
-                                                    (mf.avgSpeed * 0.621) * mf.nozz.currentSectionsWidthMeters * 39.3701 / 5940 * 100);
+                                                    (mf.avgSpeed * glm.kmhToMphOrKmh) * mf.nozz.currentSectionsWidthMeters * glm.m2InchOrCm / 5940 * 100);
                 }
 
                 PGN_227.pgn[PGN_227.volumePerMinuteSetLo] = (byte)(mf.nozz.volumePerMinuteSet);

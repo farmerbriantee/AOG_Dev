@@ -139,10 +139,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    CNMEA.latStart = mf.pn.latitude; 
-                    CNMEA.lonStart = mf.pn.longitude;
-
-                    mf.pn.SetLocalMetersPerDegree(false);
+                    mf.pn.SetLocalMetersPerDegree(false, mf.pn.latitude, mf.pn.longitude);
 
                     dirNewField.Create();
 

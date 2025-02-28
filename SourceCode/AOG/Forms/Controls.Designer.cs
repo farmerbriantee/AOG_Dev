@@ -287,10 +287,7 @@ namespace AgOpenGPS
 
                     Log.EventWriter("Steer Off, Above Max Safe Speed for Autosteer");
 
-                    if (isMetric)
-                        TimedMessageBox(3000, "AutoSteer Disabled", "Above Maximum Safe Steering Speed: " + vehicle.maxSteerSpeed.ToString("N0") + " Kmh");
-                    else
-                        TimedMessageBox(3000, "AutoSteer Disabled", "Above Maximum Safe Steering Speed: " + (vehicle.maxSteerSpeed * 0.621371).ToString("N1") + " MPH");
+                    TimedMessageBox(3000, "AutoSteer Disabled", "Above Maximum Safe Steering Speed: " + (vehicle.maxSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + " " + glm.unitsKmhMph);
 
                     return;
                 }
@@ -1038,12 +1035,12 @@ namespace AgOpenGPS
 
         private void btnAdjRight_Click(object sender, EventArgs e)
         {
-            trk.NudgeTrack(Properties.Settings.Default.setAS_snapDistance*0.01);
+            trk.NudgeTrack(Properties.Settings.Default.setAS_snapDistance);
         }
 
         private void btnAdjLeft_Click(object sender, EventArgs e)
         {
-            trk.NudgeTrack(-Properties.Settings.Default.setAS_snapDistance*0.01);
+            trk.NudgeTrack(-Properties.Settings.Default.setAS_snapDistance);
         }
 
         #endregion
@@ -1216,20 +1213,8 @@ namespace AgOpenGPS
 
             if (fbd.ShowDialog(this) == DialogResult.OK)
             {
-                if (fbd.SelectedPath != Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments))
-                {
-                    RegistrySettings.workingDirectory = fbd.SelectedPath;
-                    RegistrySettings.baseDirectory = Path.Combine(RegistrySettings.workingDirectory, "AgOpenGPS");
-                    RegistrySettings.fieldsDirectory = Path.Combine(RegistrySettings.workingDirectory, "AgOpenGPS", "Fields");
-                    RegistrySettings.CreateDirectories();
-                }
-                else
-                {
-                    RegistrySettings.workingDirectory = "Default";
-                    RegistrySettings.CreateDirectories();
-                }
-
-                RegistrySettings.Save();
+                RegistrySettings.Save("WorkingDirectory", fbd.SelectedPath);
+                //RegistrySettings.CreateDirectories();
 
                 //restart program
                 MessageBox.Show(gStr.Get(gs.gsProgramWillExitPleaseRestart));
@@ -1276,7 +1261,6 @@ namespace AgOpenGPS
             nozzleAppToolStripMenuItem.Checked = isNozzleApp;
             Settings.Default.setApPGN_isNozzleApp = isNozzleApp;
             
-
             LoadSettings();
 
             PanelsAndOGLSize();
@@ -1330,9 +1314,6 @@ namespace AgOpenGPS
 
                     RegistrySettings.Reset();
 
-                    Settings.Default.Reset();
-                    
-
                     MessageBox.Show(gStr.Get(gs.gsProgramWillExitPleaseRestart));
                     Close();
                 }
@@ -1370,7 +1351,7 @@ namespace AgOpenGPS
             {
                 form.ShowDialog(this);
             }
-            RegistrySettings.Save();
+            Properties.Settings.Default.Save();
         }
         private void colorsSectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1380,7 +1361,7 @@ namespace AgOpenGPS
                 {
                     form.ShowDialog(this);
                 }
-                RegistrySettings.Save();
+                Properties.Settings.Default.Save();
             }
             else
             {
@@ -1589,17 +1570,18 @@ namespace AgOpenGPS
                     break;
             }
 
-            RegistrySettings.culture = lang;
+            if (RegistrySettings.culture != lang)
+            {
+                RegistrySettings.Save("Language", lang);
 
-            RegistrySettings.Save();
+                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(RegistrySettings.culture);
+                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(RegistrySettings.culture);
 
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(RegistrySettings.culture);
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(RegistrySettings.culture);
+                //load language file Translations.xlsx
+                if (!gStr.Load()) YesMessageBox("Serious error loading languages");
 
-            //load language file Translations.xlsx
-            if (!gStr.Load()) YesMessageBox("Serious error loading languages");
-
-            LoadSettings();
+                LoadSettings();
+            }
         }
 
         #endregion
@@ -2141,15 +2123,15 @@ namespace AgOpenGPS
         double lastSimGuidanceAngle = 0;
         private void timerSim_Tick(object sender, EventArgs e)
         {
-            if (isBtnAutoSteerOn && (guidanceLineDistanceOff != 32000))
+            if (isBtnAutoSteerOn && !double.IsNaN(guidanceLineDistanceOff))
             {
                 if (vehicle.isInDeadZone)
                 {
-                    sim.DoSimTick((double)lastSimGuidanceAngle);
+                    sim.DoSimTick(lastSimGuidanceAngle);
                 }
                 else
                 {
-                    lastSimGuidanceAngle = (double)guidanceLineSteerAngle * 0.01 * 0.9;
+                    lastSimGuidanceAngle = guidanceLineSteerAngle * 0.9;
                     sim.DoSimTick(lastSimGuidanceAngle);
                 }
             }

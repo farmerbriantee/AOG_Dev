@@ -17,11 +17,9 @@ namespace AgOpenGPS
             InitializeComponent();
 
             this.Text = gStr.Get(gs.gsEditABLine);
-            nudLatitude.Controls[0].Enabled = false;
-            nudLongitude.Controls[0].Enabled = false;
 
-            nudLatitude.Value = (decimal)mf.pn.latitude;
-            nudLongitude.Value = (decimal)mf.pn.longitude;
+            nudLatitude.Value = mf.pn.latitude;
+            nudLongitude.Value = mf.pn.longitude;
         }
 
         private void FormEnterAB_Load(object sender, EventArgs e)
@@ -31,20 +29,6 @@ namespace AgOpenGPS
                 Top = 0;
                 Left = 0;
             }
-        }
-
-        private void nudLatitude_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-        }
-
-        private void nudLongitude_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-        }
-
-        public void CalcHeading()
-        {
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

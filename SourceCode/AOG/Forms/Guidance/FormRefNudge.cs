@@ -23,16 +23,8 @@ namespace AgOpenGPS
 
         private void FormEditTrack_Load(object sender, EventArgs e)
         {
-            if (mf.isMetric)
-            {
-                nudSnapDistance.DecimalPlaces = 0;
-                nudSnapDistance.Value = (int)((double)Properties.Settings.Default.setAS_snapDistanceRef);
-            }
-            else
-            {
-                nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistanceRef * mf.cm2CmOrIn), 1);
-            }
+            nudSnapDistance.DecimalPlaces = mf.isMetric ? 0 : 1;
+            nudSnapDistance.Value = Properties.Settings.Default.setAS_snapDistanceRef * 0.01;
 
             snapAdj = Properties.Settings.Default.setAS_snapDistanceRef * 0.01;
 
@@ -41,7 +33,7 @@ namespace AgOpenGPS
                 gTemp.Add(new CTrk(item));
             }
 
-            lblOffset.Text = ((int)(distanceMoved * mf.m2InchOrCm)).ToString() + " " + mf.unitsInCm;
+            lblOffset.Text = ((int)(distanceMoved * glm.m2InchOrCm)).ToString() + " " + glm.unitsInCm;
 
             //Location = Properties.Settings.Default.setWindow_formNudgeLocation;
             //Size = Properties.Settings.Default.setWindow_formNudgeSize;
@@ -58,10 +50,9 @@ namespace AgOpenGPS
             mf.panelRight.Visible = true;
         }
 
-        private void nudSnapDistance_Click(object sender, EventArgs e)
+        private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-            snapAdj = (double)nudSnapDistance.Value * mf.inchOrCm2m;
+            snapAdj = nudSnapDistance.Value;
             Properties.Settings.Default.setAS_snapDistanceRef = snapAdj * 100;
 
             mf.Activate();
@@ -101,7 +92,7 @@ namespace AgOpenGPS
 
         private void DistanceMovedLabel()
         {
-            lblOffset.Text = ((int)(distanceMoved * mf.m2InchOrCm)).ToString() + " " + mf.unitsInCm;
+            lblOffset.Text = ((int)(distanceMoved * glm.m2InchOrCm)).ToString() + " " + glm.unitsInCm;
             mf.Focus();
         }
 

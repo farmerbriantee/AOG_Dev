@@ -27,16 +27,16 @@ namespace AgOpenGPS
 
         private void FormDisplaySettings_Load(object sender, EventArgs e)
         {
-            nudSprayFlowCal.Value = (decimal)(Properties.Settings.Default.setNozzleSettings.flowCal);
-            nudSprayPressureCal.Value = (decimal)(Properties.Settings.Default.setNozzleSettings.pressureCal);
+            nudSprayFlowCal.Value = Properties.Settings.Default.setNozzleSettings.flowCal;
+            nudSprayPressureCal.Value = Properties.Settings.Default.setNozzleSettings.pressureCal;
 
             nudSprayKp.Value = Properties.Settings.Default.setNozzleSettings.Kp;
             //nudSprayKi.Value = Properties.Settings.Default.setNozzleSettings.Ki;
 
             nudFastPWM.Value = Properties.Settings.Default.setNozzleSettings.fastPWM;
             nudSlowPWM.Value = Properties.Settings.Default.setNozzleSettings.slowPWM;
-            nudDeadbandError.Value = (decimal)(Properties.Settings.Default.setNozzleSettings.deadbandError) * 0.01M;
-            nudSwitchAtFlowError.Value = (decimal)(Properties.Settings.Default.setNozzleSettings.switchAtFlowError) * 0.01M;
+            nudDeadbandError.Value = Properties.Settings.Default.setNozzleSettings.deadbandError * 0.01;
+            nudSwitchAtFlowError.Value = Properties.Settings.Default.setNozzleSettings.switchAtFlowError * 0.01;
 
             cboxBypass.Checked = Properties.Settings.Default.setNozzleSettings.isBypass;
             if (cboxBypass.Checked)
@@ -62,10 +62,8 @@ namespace AgOpenGPS
             }
         }
 
-        private void nudSprayFlowCal_Click(object sender, EventArgs e)
+        private void nudSprayFlowCal_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-
             Properties.Settings.Default.setNozzleSettings.flowCal = (int)nudSprayFlowCal.Value;
 
             PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.flowCal >> 8)); ;
@@ -74,10 +72,8 @@ namespace AgOpenGPS
             mf.SendPgnToLoop(PGN_226.pgn);
         }
 
-        private void nudSprayPressureCal_Click(object sender, EventArgs e)
+        private void nudSprayPressureCal_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-
             Properties.Settings.Default.setNozzleSettings.pressureCal = (int)nudSprayPressureCal.Value;
 
             PGN_226.pgn[PGN_226.pressureCalHi] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.pressureCal >> 8)); ;
@@ -86,10 +82,8 @@ namespace AgOpenGPS
             mf.SendPgnToLoop(PGN_226.pgn);
         }
 
-        private void nudFastPWM_Click(object sender, EventArgs e)
+        private void nudFastPWM_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-
             Properties.Settings.Default.setNozzleSettings.fastPWM = (byte)nudFastPWM.Value;
 
             PGN_226.pgn[PGN_226.fastPWM] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.fastPWM));
@@ -97,10 +91,8 @@ namespace AgOpenGPS
             mf.SendPgnToLoop(PGN_226.pgn);
         }
 
-        private void nudSlowPWM_Click(object sender, EventArgs e)
+        private void nudSlowPWM_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-
             Properties.Settings.Default.setNozzleSettings.slowPWM = (byte)nudSlowPWM.Value;
 
             PGN_226.pgn[PGN_226.slowPWM] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.slowPWM));
@@ -108,10 +100,8 @@ namespace AgOpenGPS
             mf.SendPgnToLoop(PGN_226.pgn);
         }
 
-        private void nudDeadbandError_Click(object sender, EventArgs e)
+        private void nudDeadbandError_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-
             Properties.Settings.Default.setNozzleSettings.deadbandError = (byte)(nudDeadbandError.Value * 100);
 
             PGN_226.pgn[PGN_226.deadbandError] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.deadbandError));
@@ -119,10 +109,8 @@ namespace AgOpenGPS
             mf.SendPgnToLoop(PGN_226.pgn);
         }
 
-        private void nudSwitchAtFlowError_Click(object sender, EventArgs e)
+        private void nudSwitchAtFlowError_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-
             Properties.Settings.Default.setNozzleSettings.switchAtFlowError = (byte)(nudSwitchAtFlowError.Value * 100);
 
             PGN_226.pgn[PGN_226.switchAtFlowError] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.switchAtFlowError));
@@ -130,10 +118,8 @@ namespace AgOpenGPS
             mf.SendPgnToLoop(PGN_226.pgn);
         }
 
-        private void nudSprayKpClick(object sender, EventArgs e)
+        private void nudSprayKp_ValueChanged(object sender, EventArgs e)
         {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
-
             Properties.Settings.Default.setNozzleSettings.Kp = (byte)nudSprayKp.Value;
 
             PGN_226.pgn[PGN_226.Kp] = unchecked((byte)(Properties.Settings.Default.setNozzleSettings.Kp));

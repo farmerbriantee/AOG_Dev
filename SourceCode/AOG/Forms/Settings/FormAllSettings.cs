@@ -51,7 +51,7 @@ namespace AgOpenGPS
             label42.Text = Properties.Settings.Default.setVehicle_antennaOffset.ToString();
             label46.Text = Properties.Settings.Default.setIMU_rollZero.ToString();
             label48.Text = Properties.Settings.Default.purePursuitIntegralGainAB.ToString();
-            label50.Text = Properties.Settings.Default.setAS_snapDistance.ToString();
+            label50.Text = (Properties.Settings.Default.setAS_snapDistance * glm.m2InchOrCm).ToString();
             label52.Text = Properties.Settings.Default.setAS_snapDistanceRef.ToString();
             label56.Text = Properties.Settings.Default.setDisplay_isAutoStartAgOne.ToString();
             label58.Text = Properties.Settings.Default.setDisplay_isAutoOffAgOne.ToString();
@@ -91,9 +91,9 @@ namespace AgOpenGPS
             label126.Text = Properties.Settings.Default.setTool_trailingToolToPivotLength.ToString();
             label128.Text = Properties.Settings.Default.setVehicle_hitchLength.ToString();
             label130.Text = Properties.Settings.Default.setVehicle_hydraulicLiftLookAhead.ToString();
-            label132.Text = Properties.Settings.Default.setVehicle_isPivotBehindAntenna.ToString();
+            label132.Text = "~~~";
             label134.Text = Properties.Settings.Default.setVehicle_isStanleyUsed.ToString();
-            label136.Text = Properties.Settings.Default.setVehicle_isSteerAxleAhead.ToString();
+            label136.Text = "~~~";
             label138.Text = Properties.Settings.Default.setVehicle_maxAngularVelocity.ToString();
             label140.Text = Properties.Settings.Default.set_youTurnRadius.ToString();
             label142.Text = Properties.Settings.Default.setVehicle_numSections.ToString();
@@ -140,14 +140,7 @@ namespace AgOpenGPS
 
             lbludpWatchCounts.Text = mf.missedSentenceCount.ToString();
 
-            if (mf.isMetric)
-            {
-                lblAltitude.Text = mf.Altitude;
-            }
-            else //imperial
-            {
-                lblAltitude.Text = mf.AltitudeFeet;
-            }
+            lblAltitude.Text = mf.Altitude;
 
             label254.Text = mf.FixQuality;
         }

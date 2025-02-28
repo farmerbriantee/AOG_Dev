@@ -38,8 +38,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLongitude)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLatitude)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -82,57 +80,23 @@
             // 
             // nudLongitude
             // 
-            this.nudLongitude.BackColor = System.Drawing.Color.White;
             this.nudLongitude.DecimalPlaces = 7;
-            this.nudLongitude.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLongitude.Location = new System.Drawing.Point(340, 483);
-            this.nudLongitude.Maximum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            this.nudLongitude.Minimum = new decimal(new int[] {
-            180,
-            0,
-            0,
-            -2147483648});
+            this.nudLongitude.Maximum = 180D;
+            this.nudLongitude.Minimum = -180D;
             this.nudLongitude.Name = "nudLongitude";
-            this.nudLongitude.ReadOnly = true;
             this.nudLongitude.Size = new System.Drawing.Size(298, 52);
             this.nudLongitude.TabIndex = 48;
-            this.nudLongitude.Value = new decimal(new int[] {
-            1781234567,
-            0,
-            0,
-            -2147024896});
-            this.nudLongitude.Click += new System.EventHandler(this.nud_Click);
             // 
             // nudLatitude
             // 
-            this.nudLatitude.BackColor = System.Drawing.Color.White;
             this.nudLatitude.DecimalPlaces = 7;
-            this.nudLatitude.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLatitude.Location = new System.Drawing.Point(29, 483);
-            this.nudLatitude.Maximum = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            this.nudLatitude.Minimum = new decimal(new int[] {
-            90,
-            0,
-            0,
-            -2147483648});
+            this.nudLatitude.Maximum = 90D;
+            this.nudLatitude.Minimum = -90D;
             this.nudLatitude.Name = "nudLatitude";
-            this.nudLatitude.ReadOnly = true;
             this.nudLatitude.Size = new System.Drawing.Size(274, 52);
             this.nudLatitude.TabIndex = 49;
-            this.nudLatitude.Value = new decimal(new int[] {
-            881234567,
-            0,
-            0,
-            -2147024896});
-            this.nudLatitude.Click += new System.EventHandler(this.nud_Click);
             // 
             // label18
             // 
@@ -224,8 +188,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Enter Coordinates For Simulator";
             this.Load += new System.EventHandler(this.FormSimCoords_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.nudLongitude)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLatitude)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

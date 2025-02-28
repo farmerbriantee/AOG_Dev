@@ -199,14 +199,7 @@ namespace AgOpenGPS
                                         {
                                             area += (pointList[j].easting + pointList[i].easting) * (pointList[j].northing - pointList[i].northing);
                                         }
-                                        if (mf.isMetric)
-                                        {
-                                            area = (Math.Abs(area / 2)) * 0.0001;
-                                        }
-                                        else
-                                        {
-                                            area = (Math.Abs(area / 2)) * 0.00024711;
-                                        }
+                                        area = Math.Abs(area / 2) * glm.m22HaOrAc;
                                     }
                                 }
                             }

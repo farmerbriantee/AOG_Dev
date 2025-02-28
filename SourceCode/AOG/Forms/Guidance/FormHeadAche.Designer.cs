@@ -52,7 +52,6 @@
             this.btnCancelTouch = new System.Windows.Forms.Button();
             this.nudSetDistance = new AgOpenGPS.NudlessNumericUpDown();
             this.tlp1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSetDistance)).BeginInit();
             this.SuspendLayout();
             // 
             // oglSelf
@@ -477,27 +476,15 @@
             // nudSetDistance
             // 
             this.nudSetDistance.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.nudSetDistance.BackColor = System.Drawing.Color.White;
             this.tlp1.SetColumnSpan(this.nudSetDistance, 4);
             this.nudSetDistance.DecimalPlaces = 1;
-            this.nudSetDistance.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSetDistance.Location = new System.Drawing.Point(17, 298);
-            this.nudSetDistance.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
+            this.nudSetDistance.Maximum = 200D;
+            this.nudSetDistance.Mode = UnitMode.Large;
             this.nudSetDistance.Name = "nudSetDistance";
-            this.nudSetDistance.ReadOnly = true;
             this.nudSetDistance.Size = new System.Drawing.Size(161, 52);
             this.nudSetDistance.TabIndex = 464;
-            this.nudSetDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nudSetDistance.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudSetDistance.Click += new System.EventHandler(this.nudSetDistance_Click);
+            this.nudSetDistance.ValueChanged += new System.EventHandler(this.nudSetDistance_ValueChanged);
             // 
             // FormHeadAche
             // 
@@ -521,7 +508,6 @@
             this.Load += new System.EventHandler(this.FormHeadLine_Load);
             this.ResizeEnd += new System.EventHandler(this.FormHeadAche_ResizeEnd);
             this.tlp1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudSetDistance)).EndInit();
             this.ResumeLayout(false);
 
         }

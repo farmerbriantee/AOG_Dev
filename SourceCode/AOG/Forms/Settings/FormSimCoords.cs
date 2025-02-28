@@ -17,15 +17,12 @@ namespace AgOpenGPS
             InitializeComponent();
 
             this.Text = gStr.Get(gs.gsEnterCoordinatesForSimulator);
-
-            nudLatitude.Controls[0].Enabled = false;
-            nudLongitude.Controls[0].Enabled = false;
         }
 
         private void FormSimCoords_Load(object sender, EventArgs e)
         {
-            nudLatitude.Value = (decimal)Properties.Settings.Default.setGPS_SimLatitude;
-            nudLongitude.Value = (decimal)Properties.Settings.Default.setGPS_SimLongitude;
+            nudLatitude.Value = Properties.Settings.Default.setGPS_SimLatitude;
+            nudLongitude.Value = Properties.Settings.Default.setGPS_SimLongitude;
         }
 
         private void bntOK_Click(object sender, EventArgs e)
@@ -42,10 +39,7 @@ namespace AgOpenGPS
                 Close();
             }
 
-            CNMEA.latStart = (double)nudLatitude.Value;
-            CNMEA.lonStart = (double)nudLongitude.Value;
-
-            mf.pn.SetLocalMetersPerDegree(true);
+            mf.pn.SetLocalMetersPerDegree(true, nudLatitude.Value, nudLongitude.Value);
 
             Close();
         }
@@ -53,11 +47,6 @@ namespace AgOpenGPS
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private void nud_Click(object sender, EventArgs e)
-        {
-            mf.KeypadToNUD((NudlessNumericUpDown)sender, this);
         }
     }
 }

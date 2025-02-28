@@ -287,10 +287,7 @@ namespace AgOpenGPS
 
                     Log.EventWriter("Steer Off, Above Max Safe Speed for Autosteer");
 
-                    if (isMetric)
-                        TimedMessageBox(3000, "AutoSteer Disabled", "Above Maximum Safe Steering Speed: " + vehicle.maxSteerSpeed.ToString("N0") + " Kmh");
-                    else
-                        TimedMessageBox(3000, "AutoSteer Disabled", "Above Maximum Safe Steering Speed: " + (vehicle.maxSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + " MPH");
+                    TimedMessageBox(3000, "AutoSteer Disabled", "Above Maximum Safe Steering Speed: " + (vehicle.maxSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + " " + glm.unitsKmhMph);
 
                     return;
                 }
@@ -1038,12 +1035,12 @@ namespace AgOpenGPS
 
         private void btnAdjRight_Click(object sender, EventArgs e)
         {
-            trk.NudgeTrack(Properties.Settings.Default.setAS_snapDistance*0.01);
+            trk.NudgeTrack(Properties.Settings.Default.setAS_snapDistance);
         }
 
         private void btnAdjLeft_Click(object sender, EventArgs e)
         {
-            trk.NudgeTrack(-Properties.Settings.Default.setAS_snapDistance*0.01);
+            trk.NudgeTrack(-Properties.Settings.Default.setAS_snapDistance);
         }
 
         #endregion
@@ -2126,15 +2123,15 @@ namespace AgOpenGPS
         double lastSimGuidanceAngle = 0;
         private void timerSim_Tick(object sender, EventArgs e)
         {
-            if (isBtnAutoSteerOn && (guidanceLineDistanceOff != 32000))
+            if (isBtnAutoSteerOn && !double.IsNaN(guidanceLineDistanceOff))
             {
                 if (vehicle.isInDeadZone)
                 {
-                    sim.DoSimTick((double)lastSimGuidanceAngle);
+                    sim.DoSimTick(lastSimGuidanceAngle);
                 }
                 else
                 {
-                    lastSimGuidanceAngle = (double)guidanceLineSteerAngle * 0.01 * 0.9;
+                    lastSimGuidanceAngle = guidanceLineSteerAngle * 0.9;
                     sim.DoSimTick(lastSimGuidanceAngle);
                 }
             }

@@ -91,15 +91,8 @@ namespace AgOpenGPS
                 }
                 area = Math.Abs(area / 2);
             }
-            if (mf.isMetric)
-            {
-                lblArea.Text = Math.Round(area * 0.0001, 2).ToString();
-            }
-            else
-            {
-                lblArea.Text = Math.Round(area * 0.000247105, 2).ToString();
-            }
 
+            lblArea.Text = Math.Round(area * glm.m22HaOrAc, 2).ToString();
             lblPoints.Text = mf.bnd.fenceBeingMadePts.Count.ToString();
         }
 

@@ -190,8 +190,12 @@ namespace AgOpenGPS
             base.UseVisualStyleBackColor = false;
 
             base.FlatStyle = FlatStyle.Flat;
+        }
 
-            base.Font = new System.Drawing.Font("Tahoma", this.Height, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            base.Font = new System.Drawing.Font("Tahoma", this.Height / 2, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         }
 
         public event EventHandler ValueChanged { add => onValueChanged = (EventHandler)Delegate.Combine(onValueChanged, value); remove => onValueChanged = (EventHandler)Delegate.Remove(onValueChanged, value); }

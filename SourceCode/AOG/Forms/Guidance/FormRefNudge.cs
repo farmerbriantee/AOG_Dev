@@ -23,15 +23,7 @@ namespace AgOpenGPS
 
         private void FormEditTrack_Load(object sender, EventArgs e)
         {
-            if (mf.isMetric)
-            {
-                nudSnapDistance.DecimalPlaces = 0;
-            }
-            else
-            {
-                nudSnapDistance.DecimalPlaces = 1;
-            }
-
+            nudSnapDistance.DecimalPlaces = mf.isMetric ? 0 : 1;
             nudSnapDistance.Value = Properties.Settings.Default.setAS_snapDistanceRef * 0.01;
 
             snapAdj = Properties.Settings.Default.setAS_snapDistanceRef * 0.01;

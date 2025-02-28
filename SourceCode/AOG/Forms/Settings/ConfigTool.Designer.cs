@@ -623,7 +623,7 @@ namespace AgOpenGPS
                 cboxNumberOfZones.SelectedIndexChanged += cboxNumberOfZones_SelectedIndexChanged;
 
                 words = Properties.Settings.Default.setTool_zones.Split(',');
-                lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * 100 * glm.cm2CmOrIn));
+                lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * glm.m2InchOrCm));
 
                 mf.LineUpAllZoneButtons();
                 SetNudZoneVisibility();
@@ -1050,7 +1050,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setTool_numSectionsMulti = numberOfSections;
 
 
-            lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * 100 * glm.cm2CmOrIn));
+            lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * glm.m2InchOrCm));
             SectionFeetInchesTotalWidthLabelUpdate();
             FillZoneNudsWithDefaultValues();
             SetNudZoneVisibility();
@@ -1065,7 +1065,7 @@ namespace AgOpenGPS
             else
                 Properties.Settings.Default.setTool_sectionWidthMulti = defaultSectionWidth;
 
-            //lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * 100 * glm.cm2CmOrIn));
+            //lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * glm.m2InchOrCm));
             //SectionFeetInchesTotalWidthLabelUpdate();
         }
 
@@ -1077,24 +1077,11 @@ namespace AgOpenGPS
 
                 double wide = nudDefaultSectionWidth.Value;
 
-                if (mf.isMetric)
+                if (numberOfSections * wide > 5000)
                 {
-                    if (numberOfSections * wide > 5000)
-                    {
-                        wide = 99;
-                        mf.TimedMessageBox(3000, "Too Wide", "Max 50 Meters");
-                        Log.EventWriter("Sections, Tool Set Too Wide");
-
-                    }
-                }
-                else
-                {
-                    if (numberOfSections * wide > 1900)
-                    {
-                        wide = 19;
-                        mf.TimedMessageBox(3000, "Too Wide", "Max 164 Feet");
-                        Log.EventWriter("Sections, Tool Set Too Wide");
-                    }
+                    wide = 99;
+                    mf.TimedMessageBox(3000, "Too Wide", "Set to 99, " + (mf.isMetric ? "Max 50 Meters" : "Max 164 Feet"));
+                    Log.EventWriter("Sections, Tool Set Too Wide");
                 }
 
                 nudSection01.Value = wide;
@@ -1148,7 +1135,7 @@ namespace AgOpenGPS
 
         public void UpdateSpinners()
         {
-            int i = (int)numberOfSections;
+            int i = numberOfSections;
 
             double toolWidth = 0;
 
@@ -1170,16 +1157,8 @@ namespace AgOpenGPS
 
                             if (toolWidth > 5000)
                             {
-                                if (mf.isMetric)
-                                {
-                                    mf.TimedMessageBox(3000, "Too Wide", "Set to 99, Max 50 Meters");
-                                    Log.EventWriter("Sections, Tool Set Too Wide");
-                                }
-                                else
-                                {
-                                    mf.TimedMessageBox(3000, "Too Wide", "Set to 99, Max 164 Feet");
-                                    Log.EventWriter("Sections, Tool Set Too Wide");
-                                }
+                                mf.TimedMessageBox(3000, "Too Wide", "Set to 99, " + (mf.isMetric ? "Max 50 Meters" : "Max 164 Feet") );
+                                Log.EventWriter("Sections, Tool Set Too Wide");
 
                                 toolWidth = 0;
                                 nudSection01.Value = 99;
@@ -1224,6 +1203,9 @@ namespace AgOpenGPS
                 lblSecTotalWidthFeet.Visible = false;
                 lblSecTotalWidthInches.Visible = false;
                 lblSecTotalWidthMeters.Visible = true;
+
+                lblSecTotalWidthMeters.Text = ((int)(mf.tool.width * 100)).ToString() + " cm";
+                lblSummaryWidth.Text = mf.tool.width.ToString("N2") + " m";
             }
             else
             {
@@ -1232,15 +1214,7 @@ namespace AgOpenGPS
                 lblSecTotalWidthFeet.Visible = true;
                 lblSecTotalWidthInches.Visible = true;
                 lblSecTotalWidthMeters.Visible = false;
-            }
 
-            if (mf.isMetric)
-            {
-                lblSecTotalWidthMeters.Text = ((int)(mf.tool.width * 100)).ToString() + " cm";
-                lblSummaryWidth.Text = mf.tool.width.ToString("N2") + " m";
-            }
-            else
-            {
                 double toFeet = (Convert.ToDouble(lblVehicleToolWidth.Text) * 0.08334);
                 lblSecTotalWidthFeet.Text = Convert.ToString((int)toFeet) + "'";
                 double temp = Math.Round((toFeet - Math.Truncate(toFeet)) * 12, 0);

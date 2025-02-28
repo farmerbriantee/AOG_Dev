@@ -322,7 +322,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setAS_Kp = PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)hsbarProportionalGain.Value);
             Properties.Settings.Default.setAS_minSteerPWM = PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)hsbarMinPWM.Value);
 
-            Properties.Settings.Default.setAS_deadZoneHeading = mf.vehicle.deadZoneHeading;
+            Properties.Settings.Default.setAS_deadZoneHeading = (int)(mf.vehicle.deadZoneHeading * 100);
             Properties.Settings.Default.setAS_deadZoneDelay = mf.vehicle.deadZoneDelay;
 
             Properties.Settings.Default.setAS_ModeXTE = mf.vehicle.modeXTE;
@@ -382,7 +382,7 @@ namespace AgOpenGPS
             lblSteerAngle.Text = mf.SetSteerAngle;
             lblSteerAngleActual.Text = mf.mc.actualSteerAngleDegrees.ToString("N1") + "\u00B0";
             lblActualSteerAngleUpper.Text = lblSteerAngleActual.Text;
-            double err = (mf.mc.actualSteerAngleDegrees - mf.guidanceLineSteerAngle * 0.01);
+            double err = mf.mc.actualSteerAngleDegrees - mf.guidanceLineSteerAngle;
             lblError.Text = Math.Abs(err).ToString("N1") + "\u00B0";
             if (err > 0) lblError.ForeColor = Color.Red;
             else lblError.ForeColor = Color.DarkGreen;
@@ -655,15 +655,7 @@ namespace AgOpenGPS
             nudMinSteerSpeed.Value = Properties.Settings.Default.setAS_minSteerSpeed;
             nudGuidanceSpeedLimit.Value = Properties.Settings.Default.setAS_functionSpeedLimit;
 
-            if (mf.isMetric)
-            {
-                label160.Text = label163.Text = label166.Text = "kmh";
-            }
-            else
-            {
-                label160.Text = label163.Text = label166.Text = "mph";
-            }
-
+            label160.Text = label163.Text = label166.Text = glm.unitsKmhMph;
             label20.Text = glm.unitsInCm;
         }
 
@@ -696,19 +688,10 @@ namespace AgOpenGPS
         private void tabOnTheLine_Enter(object sender, EventArgs e)
         {
             chkDisplayLightbar.Checked = mf.isLightbarOn;
-            if (chkDisplayLightbar.Checked) { chkDisplayLightbar.Image = Resources.SwitchOn; }
-            else { chkDisplayLightbar.Image = Resources.SwitchOff; }
+            chkDisplayLightbar.Image = chkDisplayLightbar.Checked ? Resources.SwitchOn : Resources.SwitchOff;
 
-            if (mf.isMetric)
-            {
-                nudSnapDistance.DecimalPlaces = 0;
-            }
-            else
-            {
-                nudSnapDistance.DecimalPlaces = 1;
-            }
-            
-            nudSnapDistance.Value = Properties.Settings.Default.setAS_snapDistance * 0.01;
+            nudSnapDistance.DecimalPlaces = mf.isMetric ? 0 : 1;
+            nudSnapDistance.Value = Properties.Settings.Default.setAS_snapDistance;
 
             nudGuidanceLookAhead.Value = Properties.Settings.Default.setAS_guidanceLookAheadTime;
 
@@ -737,7 +720,7 @@ namespace AgOpenGPS
 
         private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_snapDistance = nudSnapDistance.Value * 100;
+            Properties.Settings.Default.setAS_snapDistance = nudSnapDistance.Value;
         }
 
         private void nudGuidanceLookAhead_ValueChanged(object sender, EventArgs e)
@@ -1105,12 +1088,12 @@ namespace AgOpenGPS
 
         private void nudDeadZoneHeading_ValueChanged(object sender, EventArgs e)
         {
-            mf.vehicle.deadZoneHeading = (int)(nudDeadZoneHeading.Value * 100);
+            mf.vehicle.deadZoneHeading = nudDeadZoneHeading.Value;
         }
 
         private void nudDeadZoneDelay_ValueChanged(object sender, EventArgs e)
         {
-            mf.vehicle.deadZoneDelay = (int)(nudDeadZoneDelay.Value);
+            mf.vehicle.deadZoneDelay = (int)nudDeadZoneDelay.Value;
         }
 
         private void expandWindow_Click(object sender, EventArgs e)
@@ -1329,7 +1312,7 @@ namespace AgOpenGPS
                 Properties.Settings.Default.setAS_countsPerDegree = 110;
 
                 Properties.Settings.Default.setAS_ackerman = 100;
-
+                
                 Properties.Settings.Default.setAS_wasOffset = 3;
 
                 Properties.Settings.Default.setAS_highSteerPWM = 180;
@@ -1365,7 +1348,7 @@ namespace AgOpenGPS
                 Properties.Settings.Default.setAS_functionSpeedLimit = 12;
                 Properties.Settings.Default.setDisplay_lightbarCmPerPixel = 5;
                 Properties.Settings.Default.setDisplay_lineWidth = 2;
-                Properties.Settings.Default.setAS_snapDistance = 20;
+                Properties.Settings.Default.setAS_snapDistance = 0.2;
                 Properties.Settings.Default.setAS_guidanceLookAheadTime = 1.5;
                 Properties.Settings.Default.setAS_uTurnCompensation = 1;
 

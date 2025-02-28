@@ -51,7 +51,7 @@ namespace AgOpenGPS.Properties
         public string setGPS_headingFromWhichSource = "Fix";
         public double setGPS_SimLatitude = 53.4360564;
         public double setGPS_SimLongitude = -111.160047;
-        public double setAS_snapDistance = 20.0;
+        public double setAS_snapDistance = 0.2;
         public bool setF_isWorkSwitchManualSections = false;
         public bool setAS_isAutoSteerAutoOn = false;
         public int setDisplay_lineWidth = 2;

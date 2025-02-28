@@ -142,45 +142,11 @@ namespace AgOpenGPS
                             break;
 
                         case 1:
-                            if (bnd.bndList.Count > 0)
-                            {
-                                if (isMetric)
-                                {
-                                    lblCurrentField.Text = fd.AreaBoundaryLessInnersHectares
-                                        + "  App: " + fd.WorkedHectares
-                                        + "  Actual: " + fd.ActualAreaWorkedHectares
-                                        + "  " + fd.WorkedAreaRemainPercentage
-                                        + "  " + fd.WorkRateHectares;
-
-                                }
-                                else
-                                {
-                                    lblCurrentField.Text = fd.AreaBoundaryLessInnersAcres
-                                        + "  App: " + fd.WorkedAcres
-                                        + "  Actual: " + fd.ActualAreaWorkedAcres
-                                        + "  " + fd.WorkedAreaRemainPercentage
-                                        + "  " + fd.WorkRateAcres;
-                                }
-                            }
-                            else
-                            {
-                                if (isMetric)
-                                {
-                                    lblCurrentField.Text = "App: "
-                                + fd.WorkedHectares + " Actual: "
-                                + fd.ActualAreaWorkedHectares + "  "
-                                + fd.ActualOverlapPercent + "   "
-                                + fd.WorkRateHectares;
-                                }
-                                else
-                                {
-                                    lblCurrentField.Text = fieldData + "App: "
-                                + fd.WorkedAcres + "  Actual: "
-                                + fd.ActualAreaWorkedAcres + " *"
-                                + fd.ActualOverlapPercent + "   "
-                                + fd.WorkRateAcres;
-                                }
-                            }
+                            lblCurrentField.Text = (bnd.bndList.Count > 0 ? fd.AreaBoundaryLessInners
+                                + "  " : "") + "App: " + fd.WorkedArea
+                                + "  Actual: " + fd.ActualAreaWorked
+                                + "  " + fd.WorkedAreaRemainPercentage
+                                + "  " + fd.WorkRateHour;
                             break;
 
                         case 2:
@@ -327,18 +293,8 @@ namespace AgOpenGPS
                 isFlashOnOff = !isFlashOnOff;
 
                 //the main formgps window
-                if (isMetric)  //metric or imperial
-                {
-                    //status strip values
-                    distanceToolBtn.Text = fd.DistanceUserMeters + "\r\n" + fd.WorkedUserHectares;
-
-                }
-                else  //Imperial Measurements
-                {
-                    //acres on the master section soft control and sections
-                    //status strip values
-                    distanceToolBtn.Text = fd.DistanceUserFeet + "\r\n" + fd.WorkedUserAcres;
-                }
+                //status strip values
+                distanceToolBtn.Text = fd.DistanceUser + "\r\n" + fd.WorkedUserArea;
 
                 //Make sure it is off when it should
                 if (!ct.isContourBtnOn && trk.idx == -1 && isBtnAutoSteerOn) 
@@ -474,9 +430,6 @@ namespace AgOpenGPS
                 glm.m2FtOrM = 1.0;
                 glm.ftOrMtoM = 1.0;
 
-                glm.inOrCm2Cm = 1.0;
-                glm.cm2CmOrIn = 1.0;
-
                 glm.kmhToMphOrKmh = 1;
                 glm.mphOrKmhToKmh = 1;
 
@@ -484,6 +437,11 @@ namespace AgOpenGPS
                 glm.unitsInCm = " cm";
                 glm.unitsInCmNS = "cm";
                 glm.unitsKmhMph = gStr.Get(gs.gsKMH);
+                glm.unitsHaOrAc = " Ha";
+                glm.unitsHaOrAcHr = " ha/hr";
+
+                //m2 to Hectare
+                glm.m22HaOrAc = 0.0001;
             }
             else
             {
@@ -497,9 +455,6 @@ namespace AgOpenGPS
                 //feet to meters
                 glm.ftOrMtoM = 0.3048;
 
-                glm.inOrCm2Cm = 2.54;
-                glm.cm2CmOrIn = 0.394;
-
                 glm.kmhToMphOrKmh = 0.621371;//Km/H to mph
                 glm.mphOrKmhToKmh = 1.60934;//mph to Km/H
 
@@ -507,6 +462,11 @@ namespace AgOpenGPS
                 glm.unitsInCmNS = "in";
                 glm.unitsFtM = " ft";
                 glm.unitsKmhMph = gStr.Get(gs.gsMPH);
+                glm.unitsHaOrAc = " Ac";
+                glm.unitsHaOrAcHr = " ac/hr";
+
+                //Meters to Acres
+                glm.m22HaOrAc = 0.000247105;
             }
 
             //Nozzz
@@ -1589,16 +1549,8 @@ namespace AgOpenGPS
         }
         private void SpeedLimitExceeded()
         {
-            if (isMetric)
-            {
-                TimedMessageBox(2000, gStr.Get(gs.gsTooFast), gStr.Get(gs.gsSlowDownBelow) + " "
-                    + vehicle.functionSpeedLimit.ToString("N0") + " " + gStr.Get(gs.gsKMH));
-            }
-            else
-            {
-                TimedMessageBox(2000, gStr.Get(gs.gsTooFast), gStr.Get(gs.gsSlowDownBelow) + " "
-                    + (vehicle.functionSpeedLimit * glm.kmhToMphOrKmh).ToString("N1") + " " + gStr.Get(gs.gsMPH));
-            }
+            TimedMessageBox(2000, gStr.Get(gs.gsTooFast), gStr.Get(gs.gsSlowDownBelow) + " "
+                + (vehicle.functionSpeedLimit * glm.kmhToMphOrKmh).ToString("N1") + " " + glm.unitsKmhMph);
 
             Log.EventWriter("UTurn or Lateral Speed exceeded");
 
@@ -1692,8 +1644,8 @@ namespace AgOpenGPS
                 else return "-";
             }
         }
-        public string SetSteerAngle { get { return ((double)(guidanceLineSteerAngle) * 0.01).ToString("N1"); } }
-        public string ActualSteerAngle { get { return ((mc.actualSteerAngleDegrees) ).ToString("N1") ; } }
+        public string SetSteerAngle { get { return (guidanceLineSteerAngle).ToString("N1"); } }
+        public string ActualSteerAngle { get { return (mc.actualSteerAngleDegrees).ToString("N1") ; } }
 
         //Metric and Imperial Properties
         public string Speed
@@ -1709,20 +1661,12 @@ namespace AgOpenGPS
 
         public string Altitude { get { return Convert.ToString((Math.Round((pn.altitude * glm.m2FtOrM), 2))); } }
 
-        public string DistPivotM
+        public string DistPivot
         {
             get
             {
                 if (distancePivotToTurnLine > 0 )
-                    return ((int)(distancePivotToTurnLine)) + " m";
-                else return "--";
-            }
-        }
-        public string DistPivotFt
-        {
-            get
-            {
-                if (distancePivotToTurnLine > 0 ) return (((int)(glm.m2FtOrM * (distancePivotToTurnLine))) + " ft");
+                    return (glm.m2FtOrM * distancePivotToTurnLine).ToString("0") + glm.unitsFtM;
                 else return "--";
             }
         }

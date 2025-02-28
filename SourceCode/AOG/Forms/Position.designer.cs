@@ -648,14 +648,11 @@ namespace AgOpenGPS
                     PGN_233.pgn[PGN_233.speedHi] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0) >> 8));
                     PGN_233.pgn[PGN_233.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
 
-                    if (!double.IsNaN(gyd.distanceFromCurrentLineTool))
-                    {
-                        var distX1000 = (Int16)(gyd.distanceFromCurrentLineTool * 1000);
-                        PGN_233.pgn[PGN_233.xteHi] = unchecked((byte)(distX1000 >> 8));
-                        PGN_233.pgn[PGN_233.xteLo] = unchecked((byte)(distX1000));
-                    }
-
-                    if (!vehicle.isInFreeDriveMode || !double.IsNaN(gyd.distanceFromCurrentLineTool))
+                    var distX1000 = (Int16)(gyd.distanceFromCurrentLineTool * 1000);
+                    PGN_233.pgn[PGN_233.xteHi] = unchecked((byte)(distX1000 >> 8));
+                    PGN_233.pgn[PGN_233.xteLo] = unchecked((byte)(distX1000));
+                    
+                    if (!vehicle.isInFreeDriveMode)
                     {
                         if (PGN_254.pgn[PGN_254.status] == 1) PGN_233.pgn[PGN_233.status] = 1;
                         else PGN_233.pgn[PGN_233.status] = 0;

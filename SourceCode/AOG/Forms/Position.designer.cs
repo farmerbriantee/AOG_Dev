@@ -565,18 +565,13 @@ namespace AgOpenGPS
                 PGN_254.pgn[PGN_254.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
                 //mc.machineControlData[mc.cnSpeed] = mc.autoSteerData[mc.sdSpeed];
 
-                if (!isBtnAutoSteerOn) //32020 means auto steer is off
-                {
-                    guidanceLineDistanceOff = double.NaN;
-                    PGN_254.pgn[PGN_254.status] = 0;
-                }
-
-                else PGN_254.pgn[PGN_254.status] = 1;
-
                 //convert to cm from mm and divide by 2 - lightbar
                 int distanceX2;
-                if (double.IsNaN(guidanceLineDistanceOff))
+                if (!isBtnAutoSteerOn || double.IsNaN(guidanceLineDistanceOff))
+                {
                     distanceX2 = 255;
+                    PGN_254.pgn[PGN_254.status] = 0;
+                }
                 else
                 {
                     distanceX2 = (int)((guidanceLineDistanceOff * glm.m2InchOrCm) / lightbarCmPerPixel);
@@ -584,6 +579,7 @@ namespace AgOpenGPS
                     if (distanceX2 < -127) distanceX2 = -127;
                     else if (distanceX2 > 127) distanceX2 = 127;
                     distanceX2 += 127;
+                    PGN_254.pgn[PGN_254.status] = 1;
                 }
 
                 PGN_254.pgn[PGN_254.lineDistance] = unchecked((byte)distanceX2);

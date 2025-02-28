@@ -242,7 +242,6 @@ namespace AgOne
                     // Create the socket object
                     clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     clientSocket.NoDelay = true;
-                    // Connect to server non-Blocking method
                     clientSocket.Blocking = false;
                     clientSocket.BeginConnect(new IPEndPoint(IPAddress.Parse(broadCasterIP), broadCasterPort), new AsyncCallback(OnConnect), null);
 
@@ -430,6 +429,9 @@ namespace AgOne
 
                 try
                 {
+                    if (data.Length < 7) 
+                        return;
+
                     lblStationID.Text = (((data[4] & 15) << 8) + (data[5])).ToString();
 
                     for (int i = 0; i < data.Length - 5; i++)
@@ -442,11 +444,6 @@ namespace AgOne
                             {
                                 rList.Add(mess);
                                 i += (data[i + 1] << 6) + (data[i + 2])+5;
-                                if (data[i + 1] != 211)
-                                {
-                                    //rList.Clear();
-                                    //break;
-                                }
                             }
                             else
                             {
@@ -458,7 +455,7 @@ namespace AgOne
                 }
                 catch
                 {
-                    //MessageBox.Show("Error");
+                    return;
                 }
             }
 
@@ -481,8 +478,6 @@ namespace AgOne
                 //send it
                 SendNTRIP(data);
             }
-
-
         }
 
         private void ntripMeterTimer_Tick(object sender, EventArgs e)

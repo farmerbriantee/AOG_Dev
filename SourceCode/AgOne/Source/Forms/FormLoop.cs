@@ -474,24 +474,14 @@ namespace AgOne
             if (isViewAdvanced)
             {
                 pingSecondsStart = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds;
-                lblPing.Text = lblPingMachine.Text = "*";
+                lblPing.Text = lblPingMachine.Text = lblPingTool.Text = "*";
             }
 
             //send a hello to modules
             SendUDPMessage(helloFromAgOne, epModule);
-            //SendUDPMessageTool(helloFromAgOne, epModuleTool);
 
-            //if (isLogNMEA)
-            //{
-            //    using (StreamWriter writer = new StreamWriter("zAgOne_log.txt", true))
-            //    {
-            //        writer.Write(logNMEASentence.ToString());
-            //    }
-            //    logNMEASentence.Clear();
-            //}
-
-            //if (focusSkipCounter < 310) lblSkipCounter.Text = focusSkipCounter.ToString();
-            //else lblSkipCounter.Text = "On";
+            if (isViewAdvanced) pingSecondsStart = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds;
+            SendUDPMessageTool(helloFromAgOne, epModuleTool);
         }
 
         private void TenSecondLoop()

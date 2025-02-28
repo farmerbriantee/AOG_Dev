@@ -107,6 +107,8 @@ namespace AgOne
             this.btnGPSData = new System.Windows.Forms.Button();
             this.btnGPSTool = new System.Windows.Forms.Button();
             this.lblFromGPSTool = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.lblPingTool = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -735,7 +737,7 @@ namespace AgOne
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label7.Location = new System.Drawing.Point(489, 349);
+            this.label7.Location = new System.Drawing.Point(490, 339);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(71, 16);
@@ -762,12 +764,12 @@ namespace AgOne
             this.lblPing.BackColor = System.Drawing.Color.Transparent;
             this.lblPing.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPing.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblPing.Location = new System.Drawing.Point(558, 349);
+            this.lblPing.Location = new System.Drawing.Point(558, 339);
             this.lblPing.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPing.Name = "lblPing";
-            this.lblPing.Size = new System.Drawing.Size(35, 16);
+            this.lblPing.Size = new System.Drawing.Size(15, 16);
             this.lblPing.TabIndex = 524;
-            this.lblPing.Text = "2850";
+            this.lblPing.Text = "*";
             this.lblPing.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPingMachine
@@ -776,12 +778,12 @@ namespace AgOne
             this.lblPingMachine.BackColor = System.Drawing.Color.Transparent;
             this.lblPingMachine.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPingMachine.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblPingMachine.Location = new System.Drawing.Point(558, 374);
+            this.lblPingMachine.Location = new System.Drawing.Point(558, 364);
             this.lblPingMachine.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPingMachine.Name = "lblPingMachine";
-            this.lblPingMachine.Size = new System.Drawing.Size(35, 16);
+            this.lblPingMachine.Size = new System.Drawing.Size(15, 16);
             this.lblPingMachine.TabIndex = 525;
-            this.lblPingMachine.Text = "2850";
+            this.lblPingMachine.Text = "*";
             this.lblPingMachine.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label11
@@ -790,12 +792,12 @@ namespace AgOne
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label11.Location = new System.Drawing.Point(495, 374);
+            this.label11.Location = new System.Drawing.Point(491, 364);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(65, 16);
+            this.label11.Size = new System.Drawing.Size(70, 16);
             this.label11.TabIndex = 526;
-            this.label11.Text = "Tool Ping:";
+            this.label11.Text = "Mach Ping:";
             // 
             // btnMinimizeMainForm
             // 
@@ -1120,6 +1122,33 @@ namespace AgOne
             this.lblFromGPSTool.Text = "---";
             this.lblFromGPSTool.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.Transparent;
+            this.label14.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label14.Location = new System.Drawing.Point(496, 388);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(65, 16);
+            this.label14.TabIndex = 534;
+            this.label14.Text = "Tool Ping:";
+            // 
+            // lblPingTool
+            // 
+            this.lblPingTool.AutoSize = true;
+            this.lblPingTool.BackColor = System.Drawing.Color.Transparent;
+            this.lblPingTool.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPingTool.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblPingTool.Location = new System.Drawing.Point(558, 388);
+            this.lblPingTool.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPingTool.Name = "lblPingTool";
+            this.lblPingTool.Size = new System.Drawing.Size(15, 16);
+            this.lblPingTool.TabIndex = 533;
+            this.lblPingTool.Text = "*";
+            this.lblPingTool.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FormLoop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
@@ -1128,13 +1157,13 @@ namespace AgOne
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(758, 489);
             this.ControlBox = false;
+            this.Controls.Add(this.lblPingTool);
             this.Controls.Add(this.lblFromGPSTool);
             this.Controls.Add(this.btnGPSTool);
             this.Controls.Add(this.lblToGPS);
             this.Controls.Add(this.lblFromGPS);
             this.Controls.Add(this.btnMinimizeMainForm);
             this.Controls.Add(this.cboxAutoRunGPS_Out);
-            this.Controls.Add(this.label11);
             this.Controls.Add(this.lblPingMachine);
             this.Controls.Add(this.lblPing);
             this.Controls.Add(this.btnGPS_Out);
@@ -1187,6 +1216,8 @@ namespace AgOne
             this.Controls.Add(this.btnUDP);
             this.Controls.Add(this.lblIP);
             this.Controls.Add(this.btnGPSData);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label11);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -1279,6 +1310,8 @@ namespace AgOne
         private ToolStripMenuItem toolStripLogViewer;
         public Button btnGPSTool;
         private Label lblFromGPSTool;
+        private Label label14;
+        private Label lblPingTool;
     }
 }
 

@@ -48,7 +48,6 @@ namespace AgOne
         public bool isUDPNetworkConnected,isUDPNetworkConnectedTool;
 
         //2 endpoints for local and 2 udp
-
         private IPEndPoint epAgOpen = new IPEndPoint(IPAddress.Parse(
             Properties.Settings.Default.eth_loopOne.ToString() + "." +
             Properties.Settings.Default.eth_loopTwo.ToString() + "." +
@@ -61,25 +60,20 @@ namespace AgOne
             Properties.Settings.Default.eth_loopThree.ToString() + "." +
             Properties.Settings.Default.eth_loopFour.ToString()), 25555);
 
-
-
         public IPEndPoint epModule = new IPEndPoint(IPAddress.Parse(
-                Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
-                Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
-                Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 8888);
-        private IPEndPoint epNtrip;
+            Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
+            Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
+            Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 8888);
+
+        public IPEndPoint epModuleTool = new IPEndPoint(IPAddress.Parse(
+            Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
+            Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
+            Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 18888);
 
         public IPEndPoint epModuleSet = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 8888);
-
-
-        //UDP Endpoints
-        public IPEndPoint epModuleTool = new IPEndPoint(IPAddress.Parse(
-                Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
-                Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
-                Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 18888);
-
         public IPEndPoint epModuleSetTool = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 18888);
 
+        private IPEndPoint epNtrip;
 
         public byte[] ipAutoSet = { 192, 168, 5 };
 
@@ -670,7 +664,7 @@ namespace AgOne
                         traffic.helloFromAutoSteer = 0;
                         if (isViewAdvanced)
                         {
-                            //lblPing.Text = (((DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds - pingSecondsStart) * 1000).ToString("N0");
+                            lblPingTool.Text = (((DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds - pingSecondsStart) ).ToString("N0");
                             //double actualSteerAngle = (Int16)((data[6] << 8) + data[5]);
                             //lblSteerAngle.Text = (actualSteerAngle * 0.01).ToString("N1");
                             //lblWASCounts.Text = ((Int16)((data[8] << 8) + data[7])).ToString();

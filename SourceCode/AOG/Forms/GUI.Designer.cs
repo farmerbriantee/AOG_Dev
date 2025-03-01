@@ -1517,7 +1517,7 @@ namespace AgOpenGPS
                 if (point.X > centerX - 40 && point.X < centerX + 40
                     && point.Y > centerY - 60 && point.Y < centerY + 60)
                 {
-                    if (ahrs.isReverseOn || headingFromSource == "Dual") return;
+                    if (!ahrs.isReverseOn || headingFromSource == "Dual") return;
 
                     imuGPS_Offset += Math.PI;
                     TimedMessageBox(2000, "Reverse Direction", "");

@@ -1517,12 +1517,10 @@ namespace AgOpenGPS
                 if (point.X > centerX - 40 && point.X < centerX + 40
                     && point.Y > centerY - 60 && point.Y < centerY + 60)
                 {
-                    if (headingFromSource == "Dual") return;
+                    if (ahrs.isReverseOn || headingFromSource == "Dual") return;
 
-                    Array.Clear(stepFixPts, 0, stepFixPts.Length);
-                    isFirstHeadingSet = false;
-                    isReverse = false;
-                    TimedMessageBox(2000, "Reset Direction", "Drive Forward > 1.5 kmh");
+                    imuGPS_Offset += Math.PI;
+                    TimedMessageBox(2000, "Reverse Direction", "");
                     Log.EventWriter("Direction Reset, Drive Forward");
 
                     return;

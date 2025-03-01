@@ -19,7 +19,7 @@
         public bool isAutoSteerAuto, isRollInvert, isReverseOn;
 
         //the factor for fusion of GPS and IMU
-        public double forwardComp, reverseComp, fusionWeight;
+        public double fusionWeight;
 
         //constructor
         public CAHRS()
@@ -33,9 +33,6 @@
             //isAutoSteerAuto = Properties.Settings.Default.setAS_isAutoSteerAutoOn;
             isAutoSteerAuto = true;
 
-            forwardComp = Properties.Settings.Default.setGPS_forwardComp;
-
-            reverseComp = Properties.Settings.Default.setGPS_reverseComp;
 
             isRollInvert = Properties.Settings.Default.setIMU_invertRoll;
 

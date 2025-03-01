@@ -460,7 +460,7 @@ namespace AgOpenGPS
                 GL.End();
             }
 
-            if (mf.camera.camSetDistance > -550)
+            if (!mf.isStanleyUsed && mf.camera.camSetDistance > -550)
             {
                 //draw the bright antenna dot
                 GL.PointSize(16);

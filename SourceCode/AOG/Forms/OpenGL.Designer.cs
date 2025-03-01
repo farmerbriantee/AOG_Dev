@@ -542,10 +542,9 @@ namespace AgOpenGPS
 
                             GL.PointSize(10);
                             GL.Begin(PrimitiveType.Points);
-                            GL.Color3(0.20, 0.78, 0.98);
+                            GL.Color3(0.920, 0.978, 0.2);
                             GL.Vertex3(steerAxlePos.easting, steerAxlePos.northing, 0.0);
                             GL.End();
-
                         }
                     }
 

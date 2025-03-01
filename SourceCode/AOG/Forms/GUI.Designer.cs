@@ -55,7 +55,7 @@ namespace AgOpenGPS
         public bool isMetric = true, isLightbarOn = true, isGridOn, isFullScreen;
         public bool isUTurnAlwaysOn, isCompassOn, isSpeedoOn, isSideGuideLines = true;
         public bool isPureDisplayOn = true, isSkyOn = true, isRollMeterOn = false, isTextureOn = true;
-        public bool isDay = true, isDayTime = true, isBrightnessOn = true;
+        public bool isDay = true, isBrightnessOn = true;
         public bool isLogElevation = false, isDirectionMarkers;
         public bool isKeyboardOn = true, isAutoStartAgOne = true, isSvennArrowOn = true;
         public bool isSectionlinesOn = true, isLineSmooth = true;
@@ -65,11 +65,6 @@ namespace AgOpenGPS
         public bool isUTurnOn = true, isLateralOn = true, isNudgeOn = true;
 
         public int[] customColorsList = new int[16];
-
-        //sunrise sunset
-        public DateTime dateToday = DateTime.Today;
-        public DateTime sunrise = DateTime.Now;
-        public DateTime sunset = DateTime.Now;
 
         public bool isFlashOnOff = false, isPanFormVisible = false;
         public bool isPanelBottomHidden = false;

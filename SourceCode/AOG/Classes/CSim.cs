@@ -71,7 +71,6 @@ namespace AgOpenGPS
             if (headingTrue < 0) headingTrue += glm.twoPI;
 
             mf.pn.vtgSpeed = Math.Abs(Math.Round(40 * stepDistance, 2));
-            mf.pn.AverageTheSpeed();
 
             //Calculate the next Lat Long based on heading and distance
             CalculateNewPostionFromBearingDistance(glm.toRadians(latitude), glm.toRadians(longitude), headingTrue, stepDist / 1000.0);

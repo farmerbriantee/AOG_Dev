@@ -2041,6 +2041,7 @@
             this.flp1.Name = "flp1";
             this.flp1.Size = new System.Drawing.Size(86, 488);
             this.flp1.TabIndex = 539;
+            this.flp1.Visible = false;
             // 
             // btnNudge
             // 
@@ -2863,6 +2864,7 @@
             this.tlpNozzle.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.31096F));
             this.tlpNozzle.Size = new System.Drawing.Size(197, 601);
             this.tlpNozzle.TabIndex = 545;
+            this.tlpNozzle.Visible = false;
             // 
             // btnSprayGalPerMinActual
             // 

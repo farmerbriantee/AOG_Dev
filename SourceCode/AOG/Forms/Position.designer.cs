@@ -15,9 +15,8 @@ namespace AgOpenGPS
     public partial class FormGPS
     {
         //very first fix to setup grid etc
-        public bool isFirstFixPositionSet = false, isGPSPositionInitialized = false, isFirstHeadingSet = false,
-            isReverse = false, isSteerInReverse = true, isSuperSlow = false;
-        public double startGPSHeading = 0;
+        public bool isGPSPositionInitialized = false, isFirstHeadingSet = false,
+            isReverse = false, isSteerInReverse = true;
 
         //string to record fixes for elevation maps
         public StringBuilder sbElevationString = new StringBuilder();
@@ -26,7 +25,6 @@ namespace AgOpenGPS
         public double guidanceLineDistanceOff;
         public double guidanceLineSteerAngle;
 
-        public short errorAngVel;
         public double setAngVel, actAngVel;
         public bool isConstantContourOn;
 
@@ -99,13 +97,11 @@ namespace AgOpenGPS
 
         public bool isChangingDirection, isReverseWithIMU;
 
-        private double nowHz = 0, filteredDelta = 0, delta = 0;
+        private double nowHz = 0, filteredDelta = 0;
 
         public bool isRTK_AlarmOn, isRTK_KillAutosteer;
 
         public double headlandDistanceDelta = 0, boundaryDistanceDelta = 0;
-
-        public vec2 lastGPS = new vec2(0, 0);
 
         public double uncorrectedEastingGraph = 0;
         public double correctionDistanceGraph = 0;
@@ -146,12 +142,17 @@ namespace AgOpenGPS
                 return;
             }
 
-            pn.speed = pn.vtgSpeed;
             pn.AverageTheSpeed();
 
             distanceCurrentStepFixDisplay = glm.Distance(prevDistFix, pn.fix);
             distanceCurrentStepFixDisplay *= 100;
             prevDistFix = pn.fix;
+
+            if (!isFirstHeadingSet)
+            {
+                prevFix = pn.fix;
+                lastReverseFix = pn.fix;
+            }
 
             #region Heading
             switch (headingFromSource)
@@ -435,7 +436,7 @@ namespace AgOpenGPS
                         fixHeading = glm.toRadians(pn.headingTrueDual);
                         gpsHeading = fixHeading;
 
-                        distanceCurrentStepFix = glm.Distance(prevFix, pn.fix);
+                        distanceCurrentStepFix = glm.Distance(pn.fix, prevFix);
 
                         if (distanceCurrentStepFix > 0.1)
                         {
@@ -940,9 +941,9 @@ namespace AgOpenGPS
             CalculateSectionLookAhead(toolPos.northing, toolPos.easting, cosSectionHeading, sinSectionHeading);
 
             //To prevent drawing high numbers of triangles, determine and test before drawing vertex
-            sectionTriggerDistance = glm.Distance(pn.fix, prevSectionPos);
-            contourTriggerDistance = glm.Distance(pn.fix, prevContourPos);
-            gridTriggerDistance = glm.DistanceSquared(pn.fix, prevGridPos);
+            sectionTriggerDistance = glm.Distance(pivotAxlePos, prevSectionPos);
+            contourTriggerDistance = glm.Distance(pivotAxlePos, prevContourPos);
+            gridTriggerDistance = glm.DistanceSquared(pivotAxlePos, prevGridPos);
 
             if ( isLogElevation && gridTriggerDistance > 2.9 && patchCounter !=0 && isFieldStarted)
             {
@@ -978,7 +979,7 @@ namespace AgOpenGPS
             //test if travelled far enough for new boundary point
             if (bnd.isOkToAddPoints)
             {
-                double boundaryDistance = glm.Distance(pn.fix, prevBoundaryPos);
+                double boundaryDistance = glm.Distance(pivotAxlePos, prevBoundaryPos);
                 if (boundaryDistance > 1) AddBoundaryPoint();
             }
         }
@@ -1002,10 +1003,9 @@ namespace AgOpenGPS
             guidanceLookPos.easting = pivotAxlePos.easting + (Math.Sin(fixHeading) * guidanceLookDist);
             guidanceLookPos.northing = pivotAxlePos.northing + (Math.Cos(fixHeading) * guidanceLookDist);
             
-
             //determine where the rigid vehicle hitch ends
-            hitchPos.easting = pn.fix.easting + (Math.Sin(fixHeading) * (tool.hitchLength - vehicle.antennaPivot));
-            hitchPos.northing = pn.fix.northing + (Math.Cos(fixHeading) * (tool.hitchLength - vehicle.antennaPivot));
+            hitchPos.easting = pivotAxlePos.easting + Math.Sin(fixHeading) * tool.hitchLength;
+            hitchPos.northing = pivotAxlePos.northing + Math.Cos(fixHeading) * tool.hitchLength;
 
             //tool attached via a trailing hitch
             if (tool.isToolTrailing)
@@ -1223,8 +1223,8 @@ namespace AgOpenGPS
         public void AddBoundaryPoint()
         {
             //save the north & east as previous
-            prevBoundaryPos.easting = pn.fix.easting;
-            prevBoundaryPos.northing = pn.fix.northing;
+            prevBoundaryPos.easting = pivotAxlePos.easting;
+            prevBoundaryPos.northing = pivotAxlePos.northing;
 
             //build the boundary line
 
@@ -1313,8 +1313,8 @@ namespace AgOpenGPS
             }
 
             //save the north & east as previous
-            prevSectionPos.northing = pn.fix.northing;
-            prevSectionPos.easting = pn.fix.easting;
+            prevSectionPos.northing = pivotAxlePos.northing;
+            prevSectionPos.easting = pivotAxlePos.easting;
 
             // if non zero, at least one section is on.
             patchCounter = 0;
@@ -1339,52 +1339,17 @@ namespace AgOpenGPS
         //the start of first few frames to initialize entire program
         private void InitializeFirstFewGPSPositions()
         {
-            if (!isFirstFixPositionSet)
+            if (!isFieldStarted)
             {
-                if (!isFieldStarted)
-                {
-                    pn.SetLocalMetersPerDegree(false, pn.latitude, pn.longitude);
-                }
-
-                pn.ConvertWGS84ToLocal(pn.latitude, pn.longitude, out pn.fix.northing, out pn.fix.easting);
-
-                //Draw a grid once we know where in the world we are.
-                isFirstFixPositionSet = true;
-
-                //most recent fixes
-                prevFix = pn.fix;
-
-                //run once and return
-                isFirstFixPositionSet = true;
-
-                return;
+                pn.SetLocalMetersPerDegree(false, pn.latitude, pn.longitude);
             }
 
-            else
-            {
-                prevFix.easting = pn.fix.easting; prevFix.northing = pn.fix.northing;
+            pn.ConvertWGS84ToLocal(pn.latitude, pn.longitude, out pn.fix.northing, out pn.fix.easting);
 
-                //keep here till valid data
-                if (startCounter > (20))
-                {
-                    isGPSPositionInitialized = true;
-                    lastReverseFix = pn.fix;
-                }
+            isGPSPositionInitialized = true;
 
-                //in radians
-                fixHeading = 0;
-                toolPivotPos.heading = fixHeading;
-
-                //send out initial zero settings
-                if (isGPSPositionInitialized)
-                {
-                    //set display accordingly
-                    isDayTime = (DateTime.Now.Ticks < sunset.Ticks && DateTime.Now.Ticks > sunrise.Ticks);
-
-                    SetZoom();
-                }
-                return;
-            }
+            //in radians
+            toolPivotPos.heading = fixHeading = 0;
         }
     }//end class
 }//end namespace

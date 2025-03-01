@@ -688,14 +688,14 @@ namespace AgOpenGPS
             if (f != null)
             {
                 f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-                f.Left = this.Left + GPSDataWindowLeft;
+                f.Left = this.Left + (isPanelBottomHidden ? 0 : GPSDataWindowLeft) + 5 + (isJobStarted && isNozzleApp ? tlpNozzle.Width : 0);
             }
 
             f = Application.OpenForms["FormFieldData"];
             if (f != null)
             {
                 f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-                f.Left = this.Left + GPSDataWindowLeft;
+                f.Left = this.Left + (isPanelBottomHidden ? 0 : GPSDataWindowLeft) + 5 + (isJobStarted && isNozzleApp ? tlpNozzle.Width : 0);
             }
 
             f = Application.OpenForms["FormPan"];
@@ -1054,14 +1054,14 @@ namespace AgOpenGPS
             if (f != null)
             {
                 f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-                f.Left = this.Left + GPSDataWindowLeft;
+                f.Left = this.Left + (isPanelBottomHidden ? 0 : GPSDataWindowLeft) + 5 + (isJobStarted && isNozzleApp ? tlpNozzle.Width : 0);
             }
 
             f = Application.OpenForms["FormFieldData"];
             if (f != null)
             {
                 f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-                f.Left = this.Left + GPSDataWindowLeft;
+                f.Left = this.Left + (isPanelBottomHidden ? 0 : GPSDataWindowLeft) + 5 + (isJobStarted && isNozzleApp ? tlpNozzle.Width : 0);
             }
 
             f = Application.OpenForms["FormPan"];

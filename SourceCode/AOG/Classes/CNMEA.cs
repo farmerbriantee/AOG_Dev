@@ -20,7 +20,7 @@ namespace AgOpenGPS
         public vec2 fixOffset = new vec2(0, 0);
 
         //other GIS Info
-        public double altitude, speed, newSpeed, vtgSpeed = float.MaxValue;
+        public double altitude, vtgSpeed = 0;
 
         public double headingTrueDual, headingTrue, hdop, age, headingTrueDualOffset;
 
@@ -42,7 +42,7 @@ namespace AgOpenGPS
         {
             //average the speed
             //if (speed > 70) speed = 70;
-            mf.avgSpeed = (mf.avgSpeed * 0.75) + (speed * 0.25);
+            mf.avgSpeed = (mf.avgSpeed * 0.75) + (vtgSpeed * 0.25);
         }
 
         public void SetLocalMetersPerDegree(bool setSim, double lat, double lon)

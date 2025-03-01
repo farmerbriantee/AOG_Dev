@@ -588,7 +588,7 @@ namespace AgOpenGPS
 
         private void btnFieldMenu_Click(object sender, EventArgs e)
         {
-            if (!isFirstFixPositionSet || sentenceCounter > 299)
+            if (!isGPSPositionInitialized || sentenceCounter > 299)
             {
                 if (isFieldStarted)
                 {
@@ -1075,7 +1075,7 @@ namespace AgOpenGPS
             if (isPanelBottomHidden)
                 form.Left = this.Left + 5 + (isNozzleApp?tlpNozzle.Width:0);
             else
-                form.Left = this.Left + GPSDataWindowLeft + 5 + (isNozzleApp ? tlpNozzle.Width : 0);
+                form.Left = this.Left + (isPanelBottomHidden ? 0 : GPSDataWindowLeft) + 5 + (isJobStarted && isNozzleApp ? tlpNozzle.Width : 0);
 
 
             Form ff = Application.OpenForms["FormGPS"];
@@ -1108,10 +1108,7 @@ namespace AgOpenGPS
             form.Show(this);
 
             form.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-            if (isPanelBottomHidden)
-                form.Left = this.Left + 5 + (isNozzleApp ? tlpNozzle.Width : 0);
-            else
-                form.Left = this.Left + GPSDataWindowLeft + 5 + (isNozzleApp ? tlpNozzle.Width : 0); 
+            form.Left = this.Left + (isPanelBottomHidden ? 0 : GPSDataWindowLeft) + 5 + (isJobStarted && isNozzleApp ? tlpNozzle.Width : 0);
 
             Form ff = Application.OpenForms["FormGPS"];
             ff.Focus();
@@ -1338,7 +1335,6 @@ namespace AgOpenGPS
             }
 
             timerSim.Enabled = panelSim.Visible = simulatorOnToolStripMenuItem.Checked;
-            isFirstFixPositionSet = false;
             isGPSPositionInitialized = false;
             isFirstHeadingSet = false;
             startCounter = 0;

@@ -170,7 +170,7 @@ namespace AgOpenGPS
             //draw vehicle
             GL.Rotate(glm.toDegrees(-mf.fixHeading), 0.0, 0.0, 1.0);
             //mf.font.DrawText3D(0, 0, "&TGF");
-            if (mf.isFirstHeadingSet && !mf.tool.isToolFrontFixed)
+            if (!mf.tool.isToolFrontFixed)
             {
                 if (!mf.tool.isToolRearFixed)
                 {
@@ -215,7 +215,7 @@ namespace AgOpenGPS
 
             //draw the vehicle Body
 
-            if (!mf.isFirstHeadingSet && mf.headingFromSource != "Dual")
+            if (!mf.isFirstHeadingSet)
             {
                 GL.Enable(EnableCap.Texture2D);
                 GL.Color4(1, 1, 1, 0.75);
@@ -460,7 +460,7 @@ namespace AgOpenGPS
                 GL.End();
             }
 
-            if (!mf.isStanleyUsed && mf.camera.camSetDistance > -550 && mf.isFirstHeadingSet)
+            if (!mf.isStanleyUsed && mf.camera.camSetDistance > -550)
             {
                 //draw the bright antenna dot
                 GL.PointSize(16);

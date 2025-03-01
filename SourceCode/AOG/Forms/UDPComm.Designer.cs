@@ -75,7 +75,6 @@ namespace AgOpenGPS
 
         private void DisableSim()
         {
-            isFirstFixPositionSet = false;
             isGPSPositionInitialized = false;
             isFirstHeadingSet = false;
             startCounter = 0;

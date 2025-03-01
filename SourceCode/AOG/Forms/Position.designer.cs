@@ -1020,6 +1020,12 @@ namespace AgOpenGPS
                 toolPivotPos.heading = Math.Atan2(tankPos.easting - toolPivotPos.easting, tankPos.northing - toolPivotPos.northing);
 
                 if (toolPivotPos.heading < 0) toolPivotPos.heading += glm.twoPI;
+
+                toolPos.heading = toolPivotPos.heading;
+                toolPos.easting = tankPos.easting +
+                    (Math.Sin(toolPivotPos.heading) * (tool.trailingToolToPivotLength));
+                toolPos.northing = tankPos.northing +
+                    (Math.Cos(toolPivotPos.heading) * (tool.trailingToolToPivotLength));
             }
 
             else if (tool.isToolTrailing)

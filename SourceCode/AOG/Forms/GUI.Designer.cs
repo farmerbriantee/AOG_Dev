@@ -691,7 +691,6 @@ namespace AgOpenGPS
 
             yt.uTurnSmoothing = Settings.Default.setAS_uTurnSmoothing;
 
-            tool.halfWidth = (tool.width - tool.overlap) / 2.0;
             tool.contourWidth = (tool.width - tool.overlap) / 3.0;
 
             //load the lightbar resolution
@@ -1228,7 +1227,6 @@ namespace AgOpenGPS
                                     {
                                         if (vehicle.functionSpeedLimit > avgSpeed)
                                         {
-                                            yt.isYouTurnTriggered = true;
                                             yt.BuildManualYouTurn(false, true);
                                         }
                                         else
@@ -1249,7 +1247,6 @@ namespace AgOpenGPS
                                     {
                                         if (vehicle.functionSpeedLimit > avgSpeed)
                                         {
-                                            yt.isYouTurnTriggered = true;
                                             yt.BuildManualYouTurn(true, true);
                                         }
                                         else

@@ -737,8 +737,6 @@ namespace AgOpenGPS
             lblGuidanceLine.Visible = false;
             lblHardwareMessage.Visible = false;
 
-            gyd.isFindGlobalNearestTrackPoint = true;
-
             oglMain.MakeCurrent();
         }
 
@@ -913,7 +911,6 @@ namespace AgOpenGPS
             }
 
             sbElevationString.Clear();
-            gyd.isFindGlobalNearestTrackPoint = true;
 
             //reset field offsets
             if (!isKeepOffsetsOn)

@@ -528,13 +528,13 @@ namespace AgOpenGPS
                             GL.PointSize(16);
                             GL.Begin(PrimitiveType.Points);
                             GL.Color3(0, 0, 0);
-                            GL.Vertex3(gyd.goalPointTrk.easting, gyd.goalPointTrk.northing, 0.0);
+                            GL.Vertex3(gyd.goalPoint.easting, gyd.goalPoint.northing, 0.0);
                             GL.End();
 
                             GL.PointSize(10);
                             GL.Begin(PrimitiveType.Points);
                             GL.Color3(0.98, 0.98, 0.098);
-                            GL.Vertex3(gyd.goalPointTrk.easting, gyd.goalPointTrk.northing, 0.0);
+                            GL.Vertex3(gyd.goalPoint.easting, gyd.goalPoint.northing, 0.0);
                             GL.End();
                         }
 

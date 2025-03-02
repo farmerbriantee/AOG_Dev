@@ -415,19 +415,29 @@ namespace AgOpenGPS
 
             if (ct.isContourBtnOn)
             {
-                ct.DistanceFromContourLine(pivotAxlePos, steerAxlePos);
+                //quick hack will change later
+                trk.currentGuidanceTrack = ct.ctList;
+            }
+
+            //like normal
+            if (trk.gArr.Count > 0 && trk.idx > -1)
+            {
+                //build new current ref line if required
+                trk.GetDistanceFromRefTrack(pivotAxlePos);
+
+            }
+
+            if (trk.currentGuidanceTrack.Count > 0)
+            {
+                gyd.Guidance(pivotAxlePos, steerAxlePos, yt.isYouTurnTriggered, yt.isYouTurnTriggered ? yt.ytList : trk.currentGuidanceTrack);
             }
             else
             {
-                //like normal
-                if (trk.gArr.Count > 0 && trk.idx > -1)
-                {
-                    //build new current ref line if required
-                    trk.GetDistanceFromRefTrack(pivotAxlePos);
-
-                    trk.GetDistanceFromCurrentGuidanceLine(pivotAxlePos, steerAxlePos);
-                }
+                //invalid distance so tell AS module
+                gyd.distanceFromCurrentLine = 0;
+                guidanceLineDistanceOff = double.NaN;
             }
+            
 
             // autosteer at full speed of updates
 
@@ -624,7 +634,7 @@ namespace AgOpenGPS
                                 }
 
                             //if we are close enough to pattern, trigger.
-                            if ((distancePivotToTurnLine <= 1.0) && (distancePivotToTurnLine >= 0) && !yt.isYouTurnTriggered)
+                            if ((distancePivotToTurnLine <= 1 || (!isStanleyUsed && glm.Distance(yt.ytList[2], gyd.goalPoint) <= 1.0)) && !yt.isYouTurnTriggered)
                             {
                                 yt.YouTurnTrigger();
                                 sounds.isBoundAlarming = false;

@@ -8,7 +8,7 @@ namespace AgOpenGPS
     {
         private readonly FormGPS mf;
 
-        public double width, halfWidth, contourWidth;
+        public double width, contourWidth;
         public double farLeftPosition = 0;
         public double farLeftSpeed = 0;
         public double farRightPosition = 0;

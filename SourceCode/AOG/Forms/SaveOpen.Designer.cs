@@ -901,9 +901,8 @@ namespace AgOpenGPS
 
                             vec3 vecFix = new vec3(0, 0, 0);
 
-                            ct.ptList = new List<vec3>();
-                            ct.ptList.Capacity = verts + 1;
-                            ct.stripList.Add(ct.ptList);
+                            var ptList = new List<vec3>();
+                            ptList.Capacity = verts + 1;
 
                             for (int v = 0; v < verts; v++)
                             {
@@ -912,8 +911,10 @@ namespace AgOpenGPS
                                 vecFix.easting = double.Parse(words[0], CultureInfo.InvariantCulture);
                                 vecFix.northing = double.Parse(words[1], CultureInfo.InvariantCulture);
                                 vecFix.heading = double.Parse(words[2], CultureInfo.InvariantCulture);
-                                ct.ptList.Add(vecFix);
+                                ptList.Add(vecFix);
                             }
+
+                            ct.stripList.Add(ptList);
                         }
                     }
                     catch (Exception e)

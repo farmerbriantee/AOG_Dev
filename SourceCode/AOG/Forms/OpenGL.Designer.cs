@@ -907,10 +907,10 @@ namespace AgOpenGPS
             //to draw or not the triangle patch
             bool isDraw;
 
-            double pivEplus = toolPos.easting + tool.width;
-            double pivEminus = toolPos.easting - tool.width;
-            double pivNplus = toolPos.northing + tool.width;
-            double pivNminus = toolPos.northing - tool.width;
+            double pivEplus = toolPos.easting + 50;
+            double pivEminus = toolPos.easting - 50;
+            double pivNplus = toolPos.northing + 50;
+            double pivNminus = toolPos.northing - 50;
 
                     //for every new chunk of patch
             foreach (var triList in patchList)

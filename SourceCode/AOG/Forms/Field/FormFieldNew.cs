@@ -139,7 +139,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    mf.pn.SetLocalMetersPerDegree(false, mf.pn.latitude, mf.pn.longitude);
+                    mf.pn.SetLocalMetersPerDegree(mf.pn.latitude, mf.pn.longitude);
 
                     dirNewField.Create();
 

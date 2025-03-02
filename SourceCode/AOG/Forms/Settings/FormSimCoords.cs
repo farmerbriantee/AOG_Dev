@@ -39,7 +39,7 @@ namespace AgOpenGPS
                 Close();
             }
 
-            mf.pn.SetLocalMetersPerDegree(true, nudLatitude.Value, nudLongitude.Value);
+            mf.pn.SetLocalMetersPerDegree(nudLatitude.Value, nudLongitude.Value);
 
             Close();
         }

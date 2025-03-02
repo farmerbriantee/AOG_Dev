@@ -133,6 +133,9 @@ namespace AgOpenGPS
                                 pn.longitude = Lon;
                                 pn.latitude = Lat;
 
+                                if (!isGPSPositionInitialized)
+                                    pn.SetLocalMetersPerDegree(pn.latitude, pn.longitude);
+
                                 pn.ConvertWGS84ToLocal(Lat, Lon, out pn.fix.northing, out pn.fix.easting);
 
                                 //From dual antenna heading sentences
@@ -900,13 +903,7 @@ namespace AgOpenGPS
             //UTurn
             if (keyData == Keys.U)
             {
-                sim.headingTrue += Math.PI;
-
-                trk.isTrackValid = false;
-                if (isBtnAutoSteerOn)
-                {
-                    btnAutoYouTurn.PerformClick();
-                }
+                sim.Reverse();
             }
 
             //speed up
@@ -938,46 +935,31 @@ namespace AgOpenGPS
             //turn right
             if (keyData == Keys.Right)
             {
-                sim.steerAngle += 1.0;
-                if (sim.steerAngle > 40) sim.steerAngle = 40;
-                if (sim.steerAngle < -40) sim.steerAngle = -40;
-                sim.steerAngleScrollBar = sim.steerAngle;
-                btnResetSteerAngle.Text = sim.steerAngle.ToString();
-                hsbarSteerAngle.Value = (int)(10 * sim.steerAngle) + 400;
+                steerAngleScrollBar += 1.0;
                 return true;
             }
 
             //turn left
             if (keyData == Keys.Left)
             {
-                sim.steerAngle -= 1.0;
-                if (sim.steerAngle > 40) sim.steerAngle = 40;
-                if (sim.steerAngle < -40) sim.steerAngle = -40;
-                sim.steerAngleScrollBar = sim.steerAngle;
-                btnResetSteerAngle.Text = sim.steerAngle.ToString();
-                hsbarSteerAngle.Value = (int)(10 * sim.steerAngle) + 400;
+                steerAngleScrollBar -= 1.0;
                 return true;
             }
 
             //zero steering
             if (keyData == Keys.OemQuestion)
             {
-                sim.steerAngle = 0.0;
-                sim.steerAngleScrollBar = sim.steerAngle;
-                btnResetSteerAngle.Text = sim.steerAngle.ToString();
-                hsbarSteerAngle.Value = (int)(10 * sim.steerAngle) + 400;
+                steerAngleScrollBar = 0.0;
                 return true;
             }
 
             if (keyData == Keys.OemOpenBrackets)
             {
-                sim.stepDistance = 0;
                 sim.isAccelBack = true;
             }
 
             if (keyData == Keys.OemCloseBrackets)
             {
-                sim.stepDistance = 0;
                 sim.isAccelForward = true;
             }
 

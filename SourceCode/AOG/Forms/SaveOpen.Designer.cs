@@ -348,7 +348,7 @@ namespace AgOpenGPS
                         line = reader.ReadLine();
                         offs = line.Split(',');
 
-                        pn.SetLocalMetersPerDegree(true, double.Parse(offs[0], CultureInfo.InvariantCulture), double.Parse(offs[1], CultureInfo.InvariantCulture));
+                        pn.SetLocalMetersPerDegree(double.Parse(offs[0], CultureInfo.InvariantCulture), double.Parse(offs[1], CultureInfo.InvariantCulture));
                     }
                 }
 

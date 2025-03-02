@@ -686,8 +686,9 @@
             this.hsbarSteerAngle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.hsbarSteerAngle.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.hsbarSteerAngle.LargeChange = 20;
+            this.hsbarSteerAngle.SmallChange = 1;
             this.hsbarSteerAngle.Location = new System.Drawing.Point(158, 1);
-            this.hsbarSteerAngle.Maximum = 800;
+            this.hsbarSteerAngle.Maximum = 819;
             this.hsbarSteerAngle.Name = "hsbarSteerAngle";
             this.hsbarSteerAngle.Size = new System.Drawing.Size(167, 40);
             this.hsbarSteerAngle.TabIndex = 179;

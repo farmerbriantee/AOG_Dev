@@ -323,7 +323,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    mf.pn.SetLocalMetersPerDegree(true, latK, lonK);
+                    mf.pn.SetLocalMetersPerDegree(latK, lonK);
 
                     //make sure directory exists, or create it
                     if ((!string.IsNullOrEmpty(directoryName)) && (!Directory.Exists(directoryName)))

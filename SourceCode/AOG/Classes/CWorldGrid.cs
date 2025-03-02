@@ -11,14 +11,14 @@ namespace AgOpenGPS
         private readonly FormGPS mf;
 
         //Y
-        public double northingMax;
+        public double northingMax = GridSize;
 
-        public double northingMin;
+        public double northingMin  = -GridSize;
 
         //X
-        public double eastingMax;
+        public double eastingMax = GridSize;
 
-        public double eastingMin;
+        public double eastingMin = -GridSize;
 
         //Y
         public double northingMaxGeo;
@@ -40,7 +40,7 @@ namespace AgOpenGPS
 
         public double eastingMinRate;
 
-        public double GridSize = 6000;
+        public const double GridSize = 6000;
         public double Count = 40;
         public bool isGeoMap = false;
 

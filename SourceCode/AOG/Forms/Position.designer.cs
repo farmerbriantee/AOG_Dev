@@ -108,6 +108,23 @@ namespace AgOpenGPS
 
         public int minSteerSpeedTimer = 0;
 
+        private double _steerAngleScrollBar;
+        public double steerAngleScrollBar
+        {
+            get => _steerAngleScrollBar;
+            set
+            {
+                _steerAngleScrollBar = value;
+
+                hsbarSteerAngle.Value = 400;
+
+                if (_steerAngleScrollBar > 40) _steerAngleScrollBar = 40;
+                if (_steerAngleScrollBar < -40) _steerAngleScrollBar = -40;
+                btnResetSteerAngle.Text = _steerAngleScrollBar.ToString("N1");
+                hsbarSteerAngle.Value = (int)(10 * _steerAngleScrollBar) + 400;
+            }
+        }
+
         //public vec2 jumpFix = new vec2(0, 0);
         //public double jumpDistance = 0, jumpDistanceMax;
         //public double jumpDistanceAlarm = 20;
@@ -128,14 +145,10 @@ namespace AgOpenGPS
             //simple comp filter
             gpsHz = 0.98 * gpsHz + 0.02 * nowHz;
 
+            if (timerSim.Enabled) gpsHz = 20;
+
             //Initialization counter
             startCounter++;
-
-            if (!isGPSPositionInitialized)
-            {
-                InitializeFirstFewGPSPositions();
-                return;
-            }
 
             pn.AverageTheSpeed();
 
@@ -1179,22 +1192,6 @@ namespace AgOpenGPS
                     patchCounter++;
                 }
             }
-        }
-
-        //the start of first few frames to initialize entire program
-        private void InitializeFirstFewGPSPositions()
-        {
-            if (!isFieldStarted)
-            {
-                pn.SetLocalMetersPerDegree(false, pn.latitude, pn.longitude);
-            }
-
-            pn.ConvertWGS84ToLocal(pn.latitude, pn.longitude, out pn.fix.northing, out pn.fix.easting);
-
-            isGPSPositionInitialized = true;
-
-            //in radians
-            toolPivotPos.heading = fixHeading = 0;
         }
     }//end class
 }//end namespace

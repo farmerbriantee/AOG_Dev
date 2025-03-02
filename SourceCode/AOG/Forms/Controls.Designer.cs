@@ -2131,48 +2131,27 @@ namespace AgOpenGPS
                     sim.DoSimTick(lastSimGuidanceAngle);
                 }
             }
-            else sim.DoSimTick(sim.steerAngleScrollBar);
+            else sim.DoSimTick(steerAngleScrollBar);
         }
         private void btnSimReverseDirection_Click(object sender, EventArgs e)
         {
-            sim.headingTrue += Math.PI;
-            trk.isTrackValid = false;
-            if (isBtnAutoSteerOn)
-            {
-                btnAutoSteer.PerformClick();
-                TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Sim Reverse Touched");
-                Log.EventWriter("Steer Off, Sim Reverse Activated");
-            }
+            sim.Reverse();
         }
         private void hsbarSteerAngle_Scroll(object sender, ScrollEventArgs e)
         {
-            sim.steerAngleScrollBar = (hsbarSteerAngle.Value - 400) * 0.1;
-            btnResetSteerAngle.Text = sim.steerAngleScrollBar.ToString("N1");
+            steerAngleScrollBar = (hsbarSteerAngle.Value - 400) * 0.1;
         }
         private void btnResetSteerAngle_Click(object sender, EventArgs e)
         {
-            sim.steerAngleScrollBar = 0;
-            hsbarSteerAngle.Value = 400;
-            btnResetSteerAngle.Text = sim.steerAngleScrollBar.ToString("N1");
+            steerAngleScrollBar = 0.0;
         }
         private void btnResetSim_Click(object sender, EventArgs e)
         {
-            sim.latitude = Properties.Settings.Default.setGPS_SimLatitude;
-            sim.longitude = Properties.Settings.Default.setGPS_SimLongitude;
+            sim.Reset();
         }
         private void btnSimSetSpeedToZero_Click(object sender, EventArgs e)
         {
             sim.stepDistance = 0;
-        }
-        private void btnSimReverse_Click(object sender, EventArgs e)
-        {
-            sim.stepDistance = 0;
-            sim.isAccelBack = true;
-        }
-        private void btnSimForward_Click(object sender, EventArgs e)
-        {
-            sim.stepDistance = 0;
-            sim.isAccelForward = true;
         }
 
         #endregion

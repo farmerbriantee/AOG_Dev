@@ -616,8 +616,6 @@ namespace AgOpenGPS
                 timerSim.Enabled = false;
             }
 
-            if (timerSim.Enabled) gpsHz = 20;
-
             //set the flag mark button to red dot
             btnFlag.Image = Properties.Resources.FlagRed;
 

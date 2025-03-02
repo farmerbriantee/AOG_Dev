@@ -676,15 +676,17 @@ namespace AgOpenGPS
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            //triangulate headland area
-            CPolygon hdLinePolygon = new CPolygon(mf.bnd.bndList[0].hdLine.ToArray());
-            mf.bnd.bndList[0].hdLineTriangleList = hdLinePolygon.Triangulate();
-            mf.bnd.isHeadlandOn = true;
+            if (mf.bnd.bndList.Count > 0 && mf.bnd.bndList[0].hdLine.Count > 0)
+            {
+                //triangulate headland area
+                CPolygon hdLinePolygon = new CPolygon(mf.bnd.bndList[0].hdLine.ToArray());
+                mf.bnd.bndList[0].hdLineTriangleList = hdLinePolygon.Triangulate();
+                mf.bnd.isHeadlandOn = true;
 
-            mf.FileSaveHeadLines();
-            //does headland control sections
-            mf.bnd.isSectionControlledByHeadland = true;
-
+                mf.FileSaveHeadLines();
+                //does headland control sections
+                mf.bnd.isSectionControlledByHeadland = true;
+            }
             Close();
         }
 

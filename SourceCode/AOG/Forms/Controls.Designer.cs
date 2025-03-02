@@ -462,8 +462,6 @@ namespace AgOpenGPS
                 flp1.Visible = false;
             }
 
-            panelRight.Visible = false;
-
             this.Activate();
         }
         private void btnTracksOff_Click(object sender, EventArgs e)
@@ -750,13 +748,11 @@ namespace AgOpenGPS
             if (trk.gArr.Count < 1 )
             {
                 TimedMessageBox(1500, gStr.Get(gs.gsNoGuidanceLines), gStr.Get(gs.gsNoGuidanceLines));
-                panelRight.Enabled = true;
                 return;
             }
             if (bnd.bndList.Count < 1)
             {
                 TimedMessageBox(1500, gStr.Get(gs.gsNoBoundary), gStr.Get(gs.gsCreateABoundaryFirst));
-                panelRight.Enabled = true;
                 return;
             }
 
@@ -775,11 +771,10 @@ namespace AgOpenGPS
             using (var form = new FormHeadLine(this))
             {
                 form.ShowDialog(this);
-        }
+            }
 
             bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
 
-            PanelsAndOGLSize();
             PanelUpdateRightAndBottom();
         }
         private void headlandBuildToolStripMenuItem_Click(object sender, EventArgs e)
@@ -797,7 +792,6 @@ namespace AgOpenGPS
 
             bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
 
-            PanelsAndOGLSize();
             PanelUpdateRightAndBottom();
         }
         private void boundariesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -883,10 +877,6 @@ namespace AgOpenGPS
                 f1.Close();
             }
 
-            //Nozzz
-            if (isNozzleApp) panelNavigation.Location = new System.Drawing.Point(250, 100);
-            else panelNavigation.Location = new System.Drawing.Point(90, 100);
-
             if (panelNavigation.Visible)
             {
                 panelNavigation.Visible = false;
@@ -894,6 +884,8 @@ namespace AgOpenGPS
             else
             {
                 panelNavigation.Visible = true;
+                panelNavigation.Left = GPSDataWindowLeft;
+
                 navPanelCounter = 2;
                 if (displayBrightness.isWmiMonitor) btnBrightnessDn.Text = (displayBrightness.GetBrightness().ToString()) + "%";
                 else btnBrightnessDn.Text = "??";
@@ -1066,10 +1058,7 @@ namespace AgOpenGPS
             form.Show(this);
 
             form.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-            if (isPanelBottomHidden)
-                form.Left = this.Left + 5 + (isNozzleApp?tlpNozzle.Width:0);
-            else
-                form.Left = this.Left + (isPanelBottomHidden ? 0 : GPSDataWindowLeft) + 5 + (isJobStarted && isNozzleApp ? tlpNozzle.Width : 0);
+            form.Left = this.Left + GPSDataWindowLeft;
 
 
             Form ff = Application.OpenForms["FormGPS"];
@@ -1102,7 +1091,7 @@ namespace AgOpenGPS
             form.Show(this);
 
             form.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-            form.Left = this.Left + (isPanelBottomHidden ? 0 : GPSDataWindowLeft) + 5 + (isJobStarted && isNozzleApp ? tlpNozzle.Width : 0);
+            form.Left = this.Left + GPSDataWindowLeft;
 
             Form ff = Application.OpenForms["FormGPS"];
             ff.Focus();
@@ -1231,9 +1220,9 @@ namespace AgOpenGPS
         {
             if (isFieldStarted)
             {
-                TimedMessageBox(2000, gStr.Get(gs.gsFieldIsOpen), gStr.Get(gs.gsCloseFieldFirst));
-                Log.EventWriter("Turning Nozzle on or off while open field");
-                return;
+                //TimedMessageBox(2000, gStr.Get(gs.gsFieldIsOpen), gStr.Get(gs.gsCloseFieldFirst));
+                //Log.EventWriter("Turning Nozzle on or off while open field");
+                //return;
             }
 
             isNozzleApp = !isNozzleApp;
@@ -1251,8 +1240,6 @@ namespace AgOpenGPS
 
             nozzleAppToolStripMenuItem.Checked = isNozzleApp;
             Settings.Default.setApPGN_isNozzleApp = isNozzleApp;
-            
-            LoadSettings();
 
             PanelsAndOGLSize();
         }
@@ -1313,25 +1300,19 @@ namespace AgOpenGPS
 
         private void simulatorOnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isFieldStarted)
-            {
-                TimedMessageBox(2000, gStr.Get(gs.gsFieldIsOpen), gStr.Get(gs.gsCloseFieldFirst));
-                return;
-            }
-            if (simulatorOnToolStripMenuItem.Checked)
-            {
-                if (sentenceCounter < 299)
-                {
-                    TimedMessageBox(2000, "Connected", "GPS");
-                    simulatorOnToolStripMenuItem.Checked = false;
-                    return;
-                }
-            }
-
             timerSim.Enabled = panelSim.Visible = simulatorOnToolStripMenuItem.Checked;
             isGPSPositionInitialized = false;
             isFirstHeadingSet = false;
             startCounter = 0;
+
+            if (tool.isSectionsNotZones)
+            {
+                LineUpIndividualSectionBtns();
+            }
+            else
+            {
+                LineUpAllZoneButtons();
+            }
 
             Settings.Default.setMenu_isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
         }

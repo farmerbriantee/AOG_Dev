@@ -381,15 +381,6 @@ namespace AgOpenGPS
             //boundaryToolStripBtn.Enabled = false;
             FieldMenuButtonEnableDisable(false);
 
-            panelRight.Enabled = false;
-
-            oglMain.Left = 75;
-            oglMain.Width = this.Width - statusStripLeft.Width - 84;
-
-            panelSim.Left = Width / 2 - 330;
-            panelSim.Width = 700;
-            panelSim.Top = Height - 60;
-
             //make sure current field directory exists, null if not
             currentFieldDirectory = Settings.Default.setF_CurrentFieldDir;
 
@@ -682,19 +673,19 @@ namespace AgOpenGPS
         private void FormGPS_ResizeEnd(object sender, EventArgs e)
         {
             PanelsAndOGLSize();
-
+            
             Form f = Application.OpenForms["FormGPSData"];
             if (f != null)
             {
                 f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-                f.Left = this.Left + (isPanelBottomHidden ? 0 : GPSDataWindowLeft) + 5 + (isJobStarted && isNozzleApp ? tlpNozzle.Width : 0);
+                f.Left = this.Left + GPSDataWindowLeft;
             }
 
             f = Application.OpenForms["FormFieldData"];
             if (f != null)
             {
                 f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-                f.Left = this.Left + (isPanelBottomHidden ? 0 : GPSDataWindowLeft) + 5 + (isJobStarted && isNozzleApp ? tlpNozzle.Width : 0);
+                f.Left = this.Left + GPSDataWindowLeft;
             }
 
             f = Application.OpenForms["FormPan"];
@@ -707,7 +698,6 @@ namespace AgOpenGPS
 
         public void FileSaveEverythingBeforeClosingField()
         {
-            panelRight.Enabled = false;
             FieldMenuButtonEnableDisable(false);
             displayFieldName = gStr.Get(gs.gsNone);
 
@@ -736,7 +726,6 @@ namespace AgOpenGPS
 
             //update the menu
             this.menustripLanguage.Enabled = false;
-            panelRight.Enabled = true;
             //boundaryToolStripBtn.Enabled = true;
             isPanelBottomHidden = false;
 
@@ -954,7 +943,6 @@ namespace AgOpenGPS
             //clean all the lines
             bnd.bndList.Clear();
 
-            panelRight.Enabled = false;
             FieldMenuButtonEnableDisable(false);
 
             menustripLanguage.Enabled = true;
@@ -1008,8 +996,6 @@ namespace AgOpenGPS
             PanelsAndOGLSize();
             worldGrid.isGeoMap = false;
 
-            panelSim.Top = Height - 60;
-
             PanelUpdateRightAndBottom();
 
             btnSection1Man.Text = "1";
@@ -1051,14 +1037,14 @@ namespace AgOpenGPS
             if (f != null)
             {
                 f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-                f.Left = this.Left + (isPanelBottomHidden ? 0 : GPSDataWindowLeft) + 5 + (isJobStarted && isNozzleApp ? tlpNozzle.Width : 0);
+                f.Left = this.Left + GPSDataWindowLeft;
             }
 
             f = Application.OpenForms["FormFieldData"];
             if (f != null)
             {
                 f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-                f.Left = this.Left + (isPanelBottomHidden ? 0 : GPSDataWindowLeft) + 5 + (isJobStarted && isNozzleApp ? tlpNozzle.Width : 0);
+                f.Left = this.Left + GPSDataWindowLeft;
             }
 
             f = Application.OpenForms["FormPan"];

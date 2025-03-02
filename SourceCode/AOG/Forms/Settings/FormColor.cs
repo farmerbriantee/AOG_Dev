@@ -150,15 +150,13 @@ namespace AgOpenGPS
         {
             if (!mf.isDay) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, mf.textColorDay))
+            using (FormColorPicker form = new FormColorPicker(mf, Settings.Default.setDisplay_colorTextDay))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    mf.textColorDay = form.useThisColor;
+                    Settings.Default.setDisplay_colorTextDay = form.useThisColor;
                 }
             }
-
-            Settings.Default.setDisplay_colorTextDay = mf.textColorDay;
 
             mf.SwapDayNightMode();
             mf.SwapDayNightMode();
@@ -186,22 +184,18 @@ namespace AgOpenGPS
             Properties.Settings.Default.setDisplay_colorFieldNight = mf.fieldColorNight;
 
             mf.textColorNight = Color.FromArgb(230, 230, 230);
-            mf.textColorDay = Color.FromArgb(10, 10, 20);
 
-            Settings.Default.setDisplay_colorTextDay = mf.textColorDay;
+            Settings.Default.setDisplay_colorTextDay = Color.FromArgb(10, 10, 20);
             Settings.Default.setDisplay_colorTextNight = mf.textColorNight;
 
             Settings.Default.setDisplay_customColors = "-62208,-12299010,-16190712,-1505559,-3621034,-16712458,-7330570,-1546731,-24406,-3289866,-2756674,-538377,-134768,-4457734,-1848839,-530985";
 
             string[] words = Properties.Settings.Default.setDisplay_customColors.Split(',');
-
             for (int i = 0; i < 16; i++)
             {
-                Color test;
                 mf.customColorsList[i] = int.Parse(words[i], CultureInfo.InvariantCulture);
-                test = Color.FromArgb(mf.customColorsList[i]).CheckColorFor255();
-                int iCol = (test.A << 24) | (test.R << 16) | (test.G << 8) | test.B;
-                mf.customColorsList[i] = iCol;
+                Color test = Color.FromArgb(mf.customColorsList[i]).CheckColorFor255();
+                mf.customColorsList[i] = test.ToArgb();
             }
 
             mf.SwapDayNightMode();

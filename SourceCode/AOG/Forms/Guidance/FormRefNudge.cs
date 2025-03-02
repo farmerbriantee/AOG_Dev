@@ -23,6 +23,7 @@ namespace AgOpenGPS
 
         private void FormEditTrack_Load(object sender, EventArgs e)
         {
+            mf.panelRight.Enabled = false;
             nudSnapDistance.DecimalPlaces = mf.isMetric ? 0 : 1;
             nudSnapDistance.Value = Properties.Settings.Default.setAS_snapDistanceRef * 0.01;
 
@@ -47,7 +48,7 @@ namespace AgOpenGPS
 
         private void FormEditTrack_FormClosing(object sender, FormClosingEventArgs e)
         {
-            mf.panelRight.Visible = true;
+            mf.panelRight.Enabled = true;
         }
 
         private void nudSnapDistance_ValueChanged(object sender, EventArgs e)

@@ -682,7 +682,6 @@ namespace AgOpenGPS
         private void FormGPS_ResizeEnd(object sender, EventArgs e)
         {
             PanelsAndOGLSize();
-            if (isGPSPositionInitialized) SetZoom();
 
             Form f = Application.OpenForms["FormGPSData"];
             if (f != null)
@@ -744,7 +743,6 @@ namespace AgOpenGPS
             FieldMenuButtonEnableDisable(true);
             PanelUpdateRightAndBottom();
             PanelsAndOGLSize();
-            SetZoom();
 
             fileSaveCounter = 25;
             lblGuidanceLine.Visible = false;
@@ -1008,7 +1006,6 @@ namespace AgOpenGPS
             isPanelBottomHidden = false;
 
             PanelsAndOGLSize();
-            SetZoom();
             worldGrid.isGeoMap = false;
 
             panelSim.Top = Height - 60;
@@ -1103,19 +1100,15 @@ namespace AgOpenGPS
         //take the distance from object and convert to camera data
         public void SetZoom()
         {
-            //match grid to cam distance and redo perspective
-            camera.gridZoom = camera.camSetDistance / -15;
+            if (camera.zoomValue < 4.0) camera.zoomValue = 4.0;
+            if (camera.zoomValue > 120) camera.zoomValue = 120;
+            camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
 
-            gridToolSpacing = (int)(camera.gridZoom / tool.width + 0.5);
+            //match grid to cam distance and redo perspective
+            gridToolSpacing = (int)((camera.camSetDistance / -15) / tool.width + 0.5);
             if (gridToolSpacing < 1) gridToolSpacing = 1;
             camera.gridZoom = gridToolSpacing * tool.width;
-
-            oglMain.MakeCurrent();
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadIdentity();
-            Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView((float)fovy, oglMain.AspectRatio, 1f, (float)(camDistanceFactor * camera.camSetDistance));
-            GL.LoadMatrix(ref mat);
-            GL.MatrixMode(MatrixMode.Modelview);
+            ChangePerspective();
         }
 
         //message box pops up with info then goes away

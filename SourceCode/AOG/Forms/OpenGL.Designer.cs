@@ -78,16 +78,22 @@ namespace AgOpenGPS
         //oglMain needs a resize
         private void oglMain_Resize(object sender, EventArgs e)
         {
+            ChangePerspective(true);
+
+            if (isLineSmooth) GL.Enable(EnableCap.LineSmooth);
+            else GL.Disable(EnableCap.LineSmooth);
+        }
+
+        private void ChangePerspective(bool changeViewport = false)
+        {
             oglMain.MakeCurrent();
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Viewport(0, 0, oglMain.Width, oglMain.Height);
-            Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView((float)fovy, (float)oglMain.Width / (float)oglMain.Height,
-                1.0f, (float)(camDistanceFactor * camera.camSetDistance));
+            if (changeViewport)
+                GL.Viewport(0, 0, oglMain.Width, oglMain.Height);
+            Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView((float)fovy, oglMain.AspectRatio, 1.0f, (float)(camDistanceFactor * camera.camSetDistance));
             GL.LoadMatrix(ref mat);
             GL.MatrixMode(MatrixMode.Modelview);
-            if (isLineSmooth) GL.Enable(EnableCap.LineSmooth);
-            else GL.Disable(EnableCap.LineSmooth);
         }
 
         //oglMain rendering, Draw

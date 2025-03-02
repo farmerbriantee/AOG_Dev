@@ -810,7 +810,6 @@ namespace AgOpenGPS
             PanelsAndOGLSize();
             PanelUpdateRightAndBottom();
 
-            camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
             SetZoom();
 
             lblGuidanceLine.BringToFront();
@@ -869,11 +868,9 @@ namespace AgOpenGPS
             if (isFieldStarted)
             {
                 int tracksTotal = 0, tracksVisible = 0;
-                bool isHdl = false;
-
+                
                 bool isBnd = bnd.bndList.Count > 0;
-                if (!isBnd) isHdl = isBnd;
-                else isHdl = bnd.bndList[0].hdLine.Count > 0;
+                bool isHdl = isBnd && bnd.bndList[0].hdLine.Count > 0;
 
                 bool istram = (tram.tramList.Count + tram.tramBndOuterArr.Count) > 0;
 
@@ -1119,23 +1116,10 @@ namespace AgOpenGPS
 
         private void ZoomByMouseWheel(object sender, MouseEventArgs e)
         {
-            if (e.Delta < 0)
-            {
-                if (camera.zoomValue <= 20) camera.zoomValue += camera.zoomValue * 0.06;
-                else camera.zoomValue += camera.zoomValue * 0.02;
-                if (camera.zoomValue > 120) camera.zoomValue = 120;
-                camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
-                SetZoom();
-            }
-            else
-            {
-                if (camera.zoomValue <= 20)
-                { if ((camera.zoomValue -= camera.zoomValue * 0.06) < 4.0) camera.zoomValue = 4.0; }
-                else { if ((camera.zoomValue -= camera.zoomValue * 0.02) < 4.0) camera.zoomValue = 4.0; }
+            if (camera.zoomValue <= 20) camera.zoomValue -= camera.zoomValue * 0.06 * Math.Sign(e.Delta);
+            else camera.zoomValue -= camera.zoomValue * 0.02 * Math.Sign(e.Delta);
 
-                camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
-                SetZoom();
-            }
+            SetZoom();
         }
 
         public void SwapDayNightMode()
@@ -1487,25 +1471,23 @@ namespace AgOpenGPS
                 //zoom buttons
                 if (point.X > oglMain.Width - 80)
                 {
+                    int zoom = 0;
                     //---
                     if (point.Y < 260 && point.Y > 170)
                     {
-                        if (camera.zoomValue <= 20) camera.zoomValue += camera.zoomValue * 0.2;
-                        else camera.zoomValue += camera.zoomValue * 0.1;
-                        if (camera.zoomValue > 180) camera.zoomValue = 180;
-                        camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
-                        SetZoom();
-                        return;
+                        zoom = 1;
                     }
 
                     //++
                     if (point.Y < 120 && point.Y > 30)
                     {
-                        if (camera.zoomValue <= 20)
-                        { if ((camera.zoomValue -= camera.zoomValue * 0.2) < 4.0) camera.zoomValue = 4.0; }
-                        else { if ((camera.zoomValue -= camera.zoomValue * 0.1) < 4.0) camera.zoomValue = 4.0; }
+                        zoom = -1;
+                    }
 
-                        camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
+                    if (zoom != 0)
+                    {
+                        if (camera.zoomValue <= 20) camera.zoomValue += camera.zoomValue * 0.2 * zoom;
+                        else camera.zoomValue += camera.zoomValue * 0.1 * zoom;
                         SetZoom();
                         return;
                     }

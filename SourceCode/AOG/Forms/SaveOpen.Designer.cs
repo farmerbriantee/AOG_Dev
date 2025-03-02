@@ -346,7 +346,6 @@ namespace AgOpenGPS
             FileLoadBackground();
 
             PanelsAndOGLSize();
-            SetZoom();
 
             //update bndPts data
             oglZoom.Refresh();

@@ -1022,9 +1022,9 @@ namespace AgOpenGPS
                 if (toolPivotPos.heading < 0) toolPivotPos.heading += glm.twoPI;
 
                 toolPos.heading = toolPivotPos.heading;
-                toolPos.easting = tankPos.easting +
+                toolPos.easting = toolPivotPos.easting +
                     (Math.Sin(toolPivotPos.heading) * (tool.trailingToolToPivotLength));
-                toolPos.northing = tankPos.northing +
+                toolPos.northing = toolPivotPos.northing +
                     (Math.Cos(toolPivotPos.heading) * (tool.trailingToolToPivotLength));
             }
 

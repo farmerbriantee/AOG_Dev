@@ -145,6 +145,8 @@ namespace AgOpenGPS
             easting = northing = heading = 0;
             sinH = Math.Sin(0);
             cosH = Math.Cos(0);
+            if (mf.timerSim.Enabled)
+                mf.pn.ConvertLocalToWGS84(0, 0, out mf.pn.latitude, out mf.pn.longitude);
         }
 
         public void Reverse()

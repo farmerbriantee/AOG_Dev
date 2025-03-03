@@ -54,11 +54,11 @@ namespace AgOpenGPS
             Settings.Vehicle.setGPS_SimLatitude = lat;//this is actuallly the last field position
             Settings.Vehicle.setGPS_SimLongitude = lon;
             
-            mf.sim.Reset();
-
             mPerDegreeLat = 111132.92 - 559.82 * Math.Cos(2.0 * latStart * 0.01745329251994329576923690766743) + 1.175
             * Math.Cos(4.0 * latStart * 0.01745329251994329576923690766743) - 0.0023
             * Math.Cos(6.0 * latStart * 0.01745329251994329576923690766743);
+
+            mf.sim.Reset();
 
             mf.FileLoadFields();
         }

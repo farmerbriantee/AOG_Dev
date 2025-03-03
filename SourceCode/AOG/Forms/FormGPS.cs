@@ -602,6 +602,9 @@ namespace AgOpenGPS
             //save current vehicle
             Settings.Default.Save();
 
+            //save current Tool
+            ToolSettings.Default.Save();
+
             if (displayBrightness.isWmiMonitor)
                 displayBrightness.SetBrightness(Settings.Default.setDisplay_brightnessSystem);
 

@@ -387,7 +387,7 @@ namespace AgOpenGPS
 
             Properties.Settings.Default.setMenu_isMetric = mf.isMetric = rbtnDisplayMetric.Checked;
 
-            Properties.Settings.Default.setTool_isDirectionMarkers = mf.isDirectionMarkers;
+            Properties.ToolSettings.Default.setTool_isDirectionMarkers = mf.isDirectionMarkers;
 
             Properties.Settings.Default.setAS_numGuideLines = mf.trk.numGuideLines;
             Properties.Settings.Default.setDisplay_isSectionLinesOn = mf.isSectionlinesOn;
@@ -499,7 +499,7 @@ namespace AgOpenGPS
 
             nudVehicleTrack.Value = Properties.Settings.Default.setVehicle_trackWidth;
 
-            nudTractorHitchLength.Value = Math.Abs(Properties.Settings.Default.setVehicle_hitchLength);
+            nudTractorHitchLength.Value = Math.Abs(Properties.ToolSettings.Default.setVehicle_hitchLength);
 
             if (mf.vehicle.vehicleType == 0)
             {
@@ -517,7 +517,7 @@ namespace AgOpenGPS
                 nudTractorHitchLength.Visible = true;
             }
 
-            if (Properties.Settings.Default.setTool_isToolTrailing || Properties.Settings.Default.setTool_isToolTBT)
+            if (Properties.ToolSettings.Default.setTool_isToolTrailing || Properties.ToolSettings.Default.setTool_isToolTBT)
             {
                 nudTractorHitchLength.Visible = true;
                 label94.Visible = true;
@@ -538,11 +538,11 @@ namespace AgOpenGPS
         private void nudTractorHitchLength_ValueChanged(object sender, EventArgs e)
         {
             mf.tool.hitchLength = nudTractorHitchLength.Value;
-            if (!Properties.Settings.Default.setTool_isToolFront)
+            if (!Properties.ToolSettings.Default.setTool_isToolFront)
             {
                 mf.tool.hitchLength *= -1;
             }
-            Properties.Settings.Default.setVehicle_hitchLength = mf.tool.hitchLength;
+            Properties.ToolSettings.Default.setVehicle_hitchLength = mf.tool.hitchLength;
         }
 
         private void nudWheelbase_ValueChanged(object sender, EventArgs e)
@@ -597,10 +597,10 @@ namespace AgOpenGPS
 
                 if ( mf.tool.hitchLength < 0) mf.tool.hitchLength *= -1;
 
-                Properties.Settings.Default.setTool_isToolFront = true;
-                Properties.Settings.Default.setTool_isToolTBT = false;
-                Properties.Settings.Default.setTool_isToolTrailing = false;
-                Properties.Settings.Default.setTool_isToolRearFixed = false;
+                Properties.ToolSettings.Default.setTool_isToolFront = true;
+                Properties.ToolSettings.Default.setTool_isToolTBT = false;
+                Properties.ToolSettings.Default.setTool_isToolTrailing = false;
+                Properties.ToolSettings.Default.setTool_isToolRearFixed = false;
             }
             if (rbtn4WD.Checked)
             {

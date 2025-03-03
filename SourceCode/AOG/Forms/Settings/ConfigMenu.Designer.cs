@@ -73,14 +73,14 @@ namespace AgOpenGPS
             lblSummaryVehicleName.Text = lblCurrentVehicle.Text;
 
             lblTramWidth.Text = mf.isMetric ?
-                ((Properties.Settings.Default.setTram_tramWidth).ToString() + " m") :
-                ConvertMeterToFeet(Properties.Settings.Default.setTram_tramWidth);
+                ((Properties.ToolSettings.Default.setTram_tramWidth).ToString() + " m") :
+                ConvertMeterToFeet(Properties.ToolSettings.Default.setTram_tramWidth);
 
-            lblToolOffset.Text = (Properties.Settings.Default.setVehicle_toolOffset * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
+            lblToolOffset.Text = (Properties.ToolSettings.Default.setVehicle_toolOffset * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
 
-            lblOverlap.Text = (Properties.Settings.Default.setVehicle_toolOverlap * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
+            lblOverlap.Text = (Properties.ToolSettings.Default.setVehicle_toolOverlap * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
 
-            lblLookahead.Text = Properties.Settings.Default.setVehicle_toolLookAheadOn.ToString() + " sec";
+            lblLookahead.Text = Properties.ToolSettings.Default.setVehicle_toolLookAheadOn.ToString() + " sec";
         }
 
         public string ConvertMeterToFeet(double meter)

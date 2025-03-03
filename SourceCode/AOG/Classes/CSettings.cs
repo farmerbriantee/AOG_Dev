@@ -69,7 +69,7 @@
         { }
 
         //public bool ;
-        public bool isGPSToolActive = true;
+        public bool isGPSToolActive = false;
 
         public byte gainP           = 50;
         public byte integral        = 0;

@@ -46,28 +46,28 @@
         {
             //constructor
             mf = _f;
-            volumePerAreaSet1 = Properties.Settings.Default.setNozzleSettings.volumePerAreaSet1;
-            volumePerAreaSet2 = Properties.Settings.Default.setNozzleSettings.volumePerAreaSet2;
+            volumePerAreaSet1 = Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet1;
+            volumePerAreaSet2 = Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet2;
             volumePerAreaSetSelected = volumePerAreaSet1;
-            pressureMax = Properties.Settings.Default.setNozzleSettings.pressureMax;
-            pressureMin = Properties.Settings.Default.setNozzleSettings.pressureMin;
+            pressureMax = Properties.ToolSettings.Default.setNozzleSettings.pressureMax;
+            pressureMin = Properties.ToolSettings.Default.setNozzleSettings.pressureMin;
 
-            volumeApplied = Properties.Settings.Default.setNozzleSettings.volumeApplied;
-            volumeTankStart = Properties.Settings.Default.setNozzleSettings.volumeTankStart;
+            volumeApplied = Properties.ToolSettings.Default.setNozzleSettings.volumeApplied;
+            volumeTankStart = Properties.ToolSettings.Default.setNozzleSettings.volumeTankStart;
 
-            isBypass = Properties.Settings.Default.setNozzleSettings.isBypass;
+            isBypass = Properties.ToolSettings.Default.setNozzleSettings.isBypass;
 
-            rateNudge = Properties.Settings.Default.setNozzleSettings.rateNudge;
+            rateNudge = Properties.ToolSettings.Default.setNozzleSettings.rateNudge;
 
-            rateAlarmPercent = Properties.Settings.Default.setNozzleSettings.rateAlarmPercent;
+            rateAlarmPercent = Properties.ToolSettings.Default.setNozzleSettings.rateAlarmPercent;
 
             //units
-            unitsApplied = Properties.Settings.Default.setNozzleSettings.unitsApplied;
-            unitsPerArea = Properties.Settings.Default.setNozzleSettings.unitsPerArea;
+            unitsApplied = Properties.ToolSettings.Default.setNozzleSettings.unitsApplied;
+            unitsPerArea = Properties.ToolSettings.Default.setNozzleSettings.unitsPerArea;
 
-            isAppliedUnitsNotTankDisplayed = Properties.Settings.Default.setNozzleSettings.isAppliedUnitsNotTankDisplayed;
+            isAppliedUnitsNotTankDisplayed = Properties.ToolSettings.Default.setNozzleSettings.isAppliedUnitsNotTankDisplayed;
 
-            isSectionValve3Wire = Properties.Settings.Default.setNozzleSettings.isSectionValve3Wire;
+            isSectionValve3Wire = Properties.ToolSettings.Default.setNozzleSettings.isSectionValve3Wire;
         }
 
         public void BuildRatePGN()

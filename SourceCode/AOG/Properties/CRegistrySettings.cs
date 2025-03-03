@@ -13,11 +13,15 @@ namespace AgOpenGPS
 
         public static string vehiclesDirectory =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Vehicles");
+        
+        public static string toolsDirectory =
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Tools");
 
         public static string logsDirectory =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Logs");
 
         public static string vehicleFileName = "";
+        public static string toolFileName = "";
         public static string workingDirectory = "";
         public static string baseDirectory = workingDirectory;
         public static string fieldsDirectory = workingDirectory;
@@ -42,6 +46,13 @@ namespace AgOpenGPS
                 }
                 vehicleFileName = regKey.GetValue("VehicleFileName").ToString();
 
+                //Tool File Name Registry Key
+                if (regKey.GetValue("ToolFileName") == null)
+                {
+                    regKey.SetValue("ToolFileName", "");
+                }
+                toolFileName = regKey.GetValue("ToolFileName").ToString();
+
                 //Language Registry Key
                 if (regKey.GetValue("Language") == null || regKey.GetValue("Language").ToString() == "")
                 {
@@ -65,6 +76,7 @@ namespace AgOpenGPS
             Log.CheckLogSize(Path.Combine(logsDirectory, "AgOpenGPS_Events_Log.txt"), 500000);
 
             Settings.Default.Load();
+            ToolSettings.Default.Load();
         }
 
         public static void Save(string name, string value)
@@ -76,6 +88,8 @@ namespace AgOpenGPS
 
                 if (name == "VehicleFileName")
                     vehicleFileName = value;
+                else if (name == "ToolFileName")
+                    toolFileName = value;
                 else if (name == "Language")
                     culture = value;
 
@@ -108,6 +122,7 @@ namespace AgOpenGPS
                 RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
                 key.SetValue("Language", "en");
                 key.SetValue("VehicleFileName", "Default Vehicle");
+                key.SetValue("ToolFileName", "Default Tool");
                 key.SetValue("WorkingDirectory", "Default");
                 key.Close();
 
@@ -116,9 +131,12 @@ namespace AgOpenGPS
                 culture = "en";
                 vehiclesDirectory =
                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Vehicles");
+                toolsDirectory =
+                   Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Tools");
                 logsDirectory =
                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Logs");
                 vehicleFileName = "Default Vehicle";
+                toolFileName = "Default Tool";
                 workingDirectory = "Default";
                 baseDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS");
                 fieldsDirectory = Path.Combine(baseDirectory, "Fields");
@@ -142,7 +160,6 @@ namespace AgOpenGPS
                 baseDirectory = Path.Combine(workingDirectory, "AgOpenGPS");
             }
 
-
             //get the vehicles directory, if not exist, create
             try
             {
@@ -156,6 +173,21 @@ namespace AgOpenGPS
             catch (Exception ex)
             {
                 Log.EventWriter("Catch, Serious Problem Making Vehicles Directory: " + ex.ToString());
+            }
+
+            //get the Tools directory, if not exist, create
+            try
+            {
+                toolsDirectory = Path.Combine(baseDirectory, "Tools");
+                if (!string.IsNullOrEmpty(toolsDirectory) && !Directory.Exists(toolsDirectory))
+                {
+                    Directory.CreateDirectory(toolsDirectory);
+                    Log.EventWriter("Tools Dir Created");
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.EventWriter("Catch, Serious Problem Making Tools Directory: " + ex.ToString());
             }
 
             //get the fields directory, if not exist, create

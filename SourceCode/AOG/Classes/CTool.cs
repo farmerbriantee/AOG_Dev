@@ -63,35 +63,35 @@ namespace AgOpenGPS
 
             //from settings grab the vehicle specifics
 
-            trailingToolToPivotLength = Properties.Settings.Default.setTool_trailingToolToPivotLength;
-            width = Properties.Settings.Default.setVehicle_toolWidth;
-            overlap = Properties.Settings.Default.setVehicle_toolOverlap;
+            trailingToolToPivotLength = Properties.ToolSettings.Default.setTool_trailingToolToPivotLength;
+            width = Properties.ToolSettings.Default.setVehicle_toolWidth;
+            overlap = Properties.ToolSettings.Default.setVehicle_toolOverlap;
 
-            offset = Properties.Settings.Default.setVehicle_toolOffset;
+            offset = Properties.ToolSettings.Default.setVehicle_toolOffset;
 
-            trailingHitchLength = Properties.Settings.Default.setTool_toolTrailingHitchLength;
-            tankTrailingHitchLength = Properties.Settings.Default.setVehicle_tankTrailingHitchLength;
-            hitchLength = Properties.Settings.Default.setVehicle_hitchLength;
+            trailingHitchLength = Properties.ToolSettings.Default.setTool_toolTrailingHitchLength;
+            tankTrailingHitchLength = Properties.ToolSettings.Default.setVehicle_tankTrailingHitchLength;
+            hitchLength = Properties.ToolSettings.Default.setVehicle_hitchLength;
 
-            isToolRearFixed = Properties.Settings.Default.setTool_isToolRearFixed;
-            isToolTrailing = Properties.Settings.Default.setTool_isToolTrailing;
-            isToolTBT = Properties.Settings.Default.setTool_isToolTBT;
-            isToolFrontFixed = Properties.Settings.Default.setTool_isToolFront;
+            isToolRearFixed = Properties.ToolSettings.Default.setTool_isToolRearFixed;
+            isToolTrailing = Properties.ToolSettings.Default.setTool_isToolTrailing;
+            isToolTBT = Properties.ToolSettings.Default.setTool_isToolTBT;
+            isToolFrontFixed = Properties.ToolSettings.Default.setTool_isToolFront;
 
-            lookAheadOnSetting = Properties.Settings.Default.setVehicle_toolLookAheadOn;
-            lookAheadOffSetting = Properties.Settings.Default.setVehicle_toolLookAheadOff;
-            turnOffDelay = Properties.Settings.Default.setVehicle_toolOffDelay;
+            lookAheadOnSetting = Properties.ToolSettings.Default.setVehicle_toolLookAheadOn;
+            lookAheadOffSetting = Properties.ToolSettings.Default.setVehicle_toolLookAheadOff;
+            turnOffDelay = Properties.ToolSettings.Default.setVehicle_toolOffDelay;
 
-            isSectionOffWhenOut = Properties.Settings.Default.setTool_isSectionOffWhenOut;
+            isSectionOffWhenOut = Properties.ToolSettings.Default.setTool_isSectionOffWhenOut;
 
-            isSectionsNotZones = Properties.Settings.Default.setTool_isSectionsNotZones;
+            isSectionsNotZones = Properties.ToolSettings.Default.setTool_isSectionsNotZones;
 
             if (isSectionsNotZones)
-                numOfSections = Properties.Settings.Default.setVehicle_numSections;
+                numOfSections = Properties.ToolSettings.Default.setVehicle_numSections;
             else
-                numOfSections = Properties.Settings.Default.setTool_numSectionsMulti;
+                numOfSections = Properties.ToolSettings.Default.setTool_numSectionsMulti;
 
-            minCoverage = Properties.Settings.Default.setVehicle_minCoverage;
+            minCoverage = Properties.ToolSettings.Default.setVehicle_minCoverage;
             isMultiColoredSections = Properties.Settings.Default.setColor_isMultiColorSections;
 
             secColors[0] = Properties.Settings.Default.setColor_sec01.CheckColorFor255();
@@ -111,7 +111,7 @@ namespace AgOpenGPS
             secColors[14] = Properties.Settings.Default.setColor_sec15.CheckColorFor255();
             secColors[15] = Properties.Settings.Default.setColor_sec16.CheckColorFor255();
 
-            string[] words = Properties.Settings.Default.setTool_zones.Split(',');
+            string[] words = Properties.ToolSettings.Default.setTool_zones.Split(',');
             zones = int.Parse(words[0]);
 
             for (int i = 0; i < words.Length; i++)
@@ -119,7 +119,7 @@ namespace AgOpenGPS
                 zoneRanges[i] = int.Parse(words[i]);
             }
 
-            isDisplayTramControl = Properties.Settings.Default.setTool_isDisplayTramControl;
+            isDisplayTramControl = Properties.ToolSettings.Default.setTool_isDisplayTramControl;
         }
 
         public void DrawTool()

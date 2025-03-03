@@ -586,53 +586,53 @@ namespace AgOpenGPS
         {
             if (tool.isSectionsNotZones)
             {
-                section[0].positionLeft = (double)Settings.Default.setSection_position1 + Settings.Default.setVehicle_toolOffset;
-                section[0].positionRight = (double)Settings.Default.setSection_position2 + Settings.Default.setVehicle_toolOffset;
+                section[0].positionLeft = (double)ToolSettings.Default.setSection_position1 + ToolSettings.Default.setVehicle_toolOffset;
+                section[0].positionRight = (double)ToolSettings.Default.setSection_position2 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[1].positionLeft = (double)Settings.Default.setSection_position2 + Settings.Default.setVehicle_toolOffset;
-                section[1].positionRight = (double)Settings.Default.setSection_position3 + Settings.Default.setVehicle_toolOffset;
+                section[1].positionLeft = (double)ToolSettings.Default.setSection_position2 + ToolSettings.Default.setVehicle_toolOffset;
+                section[1].positionRight = (double)ToolSettings.Default.setSection_position3 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[2].positionLeft = (double)Settings.Default.setSection_position3 + Settings.Default.setVehicle_toolOffset;
-                section[2].positionRight = (double)Settings.Default.setSection_position4 + Settings.Default.setVehicle_toolOffset;
+                section[2].positionLeft = (double)ToolSettings.Default.setSection_position3 + ToolSettings.Default.setVehicle_toolOffset;
+                section[2].positionRight = (double)ToolSettings.Default.setSection_position4 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[3].positionLeft = (double)Settings.Default.setSection_position4 + Settings.Default.setVehicle_toolOffset;
-                section[3].positionRight = (double)Settings.Default.setSection_position5 + Settings.Default.setVehicle_toolOffset;
+                section[3].positionLeft = (double)ToolSettings.Default.setSection_position4 + ToolSettings.Default.setVehicle_toolOffset;
+                section[3].positionRight = (double)ToolSettings.Default.setSection_position5 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[4].positionLeft = (double)Settings.Default.setSection_position5 + Settings.Default.setVehicle_toolOffset;
-                section[4].positionRight = (double)Settings.Default.setSection_position6 + Settings.Default.setVehicle_toolOffset;
+                section[4].positionLeft = (double)ToolSettings.Default.setSection_position5 + ToolSettings.Default.setVehicle_toolOffset;
+                section[4].positionRight = (double)ToolSettings.Default.setSection_position6 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[5].positionLeft = (double)Settings.Default.setSection_position6 + Settings.Default.setVehicle_toolOffset;
-                section[5].positionRight = (double)Settings.Default.setSection_position7 + Settings.Default.setVehicle_toolOffset;
+                section[5].positionLeft = (double)ToolSettings.Default.setSection_position6 + ToolSettings.Default.setVehicle_toolOffset;
+                section[5].positionRight = (double)ToolSettings.Default.setSection_position7 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[6].positionLeft = (double)Settings.Default.setSection_position7 + Settings.Default.setVehicle_toolOffset;
-                section[6].positionRight = (double)Settings.Default.setSection_position8 + Settings.Default.setVehicle_toolOffset;
+                section[6].positionLeft = (double)ToolSettings.Default.setSection_position7 + ToolSettings.Default.setVehicle_toolOffset;
+                section[6].positionRight = (double)ToolSettings.Default.setSection_position8 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[7].positionLeft = (double)Settings.Default.setSection_position8 + Settings.Default.setVehicle_toolOffset;
-                section[7].positionRight = (double)Settings.Default.setSection_position9 + Settings.Default.setVehicle_toolOffset;
+                section[7].positionLeft = (double)ToolSettings.Default.setSection_position8 + ToolSettings.Default.setVehicle_toolOffset;
+                section[7].positionRight = (double)ToolSettings.Default.setSection_position9 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[8].positionLeft = (double)Settings.Default.setSection_position9 + Settings.Default.setVehicle_toolOffset;
-                section[8].positionRight = (double)Settings.Default.setSection_position10 + Settings.Default.setVehicle_toolOffset;
+                section[8].positionLeft = (double)ToolSettings.Default.setSection_position9 + ToolSettings.Default.setVehicle_toolOffset;
+                section[8].positionRight = (double)ToolSettings.Default.setSection_position10 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[9].positionLeft = (double)Settings.Default.setSection_position10 + Settings.Default.setVehicle_toolOffset;
-                section[9].positionRight = (double)Settings.Default.setSection_position11 + Settings.Default.setVehicle_toolOffset;
+                section[9].positionLeft = (double)ToolSettings.Default.setSection_position10 + ToolSettings.Default.setVehicle_toolOffset;
+                section[9].positionRight = (double)ToolSettings.Default.setSection_position11 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[10].positionLeft = (double)Settings.Default.setSection_position11 + Settings.Default.setVehicle_toolOffset;
-                section[10].positionRight = (double)Settings.Default.setSection_position12 + Settings.Default.setVehicle_toolOffset;
+                section[10].positionLeft = (double)ToolSettings.Default.setSection_position11 + ToolSettings.Default.setVehicle_toolOffset;
+                section[10].positionRight = (double)ToolSettings.Default.setSection_position12 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[11].positionLeft = (double)Settings.Default.setSection_position12 + Settings.Default.setVehicle_toolOffset;
-                section[11].positionRight = (double)Settings.Default.setSection_position13 + Settings.Default.setVehicle_toolOffset;
+                section[11].positionLeft = (double)ToolSettings.Default.setSection_position12 + ToolSettings.Default.setVehicle_toolOffset;
+                section[11].positionRight = (double)ToolSettings.Default.setSection_position13 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[12].positionLeft = (double)Settings.Default.setSection_position13 + Settings.Default.setVehicle_toolOffset;
-                section[12].positionRight = (double)Settings.Default.setSection_position14 + Settings.Default.setVehicle_toolOffset;
+                section[12].positionLeft = (double)ToolSettings.Default.setSection_position13 + ToolSettings.Default.setVehicle_toolOffset;
+                section[12].positionRight = (double)ToolSettings.Default.setSection_position14 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[13].positionLeft = (double)Settings.Default.setSection_position14 + Settings.Default.setVehicle_toolOffset;
-                section[13].positionRight = (double)Settings.Default.setSection_position15 + Settings.Default.setVehicle_toolOffset;
+                section[13].positionLeft = (double)ToolSettings.Default.setSection_position14 + ToolSettings.Default.setVehicle_toolOffset;
+                section[13].positionRight = (double)ToolSettings.Default.setSection_position15 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[14].positionLeft = (double)Settings.Default.setSection_position15 + Settings.Default.setVehicle_toolOffset;
-                section[14].positionRight = (double)Settings.Default.setSection_position16 + Settings.Default.setVehicle_toolOffset;
+                section[14].positionLeft = (double)ToolSettings.Default.setSection_position15 + ToolSettings.Default.setVehicle_toolOffset;
+                section[14].positionRight = (double)ToolSettings.Default.setSection_position16 + ToolSettings.Default.setVehicle_toolOffset;
 
-                section[15].positionLeft = (double)Settings.Default.setSection_position16 + Settings.Default.setVehicle_toolOffset;
-                section[15].positionRight = (double)Settings.Default.setSection_position17 + Settings.Default.setVehicle_toolOffset;
+                section[15].positionLeft = (double)ToolSettings.Default.setSection_position16 + ToolSettings.Default.setVehicle_toolOffset;
+                section[15].positionRight = (double)ToolSettings.Default.setSection_position17 + ToolSettings.Default.setVehicle_toolOffset;
             }
         }
 
@@ -664,8 +664,8 @@ namespace AgOpenGPS
         public void SectionCalcMulti()
         {
             double leftside = tool.width / -2.0;
-            double defaultSectionWidth = Properties.Settings.Default.setTool_sectionWidthMulti;
-            double offset = Settings.Default.setVehicle_toolOffset;
+            double defaultSectionWidth = Properties.ToolSettings.Default.setTool_sectionWidthMulti;
+            double offset = ToolSettings.Default.setVehicle_toolOffset;
             section[0].positionLeft = leftside+offset;
 
             for (int i = 0; i < tool.numOfSections - 1; i++)

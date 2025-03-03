@@ -25,11 +25,11 @@ namespace AgOpenGPS
         {
             if (cboxRate1Rate2Select.Checked)
             {
-                nozz.volumePerAreaSetSelected = Properties.Settings.Default.setNozzleSettings.volumePerAreaSet2;
+                nozz.volumePerAreaSetSelected = Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet2;
             }
             else
             {
-                nozz.volumePerAreaSetSelected = Properties.Settings.Default.setNozzleSettings.volumePerAreaSet1;
+                nozz.volumePerAreaSetSelected = Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet1;
             }
 
             cboxRate1Rate2Select.Text = nozz.volumePerAreaSetSelected + nozz.unitsPerArea;
@@ -74,11 +74,11 @@ namespace AgOpenGPS
 
             if (cboxRate1Rate2Select.Checked)
             {
-                nozz.volumePerAreaSetSelected = Properties.Settings.Default.setNozzleSettings.volumePerAreaSet2;
+                nozz.volumePerAreaSetSelected = Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet2;
             }
             else
             {
-                nozz.volumePerAreaSetSelected = Properties.Settings.Default.setNozzleSettings.volumePerAreaSet1;
+                nozz.volumePerAreaSetSelected = Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet1;
             }
 
             cboxRate1Rate2Select.Text = nozz.volumePerAreaSetSelected + nozz.unitsPerArea;

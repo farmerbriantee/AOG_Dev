@@ -169,6 +169,9 @@
     <Compile Include="Classes\CNozzle.cs" />
     <Compile Include="Classes\CPolygon.cs" />
     <Compile Include="Classes\CPatches.cs" />
+    <Compile Include="Forms\Inputs\Keyboard.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\CRegistrySettings.cs" />
     <Compile Include="Classes\CSettings.cs" />
     <Compile Include="Classes\CSound.cs" />
@@ -625,6 +628,9 @@
     <EmbeddedResource Include="Forms\Guidance\FormQuickAB.resx">
       <DependentUpon>FormQuickAB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Inputs\Keyboard.resx">
+      <DependentUpon>Keyboard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pickers\FormJobPicker.resx">
       <DependentUpon>FormJobPicker.cs</DependentUpon>
     </EmbeddedResource>
@@ -801,6 +807,7 @@
     <None Include="btnImages\IncrementMinus.png" />
     <None Include="btnImages\IncrementPlus.png" />
     <None Include="btnImages\ABPivotCircle.png" />
+    <Content Include="btnImages\Shift.png" />
     <Content Include="btnImages\ZoomOut.png" />
     <Content Include="License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

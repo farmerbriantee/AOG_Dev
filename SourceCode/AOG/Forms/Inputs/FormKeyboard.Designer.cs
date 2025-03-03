@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.keyboardString = new System.Windows.Forms.TextBox();
-            this.keyboard1 = new Keypad.Keyboard();
+            this.keyboard1 = new AgOpenGPS.Keyboard();
             this.btnCharLeft = new System.Windows.Forms.Button();
             this.btnCharRight = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -113,7 +113,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox keyboardString;
-        private Keypad.Keyboard keyboard1;
+        private AgOpenGPS.Keyboard keyboard1;
         private System.Windows.Forms.Button btnCharLeft;
         private System.Windows.Forms.Button btnCharRight;
     }

@@ -76,7 +76,9 @@ namespace AgOpenGPS
                 //adding or editing "Language" subkey to the "SOFTWARE" subkey  
                 RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
 
-                if (name == "VehicleFileName")
+                if (name == "InterfaceFileName")
+                    interfaceFileName = value;
+                else if (name == "VehicleFileName")
                     vehicleFileName = value;
                 else if (name == "ToolFileName")
                     toolFileName = value;

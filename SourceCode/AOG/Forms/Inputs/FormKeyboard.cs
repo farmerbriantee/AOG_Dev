@@ -1,5 +1,4 @@
 ﻿using AgOpenGPS.Classes;
-
 using System;
 using System.Windows.Forms;
 

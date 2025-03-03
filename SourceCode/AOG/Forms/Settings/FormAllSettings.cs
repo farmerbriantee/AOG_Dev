@@ -76,7 +76,6 @@ namespace AgOpenGPS
             label98.Text = Settings.Vehicle.setHeadland_isSectionControlled.ToString();
             label100.Text = Settings.Vehicle.setIMU_fusionWeight2.ToString();
             label102.Text = Settings.Vehicle.setIMU_invertRoll.ToString();
-            label104.Text = Settings.Vehicle.setIMU_isDualAsIMU.ToString();
             label106.Text = Settings.Vehicle.setIMU_isReverseOn.ToString();
             label108.Text = Settings.Vehicle.setIMU_rollFilter.ToString();
             label112.Text = Settings.Tool.isSectionOffWhenOut.ToString();

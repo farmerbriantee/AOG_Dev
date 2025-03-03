@@ -483,7 +483,7 @@ namespace AgOpenGPS
 
             hotkeys = new char[19];
 
-            hotkeys = Settings.Vehicle.setKey_hotkeys.ToCharArray();
+            hotkeys = Settings.User.hotkeys.ToCharArray();
 
             Log.EventWriter("Terms Accepted");
 

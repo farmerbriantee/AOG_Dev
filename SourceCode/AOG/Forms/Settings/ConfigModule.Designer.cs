@@ -175,7 +175,7 @@ namespace AgOpenGPS
             cboxPin22.Items.Clear(); cboxPin22.Items.AddRange(wordsList);
             cboxPin23.Items.Clear(); cboxPin23.Items.AddRange(wordsList);
 
-            words = Settings.Vehicle.setRelay_pinConfig.Split(',');
+            words = Settings.Tool.setRelay_pinConfig.Split(',');
 
             cboxPin0.SelectedIndex = int.Parse(words[0]);
             cboxPin1.SelectedIndex = int.Parse(words[1]);
@@ -247,7 +247,7 @@ namespace AgOpenGPS
                .Append(cboxPin22.SelectedIndex.ToString() + ",")
                .Append(cboxPin23.SelectedIndex.ToString());
 
-            Settings.Vehicle.setRelay_pinConfig = bob.ToString();
+            Settings.Tool.setRelay_pinConfig = bob.ToString();
 
             //save settings
             
@@ -257,7 +257,7 @@ namespace AgOpenGPS
 
         private void SendRelaySettingsToMachineModule()
         {
-            words = Settings.Vehicle.setRelay_pinConfig.Split(',');
+            words = Settings.Tool.setRelay_pinConfig.Split(',');
 
             //load the pgn
             PGN_236.pgn[PGN_236.pin0] = (byte)int.Parse(words[0]);

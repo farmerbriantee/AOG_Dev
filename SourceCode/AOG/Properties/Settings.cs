@@ -104,7 +104,6 @@ namespace AgOpenGPS
             public Color colorSectionsDay = Color.FromArgb(27, 151, 160);
             public Color colorSectionsNight = Color.FromArgb(27, 100, 100);
 
-
             public Color colorDayFrame = Color.FromArgb(210, 210, 230);
             public Color colorNightFrame = Color.FromArgb(50, 50, 65);
             public Color colorFieldDay = Color.FromArgb(160, 160, 185);
@@ -133,6 +132,8 @@ namespace AgOpenGPS
             public bool sound_isHydLiftOn = true;
             public bool sound_isSectionsOn = true;
             public bool sound_isUturnOn = true;
+
+            public string hotkeys = "ACFGMNPTYVW12345678";
 
             public LoadResult Load()
             {
@@ -253,23 +254,16 @@ namespace AgOpenGPS
             public double setGPS_SimLongitude = -111.160047;
             public int setGPS_ageAlarm = 20;
             public int setGPS_jumpFixAlarmDistance = 0;
-            public int SetGPS_udpWatchMsec = 50;
 
             public bool setHeadland_isSectionControlled = true;
 
             public bool setIMU_invertRoll = false;
-            public bool setIMU_isDualAsIMU = false;
             public bool setIMU_isHeadingCorrectionFromAutoSteer = false;
             public bool setIMU_isReverseOn = true;
             public double setIMU_fusionWeight2 = 0.06;
             public double setIMU_rollFilter = 0.0;
             public double setIMU_rollZero = 0.0;
             public int setIMU_pitchZeroX16 = 0;
-
-
-            public string setKey_hotkeys = "ACFGMNPTYVW12345678";
-
-            public string setRelay_pinConfig = "1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
 
             public double stanleyDistanceErrorGain = 1;
             public double stanleyHeadingErrorGain = 1;
@@ -293,7 +287,6 @@ namespace AgOpenGPS
             public int setVehicle_vehicleType = 0;
             public bool setVehicle_isMachineControlToAutoSteer = false;
             public bool setVehicle_isStanleyUsed = false;
-
 
             public int set_uTurnStyle = 0;
             public double set_youMoveDistance = 0.25;
@@ -388,6 +381,9 @@ namespace AgOpenGPS
             public double sectionWidthMulti = 0.5;
 
             public double[] setSection_Widths = new double[3] { 2, 2, 2 };
+
+            public string setRelay_pinConfig = "1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
+
 
             public Color setColor_sec01 = Color.FromArgb(249, 22, 10);
             public Color setColor_sec02 = Color.FromArgb(68, 84, 254);

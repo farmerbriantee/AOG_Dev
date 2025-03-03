@@ -17,7 +17,7 @@ namespace AgOpenGPS
             PGN_252.pgn[PGN_252.ackerman] = Settings.Vehicle.setAS_ackerman;
 
             //pin relays
-            string[] words = Settings.Vehicle.setRelay_pinConfig.Split(',');
+            string[] words = Settings.Tool.setRelay_pinConfig.Split(',');
 
             PGN_236.pgn[PGN_236.pin0] = (byte)int.Parse(words[0]);
             PGN_236.pgn[PGN_236.pin1] = (byte)int.Parse(words[1]);

@@ -80,7 +80,7 @@ namespace AgOpenGPS
             originalLine = mf.trk.idx;
 
             selectedItem = -1;
-            Location = Settings.Interface.setWindow_buildTracksLocation;
+            Location = Settings.User.setWindow_buildTracksLocation;
 
 
             nudLatitudeA.Value = mf.pn.latitude;
@@ -109,7 +109,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            Settings.Interface.setWindow_buildTracksLocation = Location;
+            Settings.User.setWindow_buildTracksLocation = Location;
 
             mf.twoSecondCounter = 100;
 

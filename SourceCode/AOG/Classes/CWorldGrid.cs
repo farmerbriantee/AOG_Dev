@@ -62,7 +62,7 @@ namespace AgOpenGPS
 
         public void DrawFieldSurface()
         {
-            Color field = mf.isDay ? Settings.Interface.setDisplay_colorFieldDay : Settings.Interface.setDisplay_colorFieldNight;
+            Color field = mf.isDay ? Settings.User.setDisplay_colorFieldDay : Settings.User.setDisplay_colorFieldNight;
 
             //adjust bitmap zoom based on cam zoom
             if (mf.camera.zoomValue > 100) Count = 4;

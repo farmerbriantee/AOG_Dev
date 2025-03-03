@@ -94,8 +94,8 @@ namespace AgOpenGPS
                     lblResumeJob.Text = $" Job: {gStr.Get(gs.gsNone)}";
             }
 
-            Location = Settings.Interface.setWindow_FieldMenulocation;
-            Size = Settings.Interface.setWindow_FieldMenuSize;
+            Location = Settings.User.setWindow_FieldMenulocation;
+            Size = Settings.User.setWindow_FieldMenuSize;
 
             mf.CloseTopMosts();
 
@@ -108,8 +108,8 @@ namespace AgOpenGPS
 
         private void FormField_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Settings.Interface.setWindow_FieldMenulocation = Location;
-            Settings.Interface.setWindow_FieldMenuSize = Size;
+            Settings.User.setWindow_FieldMenulocation = Location;
+            Settings.User.setWindow_FieldMenuSize = Size;
         }
 
         #region Field Btns

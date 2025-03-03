@@ -614,7 +614,7 @@ namespace AgOpenGPS
             mf.vehicleOpacityByte = (byte)(255 * (mf.vehicleOpacity));
             Settings.Vehicle.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
 
-            Settings.Interface.setDisplay_colorVehicle = mf.vehicleColor;
+            Settings.User.setDisplay_colorVehicle = mf.vehicleColor;
 
             if (rbtnTractor.Checked)
             {

@@ -16,12 +16,12 @@ namespace AgOpenGPS
     public sealed class Settings
     {
 
-        private static InterfaceSettings interface_ = new InterfaceSettings();
-        public static InterfaceSettings Interface
+        private static UserSettings user_ = new UserSettings();
+        public static UserSettings User
         {
             get
             {
-                return interface_;
+                return user_;
             }
         }
 
@@ -43,7 +43,7 @@ namespace AgOpenGPS
             }
         }
 
-        public sealed class InterfaceSettings
+        public sealed class UserSettings
         {
             public CFeatureSettings setFeatures = new CFeatureSettings();
 
@@ -83,7 +83,7 @@ namespace AgOpenGPS
             public Color setDisplay_colorFieldDay = Color.FromArgb(160, 160, 185);
             public Color setDisplay_colorFieldNight = Color.FromArgb(60, 60, 60);
             public Color setDisplay_colorNightFrame = Color.FromArgb(50, 50, 65);
-            public Color setDisplay_colorSectionsDay = Color.FromArgb(27, 151, 160);
+            public Color colorSectionsDay = Color.FromArgb(27, 151, 160);
             public Color setDisplay_colorSectionsNight = Color.FromArgb(27, 100, 100);
             public Color setDisplay_colorTextDay = Color.FromArgb(10, 10, 20);
             public Color setDisplay_colorTextNight = Color.FromArgb(230, 230, 230);
@@ -122,8 +122,8 @@ namespace AgOpenGPS
 
             public void Reset()
             {
-                interface_ = new InterfaceSettings();
-                interface_.Save();
+                user_ = new UserSettings();
+                user_.Save();
             }
         }
 

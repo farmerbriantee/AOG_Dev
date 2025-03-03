@@ -1255,14 +1255,14 @@ namespace AgOpenGPS
                 isFullScreen = true;
                 btnMaximizeMainForm.Visible = false;
                 btnMinimizeMainForm.Visible = false;
-                Settings.Interface.setWindow_isKioskMode = true;
+                Settings.User.setWindow_isKioskMode = true;
             }
             else
             {
                 kioskModeToolStrip.Checked = false;
                 btnMaximizeMainForm.Visible = true;
                 btnMinimizeMainForm.Visible = true;
-                Settings.Interface.setWindow_isKioskMode = false;
+                Settings.User.setWindow_isKioskMode = false;
             }
         }
 
@@ -1630,11 +1630,11 @@ namespace AgOpenGPS
         public bool isPatchesChangingColor = false;
         private void btnChangeMappingColor_Click(object sender, EventArgs e)
         {
-            using (var form = new FormColorPicker(this, Settings.Interface.setDisplay_colorSectionsDay))
+            using (var form = new FormColorPicker(this, Settings.User.colorSectionsDay))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    Settings.Interface.setDisplay_colorSectionsDay = form.useThisColor;
+                    Settings.User.colorSectionsDay = form.useThisColor;
                 }
             }
 

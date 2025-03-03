@@ -47,8 +47,7 @@ namespace AgOpenGPS
                     triangleList.Add(new vec3(mf.tool.secColors[j].R, mf.tool.secColors[j].G, mf.tool.secColors[j].B));
                 else
                 {
-                    var color = Settings.Interface.setDisplay_colorSectionsDay;
-                    triangleList.Add(new vec3(color.R, color.G, color.B));
+                    triangleList.Add(new vec3(Settings.User.colorSectionsDay.R, Settings.User.colorSectionsDay.G, Settings.User.colorSectionsDay.B));
                 }
                
                 leftPoint = mf.section[currentStartSectionNum].leftPoint;
@@ -141,7 +140,7 @@ namespace AgOpenGPS
                     triangleList.Add(new vec3(mf.tool.secColors[currentStartSectionNum].R, mf.tool.secColors[currentStartSectionNum].G, mf.tool.secColors[currentStartSectionNum].B));
                 else
                 {
-                    var color = Settings.Interface.setDisplay_colorSectionsDay;
+                    var color = Settings.User.colorSectionsDay;
                     triangleList.Add(new vec3(color.R, color.G, color.B));
                 }
 

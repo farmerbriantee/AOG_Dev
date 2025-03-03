@@ -280,47 +280,47 @@ namespace AgOpenGPS
 
         private void tabBtns_Enter(object sender, EventArgs e)
         {
-            cboxFeatureTram.Checked = Settings.Interface.setFeatures.isTramOn;
-            cboxFeatureHeadland.Checked = Settings.Interface.setFeatures.isHeadlandOn;
-            cboxFeatureBoundary.Checked = Settings.Interface.setFeatures.isBoundaryOn;
+            cboxFeatureTram.Checked = Settings.User.setFeatures.isTramOn;
+            cboxFeatureHeadland.Checked = Settings.User.setFeatures.isHeadlandOn;
+            cboxFeatureBoundary.Checked = Settings.User.setFeatures.isBoundaryOn;
 
             //the nudge controls at bottom menu
-            cboxFeatureNudge.Checked = Settings.Interface.setFeatures.isABLineOn;
+            cboxFeatureNudge.Checked = Settings.User.setFeatures.isABLineOn;
             //cboxFeatureBoundaryContour.Checked = Properties.Settings.Default.setFeatures.isBndContourOn;
-            cboxFeatureABSmooth.Checked = Settings.Interface.setFeatures.isABSmoothOn;
-            cboxFeatureHideContour.Checked = Settings.Interface.setFeatures.isHideContourOn;
-            cboxFeatureWebcam.Checked = Settings.Interface.setFeatures.isWebCamOn;
-            cboxFeatureOffsetFix.Checked = Settings.Interface.setFeatures.isOffsetFixOn;
+            cboxFeatureABSmooth.Checked = Settings.User.setFeatures.isABSmoothOn;
+            cboxFeatureHideContour.Checked = Settings.User.setFeatures.isHideContourOn;
+            cboxFeatureWebcam.Checked = Settings.User.setFeatures.isWebCamOn;
+            cboxFeatureOffsetFix.Checked = Settings.User.setFeatures.isOffsetFixOn;
 
-            cboxFeatureUTurn.Checked = Settings.Interface.setFeatures.isUTurnOn;
-            cboxFeatureLateral.Checked = Settings.Interface.setFeatures.isLateralOn;
+            cboxFeatureUTurn.Checked = Settings.User.setFeatures.isUTurnOn;
+            cboxFeatureLateral.Checked = Settings.User.setFeatures.isLateralOn;
 
             cboxTurnSound.Checked = Settings.Vehicle.setSound_isUturnOn;
             cboxSteerSound.Checked = Settings.Vehicle.setSound_isAutoSteerOn;
             cboxHydLiftSound.Checked = Settings.Vehicle.setSound_isHydLiftOn;
             cboxSectionsSound.Checked = Settings.Vehicle.setSound_isSectionsOn;
 
-            cboxAutoStartAgIO.Checked = Settings.Interface.setDisplay_isAutoStartAgIO;
-            cboxAutoOffAgIO.Checked = Settings.Interface.setDisplay_isAutoOffAgIO;
+            cboxAutoStartAgIO.Checked = Settings.User.setDisplay_isAutoStartAgIO;
+            cboxAutoOffAgIO.Checked = Settings.User.setDisplay_isAutoOffAgIO;
             cboxShutdownWhenNoPower.Checked = Settings.Vehicle.setDisplay_isShutdownWhenNoPower;
             cboxHardwareMessages.Checked = Settings.Vehicle.setDisplay_isHardwareMessages;
         }
 
         private void tabBtns_Leave(object sender, EventArgs e)
         {
-            Settings.Interface.setFeatures.isTramOn = cboxFeatureTram.Checked;
-            Settings.Interface.setFeatures.isHeadlandOn = cboxFeatureHeadland.Checked;
+            Settings.User.setFeatures.isTramOn = cboxFeatureTram.Checked;
+            Settings.User.setFeatures.isHeadlandOn = cboxFeatureHeadland.Checked;
 
-            Settings.Interface.setFeatures.isABLineOn = cboxFeatureNudge.Checked;
+            Settings.User.setFeatures.isABLineOn = cboxFeatureNudge.Checked;
 
-            Settings.Interface.setFeatures.isBoundaryOn = cboxFeatureBoundary.Checked;
-            Settings.Interface.setFeatures.isABSmoothOn = cboxFeatureABSmooth.Checked;
-            Settings.Interface.setFeatures.isHideContourOn = cboxFeatureHideContour.Checked;
-            Settings.Interface.setFeatures.isWebCamOn = cboxFeatureWebcam.Checked;
-            Settings.Interface.setFeatures.isOffsetFixOn = cboxFeatureOffsetFix.Checked;
+            Settings.User.setFeatures.isBoundaryOn = cboxFeatureBoundary.Checked;
+            Settings.User.setFeatures.isABSmoothOn = cboxFeatureABSmooth.Checked;
+            Settings.User.setFeatures.isHideContourOn = cboxFeatureHideContour.Checked;
+            Settings.User.setFeatures.isWebCamOn = cboxFeatureWebcam.Checked;
+            Settings.User.setFeatures.isOffsetFixOn = cboxFeatureOffsetFix.Checked;
 
-            Settings.Interface.setFeatures.isLateralOn = cboxFeatureLateral.Checked;
-            Settings.Interface.setFeatures.isUTurnOn = cboxFeatureUTurn.Checked;
+            Settings.User.setFeatures.isLateralOn = cboxFeatureLateral.Checked;
+            Settings.User.setFeatures.isUTurnOn = cboxFeatureUTurn.Checked;
 
             Settings.Vehicle.setSound_isUturnOn = cboxTurnSound.Checked;
             mf.sounds.isTurnSoundOn = cboxTurnSound.Checked;
@@ -331,10 +331,10 @@ namespace AgOpenGPS
             Settings.Vehicle.setSound_isHydLiftOn = cboxHydLiftSound.Checked;
             mf.sounds.isHydLiftSoundOn = cboxHydLiftSound.Checked;
 
-            Settings.Interface.setDisplay_isAutoStartAgIO = cboxAutoStartAgIO.Checked;
+            Settings.User.setDisplay_isAutoStartAgIO = cboxAutoStartAgIO.Checked;
             mf.isAutoStartAgIO = cboxAutoStartAgIO.Checked;
 
-            Settings.Interface.setDisplay_isAutoOffAgIO = cboxAutoOffAgIO.Checked;
+            Settings.User.setDisplay_isAutoOffAgIO = cboxAutoOffAgIO.Checked;
 
             Settings.Vehicle.setDisplay_isShutdownWhenNoPower = cboxShutdownWhenNoPower.Checked;
 

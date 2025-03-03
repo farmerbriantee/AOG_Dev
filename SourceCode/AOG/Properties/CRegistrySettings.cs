@@ -36,7 +36,7 @@ namespace AgOpenGPS
 
                 workingDirectory = regKey.GetValue("WorkingDirectory", "Default").ToString();
 
-                //Interface File Name Registry Key
+                //User File Name Registry Key
                 interfaceFileName = regKey.GetValue("InterfaceFileName", "Default").ToString();
 
                 //Vehicle File Name Registry Key
@@ -64,7 +64,7 @@ namespace AgOpenGPS
             //keep below 500 kb
             Log.CheckLogSize(Path.Combine(logsDirectory, "AgOpenGPS_Events_Log.txt"), 500000);
 
-            Settings.Interface.Load();
+            Settings.User.Load();
             Settings.Vehicle.Load();
             Settings.Tool.Load();
         }

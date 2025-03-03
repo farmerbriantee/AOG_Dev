@@ -29,8 +29,8 @@ namespace AgOpenGPS
 
             snapAdj = Settings.Vehicle.setAS_snapDistance;
 
-            Location = Settings.Interface.setWindow_formNudgeLocation;
-            Size = Settings.Interface.setWindow_formNudgeSize;
+            Location = Settings.User.setWindow_formNudgeLocation;
+            Size = Settings.User.setWindow_formNudgeSize;
             UpdateMoveLabel();
 
             if (!mf.IsOnScreen(Location, Size, 1))
@@ -47,8 +47,8 @@ namespace AgOpenGPS
 
         private void FormEditTrack_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Settings.Interface.setWindow_formNudgeLocation = Location;
-            Settings.Interface.setWindow_formNudgeSize = Size;
+            Settings.User.setWindow_formNudgeLocation = Location;
+            Settings.User.setWindow_formNudgeSize = Size;
 
             //save entire list
             mf.FileSaveTracks();

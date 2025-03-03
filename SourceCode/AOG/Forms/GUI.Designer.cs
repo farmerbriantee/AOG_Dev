@@ -359,36 +359,36 @@ namespace AgOpenGPS
             isMetric = Settings.Vehicle.setMenu_isMetric;
 
             //kiosk mode
-            isKioskMode = Settings.Interface.setWindow_isKioskMode;
+            isKioskMode = Settings.User.setWindow_isKioskMode;
             if (isKioskMode) kioskModeToolStrip.Checked = true;
             else kioskModeToolStrip.Checked = false;
 
             //field menu
-            boundariesToolStripMenuItem.Visible = Settings.Interface.setFeatures.isBoundaryOn;
-            headlandToolStripMenuItem.Visible = Settings.Interface.setFeatures.isHeadlandOn;
-            headlandBuildToolStripMenuItem.Visible = Settings.Interface.setFeatures.isHeadlandOn;
-            tramsMultiMenuField.Visible = Settings.Interface.setFeatures.isTramOn;
-            recordedPathStripMenu.Visible = Settings.Interface.setFeatures.isRecPathOn;
+            boundariesToolStripMenuItem.Visible = Settings.User.setFeatures.isBoundaryOn;
+            headlandToolStripMenuItem.Visible = Settings.User.setFeatures.isHeadlandOn;
+            headlandBuildToolStripMenuItem.Visible = Settings.User.setFeatures.isHeadlandOn;
+            tramsMultiMenuField.Visible = Settings.User.setFeatures.isTramOn;
+            recordedPathStripMenu.Visible = Settings.User.setFeatures.isRecPathOn;
 
 
             //tools menu
-            SmoothABtoolStripMenu.Visible = Settings.Interface.setFeatures.isABSmoothOn;
-            deleteContourPathsToolStripMenuItem.Visible = Settings.Interface.setFeatures.isHideContourOn;
-            webcamToolStrip.Visible = Settings.Interface.setFeatures.isWebCamOn;
-            offsetFixToolStrip.Visible = Settings.Interface.setFeatures.isOffsetFixOn;
+            SmoothABtoolStripMenu.Visible = Settings.User.setFeatures.isABSmoothOn;
+            deleteContourPathsToolStripMenuItem.Visible = Settings.User.setFeatures.isHideContourOn;
+            webcamToolStrip.Visible = Settings.User.setFeatures.isWebCamOn;
+            offsetFixToolStrip.Visible = Settings.User.setFeatures.isOffsetFixOn;
             if (isSideGuideLines) guidelinesToolStripMenuItem.Checked = true;
             else guidelinesToolStripMenuItem.Checked = false;
 
 
             //left side
-            btnStartAgIO.Visible = Settings.Interface.setFeatures.isAgIOOn;
+            btnStartAgIO.Visible = Settings.User.setFeatures.isAgIOOn;
 
             //OGL control
-            isUTurnOn = Settings.Interface.setFeatures.isUTurnOn;
-            isLateralOn = Settings.Interface.setFeatures.isLateralOn;
+            isUTurnOn = Settings.User.setFeatures.isUTurnOn;
+            isLateralOn = Settings.User.setFeatures.isLateralOn;
             cboxpRowWidth.SelectedIndex = (Settings.Vehicle.set_youSkipWidth - 1);
             btnYouSkipEnable.Image = Resources.YouSkipOff;
-            isNudgeOn = Settings.Interface.setFeatures.isABLineOn;
+            isNudgeOn = Settings.User.setFeatures.isABLineOn;
 
             isSectionlinesOn = Settings.Vehicle.setDisplay_isSectionLinesOn;
 
@@ -531,7 +531,7 @@ namespace AgOpenGPS
             //isLogNMEA = Settings.Default.setMenu_isLogNMEA;
             isPureDisplayOn = Settings.Vehicle.setMenu_isPureOn;
 
-            isAutoStartAgIO = Settings.Interface.setDisplay_isAutoStartAgIO;
+            isAutoStartAgIO = Settings.User.setDisplay_isAutoStartAgIO;
 
             isDirectionMarkers = Settings.Tool.setTool_isDirectionMarkers;
 
@@ -554,7 +554,7 @@ namespace AgOpenGPS
             //set the flag mark button to red dot
             btnFlag.Image = Properties.Resources.FlagRed;
 
-            vehicleColor = Settings.Interface.setDisplay_colorVehicle;
+            vehicleColor = Settings.User.setDisplay_colorVehicle;
 
             isLightbarOn = Settings.Vehicle.setMenu_isLightbarOn;
             isLightBarNotSteerBar = Settings.Vehicle.setMenu_isLightbarNotSteerBar;
@@ -683,22 +683,22 @@ namespace AgOpenGPS
             if (!isKioskMode)
             {
                 //main window first
-                if (Settings.Interface.setWindow_Maximized)
+                if (Settings.User.setWindow_Maximized)
                 {
                     WindowState = FormWindowState.Normal;
-                    Location = Settings.Interface.setWindow_Location;
-                    Size = Settings.Interface.setWindow_Size;
+                    Location = Settings.User.setWindow_Location;
+                    Size = Settings.User.setWindow_Size;
                 }
-                else if (Settings.Interface.setWindow_Minimized)
+                else if (Settings.User.setWindow_Minimized)
                 {
                     //WindowState = FormWindowState.Minimized;
-                    Location = Settings.Interface.setWindow_Location;
-                    Size = Settings.Interface.setWindow_Size;
+                    Location = Settings.User.setWindow_Location;
+                    Size = Settings.User.setWindow_Size;
                 }
                 else
                 {
-                    Location = Settings.Interface.setWindow_Location;
-                    Size = Settings.Interface.setWindow_Size;
+                    Location = Settings.User.setWindow_Location;
+                    Size = Settings.User.setWindow_Size;
                 }
             }
 
@@ -1030,9 +1030,9 @@ namespace AgOpenGPS
         {
             isDay = !isDay;
 
-            Color foreColor = isDay ? Settings.Interface.setDisplay_colorTextDay : Settings.Interface.setDisplay_colorTextNight;
+            Color foreColor = isDay ? Settings.User.setDisplay_colorTextDay : Settings.User.setDisplay_colorTextNight;
             btnDayNightMode.Image = isDay ? Properties.Resources.WindowNightMode : Properties.Resources.WindowDayMode;
-            this.BackColor = isDay ? Settings.Interface.setDisplay_colorDayFrame : Settings.Interface.setDisplay_colorNightFrame;
+            this.BackColor = isDay ? Settings.User.setDisplay_colorDayFrame : Settings.User.setDisplay_colorNightFrame;
 
             foreach (Control c in this.Controls)
             {
@@ -1084,24 +1084,24 @@ namespace AgOpenGPS
             //save window settings
             if (WindowState == FormWindowState.Maximized)
             {
-                Settings.Interface.setWindow_Location = RestoreBounds.Location;
-                Settings.Interface.setWindow_Size = RestoreBounds.Size;
-                Settings.Interface.setWindow_Maximized = false;
-                Settings.Interface.setWindow_Minimized = false;
+                Settings.User.setWindow_Location = RestoreBounds.Location;
+                Settings.User.setWindow_Size = RestoreBounds.Size;
+                Settings.User.setWindow_Maximized = false;
+                Settings.User.setWindow_Minimized = false;
             }
             else if (WindowState == FormWindowState.Normal)
             {
-                Settings.Interface.setWindow_Location = Location;
-                Settings.Interface.setWindow_Size = Size;
-                Settings.Interface.setWindow_Maximized = false;
-                Settings.Interface.setWindow_Minimized = false;
+                Settings.User.setWindow_Location = Location;
+                Settings.User.setWindow_Size = Size;
+                Settings.User.setWindow_Maximized = false;
+                Settings.User.setWindow_Minimized = false;
             }
             else
             {
-                Settings.Interface.setWindow_Location = RestoreBounds.Location;
-                Settings.Interface.setWindow_Size = RestoreBounds.Size;
-                Settings.Interface.setWindow_Maximized = false;
-                Settings.Interface.setWindow_Minimized = true;
+                Settings.User.setWindow_Location = RestoreBounds.Location;
+                Settings.User.setWindow_Size = RestoreBounds.Size;
+                Settings.User.setWindow_Maximized = false;
+                Settings.User.setWindow_Minimized = true;
             }
 
             Settings.Vehicle.setDisplay_camPitch = camera.camPitch;

@@ -43,9 +43,9 @@ namespace AgOpenGPS
 
         private void FormMaPGN_Load(object sender, EventArgs e)
         {
-            Size = Settings.Interface.setWindow_BingMapSize;
+            Size = Settings.User.setWindow_BingMapSize;
 
-            mapControl.ZoomLevel = Settings.Interface.setWindow_BingZoom;//mapControl
+            mapControl.ZoomLevel = Settings.User.setWindow_BingZoom;//mapControl
             mapControl.Center = new GeoPoint((float)mf.pn.longitude, (float)mf.pn.latitude);
 
             mapControl.Invalidate();
@@ -80,8 +80,8 @@ namespace AgOpenGPS
                 return;
             }
 
-            Settings.Interface.setWindow_BingMapSize = Size;
-            Settings.Interface.setWindow_BingZoom = mapControl.ZoomLevel;
+            Settings.User.setWindow_BingMapSize = Size;
+            Settings.User.setWindow_BingZoom = mapControl.ZoomLevel;
             Settings.Vehicle.Save();
         }
 

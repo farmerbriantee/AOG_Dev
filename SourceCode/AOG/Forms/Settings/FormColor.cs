@@ -55,11 +55,11 @@ namespace AgOpenGPS
         {
             if (!mf.isDay) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, Settings.Interface.setDisplay_colorDayFrame))
+            using (FormColorPicker form = new FormColorPicker(mf, Settings.User.setDisplay_colorDayFrame))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    Settings.Interface.setDisplay_colorDayFrame = form.useThisColor;
+                    Settings.User.setDisplay_colorDayFrame = form.useThisColor;
                 }
             }
 
@@ -71,11 +71,11 @@ namespace AgOpenGPS
         {
             if (mf.isDay) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, Settings.Interface.setDisplay_colorNightFrame))
+            using (FormColorPicker form = new FormColorPicker(mf, Settings.User.setDisplay_colorNightFrame))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    Settings.Interface.setDisplay_colorNightFrame = form.useThisColor;
+                    Settings.User.setDisplay_colorNightFrame = form.useThisColor;
                 }
             }
 
@@ -87,11 +87,11 @@ namespace AgOpenGPS
         {
             if (!mf.isDay) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, Settings.Interface.setDisplay_colorFieldDay))
+            using (FormColorPicker form = new FormColorPicker(mf, Settings.User.setDisplay_colorFieldDay))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    Settings.Interface.setDisplay_colorFieldDay = form.useThisColor;
+                    Settings.User.setDisplay_colorFieldDay = form.useThisColor;
                 }
             }
 
@@ -103,11 +103,11 @@ namespace AgOpenGPS
         {
             if (mf.isDay) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, Settings.Interface.setDisplay_colorFieldNight))
+            using (FormColorPicker form = new FormColorPicker(mf, Settings.User.setDisplay_colorFieldNight))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    Settings.Interface.setDisplay_colorFieldNight = form.useThisColor;
+                    Settings.User.setDisplay_colorFieldNight = form.useThisColor;
                 }
             }
 
@@ -124,11 +124,11 @@ namespace AgOpenGPS
         {
             if (mf.isDay) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, Settings.Interface.setDisplay_colorTextNight))
+            using (FormColorPicker form = new FormColorPicker(mf, Settings.User.setDisplay_colorTextNight))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    Settings.Interface.setDisplay_colorTextNight = form.useThisColor;
+                    Settings.User.setDisplay_colorTextNight = form.useThisColor;
                 }
             }
 
@@ -140,11 +140,11 @@ namespace AgOpenGPS
         {
             if (!mf.isDay) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, Settings.Interface.setDisplay_colorTextDay))
+            using (FormColorPicker form = new FormColorPicker(mf, Settings.User.setDisplay_colorTextDay))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    Settings.Interface.setDisplay_colorTextDay = form.useThisColor;
+                    Settings.User.setDisplay_colorTextDay = form.useThisColor;
                 }
             }
 
@@ -161,14 +161,14 @@ namespace AgOpenGPS
         {
             if (!mf.isDay) mf.SwapDayNightMode();
 
-            Settings.Interface.setDisplay_colorDayFrame = Color.FromArgb(210, 210, 230);
-            Settings.Interface.setDisplay_colorNightFrame = Color.FromArgb(50, 50, 65);
-            Settings.Interface.setDisplay_colorSectionsDay = Color.FromArgb(27, 151, 160);
-            Settings.Interface.setDisplay_colorFieldDay = Color.FromArgb(100, 100, 125);
-            Settings.Interface.setDisplay_colorFieldNight = Color.FromArgb(60, 60, 60);
+            Settings.User.setDisplay_colorDayFrame = Color.FromArgb(210, 210, 230);
+            Settings.User.setDisplay_colorNightFrame = Color.FromArgb(50, 50, 65);
+            Settings.User.colorSectionsDay = Color.FromArgb(27, 151, 160);
+            Settings.User.setDisplay_colorFieldDay = Color.FromArgb(100, 100, 125);
+            Settings.User.setDisplay_colorFieldNight = Color.FromArgb(60, 60, 60);
 
-            Settings.Interface.setDisplay_colorTextDay = Color.FromArgb(10, 10, 20);
-            Settings.Interface.setDisplay_colorTextNight = Color.FromArgb(230, 230, 230);
+            Settings.User.setDisplay_colorTextDay = Color.FromArgb(10, 10, 20);
+            Settings.User.setDisplay_colorTextNight = Color.FromArgb(230, 230, 230);
 
             Settings.Vehicle.setDisplay_customColors = "-62208,-12299010,-16190712,-1505559,-3621034,-16712458,-7330570,-1546731,-24406,-3289866,-2756674,-538377,-134768,-4457734,-1848839,-530985";
 

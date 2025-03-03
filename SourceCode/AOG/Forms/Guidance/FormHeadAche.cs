@@ -48,7 +48,7 @@ namespace AgOpenGPS
 
             mf.bnd.bndList[0].hdLine?.Clear();
 
-            Size = Settings.Interface.setWindow_HeadAcheSize;
+            Size = Settings.User.setWindow_HeadAcheSize;
 
             Screen myScreen = Screen.FromControl(this);
             Rectangle area = myScreen.WorkingArea;
@@ -74,7 +74,7 @@ namespace AgOpenGPS
             }
             else mf.hdl.idx = -1;
 
-            Settings.Interface.setWindow_HeadAcheSize = Size;
+            Settings.User.setWindow_HeadAcheSize = Size;
         }
 
         private void FormHeadAche_ResizeEnd(object sender, EventArgs e)

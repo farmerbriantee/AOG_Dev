@@ -98,7 +98,7 @@ namespace AgOpenGPS
                 this.tabControl1.ItemSize = new System.Drawing.Size(89, 48);
             }
 
-            Location = Settings.Interface.setWindow_steerSettingsLocation;
+            Location = Settings.User.setWindow_steerSettingsLocation;
             //WAS Zero, CPD
             hsbarWasOffset.ValueChanged -= hsbarSteerAngleSensorZero_ValueChanged;
             hsbarCountsPerDegree.ValueChanged -= hsbarCountsPerDegree_ValueChanged;
@@ -328,7 +328,7 @@ namespace AgOpenGPS
             Settings.Vehicle.setAS_ModeXTE = mf.vehicle.modeXTE;
             Settings.Vehicle.setAS_ModeTime = mf.vehicle.modeTime;
 
-            Settings.Interface.setWindow_steerSettingsLocation = Location;
+            Settings.User.setWindow_steerSettingsLocation = Location;
 
             Settings.Vehicle.setAS_uTurnCompensation = mf.vehicle.uturnCompensation;
 

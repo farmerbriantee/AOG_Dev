@@ -37,9 +37,9 @@ namespace AgOpenGPS
         {
             originalLine = mf.trk.idx;
 
-            Size = Settings.Interface.setWindow_gridSize;
+            Size = Settings.User.setWindow_gridSize;
 
-            Location = Settings.Interface.setWindow_gridLocation;
+            Location = Settings.User.setWindow_gridLocation;
             FormABDraw_ResizeEnd(this, e);
 
             if (!mf.IsOnScreen(Location, Size, 1))
@@ -54,8 +54,8 @@ namespace AgOpenGPS
             mf.trk.isTrackValid = false;
             mf.twoSecondCounter = 100;
 
-            Settings.Interface.setWindow_gridSize = Size;
-            Settings.Interface.setWindow_gridLocation = Location;
+            Settings.User.setWindow_gridSize = Size;
+            Settings.User.setWindow_gridLocation = Location;
         }
 
         private void btnExit_Click(object sender, EventArgs e)

@@ -695,9 +695,9 @@ namespace AgOpenGPS
 
             nudGuidanceLookAhead.Value = Settings.Vehicle.setAS_guidanceLookAheadTime;
 
-            nudLineWidth.Value = Settings.Vehicle.setDisplay_lineWidth;
+            nudLineWidth.Value = Settings.User.setDisplay_lineWidth;
 
-            nudcmPerPixel.Value = Settings.Vehicle.setDisplay_lightbarCmPerPixel;
+            nudcmPerPixel.Value = Settings.User.setDisplay_lightbarCmPerPixel;
 
             label20.Text = glm.unitsInCm;
         }
@@ -708,14 +708,14 @@ namespace AgOpenGPS
 
         private void nudcmPerPixel_ValueChanged(object sender, EventArgs e)
         {
-            Settings.Vehicle.setDisplay_lightbarCmPerPixel = ((int)nudcmPerPixel.Value);
-            mf.lightbarCmPerPixel = Settings.Vehicle.setDisplay_lightbarCmPerPixel;
+            Settings.User.setDisplay_lightbarCmPerPixel = ((int)nudcmPerPixel.Value);
+            mf.lightbarCmPerPixel = Settings.User.setDisplay_lightbarCmPerPixel;
         }
 
         private void nudLineWidth_ValueChanged(object sender, EventArgs e)
         {
-            Settings.Vehicle.setDisplay_lineWidth = (int)nudLineWidth.Value;
-            mf.trk.lineWidth = Settings.Vehicle.setDisplay_lineWidth;
+            Settings.User.setDisplay_lineWidth = (int)nudLineWidth.Value;
+            mf.trk.lineWidth = Settings.User.setDisplay_lineWidth;
         }
 
         private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
@@ -732,13 +732,13 @@ namespace AgOpenGPS
         private void rbtnLightBar_Click(object sender, EventArgs e)
         {
             mf.isLightBarNotSteerBar = true;
-            Settings.Vehicle.setMenu_isLightbarNotSteerBar = mf.isLightBarNotSteerBar;
+            Settings.User.isLightbarNotSteerBar = mf.isLightBarNotSteerBar;
         }
 
         private void rbtnSteerBar_Click(object sender, EventArgs e)
         {
             mf.isLightBarNotSteerBar = false;
-            Settings.Vehicle.setMenu_isLightbarNotSteerBar = mf.isLightBarNotSteerBar;
+            Settings.User.isLightbarNotSteerBar = mf.isLightBarNotSteerBar;
         }
 
         private void chkDisplayLightbar_Click(object sender, EventArgs e)
@@ -746,7 +746,7 @@ namespace AgOpenGPS
             if (chkDisplayLightbar.Checked) { chkDisplayLightbar.Image = Resources.SwitchOn; }
             else { chkDisplayLightbar.Image = Resources.SwitchOff; }
 
-            Settings.Vehicle.setMenu_isLightbarOn = chkDisplayLightbar.Checked;
+            Settings.User.isLightbarOn = chkDisplayLightbar.Checked;
 
             mf.isLightbarOn = chkDisplayLightbar.Checked;
         }
@@ -1346,8 +1346,6 @@ namespace AgOpenGPS
                 Settings.Vehicle.setAS_minSteerSpeed = 0;
                 Settings.Vehicle.setAS_maxSteerSpeed = 15;
                 Settings.Vehicle.setAS_functionSpeedLimit = 12;
-                Settings.Vehicle.setDisplay_lightbarCmPerPixel = 5;
-                Settings.Vehicle.setDisplay_lineWidth = 2;
                 Settings.Vehicle.setAS_snapDistance = 0.2;
                 Settings.Vehicle.setAS_guidanceLookAheadTime = 1.5;
                 Settings.Vehicle.setAS_uTurnCompensation = 1;

@@ -193,15 +193,16 @@ namespace AgOpenGPS
             chkDisplayFloor.Checked = mf.isTextureOn;
             chkDisplayGrid.Checked = mf.isGridOn;
             chkDisplaySpeedo.Checked = mf.isSpeedoOn;
-            chkDisplayStartFullScreen.Checked = Settings.Vehicle.setDisplay_isStartFullScreen;
             chkSvennArrow.Checked = mf.isSvennArrowOn;
             chkDisplayExtraGuides.Checked = mf.isSideGuideLines;
             chkDisplayPolygons.Checked = mf.isDrawPolygons;
             chkDisplayKeyboard.Checked = mf.isKeyboardOn;
             chkDisplayLogElevation.Checked = mf.isLogElevation;
-            chkDirectionMarkers.Checked = Settings.Tool.isDirectionMarkers;
-            chkSectionLines.Checked = Settings.Vehicle.setDisplay_isSectionLinesOn;
-            chkLineSmooth.Checked = Settings.Vehicle.setDisplay_isLineSmooth;
+
+            chkDisplayStartFullScreen.Checked = Settings.User.setDisplay_isStartFullScreen;
+            chkDirectionMarkers.Checked = Settings.User.isDirectionMarkers;
+            chkSectionLines.Checked = Settings.User.setDisplay_isSectionLinesOn;
+            chkLineSmooth.Checked = Settings.User.setDisplay_isLineSmooth;
 
             rbtnDisplayMetric.Checked = mf.isMetric;
             rbtnDisplayImperial.Checked = !rbtnDisplayMetric.Checked;
@@ -219,7 +220,7 @@ namespace AgOpenGPS
             mf.TimedMessageBox(2000, "Units Set", "Imperial");
             Log.EventWriter("Units To Imperial");
 
-            Settings.Vehicle.setMenu_isMetric = mf.isMetric = false;
+            Settings.User.isMetric = mf.isMetric = false;
 
             Close();
         }
@@ -229,7 +230,7 @@ namespace AgOpenGPS
             mf.TimedMessageBox(2000, "Units Set", "Metric");
             Log.EventWriter("Units to Metric");
 
-            Settings.Vehicle.setMenu_isMetric = mf.isMetric = true;
+            Settings.User.isMetric = mf.isMetric = true;
 
             Close();
             //FormConfig_Load(this, e);

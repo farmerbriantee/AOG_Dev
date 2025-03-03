@@ -71,7 +71,7 @@ namespace AgOpenGPS
             //constructor
             mf = _f;
             idx = -1;
-            lineWidth = Settings.Vehicle.setDisplay_lineWidth;
+            lineWidth = Settings.User.setDisplay_lineWidth;
             numGuideLines = Settings.Vehicle.setAS_numGuideLines;
         }
 

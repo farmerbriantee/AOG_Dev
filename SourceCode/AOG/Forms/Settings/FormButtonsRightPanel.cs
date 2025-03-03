@@ -22,7 +22,7 @@ namespace AgOpenGPS
 
         private void FormToolPivot_Load(object sender, EventArgs e)
         {
-            original = Settings.Vehicle.setDisplay_buttonOrder;
+            original = Settings.User.setDisplay_buttonOrder;
             mf.buttonOrder?.Clear();
 
             //for (int i = 0; i < words.Length; i++)
@@ -72,7 +72,7 @@ namespace AgOpenGPS
 
         private void btnAll_Click(object sender, EventArgs e)
         {
-            Settings.Vehicle.setDisplay_buttonOrder = "0,1,2,3,4,5,6,7";
+            Settings.User.setDisplay_buttonOrder = "0,1,2,3,4,5,6,7";
 
             flpRight.Controls?.Clear();
             flpRight.Controls.Add(autoSteer);
@@ -150,7 +150,7 @@ namespace AgOpenGPS
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            Settings.Vehicle.setDisplay_buttonOrder = original;
+            Settings.User.setDisplay_buttonOrder = original;
 
             Close();
         }
@@ -165,17 +165,17 @@ namespace AgOpenGPS
             }
             else
             {
-                Settings.Vehicle.setDisplay_buttonOrder = "";
+                Settings.User.setDisplay_buttonOrder = "";
                 for (int i = 0; i < mf.buttonOrder.Count; i++)
                 {
                     if (i < mf.buttonOrder.Count - 1)
                     {
-                        Settings.Vehicle.setDisplay_buttonOrder
+                        Settings.User.setDisplay_buttonOrder
                             += mf.buttonOrder[i].ToString() + ",";
                     }
                     else
                     {
-                        Settings.Vehicle.setDisplay_buttonOrder += mf.buttonOrder[i].ToString();
+                        Settings.User.setDisplay_buttonOrder += mf.buttonOrder[i].ToString();
                     }
                 }
 
@@ -187,17 +187,17 @@ namespace AgOpenGPS
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            Settings.Vehicle.setDisplay_buttonOrder = "";
+            Settings.User.setDisplay_buttonOrder = "";
             for (int i = 0; i < mf.buttonOrder.Count; i++)
             {
                 if (i < mf.buttonOrder.Count - 1)
                 {
-                    Settings.Vehicle.setDisplay_buttonOrder
+                    Settings.User.setDisplay_buttonOrder
                         += mf.buttonOrder[i].ToString() + ",";
                 }
                 else
                 {
-                    Settings.Vehicle.setDisplay_buttonOrder += mf.buttonOrder[i].ToString();
+                    Settings.User.setDisplay_buttonOrder += mf.buttonOrder[i].ToString();
                 }
             }
 

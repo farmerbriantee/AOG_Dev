@@ -370,30 +370,29 @@ namespace AgOpenGPS
 
             //mf.timeToShowMenus = (int)nudMenusOnTime.Value;
 
-            Settings.Vehicle.setDisplay_isBrightnessOn = mf.isBrightnessOn;
-            Settings.Vehicle.setDisplay_isTextureOn = mf.isTextureOn;
-            Settings.Vehicle.setMenu_isGridOn = mf.isGridOn;
-            Settings.Vehicle.setMenu_isCompassOn = mf.isCompassOn;
+            Settings.User.isGridOn = mf.isGridOn;
+            Settings.User.isCompassOn = mf.isCompassOn;
 
-            Settings.Vehicle.setDisplay_isSvennArrowOn = mf.isSvennArrowOn;
-            Settings.Vehicle.setMenu_isSpeedoOn = mf.isSpeedoOn;
-            Settings.Vehicle.setDisplay_isStartFullScreen = chkDisplayStartFullScreen.Checked;
-            Settings.Vehicle.setMenu_isSideGuideLines = mf.isSideGuideLines;
+            Settings.User.isSpeedoOn = mf.isSpeedoOn;
+            Settings.User.isSideGuideLines = mf.isSideGuideLines;
 
-            Settings.Vehicle.setMenu_isPureOn = mf.isPureDisplayOn;
-            Settings.Vehicle.setMenu_isLightbarOn = mf.isLightbarOn;
-            Settings.Vehicle.setDisplay_isKeyboardOn = mf.isKeyboardOn;
-            Settings.Vehicle.setDisplay_isLogElevation = mf.isLogElevation;
+            Settings.User.isPureOn = mf.isPureDisplayOn;
+            Settings.User.isLightbarOn = mf.isLightbarOn;
 
-            Settings.Vehicle.setMenu_isMetric = mf.isMetric = rbtnDisplayMetric.Checked;
-
-            Settings.Tool.isDirectionMarkers = mf.isDirectionMarkers;
+            Settings.User.isMetric = mf.isMetric = rbtnDisplayMetric.Checked;
 
             Settings.Vehicle.setAS_numGuideLines = mf.trk.numGuideLines;
-            Settings.Vehicle.setDisplay_isSectionLinesOn = mf.isSectionlinesOn;
-            Settings.Vehicle.setDisplay_isLineSmooth = mf.isLineSmooth;
 
-            
+
+            Settings.User.setDisplay_isBrightnessOn = mf.isBrightnessOn;
+            Settings.User.setDisplay_isTextureOn = mf.isTextureOn;
+            Settings.User.isDirectionMarkers = mf.isDirectionMarkers;
+            Settings.User.setDisplay_isSvennArrowOn = mf.isSvennArrowOn;
+            Settings.User.setDisplay_isStartFullScreen = chkDisplayStartFullScreen.Checked;
+            Settings.User.setDisplay_isKeyboardOn = mf.isKeyboardOn;
+            Settings.User.setDisplay_isLogElevation = mf.isLogElevation;
+            Settings.User.setDisplay_isSectionLinesOn = mf.isSectionlinesOn;
+            Settings.User.setDisplay_isLineSmooth = mf.isLineSmooth;            
         }
 
         #endregion

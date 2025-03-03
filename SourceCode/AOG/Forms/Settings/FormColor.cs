@@ -31,7 +31,7 @@ namespace AgOpenGPS
         private void FormDisplaySettings_Load(object sender, EventArgs e)
         {
             daySet = mf.isDay;
-            hsbarSmooth.Value = Settings.Vehicle.setDisplay_camSmooth;
+            hsbarSmooth.Value = Settings.User.setDisplay_camSmooth;
             lblSmoothCam.Text = hsbarSmooth.Value.ToString() + "%";
 
             if (!mf.IsOnScreen(Location, Size, 1))
@@ -44,7 +44,7 @@ namespace AgOpenGPS
         private void bntOK_Click(object sender, EventArgs e)
         {
             if (daySet != mf.isDay) mf.SwapDayNightMode();
-            Settings.Vehicle.setDisplay_camSmooth = hsbarSmooth.Value;
+            Settings.User.setDisplay_camSmooth = hsbarSmooth.Value;
 
             mf.camera.camSmoothFactor = ((double)(hsbarSmooth.Value) * 0.004) + 0.15;
 
@@ -170,9 +170,9 @@ namespace AgOpenGPS
             Settings.User.colorTextDay = Color.FromArgb(10, 10, 20);
             Settings.User.colorTextNight = Color.FromArgb(230, 230, 230);
 
-            Settings.Vehicle.setDisplay_customColors = "-62208,-12299010,-16190712,-1505559,-3621034,-16712458,-7330570,-1546731,-24406,-3289866,-2756674,-538377,-134768,-4457734,-1848839,-530985";
+            Settings.User.setDisplay_customColors = "-62208,-12299010,-16190712,-1505559,-3621034,-16712458,-7330570,-1546731,-24406,-3289866,-2756674,-538377,-134768,-4457734,-1848839,-530985";
 
-            string[] words = Settings.Vehicle.setDisplay_customColors.Split(',');
+            string[] words = Settings.User.setDisplay_customColors.Split(',');
             for (int i = 0; i < 16; i++)
             {
                 mf.customColorsList[i] = int.Parse(words[i], CultureInfo.InvariantCulture);

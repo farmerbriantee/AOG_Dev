@@ -295,15 +295,15 @@ namespace AgOpenGPS
             cboxFeatureUTurn.Checked = Settings.User.setFeatures.isUTurnOn;
             cboxFeatureLateral.Checked = Settings.User.setFeatures.isLateralOn;
 
-            cboxTurnSound.Checked = Settings.Vehicle.setSound_isUturnOn;
-            cboxSteerSound.Checked = Settings.Vehicle.setSound_isAutoSteerOn;
-            cboxHydLiftSound.Checked = Settings.Vehicle.setSound_isHydLiftOn;
-            cboxSectionsSound.Checked = Settings.Vehicle.setSound_isSectionsOn;
+            cboxTurnSound.Checked = Settings.User.sound_isUturnOn;
+            cboxSteerSound.Checked = Settings.User.sound_isAutoSteerOn;
+            cboxHydLiftSound.Checked = Settings.User.sound_isHydLiftOn;
+            cboxSectionsSound.Checked = Settings.User.sound_isSectionsOn;
 
             cboxAutoStartAgIO.Checked = Settings.User.isAutoStartAgIO;
             cboxAutoOffAgIO.Checked = Settings.User.isAutoOffAgIO;
-            cboxShutdownWhenNoPower.Checked = Settings.Vehicle.setDisplay_isShutdownWhenNoPower;
-            cboxHardwareMessages.Checked = Settings.Vehicle.setDisplay_isHardwareMessages;
+            cboxShutdownWhenNoPower.Checked = Settings.User.setDisplay_isShutdownWhenNoPower;
+            cboxHardwareMessages.Checked = Settings.User.setDisplay_isHardwareMessages;
         }
 
         private void tabBtns_Leave(object sender, EventArgs e)
@@ -322,13 +322,13 @@ namespace AgOpenGPS
             Settings.User.setFeatures.isLateralOn = cboxFeatureLateral.Checked;
             Settings.User.setFeatures.isUTurnOn = cboxFeatureUTurn.Checked;
 
-            Settings.Vehicle.setSound_isUturnOn = cboxTurnSound.Checked;
+            Settings.User.sound_isUturnOn = cboxTurnSound.Checked;
             mf.sounds.isTurnSoundOn = cboxTurnSound.Checked;
-            Settings.Vehicle.setSound_isAutoSteerOn = cboxSteerSound.Checked;
+            Settings.User.sound_isAutoSteerOn = cboxSteerSound.Checked;
             mf.sounds.isSteerSoundOn = cboxSteerSound.Checked;
-            Settings.Vehicle.setSound_isSectionsOn = cboxSectionsSound.Checked;
+            Settings.User.sound_isSectionsOn = cboxSectionsSound.Checked;
             mf.sounds.isSectionsSoundOn = cboxSectionsSound.Checked;
-            Settings.Vehicle.setSound_isHydLiftOn = cboxHydLiftSound.Checked;
+            Settings.User.sound_isHydLiftOn = cboxHydLiftSound.Checked;
             mf.sounds.isHydLiftSoundOn = cboxHydLiftSound.Checked;
 
             Settings.User.isAutoStartAgIO = cboxAutoStartAgIO.Checked;
@@ -336,9 +336,9 @@ namespace AgOpenGPS
 
             Settings.User.isAutoOffAgIO = cboxAutoOffAgIO.Checked;
 
-            Settings.Vehicle.setDisplay_isShutdownWhenNoPower = cboxShutdownWhenNoPower.Checked;
+            Settings.User.setDisplay_isShutdownWhenNoPower = cboxShutdownWhenNoPower.Checked;
 
-            Settings.Vehicle.setDisplay_isHardwareMessages = cboxHardwareMessages.Checked;            
+            Settings.User.setDisplay_isHardwareMessages = cboxHardwareMessages.Checked;            
         }
 
         private void btnRightMenuOrder_Click(object sender, EventArgs e)

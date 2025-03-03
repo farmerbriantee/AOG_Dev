@@ -25,10 +25,10 @@ namespace AgOpenGPS
 
         public CSound()
         {
-            isSteerSoundOn = Settings.Vehicle.setSound_isAutoSteerOn;
-            isHydLiftSoundOn = Settings.Vehicle.setSound_isHydLiftOn;
-            isTurnSoundOn = Settings.Vehicle.setSound_isUturnOn;
-            isSectionsSoundOn = Settings.Vehicle.setSound_isSectionsOn;
+            isSteerSoundOn = Settings.User.sound_isAutoSteerOn;
+            isHydLiftSoundOn = Settings.User.sound_isHydLiftOn;
+            isTurnSoundOn = Settings.User.sound_isUturnOn;
+            isSectionsSoundOn = Settings.User.sound_isSectionsOn;
         }
     }
 }

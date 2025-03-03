@@ -249,7 +249,7 @@ namespace AgOpenGPS
                     btnChargeStatus.BackColor = Color.LightCoral;
                 }
 
-                if (Settings.Vehicle.setDisplay_isShutdownWhenNoPower && powerLineStatus == PowerLineStatus.Offline)
+                if (Settings.User.setDisplay_isShutdownWhenNoPower && powerLineStatus == PowerLineStatus.Offline)
                 {
                     Log.EventWriter("Shutdown Computer By Power Lost Setting");
                     Close();
@@ -335,7 +335,7 @@ namespace AgOpenGPS
             sounds = new CSound();
 
             //brightness object class
-            displayBrightness = new CWindowsSettingsBrightnessController(Settings.Vehicle.setDisplay_isBrightnessOn);
+            displayBrightness = new CWindowsSettingsBrightnessController(Settings.User.setDisplay_isBrightnessOn);
 
             //Application rate controller
             nozz = new CNozzle(this);
@@ -419,7 +419,7 @@ namespace AgOpenGPS
             {
                 if (displayBrightness.isWmiMonitor)
                 {
-                    Settings.Vehicle.setDisplay_brightnessSystem = displayBrightness.GetBrightness();
+                    Settings.User.setDisplay_brightnessSystem = displayBrightness.GetBrightness();
                 }
                 else
                 {
@@ -430,12 +430,12 @@ namespace AgOpenGPS
                 //display brightness
                 if (displayBrightness.isWmiMonitor)
                 {
-                    if (Settings.Vehicle.setDisplay_brightness < Settings.Vehicle.setDisplay_brightnessSystem)
+                    if (Settings.User.setDisplay_brightness < Settings.User.setDisplay_brightnessSystem)
                     {
-                        Settings.Vehicle.setDisplay_brightness = Settings.Vehicle.setDisplay_brightnessSystem;
+                        Settings.User.setDisplay_brightness = Settings.User.setDisplay_brightnessSystem;
                     }
 
-                    displayBrightness.SetBrightness(Settings.Vehicle.setDisplay_brightness);
+                    displayBrightness.SetBrightness(Settings.User.setDisplay_brightness);
                 }
                 else
                 {
@@ -593,7 +593,7 @@ namespace AgOpenGPS
             FileSaveSystemEvents();
 
             if (displayBrightness.isWmiMonitor)
-                displayBrightness.SetBrightness(Settings.Vehicle.setDisplay_brightnessSystem);
+                displayBrightness.SetBrightness(Settings.User.setDisplay_brightnessSystem);
 
             if (choice == 2)
             {

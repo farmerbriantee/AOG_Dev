@@ -1309,7 +1309,7 @@ namespace AgOpenGPS
                 LineUpAllZoneButtons();
             }
 
-            Settings.Vehicle.setMenu_isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
+            Settings.User.isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
         }
         private void colorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1735,7 +1735,7 @@ namespace AgOpenGPS
             if (isSideGuideLines) guidelinesToolStripMenuItem.Checked = true;
             else guidelinesToolStripMenuItem.Checked = false;
 
-            Settings.Vehicle.setMenu_isSideGuideLines = isSideGuideLines;
+            Settings.User.isSideGuideLines = isSideGuideLines;
             
         }
         private void boundaryToolToolStripMenu_Click(object sender, EventArgs e)
@@ -1976,7 +1976,7 @@ namespace AgOpenGPS
             {
                 displayBrightness.BrightnessIncrease();
                 btnBrightnessDn.Text = displayBrightness.GetBrightness().ToString() + "%";
-                Settings.Vehicle.setDisplay_brightness = displayBrightness.GetBrightness();
+                Settings.User.setDisplay_brightness = displayBrightness.GetBrightness();
                 
             }
             navPanelCounter = 3;
@@ -1987,7 +1987,7 @@ namespace AgOpenGPS
             {
                 displayBrightness.BrightnessDecrease();
                 btnBrightnessDn.Text = displayBrightness.GetBrightness().ToString() + "%";
-                Settings.Vehicle.setDisplay_brightness = displayBrightness.GetBrightness();
+                Settings.User.setDisplay_brightness = displayBrightness.GetBrightness();
                 
             }
             navPanelCounter = 3;

@@ -47,6 +47,31 @@ namespace AgOpenGPS
         {
             public CFeatureSettings setFeatures = new CFeatureSettings();
 
+            public double setDisplay_camPitch = -62;
+            public double setDisplay_camZoom = 9.0;
+            public bool setDisplay_isBrightnessOn = false;
+            public bool setDisplay_isDayMode = true;
+            public bool setDisplay_isHardwareMessages = false;
+            public bool setDisplay_isKeyboardOn = true;
+            public bool setDisplay_isLineSmooth = false;
+            public bool setDisplay_isLogElevation = false;
+            public bool setDisplay_isSectionLinesOn = true;
+            public bool setDisplay_isShutdownWhenNoPower = false;
+            public bool setDisplay_isStartFullScreen = false;
+            public bool setDisplay_isSvennArrowOn = false;
+            public bool setDisplay_isTextureOn = true;
+
+            public bool isDirectionMarkers = true;
+
+            public int setDisplay_brightness = 40;
+            public int setDisplay_brightnessSystem = 40;
+            public int setDisplay_camSmooth = 50;
+            public int setDisplay_lightbarCmPerPixel = 5;
+            public int setDisplay_lineWidth = 2;
+            public string setDisplay_buttonOrder = "0,1,2,3,4,5,6,7";
+            public string setDisplay_customColors = "-62208,-12299010,-16190712,-1505559,-3621034,-16712458,-7330570,-1546731,-24406,-3289866,-2756674,-538377,-134768,-4457734,-1848839,-530985";
+            public string setDisplay_customSectionColors = "-62208,-12299010,-16190712,-1505559,-3621034,-16712458,-7330570,-1546731,-24406,-3289866,-2756674,-538377,-134768,-4457734,-1848839,-530985";
+
             public bool setWindow_isKioskMode = false;
             public bool setWindow_isShutdownComputer = false;
             public bool setWindow_Maximized = false;
@@ -92,6 +117,22 @@ namespace AgOpenGPS
             public bool isAutoOffAgIO = true;
             public bool isAutoStartAgIO = true;
             public bool isTermsAccepted = false;
+
+            public bool isCompassOn = true;
+            public bool isGridOn = true;
+            public bool isLightbarNotSteerBar = false;
+            public bool isLightbarOn = true;
+            public bool isMetric = true;
+            public bool isPureOn = true;
+            public bool isSideGuideLines = false;
+            public bool isSimulatorOn = true;
+            public bool isSkyOn = true;
+            public bool isSpeedoOn = false;
+
+            public bool sound_isAutoSteerOn = true;
+            public bool sound_isHydLiftOn = true;
+            public bool sound_isSectionsOn = true;
+            public bool sound_isUturnOn = true;
 
             public LoadResult Load()
             {
@@ -185,30 +226,8 @@ namespace AgOpenGPS
 
             public bool setBnd_isDrawPivot = true;
 
-            public double setDisplay_camPitch = -62;
-            public double setDisplay_camZoom = 9.0;
-            public bool setDisplay_isAutoDayNight = false;
-            public bool setDisplay_isBrightnessOn = false;
-            public bool setDisplay_isDayMode = true;
-            public bool setDisplay_isHardwareMessages = false;
-            public bool setDisplay_isKeyboardOn = true;
-            public bool setDisplay_isLineSmooth = false;
-            public bool setDisplay_isLogElevation = false;
-            public bool setDisplay_isSectionLinesOn = true;
-            public bool setDisplay_isShutdownWhenNoPower = false;
-            public bool setDisplay_isStartFullScreen = false;
-            public bool setDisplay_isSvennArrowOn = false;
-            public bool setDisplay_isTextureOn = true;
             public bool setDisplay_isVehicleImage = true;
-            public int setDisplay_brightness = 40;
-            public int setDisplay_brightnessSystem = 40;
-            public int setDisplay_camSmooth = 50;
-            public int setDisplay_lightbarCmPerPixel = 5;
-            public int setDisplay_lineWidth = 2;
             public int setDisplay_vehicleOpacity = 100;
-            public string setDisplay_buttonOrder = "0,1,2,3,4,5,6,7";
-            public string setDisplay_customColors = "-62208,-12299010,-16190712,-1505559,-3621034,-16712458,-7330570,-1546731,-24406,-3289866,-2756674,-538377,-134768,-4457734,-1848839,-530985";
-            public string setDisplay_customSectionColors = "-62208,-12299010,-16190712,-1505559,-3621034,-16712458,-7330570,-1546731,-24406,-3289866,-2756674,-538377,-134768,-4457734,-1848839,-530985";
 
             public string setF_CurrentFieldDir = "";
             public string setF_CurrentJobDir = "";
@@ -250,30 +269,12 @@ namespace AgOpenGPS
 
             public string setKey_hotkeys = "ACFGMNPTYVW12345678";
 
-            public int setMenu_isOGLZoomOn = 0;
-            public bool setMenu_isCompassOn = true;
-            public bool setMenu_isGridOn = true;
-            public bool setMenu_isLightbarNotSteerBar = false;
-            public bool setMenu_isLightbarOn = true;
-            public bool setMenu_isMetric = true;
-            public bool setMenu_isPureOn = true;
-            public bool setMenu_isSideGuideLines = false;
-            public bool setMenu_isSimulatorOn = true;
-            public bool setMenu_isSkyOn = true;
-            public bool setMenu_isSpeedoOn = false;
-
             public string setRelay_pinConfig = "1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
 
             public double stanleyDistanceErrorGain = 1;
             public double stanleyHeadingErrorGain = 1;
             public double stanleyIntegralDistanceAwayTriggerAB = 0.25;
             public double stanleyIntegralGainAB = 0;
-
-            public bool setSound_isAutoSteerOn = true;
-            public bool setSound_isHydLiftOn = true;
-            public bool setSound_isSectionsOn = true;
-            public bool setSound_isUturnOn = true;
-
 
             public double setVehicle_antennaHeight = 3;
             public double setVehicle_antennaOffset = 0;
@@ -283,25 +284,12 @@ namespace AgOpenGPS
             public double setVehicle_goalPointLookAheadHold = 3;
             public double setVehicle_goalPointLookAheadMult = 1.5;
 
-            //public double hitchLength = -1;
-            //public double hydraulicLiftLookAhead = 2;
-            //public double lookAheadMinimum = 2;
             public double setVehicle_maxAngularVelocity = 0.64;
             public double setVehicle_maxSteerAngle = 30;
             public double setVehicle_minTurningRadius = 8.1;
             public double setVehicle_panicStopSpeed = 0;
-            //public double slowSpeedCutoff = 0.5;
-            //public double tankTrailingHitchLength = 3;
-            //public double toolLookAheadOff = 0.5;
-            //public double toolLookAheadOn = 1;
-            //public double toolOffDelay = 0;
-            //public double toolOffset = 0;
-            //public double toolOverlap = 0.0;
-            //public double toolWidth = 4.0;
             public double setVehicle_trackWidth = 1.9;
             public double setVehicle_wheelbase = 3.3;
-            //public int minCoverage = 100;
-            //public int numSections = 3;
             public int setVehicle_vehicleType = 0;
             public bool setVehicle_isMachineControlToAutoSteer = false;
             public bool setVehicle_isStanleyUsed = false;
@@ -356,7 +344,6 @@ namespace AgOpenGPS
 
             public bool setApp_isNozzleApp = false;
 
-            public bool isDirectionMarkers = true;
             public bool isDisplayTramControl = true;
             public bool isSectionOffWhenOut = true;
             public bool isSectionsNotZones = true;

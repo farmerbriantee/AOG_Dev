@@ -29,11 +29,11 @@ namespace AgOpenGPS
         public CCamera()
         {
             //get the pitch of camera from settings
-            camPitch = Settings.Vehicle.setDisplay_camPitch;
-            zoomValue = Settings.Vehicle.setDisplay_camZoom;
+            camPitch = Settings.User.setDisplay_camPitch;
+            zoomValue = Settings.User.setDisplay_camZoom;
             camPosZ = 0.0;
             camFollowing = true;
-            camSmoothFactor = (Settings.Vehicle.setDisplay_camSmooth * 0.004) + 0.2;
+            camSmoothFactor = (Settings.User.setDisplay_camSmooth * 0.004) + 0.2;
         }
 
         public void SetWorldCam(double _fixPosX, double _fixPosY, double _fixHeading)

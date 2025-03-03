@@ -81,7 +81,7 @@ namespace AgOpenGPS
             panelSim.Visible = false;
             timerSim.Enabled = false;
             simulatorOnToolStripMenuItem.Checked = false;
-            Settings.Vehicle.setMenu_isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
+            Settings.User.isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
             
             return;
         }

@@ -27,7 +27,7 @@ namespace AgOpenGPS
             //Language keys
             //this.Text = gStr.Get(gs.gsColors;
 
-            string[] words = Settings.Vehicle.setDisplay_customSectionColors.Split(',');
+            string[] words = Settings.User.setDisplay_customSectionColors.Split(',');
             for (int i = 0; i < 16; i++)
             {
                 customSectionColorsList[i] = Color.FromArgb(int.Parse(words[i], CultureInfo.InvariantCulture)).CheckColorFor255();
@@ -126,12 +126,12 @@ namespace AgOpenGPS
 
         private void SaveCustomColor()
         {
-            Settings.Vehicle.setDisplay_customSectionColors = "";
+            Settings.User.setDisplay_customSectionColors = "";
             for (int i = 0; i < 15; i++)
             {
-                Settings.Vehicle.setDisplay_customSectionColors += customSectionColorsList[i].ToArgb() + ",";
+                Settings.User.setDisplay_customSectionColors += customSectionColorsList[i].ToArgb() + ",";
             }
-            Settings.Vehicle.setDisplay_customSectionColors += customSectionColorsList[15].ToArgb();
+            Settings.User.setDisplay_customSectionColors += customSectionColorsList[15].ToArgb();
         }
 
         private void bntOK_Click(object sender, EventArgs e)

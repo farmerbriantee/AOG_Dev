@@ -59,28 +59,31 @@ namespace AgOpenGPS
 
         private void UpdateSummary()
         {
-            lblSumWheelbase.Text = (Settings.Vehicle.setVehicle_wheelbase * glm.m2InchOrCm).ToString("N0")
-                + glm.unitsInCm;
+            //lblSumWheelbase.Text = (Settings.Vehicle.setVehicle_wheelbase * glm.m2InchOrCm).ToString("N0")
+            //    + glm.unitsInCm;
 
-            lblSumNumSections.Text = mf.tool.numOfSections.ToString();
+            //lblSumNumSections.Text = mf.tool.numOfSections.ToString();
 
-            string snapDist = (Settings.Vehicle.setAS_snapDistance * glm.m2InchOrCm).ToString("N1");
+            //string snapDist = (Settings.Vehicle.setAS_snapDistance * glm.m2InchOrCm).ToString("N1");
 
-            lblNudgeDistance.Text = snapDist + glm.unitsInCm.ToString();
-            lblUnits.Text = mf.isMetric ? "Metric" : "Imperial";
+            //lblNudgeDistance.Text = snapDist + glm.unitsInCm.ToString();
+            //lblUnits.Text = mf.isMetric ? "Metric" : "Imperial";
 
-            lblCurrentVehicle.Text = gStr.Get(gs.gsCurrent) + ": "+ RegistrySettings.vehicleFileName;
+            lblCurrentVehicle.Text = gStr.Get(gs.gsCurrent) + ": " + RegistrySettings.vehicleFileName;
             lblSummaryVehicleName.Text = lblCurrentVehicle.Text;
 
-            lblTramWidth.Text = mf.isMetric ?
-                ((Settings.Tool.setTram_tramWidth).ToString() + " m") :
-                ConvertMeterToFeet(Settings.Tool.setTram_tramWidth);
+            lblCurrentTool.Text = gStr.Get(gs.gsCurrent) + ": " + RegistrySettings.toolFileName;
+            lblSummaryToolName.Text = lblCurrentTool.Text;
 
-            lblToolOffset.Text = (Settings.Tool.setVehicle_toolOffset * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
+            //lblTramWidth.Text = mf.isMetric ?
+            //    ((Settings.Tool.setTram_tramWidth).ToString() + " m") :
+            //    ConvertMeterToFeet(Settings.Tool.setTram_tramWidth);
 
-            lblOverlap.Text = (Settings.Tool.setVehicle_toolOverlap * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
+            //lblToolOffset.Text = (Settings.Tool.setVehicle_toolOffset * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
 
-            lblLookahead.Text = Settings.Tool.setVehicle_toolLookAheadOn.ToString() + " sec";
+            //lblOverlap.Text = (Settings.Tool.setVehicle_toolOverlap * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
+
+            //lblLookahead.Text = Settings.Tool.setVehicle_toolLookAheadOn.ToString() + " sec";
         }
 
         public string ConvertMeterToFeet(double meter)

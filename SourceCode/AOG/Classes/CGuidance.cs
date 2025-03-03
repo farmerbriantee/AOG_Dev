@@ -1,8 +1,5 @@
-﻿using AgOpenGPS.Classes;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 
 namespace AgOpenGPS
 {
@@ -46,7 +43,7 @@ namespace AgOpenGPS
         {
             //constructor
             mf = _f;
-            sideHillCompFactor = Properties.Settings.Default.setAS_sideHillComp;
+            sideHillCompFactor = Settings.Vehicle.setAS_sideHillComp;
         }
 
         public void Guidance(vec3 pivot, vec3 steer, bool Uturn, List<vec3> curList)

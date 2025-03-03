@@ -1,6 +1,4 @@
-﻿//Please, if you use this, share the improvements
-
-using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL;
 using System;
 
 namespace AgOpenGPS
@@ -50,38 +48,38 @@ namespace AgOpenGPS
             //constructor
             mf = _f;
 
-            antennaHeight = Properties.Settings.Default.setVehicle_antennaHeight;
-            antennaPivot = Properties.Settings.Default.setVehicle_antennaPivot;
-            antennaOffset = Properties.Settings.Default.setVehicle_antennaOffset;
+            antennaHeight = Settings.Vehicle.setVehicle_antennaHeight;
+            antennaPivot = Settings.Vehicle.setVehicle_antennaPivot;
+            antennaOffset = Settings.Vehicle.setVehicle_antennaOffset;
 
-            wheelbase = Properties.Settings.Default.setVehicle_wheelbase;
+            wheelbase = Settings.Vehicle.setVehicle_wheelbase;
 
-            slowSpeedCutoff = Properties.ToolSettings.Default.setVehicle_slowSpeedCutoff;
+            slowSpeedCutoff = Settings.Tool.setVehicle_slowSpeedCutoff;
 
-            goalPointLookAheadHold = Properties.Settings.Default.setVehicle_goalPointLookAheadHold;
-            goalPointLookAheadMult = Properties.Settings.Default.setVehicle_goalPointLookAheadMult;
-            goalPointAcquireFactor = Properties.Settings.Default.setVehicle_goalPointAcquireFactor;
+            goalPointLookAheadHold = Settings.Vehicle.setVehicle_goalPointLookAheadHold;
+            goalPointLookAheadMult = Settings.Vehicle.setVehicle_goalPointLookAheadMult;
+            goalPointAcquireFactor = Settings.Vehicle.setVehicle_goalPointAcquireFactor;
 
-            stanleyDistanceErrorGain = Properties.Settings.Default.stanleyDistanceErrorGain;
-            stanleyHeadingErrorGain = Properties.Settings.Default.stanleyHeadingErrorGain;
+            stanleyDistanceErrorGain = Settings.Vehicle.stanleyDistanceErrorGain;
+            stanleyHeadingErrorGain = Settings.Vehicle.stanleyHeadingErrorGain;
 
-            maxAngularVelocity = Properties.Settings.Default.setVehicle_maxAngularVelocity;
-            maxSteerAngle = Properties.Settings.Default.setVehicle_maxSteerAngle;
+            maxAngularVelocity = Settings.Vehicle.setVehicle_maxAngularVelocity;
+            maxSteerAngle = Settings.Vehicle.setVehicle_maxSteerAngle;
 
             isHydLiftOn = false;
 
-            trackWidth = Properties.Settings.Default.setVehicle_trackWidth;
+            trackWidth = Settings.Vehicle.setVehicle_trackWidth;
 
-            stanleyIntegralGainAB = Properties.Settings.Default.stanleyIntegralGainAB;
-            stanleyIntegralDistanceAwayTriggerAB = Properties.Settings.Default.stanleyIntegralDistanceAwayTriggerAB;
+            stanleyIntegralGainAB = Settings.Vehicle.stanleyIntegralGainAB;
+            stanleyIntegralDistanceAwayTriggerAB = Settings.Vehicle.stanleyIntegralDistanceAwayTriggerAB;
 
-            purePursuitIntegralGain = Properties.Settings.Default.purePursuitIntegralGainAB;
-            vehicleType = Properties.Settings.Default.setVehicle_vehicleType;
+            purePursuitIntegralGain = Settings.Vehicle.purePursuitIntegralGainAB;
+            vehicleType = Settings.Vehicle.setVehicle_vehicleType;
 
-            hydLiftLookAheadTime = Properties.ToolSettings.Default.setVehicle_hydraulicLiftLookAhead;
+            hydLiftLookAheadTime = Settings.Tool.setVehicle_hydraulicLiftLookAhead;
 
-            deadZoneHeading = Properties.Settings.Default.setAS_deadZoneHeading * 0.01;
-            deadZoneDelay = Properties.Settings.Default.setAS_deadZoneDelay;
+            deadZoneHeading = Settings.Vehicle.setAS_deadZoneHeading * 0.01;
+            deadZoneDelay = Settings.Vehicle.setAS_deadZoneDelay;
 
             isInFreeDriveMode = false;
 
@@ -91,11 +89,11 @@ namespace AgOpenGPS
             //how long before hold is activated
             modeTime = 1;
 
-            functionSpeedLimit = Properties.Settings.Default.setAS_functionSpeedLimit;
-            maxSteerSpeed = Properties.Settings.Default.setAS_maxSteerSpeed;
-            minSteerSpeed = Properties.Settings.Default.setAS_minSteerSpeed;
+            functionSpeedLimit = Settings.Vehicle.setAS_functionSpeedLimit;
+            maxSteerSpeed = Settings.Vehicle.setAS_maxSteerSpeed;
+            minSteerSpeed = Settings.Vehicle.setAS_minSteerSpeed;
 
-            uturnCompensation = Properties.Settings.Default.setAS_uTurnCompensation;
+            uturnCompensation = Settings.Vehicle.setAS_uTurnCompensation;
         }
 
         public int modeTimeCounter = 0;
@@ -267,7 +265,6 @@ namespace AgOpenGPS
                     GL.Rotate(rightAckerman, 0, 0, 1);
 
                     GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.FrontWheels]);        // Select Our Texture
-                    GL.Color4(mf.vehicleColor.R, mf.vehicleColor.G, mf.vehicleColor.B, mf.vehicleOpacityByte);
 
                     GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
                     GL.TexCoord2(1, 0); GL.Vertex2(trackWidth * 0.5, wheelbase * 0.75); // Top Right

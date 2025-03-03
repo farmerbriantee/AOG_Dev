@@ -83,21 +83,21 @@ namespace AgOpenGPS
         {
             mf = _f;
 
-            uturnDistanceFromBoundary = Properties.Settings.Default.set_youTurnDistanceFromBoundary;
+            uturnDistanceFromBoundary = Settings.Vehicle.set_youTurnDistanceFromBoundary;
 
             //how far before or after boundary line should turn happen
-            youTurnStartOffset = Properties.Settings.Default.set_youTurnExtensionLength;
+            youTurnStartOffset = Settings.Vehicle.set_youTurnExtensionLength;
 
-            rowSkipsWidth = Properties.Settings.Default.set_youSkipWidth;
+            rowSkipsWidth = Settings.Vehicle.set_youSkipWidth;
             Set_Alternate_skips();
 
             ytList.Capacity = 128;
 
-            youTurnRadius = Properties.Settings.Default.set_youTurnRadius;
+            youTurnRadius = Settings.Vehicle.set_youTurnRadius;
 
-            uTurnStyle = Properties.Settings.Default.set_uTurnStyle;
+            uTurnStyle = Settings.Vehicle.set_uTurnStyle;
 
-            uTurnSmoothing = Properties.Settings.Default.setAS_uTurnSmoothing;
+            uTurnSmoothing = Settings.Vehicle.setAS_uTurnSmoothing;
         }
 
         //Finds the point where an AB Curve crosses the turn line

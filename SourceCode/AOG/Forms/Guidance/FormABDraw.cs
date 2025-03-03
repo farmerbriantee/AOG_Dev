@@ -71,7 +71,7 @@ namespace AgOpenGPS
             cboxIsZoom.Checked = false;
             zoomToggle = false;
 
-            Size = Properties.Settings.Default.setWindow_abDrawSize;
+            Size = Settings.Interface.setWindow_abDrawSize;
 
             Screen myScreen = Screen.FromControl(this);
             Rectangle area = myScreen.WorkingArea;
@@ -176,7 +176,7 @@ namespace AgOpenGPS
             mf.trk.isTrackValid = false;
             mf.twoSecondCounter = 100;
 
-            Properties.Settings.Default.setWindow_abDrawSize = Size;
+            Settings.Interface.setWindow_abDrawSize = Size;
         }
 
         private void cboxIsZoom_CheckedChanged(object sender, EventArgs e)

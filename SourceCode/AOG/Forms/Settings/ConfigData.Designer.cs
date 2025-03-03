@@ -10,9 +10,9 @@ namespace AgOpenGPS
         private void tabDHeading_Enter(object sender, EventArgs e)
         {
             //heading
-            if (Properties.Settings.Default.setGPS_headingFromWhichSource == "Fix") rbtnHeadingFix.Checked = true;
+            if (Settings.Vehicle.setGPS_headingFromWhichSource == "Fix") rbtnHeadingFix.Checked = true;
             //else if (Properties.Settings.Default.setGPS_headingFromWhichSource == "VTG") rbtnHeadingGPS.Checked = true;
-            else if (Properties.Settings.Default.setGPS_headingFromWhichSource == "Dual") rbtnHeadingHDT.Checked = true;
+            else if (Settings.Vehicle.setGPS_headingFromWhichSource == "Dual") rbtnHeadingHDT.Checked = true;
             
             if (rbtnHeadingHDT.Checked)
             {
@@ -25,36 +25,36 @@ namespace AgOpenGPS
                 gboxDual.Enabled = false;
             }
 
-            nudDualHeadingOffset.Value = Properties.Settings.Default.setGPS_dualHeadingOffset;
-            nudDualReverseDistance.Value = Properties.Settings.Default.setGPS_dualReverseDetectionDistance;
+            nudDualHeadingOffset.Value = Settings.Vehicle.setGPS_dualHeadingOffset;
+            nudDualReverseDistance.Value = Settings.Vehicle.setGPS_dualReverseDetectionDistance;
 
-            hsbarFusion.Value = (int)(Properties.Settings.Default.setIMU_fusionWeight2 * 500);
+            hsbarFusion.Value = (int)(Settings.Vehicle.setIMU_fusionWeight2 * 500);
             lblFusion.Text = (hsbarFusion.Value).ToString();
             lblFusionIMU.Text = (100 - hsbarFusion.Value).ToString();
 
-            cboxIsRTK.Checked = Properties.Settings.Default.setGPS_isRTK;
-            cboxIsRTK_KillAutoSteer.Checked = Properties.Settings.Default.setGPS_isRTK_KillAutoSteer;
+            cboxIsRTK.Checked = Settings.Vehicle.setGPS_isRTK;
+            cboxIsRTK_KillAutoSteer.Checked = Settings.Vehicle.setGPS_isRTK_KillAutoSteer;
 
-            nudFixJumpDistance.Value = Properties.Settings.Default.setGPS_jumpFixAlarmDistance;
+            nudFixJumpDistance.Value = Settings.Vehicle.setGPS_jumpFixAlarmDistance;
 
-            cboxIsReverseOn.Checked = Properties.Settings.Default.setIMU_isReverseOn;
+            cboxIsReverseOn.Checked = Settings.Vehicle.setIMU_isReverseOn;
 
-            if (Properties.Settings.Default.setF_minHeadingStepDistance == 1.0)
+            if (Settings.Vehicle.setF_minHeadingStepDistance == 1.0)
                 cboxMinGPSStep.Checked = true;
             else
                 cboxMinGPSStep.Checked = false;
 
             if (cboxMinGPSStep.Checked)
             {
-                Properties.Settings.Default.setF_minHeadingStepDistance = 1.0;
-                Properties.Settings.Default.setGPS_minimumStepLimit = 0.1;
+                Settings.Vehicle.setF_minHeadingStepDistance = 1.0;
+                Settings.Vehicle.setGPS_minimumStepLimit = 0.1;
                 cboxMinGPSStep.Text = "10 cm";
                 lblHeadingDistance.Text = "100 cm";
             }
             else
             {
-                Properties.Settings.Default.setF_minHeadingStepDistance = 0.5;
-                Properties.Settings.Default.setGPS_minimumStepLimit = 0.05;
+                Settings.Vehicle.setF_minHeadingStepDistance = 0.5;
+                Settings.Vehicle.setGPS_minimumStepLimit = 0.05;
                 cboxMinGPSStep.Text = "5 cm";
                 lblHeadingDistance.Text = "50 cm";
             }
@@ -77,23 +77,23 @@ namespace AgOpenGPS
 
         private void tabDHeading_Leave(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setIMU_fusionWeight2 = (double)hsbarFusion.Value * 0.002;
+            Settings.Vehicle.setIMU_fusionWeight2 = (double)hsbarFusion.Value * 0.002;
             mf.ahrs.fusionWeight = (double)hsbarFusion.Value * 0.002;
 
-            Properties.Settings.Default.setGPS_isRTK = mf.isRTK_AlarmOn = cboxIsRTK.Checked;
+            Settings.Vehicle.setGPS_isRTK = mf.isRTK_AlarmOn = cboxIsRTK.Checked;
 
-            Properties.Settings.Default.setIMU_isReverseOn = mf.ahrs.isReverseOn = cboxIsReverseOn.Checked;
-            Properties.Settings.Default.setGPS_isRTK_KillAutoSteer = mf.isRTK_KillAutosteer = cboxIsRTK_KillAutoSteer.Checked;
+            Settings.Vehicle.setIMU_isReverseOn = mf.ahrs.isReverseOn = cboxIsReverseOn.Checked;
+            Settings.Vehicle.setGPS_isRTK_KillAutoSteer = mf.isRTK_KillAutosteer = cboxIsRTK_KillAutoSteer.Checked;
 
             if (cboxMinGPSStep.Checked)
             {
-                Properties.Settings.Default.setF_minHeadingStepDistance = 1.0;
-                Properties.Settings.Default.setGPS_minimumStepLimit = 0.1;
+                Settings.Vehicle.setF_minHeadingStepDistance = 1.0;
+                Settings.Vehicle.setGPS_minimumStepLimit = 0.1;
             }
             else
             {
-                Properties.Settings.Default.setF_minHeadingStepDistance = 0.5;
-                Properties.Settings.Default.setGPS_minimumStepLimit = 0.05;
+                Settings.Vehicle.setF_minHeadingStepDistance = 0.5;
+                Settings.Vehicle.setGPS_minimumStepLimit = 0.05;
             }
 
             
@@ -101,7 +101,7 @@ namespace AgOpenGPS
         private void rbtnHeadingFix_CheckedChanged(object sender, EventArgs e)
         {
             var checkedButton = headingGroupBox.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
-            Properties.Settings.Default.setGPS_headingFromWhichSource = checkedButton.Text;
+            Settings.Vehicle.setGPS_headingFromWhichSource = checkedButton.Text;
             mf.headingFromSource = checkedButton.Text;
 
             if (rbtnHeadingHDT.Checked)
@@ -118,20 +118,20 @@ namespace AgOpenGPS
 
         private void nudFixJumpDistance_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setGPS_jumpFixAlarmDistance = ((int)nudFixJumpDistance.Value);
+            Settings.Vehicle.setGPS_jumpFixAlarmDistance = ((int)nudFixJumpDistance.Value);
             //mf.jumpDistanceAlarm = Properties.Settings.Default.setGPS_dualHeadingOffset;
         }
 
         private void nudDualHeadingOffset_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setGPS_dualHeadingOffset = nudDualHeadingOffset.Value;
-            mf.pn.headingTrueDualOffset = Properties.Settings.Default.setGPS_dualHeadingOffset;
+            Settings.Vehicle.setGPS_dualHeadingOffset = nudDualHeadingOffset.Value;
+            mf.pn.headingTrueDualOffset = Settings.Vehicle.setGPS_dualHeadingOffset;
         }
 
         private void nudDualReverseDistance_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setGPS_dualReverseDetectionDistance = nudDualReverseDistance.Value;
-            mf.dualReverseDetectionDistance = Properties.Settings.Default.setGPS_dualReverseDetectionDistance;
+            Settings.Vehicle.setGPS_dualReverseDetectionDistance = nudDualReverseDistance.Value;
+            mf.dualReverseDetectionDistance = Settings.Vehicle.setGPS_dualReverseDetectionDistance;
         }
         //private void nudMinimumFrameTime_Click(object sender, EventArgs e)
         //{
@@ -145,15 +145,15 @@ namespace AgOpenGPS
         {
             if (cboxMinGPSStep.Checked)
             {
-                Properties.Settings.Default.setF_minHeadingStepDistance = 1;
-                Properties.Settings.Default.setGPS_minimumStepLimit = 0.1;
+                Settings.Vehicle.setF_minHeadingStepDistance = 1;
+                Settings.Vehicle.setGPS_minimumStepLimit = 0.1;
                 cboxMinGPSStep.Text = "10 cm";
                 lblHeadingDistance.Text = "100 cm";
             }
             else
             {
-                Properties.Settings.Default.setF_minHeadingStepDistance = 0.5;
-                Properties.Settings.Default.setGPS_minimumStepLimit = 0.05;
+                Settings.Vehicle.setF_minHeadingStepDistance = 0.5;
+                Settings.Vehicle.setGPS_minimumStepLimit = 0.05;
                 cboxMinGPSStep.Text = "5 cm";
                 lblHeadingDistance.Text = "50 cm";
             }
@@ -199,19 +199,19 @@ namespace AgOpenGPS
         private void tabDRoll_Enter(object sender, EventArgs e)
         {
             //Roll
-            lblRollZeroOffset.Text = ((double)Properties.Settings.Default.setIMU_rollZero).ToString("N2");
-            hsbarRollFilter.Value = (int)(Properties.Settings.Default.setIMU_rollFilter * 100);
-            cboxDataInvertRoll.Checked = Properties.Settings.Default.setIMU_invertRoll;
+            lblRollZeroOffset.Text = ((double)Settings.Vehicle.setIMU_rollZero).ToString("N2");
+            hsbarRollFilter.Value = (int)(Settings.Vehicle.setIMU_rollFilter * 100);
+            cboxDataInvertRoll.Checked = Settings.Vehicle.setIMU_invertRoll;
         }
 
         private void tabDRoll_Leave(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setIMU_rollFilter = (double)hsbarRollFilter.Value * 0.01;
-            Properties.Settings.Default.setIMU_rollZero = mf.ahrs.rollZero;
-            Properties.Settings.Default.setIMU_invertRoll = cboxDataInvertRoll.Checked;
+            Settings.Vehicle.setIMU_rollFilter = (double)hsbarRollFilter.Value * 0.01;
+            Settings.Vehicle.setIMU_rollZero = mf.ahrs.rollZero;
+            Settings.Vehicle.setIMU_invertRoll = cboxDataInvertRoll.Checked;
 
-            mf.ahrs.rollFilter = Properties.Settings.Default.setIMU_rollFilter;
-            mf.ahrs.isRollInvert = Properties.Settings.Default.setIMU_invertRoll;
+            mf.ahrs.rollFilter = Settings.Vehicle.setIMU_rollFilter;
+            mf.ahrs.isRollInvert = Settings.Vehicle.setIMU_invertRoll;
 
             
         }
@@ -280,65 +280,65 @@ namespace AgOpenGPS
 
         private void tabBtns_Enter(object sender, EventArgs e)
         {
-            cboxFeatureTram.Checked = Properties.Settings.Default.setFeatures.isTramOn;
-            cboxFeatureHeadland.Checked = Properties.Settings.Default.setFeatures.isHeadlandOn;
-            cboxFeatureBoundary.Checked = Properties.Settings.Default.setFeatures.isBoundaryOn;
+            cboxFeatureTram.Checked = Settings.Interface.setFeatures.isTramOn;
+            cboxFeatureHeadland.Checked = Settings.Interface.setFeatures.isHeadlandOn;
+            cboxFeatureBoundary.Checked = Settings.Interface.setFeatures.isBoundaryOn;
 
             //the nudge controls at bottom menu
-            cboxFeatureNudge.Checked = Properties.Settings.Default.setFeatures.isABLineOn;
+            cboxFeatureNudge.Checked = Settings.Interface.setFeatures.isABLineOn;
             //cboxFeatureBoundaryContour.Checked = Properties.Settings.Default.setFeatures.isBndContourOn;
-            cboxFeatureABSmooth.Checked = Properties.Settings.Default.setFeatures.isABSmoothOn;
-            cboxFeatureHideContour.Checked = Properties.Settings.Default.setFeatures.isHideContourOn;
-            cboxFeatureWebcam.Checked = Properties.Settings.Default.setFeatures.isWebCamOn;
-            cboxFeatureOffsetFix.Checked = Properties.Settings.Default.setFeatures.isOffsetFixOn;
+            cboxFeatureABSmooth.Checked = Settings.Interface.setFeatures.isABSmoothOn;
+            cboxFeatureHideContour.Checked = Settings.Interface.setFeatures.isHideContourOn;
+            cboxFeatureWebcam.Checked = Settings.Interface.setFeatures.isWebCamOn;
+            cboxFeatureOffsetFix.Checked = Settings.Interface.setFeatures.isOffsetFixOn;
 
-            cboxFeatureUTurn.Checked = Properties.Settings.Default.setFeatures.isUTurnOn;
-            cboxFeatureLateral.Checked = Properties.Settings.Default.setFeatures.isLateralOn;
+            cboxFeatureUTurn.Checked = Settings.Interface.setFeatures.isUTurnOn;
+            cboxFeatureLateral.Checked = Settings.Interface.setFeatures.isLateralOn;
 
-            cboxTurnSound.Checked = Properties.Settings.Default.setSound_isUturnOn;
-            cboxSteerSound.Checked = Properties.Settings.Default.setSound_isAutoSteerOn;
-            cboxHydLiftSound.Checked = Properties.Settings.Default.setSound_isHydLiftOn;
-            cboxSectionsSound.Checked = Properties.Settings.Default.setSound_isSectionsOn;
+            cboxTurnSound.Checked = Settings.Vehicle.setSound_isUturnOn;
+            cboxSteerSound.Checked = Settings.Vehicle.setSound_isAutoSteerOn;
+            cboxHydLiftSound.Checked = Settings.Vehicle.setSound_isHydLiftOn;
+            cboxSectionsSound.Checked = Settings.Vehicle.setSound_isSectionsOn;
 
-            cboxAutoStartAgIO.Checked = Properties.Settings.Default.setDisplay_isAutoStartAgIO;
-            cboxAutoOffAgIO.Checked = Properties.Settings.Default.setDisplay_isAutoOffAgIO;
-            cboxShutdownWhenNoPower.Checked = Properties.Settings.Default.setDisplay_isShutdownWhenNoPower;
-            cboxHardwareMessages.Checked = Properties.Settings.Default.setDisplay_isHardwareMessages;
+            cboxAutoStartAgIO.Checked = Settings.Interface.setDisplay_isAutoStartAgIO;
+            cboxAutoOffAgIO.Checked = Settings.Interface.setDisplay_isAutoOffAgIO;
+            cboxShutdownWhenNoPower.Checked = Settings.Vehicle.setDisplay_isShutdownWhenNoPower;
+            cboxHardwareMessages.Checked = Settings.Vehicle.setDisplay_isHardwareMessages;
         }
 
         private void tabBtns_Leave(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setFeatures.isTramOn = cboxFeatureTram.Checked;
-            Properties.Settings.Default.setFeatures.isHeadlandOn = cboxFeatureHeadland.Checked;
+            Settings.Interface.setFeatures.isTramOn = cboxFeatureTram.Checked;
+            Settings.Interface.setFeatures.isHeadlandOn = cboxFeatureHeadland.Checked;
 
-            Properties.Settings.Default.setFeatures.isABLineOn = cboxFeatureNudge.Checked;
+            Settings.Interface.setFeatures.isABLineOn = cboxFeatureNudge.Checked;
 
-            Properties.Settings.Default.setFeatures.isBoundaryOn = cboxFeatureBoundary.Checked;
-            Properties.Settings.Default.setFeatures.isABSmoothOn = cboxFeatureABSmooth.Checked;
-            Properties.Settings.Default.setFeatures.isHideContourOn = cboxFeatureHideContour.Checked;
-            Properties.Settings.Default.setFeatures.isWebCamOn = cboxFeatureWebcam.Checked;
-            Properties.Settings.Default.setFeatures.isOffsetFixOn = cboxFeatureOffsetFix.Checked;
+            Settings.Interface.setFeatures.isBoundaryOn = cboxFeatureBoundary.Checked;
+            Settings.Interface.setFeatures.isABSmoothOn = cboxFeatureABSmooth.Checked;
+            Settings.Interface.setFeatures.isHideContourOn = cboxFeatureHideContour.Checked;
+            Settings.Interface.setFeatures.isWebCamOn = cboxFeatureWebcam.Checked;
+            Settings.Interface.setFeatures.isOffsetFixOn = cboxFeatureOffsetFix.Checked;
 
-            Properties.Settings.Default.setFeatures.isLateralOn = cboxFeatureLateral.Checked;
-            Properties.Settings.Default.setFeatures.isUTurnOn = cboxFeatureUTurn.Checked;
+            Settings.Interface.setFeatures.isLateralOn = cboxFeatureLateral.Checked;
+            Settings.Interface.setFeatures.isUTurnOn = cboxFeatureUTurn.Checked;
 
-            Properties.Settings.Default.setSound_isUturnOn = cboxTurnSound.Checked;
+            Settings.Vehicle.setSound_isUturnOn = cboxTurnSound.Checked;
             mf.sounds.isTurnSoundOn = cboxTurnSound.Checked;
-            Properties.Settings.Default.setSound_isAutoSteerOn = cboxSteerSound.Checked;
+            Settings.Vehicle.setSound_isAutoSteerOn = cboxSteerSound.Checked;
             mf.sounds.isSteerSoundOn = cboxSteerSound.Checked;
-            Properties.Settings.Default.setSound_isSectionsOn = cboxSectionsSound.Checked;
+            Settings.Vehicle.setSound_isSectionsOn = cboxSectionsSound.Checked;
             mf.sounds.isSectionsSoundOn = cboxSectionsSound.Checked;
-            Properties.Settings.Default.setSound_isHydLiftOn = cboxHydLiftSound.Checked;
+            Settings.Vehicle.setSound_isHydLiftOn = cboxHydLiftSound.Checked;
             mf.sounds.isHydLiftSoundOn = cboxHydLiftSound.Checked;
 
-            Properties.Settings.Default.setDisplay_isAutoStartAgIO = cboxAutoStartAgIO.Checked;
+            Settings.Interface.setDisplay_isAutoStartAgIO = cboxAutoStartAgIO.Checked;
             mf.isAutoStartAgIO = cboxAutoStartAgIO.Checked;
 
-            Properties.Settings.Default.setDisplay_isAutoOffAgIO = cboxAutoOffAgIO.Checked;
+            Settings.Interface.setDisplay_isAutoOffAgIO = cboxAutoOffAgIO.Checked;
 
-            Properties.Settings.Default.setDisplay_isShutdownWhenNoPower = cboxShutdownWhenNoPower.Checked;
+            Settings.Vehicle.setDisplay_isShutdownWhenNoPower = cboxShutdownWhenNoPower.Checked;
 
-            Properties.Settings.Default.setDisplay_isHardwareMessages = cboxHardwareMessages.Checked;            
+            Settings.Vehicle.setDisplay_isHardwareMessages = cboxHardwareMessages.Checked;            
         }
 
         private void btnRightMenuOrder_Click(object sender, EventArgs e)

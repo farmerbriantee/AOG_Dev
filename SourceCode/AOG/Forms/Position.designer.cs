@@ -245,11 +245,11 @@ namespace AgOpenGPS
                                 if (isReverse)
                                 {
                                     gpsHeading -= glm.toRadians(vehicle.antennaPivot / 1
-                                        * mc.actualSteerAngleDegrees * Properties.Settings.Default.setGPS_reverseComp);
+                                        * mc.actualSteerAngleDegrees * Settings.Vehicle.setGPS_reverseComp);
                                 }
                                 else
                                     gpsHeading -= glm.toRadians(vehicle.antennaPivot / 1
-                                        * mc.actualSteerAngleDegrees * Properties.Settings.Default.setGPS_forwardComp);
+                                        * mc.actualSteerAngleDegrees * Settings.Vehicle.setGPS_forwardComp);
                                 
                                 if (gpsHeading < 0) gpsHeading += glm.twoPI;
                                 else if (gpsHeading >= glm.twoPI) gpsHeading -= glm.twoPI;

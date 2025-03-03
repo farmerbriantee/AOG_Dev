@@ -24,19 +24,19 @@
         //constructor
         public CAHRS()
         {
-            rollZero = Properties.Settings.Default.setIMU_rollZero;
+            rollZero = Settings.Vehicle.setIMU_rollZero;
 
-            rollFilter = Properties.Settings.Default.setIMU_rollFilter;
+            rollFilter = Settings.Vehicle.setIMU_rollFilter;
 
-            fusionWeight = Properties.Settings.Default.setIMU_fusionWeight2;
+            fusionWeight = Settings.Vehicle.setIMU_fusionWeight2;
 
             //isAutoSteerAuto = Properties.Settings.Default.setAS_isAutoSteerAutoOn;
             isAutoSteerAuto = true;
 
 
-            isRollInvert = Properties.Settings.Default.setIMU_invertRoll;
+            isRollInvert = Settings.Vehicle.setIMU_invertRoll;
 
-            isReverseOn = Properties.Settings.Default.setIMU_isReverseOn;
+            isReverseOn = Settings.Vehicle.setIMU_isReverseOn;
         }
     }
 }

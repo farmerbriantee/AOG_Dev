@@ -51,7 +51,7 @@ namespace AgOpenGPS
 
             CalculateMinMax();
 
-            Size = Properties.Settings.Default.setWindow_HeadAcheSize;
+            Size = Settings.Interface.setWindow_HeadAcheSize;
 
             Screen myScreen = Screen.FromControl(this);
             Rectangle area = myScreen.WorkingArea;
@@ -71,7 +71,7 @@ namespace AgOpenGPS
 
         private void FormBoundaryLines_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.setWindow_HeadAcheSize = Size;
+            Settings.Interface.setWindow_HeadAcheSize = Size;
         }
 
         private void FormBoundaryLines_ResizeEnd(object sender, EventArgs e)

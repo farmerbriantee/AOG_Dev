@@ -25,11 +25,11 @@ namespace AgOpenGPS
         {
             if (cboxRate1Rate2Select.Checked)
             {
-                nozz.volumePerAreaSetSelected = Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet2;
+                nozz.volumePerAreaSetSelected = Settings.Tool.setNozzleSettings.volumePerAreaSet2;
             }
             else
             {
-                nozz.volumePerAreaSetSelected = Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet1;
+                nozz.volumePerAreaSetSelected = Settings.Tool.setNozzleSettings.volumePerAreaSet1;
             }
 
             cboxRate1Rate2Select.Text = nozz.volumePerAreaSetSelected + nozz.unitsPerArea;
@@ -74,11 +74,11 @@ namespace AgOpenGPS
 
             if (cboxRate1Rate2Select.Checked)
             {
-                nozz.volumePerAreaSetSelected = Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet2;
+                nozz.volumePerAreaSetSelected = Settings.Tool.setNozzleSettings.volumePerAreaSet2;
             }
             else
             {
-                nozz.volumePerAreaSetSelected = Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet1;
+                nozz.volumePerAreaSetSelected = Settings.Tool.setNozzleSettings.volumePerAreaSet1;
             }
 
             cboxRate1Rate2Select.Text = nozz.volumePerAreaSetSelected + nozz.unitsPerArea;
@@ -172,7 +172,7 @@ namespace AgOpenGPS
 
                 trk.isTrackValid = false;
                 ct.isLocked = false;
-                guidanceLookAheadTime = Properties.Settings.Default.setAS_guidanceLookAheadTime;
+                guidanceLookAheadTime = Settings.Vehicle.setAS_guidanceLookAheadTime;
                 btnContourLock.Image = Resources.ColorUnlocked;
                 if (isBtnAutoSteerOn)
                 {
@@ -1021,12 +1021,12 @@ namespace AgOpenGPS
 
         private void btnAdjRight_Click(object sender, EventArgs e)
         {
-            trk.NudgeTrack(Properties.Settings.Default.setAS_snapDistance);
+            trk.NudgeTrack(Settings.Vehicle.setAS_snapDistance);
         }
 
         private void btnAdjLeft_Click(object sender, EventArgs e)
         {
-            trk.NudgeTrack(-Properties.Settings.Default.setAS_snapDistance);
+            trk.NudgeTrack(-Settings.Vehicle.setAS_snapDistance);
         }
 
         #endregion
@@ -1239,7 +1239,7 @@ namespace AgOpenGPS
             }
 
             nozzleAppToolStripMenuItem.Checked = isNozzleApp;
-            Settings.Default.setApPGN_isNozzleApp = isNozzleApp;
+            Settings.Vehicle.setApp_isNozzleApp = isNozzleApp;
 
             PanelsAndOGLSize();
         }
@@ -1255,17 +1255,15 @@ namespace AgOpenGPS
                 isFullScreen = true;
                 btnMaximizeMainForm.Visible = false;
                 btnMinimizeMainForm.Visible = false;
-                Settings.Default.setWindow_isKioskMode = true;
+                Settings.Interface.setWindow_isKioskMode = true;
             }
             else
             {
                 kioskModeToolStrip.Checked = false;
                 btnMaximizeMainForm.Visible = true;
                 btnMinimizeMainForm.Visible = true;
-                Settings.Default.setWindow_isKioskMode = false;
+                Settings.Interface.setWindow_isKioskMode = false;
             }
-
-            
         }
 
         private void resetALLToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1314,7 +1312,7 @@ namespace AgOpenGPS
                 LineUpAllZoneButtons();
             }
 
-            Settings.Default.setMenu_isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
+            Settings.Vehicle.setMenu_isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
         }
         private void colorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1322,7 +1320,7 @@ namespace AgOpenGPS
             {
                 form.ShowDialog(this);
             }
-            Properties.Settings.Default.Save();
+            Settings.Vehicle.Save();
         }
         private void colorsSectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1332,7 +1330,7 @@ namespace AgOpenGPS
                 {
                     form.ShowDialog(this);
                 }
-                Properties.Settings.Default.Save();
+                Settings.Vehicle.Save();
             }
             else
             {
@@ -1635,16 +1633,13 @@ namespace AgOpenGPS
         public bool isPatchesChangingColor = false;
         private void btnChangeMappingColor_Click(object sender, EventArgs e)
         {
-            using (var form = new FormColorPicker(this, sectionColorDay))
+            using (var form = new FormColorPicker(this, Settings.Interface.setDisplay_colorSectionsDay))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    sectionColorDay = form.useThisColor;
+                    Settings.Interface.setDisplay_colorSectionsDay = form.useThisColor;
                 }
             }
-
-            Settings.Default.setDisplay_colorSectionsDay = sectionColorDay;
-            
 
             isPatchesChangingColor = true;
         }
@@ -1674,7 +1669,7 @@ namespace AgOpenGPS
             yt.rowSkipsWidth = cboxpRowWidth.SelectedIndex + 1;
             yt.Set_Alternate_skips();
             if (!yt.isYouTurnTriggered) yt.ResetCreatedYouTurn();
-            Properties.Settings.Default.set_youSkipWidth = yt.rowSkipsWidth;
+            Settings.Vehicle.set_youSkipWidth = yt.rowSkipsWidth;
             
         }
         private void btnHeadlandOnOff_Click(object sender, EventArgs e)
@@ -1743,7 +1738,7 @@ namespace AgOpenGPS
             if (isSideGuideLines) guidelinesToolStripMenuItem.Checked = true;
             else guidelinesToolStripMenuItem.Checked = false;
 
-            Properties.Settings.Default.setMenu_isSideGuideLines = isSideGuideLines;
+            Settings.Vehicle.setMenu_isSideGuideLines = isSideGuideLines;
             
         }
         private void boundaryToolToolStripMenu_Click(object sender, EventArgs e)
@@ -1984,7 +1979,7 @@ namespace AgOpenGPS
             {
                 displayBrightness.BrightnessIncrease();
                 btnBrightnessDn.Text = displayBrightness.GetBrightness().ToString() + "%";
-                Settings.Default.setDisplay_brightness = displayBrightness.GetBrightness();
+                Settings.Vehicle.setDisplay_brightness = displayBrightness.GetBrightness();
                 
             }
             navPanelCounter = 3;
@@ -1995,7 +1990,7 @@ namespace AgOpenGPS
             {
                 displayBrightness.BrightnessDecrease();
                 btnBrightnessDn.Text = displayBrightness.GetBrightness().ToString() + "%";
-                Settings.Default.setDisplay_brightness = displayBrightness.GetBrightness();
+                Settings.Vehicle.setDisplay_brightness = displayBrightness.GetBrightness();
                 
             }
             navPanelCounter = 3;

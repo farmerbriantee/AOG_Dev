@@ -45,7 +45,7 @@ namespace AgOpenGPS
 
             this.Size = new System.Drawing.Size(270, 360);
 
-            Location = Properties.Settings.Default.setWindow_QuickABLocation;
+            Location = Settings.Interface.setWindow_QuickABLocation;
 
             nudHeading.Value = 0;
 
@@ -58,7 +58,7 @@ namespace AgOpenGPS
 
         private void FormQuickAB_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.setWindow_QuickABLocation = Location;
+            Settings.Interface.setWindow_QuickABLocation = Location;
 
             mf.twoSecondCounter = 100;
 

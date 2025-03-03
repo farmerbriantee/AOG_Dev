@@ -1,11 +1,9 @@
 ﻿using AgOpenGPS.Classes;
-
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -82,7 +80,7 @@ namespace AgOpenGPS
             originalLine = mf.trk.idx;
 
             selectedItem = -1;
-            Location = Properties.Settings.Default.setWindow_buildTracksLocation;
+            Location = Settings.Interface.setWindow_buildTracksLocation;
 
 
             nudLatitudeA.Value = mf.pn.latitude;
@@ -111,7 +109,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            Properties.Settings.Default.setWindow_buildTracksLocation = Location;
+            Settings.Interface.setWindow_buildTracksLocation = Location;
 
             mf.twoSecondCounter = 100;
 

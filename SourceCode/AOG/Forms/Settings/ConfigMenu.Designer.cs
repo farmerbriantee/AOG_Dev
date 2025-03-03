@@ -59,12 +59,12 @@ namespace AgOpenGPS
 
         private void UpdateSummary()
         {
-            lblSumWheelbase.Text = (Properties.Settings.Default.setVehicle_wheelbase * glm.m2InchOrCm).ToString("N0")
+            lblSumWheelbase.Text = (Settings.Vehicle.setVehicle_wheelbase * glm.m2InchOrCm).ToString("N0")
                 + glm.unitsInCm;
 
             lblSumNumSections.Text = mf.tool.numOfSections.ToString();
 
-            string snapDist = (Properties.Settings.Default.setAS_snapDistance * glm.m2InchOrCm).ToString("N1");
+            string snapDist = (Settings.Vehicle.setAS_snapDistance * glm.m2InchOrCm).ToString("N1");
 
             lblNudgeDistance.Text = snapDist + glm.unitsInCm.ToString();
             lblUnits.Text = mf.isMetric ? "Metric" : "Imperial";
@@ -73,14 +73,14 @@ namespace AgOpenGPS
             lblSummaryVehicleName.Text = lblCurrentVehicle.Text;
 
             lblTramWidth.Text = mf.isMetric ?
-                ((Properties.ToolSettings.Default.setTram_tramWidth).ToString() + " m") :
-                ConvertMeterToFeet(Properties.ToolSettings.Default.setTram_tramWidth);
+                ((Settings.Tool.setTram_tramWidth).ToString() + " m") :
+                ConvertMeterToFeet(Settings.Tool.setTram_tramWidth);
 
-            lblToolOffset.Text = (Properties.ToolSettings.Default.setVehicle_toolOffset * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
+            lblToolOffset.Text = (Settings.Tool.setVehicle_toolOffset * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
 
-            lblOverlap.Text = (Properties.ToolSettings.Default.setVehicle_toolOverlap * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
+            lblOverlap.Text = (Settings.Tool.setVehicle_toolOverlap * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
 
-            lblLookahead.Text = Properties.ToolSettings.Default.setVehicle_toolLookAheadOn.ToString() + " sec";
+            lblLookahead.Text = Settings.Tool.setVehicle_toolLookAheadOn.ToString() + " sec";
         }
 
         public string ConvertMeterToFeet(double meter)

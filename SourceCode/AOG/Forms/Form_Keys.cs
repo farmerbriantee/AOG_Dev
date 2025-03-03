@@ -88,7 +88,7 @@ namespace AgOpenGPS
 
         private void Form_Keys_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.setKey_hotkeys =
+            Settings.Vehicle.setKey_hotkeys =
                 btnAutosteer.Text + btnCycleLines.Text + btnFieldMenu.Text +
                 btnNewFlag.Text + btnManualSection.Text + btnAutoSection.Text +
                 btnSnapToPivot.Text + btnMoveLineLeft.Text + btnMoveLineRight.Text +
@@ -96,14 +96,14 @@ namespace AgOpenGPS
                 btnSection1.Text + btnSection2.Text + btnSection3.Text + btnSection4.Text +
                 btnSection5.Text + btnSection6.Text + btnSection7.Text + btnSection8.Text;
 
-            mf.hotkeys = Properties.Settings.Default.setKey_hotkeys.ToCharArray();
+            mf.hotkeys = Settings.Vehicle.setKey_hotkeys.ToCharArray();
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setKey_hotkeys = "ACFGMNPTYVW12345678";
+            Settings.Vehicle.setKey_hotkeys = "ACFGMNPTYVW12345678";
 
-            mf.hotkeys = Properties.Settings.Default.setKey_hotkeys.ToCharArray();
+            mf.hotkeys = Settings.Vehicle.setKey_hotkeys.ToCharArray();
             LoadButtonText();
         }
 

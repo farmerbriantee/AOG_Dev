@@ -152,7 +152,7 @@ namespace AgOpenGPS
             mf.LoadSettings();
 
             //save current vehicle
-            Properties.Settings.Default.Save();
+            Settings.Vehicle.Save();
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -193,15 +193,15 @@ namespace AgOpenGPS
             chkDisplayFloor.Checked = mf.isTextureOn;
             chkDisplayGrid.Checked = mf.isGridOn;
             chkDisplaySpeedo.Checked = mf.isSpeedoOn;
-            chkDisplayStartFullScreen.Checked = Properties.Settings.Default.setDisplay_isStartFullScreen;
+            chkDisplayStartFullScreen.Checked = Settings.Vehicle.setDisplay_isStartFullScreen;
             chkSvennArrow.Checked = mf.isSvennArrowOn;
             chkDisplayExtraGuides.Checked = mf.isSideGuideLines;
             chkDisplayPolygons.Checked = mf.isDrawPolygons;
             chkDisplayKeyboard.Checked = mf.isKeyboardOn;
             chkDisplayLogElevation.Checked = mf.isLogElevation;
-            chkDirectionMarkers.Checked = Properties.ToolSettings.Default.setTool_isDirectionMarkers;
-            chkSectionLines.Checked = Properties.Settings.Default.setDisplay_isSectionLinesOn;
-            chkLineSmooth.Checked = Properties.Settings.Default.setDisplay_isLineSmooth;
+            chkDirectionMarkers.Checked = Settings.Tool.setTool_isDirectionMarkers;
+            chkSectionLines.Checked = Settings.Vehicle.setDisplay_isSectionLinesOn;
+            chkLineSmooth.Checked = Settings.Vehicle.setDisplay_isLineSmooth;
 
             rbtnDisplayMetric.Checked = mf.isMetric;
             rbtnDisplayImperial.Checked = !rbtnDisplayMetric.Checked;
@@ -219,7 +219,7 @@ namespace AgOpenGPS
             mf.TimedMessageBox(2000, "Units Set", "Imperial");
             Log.EventWriter("Units To Imperial");
 
-            Properties.Settings.Default.setMenu_isMetric = mf.isMetric = false;
+            Settings.Vehicle.setMenu_isMetric = mf.isMetric = false;
 
             Close();
         }
@@ -229,7 +229,7 @@ namespace AgOpenGPS
             mf.TimedMessageBox(2000, "Units Set", "Metric");
             Log.EventWriter("Units to Metric");
 
-            Properties.Settings.Default.setMenu_isMetric = mf.isMetric = true;
+            Settings.Vehicle.setMenu_isMetric = mf.isMetric = true;
 
             Close();
             //FormConfig_Load(this, e);

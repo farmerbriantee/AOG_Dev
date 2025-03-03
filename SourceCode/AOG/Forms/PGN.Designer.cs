@@ -7,17 +7,17 @@ namespace AgOpenGPS
     {
         public void LoadPGNS()
         {
-            PGN_252.pgn[PGN_252.gainProportional] = Properties.Settings.Default.setAS_Kp;
-            PGN_252.pgn[PGN_252.highPWM] = Properties.Settings.Default.setAS_highSteerPWM;
-            PGN_252.pgn[PGN_252.lowPWM] = Properties.Settings.Default.setAS_lowSteerPWM;
-            PGN_252.pgn[PGN_252.minPWM] = Properties.Settings.Default.setAS_minSteerPWM;
-            PGN_252.pgn[PGN_252.countsPerDegree] = Properties.Settings.Default.setAS_countsPerDegree;
-            PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset >> 8)); ;
-            PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setAS_Kp));
-            PGN_252.pgn[PGN_252.ackerman] = Properties.Settings.Default.setAS_ackerman;
+            PGN_252.pgn[PGN_252.gainProportional] = Settings.Vehicle.setAS_Kp;
+            PGN_252.pgn[PGN_252.highPWM] = Settings.Vehicle.setAS_highSteerPWM;
+            PGN_252.pgn[PGN_252.lowPWM] = Settings.Vehicle.setAS_lowSteerPWM;
+            PGN_252.pgn[PGN_252.minPWM] = Settings.Vehicle.setAS_minSteerPWM;
+            PGN_252.pgn[PGN_252.countsPerDegree] = Settings.Vehicle.setAS_countsPerDegree;
+            PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset >> 8)); ;
+            PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Settings.Vehicle.setAS_Kp));
+            PGN_252.pgn[PGN_252.ackerman] = Settings.Vehicle.setAS_ackerman;
 
             //pin relays
-            string[] words = Properties.Settings.Default.setRelay_pinConfig.Split(',');
+            string[] words = Settings.Vehicle.setRelay_pinConfig.Split(',');
 
             PGN_236.pgn[PGN_236.pin0] = (byte)int.Parse(words[0]);
             PGN_236.pgn[PGN_236.pin1] = (byte)int.Parse(words[1]);
@@ -104,7 +104,7 @@ namespace AgOpenGPS
         public static int countsPerDegree = 9;
         public static int wasOffsetLo = 10;
         public static int wasOffsetHi = 11;
-        public static int ackerman = 12;          
+        public static int ackerman = 12;
     }
 
     //Autosteer Board Config
@@ -140,7 +140,7 @@ namespace AgOpenGPS
         public static int hydLift = 7;
         public static int tram = 8;
         public static int geoStop = 9; //out of bounds etc
-                                //public static int  = 10;
+                                       //public static int  = 10;
         public static int sc1to8 = 11;
         public static int sc9to16 = 12;
     }
@@ -402,5 +402,3 @@ namespace AgOpenGPS
         public static int status = 10;
     }
 }
-
-

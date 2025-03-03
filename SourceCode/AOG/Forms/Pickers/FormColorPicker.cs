@@ -105,10 +105,10 @@ namespace AgOpenGPS
 
         private void SaveCustomColor()
         {
-            Properties.Settings.Default.setDisplay_customColors = "";
+            Settings.Vehicle.setDisplay_customColors = "";
             for (int i = 0; i < 15; i++)
-                Properties.Settings.Default.setDisplay_customColors += mf.customColorsList[i].ToString() + ",";
-            Properties.Settings.Default.setDisplay_customColors += mf.customColorsList[15].ToString();
+                Settings.Vehicle.setDisplay_customColors += mf.customColorsList[i].ToString() + ",";
+            Settings.Vehicle.setDisplay_customColors += mf.customColorsList[15].ToString();
         }
 
         private void btn00_Click(object sender, EventArgs e)

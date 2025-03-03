@@ -63,55 +63,55 @@ namespace AgOpenGPS
 
             //from settings grab the vehicle specifics
 
-            trailingToolToPivotLength = Properties.ToolSettings.Default.setTool_trailingToolToPivotLength;
-            width = Properties.ToolSettings.Default.setVehicle_toolWidth;
-            overlap = Properties.ToolSettings.Default.setVehicle_toolOverlap;
+            trailingToolToPivotLength = Settings.Tool.setTool_trailingToolToPivotLength;
+            width = Settings.Tool.setVehicle_toolWidth;
+            overlap = Settings.Tool.setVehicle_toolOverlap;
 
-            offset = Properties.ToolSettings.Default.setVehicle_toolOffset;
+            offset = Settings.Tool.setVehicle_toolOffset;
 
-            trailingHitchLength = Properties.ToolSettings.Default.setTool_toolTrailingHitchLength;
-            tankTrailingHitchLength = Properties.ToolSettings.Default.setVehicle_tankTrailingHitchLength;
-            hitchLength = Properties.ToolSettings.Default.setVehicle_hitchLength;
+            trailingHitchLength = Settings.Tool.setTool_toolTrailingHitchLength;
+            tankTrailingHitchLength = Settings.Tool.setVehicle_tankTrailingHitchLength;
+            hitchLength = Settings.Tool.setVehicle_hitchLength;
 
-            isToolRearFixed = Properties.ToolSettings.Default.setTool_isToolRearFixed;
-            isToolTrailing = Properties.ToolSettings.Default.setTool_isToolTrailing;
-            isToolTBT = Properties.ToolSettings.Default.setTool_isToolTBT;
-            isToolFrontFixed = Properties.ToolSettings.Default.setTool_isToolFront;
+            isToolRearFixed = Settings.Tool.setTool_isToolRearFixed;
+            isToolTrailing = Settings.Tool.setTool_isToolTrailing;
+            isToolTBT = Settings.Tool.setTool_isToolTBT;
+            isToolFrontFixed = Settings.Tool.setTool_isToolFront;
 
-            lookAheadOnSetting = Properties.ToolSettings.Default.setVehicle_toolLookAheadOn;
-            lookAheadOffSetting = Properties.ToolSettings.Default.setVehicle_toolLookAheadOff;
-            turnOffDelay = Properties.ToolSettings.Default.setVehicle_toolOffDelay;
+            lookAheadOnSetting = Settings.Tool.setVehicle_toolLookAheadOn;
+            lookAheadOffSetting = Settings.Tool.setVehicle_toolLookAheadOff;
+            turnOffDelay = Settings.Tool.setVehicle_toolOffDelay;
 
-            isSectionOffWhenOut = Properties.ToolSettings.Default.setTool_isSectionOffWhenOut;
+            isSectionOffWhenOut = Settings.Tool.setTool_isSectionOffWhenOut;
 
-            isSectionsNotZones = Properties.ToolSettings.Default.setTool_isSectionsNotZones;
+            isSectionsNotZones = Settings.Tool.setTool_isSectionsNotZones;
 
             if (isSectionsNotZones)
-                numOfSections = Properties.ToolSettings.Default.setVehicle_numSections;
+                numOfSections = Settings.Tool.setVehicle_numSections;
             else
-                numOfSections = Properties.ToolSettings.Default.setTool_numSectionsMulti;
+                numOfSections = Settings.Tool.setTool_numSectionsMulti;
 
-            minCoverage = Properties.ToolSettings.Default.setVehicle_minCoverage;
-            isMultiColoredSections = Properties.Settings.Default.setColor_isMultiColorSections;
+            minCoverage = Settings.Tool.setVehicle_minCoverage;
+            isMultiColoredSections = Settings.Vehicle.setColor_isMultiColorSections;
 
-            secColors[0] = Properties.Settings.Default.setColor_sec01;
-            secColors[1] = Properties.Settings.Default.setColor_sec02;
-            secColors[2] = Properties.Settings.Default.setColor_sec03;
-            secColors[3] = Properties.Settings.Default.setColor_sec04;
-            secColors[4] = Properties.Settings.Default.setColor_sec05;
-            secColors[5] = Properties.Settings.Default.setColor_sec06;
-            secColors[6] = Properties.Settings.Default.setColor_sec07;
-            secColors[7] = Properties.Settings.Default.setColor_sec08;
-            secColors[8] = Properties.Settings.Default.setColor_sec09;
-            secColors[9] = Properties.Settings.Default.setColor_sec10;
-            secColors[10] = Properties.Settings.Default.setColor_sec11;
-            secColors[11] = Properties.Settings.Default.setColor_sec12;
-            secColors[12] = Properties.Settings.Default.setColor_sec13;
-            secColors[13] = Properties.Settings.Default.setColor_sec14;
-            secColors[14] = Properties.Settings.Default.setColor_sec15;
-            secColors[15] = Properties.Settings.Default.setColor_sec16;
+            secColors[0] = Settings.Vehicle.setColor_sec01;
+            secColors[1] = Settings.Vehicle.setColor_sec02;
+            secColors[2] = Settings.Vehicle.setColor_sec03;
+            secColors[3] = Settings.Vehicle.setColor_sec04;
+            secColors[4] = Settings.Vehicle.setColor_sec05;
+            secColors[5] = Settings.Vehicle.setColor_sec06;
+            secColors[6] = Settings.Vehicle.setColor_sec07;
+            secColors[7] = Settings.Vehicle.setColor_sec08;
+            secColors[8] = Settings.Vehicle.setColor_sec09;
+            secColors[9] = Settings.Vehicle.setColor_sec10;
+            secColors[10] = Settings.Vehicle.setColor_sec11;
+            secColors[11] = Settings.Vehicle.setColor_sec12;
+            secColors[12] = Settings.Vehicle.setColor_sec13;
+            secColors[13] = Settings.Vehicle.setColor_sec14;
+            secColors[14] = Settings.Vehicle.setColor_sec15;
+            secColors[15] = Settings.Vehicle.setColor_sec16;
 
-            string[] words = Properties.ToolSettings.Default.setTool_zones.Split(',');
+            string[] words = Settings.Tool.setTool_zones.Split(',');
             zones = int.Parse(words[0]);
 
             for (int i = 0; i < words.Length; i++)
@@ -119,7 +119,7 @@ namespace AgOpenGPS
                 zoneRanges[i] = int.Parse(words[i]);
             }
 
-            isDisplayTramControl = Properties.ToolSettings.Default.setTool_isDisplayTramControl;
+            isDisplayTramControl = Settings.Tool.setTool_isDisplayTramControl;
         }
 
         public void DrawTool()

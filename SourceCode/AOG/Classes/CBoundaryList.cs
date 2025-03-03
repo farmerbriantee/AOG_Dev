@@ -166,7 +166,7 @@ namespace AgOpenGPS
             vec3 point = new vec3();
 
             //determine how wide a headland space
-            double totalHeadWidth = Properties.Settings.Default.set_youTurnDistanceFromBoundary;
+            double totalHeadWidth = Settings.Vehicle.set_youTurnDistanceFromBoundary;
 
             //inside boundaries
             turnLine.Clear();

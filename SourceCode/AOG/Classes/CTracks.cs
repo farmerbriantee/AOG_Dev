@@ -27,7 +27,6 @@ namespace AgOpenGPS
         public double howManyPathsAway, lastHowManyPathsAway;
         public vec2 refPoint1 = new vec2(1, 1), refPoint2 = new vec2(2, 2);
 
-        private int C;
         private int rA, rB;
 
         public bool isSmoothWindowOpen, isLooping;
@@ -72,8 +71,8 @@ namespace AgOpenGPS
             //constructor
             mf = _f;
             idx = -1;
-            lineWidth = Properties.Settings.Default.setDisplay_lineWidth;
-            numGuideLines = Properties.Settings.Default.setAS_numGuideLines;
+            lineWidth = Settings.Vehicle.setDisplay_lineWidth;
+            numGuideLines = Settings.Vehicle.setAS_numGuideLines;
         }
 
         public async void GetDistanceFromRefTrack(vec3 pivot)
@@ -410,15 +409,14 @@ namespace AgOpenGPS
             // the listlist of all the guidelines
             List<List<vec3>> newGuideLL = new List<List<vec3>>();
 
-            //the list of points of curve new list from async
-            List<vec3> newGuideList = new List<vec3>();
-
             try
             {
                 for (int numGuides = -_passes; numGuides <= _passes; numGuides++)
                 {
                     if (numGuides == 0) continue;
-                    newGuideList = new List<vec3>
+
+                    //the list of points of curve new list from async
+                    List<vec3> newGuideList = new List<vec3>
                     {
                         Capacity = 128
                     };

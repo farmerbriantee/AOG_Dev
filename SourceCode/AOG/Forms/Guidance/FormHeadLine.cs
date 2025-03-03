@@ -72,7 +72,7 @@ namespace AgOpenGPS
 
             cboxIsZoom.Checked = false;
 
-            Size = Properties.Settings.Default.setWindow_HeadlineSize;
+            Size = Settings.Interface.setWindow_HeadlineSize;
 
             Screen myScreen = Screen.FromControl(this);
             Rectangle area = myScreen.WorkingArea;
@@ -126,7 +126,7 @@ namespace AgOpenGPS
             }
             else mf.hdl.idx = -1;
 
-            Properties.Settings.Default.setWindow_HeadlineSize = Size;
+            Settings.Interface.setWindow_HeadlineSize = Size;
         }
 
         private void oglSelf_MouseDown(object sender, MouseEventArgs e)

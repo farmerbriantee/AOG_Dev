@@ -23,9 +23,9 @@ namespace AgOpenGPS
 
         private void FormDisplaySettings_Load(object sender, EventArgs e)
         {
-            nudSprayRateSet1.Value = Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet1;
-            nudSprayRateSet2.Value = Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet2;
-            nudSprayMinPressure.Value = Properties.ToolSettings.Default.setNozzleSettings.pressureMin;
+            nudSprayRateSet1.Value = Settings.Tool.setNozzleSettings.volumePerAreaSet1;
+            nudSprayRateSet2.Value = Settings.Tool.setNozzleSettings.volumePerAreaSet2;
+            nudSprayMinPressure.Value = Settings.Tool.setNozzleSettings.pressureMin;
 
             if (mf.isMetric)
             {
@@ -57,7 +57,7 @@ namespace AgOpenGPS
                 lblStatArea.Text = "Acre";
             }
 
-            nudTankVolume.Value = Properties.ToolSettings.Default.setNozzleSettings.volumeTankStart;
+            nudTankVolume.Value = Settings.Tool.setNozzleSettings.volumeTankStart;
             nudZeroVolume.Value = mf.nozz.volumeApplied;
 
             lblVolumeTank.Text = mf.nozz.volumeTankStart.ToString();
@@ -65,27 +65,27 @@ namespace AgOpenGPS
             lblTankRemain.Text = (mf.nozz.volumeTankStart - mf.nozz.volumeApplied).ToString("N1");
             lblAcresAvailable.Text = ((mf.nozz.volumeTankStart - mf.nozz.volumeApplied) / mf.nozz.volumePerAreaSetSelected).ToString("N1");
 
-            nudNudge.Value = Properties.ToolSettings.Default.setNozzleSettings.rateNudge;
+            nudNudge.Value = Settings.Tool.setNozzleSettings.rateNudge;
             nudRateAlarmPercent.Value = mf.nozz.rateAlarmPercent * 100;
         }
 
         private void nudSprayRateSet1_ValueChanged(object sender, EventArgs e)
         {
             mf.nozz.volumePerAreaSet1 = nudSprayRateSet1.Value;
-            Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet1 = nudSprayRateSet1.Value;
+            Settings.Tool.setNozzleSettings.volumePerAreaSet1 = nudSprayRateSet1.Value;
         }
 
         private void nudSprayRateSet2_ValueChanged(object sender, EventArgs e)
         {
             mf.nozz.volumePerAreaSet2 = nudSprayRateSet2.Value;
-            Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet2 = nudSprayRateSet2.Value;
+            Settings.Tool.setNozzleSettings.volumePerAreaSet2 = nudSprayRateSet2.Value;
         }
 
         private void nudSprayMinPressure_ValueChanged(object sender, EventArgs e)
         {
-            Properties.ToolSettings.Default.setNozzleSettings.pressureMin = (int)nudSprayMinPressure.Value;
+            Settings.Tool.setNozzleSettings.pressureMin = (int)nudSprayMinPressure.Value;
 
-            PGN_226.pgn[PGN_226.minPressure] = unchecked((byte)(Properties.ToolSettings.Default.setNozzleSettings.pressureMin));
+            PGN_226.pgn[PGN_226.minPressure] = unchecked((byte)(Settings.Tool.setNozzleSettings.pressureMin));
 
             mf.SendPgnToLoop(PGN_226.pgn);
         }
@@ -101,7 +101,7 @@ namespace AgOpenGPS
         private void nudTankVolume_ValueChanged(object sender, EventArgs e)
         {
             mf.nozz.volumeTankStart = (int)nudTankVolume.Value;
-            Properties.ToolSettings.Default.setNozzleSettings.volumeTankStart = mf.nozz.volumeTankStart;
+            Settings.Tool.setNozzleSettings.volumeTankStart = mf.nozz.volumeTankStart;
         }
 
         private void nudZeroVolume_ValueChanged(object sender, EventArgs e)
@@ -161,14 +161,14 @@ namespace AgOpenGPS
 
         private void nudNudge_ValueChanged(object sender, EventArgs e)
         {
-            Properties.ToolSettings.Default.setNozzleSettings.rateNudge = nudNudge.Value;
+            Settings.Tool.setNozzleSettings.rateNudge = nudNudge.Value;
             mf.nozz.rateNudge = nudNudge.Value;
         }
 
         private void nudRateAlarmPercent_ValueChanged(object sender, EventArgs e)
         {
             mf.nozz.rateAlarmPercent = nudRateAlarmPercent.Value * 0.01;
-            Properties.ToolSettings.Default.setNozzleSettings.rateAlarmPercent = mf.nozz.rateAlarmPercent;
+            Settings.Tool.setNozzleSettings.rateAlarmPercent = mf.nozz.rateAlarmPercent;
         }
     }
 }

@@ -61,7 +61,7 @@ namespace AgOpenGPS
 
             if (!mf.isGPSPositionInitialized)
             {
-                mf.pn.SetLocalMetersPerDegree(Properties.Settings.Default.setGPS_SimLatitude, Properties.Settings.Default.setGPS_SimLongitude);
+                mf.pn.SetLocalMetersPerDegree(Settings.Vehicle.setGPS_SimLatitude, Settings.Vehicle.setGPS_SimLongitude);
             }
 
             double SteerRadius = mf.vehicle.wheelbase / Math.Tan(glm.toRadians(steerangleAve));

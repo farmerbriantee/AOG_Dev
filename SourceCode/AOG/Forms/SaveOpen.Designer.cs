@@ -750,7 +750,7 @@ namespace AgOpenGPS
                 btnHeadlandOnOff.Visible = false;
             }
 
-            int sett = Properties.Settings.Default.setArdMac_setting0;
+            int sett = Settings.Vehicle.setArdMac_setting0;
             btnHydLift.Visible = (((sett & 2) == 2) && bnd.isHeadlandOn);
         }
 

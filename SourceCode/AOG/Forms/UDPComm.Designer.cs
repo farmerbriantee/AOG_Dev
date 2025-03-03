@@ -81,7 +81,7 @@ namespace AgOpenGPS
             panelSim.Visible = false;
             timerSim.Enabled = false;
             simulatorOnToolStripMenuItem.Checked = false;
-            Properties.Settings.Default.setMenu_isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
+            Settings.Vehicle.setMenu_isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
             
             return;
         }
@@ -771,7 +771,7 @@ namespace AgOpenGPS
             {
                 if (trk.idx > -1) //
                 {
-                    trk.NudgeTrack(-Properties.Settings.Default.setAS_snapDistance);
+                    trk.NudgeTrack(-Settings.Vehicle.setAS_snapDistance);
                 }
                 return true;
             }
@@ -780,7 +780,7 @@ namespace AgOpenGPS
             {
                 if (trk.idx > -1)
                 {
-                    trk.NudgeTrack(Properties.Settings.Default.setAS_snapDistance);
+                    trk.NudgeTrack(Settings.Vehicle.setAS_snapDistance);
                 }
                 return true;
             }

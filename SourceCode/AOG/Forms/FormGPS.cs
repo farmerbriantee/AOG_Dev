@@ -1,11 +1,5 @@
-﻿//Please, if you use this, share the improvements
-
-using AgOpenGPS.Classes;
-
+﻿using AgOpenGPS.Classes;
 using AgOpenGPS.Properties;
-using ExcelDataReader;
-using OpenTK;
-using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
@@ -16,8 +10,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
-using System.Reflection;
-using System.Resources;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -257,7 +249,7 @@ namespace AgOpenGPS
                     btnChargeStatus.BackColor = Color.LightCoral;
                 }
 
-                if (Settings.Default.setDisplay_isShutdownWhenNoPower && powerLineStatus == PowerLineStatus.Offline)
+                if (Settings.Vehicle.setDisplay_isShutdownWhenNoPower && powerLineStatus == PowerLineStatus.Offline)
                 {
                     Log.EventWriter("Shutdown Computer By Power Lost Setting");
                     Close();
@@ -343,7 +335,7 @@ namespace AgOpenGPS
             sounds = new CSound();
 
             //brightness object class
-            displayBrightness = new CWindowsSettingsBrightnessController(Properties.Settings.Default.setDisplay_isBrightnessOn);
+            displayBrightness = new CWindowsSettingsBrightnessController(Settings.Vehicle.setDisplay_isBrightnessOn);
 
             //Application rate controller
             nozz = new CNozzle(this);
@@ -353,7 +345,7 @@ namespace AgOpenGPS
         {
             if (!gStr.Load()) YesMessageBox("Serious error loading languages");
 
-            if (!Properties.Settings.Default.setDisplay_isTermsAccepted)
+            if (!Settings.Interface.setDisplay_isTermsAccepted)
             {
                 using (var form = new Form_First(this))
                 {
@@ -382,7 +374,7 @@ namespace AgOpenGPS
             FieldMenuButtonEnableDisable(false);
 
             //make sure current field directory exists, null if not
-            currentFieldDirectory = Settings.Default.setF_CurrentFieldDir;
+            currentFieldDirectory = Settings.Vehicle.setF_CurrentFieldDir;
 
             if (currentFieldDirectory != "")
             {
@@ -390,13 +382,13 @@ namespace AgOpenGPS
                 if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
                 {
                     currentFieldDirectory = "";
-                    Settings.Default.setF_CurrentFieldDir = "";
+                    Settings.Vehicle.setF_CurrentFieldDir = "";
 
                     Log.EventWriter("Field Directory is Empty or Missing");
                 }
             }
 
-            currentJobDirectory = Settings.Default.setF_CurrentJobDir;
+            currentJobDirectory = Settings.Vehicle.setF_CurrentJobDir;
 
             if (currentFieldDirectory != "" && currentJobDirectory != "")
             {
@@ -404,7 +396,7 @@ namespace AgOpenGPS
                 if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
                 {
                     currentJobDirectory = "";
-                    Settings.Default.setF_CurrentJobDir = "";
+                    Settings.Vehicle.setF_CurrentJobDir = "";
 
                     Log.EventWriter("Job Directory is Empty or Missing");
                 }
@@ -426,7 +418,7 @@ namespace AgOpenGPS
             {
                 if (displayBrightness.isWmiMonitor)
                 {
-                    Settings.Default.setDisplay_brightnessSystem = displayBrightness.GetBrightness();
+                    Settings.Vehicle.setDisplay_brightnessSystem = displayBrightness.GetBrightness();
                 }
                 else
                 {
@@ -437,12 +429,12 @@ namespace AgOpenGPS
                 //display brightness
                 if (displayBrightness.isWmiMonitor)
                 {
-                    if (Settings.Default.setDisplay_brightness < Settings.Default.setDisplay_brightnessSystem)
+                    if (Settings.Vehicle.setDisplay_brightness < Settings.Vehicle.setDisplay_brightnessSystem)
                     {
-                        Settings.Default.setDisplay_brightness = Settings.Default.setDisplay_brightnessSystem;
+                        Settings.Vehicle.setDisplay_brightness = Settings.Vehicle.setDisplay_brightnessSystem;
                     }
 
-                    displayBrightness.SetBrightness(Settings.Default.setDisplay_brightness);
+                    displayBrightness.SetBrightness(Settings.Vehicle.setDisplay_brightness);
                 }
                 else
                 {
@@ -457,7 +449,7 @@ namespace AgOpenGPS
             // load all the gui elements in gui.designer.cs
             LoadSettings();
 
-            if (RegistrySettings.vehicleFileName != "" && Properties.Settings.Default.setDisplay_isAutoStartAgIO)
+            if (RegistrySettings.vehicleFileName != "" && Settings.Interface.setDisplay_isAutoStartAgIO)
             {
                 //Start AgIO process
                 Process[] processName = Process.GetProcessesByName("AgIO");
@@ -490,7 +482,7 @@ namespace AgOpenGPS
 
             hotkeys = new char[19];
 
-            hotkeys = Properties.Settings.Default.setKey_hotkeys.ToCharArray();
+            hotkeys = Settings.Vehicle.setKey_hotkeys.ToCharArray();
 
             Log.EventWriter("Terms Accepted");
 
@@ -591,13 +583,13 @@ namespace AgOpenGPS
                 thread_oglBack.Abort();
 
             //save current vehicle
-            Settings.Default.Save();
+            Settings.Vehicle.Save();
 
             //save current Tool
-            ToolSettings.Default.Save();
+            Settings.Tool.Save();
 
             if (displayBrightness.isWmiMonitor)
-                displayBrightness.SetBrightness(Settings.Default.setDisplay_brightnessSystem);
+                displayBrightness.SetBrightness(Settings.Vehicle.setDisplay_brightnessSystem);
 
             if (choice == 2)
             {
@@ -621,7 +613,7 @@ namespace AgOpenGPS
                 finally { }
             }
 
-            if (Properties.Settings.Default.setDisplay_isAutoOffAgIO)
+            if (Settings.Interface.setDisplay_isAutoOffAgIO)
             {
                 Process[] processName = Process.GetProcessesByName("AgIO");
                 if (processName.Length != 0)
@@ -827,7 +819,7 @@ namespace AgOpenGPS
 
             if(isJobStarted)
             {
-                Settings.Default.setF_CurrentJobDir = currentJobDirectory;
+                Settings.Vehicle.setF_CurrentJobDir = currentJobDirectory;
 
                 //auto save the field patches, contours accumulated so far
                 FileSaveSections();
@@ -873,7 +865,7 @@ namespace AgOpenGPS
 
         public void FieldClose()
         {
-            Settings.Default.setF_CurrentFieldDir = currentFieldDirectory;
+            Settings.Vehicle.setF_CurrentFieldDir = currentFieldDirectory;
 
             if (isFieldStarted)
             {
@@ -1111,10 +1103,10 @@ namespace AgOpenGPS
                 Resources.z_Turn,Resources.z_TurnCancel,Resources.z_TurnManual,
                 Resources.z_Compass,Resources.z_Speedo,Resources.z_SpeedoNeedle,
                 Resources.z_Lift,Resources.z_SteerPointer,
-                Resources.z_SteerDot,GetTractorBrand(Settings.Default.setBrand_TBrand),Resources.z_QuestionMark,
-                Resources.z_FrontWheels,Get4WDBrandFront(Settings.Default.setBrand_WDBrand),
-                Get4WDBrandRear(Settings.Default.setBrand_WDBrand),
-                GetHarvesterBrand(Settings.Default.setBrand_HBrand),
+                Resources.z_SteerDot,GetTractorBrand(Settings.Vehicle.setBrand_TBrand),Resources.z_QuestionMark,
+                Resources.z_FrontWheels,Get4WDBrandFront(Settings.Vehicle.setBrand_WDBrand),
+                Get4WDBrandRear(Settings.Vehicle.setBrand_WDBrand),
+                GetHarvesterBrand(Settings.Vehicle.setBrand_HBrand),
                 Resources.z_LateralManual, Resources.z_bingMap,
                 Resources.z_NoGPS, Resources.ZoomIn48, Resources.ZoomOut48,
                 Resources.Pan, Resources.MenuHideShow,

@@ -56,9 +56,9 @@ namespace AgOpenGPS
                 {
                     TurnOffSectionsSafely();
 
-                    Properties.Settings.Default.Save();//necessary???
+                    Settings.Vehicle.Save();//necessary???
                     RegistrySettings.Save("VehicleFileName", lvVehicles.SelectedItems[0].SubItems[0].Text);
-                    if (Properties.Settings.Default.Load() != Settings.LoadResult.Ok) return;
+                    if (Settings.Vehicle.Load() != Settings.LoadResult.Ok) return;
 
                     LoadBrandImage();
 
@@ -69,40 +69,40 @@ namespace AgOpenGPS
                     mf.LoadSettings();
 
                     //Form Steer Settings
-                    PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Properties.Settings.Default.setAS_countsPerDegree);
-                    PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)Properties.Settings.Default.setAS_ackerman);
+                    PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Settings.Vehicle.setAS_countsPerDegree);
+                    PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)Settings.Vehicle.setAS_ackerman);
 
-                    PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset >> 8));
-                    PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset));
+                    PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset >> 8));
+                    PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset));
 
-                    PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)Properties.Settings.Default.setAS_highSteerPWM);
-                    PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)Properties.Settings.Default.setAS_lowSteerPWM);
-                    PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)Properties.Settings.Default.setAS_Kp);
-                    PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)Properties.Settings.Default.setAS_minSteerPWM);
+                    PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)Settings.Vehicle.setAS_highSteerPWM);
+                    PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)Settings.Vehicle.setAS_lowSteerPWM);
+                    PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)Settings.Vehicle.setAS_Kp);
+                    PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)Settings.Vehicle.setAS_minSteerPWM);
 
                     mf.SendPgnToLoop(PGN_252.pgn);
 
                     //steer config
-                    PGN_251.pgn[PGN_251.set0] = Properties.Settings.Default.setArdSteer_setting0;
-                    PGN_251.pgn[PGN_251.set1] = Properties.Settings.Default.setArdSteer_setting1;
-                    PGN_251.pgn[PGN_251.maxPulse] = Properties.Settings.Default.setArdSteer_maxPulseCounts;
-                    PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Properties.Settings.Default.setAS_minSteerSpeed * 10));
+                    PGN_251.pgn[PGN_251.set0] = Settings.Vehicle.setArdSteer_setting0;
+                    PGN_251.pgn[PGN_251.set1] = Settings.Vehicle.setArdSteer_setting1;
+                    PGN_251.pgn[PGN_251.maxPulse] = Settings.Vehicle.setArdSteer_maxPulseCounts;
+                    PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Settings.Vehicle.setAS_minSteerSpeed * 10));
 
-                    if (Properties.Settings.Default.setAS_isConstantContourOn)
+                    if (Settings.Vehicle.setAS_isConstantContourOn)
                         PGN_251.pgn[PGN_251.angVel] = 1;
                     else PGN_251.pgn[PGN_251.angVel] = 0;
 
                     mf.SendPgnToLoop(PGN_251.pgn);
 
                     //machine settings    
-                    PGN_238.pgn[PGN_238.set0] = Properties.Settings.Default.setArdMac_setting0;
-                    PGN_238.pgn[PGN_238.raiseTime] = Properties.Settings.Default.setArdMac_hydRaiseTime;
-                    PGN_238.pgn[PGN_238.lowerTime] = Properties.Settings.Default.setArdMac_hydLowerTime;
+                    PGN_238.pgn[PGN_238.set0] = Settings.Vehicle.setArdMac_setting0;
+                    PGN_238.pgn[PGN_238.raiseTime] = Settings.Vehicle.setArdMac_hydRaiseTime;
+                    PGN_238.pgn[PGN_238.lowerTime] = Settings.Vehicle.setArdMac_hydLowerTime;
 
-                    PGN_238.pgn[PGN_238.user1] = Properties.Settings.Default.setArdMac_user1;
-                    PGN_238.pgn[PGN_238.user2] = Properties.Settings.Default.setArdMac_user2;
-                    PGN_238.pgn[PGN_238.user3] = Properties.Settings.Default.setArdMac_user3;
-                    PGN_238.pgn[PGN_238.user4] = Properties.Settings.Default.setArdMac_user4;
+                    PGN_238.pgn[PGN_238.user1] = Settings.Vehicle.setArdMac_user1;
+                    PGN_238.pgn[PGN_238.user2] = Settings.Vehicle.setArdMac_user2;
+                    PGN_238.pgn[PGN_238.user3] = Settings.Vehicle.setArdMac_user3;
+                    PGN_238.pgn[PGN_238.user4] = Settings.Vehicle.setArdMac_user4;
 
                     mf.SendPgnToLoop(PGN_238.pgn);
 
@@ -157,9 +157,9 @@ namespace AgOpenGPS
 
             if (vehicleName.Length > 0)
             {
-                Settings.Default.Save();//necessary???
+                Settings.Vehicle.Save();//necessary???
                 RegistrySettings.Save("VehicleFileName", vehicleName);
-                Settings.Default.Save();
+                Settings.Vehicle.Save();
 
                 UpdateVehicleListView();
             }
@@ -252,9 +252,9 @@ namespace AgOpenGPS
 
             if (vehicleName.Length > 0)
             {
-                Properties.Settings.Default.Save();//necessary???
+                Settings.Vehicle.Save();//necessary???
                 RegistrySettings.Save("VehicleFileName", vehicleName);
-                Settings.Default.Reset();
+                Settings.Vehicle.Reset();
 
                 LoadBrandImage();
 
@@ -267,47 +267,47 @@ namespace AgOpenGPS
                 SectionFeetInchesTotalWidthLabelUpdate();
 
                 //Form Steer Settings
-                PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Properties.Settings.Default.setAS_countsPerDegree);
-                PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)Properties.Settings.Default.setAS_ackerman);
+                PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Settings.Vehicle.setAS_countsPerDegree);
+                PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)Settings.Vehicle.setAS_ackerman);
 
-                PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset >> 8));
-                PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setAS_wasOffset));
+                PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset >> 8));
+                PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset));
 
-                PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)Properties.Settings.Default.setAS_highSteerPWM);
-                PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)Properties.Settings.Default.setAS_lowSteerPWM);
-                PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)Properties.Settings.Default.setAS_Kp);
-                PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)Properties.Settings.Default.setAS_minSteerPWM);
+                PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)Settings.Vehicle.setAS_highSteerPWM);
+                PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)Settings.Vehicle.setAS_lowSteerPWM);
+                PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)Settings.Vehicle.setAS_Kp);
+                PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)Settings.Vehicle.setAS_minSteerPWM);
 
                 mf.SendPgnToLoop(PGN_252.pgn);
 
                 //machine module settings
-                PGN_238.pgn[PGN_238.set0] = Properties.Settings.Default.setArdMac_setting0;
-                PGN_238.pgn[PGN_238.raiseTime] = Properties.Settings.Default.setArdMac_hydRaiseTime;
-                PGN_238.pgn[PGN_238.lowerTime] = Properties.Settings.Default.setArdMac_hydLowerTime;
+                PGN_238.pgn[PGN_238.set0] = Settings.Vehicle.setArdMac_setting0;
+                PGN_238.pgn[PGN_238.raiseTime] = Settings.Vehicle.setArdMac_hydRaiseTime;
+                PGN_238.pgn[PGN_238.lowerTime] = Settings.Vehicle.setArdMac_hydLowerTime;
 
                 mf.SendPgnToLoop(PGN_238.pgn);
 
                 //steer config
-                PGN_251.pgn[PGN_251.set0] = Properties.Settings.Default.setArdSteer_setting0;
-                PGN_251.pgn[PGN_251.set1] = Properties.Settings.Default.setArdSteer_setting1;
-                PGN_251.pgn[PGN_251.maxPulse] = Properties.Settings.Default.setArdSteer_maxPulseCounts;
-                PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Properties.Settings.Default.setAS_minSteerSpeed * 10));
+                PGN_251.pgn[PGN_251.set0] = Settings.Vehicle.setArdSteer_setting0;
+                PGN_251.pgn[PGN_251.set1] = Settings.Vehicle.setArdSteer_setting1;
+                PGN_251.pgn[PGN_251.maxPulse] = Settings.Vehicle.setArdSteer_maxPulseCounts;
+                PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Settings.Vehicle.setAS_minSteerSpeed * 10));
 
-                if (Properties.Settings.Default.setAS_isConstantContourOn)
+                if (Settings.Vehicle.setAS_isConstantContourOn)
                     PGN_251.pgn[PGN_251.angVel] = 1;
                 else PGN_251.pgn[PGN_251.angVel] = 0;
 
                 mf.SendPgnToLoop(PGN_251.pgn);
 
                 //machine settings    
-                PGN_238.pgn[PGN_238.set0] = Properties.Settings.Default.setArdMac_setting0;
-                PGN_238.pgn[PGN_238.raiseTime] = Properties.Settings.Default.setArdMac_hydRaiseTime;
-                PGN_238.pgn[PGN_238.lowerTime] = Properties.Settings.Default.setArdMac_hydLowerTime;
+                PGN_238.pgn[PGN_238.set0] = Settings.Vehicle.setArdMac_setting0;
+                PGN_238.pgn[PGN_238.raiseTime] = Settings.Vehicle.setArdMac_hydRaiseTime;
+                PGN_238.pgn[PGN_238.lowerTime] = Settings.Vehicle.setArdMac_hydLowerTime;
 
-                PGN_238.pgn[PGN_238.user1] = Properties.Settings.Default.setArdMac_user1;
-                PGN_238.pgn[PGN_238.user2] = Properties.Settings.Default.setArdMac_user2;
-                PGN_238.pgn[PGN_238.user3] = Properties.Settings.Default.setArdMac_user3;
-                PGN_238.pgn[PGN_238.user4] = Properties.Settings.Default.setArdMac_user4;
+                PGN_238.pgn[PGN_238.user1] = Settings.Vehicle.setArdMac_user1;
+                PGN_238.pgn[PGN_238.user2] = Settings.Vehicle.setArdMac_user2;
+                PGN_238.pgn[PGN_238.user3] = Settings.Vehicle.setArdMac_user3;
+                PGN_238.pgn[PGN_238.user4] = Settings.Vehicle.setArdMac_user4;
 
                 mf.SendPgnToLoop(PGN_238.pgn);
 
@@ -370,28 +370,28 @@ namespace AgOpenGPS
 
             //mf.timeToShowMenus = (int)nudMenusOnTime.Value;
 
-            Properties.Settings.Default.setDisplay_isBrightnessOn = mf.isBrightnessOn;
-            Properties.Settings.Default.setDisplay_isTextureOn = mf.isTextureOn;
-            Properties.Settings.Default.setMenu_isGridOn = mf.isGridOn;
-            Properties.Settings.Default.setMenu_isCompassOn = mf.isCompassOn;
+            Settings.Vehicle.setDisplay_isBrightnessOn = mf.isBrightnessOn;
+            Settings.Vehicle.setDisplay_isTextureOn = mf.isTextureOn;
+            Settings.Vehicle.setMenu_isGridOn = mf.isGridOn;
+            Settings.Vehicle.setMenu_isCompassOn = mf.isCompassOn;
 
-            Properties.Settings.Default.setDisplay_isSvennArrowOn = mf.isSvennArrowOn;
-            Properties.Settings.Default.setMenu_isSpeedoOn = mf.isSpeedoOn;
-            Properties.Settings.Default.setDisplay_isStartFullScreen = chkDisplayStartFullScreen.Checked;
-            Properties.Settings.Default.setMenu_isSideGuideLines = mf.isSideGuideLines;
+            Settings.Vehicle.setDisplay_isSvennArrowOn = mf.isSvennArrowOn;
+            Settings.Vehicle.setMenu_isSpeedoOn = mf.isSpeedoOn;
+            Settings.Vehicle.setDisplay_isStartFullScreen = chkDisplayStartFullScreen.Checked;
+            Settings.Vehicle.setMenu_isSideGuideLines = mf.isSideGuideLines;
 
-            Properties.Settings.Default.setMenu_isPureOn = mf.isPureDisplayOn;
-            Properties.Settings.Default.setMenu_isLightbarOn = mf.isLightbarOn;
-            Properties.Settings.Default.setDisplay_isKeyboardOn = mf.isKeyboardOn;
-            Properties.Settings.Default.setDisplay_isLogElevation = mf.isLogElevation;
+            Settings.Vehicle.setMenu_isPureOn = mf.isPureDisplayOn;
+            Settings.Vehicle.setMenu_isLightbarOn = mf.isLightbarOn;
+            Settings.Vehicle.setDisplay_isKeyboardOn = mf.isKeyboardOn;
+            Settings.Vehicle.setDisplay_isLogElevation = mf.isLogElevation;
 
-            Properties.Settings.Default.setMenu_isMetric = mf.isMetric = rbtnDisplayMetric.Checked;
+            Settings.Vehicle.setMenu_isMetric = mf.isMetric = rbtnDisplayMetric.Checked;
 
-            Properties.ToolSettings.Default.setTool_isDirectionMarkers = mf.isDirectionMarkers;
+            Settings.Tool.setTool_isDirectionMarkers = mf.isDirectionMarkers;
 
-            Properties.Settings.Default.setAS_numGuideLines = mf.trk.numGuideLines;
-            Properties.Settings.Default.setDisplay_isSectionLinesOn = mf.isSectionlinesOn;
-            Properties.Settings.Default.setDisplay_isLineSmooth = mf.isLineSmooth;
+            Settings.Vehicle.setAS_numGuideLines = mf.trk.numGuideLines;
+            Settings.Vehicle.setDisplay_isSectionLinesOn = mf.isSectionlinesOn;
+            Settings.Vehicle.setDisplay_isLineSmooth = mf.isLineSmooth;
 
             
         }
@@ -401,27 +401,27 @@ namespace AgOpenGPS
         #region Antenna Enter/Leave
         private void tabVAntenna_Enter(object sender, EventArgs e)
         {
-            nudAntennaHeight.Value = Properties.Settings.Default.setVehicle_antennaHeight;
+            nudAntennaHeight.Value = Settings.Vehicle.setVehicle_antennaHeight;
 
-            nudAntennaPivot.Value = Properties.Settings.Default.setVehicle_antennaPivot;
+            nudAntennaPivot.Value = Settings.Vehicle.setVehicle_antennaPivot;
 
             //negative is to the right
-            nudAntennaOffset.Value = Math.Abs(Properties.Settings.Default.setVehicle_antennaOffset);
+            nudAntennaOffset.Value = Math.Abs(Settings.Vehicle.setVehicle_antennaOffset);
 
             rbtnAntennaLeft.Checked = false;
             rbtnAntennaRight.Checked = false;
             rbtnAntennaCenter.Checked = false;
-            rbtnAntennaLeft.Checked = Properties.Settings.Default.setVehicle_antennaOffset > 0;
-            rbtnAntennaRight.Checked = Properties.Settings.Default.setVehicle_antennaOffset < 0;
-            rbtnAntennaCenter.Checked = Properties.Settings.Default.setVehicle_antennaOffset == 0;
+            rbtnAntennaLeft.Checked = Settings.Vehicle.setVehicle_antennaOffset > 0;
+            rbtnAntennaRight.Checked = Settings.Vehicle.setVehicle_antennaOffset < 0;
+            rbtnAntennaCenter.Checked = Settings.Vehicle.setVehicle_antennaOffset == 0;
 
-            if (Properties.Settings.Default.setVehicle_vehicleType == 0)
+            if (Settings.Vehicle.setVehicle_vehicleType == 0)
                 pboxAntenna.BackgroundImage = Properties.Resources.AntennaTractor;
 
-            else if (Properties.Settings.Default.setVehicle_vehicleType == 1)
+            else if (Settings.Vehicle.setVehicle_vehicleType == 1)
                 pboxAntenna.BackgroundImage = Properties.Resources.AntennaHarvester;
 
-            else if (Properties.Settings.Default.setVehicle_vehicleType == 2)
+            else if (Settings.Vehicle.setVehicle_vehicleType == 2)
                 pboxAntenna.BackgroundImage = Properties.Resources.Antenna4WD;
 
             label98.Text = glm.unitsInCm;
@@ -446,7 +446,7 @@ namespace AgOpenGPS
                 nudAntennaOffset.Value = 0;
             }
 
-            Properties.Settings.Default.setVehicle_antennaOffset = mf.vehicle.antennaOffset;
+            Settings.Vehicle.setVehicle_antennaOffset = mf.vehicle.antennaOffset;
         }
 
         private void nudAntennaOffset_ValueChanged(object sender, EventArgs e)
@@ -469,7 +469,7 @@ namespace AgOpenGPS
                     mf.vehicle.antennaOffset = nudAntennaOffset.Value;
             }
 
-            Properties.Settings.Default.setVehicle_antennaOffset = mf.vehicle.antennaOffset;
+            Settings.Vehicle.setVehicle_antennaOffset = mf.vehicle.antennaOffset;
 
             //rbtnAntennaLeft.Checked = false;
             //rbtnAntennaRight.Checked = false;
@@ -479,14 +479,14 @@ namespace AgOpenGPS
 
         private void nudAntennaPivot_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setVehicle_antennaPivot = nudAntennaPivot.Value;
-            mf.vehicle.antennaPivot = Properties.Settings.Default.setVehicle_antennaPivot;
+            Settings.Vehicle.setVehicle_antennaPivot = nudAntennaPivot.Value;
+            mf.vehicle.antennaPivot = Settings.Vehicle.setVehicle_antennaPivot;
         }
 
         private void nudAntennaHeight_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setVehicle_antennaHeight = nudAntennaHeight.Value;
-            mf.vehicle.antennaHeight = Properties.Settings.Default.setVehicle_antennaHeight;
+            Settings.Vehicle.setVehicle_antennaHeight = nudAntennaHeight.Value;
+            mf.vehicle.antennaHeight = Settings.Vehicle.setVehicle_antennaHeight;
         }
 
         #endregion
@@ -495,11 +495,11 @@ namespace AgOpenGPS
 
         private void tabVDimensions_Enter(object sender, EventArgs e)
         {
-            nudWheelbase.Value = Math.Abs(Properties.Settings.Default.setVehicle_wheelbase);
+            nudWheelbase.Value = Math.Abs(Settings.Vehicle.setVehicle_wheelbase);
 
-            nudVehicleTrack.Value = Properties.Settings.Default.setVehicle_trackWidth;
+            nudVehicleTrack.Value = Settings.Vehicle.setVehicle_trackWidth;
 
-            nudTractorHitchLength.Value = Math.Abs(Properties.ToolSettings.Default.setVehicle_hitchLength);
+            nudTractorHitchLength.Value = Math.Abs(Settings.Tool.setVehicle_hitchLength);
 
             if (mf.vehicle.vehicleType == 0)
             {
@@ -517,7 +517,7 @@ namespace AgOpenGPS
                 nudTractorHitchLength.Visible = true;
             }
 
-            if (Properties.ToolSettings.Default.setTool_isToolTrailing || Properties.ToolSettings.Default.setTool_isToolTBT)
+            if (Settings.Tool.setTool_isToolTrailing || Settings.Tool.setTool_isToolTBT)
             {
                 nudTractorHitchLength.Visible = true;
                 label94.Visible = true;
@@ -538,23 +538,23 @@ namespace AgOpenGPS
         private void nudTractorHitchLength_ValueChanged(object sender, EventArgs e)
         {
             mf.tool.hitchLength = nudTractorHitchLength.Value;
-            if (!Properties.ToolSettings.Default.setTool_isToolFront)
+            if (!Settings.Tool.setTool_isToolFront)
             {
                 mf.tool.hitchLength *= -1;
             }
-            Properties.ToolSettings.Default.setVehicle_hitchLength = mf.tool.hitchLength;
+            Settings.Tool.setVehicle_hitchLength = mf.tool.hitchLength;
         }
 
         private void nudWheelbase_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setVehicle_wheelbase = nudWheelbase.Value;
-            mf.vehicle.wheelbase = Properties.Settings.Default.setVehicle_wheelbase;
+            Settings.Vehicle.setVehicle_wheelbase = nudWheelbase.Value;
+            mf.vehicle.wheelbase = Settings.Vehicle.setVehicle_wheelbase;
         }
 
         private void nudVehicleTrack_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setVehicle_trackWidth = nudVehicleTrack.Value;
-            mf.vehicle.trackWidth = Properties.Settings.Default.setVehicle_trackWidth;
+            Settings.Vehicle.setVehicle_trackWidth = nudVehicleTrack.Value;
+            mf.vehicle.trackWidth = Settings.Vehicle.setVehicle_trackWidth;
             mf.tram.halfWheelTrack = mf.vehicle.trackWidth * 0.5;
         }
 
@@ -588,40 +588,37 @@ namespace AgOpenGPS
             if (rbtnTractor.Checked)
             {
                 mf.vehicle.vehicleType = 0;
-                Properties.Settings.Default.setVehicle_vehicleType = 0;
+                Settings.Vehicle.setVehicle_vehicleType = 0;
             }
             if (rbtnHarvester.Checked)
             {
                 mf.vehicle.vehicleType = 1;
-                Properties.Settings.Default.setVehicle_vehicleType = 1;
+                Settings.Vehicle.setVehicle_vehicleType = 1;
 
                 if ( mf.tool.hitchLength < 0) mf.tool.hitchLength *= -1;
 
-                Properties.ToolSettings.Default.setTool_isToolFront = true;
-                Properties.ToolSettings.Default.setTool_isToolTBT = false;
-                Properties.ToolSettings.Default.setTool_isToolTrailing = false;
-                Properties.ToolSettings.Default.setTool_isToolRearFixed = false;
+                Settings.Tool.setTool_isToolFront = true;
+                Settings.Tool.setTool_isToolTBT = false;
+                Settings.Tool.setTool_isToolTrailing = false;
+                Settings.Tool.setTool_isToolRearFixed = false;
             }
             if (rbtn4WD.Checked)
             {
                 mf.vehicle.vehicleType = 2;
-                Properties.Settings.Default.setVehicle_vehicleType = 2;
+                Settings.Vehicle.setVehicle_vehicleType = 2;
             }
 
             //the old brand code
-            if (cboxIsImage.Checked)
-                Properties.Settings.Default.setDisplay_isVehicleImage = false;
-            else
-                Properties.Settings.Default.setDisplay_isVehicleImage = true;
+            Settings.Vehicle.setDisplay_isVehicleImage = !cboxIsImage.Checked;
 
             mf.vehicleOpacityByte = (byte)(255 * (mf.vehicleOpacity));
-            Properties.Settings.Default.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
+            Settings.Vehicle.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
 
-            Properties.Settings.Default.setDisplay_colorVehicle = mf.vehicleColor;
+            Settings.Interface.setDisplay_colorVehicle = mf.vehicleColor;
 
             if (rbtnTractor.Checked)
             {
-                Settings.Default.setBrand_TBrand = brand;
+                Settings.Vehicle.setBrand_TBrand = brand;
 
                 Bitmap bitmap = mf.GetTractorBrand(brand);
 
@@ -635,7 +632,7 @@ namespace AgOpenGPS
             if (rbtnHarvester.Checked)
 
             {
-                Settings.Default.setBrand_HBrand = brandH;
+                Settings.Vehicle.setBrand_HBrand = brandH;
                 Bitmap bitmap = mf.GetHarvesterBrand(brandH);
 
                 GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.Harvester]);
@@ -647,7 +644,7 @@ namespace AgOpenGPS
 
             if (rbtn4WD.Checked)
             {
-                Settings.Default.setBrand_WDBrand = brand4WD;
+                Settings.Vehicle.setBrand_WDBrand = brand4WD;
                 Bitmap bitmap = mf.Get4WDBrandFront(brand4WD);
 
                 GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.FourWDFront]);
@@ -655,7 +652,7 @@ namespace AgOpenGPS
                 GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmapData.Width, bitmapData.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmapData.Scan0);
                 bitmap.UnlockBits(bitmapData);
 
-                Settings.Default.setBrand_WDBrand = brand4WD;
+                Settings.Vehicle.setBrand_WDBrand = brand4WD;
                 bitmap = mf.Get4WDBrandRear(brand4WD);
 
                 GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.FourWDRear]);
@@ -679,17 +676,17 @@ namespace AgOpenGPS
             if (rbtnTractor.Checked)
             {
                 mf.vehicle.vehicleType = 0;
-                Properties.Settings.Default.setVehicle_vehicleType = 0;
+                Settings.Vehicle.setVehicle_vehicleType = 0;
             }
             if (rbtnHarvester.Checked)
             {
                 mf.vehicle.vehicleType = 1;
-                Properties.Settings.Default.setVehicle_vehicleType = 1;
+                Settings.Vehicle.setVehicle_vehicleType = 1;
             }
             if (rbtn4WD.Checked)
             {
                 mf.vehicle.vehicleType = 2;
-                Properties.Settings.Default.setVehicle_vehicleType = 2;
+                Settings.Vehicle.setVehicle_vehicleType = 2;
             }
 
             original = null;
@@ -708,7 +705,7 @@ namespace AgOpenGPS
             mf.vehicleOpacity = Math.Min(mf.vehicleOpacity + 0.2, 1);
             lblOpacityPercent.Text = ((int)(mf.vehicleOpacity * 100)).ToString() + "%";
             mf.vehicleOpacityByte = (byte)(255 * (mf.vehicleOpacity));
-            Properties.Settings.Default.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
+            Settings.Vehicle.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
             
             SetOpacity();
         }
@@ -718,7 +715,7 @@ namespace AgOpenGPS
             mf.vehicleOpacity = Math.Max(mf.vehicleOpacity - 0.2, 0.2);
             lblOpacityPercent.Text = ((int)(mf.vehicleOpacity * 100)).ToString() + "%";
             mf.vehicleOpacityByte = (byte)(255 * (mf.vehicleOpacity));
-            Properties.Settings.Default.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
+            Settings.Vehicle.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
             
             SetOpacity();
         }
@@ -727,10 +724,10 @@ namespace AgOpenGPS
         {
             //mf.vehicleOpacity = (hsbarOpacity.Value * 0.01);
             mf.vehicleOpacityByte = (byte)(255 * (mf.vehicleOpacity));
-            Properties.Settings.Default.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
+            Settings.Vehicle.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
 
             mf.isVehicleImage = (!cboxIsImage.Checked);
-            Properties.Settings.Default.setDisplay_isVehicleImage = mf.isVehicleImage;
+            Settings.Vehicle.setDisplay_isVehicleImage = mf.isVehicleImage;
             
             //original = null;
             TabImageSetup();
@@ -748,7 +745,7 @@ namespace AgOpenGPS
                 {
                     panelTractorBrands.Visible = true;
 
-                    brand = Settings.Default.setBrand_TBrand;
+                    brand = Settings.Vehicle.setBrand_TBrand;
 
                     if (brand == TBrand.AgOpenGPS)
                         rbtnBrandTAgOpenGPS.Checked = true;
@@ -777,13 +774,13 @@ namespace AgOpenGPS
                     else if (brand == TBrand.Valtra)
                         rbtnBrandTValtra.Checked = true;
 
-                    pboxAlpha.BackgroundImage = mf.GetTractorBrand(Settings.Default.setBrand_TBrand);
+                    pboxAlpha.BackgroundImage = mf.GetTractorBrand(Settings.Vehicle.setBrand_TBrand);
                 }
                 else if (mf.vehicle.vehicleType == 1)
                 {
                     panelHarvesterBrands.Visible = true;
 
-                    brandH = Settings.Default.setBrand_HBrand;
+                    brandH = Settings.Vehicle.setBrand_HBrand;
 
                     if (brandH == HBrand.AgOpenGPS)
                         rbtnBrandHAgOpenGPS.Checked = true;
@@ -796,13 +793,13 @@ namespace AgOpenGPS
                     else if (brandH == HBrand.NewHolland)
                         rbtnBrandHNH.Checked = true;
 
-                    pboxAlpha.BackgroundImage = mf.GetHarvesterBrand(Settings.Default.setBrand_HBrand);
+                    pboxAlpha.BackgroundImage = mf.GetHarvesterBrand(Settings.Vehicle.setBrand_HBrand);
                 }
                 else if (mf.vehicle.vehicleType == 2)
                 {
                     panel4WdBrands.Visible = true;
 
-                    brand4WD = Settings.Default.setBrand_WDBrand;
+                    brand4WD = Settings.Vehicle.setBrand_WDBrand;
 
                     if (brand4WD == WDBrand.AgOpenGPS)
                         rbtnBrand4WDAgOpenGPS.Checked = true;
@@ -817,20 +814,19 @@ namespace AgOpenGPS
                     else if (brand4WD == WDBrand.Holder)
                         rbtnBrand4WDHolder.Checked = true;
 
-                    pboxAlpha.BackgroundImage = mf.Get4WDBrandFront(Settings.Default.setBrand_WDBrand);
+                    pboxAlpha.BackgroundImage = mf.Get4WDBrandFront(Settings.Vehicle.setBrand_WDBrand);
                 }
 
                 mf.vehicleOpacityByte = (byte)(255 * (mf.vehicleOpacity));
-                Properties.Settings.Default.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
+                Settings.Vehicle.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
                 lblOpacityPercent.Text = ((int)(mf.vehicleOpacity * 100)).ToString() + "%";
-                mf.vehicleColor = Color.FromArgb(254, 254, 254);
             }
             else
             {
                 pboxAlpha.BackgroundImage = Properties.Resources.TriangleVehicle;
                 lblOpacityPercent.Text = ((int)(mf.vehicleOpacity * 100)).ToString() + "%";
-                mf.vehicleColor = Color.FromArgb(254, 254, 254);
             }
+            mf.vehicleColor = Color.FromArgb(254, 254, 254);
 
             cboxIsImage.Checked = !mf.isVehicleImage;
 
@@ -866,7 +862,7 @@ namespace AgOpenGPS
         {
             if (rbtnTractor.Checked)
             {
-                Bitmap bitmap = mf.GetTractorBrand(Settings.Default.setBrand_TBrand);
+                Bitmap bitmap = mf.GetTractorBrand(Settings.Vehicle.setBrand_TBrand);
 
                 GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.Tractor]);
                 BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
@@ -875,7 +871,7 @@ namespace AgOpenGPS
             }
             else if (rbtnHarvester.Checked)
             {
-                Bitmap bitmap = mf.GetHarvesterBrand(Settings.Default.setBrand_HBrand);
+                Bitmap bitmap = mf.GetHarvesterBrand(Settings.Vehicle.setBrand_HBrand);
 
                 GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.Harvester]);
                 BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
@@ -885,13 +881,13 @@ namespace AgOpenGPS
             }
             else if (rbtn4WD.Checked)
             {
-                Bitmap bitmap = mf.Get4WDBrandFront(Settings.Default.setBrand_WDBrand);
+                Bitmap bitmap = mf.Get4WDBrandFront(Settings.Vehicle.setBrand_WDBrand);
 
                 GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.FourWDFront]);
                 BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
                 GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, bitmapData.Width, bitmapData.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bitmapData.Scan0);
                 bitmap.UnlockBits(bitmapData);
-                bitmap = mf.Get4WDBrandRear(Settings.Default.setBrand_WDBrand);
+                bitmap = mf.Get4WDBrandRear(Settings.Vehicle.setBrand_WDBrand);
 
                 GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.FourWDRear]);
                 bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);

@@ -52,7 +52,7 @@ namespace AgOpenGPS
             FixLabelsCurve();
 
             //Window Properties
-            Size = Properties.Settings.Default.setWindow_tramLineSize;
+            Size = Settings.Interface.setWindow_tramLineSize;
 
             Screen myScreen = Screen.FromControl(this);
             Rectangle area = myScreen.WorkingArea;
@@ -117,9 +117,9 @@ namespace AgOpenGPS
             mf.PanelUpdateRightAndBottom();
             mf.FixTramModeButton();
 
-            Properties.Settings.Default.setWindow_tramLineSize = Size;
-            Properties.ToolSettings.Default.setTram_alpha = mf.tram.alpha;
-            Properties.Settings.Default.Save();
+            Settings.Interface.setWindow_tramLineSize = Size;
+            Settings.Tool.setTram_alpha = mf.tram.alpha;
+            Settings.Vehicle.Save();
         }
 
         private void LoadAndFixLines()

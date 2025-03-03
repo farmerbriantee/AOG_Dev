@@ -43,7 +43,7 @@ namespace AgOpenGPS
                 lblResumeField.Text = "Field: " + gStr.Get(gs.gsNone);
                 btnFieldResume.Enabled = false;
                 mf.currentFieldDirectory = "";
-                Properties.Settings.Default.setF_CurrentFieldDir = "";
+                Settings.Vehicle.setF_CurrentFieldDir = "";
             }
             else
             {
@@ -69,7 +69,7 @@ namespace AgOpenGPS
                     lblResumeJob.Text = $"Job: {gStr.Get(gs.gsNone)}";
                     isResumeJob = false;
                     mf.currentJobDirectory = "";
-                    Properties.Settings.Default.setF_CurrentJobDir = "";
+                    Settings.Vehicle.setF_CurrentJobDir = "";
                 }
                 else
                 {
@@ -94,8 +94,8 @@ namespace AgOpenGPS
                     lblResumeJob.Text = $" Job: {gStr.Get(gs.gsNone)}";
             }
 
-            Location = Properties.Settings.Default.setFieldMenu_location;
-            Size = Properties.Settings.Default.setFieldMenu_size;
+            Location = Settings.Interface.setWindow_FieldMenulocation;
+            Size = Settings.Interface.setWindow_FieldMenuSize;
 
             mf.CloseTopMosts();
 
@@ -108,8 +108,8 @@ namespace AgOpenGPS
 
         private void FormField_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.setFieldMenu_location = Location;
-            Properties.Settings.Default.setFieldMenu_size = Size;
+            Settings.Interface.setWindow_FieldMenulocation = Location;
+            Settings.Interface.setWindow_FieldMenuSize = Size;
         }
 
         #region Field Btns
@@ -147,9 +147,6 @@ namespace AgOpenGPS
                     else if (mf.jobPickerFileAndDirectory != "" )
                     {
                         mf.JobClose();
-
-                        //get the directory and make sure it exists, create if not
-                        DirectoryInfo dirNewJob = new DirectoryInfo(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Jobs", mf.jobPickerFileAndDirectory));
 
                         mf.currentJobDirectory = Path.Combine("Jobs", mf.jobPickerFileAndDirectory);
 

@@ -35,7 +35,7 @@ namespace AgOpenGPS
             mf = f;
             latStart = 0;
             lonStart = 0;
-            ageAlarm = Properties.Settings.Default.setGPS_ageAlarm;
+            ageAlarm = Settings.Vehicle.setGPS_ageAlarm;
         }
 
         public void AverageTheSpeed()
@@ -51,8 +51,8 @@ namespace AgOpenGPS
             latStart = lat;
             lonStart = lon;
 
-            Properties.Settings.Default.setGPS_SimLatitude = lat;//this is actuallly the last field position
-            Properties.Settings.Default.setGPS_SimLongitude = lon;
+            Settings.Vehicle.setGPS_SimLatitude = lat;//this is actuallly the last field position
+            Settings.Vehicle.setGPS_SimLongitude = lon;
             
             mf.sim.Reset();
 

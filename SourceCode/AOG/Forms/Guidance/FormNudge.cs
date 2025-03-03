@@ -25,12 +25,12 @@ namespace AgOpenGPS
         private void FormEditTrack_Load(object sender, EventArgs e)
         {
             nudSnapDistance.DecimalPlaces = mf.isMetric ? 0 : 1;
-            nudSnapDistance.Value = Properties.Settings.Default.setAS_snapDistance;
+            nudSnapDistance.Value = Settings.Vehicle.setAS_snapDistance;
 
-            snapAdj = Properties.Settings.Default.setAS_snapDistance;
+            snapAdj = Settings.Vehicle.setAS_snapDistance;
 
-            Location = Properties.Settings.Default.setWindow_formNudgeLocation;
-            Size = Properties.Settings.Default.setWindow_formNudgeSize;
+            Location = Settings.Interface.setWindow_formNudgeLocation;
+            Size = Settings.Interface.setWindow_formNudgeSize;
             UpdateMoveLabel();
 
             if (!mf.IsOnScreen(Location, Size, 1))
@@ -47,8 +47,8 @@ namespace AgOpenGPS
 
         private void FormEditTrack_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.setWindow_formNudgeLocation = Location;
-            Properties.Settings.Default.setWindow_formNudgeSize = Size;
+            Settings.Interface.setWindow_formNudgeLocation = Location;
+            Settings.Interface.setWindow_formNudgeSize = Size;
 
             //save entire list
             mf.FileSaveTracks();
@@ -76,7 +76,7 @@ namespace AgOpenGPS
 
         private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_snapDistance = snapAdj = nudSnapDistance.Value;
+            Settings.Vehicle.setAS_snapDistance = snapAdj = nudSnapDistance.Value;
 
             mf.Activate();
         }

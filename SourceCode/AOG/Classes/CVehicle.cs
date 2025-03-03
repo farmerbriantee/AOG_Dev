@@ -56,7 +56,7 @@ namespace AgOpenGPS
 
             wheelbase = Properties.Settings.Default.setVehicle_wheelbase;
 
-            slowSpeedCutoff = Properties.Settings.Default.setVehicle_slowSpeedCutoff;
+            slowSpeedCutoff = Properties.ToolSettings.Default.setVehicle_slowSpeedCutoff;
 
             goalPointLookAheadHold = Properties.Settings.Default.setVehicle_goalPointLookAheadHold;
             goalPointLookAheadMult = Properties.Settings.Default.setVehicle_goalPointLookAheadMult;
@@ -78,7 +78,7 @@ namespace AgOpenGPS
             purePursuitIntegralGain = Properties.Settings.Default.purePursuitIntegralGainAB;
             vehicleType = Properties.Settings.Default.setVehicle_vehicleType;
 
-            hydLiftLookAheadTime = Properties.Settings.Default.setVehicle_hydraulicLiftLookAhead;
+            hydLiftLookAheadTime = Properties.ToolSettings.Default.setVehicle_hydraulicLiftLookAhead;
 
             deadZoneHeading = Properties.Settings.Default.setAS_deadZoneHeading * 0.01;
             deadZoneDelay = Properties.Settings.Default.setAS_deadZoneDelay;
@@ -460,7 +460,7 @@ namespace AgOpenGPS
                 GL.End();
             }
 
-            if (!mf.isStanleyUsed && mf.camera.camSetDistance > -550 && mf.isFirstHeadingSet)
+            if (mf.camera.camSetDistance > -500 && mf.isFirstHeadingSet)
             {
                 //draw the bright antenna dot
                 GL.PointSize(16);

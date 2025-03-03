@@ -206,12 +206,12 @@ namespace AgIO
 
         private void btnFileSave_Click(object sender, EventArgs e)
         {
-            using (StreamWriter writer = new StreamWriter("zAgOne_SerialMon_log.txt", false))
+            using (StreamWriter writer = new StreamWriter("zAgIO_SerialMon_log.txt", false))
             {
                 writer.Write(textBoxRcv.Text);
             }
 
-            mf.TimedMessageBox(2000, "File Saved", "To zAgOne_SerialMon_Log.Txt");
+            mf.TimedMessageBox(2000, "File Saved", "To zAgIO_SerialMon_Log.Txt");
         }
 
         private void FormSerialMonitor_FormClosing(object sender, FormClosingEventArgs e)

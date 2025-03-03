@@ -302,8 +302,8 @@ namespace AgOpenGPS
             cboxHydLiftSound.Checked = Properties.Settings.Default.setSound_isHydLiftOn;
             cboxSectionsSound.Checked = Properties.Settings.Default.setSound_isSectionsOn;
 
-            cboxAutoStartAgOne.Checked = Properties.Settings.Default.setDisplay_isAutoStartAgOne;
-            cboxAutoOffAgOne.Checked = Properties.Settings.Default.setDisplay_isAutoOffAgOne;
+            cboxAutoStartAgIO.Checked = Properties.Settings.Default.setDisplay_isAutoStartAgIO;
+            cboxAutoOffAgIO.Checked = Properties.Settings.Default.setDisplay_isAutoOffAgIO;
             cboxShutdownWhenNoPower.Checked = Properties.Settings.Default.setDisplay_isShutdownWhenNoPower;
             cboxHardwareMessages.Checked = Properties.Settings.Default.setDisplay_isHardwareMessages;
         }
@@ -333,10 +333,10 @@ namespace AgOpenGPS
             Properties.Settings.Default.setSound_isHydLiftOn = cboxHydLiftSound.Checked;
             mf.sounds.isHydLiftSoundOn = cboxHydLiftSound.Checked;
 
-            Properties.Settings.Default.setDisplay_isAutoStartAgOne = cboxAutoStartAgOne.Checked;
-            mf.isAutoStartAgOne = cboxAutoStartAgOne.Checked;
+            Properties.Settings.Default.setDisplay_isAutoStartAgIO = cboxAutoStartAgIO.Checked;
+            mf.isAutoStartAgIO = cboxAutoStartAgIO.Checked;
 
-            Properties.Settings.Default.setDisplay_isAutoOffAgOne = cboxAutoOffAgOne.Checked;
+            Properties.Settings.Default.setDisplay_isAutoOffAgIO = cboxAutoOffAgIO.Checked;
 
             Properties.Settings.Default.setDisplay_isShutdownWhenNoPower = cboxShutdownWhenNoPower.Checked;
 

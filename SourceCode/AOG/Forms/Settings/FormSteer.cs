@@ -760,19 +760,19 @@ namespace AgOpenGPS
             cboxGPSTool.Checked = mf.isGPSToolActive;
 
             //settings
-            hsbarPGain_Tool.Value = Properties.Settings.Default.setToolSteer.gainP;
-            hsbarIntegral_Tool.Value = Properties.Settings.Default.setToolSteer.integral;
-            hsbarMinPWM_Tool.Value = Properties.Settings.Default.setToolSteer.minPWM;
-            hsbarHighPWM_Tool.Value = Properties.Settings.Default.setToolSteer.highPWM;
-            hsbarAckermann_Tool.Value = Properties.Settings.Default.setToolSteer.ackermann;
-            hsbarCPD_Tool.Value = Properties.Settings.Default.setToolSteer.countsPerDegree;
-            hsbarZeroWAS_Tool.Value = Properties.Settings.Default.setToolSteer.wasOffset;
+            hsbarPGain_Tool.Value = Properties.ToolSettings.Default.setToolSteer.gainP;
+            hsbarIntegral_Tool.Value = Properties.ToolSettings.Default.setToolSteer.integral;
+            hsbarMinPWM_Tool.Value = Properties.ToolSettings.Default.setToolSteer.minPWM;
+            hsbarHighPWM_Tool.Value = Properties.ToolSettings.Default.setToolSteer.highPWM;
+            hsbarAckermann_Tool.Value = Properties.ToolSettings.Default.setToolSteer.ackermann;
+            hsbarCPD_Tool.Value = Properties.ToolSettings.Default.setToolSteer.countsPerDegree;
+            hsbarZeroWAS_Tool.Value = Properties.ToolSettings.Default.setToolSteer.wasOffset;
 
             //config
-            hsbarMaxSteerAngle_Tool.Value = Properties.Settings.Default.setToolSteer.maxSteerAngle;
-            cboxInvertSteer_Tool.Checked = (Properties.Settings.Default.setToolSteer.isInvertSteer == 1);
-            cboxInvertWAS_Tool.Checked = (Properties.Settings.Default.setToolSteer.isInvertWAS == 1);
-            cboxIsSteerNotSlide_Tool.Checked = (Properties.Settings.Default.setToolSteer.isSteerNotSlide == 1);
+            hsbarMaxSteerAngle_Tool.Value = Properties.ToolSettings.Default.setToolSteer.maxSteerAngle;
+            cboxInvertSteer_Tool.Checked = (Properties.ToolSettings.Default.setToolSteer.isInvertSteer == 1);
+            cboxInvertWAS_Tool.Checked = (Properties.ToolSettings.Default.setToolSteer.isInvertWAS == 1);
+            cboxIsSteerNotSlide_Tool.Checked = (Properties.ToolSettings.Default.setToolSteer.isSteerNotSlide == 1);
 
             //settings
             lblPGain_Tool.Text = hsbarPGain_Tool.Value.ToString();
@@ -790,41 +790,41 @@ namespace AgOpenGPS
         private void tabTool_Leave(object sender, EventArgs e)
         {
             //settings
-            Properties.Settings.Default.setToolSteer.gainP = (byte)hsbarPGain_Tool.Value;
-            Properties.Settings.Default.setToolSteer.integral = (byte)hsbarIntegral_Tool.Value;
-            Properties.Settings.Default.setToolSteer.minPWM = (byte)hsbarMinPWM_Tool.Value;
-            Properties.Settings.Default.setToolSteer.highPWM = (byte)hsbarHighPWM_Tool.Value;
-            Properties.Settings.Default.setToolSteer.countsPerDegree = (byte)hsbarCPD_Tool.Value;
-            Properties.Settings.Default.setToolSteer.ackermann = (byte)hsbarAckermann_Tool.Value;
-            Properties.Settings.Default.setToolSteer.wasOffset = hsbarZeroWAS_Tool.Value;
+            Properties.ToolSettings.Default.setToolSteer.gainP = (byte)hsbarPGain_Tool.Value;
+            Properties.ToolSettings.Default.setToolSteer.integral = (byte)hsbarIntegral_Tool.Value;
+            Properties.ToolSettings.Default.setToolSteer.minPWM = (byte)hsbarMinPWM_Tool.Value;
+            Properties.ToolSettings.Default.setToolSteer.highPWM = (byte)hsbarHighPWM_Tool.Value;
+            Properties.ToolSettings.Default.setToolSteer.countsPerDegree = (byte)hsbarCPD_Tool.Value;
+            Properties.ToolSettings.Default.setToolSteer.ackermann = (byte)hsbarAckermann_Tool.Value;
+            Properties.ToolSettings.Default.setToolSteer.wasOffset = hsbarZeroWAS_Tool.Value;
 
             //config
-            Properties.Settings.Default.setToolSteer.maxSteerAngle = (byte)hsbarMaxSteerAngle_Tool.Value;
+            Properties.ToolSettings.Default.setToolSteer.maxSteerAngle = (byte)hsbarMaxSteerAngle_Tool.Value;
 
-            if (cboxInvertSteer_Tool.Checked) Properties.Settings.Default.setToolSteer.isInvertWAS = 1;
-            else Properties.Settings.Default.setToolSteer.isInvertWAS = 0;
+            if (cboxInvertSteer_Tool.Checked) Properties.ToolSettings.Default.setToolSteer.isInvertWAS = 1;
+            else Properties.ToolSettings.Default.setToolSteer.isInvertWAS = 0;
 
-            if (cboxInvertWAS_Tool.Checked) Properties.Settings.Default.setToolSteer.isInvertSteer = 1;
-            else Properties.Settings.Default.setToolSteer.isInvertSteer = 0;
+            if (cboxInvertWAS_Tool.Checked) Properties.ToolSettings.Default.setToolSteer.isInvertSteer = 1;
+            else Properties.ToolSettings.Default.setToolSteer.isInvertSteer = 0;
 
-            if (cboxIsSteerNotSlide_Tool.Checked) Properties.Settings.Default.setToolSteer.isSteerNotSlide = 1;
-            else Properties.Settings.Default.setToolSteer.isSteerNotSlide = 0;
+            if (cboxIsSteerNotSlide_Tool.Checked) Properties.ToolSettings.Default.setToolSteer.isSteerNotSlide = 1;
+            else Properties.ToolSettings.Default.setToolSteer.isSteerNotSlide = 0;
 
-            PGN_232.pgn[PGN_232.gainP] = Properties.Settings.Default.setToolSteer.gainP;
-            PGN_232.pgn[PGN_232.integral] = Properties.Settings.Default.setToolSteer.integral;
-            PGN_232.pgn[PGN_232.minPWM] = Properties.Settings.Default.setToolSteer.minPWM;
-            PGN_232.pgn[PGN_232.highPWM] = Properties.Settings.Default.setToolSteer.highPWM;
-            PGN_232.pgn[PGN_232.countsPerDegree] = Properties.Settings.Default.setToolSteer.countsPerDegree;
-            PGN_232.pgn[PGN_232.ackerman] = Properties.Settings.Default.setToolSteer.ackermann;
+            PGN_232.pgn[PGN_232.gainP] = Properties.ToolSettings.Default.setToolSteer.gainP;
+            PGN_232.pgn[PGN_232.integral] = Properties.ToolSettings.Default.setToolSteer.integral;
+            PGN_232.pgn[PGN_232.minPWM] = Properties.ToolSettings.Default.setToolSteer.minPWM;
+            PGN_232.pgn[PGN_232.highPWM] = Properties.ToolSettings.Default.setToolSteer.highPWM;
+            PGN_232.pgn[PGN_232.countsPerDegree] = Properties.ToolSettings.Default.setToolSteer.countsPerDegree;
+            PGN_232.pgn[PGN_232.ackerman] = Properties.ToolSettings.Default.setToolSteer.ackermann;
 
-            PGN_232.pgn[PGN_232.wasOffsetHi] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset >> 8));
-            PGN_232.pgn[PGN_232.wasOffsetLo] = unchecked((byte)(Properties.Settings.Default.setToolSteer.wasOffset));
+            PGN_232.pgn[PGN_232.wasOffsetHi] = unchecked((byte)(Properties.ToolSettings.Default.setToolSteer.wasOffset >> 8));
+            PGN_232.pgn[PGN_232.wasOffsetLo] = unchecked((byte)(Properties.ToolSettings.Default.setToolSteer.wasOffset));
             
             //config
-            PGN_231.pgn[PGN_231.maxSteerAngle] = Properties.Settings.Default.setToolSteer.maxSteerAngle;
-            PGN_231.pgn[PGN_231.invertWAS] = Properties.Settings.Default.setToolSteer.isInvertWAS;
-            PGN_231.pgn[PGN_231.invertSteer] = Properties.Settings.Default.setToolSteer.isInvertSteer;
-            PGN_231.pgn[PGN_231.isSteer] = Properties.Settings.Default.setToolSteer.isSteerNotSlide;
+            PGN_231.pgn[PGN_231.maxSteerAngle] = Properties.ToolSettings.Default.setToolSteer.maxSteerAngle;
+            PGN_231.pgn[PGN_231.invertWAS] = Properties.ToolSettings.Default.setToolSteer.isInvertWAS;
+            PGN_231.pgn[PGN_231.invertSteer] = Properties.ToolSettings.Default.setToolSteer.isInvertSteer;
+            PGN_231.pgn[PGN_231.isSteer] = Properties.ToolSettings.Default.setToolSteer.isSteerNotSlide;
         }
 
         private void cboxGPSTool_Click(object sender, EventArgs e)
@@ -832,7 +832,7 @@ namespace AgOpenGPS
             mf.isGPSToolActive = cboxGPSTool.Checked;
             mf.YesMessageBox("You must restart AgOpenGPS to make changes to the networking");
             Log.EventWriter("GPS Tool set to: " + cboxGPSTool.Checked.ToString());
-            Settings.Default.setToolSteer.isGPSToolActive = mf.isGPSToolActive;
+            ToolSettings.Default.setToolSteer.isGPSToolActive = mf.isGPSToolActive;
         }
 
         //config tool 

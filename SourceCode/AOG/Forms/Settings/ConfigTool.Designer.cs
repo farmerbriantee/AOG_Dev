@@ -35,28 +35,28 @@ namespace AgOpenGPS
                 rbtnFixedRear.Visible = true;
                 rbtnFront.Visible = true;
 
-                if (Properties.Settings.Default.setTool_isToolFront)
+                if (Properties.ToolSettings.Default.setTool_isToolFront)
                 {
                     rbtnTBT.Checked = false;
                     rbtnTrailing.Checked = false;
                     rbtnFixedRear.Checked = false;
                     rbtnFront.Checked = true;
                 }
-                else if (Properties.Settings.Default.setTool_isToolTBT)
+                else if (Properties.ToolSettings.Default.setTool_isToolTBT)
                 {
                     rbtnTBT.Checked = true;
                     rbtnTrailing.Checked = false;
                     rbtnFixedRear.Checked = false;
                     rbtnFront.Checked = false;
                 }
-                else if (Properties.Settings.Default.setTool_isToolTrailing)
+                else if (Properties.ToolSettings.Default.setTool_isToolTrailing)
                 {
                     rbtnTBT.Checked = false;
                     rbtnTrailing.Checked = true;
                     rbtnFixedRear.Checked = false;
                     rbtnFront.Checked = false;
                 }
-                else if (Properties.Settings.Default.setTool_isToolRearFixed)
+                else if (Properties.ToolSettings.Default.setTool_isToolRearFixed)
                 {
                     rbtnTBT.Checked = false;
                     rbtnTrailing.Checked = false;
@@ -82,52 +82,52 @@ namespace AgOpenGPS
 
                 if (rbtnFront.Checked)
                 {
-                    Properties.Settings.Default.setTool_isToolFront = true;
-                    Properties.Settings.Default.setTool_isToolTBT = false;
-                    Properties.Settings.Default.setTool_isToolTrailing = false;
-                    Properties.Settings.Default.setTool_isToolRearFixed = false;
+                    Properties.ToolSettings.Default.setTool_isToolFront = true;
+                    Properties.ToolSettings.Default.setTool_isToolTBT = false;
+                    Properties.ToolSettings.Default.setTool_isToolTrailing = false;
+                    Properties.ToolSettings.Default.setTool_isToolRearFixed = false;
                 }
                 else if (rbtnTBT.Checked)
                 {
-                    Properties.Settings.Default.setTool_isToolFront = false;
-                    Properties.Settings.Default.setTool_isToolTBT = true;
-                    Properties.Settings.Default.setTool_isToolTrailing = true;
-                    Properties.Settings.Default.setTool_isToolRearFixed = false;
+                    Properties.ToolSettings.Default.setTool_isToolFront = false;
+                    Properties.ToolSettings.Default.setTool_isToolTBT = true;
+                    Properties.ToolSettings.Default.setTool_isToolTrailing = true;
+                    Properties.ToolSettings.Default.setTool_isToolRearFixed = false;
                 }
                 else if (rbtnTrailing.Checked)
                 {
-                    Properties.Settings.Default.setTool_isToolFront = false;
-                    Properties.Settings.Default.setTool_isToolTBT = false;
-                    Properties.Settings.Default.setTool_isToolTrailing = true;
-                    Properties.Settings.Default.setTool_isToolRearFixed = false;
+                    Properties.ToolSettings.Default.setTool_isToolFront = false;
+                    Properties.ToolSettings.Default.setTool_isToolTBT = false;
+                    Properties.ToolSettings.Default.setTool_isToolTrailing = true;
+                    Properties.ToolSettings.Default.setTool_isToolRearFixed = false;
                 }
                 else if (rbtnFixedRear.Checked)
                 {
-                    Properties.Settings.Default.setTool_isToolFront = false;
-                    Properties.Settings.Default.setTool_isToolTBT = false;
-                    Properties.Settings.Default.setTool_isToolTrailing = false;
-                    Properties.Settings.Default.setTool_isToolRearFixed = true;
+                    Properties.ToolSettings.Default.setTool_isToolFront = false;
+                    Properties.ToolSettings.Default.setTool_isToolTBT = false;
+                    Properties.ToolSettings.Default.setTool_isToolTrailing = false;
+                    Properties.ToolSettings.Default.setTool_isToolRearFixed = true;
                 }
             }
             else
             {
-                Properties.Settings.Default.setTool_isToolFront = true;
-                Properties.Settings.Default.setTool_isToolTBT = false;
-                Properties.Settings.Default.setTool_isToolTrailing = false;
-                Properties.Settings.Default.setTool_isToolRearFixed = false;
+                Properties.ToolSettings.Default.setTool_isToolFront = true;
+                Properties.ToolSettings.Default.setTool_isToolTBT = false;
+                Properties.ToolSettings.Default.setTool_isToolTrailing = false;
+                Properties.ToolSettings.Default.setTool_isToolRearFixed = false;
             }
 
-            mf.tool.isToolRearFixed = Properties.Settings.Default.setTool_isToolRearFixed;
-            mf.tool.isToolTrailing = Properties.Settings.Default.setTool_isToolTrailing;
-            mf.tool.isToolTBT = Properties.Settings.Default.setTool_isToolTBT;
-            mf.tool.isToolFrontFixed = Properties.Settings.Default.setTool_isToolFront;
+            mf.tool.isToolRearFixed = Properties.ToolSettings.Default.setTool_isToolRearFixed;
+            mf.tool.isToolTrailing = Properties.ToolSettings.Default.setTool_isToolTrailing;
+            mf.tool.isToolTBT = Properties.ToolSettings.Default.setTool_isToolTBT;
+            mf.tool.isToolFrontFixed = Properties.ToolSettings.Default.setTool_isToolFront;
 
             //mf.tool.hitchLength = (double)nudDrawbarLength.Value * glm.inchOrCm2m;
-            if (Properties.Settings.Default.setTool_isToolFront && mf.tool.hitchLength < 0)
+            if (Properties.ToolSettings.Default.setTool_isToolFront && mf.tool.hitchLength < 0)
                 mf.tool.hitchLength *= -1;
-            else if (!Properties.Settings.Default.setTool_isToolFront && mf.tool.hitchLength > 0)
+            else if (!Properties.ToolSettings.Default.setTool_isToolFront && mf.tool.hitchLength > 0)
                 mf.tool.hitchLength *= -1;
-            Properties.Settings.Default.setVehicle_hitchLength = mf.tool.hitchLength;
+            Properties.ToolSettings.Default.setVehicle_hitchLength = mf.tool.hitchLength;
 
             
         }
@@ -141,7 +141,7 @@ namespace AgOpenGPS
             if (mf.vehicle.vehicleType != 1)
             {
                 //fixed -hitch only on vehicle
-                if (Properties.Settings.Default.setTool_isToolFront)
+                if (Properties.ToolSettings.Default.setTool_isToolFront)
                 {
                     nudTrailingHitchLength.Visible = false;
                     nudDrawbarLength.Visible = true;
@@ -151,7 +151,7 @@ namespace AgOpenGPS
 
                     picboxToolHitch.BackgroundImage = Properties.Resources.ToolHitchPageFront;
                 }
-                else if (Properties.Settings.Default.setTool_isToolRearFixed)
+                else if (Properties.ToolSettings.Default.setTool_isToolRearFixed)
                 {
                     nudTrailingHitchLength.Visible = false;
                     nudDrawbarLength.Visible = true;
@@ -163,7 +163,7 @@ namespace AgOpenGPS
                 }
 
                 //trailing
-                else if (Properties.Settings.Default.setTool_isToolTBT)
+                else if (Properties.ToolSettings.Default.setTool_isToolTBT)
                 {
                     nudTrailingHitchLength.Visible = true;
                     nudDrawbarLength.Visible = false;
@@ -174,7 +174,7 @@ namespace AgOpenGPS
 
                     picboxToolHitch.BackgroundImage = Properties.Resources.ToolHitchPageTBT;
                 }
-                else if (Properties.Settings.Default.setTool_isToolTrailing)
+                else if (Properties.ToolSettings.Default.setTool_isToolTrailing)
                 {
                     nudTrailingHitchLength.Visible = true;
                     nudDrawbarLength.Visible = false;
@@ -198,9 +198,9 @@ namespace AgOpenGPS
                 picboxToolHitch.BackgroundImage = Properties.Resources.ToolHitchPageFrontHarvester;
             }
 
-            nudDrawbarLength.Value = Math.Abs(Properties.Settings.Default.setVehicle_hitchLength);
-            nudTrailingHitchLength.Value = Math.Abs(Properties.Settings.Default.setTool_toolTrailingHitchLength);
-            nudTankHitch.Value = Math.Abs(Properties.Settings.Default.setVehicle_tankTrailingHitchLength);
+            nudDrawbarLength.Value = Math.Abs(Properties.ToolSettings.Default.setVehicle_hitchLength);
+            nudTrailingHitchLength.Value = Math.Abs(Properties.ToolSettings.Default.setTool_toolTrailingHitchLength);
+            nudTankHitch.Value = Math.Abs(Properties.ToolSettings.Default.setVehicle_tankTrailingHitchLength);
         }
 
         private void tabTHitch_Leave(object sender, EventArgs e)
@@ -211,23 +211,23 @@ namespace AgOpenGPS
         private void nudDrawbarLength_ValueChanged(object sender, EventArgs e)
         {
             mf.tool.hitchLength = nudDrawbarLength.Value;
-            if (!Properties.Settings.Default.setTool_isToolFront)
+            if (!Properties.ToolSettings.Default.setTool_isToolFront)
             {
                 mf.tool.hitchLength *= -1;
             }
-            Properties.Settings.Default.setVehicle_hitchLength = mf.tool.hitchLength;
+            Properties.ToolSettings.Default.setVehicle_hitchLength = mf.tool.hitchLength;
         }
 
         private void nudTankHitch_ValueChanged(object sender, EventArgs e)
         {
             mf.tool.tankTrailingHitchLength = -nudTankHitch.Value;
-            Properties.Settings.Default.setVehicle_tankTrailingHitchLength = mf.tool.tankTrailingHitchLength;
+            Properties.ToolSettings.Default.setVehicle_tankTrailingHitchLength = mf.tool.tankTrailingHitchLength;
         }
 
         private void nudTrailingHitchLength_ValueChanged(object sender, EventArgs e)
         {
             mf.tool.trailingHitchLength = -nudTrailingHitchLength.Value;
-            Properties.Settings.Default.setTool_toolTrailingHitchLength = mf.tool.trailingHitchLength;
+            Properties.ToolSettings.Default.setTool_toolTrailingHitchLength = mf.tool.trailingHitchLength;
         }
 
         #endregion
@@ -236,9 +236,9 @@ namespace AgOpenGPS
 
         private void tabTSettings_Enter(object sender, EventArgs e)
         {
-            nudLookAhead.Value = Properties.Settings.Default.setVehicle_toolLookAheadOn;
-            nudLookAheadOff.Value = Properties.Settings.Default.setVehicle_toolLookAheadOff;
-            nudTurnOffDelay.Value = Properties.Settings.Default.setVehicle_toolOffDelay;
+            nudLookAhead.Value = Properties.ToolSettings.Default.setVehicle_toolLookAheadOn;
+            nudLookAheadOff.Value = Properties.ToolSettings.Default.setVehicle_toolLookAheadOff;
+            nudTurnOffDelay.Value = Properties.ToolSettings.Default.setVehicle_toolOffDelay;
             //pictureBox3.Image = Resources.ToolLookaheadOn;
             //pictureBox4.Image = Resources.ToolLookaheadOff;
         }
@@ -246,9 +246,9 @@ namespace AgOpenGPS
         private void tabTSettings_Leave(object sender, EventArgs e)
         {
 
-            Properties.Settings.Default.setVehicle_toolLookAheadOn = mf.tool.lookAheadOnSetting;
-            Properties.Settings.Default.setVehicle_toolLookAheadOff = mf.tool.lookAheadOffSetting;
-            Properties.Settings.Default.setVehicle_toolOffDelay = mf.tool.turnOffDelay;
+            Properties.ToolSettings.Default.setVehicle_toolLookAheadOn = mf.tool.lookAheadOnSetting;
+            Properties.ToolSettings.Default.setVehicle_toolLookAheadOff = mf.tool.lookAheadOffSetting;
+            Properties.ToolSettings.Default.setVehicle_toolOffDelay = mf.tool.turnOffDelay;
 
             ////line up manual buttons based on # of sections
             //mf.LineUpManualBtns();
@@ -308,19 +308,19 @@ namespace AgOpenGPS
         #region offset
         private void tabToolOffset_Enter(object sender, EventArgs e)
         {
-            nudOffset.Value = Math.Abs(Properties.Settings.Default.setVehicle_toolOffset);
+            nudOffset.Value = Math.Abs(Properties.ToolSettings.Default.setVehicle_toolOffset);
 
             rbtnToolRightPositive.Checked = false;
             rbtnLeftNegative.Checked = false;
-            rbtnToolRightPositive.Checked = Properties.Settings.Default.setVehicle_toolOffset > 0;
-            rbtnLeftNegative.Checked = Properties.Settings.Default.setVehicle_toolOffset < 0;
+            rbtnToolRightPositive.Checked = Properties.ToolSettings.Default.setVehicle_toolOffset > 0;
+            rbtnLeftNegative.Checked = Properties.ToolSettings.Default.setVehicle_toolOffset < 0;
 
-            nudOverlap.Value = Math.Abs(Properties.Settings.Default.setVehicle_toolOverlap);
+            nudOverlap.Value = Math.Abs(Properties.ToolSettings.Default.setVehicle_toolOverlap);
 
             rbtnToolOverlap.Checked = false;
             rbtnToolGap.Checked = false;
-            rbtnToolOverlap.Checked = Properties.Settings.Default.setVehicle_toolOverlap > 0;
-            rbtnToolGap.Checked = Properties.Settings.Default.setVehicle_toolOverlap < 0;
+            rbtnToolOverlap.Checked = Properties.ToolSettings.Default.setVehicle_toolOverlap > 0;
+            rbtnToolGap.Checked = Properties.ToolSettings.Default.setVehicle_toolOverlap < 0;
 
             label175.Text = glm.unitsInCm;
             label176.Text = glm.unitsInCm;
@@ -341,12 +341,12 @@ namespace AgOpenGPS
             else
                 mf.tool.offset = -nudOffset.Value;
 
-            Properties.Settings.Default.setVehicle_toolOffset = mf.tool.offset;
+            Properties.ToolSettings.Default.setVehicle_toolOffset = mf.tool.offset;
 
             rbtnToolRightPositive.Checked = false;
             rbtnLeftNegative.Checked = false;
-            rbtnToolRightPositive.Checked = Properties.Settings.Default.setVehicle_toolOffset > 0;
-            rbtnLeftNegative.Checked = Properties.Settings.Default.setVehicle_toolOffset < 0;
+            rbtnToolRightPositive.Checked = Properties.ToolSettings.Default.setVehicle_toolOffset > 0;
+            rbtnLeftNegative.Checked = Properties.ToolSettings.Default.setVehicle_toolOffset < 0;
         }
 
         private void btnZeroToolOffset_Click(object sender, EventArgs e)
@@ -356,7 +356,7 @@ namespace AgOpenGPS
             rbtnLeftNegative.Checked = false;
 
             mf.tool.offset = 0;
-            Properties.Settings.Default.setVehicle_toolOffset = mf.tool.offset;
+            Properties.ToolSettings.Default.setVehicle_toolOffset = mf.tool.offset;
         }
 
         private void rbtnToolRightPositive_Click(object sender, EventArgs e)
@@ -365,12 +365,12 @@ namespace AgOpenGPS
                 mf.tool.offset = nudOffset.Value;
             else
                 mf.tool.offset = -nudOffset.Value;
-            Properties.Settings.Default.setVehicle_toolOffset = mf.tool.offset;
+            Properties.ToolSettings.Default.setVehicle_toolOffset = mf.tool.offset;
 
             rbtnToolRightPositive.Checked = false;
             rbtnLeftNegative.Checked = false;
-            rbtnToolRightPositive.Checked = Properties.Settings.Default.setVehicle_toolOffset > 0;
-            rbtnLeftNegative.Checked = Properties.Settings.Default.setVehicle_toolOffset < 0;
+            rbtnToolRightPositive.Checked = Properties.ToolSettings.Default.setVehicle_toolOffset > 0;
+            rbtnLeftNegative.Checked = Properties.ToolSettings.Default.setVehicle_toolOffset < 0;
         }
 
         private void nudOverlaPGN_ValueChanged(object sender, EventArgs e)
@@ -383,12 +383,12 @@ namespace AgOpenGPS
             else
                 mf.tool.overlap = -nudOverlap.Value;
 
-            Properties.Settings.Default.setVehicle_toolOverlap = mf.tool.overlap;
+            Properties.ToolSettings.Default.setVehicle_toolOverlap = mf.tool.overlap;
 
             rbtnToolOverlap.Checked = false;
             rbtnToolGap.Checked = false;
-            rbtnToolOverlap.Checked = Properties.Settings.Default.setVehicle_toolOverlap > 0;
-            rbtnToolGap.Checked = Properties.Settings.Default.setVehicle_toolOverlap < 0;
+            rbtnToolOverlap.Checked = Properties.ToolSettings.Default.setVehicle_toolOverlap > 0;
+            rbtnToolGap.Checked = Properties.ToolSettings.Default.setVehicle_toolOverlap < 0;
         }
 
         private void btnZeroOverlaPGN_Click(object sender, EventArgs e)
@@ -398,7 +398,7 @@ namespace AgOpenGPS
             rbtnToolGap.Checked = false;
 
             mf.tool.overlap = 0;
-            Properties.Settings.Default.setVehicle_toolOverlap = mf.tool.overlap;
+            Properties.ToolSettings.Default.setVehicle_toolOverlap = mf.tool.overlap;
         }
 
         private void rbtnToolOverlaPGN_Click(object sender, EventArgs e)
@@ -407,13 +407,13 @@ namespace AgOpenGPS
                 mf.tool.overlap = nudOverlap.Value;
             else
                 mf.tool.overlap = -nudOverlap.Value;
-            Properties.Settings.Default.setVehicle_toolOverlap = mf.tool.overlap;
+            Properties.ToolSettings.Default.setVehicle_toolOverlap = mf.tool.overlap;
             
 
             rbtnToolOverlap.Checked = false;
             rbtnToolGap.Checked = false;
-            rbtnToolOverlap.Checked = Properties.Settings.Default.setVehicle_toolOverlap > 0;
-            rbtnToolGap.Checked = Properties.Settings.Default.setVehicle_toolOverlap < 0;
+            rbtnToolOverlap.Checked = Properties.ToolSettings.Default.setVehicle_toolOverlap > 0;
+            rbtnToolGap.Checked = Properties.ToolSettings.Default.setVehicle_toolOverlap < 0;
         }
 
         #endregion
@@ -422,12 +422,12 @@ namespace AgOpenGPS
 
         private void tabToolPivot_Enter(object sender, EventArgs e)
         {
-            nudTrailingToolToPivotLength.Value = Math.Abs(Properties.Settings.Default.setTool_trailingToolToPivotLength);
+            nudTrailingToolToPivotLength.Value = Math.Abs(Properties.ToolSettings.Default.setTool_trailingToolToPivotLength);
 
             rbtnPivotBehindPos.Checked = false;
             rbtnPivotAheadNeg.Checked = false;
-            rbtnPivotBehindPos.Checked = Properties.Settings.Default.setTool_trailingToolToPivotLength > 0;
-            rbtnPivotAheadNeg.Checked = Properties.Settings.Default.setTool_trailingToolToPivotLength < 0;
+            rbtnPivotBehindPos.Checked = Properties.ToolSettings.Default.setTool_trailingToolToPivotLength > 0;
+            rbtnPivotAheadNeg.Checked = Properties.ToolSettings.Default.setTool_trailingToolToPivotLength < 0;
 
             label177.Text = glm.unitsInCm;
         }
@@ -445,7 +445,7 @@ namespace AgOpenGPS
             rbtnPivotAheadNeg.Checked = false;
 
             mf.tool.trailingToolToPivotLength = 0;
-            Properties.Settings.Default.setTool_trailingToolToPivotLength = mf.tool.trailingToolToPivotLength;
+            Properties.ToolSettings.Default.setTool_trailingToolToPivotLength = mf.tool.trailingToolToPivotLength;
         }
 
 
@@ -455,12 +455,12 @@ namespace AgOpenGPS
                 mf.tool.trailingToolToPivotLength = nudTrailingToolToPivotLength.Value;
             else
                 mf.tool.trailingToolToPivotLength = -nudTrailingToolToPivotLength.Value;
-            Properties.Settings.Default.setTool_trailingToolToPivotLength = mf.tool.trailingToolToPivotLength;
+            Properties.ToolSettings.Default.setTool_trailingToolToPivotLength = mf.tool.trailingToolToPivotLength;
 
             rbtnPivotBehindPos.Checked = false;
             rbtnPivotAheadNeg.Checked = false;
-            rbtnPivotBehindPos.Checked = Properties.Settings.Default.setTool_trailingToolToPivotLength > 0;
-            rbtnPivotAheadNeg.Checked = Properties.Settings.Default.setTool_trailingToolToPivotLength < 0;
+            rbtnPivotBehindPos.Checked = Properties.ToolSettings.Default.setTool_trailingToolToPivotLength > 0;
+            rbtnPivotAheadNeg.Checked = Properties.ToolSettings.Default.setTool_trailingToolToPivotLength < 0;
         }
 
         private void nudTrailingToolToPivotLength_ValueChanged(object sender, EventArgs e)
@@ -470,12 +470,12 @@ namespace AgOpenGPS
             else
                 mf.tool.trailingToolToPivotLength = -nudTrailingToolToPivotLength.Value;
 
-            Properties.Settings.Default.setTool_trailingToolToPivotLength = mf.tool.trailingToolToPivotLength;
+            Properties.ToolSettings.Default.setTool_trailingToolToPivotLength = mf.tool.trailingToolToPivotLength;
 
             rbtnPivotBehindPos.Checked = false;
             rbtnPivotAheadNeg.Checked = false;
-            rbtnPivotBehindPos.Checked = Properties.Settings.Default.setTool_trailingToolToPivotLength > 0;
-            rbtnPivotAheadNeg.Checked = Properties.Settings.Default.setTool_trailingToolToPivotLength < 0;
+            rbtnPivotBehindPos.Checked = Properties.ToolSettings.Default.setTool_trailingToolToPivotLength > 0;
+            rbtnPivotAheadNeg.Checked = Properties.ToolSettings.Default.setTool_trailingToolToPivotLength < 0;
         }
 
 
@@ -517,7 +517,7 @@ namespace AgOpenGPS
 
             cboxIsUnique.Checked = !mf.tool.isSectionsNotZones;
 
-            cboxSectionBoundaryControl.Checked = Properties.Settings.Default.setTool_isSectionOffWhenOut;
+            cboxSectionBoundaryControl.Checked = Properties.ToolSettings.Default.setTool_isSectionOffWhenOut;
             if (cboxSectionBoundaryControl.Checked)
             {
                 cboxSectionBoundaryControl.BackgroundImage = Properties.Resources.SectionOffBoundary;
@@ -527,7 +527,7 @@ namespace AgOpenGPS
                 cboxSectionBoundaryControl.BackgroundImage = Properties.Resources.SectionOnBoundary;
             }
 
-            nudCutoffSpeed.Value = Properties.Settings.Default.setVehicle_slowSpeedCutoff;
+            nudCutoffSpeed.Value = Properties.ToolSettings.Default.setVehicle_slowSpeedCutoff;
 
             if (cboxIsUnique.Checked)
             {
@@ -550,7 +550,7 @@ namespace AgOpenGPS
             mf.autoBtnState = btnStates.Off;
             mf.btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
 
-            nudMinCoverage.Value = Properties.Settings.Default.setVehicle_minCoverage;
+            nudMinCoverage.Value = Properties.ToolSettings.Default.setVehicle_minCoverage;
 
             if (mf.tool.isSectionsNotZones)
             {
@@ -560,10 +560,10 @@ namespace AgOpenGPS
                 //enable disable manual buttons
                 mf.LineUpIndividualSectionBtns();
 
-                numberOfSections = Properties.Settings.Default.setVehicle_numSections;
+                numberOfSections = Properties.ToolSettings.Default.setVehicle_numSections;
 
                 cboxNumSections.Text = numberOfSections.ToString();
-                defaultSectionWidth = Properties.Settings.Default.setTool_defaultSectionWidth;
+                defaultSectionWidth = Properties.ToolSettings.Default.setTool_defaultSectionWidth;
                 nudDefaultSectionWidth.Value = defaultSectionWidth;
 
                 panelSymmetricSections.Visible = false;
@@ -571,22 +571,22 @@ namespace AgOpenGPS
                 nudNumberOfSections.Visible = false;
                 cboxNumSections.Visible = true;
 
-                nudSection01.Value = Math.Abs(Properties.Settings.Default.setSection_position2 - Properties.Settings.Default.setSection_position1);
-                nudSection02.Value = Math.Abs(Properties.Settings.Default.setSection_position3 - Properties.Settings.Default.setSection_position2);
-                nudSection03.Value = Math.Abs(Properties.Settings.Default.setSection_position4 - Properties.Settings.Default.setSection_position3);
-                nudSection04.Value = Math.Abs(Properties.Settings.Default.setSection_position5 - Properties.Settings.Default.setSection_position4);
-                nudSection05.Value = Math.Abs(Properties.Settings.Default.setSection_position6 - Properties.Settings.Default.setSection_position5);
-                nudSection06.Value = Math.Abs(Properties.Settings.Default.setSection_position7 - Properties.Settings.Default.setSection_position6);
-                nudSection07.Value = Math.Abs(Properties.Settings.Default.setSection_position8 - Properties.Settings.Default.setSection_position7);
-                nudSection08.Value = Math.Abs(Properties.Settings.Default.setSection_position9 - Properties.Settings.Default.setSection_position8);
-                nudSection09.Value = Math.Abs(Properties.Settings.Default.setSection_position10 - Properties.Settings.Default.setSection_position9);
-                nudSection10.Value = Math.Abs(Properties.Settings.Default.setSection_position11 - Properties.Settings.Default.setSection_position10);
-                nudSection11.Value = Math.Abs(Properties.Settings.Default.setSection_position12 - Properties.Settings.Default.setSection_position11);
-                nudSection12.Value = Math.Abs(Properties.Settings.Default.setSection_position13 - Properties.Settings.Default.setSection_position12);
-                nudSection13.Value = Math.Abs(Properties.Settings.Default.setSection_position14 - Properties.Settings.Default.setSection_position13);
-                nudSection14.Value = Math.Abs(Properties.Settings.Default.setSection_position15 - Properties.Settings.Default.setSection_position14);
-                nudSection15.Value = Math.Abs(Properties.Settings.Default.setSection_position16 - Properties.Settings.Default.setSection_position15);
-                nudSection16.Value = Math.Abs(Properties.Settings.Default.setSection_position17 - Properties.Settings.Default.setSection_position16);
+                nudSection01.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position2 - Properties.ToolSettings.Default.setSection_position1);
+                nudSection02.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position3 - Properties.ToolSettings.Default.setSection_position2);
+                nudSection03.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position4 - Properties.ToolSettings.Default.setSection_position3);
+                nudSection04.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position5 - Properties.ToolSettings.Default.setSection_position4);
+                nudSection05.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position6 - Properties.ToolSettings.Default.setSection_position5);
+                nudSection06.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position7 - Properties.ToolSettings.Default.setSection_position6);
+                nudSection07.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position8 - Properties.ToolSettings.Default.setSection_position7);
+                nudSection08.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position9 - Properties.ToolSettings.Default.setSection_position8);
+                nudSection09.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position10 - Properties.ToolSettings.Default.setSection_position9);
+                nudSection10.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position11 - Properties.ToolSettings.Default.setSection_position10);
+                nudSection11.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position12 - Properties.ToolSettings.Default.setSection_position11);
+                nudSection12.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position13 - Properties.ToolSettings.Default.setSection_position12);
+                nudSection13.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position14 - Properties.ToolSettings.Default.setSection_position13);
+                nudSection14.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position15 - Properties.ToolSettings.Default.setSection_position14);
+                nudSection15.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position16 - Properties.ToolSettings.Default.setSection_position15);
+                nudSection16.Value = Math.Abs(Properties.ToolSettings.Default.setSection_position17 - Properties.ToolSettings.Default.setSection_position16);
 
                 //based on number of sections and values update the page before displaying
                 UpdateSpinners();
@@ -601,10 +601,10 @@ namespace AgOpenGPS
                 panelSymmetricSections.Visible = true;
                 nudNumberOfSections.Visible = true;
 
-                numberOfSections = Properties.Settings.Default.setTool_numSectionsMulti;
+                numberOfSections = Properties.ToolSettings.Default.setTool_numSectionsMulti;
                 nudNumberOfSections.Value = numberOfSections;
 
-                defaultSectionWidth = Properties.Settings.Default.setTool_sectionWidthMulti;
+                defaultSectionWidth = Properties.ToolSettings.Default.setTool_sectionWidthMulti;
                 nudDefaultSectionWidth.Value = Math.Round(defaultSectionWidth,1);
 
                 SetNudZoneMinMax();
@@ -622,7 +622,7 @@ namespace AgOpenGPS
                 cboxNumberOfZones.Text = mf.tool.zones.ToString();
                 cboxNumberOfZones.SelectedIndexChanged += cboxNumberOfZones_SelectedIndexChanged;
 
-                words = Properties.Settings.Default.setTool_zones.Split(',');
+                words = Properties.ToolSettings.Default.setTool_zones.Split(',');
                 lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * glm.m2InchOrCm));
 
                 mf.LineUpAllZoneButtons();
@@ -639,31 +639,31 @@ namespace AgOpenGPS
                 //take the section widths and convert to meters and positions along tool.
                 CalculateSectionPositions();
 
-                Properties.Settings.Default.setTool_isSectionOffWhenOut = cboxSectionBoundaryControl.Checked;
+                Properties.ToolSettings.Default.setTool_isSectionOffWhenOut = cboxSectionBoundaryControl.Checked;
                 mf.tool.isSectionOffWhenOut = cboxSectionBoundaryControl.Checked;
 
                 //save the values in each spinner for section position widths in settings
-                Properties.Settings.Default.setSection_position1 = sectionPositionArr[0];
-                Properties.Settings.Default.setSection_position2 = sectionPositionArr[1];
-                Properties.Settings.Default.setSection_position3 = sectionPositionArr[2];
-                Properties.Settings.Default.setSection_position4 = sectionPositionArr[3];
-                Properties.Settings.Default.setSection_position5 = sectionPositionArr[4];
-                Properties.Settings.Default.setSection_position6 = sectionPositionArr[5];
-                Properties.Settings.Default.setSection_position7 = sectionPositionArr[6];
-                Properties.Settings.Default.setSection_position8 = sectionPositionArr[7];
-                Properties.Settings.Default.setSection_position9 = sectionPositionArr[8];
-                Properties.Settings.Default.setSection_position10 = sectionPositionArr[9];
-                Properties.Settings.Default.setSection_position11 = sectionPositionArr[10];
-                Properties.Settings.Default.setSection_position12 = sectionPositionArr[11];
-                Properties.Settings.Default.setSection_position13 = sectionPositionArr[12];
-                Properties.Settings.Default.setSection_position14 = sectionPositionArr[13];
-                Properties.Settings.Default.setSection_position15 = sectionPositionArr[14];
-                Properties.Settings.Default.setSection_position16 = sectionPositionArr[15];
-                Properties.Settings.Default.setSection_position17 = sectionPositionArr[16];
+                Properties.ToolSettings.Default.setSection_position1 = sectionPositionArr[0];
+                Properties.ToolSettings.Default.setSection_position2 = sectionPositionArr[1];
+                Properties.ToolSettings.Default.setSection_position3 = sectionPositionArr[2];
+                Properties.ToolSettings.Default.setSection_position4 = sectionPositionArr[3];
+                Properties.ToolSettings.Default.setSection_position5 = sectionPositionArr[4];
+                Properties.ToolSettings.Default.setSection_position6 = sectionPositionArr[5];
+                Properties.ToolSettings.Default.setSection_position7 = sectionPositionArr[6];
+                Properties.ToolSettings.Default.setSection_position8 = sectionPositionArr[7];
+                Properties.ToolSettings.Default.setSection_position9 = sectionPositionArr[8];
+                Properties.ToolSettings.Default.setSection_position10 = sectionPositionArr[9];
+                Properties.ToolSettings.Default.setSection_position11 = sectionPositionArr[10];
+                Properties.ToolSettings.Default.setSection_position12 = sectionPositionArr[11];
+                Properties.ToolSettings.Default.setSection_position13 = sectionPositionArr[12];
+                Properties.ToolSettings.Default.setSection_position14 = sectionPositionArr[13];
+                Properties.ToolSettings.Default.setSection_position15 = sectionPositionArr[14];
+                Properties.ToolSettings.Default.setSection_position16 = sectionPositionArr[15];
+                Properties.ToolSettings.Default.setSection_position17 = sectionPositionArr[16];
                                                                     
                 mf.tool.numOfSections = numberOfSections;
 
-                Properties.Settings.Default.setVehicle_numSections = mf.tool.numOfSections;
+                Properties.ToolSettings.Default.setVehicle_numSections = mf.tool.numOfSections;
 
                 //line up manual buttons based on # of sections
                 mf.LineUpIndividualSectionBtns();
@@ -676,17 +676,17 @@ namespace AgOpenGPS
 
                 mf.tram.IsTramOuterOrInner();
 
-                Properties.Settings.Default.setVehicle_toolWidth = mf.tool.width;
+                Properties.ToolSettings.Default.setVehicle_toolWidth = mf.tool.width;
 
                 SendRelaySettingsToMachineModule();
             }
             else
             {
                 mf.tool.numOfSections = numberOfSections;
-                Properties.Settings.Default.setTool_numSectionsMulti = mf.tool.numOfSections;
+                Properties.ToolSettings.Default.setTool_numSectionsMulti = mf.tool.numOfSections;
 
                 mf.tool.width = numberOfSections * defaultSectionWidth;
-                Properties.Settings.Default.setVehicle_toolWidth = mf.tool.width;
+                Properties.ToolSettings.Default.setVehicle_toolWidth = mf.tool.width;
 
                 mf.tram.IsTramOuterOrInner();
 
@@ -760,7 +760,7 @@ namespace AgOpenGPS
 
                 String str = "";
                 str = String.Join(",",mf.tool.zoneRanges);
-                Properties.Settings.Default.setTool_zones = str;
+                Properties.ToolSettings.Default.setTool_zones = str;
 
                 mf.LineUpAllZoneButtons();
             }
@@ -1015,10 +1015,10 @@ namespace AgOpenGPS
 
         private void cboxSectionBoundaryControl_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setTool_isSectionOffWhenOut = !Properties.Settings.Default.setTool_isSectionOffWhenOut;
+            Properties.ToolSettings.Default.setTool_isSectionOffWhenOut = !Properties.ToolSettings.Default.setTool_isSectionOffWhenOut;
             
 
-            cboxSectionBoundaryControl.Checked = Properties.Settings.Default.setTool_isSectionOffWhenOut;
+            cboxSectionBoundaryControl.Checked = Properties.ToolSettings.Default.setTool_isSectionOffWhenOut;
             if (cboxSectionBoundaryControl.Checked)
             {
                 cboxSectionBoundaryControl.BackgroundImage = Properties.Resources.SectionOffBoundary;
@@ -1032,7 +1032,7 @@ namespace AgOpenGPS
         private void cboxIsUnique_Click(object sender, EventArgs e)
         {
             mf.tool.isSectionsNotZones = !cboxIsUnique.Checked;
-            Properties.Settings.Default.setTool_isSectionsNotZones = !cboxIsUnique.Checked;
+            Properties.ToolSettings.Default.setTool_isSectionsNotZones = !cboxIsUnique.Checked;
             tabTSections_Enter(this, e);
         }
 
@@ -1047,7 +1047,7 @@ namespace AgOpenGPS
             numberOfSections = (int)nudNumberOfSections.Value;
             SetNudZoneMinMax();
 
-            Properties.Settings.Default.setTool_numSectionsMulti = numberOfSections;
+            Properties.ToolSettings.Default.setTool_numSectionsMulti = numberOfSections;
 
 
             lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * glm.m2InchOrCm));
@@ -1061,9 +1061,9 @@ namespace AgOpenGPS
             defaultSectionWidth = nudDefaultSectionWidth.Value;
 
             if (mf.tool.isSectionsNotZones)
-                Properties.Settings.Default.setTool_defaultSectionWidth = defaultSectionWidth;
+                Properties.ToolSettings.Default.setTool_defaultSectionWidth = defaultSectionWidth;
             else
-                Properties.Settings.Default.setTool_sectionWidthMulti = defaultSectionWidth;
+                Properties.ToolSettings.Default.setTool_sectionWidthMulti = defaultSectionWidth;
 
             //lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * glm.m2InchOrCm));
             //SectionFeetInchesTotalWidthLabelUpdate();
@@ -1124,13 +1124,13 @@ namespace AgOpenGPS
         private void nudCutoffSpeed_ValueChanged(object sender, EventArgs e)
         {
             mf.vehicle.slowSpeedCutoff = nudCutoffSpeed.Value;
-            Properties.Settings.Default.setVehicle_slowSpeedCutoff = nudCutoffSpeed.Value;
+            Properties.ToolSettings.Default.setVehicle_slowSpeedCutoff = nudCutoffSpeed.Value;
         }
 
         private void nudMinCoverage_ValueChanged(object sender, EventArgs e)
         {
             mf.tool.minCoverage = (int)nudMinCoverage.Value;
-            Properties.Settings.Default.setVehicle_minCoverage = mf.tool.minCoverage;
+            Properties.ToolSettings.Default.setVehicle_minCoverage = mf.tool.minCoverage;
         }
 
         public void UpdateSpinners()

@@ -11,7 +11,7 @@ namespace AgIO
         public static string culture = "en";
 
         public static string profileDirectory =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "AgOne");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "AgIO");
 
         public static string logsDirectory =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Logs");
@@ -37,7 +37,7 @@ namespace AgIO
                 }
 
                 //keep below 500 kb
-                Log.CheckLogSize(Path.Combine(logsDirectory, "AgOne_Events_Log.txt"), 500000);
+                Log.CheckLogSize(Path.Combine(logsDirectory, "AgIO_Events_Log.txt"), 500000);
 
                 try
                 {
@@ -66,7 +66,7 @@ namespace AgIO
                     Key.SetValue("ProfileNameOne", "Default Profile");
                     Key.SetValue("Language", "en");
                     Key.Close();
-                    Log.EventWriter("Registry -> SubKey AgOne and Keys Created\r");
+                    Log.EventWriter("Registry -> SubKey AgIO and Keys Created\r");
                 }
                 else
                 {
@@ -97,7 +97,7 @@ namespace AgIO
 
                             //get the Documents directory, if not exist, create
                             profileDirectory =
-                                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "AgOne");
+                                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "AgIO");
 
                             if (!string.IsNullOrEmpty(profileDirectory) && !Directory.Exists(profileDirectory))
                             {

@@ -57,7 +57,7 @@ namespace AgIO
             Properties.Settings.Default.setUDP_isOn = cboxIsUDPOn.Checked;
             //Properties.Settings.Default.setUDP_isSendNMEAToUDP = cboxIsSendNMEAToUDP.Checked;
 
-            mf.YesMessageBox("AgOne will Restart to Enable UDP Networking Features");
+            mf.YesMessageBox("AgIO will Restart to Enable UDP Networking Features");
             Log.EventWriter("Program Reset: Start Ethernet Selected");
 
             RegistrySettings.Save();

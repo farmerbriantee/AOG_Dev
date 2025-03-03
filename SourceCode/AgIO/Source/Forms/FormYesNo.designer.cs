@@ -100,7 +100,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AgOne Message";
+            this.Text = "AgIO Message";
             this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();

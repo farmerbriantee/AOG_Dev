@@ -19,7 +19,7 @@ namespace AgOpenGPS
         private Socket loopBackSocket2;
 
         //endpoints of modules
-        private EndPoint epAgOne = new IPEndPoint(IPAddress.Parse("127.255.255.255"), 17777);
+        private EndPoint epAgIO = new IPEndPoint(IPAddress.Parse("127.255.255.255"), 17777);
         private EndPoint endPointLoopBack = new IPEndPoint(IPAddress.Loopback, 0);
 
         //second AgIO
@@ -87,8 +87,8 @@ namespace AgOpenGPS
             return;
         }
 
-        #region AgOne First GPS
-        private void ReceiveFromAgOne(byte[] data)
+        #region AgIO First GPS
+        private void ReceiveFromAgIO(byte[] data)
         {
             if (data.Length > 4 && data[0] == 0x80 && data[1] == 0x81)
             {
@@ -389,7 +389,7 @@ namespace AgOpenGPS
                 loopBackSocket.BeginReceiveFrom(loopBuffer, 0, loopBuffer.Length, SocketFlags.None,
                     ref endPointLoopBack, new AsyncCallback(ReceiveAppData), null);
 
-                BeginInvoke((MethodInvoker)(() => ReceiveFromAgOne(localMsg)));
+                BeginInvoke((MethodInvoker)(() => ReceiveFromAgIO(localMsg)));
             }
             catch (Exception)
             {
@@ -411,7 +411,7 @@ namespace AgOpenGPS
                     byteData[byteData.Length - 1] = (byte)crc;
 
                     loopBackSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None,
-                        epAgOne, new AsyncCallback(SendAsyncLoopData), null);
+                        epAgIO, new AsyncCallback(SendAsyncLoopData), null);
                 }
                 catch (Exception)
                 {

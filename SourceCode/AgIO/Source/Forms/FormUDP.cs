@@ -355,7 +355,7 @@ namespace AgIO
             Properties.Settings.Default.setUDP_isOn = false;
             Properties.Settings.Default.setUDP_isSendNMEAToUDP = false;
 
-            mf.YesMessageBox("AgOne will Restart to Disable UDP Networking Features");
+            mf.YesMessageBox("AgIO will Restart to Disable UDP Networking Features");
             Log.EventWriter("Program Reset: Turning UDP OFF");
 
             RegistrySettings.Save();

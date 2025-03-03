@@ -17,7 +17,7 @@
         public bool isHideContourOn = false;
         public bool isWebCamOn = false;
         public bool isOffsetFixOn = false;
-        public bool isAgOneOn = true;
+        public bool isAgIOOn = true;
 
         public bool isContourOn = true;
         public bool isYouTurnOn = true;
@@ -45,7 +45,7 @@
             isHideContourOn = _feature.isHideContourOn;
             isWebCamOn = _feature.isWebCamOn;
             isOffsetFixOn = _feature.isOffsetFixOn;
-            isAgOneOn = _feature.isAgOneOn;
+            isAgIOOn = _feature.isAgIOOn;
 
             isContourOn = _feature.isContourOn;
             isYouTurnOn = _feature.isYouTurnOn;
@@ -69,7 +69,7 @@
         { }
 
         //public bool ;
-        public bool isGPSToolActive = true;
+        public bool isGPSToolActive = false;
 
         public byte gainP           = 50;
         public byte integral        = 0;

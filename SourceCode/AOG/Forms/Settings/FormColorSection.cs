@@ -36,24 +36,24 @@ namespace AgOpenGPS
 
         private void FormDisplaySettings_Load(object sender, EventArgs e)
         {
-            cb01.BackColor = Settings.Vehicle.setColor_sec01;
-            cb02.BackColor = Settings.Vehicle.setColor_sec02;
-            cb03.BackColor = Settings.Vehicle.setColor_sec03;
-            cb04.BackColor = Settings.Vehicle.setColor_sec04;
-            cb05.BackColor = Settings.Vehicle.setColor_sec05;
-            cb06.BackColor = Settings.Vehicle.setColor_sec06;
-            cb07.BackColor = Settings.Vehicle.setColor_sec07;
-            cb08.BackColor = Settings.Vehicle.setColor_sec08;
-            cb09.BackColor = Settings.Vehicle.setColor_sec09;
-            cb10.BackColor = Settings.Vehicle.setColor_sec10;
-            cb11.BackColor = Settings.Vehicle.setColor_sec11;
-            cb12.BackColor = Settings.Vehicle.setColor_sec12;
-            cb13.BackColor = Settings.Vehicle.setColor_sec13;
-            cb14.BackColor = Settings.Vehicle.setColor_sec14;
-            cb15.BackColor = Settings.Vehicle.setColor_sec15;
-            cb16.BackColor = Settings.Vehicle.setColor_sec16;
+            cb01.BackColor = Settings.Tool.setColor_sec01;
+            cb02.BackColor = Settings.Tool.setColor_sec02;
+            cb03.BackColor = Settings.Tool.setColor_sec03;
+            cb04.BackColor = Settings.Tool.setColor_sec04;
+            cb05.BackColor = Settings.Tool.setColor_sec05;
+            cb06.BackColor = Settings.Tool.setColor_sec06;
+            cb07.BackColor = Settings.Tool.setColor_sec07;
+            cb08.BackColor = Settings.Tool.setColor_sec08;
+            cb09.BackColor = Settings.Tool.setColor_sec09;
+            cb10.BackColor = Settings.Tool.setColor_sec10;
+            cb11.BackColor = Settings.Tool.setColor_sec11;
+            cb12.BackColor = Settings.Tool.setColor_sec12;
+            cb13.BackColor = Settings.Tool.setColor_sec13;
+            cb14.BackColor = Settings.Tool.setColor_sec14;
+            cb15.BackColor = Settings.Tool.setColor_sec15;
+            cb16.BackColor = Settings.Tool.setColor_sec16;
 
-            if (Settings.Vehicle.setColor_isMultiColorSections) cboxIsMulti.Checked = true;
+            if (Settings.Tool.setColor_isMultiColorSections) cboxIsMulti.Checked = true;
             else cboxIsMulti.Checked = false;
 
             btnC01.BackColor = customSectionColorsList[0];
@@ -136,26 +136,26 @@ namespace AgOpenGPS
 
         private void bntOK_Click(object sender, EventArgs e)
         {
-            mf.tool.secColors[0] = Settings.Vehicle.setColor_sec01 = cb01.BackColor;
-            mf.tool.secColors[1] = Settings.Vehicle.setColor_sec02 = cb02.BackColor;
-            mf.tool.secColors[2] = Settings.Vehicle.setColor_sec03 = cb03.BackColor;
-            mf.tool.secColors[3] = Settings.Vehicle.setColor_sec04 = cb04.BackColor;
-            mf.tool.secColors[4] = Settings.Vehicle.setColor_sec05 = cb05.BackColor;
-            mf.tool.secColors[5] = Settings.Vehicle.setColor_sec06 = cb06.BackColor;
-            mf.tool.secColors[6] = Settings.Vehicle.setColor_sec07 = cb07.BackColor;
-            mf.tool.secColors[7] = Settings.Vehicle.setColor_sec08 = cb08.BackColor;
-            mf.tool.secColors[8] = Settings.Vehicle.setColor_sec09 = cb09.BackColor;
-            mf.tool.secColors[9] = Settings.Vehicle.setColor_sec10 = cb10.BackColor;
-            mf.tool.secColors[10] = Settings.Vehicle.setColor_sec11 = cb11.BackColor;
-            mf.tool.secColors[11] = Settings.Vehicle.setColor_sec12 = cb12.BackColor;
-            mf.tool.secColors[12] = Settings.Vehicle.setColor_sec13 = cb13.BackColor;
-            mf.tool.secColors[13] = Settings.Vehicle.setColor_sec14 = cb14.BackColor;
-            mf.tool.secColors[14] = Settings.Vehicle.setColor_sec15 = cb15.BackColor;
-            mf.tool.secColors[15] = Settings.Vehicle.setColor_sec16 = cb16.BackColor;
+            mf.tool.secColors[0] = Settings.Tool.setColor_sec01 = cb01.BackColor;
+            mf.tool.secColors[1] = Settings.Tool.setColor_sec02 = cb02.BackColor;
+            mf.tool.secColors[2] = Settings.Tool.setColor_sec03 = cb03.BackColor;
+            mf.tool.secColors[3] = Settings.Tool.setColor_sec04 = cb04.BackColor;
+            mf.tool.secColors[4] = Settings.Tool.setColor_sec05 = cb05.BackColor;
+            mf.tool.secColors[5] = Settings.Tool.setColor_sec06 = cb06.BackColor;
+            mf.tool.secColors[6] = Settings.Tool.setColor_sec07 = cb07.BackColor;
+            mf.tool.secColors[7] = Settings.Tool.setColor_sec08 = cb08.BackColor;
+            mf.tool.secColors[8] = Settings.Tool.setColor_sec09 = cb09.BackColor;
+            mf.tool.secColors[9] = Settings.Tool.setColor_sec10 = cb10.BackColor;
+            mf.tool.secColors[10] = Settings.Tool.setColor_sec11 = cb11.BackColor;
+            mf.tool.secColors[11] = Settings.Tool.setColor_sec12 = cb12.BackColor;
+            mf.tool.secColors[12] = Settings.Tool.setColor_sec13 = cb13.BackColor;
+            mf.tool.secColors[13] = Settings.Tool.setColor_sec14 = cb14.BackColor;
+            mf.tool.secColors[14] = Settings.Tool.setColor_sec15 = cb15.BackColor;
+            mf.tool.secColors[15] = Settings.Tool.setColor_sec16 = cb16.BackColor;
 
             if (cboxIsMulti.Checked)
-                Settings.Vehicle.setColor_isMultiColorSections = mf.tool.isMultiColoredSections = true;
-            else Settings.Vehicle.setColor_isMultiColorSections = mf.tool.isMultiColoredSections = false;
+                Settings.Tool.setColor_isMultiColorSections = mf.tool.isMultiColoredSections = true;
+            else Settings.Tool.setColor_isMultiColorSections = mf.tool.isMultiColoredSections = false;
 
             isClosing = true;
             Close();

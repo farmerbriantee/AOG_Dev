@@ -49,7 +49,7 @@ namespace AgOpenGPS
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Settings.User.setDisplay_isTermsAccepted = true;
+            Settings.User.isTermsAccepted = true;
             DialogResult = DialogResult.OK;
         }
 

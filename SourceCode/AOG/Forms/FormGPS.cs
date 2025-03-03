@@ -345,7 +345,7 @@ namespace AgOpenGPS
         {
             if (!gStr.Load()) YesMessageBox("Serious error loading languages");
 
-            if (!Settings.User.setDisplay_isTermsAccepted)
+            if (!Settings.User.isTermsAccepted)
             {
                 using (var form = new Form_First(this))
                 {
@@ -450,7 +450,7 @@ namespace AgOpenGPS
             // load all the gui elements in gui.designer.cs
             LoadSettings();
 
-            if (RegistrySettings.vehicleFileName != "" && Settings.User.setDisplay_isAutoStartAgIO)
+            if (RegistrySettings.vehicleFileName != "" && Settings.User.isAutoStartAgIO)
             {
                 //Start AgIO process
                 Process[] processName = Process.GetProcessesByName("AgIO");
@@ -617,7 +617,7 @@ namespace AgOpenGPS
                 finally { }
             }
 
-            if (Settings.User.setDisplay_isAutoOffAgIO)
+            if (Settings.User.isAutoOffAgIO)
             {
                 Process[] processName = Process.GetProcessesByName("AgIO");
                 if (processName.Length != 0)

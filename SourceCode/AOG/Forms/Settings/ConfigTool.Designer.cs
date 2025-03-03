@@ -755,9 +755,7 @@ namespace AgOpenGPS
 
             //no multi color zones
             if (mf.tool.isSectionsNotZones)
-                Settings.Vehicle.setColor_isMultiColorSections = mf.tool.isMultiColoredSections = false;
-
-            
+                Settings.Tool.setColor_isMultiColorSections = mf.tool.isMultiColoredSections = false;            
         }
 
         private void nudZone1To_ValueChanged(object sender, EventArgs e)

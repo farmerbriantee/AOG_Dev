@@ -53,8 +53,8 @@ namespace AgOpenGPS
             label48.Text = Settings.Vehicle.setAS_purePursuitIntegralGain.ToString();
             label50.Text = (Settings.Vehicle.setAS_snapDistance * glm.m2InchOrCm).ToString();
             label52.Text = (Settings.Vehicle.setAS_snapDistanceRef * glm.m2InchOrCm).ToString();
-            label56.Text = Settings.User.setDisplay_isAutoStartAgIO.ToString();
-            label58.Text = Settings.User.setDisplay_isAutoOffAgIO.ToString();
+            label56.Text = Settings.User.isAutoStartAgIO.ToString();
+            label58.Text = Settings.User.isAutoOffAgIO.ToString();
 
             label60.Text = RegistrySettings.culture;
             label62.Text = Settings.Vehicle.setF_CurrentFieldDir;

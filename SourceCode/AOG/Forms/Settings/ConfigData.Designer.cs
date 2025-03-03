@@ -300,8 +300,8 @@ namespace AgOpenGPS
             cboxHydLiftSound.Checked = Settings.Vehicle.setSound_isHydLiftOn;
             cboxSectionsSound.Checked = Settings.Vehicle.setSound_isSectionsOn;
 
-            cboxAutoStartAgIO.Checked = Settings.User.setDisplay_isAutoStartAgIO;
-            cboxAutoOffAgIO.Checked = Settings.User.setDisplay_isAutoOffAgIO;
+            cboxAutoStartAgIO.Checked = Settings.User.isAutoStartAgIO;
+            cboxAutoOffAgIO.Checked = Settings.User.isAutoOffAgIO;
             cboxShutdownWhenNoPower.Checked = Settings.Vehicle.setDisplay_isShutdownWhenNoPower;
             cboxHardwareMessages.Checked = Settings.Vehicle.setDisplay_isHardwareMessages;
         }
@@ -331,10 +331,10 @@ namespace AgOpenGPS
             Settings.Vehicle.setSound_isHydLiftOn = cboxHydLiftSound.Checked;
             mf.sounds.isHydLiftSoundOn = cboxHydLiftSound.Checked;
 
-            Settings.User.setDisplay_isAutoStartAgIO = cboxAutoStartAgIO.Checked;
+            Settings.User.isAutoStartAgIO = cboxAutoStartAgIO.Checked;
             mf.isAutoStartAgIO = cboxAutoStartAgIO.Checked;
 
-            Settings.User.setDisplay_isAutoOffAgIO = cboxAutoOffAgIO.Checked;
+            Settings.User.isAutoOffAgIO = cboxAutoOffAgIO.Checked;
 
             Settings.Vehicle.setDisplay_isShutdownWhenNoPower = cboxShutdownWhenNoPower.Checked;
 

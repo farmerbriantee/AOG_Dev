@@ -531,7 +531,7 @@ namespace AgOpenGPS
             //isLogNMEA = Settings.Default.setMenu_isLogNMEA;
             isPureDisplayOn = Settings.Vehicle.setMenu_isPureOn;
 
-            isAutoStartAgIO = Settings.User.setDisplay_isAutoStartAgIO;
+            isAutoStartAgIO = Settings.User.isAutoStartAgIO;
 
             isDirectionMarkers = Settings.Tool.isDirectionMarkers;
 
@@ -554,7 +554,7 @@ namespace AgOpenGPS
             //set the flag mark button to red dot
             btnFlag.Image = Properties.Resources.FlagRed;
 
-            vehicleColor = Settings.User.setDisplay_colorVehicle;
+            vehicleColor = Settings.User.colorVehicle;
 
             isLightbarOn = Settings.Vehicle.setMenu_isLightbarOn;
             isLightBarNotSteerBar = Settings.Vehicle.setMenu_isLightbarNotSteerBar;
@@ -1030,9 +1030,9 @@ namespace AgOpenGPS
         {
             isDay = !isDay;
 
-            Color foreColor = isDay ? Settings.User.setDisplay_colorTextDay : Settings.User.setDisplay_colorTextNight;
+            Color foreColor = isDay ? Settings.User.colorTextDay : Settings.User.colorTextNight;
             btnDayNightMode.Image = isDay ? Properties.Resources.WindowNightMode : Properties.Resources.WindowDayMode;
-            this.BackColor = isDay ? Settings.User.setDisplay_colorDayFrame : Settings.User.setDisplay_colorNightFrame;
+            this.BackColor = isDay ? Settings.User.colorDayFrame : Settings.User.colorNightFrame;
 
             foreach (Control c in this.Controls)
             {

@@ -76,21 +76,22 @@ namespace AgOpenGPS
             public Size setWindow_Size = new Size(1005, 730);
             public Size setWindow_tramLineSize = new Size(921, 676);
 
-
-
-            public Color setDisplay_colorDayFrame = Color.FromArgb(210, 210, 230);
-            public Color setDisplay_colorFieldDay = Color.FromArgb(160, 160, 185);
-            public Color setDisplay_colorFieldNight = Color.FromArgb(60, 60, 60);
-            public Color setDisplay_colorNightFrame = Color.FromArgb(50, 50, 65);
             public Color colorSectionsDay = Color.FromArgb(27, 151, 160);
-            public Color setDisplay_colorSectionsNight = Color.FromArgb(27, 100, 100);
-            public Color setDisplay_colorTextDay = Color.FromArgb(10, 10, 20);
-            public Color setDisplay_colorTextNight = Color.FromArgb(230, 230, 230);
-            public Color setDisplay_colorVehicle = Color.White;
+            public Color colorSectionsNight = Color.FromArgb(27, 100, 100);
 
-            public bool setDisplay_isAutoOffAgIO = true;
-            public bool setDisplay_isAutoStartAgIO = true;
-            public bool setDisplay_isTermsAccepted = false;
+
+            public Color colorDayFrame = Color.FromArgb(210, 210, 230);
+            public Color colorNightFrame = Color.FromArgb(50, 50, 65);
+            public Color colorFieldDay = Color.FromArgb(160, 160, 185);
+            public Color colorFieldNight = Color.FromArgb(60, 60, 60);
+            public Color colorTextDay = Color.FromArgb(10, 10, 20);
+            public Color colorTextNight = Color.FromArgb(230, 230, 230);
+            
+            public Color colorVehicle = Color.White;
+
+            public bool isAutoOffAgIO = true;
+            public bool isAutoStartAgIO = true;
+            public bool isTermsAccepted = false;
 
             public LoadResult Load()
             {
@@ -183,24 +184,6 @@ namespace AgOpenGPS
             public double setAS_purePursuitIntegralGain = 0;
 
             public bool setBnd_isDrawPivot = true;
-
-            public Color setColor_sec01 = Color.FromArgb(249, 22, 10);
-            public Color setColor_sec02 = Color.FromArgb(68, 84, 254);
-            public Color setColor_sec03 = Color.FromArgb(8, 243, 8);
-            public Color setColor_sec04 = Color.FromArgb(233, 6, 233);
-            public Color setColor_sec05 = Color.FromArgb(200, 191, 86);
-            public Color setColor_sec06 = Color.FromArgb(0, 252, 246);
-            public Color setColor_sec07 = Color.FromArgb(144, 36, 246);
-            public Color setColor_sec08 = Color.FromArgb(232, 102, 21);
-            public Color setColor_sec09 = Color.FromArgb(255, 160, 170);
-            public Color setColor_sec10 = Color.FromArgb(205, 204, 246);
-            public Color setColor_sec11 = Color.FromArgb(213, 239, 190);
-            public Color setColor_sec12 = Color.FromArgb(247, 200, 247);
-            public Color setColor_sec13 = Color.FromArgb(253, 241, 144);
-            public Color setColor_sec14 = Color.FromArgb(187, 250, 250);
-            public Color setColor_sec15 = Color.FromArgb(227, 201, 249);
-            public Color setColor_sec16 = Color.FromArgb(247, 229, 215);
-            public bool setColor_isMultiColorSections = false;
 
             public double setDisplay_camPitch = -62;
             public double setDisplay_camZoom = 9.0;
@@ -381,15 +364,16 @@ namespace AgOpenGPS
             public bool isToolRearFixed = false;
             public bool isToolTBT = false;
             public bool isToolTrailing = true;
-            public bool isTramOuterInverted = false;
-            public int numSectionsMulti = 20;
-            public string zones = "2,10,20,0,0,0,0,0,0";
-            public double defaultSectionWidth = 2;
-            public double sectionWidthMulti = 0.5;
+
             public double toolTrailingHitchLength = -2.5;
             public double trailingToolToPivotLength = 0;
+            public double hitchLength = -1;
+            public double tankTrailingHitchLength = 3;
+
+            public string zones = "2,10,20,0,0,0,0,0,0";
 
             public bool isTramOnBackBuffer = true;
+            public bool isTramOuterInverted = false;
             public double tram_alpha = 0.8;
             public double tram_offset = 0.0;
             public double tram_snapAdj = 1.0;
@@ -398,21 +382,44 @@ namespace AgOpenGPS
             public int tram_passes = 1;
             public int tram_Skips = 0;
 
-            public double hitchLength = -1;
             public double hydraulicLiftLookAhead = 2;
             public double lookAheadMinimum = 2;
             public double slowSpeedCutoff = 0.5;
-            public double tankTrailingHitchLength = 3;
             public double toolLookAheadOff = 0.5;
             public double toolLookAheadOn = 1;
             public double toolOffDelay = 0;
+
             public double toolOffset = 0;
             public double toolOverlap = 0.0;
             public double toolWidth = 4.0;
+
             public int minCoverage = 100;
+
             public int numSections = 3;
+            public int numSectionsMulti = 20;
+            public double defaultSectionWidth = 2;
+            public double sectionWidthMulti = 0.5;
 
             public double[] setSection_Widths = new double[3] { 2, 2, 2 };
+
+            public Color setColor_sec01 = Color.FromArgb(249, 22, 10);
+            public Color setColor_sec02 = Color.FromArgb(68, 84, 254);
+            public Color setColor_sec03 = Color.FromArgb(8, 243, 8);
+            public Color setColor_sec04 = Color.FromArgb(233, 6, 233);
+            public Color setColor_sec05 = Color.FromArgb(200, 191, 86);
+            public Color setColor_sec06 = Color.FromArgb(0, 252, 246);
+            public Color setColor_sec07 = Color.FromArgb(144, 36, 246);
+            public Color setColor_sec08 = Color.FromArgb(232, 102, 21);
+            public Color setColor_sec09 = Color.FromArgb(255, 160, 170);
+            public Color setColor_sec10 = Color.FromArgb(205, 204, 246);
+            public Color setColor_sec11 = Color.FromArgb(213, 239, 190);
+            public Color setColor_sec12 = Color.FromArgb(247, 200, 247);
+            public Color setColor_sec13 = Color.FromArgb(253, 241, 144);
+            public Color setColor_sec14 = Color.FromArgb(187, 250, 250);
+            public Color setColor_sec15 = Color.FromArgb(227, 201, 249);
+            public Color setColor_sec16 = Color.FromArgb(247, 229, 215);
+
+            public bool setColor_isMultiColorSections = false;
 
             public LoadResult Load()
             {

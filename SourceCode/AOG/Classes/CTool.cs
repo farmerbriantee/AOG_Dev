@@ -92,24 +92,24 @@ namespace AgOpenGPS
                 numOfSections = Settings.Tool.numSectionsMulti;
 
             minCoverage = Settings.Tool.minCoverage;
-            isMultiColoredSections = Settings.Vehicle.setColor_isMultiColorSections;
+            isMultiColoredSections = Settings.Tool.setColor_isMultiColorSections;
 
-            secColors[0] = Settings.Vehicle.setColor_sec01;
-            secColors[1] = Settings.Vehicle.setColor_sec02;
-            secColors[2] = Settings.Vehicle.setColor_sec03;
-            secColors[3] = Settings.Vehicle.setColor_sec04;
-            secColors[4] = Settings.Vehicle.setColor_sec05;
-            secColors[5] = Settings.Vehicle.setColor_sec06;
-            secColors[6] = Settings.Vehicle.setColor_sec07;
-            secColors[7] = Settings.Vehicle.setColor_sec08;
-            secColors[8] = Settings.Vehicle.setColor_sec09;
-            secColors[9] = Settings.Vehicle.setColor_sec10;
-            secColors[10] = Settings.Vehicle.setColor_sec11;
-            secColors[11] = Settings.Vehicle.setColor_sec12;
-            secColors[12] = Settings.Vehicle.setColor_sec13;
-            secColors[13] = Settings.Vehicle.setColor_sec14;
-            secColors[14] = Settings.Vehicle.setColor_sec15;
-            secColors[15] = Settings.Vehicle.setColor_sec16;
+            secColors[0] = Settings.Tool.setColor_sec01;
+            secColors[1] = Settings.Tool.setColor_sec02;
+            secColors[2] = Settings.Tool.setColor_sec03;
+            secColors[3] = Settings.Tool.setColor_sec04;
+            secColors[4] = Settings.Tool.setColor_sec05;
+            secColors[5] = Settings.Tool.setColor_sec06;
+            secColors[6] = Settings.Tool.setColor_sec07;
+            secColors[7] = Settings.Tool.setColor_sec08;
+            secColors[8] = Settings.Tool.setColor_sec09;
+            secColors[9] = Settings.Tool.setColor_sec10;
+            secColors[10] = Settings.Tool.setColor_sec11;
+            secColors[11] = Settings.Tool.setColor_sec12;
+            secColors[12] = Settings.Tool.setColor_sec13;
+            secColors[13] = Settings.Tool.setColor_sec14;
+            secColors[14] = Settings.Tool.setColor_sec15;
+            secColors[15] = Settings.Tool.setColor_sec16;
 
             string[] words = Settings.Tool.zones.Split(',');
             zones = int.Parse(words[0]);

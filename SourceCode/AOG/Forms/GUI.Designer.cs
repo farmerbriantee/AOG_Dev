@@ -43,7 +43,6 @@ namespace AgOpenGPS
         public Color fieldColorDay;
         public Color fieldColorNight;
 
-        public Color textColorDay;
         public Color textColorNight;
 
         public Color vehicleColor;
@@ -55,7 +54,7 @@ namespace AgOpenGPS
         public bool isMetric = true, isLightbarOn = true, isGridOn, isFullScreen;
         public bool isUTurnAlwaysOn, isCompassOn, isSpeedoOn, isSideGuideLines = true;
         public bool isPureDisplayOn = true, isSkyOn = true, isRollMeterOn = false, isTextureOn = true;
-        public bool isDay = true, isDayTime = true, isBrightnessOn = true;
+        public bool isDay = true, isBrightnessOn = true;
         public bool isLogElevation = false, isDirectionMarkers;
         public bool isKeyboardOn = true, isAutoStartAgIO = true, isSvennArrowOn = true;
         public bool isSectionlinesOn = true, isLineSmooth = true;
@@ -65,11 +64,6 @@ namespace AgOpenGPS
         public bool isUTurnOn = true, isLateralOn = true, isNudgeOn = true;
 
         public int[] customColorsList = new int[16];
-
-        //sunrise sunset
-        public DateTime dateToday = DateTime.Today;
-        public DateTime sunrise = DateTime.Now;
-        public DateTime sunset = DateTime.Now;
 
         public bool isFlashOnOff = false, isPanFormVisible = false;
         public bool isPanelBottomHidden = false;
@@ -222,8 +216,11 @@ namespace AgOpenGPS
                 //hide the Nav panel in 6  secs
                 if (panelNavigation.Visible)
                 {
-                    Settings.Default.Save();
-                    if (navPanelCounter-- <= 0) panelNavigation.Visible = false;
+                    if (navPanelCounter-- <= 0)
+                    {
+                        panelNavigation.Visible = false;
+                        Settings.Default.Save();
+                    }
                     lblHz.Text = gpsHz.ToString("N1") + " ~ " + (frameTime.ToString("N1")) + " " + FixQuality;
                 }
             }//end every 2 seconds
@@ -259,23 +256,6 @@ namespace AgOpenGPS
                     default:
                         btnGPSData.BackColor = Color.Red;
                         break;
-                }
-
-                //statusbar flash red undefined headland
-                if (timerSim.Enabled)
-                {
-                    if (mc.isOutOfBounds && panelSim.BackColor == Color.Transparent
-                        || !mc.isOutOfBounds && panelSim.BackColor == Color.Tomato)
-                    {
-                        if (!mc.isOutOfBounds)
-                        {
-                            panelSim.BackColor = Color.Transparent;
-                        }
-                        else
-                        {
-                            panelSim.BackColor = Color.Tomato;
-                        }
-                    }
                 }
 
                 if (flp1.Visible)
@@ -474,20 +454,9 @@ namespace AgOpenGPS
 
             isNozzleApp = Properties.Settings.Default.setApPGN_isNozzleApp;
 
-            if (isNozzleApp)
-            {
-                nozzleAppToolStripMenuItem.Checked = isNozzleApp;
-                tlpNozzle.Visible = isNozzleApp;
-                tlpNozzle.BringToFront();
-            }
-            else
-            {
-                nozzleAppToolStripMenuItem.Checked = false;
-                tlpNozzle.Visible = false;
-                tlpNozzle.SendToBack();
-            }
+            nozzleAppToolStripMenuItem.Checked = isNozzleApp;
 
-            if (isNozzleApp)
+            //if (isNozzleApp)
             {
                 PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(Properties.ToolSettings.Default.setNozzleSettings.flowCal >> 8)); ;
                 PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(Properties.ToolSettings.Default.setNozzleSettings.flowCal));
@@ -505,9 +474,6 @@ namespace AgOpenGPS
                     PGN_226.pgn[PGN_226.isBypass] = 1;
                 else
                     PGN_226.pgn[PGN_226.isBypass] = 0;
-
-
-                tlpNozzle.Width = 175;
 
                 //units
                 if (cboxRate1Rate2Select.Checked)
@@ -551,38 +517,23 @@ namespace AgOpenGPS
             pn.headingTrueDualOffset = Properties.Settings.Default.setGPS_dualHeadingOffset;
             dualReverseDetectionDistance = Properties.Settings.Default.setGPS_dualReverseDetectionDistance;
 
-            frameDayColor = Properties.Settings.Default.setDisplay_colorDayFrame.CheckColorFor255();
-            frameNightColor = Properties.Settings.Default.setDisplay_colorNightFrame.CheckColorFor255();
-            sectionColorDay = Properties.Settings.Default.setDisplay_colorSectionsDay.CheckColorFor255();
-            fieldColorDay = Properties.Settings.Default.setDisplay_colorFieldDay.CheckColorFor255();
-            fieldColorNight = Properties.Settings.Default.setDisplay_colorFieldNight.CheckColorFor255();
-
-            Properties.Settings.Default.setDisplay_colorDayFrame = frameDayColor;
-            Properties.Settings.Default.setDisplay_colorNightFrame = frameNightColor;
-            Properties.Settings.Default.setDisplay_colorSectionsDay = sectionColorDay;
-            Properties.Settings.Default.setDisplay_colorFieldDay = fieldColorDay;
-            Properties.Settings.Default.setDisplay_colorFieldNight = fieldColorNight;
+            frameDayColor = Properties.Settings.Default.setDisplay_colorDayFrame;
+            frameNightColor = Properties.Settings.Default.setDisplay_colorNightFrame;
+            sectionColorDay = Properties.Settings.Default.setDisplay_colorSectionsDay;
+            fieldColorDay = Properties.Settings.Default.setDisplay_colorFieldDay;
+            fieldColorNight = Properties.Settings.Default.setDisplay_colorFieldNight;
             
-
             //load up colors
-            textColorDay = Settings.Default.setDisplay_colorTextDay.CheckColorFor255();
-            textColorNight = Settings.Default.setDisplay_colorTextNight.CheckColorFor255();
+            textColorNight = Settings.Default.setDisplay_colorTextNight;
 
             //load the string of custom colors
             string[] words = Properties.Settings.Default.setDisplay_customColors.Split(',');
             for (int i = 0; i < 16; i++)
             {
-                Color test;
                 customColorsList[i] = int.Parse(words[i], CultureInfo.InvariantCulture);
-                test = Color.FromArgb(customColorsList[i]).CheckColorFor255();
-                int iCol = (test.A << 24) | (test.R << 16) | (test.G << 8) | test.B;
-                customColorsList[i] = iCol;
+                Color test = Color.FromArgb(customColorsList[i]).CheckColorFor255();
+                customColorsList[i] = test.ToArgb();
             }
-
-            Properties.Settings.Default.setDisplay_customColors = "";
-            for (int i = 0; i < 15; i++)
-                Properties.Settings.Default.setDisplay_customColors += customColorsList[i].ToString() + ",";
-            Properties.Settings.Default.setDisplay_customColors += customColorsList[15].ToString(); 
             
             isTextureOn = Settings.Default.setDisplay_isTextureOn;
             isLogElevation = Settings.Default.setDisplay_isLogElevation;
@@ -603,8 +554,6 @@ namespace AgOpenGPS
 
             isDirectionMarkers = ToolSettings.Default.setTool_isDirectionMarkers;
 
-            panelNavigation.Location = new System.Drawing.Point(90, 100);
-
             vehicleOpacity = ((double)(Properties.Settings.Default.setDisplay_vehicleOpacity) * 0.01);
             vehicleOpacityByte = (byte)(255 * ((double)(Properties.Settings.Default.setDisplay_vehicleOpacity) * 0.01));
             isVehicleImage = Properties.Settings.Default.setDisplay_isVehicleImage;
@@ -621,12 +570,10 @@ namespace AgOpenGPS
                 timerSim.Enabled = false;
             }
 
-            if (timerSim.Enabled) gpsHz = 20;
-
             //set the flag mark button to red dot
             btnFlag.Image = Properties.Resources.FlagRed;
 
-            vehicleColor = Settings.Default.setDisplay_colorVehicle.CheckColorFor255();
+            vehicleColor = Settings.Default.setDisplay_colorVehicle;
 
             isLightbarOn = Settings.Default.setMenu_isLightbarOn;
             isLightBarNotSteerBar = Settings.Default.setMenu_isLightbarNotSteerBar;
@@ -744,7 +691,6 @@ namespace AgOpenGPS
 
             yt.uTurnSmoothing = Settings.Default.setAS_uTurnSmoothing;
 
-            tool.halfWidth = (tool.width - tool.overlap) / 2.0;
             tool.contourWidth = (tool.width - tool.overlap) / 3.0;
 
             //load the lightbar resolution
@@ -817,7 +763,6 @@ namespace AgOpenGPS
             PanelsAndOGLSize();
             PanelUpdateRightAndBottom();
 
-            camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
             SetZoom();
 
             lblGuidanceLine.BringToFront();
@@ -876,11 +821,9 @@ namespace AgOpenGPS
             if (isFieldStarted)
             {
                 int tracksTotal = 0, tracksVisible = 0;
-                bool isHdl = false;
-
+                
                 bool isBnd = bnd.bndList.Count > 0;
-                if (!isBnd) isHdl = isBnd;
-                else isHdl = bnd.bndList[0].hdLine.Count > 0;
+                bool isHdl = isBnd && bnd.bndList[0].hdLine.Count > 0;
 
                 bool istram = (tram.tramList.Count + tram.tramBndOuterArr.Count) > 0;
 
@@ -1057,60 +1000,30 @@ namespace AgOpenGPS
 
         private void PanelsAndOGLSize()
         {
-            // Nozzz
-            if (!isFieldStarted)
-            {
-                panelBottom.Visible = false;
-                panelRight.Visible = false;
-                tlpNozzle.Visible = false;
+            bool visible = isJobStarted && isNozzleApp;
 
-                oglMain.Left = 80;
-                oglMain.Width = this.Width - statusStripLeft.Width - 22;                
-                oglMain.Height = this.Height - 60;
-                tlpNozzle.Height = oglMain.Height;
-            }
-            else
-            {
-                tlpNozzle.Visible = isNozzleApp;
+            tlpNozzle.Visible = visible;
 
-                if (isPanelBottomHidden)
-                {
-                    panelBottom.Visible = false;
-                    panelLeft.Visible = false;
+            GPSDataWindowLeft = (isPanelBottomHidden ? 10 : 85) + (visible ? tlpNozzle.Width : 0);
 
-                    oglMain.Left = 20;
-                    if (tlpNozzle.Visible)
-                    {
-                        oglMain.Left = 20 + tlpNozzle.Width;
-                        tlpNozzle.Left = 20;
-                    }
+            oglMain.Left = (isPanelBottomHidden ? 5 : 80) + (visible ? tlpNozzle.Width : 0);
+            oglMain.Width = this.Width - (oglMain.Left + (isJobStarted ? 75 : 5));
+            oglMain.Height = this.Height - (55 + (!isJobStarted || isPanelBottomHidden ? 0 : 70));
 
-                    oglMain.Width = this.Width - 98;
-                    if (tlpNozzle.Visible) oglMain.Width -= tlpNozzle.Width;
+            tlpNozzle.Left = (isPanelBottomHidden ? 5 : 80);
+            tlpNozzle.Height = oglMain.Height;
 
-                    oglMain.Height = this.Height - 62;
-                }
-                else
-                {
-                    panelBottom.Visible = true;
-                    panelRight.Visible = true;
-                    panelLeft.Visible = true;
-                    oglMain.Left = 80;
 
-                    if (tlpNozzle.Visible)
-                    {
-                        oglMain.Left = 80 + tlpNozzle.Width;
-                        tlpNozzle.Left = 80;
-                    }
+            panelSim.Top = Height - (!isJobStarted || isPanelBottomHidden ? 60 : 130);
+            panelSim.Left = Width / 2 - 330;
+            panelSim.Width = 700;
 
-                    oglMain.Width = this.Width - statusStripLeft.Width - 92; //22
-                    if (tlpNozzle.Visible) oglMain.Width -= tlpNozzle.Width;
 
-                    oglMain.Height = this.Height - 118;
-                }
+            panelRight.Visible = isFieldStarted;
+            panelBottom.Visible = isFieldStarted && !isPanelBottomHidden;
+            panelLeft.Visible = !isPanelBottomHidden;
 
-                tlpNozzle.Height = oglMain.Height;
-            }
+
 
             PanelSizeRightAndBottom();
 
@@ -1126,104 +1039,52 @@ namespace AgOpenGPS
 
         private void ZoomByMouseWheel(object sender, MouseEventArgs e)
         {
-            if (e.Delta < 0)
-            {
-                if (camera.zoomValue <= 20) camera.zoomValue += camera.zoomValue * 0.06;
-                else camera.zoomValue += camera.zoomValue * 0.02;
-                if (camera.zoomValue > 120) camera.zoomValue = 120;
-                camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
-                SetZoom();
-            }
-            else
-            {
-                if (camera.zoomValue <= 20)
-                { if ((camera.zoomValue -= camera.zoomValue * 0.06) < 4.0) camera.zoomValue = 4.0; }
-                else { if ((camera.zoomValue -= camera.zoomValue * 0.02) < 4.0) camera.zoomValue = 4.0; }
+            if (camera.zoomValue <= 20) camera.zoomValue -= camera.zoomValue * 0.06 * Math.Sign(e.Delta);
+            else camera.zoomValue -= camera.zoomValue * 0.02 * Math.Sign(e.Delta);
 
-                camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
-                SetZoom();
-            }
+            SetZoom();
         }
 
         public void SwapDayNightMode()
         {
             isDay = !isDay;
-            if (isDay)
+
+            Color foreColor = isDay ? Settings.Default.setDisplay_colorTextDay : textColorNight;
+            btnDayNightMode.Image = isDay ? Properties.Resources.WindowNightMode : Properties.Resources.WindowDayMode;
+            this.BackColor = isDay ? frameDayColor : frameNightColor;
+
+            foreach (Control c in this.Controls)
             {
-                btnDayNightMode.Image = Properties.Resources.WindowNightMode;
-
-                this.BackColor = frameDayColor;
-                foreach (Control c in this.Controls)
+                //if (c is Label || c is Button)
                 {
-                    //if (c is Label || c is Button)
-                    {
-                        c.ForeColor = textColorDay;
-                    }
+                    c.ForeColor = foreColor;
                 }
-
-                foreach (Control c in panelRight.Controls)
-                {
-                    //if (c is Label || c is Button)
-                    {
-                        c.ForeColor = textColorDay;
-                    }
-                }
-
-                foreach (Control c in panelNavigation.Controls)
-                {
-                    //if (c is Label || c is Button)
-                    {
-                        c.ForeColor = textColorDay;
-                    }
-                }
-                foreach (Control c in panelControlBox.Controls)
-                {
-                    //if (c is Label || c is Button)
-                    {
-                        c.ForeColor = textColorDay;
-                    }
-                }
-
-                btnChangeMappingColor.ForeColor = textColorDay;
             }
-            else //nightmode
+
+            foreach (Control c in panelRight.Controls)
             {
-                btnDayNightMode.Image = Properties.Resources.WindowDayMode;
-                this.BackColor = frameNightColor;
-
-                foreach (Control c in this.Controls)
+                //if (c is Label || c is Button)
                 {
-                    {
-                        c.ForeColor = textColorNight;
-                    }
+                    c.ForeColor = foreColor;
                 }
-
-                foreach (Control c in panelRight.Controls)
-                {
-                    //if (c is Label || c is Button)
-                    {
-                        c.ForeColor = textColorNight;
-                    }
-                }
-
-                foreach (Control c in panelNavigation.Controls)
-                {
-                    //if (c is Label || c is Button)
-                    {
-                        c.ForeColor = textColorNight;
-                    }
-                }
-
-                foreach (Control c in panelControlBox.Controls)
-                {
-                    //if (c is Label || c is Button)
-                    {
-                        c.ForeColor = textColorNight;
-                    }
-                }
-
-                btnChangeMappingColor.ForeColor = textColorNight;
             }
+
+            foreach (Control c in panelNavigation.Controls)
+            {
+                //if (c is Label || c is Button)
+                {
+                    c.ForeColor = foreColor;
+                }
+            }
+            foreach (Control c in panelControlBox.Controls)
+            {
+                //if (c is Label || c is Button)
+                {
+                    c.ForeColor = foreColor;
+                }
+            }
+
+            btnChangeMappingColor.ForeColor = foreColor;
 
             if (tool.isSectionsNotZones)
             {
@@ -1235,7 +1096,6 @@ namespace AgOpenGPS
             }
 
             Properties.Settings.Default.setDisplay_isDayMode = isDay;
-            
         }
 
         public void SaveFormGPSWindowSettings()
@@ -1267,11 +1127,6 @@ namespace AgOpenGPS
             Properties.Settings.Default.setDisplay_camZoom = camera.zoomValue;
 
             Settings.Default.setF_UserTotalArea = fd.workedAreaTotalUser;
-
-            //Settings.Default.setDisplay_panelSnapLocation = panelSnap.Location;
-            Settings.Default.setDisplay_panelSimLocation = panelSim.Location;
-
-            
         }
 
         public string FindDirection(double heading)
@@ -1335,7 +1190,7 @@ namespace AgOpenGPS
                         if (point.Y < 150 && point.Y > 90 && (trk.idx > -1))
                         {
 
-                            int middle = oglMain.Width / 2 + oglMain.Width / 5;
+                            int middle = centerX + oglMain.Width / 5;
                             if (point.X > middle - 80 && point.X < middle + 80)
                             {
                                 SwapDirection();
@@ -1361,7 +1216,7 @@ namespace AgOpenGPS
                             if (!isStanleyUsed)
                             {
                                 //manual uturn triggering
-                                middle = oglMain.Width / 2 - oglMain.Width / 4;
+                                middle = centerX - oglMain.Width / 4;
                                 if (point.X > middle - 100 && point.X < middle && isUTurnOn)
                                 {
                                     if (yt.isYouTurnTriggered)
@@ -1372,7 +1227,6 @@ namespace AgOpenGPS
                                     {
                                         if (vehicle.functionSpeedLimit > avgSpeed)
                                         {
-                                            yt.isYouTurnTriggered = true;
                                             yt.BuildManualYouTurn(false, true);
                                         }
                                         else
@@ -1393,7 +1247,6 @@ namespace AgOpenGPS
                                     {
                                         if (vehicle.functionSpeedLimit > avgSpeed)
                                         {
-                                            yt.isYouTurnTriggered = true;
                                             yt.BuildManualYouTurn(true, true);
                                         }
                                         else
@@ -1410,7 +1263,7 @@ namespace AgOpenGPS
                         //lateral
                         if (point.Y < 240 && point.Y > 170 && (trk.idx > -1))
                         {
-                            int middle = oglMain.Width / 2 - oglMain.Width / 4;
+                            int middle = centerX - oglMain.Width / 4;
                             if (point.X > middle - 100 && point.X < middle && isLateralOn)
                             {
                                 if (vehicle.functionSpeedLimit > avgSpeed)
@@ -1494,25 +1347,23 @@ namespace AgOpenGPS
                 //zoom buttons
                 if (point.X > oglMain.Width - 80)
                 {
+                    int zoom = 0;
                     //---
                     if (point.Y < 260 && point.Y > 170)
                     {
-                        if (camera.zoomValue <= 20) camera.zoomValue += camera.zoomValue * 0.2;
-                        else camera.zoomValue += camera.zoomValue * 0.1;
-                        if (camera.zoomValue > 180) camera.zoomValue = 180;
-                        camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
-                        SetZoom();
-                        return;
+                        zoom = 1;
                     }
 
                     //++
                     if (point.Y < 120 && point.Y > 30)
                     {
-                        if (camera.zoomValue <= 20)
-                        { if ((camera.zoomValue -= camera.zoomValue * 0.2) < 4.0) camera.zoomValue = 4.0; }
-                        else { if ((camera.zoomValue -= camera.zoomValue * 0.1) < 4.0) camera.zoomValue = 4.0; }
+                        zoom = -1;
+                    }
 
-                        camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
+                    if (zoom != 0)
+                    {
+                        if (camera.zoomValue <= 20) camera.zoomValue += camera.zoomValue * 0.2 * zoom;
+                        else camera.zoomValue += camera.zoomValue * 0.1 * zoom;
                         SetZoom();
                         return;
                     }
@@ -1522,12 +1373,10 @@ namespace AgOpenGPS
                 if (point.X > centerX - 40 && point.X < centerX + 40
                     && point.Y > centerY - 60 && point.Y < centerY + 60)
                 {
-                    if (headingFromSource == "Dual") return;
+                    if (!ahrs.isReverseOn || headingFromSource == "Dual") return;
 
-                    Array.Clear(stepFixPts, 0, stepFixPts.Length);
-                    isFirstHeadingSet = false;
-                    isReverse = false;
-                    TimedMessageBox(2000, "Reset Direction", "Drive Forward > 1.5 kmh");
+                    imuGPS_Offset += Math.PI;
+                    TimedMessageBox(2000, "Reverse Direction", "");
                     Log.EventWriter("Direction Reset, Drive Forward");
 
                     return;

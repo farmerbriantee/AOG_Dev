@@ -98,7 +98,7 @@ namespace AgOpenGPS
 
                 if (mf.flagNumberPicked > mf.flagPts.Count) mf.flagNumberPicked = mf.flagPts.Count;
 
-                lblDistanceToFlag.Text = (glm.Distance(mf.pn.fix,
+                lblDistanceToFlag.Text = (glm.Distance(mf.pivotAxlePos,
                     mf.flagPts[mf.flagNumberPicked - 1].easting, mf.flagPts[mf.flagNumberPicked - 1].northing) * glm.m2FtOrM).ToString("N2") + " m";
 
                 UpdateLabels();

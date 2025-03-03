@@ -8,16 +8,14 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace AgOpenGPS
 {
     public partial class FormGPS
     {
         //very first fix to setup grid etc
-        public bool isFirstFixPositionSet = false, isGPSPositionInitialized = false, isFirstHeadingSet = false,
-            isReverse = false, isSteerInReverse = true, isSuperSlow = false;
-        public double startGPSHeading = 0;
+        public bool isGPSPositionInitialized = false, isFirstHeadingSet = false,
+            isReverse = false, isSteerInReverse = true;
 
         //string to record fixes for elevation maps
         public StringBuilder sbElevationString = new StringBuilder();
@@ -26,7 +24,6 @@ namespace AgOpenGPS
         public double guidanceLineDistanceOff;
         public double guidanceLineSteerAngle;
 
-        public short errorAngVel;
         public double setAngVel, actAngVel;
         public bool isConstantContourOn;
 
@@ -97,15 +94,9 @@ namespace AgOpenGPS
         public double distanceCurrentStepFix = 0, distanceCurrentStepFixDisplay = 0, minHeadingStepDist = 1, startSpeed = 0.5;
         public double fixToFixHeadingDistance = 0, gpsMinimumStepDistance = 0.05;
 
-        public bool isChangingDirection, isReverseWithIMU;
-
-        private double nowHz = 0, filteredDelta = 0, delta = 0;
+        private double nowHz = 0;
 
         public bool isRTK_AlarmOn, isRTK_KillAutosteer;
-
-        public double headlandDistanceDelta = 0, boundaryDistanceDelta = 0;
-
-        public vec2 lastGPS = new vec2(0, 0);
 
         public double uncorrectedEastingGraph = 0;
         public double correctionDistanceGraph = 0;
@@ -116,6 +107,23 @@ namespace AgOpenGPS
         public bool isMaxAngularVelocity = false;
 
         public int minSteerSpeedTimer = 0;
+
+        private double _steerAngleScrollBar;
+        public double steerAngleScrollBar
+        {
+            get => _steerAngleScrollBar;
+            set
+            {
+                _steerAngleScrollBar = value;
+
+                hsbarSteerAngle.Value = 400;
+
+                if (_steerAngleScrollBar > 40) _steerAngleScrollBar = 40;
+                if (_steerAngleScrollBar < -40) _steerAngleScrollBar = -40;
+                btnResetSteerAngle.Text = _steerAngleScrollBar.ToString("N1");
+                hsbarSteerAngle.Value = (int)(10 * _steerAngleScrollBar) + 400;
+            }
+        }
 
         //public vec2 jumpFix = new vec2(0, 0);
         //public double jumpDistance = 0, jumpDistanceMax;
@@ -137,85 +145,76 @@ namespace AgOpenGPS
             //simple comp filter
             gpsHz = 0.98 * gpsHz + 0.02 * nowHz;
 
+            if (timerSim.Enabled) gpsHz = 20;
+
             //Initialization counter
             startCounter++;
 
-            if (!isGPSPositionInitialized)
-            {
-                InitializeFirstFewGPSPositions();
-                return;
-            }
-
-            pn.speed = pn.vtgSpeed;
             pn.AverageTheSpeed();
 
             distanceCurrentStepFixDisplay = glm.Distance(prevDistFix, pn.fix);
             distanceCurrentStepFixDisplay *= 100;
             prevDistFix = pn.fix;
 
+            if (!isFirstHeadingSet)
+            {
+                prevFix = pn.fix;
+                lastReverseFix = pn.fix;
+            }
+
             #region Heading
             switch (headingFromSource)
             {
                 //calculate current heading only when moving, otherwise use last
                 case "Fix":
+                    
+                    if (isFirstHeadingSet)
+                        AddRoll();
+
+                    #region Fix Heading
+
+                    //how far since last fix
+                    distanceCurrentStepFix = glm.Distance(stepFixPts[0], pn.fix);
+
+                    if (distanceCurrentStepFix > gpsMinimumStepDistance)// 0.1 or 0.05 
                     {
-                        #region Start
+                        //save a copy of previous for jump test
+                        //jumpFix.easting = stepFixPts[0].easting; jumpFix.northing = stepFixPts[0].northing;
 
-                        if (!isFirstHeadingSet) //set in steer settings, Stanley
+                        if ((fd.distanceUser += distanceCurrentStepFix) > 9999) fd.distanceUser = 0;
+
+                        double minFixHeadingDistSquared = minHeadingStepDist * minHeadingStepDist;
+                        fixToFixHeadingDistance = 0;
+
+                        for (int i = 0; i < totalFixSteps; i++)
                         {
-                            if (Math.Abs(avgSpeed) < 1.5)
-                                goto byPass;
-
-                            prevFix.easting = stepFixPts[0].easting; prevFix.northing = stepFixPts[0].northing;
-
-                            if (stepFixPts[2].isSet == 0)
+                            if (stepFixPts[i].isSet)
                             {
-                                //this is the first position no roll or offset correction
-                                if (stepFixPts[0].isSet == 0)
+                                fixToFixHeadingDistance = glm.DistanceSquared(stepFixPts[i], pn.fix);
+                                currentStepFix = i;
+
+                                if (fixToFixHeadingDistance > minFixHeadingDistSquared)
                                 {
-                                    stepFixPts[0].easting = pn.fix.easting;
-                                    stepFixPts[0].northing = pn.fix.northing;
-                                    stepFixPts[0].isSet = 1;
-                                    return;
+                                    break;
                                 }
+                            }
+                            else break;
+                        }
 
-                                //and the second
-                                if (stepFixPts[1].isSet == 0)
-                                {
-                                    for (int i = totalFixSteps - 1; i > 0; i--) stepFixPts[i] = stepFixPts[i - 1];
-                                    stepFixPts[0].easting = pn.fix.easting;
-                                    stepFixPts[0].northing = pn.fix.northing;
-                                    stepFixPts[0].isSet = 1;
-                                    return;
-                                }
+                        if (fixToFixHeadingDistance > minFixHeadingDistSquared * 0.5)//1 or 0.5 meter * 0.5??
+                        {
+                            gpsHeading = Math.Atan2(pn.fix.easting - stepFixPts[currentStepFix].easting,
+                                                    pn.fix.northing - stepFixPts[currentStepFix].northing);
 
-                                //the critcal moment for checking initial direction/heading.
-                                for (int i = totalFixSteps - 1; i > 0; i--) stepFixPts[i] = stepFixPts[i - 1];
-                                stepFixPts[0].easting = pn.fix.easting;
-                                stepFixPts[0].northing = pn.fix.northing;
-                                stepFixPts[0].isSet = 1;
+                            if (gpsHeading < 0) gpsHeading += glm.twoPI;
 
-                                gpsHeading = Math.Atan2(pn.fix.easting - stepFixPts[2].easting,
-                                    pn.fix.northing - stepFixPts[2].northing);
+                            if (!isFirstHeadingSet)
+                            {
+                                #region Start
 
-                                if (gpsHeading < 0) gpsHeading += glm.twoPI;
-
-                                fixHeading = gpsHeading;
-
-                                imuGPS_Offset = 0;
                                 //set the imu to gps heading offset
                                 if (ahrs.imuHeading != 99999)
                                     IMUFusion(1);
-
-                                //now we have a heading, fix the first 3
-                                if (vehicle.antennaOffset != 0)
-                                {
-                                    for (int i = 0; i < 3; i++)
-                                    {
-                                        stepFixPts[i].easting = (Math.Cos(-gpsHeading) * vehicle.antennaOffset) + stepFixPts[i].easting;
-                                        stepFixPts[i].northing = (Math.Sin(-gpsHeading) * vehicle.antennaOffset) + stepFixPts[i].northing;
-                                    }
-                                }
 
                                 if (ahrs.imuRoll != 88888)
                                 {
@@ -231,176 +230,51 @@ namespace AgOpenGPS
                                     }
                                 }
 
-                                //get the distance from first to 2nd point, update fix with new offset/roll
-                                stepFixPts[0].distance = glm.Distance(stepFixPts[1], stepFixPts[0]);
-                                pn.fix.easting = stepFixPts[0].easting;
-                                pn.fix.northing = stepFixPts[0].northing;
-
                                 isFirstHeadingSet = true;
                                 TimedMessageBox(2000, "Direction Reset", "Forward is Set");
                                 Log.EventWriter("Forward Is Set");
-
-                                lastGPS = pn.fix;
-
-                                return;
-                            }
-                        }
-                        #endregion
-
-                        AddOffsetAndRoll();
-
-                        #region Fix Heading
-
-                        //how far since last fix
-                        distanceCurrentStepFix = glm.Distance(stepFixPts[0], pn.fix);
-
-                        if (distanceCurrentStepFix > gpsMinimumStepDistance)
-                        {
-                            //save a copy of previous for jump test
-                            //jumpFix.easting = stepFixPts[0].easting; jumpFix.northing = stepFixPts[0].northing;
-
-                            if ((fd.distanceUser += distanceCurrentStepFix) > 9999) fd.distanceUser = 0;
-
-                            double minFixHeadingDistSquared = minHeadingStepDist * minHeadingStepDist;
-                            fixToFixHeadingDistance = 0;
-
-                            for (int i = 0; i < totalFixSteps; i++)
-                            {
-                                fixToFixHeadingDistance = glm.DistanceSquared(stepFixPts[i], pn.fix);
-                                currentStepFix = i;
-
-                                if (fixToFixHeadingDistance > minFixHeadingDistSquared)
-                                {
-                                    break;
-                                }
-                            }
-
-                            if (fixToFixHeadingDistance < minFixHeadingDistSquared * 0.5)
-                                goto byPass;
-
-                            double newGPSHeading = Math.Atan2(pn.fix.easting - stepFixPts[currentStepFix].easting,
-                                                    pn.fix.northing - stepFixPts[currentStepFix].northing);
-                            if (newGPSHeading < 0) newGPSHeading += glm.twoPI;
-
-                            //imu on board
-                            if (ahrs.imuHeading != 99999)
-                            {
-                                if (ahrs.isReverseOn)
-                                {
-                                    ////what is angle between the last valid heading before stopping and one just now
-                                    delta = Math.Abs(Math.PI - Math.Abs(Math.Abs(newGPSHeading - imuCorrected) - Math.PI));
-
-                                    //ie change in direction
-                                    if (delta > 1.57) //
-                                    {
-                                        isReverse = true;
-                                        newGPSHeading += Math.PI;
-                                        if (newGPSHeading < 0) newGPSHeading += glm.twoPI;
-                                        else if (newGPSHeading >= glm.twoPI) newGPSHeading -= glm.twoPI;
-                                        isReverseWithIMU = true;
-                                    }
-                                    else
-                                    {
-                                        isReverse = false;
-                                        isReverseWithIMU = false;
-                                    }
-                                }
-                                else
-                                {
-                                    isReverse = false;
-                                }
-
-                                if (isReverse)
-                                    newGPSHeading -= glm.toRadians(vehicle.antennaPivot / 1
-                                        * mc.actualSteerAngleDegrees * ahrs.reverseComp);
-                                else
-                                    newGPSHeading -= glm.toRadians(vehicle.antennaPivot / 1
-                                        * mc.actualSteerAngleDegrees * ahrs.forwardComp);
-
-                                if (newGPSHeading < 0) newGPSHeading += glm.twoPI;
-                                else if (newGPSHeading >= glm.twoPI) newGPSHeading -= glm.twoPI;
-
-                                gpsHeading = newGPSHeading;
-
-                                IMUFusion(2);
+                                #endregion
                             }
                             else
                             {
-                                if (ahrs.isReverseOn)
+                                ////what is angle between the last valid heading and one just now
+                                double delta = Math.Abs(Math.PI - Math.Abs(Math.Abs(gpsHeading - fixHeading) - Math.PI));
+
+                                isReverse = ahrs.isReverseOn && delta > glm.PIBy2;
+                                
+                                if (isReverse)
                                 {
-                                    ////what is angle between the last valid heading before stopping and one just now
-                                    delta = Math.Abs(Math.PI - Math.Abs(Math.Abs(newGPSHeading - gpsHeading) - Math.PI));
-
-                                    filteredDelta = delta * 0.2 + filteredDelta * 0.8;
-
-                                    //filtered delta different then delta
-                                    if (Math.Abs(filteredDelta - delta) > 0.5)
-                                    {
-                                        isChangingDirection = true;
-                                    }
-                                    else
-                                    {
-                                        isChangingDirection = false;
-                                    }
-
-                                    //we can't be sure if changing direction so do nothing
-                                    if (isChangingDirection)
-                                        goto byPass;
-
-                                    //ie change in direction
-                                    if (filteredDelta > 1.57) //
-                                    {
-                                        isReverse = true;
-                                        newGPSHeading += Math.PI;
-                                        if (newGPSHeading < 0) newGPSHeading += glm.twoPI;
-                                        else if (newGPSHeading >= glm.twoPI) newGPSHeading -= glm.twoPI;
-                                    }
-                                    else
-                                        isReverse = false;
-
-                                    if (isReverse)
-                                        newGPSHeading -= glm.toRadians(vehicle.antennaPivot / 1
-                                            * mc.actualSteerAngleDegrees * ahrs.reverseComp);
-                                    else
-                                        newGPSHeading -= glm.toRadians(vehicle.antennaPivot / 1
-                                            * mc.actualSteerAngleDegrees * ahrs.forwardComp);
-
-                                    if (newGPSHeading < 0) newGPSHeading += glm.twoPI;
-                                    else if (newGPSHeading >= glm.twoPI) newGPSHeading -= glm.twoPI;
+                                    gpsHeading -= glm.toRadians(vehicle.antennaPivot / 1
+                                        * mc.actualSteerAngleDegrees * Properties.Settings.Default.setGPS_reverseComp);
                                 }
                                 else
-                                {
-                                    isReverse = false;
-                                }
-
-                                //set the headings
-                                fixHeading = gpsHeading = newGPSHeading;
+                                    gpsHeading -= glm.toRadians(vehicle.antennaPivot / 1
+                                        * mc.actualSteerAngleDegrees * Properties.Settings.Default.setGPS_forwardComp);
+                                
+                                if (gpsHeading < 0) gpsHeading += glm.twoPI;
+                                else if (gpsHeading >= glm.twoPI) gpsHeading -= glm.twoPI;
                             }
-
-                            //save current fix and set as valid
-                            for (int i = totalFixSteps - 1; i > 0; i--) stepFixPts[i] = stepFixPts[i - 1];
-                            stepFixPts[0].easting = pn.fix.easting;
-                            stepFixPts[0].northing = pn.fix.northing;
-                            stepFixPts[0].isSet = 1;
-
-                            #endregion
                         }
 
-                    //Calculate a million other things
-                    byPass:
-
-                        if (ahrs.imuHeading != 99999)
-                        {
-                            imuCorrected = (glm.toRadians(ahrs.imuHeading)) + imuGPS_Offset;
-                            if (imuCorrected >= glm.twoPI) imuCorrected -= glm.twoPI;
-                            else if (imuCorrected < 0) imuCorrected += glm.twoPI;
-
-                            //use imu as heading when going slow
-                            fixHeading = imuCorrected;
-                        }
-
-                        break;
+                        //save current fix and set as valid
+                        for (int i = totalFixSteps - 1; i > 0; i--) stepFixPts[i] = stepFixPts[i - 1];
+                        stepFixPts[0].easting = pn.fix.easting;
+                        stepFixPts[0].northing = pn.fix.northing;
+                        stepFixPts[0].isSet = true;
                     }
+
+                    if (isFirstHeadingSet)
+                    {
+                        if (ahrs.imuHeading != 99999)//imu on board
+                        {
+                            IMUFusion(2);
+                        }
+                        else
+                            fixHeading = (isReverse ? Math.PI : 0) + gpsHeading;
+                    }
+
+                    #endregion
+                    break;
 
                 case "VTG":
                     {
@@ -408,8 +282,7 @@ namespace AgOpenGPS
                         if (avgSpeed > 1)
                         {
                             //use NMEA headings for camera and tractor graphic
-                            fixHeading = glm.toRadians(pn.headingTrue);
-                            gpsHeading = fixHeading;
+                            gpsHeading = glm.toRadians(pn.headingTrue);
                         }
 
                         //grab the most current fix to last fix distance
@@ -423,8 +296,10 @@ namespace AgOpenGPS
                         //an IMU with heading correction, add the correction
                         if (ahrs.imuHeading != 99999)
                             IMUFusion(3);
+                        else
+                            fixHeading = (isReverse ? Math.PI : 0) + gpsHeading;
 
-                        AddOffsetAndRoll();
+                        AddRoll();
                         break;
                     }
 
@@ -432,10 +307,9 @@ namespace AgOpenGPS
                     {
                         isFirstHeadingSet = true;
                         //use Dual Antenna heading for camera and tractor graphic
-                        fixHeading = glm.toRadians(pn.headingTrueDual);
-                        gpsHeading = fixHeading;
+                        fixHeading = gpsHeading = glm.toRadians(pn.headingTrueDual);
 
-                        distanceCurrentStepFix = glm.Distance(prevFix, pn.fix);
+                        distanceCurrentStepFix = glm.Distance(pn.fix, prevFix);
 
                         if (distanceCurrentStepFix > 0.1)
                         {
@@ -455,13 +329,13 @@ namespace AgOpenGPS
                             double delta = Math.Abs(Math.PI - Math.Abs(Math.Abs(newHeading - fixHeading) - Math.PI));
 
                             //are we going backwards
-                            isReverse = delta > 2 ? true : false;
+                            isReverse = delta > 2;
 
                             //save for next meter check
                             lastReverseFix = pn.fix;
                         }
 
-                        AddOffsetAndRoll();
+                        AddRoll();
                         break;
                     }
 
@@ -472,8 +346,8 @@ namespace AgOpenGPS
             SmoothCamera();
             TheRest();
 
-            if (fixHeading >= glm.twoPI)
-                fixHeading -= glm.twoPI;
+            if (fixHeading > glm.twoPI) fixHeading -= glm.twoPI;
+            if (fixHeading < 0) fixHeading += glm.twoPI;
 
             //vec2 ptA = new vec2(jumpFix.easting - (Math.Sin(gpsHeading) * 10), jumpFix.northing - (Math.Cos(gpsHeading) * 10));
             //vec2 ptB = new vec2(jumpFix.easting + (Math.Sin(gpsHeading) * 10), jumpFix.northing + (Math.Cos(gpsHeading) * 10));
@@ -541,19 +415,29 @@ namespace AgOpenGPS
 
             if (ct.isContourBtnOn)
             {
-                ct.DistanceFromContourLine(pivotAxlePos, steerAxlePos);
+                //quick hack will change later
+                trk.currentGuidanceTrack = ct.ctList;
+            }
+
+            //like normal
+            if (trk.gArr.Count > 0 && trk.idx > -1)
+            {
+                //build new current ref line if required
+                trk.GetDistanceFromRefTrack(pivotAxlePos);
+
+            }
+
+            if (trk.currentGuidanceTrack.Count > 0)
+            {
+                gyd.Guidance(pivotAxlePos, steerAxlePos, yt.isYouTurnTriggered, yt.isYouTurnTriggered ? yt.ytList : trk.currentGuidanceTrack);
             }
             else
             {
-                //like normal
-                if (trk.gArr.Count > 0 && trk.idx > -1)
-                {
-                    //build new current ref line if required
-                    trk.GetDistanceFromRefTrack(pivotAxlePos);
-
-                    trk.GetDistanceFromCurrentGuidanceLine(pivotAxlePos, steerAxlePos);
-                }
+                //invalid distance so tell AS module
+                gyd.distanceFromCurrentLine = 0;
+                guidanceLineDistanceOff = double.NaN;
             }
+            
 
             // autosteer at full speed of updates
 
@@ -607,13 +491,10 @@ namespace AgOpenGPS
                     }
                 }
 
-                if (isChangingDirection && ahrs.imuHeading == 99999)
-                    PGN_254.pgn[PGN_254.status] = 0;
-
                 //for now if backing up, turn off autosteer
-                if (!isSteerInReverse)
+                if (!isSteerInReverse && isReverse)
                 {
-                    if (isReverse) PGN_254.pgn[PGN_254.status] = 0;
+                    PGN_254.pgn[PGN_254.status] = 0;
                 }
 
                 // delay on dead zone.
@@ -753,7 +634,7 @@ namespace AgOpenGPS
                                 }
 
                             //if we are close enough to pattern, trigger.
-                            if ((distancePivotToTurnLine <= 1.0) && (distancePivotToTurnLine >= 0) && !yt.isYouTurnTriggered)
+                            if ((distancePivotToTurnLine <= 1 || (!isStanleyUsed && glm.Distance(yt.ytList[2], gyd.goalPoint) <= 1.0)) && !yt.isYouTurnTriggered)
                             {
                                 yt.YouTurnTrigger();
                                 sounds.isBoundAlarming = false;
@@ -819,19 +700,12 @@ namespace AgOpenGPS
             //end of UppdateFixPosition
         }
 
-        private void AddOffsetAndRoll()
+        private void AddRoll()
         {
-            if (vehicle.antennaOffset != 0)
-            {
-                pn.fix.easting = (Math.Cos(-fixHeading) * vehicle.antennaOffset) + pn.fix.easting;
-                pn.fix.northing = (Math.Sin(-fixHeading) * vehicle.antennaOffset) + pn.fix.northing;
-            }
-
             uncorrectedEastingGraph = pn.fix.easting;
 
             if (ahrs.imuRoll != 88888 && vehicle.antennaHeight != 0)
             {
-
                 //change for roll to the right is positive times -1
                 rollCorrectionDistance = Math.Sin(glm.toRadians((ahrs.imuRoll))) * -vehicle.antennaHeight;
                 correctionDistanceGraph = rollCorrectionDistance;
@@ -848,35 +722,24 @@ namespace AgOpenGPS
             double imuHeading = glm.toRadians(ahrs.imuHeading);//0-2pi
 
             //Difference between the IMU heading and the GPS heading
-            double gyroDelta = (imuHeading + imuGPS_Offset) - gpsHeading;
-            if (gyroDelta < 0) gyroDelta += glm.twoPI;
-            else if (gyroDelta > glm.twoPI) gyroDelta -= glm.twoPI;
-
-
-            //calculate delta based on circular data problem 0 to 360 to 0, clamp to +- 2 Pi
-            if (gyroDelta >= -glm.PIBy2 && gyroDelta <= glm.PIBy2) gyroDelta *= -1.0;
-            else
-            {
-                if (gyroDelta > glm.PIBy2) { gyroDelta = glm.twoPI - gyroDelta; }
-                else { gyroDelta = (glm.twoPI + gyroDelta) * -1.0; }
-            }
-            if (gyroDelta > glm.twoPI) gyroDelta -= glm.twoPI;
-            if (gyroDelta < -glm.twoPI) gyroDelta += glm.twoPI;
-
+            double gyroDelta = (imuHeading - imuGPS_Offset) - gpsHeading;
+            if (isReverse) gyroDelta += Math.PI;
+            //gyroDelta = 0;
+            while (gyroDelta < -Math.PI) gyroDelta += glm.twoPI;
+            while (gyroDelta > Math.PI) gyroDelta -= glm.twoPI;
 
             if (idx == 1)
             {
                 //line up imu with gps
-                imuGPS_Offset = gyroDelta;
-                imuGPS_Offset = Math.Round(imuGPS_Offset, 6);
+                imuGPS_Offset += gyroDelta;
             }
             else if (idx == 2)//stepfix
             {
                 //move the offset to line up imu with gps
-                if (!isReverseWithIMU)
+                //if (!isReverseWithIMU)
                     imuGPS_Offset += gyroDelta * ahrs.fusionWeight;
-                else
-                    imuGPS_Offset += gyroDelta * 0.02;
+                //else
+                //    imuGPS_Offset += gyroDelta * 0.02;
             }
             else if (idx == 3)//VTG
             {
@@ -893,13 +756,13 @@ namespace AgOpenGPS
                 }
             }
 
-            if (imuGPS_Offset > glm.twoPI) imuGPS_Offset -= glm.twoPI;
-            if (imuGPS_Offset < -glm.twoPI) imuGPS_Offset += glm.twoPI;
+            if (imuGPS_Offset > Math.PI) imuGPS_Offset -= glm.twoPI;
+            if (imuGPS_Offset < -Math.PI) imuGPS_Offset += glm.twoPI;
 
             //determine the Corrected heading based on gyro and GPS
-            imuCorrected = imuHeading + imuGPS_Offset;
-            if (imuCorrected > glm.twoPI) imuCorrected -= glm.twoPI;
+            imuCorrected = imuHeading - imuGPS_Offset;
             if (imuCorrected < 0) imuCorrected += glm.twoPI;
+            if (imuCorrected > glm.twoPI) imuCorrected -= glm.twoPI;
 
             fixHeading = imuCorrected;
         }
@@ -940,9 +803,9 @@ namespace AgOpenGPS
             CalculateSectionLookAhead(toolPos.northing, toolPos.easting, cosSectionHeading, sinSectionHeading);
 
             //To prevent drawing high numbers of triangles, determine and test before drawing vertex
-            sectionTriggerDistance = glm.Distance(pn.fix, prevSectionPos);
-            contourTriggerDistance = glm.Distance(pn.fix, prevContourPos);
-            gridTriggerDistance = glm.DistanceSquared(pn.fix, prevGridPos);
+            sectionTriggerDistance = glm.Distance(pivotAxlePos, prevSectionPos);
+            contourTriggerDistance = glm.Distance(pivotAxlePos, prevContourPos);
+            gridTriggerDistance = glm.DistanceSquared(pivotAxlePos, prevGridPos);
 
             if ( isLogElevation && gridTriggerDistance > 2.9 && patchCounter !=0 && isFieldStarted)
             {
@@ -978,7 +841,7 @@ namespace AgOpenGPS
             //test if travelled far enough for new boundary point
             if (bnd.isOkToAddPoints)
             {
-                double boundaryDistance = glm.Distance(pn.fix, prevBoundaryPos);
+                double boundaryDistance = glm.Distance(pivotAxlePos, prevBoundaryPos);
                 if (boundaryDistance > 1) AddBoundaryPoint();
             }
         }
@@ -992,6 +855,12 @@ namespace AgOpenGPS
             pivotAxlePos.northing = pn.fix.northing - (Math.Cos(fixHeading) * vehicle.antennaPivot);
             pivotAxlePos.heading = fixHeading;
 
+            if (vehicle.antennaOffset != 0)
+            {
+                pivotAxlePos.easting += Math.Cos(fixHeading) * vehicle.antennaOffset;
+                pivotAxlePos.northing -= Math.Sin(fixHeading) * vehicle.antennaOffset;
+            }
+
             steerAxlePos.easting = pivotAxlePos.easting + (Math.Sin(fixHeading) * vehicle.wheelbase*0.6);
             steerAxlePos.northing = pivotAxlePos.northing + (Math.Cos(fixHeading) * vehicle.wheelbase*0.6);
             steerAxlePos.heading = fixHeading;
@@ -1002,10 +871,9 @@ namespace AgOpenGPS
             guidanceLookPos.easting = pivotAxlePos.easting + (Math.Sin(fixHeading) * guidanceLookDist);
             guidanceLookPos.northing = pivotAxlePos.northing + (Math.Cos(fixHeading) * guidanceLookDist);
             
-
             //determine where the rigid vehicle hitch ends
-            hitchPos.easting = pn.fix.easting + (Math.Sin(fixHeading) * (tool.hitchLength - vehicle.antennaPivot));
-            hitchPos.northing = pn.fix.northing + (Math.Cos(fixHeading) * (tool.hitchLength - vehicle.antennaPivot));
+            hitchPos.easting = pivotAxlePos.easting + Math.Sin(fixHeading) * tool.hitchLength;
+            hitchPos.northing = pivotAxlePos.northing + Math.Cos(fixHeading) * tool.hitchLength;
 
             //tool attached via a trailing hitch
             if (isGPSToolActive && tool.isToolTrailing && !tool.isToolTBT && !timerSim.Enabled)
@@ -1243,8 +1111,8 @@ namespace AgOpenGPS
         public void AddBoundaryPoint()
         {
             //save the north & east as previous
-            prevBoundaryPos.easting = pn.fix.easting;
-            prevBoundaryPos.northing = pn.fix.northing;
+            prevBoundaryPos.easting = pivotAxlePos.easting;
+            prevBoundaryPos.northing = pivotAxlePos.northing;
 
             //build the boundary line
 
@@ -1333,8 +1201,8 @@ namespace AgOpenGPS
             }
 
             //save the north & east as previous
-            prevSectionPos.northing = pn.fix.northing;
-            prevSectionPos.easting = pn.fix.easting;
+            prevSectionPos.northing = pivotAxlePos.northing;
+            prevSectionPos.easting = pivotAxlePos.easting;
 
             // if non zero, at least one section is on.
             patchCounter = 0;
@@ -1353,57 +1221,6 @@ namespace AgOpenGPS
                     patch.AddMappingPoint();
                     patchCounter++;
                 }
-            }
-        }
-
-        //the start of first few frames to initialize entire program
-        private void InitializeFirstFewGPSPositions()
-        {
-            if (!isFirstFixPositionSet)
-            {
-                if (!isFieldStarted)
-                {
-                    pn.SetLocalMetersPerDegree(false, pn.latitude, pn.longitude);
-                }
-
-                pn.ConvertWGS84ToLocal(pn.latitude, pn.longitude, out pn.fix.northing, out pn.fix.easting);
-
-                //Draw a grid once we know where in the world we are.
-                isFirstFixPositionSet = true;
-
-                //most recent fixes
-                prevFix = pn.fix;
-
-                //run once and return
-                isFirstFixPositionSet = true;
-
-                return;
-            }
-
-            else
-            {
-                prevFix.easting = pn.fix.easting; prevFix.northing = pn.fix.northing;
-
-                //keep here till valid data
-                if (startCounter > (20))
-                {
-                    isGPSPositionInitialized = true;
-                    lastReverseFix = pn.fix;
-                }
-
-                //in radians
-                fixHeading = 0;
-                toolPivotPos.heading = fixHeading;
-
-                //send out initial zero settings
-                if (isGPSPositionInitialized)
-                {
-                    //set display accordingly
-                    isDayTime = (DateTime.Now.Ticks < sunset.Ticks && DateTime.Now.Ticks > sunrise.Ticks);
-
-                    SetZoom();
-                }
-                return;
             }
         }
     }//end class

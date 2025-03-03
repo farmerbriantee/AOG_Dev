@@ -170,7 +170,7 @@ namespace AgOpenGPS
             //draw vehicle
             GL.Rotate(glm.toDegrees(-mf.fixHeading), 0.0, 0.0, 1.0);
             //mf.font.DrawText3D(0, 0, "&TGF");
-            if (mf.isFirstHeadingSet && !mf.tool.isToolFrontFixed)
+            if (!mf.tool.isToolFrontFixed)
             {
                 if (!mf.tool.isToolRearFixed)
                 {
@@ -215,7 +215,7 @@ namespace AgOpenGPS
 
             //draw the vehicle Body
 
-            if (!mf.isFirstHeadingSet && mf.headingFromSource != "Dual")
+            if (!mf.isFirstHeadingSet)
             {
                 GL.Enable(EnableCap.Texture2D);
                 GL.Color4(1, 1, 1, 0.75);
@@ -242,31 +242,15 @@ namespace AgOpenGPS
 
                     double leftAckermam, rightAckerman;
 
-                    if (mf.timerSim.Enabled)
+                    if (mf.mc.actualSteerAngleDegrees < 0)
                     {
-                        if (mf.sim.steerangleAve < 0)
-                        {
-                            leftAckermam = 1.25 * -mf.sim.steerangleAve;
-                            rightAckerman = -mf.sim.steerangleAve;
-                        }
-                        else
-                        {
-                            leftAckermam = -mf.sim.steerangleAve;
-                            rightAckerman = 1.25 * -mf.sim.steerangleAve;
-                        }
+                        leftAckermam = 1.25 * -mf.mc.actualSteerAngleDegrees;
+                        rightAckerman = -mf.mc.actualSteerAngleDegrees;
                     }
                     else
                     {
-                        if (mf.mc.actualSteerAngleDegrees < 0)
-                        {
-                            leftAckermam = 1.25 * -mf.mc.actualSteerAngleDegrees;
-                            rightAckerman = -mf.mc.actualSteerAngleDegrees;
-                        }
-                        else
-                        {
-                            leftAckermam = -mf.mc.actualSteerAngleDegrees;
-                            rightAckerman = 1.25 * -mf.mc.actualSteerAngleDegrees;
-                        }
+                        leftAckermam = -mf.mc.actualSteerAngleDegrees;
+                        rightAckerman = 1.25 * -mf.mc.actualSteerAngleDegrees;
                     }
 
                     GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
@@ -319,31 +303,15 @@ namespace AgOpenGPS
 
                     double leftAckermam, rightAckerman;
 
-                    if (mf.timerSim.Enabled)
+                    if (mf.mc.actualSteerAngleDegrees < 0)
                     {
-                        if (mf.sim.steerAngle < 0)
-                        {
-                            leftAckermam = 1.25 * mf.sim.steerAngle;
-                            rightAckerman = mf.sim.steerAngle;
-                        }
-                        else
-                        {
-                            leftAckermam = mf.sim.steerAngle;
-                            rightAckerman = 1.25 * mf.sim.steerAngle;
-                        }
+                        leftAckermam = 1.25 * mf.mc.actualSteerAngleDegrees;
+                        rightAckerman = mf.mc.actualSteerAngleDegrees;
                     }
                     else
                     {
-                        if (mf.mc.actualSteerAngleDegrees < 0)
-                        {
-                            leftAckermam = 1.25 * mf.mc.actualSteerAngleDegrees;
-                            rightAckerman = mf.mc.actualSteerAngleDegrees;
-                        }
-                        else
-                        {
-                            leftAckermam = mf.mc.actualSteerAngleDegrees;
-                            rightAckerman = 1.25 * mf.mc.actualSteerAngleDegrees;
-                        }
+                        leftAckermam = mf.mc.actualSteerAngleDegrees;
+                        rightAckerman = 1.25 * mf.mc.actualSteerAngleDegrees;
                     }
 
                     GL.Color4((byte)20, (byte)20, (byte)20, mf.vehicleOpacityByte);
@@ -396,10 +364,7 @@ namespace AgOpenGPS
                 {
                     double modelSteerAngle;
 
-                    if (mf.timerSim.Enabled)
-                        modelSteerAngle = 0.5 * mf.sim.steerAngle;
-                    else
-                        modelSteerAngle = 0.5 * mf.mc.actualSteerAngleDegrees;
+                    modelSteerAngle = 0.5 * mf.mc.actualSteerAngleDegrees;
 
                     GL.Enable(EnableCap.Texture2D);
                     GL.Color4(mf.vehicleColor.R, mf.vehicleColor.G, mf.vehicleColor.B, mf.vehicleOpacityByte);
@@ -460,7 +425,7 @@ namespace AgOpenGPS
                 GL.End();
             }
 
-            if (mf.camera.camSetDistance > -500 && mf.isFirstHeadingSet)
+            if (mf.camera.camSetDistance > -500)
             {
                 //draw the bright antenna dot
                 GL.PointSize(16);

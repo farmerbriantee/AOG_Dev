@@ -24,8 +24,8 @@ namespace AgOpenGPS
             lblTimeSlice.Text = (1 / mf.timeSliceOfLastFix).ToString("N3");
             lblHz.Text = mf.gpsHz.ToString("N1");
 
-            lblEastingField.Text = Math.Round(mf.pn.fix.easting, 1).ToString();
-            lblNorthingField.Text = Math.Round(mf.pn.fix.northing, 1).ToString();
+            lblEastingField.Text = Math.Round(mf.pivotAxlePos.easting, 1).ToString();
+            lblNorthingField.Text = Math.Round(mf.pivotAxlePos.northing, 1).ToString();
 
             lblLatitude.Text = mf.Latitude;
             lblLongitude.Text = mf.Longitude;
@@ -40,7 +40,7 @@ namespace AgOpenGPS
             //lblRoll.Text = mf.RollInDegrees;
             lblIMUHeading.Text = mf.GyroInDegrees;
             lblFix2FixHeading.Text = mf.GPSHeading;
-            lblFuzeHeading.Text = (mf.fixHeading * 57.2957795).ToString("N1");
+            lblFuzeHeading.Text = glm.toDegrees(mf.fixHeading).ToString("N1");
 
             lblAngularVelocity.Text = mf.ahrs.imuYawRate.ToString("N2");
 

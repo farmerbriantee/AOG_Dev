@@ -149,7 +149,6 @@ namespace AgOpenGPS
                 Properties.Settings.Default.setGPS_minimumStepLimit = 0.1;
                 cboxMinGPSStep.Text = "10 cm";
                 lblHeadingDistance.Text = "100 cm";
-                mf.isFirstHeadingSet = false;
             }
             else
             {
@@ -157,7 +156,6 @@ namespace AgOpenGPS
                 Properties.Settings.Default.setGPS_minimumStepLimit = 0.05;
                 cboxMinGPSStep.Text = "5 cm";
                 lblHeadingDistance.Text = "50 cm";
-                mf.isFirstHeadingSet = false;
             }
 
         }

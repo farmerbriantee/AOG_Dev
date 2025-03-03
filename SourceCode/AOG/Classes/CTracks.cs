@@ -78,8 +78,6 @@ namespace AgOpenGPS
 
         public async void GetDistanceFromRefTrack(vec3 pivot)
         {
-            double minDistA = 1000000, minDistB;
-
             double widthMinusOverlap = mf.tool.width - mf.tool.overlap;
 
             CTrk track = gArr[idx];
@@ -87,7 +85,6 @@ namespace AgOpenGPS
             if (!isTrackValid || ((mf.secondsSinceStart - lastSecond) > 3 && (!mf.isBtnAutoSteerOn || mf.mc.steerSwitchHigh)))
             {
                 lastSecond = mf.secondsSinceStart;
-                mf.gyd.isFindGlobalNearestTrackPoint = true;
                 if (track.mode != TrackMode.waterPivot)
                 {
                     int refCount = track.curvePts.Count;
@@ -97,70 +94,15 @@ namespace AgOpenGPS
                         return;
                     }
 
-                    //close call hit
-                    int cc = 0, dd;
+                    int cc = mf.gyd.FindGlobalRoughNearest(mf.guidanceLookPos, track.curvePts, 10, !isTrackValid);
 
-                    for (int j = 0; j < refCount; j += 10)
+                    if (mf.gyd.FindClosestSegment(track.curvePts, false, mf.guidanceLookPos, out rA, out rB, cc - 10, cc + 10))
                     {
-                        double dist = ((mf.guidanceLookPos.easting - track.curvePts[j].easting)
-                            * (mf.guidanceLookPos.easting - track.curvePts[j].easting))
-                                        + ((mf.guidanceLookPos.northing - track.curvePts[j].northing)
-                                        * (mf.guidanceLookPos.northing - track.curvePts[j].northing));
-                        if (dist < minDistA)
-                        {
-                            minDistA = dist;
-                            cc = j;
-                        }
+                        distanceFromRefLine = mf.gyd.FindDistanceToSegment(mf.guidanceLookPos, track.curvePts[rA], track.curvePts[rB], out vec3 point, out _, true, false, false);
+
+                        //same way as line creation or not
+                        isHeadingSameWay = Math.PI - Math.Abs(Math.Abs(pivot.heading - track.curvePts[rA].heading) - Math.PI) < glm.PIBy2;
                     }
-
-                    minDistA = minDistB = 1000000;
-
-                    dd = cc + 7; if (dd > refCount - 1) dd = refCount;
-                    cc -= 7; if (cc < 0) cc = 0;
-
-                    //find the closest 2 points to current close call
-                    for (int j = cc; j < dd; j++)
-                    {
-                        double dist = ((mf.guidanceLookPos.easting - track.curvePts[j].easting)
-                            * (mf.guidanceLookPos.easting - track.curvePts[j].easting))
-                                        + ((mf.guidanceLookPos.northing - track.curvePts[j].northing)
-                                        * (mf.guidanceLookPos.northing - track.curvePts[j].northing));
-                        if (dist < minDistA)
-                        {
-                            minDistB = minDistA;
-                            rB = rA;
-                            minDistA = dist;
-                            rA = j;
-                        }
-                        else if (dist < minDistB)
-                        {
-                            minDistB = dist;
-                            rB = j;
-                        }
-                    }
-
-                    if (rA > rB) { C = rA; rA = rB; rB = C; }
-
-                    //same way as line creation or not
-                    isHeadingSameWay = Math.PI - Math.Abs(Math.Abs(pivot.heading - track.curvePts[rA].heading) - Math.PI) < glm.PIBy2;
-
-                    //which side of the closest point are we on is next
-                    //calculate endpoints of reference line based on closest point
-                    refPoint1.easting = track.curvePts[rA].easting - (Math.Sin(track.curvePts[rA].heading) * 300.0);
-                    refPoint1.northing = track.curvePts[rA].northing - (Math.Cos(track.curvePts[rA].heading) * 300.0);
-
-                    refPoint2.easting = track.curvePts[rA].easting + (Math.Sin(track.curvePts[rA].heading) * 300.0);
-                    refPoint2.northing = track.curvePts[rA].northing + (Math.Cos(track.curvePts[rA].heading) * 300.0);
-
-                    //x2-x1
-                    double dx = refPoint2.easting - refPoint1.easting;
-                    //z2-z1
-                    double dz = refPoint2.northing - refPoint1.northing;
-
-                    //how far are we away from the reference line at 90 degrees - 2D cross product and distance
-                    distanceFromRefLine = ((dz * mf.guidanceLookPos.easting) - (dx * mf.guidanceLookPos.northing) + (refPoint2.easting
-                                        * refPoint1.northing) - (refPoint2.northing * refPoint1.easting))
-                                        / Math.Sqrt((dz * dz) + (dx * dx));
                 }
                 else //pivot guide list
                 {
@@ -463,39 +405,6 @@ namespace AgOpenGPS
             return newCurList;
         }
 
-        public void GetDistanceFromCurrentGuidanceLine(vec3 pivot, vec3 steer)
-        {
-            if (gArr[idx].curvePts == null || gArr[idx].curvePts.Count < 5)
-            {
-                if (gArr[idx].mode != TrackMode.waterPivot)
-                {
-                    return;
-                }
-            }
-
-            if (currentGuidanceTrack.Count > 0)
-            {
-                if (mf.yt.isYouTurnTriggered && mf.yt.DistanceFromYouTurnLine())//do the pure pursuit from youTurn
-                {
-                    mf.gyd.UTurnGuidance();
-                }
-                else if (mf.isStanleyUsed)//Stanley
-                {
-                    mf.gyd.StanleyGuidance(steer, ref currentGuidanceTrack);
-                }
-                else// Pure Pursuit ------------------------------------------
-                {
-                    mf.gyd.PurePursuitGuidance(pivot, ref currentGuidanceTrack);
-                }
-            }
-            else
-            {
-                //invalid distance so tell AS module
-                mf.gyd.distanceFromCurrentLine = 0;
-                mf.guidanceLineDistanceOff = double.NaN;
-            }
-        }
-
         private List<List<vec3>> BuildTrackGuidelines(double distAway, int _passes, CTrk track)
         {
             // the listlist of all the guidelines
@@ -751,15 +660,6 @@ namespace AgOpenGPS
                 mf.yt.DrawYouTurn();
 
                 /*
-                //if (!mf.isStanleyUsed && mf.camera.camSetDistance > -200)
-                //{
-                //    //Draw lookahead Point
-                //    GL.PointSize(4.0f);
-                //    GL.Begin(PrimitiveType.Points);
-                //    GL.Color3(1.0f, 0.95f, 0.195f);
-                //    GL.Vertex3(goalPointTrk.easting, goalPointTrk.northing, 0.0);
-                //    GL.End();
-                //}
 
                 //GL.Disable(EnableCap.LineSmooth);
 

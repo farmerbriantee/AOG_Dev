@@ -20,7 +20,7 @@ namespace AgOpenGPS
         public vec2 fixOffset = new vec2(0, 0);
 
         //other GIS Info
-        public double altitude, speed, newSpeed, vtgSpeed = float.MaxValue;
+        public double altitude, vtgSpeed = 0;
 
         public double headingTrueDual, headingTrue, hdop, age, headingTrueDualOffset;
 
@@ -42,26 +42,24 @@ namespace AgOpenGPS
         {
             //average the speed
             //if (speed > 70) speed = 70;
-            mf.avgSpeed = (mf.avgSpeed * 0.75) + (speed * 0.25);
+            mf.avgSpeed = (mf.avgSpeed * 0.75) + (vtgSpeed * 0.25);
         }
 
-        public void SetLocalMetersPerDegree(bool setSim, double lat, double lon)
+        public void SetLocalMetersPerDegree(double lat, double lon)
         {
+            mf.isGPSPositionInitialized = true;
             latStart = lat;
             lonStart = lon;
 
-            if (setSim && mf.timerSim.Enabled)
-            {
-                latitude = mf.sim.latitude = Properties.Settings.Default.setGPS_SimLatitude = lat;
-                longitude = mf.sim.longitude = Properties.Settings.Default.setGPS_SimLongitude = lon;
-            }
+            Properties.Settings.Default.setGPS_SimLatitude = lat;//this is actuallly the last field position
+            Properties.Settings.Default.setGPS_SimLongitude = lon;
+            
+            mf.sim.Reset();
 
             mPerDegreeLat = 111132.92 - 559.82 * Math.Cos(2.0 * latStart * 0.01745329251994329576923690766743) + 1.175
             * Math.Cos(4.0 * latStart * 0.01745329251994329576923690766743) - 0.0023
             * Math.Cos(6.0 * latStart * 0.01745329251994329576923690766743);
 
-            ConvertWGS84ToLocal(latitude, longitude, out double northing, out double easting);
-            mf.worldGrid.checkZoomWorldGrid(northing, easting);
             mf.FileLoadFields();
         }
 

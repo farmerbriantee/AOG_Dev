@@ -131,7 +131,6 @@ namespace AgOpenGPS
                 //returns full field.txt file dir name
                 if (form.ShowDialog(this) == DialogResult.Yes)
                 {
-                    if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
                     mf.FileOpenField(mf.filePickerFileAndDirectory);
 
                     if (!mf.isFieldStarted)
@@ -183,10 +182,10 @@ namespace AgOpenGPS
 
         private void btnFieldResume_Click(object sender, EventArgs e)
         {
-            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
-
             //open the Resume.txt and continue from last exit
-            mf.FileOpenField("Resume");
+            string fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Field.txt");
+
+            mf.FileOpenField(fileAndDirectory);
 
             Log.EventWriter("Field Form, Field Resume");
 

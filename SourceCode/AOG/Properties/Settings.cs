@@ -104,7 +104,6 @@ namespace AgOpenGPS.Properties
         public Color setColor_sec16 = Color.FromArgb(247, 229, 215);
         public bool setColor_isMultiColorSections = false;
 
-        public Point setDisplay_panelSimLocation = new Point(97, 600);
         public Color setDisplay_colorDayFrame = Color.FromArgb(210, 210, 230);
         public Color setDisplay_colorFieldDay = Color.FromArgb(160, 160, 185);
         public Color setDisplay_colorFieldNight = Color.FromArgb(60, 60, 60);
@@ -440,7 +439,7 @@ namespace AgOpenGPS.Properties
                     var parts = value.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                     if (parts.Length == 3 && parseInvariantCulture(parts[0], out int r) && parseInvariantCulture(parts[1], out int g) && parseInvariantCulture(parts[2], out int b))
                     {
-                        pinfo.SetValue(obj, Color.FromArgb(r, g, b));
+                        pinfo.SetValue(obj, Color.FromArgb(r, g, b).CheckColorFor255());
                     }
                 }
                 else if (fieldType == typeof(Point))

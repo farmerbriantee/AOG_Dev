@@ -26,6 +26,7 @@ namespace ModSim
         {
             tbarSteerAngleWAS.Value = 0;
             steerAngle = 0;
+            steerAngleActual = 0;
             lblWAS.Text = "Steer: 0.0°";
         }
         private void lblKmh_Click(object sender, EventArgs e)

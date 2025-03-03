@@ -308,33 +308,11 @@ namespace AgOpenGPS
             btnZone7.Visible = false;
             btnZone8.Visible = false;
 
-            int oglCenter = isPanelBottomHidden ? oglCenter = oglMain.Width / 2 + 30 : statusStripLeft.Width + oglMain.Width / 2;
+            int oglCenter = oglMain.Left + oglMain.Width / 2;
 
-            //Nozzz
-            if (tlpNozzle.Visible) oglCenter += tlpNozzle.Width;
-
-            int top = 140;
+            int top = oglMain.Height - (panelSim.Visible ? 65 : 5);
 
             int buttonMaxWidth = 360, buttonHeight = 35;
-
-            if ((Height - oglMain.Height) < 80) //max size - buttons hid
-            {
-                top = Height - 85;
-                if (panelSim.Visible == true)
-                {
-                    top = Height - 120;
-                    panelSim.Top = Height - 78;
-                }
-            }
-            else //buttons exposed
-            {
-                top = Height - 135;
-                if (panelSim.Visible == true)
-                {
-                    top = Height - 185;
-                    panelSim.Top = Height - 128;
-                }
-            }
 
             if (tool.isSectionsNotZones)
             {
@@ -496,35 +474,12 @@ namespace AgOpenGPS
                 return;
             }
 
-            int oglCenter = isPanelBottomHidden ? oglCenter = oglMain.Width / 2 + 30 : statusStripLeft.Width + oglMain.Width / 2;
-
-            //Nozzz
-            if (tlpNozzle.Visible) oglCenter += tlpNozzle.Width;
-
-            int top = 130;
+            int oglCenter = oglMain.Left + oglMain.Width / 2;
 
             int buttonMaxWidth = 400, buttonHeight = 30;
 
-
-            if ((Height - oglMain.Height) < 80) //max size - buttons hid
-            {
-                top = Height - 70;
-                if (panelSim.Visible == true)
-                {
-                    top = Height - 100;
-                    panelSim.Top = Height - 60;
-                }
-            }
-            else //buttons exposed
-            {
-                top = Height - 130;
-                if (panelSim.Visible == true)
-                {
-                    top = Height - 160;
-                    panelSim.Top = Height - 120;
-                }
-            }
-
+            int top = oglMain.Height - (panelSim.Visible ? 65 : 5);
+            
             //if (tool.zones == 0) return;
             btnZone1.Visible = tool.zones > 0;
             btnZone2.Visible = tool.zones > 1;

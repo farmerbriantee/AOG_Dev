@@ -49,8 +49,6 @@ namespace AgOpenGPS
             //trams
             lblAplha.Text = ((int)(mf.tram.alpha * 100)).ToString();
 
-            mf.tool.halfWidth = (mf.tool.width - mf.tool.overlap) / 2.0;
-
             FixLabelsCurve();
 
             //Window Properties

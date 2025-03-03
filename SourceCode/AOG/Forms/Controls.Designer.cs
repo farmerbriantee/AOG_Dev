@@ -462,8 +462,6 @@ namespace AgOpenGPS
                 flp1.Visible = false;
             }
 
-            panelRight.Visible = false;
-
             this.Activate();
         }
         private void btnTracksOff_Click(object sender, EventArgs e)
@@ -588,7 +586,7 @@ namespace AgOpenGPS
 
         private void btnFieldMenu_Click(object sender, EventArgs e)
         {
-            if (!isFirstFixPositionSet || sentenceCounter > 299)
+            if (!isGPSPositionInitialized || sentenceCounter > 299)
             {
                 if (isFieldStarted)
                 {
@@ -750,13 +748,11 @@ namespace AgOpenGPS
             if (trk.gArr.Count < 1 )
             {
                 TimedMessageBox(1500, gStr.Get(gs.gsNoGuidanceLines), gStr.Get(gs.gsNoGuidanceLines));
-                panelRight.Enabled = true;
                 return;
             }
             if (bnd.bndList.Count < 1)
             {
                 TimedMessageBox(1500, gStr.Get(gs.gsNoBoundary), gStr.Get(gs.gsCreateABoundaryFirst));
-                panelRight.Enabled = true;
                 return;
             }
 
@@ -764,19 +760,6 @@ namespace AgOpenGPS
             form99.ShowDialog(this);
         }
 
-        public void GetHeadland()
-        {
-            using (var form = new FormHeadLine (this))
-            {
-                form.ShowDialog(this);
-            }
-
-            bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
-            
-            PanelsAndOGLSize();
-            PanelUpdateRightAndBottom();
-            SetZoom();
-        }
         private void headlandToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (bnd.bndList.Count == 0)
@@ -785,7 +768,14 @@ namespace AgOpenGPS
                 return;
             }
 
-            GetHeadland();
+            using (var form = new FormHeadLine(this))
+            {
+                form.ShowDialog(this);
+            }
+
+            bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
+
+            PanelUpdateRightAndBottom();
         }
         private void headlandBuildToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -802,9 +792,7 @@ namespace AgOpenGPS
 
             bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
 
-            PanelsAndOGLSize();
             PanelUpdateRightAndBottom();
-            SetZoom();
         }
         private void boundariesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -889,10 +877,6 @@ namespace AgOpenGPS
                 f1.Close();
             }
 
-            //Nozzz
-            if (isNozzleApp) panelNavigation.Location = new System.Drawing.Point(250, 100);
-            else panelNavigation.Location = new System.Drawing.Point(90, 100);
-
             if (panelNavigation.Visible)
             {
                 panelNavigation.Visible = false;
@@ -900,6 +884,8 @@ namespace AgOpenGPS
             else
             {
                 panelNavigation.Visible = true;
+                panelNavigation.Left = GPSDataWindowLeft;
+
                 navPanelCounter = 2;
                 if (displayBrightness.isWmiMonitor) btnBrightnessDn.Text = (displayBrightness.GetBrightness().ToString()) + "%";
                 else btnBrightnessDn.Text = "??";
@@ -1072,10 +1058,7 @@ namespace AgOpenGPS
             form.Show(this);
 
             form.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-            if (isPanelBottomHidden)
-                form.Left = this.Left + 5 + (isNozzleApp?tlpNozzle.Width:0);
-            else
-                form.Left = this.Left + GPSDataWindowLeft + 5 + (isNozzleApp ? tlpNozzle.Width : 0);
+            form.Left = this.Left + GPSDataWindowLeft;
 
 
             Form ff = Application.OpenForms["FormGPS"];
@@ -1108,10 +1091,7 @@ namespace AgOpenGPS
             form.Show(this);
 
             form.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
-            if (isPanelBottomHidden)
-                form.Left = this.Left + 5 + (isNozzleApp ? tlpNozzle.Width : 0);
-            else
-                form.Left = this.Left + GPSDataWindowLeft + 5 + (isNozzleApp ? tlpNozzle.Width : 0); 
+            form.Left = this.Left + GPSDataWindowLeft;
 
             Form ff = Application.OpenForms["FormGPS"];
             ff.Focus();
@@ -1240,9 +1220,9 @@ namespace AgOpenGPS
         {
             if (isFieldStarted)
             {
-                TimedMessageBox(2000, gStr.Get(gs.gsFieldIsOpen), gStr.Get(gs.gsCloseFieldFirst));
-                Log.EventWriter("Turning Nozzle on or off while open field");
-                return;
+                //TimedMessageBox(2000, gStr.Get(gs.gsFieldIsOpen), gStr.Get(gs.gsCloseFieldFirst));
+                //Log.EventWriter("Turning Nozzle on or off while open field");
+                //return;
             }
 
             isNozzleApp = !isNozzleApp;
@@ -1260,8 +1240,6 @@ namespace AgOpenGPS
 
             nozzleAppToolStripMenuItem.Checked = isNozzleApp;
             Settings.Default.setApPGN_isNozzleApp = isNozzleApp;
-            
-            LoadSettings();
 
             PanelsAndOGLSize();
         }
@@ -1322,26 +1300,19 @@ namespace AgOpenGPS
 
         private void simulatorOnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isFieldStarted)
-            {
-                TimedMessageBox(2000, gStr.Get(gs.gsFieldIsOpen), gStr.Get(gs.gsCloseFieldFirst));
-                return;
-            }
-            if (simulatorOnToolStripMenuItem.Checked)
-            {
-                if (sentenceCounter < 299)
-                {
-                    TimedMessageBox(2000, "Connected", "GPS");
-                    simulatorOnToolStripMenuItem.Checked = false;
-                    return;
-                }
-            }
-
             timerSim.Enabled = panelSim.Visible = simulatorOnToolStripMenuItem.Checked;
-            isFirstFixPositionSet = false;
             isGPSPositionInitialized = false;
             isFirstHeadingSet = false;
             startCounter = 0;
+
+            if (tool.isSectionsNotZones)
+            {
+                LineUpIndividualSectionBtns();
+            }
+            else
+            {
+                LineUpAllZoneButtons();
+            }
 
             Settings.Default.setMenu_isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
         }
@@ -2051,26 +2022,6 @@ namespace AgOpenGPS
             navPanelCounter = 0;
         }
 
-        //The zoom tilt buttons
-        private void btnZoomIn_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (camera.zoomValue <= 20)
-            { if ((camera.zoomValue -= camera.zoomValue * 0.1) < 3.0) camera.zoomValue = 3.0; }
-            else { if ((camera.zoomValue -= camera.zoomValue * 0.05) < 3.0) camera.zoomValue = 3.0; }
-            camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
-            SetZoom();
-            navPanelCounter = 2;
-        }
-        private void btnZoomOut_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (camera.zoomValue <= 20) camera.zoomValue += camera.zoomValue * 0.1;
-            else camera.zoomValue += camera.zoomValue * 0.05;
-            if (camera.zoomValue > 220) camera.zoomValue = 220;
-            camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
-            SetZoom();
-            navPanelCounter = 2;
-        }
-
         #endregion
 
         #region OpenGL Window context Menu and functions
@@ -2135,48 +2086,27 @@ namespace AgOpenGPS
                     sim.DoSimTick(lastSimGuidanceAngle);
                 }
             }
-            else sim.DoSimTick(sim.steerAngleScrollBar);
+            else sim.DoSimTick(steerAngleScrollBar);
         }
         private void btnSimReverseDirection_Click(object sender, EventArgs e)
         {
-            sim.headingTrue += Math.PI;
-            trk.isTrackValid = false;
-            if (isBtnAutoSteerOn)
-            {
-                btnAutoSteer.PerformClick();
-                TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Sim Reverse Touched");
-                Log.EventWriter("Steer Off, Sim Reverse Activated");
-            }
+            sim.Reverse();
         }
         private void hsbarSteerAngle_Scroll(object sender, ScrollEventArgs e)
         {
-            sim.steerAngleScrollBar = (hsbarSteerAngle.Value - 400) * 0.1;
-            btnResetSteerAngle.Text = sim.steerAngleScrollBar.ToString("N1");
+            steerAngleScrollBar = (hsbarSteerAngle.Value - 400) * 0.1;
         }
         private void btnResetSteerAngle_Click(object sender, EventArgs e)
         {
-            sim.steerAngleScrollBar = 0;
-            hsbarSteerAngle.Value = 400;
-            btnResetSteerAngle.Text = sim.steerAngleScrollBar.ToString("N1");
+            steerAngleScrollBar = 0.0;
         }
         private void btnResetSim_Click(object sender, EventArgs e)
         {
-            sim.latitude = Properties.Settings.Default.setGPS_SimLatitude;
-            sim.longitude = Properties.Settings.Default.setGPS_SimLongitude;
+            sim.Reset();
         }
         private void btnSimSetSpeedToZero_Click(object sender, EventArgs e)
         {
             sim.stepDistance = 0;
-        }
-        private void btnSimReverse_Click(object sender, EventArgs e)
-        {
-            sim.stepDistance = 0;
-            sim.isAccelBack = true;
-        }
-        private void btnSimForward_Click(object sender, EventArgs e)
-        {
-            sim.stepDistance = 0;
-            sim.isAccelForward = true;
         }
 
         #endregion

@@ -1279,9 +1279,6 @@ namespace AgOpenGPS
 
                 if (result2 == DialogResult.Yes)
                 {
-                    FileSaveSystemEvents();
-                    Log.sbEvents.Clear();
-
                     //save event
                     Log.EventWriter("*****");
                     Log.EventWriter("Registry set to default - Reset ALL event occured");

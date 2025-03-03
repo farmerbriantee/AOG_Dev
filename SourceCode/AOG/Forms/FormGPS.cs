@@ -352,7 +352,8 @@ namespace AgOpenGPS
                     if (form.ShowDialog(this) != DialogResult.OK)
                     {
                         Log.EventWriter("Terms Not Accepted");
-                        Close();
+                        FileSaveSystemEvents();
+                        Environment.Exit(0);
                     }
                     else
                     {
@@ -575,9 +576,6 @@ namespace AgOpenGPS
 
             Log.EventWriter("Program Exit: " + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)) + "\r");
 
-            //write the log file
-            FileSaveSystemEvents();
-
             //stop back buffer thread
             if (thread_oglBack != null && thread_oglBack.IsAlive)
                 thread_oglBack.Abort();
@@ -590,6 +588,9 @@ namespace AgOpenGPS
 
             //save current Interface
             Settings.Interface.Save();
+
+            //write the log file
+            FileSaveSystemEvents();
 
             if (displayBrightness.isWmiMonitor)
                 displayBrightness.SetBrightness(Settings.Vehicle.setDisplay_brightnessSystem);

@@ -39,27 +39,23 @@ namespace AgOpenGPS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Close();
+            DialogResult = DialogResult.OK;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Settings.Interface.setDisplay_isTermsAccepted = false;
-
-            //Close();
-            Environment.Exit(0);
+            DialogResult = DialogResult.Cancel;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             Settings.Interface.setDisplay_isTermsAccepted = true;
+            DialogResult = DialogResult.OK;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //Settings.Interface.setDisplay_isTermsAccepted = true;
             DialogResult = DialogResult.OK;
-            Close();
         }
     }
 }

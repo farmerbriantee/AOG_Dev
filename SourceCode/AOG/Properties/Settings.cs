@@ -100,7 +100,7 @@ namespace AgOpenGPS
                 if (result == LoadResult.MissingFile)
                 {
                     Log.EventWriter("Interface file does not exist or is Default, Default Interface used");
-                    RegistrySettings.Save("InterfaceFileName", "");
+                    RegistrySettings.Save("InterfaceFileName", "Default");
                 }
                 else if (result == LoadResult.Failed)
                 {
@@ -341,7 +341,7 @@ namespace AgOpenGPS
                 if (result == LoadResult.MissingFile)
                 {
                     Log.EventWriter("Vehicle file does not exist or is Default, Default Vehicle used");
-                    RegistrySettings.Save("VehicleFileName", "");
+                    RegistrySettings.Save("VehicleFileName", "Default");
                 }
                 else if (result == LoadResult.Failed)
                 {
@@ -426,7 +426,7 @@ namespace AgOpenGPS
                 if (result == LoadResult.MissingFile)
                 {
                     Log.EventWriter("Tool file does not exist or is Default, Default Vehicle used");
-                    //RegistrySettings.Save("ToolFileName", "");
+                    RegistrySettings.Save("ToolFileName", "Default");
                 }
                 else if (result == LoadResult.Failed)
                 {
@@ -466,7 +466,6 @@ namespace AgOpenGPS
                     {
                         return LoadResult.MissingFile;
                     }
-
                     using (XmlTextReader reader = new XmlTextReader(filePath))
                     {
                         string name = "";
@@ -474,25 +473,29 @@ namespace AgOpenGPS
                         {
                             switch (reader.NodeType)
                             {
-                                case XmlNodeType.Element: // The node is an element.
-
-                                    name = reader.Name;
-                                    break;
-
-                                case XmlNodeType.Text: //Display the text in each element.
-
-                                    var pinfo = obj.GetType().GetField(name);
-                                    if (pinfo != null)
+                                case XmlNodeType.Element:
+                                    if (reader.Name == "setting")
                                     {
-                                        try
+                                        name = reader.GetAttribute("name");
+                                    }
+                                    else if (reader.Name == "value")
+                                    {
+                                        if (!string.IsNullOrEmpty(name))
                                         {
-                                            SetFieldValue(pinfo, reader, obj);
-                                        }
-                                        catch (Exception)
-                                        {
-                                            if (Debugger.IsAttached)
-                                                throw;// Re-throws the original exception
-                                            Errors = true;
+                                            var pinfo = obj.GetType().GetField(name);
+                                            if (pinfo != null)
+                                            {
+                                                try
+                                                {
+                                                    SetFieldValue(pinfo, reader, obj);
+                                                }
+                                                catch (Exception)
+                                                {
+                                                    if (Debugger.IsAttached)
+                                                        throw;// Re-throws the original exception
+                                                    Errors = true;
+                                                }
+                                            }
                                         }
                                     }
                                     break;
@@ -623,6 +626,8 @@ namespace AgOpenGPS
                     })
                     {
                         xml.WriteStartDocument();
+
+                        // Start the root element
                         xml.WriteStartElement(element);
 
                         foreach (var fld in obj.GetType().GetFields())
@@ -630,11 +635,19 @@ namespace AgOpenGPS
                             var value = fld.GetValue(obj);
                             var fieldType = value.GetType();
 
+                            // Start a "setting" element
+                            xml.WriteStartElement("setting");
+
+                            // Add attributes to the "setting" element
+                            xml.WriteAttributeString("name", fld.Name);
+
                             if ((fieldType.IsClass && fieldType != typeof(string)) || (typeof(IEnumerable).IsAssignableFrom(fieldType) && (fieldType.IsGenericType || fieldType.IsArray)))
                             {
                                 //classes, arrays and lists
+                                xml.WriteAttributeString("serializeAs", "Xml");
+
                                 // Write the serialized object to a nested "value" element
-                                xml.WriteStartElement(fld.Name);
+                                xml.WriteStartElement("value");
 
                                 var serializer = new XmlSerializer(fieldType);
                                 serializer.Serialize(xml, value);
@@ -643,29 +656,33 @@ namespace AgOpenGPS
                             }
                             else
                             {
+                                xml.WriteAttributeString("serializeAs", "String");
+
                                 if (value is Point pointValue)
                                 {
-                                    xml.WriteElementString(fld.Name, $"{pointValue.X.ToString(CultureInfo.InvariantCulture)}, {pointValue.Y.ToString(CultureInfo.InvariantCulture)}");
+                                    xml.WriteElementString("value", $"{pointValue.X.ToString(CultureInfo.InvariantCulture)}, {pointValue.Y.ToString(CultureInfo.InvariantCulture)}");
                                 }
                                 else if (value is Size sizeValue)
                                 {
-                                    xml.WriteElementString(fld.Name, $"{sizeValue.Width.ToString(CultureInfo.InvariantCulture)}, {sizeValue.Height.ToString(CultureInfo.InvariantCulture)}");
+                                    xml.WriteElementString("value", $"{sizeValue.Width.ToString(CultureInfo.InvariantCulture)}, {sizeValue.Height.ToString(CultureInfo.InvariantCulture)}");
                                 }
                                 else if (value is Color dd)
                                 {
-                                    xml.WriteElementString(fld.Name, $"{dd.R.ToString(CultureInfo.InvariantCulture)}, {dd.G.ToString(CultureInfo.InvariantCulture)}, {dd.B.ToString(CultureInfo.InvariantCulture)}");
+                                    xml.WriteElementString("value", $"{dd.R.ToString(CultureInfo.InvariantCulture)}, {dd.G.ToString(CultureInfo.InvariantCulture)}, {dd.B.ToString(CultureInfo.InvariantCulture)}");
                                 }
                                 else
                                 {
                                     // Write primitive types or strings
                                     string stringValue = Convert.ToString(value, CultureInfo.InvariantCulture);
-                                    xml.WriteElementString(fld.Name, stringValue);
+                                    xml.WriteElementString("value", stringValue);
                                 }
                             }
+
+                            xml.WriteEndElement(); // setting
                         }
 
                         // Close all open elements
-                        xml.WriteEndElement(); // element
+                        xml.WriteEndElement(); //element
 
                         // End the document
                         xml.WriteEndDocument();

@@ -279,13 +279,13 @@ namespace AgIO
             cboxAutoRunGPS_Out.Checked = Properties.Settings.Default.setDisplay_isAutoRunGPS_Out;
 
             this.Text =
-            "AgOne  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + "   Profile: " + RegistrySettings.profileName;
+            "AgIO  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + "   Profile: " + RegistrySettings.profileName;
 
             if (RegistrySettings.profileName == "Default Profile")
             {
                 Log.EventWriter("Using Default Profile At Start Warning");
 
-                YesMessageBox("AgOne - No Profile Open \r\n\r\n Create or Open a Profile");
+                YesMessageBox("AgIO - No Profile Open \r\n\r\n Create or Open a Profile");
 
                 using (var form = new FormProfiles(this))
                 {
@@ -299,7 +299,7 @@ namespace AgIO
                         Environment.Exit(0);
                     }
                 }
-                this.Text = "AgOne  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + "  Profile: "
+                this.Text = "AgIO  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + "  Profile: "
                     + RegistrySettings.profileName;
             }
 
@@ -355,7 +355,7 @@ namespace AgIO
 
         public void FileSaveSystemEvents()
         {
-            using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.logsDirectory, "AgOne_Events_Log.txt"), true))
+            using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.logsDirectory, "AgIO_Events_Log.txt"), true))
             {
                 writer.Write(Log.sbEvent);
                 Log.sbEvent.Clear();
@@ -478,10 +478,10 @@ namespace AgIO
             }
 
             //send a hello to modules
-            SendUDPMessage(helloFromAgOne, epModule);
+            SendUDPMessage(helloFromAgIO, epModule);
 
             if (isViewAdvanced) pingSecondsStart = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds;
-            SendUDPMessageTool(helloFromAgOne, epModuleTool);
+            SendUDPMessageTool(helloFromAgIO, epModuleTool);
         }
 
         private void TenSecondLoop()
@@ -618,7 +618,7 @@ namespace AgIO
                     if (currentHello) btnMachine.BackColor = Color.LimeGreen;
                     else btnMachine.BackColor = Color.Red;
                     lastHelloMachine = currentHello;
-                    ShowAgOne();
+                    ShowAgIO();
                 }
             }
 
@@ -631,7 +631,7 @@ namespace AgIO
                     if (currentHello) btnSteer.BackColor = Color.LimeGreen;
                     else btnSteer.BackColor = Color.Red;
                     lastHelloAutoSteer = currentHello;
-                    ShowAgOne();
+                    ShowAgIO();
                 }
             }
 
@@ -644,7 +644,7 @@ namespace AgIO
                     if (currentHello) btnIMU.BackColor = Color.LimeGreen;
                     else btnIMU.BackColor = Color.Red;
                     lastHelloIMU = currentHello;
-                    ShowAgOne();
+                    ShowAgIO();
                 }
             }
 
@@ -655,7 +655,7 @@ namespace AgIO
                 if (currentHello) btnGPS.BackColor = Color.LimeGreen;
                 else btnGPS.BackColor = Color.Red;
                 lastHelloGPS = currentHello;
-                ShowAgOne();
+                ShowAgIO();
             }
 
             currentHello = traffic.cntrGPSOutTool != 0;
@@ -665,7 +665,7 @@ namespace AgIO
                 if (currentHello) btnGPSTool.BackColor = Color.LimeGreen;
                 else btnGPSTool.BackColor = Color.Red;
                 lastHelloGPSTool = currentHello;
-                ShowAgOne();
+                ShowAgIO();
             }
         }
 
@@ -679,9 +679,9 @@ namespace AgIO
             }
         }
 
-        private void ShowAgOne()
+        private void ShowAgIO()
         {
-            Process[] processName = Process.GetProcessesByName("AgOne");
+            Process[] processName = Process.GetProcessesByName("AgIO");
 
             if (processName.Length != 0)
             {

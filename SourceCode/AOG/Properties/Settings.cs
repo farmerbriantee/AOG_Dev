@@ -118,9 +118,7 @@ namespace AgOpenGPS.Properties
         public double setDisplay_camZoom = 9.0;
         public bool setDisplay_isAutoDayNight = false;
         public bool setDisplay_isAutoOffAgIO = true;
-        public bool setDisplay_isAutoOffAgOne = true;
         public bool setDisplay_isAutoStartAgIO = true;
-        public bool setDisplay_isAutoStartAgOne = true;
         public bool setDisplay_isBrightnessOn = false;
         public bool setDisplay_isDayMode = true;
         public bool setDisplay_isHardwareMessages = false;

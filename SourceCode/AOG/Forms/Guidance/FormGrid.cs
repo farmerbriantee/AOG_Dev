@@ -287,7 +287,7 @@ namespace AgOpenGPS
 
         private void DrawSections()
         {
-            int cnt, step, patchCount;
+            int cnt, step;
             int mipmap = 8;
 
             GL.Color3(0.9f, 0.9f, 0.8f);

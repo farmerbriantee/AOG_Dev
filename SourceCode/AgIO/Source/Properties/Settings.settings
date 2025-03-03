@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AgOne.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AgIO.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="setPort_portNameGPS" Type="System.String" Scope="User">
@@ -119,7 +119,7 @@
     <Setting Name="setRadio_isOn" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="setRadio_Channels" Type="System.Collections.Generic.List&lt;AgOne.CRadioChannel&gt;" Scope="User">
+    <Setting Name="setRadio_Channels" Type="System.Collections.Generic.List&lt;AgIO.CRadioChannel&gt;" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="setUDP_isSendNMEAToUDP" Type="System.Boolean" Scope="User">

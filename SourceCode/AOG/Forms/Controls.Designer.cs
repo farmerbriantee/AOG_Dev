@@ -909,15 +909,15 @@ namespace AgOpenGPS
             else btnGrid.Enabled = false;
 
         }
-        private void btnStartAgOne_Click(object sender, EventArgs e)
+        private void btnStartAgIO_Click(object sender, EventArgs e)
         {
-            Log.EventWriter("AgOne Manually Started");
+            Log.EventWriter("AgIO Manually Started");
 
-            Process[] processName = Process.GetProcessesByName("AgOne");
+            Process[] processName = Process.GetProcessesByName("AgIO");
             if (processName.Length == 0)
             {
                 //Start application here
-                string strPath = Path.Combine(Application.StartupPath, "AgOne.exe");
+                string strPath = Path.Combine(Application.StartupPath, "AgIO.exe");
 
                 try
                 {
@@ -928,8 +928,8 @@ namespace AgOpenGPS
                 }
                 catch
                 {
-                    TimedMessageBox(2000, "No File Found", "Can't Find AgOne");
-                    Log.EventWriter("AgOne Not Found");
+                    TimedMessageBox(2000, "No File Found", "Can't Find AgIO");
+                    Log.EventWriter("AgIO Not Found");
 
                 }
             }

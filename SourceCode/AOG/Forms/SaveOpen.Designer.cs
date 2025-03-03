@@ -406,7 +406,6 @@ namespace AgOpenGPS
             {
                 double latStart = 0;
                 double lonStart = 0;
-                double distance = 0;
                 string fieldDirectory = Path.GetFileName(dir);
                 string filename = Path.Combine(dir, "Field.txt");
                 string line;
@@ -456,8 +455,6 @@ namespace AgOpenGPS
                                 {
                                     var bndPts = new List<vec3>();
 
-                                    double area = 0;
-
                                     using (StreamReader reader2 = new StreamReader(filename))
                                     {
                                         try
@@ -500,7 +497,6 @@ namespace AgOpenGPS
                                         }
                                         catch (Exception e)
                                         {
-                                            area = 0;
                                             Log.EventWriter("Field.txt is Broken" + e.ToString());
                                         }
                                     }
@@ -921,8 +917,6 @@ namespace AgOpenGPS
         {
             if (!File.Exists(dir))
             {
-                string myFileName = "Contour.txt";
-
                 //write out the file
                 using (StreamWriter writer = new StreamWriter(dir))
                 {
@@ -979,8 +973,6 @@ namespace AgOpenGPS
         {
             if (!File.Exists(dir))
             {
-                string myFileName = "Sections.txt";
-
                 //write out the file
                 using (StreamWriter writer = new StreamWriter(dir))
                 {
@@ -991,7 +983,6 @@ namespace AgOpenGPS
             }
             else
             {
-                bool isv3 = false;
                 using (StreamReader reader = new StreamReader(dir))
                 {
                     try
@@ -1004,11 +995,6 @@ namespace AgOpenGPS
                         while (!reader.EndOfStream)
                         {
                             string line = reader.ReadLine();
-                            if (line.Contains("ect"))
-                            {
-                                isv3 = true;
-                                break;
-                            }
                             int verts = int.Parse(line);
 
                             var triangleList = new List<vec3>(verts + 1);

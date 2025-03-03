@@ -57,7 +57,7 @@ namespace AgOpenGPS
         public bool isPureDisplayOn = true, isSkyOn = true, isRollMeterOn = false, isTextureOn = true;
         public bool isDay = true, isDayTime = true, isBrightnessOn = true;
         public bool isLogElevation = false, isDirectionMarkers;
-        public bool isKeyboardOn = true, isAutoStartAgOne = true, isSvennArrowOn = true;
+        public bool isKeyboardOn = true, isAutoStartAgIO = true, isSvennArrowOn = true;
         public bool isSectionlinesOn = true, isLineSmooth = true;
 
         public bool isLightBarNotSteerBar = false;
@@ -411,7 +411,7 @@ namespace AgOpenGPS
 
 
             //left side
-            btnStartAgOne.Visible = Properties.Settings.Default.setFeatures.isAgOneOn;
+            btnStartAgIO.Visible = Properties.Settings.Default.setFeatures.isAgIOOn;
 
             //OGL control
             isUTurnOn = Properties.Settings.Default.setFeatures.isUTurnOn;
@@ -599,7 +599,7 @@ namespace AgOpenGPS
             //isLogNMEA = Settings.Default.setMenu_isLogNMEA;
             isPureDisplayOn = Settings.Default.setMenu_isPureOn;
 
-            isAutoStartAgOne = Settings.Default.setDisplay_isAutoStartAgOne;
+            isAutoStartAgIO = Settings.Default.setDisplay_isAutoStartAgIO;
 
             isDirectionMarkers = Settings.Default.setTool_isDirectionMarkers;
 

@@ -220,7 +220,7 @@ namespace AgIO
 
         private void toolStripLogViewer_Click(object sender, EventArgs e)
         {
-            Form form = new FormEventViewer(Path.Combine(RegistrySettings.logsDirectory, "AgOne_Events_Log.txt"));
+            Form form = new FormEventViewer(Path.Combine(RegistrySettings.logsDirectory, "AgIO_Events_Log.txt"));
             form.Show(this);
             this.Activate();
         }
@@ -275,7 +275,7 @@ namespace AgIO
         {
             if (RegistrySettings.profileName == "Default Profile")
             {
-                TimedMessageBox(3000, "AgOne Default Profile Used", "Create or Choose a Profile");
+                TimedMessageBox(3000, "AgIO Default Profile Used", "Create or Choose a Profile");
             }
 
             using (var form = new FormProfiles(this))
@@ -290,7 +290,7 @@ namespace AgIO
                     Environment.Exit(0);
                 }
             }
-            this.Text = "AgOne  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + "   Using Profile: " 
+            this.Text = "AgIO  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + "   Using Profile: " 
                 + RegistrySettings.profileName;
         }
 

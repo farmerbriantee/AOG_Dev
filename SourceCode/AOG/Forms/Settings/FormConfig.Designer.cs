@@ -483,11 +483,11 @@
             this.label93 = new System.Windows.Forms.Label();
             this.cboxHardwareMessages = new System.Windows.Forms.CheckBox();
             this.cboxShutdownWhenNoPower = new System.Windows.Forms.CheckBox();
-            this.cboxAutoOffAgOne = new System.Windows.Forms.CheckBox();
+            this.cboxAutoOffAgIO = new System.Windows.Forms.CheckBox();
             this.cboxSectionsSound = new System.Windows.Forms.CheckBox();
             this.cboxFeatureNudge = new System.Windows.Forms.CheckBox();
             this.btnRightMenuOrder = new System.Windows.Forms.Button();
-            this.cboxAutoStartAgOne = new System.Windows.Forms.CheckBox();
+            this.cboxAutoStartAgIO = new System.Windows.Forms.CheckBox();
             this.cboxHydLiftSound = new System.Windows.Forms.CheckBox();
             this.cboxTurnSound = new System.Windows.Forms.CheckBox();
             this.cboxSteerSound = new System.Windows.Forms.CheckBox();
@@ -7309,11 +7309,11 @@
             this.tabBtns.Controls.Add(this.label93);
             this.tabBtns.Controls.Add(this.cboxHardwareMessages);
             this.tabBtns.Controls.Add(this.cboxShutdownWhenNoPower);
-            this.tabBtns.Controls.Add(this.cboxAutoOffAgOne);
+            this.tabBtns.Controls.Add(this.cboxAutoOffAgIO);
             this.tabBtns.Controls.Add(this.cboxSectionsSound);
             this.tabBtns.Controls.Add(this.cboxFeatureNudge);
             this.tabBtns.Controls.Add(this.btnRightMenuOrder);
-            this.tabBtns.Controls.Add(this.cboxAutoStartAgOne);
+            this.tabBtns.Controls.Add(this.cboxAutoStartAgIO);
             this.tabBtns.Controls.Add(this.cboxHydLiftSound);
             this.tabBtns.Controls.Add(this.cboxTurnSound);
             this.tabBtns.Controls.Add(this.cboxSteerSound);
@@ -7356,7 +7356,7 @@
             this.lblAutoOffAgio.Name = "lblAutoOffAgio";
             this.lblAutoOffAgio.Size = new System.Drawing.Size(172, 16);
             this.lblAutoOffAgio.TabIndex = 529;
-            this.lblAutoOffAgio.Text = "Auto Off AgOne?";
+            this.lblAutoOffAgio.Text = "Auto Off AgIO?";
             this.lblAutoOffAgio.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // label91
@@ -7419,7 +7419,7 @@
             this.lblAutoStartAgio.Name = "lblAutoStartAgio";
             this.lblAutoStartAgio.Size = new System.Drawing.Size(172, 16);
             this.lblAutoStartAgio.TabIndex = 518;
-            this.lblAutoStartAgio.Text = "Auto Start AgOne?";
+            this.lblAutoStartAgio.Text = "Auto Start AgIO?";
             this.lblAutoStartAgio.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // label121
@@ -7670,29 +7670,29 @@
             this.cboxShutdownWhenNoPower.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cboxShutdownWhenNoPower.UseVisualStyleBackColor = false;
             // 
-            // cboxAutoOffAgOne
+            // cboxAutoOffAgIO
             // 
-            this.cboxAutoOffAgOne.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cboxAutoOffAgOne.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxAutoOffAgOne.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cboxAutoOffAgOne.Checked = true;
-            this.cboxAutoOffAgOne.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cboxAutoOffAgOne.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.cboxAutoOffAgOne.FlatAppearance.BorderSize = 2;
-            this.cboxAutoOffAgOne.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.cboxAutoOffAgOne.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxAutoOffAgOne.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxAutoOffAgOne.ForeColor = System.Drawing.Color.Red;
-            this.cboxAutoOffAgOne.Image = global::AgOpenGPS.Properties.Resources.AgIO;
-            this.cboxAutoOffAgOne.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cboxAutoOffAgOne.Location = new System.Drawing.Point(398, 495);
-            this.cboxAutoOffAgOne.Margin = new System.Windows.Forms.Padding(0);
-            this.cboxAutoOffAgOne.Name = "cboxAutoOffAgOne";
-            this.cboxAutoOffAgOne.Size = new System.Drawing.Size(129, 77);
-            this.cboxAutoOffAgOne.TabIndex = 528;
-            this.cboxAutoOffAgOne.Text = "OFF";
-            this.cboxAutoOffAgOne.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cboxAutoOffAgOne.UseVisualStyleBackColor = false;
+            this.cboxAutoOffAgIO.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cboxAutoOffAgIO.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cboxAutoOffAgIO.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cboxAutoOffAgIO.Checked = true;
+            this.cboxAutoOffAgIO.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cboxAutoOffAgIO.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.cboxAutoOffAgIO.FlatAppearance.BorderSize = 2;
+            this.cboxAutoOffAgIO.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
+            this.cboxAutoOffAgIO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboxAutoOffAgIO.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxAutoOffAgIO.ForeColor = System.Drawing.Color.Red;
+            this.cboxAutoOffAgIO.Image = global::AgOpenGPS.Properties.Resources.AgIO;
+            this.cboxAutoOffAgIO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cboxAutoOffAgIO.Location = new System.Drawing.Point(398, 495);
+            this.cboxAutoOffAgIO.Margin = new System.Windows.Forms.Padding(0);
+            this.cboxAutoOffAgIO.Name = "cboxAutoOffAgIO";
+            this.cboxAutoOffAgIO.Size = new System.Drawing.Size(129, 77);
+            this.cboxAutoOffAgIO.TabIndex = 528;
+            this.cboxAutoOffAgIO.Text = "OFF";
+            this.cboxAutoOffAgIO.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cboxAutoOffAgIO.UseVisualStyleBackColor = false;
             // 
             // cboxSectionsSound
             // 
@@ -7757,28 +7757,28 @@
             this.btnRightMenuOrder.UseVisualStyleBackColor = false;
             this.btnRightMenuOrder.Click += new System.EventHandler(this.btnRightMenuOrder_Click);
             // 
-            // cboxAutoStartAgOne
+            // cboxAutoStartAgIO
             // 
-            this.cboxAutoStartAgOne.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cboxAutoStartAgOne.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxAutoStartAgOne.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cboxAutoStartAgOne.Checked = true;
-            this.cboxAutoStartAgOne.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cboxAutoStartAgOne.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.cboxAutoStartAgOne.FlatAppearance.BorderSize = 2;
-            this.cboxAutoStartAgOne.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.cboxAutoStartAgOne.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxAutoStartAgOne.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxAutoStartAgOne.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxAutoStartAgOne.Image = global::AgOpenGPS.Properties.Resources.AgIO;
-            this.cboxAutoStartAgOne.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cboxAutoStartAgOne.Location = new System.Drawing.Point(219, 495);
-            this.cboxAutoStartAgOne.Name = "cboxAutoStartAgOne";
-            this.cboxAutoStartAgOne.Size = new System.Drawing.Size(129, 77);
-            this.cboxAutoStartAgOne.TabIndex = 517;
-            this.cboxAutoStartAgOne.Text = "ON";
-            this.cboxAutoStartAgOne.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cboxAutoStartAgOne.UseVisualStyleBackColor = false;
+            this.cboxAutoStartAgIO.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cboxAutoStartAgIO.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cboxAutoStartAgIO.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cboxAutoStartAgIO.Checked = true;
+            this.cboxAutoStartAgIO.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cboxAutoStartAgIO.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.cboxAutoStartAgIO.FlatAppearance.BorderSize = 2;
+            this.cboxAutoStartAgIO.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
+            this.cboxAutoStartAgIO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboxAutoStartAgIO.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxAutoStartAgIO.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cboxAutoStartAgIO.Image = global::AgOpenGPS.Properties.Resources.AgIO;
+            this.cboxAutoStartAgIO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cboxAutoStartAgIO.Location = new System.Drawing.Point(219, 495);
+            this.cboxAutoStartAgIO.Name = "cboxAutoStartAgIO";
+            this.cboxAutoStartAgIO.Size = new System.Drawing.Size(129, 77);
+            this.cboxAutoStartAgIO.TabIndex = 517;
+            this.cboxAutoStartAgIO.Text = "ON";
+            this.cboxAutoStartAgIO.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cboxAutoStartAgIO.UseVisualStyleBackColor = false;
             // 
             // cboxHydLiftSound
             // 
@@ -9150,7 +9150,7 @@
         private System.Windows.Forms.CheckBox chkSetAutoSectionsSteer;
         private System.Windows.Forms.CheckBox chkSetManualSectionsSteer;
         private System.Windows.Forms.Label lblAutoStartAgio;
-        private System.Windows.Forms.CheckBox cboxAutoStartAgOne;
+        private System.Windows.Forms.CheckBox cboxAutoStartAgIO;
         private System.Windows.Forms.Label lblFtMTurnRadius;
         private NudlessNumericUpDown nudYouTurnRadius;
         private System.Windows.Forms.Label label64;
@@ -9331,7 +9331,7 @@
         private System.Windows.Forms.Label lblPivotDistance;
         private System.Windows.Forms.Label lblAntennaHeight;
         private System.Windows.Forms.Label lblAutoOffAgio;
-        private System.Windows.Forms.CheckBox cboxAutoOffAgOne;
+        private System.Windows.Forms.CheckBox cboxAutoOffAgIO;
         private System.Windows.Forms.Label lblPowerLoss;
         private System.Windows.Forms.CheckBox cboxShutdownWhenNoPower;
         private System.Windows.Forms.CheckBox cboxHardwareMessages;

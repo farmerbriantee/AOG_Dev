@@ -64,8 +64,6 @@ namespace AgOpenGPS
             //keep below 500 kb
             Log.CheckLogSize(Path.Combine(logsDirectory, "AgOpenGPS_Events_Log.txt"), 500000);
 
-
-
             Settings.Default.Load();
         }
 

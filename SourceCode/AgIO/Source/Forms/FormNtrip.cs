@@ -109,7 +109,7 @@ namespace AgIO
                 Log.EventWriter("NTRIP Turned off");
             }
 
-            mf.YesMessageBox("Restart of AgOne is Required - Restarting");
+            mf.YesMessageBox("Restart of AgIO is Required - Restarting");
             Log.EventWriter("Program Reset: Selecting NTRIP Feature");
 
             RegistrySettings.Save();

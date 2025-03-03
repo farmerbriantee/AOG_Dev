@@ -92,6 +92,39 @@ namespace AgOpenGPS
             public bool setDisplay_isAutoOffAgIO = true;
             public bool setDisplay_isAutoStartAgIO = true;
             public bool setDisplay_isTermsAccepted = false;
+
+            public LoadResult Load()
+            {
+                string path = Path.Combine(RegistrySettings.interfaceDirectory, RegistrySettings.interfaceFileName + ".XML");
+                var result = XmlSettingsHandler.LoadXMLFile(path, this);
+                if (result == LoadResult.MissingFile)
+                {
+                    Log.EventWriter("Interface file does not exist or is Default, Default Interface used");
+                    RegistrySettings.Save("InterfaceFileName", "");
+                }
+                else if (result == LoadResult.Failed)
+                {
+                    Log.EventWriter("Interface Loaded With Error:" + result.ToString());
+                }
+
+                return result;
+            }
+
+            public void Save()
+            {
+                string path = Path.Combine(RegistrySettings.interfaceDirectory, RegistrySettings.interfaceFileName + ".XML");
+
+                if (RegistrySettings.interfaceFileName != "")
+                    XmlSettingsHandler.SaveXMLFile(path, "Interface", this);
+                else
+                    Log.EventWriter("Default Interface Not saved to Interface");
+            }
+
+            public void Reset()
+            {
+                interface_ = new InterfaceSettings();
+                interface_.Save();
+            }
         }
 
         public sealed class VehicleSettings

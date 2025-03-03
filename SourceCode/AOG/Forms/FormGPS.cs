@@ -588,6 +588,9 @@ namespace AgOpenGPS
             //save current Tool
             Settings.Tool.Save();
 
+            //save current Interface
+            Settings.Interface.Save();
+
             if (displayBrightness.isWmiMonitor)
                 displayBrightness.SetBrightness(Settings.Vehicle.setDisplay_brightnessSystem);
 

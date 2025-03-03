@@ -96,10 +96,10 @@
     <Reference Include="OpenTK.GLControl, Version=3.3.3.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.GLControl.3.3.3\lib\net20\OpenTK.GLControl.dll</HintPath>
     </Reference>
-    <Reference Include="System"/>
+    <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing"/>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -124,9 +124,6 @@
     <Compile Include="Classes\CNozzle.cs" />
     <Compile Include="Classes\CPolygon.cs" />
     <Compile Include="Classes\CPatches.cs" />
-    <Compile Include="Forms\Inputs\Keyboard.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Properties\CRegistrySettings.cs" />
     <Compile Include="Classes\CSettings.cs" />
     <Compile Include="Classes\CSound.cs" />

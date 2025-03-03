@@ -158,8 +158,8 @@ namespace AgOpenGPS
             hsbarIntegral_Tool.Value = (int)(Settings.Vehicle.stanleyIntegralGainAB * 100);
             lblIntegral_Tool.Text = ((int)(mf.vehicle.stanleyIntegralGainAB * 100)).ToString();
 
-            mf.vehicle.purePursuitIntegralGain = Settings.Vehicle.purePursuitIntegralGainAB;
-            hsbarIntegralPurePursuit.Value = (int)(Settings.Vehicle.purePursuitIntegralGainAB * 100);
+            mf.vehicle.purePursuitIntegralGain = Settings.Vehicle.setAS_purePursuitIntegralGain;
+            hsbarIntegralPurePursuit.Value = (int)(Settings.Vehicle.setAS_purePursuitIntegralGain * 100);
             lblPureIntegral.Text = ((int)(mf.vehicle.purePursuitIntegralGain * 100)).ToString();
 
             mf.gyd.sideHillCompFactor = Settings.Vehicle.setAS_sideHillComp;
@@ -307,7 +307,7 @@ namespace AgOpenGPS
             Settings.Vehicle.stanleyHeadingErrorGain = mf.vehicle.stanleyHeadingErrorGain;
             Settings.Vehicle.stanleyDistanceErrorGain = mf.vehicle.stanleyDistanceErrorGain;
             Settings.Vehicle.stanleyIntegralGainAB = mf.vehicle.stanleyIntegralGainAB;
-            Settings.Vehicle.purePursuitIntegralGainAB = mf.vehicle.purePursuitIntegralGain;
+            Settings.Vehicle.setAS_purePursuitIntegralGain = mf.vehicle.purePursuitIntegralGain;
             Settings.Vehicle.setVehicle_maxSteerAngle = mf.vehicle.maxSteerAngle;
 
             Settings.Vehicle.setAS_countsPerDegree = PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)hsbarCountsPerDegree.Value);
@@ -1333,7 +1333,7 @@ namespace AgOpenGPS
                 Settings.Vehicle.stanleyDistanceErrorGain = 1;
                 Settings.Vehicle.stanleyIntegralGainAB = 0;
 
-                Settings.Vehicle.purePursuitIntegralGainAB = 0;
+                Settings.Vehicle.setAS_purePursuitIntegralGain = 0;
 
                 Settings.Vehicle.setAS_sideHillComp = 0;
 

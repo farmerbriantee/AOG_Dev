@@ -8,8 +8,8 @@ namespace AgOpenGPS
     {
         public static string culture = "en";
 
-        public static string interfaceDirectory =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Interfaces");
+        public static string userDirectory =
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS");
 
         public static string vehiclesDirectory =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Vehicles");
@@ -20,7 +20,7 @@ namespace AgOpenGPS
         public static string logsDirectory =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Logs");
 
-        public static string interfaceFileName = "";
+        public static string userFileName = "User";
         public static string vehicleFileName = "";
         public static string toolFileName = "";
         public static string workingDirectory = "Default";
@@ -35,9 +35,6 @@ namespace AgOpenGPS
                 RegistryKey regKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
 
                 workingDirectory = regKey.GetValue("WorkingDirectory", "Default").ToString();
-
-                //User File Name Registry Key
-                interfaceFileName = regKey.GetValue("InterfaceFileName", "Default").ToString();
 
                 //Vehicle File Name Registry Key
                 vehicleFileName = regKey.GetValue("VehicleFileName", "Default").ToString();
@@ -76,9 +73,7 @@ namespace AgOpenGPS
                 //adding or editing "Language" subkey to the "SOFTWARE" subkey
                 RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
 
-                if (name == "InterfaceFileName")
-                    interfaceFileName = value;
-                else if (name == "VehicleFileName")
+                if (name == "VehicleFileName")
                     vehicleFileName = value;
                 else if (name == "ToolFileName")
                     toolFileName = value;
@@ -130,19 +125,19 @@ namespace AgOpenGPS
             }
 
             //get the interface directory, if not exist, create
-            try
-            {
-                interfaceDirectory = Path.Combine(baseDirectory, "Interfaces");
-                if (!string.IsNullOrEmpty(interfaceDirectory) && !Directory.Exists(interfaceDirectory))
-                {
-                    Directory.CreateDirectory(interfaceDirectory);
-                    Log.EventWriter("Interfaces Dir Created");
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.EventWriter("Catch, Serious Problem Making Interfaces Directory: " + ex.ToString());
-            }
+            //try
+            //{
+            //    userDirectory = Path.Combine(baseDirectory);
+            //    if (!string.IsNullOrEmpty(userDirectory) && !Directory.Exists(userDirectory))
+            //    {
+            //        Directory.CreateDirectory(userDirectory);
+            //        Log.EventWriter("Interfaces Dir Created");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Log.EventWriter("Catch, Serious Problem Making Interfaces Directory: " + ex.ToString());
+            //}
 
             //get the vehicles directory, if not exist, create
             try

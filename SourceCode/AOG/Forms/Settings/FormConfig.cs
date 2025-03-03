@@ -199,7 +199,7 @@ namespace AgOpenGPS
             chkDisplayPolygons.Checked = mf.isDrawPolygons;
             chkDisplayKeyboard.Checked = mf.isKeyboardOn;
             chkDisplayLogElevation.Checked = mf.isLogElevation;
-            chkDirectionMarkers.Checked = Settings.Tool.setTool_isDirectionMarkers;
+            chkDirectionMarkers.Checked = Settings.Tool.isDirectionMarkers;
             chkSectionLines.Checked = Settings.Vehicle.setDisplay_isSectionLinesOn;
             chkLineSmooth.Checked = Settings.Vehicle.setDisplay_isLineSmooth;
 

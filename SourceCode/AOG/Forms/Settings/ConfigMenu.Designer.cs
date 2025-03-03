@@ -76,14 +76,14 @@ namespace AgOpenGPS
             lblSummaryToolName.Text = lblCurrentTool.Text;
 
             //lblTramWidth.Text = mf.isMetric ?
-            //    ((Settings.Tool.setTram_tramWidth).ToString() + " m") :
-            //    ConvertMeterToFeet(Settings.Tool.setTram_tramWidth);
+            //    ((Settings.Tool.tram_Width).ToString() + " m") :
+            //    ConvertMeterToFeet(Settings.Tool.tram_Width);
 
-            //lblToolOffset.Text = (Settings.Tool.setVehicle_toolOffset * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
+            //lblToolOffset.Text = (Settings.Tool.toolOffset * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
 
-            //lblOverlap.Text = (Settings.Tool.setVehicle_toolOverlap * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
+            //lblOverlap.Text = (Settings.Tool.toolOverlap * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
 
-            //lblLookahead.Text = Settings.Tool.setVehicle_toolLookAheadOn.ToString() + " sec";
+            //lblLookahead.Text = Settings.Tool.toolLookAheadOn.ToString() + " sec";
         }
 
         public string ConvertMeterToFeet(double meter)

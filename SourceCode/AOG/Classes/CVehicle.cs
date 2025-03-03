@@ -54,7 +54,7 @@ namespace AgOpenGPS
 
             wheelbase = Settings.Vehicle.setVehicle_wheelbase;
 
-            slowSpeedCutoff = Settings.Tool.setVehicle_slowSpeedCutoff;
+            slowSpeedCutoff = Settings.Tool.slowSpeedCutoff;
 
             goalPointLookAheadHold = Settings.Vehicle.setVehicle_goalPointLookAheadHold;
             goalPointLookAheadMult = Settings.Vehicle.setVehicle_goalPointLookAheadMult;
@@ -73,10 +73,10 @@ namespace AgOpenGPS
             stanleyIntegralGainAB = Settings.Vehicle.stanleyIntegralGainAB;
             stanleyIntegralDistanceAwayTriggerAB = Settings.Vehicle.stanleyIntegralDistanceAwayTriggerAB;
 
-            purePursuitIntegralGain = Settings.Vehicle.purePursuitIntegralGainAB;
+            purePursuitIntegralGain = Settings.Vehicle.setAS_purePursuitIntegralGain;
             vehicleType = Settings.Vehicle.setVehicle_vehicleType;
 
-            hydLiftLookAheadTime = Settings.Tool.setVehicle_hydraulicLiftLookAhead;
+            hydLiftLookAheadTime = Settings.Tool.hydraulicLiftLookAhead;
 
             deadZoneHeading = Settings.Vehicle.setAS_deadZoneHeading * 0.01;
             deadZoneDelay = Settings.Vehicle.setAS_deadZoneDelay;

@@ -549,7 +549,7 @@ namespace AgOpenGPS
                 }
 
                 position *= -0.5;
-                position += Settings.Tool.setVehicle_toolOffset;
+                position += Settings.Tool.toolOffset;
 
                 for (int j = 0; j < count; j++)
                 {
@@ -588,8 +588,8 @@ namespace AgOpenGPS
         public void SectionCalcMulti()
         {
             double leftside = tool.width / -2.0;
-            double defaultSectionWidth = Settings.Tool.setTool_sectionWidthMulti;
-            double offset = Settings.Tool.setVehicle_toolOffset;
+            double defaultSectionWidth = Settings.Tool.sectionWidthMulti;
+            double offset = Settings.Tool.toolOffset;
             section[0].positionLeft = leftside+offset;
 
             for (int i = 0; i < tool.numOfSections - 1; i++)

@@ -533,7 +533,7 @@ namespace AgOpenGPS
 
             isAutoStartAgIO = Settings.User.setDisplay_isAutoStartAgIO;
 
-            isDirectionMarkers = Settings.Tool.setTool_isDirectionMarkers;
+            isDirectionMarkers = Settings.Tool.isDirectionMarkers;
 
             vehicleOpacity = ((double)(Settings.Vehicle.setDisplay_vehicleOpacity) * 0.01);
             vehicleOpacityByte = (byte)(255 * ((double)(Settings.Vehicle.setDisplay_vehicleOpacity) * 0.01));

@@ -63,35 +63,35 @@ namespace AgOpenGPS
 
             //from settings grab the vehicle specifics
 
-            trailingToolToPivotLength = Settings.Tool.setTool_trailingToolToPivotLength;
-            width = Settings.Tool.setVehicle_toolWidth;
-            overlap = Settings.Tool.setVehicle_toolOverlap;
+            trailingToolToPivotLength = Settings.Tool.trailingToolToPivotLength;
+            width = Settings.Tool.toolWidth;
+            overlap = Settings.Tool.toolOverlap;
 
-            offset = Settings.Tool.setVehicle_toolOffset;
+            offset = Settings.Tool.toolOffset;
 
-            trailingHitchLength = Settings.Tool.setTool_toolTrailingHitchLength;
-            tankTrailingHitchLength = Settings.Tool.setVehicle_tankTrailingHitchLength;
-            hitchLength = Settings.Tool.setVehicle_hitchLength;
+            trailingHitchLength = Settings.Tool.toolTrailingHitchLength;
+            tankTrailingHitchLength = Settings.Tool.tankTrailingHitchLength;
+            hitchLength = Settings.Tool.hitchLength;
 
-            isToolRearFixed = Settings.Tool.setTool_isToolRearFixed;
-            isToolTrailing = Settings.Tool.setTool_isToolTrailing;
-            isToolTBT = Settings.Tool.setTool_isToolTBT;
-            isToolFrontFixed = Settings.Tool.setTool_isToolFront;
+            isToolRearFixed = Settings.Tool.isToolRearFixed;
+            isToolTrailing = Settings.Tool.isToolTrailing;
+            isToolTBT = Settings.Tool.isToolTBT;
+            isToolFrontFixed = Settings.Tool.isToolFront;
 
-            lookAheadOnSetting = Settings.Tool.setVehicle_toolLookAheadOn;
-            lookAheadOffSetting = Settings.Tool.setVehicle_toolLookAheadOff;
-            turnOffDelay = Settings.Tool.setVehicle_toolOffDelay;
+            lookAheadOnSetting = Settings.Tool.toolLookAheadOn;
+            lookAheadOffSetting = Settings.Tool.toolLookAheadOff;
+            turnOffDelay = Settings.Tool.toolOffDelay;
 
-            isSectionOffWhenOut = Settings.Tool.setTool_isSectionOffWhenOut;
+            isSectionOffWhenOut = Settings.Tool.isSectionOffWhenOut;
 
-            isSectionsNotZones = Settings.Tool.setTool_isSectionsNotZones;
+            isSectionsNotZones = Settings.Tool.isSectionsNotZones;
 
             if (isSectionsNotZones)
-                numOfSections = Settings.Tool.setVehicle_numSections;
+                numOfSections = Settings.Tool.numSections;
             else
-                numOfSections = Settings.Tool.setTool_numSectionsMulti;
+                numOfSections = Settings.Tool.numSectionsMulti;
 
-            minCoverage = Settings.Tool.setVehicle_minCoverage;
+            minCoverage = Settings.Tool.minCoverage;
             isMultiColoredSections = Settings.Vehicle.setColor_isMultiColorSections;
 
             secColors[0] = Settings.Vehicle.setColor_sec01;
@@ -111,7 +111,7 @@ namespace AgOpenGPS
             secColors[14] = Settings.Vehicle.setColor_sec15;
             secColors[15] = Settings.Vehicle.setColor_sec16;
 
-            string[] words = Settings.Tool.setTool_zones.Split(',');
+            string[] words = Settings.Tool.zones.Split(',');
             zones = int.Parse(words[0]);
 
             for (int i = 0; i < words.Length; i++)
@@ -119,7 +119,7 @@ namespace AgOpenGPS
                 zoneRanges[i] = int.Parse(words[i]);
             }
 
-            isDisplayTramControl = Settings.Tool.setTool_isDisplayTramControl;
+            isDisplayTramControl = Settings.Tool.isDisplayTramControl;
         }
 
         public void DrawTool()

@@ -51,7 +51,7 @@ namespace AgOpenGPS
 
             btnSendMachinePGN.Focus();
 
-            nudHydLiftLookAhead.Value = Settings.Tool.setVehicle_hydraulicLiftLookAhead;
+            nudHydLiftLookAhead.Value = Settings.Tool.hydraulicLiftLookAhead;
         }
 
         private void tabAMachine_Leave(object sender, EventArgs e)
@@ -107,8 +107,8 @@ namespace AgOpenGPS
             Settings.Vehicle.setArdMac_user3 = (byte)nudUser3.Value;
             Settings.Vehicle.setArdMac_user4 = (byte)nudUser4.Value;
 
-            Settings.Tool.setVehicle_hydraulicLiftLookAhead = nudHydLiftLookAhead.Value;
-            mf.vehicle.hydLiftLookAheadTime = Settings.Tool.setVehicle_hydraulicLiftLookAhead;
+            Settings.Tool.hydraulicLiftLookAhead = nudHydLiftLookAhead.Value;
+            mf.vehicle.hydLiftLookAheadTime = Settings.Tool.hydraulicLiftLookAhead;
 
             PGN_238.pgn[PGN_238.set0] = (byte)sett;
             PGN_238.pgn[PGN_238.raiseTime] = (byte)nudRaiseTime.Value;
@@ -483,16 +483,16 @@ namespace AgOpenGPS
         {
             lblTramWidthUnits.Text = glm.unitsInCm;
 
-            nudTramWidth.Value = Settings.Tool.setTram_tramWidth;
-            chkBoxOverrideTramControlPos.Checked = Settings.Tool.setTool_isTramOuterInverted;
-            cboxDisplayTramControl.Checked = Settings.Tool.setTool_isDisplayTramControl;
+            nudTramWidth.Value = Settings.Tool.tram_Width;
+            chkBoxOverrideTramControlPos.Checked = Settings.Tool.isTramOuterInverted;
+            cboxDisplayTramControl.Checked = Settings.Tool.isDisplayTramControl;
         }
 
         private void tabTram_Leave(object sender, EventArgs e)
         {
-            Settings.Tool.setTool_isTramOuterInverted = chkBoxOverrideTramControlPos.Checked;
+            Settings.Tool.isTramOuterInverted = chkBoxOverrideTramControlPos.Checked;
 
-            Settings.Tool.setTool_isDisplayTramControl = cboxDisplayTramControl.Checked;
+            Settings.Tool.isDisplayTramControl = cboxDisplayTramControl.Checked;
             mf.tool.isDisplayTramControl = cboxDisplayTramControl.Checked;
 
             mf.tram.IsTramOuterOrInner();
@@ -501,7 +501,7 @@ namespace AgOpenGPS
         private void nudTramWidth_ValueChanged(object sender, EventArgs e)
         {
             mf.tram.tramWidth = nudTramWidth.Value;
-            Settings.Tool.setTram_tramWidth = mf.tram.tramWidth;
+            Settings.Tool.tram_Width = mf.tram.tramWidth;
         }
 
         #endregion

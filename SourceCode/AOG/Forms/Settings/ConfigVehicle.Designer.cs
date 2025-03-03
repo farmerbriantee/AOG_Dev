@@ -387,7 +387,7 @@ namespace AgOpenGPS
 
             Settings.Vehicle.setMenu_isMetric = mf.isMetric = rbtnDisplayMetric.Checked;
 
-            Settings.Tool.setTool_isDirectionMarkers = mf.isDirectionMarkers;
+            Settings.Tool.isDirectionMarkers = mf.isDirectionMarkers;
 
             Settings.Vehicle.setAS_numGuideLines = mf.trk.numGuideLines;
             Settings.Vehicle.setDisplay_isSectionLinesOn = mf.isSectionlinesOn;
@@ -499,7 +499,7 @@ namespace AgOpenGPS
 
             nudVehicleTrack.Value = Settings.Vehicle.setVehicle_trackWidth;
 
-            nudTractorHitchLength.Value = Math.Abs(Settings.Tool.setVehicle_hitchLength);
+            nudTractorHitchLength.Value = Math.Abs(Settings.Tool.hitchLength);
 
             if (mf.vehicle.vehicleType == 0)
             {
@@ -517,7 +517,7 @@ namespace AgOpenGPS
                 nudTractorHitchLength.Visible = true;
             }
 
-            if (Settings.Tool.setTool_isToolTrailing || Settings.Tool.setTool_isToolTBT)
+            if (Settings.Tool.isToolTrailing || Settings.Tool.isToolTBT)
             {
                 nudTractorHitchLength.Visible = true;
                 label94.Visible = true;
@@ -538,11 +538,11 @@ namespace AgOpenGPS
         private void nudTractorHitchLength_ValueChanged(object sender, EventArgs e)
         {
             mf.tool.hitchLength = nudTractorHitchLength.Value;
-            if (!Settings.Tool.setTool_isToolFront)
+            if (!Settings.Tool.isToolFront)
             {
                 mf.tool.hitchLength *= -1;
             }
-            Settings.Tool.setVehicle_hitchLength = mf.tool.hitchLength;
+            Settings.Tool.hitchLength = mf.tool.hitchLength;
         }
 
         private void nudWheelbase_ValueChanged(object sender, EventArgs e)
@@ -597,10 +597,10 @@ namespace AgOpenGPS
 
                 if ( mf.tool.hitchLength < 0) mf.tool.hitchLength *= -1;
 
-                Settings.Tool.setTool_isToolFront = true;
-                Settings.Tool.setTool_isToolTBT = false;
-                Settings.Tool.setTool_isToolTrailing = false;
-                Settings.Tool.setTool_isToolRearFixed = false;
+                Settings.Tool.isToolFront = true;
+                Settings.Tool.isToolTBT = false;
+                Settings.Tool.isToolTrailing = false;
+                Settings.Tool.isToolRearFixed = false;
             }
             if (rbtn4WD.Checked)
             {

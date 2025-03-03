@@ -118,7 +118,7 @@ namespace AgOpenGPS
             mf.FixTramModeButton();
 
             Settings.User.setWindow_tramLineSize = Size;
-            Settings.Tool.setTram_alpha = mf.tram.alpha;
+            Settings.Tool.tram_alpha = mf.tram.alpha;
             Settings.Vehicle.Save();
         }
 

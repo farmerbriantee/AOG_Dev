@@ -1210,10 +1210,10 @@
             this.lblSummaryToolName.BackColor = System.Drawing.Color.Transparent;
             this.lblSummaryToolName.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSummaryToolName.ForeColor = System.Drawing.Color.Black;
-            this.lblSummaryToolName.Location = new System.Drawing.Point(441, 180);
+            this.lblSummaryToolName.Location = new System.Drawing.Point(459, 180);
             this.lblSummaryToolName.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblSummaryToolName.Name = "lblSummaryToolName";
-            this.lblSummaryToolName.Size = new System.Drawing.Size(426, 23);
+            this.lblSummaryToolName.Size = new System.Drawing.Size(373, 23);
             this.lblSummaryToolName.TabIndex = 532;
             this.lblSummaryToolName.Text = "Tool Name";
             this.lblSummaryToolName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1232,11 +1232,11 @@
             this.listView1.HideSelection = false;
             this.listView1.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.listView1.LabelWrap = false;
-            this.listView1.Location = new System.Drawing.Point(441, 205);
+            this.listView1.Location = new System.Drawing.Point(459, 205);
             this.listView1.Margin = new System.Windows.Forms.Padding(0);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(373, 302);
+            this.listView1.Size = new System.Drawing.Size(380, 288);
             this.listView1.TabIndex = 524;
             this.listView1.TileSize = new System.Drawing.Size(490, 35);
             this.listView1.UseCompatibleStateImageBehavior = false;
@@ -1256,9 +1256,9 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Tahoma", 15.75F);
             this.button2.Image = global::AgOpenGPS.Properties.Resources.FileSave;
-            this.button2.Location = new System.Drawing.Point(777, 101);
+            this.button2.Location = new System.Drawing.Point(786, 101);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(83, 52);
+            this.button2.Size = new System.Drawing.Size(60, 52);
             this.button2.TabIndex = 530;
             this.button2.UseVisualStyleBackColor = false;
             // 
@@ -1266,10 +1266,10 @@
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.textBox1.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(456, 112);
+            this.textBox1.Location = new System.Drawing.Point(459, 112);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(314, 33);
+            this.textBox1.Size = new System.Drawing.Size(323, 33);
             this.textBox1.TabIndex = 529;
             // 
             // label2
@@ -1294,9 +1294,9 @@
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Tahoma", 15.75F);
             this.button3.Image = global::AgOpenGPS.Properties.Resources.FileSaveAs;
-            this.button3.Location = new System.Drawing.Point(767, 15);
+            this.button3.Location = new System.Drawing.Point(786, 15);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(93, 52);
+            this.button3.Size = new System.Drawing.Size(60, 52);
             this.button3.TabIndex = 527;
             this.button3.UseVisualStyleBackColor = false;
             // 
@@ -1335,10 +1335,10 @@
             // 
             this.textBox2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.textBox2.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(456, 26);
+            this.textBox2.Location = new System.Drawing.Point(459, 26);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(314, 33);
+            this.textBox2.Size = new System.Drawing.Size(323, 33);
             this.textBox2.TabIndex = 523;
             // 
             // label5
@@ -1368,11 +1368,11 @@
             this.lvVehicles.HideSelection = false;
             this.lvVehicles.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.lvVehicles.LabelWrap = false;
-            this.lvVehicles.Location = new System.Drawing.Point(3, 205);
+            this.lvVehicles.Location = new System.Drawing.Point(7, 205);
             this.lvVehicles.Margin = new System.Windows.Forms.Padding(0);
             this.lvVehicles.MultiSelect = false;
             this.lvVehicles.Name = "lvVehicles";
-            this.lvVehicles.Size = new System.Drawing.Size(373, 302);
+            this.lvVehicles.Size = new System.Drawing.Size(373, 288);
             this.lvVehicles.TabIndex = 454;
             this.lvVehicles.TileSize = new System.Drawing.Size(490, 35);
             this.lvVehicles.UseCompatibleStateImageBehavior = false;
@@ -1392,9 +1392,9 @@
             this.btnVehicleNewSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVehicleNewSave.Font = new System.Drawing.Font("Tahoma", 15.75F);
             this.btnVehicleNewSave.Image = global::AgOpenGPS.Properties.Resources.FileSave;
-            this.btnVehicleNewSave.Location = new System.Drawing.Point(358, 101);
+            this.btnVehicleNewSave.Location = new System.Drawing.Point(369, 101);
             this.btnVehicleNewSave.Name = "btnVehicleNewSave";
-            this.btnVehicleNewSave.Size = new System.Drawing.Size(83, 52);
+            this.btnVehicleNewSave.Size = new System.Drawing.Size(60, 52);
             this.btnVehicleNewSave.TabIndex = 521;
             this.btnVehicleNewSave.UseVisualStyleBackColor = false;
             this.btnVehicleNewSave.Click += new System.EventHandler(this.btnVehicleNewSave_Click);
@@ -1406,7 +1406,7 @@
             this.tboxCreateNewVehicle.Location = new System.Drawing.Point(7, 112);
             this.tboxCreateNewVehicle.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.tboxCreateNewVehicle.Name = "tboxCreateNewVehicle";
-            this.tboxCreateNewVehicle.Size = new System.Drawing.Size(344, 33);
+            this.tboxCreateNewVehicle.Size = new System.Drawing.Size(355, 33);
             this.tboxCreateNewVehicle.TabIndex = 520;
             this.tboxCreateNewVehicle.Click += new System.EventHandler(this.tboxCreateNewVehicle_Click);
             this.tboxCreateNewVehicle.TextChanged += new System.EventHandler(this.tboxCreateNewVehicle_TextChanged);
@@ -1433,9 +1433,9 @@
             this.btnVehicleSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVehicleSave.Font = new System.Drawing.Font("Tahoma", 15.75F);
             this.btnVehicleSave.Image = global::AgOpenGPS.Properties.Resources.FileSaveAs;
-            this.btnVehicleSave.Location = new System.Drawing.Point(348, 15);
+            this.btnVehicleSave.Location = new System.Drawing.Point(369, 15);
             this.btnVehicleSave.Name = "btnVehicleSave";
-            this.btnVehicleSave.Size = new System.Drawing.Size(93, 52);
+            this.btnVehicleSave.Size = new System.Drawing.Size(60, 52);
             this.btnVehicleSave.TabIndex = 457;
             this.btnVehicleSave.UseVisualStyleBackColor = false;
             this.btnVehicleSave.Click += new System.EventHandler(this.btnVehicleSave_Click);
@@ -1445,10 +1445,10 @@
             this.lblSummaryVehicleName.BackColor = System.Drawing.Color.Transparent;
             this.lblSummaryVehicleName.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSummaryVehicleName.ForeColor = System.Drawing.Color.Black;
-            this.lblSummaryVehicleName.Location = new System.Drawing.Point(3, 180);
+            this.lblSummaryVehicleName.Location = new System.Drawing.Point(7, 180);
             this.lblSummaryVehicleName.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblSummaryVehicleName.Name = "lblSummaryVehicleName";
-            this.lblSummaryVehicleName.Size = new System.Drawing.Size(426, 23);
+            this.lblSummaryVehicleName.Size = new System.Drawing.Size(373, 23);
             this.lblSummaryVehicleName.TabIndex = 503;
             this.lblSummaryVehicleName.Text = "Vehicle Name";
             this.lblSummaryVehicleName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1521,7 +1521,7 @@
             this.tboxVehicleNameSave.Location = new System.Drawing.Point(7, 26);
             this.tboxVehicleNameSave.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.tboxVehicleNameSave.Name = "tboxVehicleNameSave";
-            this.tboxVehicleNameSave.Size = new System.Drawing.Size(344, 33);
+            this.tboxVehicleNameSave.Size = new System.Drawing.Size(355, 33);
             this.tboxVehicleNameSave.TabIndex = 451;
             this.tboxVehicleNameSave.Click += new System.EventHandler(this.tboxVehicleNameSave_Click);
             this.tboxVehicleNameSave.TextChanged += new System.EventHandler(this.tboxVehicleNameSave_TextChanged);

@@ -64,7 +64,6 @@ namespace AgOpenGPS
             public Point setWindow_FieldMenulocation = new Point(200, 200);
 
 
-
             public Size setWindow_abDrawSize = new Size(1022, 742);
             public Size setWindow_BingMapSize = new Size(965, 700);
             public Size setWindow_FieldMenuSize = new Size(640, 530);
@@ -95,16 +94,15 @@ namespace AgOpenGPS
 
             public LoadResult Load()
             {
-                string path = Path.Combine(RegistrySettings.interfaceDirectory, RegistrySettings.interfaceFileName + ".XML");
+                string path = Path.Combine(RegistrySettings.userDirectory, RegistrySettings.userFileName + ".XML");
                 var result = XmlSettingsHandler.LoadXMLFile(path, this);
                 if (result == LoadResult.MissingFile)
                 {
-                    Log.EventWriter("Interface file does not exist or is Default, Default Interface used");
-                    RegistrySettings.Save("InterfaceFileName", "Default");
+                    Log.EventWriter("User file does not exist or is Default, Default Interface used");
                 }
                 else if (result == LoadResult.Failed)
                 {
-                    Log.EventWriter("Interface Loaded With Error:" + result.ToString());
+                    Log.EventWriter("User XML Loaded With Error:" + result.ToString());
                 }
 
                 return result;
@@ -112,12 +110,12 @@ namespace AgOpenGPS
 
             public void Save()
             {
-                string path = Path.Combine(RegistrySettings.interfaceDirectory, RegistrySettings.interfaceFileName + ".XML");
+                string path = Path.Combine(RegistrySettings.userDirectory, RegistrySettings.userFileName + ".XML");
 
-                if (RegistrySettings.interfaceFileName != "")
-                    XmlSettingsHandler.SaveXMLFile(path, "Interface", this);
+                if (RegistrySettings.userFileName != "")
+                    XmlSettingsHandler.SaveXMLFile(path, "User", this);
                 else
-                    Log.EventWriter("Default Interface Not saved to Interface");
+                    Log.EventWriter("Default User Not saved to User.xml");
             }
 
             public void Reset()
@@ -182,7 +180,7 @@ namespace AgOpenGPS
             public int setAS_numGuideLines = 10;
             public int setAS_uTurnSmoothing = 14;
             public int setAS_wasOffset = 3;
-            public double purePursuitIntegralGainAB = 0;
+            public double setAS_purePursuitIntegralGain = 0;
 
             public bool setBnd_isDrawPivot = true;
 
@@ -302,25 +300,25 @@ namespace AgOpenGPS
             public double setVehicle_goalPointLookAheadHold = 3;
             public double setVehicle_goalPointLookAheadMult = 1.5;
 
-            //public double setVehicle_hitchLength = -1;
-            //public double setVehicle_hydraulicLiftLookAhead = 2;
-            //public double setVehicle_lookAheadMinimum = 2;
+            //public double hitchLength = -1;
+            //public double hydraulicLiftLookAhead = 2;
+            //public double lookAheadMinimum = 2;
             public double setVehicle_maxAngularVelocity = 0.64;
             public double setVehicle_maxSteerAngle = 30;
             public double setVehicle_minTurningRadius = 8.1;
             public double setVehicle_panicStopSpeed = 0;
-            //public double setVehicle_slowSpeedCutoff = 0.5;
-            //public double setVehicle_tankTrailingHitchLength = 3;
-            //public double setVehicle_toolLookAheadOff = 0.5;
-            //public double setVehicle_toolLookAheadOn = 1;
-            //public double setVehicle_toolOffDelay = 0;
-            //public double setVehicle_toolOffset = 0;
-            //public double setVehicle_toolOverlap = 0.0;
-            //public double setVehicle_toolWidth = 4.0;
+            //public double slowSpeedCutoff = 0.5;
+            //public double tankTrailingHitchLength = 3;
+            //public double toolLookAheadOff = 0.5;
+            //public double toolLookAheadOn = 1;
+            //public double toolOffDelay = 0;
+            //public double toolOffset = 0;
+            //public double toolOverlap = 0.0;
+            //public double toolWidth = 4.0;
             public double setVehicle_trackWidth = 1.9;
             public double setVehicle_wheelbase = 3.3;
-            //public int setVehicle_minCoverage = 100;
-            //public int setVehicle_numSections = 3;
+            //public int minCoverage = 100;
+            //public int numSections = 3;
             public int setVehicle_vehicleType = 0;
             public bool setVehicle_isMachineControlToAutoSteer = false;
             public bool setVehicle_isStanleyUsed = false;
@@ -374,50 +372,47 @@ namespace AgOpenGPS
             public CToolSteerSettings setToolSteer = new CToolSteerSettings();
 
             public bool setApp_isNozzleApp = false;
-            public bool setApPGN_isNozzleApp = false;
+
+            public bool isDirectionMarkers = true;
+            public bool isDisplayTramControl = true;
+            public bool isSectionOffWhenOut = true;
+            public bool isSectionsNotZones = true;
+            public bool isToolFront = false;
+            public bool isToolRearFixed = false;
+            public bool isToolTBT = false;
+            public bool isToolTrailing = true;
+            public bool isTramOuterInverted = false;
+            public int numSectionsMulti = 20;
+            public string zones = "2,10,20,0,0,0,0,0,0";
+            public double defaultSectionWidth = 2;
+            public double sectionWidthMulti = 0.5;
+            public double toolTrailingHitchLength = -2.5;
+            public double trailingToolToPivotLength = 0;
+
+            public bool isTramOnBackBuffer = true;
+            public double tram_alpha = 0.8;
+            public double tram_offset = 0.0;
+            public double tram_snapAdj = 1.0;
+            public double tram_Width = 24.0;
+            public int tram_BasedOn = 0;
+            public int tram_passes = 1;
+            public int tram_Skips = 0;
+
+            public double hitchLength = -1;
+            public double hydraulicLiftLookAhead = 2;
+            public double lookAheadMinimum = 2;
+            public double slowSpeedCutoff = 0.5;
+            public double tankTrailingHitchLength = 3;
+            public double toolLookAheadOff = 0.5;
+            public double toolLookAheadOn = 1;
+            public double toolOffDelay = 0;
+            public double toolOffset = 0;
+            public double toolOverlap = 0.0;
+            public double toolWidth = 4.0;
+            public int minCoverage = 100;
+            public int numSections = 3;
 
             public double[] setSection_Widths = new double[3] { 2, 2, 2 };
-            public bool setSection_isFast = true;
-
-            public bool setTool_isDirectionMarkers = true;
-            public bool setTool_isDisplayTramControl = true;
-            public bool setTool_isSectionOffWhenOut = true;
-            public bool setTool_isSectionsNotZones = true;
-            public bool setTool_isToolFront = false;
-            public bool setTool_isToolRearFixed = false;
-            public bool setTool_isToolTBT = false;
-            public bool setTool_isToolTrailing = true;
-            public bool setTool_isTramOuterInverted = false;
-            public int setTool_numSectionsMulti = 20;
-            public string setTool_zones = "2,10,20,0,0,0,0,0,0";
-            public double setTool_defaultSectionWidth = 2;
-            public double setTool_sectionWidthMulti = 0.5;
-            public double setTool_toolTrailingHitchLength = -2.5;
-            public double setTool_trailingToolToPivotLength = 0;
-
-            public bool setTram_isTramOnBackBuffer = true;
-            public double setTram_alpha = 0.8;
-            public double setTram_offset = 0.0;
-            public double setTram_snapAdj = 1.0;
-            public double setTram_tramWidth = 24.0;
-            public int setTram_BasedOn = 0;
-            public int setTram_passes = 1;
-            public int setTram_Skips = 0;
-
-
-            public double setVehicle_hitchLength = -1;
-            public double setVehicle_hydraulicLiftLookAhead = 2;
-            public double setVehicle_lookAheadMinimum = 2;
-            public double setVehicle_slowSpeedCutoff = 0.5;
-            public double setVehicle_tankTrailingHitchLength = 3;
-            public double setVehicle_toolLookAheadOff = 0.5;
-            public double setVehicle_toolLookAheadOn = 1;
-            public double setVehicle_toolOffDelay = 0;
-            public double setVehicle_toolOffset = 0;
-            public double setVehicle_toolOverlap = 0.0;
-            public double setVehicle_toolWidth = 4.0;
-            public int setVehicle_minCoverage = 100;
-            public int setVehicle_numSections = 3;
 
             public LoadResult Load()
             {

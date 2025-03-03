@@ -541,7 +541,7 @@ namespace AgOpenGPS
         {
             if (tool.isSectionsNotZones)
             {
-                int count = Settings.Tool.setSection_Widths.Length;
+                int count = tool.numOfSections;
                 double position = 0;
                 for (int j = 0; j < count; j++)
                 {

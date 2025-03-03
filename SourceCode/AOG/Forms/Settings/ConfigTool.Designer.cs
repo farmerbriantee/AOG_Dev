@@ -1090,17 +1090,6 @@ namespace AgOpenGPS
                 nudSection16.Value = wide;
 
                 UpdateSpinners();
-
-                //take the section widths and convert to meters and positions along tool.
-                CalculateSectionPositions();
-                //line up manual buttons based on # of sections
-                mf.LineUpIndividualSectionBtns();
-
-                //update the sections to newly configured widths and positions in main
-                mf.SectionSetPosition();
-
-                //update the widths of sections and tool width in main
-                mf.SectionCalcWidths();
             }
         }
 

@@ -130,8 +130,84 @@ namespace AgOpenGPS
         }
     }
 
-    public class RoundButton : Button
+    public class RepeatButton : Button
     {
+        private Timer m_timerRepeater;
+
+        private IContainer m_components;
+
+        private bool m_disposed = false;
+
+        private MouseEventArgs m_mouseDownArgs = null;
+
+        public int InitialDelay = 400;
+
+        public int RepeatInterval = 62;
+
+        public RepeatButton()
+        {
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
+        {
+            this.m_components = new System.ComponentModel.Container();
+            this.m_timerRepeater = new System.Windows.Forms.Timer(this.m_components);
+            base.SuspendLayout();
+            this.m_timerRepeater.Tick += new System.EventHandler(timerRepeater_Tick);
+            base.ResumeLayout(false);
+        }
+
+        protected override void OnMouseDown(MouseEventArgs mevent)
+        {
+            m_mouseDownArgs = mevent;
+            m_timerRepeater.Enabled = false;
+            timerRepeater_Tick(null, EventArgs.Empty);
+        }
+
+        private void timerRepeater_Tick(object sender, EventArgs e)
+        {
+            base.OnMouseDown(m_mouseDownArgs);
+            if (m_timerRepeater.Enabled)
+            {
+                m_timerRepeater.Interval = RepeatInterval;
+            }
+            else
+            {
+                m_timerRepeater.Interval = InitialDelay;
+            }
+
+            m_timerRepeater.Enabled = true;
+        }
+
+        protected override void OnMouseUp(MouseEventArgs mevent)
+        {
+            base.OnMouseUp(mevent);
+            m_timerRepeater.Enabled = false;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (m_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                if (m_components != null)
+                {
+                    m_components.Dispose();
+                }
+
+                m_timerRepeater.Dispose();
+            }
+
+            m_disposed = true;
+            base.Dispose(disposing);
+        }
+
+        /*
         protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
         {
             GraphicsPath grPath = new GraphicsPath();
@@ -139,6 +215,7 @@ namespace AgOpenGPS
             this.Region = new System.Drawing.Region(grPath);
             base.OnPaint(e);
         }
+        */
     }
 
     public enum UnitMode

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btnSouth = new ProXoft.WinForms.RepeatButton();
-            this.btnNorth = new ProXoft.WinForms.RepeatButton();
+            this.btnSouth = new RepeatButton();
+            this.btnNorth = new RepeatButton();
             this.lblFlagSelected = new System.Windows.Forms.Label();
             this.lblLonStart = new System.Windows.Forms.Label();
             this.lblLatStart = new System.Windows.Forms.Label();
@@ -339,8 +339,8 @@
 
         #endregion
 
-        private ProXoft.WinForms.RepeatButton btnSouth;
-        private ProXoft.WinForms.RepeatButton btnNorth;
+        private RepeatButton btnSouth;
+        private RepeatButton btnNorth;
         private System.Windows.Forms.Label lblFlagSelected;
         private System.Windows.Forms.Label lblLonStart;
         private System.Windows.Forms.Label lblLatStart;

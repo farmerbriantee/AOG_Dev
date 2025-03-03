@@ -119,9 +119,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label38 = new System.Windows.Forms.Label();
             this.btnFreeDriveZero = new System.Windows.Forms.Button();
-            this.btnSteerAngleUp = new ProXoft.WinForms.RepeatButton();
+            this.btnSteerAngleUp = new RepeatButton();
             this.btnFreeDrive = new System.Windows.Forms.Button();
-            this.btnSteerAngleDown = new ProXoft.WinForms.RepeatButton();
+            this.btnSteerAngleDown = new RepeatButton();
             this.hsbarSensor = new System.Windows.Forms.HScrollBar();
             this.lblhsbarSensor = new System.Windows.Forms.Label();
             this.tabWiz = new System.Windows.Forms.TabControl();
@@ -4870,8 +4870,8 @@
         private System.Windows.Forms.Label lblSteerAngleActual;
         private System.Windows.Forms.Label lblError;
         private System.Windows.Forms.Button btnFreeDriveZero;
-        private ProXoft.WinForms.RepeatButton btnSteerAngleDown;
-        private ProXoft.WinForms.RepeatButton btnSteerAngleUp;
+        private RepeatButton btnSteerAngleDown;
+        private RepeatButton btnSteerAngleUp;
         private System.Windows.Forms.Label lblPWMDisplay;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label11;

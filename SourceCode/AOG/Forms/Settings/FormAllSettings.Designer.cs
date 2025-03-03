@@ -910,7 +910,7 @@
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(163, 22);
             this.label55.TabIndex = 651;
-            this.label55.Text = "Auto Start AgOne?";
+            this.label55.Text = "Auto Start AgIO?";
             this.label55.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label56
@@ -3486,7 +3486,7 @@
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(146, 22);
             this.label44.TabIndex = 876;
-            this.label44.Text = "Auto Off AgOne?";
+            this.label44.Text = "Auto Off AgIO?";
             this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label58

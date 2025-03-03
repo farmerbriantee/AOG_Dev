@@ -574,6 +574,7 @@
       <DependentUpon>FormGPS.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\vec3.cs" />
+    <Compile Include="Properties\ToolSettings.cs" />
     <Compile Include="Properties\Settings.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

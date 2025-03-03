@@ -75,7 +75,7 @@
             this.Name = "FormTimedMessage";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "AgOne Message";
+            this.Text = "AgIO Message";
             this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -548,7 +548,7 @@ namespace AgOpenGPS
 
                             GL.PointSize(10);
                             GL.Begin(PrimitiveType.Points);
-                            GL.Color3(0.20, 0.78, 0.98);
+                            GL.Color3(0.920, 0.978, 0.2);
                             GL.Vertex3(steerAxlePos.easting, steerAxlePos.northing, 0.0);
                             GL.End();
 
@@ -773,7 +773,7 @@ namespace AgOpenGPS
 
                 int edge = -oglMain.Width / 2 + 10;
 
-                font.DrawText(edge, oglMain.Height - 80, "<-- AgOne ?");
+                font.DrawText(edge, oglMain.Height - 80, "<-- AgIO ?");
 
                 GL.Flush();//finish openGL commands
                 GL.PopMatrix();//  Pop the modelview.
@@ -913,10 +913,10 @@ namespace AgOpenGPS
             //to draw or not the triangle patch
             bool isDraw;
 
-            double pivEplus = toolPivotPos.easting + tool.width;
-            double pivEminus = toolPivotPos.easting - tool.width;
-            double pivNplus = toolPivotPos.northing + tool.width;
-            double pivNminus = toolPivotPos.northing - tool.width;
+            double pivEplus = toolPos.easting + 50;
+            double pivEminus = toolPos.easting - 50;
+            double pivNplus = toolPos.northing + 50;
+            double pivNminus = toolPos.northing - 50;
 
                     //for every new chunk of patch
             foreach (var triList in patchList)

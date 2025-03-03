@@ -57,12 +57,12 @@ namespace AgIO
 
         private void btnFileSave_Click(object sender, EventArgs e)
         {
-            using (StreamWriter writer = new StreamWriter("zAgOne_UDP_log.txt", false))
+            using (StreamWriter writer = new StreamWriter("zAgIO_UDP_log.txt", false))
             {
                 writer.Write(textBoxRcv.Text);
             }
 
-            mf.TimedMessageBox(2000, "File Saved", "To zAgOne_UDP_Log.Txt");
+            mf.TimedMessageBox(2000, "File Saved", "To zAgIO_UDP_Log.Txt");
         }
 
         private void FormUDPMonitor_FormClosing(object sender, FormClosingEventArgs e)

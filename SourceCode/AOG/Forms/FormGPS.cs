@@ -457,14 +457,14 @@ namespace AgOpenGPS
             // load all the gui elements in gui.designer.cs
             LoadSettings();
 
-            if (RegistrySettings.vehicleFileName != "" && Properties.Settings.Default.setDisplay_isAutoStartAgOne)
+            if (RegistrySettings.vehicleFileName != "" && Properties.Settings.Default.setDisplay_isAutoStartAgIO)
             {
-                //Start AgOne process
-                Process[] processName = Process.GetProcessesByName("AgOne");
+                //Start AgIO process
+                Process[] processName = Process.GetProcessesByName("AgIO");
                 if (processName.Length == 0)
                 {
                     //Start application here
-                    string strPath = Path.Combine(Application.StartupPath, "AgOne.exe");
+                    string strPath = Path.Combine(Application.StartupPath, "AgIO.exe");
                     try
                     {
                         ProcessStartInfo processInfo = new ProcessStartInfo
@@ -473,38 +473,12 @@ namespace AgOpenGPS
                             WorkingDirectory = Path.GetDirectoryName(strPath)
                         };
                         Process.Start(processInfo);
-                        Log.EventWriter("AgOne Started");
+                        Log.EventWriter("AgIO Started");
                     }
                     catch
                     {
-                        TimedMessageBox(2000, "No File Found", "Can't Find AgOne");
-                        Log.EventWriter("Can't Find AgOne, File not Found");
-                    }
-                }
-
-                if (isGPSToolActive)
-                {
-                    //Start AgTwo process
-                    Process[] processNam = Process.GetProcessesByName("AgTwo");
-                    if (processNam.Length == 0)
-                    {
-                        //Start application here
-                        string strPath = Path.Combine(Application.StartupPath, "AgTwo.exe");
-                        try
-                        {
-                            ProcessStartInfo processInfo = new ProcessStartInfo
-                            {
-                                FileName = strPath,
-                                WorkingDirectory = Path.GetDirectoryName(strPath)
-                            };
-                            Process.Start(processInfo);
-                            Log.EventWriter("AgTwo Started");
-                        }
-                        catch
-                        {
-                            TimedMessageBox(2000, "No File Found", "Can't Find AgTwo");
-                            Log.EventWriter("Can't Find AgTwo, File not Found");
-                        }
+                        TimedMessageBox(2000, "No File Found", "Can't Find AgIO");
+                        Log.EventWriter("Can't Find AgIO, File not Found");
                     }
                 }
             }
@@ -619,12 +593,15 @@ namespace AgOpenGPS
             //save current vehicle
             Settings.Default.Save();
 
+            //save current Tool
+            ToolSettings.Default.Save();
+
             if (displayBrightness.isWmiMonitor)
                 displayBrightness.SetBrightness(Settings.Default.setDisplay_brightnessSystem);
 
             if (choice == 2)
             {
-                Process[] processName = Process.GetProcessesByName("AgOne");
+                Process[] processName = Process.GetProcessesByName("AgIO");
                 if (processName.Length != 0)
                 {
                     processName[0].CloseMainWindow();
@@ -644,9 +621,9 @@ namespace AgOpenGPS
                 finally { }
             }
 
-            if (Properties.Settings.Default.setDisplay_isAutoOffAgOne)
+            if (Properties.Settings.Default.setDisplay_isAutoOffAgIO)
             {
-                Process[] processName = Process.GetProcessesByName("AgOne");
+                Process[] processName = Process.GetProcessesByName("AgIO");
                 if (processName.Length != 0)
                 {
                     processName[0].CloseMainWindow();

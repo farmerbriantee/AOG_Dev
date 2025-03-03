@@ -876,7 +876,27 @@ namespace AgOpenGPS
             hitchPos.northing = pivotAxlePos.northing + Math.Cos(fixHeading) * tool.hitchLength;
 
             //tool attached via a trailing hitch
-            if (tool.isToolTrailing)
+            if (isGPSToolActive && tool.isToolTrailing && !tool.isToolTBT && !timerSim.Enabled)
+            {
+                tankPos.heading = fixHeading;
+                tankPos.easting = hitchPos.easting;
+                tankPos.northing = hitchPos.northing;
+
+                toolPivotPos.easting = pnTool.fix.easting * 0.5 + toolPivotPos.easting * 0.5;
+                toolPivotPos.northing = pnTool.fix.northing * 0.5 + toolPivotPos.northing * 0.5;
+
+                toolPivotPos.heading = Math.Atan2(tankPos.easting - toolPivotPos.easting, tankPos.northing - toolPivotPos.northing);
+
+                if (toolPivotPos.heading < 0) toolPivotPos.heading += glm.twoPI;
+
+                toolPos.heading = toolPivotPos.heading;
+                toolPos.easting = toolPivotPos.easting +
+                    (Math.Sin(toolPivotPos.heading) * (tool.trailingToolToPivotLength));
+                toolPos.northing = toolPivotPos.northing +
+                    (Math.Cos(toolPivotPos.heading) * (tool.trailingToolToPivotLength));
+            }
+
+            else if (tool.isToolTrailing)
             {
                 double over;
                 if (tool.isToolTBT)

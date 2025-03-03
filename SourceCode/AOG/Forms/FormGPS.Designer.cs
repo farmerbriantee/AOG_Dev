@@ -154,7 +154,7 @@
             this.toolStripHotkeys = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNavigationSettings = new System.Windows.Forms.Button();
             this.btnAutoSteerConfig = new System.Windows.Forms.Button();
-            this.btnStartAgOne = new System.Windows.Forms.Button();
+            this.btnStartAgIO = new System.Windows.Forms.Button();
             this.btnFieldMenu = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripBtnFieldTools = new System.Windows.Forms.ToolStripDropDownButton();
@@ -1676,7 +1676,7 @@
             this.panelLeft.Controls.Add(this.statusStrip2, 0, 3);
             this.panelLeft.Controls.Add(this.btnNavigationSettings, 0, 1);
             this.panelLeft.Controls.Add(this.btnAutoSteerConfig, 0, 6);
-            this.panelLeft.Controls.Add(this.btnStartAgOne, 0, 7);
+            this.panelLeft.Controls.Add(this.btnStartAgIO, 0, 7);
             this.panelLeft.Controls.Add(this.btnFieldMenu, 0, 4);
             this.panelLeft.Controls.Add(this.statusStripLeft, 0, 2);
             this.panelLeft.Controls.Add(this.statusStrip1, 0, 5);
@@ -1851,29 +1851,29 @@
             this.btnAutoSteerConfig.UseVisualStyleBackColor = false;
             this.btnAutoSteerConfig.Click += new System.EventHandler(this.btnAutoSteerConfig_Click);
             // 
-            // btnStartAgOne
+            // btnStartAgIO
             // 
-            this.btnStartAgOne.BackColor = System.Drawing.Color.Transparent;
-            this.btnStartAgOne.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnStartAgOne.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnStartAgOne.FlatAppearance.BorderColor = System.Drawing.Color.RoyalBlue;
-            this.btnStartAgOne.FlatAppearance.BorderSize = 0;
-            this.btnStartAgOne.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.btnStartAgOne.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnStartAgOne.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btnStartAgOne.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStartAgOne.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStartAgOne.ForeColor = System.Drawing.Color.DarkGray;
-            this.btnStartAgOne.Image = global::AgOpenGPS.Properties.Resources.AgIO;
-            this.btnStartAgOne.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnStartAgOne.Location = new System.Drawing.Point(0, 518);
-            this.btnStartAgOne.Margin = new System.Windows.Forms.Padding(0);
-            this.btnStartAgOne.Name = "btnStartAgOne";
-            this.btnStartAgOne.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnStartAgOne.Size = new System.Drawing.Size(70, 82);
-            this.btnStartAgOne.TabIndex = 467;
-            this.btnStartAgOne.UseVisualStyleBackColor = false;
-            this.btnStartAgOne.Click += new System.EventHandler(this.btnStartAgOne_Click);
+            this.btnStartAgIO.BackColor = System.Drawing.Color.Transparent;
+            this.btnStartAgIO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnStartAgIO.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnStartAgIO.FlatAppearance.BorderColor = System.Drawing.Color.RoyalBlue;
+            this.btnStartAgIO.FlatAppearance.BorderSize = 0;
+            this.btnStartAgIO.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.btnStartAgIO.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnStartAgIO.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnStartAgIO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStartAgIO.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStartAgIO.ForeColor = System.Drawing.Color.DarkGray;
+            this.btnStartAgIO.Image = global::AgOpenGPS.Properties.Resources.AgIO;
+            this.btnStartAgIO.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnStartAgIO.Location = new System.Drawing.Point(0, 518);
+            this.btnStartAgIO.Margin = new System.Windows.Forms.Padding(0);
+            this.btnStartAgIO.Name = "btnStartAgIO";
+            this.btnStartAgIO.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnStartAgIO.Size = new System.Drawing.Size(72, 82);
+            this.btnStartAgIO.TabIndex = 467;
+            this.btnStartAgIO.UseVisualStyleBackColor = false;
+            this.btnStartAgIO.Click += new System.EventHandler(this.btnStartAgIO_Click);
             // 
             // btnFieldMenu
             // 
@@ -3296,7 +3296,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuLanguagePolish;
         private System.Windows.Forms.ToolStripDropDownButton distanceToolBtn;
         public System.Windows.Forms.Button btnDayNightMode;
-        public System.Windows.Forms.Button btnStartAgOne;
+        public System.Windows.Forms.Button btnStartAgIO;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton4;
         public System.Windows.Forms.ToolStripMenuItem steerChartStripMenu;
         private System.Windows.Forms.ToolStripMenuItem webcamToolStrip;

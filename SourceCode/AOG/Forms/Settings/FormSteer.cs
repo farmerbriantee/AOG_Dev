@@ -77,7 +77,7 @@ namespace AgOpenGPS
             mf.vehicle.goalPointLookAheadHold = Settings.Vehicle.setVehicle_goalPointLookAheadHold;
             cboxSteerInReverse.Checked = Settings.Vehicle.setAS_isSteerInReverse;
 
-            if (mf.isStanleyUsed)
+            if (Settings.Vehicle.setVehicle_isStanleyUsed)
             {
                 btnStanleyPure.Image = Resources.ModeStanley;
             }
@@ -86,7 +86,7 @@ namespace AgOpenGPS
                 btnStanleyPure.Image = Resources.ModePurePursuit;
             }
 
-            if (mf.isStanleyUsed)
+            if (Settings.Vehicle.setVehicle_isStanleyUsed)
             {
                 tabControl1.TabPages.Remove(tabPP);
                 tabControl1.TabPages.Remove(tabPPAdv);
@@ -292,7 +292,7 @@ namespace AgOpenGPS
                 Left = 0;
             }
 
-            if (mf.isLightBarNotSteerBar) rbtnLightBar.Checked = true;
+            if (Settings.User.isLightbarNotSteerBar) rbtnLightBar.Checked = true;
             else rbtnSteerBar.Checked = true;
         }
 
@@ -568,7 +568,7 @@ namespace AgOpenGPS
         {
             cboxSteerInReverse.Checked = Settings.Vehicle.setAS_isSteerInReverse;
 
-            if (mf.isStanleyUsed)
+            if (Settings.Vehicle.setVehicle_isStanleyUsed)
             {
                 btnStanleyPure.Image = Resources.ModeStanley;
             }
@@ -606,9 +606,9 @@ namespace AgOpenGPS
 
         private void btnStanleyPure_Click(object sender, EventArgs e)
         {
-            mf.isStanleyUsed = !mf.isStanleyUsed;
+            Settings.Vehicle.setVehicle_isStanleyUsed = !Settings.Vehicle.setVehicle_isStanleyUsed;
 
-            if (mf.isStanleyUsed)
+            if (Settings.Vehicle.setVehicle_isStanleyUsed)
             {
                 btnStanleyPure.Image = Resources.ModeStanley;
                 Log.EventWriter("Stanley Steer Mode Selectede");
@@ -625,9 +625,8 @@ namespace AgOpenGPS
             tabControl1.TabPages.Remove(tabSteer);
             tabControl1.TabPages.Remove(tabStan);
 
-            Settings.Vehicle.setVehicle_isStanleyUsed = mf.isStanleyUsed;
 
-            if (mf.isStanleyUsed)
+            if (Settings.Vehicle.setVehicle_isStanleyUsed)
             {
                 this.tabControl1.ItemSize = new System.Drawing.Size(105, 48);
                 tabControl1.TabPages.Add(tabStan);
@@ -687,10 +686,10 @@ namespace AgOpenGPS
 
         private void tabOnTheLine_Enter(object sender, EventArgs e)
         {
-            chkDisplayLightbar.Checked = mf.isLightbarOn;
+            chkDisplayLightbar.Checked = Settings.User.isLightbarOn;
             chkDisplayLightbar.Image = chkDisplayLightbar.Checked ? Resources.SwitchOn : Resources.SwitchOff;
 
-            nudSnapDistance.DecimalPlaces = mf.isMetric ? 0 : 1;
+            nudSnapDistance.DecimalPlaces = Settings.User.isMetric ? 0 : 1;
             nudSnapDistance.Value = Settings.Vehicle.setAS_snapDistance;
 
             nudGuidanceLookAhead.Value = Settings.Vehicle.setAS_guidanceLookAheadTime;
@@ -731,14 +730,12 @@ namespace AgOpenGPS
 
         private void rbtnLightBar_Click(object sender, EventArgs e)
         {
-            mf.isLightBarNotSteerBar = true;
-            Settings.User.isLightbarNotSteerBar = mf.isLightBarNotSteerBar;
+            Settings.User.isLightbarNotSteerBar = true;
         }
 
         private void rbtnSteerBar_Click(object sender, EventArgs e)
         {
-            mf.isLightBarNotSteerBar = false;
-            Settings.User.isLightbarNotSteerBar = mf.isLightBarNotSteerBar;
+            Settings.User.isLightbarNotSteerBar = false;
         }
 
         private void chkDisplayLightbar_Click(object sender, EventArgs e)
@@ -748,7 +745,7 @@ namespace AgOpenGPS
 
             Settings.User.isLightbarOn = chkDisplayLightbar.Checked;
 
-            mf.isLightbarOn = chkDisplayLightbar.Checked;
+            Settings.User.isLightbarOn = chkDisplayLightbar.Checked;
         }
 
         #endregion Tab On the Line
@@ -1351,7 +1348,6 @@ namespace AgOpenGPS
                 Settings.Vehicle.setAS_uTurnCompensation = 1;
 
                 Settings.Vehicle.setVehicle_isStanleyUsed = false;
-                mf.isStanleyUsed = false;
 
                 Settings.Vehicle.setAS_isSteerInReverse = false;
                 mf.isSteerInReverse = false;

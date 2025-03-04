@@ -62,7 +62,7 @@ namespace AgOpenGPS
 
         public void DrawFieldSurface()
         {
-            Color field = mf.isDay ? Settings.User.colorFieldDay : Settings.User.colorFieldNight;
+            Color field = Settings.User.setDisplay_isDayMode ? Settings.User.colorFieldDay : Settings.User.colorFieldNight;
 
             //adjust bitmap zoom based on cam zoom
             if (mf.camera.zoomValue > 100) Count = 4;
@@ -73,7 +73,7 @@ namespace AgOpenGPS
             else Count = 80;
 
             GL.Color3(field.R, field.G, field.B);
-            if (mf.isTextureOn)
+            if (Settings.User.setDisplay_isTextureOn)
             {
                 GL.Enable(EnableCap.Texture2D);
                 GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.Floor]);
@@ -114,7 +114,7 @@ namespace AgOpenGPS
 
             GL.Rotate(-gridRotation, 0, 0, 1.0);
 
-            if (mf.isDay)
+            if (Settings.User.setDisplay_isDayMode)
             {
                 GL.Color3(0.25, 0.25, 0.25);
             }

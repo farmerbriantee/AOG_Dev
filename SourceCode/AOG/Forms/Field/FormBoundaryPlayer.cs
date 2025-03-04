@@ -27,7 +27,7 @@ namespace AgOpenGPS
         {
             nudOffset.Value = mf.tool.width * 0.5;
 
-            if (mf.isMetric)
+            if (Settings.User.isMetric)
             {
                 lblMetersInches.Text = "cm";
             }
@@ -69,7 +69,7 @@ namespace AgOpenGPS
             btnPausePlay.Focus();
             mf.bnd.createFenceOffset = nudOffset.Value;
 
-            if (!mf.isMetric)
+            if (!Settings.User.isMetric)
             {
                 double ftInches = (double)nudOffset.Value;
                 lblMetersInches.Text = ((int)(ftInches / 12)).ToString() + "' " + (ftInches % 12).ToString("N1") + '"';

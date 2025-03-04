@@ -120,7 +120,7 @@ namespace AgOpenGPS
 
         private void tboxJobName_Click(object sender, EventArgs e)
         {
-            if (mf.isKeyboardOn)
+            if (Settings.User.setDisplay_isKeyboardOn)
             {
                 mf.KeyboardToText((TextBox)sender, this);
                 btnJobCancel.Focus();

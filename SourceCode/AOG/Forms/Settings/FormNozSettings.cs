@@ -27,7 +27,7 @@ namespace AgOpenGPS
             nudSprayRateSet2.Value = Settings.Tool.setNozzleSettings.volumePerAreaSet2;
             nudSprayMinPressure.Value = Settings.Tool.setNozzleSettings.pressureMin;
 
-            if (mf.isMetric)
+            if (Settings.User.isMetric)
             {
                 lblRateSet1.Text = mf.nozz.unitsPerArea;
                 lblRateSet2.Text = mf.nozz.unitsPerArea;

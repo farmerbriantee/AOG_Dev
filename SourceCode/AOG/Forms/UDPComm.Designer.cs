@@ -670,7 +670,7 @@ namespace AgOpenGPS
             {
                 case 0x0084/*NCHITTEST*/ :
                     base.WndProc(ref m);
-                    if (!isKioskMode)
+                    if (!Settings.User.setWindow_isKioskMode)
                     {
                         if ((int)m.Result == 0x01/*HTCLIENT*/)
                         {

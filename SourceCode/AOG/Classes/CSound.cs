@@ -19,16 +19,10 @@ namespace AgOpenGPS
 
         public bool isBoundAlarming, isRTKAlarming;
 
-        public bool isSteerSoundOn, isTurnSoundOn, isHydLiftSoundOn, isSectionsSoundOn;
-
         public bool isHydLiftChange;
 
         public CSound()
         {
-            isSteerSoundOn = Settings.User.sound_isAutoSteerOn;
-            isHydLiftSoundOn = Settings.User.sound_isHydLiftOn;
-            isTurnSoundOn = Settings.User.sound_isUturnOn;
-            isSectionsSoundOn = Settings.User.sound_isSectionsOn;
         }
     }
 }

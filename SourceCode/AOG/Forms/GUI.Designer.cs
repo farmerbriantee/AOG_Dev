@@ -41,24 +41,12 @@ namespace AgOpenGPS
         public bool isVehicleImage;
 
         //Is it in 2D or 3D, metric or imperial, display lightbar, display grid etc
-        public bool isMetric = true, isLightbarOn = true, isGridOn, isFullScreen;
-        public bool isUTurnAlwaysOn, isCompassOn, isSpeedoOn, isSideGuideLines = true;
-        public bool isPureDisplayOn = true, isSkyOn = true, isRollMeterOn = false, isTextureOn = true;
-        public bool isDay = true, isBrightnessOn = true;
-        public bool isLogElevation = false, isDirectionMarkers;
-        public bool isKeyboardOn = true, isAutoStartAgIO = true, isSvennArrowOn = true;
-        public bool isSectionlinesOn = true, isLineSmooth = true;
-
-        public bool isLightBarNotSteerBar = false;
-
-        public bool isUTurnOn = true, isLateralOn = true, isNudgeOn = true;
 
         public int[] customColorsList = new int[16];
 
         public bool isFlashOnOff = false, isPanFormVisible = false;
         public bool isPanelBottomHidden = false;
 
-        public bool isKioskMode = false;
         public bool isNozzleApp = false;
         public int makeUTurnCounter = 0;
 
@@ -300,7 +288,7 @@ namespace AgOpenGPS
                     else
                     {
                         //volume per area calcs - GPM and L/Ha
-                        if (isMetric)
+                        if (Settings.User.isMetric)
                         {
                             //Liters * 0.00167 𝑥 𝑠𝑤𝑎𝑡ℎ 𝑤𝑖𝑑𝑡ℎ 𝑥 𝐾mh
                             nozz.volumePerAreaActualFiltered = (nozz.volumePerAreaActualFiltered * 0.6) +
@@ -353,13 +341,9 @@ namespace AgOpenGPS
         }//wait till timer fires again.         
 
         public void LoadSettings()
-        {
-            //metric settings
-            isMetric = Settings.User.isMetric;
-
+        {             
             //kiosk mode
-            isKioskMode = Settings.User.setWindow_isKioskMode;
-            if (isKioskMode) kioskModeToolStrip.Checked = true;
+            if (Settings.User.setWindow_isKioskMode) kioskModeToolStrip.Checked = true;
             else kioskModeToolStrip.Checked = false;
 
             //field menu
@@ -375,7 +359,7 @@ namespace AgOpenGPS
             deleteContourPathsToolStripMenuItem.Visible = Settings.User.setFeatures.isHideContourOn;
             webcamToolStrip.Visible = Settings.User.setFeatures.isWebCamOn;
             offsetFixToolStrip.Visible = Settings.User.setFeatures.isOffsetFixOn;
-            if (isSideGuideLines) guidelinesToolStripMenuItem.Checked = true;
+            if (Settings.User.isSideGuideLines) guidelinesToolStripMenuItem.Checked = true;
             else guidelinesToolStripMenuItem.Checked = false;
 
 
@@ -383,15 +367,10 @@ namespace AgOpenGPS
             btnStartAgIO.Visible = Settings.User.setFeatures.isAgIOOn;
 
             //OGL control
-            isUTurnOn = Settings.User.setFeatures.isUTurnOn;
-            isLateralOn = Settings.User.setFeatures.isLateralOn;
             cboxpRowWidth.SelectedIndex = (Settings.Vehicle.set_youSkipWidth - 1);
             btnYouSkipEnable.Image = Resources.YouSkipOff;
-            isNudgeOn = Settings.User.setFeatures.isABLineOn;
 
-            isSectionlinesOn = Settings.User.setDisplay_isSectionLinesOn;
-
-            if (isMetric)
+            if (Settings.User.isMetric)
             {
                 glm.inchOrCm2m = 0.01;
                 glm.m2InchOrCm = 100.0;
@@ -515,25 +494,8 @@ namespace AgOpenGPS
                 customColorsList[i] = test.ToArgb();
             }
 
-            isTextureOn = Settings.User.setDisplay_isTextureOn;
-            isLogElevation = Settings.User.setDisplay_isLogElevation;
-            isLineSmooth = Settings.User.setDisplay_isLineSmooth;
-
-            isBrightnessOn = Settings.User.setDisplay_isBrightnessOn;
-
-            isGridOn = Settings.User.isSimulatorOn;
-            isCompassOn = Settings.User.isSimulatorOn;
-            isSpeedoOn = Settings.User.isSpeedoOn;
-            isSideGuideLines = Settings.User.isSideGuideLines;
-            isPureDisplayOn = Settings.User.isPureOn;
-            isSvennArrowOn = Settings.User.setDisplay_isSvennArrowOn;
-
             simulatorOnToolStripMenuItem.Checked = Settings.User.isSimulatorOn;
             //isLogNMEA = Settings.Default.setMenu_isLogNMEA;
-
-            isAutoStartAgIO = Settings.User.isAutoStartAgIO;
-
-            isDirectionMarkers = Settings.User.isDirectionMarkers;
 
             vehicleOpacity = ((double)(Settings.Vehicle.setDisplay_vehicleOpacity) * 0.01);
             vehicleOpacityByte = (byte)(255 * ((double)(Settings.Vehicle.setDisplay_vehicleOpacity) * 0.01));
@@ -556,15 +518,6 @@ namespace AgOpenGPS
 
             vehicleColor = Settings.User.colorVehicle;
 
-            isLightbarOn = Settings.User.isLightbarOn;
-            isLightBarNotSteerBar = Settings.User.isLightbarNotSteerBar;
-            //set up grid and lightbar
-
-            isKeyboardOn = Settings.User.setDisplay_isKeyboardOn;
-
-            //if (Properties.Settings.Default.setAS_isAutoSteerAutoOn) btnAutoSteer.Text = "R";
-            //else btnAutoSteer.Text = "M";
-
             if (bnd.isHeadlandOn) btnHeadlandOnOff.Image = Properties.Resources.HeadlandOn;
             else btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
 
@@ -574,23 +527,13 @@ namespace AgOpenGPS
             if (Settings.User.setDisplay_isStartFullScreen)
             {
                 this.WindowState = FormWindowState.Maximized;
-                isFullScreen = true;
-            }
-            else
-            {
-                isFullScreen = false;
             }
 
-            if (!isKioskMode)
+            if (!Settings.User.setWindow_isKioskMode)
             {
                 if (Settings.User.setDisplay_isStartFullScreen)
                 {
                     this.WindowState = FormWindowState.Maximized;
-                    isFullScreen = true;
-                }
-                else
-                {
-                    isFullScreen = false;
                 }
             }
 
@@ -677,10 +620,8 @@ namespace AgOpenGPS
             //load the lightbar resolution
             lightbarCmPerPixel = Settings.User.setDisplay_lightbarCmPerPixel;
 
-            isStanleyUsed = Settings.Vehicle.setVehicle_isStanleyUsed;
-
             //main window first
-            if (!isKioskMode)
+            if (!Settings.User.setWindow_isKioskMode)
             {
                 //main window first
                 if (Settings.User.setWindow_Maximized)
@@ -701,6 +642,13 @@ namespace AgOpenGPS
                     Size = Settings.User.setWindow_Size;
                 }
             }
+            else
+            {
+                this.WindowState = FormWindowState.Maximized;
+                Settings.User.setDisplay_isStartFullScreen = true;
+                btnMaximizeMainForm.Visible = false;
+                btnMinimizeMainForm.Visible = false;
+            }
 
             if (!IsOnScreen(Location, Size, 1))
             {
@@ -708,17 +656,8 @@ namespace AgOpenGPS
                 Left = 0;
             }
 
-            if (isKioskMode)
-            {
-                this.WindowState = FormWindowState.Maximized;
-                isFullScreen = true;
-                btnMaximizeMainForm.Visible = false;
-                btnMinimizeMainForm.Visible = false;
-            }
-
             //night mode
-            isDay = Settings.User.setDisplay_isDayMode;
-            isDay = !isDay;
+            Settings.User.setDisplay_isDayMode = !Settings.User.setDisplay_isDayMode;
             SwapDayNightMode();
 
             //load uturn properties
@@ -836,9 +775,9 @@ namespace AgOpenGPS
                 cboxpRowWidth.Visible = trk.idx > -1;
                 btnYouSkipEnable.Visible = trk.idx > -1;
 
-                btnSnapToPivot.Visible = trk.idx > -1 && isNudgeOn;
-                btnAdjLeft.Visible = trk.idx > -1 && isNudgeOn;
-                btnAdjRight.Visible = trk.idx > -1 && isNudgeOn;
+                btnSnapToPivot.Visible = trk.idx > -1 && Settings.User.setFeatures.isABLineOn;
+                btnAdjLeft.Visible = trk.idx > -1 && Settings.User.setFeatures.isABLineOn;
+                btnAdjRight.Visible = trk.idx > -1 && Settings.User.setFeatures.isABLineOn;
 
                 btnTramDisplayMode.Visible = istram;
                 btnHeadlandOnOff.Visible = isHdl;
@@ -976,7 +915,7 @@ namespace AgOpenGPS
 
             }
 
-            btnFlag.Text = isStanleyUsed ? "S" : "P";
+            btnFlag.Text = Settings.Vehicle.setVehicle_isStanleyUsed ? "S" : "P";
         }
 
         private void PanelsAndOGLSize()
@@ -1028,11 +967,11 @@ namespace AgOpenGPS
 
         public void SwapDayNightMode()
         {
-            isDay = !isDay;
+            Settings.User.setDisplay_isDayMode = !Settings.User.setDisplay_isDayMode;
 
-            Color foreColor = isDay ? Settings.User.colorTextDay : Settings.User.colorTextNight;
-            btnDayNightMode.Image = isDay ? Properties.Resources.WindowNightMode : Properties.Resources.WindowDayMode;
-            this.BackColor = isDay ? Settings.User.colorDayFrame : Settings.User.colorNightFrame;
+            Color foreColor = Settings.User.setDisplay_isDayMode ? Settings.User.colorTextDay : Settings.User.colorTextNight;
+            btnDayNightMode.Image = Settings.User.setDisplay_isDayMode ? Properties.Resources.WindowNightMode : Properties.Resources.WindowDayMode;
+            this.BackColor = Settings.User.setDisplay_isDayMode ? Settings.User.colorDayFrame : Settings.User.colorNightFrame;
 
             foreach (Control c in this.Controls)
             {
@@ -1075,8 +1014,6 @@ namespace AgOpenGPS
             {
                 LineUpAllZoneButtons();
             }
-
-            Settings.User.setDisplay_isDayMode = isDay;
         }
 
         public void SaveFormGPSWindowSettings()
@@ -1194,11 +1131,11 @@ namespace AgOpenGPS
                                 return;
                             }
 
-                            if (!isStanleyUsed)
+                            if (!Settings.Vehicle.setVehicle_isStanleyUsed)
                             {
                                 //manual uturn triggering
                                 middle = centerX - oglMain.Width / 4;
-                                if (point.X > middle - 100 && point.X < middle && isUTurnOn)
+                                if (point.X > middle - 100 && point.X < middle && Settings.User.setFeatures.isUTurnOn)
                                 {
                                     if (yt.isYouTurnTriggered)
                                     {
@@ -1218,7 +1155,7 @@ namespace AgOpenGPS
                                     }
                                 }
 
-                                if (point.X > middle && point.X < middle + 100 && isUTurnOn)
+                                if (point.X > middle && point.X < middle + 100 && Settings.User.setFeatures.isUTurnOn)
                                 {
                                     if (yt.isYouTurnTriggered)
                                     {
@@ -1245,7 +1182,7 @@ namespace AgOpenGPS
                         if (point.Y < 240 && point.Y > 170 && (trk.idx > -1))
                         {
                             int middle = centerX - oglMain.Width / 4;
-                            if (point.X > middle - 100 && point.X < middle && isLateralOn)
+                            if (point.X > middle - 100 && point.X < middle && Settings.User.setFeatures.isLateralOn)
                             {
                                 if (vehicle.functionSpeedLimit > avgSpeed)
                                 {
@@ -1260,7 +1197,7 @@ namespace AgOpenGPS
                                 return;
                             }
 
-                            if (point.X > middle && point.X < middle + 100 && isLateralOn)
+                            if (point.X > middle && point.X < middle + 100 && Settings.User.setFeatures.isLateralOn)
                             {
                                 if (vehicle.functionSpeedLimit > avgSpeed)
                                 {

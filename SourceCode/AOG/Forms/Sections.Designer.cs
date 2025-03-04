@@ -21,7 +21,7 @@ namespace AgOpenGPS
         private void btnSectionMasterManual_Click(object sender, EventArgs e)
         {
             //System.Media.SystemSounds.Asterisk.Play();
-            if (sounds.isSectionsSoundOn) sounds.sndSectionOff.Play();
+            if (Settings.User.sound_isSectionsOn) sounds.sndSectionOff.Play();
 
             //if Auto is on, turn it off
             autoBtnState = btnStates.Off;
@@ -59,14 +59,14 @@ namespace AgOpenGPS
 
                     autoBtnState = btnStates.Auto;
                     btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOn;
-                    if (sounds.isSectionsSoundOn)sounds.sndSectionOn.Play();
+                    if (Settings.User.sound_isSectionsOn) sounds.sndSectionOn.Play();
                     break;
 
                 case btnStates.Auto:
 
                     autoBtnState = btnStates.Off;
                     btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
-                    if (sounds.isSectionsSoundOn) sounds.sndSectionOn.Play();
+                    if (Settings.User.sound_isSectionsOn) sounds.sndSectionOn.Play();
                     break;
             }
 
@@ -240,7 +240,7 @@ namespace AgOpenGPS
             switch (section[sectNumber].sectionBtnState)
             {
                 case btnStates.Off:
-                    if (isDay)
+                    if (Settings.User.setDisplay_isDayMode)
                     {
                         btn.ForeColor = Color.Black;
                         btn.BackColor = Color.Red;
@@ -253,7 +253,7 @@ namespace AgOpenGPS
                     break;
 
                 case btnStates.Auto:
-                    if (isDay)
+                    if (Settings.User.setDisplay_isDayMode)
                     {
                         btn.BackColor = Color.Lime;
                         btn.ForeColor = Color.Black;
@@ -266,7 +266,7 @@ namespace AgOpenGPS
                     break;            
 
                 case btnStates.On:
-                    if (isDay)
+                    if (Settings.User.setDisplay_isDayMode)
                     {
                         btn.BackColor = Color.Yellow;
                         btn.ForeColor = Color.Black;
@@ -401,7 +401,7 @@ namespace AgOpenGPS
             switch (state)
             {
                 case btnStates.Auto:
-                    if (isDay)
+                    if (Settings.User.setDisplay_isDayMode)
                     {
                         btn.BackColor = Color.Lime;
                         btn.ForeColor = Color.Black;
@@ -415,7 +415,7 @@ namespace AgOpenGPS
 
 
                 case btnStates.On:
-                    if (isDay)
+                    if (Settings.User.setDisplay_isDayMode)
                     {
                         btn.BackColor = Color.Yellow;
                         btn.ForeColor = Color.Black;
@@ -428,7 +428,7 @@ namespace AgOpenGPS
                     break;
 
                 case btnStates.Off:
-                    if (isDay)
+                    if (Settings.User.setDisplay_isDayMode)
                     {
                         btn.ForeColor = Color.Black;
                         btn.BackColor = Color.Red;

@@ -24,7 +24,7 @@ namespace AgOpenGPS
         private void FormEditTrack_Load(object sender, EventArgs e)
         {
             mf.panelRight.Enabled = false;
-            nudSnapDistance.DecimalPlaces = mf.isMetric ? 0 : 1;
+            nudSnapDistance.DecimalPlaces = Settings.User.isMetric ? 0 : 1;
             nudSnapDistance.Value = Settings.Vehicle.setAS_snapDistanceRef;
 
 

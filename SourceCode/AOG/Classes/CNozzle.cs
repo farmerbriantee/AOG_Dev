@@ -93,7 +93,7 @@
 
             if (mf.nozz.currentSectionsWidthMeters != 0)
             {
-                if (mf.isMetric)
+                if (Settings.User.isMetric)
                 {
                     //Liters * 0.00167 𝑥 𝑠𝑤𝑎𝑡ℎ 𝑤𝑖𝑑𝑡ℎ 𝑥 𝐾mh * ( to send as integer 100)
                     mf.nozz.volumePerMinuteSet =

@@ -188,7 +188,7 @@ namespace AgOpenGPS
         }
         private void tboxVehicleNameSave_Click(object sender, EventArgs e)
         {
-            if (mf.isKeyboardOn)
+            if (Settings.User.setDisplay_isKeyboardOn)
             {
                 mf.KeyboardToText((TextBox)sender, this);
             }
@@ -232,7 +232,7 @@ namespace AgOpenGPS
         {
             TurnOffSectionsSafely();
 
-            if (mf.isKeyboardOn)
+            if (Settings.User.setDisplay_isKeyboardOn)
             {
                 mf.KeyboardToText((TextBox)sender, this);
             }
@@ -349,47 +349,27 @@ namespace AgOpenGPS
 
         private void SaveDisplaySettings()
         {
-            mf.isTextureOn = chkDisplayFloor.Checked;
-            mf.isGridOn = chkDisplayGrid.Checked;
-            mf.isSpeedoOn = chkDisplaySpeedo.Checked;
-            mf.isSideGuideLines = chkDisplayExtraGuides.Checked;
-
             mf.isDrawPolygons = chkDisplayPolygons.Checked;
-            mf.isKeyboardOn = chkDisplayKeyboard.Checked;
 
-            mf.isBrightnessOn = chkDisplayBrightness.Checked;
-            mf.isSvennArrowOn = chkSvennArrow.Checked;
-            mf.isLogElevation = chkDisplayLogElevation.Checked;
+            Settings.User.setDisplay_isTextureOn = chkDisplayFloor.Checked;
+            Settings.User.isGridOn = chkDisplayGrid.Checked;
+            Settings.User.isSpeedoOn = chkDisplaySpeedo.Checked;
+            Settings.User.isSideGuideLines = chkDisplayExtraGuides.Checked;
 
-            mf.isDirectionMarkers = chkDirectionMarkers.Checked;
-            mf.isSectionlinesOn = chkSectionLines.Checked;
-            mf.isLineSmooth = chkLineSmooth.Checked;
+            Settings.User.setDisplay_isKeyboardOn = chkDisplayKeyboard.Checked;
+            Settings.User.setDisplay_isBrightnessOn = chkDisplayBrightness.Checked;
+            Settings.User.setDisplay_isSvennArrowOn = chkSvennArrow.Checked;
+            Settings.User.isLogElevation = chkDisplayLogElevation.Checked;
 
-            //mf.timeToShowMenus = (int)nudMenusOnTime.Value;
+            Settings.User.isDirectionMarkers = chkDirectionMarkers.Checked;
+            Settings.User.setDisplay_isSectionLinesOn = chkSectionLines.Checked;
+            Settings.User.setDisplay_isLineSmooth = chkLineSmooth.Checked;
 
-            Settings.User.isGridOn = mf.isGridOn;
-            Settings.User.isCompassOn = mf.isCompassOn;
 
-            Settings.User.isSpeedoOn = mf.isSpeedoOn;
-            Settings.User.isSideGuideLines = mf.isSideGuideLines;
-
-            Settings.User.isPureOn = mf.isPureDisplayOn;
-            Settings.User.isLightbarOn = mf.isLightbarOn;
-
-            Settings.User.isMetric = mf.isMetric = rbtnDisplayMetric.Checked;
-
+            Settings.User.isLightbarOn = Settings.User.isLightbarOn;
+            Settings.User.isMetric = Settings.User.isMetric = rbtnDisplayMetric.Checked;
             Settings.Vehicle.setAS_numGuideLines = mf.trk.numGuideLines;
-
-
-            Settings.User.setDisplay_isBrightnessOn = mf.isBrightnessOn;
-            Settings.User.setDisplay_isTextureOn = mf.isTextureOn;
-            Settings.User.isDirectionMarkers = mf.isDirectionMarkers;
-            Settings.User.setDisplay_isSvennArrowOn = mf.isSvennArrowOn;
             Settings.User.setDisplay_isStartFullScreen = chkDisplayStartFullScreen.Checked;
-            Settings.User.setDisplay_isKeyboardOn = mf.isKeyboardOn;
-            Settings.User.setDisplay_isLogElevation = mf.isLogElevation;
-            Settings.User.setDisplay_isSectionLinesOn = mf.isSectionlinesOn;
-            Settings.User.setDisplay_isLineSmooth = mf.isLineSmooth;            
         }
 
         #endregion
@@ -654,7 +634,7 @@ namespace AgOpenGPS
         {
             TurnOffSectionsSafely();
 
-            if (mf.isKeyboardOn)
+            if (Settings.User.setDisplay_isKeyboardOn)
             {
                 mf.KeyboardToText((TextBox)sender, this);
             }
@@ -694,7 +674,7 @@ namespace AgOpenGPS
 
         private void tboxToolNameSave_Click(object sender, EventArgs e)
         {
-            if (mf.isKeyboardOn)
+            if (Settings.User.setDisplay_isKeyboardOn)
             {
                 mf.KeyboardToText((TextBox)sender, this);
             }

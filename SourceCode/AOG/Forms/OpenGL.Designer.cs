@@ -80,7 +80,7 @@ namespace AgOpenGPS
         {
             ChangePerspective(true);
 
-            if (isLineSmooth) GL.Enable(EnableCap.LineSmooth);
+            if (Settings.User.setDisplay_isLineSmooth) GL.Enable(EnableCap.LineSmooth);
             else GL.Disable(EnableCap.LineSmooth);
         }
 
@@ -116,7 +116,7 @@ namespace AgOpenGPS
                     //  Clear the color and depth buffer.
                     GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
-                    if (isDay) GL.ClearColor(0.27f, 0.4f, 0.7f, 1.0f);
+                    if (Settings.User.setDisplay_isDayMode) GL.ClearColor(0.27f, 0.4f, 0.7f, 1.0f);
                     else GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
                     GL.LoadIdentity();
@@ -136,7 +136,7 @@ namespace AgOpenGPS
                     worldGrid.DrawFieldSurface();
 
                     ////if grid is on draw it
-                    if (isGridOn) worldGrid.DrawWorldGrid(camera.gridZoom);
+                    if (Settings.User.isGridOn) worldGrid.DrawWorldGrid(camera.gridZoom);
 
                     GL.Enable(EnableCap.Blend);
 
@@ -302,7 +302,7 @@ namespace AgOpenGPS
                             count2 = triList.Count;
                             GL.Begin(PrimitiveType.TriangleStrip);
 
-                            if (isDay) GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)152);
+                            if (Settings.User.setDisplay_isDayMode) GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)152);
                             else GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)(152 * 0.5));
 
                             //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
@@ -319,7 +319,7 @@ namespace AgOpenGPS
                             else { for (int i = 1; i < count2; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
                             GL.End();
 
-                            if (isSectionlinesOn)
+                            if (Settings.User.setDisplay_isSectionLinesOn)
                             {
                                 //highlight lines
                                 GL.Color4(0.2, 0.2, 0.2, 1.0);
@@ -354,7 +354,7 @@ namespace AgOpenGPS
                             }
 
 
-                            if (isDirectionMarkers)
+                            if (Settings.User.isDirectionMarkers)
                             {
                                 if (triList.Count > 31)
                                 {
@@ -401,7 +401,7 @@ namespace AgOpenGPS
                             {
                                     try
                                     {
-                                    GL.Color4((byte)patch.triangleList[0].easting, (byte)patch.triangleList[0].northing, (byte)patch.triangleList[0].heading, (byte)(isDay ? 152 : 76));
+                                    GL.Color4((byte)patch.triangleList[0].easting, (byte)patch.triangleList[0].northing, (byte)patch.triangleList[0].heading, (byte)(Settings.User.setDisplay_isDayMode ? 152 : 76));
 
                                         //draw the triangle in each triangle strip
                                         GL.Begin(PrimitiveType.TriangleStrip);
@@ -523,7 +523,7 @@ namespace AgOpenGPS
                             GL.End();
                         }
 
-                        if (!isStanleyUsed && trk.idx > -1)
+                        if (!Settings.Vehicle.setVehicle_isStanleyUsed && trk.idx > -1)
                         {
                             GL.PointSize(16);
                             GL.Begin(PrimitiveType.Points);
@@ -538,7 +538,7 @@ namespace AgOpenGPS
                             GL.End();
                         }
 
-                        if (isStanleyUsed)
+                        if (Settings.Vehicle.setVehicle_isStanleyUsed)
                         {
                             GL.PointSize(16);
                             GL.Begin(PrimitiveType.Points);
@@ -573,13 +573,13 @@ namespace AgOpenGPS
                     GL.LoadIdentity();
 
                     //LightBar if AB Line is set and turned on or contour
-                    if (isLightBarNotSteerBar)
+                    if (Settings.User.isLightbarNotSteerBar)
                     {
                         DrawLightBarText();
                     }
                     else
                     {
-                        if (isLightbarOn) DrawSteerBarText();
+                        if (Settings.User.isLightbarOn) DrawSteerBarText();
                     }
 
                     if (trk.idx > -1 && !ct.isContourBtnOn) DrawTrackInfo();
@@ -589,10 +589,10 @@ namespace AgOpenGPS
 
                     if ((isBtnAutoSteerOn || yt.isYouTurnBtnOn) && !ct.isContourBtnOn) DrawManUTurnBtn();
 
-                    if (isCompassOn) DrawCompass();
+                    if (Settings.User.isCompassOn) DrawCompass();
                     DrawCompassText();
 
-                    if (isSpeedoOn) DrawSpeedo();
+                    if (Settings.User.isSpeedoOn) DrawSpeedo();
 
                     DrawSteerCircle();
 
@@ -710,7 +710,7 @@ namespace AgOpenGPS
                             FileSaveContour();
 
                             //NMEA elevation file
-                            if (isLogElevation && sbElevationString.Length > 0) FileSaveElevation();
+                            if (Settings.User.isLogElevation && sbElevationString.Length > 0) FileSaveElevation();
                         }
 
                         //set saving flag off
@@ -1611,7 +1611,7 @@ namespace AgOpenGPS
 
             int bottomSide = 90;
 
-            if (!isStanleyUsed && isUTurnOn)
+            if (!Settings.Vehicle.setVehicle_isStanleyUsed && Settings.User.setFeatures.isUTurnOn)
             {
                 GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.TurnManual]);        // Select Our Texture
                 GL.Color3(0.90f, 0.90f, 0.293f);
@@ -1636,7 +1636,7 @@ namespace AgOpenGPS
             //lateral line move
 
             bottomSide += 80;
-            if (isLateralOn)
+            if (Settings.User.setFeatures.isLateralOn)
             {
                 GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.Lateral]);        // Select Our Texture
                 GL.Color3(0.590f, 0.90f, 0.93f);
@@ -2089,7 +2089,7 @@ namespace AgOpenGPS
 
                 double avgPivotDistance = avgPivDistance * glm.m2InchOrCm;
 
-                if (isLightbarOn) DrawLightBar(avgPivotDistance);
+                if (Settings.User.isLightbarOn) DrawLightBar(avgPivotDistance);
 
                 if (avgPivotDistance > 999) avgPivotDistance = 999;
                 if (avgPivotDistance < -999) avgPivotDistance = -999;

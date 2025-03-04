@@ -1066,7 +1066,7 @@ namespace AgOpenGPS
                 if (numberOfSections * wide > 5000)
                 {
                     wide = 99;
-                    mf.TimedMessageBox(3000, "Too Wide", "Set to 99, " + (mf.isMetric ? "Max 50 Meters" : "Max 164 Feet"));
+                    mf.TimedMessageBox(3000, "Too Wide", "Set to 99, " + (Settings.User.isMetric ? "Max 50 Meters" : "Max 164 Feet"));
                     Log.EventWriter("Sections, Tool Set Too Wide");
                 }
 
@@ -1132,7 +1132,7 @@ namespace AgOpenGPS
 
                             if (toolWidth > 5000)
                             {
-                                mf.TimedMessageBox(3000, "Too Wide", "Set to 99, " + (mf.isMetric ? "Max 50 Meters" : "Max 164 Feet") );
+                                mf.TimedMessageBox(3000, "Too Wide", "Set to 99, " + (Settings.User.isMetric ? "Max 50 Meters" : "Max 164 Feet") );
                                 Log.EventWriter("Sections, Tool Set Too Wide");
 
                                 toolWidth = 0;
@@ -1171,7 +1171,7 @@ namespace AgOpenGPS
         //update tool width label at bottom of window
         private void SectionFeetInchesTotalWidthLabelUpdate()
         {
-            if (mf.isMetric)
+            if (Settings.User.isMetric)
             {
                 lblInchesCm.Text = gStr.Get(gs.gsCentimeters);
                 lblFeetMeters.Text = gStr.Get(gs.gsMeters);

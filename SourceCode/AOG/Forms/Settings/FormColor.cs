@@ -30,7 +30,7 @@ namespace AgOpenGPS
 
         private void FormDisplaySettings_Load(object sender, EventArgs e)
         {
-            daySet = mf.isDay;
+            daySet = Settings.User.setDisplay_isDayMode;
             hsbarSmooth.Value = Settings.User.setDisplay_camSmooth;
             lblSmoothCam.Text = hsbarSmooth.Value.ToString() + "%";
 
@@ -43,7 +43,7 @@ namespace AgOpenGPS
 
         private void bntOK_Click(object sender, EventArgs e)
         {
-            if (daySet != mf.isDay) mf.SwapDayNightMode();
+            if (daySet != Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
             Settings.User.setDisplay_camSmooth = hsbarSmooth.Value;
 
             mf.camera.camSmoothFactor = ((double)(hsbarSmooth.Value) * 0.004) + 0.15;
@@ -53,7 +53,7 @@ namespace AgOpenGPS
 
         private void btnFrameDay_Click(object sender, EventArgs e)
         {
-            if (!mf.isDay) mf.SwapDayNightMode();
+            if (!Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
 
             using (FormColorPicker form = new FormColorPicker(mf, Settings.User.colorDayFrame))
             {
@@ -69,7 +69,7 @@ namespace AgOpenGPS
 
         private void btnFrameNight_Click(object sender, EventArgs e)
         {
-            if (mf.isDay) mf.SwapDayNightMode();
+            if (Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
 
             using (FormColorPicker form = new FormColorPicker(mf, Settings.User.colorNightFrame))
             {
@@ -85,7 +85,7 @@ namespace AgOpenGPS
 
         private void btnFieldDay_Click(object sender, EventArgs e)
         {
-            if (!mf.isDay) mf.SwapDayNightMode();
+            if (!Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
 
             using (FormColorPicker form = new FormColorPicker(mf, Settings.User.colorFieldDay))
             {
@@ -101,7 +101,7 @@ namespace AgOpenGPS
 
         private void btnFieldNight_Click(object sender, EventArgs e)
         {
-            if (mf.isDay) mf.SwapDayNightMode();
+            if (Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
 
             using (FormColorPicker form = new FormColorPicker(mf, Settings.User.colorFieldNight))
             {
@@ -122,7 +122,7 @@ namespace AgOpenGPS
 
         private void btnNightText_Click(object sender, EventArgs e)
         {
-            if (mf.isDay) mf.SwapDayNightMode();
+            if (Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
 
             using (FormColorPicker form = new FormColorPicker(mf, Settings.User.colorTextNight))
             {
@@ -138,7 +138,7 @@ namespace AgOpenGPS
 
         private void btnDayText_Click(object sender, EventArgs e)
         {
-            if (!mf.isDay) mf.SwapDayNightMode();
+            if (!Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
 
             using (FormColorPicker form = new FormColorPicker(mf, Settings.User.colorTextDay))
             {
@@ -159,7 +159,7 @@ namespace AgOpenGPS
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            if (!mf.isDay) mf.SwapDayNightMode();
+            if (!Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
 
             Settings.User.colorDayFrame = Color.FromArgb(210, 210, 230);
             Settings.User.colorNightFrame = Color.FromArgb(50, 50, 65);

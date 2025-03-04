@@ -328,7 +328,7 @@ namespace AgOpenGPS
 
         private void tboxNameCurve_Enter(object sender, EventArgs e)
         {
-            if (mf.isKeyboardOn)
+            if (Settings.User.setDisplay_isKeyboardOn)
             {
                 mf.KeyboardToText((System.Windows.Forms.TextBox)sender, this);
 

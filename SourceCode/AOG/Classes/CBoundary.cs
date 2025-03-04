@@ -96,7 +96,7 @@ namespace AgOpenGPS
                     PGN_239.pgn[PGN_239.hydLift] = 2;
                     if (mf.sounds.isHydLiftChange != isToolInHeadland)
                     {
-                        if (mf.sounds.isHydLiftSoundOn) mf.sounds.sndHydLiftUp.Play();
+                        if (Settings.User.sound_isHydLiftOn) mf.sounds.sndHydLiftUp.Play();
                         mf.sounds.isHydLiftChange = isToolInHeadland;
                     }
                 }
@@ -105,7 +105,7 @@ namespace AgOpenGPS
                     PGN_239.pgn[PGN_239.hydLift] = 1;
                     if (mf.sounds.isHydLiftChange != isToolInHeadland)
                     {
-                        if (mf.sounds.isHydLiftSoundOn) mf.sounds.sndHydLiftDn.Play();
+                        if (Settings.User.sound_isHydLiftOn) mf.sounds.sndHydLiftDn.Play();
                         mf.sounds.isHydLiftChange = isToolInHeadland;
                     }
                 }

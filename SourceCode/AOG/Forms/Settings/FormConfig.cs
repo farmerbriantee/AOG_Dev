@@ -203,22 +203,22 @@ namespace AgOpenGPS
 
         private void tabDisplay_Enter(object sender, EventArgs e)
         {
-            chkDisplayBrightness.Checked = mf.isBrightnessOn;
-            chkDisplayFloor.Checked = mf.isTextureOn;
-            chkDisplayGrid.Checked = mf.isGridOn;
-            chkDisplaySpeedo.Checked = mf.isSpeedoOn;
-            chkSvennArrow.Checked = mf.isSvennArrowOn;
-            chkDisplayExtraGuides.Checked = mf.isSideGuideLines;
+            chkDisplayBrightness.Checked = Settings.User.setDisplay_isBrightnessOn;
+            chkDisplayFloor.Checked = Settings.User.setDisplay_isTextureOn;
+            chkDisplayGrid.Checked = Settings.User.isGridOn;
+            chkDisplaySpeedo.Checked = Settings.User.isSpeedoOn;
+            chkSvennArrow.Checked = Settings.User.setDisplay_isSvennArrowOn;
+            chkDisplayExtraGuides.Checked = Settings.User.isSideGuideLines;
             chkDisplayPolygons.Checked = mf.isDrawPolygons;
-            chkDisplayKeyboard.Checked = mf.isKeyboardOn;
-            chkDisplayLogElevation.Checked = mf.isLogElevation;
+            chkDisplayKeyboard.Checked = Settings.User.setDisplay_isKeyboardOn;
+            chkDisplayLogElevation.Checked = Settings.User.isLogElevation;
 
             chkDisplayStartFullScreen.Checked = Settings.User.setDisplay_isStartFullScreen;
             chkDirectionMarkers.Checked = Settings.User.isDirectionMarkers;
             chkSectionLines.Checked = Settings.User.setDisplay_isSectionLinesOn;
             chkLineSmooth.Checked = Settings.User.setDisplay_isLineSmooth;
 
-            rbtnDisplayMetric.Checked = mf.isMetric;
+            rbtnDisplayMetric.Checked = Settings.User.isMetric;
             rbtnDisplayImperial.Checked = !rbtnDisplayMetric.Checked;
 
             nudNumGuideLines.Value = mf.trk.numGuideLines;
@@ -234,7 +234,7 @@ namespace AgOpenGPS
             mf.TimedMessageBox(2000, "Units Set", "Imperial");
             Log.EventWriter("Units To Imperial");
 
-            Settings.User.isMetric = mf.isMetric = false;
+            Settings.User.isMetric = Settings.User.isMetric = false;
 
             Close();
         }
@@ -244,7 +244,7 @@ namespace AgOpenGPS
             mf.TimedMessageBox(2000, "Units Set", "Metric");
             Log.EventWriter("Units to Metric");
 
-            Settings.User.isMetric = mf.isMetric = true;
+            Settings.User.isMetric = Settings.User.isMetric = true;
 
             Close();
             //FormConfig_Load(this, e);

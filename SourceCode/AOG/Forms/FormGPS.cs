@@ -78,9 +78,6 @@ namespace AgOpenGPS
         //Time to do fix position update and draw routine
         public double gpsHz = 10;
 
-        //whether or not to use Stanley control
-        public bool isStanleyUsed = true;
-
         public int pbarSteer, pbarMachine, pbarUDP;
 
         public double nudNumber = 0;
@@ -415,7 +412,7 @@ namespace AgOpenGPS
             inoVersionInt = inoV;
             inoVersionStr = inoV.ToString();
 
-            if (isBrightnessOn)
+            if (Settings.User.setDisplay_isBrightnessOn)
             {
                 if (displayBrightness.isWmiMonitor)
                 {
@@ -830,7 +827,7 @@ namespace AgOpenGPS
                 FileSaveContour();
 
                 //NMEA elevation file
-                if (isLogElevation && sbElevationString.Length > 0) FileSaveElevation();
+                if (Settings.User.isLogElevation && sbElevationString.Length > 0) FileSaveElevation();
 
                 Log.EventWriter("** Closed **   " + currentJobDirectory + "   "
                     + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));

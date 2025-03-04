@@ -49,7 +49,7 @@ namespace AgOpenGPS
         public void Guidance(vec3 pivot, vec3 steer, bool Uturn, List<vec3> curList)
         {
             bool completeUturn = !Uturn;
-            var vec2point = mf.isStanleyUsed ? new vec2(steer.easting, steer.northing) : new vec2(pivot.easting, pivot.northing);
+            var vec2point = Settings.Vehicle.setVehicle_isStanleyUsed ? new vec2(steer.easting, steer.northing) : new vec2(pivot.easting, pivot.northing);
 
             //close call hit
             int cc = FindGlobalRoughNearest(vec2point, curList, 5, Uturn);
@@ -86,7 +86,7 @@ namespace AgOpenGPS
 
                 manualUturnHeading = abHeading;
 
-                if (mf.isStanleyUsed)//Stanley
+                if (Settings.Vehicle.setVehicle_isStanleyUsed)//Stanley
                 {
                     #region Stanley
                     //double delta = 0;

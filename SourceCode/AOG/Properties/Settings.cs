@@ -54,7 +54,7 @@ namespace AgOpenGPS
             public bool setDisplay_isHardwareMessages = false;
             public bool setDisplay_isKeyboardOn = true;
             public bool setDisplay_isLineSmooth = false;
-            public bool setDisplay_isLogElevation = false;
+            public bool isLogElevation = false;
             public bool setDisplay_isSectionLinesOn = true;
             public bool setDisplay_isShutdownWhenNoPower = false;
             public bool setDisplay_isStartFullScreen = false;
@@ -122,7 +122,6 @@ namespace AgOpenGPS
             public bool isLightbarNotSteerBar = false;
             public bool isLightbarOn = true;
             public bool isMetric = true;
-            public bool isPureOn = true;
             public bool isSideGuideLines = false;
             public bool isSimulatorOn = true;
             public bool isSkyOn = true;

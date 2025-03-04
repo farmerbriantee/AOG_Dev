@@ -612,7 +612,7 @@ namespace AgOpenGPS
                             if (yt.isTurnCreationTooClose && !yt.turnTooCloseTrigger)
                             {
                                 yt.turnTooCloseTrigger = true;
-                                if (sounds.isTurnSoundOn)
+                                if (Settings.User.sound_isUturnOn)
                                 {
                                     sounds.sndUTurnTooClose.Play();
                                     Log.EventWriter("U Turn Creation Failure");
@@ -622,19 +622,19 @@ namespace AgOpenGPS
                         else if (yt.ytList.Count > 5)//wait to trigger the actual turn since its made and waiting
                         {
                             //distance from current pivot or steer to first point of youturn pattern
-                            if (isStanleyUsed) distancePivotToTurnLine = glm.Distance(yt.ytList[2], steerAxlePos);
+                            if (Settings.Vehicle.setVehicle_isStanleyUsed) distancePivotToTurnLine = glm.Distance(yt.ytList[2], steerAxlePos);
                             else distancePivotToTurnLine = glm.Distance(yt.ytList[2], pivotAxlePos);
 
                             if ((distancePivotToTurnLine <= 20.0) && (distancePivotToTurnLine >= 18.0) && !yt.isYouTurnTriggered)
 
                                 if (!sounds.isBoundAlarming)
                                 {
-                                    if (sounds.isTurnSoundOn) sounds.sndBoundaryAlarm.Play();
+                                    if (Settings.User.sound_isUturnOn) sounds.sndBoundaryAlarm.Play();
                                     sounds.isBoundAlarming = true;
                                 }
 
                             //if we are close enough to pattern, trigger.
-                            if ((distancePivotToTurnLine <= 1 || (!isStanleyUsed && glm.Distance(yt.ytList[2], gyd.goalPoint) <= 1.0)) && !yt.isYouTurnTriggered)
+                            if ((distancePivotToTurnLine <= 1 || (!Settings.Vehicle.setVehicle_isStanleyUsed && glm.Distance(yt.ytList[2], gyd.goalPoint) <= 1.0)) && !yt.isYouTurnTriggered)
                             {
                                 yt.YouTurnTrigger();
                                 sounds.isBoundAlarming = false;
@@ -807,7 +807,7 @@ namespace AgOpenGPS
             contourTriggerDistance = glm.Distance(pivotAxlePos, prevContourPos);
             gridTriggerDistance = glm.DistanceSquared(pivotAxlePos, prevGridPos);
 
-            if ( isLogElevation && gridTriggerDistance > 2.9 && patchCounter !=0 && isFieldStarted)
+            if (Settings.User.isLogElevation && gridTriggerDistance > 2.9 && patchCounter !=0 && isFieldStarted)
             {
                 //grab fix and elevation
                 sbElevationString.Append(

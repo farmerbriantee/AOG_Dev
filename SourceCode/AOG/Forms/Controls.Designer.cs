@@ -282,7 +282,7 @@ namespace AgOpenGPS
                         isBtnAutoSteerOn = false;
                         btnAutoSteer.Image = Properties.Resources.AutoSteerOff;
                         //if (yt.isYouTurnBtnOn) btnAutoYouTurn.PerformClick();
-                        if (sounds.isSteerSoundOn) sounds.sndAutoSteerOff.Play();
+                        if (Settings.User.sound_isAutoSteerOn) sounds.sndAutoSteerOff.Play();
                     }
 
                     Log.EventWriter("Steer Off, Above Max Safe Speed for Autosteer");
@@ -298,7 +298,7 @@ namespace AgOpenGPS
                 isBtnAutoSteerOn = false;
                 btnAutoSteer.Image = Properties.Resources.AutoSteerOff;
                 //if (yt.isYouTurnBtnOn) btnAutoYouTurn.PerformClick();
-                if (sounds.isSteerSoundOn) sounds.sndAutoSteerOff.Play();
+                if (Settings.User.sound_isAutoSteerOn) sounds.sndAutoSteerOff.Play();
             }
             else
             {
@@ -306,7 +306,7 @@ namespace AgOpenGPS
                 {
                     isBtnAutoSteerOn = true;
                     btnAutoSteer.Image = Properties.Resources.AutoSteerOn;
-                    if (sounds.isSteerSoundOn) sounds.sndAutoSteerOn.Play();
+                    if (Settings.User.sound_isAutoSteerOn) sounds.sndAutoSteerOn.Play();
 
                     //redraw uturn if btn enabled.
                     if (yt.isYouTurnBtnOn)
@@ -1246,23 +1246,21 @@ namespace AgOpenGPS
 
         private void kioskModeToolStriPGN_Click(object sender, EventArgs e)
         {
-            isKioskMode = !isKioskMode;
+            Settings.User.setWindow_isKioskMode = !Settings.User.setWindow_isKioskMode;
 
-            if (isKioskMode)
+            if (Settings.User.setWindow_isKioskMode)
             {
                 kioskModeToolStrip.Checked = true;
                 this.WindowState = FormWindowState.Maximized;
-                isFullScreen = true;
+                Settings.User.setDisplay_isStartFullScreen = true;
                 btnMaximizeMainForm.Visible = false;
                 btnMinimizeMainForm.Visible = false;
-                Settings.User.setWindow_isKioskMode = true;
             }
             else
             {
                 kioskModeToolStrip.Checked = false;
                 btnMaximizeMainForm.Visible = true;
                 btnMinimizeMainForm.Visible = true;
-                Settings.User.setWindow_isKioskMode = false;
             }
         }
 
@@ -1729,13 +1727,11 @@ namespace AgOpenGPS
         }
         private void guidelinesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            isSideGuideLines = !isSideGuideLines;
-            if (isSideGuideLines) guidelinesToolStripMenuItem.Checked = true;
-            else guidelinesToolStripMenuItem.Checked = false;
-
-            Settings.User.isSideGuideLines = isSideGuideLines;
-            
+            Settings.User.isSideGuideLines = !Settings.User.isSideGuideLines;
+            if (Settings.User.isSideGuideLines) guidelinesToolStripMenuItem.Checked = true;
+            else guidelinesToolStripMenuItem.Checked = false;            
         }
+
         private void boundaryToolToolStripMenu_Click(object sender, EventArgs e)
         {
             if (isFieldStarted)

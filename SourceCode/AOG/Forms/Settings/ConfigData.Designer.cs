@@ -323,21 +323,14 @@ namespace AgOpenGPS
             Settings.User.setFeatures.isUTurnOn = cboxFeatureUTurn.Checked;
 
             Settings.User.sound_isUturnOn = cboxTurnSound.Checked;
-            mf.sounds.isTurnSoundOn = cboxTurnSound.Checked;
             Settings.User.sound_isAutoSteerOn = cboxSteerSound.Checked;
-            mf.sounds.isSteerSoundOn = cboxSteerSound.Checked;
             Settings.User.sound_isSectionsOn = cboxSectionsSound.Checked;
-            mf.sounds.isSectionsSoundOn = cboxSectionsSound.Checked;
             Settings.User.sound_isHydLiftOn = cboxHydLiftSound.Checked;
-            mf.sounds.isHydLiftSoundOn = cboxHydLiftSound.Checked;
 
             Settings.User.isAutoStartAgIO = cboxAutoStartAgIO.Checked;
-            mf.isAutoStartAgIO = cboxAutoStartAgIO.Checked;
-
             Settings.User.isAutoOffAgIO = cboxAutoOffAgIO.Checked;
 
             Settings.User.setDisplay_isShutdownWhenNoPower = cboxShutdownWhenNoPower.Checked;
-
             Settings.User.setDisplay_isHardwareMessages = cboxHardwareMessages.Checked;            
         }
 

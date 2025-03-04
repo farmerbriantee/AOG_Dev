@@ -142,7 +142,7 @@ namespace AgOpenGPS
                         mf.gyd.isFindGlobalNearestTrackPoint = true;
 
                         guideArr?.Clear();
-                        if (mf.isSideGuideLines && mf.camera.camSetDistance > mf.tool.width * -400)
+                        if (Settings.User.isSideGuideLines && mf.camera.camSetDistance > mf.tool.width * -400)
                         {
                             //build the list list of guide lines
                             guideArr = await Task.Run(() => BuildTrackGuidelines(distAway, mf.trk.numGuideLines, track));

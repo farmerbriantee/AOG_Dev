@@ -1317,7 +1317,6 @@ namespace AgOpenGPS
             {
                 form.ShowDialog(this);
             }
-            Settings.Vehicle.Save();
         }
         private void colorsSectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1327,7 +1326,6 @@ namespace AgOpenGPS
                 {
                     form.ShowDialog(this);
                 }
-                Settings.Vehicle.Save();
             }
             else
             {

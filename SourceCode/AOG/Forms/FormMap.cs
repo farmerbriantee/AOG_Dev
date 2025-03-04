@@ -72,7 +72,7 @@ namespace AgOpenGPS
             label3.Text = gStr.Get(gs.gsBoundary);
         }
 
-        private void FormMaPGN_FormClosing(object sender, FormClosingEventArgs e)
+        private void FormMap_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!isClosing)
             {
@@ -82,7 +82,6 @@ namespace AgOpenGPS
 
             Settings.User.setWindow_BingMapSize = Size;
             Settings.User.setWindow_BingZoom = mapControl.ZoomLevel;
-            Settings.Vehicle.Save();
         }
 
         private void btnExit_Click(object sender, EventArgs e)

@@ -209,7 +209,6 @@ namespace AgOpenGPS
                     if (navPanelCounter-- <= 0)
                     {
                         panelNavigation.Visible = false;
-                        Settings.Vehicle.Save();
                     }
                     lblHz.Text = gpsHz.ToString("N1") + " ~ " + (frameTime.ToString("N1")) + " " + FixQuality;
                 }

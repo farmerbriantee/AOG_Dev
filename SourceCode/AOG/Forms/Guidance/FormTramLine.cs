@@ -119,7 +119,6 @@ namespace AgOpenGPS
 
             Settings.User.setWindow_tramLineSize = Size;
             Settings.Tool.tram_alpha = mf.tram.alpha;
-            Settings.Vehicle.Save();
         }
 
         private void LoadAndFixLines()

@@ -61,8 +61,8 @@ namespace AgOpenGPS
 
                     LoadBrandImage();
 
-                    mf.vehicle = new CVehicle(mf);
-                    mf.tool = new CTool(mf);
+                    mf.vehicle.LoadSettings();
+                    mf.tool.LoadSettings();
 
                     //reset AgOpenGPS
                     mf.LoadSettings();
@@ -255,8 +255,8 @@ namespace AgOpenGPS
 
                 LoadBrandImage();
 
-                mf.vehicle = new CVehicle(mf);
-                mf.tool = new CTool(mf);
+                mf.vehicle.LoadSettings();
+                mf.tool.LoadSettings();
 
                 //reset AgOpenGPS
                 mf.LoadSettings();
@@ -442,8 +442,8 @@ namespace AgOpenGPS
 
                     LoadBrandImage();
 
-                    mf.vehicle = new CVehicle(mf);
-                    mf.tool = new CTool(mf);
+                    mf.vehicle.LoadSettings();
+                    mf.tool.LoadSettings();
 
                     //reset AgOpenGPS
                     mf.LoadSettings();
@@ -518,8 +518,8 @@ namespace AgOpenGPS
 
                 LoadBrandImage();
 
-                mf.vehicle = new CVehicle(mf);
-                mf.tool = new CTool(mf);
+                mf.vehicle.LoadSettings();
+                mf.tool.LoadSettings();
 
                 //reset AgOpenGPS
                 mf.LoadSettings();
@@ -687,25 +687,18 @@ namespace AgOpenGPS
         private void tabVAntenna_Enter(object sender, EventArgs e)
         {
             nudAntennaHeight.Value = Settings.Vehicle.setVehicle_antennaHeight;
-
             nudAntennaPivot.Value = Settings.Vehicle.setVehicle_antennaPivot;
-
             //negative is to the right
             nudAntennaOffset.Value = Math.Abs(Settings.Vehicle.setVehicle_antennaOffset);
 
-            rbtnAntennaLeft.Checked = false;
-            rbtnAntennaRight.Checked = false;
-            rbtnAntennaCenter.Checked = false;
             rbtnAntennaLeft.Checked = Settings.Vehicle.setVehicle_antennaOffset > 0;
             rbtnAntennaRight.Checked = Settings.Vehicle.setVehicle_antennaOffset < 0;
             rbtnAntennaCenter.Checked = Settings.Vehicle.setVehicle_antennaOffset == 0;
 
             if (Settings.Vehicle.setVehicle_vehicleType == 0)
                 pboxAntenna.BackgroundImage = Properties.Resources.AntennaTractor;
-
             else if (Settings.Vehicle.setVehicle_vehicleType == 1)
                 pboxAntenna.BackgroundImage = Properties.Resources.AntennaHarvester;
-
             else if (Settings.Vehicle.setVehicle_vehicleType == 2)
                 pboxAntenna.BackgroundImage = Properties.Resources.Antenna4WD;
 
@@ -716,7 +709,6 @@ namespace AgOpenGPS
 
         private void tabVAntenna_Leave(object sender, EventArgs e)
         {
-            
         }
 
         private void rbtnAntennaLeft_Click(object sender, EventArgs e)
@@ -736,30 +728,19 @@ namespace AgOpenGPS
 
         private void nudAntennaOffset_ValueChanged(object sender, EventArgs e)
         {
-            if ((double)nudAntennaOffset.Value == 0)
+            if (nudAntennaOffset.Value == 0)
             {
                 rbtnAntennaLeft.Checked = false;
                 rbtnAntennaRight.Checked = false;
                 rbtnAntennaCenter.Checked = true;
-                mf.vehicle.antennaOffset = 0;
             }
             else
             {
                 if (!rbtnAntennaLeft.Checked && !rbtnAntennaRight.Checked)
                     rbtnAntennaRight.Checked = true;
-
-                if (rbtnAntennaRight.Checked)
-                    mf.vehicle.antennaOffset = -nudAntennaOffset.Value;
-                else
-                    mf.vehicle.antennaOffset = nudAntennaOffset.Value;
             }
 
-            Settings.Vehicle.setVehicle_antennaOffset = mf.vehicle.antennaOffset;
-
-            //rbtnAntennaLeft.Checked = false;
-            //rbtnAntennaRight.Checked = false;
-            //rbtnAntennaLeft.Checked = Properties.Settings.Default.setVehicle_antennaOffset > 0;
-            //rbtnAntennaRight.Checked = Properties.Settings.Default.setVehicle_antennaOffset < 0;
+            rbtnAntennaLeft_Click(null, null);
         }
 
         private void nudAntennaPivot_ValueChanged(object sender, EventArgs e)
@@ -847,17 +828,6 @@ namespace AgOpenGPS
             mf.tram.halfWheelTrack = mf.vehicle.trackWidth * 0.5;
         }
 
-        #endregion
-
-        #region Vehicle Guidance
-
-        private void tabVGuidance_Enter(object sender, EventArgs e)
-        {
-        }
-
-        private void tabVGuidance_Leave(object sender, EventArgs e)
-        {
-        }
         #endregion
 
         #region VConfig Enter/Leave

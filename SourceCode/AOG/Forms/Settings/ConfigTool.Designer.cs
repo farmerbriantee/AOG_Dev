@@ -78,35 +78,10 @@ namespace AgOpenGPS
         {
             if (mf.vehicle.vehicleType != 1)
             {
-
-                if (rbtnFront.Checked)
-                {
-                    Settings.Tool.isToolFront = true;
-                    Settings.Tool.isToolTBT = false;
-                    Settings.Tool.isToolTrailing = false;
-                    Settings.Tool.isToolRearFixed = false;
-                }
-                else if (rbtnTBT.Checked)
-                {
-                    Settings.Tool.isToolFront = false;
-                    Settings.Tool.isToolTBT = true;
-                    Settings.Tool.isToolTrailing = true;
-                    Settings.Tool.isToolRearFixed = false;
-                }
-                else if (rbtnTrailing.Checked)
-                {
-                    Settings.Tool.isToolFront = false;
-                    Settings.Tool.isToolTBT = false;
-                    Settings.Tool.isToolTrailing = true;
-                    Settings.Tool.isToolRearFixed = false;
-                }
-                else if (rbtnFixedRear.Checked)
-                {
-                    Settings.Tool.isToolFront = false;
-                    Settings.Tool.isToolTBT = false;
-                    Settings.Tool.isToolTrailing = false;
-                    Settings.Tool.isToolRearFixed = true;
-                }
+                Settings.Tool.isToolFront = rbtnFront.Checked;
+                Settings.Tool.isToolTBT = rbtnTBT.Checked;
+                Settings.Tool.isToolTrailing = rbtnTrailing.Checked || rbtnTBT.Checked;
+                Settings.Tool.isToolRearFixed = rbtnFixedRear.Checked;
             }
             else
             {
@@ -127,8 +102,6 @@ namespace AgOpenGPS
             else if (!Settings.Tool.isToolFront && mf.tool.hitchLength > 0)
                 mf.tool.hitchLength *= -1;
             Settings.Tool.hitchLength = mf.tool.hitchLength;
-
-            
         }
 
         #endregion
@@ -572,7 +545,7 @@ namespace AgOpenGPS
 
                 int i = numberOfSections;
 
-                foreach (var item in tab1.TabPages[9].Controls)
+                foreach (var item in tabTSections.Controls)
                 {
                     if (item is NudlessNumericUpDown numeric)
                     {
@@ -1114,7 +1087,7 @@ namespace AgOpenGPS
 
             double toolWidth = 0;
 
-            foreach (var item in tab1.TabPages[9].Controls)
+            foreach (var item in tabTSections.Controls)
             {
                 if (item is NudlessNumericUpDown)
                 {
@@ -1217,8 +1190,8 @@ namespace AgOpenGPS
         private void tabTSwitches_Enter(object sender, EventArgs e)
         {
             //set accordingly
-            chkSelectSteerSwitch.Checked = mf.mc.isSteerWorkSwitchEnabled;
-            chkSelectWorkSwitch.Checked = mf.mc.isWorkSwitchEnabled;
+            chkSelectSteerSwitch.Checked = Settings.Vehicle.setF_isSteerWorkSwitchEnabled;
+            chkSelectWorkSwitch.Checked = Settings.Vehicle.setF_isWorkSwitchEnabled;
 
             if (Settings.Vehicle.setF_isWorkSwitchManualSections)
             {
@@ -1254,24 +1227,20 @@ namespace AgOpenGPS
         private void tabTSwitches_Leave(object sender, EventArgs e)
         {
             //active low on work switch
-            mf.mc.isWorkSwitchActiveLow = Settings.Vehicle.setF_isWorkSwitchActiveLow = chkWorkSwActiveLow.Checked;
+            Settings.Vehicle.setF_isWorkSwitchActiveLow = chkWorkSwActiveLow.Checked;
 
             //is work switch enabled
-            mf.mc.isWorkSwitchEnabled = Settings.Vehicle.setF_isWorkSwitchEnabled = chkSelectWorkSwitch.Checked;
+            Settings.Vehicle.setF_isWorkSwitchEnabled = chkSelectWorkSwitch.Checked;
 
             //Are auto or manual sections controlled. 
-            mf.mc.isWorkSwitchManualSections = Settings.Vehicle.setF_isWorkSwitchManualSections = chkSetManualSections.Checked;
+            Settings.Vehicle.setF_isWorkSwitchManualSections = chkSetManualSections.Checked;
 
             //Are auto or manual sections controlled for steer
-            mf.mc.isSteerWorkSwitchEnabled = Settings.Vehicle.setF_isSteerWorkSwitchEnabled = chkSelectSteerSwitch.Checked;
+            Settings.Vehicle.setF_isSteerWorkSwitchEnabled = chkSelectSteerSwitch.Checked;
 
             //does steer switch control manual or auto sections
-            mf.mc.isSteerWorkSwitchManualSections = Settings.Vehicle.setF_isSteerWorkSwitchManualSections = chkSetManualSectionsSteer.Checked;
+            Settings.Vehicle.setF_isSteerWorkSwitchManualSections = chkSetManualSectionsSteer.Checked;
 
-            if (!mf.mc.isSteerWorkSwitchEnabled && !mf.mc.isWorkSwitchEnabled)
-                mf.mc.isRemoteWorkSystemOn = Settings.Vehicle.setF_isRemoteWorkSystemOn = false;
-            else
-                mf.mc.isRemoteWorkSystemOn = Settings.Vehicle.setF_isRemoteWorkSystemOn = true;
             //save
             
         }

@@ -77,13 +77,10 @@ namespace AgOpenGPS
 
         private void tabDHeading_Leave(object sender, EventArgs e)
         {
-            Settings.Vehicle.setIMU_fusionWeight2 = (double)hsbarFusion.Value * 0.002;
-            mf.ahrs.fusionWeight = (double)hsbarFusion.Value * 0.002;
+            Settings.Vehicle.setGPS_isRTK = cboxIsRTK.Checked;
 
-            Settings.Vehicle.setGPS_isRTK = mf.isRTK_AlarmOn = cboxIsRTK.Checked;
-
-            Settings.Vehicle.setIMU_isReverseOn = mf.ahrs.isReverseOn = cboxIsReverseOn.Checked;
-            Settings.Vehicle.setGPS_isRTK_KillAutoSteer = mf.isRTK_KillAutosteer = cboxIsRTK_KillAutoSteer.Checked;
+            Settings.Vehicle.setIMU_isReverseOn = cboxIsReverseOn.Checked;
+            Settings.Vehicle.setGPS_isRTK_KillAutoSteer = cboxIsRTK_KillAutoSteer.Checked;
 
             if (cboxMinGPSStep.Checked)
             {
@@ -102,7 +99,6 @@ namespace AgOpenGPS
         {
             var checkedButton = headingGroupBox.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
             Settings.Vehicle.setGPS_headingFromWhichSource = checkedButton.Text;
-            mf.headingFromSource = checkedButton.Text;
 
             if (rbtnHeadingHDT.Checked)
             {
@@ -125,13 +121,11 @@ namespace AgOpenGPS
         private void nudDualHeadingOffset_ValueChanged(object sender, EventArgs e)
         {
             Settings.Vehicle.setGPS_dualHeadingOffset = nudDualHeadingOffset.Value;
-            mf.pn.headingTrueDualOffset = Settings.Vehicle.setGPS_dualHeadingOffset;
         }
 
         private void nudDualReverseDistance_ValueChanged(object sender, EventArgs e)
         {
             Settings.Vehicle.setGPS_dualReverseDetectionDistance = nudDualReverseDistance.Value;
-            mf.dualReverseDetectionDistance = Settings.Vehicle.setGPS_dualReverseDetectionDistance;
         }
         //private void nudMinimumFrameTime_Click(object sender, EventArgs e)
         //{
@@ -165,7 +159,7 @@ namespace AgOpenGPS
             lblFusion.Text = (hsbarFusion.Value).ToString()+"%";
             lblFusionIMU.Text = (100 - hsbarFusion.Value).ToString()+"%";
 
-            mf.ahrs.fusionWeight = (double)hsbarFusion.Value * 0.002;
+            Settings.Vehicle.setIMU_fusionWeight2 = (double)hsbarFusion.Value * 0.002;
         }
 
         //private void nudForwardComPGN_Click(object sender, EventArgs e)
@@ -199,61 +193,41 @@ namespace AgOpenGPS
         private void tabDRoll_Enter(object sender, EventArgs e)
         {
             //Roll
-            lblRollZeroOffset.Text = ((double)Settings.Vehicle.setIMU_rollZero).ToString("N2");
+            lblRollZeroOffset.Text = Settings.Vehicle.setIMU_rollZero.ToString("N2");
             hsbarRollFilter.Value = (int)(Settings.Vehicle.setIMU_rollFilter * 100);
             cboxDataInvertRoll.Checked = Settings.Vehicle.setIMU_invertRoll;
         }
 
         private void tabDRoll_Leave(object sender, EventArgs e)
         {
-            Settings.Vehicle.setIMU_rollFilter = (double)hsbarRollFilter.Value * 0.01;
-            Settings.Vehicle.setIMU_rollZero = mf.ahrs.rollZero;
-            Settings.Vehicle.setIMU_invertRoll = cboxDataInvertRoll.Checked;
-
-            mf.ahrs.rollFilter = Settings.Vehicle.setIMU_rollFilter;
-            mf.ahrs.isRollInvert = Settings.Vehicle.setIMU_invertRoll;
-
-            
         }
 
         private void hsbarRollFilter_ValueChanged(object sender, EventArgs e)
         {
             lblRollFilterPercent.Text = hsbarRollFilter.Value.ToString();
+            Settings.Vehicle.setIMU_rollFilter = hsbarRollFilter.Value * 0.01;
         }
 
         private void btnRollOffsetDown_Click(object sender, EventArgs e)
         {
-            if (mf.ahrs.imuRoll != 88888)
-            {
-                mf.ahrs.rollZero -= 0.1;
-                lblRollZeroOffset.Text = (mf.ahrs.rollZero).ToString("N2");
-            }
-            else
-            {
-                lblRollZeroOffset.Text = "***";
-            }
+            Settings.Vehicle.setIMU_rollZero -= 0.1;
+            lblRollZeroOffset.Text = Settings.Vehicle.setIMU_rollZero.ToString("N2");
         }
 
         private void btnRollOffsetUPGN_Click(object sender, EventArgs e)
         {
-            if (mf.ahrs.imuRoll != 88888)
-            {
-                mf.ahrs.rollZero += 0.1;
-                lblRollZeroOffset.Text = (mf.ahrs.rollZero).ToString("N2");
-            }
-            else
-            {
-                lblRollZeroOffset.Text = "***";
-            }
+            Settings.Vehicle.setIMU_rollZero += 0.1;
+            lblRollZeroOffset.Text = Settings.Vehicle.setIMU_rollZero.ToString("N2");
         }
+
         private void btnZeroRoll_Click(object sender, EventArgs e)
         {
             if (mf.ahrs.imuRoll != 88888)
             {
-                mf.ahrs.imuRoll += mf.ahrs.rollZero;
-                mf.ahrs.rollZero = mf.ahrs.imuRoll;
-                lblRollZeroOffset.Text = (mf.ahrs.rollZero).ToString("N2");
-                Log.EventWriter("Roll Zeroed with " + mf.ahrs.rollZero.ToString());
+                mf.ahrs.imuRoll += Settings.Vehicle.setIMU_rollZero;
+                Settings.Vehicle.setIMU_rollZero = mf.ahrs.imuRoll;
+                lblRollZeroOffset.Text = Settings.Vehicle.setIMU_rollZero.ToString("N2");
+                Log.EventWriter("Roll Zeroed with " + Settings.Vehicle.setIMU_rollZero.ToString());
             }
             else
             {
@@ -263,7 +237,7 @@ namespace AgOpenGPS
 
         private void btnRemoveZeroOffset_Click(object sender, EventArgs e)
         {
-            mf.ahrs.rollZero = 0;
+            Settings.Vehicle.setIMU_rollZero = 0;
             lblRollZeroOffset.Text = "0.00";
             Log.EventWriter("Roll Zero Offset Removed");
         }
@@ -321,6 +295,8 @@ namespace AgOpenGPS
 
             Settings.User.setFeatures.isLateralOn = cboxFeatureLateral.Checked;
             Settings.User.setFeatures.isUTurnOn = cboxFeatureUTurn.Checked;
+
+            mf.SetFeatureSettings();
 
             Settings.User.sound_isUturnOn = cboxTurnSound.Checked;
             Settings.User.sound_isAutoSteerOn = cboxSteerSound.Checked;

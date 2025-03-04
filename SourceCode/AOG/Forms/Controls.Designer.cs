@@ -1539,7 +1539,7 @@ namespace AgOpenGPS
                 //load language file Translations.xlsx
                 if (!gStr.Load()) YesMessageBox("Serious error loading languages");
 
-                LoadSettings();
+                SetText();
             }
         }
 

@@ -23,12 +23,7 @@ namespace AgOpenGPS
 
         public double distSteerError, lastDistSteerError, derivativeDistError;
 
-        public double pivotDistanceError, stanleyModeMultiplier;
-
-        //public int modeTimeCounter = 0;
-
-        //for adding steering angle based on side slope hill
-        public double sideHillCompFactor;
+        public double pivotDistanceError;
 
         //derivative counters
         private int counter2;
@@ -37,13 +32,12 @@ namespace AgOpenGPS
         public bool isFindGlobalNearestTrackPoint = true;
 
         public int currentLocationIndex;
-        public double pivotDistanceErrorLast, pivotDerivative, pivotDerivativeSmoothed, lastTrackDistance = 10000;
+        public double pivotDistanceErrorLast, pivotDerivative;
 
         public CGuidance(FormGPS _f)
         {
             //constructor
             mf = _f;
-            sideHillCompFactor = Settings.Vehicle.setAS_sideHillComp;
         }
 
         public void Guidance(vec3 pivot, vec3 steer, bool Uturn, List<vec3> curList)
@@ -344,7 +338,7 @@ namespace AgOpenGPS
                 }
 
                 if (!Uturn && mf.ahrs.imuRoll != 88888)
-                    steerAngle += mf.ahrs.imuRoll * -mf.gyd.sideHillCompFactor;
+                    steerAngle += mf.ahrs.imuRoll * -Settings.Vehicle.setAS_sideHillComp;
 
                 if (steerAngle < -mf.vehicle.maxSteerAngle) steerAngle = -mf.vehicle.maxSteerAngle;
                 if (steerAngle > mf.vehicle.maxSteerAngle) steerAngle = mf.vehicle.maxSteerAngle;

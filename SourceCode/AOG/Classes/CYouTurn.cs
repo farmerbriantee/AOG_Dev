@@ -82,7 +82,11 @@ namespace AgOpenGPS
         public CYouTurn(FormGPS _f)
         {
             mf = _f;
+            LoadSettings();
+        }
 
+        public void LoadSettings()
+        {
             uturnDistanceFromBoundary = Settings.Vehicle.set_youTurnDistanceFromBoundary;
 
             //how far before or after boundary line should turn happen
@@ -99,6 +103,7 @@ namespace AgOpenGPS
 
             uTurnSmoothing = Settings.Vehicle.setAS_uTurnSmoothing;
         }
+
 
         //Finds the point where an AB Curve crosses the turn line
         public bool BuildCurveDubinsYouTurn()

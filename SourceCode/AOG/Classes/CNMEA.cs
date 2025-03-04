@@ -22,9 +22,9 @@ namespace AgOpenGPS
         //other GIS Info
         public double altitude, vtgSpeed = 0;
 
-        public double headingTrueDual, headingTrue, hdop, age, headingTrueDualOffset;
+        public double headingTrueDual, headingTrue, hdop, age;
 
-        public int fixQuality, ageAlarm;
+        public int fixQuality;
         public int satellitesTracked;
 
         private readonly FormGPS mf;
@@ -35,7 +35,6 @@ namespace AgOpenGPS
             mf = f;
             latStart = 0;
             lonStart = 0;
-            ageAlarm = Settings.Vehicle.setGPS_ageAlarm;
         }
 
         public void AverageTheSpeed()

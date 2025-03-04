@@ -47,7 +47,11 @@ namespace AgOpenGPS
         {
             //constructor
             mf = _f;
+            LoadSettings();
+        }
 
+        public void LoadSettings()
+        {
             antennaHeight = Settings.Vehicle.setVehicle_antennaHeight;
             antennaPivot = Settings.Vehicle.setVehicle_antennaPivot;
             antennaOffset = Settings.Vehicle.setVehicle_antennaOffset;

@@ -142,7 +142,7 @@ namespace AgOpenGPS
                                 float temp = BitConverter.ToSingle(data, 21);
                                 if (temp != float.MaxValue)
                                 {
-                                    pn.headingTrueDual = temp + pn.headingTrueDualOffset;
+                                    pn.headingTrueDual = temp + Settings.Vehicle.setGPS_dualHeadingOffset;
                                     if (pn.headingTrueDual >= 360) pn.headingTrueDual -= 360;
                                     else if (pn.headingTrueDual < 0) pn.headingTrueDual += 360;
                                 }
@@ -161,8 +161,8 @@ namespace AgOpenGPS
                                 temp = BitConverter.ToSingle(data, 33);
                                 if (temp != float.MaxValue)
                                 {
-                                    if (ahrs.isRollInvert) temp *= -1;
-                                    ahrs.imuRoll = temp - ahrs.rollZero;
+                                    if (Settings.Vehicle.setIMU_invertRoll) temp *= -1;
+                                    ahrs.imuRoll = temp - Settings.Vehicle.setIMU_rollZero;
                                 }
                                 if (temp == float.MinValue)
                                     ahrs.imuRoll = 0;                               
@@ -199,10 +199,10 @@ namespace AgOpenGPS
                                 if (imuRol != short.MaxValue)
                                 {
                                     double rollK = imuRol;
-                                    if (ahrs.isRollInvert) rollK *= -0.1;
+                                    if (Settings.Vehicle.setIMU_invertRoll) rollK *= -0.1;
                                     else rollK *= 0.1;
-                                    rollK -= ahrs.rollZero;
-                                    ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
+                                    rollK -= Settings.Vehicle.setIMU_rollZero;
+                                    ahrs.imuRoll = ahrs.imuRoll * Settings.Vehicle.setIMU_rollFilter + rollK * (1 - Settings.Vehicle.setIMU_rollFilter);
                                 }
 
                                 short imuPich = BitConverter.ToInt16(data, 52);
@@ -236,10 +236,10 @@ namespace AgOpenGPS
                             //Roll
                             double rollK = (Int16)((data[8] << 8) + data[7]);
 
-                            if (ahrs.isRollInvert) rollK *= -0.1;
+                            if (Settings.Vehicle.setIMU_invertRoll) rollK *= -0.1;
                             else rollK *= 0.1;
-                            rollK -= ahrs.rollZero;                           
-                            ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
+                            rollK -= Settings.Vehicle.setIMU_rollZero;                           
+                            ahrs.imuRoll = ahrs.imuRoll * Settings.Vehicle.setIMU_rollFilter + rollK * (1 - Settings.Vehicle.setIMU_rollFilter);
 
                             //Angular velocity
                             ahrs.angVel = (Int16)((data[10] << 8) + data[9]);
@@ -278,10 +278,10 @@ namespace AgOpenGPS
                             double rollK = (Int16)((data[10] << 8) + data[9]);
                             if (rollK != 8888)
                             {
-                                if (ahrs.isRollInvert) rollK *= -0.1;
+                                if (Settings.Vehicle.setIMU_invertRoll) rollK *= -0.1;
                                 else rollK *= 0.1;
-                                rollK -= ahrs.rollZero;
-                                ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
+                                rollK -= Settings.Vehicle.setIMU_rollZero;
+                                ahrs.imuRoll = ahrs.imuRoll * Settings.Vehicle.setIMU_rollFilter + rollK * (1 - Settings.Vehicle.setIMU_rollFilter);
                             }
                             //else ahrs.imuRoll = 88888;
 
@@ -506,7 +506,7 @@ namespace AgOpenGPS
                                 float temp = BitConverter.ToSingle(data, 21);
                                 if (temp != float.MaxValue)
                                 {
-                                    pnTool.headingTrueDual = temp + pnTool.headingTrueDualOffset;
+                                    pnTool.headingTrueDual = temp + Settings.Vehicle.setGPS_dualHeadingOffset;
                                     if (pnTool.headingTrueDual < 0) pnTool.headingTrueDual += 360;
                                 }
 
@@ -524,8 +524,8 @@ namespace AgOpenGPS
                                 temp = BitConverter.ToSingle(data, 33);
                                 if (temp != float.MaxValue)
                                 {
-                                    if (ahrsTool.isRollInvert) temp *= -1;
-                                    ahrsTool.imuRoll = temp - ahrsTool.rollZero;
+                                    if (Settings.Vehicle.setIMU_invertRoll) temp *= -1;
+                                    ahrsTool.imuRoll = temp - Settings.Vehicle.setIMU_rollZero;
                                 }
                                 if (temp == float.MinValue)
                                     ahrsTool.imuRoll = 0;
@@ -562,10 +562,10 @@ namespace AgOpenGPS
                                 if (imuRol != short.MaxValue)
                                 {
                                     double rollK = imuRol;
-                                    if (ahrsTool.isRollInvert) rollK *= -0.1;
+                                    if (Settings.Vehicle.setIMU_invertRoll) rollK *= -0.1;
                                     else rollK *= 0.1;
-                                    rollK -= ahrsTool.rollZero;
-                                    ahrsTool.imuRoll = ahrsTool.imuRoll * ahrsTool.rollFilter + rollK * (1 - ahrsTool.rollFilter);
+                                    rollK -= Settings.Vehicle.setIMU_rollZero;
+                                    ahrsTool.imuRoll = ahrsTool.imuRoll * Settings.Vehicle.setIMU_rollFilter + rollK * (1 - Settings.Vehicle.setIMU_rollFilter);
                                 }
 
                                 short imuPich = BitConverter.ToInt16(data, 52);

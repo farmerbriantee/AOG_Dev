@@ -120,14 +120,8 @@ namespace AgOpenGPS
 
         private void FormConfig_Load(object sender, EventArgs e)
         {
-            //since we reset, save current state
-            mf.SaveFormGPSWindowSettings();
-
-            //tabTSections_Enter(this, e);
             lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * glm.m2InchOrCm));
             SectionFeetInchesTotalWidthLabelUpdate();
-
-            tboxVehicleNameSave.Focus();
 
             lblSaveAs.Text = gStr.Get(gs.gsSaveAs);
             lblNew.Text = gStr.Get(gs.gsNew);
@@ -142,11 +136,14 @@ namespace AgOpenGPS
 
         private void FormConfig_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //since we reset, save current state
+            //mf.SaveFormGPSWindowSettings();
+
             tab1.SelectedTab = null;// make sure tabPage_Leave is called!
             SelectedTabChanged();
 
             //reload all the settings from default and user.config
-            mf.LoadSettings();
+            //mf.LoadSettings();
 
             //save current vehicle
             Settings.Vehicle.Save();

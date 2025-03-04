@@ -162,7 +162,6 @@ namespace AgOpenGPS
             hsbarIntegralPurePursuit.Value = (int)(Settings.Vehicle.setAS_purePursuitIntegralGain * 100);
             lblPureIntegral.Text = ((int)(mf.vehicle.purePursuitIntegralGain * 100)).ToString();
 
-            mf.gyd.sideHillCompFactor = Settings.Vehicle.setAS_sideHillComp;
             hsbarSideHillComp.Value = (int)(Settings.Vehicle.setAS_sideHillComp * 100);
 
             mf.vehicle.goalPointLookAheadHold = Settings.Vehicle.setVehicle_goalPointLookAheadHold;
@@ -592,7 +591,6 @@ namespace AgOpenGPS
         private void cboxSteerInReverse_Click(object sender, EventArgs e)
         {
             Settings.Vehicle.setAS_isSteerInReverse = cboxSteerInReverse.Checked;
-            mf.isSteerInReverse = cboxSteerInReverse.Checked;
         }
 
         private void hsbarSideHillComPGN_ValueChanged(object sender, EventArgs e)
@@ -601,7 +599,6 @@ namespace AgOpenGPS
             deg *= 0.01;
             lblSideHillComp.Text = (deg.ToString("N2") + "\u00B0");
             Settings.Vehicle.setAS_sideHillComp = deg;
-            mf.gyd.sideHillCompFactor = deg;
         }
 
         private void btnStanleyPure_Click(object sender, EventArgs e)
@@ -1347,9 +1344,8 @@ namespace AgOpenGPS
                 Settings.Vehicle.setVehicle_isStanleyUsed = false;
 
                 Settings.Vehicle.setAS_isSteerInReverse = false;
-                mf.isSteerInReverse = false;
 
-                mf.vehicle = new CVehicle(mf);
+                mf.vehicle.LoadSettings();
 
                 FormSteer_Load(this, e);
 

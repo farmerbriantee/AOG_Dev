@@ -14,8 +14,7 @@ namespace AgOpenGPS
     public partial class FormGPS
     {
         //very first fix to setup grid etc
-        public bool isGPSPositionInitialized = false, isFirstHeadingSet = false,
-            isReverse = false, isSteerInReverse = true;
+        public bool isGPSPositionInitialized = false, isFirstHeadingSet = false, isReverse = false;
 
         //string to record fixes for elevation maps
         public StringBuilder sbElevationString = new StringBuilder();
@@ -25,14 +24,9 @@ namespace AgOpenGPS
         public double guidanceLineSteerAngle;
 
         public double setAngVel, actAngVel;
-        public bool isConstantContourOn;
 
         //guidance line look ahead
         public vec2 guidanceLookPos = new vec2(0, 0);
-        public double dualReverseDetectionDistance;
-
-        //for heading or Atan2 as camera
-        public string headingFromSource, headingFromSourceBak;
 
         public vec3 pivotAxlePos = new vec3(0, 0, 0);
         public vec3 steerAxlePos = new vec3(0, 0, 0);
@@ -90,12 +84,10 @@ namespace AgOpenGPS
         private int currentStepFix = 0;
         private const int totalFixSteps = 10;
         public vecFix2Fix[] stepFixPts = new vecFix2Fix[totalFixSteps];
-        public double distanceCurrentStepFix = 0, distanceCurrentStepFixDisplay = 0, minHeadingStepDist = 1, startSpeed = 0.5;
-        public double fixToFixHeadingDistance = 0, gpsMinimumStepDistance = 0.05;
+        public double distanceCurrentStepFix = 0, distanceCurrentStepFixDisplay = 0;
+        public double fixToFixHeadingDistance = 0;
 
         private double nowHz = 0;
-
-        public bool isRTK_AlarmOn, isRTK_KillAutosteer;
 
         public double uncorrectedEastingGraph = 0;
         public double correctionDistanceGraph = 0;
@@ -162,7 +154,7 @@ namespace AgOpenGPS
             }
 
             #region Heading
-            switch (headingFromSource)
+            switch (Settings.Vehicle.setGPS_headingFromWhichSource)
             {
                 //calculate current heading only when moving, otherwise use last
                 case "Fix":
@@ -175,14 +167,14 @@ namespace AgOpenGPS
                     //how far since last fix
                     distanceCurrentStepFix = glm.Distance(stepFixPts[0], pn.fix);
 
-                    if (distanceCurrentStepFix > gpsMinimumStepDistance)// 0.1 or 0.05 
+                    if (distanceCurrentStepFix > Settings.Vehicle.setGPS_minimumStepLimit)// 0.1 or 0.05 
                     {
                         //save a copy of previous for jump test
                         //jumpFix.easting = stepFixPts[0].easting; jumpFix.northing = stepFixPts[0].northing;
 
                         if ((fd.distanceUser += distanceCurrentStepFix) > 9999) fd.distanceUser = 0;
 
-                        double minFixHeadingDistSquared = minHeadingStepDist * minHeadingStepDist;
+                        double minFixHeadingDistSquared = Settings.Vehicle.setF_minHeadingStepDistance * Settings.Vehicle.setF_minHeadingStepDistance;
                         fixToFixHeadingDistance = 0;
 
                         for (int i = 0; i < totalFixSteps; i++)
@@ -239,7 +231,7 @@ namespace AgOpenGPS
                                 ////what is angle between the last valid heading and one just now
                                 double delta = Math.Abs(Math.PI - Math.Abs(Math.Abs(gpsHeading - fixHeading) - Math.PI));
 
-                                isReverse = ahrs.isReverseOn && delta > glm.PIBy2;
+                                isReverse = Settings.Vehicle.setIMU_isReverseOn && delta > glm.PIBy2;
                                 
                                 if (isReverse)
                                 {
@@ -316,7 +308,7 @@ namespace AgOpenGPS
                             prevFix = pn.fix;
                         }
 
-                        if (glm.Distance(lastReverseFix, pn.fix) > dualReverseDetectionDistance)
+                        if (glm.Distance(lastReverseFix, pn.fix) > Settings.Vehicle.setGPS_dualReverseDetectionDistance)
                         {
                             //most recent heading
                             double newHeading = Math.Atan2(pn.fix.easting - lastReverseFix.easting,
@@ -491,7 +483,7 @@ namespace AgOpenGPS
                 }
 
                 //for now if backing up, turn off autosteer
-                if (!isSteerInReverse && isReverse)
+                if (!Settings.Vehicle.setAS_isSteerInReverse && isReverse)
                 {
                     PGN_254.pgn[PGN_254.status] = 0;
                 }
@@ -605,7 +597,7 @@ namespace AgOpenGPS
 
                             if (yt.uTurnStyle == 0 && yt.youTurnPhase == 10)
                             {
-                                yt.SmoothYouTurn(6);
+                                yt.SmoothYouTurn(6); //yt.uTurnSmoothing????
                             }
 
                             if (yt.isTurnCreationTooClose && !yt.turnTooCloseTrigger)
@@ -736,7 +728,7 @@ namespace AgOpenGPS
             {
                 //move the offset to line up imu with gps
                 //if (!isReverseWithIMU)
-                    imuGPS_Offset += gyroDelta * ahrs.fusionWeight;
+                    imuGPS_Offset += gyroDelta * Settings.Vehicle.setIMU_fusionWeight2;
                 //else
                 //    imuGPS_Offset += gyroDelta * 0.02;
             }

@@ -236,7 +236,6 @@ namespace AgOpenGPS
             public double setF_minHeadingStepDistance = 0.5;
             public double setF_UserTotalArea = 0.0;
 
-            public bool setF_isRemoteWorkSystemOn = false;
             public bool setF_isSteerWorkSwitchEnabled = false;
             public bool setF_isSteerWorkSwitchManualSections = false;
             public bool setF_isWorkSwitchActiveLow = true;

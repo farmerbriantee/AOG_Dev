@@ -78,7 +78,6 @@ namespace AgOpenGPS
             lblPureIntegral.Text = ((int)(mf.vehicle.purePursuitIntegralGain * 100)).ToString();
 
             hsbarSideHillComp.Value = (int)(Settings.Vehicle.setAS_sideHillComp * 100);
-            mf.gyd.sideHillCompFactor = Settings.Vehicle.setAS_sideHillComp;
 
             mf.vehicle.goalPointLookAheadMult = Settings.Vehicle.setVehicle_goalPointLookAheadMult;
             hsbarLookAheadMult.Value = (Int16)(mf.vehicle.goalPointLookAheadMult * 10);
@@ -91,11 +90,8 @@ namespace AgOpenGPS
             nudVehicleTrack.Value = Math.Abs(Settings.Vehicle.setVehicle_trackWidth);
 
             cboxDataInvertRoll.Checked = Settings.Vehicle.setIMU_invertRoll;
-            mf.ahrs.isRollInvert = Settings.Vehicle.setIMU_invertRoll;
 
-            lblRollZeroOffset.Text = ((double)Settings.Vehicle.setIMU_rollZero).ToString("N2");
-            mf.ahrs.rollZero = Settings.Vehicle.setIMU_rollZero;
-            lblRollZeroOffset.Text = "0.00";
+            lblRollZeroOffset.Text = Settings.Vehicle.setIMU_rollZero.ToString("N2");
 
             //make sure free drive is off
             btnFreeDrive.Image = Properties.Resources.SteerDriveOff;
@@ -233,8 +229,6 @@ namespace AgOpenGPS
             Settings.Vehicle.setAS_minSteerPWM = PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)hsbarMinPWM.Value);
 
             hsbarSideHillComp.Value = (int)(Settings.Vehicle.setAS_sideHillComp * 100);
-
-            Settings.Vehicle.setIMU_invertRoll = mf.ahrs.isRollInvert;
 
             //save current vehicle
             Settings.Vehicle.Save();
@@ -574,7 +568,7 @@ namespace AgOpenGPS
 
             Settings.Vehicle.setIMU_invertRoll = false;
 
-            Settings.Vehicle.setIMU_rollZero = mf.ahrs.rollZero;
+            Settings.Vehicle.setIMU_rollZero = 0;
 
             toSend252 = true;
             counter252 = 3;
@@ -1044,7 +1038,6 @@ namespace AgOpenGPS
             deg *= 0.01;
             lblSideHillComp.Text = (deg.ToString("N2") + "\u00B0");
             Settings.Vehicle.setAS_sideHillComp = deg;
-            mf.gyd.sideHillCompFactor = deg;
         }
 
         //private void hsbarLookAhead_ValueChanged(object sender, EventArgs e)
@@ -1168,30 +1161,26 @@ namespace AgOpenGPS
         private void cboxDataInvertRoll_Click(object sender, EventArgs e)
         {
             Settings.Vehicle.setIMU_invertRoll = cboxDataInvertRoll.Checked;
-            mf.ahrs.isRollInvert = Settings.Vehicle.setIMU_invertRoll;
         }
 
         private void btnZeroRoll_Click(object sender, EventArgs e)
         {
             if (mf.ahrs.imuRoll != 88888)
             {
-                mf.ahrs.imuRoll += mf.ahrs.rollZero;
-                mf.ahrs.rollZero = mf.ahrs.imuRoll;
-                lblRollZeroOffset.Text = (mf.ahrs.rollZero).ToString("N2");
+                mf.ahrs.imuRoll += Settings.Vehicle.setIMU_rollZero;
+                Settings.Vehicle.setIMU_rollZero = mf.ahrs.imuRoll;
+                lblRollZeroOffset.Text = (Settings.Vehicle.setIMU_rollZero).ToString("N2");
             }
             else
             {
                 lblRollZeroOffset.Text = "***";
             }
-
-            Settings.Vehicle.setIMU_rollZero = mf.ahrs.rollZero;
         }
 
         private void btnRemoveZeroOffset_Click(object sender, EventArgs e)
         {
-            mf.ahrs.rollZero = 0;
+            Settings.Vehicle.setIMU_rollZero = 0;
             lblRollZeroOffset.Text = "0.00";
-            Settings.Vehicle.setIMU_rollZero = mf.ahrs.rollZero;
         }
 
         private void nudAntennaHeight_ValueChanged(object sender, EventArgs e)

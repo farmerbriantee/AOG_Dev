@@ -417,19 +417,19 @@ namespace AgOpenGPS
                 Settings.Vehicle.set_youTurnRadius != mf.yt.youTurnRadius ||
                 Settings.Vehicle.set_youTurnDistanceFromBoundary != mf.yt.uturnDistanceFromBoundary)
             {
-            Settings.Vehicle.setAS_uTurnSmoothing = mf.yt.uTurnSmoothing;
-            Settings.Vehicle.set_youTurnExtensionLength = mf.yt.youTurnStartOffset;
+                Settings.Vehicle.setAS_uTurnSmoothing = mf.yt.uTurnSmoothing;
+                Settings.Vehicle.set_youTurnExtensionLength = mf.yt.youTurnStartOffset;
                 Settings.Vehicle.set_youTurnRadius = mf.yt.youTurnRadius;
 
                 if (Settings.Vehicle.set_youTurnDistanceFromBoundary != mf.yt.uturnDistanceFromBoundary)
                 {
-            Settings.Vehicle.set_youTurnDistanceFromBoundary = mf.yt.uturnDistanceFromBoundary;
+                    Settings.Vehicle.set_youTurnDistanceFromBoundary = mf.yt.uturnDistanceFromBoundary;
                     foreach (var bnd in mf.bnd.bndList)
                         bnd.BuildTurnLine();
                 }
 
-            mf.yt.ResetCreatedYouTurn();
-        }
+                mf.yt.ResetCreatedYouTurn();
+            }
         }
 
         #endregion

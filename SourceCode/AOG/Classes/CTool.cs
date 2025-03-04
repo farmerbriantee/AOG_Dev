@@ -58,7 +58,11 @@ namespace AgOpenGPS
         public CTool(FormGPS _f)
         {
             mf = _f;
+            LoadSettings();
+        }
 
+        public void LoadSettings()
+        {
             //from settings grab the vehicle specifics
 
             trailingToolToPivotLength = Settings.Tool.trailingToolToPivotLength;

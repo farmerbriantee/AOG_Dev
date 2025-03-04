@@ -58,7 +58,7 @@ namespace AgOpenGPS
 
             label60.Text = RegistrySettings.culture;
             label62.Text = Settings.Vehicle.setF_CurrentFieldDir;
-            label64.Text = Settings.Vehicle.setF_isRemoteWorkSystemOn.ToString();
+            label64.Text = "~~~";
             label66.Text = Settings.Vehicle.setF_isSteerWorkSwitchEnabled.ToString();
             label68.Text = Settings.Vehicle.setF_isSteerWorkSwitchManualSections.ToString();
             label70.Text = Settings.Vehicle.setF_isWorkSwitchActiveLow.ToString();

@@ -126,6 +126,7 @@
             this.pboxAlpha = new System.Windows.Forms.PictureBox();
             this.cboxIsImage = new System.Windows.Forms.CheckBox();
             this.tabVAntenna = new System.Windows.Forms.TabPage();
+            this.nudAntennaHeight = new AgOpenGPS.NudlessNumericUpDown();
             this.nudAntennaOffset = new AgOpenGPS.NudlessNumericUpDown();
             this.lblPivotDistance = new System.Windows.Forms.Label();
             this.lblAntennaHeight = new System.Windows.Forms.Label();
@@ -141,7 +142,6 @@
             this.label99 = new System.Windows.Forms.Label();
             this.label98 = new System.Windows.Forms.Label();
             this.pboxAntenna = new System.Windows.Forms.PictureBox();
-            this.nudAntennaHeight = new AgOpenGPS.NudlessNumericUpDown();
             this.nudAntennaPivot = new AgOpenGPS.NudlessNumericUpDown();
             this.tabVDimensions = new System.Windows.Forms.TabPage();
             this.nudWheelbase = new AgOpenGPS.NudlessNumericUpDown();
@@ -154,7 +154,6 @@
             this.lblTrack = new System.Windows.Forms.Label();
             this.lblWheelBase = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tabVGuidance = new System.Windows.Forms.TabPage();
             this.tabTConfig = new System.Windows.Forms.TabPage();
             this.gboxAttachment = new System.Windows.Forms.GroupBox();
             this.pboxConfigHarvester = new System.Windows.Forms.PictureBox();
@@ -1144,7 +1143,6 @@
             this.tab1.Controls.Add(this.tabVConfig);
             this.tab1.Controls.Add(this.tabVAntenna);
             this.tab1.Controls.Add(this.tabVDimensions);
-            this.tab1.Controls.Add(this.tabVGuidance);
             this.tab1.Controls.Add(this.tabTConfig);
             this.tab1.Controls.Add(this.tabTHitch);
             this.tab1.Controls.Add(this.tabToolOffset);
@@ -2245,6 +2243,16 @@
             this.tabVAntenna.TabIndex = 12;
             this.tabVAntenna.Text = "vAnt";
             // 
+            // nudAntennaHeight
+            // 
+            this.nudAntennaHeight.Location = new System.Drawing.Point(392, 208);
+            this.nudAntennaHeight.Maximum = 10D;
+            this.nudAntennaHeight.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudAntennaHeight.Name = "nudAntennaHeight";
+            this.nudAntennaHeight.Size = new System.Drawing.Size(144, 52);
+            this.nudAntennaHeight.TabIndex = 3;
+            this.nudAntennaHeight.ValueChanged += new System.EventHandler(this.nudAntennaHeight_ValueChanged);
+            // 
             // nudAntennaOffset
             // 
             this.nudAntennaOffset.Location = new System.Drawing.Point(474, 352);
@@ -2434,16 +2442,6 @@
             this.pboxAntenna.TabIndex = 48;
             this.pboxAntenna.TabStop = false;
             // 
-            // nudAntennaHeight
-            // 
-            this.nudAntennaHeight.Location = new System.Drawing.Point(392, 208);
-            this.nudAntennaHeight.Maximum = 10D;
-            this.nudAntennaHeight.Mode = AgOpenGPS.UnitMode.Small;
-            this.nudAntennaHeight.Name = "nudAntennaHeight";
-            this.nudAntennaHeight.Size = new System.Drawing.Size(144, 52);
-            this.nudAntennaHeight.TabIndex = 3;
-            this.nudAntennaHeight.ValueChanged += new System.EventHandler(this.nudAntennaHeight_ValueChanged);
-            // 
             // nudAntennaPivot
             // 
             this.nudAntennaPivot.Location = new System.Drawing.Point(126, 43);
@@ -2584,15 +2582,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 32;
             this.pictureBox1.TabStop = false;
-            // 
-            // tabVGuidance
-            // 
-            this.tabVGuidance.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabVGuidance.Location = new System.Drawing.Point(4, 44);
-            this.tabVGuidance.Name = "tabVGuidance";
-            this.tabVGuidance.Size = new System.Drawing.Size(851, 584);
-            this.tabVGuidance.TabIndex = 14;
-            this.tabVGuidance.Text = "vGuid";
             // 
             // tabTConfig
             // 
@@ -6862,6 +6851,7 @@
             this.cboxIsHydOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxIsHydOn.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsHydOn.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cboxIsHydOn.Image = global::AgOpenGPS.Properties.Resources.SwitchOn;
             this.cboxIsHydOn.Location = new System.Drawing.Point(34, 74);
             this.cboxIsHydOn.Name = "cboxIsHydOn";
             this.cboxIsHydOn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8724,7 +8714,6 @@
         private System.Windows.Forms.TabPage tabTConfig;
         private System.Windows.Forms.TabPage tabVAntenna;
         private System.Windows.Forms.TabPage tabVDimensions;
-        private System.Windows.Forms.TabPage tabVGuidance;
         private System.Windows.Forms.TabPage tabDHeading;
         private System.Windows.Forms.TabPage tabDRoll;
         private System.Windows.Forms.Button btnVehicle;

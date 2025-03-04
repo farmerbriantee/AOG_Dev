@@ -603,13 +603,13 @@ namespace AgOpenGPS
                     if (isReverse)
                         DrawReverse();
 
-                    if (isRTK_AlarmOn)
+                    if (Settings.Vehicle.setGPS_isRTK)
                     {
                         if (pn.fixQuality != 4)
                         {
                             if (!sounds.isRTKAlarming)
                             {
-                                if (isRTK_KillAutosteer && isBtnAutoSteerOn)
+                                if (Settings.Vehicle.setGPS_isRTK_KillAutoSteer && isBtnAutoSteerOn)
                                 {
                                     btnAutoSteer.PerformClick();
                                     TimedMessageBox(2000, "Autosteer Turned Off", "RTK Fix Alarm");
@@ -628,7 +628,7 @@ namespace AgOpenGPS
                         }
                     }
 
-                    if (pn.age > pn.ageAlarm) DrawAge();
+                    if (pn.age > Settings.Vehicle.setGPS_ageAlarm) DrawAge();
 
                     //at least one track
                     if (guideLineCounter > 0) DrawGuidanceLineText();
@@ -647,7 +647,7 @@ namespace AgOpenGPS
                         GL.Color3(1.0, 0.66, 0.33);
                         GL.LineWidth(16);
                     }
-                    if ((isRTK_AlarmOn && sounds.isRTKAlarming) || (yt.isYouTurnBtnOn && yt.turnTooCloseTrigger))
+                    if ((Settings.Vehicle.setGPS_isRTK && sounds.isRTKAlarming) || (yt.isYouTurnBtnOn && yt.turnTooCloseTrigger))
                     {
                         if (isFlashOnOff)
                         {
@@ -1327,8 +1327,7 @@ namespace AgOpenGPS
             #region Workswitch control
 
             //Checks the workswitch or steerSwitch if required
-            if (ahrs.isAutoSteerAuto || mc.isRemoteWorkSystemOn)
-                mc.CheckWorkAndSteerSwitch();
+            mc.CheckWorkAndSteerSwitch();
 
             #endregion
 

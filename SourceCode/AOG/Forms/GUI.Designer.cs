@@ -328,12 +328,8 @@ namespace AgOpenGPS
 
         }//wait till timer fires again.         
 
-        public void LoadSettings()
-        {             
-            //kiosk mode
-            if (Settings.User.setWindow_isKioskMode) kioskModeToolStrip.Checked = true;
-            else kioskModeToolStrip.Checked = false;
-
+        public void SetFeatureSettings()
+        {
             //field menu
             boundariesToolStripMenuItem.Visible = Settings.User.setFeatures.isBoundaryOn;
             headlandToolStripMenuItem.Visible = Settings.User.setFeatures.isHeadlandOn;
@@ -341,18 +337,23 @@ namespace AgOpenGPS
             tramsMultiMenuField.Visible = Settings.User.setFeatures.isTramOn;
             recordedPathStripMenu.Visible = Settings.User.setFeatures.isRecPathOn;
 
-
             //tools menu
             SmoothABtoolStripMenu.Visible = Settings.User.setFeatures.isABSmoothOn;
             deleteContourPathsToolStripMenuItem.Visible = Settings.User.setFeatures.isHideContourOn;
             webcamToolStrip.Visible = Settings.User.setFeatures.isWebCamOn;
             offsetFixToolStrip.Visible = Settings.User.setFeatures.isOffsetFixOn;
-            if (Settings.User.isSideGuideLines) guidelinesToolStripMenuItem.Checked = true;
-            else guidelinesToolStripMenuItem.Checked = false;
-
 
             //left side
             btnStartAgIO.Visible = Settings.User.setFeatures.isAgIOOn;
+        }
+
+        public void LoadSettings()
+        {
+            //kiosk mode
+            kioskModeToolStrip.Checked = Settings.User.setWindow_isKioskMode;
+            guidelinesToolStripMenuItem.Checked = Settings.User.isSideGuideLines;
+
+            SetFeatureSettings();
 
             //OGL control
             cboxpRowWidth.SelectedIndex = (Settings.Vehicle.set_youSkipWidth - 1);
@@ -423,11 +424,8 @@ namespace AgOpenGPS
                 PGN_231.pgn[PGN_231.maxSteerAngle] = Settings.Tool.setToolSteer.maxSteerAngle;
             }
 
-            pn.headingTrueDualOffset = Settings.Vehicle.setGPS_dualHeadingOffset;
-            dualReverseDetectionDistance = Settings.Vehicle.setGPS_dualReverseDetectionDistance;
 
             simulatorOnToolStripMenuItem.Checked = Settings.User.isSimulatorOn;
-            //isLogNMEA = Settings.Default.setMenu_isLogNMEA;
 
             vehicleOpacity = ((double)(Settings.Vehicle.vehicleOpacity) * 0.01);
             vehicleOpacityByte = (byte)(255 * ((double)(Settings.Vehicle.vehicleOpacity) * 0.01));
@@ -448,37 +446,10 @@ namespace AgOpenGPS
 
             vehicleColor = Settings.User.colorVehicle;
 
-            if (bnd.isHeadlandOn) btnHeadlandOnOff.Image = Properties.Resources.HeadlandOn;
-            else btnHeadlandOnOff.Image = Properties.Resources.HeadlandOff;
+            btnHeadlandOnOff.Image = bnd.isHeadlandOn ? Properties.Resources.HeadlandOn : Properties.Resources.HeadlandOff;
 
             //btnChangeMappingColor.BackColor = sectionColorDay;
             btnChangeMappingColor.Text = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
-
-            if (Settings.User.setDisplay_isStartFullScreen)
-            {
-                this.WindowState = FormWindowState.Maximized;
-            }
-
-            if (!Settings.User.setWindow_isKioskMode)
-            {
-                if (Settings.User.setDisplay_isStartFullScreen)
-                {
-                    this.WindowState = FormWindowState.Maximized;
-                }
-            }
-
-            //is rtk on?
-            isRTK_AlarmOn = Settings.Vehicle.setGPS_isRTK;
-            isRTK_KillAutosteer = Settings.Vehicle.setGPS_isRTK_KillAutoSteer;
-
-            pn.ageAlarm = Settings.Vehicle.setGPS_ageAlarm;
-
-            isConstantContourOn = Settings.Vehicle.setAS_isConstantContourOn;
-            isSteerInReverse = Settings.Vehicle.setAS_isSteerInReverse;
-
-            gyd.sideHillCompFactor = Settings.Vehicle.setAS_sideHillComp;
-
-            ahrs = new CAHRS();
 
             btnSection1Man.Visible = false;
             btnSection2Man.Visible = false;
@@ -523,27 +494,18 @@ namespace AgOpenGPS
 
             DisableYouTurnButtons();
 
-            //which heading source is being used
-            headingFromSource = Settings.Vehicle.setGPS_headingFromWhichSource;
-
             //workswitch stuff
-            mc.isRemoteWorkSystemOn = Settings.Vehicle.setF_isRemoteWorkSystemOn;
-
-            mc.isWorkSwitchActiveLow = Settings.Vehicle.setF_isWorkSwitchActiveLow;
-            mc.isWorkSwitchManualSections = Settings.Vehicle.setF_isWorkSwitchManualSections;
-            mc.isWorkSwitchEnabled = Settings.Vehicle.setF_isWorkSwitchEnabled;
-
-            mc.isSteerWorkSwitchEnabled = Settings.Vehicle.setF_isSteerWorkSwitchEnabled;
-            mc.isSteerWorkSwitchManualSections = Settings.Vehicle.setF_isSteerWorkSwitchManualSections;
-
-            minHeadingStepDist = Settings.Vehicle.setF_minHeadingStepDistance;
-            gpsMinimumStepDistance = Settings.Vehicle.setGPS_minimumStepLimit;
 
             fd.workedAreaTotalUser = Settings.Vehicle.setF_UserTotalArea;
 
             yt.uTurnSmoothing = Settings.Vehicle.setAS_uTurnSmoothing;
 
             tool.contourWidth = (tool.width - tool.overlap) / 3.0;
+
+            if (Settings.User.setDisplay_isStartFullScreen)
+            {
+                this.WindowState = FormWindowState.Maximized;
+            }
 
             //main window first
             if (!Settings.User.setWindow_isKioskMode)
@@ -585,7 +547,7 @@ namespace AgOpenGPS
             SwapDayNightMode(false);
 
             //load uturn properties
-            yt = new CYouTurn(this);
+            yt.LoadSettings();
 
             lblNumCu.Visible = false;
             lblNumCu.Text = "";
@@ -614,6 +576,11 @@ namespace AgOpenGPS
                 btnChargeStatus.BackColor = Color.LightCoral;
             }
 
+            SetText();
+        }
+
+        public void SetText()
+        {
             enterSimCoordsToolStripMenuItem.Text = gStr.Get(gs.gsEnterSimCoords);
             menustripLanguage.Text = gStr.Get(gs.gsLanguage);
 
@@ -1259,7 +1226,7 @@ namespace AgOpenGPS
                 if (point.X > centerX - 40 && point.X < centerX + 40
                     && point.Y > centerY - 60 && point.Y < centerY + 60)
                 {
-                    if (!ahrs.isReverseOn || headingFromSource == "Dual") return;
+                    if (!Settings.Vehicle.setIMU_isReverseOn || Settings.Vehicle.setGPS_headingFromWhichSource == "Dual") return;
 
                     imuGPS_Offset += Math.PI;
                     TimedMessageBox(2000, "Reverse Direction", "");

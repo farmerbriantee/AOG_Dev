@@ -128,6 +128,9 @@ namespace AgOpenGPS
             //the pick a saved vehicle box
             UpdateVehicleListView();
 
+            //the pick a saved Tool box
+            UpdateToolListView();
+
             //tabTSections_Enter(this, e);
             lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * glm.m2InchOrCm));
             SectionFeetInchesTotalWidthLabelUpdate();
@@ -153,6 +156,8 @@ namespace AgOpenGPS
 
             //save current vehicle
             Settings.Vehicle.Save();
+            Settings.Tool.Save();
+            Settings.User.Save();
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -175,15 +180,24 @@ namespace AgOpenGPS
         {
             if (lvVehicles.SelectedItems.Count > 0)
             {
-                //btnVehicleSaveAs.Enabled = true;
                 btnVehicleLoad.Enabled = true;
                 btnVehicleDelete.Enabled = true;
             }
             else
             {
-                //btnVehicleSaveAs.Enabled = false;
                 btnVehicleLoad.Enabled = false;
                 btnVehicleDelete.Enabled = false;
+            }
+
+            if (lvTools.SelectedItems.Count > 0)
+            {
+                btnToolLoad.Enabled = true;
+                btnToolDelete.Enabled = true;
+            }
+            else
+            {
+                btnToolLoad.Enabled = false;
+                btnToolDelete.Enabled = false;
             }
         }
 

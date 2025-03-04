@@ -69,10 +69,10 @@ namespace AgOpenGPS
             //lblNudgeDistance.Text = snapDist + glm.unitsInCm.ToString();
             //lblUnits.Text = mf.isMetric ? "Metric" : "Imperial";
 
-            lblCurrentVehicle.Text = gStr.Get(gs.gsCurrent) + ": " + RegistrySettings.vehicleFileName;
+            lblCurrentVehicle.Text = "Vehicle" + ": " + RegistrySettings.vehicleFileName;
             lblSummaryVehicleName.Text = lblCurrentVehicle.Text;
 
-            lblCurrentTool.Text = gStr.Get(gs.gsCurrent) + ": " + RegistrySettings.toolFileName;
+            lblCurrentTool.Text = "Tool" + ": " + RegistrySettings.toolFileName;
             lblSummaryToolName.Text = lblCurrentTool.Text;
 
             //lblTramWidth.Text = mf.isMetric ?

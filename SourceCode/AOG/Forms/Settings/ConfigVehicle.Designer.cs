@@ -56,7 +56,6 @@ namespace AgOpenGPS
                 {
                     TurnOffSectionsSafely();
 
-                    Settings.Vehicle.Save();//necessary???
                     RegistrySettings.Save("VehicleFileName", lvVehicles.SelectedItems[0].SubItems[0].Text);
                     if (Settings.Vehicle.Load() != Settings.LoadResult.Ok) return;
 
@@ -157,7 +156,6 @@ namespace AgOpenGPS
 
             if (vehicleName.Length > 0)
             {
-                Settings.Vehicle.Save();//necessary???
                 RegistrySettings.Save("VehicleFileName", vehicleName);
                 Settings.Vehicle.Save();
 
@@ -252,7 +250,6 @@ namespace AgOpenGPS
 
             if (vehicleName.Length > 0)
             {
-                Settings.Vehicle.Save();//necessary???
                 RegistrySettings.Save("VehicleFileName", vehicleName);
                 Settings.Vehicle.Reset();
 
@@ -393,6 +390,315 @@ namespace AgOpenGPS
             Settings.User.setDisplay_isLogElevation = mf.isLogElevation;
             Settings.User.setDisplay_isSectionLinesOn = mf.isSectionlinesOn;
             Settings.User.setDisplay_isLineSmooth = mf.isLineSmooth;            
+        }
+
+        #endregion
+
+        #region Tool SaveLoad
+
+        private void UpdateToolListView()
+        {
+            DirectoryInfo dinfo = new DirectoryInfo(RegistrySettings.toolsDirectory);
+            FileInfo[] Files = dinfo.GetFiles("*.XML");
+
+            //load the listbox
+            lvTools.Items.Clear();
+            foreach (FileInfo file in Files)
+            {
+                lvTools.Items.Add(Path.GetFileNameWithoutExtension(file.Name));
+            }
+
+            //deselect everything
+            lvTools.SelectedItems.Clear();
+            lblSummaryToolName.Text = RegistrySettings.workingDirectory;
+
+            //tboxCreateNewVehicle.Text = "";
+            //tboxVehicleNameSave.Text = "";
+        }
+
+        private void btnToolDelete_Click(object sender, EventArgs e)
+        {
+            if (lvTools.SelectedItems.Count > 0)
+            {
+                if (lvTools.SelectedItems[0].SubItems[0].Text != RegistrySettings.toolFileName)
+                {
+                    DialogResult result3 = MessageBox.Show(
+                    "Delete: " + lvTools.SelectedItems[0].SubItems[0].Text + ".XML",
+                    gStr.Get(gs.gsSaveAndReturn),
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Error,
+                    MessageBoxDefaultButton.Button2);
+                    if (result3 == DialogResult.Yes)
+                    {
+                        File.Delete(Path.Combine(RegistrySettings.toolsDirectory, lvTools.SelectedItems[0].SubItems[0].Text + ".XML"));
+                    }
+                }
+                else
+                {
+                    mf.TimedMessageBox(2000, "Tool In Use", "Select Different Tool");
+                }
+            }
+            UpdateToolListView();
+
+        }
+
+        private void btnToolLoad_Click(object sender, EventArgs e)
+        {
+            if (lvTools.SelectedItems.Count > 0)
+            {
+                DialogResult result3 = MessageBox.Show(
+                    "Open: " + lvTools.SelectedItems[0].SubItems[0].Text + ".XML ?",
+                    gStr.Get(gs.gsSaveAndReturn),
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2);
+
+                if (result3 == DialogResult.Yes)
+                {
+                    TurnOffSectionsSafely();
+
+                    RegistrySettings.Save("ToolFileName", lvTools.SelectedItems[0].SubItems[0].Text);
+                    if (Settings.Tool.Load() != Settings.LoadResult.Ok) return;
+
+                    LoadBrandImage();
+
+                    mf.vehicle = new CVehicle(mf);
+                    mf.tool = new CTool(mf);
+
+                    //reset AgOpenGPS
+                    mf.LoadSettings();
+
+                    //TOODOO needed??
+
+                    ////Form Steer Settings
+                    //PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Settings.Vehicle.setAS_countsPerDegree);
+                    //PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)Settings.Vehicle.setAS_ackerman);
+
+                    //PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset >> 8));
+                    //PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset));
+
+                    //PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)Settings.Vehicle.setAS_highSteerPWM);
+                    //PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)Settings.Vehicle.setAS_lowSteerPWM);
+                    //PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)Settings.Vehicle.setAS_Kp);
+                    //PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)Settings.Vehicle.setAS_minSteerPWM);
+
+                    //mf.SendPgnToLoop(PGN_252.pgn);
+
+                    ////steer config
+                    //PGN_251.pgn[PGN_251.set0] = Settings.Vehicle.setArdSteer_setting0;
+                    //PGN_251.pgn[PGN_251.set1] = Settings.Vehicle.setArdSteer_setting1;
+                    //PGN_251.pgn[PGN_251.maxPulse] = Settings.Vehicle.setArdSteer_maxPulseCounts;
+                    //PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Settings.Vehicle.setAS_minSteerSpeed * 10));
+
+                    //if (Settings.Vehicle.setAS_isConstantContourOn)
+                    //    PGN_251.pgn[PGN_251.angVel] = 1;
+                    //else PGN_251.pgn[PGN_251.angVel] = 0;
+
+                    //mf.SendPgnToLoop(PGN_251.pgn);
+
+                    //machine settings    
+                    //PGN_238.pgn[PGN_238.set0] = Settings.Vehicle.setArdMac_setting0;
+                    //PGN_238.pgn[PGN_238.raiseTime] = Settings.Vehicle.setArdMac_hydRaiseTime;
+                    //PGN_238.pgn[PGN_238.lowerTime] = Settings.Vehicle.setArdMac_hydLowerTime;
+
+                    //PGN_238.pgn[PGN_238.user1] = Settings.Vehicle.setArdMac_user1;
+                    //PGN_238.pgn[PGN_238.user2] = Settings.Vehicle.setArdMac_user2;
+                    //PGN_238.pgn[PGN_238.user3] = Settings.Vehicle.setArdMac_user3;
+                    //PGN_238.pgn[PGN_238.user4] = Settings.Vehicle.setArdMac_user4;
+
+                    //mf.SendPgnToLoop(PGN_238.pgn);
+
+                    //Send Pin configuration
+                    SendRelaySettingsToMachineModule();
+
+                    ///Remind the user
+                    mf.TimedMessageBox(2500, "Steer and Machine Settings Sent", "Were Modules Connected?");
+
+                    Log.EventWriter("Tool Loaded: " + RegistrySettings.toolFileName + ".XML");
+
+                    Close();
+                }
+            }
+        }
+
+        private void btnToolNewSave_Click(object sender, EventArgs e)
+        {
+            TurnOffSectionsSafely();
+
+            btnToolNewSave.BackColor = Color.Transparent;
+            btnToolNewSave.Enabled = false;
+
+            string toolName = SanitizeFileName(tboxCreateNewTool.Text.Trim()).Trim();
+            tboxCreateNewTool.Text = "";
+
+            if (toolName.Length > 0)
+            {
+                RegistrySettings.Save("ToolFileName", toolName);
+                Settings.Tool.Reset();
+
+                LoadBrandImage();
+
+                mf.vehicle = new CVehicle(mf);
+                mf.tool = new CTool(mf);
+
+                //reset AgOpenGPS
+                mf.LoadSettings();
+
+                SectionFeetInchesTotalWidthLabelUpdate();
+
+                //Needed ?? TOODOO
+
+                ////Form Steer Settings
+                //PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Settings.Vehicle.setAS_countsPerDegree);
+                //PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)Settings.Vehicle.setAS_ackerman);
+
+                //PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset >> 8));
+                //PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset));
+
+                //PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)Settings.Vehicle.setAS_highSteerPWM);
+                //PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)Settings.Vehicle.setAS_lowSteerPWM);
+                //PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)Settings.Vehicle.setAS_Kp);
+                //PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)Settings.Vehicle.setAS_minSteerPWM);
+
+                //mf.SendPgnToLoop(PGN_252.pgn);
+
+                ////machine module settings
+                //PGN_238.pgn[PGN_238.set0] = Settings.Vehicle.setArdMac_setting0;
+                //PGN_238.pgn[PGN_238.raiseTime] = Settings.Vehicle.setArdMac_hydRaiseTime;
+                //PGN_238.pgn[PGN_238.lowerTime] = Settings.Vehicle.setArdMac_hydLowerTime;
+
+                //mf.SendPgnToLoop(PGN_238.pgn);
+
+                ////steer config
+                //PGN_251.pgn[PGN_251.set0] = Settings.Vehicle.setArdSteer_setting0;
+                //PGN_251.pgn[PGN_251.set1] = Settings.Vehicle.setArdSteer_setting1;
+                //PGN_251.pgn[PGN_251.maxPulse] = Settings.Vehicle.setArdSteer_maxPulseCounts;
+                //PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Settings.Vehicle.setAS_minSteerSpeed * 10));
+
+                //if (Settings.Vehicle.setAS_isConstantContourOn)
+                //    PGN_251.pgn[PGN_251.angVel] = 1;
+                //else PGN_251.pgn[PGN_251.angVel] = 0;
+
+                //mf.SendPgnToLoop(PGN_251.pgn);
+
+                ////machine settings    
+                //PGN_238.pgn[PGN_238.set0] = Settings.Vehicle.setArdMac_setting0;
+                //PGN_238.pgn[PGN_238.raiseTime] = Settings.Vehicle.setArdMac_hydRaiseTime;
+                //PGN_238.pgn[PGN_238.lowerTime] = Settings.Vehicle.setArdMac_hydLowerTime;
+
+                //PGN_238.pgn[PGN_238.user1] = Settings.Vehicle.setArdMac_user1;
+                //PGN_238.pgn[PGN_238.user2] = Settings.Vehicle.setArdMac_user2;
+                //PGN_238.pgn[PGN_238.user3] = Settings.Vehicle.setArdMac_user3;
+                //PGN_238.pgn[PGN_238.user4] = Settings.Vehicle.setArdMac_user4;
+
+                //mf.SendPgnToLoop(PGN_238.pgn);
+
+                //Send Pin configuration
+                SendRelaySettingsToMachineModule();
+
+                ///Remind the user
+                mf.TimedMessageBox(2500, "Machine Settings Sent", "Were Modules Connected?");
+
+                Log.EventWriter("New Tool Loaded: " + RegistrySettings.toolFileName + ".XML");
+
+                UpdateToolListView();
+            }
+        }
+
+        private void btnToolSave_Click(object sender, EventArgs e)
+        {
+            TurnOffSectionsSafely();
+
+            btnToolSave.BackColor = Color.Transparent;
+            btnToolSave.Enabled = false;
+
+            string toolName = SanitizeFileName(tboxToolNameSave.Text.Trim()).Trim();
+            tboxToolNameSave.Text = "";
+
+            if (toolName.Length > 0)
+            {
+                RegistrySettings.Save("ToolFileName", toolName);
+                Settings.Tool.Save();
+
+                UpdateToolListView();
+            }
+
+        }
+
+        private void tboxCreateNewTool_TextChanged(object sender, EventArgs e)
+        {
+            var textboxSender = (TextBox)sender;
+            var cursorPosition = textboxSender.SelectionStart;
+            textboxSender.Text = Regex.Replace(textboxSender.Text, glm.fileRegex, "");
+            textboxSender.SelectionStart = cursorPosition;
+
+            btnToolSave.Enabled = false;
+            btnToolLoad.Enabled = false;
+            btnToolDelete.Enabled = false;
+
+            lvTools.SelectedItems.Clear();
+
+            if (String.IsNullOrEmpty(tboxCreateNewTool.Text.Trim()))
+            {
+                btnToolNewSave.Enabled = false;
+                btnToolNewSave.BackColor = Color.Transparent;
+            }
+            else
+            {
+                btnToolNewSave.Enabled = true;
+                btnToolNewSave.BackColor = Color.LimeGreen;
+            }
+        }
+
+        private void tboxCreateNewTool_Click(object sender, EventArgs e)
+        {
+            TurnOffSectionsSafely();
+
+            if (mf.isKeyboardOn)
+            {
+                mf.KeyboardToText((TextBox)sender, this);
+            }
+        }
+
+        private void tboxToolNameSave_TextChanged(object sender, EventArgs e)
+        {
+            var textboxSender = (TextBox)sender;
+            var cursorPosition = textboxSender.SelectionStart;
+            textboxSender.Text = Regex.Replace(textboxSender.Text, glm.fileRegex, "");
+            textboxSender.SelectionStart = cursorPosition;
+
+            btnToolLoad.Enabled = false;
+            btnToolDelete.Enabled = false;
+
+            lvTools.SelectedItems.Clear();
+
+            if (String.IsNullOrEmpty(tboxToolNameSave.Text.Trim()))
+            {
+                btnToolSave.Enabled = false;
+                btnToolSave.BackColor = Color.Transparent;
+            }
+            else
+            {
+                btnToolSave.Enabled = true;
+                btnToolSave.BackColor = Color.LimeGreen;
+            }
+        }
+
+        private void tboxToolNameSave_Enter(object sender, EventArgs e)
+        {
+            btnToolLoad.Enabled = false;
+            btnToolDelete.Enabled = false;
+
+            lvTools.SelectedItems.Clear();
+        }
+
+        private void tboxToolNameSave_Click(object sender, EventArgs e)
+        {
+            if (mf.isKeyboardOn)
+            {
+                mf.KeyboardToText((TextBox)sender, this);
+            }
+
         }
 
         #endregion

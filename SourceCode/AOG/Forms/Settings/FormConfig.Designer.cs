@@ -59,16 +59,18 @@
             this.btnVehicle = new System.Windows.Forms.Button();
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabSummary = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.lblSummaryToolName = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lvTools = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnToolNewSave = new System.Windows.Forms.Button();
+            this.tboxCreateNewTool = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.btnToolSave = new System.Windows.Forms.Button();
+            this.btnToolLoad = new System.Windows.Forms.Button();
+            this.btnToolDelete = new System.Windows.Forms.Button();
+            this.tboxToolNameSave = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.lvVehicles = new System.Windows.Forms.ListView();
             this.chVehicle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -537,8 +539,6 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label8 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.panelLeftSideMenu.SuspendLayout();
             this.panelArduinoSubMenu.SuspendLayout();
             this.panelDataSourcesSubMenu.SuspendLayout();
@@ -1174,14 +1174,14 @@
             this.tabSummary.Controls.Add(this.label8);
             this.tabSummary.Controls.Add(this.label10);
             this.tabSummary.Controls.Add(this.lblSummaryToolName);
-            this.tabSummary.Controls.Add(this.listView1);
-            this.tabSummary.Controls.Add(this.button2);
-            this.tabSummary.Controls.Add(this.textBox1);
+            this.tabSummary.Controls.Add(this.lvTools);
+            this.tabSummary.Controls.Add(this.btnToolNewSave);
+            this.tabSummary.Controls.Add(this.tboxCreateNewTool);
             this.tabSummary.Controls.Add(this.label2);
-            this.tabSummary.Controls.Add(this.button3);
-            this.tabSummary.Controls.Add(this.button4);
-            this.tabSummary.Controls.Add(this.button5);
-            this.tabSummary.Controls.Add(this.textBox2);
+            this.tabSummary.Controls.Add(this.btnToolSave);
+            this.tabSummary.Controls.Add(this.btnToolLoad);
+            this.tabSummary.Controls.Add(this.btnToolDelete);
+            this.tabSummary.Controls.Add(this.tboxToolNameSave);
             this.tabSummary.Controls.Add(this.label5);
             this.tabSummary.Controls.Add(this.lvVehicles);
             this.tabSummary.Controls.Add(this.btnVehicleNewSave);
@@ -1205,6 +1205,34 @@
             this.tabSummary.Enter += new System.EventHandler(this.tabSummary_Enter);
             this.tabSummary.Leave += new System.EventHandler(this.tabSummary_Leave);
             // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(515, 562);
+            this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(99, 18);
+            this.label8.TabIndex = 534;
+            this.label8.Text = "Delete";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(689, 562);
+            this.label10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(89, 18);
+            this.label10.TabIndex = 533;
+            this.label10.Text = "Open";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lblSummaryToolName
             // 
             this.lblSummaryToolName.BackColor = System.Drawing.Color.Transparent;
@@ -1218,59 +1246,62 @@
             this.lblSummaryToolName.Text = "Tool Name";
             this.lblSummaryToolName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // listView1
+            // lvTools
             // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lvTools.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvTools.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lvTools.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-            this.listView1.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listView1.FullRowSelect = true;
-            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView1.HideSelection = false;
-            this.listView1.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.listView1.LabelWrap = false;
-            this.listView1.Location = new System.Drawing.Point(459, 205);
-            this.listView1.Margin = new System.Windows.Forms.Padding(0);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(380, 288);
-            this.listView1.TabIndex = 524;
-            this.listView1.TileSize = new System.Drawing.Size(490, 35);
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Tile;
+            this.lvTools.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvTools.FullRowSelect = true;
+            this.lvTools.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvTools.HideSelection = false;
+            this.lvTools.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.lvTools.LabelWrap = false;
+            this.lvTools.Location = new System.Drawing.Point(440, 205);
+            this.lvTools.Margin = new System.Windows.Forms.Padding(0);
+            this.lvTools.MultiSelect = false;
+            this.lvTools.Name = "lvTools";
+            this.lvTools.Size = new System.Drawing.Size(394, 288);
+            this.lvTools.TabIndex = 524;
+            this.lvTools.TileSize = new System.Drawing.Size(490, 35);
+            this.lvTools.UseCompatibleStateImageBehavior = false;
+            this.lvTools.View = System.Windows.Forms.View.Tile;
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "Vehicles";
-            this.columnHeader1.Width = 490;
+            this.columnHeader1.Width = 390;
             // 
-            // button2
+            // btnToolNewSave
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.Enabled = false;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.button2.Image = global::AgOpenGPS.Properties.Resources.FileSave;
-            this.button2.Location = new System.Drawing.Point(786, 101);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(60, 52);
-            this.button2.TabIndex = 530;
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnToolNewSave.BackColor = System.Drawing.Color.Transparent;
+            this.btnToolNewSave.Enabled = false;
+            this.btnToolNewSave.FlatAppearance.BorderSize = 0;
+            this.btnToolNewSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
+            this.btnToolNewSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnToolNewSave.Font = new System.Drawing.Font("Tahoma", 15.75F);
+            this.btnToolNewSave.Image = global::AgOpenGPS.Properties.Resources.FileSave;
+            this.btnToolNewSave.Location = new System.Drawing.Point(786, 101);
+            this.btnToolNewSave.Name = "btnToolNewSave";
+            this.btnToolNewSave.Size = new System.Drawing.Size(60, 52);
+            this.btnToolNewSave.TabIndex = 530;
+            this.btnToolNewSave.UseVisualStyleBackColor = false;
+            this.btnToolNewSave.Click += new System.EventHandler(this.btnToolNewSave_Click);
             // 
-            // textBox1
+            // tboxCreateNewTool
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.textBox1.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(459, 112);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(323, 33);
-            this.textBox1.TabIndex = 529;
+            this.tboxCreateNewTool.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.tboxCreateNewTool.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tboxCreateNewTool.Location = new System.Drawing.Point(459, 112);
+            this.tboxCreateNewTool.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.tboxCreateNewTool.Name = "tboxCreateNewTool";
+            this.tboxCreateNewTool.Size = new System.Drawing.Size(323, 33);
+            this.tboxCreateNewTool.TabIndex = 529;
+            this.tboxCreateNewTool.Click += new System.EventHandler(this.tboxCreateNewTool_Click);
+            this.tboxCreateNewTool.TextChanged += new System.EventHandler(this.tboxCreateNewTool_TextChanged);
             // 
             // label2
             // 
@@ -1285,61 +1316,67 @@
             this.label2.Text = "New:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button3
+            // btnToolSave
             // 
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.Enabled = false;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.button3.Image = global::AgOpenGPS.Properties.Resources.FileSaveAs;
-            this.button3.Location = new System.Drawing.Point(786, 15);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(60, 52);
-            this.button3.TabIndex = 527;
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnToolSave.BackColor = System.Drawing.Color.Transparent;
+            this.btnToolSave.Enabled = false;
+            this.btnToolSave.FlatAppearance.BorderSize = 0;
+            this.btnToolSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
+            this.btnToolSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnToolSave.Font = new System.Drawing.Font("Tahoma", 15.75F);
+            this.btnToolSave.Image = global::AgOpenGPS.Properties.Resources.FileSaveAs;
+            this.btnToolSave.Location = new System.Drawing.Point(786, 15);
+            this.btnToolSave.Name = "btnToolSave";
+            this.btnToolSave.Size = new System.Drawing.Size(60, 52);
+            this.btnToolSave.TabIndex = 527;
+            this.btnToolSave.UseVisualStyleBackColor = false;
+            this.btnToolSave.Click += new System.EventHandler(this.btnToolSave_Click);
             // 
-            // button4
+            // btnToolLoad
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.button4.Image = global::AgOpenGPS.Properties.Resources.FileOpen;
-            this.button4.Location = new System.Drawing.Point(692, 511);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(81, 49);
-            this.button4.TabIndex = 526;
-            this.button4.UseVisualStyleBackColor = false;
+            this.btnToolLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnToolLoad.BackColor = System.Drawing.Color.Transparent;
+            this.btnToolLoad.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnToolLoad.FlatAppearance.BorderSize = 0;
+            this.btnToolLoad.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
+            this.btnToolLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnToolLoad.Font = new System.Drawing.Font("Tahoma", 15.75F);
+            this.btnToolLoad.Image = global::AgOpenGPS.Properties.Resources.FileOpen;
+            this.btnToolLoad.Location = new System.Drawing.Point(692, 511);
+            this.btnToolLoad.Name = "btnToolLoad";
+            this.btnToolLoad.Size = new System.Drawing.Size(81, 49);
+            this.btnToolLoad.TabIndex = 526;
+            this.btnToolLoad.UseVisualStyleBackColor = false;
+            this.btnToolLoad.Click += new System.EventHandler(this.btnToolLoad_Click);
             // 
-            // button5
+            // btnToolDelete
             // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button5.BackColor = System.Drawing.Color.Transparent;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.button5.Image = global::AgOpenGPS.Properties.Resources.Trash;
-            this.button5.Location = new System.Drawing.Point(524, 511);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(81, 49);
-            this.button5.TabIndex = 525;
-            this.button5.UseVisualStyleBackColor = false;
+            this.btnToolDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnToolDelete.BackColor = System.Drawing.Color.Transparent;
+            this.btnToolDelete.FlatAppearance.BorderSize = 0;
+            this.btnToolDelete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
+            this.btnToolDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnToolDelete.Font = new System.Drawing.Font("Tahoma", 15.75F);
+            this.btnToolDelete.Image = global::AgOpenGPS.Properties.Resources.Trash;
+            this.btnToolDelete.Location = new System.Drawing.Point(524, 511);
+            this.btnToolDelete.Name = "btnToolDelete";
+            this.btnToolDelete.Size = new System.Drawing.Size(81, 49);
+            this.btnToolDelete.TabIndex = 525;
+            this.btnToolDelete.UseVisualStyleBackColor = false;
+            this.btnToolDelete.Click += new System.EventHandler(this.btnToolDelete_Click);
             // 
-            // textBox2
+            // tboxToolNameSave
             // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.textBox2.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(459, 26);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(323, 33);
-            this.textBox2.TabIndex = 523;
+            this.tboxToolNameSave.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.tboxToolNameSave.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tboxToolNameSave.Location = new System.Drawing.Point(459, 26);
+            this.tboxToolNameSave.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.tboxToolNameSave.Name = "tboxToolNameSave";
+            this.tboxToolNameSave.Size = new System.Drawing.Size(323, 33);
+            this.tboxToolNameSave.TabIndex = 523;
+            this.tboxToolNameSave.Click += new System.EventHandler(this.tboxToolNameSave_Click);
+            this.tboxToolNameSave.TextChanged += new System.EventHandler(this.tboxToolNameSave_TextChanged);
+            this.tboxToolNameSave.Enter += new System.EventHandler(this.tboxToolNameSave_Enter);
             // 
             // label5
             // 
@@ -1368,11 +1405,11 @@
             this.lvVehicles.HideSelection = false;
             this.lvVehicles.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.lvVehicles.LabelWrap = false;
-            this.lvVehicles.Location = new System.Drawing.Point(7, 205);
+            this.lvVehicles.Location = new System.Drawing.Point(14, 205);
             this.lvVehicles.Margin = new System.Windows.Forms.Padding(0);
             this.lvVehicles.MultiSelect = false;
             this.lvVehicles.Name = "lvVehicles";
-            this.lvVehicles.Size = new System.Drawing.Size(373, 288);
+            this.lvVehicles.Size = new System.Drawing.Size(394, 288);
             this.lvVehicles.TabIndex = 454;
             this.lvVehicles.TileSize = new System.Drawing.Size(490, 35);
             this.lvVehicles.UseCompatibleStateImageBehavior = false;
@@ -1381,7 +1418,7 @@
             // chVehicle
             // 
             this.chVehicle.Text = "Vehicles";
-            this.chVehicle.Width = 490;
+            this.chVehicle.Width = 390;
             // 
             // btnVehicleNewSave
             // 
@@ -8639,34 +8676,6 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label8.BackColor = System.Drawing.Color.Transparent;
-            this.label8.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(515, 562);
-            this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(99, 18);
-            this.label8.TabIndex = 534;
-            this.label8.Text = "Delete";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(689, 562);
-            this.label10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(89, 18);
-            this.label10.TabIndex = 533;
-            this.label10.Text = "Open";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // FormConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -9263,15 +9272,15 @@
         private System.Windows.Forms.Button btnVehicleNewSave;
         private System.Windows.Forms.TextBox tboxCreateNewVehicle;
         private System.Windows.Forms.Label lblNew;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView lvTools;
         private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btnToolNewSave;
+        private System.Windows.Forms.TextBox tboxCreateNewTool;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button btnToolSave;
+        private System.Windows.Forms.Button btnToolLoad;
+        private System.Windows.Forms.Button btnToolDelete;
+        private System.Windows.Forms.TextBox tboxToolNameSave;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblSummaryToolName;
         private System.Windows.Forms.Label lblCurrentTool;

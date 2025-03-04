@@ -318,6 +318,8 @@ namespace AgOpenGPS
                         Value = localReturn * glm.mphOrKmhToKmh;
                     else
                         Value = localReturn;
+
+                    onValueChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -359,17 +361,9 @@ namespace AgOpenGPS
                     value = maximum;
                 }
 
-                if (value != _value)
-                {
-                    _value = value;
-                    initializing = false;
-
-                    if (!initializing && onValueChanged != null)
-                    {
-                        onValueChanged(this, EventArgs.Empty);
-                    }
-                    UpdateEditText();
-                }
+                _value = value;
+                initializing = false;
+                UpdateEditText();
             }
         }
 
@@ -451,7 +445,7 @@ namespace AgOpenGPS
                 if (!initializing)
                     Value = _value;
 
-                    RefreshDesigner();
+                RefreshDesigner();
             }
         }
 

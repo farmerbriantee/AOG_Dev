@@ -358,52 +358,7 @@ namespace AgOpenGPS
             cboxpRowWidth.SelectedIndex = (Settings.Vehicle.set_youSkipWidth - 1);
             btnYouSkipEnable.Image = Resources.YouSkipOff;
 
-            if (Settings.User.isMetric)
-            {
-                glm.inchOrCm2m = 0.01;
-                glm.m2InchOrCm = 100.0;
-
-                glm.m2FtOrM = 1.0;
-                glm.ftOrMtoM = 1.0;
-
-                glm.kmhToMphOrKmh = 1;
-                glm.mphOrKmhToKmh = 1;
-
-                glm.unitsFtM = " m";
-                glm.unitsInCm = " cm";
-                glm.unitsInCmNS = "cm";
-                glm.unitsKmhMph = gStr.Get(gs.gsKMH);
-                glm.unitsHaOrAc = " Ha";
-                glm.unitsHaOrAcHr = " ha/hr";
-
-                //m2 to Hectare
-                glm.m22HaOrAc = 0.0001;
-            }
-            else
-            {
-                //inches to meters
-                glm.inchOrCm2m = 0.0254;
-                //meters to inches
-                glm.m2InchOrCm = 39.3701;
-
-                //meters to feet
-                glm.m2FtOrM = 3.28084;
-                //feet to meters
-                glm.ftOrMtoM = 0.3048;
-
-                glm.kmhToMphOrKmh = 0.621371;//Km/H to mph
-                glm.mphOrKmhToKmh = 1.60934;//mph to Km/H
-
-                glm.unitsInCm = " in";
-                glm.unitsInCmNS = "in";
-                glm.unitsFtM = " ft";
-                glm.unitsKmhMph = gStr.Get(gs.gsMPH);
-                glm.unitsHaOrAc = " Ac";
-                glm.unitsHaOrAcHr = " ac/hr";
-
-                //Meters to Acres
-                glm.m22HaOrAc = 0.000247105;
-            }
+            ChangeMetricImperial();
 
             //Nozzz
             //Nozzle Spray Controller
@@ -696,6 +651,57 @@ namespace AgOpenGPS
             headingChartToolStripMenuItem.Text = gStr.Get(gs.gsHeadingChart);
             xTEChartToolStripMenuItem.Text = gStr.Get(gs.gsXTEChart);
         }
+
+        public void ChangeMetricImperial()
+        {
+            if (Settings.User.isMetric)
+            {
+                glm.inchOrCm2m = 0.01;
+                glm.m2InchOrCm = 100.0;
+
+                glm.m2FtOrM = 1.0;
+                glm.ftOrMtoM = 1.0;
+
+                glm.kmhToMphOrKmh = 1;
+                glm.mphOrKmhToKmh = 1;
+
+                glm.unitsFtM = " m";
+                glm.unitsInCm = " cm";
+                glm.unitsInCmNS = "cm";
+                glm.unitsKmhMph = gStr.Get(gs.gsKMH);
+                glm.unitsHaOrAc = " Ha";
+                glm.unitsHaOrAcHr = " ha/hr";
+
+                //m2 to Hectare
+                glm.m22HaOrAc = 0.0001;
+            }
+            else
+            {
+                //inches to meters
+                glm.inchOrCm2m = 0.0254;
+                //meters to inches
+                glm.m2InchOrCm = 39.3701;
+
+                //meters to feet
+                glm.m2FtOrM = 3.28084;
+                //feet to meters
+                glm.ftOrMtoM = 0.3048;
+
+                glm.kmhToMphOrKmh = 0.621371;//Km/H to mph
+                glm.mphOrKmhToKmh = 1.60934;//mph to Km/H
+
+                glm.unitsInCm = " in";
+                glm.unitsInCmNS = "in";
+                glm.unitsFtM = " ft";
+                glm.unitsKmhMph = gStr.Get(gs.gsMPH);
+                glm.unitsHaOrAc = " Ac";
+                glm.unitsHaOrAcHr = " ac/hr";
+
+                //Meters to Acres
+                glm.m22HaOrAc = 0.000247105;
+            }
+        }
+
 
         public void PanelUpdateRightAndBottom()
         {

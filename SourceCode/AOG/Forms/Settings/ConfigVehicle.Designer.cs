@@ -367,7 +367,7 @@ namespace AgOpenGPS
 
 
             Settings.User.isLightbarOn = Settings.User.isLightbarOn;
-            Settings.User.isMetric = Settings.User.isMetric = rbtnDisplayMetric.Checked;
+            Settings.User.isMetric = rbtnDisplayMetric.Checked;
             Settings.Vehicle.setAS_numGuideLines = mf.trk.numGuideLines;
             Settings.User.setDisplay_isStartFullScreen = chkDisplayStartFullScreen.Checked;
         }
@@ -818,6 +818,10 @@ namespace AgOpenGPS
             label94.Text = glm.unitsInCm;
             label95.Text = glm.unitsInCm;
             label97.Text = glm.unitsInCm;
+        }
+
+        private void tabVDimensions_Leave(object sender, EventArgs e)
+        {
         }
 
         private void nudTractorHitchLength_ValueChanged(object sender, EventArgs e)

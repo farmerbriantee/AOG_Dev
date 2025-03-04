@@ -1057,7 +1057,7 @@ namespace AgOpenGPS
 
         private void cboxNumSections_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (mf.tool.isSectionsNotZones)
+            if (mf.tool.isSectionsNotZones && numberOfSections != cboxNumSections.SelectedIndex + 1)
             {
                 numberOfSections = cboxNumSections.SelectedIndex + 1;
 
@@ -1173,29 +1173,16 @@ namespace AgOpenGPS
         {
             if (Settings.User.isMetric)
             {
-                lblInchesCm.Text = gStr.Get(gs.gsCentimeters);
-                lblFeetMeters.Text = gStr.Get(gs.gsMeters);
-                lblSecTotalWidthFeet.Visible = false;
-                lblSecTotalWidthInches.Visible = false;
-                lblSecTotalWidthMeters.Visible = true;
-
+                lblUnits.Text = "Metric";
                 lblSecTotalWidthMeters.Text = ((int)(mf.tool.width * 100)).ToString() + " cm";
-                //lblSummaryWidth.Text = mf.tool.width.ToString("N2") + " m";
             }
             else
             {
-                lblInchesCm.Text = gStr.Get(gs.gsInches);
-                lblFeetMeters.Text = "Feet";
-                lblSecTotalWidthFeet.Visible = true;
-                lblSecTotalWidthInches.Visible = true;
-                lblSecTotalWidthMeters.Visible = false;
+                lblUnits.Text = "Imperial";
 
                 double toFeet = (Convert.ToDouble(lblVehicleToolWidth.Text) * 0.08334);
-                lblSecTotalWidthFeet.Text = Convert.ToString((int)toFeet) + "'";
                 double temp = Math.Round((toFeet - Math.Truncate(toFeet)) * 12, 0);
-                lblSecTotalWidthInches.Text = Convert.ToString(temp) + '"';
-
-                //lblSummaryWidth.Text = lblSecTotalWidthFeet.Text + " " + lblSecTotalWidthInches.Text;
+                lblSecTotalWidthMeters.Text = Convert.ToString((int)toFeet) + "'   " + Convert.ToString(temp) + '"';
             }
         }
 

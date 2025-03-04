@@ -116,8 +116,6 @@ namespace AgOpenGPS
             lblSectionLines.Text = gStr.Get(gs.gsSectionLines);
             label79.Text = gStr.Get(gs.gsElevationlog);
             unitsGroupBox.Text = gStr.Get(gs.gsUnits);
-
-            HideSubMenu();
         }
 
         private void FormConfig_Load(object sender, EventArgs e)
@@ -125,32 +123,28 @@ namespace AgOpenGPS
             //since we reset, save current state
             mf.SaveFormGPSWindowSettings();
 
-            //the pick a saved vehicle box
-            UpdateVehicleListView();
-
-            //the pick a saved Tool box
-            UpdateToolListView();
-
             //tabTSections_Enter(this, e);
             lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * glm.m2InchOrCm));
             SectionFeetInchesTotalWidthLabelUpdate();
 
-            tab1.SelectedTab = tabSummary;
             tboxVehicleNameSave.Focus();
 
             lblSaveAs.Text = gStr.Get(gs.gsSaveAs);
             lblNew.Text = gStr.Get(gs.gsNew);
-            UpdateSummary();
 
             if (!mf.IsOnScreen(Location, Size, 1))
             {
                 Top = 0;
                 Left = 0;
             }
+            SetTab(null, null, true);
         }
 
         private void FormConfig_FormClosing(object sender, FormClosingEventArgs e)
         {
+            tab1.SelectedTab = null;// make sure tabPage_Leave is called!
+            SelectedTabChanged();
+
             //reload all the settings from default and user.config
             mf.LoadSettings();
 
@@ -167,9 +161,43 @@ namespace AgOpenGPS
 
         private void tabSummary_Enter(object sender, EventArgs e)
         {
-            SectionFeetInchesTotalWidthLabelUpdate();
-            lblSummaryVehicleName.Text = RegistrySettings.workingDirectory;
-            UpdateSummary();
+            UpdateVehicleListView(); 
+            UpdateToolListView();
+
+            //lblSumWheelbase.Text = (Settings.Vehicle.setVehicle_wheelbase * glm.m2InchOrCm).ToString("N0")
+            //    + glm.unitsInCm;
+
+            //lblSumNumSections.Text = mf.tool.numOfSections.ToString();
+
+            //string snapDist = (Settings.Vehicle.setAS_snapDistance * glm.m2InchOrCm).ToString("N1");
+
+            //lblNudgeDistance.Text = snapDist + glm.unitsInCm.ToString();
+            //lblUnits.Text = mf.isMetric ? "Metric" : "Imperial";
+
+            lblCurrentVehicle.Text = "Vehicle" + ": " + RegistrySettings.vehicleFileName;
+            lblSummaryVehicleName.Text = lblCurrentVehicle.Text;
+
+            lblCurrentTool.Text = "Tool" + ": " + RegistrySettings.toolFileName;
+            lblSummaryToolName.Text = lblCurrentTool.Text;
+
+            //lblTramWidth.Text = mf.isMetric ?
+            //    ((Settings.Tool.tram_Width).ToString() + " m") :
+            //    ConvertMeterToFeet(Settings.Tool.tram_Width);
+
+            //lblToolOffset.Text = (Settings.Tool.toolOffset * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
+
+            //lblOverlap.Text = (Settings.Tool.toolOverlap * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
+
+            //lblLookahead.Text = Settings.Tool.toolLookAheadOn.ToString() + " sec";
+        }
+
+        public string ConvertMeterToFeet(double meter)
+        {
+            double toFeet = meter * glm.m2FtOrM;
+            string feetInch = Convert.ToString((int)toFeet) + "' ";
+            double temp = Math.Round((toFeet - Math.Truncate(toFeet)) * 12, 0);
+            feetInch += Convert.ToString(temp) + '"';
+            return feetInch;
         }
 
         private void tabSummary_Leave(object sender, EventArgs e)
@@ -234,9 +262,11 @@ namespace AgOpenGPS
             mf.TimedMessageBox(2000, "Units Set", "Imperial");
             Log.EventWriter("Units To Imperial");
 
-            Settings.User.isMetric = Settings.User.isMetric = false;
+            Settings.User.isMetric = false;
+            mf.ChangeMetricImperial();
 
-            Close();
+            lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * glm.m2InchOrCm));
+            SectionFeetInchesTotalWidthLabelUpdate();
         }
 
         private void rbtnDisplayMetric_Click(object sender, EventArgs e)
@@ -244,10 +274,11 @@ namespace AgOpenGPS
             mf.TimedMessageBox(2000, "Units Set", "Metric");
             Log.EventWriter("Units to Metric");
 
-            Settings.User.isMetric = Settings.User.isMetric = true;
+            Settings.User.isMetric = true;
+            mf.ChangeMetricImperial();
 
-            Close();
-            //FormConfig_Load(this, e);
+            lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * glm.m2InchOrCm));
+            SectionFeetInchesTotalWidthLabelUpdate();
         }
 
         private void nudNumGuideLines_ValueChanged(object sender, EventArgs e)

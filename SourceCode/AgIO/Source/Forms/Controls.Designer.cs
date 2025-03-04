@@ -61,7 +61,7 @@ namespace AgIO
 
         private void btnStartStopNtrip_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.setNTRIP_isOn || Properties.Settings.Default.setRadio_isOn)
+            if (Settings.User.setNTRIP_isOn || Settings.User.Default.setRadio_isOn)
             {
                 if (isNTRIP_RequiredOn || isRadio_RequiredOn)
                 {
@@ -75,8 +75,8 @@ namespace AgIO
                 }
                 else
                 {
-                    isNTRIP_RequiredOn = Properties.Settings.Default.setNTRIP_isOn;
-                    isRadio_RequiredOn = Properties.Settings.Default.setRadio_isOn;
+                    isNTRIP_RequiredOn = Settings.User.setNTRIP_isOn;
+                    isRadio_RequiredOn = Settings.User.setRadio_isOn;
                     lblWatch.Text = "Waiting";
                     lblNTRIP_IP.Text = "--";
                     lblMount.Text= "--";
@@ -192,7 +192,7 @@ namespace AgIO
         #region CheckBoxes
         private void cboxAutoRunGPS_Out_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setDisplay_isAutoRunGPS_Out = cboxAutoRunGPS_Out.Checked;
+            Settings.User.setDisplay_isAutoRunGPS_Out = cboxAutoRunGPS_Out.Checked;
             
         }
 

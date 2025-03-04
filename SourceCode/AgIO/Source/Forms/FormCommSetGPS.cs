@@ -404,7 +404,7 @@ namespace AgIO
         {
             mf.CloseGPSPort();
             FormLoop.portNameGPS = "GPS 1";
-            Properties.Settings.Default.setPort_portNameGPS = FormLoop.portNameGPS;
+            Settings.User.setPort_portNameGPS = FormLoop.portNameGPS;
         }
 
         private void btnOpenIMU_Click(object sender, EventArgs e)

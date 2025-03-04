@@ -97,10 +97,9 @@
     <Compile Include="Classes\CLog.cs" />
     <Compile Include="Classes\CNMEA.cs" />
     <Compile Include="Classes\CNMEA_Tool.cs" />
-    <Compile Include="Classes\CRegistrySettings.cs" />
+    <Compile Include="Properties\CRegistrySettings.cs" />
     <Compile Include="Classes\ListViewColumnSorterExt.cs" />
     <Compile Include="Classes\CRadioChannel.cs" />
-    <Compile Include="Classes\CSettingsIO.cs" />
     <Compile Include="Forms\FormCommSetGPS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -297,10 +296,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <Compile Include="Forms\SerialComm.Designer.cs">
       <SubType>Form</SubType>
       <DependentUpon>FormLoop.cs</DependentUpon>
@@ -322,11 +317,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
+    <Compile Include="Properties\Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

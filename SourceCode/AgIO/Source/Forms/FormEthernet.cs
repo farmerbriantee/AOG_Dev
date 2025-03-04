@@ -55,12 +55,12 @@ namespace AgIO
             Settings.User.eth_loopFour = (byte)nudFourthIP.Value;
 
             Settings.User.setUDP_isOn = cboxIsUDPOn.Checked;
-            //Properties.Settings.Default.setUDP_isSendNMEAToUDP = cboxIsSendNMEAToUDP.Checked;
+            //Settings.User.setUDP_isSendNMEAToUDP = cboxIsSendNMEAToUDP.Checked;
 
             mf.YesMessageBox("AgIO will Restart to Enable UDP Networking Features");
             Log.EventWriter("Program Reset: Start Ethernet Selected");
 
-            RegistrySettings.Save();
+            Settings.User.Save();
             Application.Restart();
             Environment.Exit(0);
             Close();

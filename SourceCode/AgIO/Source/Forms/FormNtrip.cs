@@ -54,7 +54,7 @@ namespace AgIO
 
         private void FormNtrip_Load(object sender, EventArgs e)
         {
-            cboxIsNTRIPOn.Checked = Properties.Settings.Default.setNTRIP_isOn;
+            cboxIsNTRIPOn.Checked = Settings.User.setNTRIP_isOn;
 
             if (!cboxIsNTRIPOn.Checked) tabControl1.Enabled = false;
             string hostName = Dns.GetHostName(); // Retrieve the Name of HOST
@@ -63,32 +63,32 @@ namespace AgIO
             //IPAddress[] ipaddress = Dns.GetHostAddresses(hostName);
             GetIP4AddressList();
 
-            cboxToSerial.Checked = Properties.Settings.Default.setNTRIP_sendToSerial;
-            cboxToUDP.Checked = Properties.Settings.Default.setNTRIP_sendToUDP;
-            nudSendToUDPPort.Value = Properties.Settings.Default.setNTRIP_sendToUDPPort;
+            cboxToSerial.Checked = Settings.User.setNTRIP_sendToSerial;
+            cboxToUDP.Checked = Settings.User.setNTRIP_sendToUDP;
+            nudSendToUDPPort.Value = Settings.User.setNTRIP_sendToUDPPort;
 
-            tboxEnterURL.Text = Properties.Settings.Default.setNTRIP_casterURL;
+            tboxEnterURL.Text = Settings.User.setNTRIP_casterURL;
 
-            tboxCasterIP.Text = Properties.Settings.Default.setNTRIP_casterIP;
-            nudCasterPort.Value = Properties.Settings.Default.setNTRIP_casterPort;
+            tboxCasterIP.Text = Settings.User.setNTRIP_casterIP;
+            nudCasterPort.Value = Settings.User.setNTRIP_casterPort;
 
-            tboxUserName.Text = Properties.Settings.Default.setNTRIP_userName;
-            tboxUserPassword.Text = Properties.Settings.Default.setNTRIP_userPassword;
-            tboxMount.Text = Properties.Settings.Default.setNTRIP_mount;
+            tboxUserName.Text = Settings.User.setNTRIP_userName;
+            tboxUserPassword.Text = Settings.User.setNTRIP_userPassword;
+            tboxMount.Text = Settings.User.setNTRIP_mount;
 
-            nudGGAInterval.Value = Properties.Settings.Default.setNTRIP_sendGGAInterval;
+            nudGGAInterval.Value = Settings.User.setNTRIP_sendGGAInterval;
 
-            nudLatitude.Value = (decimal)Properties.Settings.Default.setNTRIP_manualLat;
-            nudLongitude.Value = (decimal)Properties.Settings.Default.setNTRIP_manualLon;
-            tboxCurrentLat.Text = Properties.Settings.Default.setNTRIP_manualLat.ToString();
-            tboxCurrentLon.Text = Properties.Settings.Default.setNTRIP_manualLon.ToString();
+            nudLatitude.Value = (decimal)Settings.User.setNTRIP_manualLat;
+            nudLongitude.Value = (decimal)Settings.User.setNTRIP_manualLon;
+            tboxCurrentLat.Text = Settings.User.setNTRIP_manualLat.ToString();
+            tboxCurrentLon.Text = Settings.User.setNTRIP_manualLon.ToString();
 
-            checkBoxusetcp.Checked = Properties.Settings.Default.setNTRIP_isTCP;
+            checkBoxusetcp.Checked = Settings.User.setNTRIP_isTCP;
 
-            if (Properties.Settings.Default.setNTRIP_isGGAManual) cboxGGAManual.Text = "Use Manual Fix";
+            if (Settings.User.setNTRIP_isGGAManual) cboxGGAManual.Text = "Use Manual Fix";
             else cboxGGAManual.Text = "Use GPS Fix";
 
-            if (Properties.Settings.Default.setNTRIP_isHTTP10) cboxHTTP.Text = "1.0";
+            if (Settings.User.setNTRIP_isHTTP10) cboxHTTP.Text = "1.0";
             else cboxHTTP.Text = "1.1";
 
             comboboxPacketSize.Text = mf.packetSizeNTRIP.ToString();
@@ -96,12 +96,12 @@ namespace AgIO
 
         private void cboxIsNTRIPOn_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setNTRIP_isOn = cboxIsNTRIPOn.Checked;
+            Settings.User.setNTRIP_isOn = cboxIsNTRIPOn.Checked;
 
             if (cboxIsNTRIPOn.Checked)
             {
-                Properties.Settings.Default.setRadio_isOn = mf.isRadio_RequiredOn = false;
-                Properties.Settings.Default.setPass_isOn = mf.isSerialPass_RequiredOn = false;
+                Settings.User.setRadio_isOn = mf.isRadio_RequiredOn = false;
+                Settings.User.setPass_isOn = mf.isSerialPass_RequiredOn = false;
                 Log.EventWriter("NTRIP Turned on");
             }
             else
@@ -112,7 +112,7 @@ namespace AgIO
             mf.YesMessageBox("Restart of AgIO is Required - Restarting");
             Log.EventWriter("Program Reset: Selecting NTRIP Feature");
 
-            RegistrySettings.Save();
+            Settings.User.Save();
             Application.Restart();
             Environment.Exit(0);
         }
@@ -146,7 +146,7 @@ namespace AgIO
                         {
                             tboxCasterIP.Text = addr.ToString().Trim();
                             mf.broadCasterIP = addr.ToString().Trim();
-                            Properties.Settings.Default.setNTRIP_casterIP = mf.broadCasterIP;
+                            Settings.User.setNTRIP_casterIP = mf.broadCasterIP;
 
                             break;
                         }
@@ -210,44 +210,44 @@ namespace AgIO
 
         private void btnSerialOK_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setNTRIP_casterIP = tboxCasterIP.Text;
-            Properties.Settings.Default.setNTRIP_casterPort = (int)nudCasterPort.Value;
-            Properties.Settings.Default.setNTRIP_sendToUDPPort = (int)nudSendToUDPPort.Value;
+            Settings.User.setNTRIP_casterIP = tboxCasterIP.Text;
+            Settings.User.setNTRIP_casterPort = (int)nudCasterPort.Value;
+            Settings.User.setNTRIP_sendToUDPPort = (int)nudSendToUDPPort.Value;
 
-            Properties.Settings.Default.setNTRIP_isOn = cboxIsNTRIPOn.Checked;
+            Settings.User.setNTRIP_isOn = cboxIsNTRIPOn.Checked;
 
             if (cboxIsNTRIPOn.Checked)
             {
-                Properties.Settings.Default.setRadio_isOn = mf.isRadio_RequiredOn = false;
-                Properties.Settings.Default.setPass_isOn = mf.isSerialPass_RequiredOn = false;
+                Settings.User.setRadio_isOn = mf.isRadio_RequiredOn = false;
+                Settings.User.setPass_isOn = mf.isSerialPass_RequiredOn = false;
             }
 
-            Properties.Settings.Default.setNTRIP_userName = tboxUserName.Text;
-            Properties.Settings.Default.setNTRIP_userPassword = tboxUserPassword.Text;
-            Properties.Settings.Default.setNTRIP_mount = tboxMount.Text;
+            Settings.User.setNTRIP_userName = tboxUserName.Text;
+            Settings.User.setNTRIP_userPassword = tboxUserPassword.Text;
+            Settings.User.setNTRIP_mount = tboxMount.Text;
 
-            Properties.Settings.Default.setNTRIP_sendGGAInterval = (int)nudGGAInterval.Value;
-            Properties.Settings.Default.setNTRIP_manualLat = (double)nudLatitude.Value;
-            Properties.Settings.Default.setNTRIP_manualLon = (double)nudLongitude.Value;
+            Settings.User.setNTRIP_sendGGAInterval = (int)nudGGAInterval.Value;
+            Settings.User.setNTRIP_manualLat = (double)nudLatitude.Value;
+            Settings.User.setNTRIP_manualLon = (double)nudLongitude.Value;
 
-            Properties.Settings.Default.setNTRIP_casterURL = tboxEnterURL.Text;
-            Properties.Settings.Default.setNTRIP_isGGAManual = cboxGGAManual.Text == "Use Manual Fix";
-            Properties.Settings.Default.setNTRIP_isHTTP10 = cboxHTTP.Text == "1.0";
-            Properties.Settings.Default.setNTRIP_isTCP = checkBoxusetcp.Checked;
+            Settings.User.setNTRIP_casterURL = tboxEnterURL.Text;
+            Settings.User.setNTRIP_isGGAManual = cboxGGAManual.Text == "Use Manual Fix";
+            Settings.User.setNTRIP_isHTTP10 = cboxHTTP.Text == "1.0";
+            Settings.User.setNTRIP_isTCP = checkBoxusetcp.Checked;
 
-            Properties.Settings.Default.setNTRIP_sendToSerial = cboxToSerial.Checked;
-            Properties.Settings.Default.setNTRIP_sendToUDP = cboxToUDP.Checked;
+            Settings.User.setNTRIP_sendToSerial = cboxToSerial.Checked;
+            Settings.User.setNTRIP_sendToUDP = cboxToUDP.Checked;
 
             mf.isSendToSerial = cboxToSerial.Checked;
             mf.isSendToUDP = cboxToUDP.Checked;
 
             mf.packetSizeNTRIP = Convert.ToInt32(comboboxPacketSize.Text);
-            Properties.Settings.Default.setNTRIP_packetSize = Convert.ToInt32(comboboxPacketSize.Text);
+            Settings.User.setNTRIP_packetSize = Convert.ToInt32(comboboxPacketSize.Text);
 
-            if (Properties.Settings.Default.setNTRIP_isOn && Properties.Settings.Default.setRadio_isOn)
+            if (Settings.User.setNTRIP_isOn && Settings.User.setRadio_isOn)
             {
                 mf.TimedMessageBox(2000, "Radio also enabled", "Disable the Radio NTRIP");
-                Properties.Settings.Default.setRadio_isOn = false;
+                Settings.User.setRadio_isOn = false;
             }
 
             if (!ntripStatusChanged)
@@ -259,7 +259,7 @@ namespace AgIO
             {
                 Log.EventWriter("Program Reset: Button Ok on Ntrip Form");
 
-                RegistrySettings.Save();
+                Settings.User.Save();
                 Application.Restart();
                 Environment.Exit(0);
             }

@@ -61,7 +61,7 @@ namespace AgIO
 
         private void btnStartStopNtrip_Click(object sender, EventArgs e)
         {
-            if (Settings.User.setNTRIP_isOn || Settings.User.Default.setRadio_isOn)
+            if (Settings.User.setNTRIP_isOn || Settings.User.setRadio_isOn)
             {
                 if (isNTRIP_RequiredOn || isRadio_RequiredOn)
                 {
@@ -124,7 +124,7 @@ namespace AgIO
                 TimedMessageBox(3000, "Using Default Profile", "Choose Existing or Create New Profile");
                 return;
             }
-            if (!Settings.Default.setUDP_isOn) SettingsEthernet();
+            if (!Settings.User.setUDP_isOn) SettingsEthernet();
             else SettingsUDP();
         }
 
@@ -285,7 +285,7 @@ namespace AgIO
                 {
                     Log.EventWriter("Program Reset: Saving or Selecting Profile");
 
-                    RegistrySettings.Save();
+                    Settings.User.Save();
                     Application.Restart();
                     Environment.Exit(0);
                 }

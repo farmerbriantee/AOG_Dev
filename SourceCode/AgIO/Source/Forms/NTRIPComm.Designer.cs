@@ -164,9 +164,9 @@ namespace AgIO
             lblMessages.Text = "Reading....";
 
             //start NTRIP if required
-            isNTRIP_RequiredOn = Properties.Settings.Default.setNTRIP_isOn;
-            isRadio_RequiredOn = Properties.Settings.Default.setRadio_isOn;
-            isSerialPass_RequiredOn = Properties.Settings.Default.setPass_isOn;
+            isNTRIP_RequiredOn = Settings.User.setNTRIP_isOn;
+            isRadio_RequiredOn = Settings.User.setRadio_isOn;
+            isSerialPass_RequiredOn = Settings.User.setPass_isOn;
 
             if (isRadio_RequiredOn || isSerialPass_RequiredOn)
             {
@@ -202,12 +202,12 @@ namespace AgIO
         {
             if (isNTRIP_RequiredOn)
             {
-                broadCasterPort = Properties.Settings.Default.setNTRIP_casterPort; //Select correct port (usually 80 or 2101)
-                mount = Properties.Settings.Default.setNTRIP_mount; //Insert the correct mount
-                username = Properties.Settings.Default.setNTRIP_userName; //Insert your username!
-                password = Properties.Settings.Default.setNTRIP_userPassword; //Insert your password!
-                toUDP_Port = Properties.Settings.Default.setNTRIP_sendToUDPPort; //send rtcm to which udp port
-                sendGGAInterval = Properties.Settings.Default.setNTRIP_sendGGAInterval; //how often to send fixes
+                broadCasterPort = Settings.User.setNTRIP_casterPort; //Select correct port (usually 80 or 2101)
+                mount = Settings.User.setNTRIP_mount; //Insert the correct mount
+                username = Settings.User.setNTRIP_userName; //Insert your username!
+                password = Settings.User.setNTRIP_userPassword; //Insert your password!
+                toUDP_Port = Settings.User.setNTRIP_sendToUDPPort; //send rtcm to which udp port
+                sendGGAInterval = Settings.User.setNTRIP_sendGGAInterval; //how often to send fixes
 
                 //if we had a timer already, kill it
                 if (tmr != null)
@@ -235,9 +235,9 @@ namespace AgIO
 
                     //NTRIP endpoint
                     epNtrip = new IPEndPoint(IPAddress.Parse(
-                        Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
-                        Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
-                        Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), toUDP_Port);
+                        Settings.User.etIP_SubnetOne.ToString() + "." +
+                        Settings.User.etIP_SubnetTwo.ToString() + "." +
+                        Settings.User.etIP_SubnetThree.ToString() + ".255"), toUDP_Port);
 
                     // Create the socket object
                     clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -262,7 +262,7 @@ namespace AgIO
             }
             else if (isRadio_RequiredOn)
             {
-                if (!string.IsNullOrEmpty(Properties.Settings.Default.setPort_portNameRadio))
+                if (!string.IsNullOrEmpty(Settings.User.setPort_portNameRadio))
                 {
                     // Disconnect when already connected
                     if (spRadio != null)
@@ -272,8 +272,8 @@ namespace AgIO
                     }
 
                     // Setup and open serial port
-                    spRadio = new SerialPort(Properties.Settings.Default.setPort_portNameRadio);
-                    spRadio.BaudRate = int.Parse(Properties.Settings.Default.setPort_baudRateRadio);
+                    spRadio = new SerialPort(Settings.User.setPort_portNameRadio);
+                    spRadio.BaudRate = int.Parse(Settings.User.setPort_baudRateRadio);
                     spRadio.DataReceived += NtripPort_DataReceived;
                     isNTRIP_Connecting = false;
                     isNTRIP_Connected = true;
@@ -295,13 +295,13 @@ namespace AgIO
             }
             else if (isSerialPass_RequiredOn)
             {
-                toUDP_Port = Properties.Settings.Default.setNTRIP_sendToUDPPort; //send rtcm to which udp port
+                toUDP_Port = Settings.User.setNTRIP_sendToUDPPort; //send rtcm to which udp port
                 epNtrip = new IPEndPoint(IPAddress.Parse(
-                    Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
-                    Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
-                    Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), toUDP_Port);
+                    Settings.User.etIP_SubnetOne.ToString() + "." +
+                    Settings.User.etIP_SubnetTwo.ToString() + "." +
+                    Settings.User.etIP_SubnetThree.ToString() + ".255"), toUDP_Port);
 
-                if (!string.IsNullOrEmpty(Properties.Settings.Default.setPort_portNameRadio))
+                if (!string.IsNullOrEmpty(Settings.User.setPort_portNameRadio))
                 {
                     // Disconnect when already connected
                     if (spRadio != null)
@@ -311,8 +311,8 @@ namespace AgIO
                     }
 
                     // Setup and open serial port
-                    spRadio = new SerialPort(Properties.Settings.Default.setPort_portNameRadio);
-                    spRadio.BaudRate = int.Parse(Properties.Settings.Default.setPort_baudRateRadio);
+                    spRadio = new SerialPort(Settings.User.setPort_portNameRadio);
+                    spRadio.BaudRate = int.Parse(Settings.User.setPort_baudRateRadio);
                     spRadio.DataReceived += NtripPort_DataReceived;
                     isNTRIP_Connecting = false;
                     isNTRIP_Connected = true;
@@ -377,7 +377,7 @@ namespace AgIO
             // Read the message from settings and send it
             try
             {
-                if (!Properties.Settings.Default.setNTRIP_isTCP)
+                if (!Settings.User.setNTRIP_isTCP)
                 {
                     //encode user and password
                     string auth = ToBase64(username + ":" + password);
@@ -387,7 +387,7 @@ namespace AgIO
                     GGASentence = sbGGA.ToString();
 
                     string htt;
-                    if (Properties.Settings.Default.setNTRIP_isHTTP10) htt = "1.0";
+                    if (Settings.User.setNTRIP_isHTTP10) htt = "1.0";
                     else htt = "1.1";
 
                     //Build authorization string
@@ -731,10 +731,10 @@ namespace AgIO
             double latitude = 0;
             double longitude = 0;
 
-            if (Properties.Settings.Default.setNTRIP_isGGAManual)
+            if (Settings.User.setNTRIP_isGGAManual)
             {
-                latitude = Properties.Settings.Default.setNTRIP_manualLat;
-                longitude = Properties.Settings.Default.setNTRIP_manualLon;
+                latitude = Settings.User.setNTRIP_manualLat;
+                longitude = Settings.User.setNTRIP_manualLon;
             }
             else
             {

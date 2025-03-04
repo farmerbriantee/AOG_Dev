@@ -18,10 +18,10 @@ namespace AgIO
 
         private void FormSerialPass_Load(object sender, EventArgs e)
         {
-            cboxSerialPassOn.Checked = Properties.Settings.Default.setPass_isOn;
-            cboxToSerial.Checked = Properties.Settings.Default.setNTRIP_sendToSerial;
-            cboxToUDP.Checked = Properties.Settings.Default.setNTRIP_sendToUDP;
-            nudSendToUDPPort.Value = Properties.Settings.Default.setNTRIP_sendToUDPPort;
+            cboxSerialPassOn.Checked = Settings.User.setPass_isOn;
+            cboxToSerial.Checked = Settings.User.setNTRIP_sendToSerial;
+            cboxToUDP.Checked = Settings.User.setNTRIP_sendToUDP;
+            nudSendToUDPPort.Value = Settings.User.setNTRIP_sendToUDPPort;
 
             cboxRadioPort.Items.Clear();
 
@@ -30,10 +30,10 @@ namespace AgIO
                 cboxRadioPort.Items.Add(s);
             }
 
-            lblCurrentPort.Text = Properties.Settings.Default.setPort_portNameRadio;
-            cboxRadioPort.Text = Properties.Settings.Default.setPort_portNameRadio;
-            lblCurrentBaud.Text = Properties.Settings.Default.setPort_baudRateRadio;
-            cboxBaud.Text = Properties.Settings.Default.setPort_baudRateRadio;
+            lblCurrentPort.Text = Settings.User.setPort_portNameRadio;
+            cboxRadioPort.Text = Settings.User.setPort_portNameRadio;
+            lblCurrentBaud.Text = Settings.User.setPort_baudRateRadio;
+            cboxBaud.Text = Settings.User.setPort_baudRateRadio;
 
             if (mf.spRadio != null && mf.spRadio.IsOpen)
             {
@@ -53,28 +53,28 @@ namespace AgIO
 
         private void btnSerialOK_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setPass_isOn = cboxSerialPassOn.Checked;
+            Settings.User.setPass_isOn = cboxSerialPassOn.Checked;
 
             if (cboxSerialPassOn.Checked)
             {
-                Properties.Settings.Default.setNTRIP_isOn = mf.isNTRIP_RequiredOn = false;
-                Properties.Settings.Default.setRadio_isOn = mf.isRadio_RequiredOn = false;
+                Settings.User.setNTRIP_isOn = mf.isNTRIP_RequiredOn = false;
+                Settings.User.setRadio_isOn = mf.isRadio_RequiredOn = false;
             }
 
-            Properties.Settings.Default.setNTRIP_sendToUDPPort = (int)nudSendToUDPPort.Value;
+            Settings.User.setNTRIP_sendToUDPPort = (int)nudSendToUDPPort.Value;
 
-            Properties.Settings.Default.setNTRIP_sendToSerial = cboxToSerial.Checked;
-            Properties.Settings.Default.setNTRIP_sendToUDP = cboxToUDP.Checked;
+            Settings.User.setNTRIP_sendToSerial = cboxToSerial.Checked;
+            Settings.User.setNTRIP_sendToUDP = cboxToUDP.Checked;
 
             mf.isSendToSerial = cboxToSerial.Checked;
             mf.isSendToUDP = cboxToUDP.Checked;
 
-            Properties.Settings.Default.setPort_portNameRadio = cboxRadioPort.Text;
-            Properties.Settings.Default.setPort_baudRateRadio = cboxBaud.Text;
+            Settings.User.setPort_portNameRadio = cboxRadioPort.Text;
+            Settings.User.setPort_baudRateRadio = cboxBaud.Text;
 
             Log.EventWriter("Program Reset: Button OK on Serial Pass Form");
 
-            RegistrySettings.Save();
+            Settings.User.Save();
             Application.Restart();
             Environment.Exit(0);
             Close();
@@ -103,8 +103,8 @@ namespace AgIO
             {
                 mf.spRadio.Open();
 
-                lblCurrentPort.Text = Properties.Settings.Default.setPort_portNameRadio;
-                lblCurrentBaud.Text = Properties.Settings.Default.setPort_baudRateRadio;
+                lblCurrentPort.Text = Settings.User.setPort_portNameRadio;
+                lblCurrentBaud.Text = Settings.User.setPort_baudRateRadio;
 
                 cboxRadioPort.Enabled = false;
                 cboxBaud.Enabled = false;

@@ -126,7 +126,7 @@ namespace AgIO
                 MessageBox.Show(e.Message + "\n\r" + "\n\r" + "Go to Settings -> COM Ports to Fix", "No Arduino Port Active");
 
 
-                Properties.Settings.Default.setPort_wasIMUConnected = false;
+                Settings.User.setPort_wasIMUConnected = false;
                 
                 wasIMUConnectedLastRun = false;
             }
@@ -139,8 +139,8 @@ namespace AgIO
                 spIMU.DiscardOutBuffer();
                 spIMU.DiscardInBuffer();
 
-                Properties.Settings.Default.setPort_portNameIMU = portNameIMU;
-                Properties.Settings.Default.setPort_wasIMUConnected = true;
+                Settings.User.setPort_portNameIMU = portNameIMU;
+                Settings.User.setPort_wasIMUConnected = true;
                 
                 wasIMUConnectedLastRun = true;
                 lblIMUComm.Text = portNameIMU;
@@ -168,7 +168,7 @@ namespace AgIO
                     MessageBox.Show(e.Message, "Connection already terminated??");
                 }
 
-                Properties.Settings.Default.setPort_wasIMUConnected = false;
+                Settings.User.setPort_wasIMUConnected = false;
                 
 
                 spIMU.Dispose();
@@ -352,7 +352,7 @@ namespace AgIO
                 MessageBox.Show(e.Message + "\n\r" + "\n\r" + "Go to Settings -> COM Ports to Fix", "No Arduino Port Active");
 
 
-                Properties.Settings.Default.setPort_wasSteerModuleConnected = false;
+                Settings.User.setPort_wasSteerModuleConnected = false;
                 
             }
 
@@ -361,8 +361,8 @@ namespace AgIO
                 spSteerModule.DiscardOutBuffer();
                 spSteerModule.DiscardInBuffer();
 
-                Properties.Settings.Default.setPort_portNameSteer = portNameSteerModule;
-                Properties.Settings.Default.setPort_wasSteerModuleConnected = true;
+                Settings.User.setPort_portNameSteer = portNameSteerModule;
+                Settings.User.setPort_wasSteerModuleConnected = true;
                 
 
                 wasSteerModuleConnectedLastRun = true;
@@ -383,7 +383,7 @@ namespace AgIO
                     MessageBox.Show(e.Message, "Connection already terminated??");
                 }
 
-                Properties.Settings.Default.setPort_wasSteerModuleConnected = false;
+                Settings.User.setPort_wasSteerModuleConnected = false;
                 
 
                 spSteerModule.Dispose();
@@ -564,7 +564,7 @@ namespace AgIO
                 MessageBox.Show(e.Message + "\n\r" + "\n\r" + "Go to Settings -> COM Ports to Fix", "No Arduino Port Active");
 
 
-                Properties.Settings.Default.setPort_wasMachineModuleConnected = false;
+                Settings.User.setPort_wasMachineModuleConnected = false;
                 
             }
 
@@ -573,8 +573,8 @@ namespace AgIO
                 spMachineModule.DiscardOutBuffer();
                 spMachineModule.DiscardInBuffer();
 
-                Properties.Settings.Default.setPort_portNameMachine = portNameMachineModule;
-                Properties.Settings.Default.setPort_wasMachineModuleConnected = true;
+                Settings.User.setPort_portNameMachine = portNameMachineModule;
+                Settings.User.setPort_wasMachineModuleConnected = true;
                 
 
                 wasMachineModuleConnectedLastRun = true;
@@ -595,7 +595,7 @@ namespace AgIO
                     MessageBox.Show(e.Message, "Connection already terminated??");
                 }
 
-                Properties.Settings.Default.setPort_wasMachineModuleConnected = false;
+                Settings.User.setPort_wasMachineModuleConnected = false;
                 
 
                 spMachineModule.Dispose();
@@ -773,7 +773,7 @@ namespace AgIO
 
         //        MessageBox.Show(e.Message + "\n\r" + "\n\r" + "Go to Settings -> COM Ports to Fix", "No AutoSteer Port Active");
 
-        //        Properties.Settings.Default.setPort_wasModule3Connected = false;
+        //        Settings.User.setPort_wasModule3Connected = false;
         //        
         //    }
 
@@ -784,8 +784,8 @@ namespace AgIO
 
         //        //update port status label
 
-        //        Properties.Settings.Default.setPort_portNameTool = portNameModule3;
-        //        Properties.Settings.Default.setPort_wasModule3Connected = true;
+        //        Settings.User.setPort_portNameTool = portNameModule3;
+        //        Settings.User.setPort_wasModule3Connected = true;
         //        
 
         //        wasModule3ConnectedLastRun = true;
@@ -804,7 +804,7 @@ namespace AgIO
         //            MessageBox.Show(e.Message, "Connection already terminated??");
         //        }
 
-        //        Properties.Settings.Default.setPort_wasModule3Connected = false;
+        //        Settings.User.setPort_wasModule3Connected = false;
         //        
 
         //        spModule3.Dispose();
@@ -981,9 +981,9 @@ namespace AgIO
                 spGPS.DiscardOutBuffer();
                 spGPS.DiscardInBuffer();
 
-                Properties.Settings.Default.setPort_portNameGPS = portNameGPS;
-                Properties.Settings.Default.setPort_baudRateGPS = baudRateGPS;
-                Properties.Settings.Default.setPort_wasGPSConnected = true;
+                Settings.User.setPort_portNameGPS = portNameGPS;
+                Settings.User.setPort_baudRateGPS = baudRateGPS;
+                Settings.User.setPort_wasGPSConnected = true;
                 
                 lblGPS1Comm.Text = portNameGPS;
                 wasGPSConnectedLastRun = true;
@@ -1074,7 +1074,7 @@ namespace AgIO
             //    //panelSim.Visible = false;
             //    //timerSim.Enabled = false;
 
-            //    //Settings.Default.setMenu_isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
+            //    //Settings.User.setMenu_isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
             //    //
             //}
 
@@ -1099,8 +1099,8 @@ namespace AgIO
                 spGPS2.DiscardOutBuffer();
                 spGPS2.DiscardInBuffer();
 
-                Properties.Settings.Default.setPort_portNameGPS2 = portNameGPS2;
-                Properties.Settings.Default.setPort_baudRateGPS2 = baudRateGPS2;
+                Settings.User.setPort_portNameGPS2 = portNameGPS2;
+                Settings.User.setPort_baudRateGPS2 = baudRateGPS2;
                 
             }
         }
@@ -1168,9 +1168,9 @@ namespace AgIO
                 spRtcm.DiscardOutBuffer();
                 spRtcm.DiscardInBuffer();
 
-                Properties.Settings.Default.setPort_portNameRtcm = portNameRtcm;
-                Properties.Settings.Default.setPort_baudRateRtcm = baudRateRtcm;
-                Properties.Settings.Default.setPort_wasRtcmConnected = true;
+                Settings.User.setPort_portNameRtcm = portNameRtcm;
+                Settings.User.setPort_baudRateRtcm = baudRateRtcm;
+                Settings.User.setPort_wasRtcmConnected = true;
                 
                 //lblRtcmComm.Text = portNameRtcm;
                 wasRtcmConnectedLastRun = true;

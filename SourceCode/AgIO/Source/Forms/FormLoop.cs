@@ -99,7 +99,7 @@ namespace AgIO
             pnGPS = new CNMEA(this);
             pnGPSTool = new CNMEA_Tool(this);
 
-            if (Settings.Default.setUDP_isOn)
+            if (Settings.User.setUDP_isOn)
             {
                 LoadUDPNetwork();
                 Log.EventWriter("UDP Network Is On");
@@ -130,14 +130,14 @@ namespace AgIO
 
             LoadLoopback();
 
-            //isSendNMEAToUDP = Properties.Settings.Default.setUDP_isSendNMEAToUDP;
+            //isSendNMEAToUDP = Settings.User.setUDP_isSendNMEAToUDP;
 
-            packetSizeNTRIP = Properties.Settings.Default.setNTRIP_packetSize;
+            packetSizeNTRIP = Settings.User.setNTRIP_packetSize;
 
-            isSendToSerial = Settings.Default.setNTRIP_sendToSerial;
-            isSendToUDP = Settings.Default.setNTRIP_sendToUDP;
+            isSendToSerial = Settings.User.setNTRIP_sendToSerial;
+            isSendToUDP = Settings.User.setNTRIP_sendToUDP;
 
-            //lblMount.Text = Properties.Settings.Default.setNTRIP_mount;
+            //lblMount.Text = Settings.User.setNTRIP_mount;
 
             lblGPS1Comm.Text = "";
             lblIMUComm.Text = "";
@@ -145,9 +145,9 @@ namespace AgIO
             lblMod2Comm.Text = "";
 
             //set baud and port from last time run
-            baudRateGPS = Settings.Default.setPort_baudRateGPS;
-            portNameGPS = Settings.Default.setPort_portNameGPS;
-            wasGPSConnectedLastRun = Settings.Default.setPort_wasGPSConnected;
+            baudRateGPS = Settings.User.setPort_baudRateGPS;
+            portNameGPS = Settings.User.setPort_portNameGPS;
+            wasGPSConnectedLastRun = Settings.User.setPort_wasGPSConnected;
             if (wasGPSConnectedLastRun)
             {
                 OpenGPSPort();
@@ -155,9 +155,9 @@ namespace AgIO
             }
 
             // set baud and port for rtcm from last time run
-            baudRateRtcm = Settings.Default.setPort_baudRateRtcm;
-            portNameRtcm = Settings.Default.setPort_portNameRtcm;
-            wasRtcmConnectedLastRun = Settings.Default.setPort_wasRtcmConnected;
+            baudRateRtcm = Settings.User.setPort_baudRateRtcm;
+            portNameRtcm = Settings.User.setPort_portNameRtcm;
+            wasRtcmConnectedLastRun = Settings.User.setPort_wasRtcmConnected;
 
             if (wasRtcmConnectedLastRun)
             {
@@ -165,8 +165,8 @@ namespace AgIO
             }
 
             //Open IMU
-            portNameIMU = Settings.Default.setPort_portNameIMU;
-            wasIMUConnectedLastRun = Settings.Default.setPort_wasIMUConnected;
+            portNameIMU = Settings.User.setPort_portNameIMU;
+            wasIMUConnectedLastRun = Settings.User.setPort_wasIMUConnected;
             if (wasIMUConnectedLastRun)
             {
                 OpenIMUPort();
@@ -174,8 +174,8 @@ namespace AgIO
             }
 
             //same for SteerModule port
-            portNameSteerModule = Settings.Default.setPort_portNameSteer;
-            wasSteerModuleConnectedLastRun = Settings.Default.setPort_wasSteerModuleConnected;
+            portNameSteerModule = Settings.User.setPort_portNameSteer;
+            wasSteerModuleConnectedLastRun = Settings.User.setPort_wasSteerModuleConnected;
             if (wasSteerModuleConnectedLastRun)
             {
                 OpenSteerModulePort();
@@ -183,8 +183,8 @@ namespace AgIO
             }
 
             //same for MachineModule port
-            portNameMachineModule = Settings.Default.setPort_portNameMachine;
-            wasMachineModuleConnectedLastRun = Settings.Default.setPort_wasMachineModuleConnected;
+            portNameMachineModule = Settings.User.setPort_portNameMachine;
+            wasMachineModuleConnectedLastRun = Settings.User.setPort_wasMachineModuleConnected;
             if (wasMachineModuleConnectedLastRun)
             {
                 OpenMachineModulePort();
@@ -207,9 +207,9 @@ namespace AgIO
                 }
             }
 
-            isConnectedIMU = cboxIsIMUModule.Checked = Properties.Settings.Default.setMod_isIMUConnected;
-            isConnectedSteer = cboxIsSteerModule.Checked = Properties.Settings.Default.setMod_isSteerConnected;
-            isConnectedMachine = cboxIsMachineModule.Checked = Properties.Settings.Default.setMod_isMachineConnected;
+            isConnectedIMU = cboxIsIMUModule.Checked = Settings.User.setMod_isIMUConnected;
+            isConnectedSteer = cboxIsSteerModule.Checked = Settings.User.setMod_isSteerConnected;
+            isConnectedMachine = cboxIsMachineModule.Checked = Settings.User.setMod_isMachineConnected;
 
             SetModulesOnOff();
 
@@ -228,9 +228,9 @@ namespace AgIO
             //update Caster IP from URL, just use the old one if can't find
             if (isNTRIP_RequiredOn)
             {
-                //broadCasterIP = Properties.Settings.Default.setNTRIP_casterIP; //Select correct Address
+                //broadCasterIP = Settings.User.setNTRIP_casterIP; //Select correct Address
                 broadCasterIP = null;
-                string actualIP = Properties.Settings.Default.setNTRIP_casterURL.Trim();
+                string actualIP = Settings.User.setNTRIP_casterURL.Trim();
 
                 try
                 {
@@ -240,7 +240,7 @@ namespace AgIO
                         if (address.AddressFamily == AddressFamily.InterNetwork)
                         {
                             broadCasterIP = address.ToString().Trim();
-                            Properties.Settings.Default.setNTRIP_casterIP = broadCasterIP;
+                            Settings.User.setNTRIP_casterIP = broadCasterIP;
 
                             break;
                         }
@@ -251,12 +251,12 @@ namespace AgIO
                 catch (Exception ex)
                 {
                     Log.EventWriter(ex.ToString());
-                    TimedMessageBox(1500, "URL Not Located, Network Down?", "Cannot Find: " + Properties.Settings.Default.setNTRIP_casterURL);
+                    TimedMessageBox(1500, "URL Not Located, Network Down?", "Cannot Find: " + Settings.User.setNTRIP_casterURL);
                     //if we had a timer already, kill it
                     tmr?.Dispose();
 
                     //use last known
-                    broadCasterIP = Properties.Settings.Default.setNTRIP_casterIP; //Select correct Address
+                    broadCasterIP = Settings.User.setNTRIP_casterIP; //Select correct Address
 
                     // Close the socket if it is still open
                     if (clientSocket != null && clientSocket.Connected)
@@ -276,7 +276,7 @@ namespace AgIO
             }
 
             //run gps_out or not
-            cboxAutoRunGPS_Out.Checked = Properties.Settings.Default.setDisplay_isAutoRunGPS_Out;
+            cboxAutoRunGPS_Out.Checked = Settings.User.setDisplay_isAutoRunGPS_Out;
 
             this.Text =
             "AgIO  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + "   Profile: " + RegistrySettings.profileName;
@@ -294,7 +294,7 @@ namespace AgIO
                     {
                         Log.EventWriter("Program Reset: Saving or Selecting Profile");
 
-                        RegistrySettings.Save();
+                        Settings.User.Save();
                         Application.Restart();
                         Environment.Exit(0);
                     }
@@ -303,7 +303,7 @@ namespace AgIO
                     + RegistrySettings.profileName;
             }
 
-            if (Properties.Settings.Default.setDisplay_isAutoRunGPS_Out)
+            if (Settings.User.setDisplay_isAutoRunGPS_Out)
             {
                 StartGPS_Out();
                 Log.EventWriter("Run GPS_Out");
@@ -312,14 +312,14 @@ namespace AgIO
 
         private void FormLoop_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Settings.Default.setPort_wasGPSConnected = wasGPSConnectedLastRun;
-            Settings.Default.setPort_wasIMUConnected = wasIMUConnectedLastRun;
-            Settings.Default.setPort_wasSteerModuleConnected = wasSteerModuleConnectedLastRun;
-            Settings.Default.setPort_wasMachineModuleConnected = wasMachineModuleConnectedLastRun;
-            Settings.Default.setPort_wasRtcmConnected = wasRtcmConnectedLastRun;
+            Settings.User.setPort_wasGPSConnected = wasGPSConnectedLastRun;
+            Settings.User.setPort_wasIMUConnected = wasIMUConnectedLastRun;
+            Settings.User.setPort_wasSteerModuleConnected = wasSteerModuleConnectedLastRun;
+            Settings.User.setPort_wasMachineModuleConnected = wasMachineModuleConnectedLastRun;
+            Settings.User.setPort_wasRtcmConnected = wasRtcmConnectedLastRun;
 
             if (RegistrySettings.profileName != "Default Profile")
-                RegistrySettings.Save();
+                Settings.User.Save();
             else
                 YesMessageBox("Using Default Profile" + "\r\n\r\n" + "Changes will NOT be Saved");
 
@@ -752,9 +752,9 @@ namespace AgIO
                 cboxIsSteerModule.BackgroundImage = Properties.Resources.AddNew;
             }
 
-            Properties.Settings.Default.setMod_isIMUConnected = isConnectedIMU;
-            Properties.Settings.Default.setMod_isSteerConnected = isConnectedSteer;
-            Properties.Settings.Default.setMod_isMachineConnected = isConnectedMachine;
+            Settings.User.setMod_isIMUConnected = isConnectedIMU;
+            Settings.User.setMod_isSteerConnected = isConnectedSteer;
+            Settings.User.setMod_isMachineConnected = isConnectedMachine;
         }
 
         private void DoTraffic()

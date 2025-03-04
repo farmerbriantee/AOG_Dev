@@ -17,8 +17,8 @@ namespace AgIO
         private static void Main()
         {
             //reset to Default Profile and save
-            Settings.Default.Reset();
-            Settings.Default.Save();
+            Settings.User.Reset();
+            Settings.User.Save();
 
             Log.EventWriter("Program Started: " + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
             Log.EventWriter("AgIO Version: " + Application.ProductVersion.ToString(CultureInfo.InvariantCulture));
@@ -45,6 +45,6 @@ namespace AgIO
 //    System.Windows.Forms.MessageBox.Show("Error detected in config file - fixing it now, please close this and restart app", "Problem!", btns);
 //    string filename = ((ex.InnerException as System.Configuration.ConfigurationErrorsException)?.Filename) as string;
 //    System.IO.File.Delete(filename);
-//    Settings.Default.Reload();
+//    Settings.User.Reload();
 //    Application.Exit();
 //}

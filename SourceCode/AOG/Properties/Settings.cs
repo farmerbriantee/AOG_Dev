@@ -135,7 +135,7 @@ namespace AgOpenGPS
 
             public LoadResult Load()
             {
-                string path = Path.Combine(RegistrySettings.userDirectory, RegistrySettings.userFileName + ".XML");
+                string path = Path.Combine(RegistrySettings.baseDirectory, "User.XML");
                 var result = XmlSettingsHandler.LoadXMLFile(path, this);
                 if (result == LoadResult.MissingFile)
                 {
@@ -151,12 +151,9 @@ namespace AgOpenGPS
 
             public void Save()
             {
-                string path = Path.Combine(RegistrySettings.userDirectory, RegistrySettings.userFileName + ".XML");
+                string path = Path.Combine(RegistrySettings.baseDirectory, "User.XML");
 
-                if (RegistrySettings.userFileName != "")
-                    XmlSettingsHandler.SaveXMLFile(path, "User", this);
-                else
-                    Log.EventWriter("Default User Not saved to User.xml");
+                XmlSettingsHandler.SaveXMLFile(path, "User", this);
             }
 
             public void Reset()

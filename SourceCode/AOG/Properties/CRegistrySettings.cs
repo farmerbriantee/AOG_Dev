@@ -8,9 +8,6 @@ namespace AgOpenGPS
     {
         public static string culture = "en";
 
-        public static string userDirectory =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS");
-
         public static string vehiclesDirectory =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Vehicles");
 
@@ -20,7 +17,6 @@ namespace AgOpenGPS
         public static string logsDirectory =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Logs");
 
-        public static string userFileName = "User";
         public static string vehicleFileName = "";
         public static string toolFileName = "";
         public static string workingDirectory = "Default";

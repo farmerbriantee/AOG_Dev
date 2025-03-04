@@ -97,11 +97,11 @@ namespace AgOpenGPS
             label142.Text = Settings.Tool.numSections.ToString();
             label144.Text = Settings.Tool.slowSpeedCutoff.ToString();
             label146.Text = Settings.Tool.tankTrailingHitchLength.ToString();
-            label148.Text = Settings.Tool.toolLookAheadOn.ToString();
-            label150.Text = Settings.Tool.toolLookAheadOff.ToString();
-            label152.Text = Settings.Tool.toolOffDelay.ToString();
-            label154.Text = Settings.Tool.toolOffset.ToString();
-            label156.Text = Settings.Tool.toolOverlap.ToString();
+            label148.Text = Settings.Tool.lookAheadOn.ToString();
+            label150.Text = Settings.Tool.lookAheadOff.ToString();
+            label152.Text = Settings.Tool.offDelay.ToString();
+            label154.Text = Settings.Tool.offset.ToString();
+            label156.Text = Settings.Tool.maxOverlap.ToString();
             label158.Text = Settings.Tool.toolWidth.ToString();
             label160.Text = RegistrySettings.workingDirectory;
             label162.Text = Settings.Vehicle.setVehicle_vehicleType.ToString();

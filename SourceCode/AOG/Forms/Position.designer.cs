@@ -461,18 +461,18 @@ namespace AgOpenGPS
 
                 if (!timerSim.Enabled)
                 {
-                    if (isBtnAutoSteerOn && avgSpeed > vehicle.maxSteerSpeed)
+                    if (isBtnAutoSteerOn && avgSpeed > Settings.Vehicle.setAS_maxSteerSpeed)
                     {
                         btnAutoSteer.PerformClick();
                     }
 
-                    if (isBtnAutoSteerOn && avgSpeed < vehicle.minSteerSpeed)
+                    if (isBtnAutoSteerOn && avgSpeed < Settings.Vehicle.setAS_minSteerSpeed)
                     {
                         minSteerSpeedTimer++;
                         if (minSteerSpeedTimer > 80)
                         {
                             btnAutoSteer.PerformClick();
-                            TimedMessageBox(3000, "AutoSteer Disabled", "Below Minimum Safe Steering Speed: " + (vehicle.minSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + glm.unitsKmhMph);
+                            TimedMessageBox(3000, "AutoSteer Disabled", "Below Minimum Safe Steering Speed: " + (Settings.Vehicle.setAS_minSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + glm.unitsKmhMph);
                             Log.EventWriter("Steer Off, Below Min Steering Speed");
                         }
                     }
@@ -817,7 +817,7 @@ namespace AgOpenGPS
             }
 
             //contour points
-            if (isFieldStarted &&(contourTriggerDistance > tool.contourWidth 
+            if (isFieldStarted && (contourTriggerDistance > (tool.width - tool.overlap) / 3.0
                 || contourTriggerDistance > sectionTriggerStepDistance))
             {
                 AddContourPoints();

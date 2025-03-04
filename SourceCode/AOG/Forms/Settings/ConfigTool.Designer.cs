@@ -208,20 +208,15 @@ namespace AgOpenGPS
 
         private void tabTSettings_Enter(object sender, EventArgs e)
         {
-            nudLookAhead.Value = Settings.Tool.toolLookAheadOn;
-            nudLookAheadOff.Value = Settings.Tool.toolLookAheadOff;
-            nudTurnOffDelay.Value = Settings.Tool.toolOffDelay;
+            nudLookAhead.Value = Settings.Tool.lookAheadOn;
+            nudLookAheadOff.Value = Settings.Tool.lookAheadOff;
+            nudTurnOffDelay.Value = Settings.Tool.offDelay;
             //pictureBox3.Image = Resources.ToolLookaheadOn;
             //pictureBox4.Image = Resources.ToolLookaheadOff;
         }
 
         private void tabTSettings_Leave(object sender, EventArgs e)
         {
-
-            Settings.Tool.toolLookAheadOn = mf.tool.lookAheadOnSetting;
-            Settings.Tool.toolLookAheadOff = mf.tool.lookAheadOffSetting;
-            Settings.Tool.toolOffDelay = mf.tool.turnOffDelay;
-
             ////line up manual buttons based on # of sections
             //mf.LineUpManualBtns();
 
@@ -235,44 +230,25 @@ namespace AgOpenGPS
         }
         private void nudLookAhead_ValueChanged(object sender, EventArgs e)
         {
-            if (nudLookAheadOff.Value > (nudLookAhead.Value * 0.8))
-            {
-                nudLookAheadOff.Value = nudLookAhead.Value * 0.8;
-            }
-
-            mf.tool.lookAheadOnSetting = nudLookAhead.Value;
-            mf.tool.lookAheadOffSetting = nudLookAheadOff.Value;
-            mf.tool.turnOffDelay = 0;
+            Settings.Tool.lookAheadOn = nudLookAhead.Value;
         }
 
         private void nudLookAheadOff_ValueChanged(object sender, EventArgs e)
         {
-            if (nudLookAheadOff.Value > (nudLookAhead.Value * 0.8))
-            {
-                nudLookAheadOff.Value = nudLookAhead.Value * 0.8;
-            }
-            mf.tool.lookAheadOffSetting = nudLookAheadOff.Value;
-
             if (nudLookAheadOff.Value > 0)
             {
-                mf.tool.turnOffDelay = 0;
-                nudTurnOffDelay.Value = 0;
+                Settings.Tool.offDelay = nudTurnOffDelay.Value = 0;
             }
-
-            mf.tool.lookAheadOnSetting = nudLookAhead.Value;
-            mf.tool.lookAheadOffSetting = nudLookAheadOff.Value;
-            mf.tool.turnOffDelay = 0;
+            Settings.Tool.lookAheadOff = nudLookAheadOff.Value;
         }
 
         private void nudTurnOffDelay_ValueChanged(object sender, EventArgs e)
         {
             if (nudTurnOffDelay.Value > 0)
             {
-                nudLookAheadOff.Value = 0;
+                Settings.Tool.lookAheadOff = nudLookAheadOff.Value = 0;
             }
-            mf.tool.turnOffDelay = (double)nudTurnOffDelay.Value;
-            mf.tool.lookAheadOffSetting = (double)nudLookAheadOff.Value;
-            mf.tool.lookAheadOnSetting = (double)nudLookAhead.Value;
+            Settings.Tool.offDelay = nudTurnOffDelay.Value;
         }
 
         #endregion
@@ -280,19 +256,19 @@ namespace AgOpenGPS
         #region offset
         private void tabToolOffset_Enter(object sender, EventArgs e)
         {
-            nudOffset.Value = Math.Abs(Settings.Tool.toolOffset);
+            nudOffset.Value = Math.Abs(Settings.Tool.offset);
 
             rbtnToolRightPositive.Checked = false;
             rbtnLeftNegative.Checked = false;
-            rbtnToolRightPositive.Checked = Settings.Tool.toolOffset > 0;
-            rbtnLeftNegative.Checked = Settings.Tool.toolOffset < 0;
+            rbtnToolRightPositive.Checked = Settings.Tool.offset > 0;
+            rbtnLeftNegative.Checked = Settings.Tool.offset < 0;
 
-            nudOverlap.Value = Math.Abs(Settings.Tool.toolOverlap);
+            nudOverlap.Value = Math.Abs(Settings.Tool.maxOverlap);
 
             rbtnToolOverlap.Checked = false;
             rbtnToolGap.Checked = false;
-            rbtnToolOverlap.Checked = Settings.Tool.toolOverlap > 0;
-            rbtnToolGap.Checked = Settings.Tool.toolOverlap < 0;
+            rbtnToolOverlap.Checked = Settings.Tool.maxOverlap > 0;
+            rbtnToolGap.Checked = Settings.Tool.maxOverlap < 0;
 
             label175.Text = glm.unitsInCm;
             label176.Text = glm.unitsInCm;
@@ -313,12 +289,12 @@ namespace AgOpenGPS
             else
                 mf.tool.offset = -nudOffset.Value;
 
-            Settings.Tool.toolOffset = mf.tool.offset;
+            Settings.Tool.offset = mf.tool.offset;
 
             rbtnToolRightPositive.Checked = false;
             rbtnLeftNegative.Checked = false;
-            rbtnToolRightPositive.Checked = Settings.Tool.toolOffset > 0;
-            rbtnLeftNegative.Checked = Settings.Tool.toolOffset < 0;
+            rbtnToolRightPositive.Checked = Settings.Tool.offset > 0;
+            rbtnLeftNegative.Checked = Settings.Tool.offset < 0;
         }
 
         private void btnZeroToolOffset_Click(object sender, EventArgs e)
@@ -328,7 +304,7 @@ namespace AgOpenGPS
             rbtnLeftNegative.Checked = false;
 
             mf.tool.offset = 0;
-            Settings.Tool.toolOffset = mf.tool.offset;
+            Settings.Tool.offset = mf.tool.offset;
         }
 
         private void rbtnToolRightPositive_Click(object sender, EventArgs e)
@@ -337,12 +313,12 @@ namespace AgOpenGPS
                 mf.tool.offset = nudOffset.Value;
             else
                 mf.tool.offset = -nudOffset.Value;
-            Settings.Tool.toolOffset = mf.tool.offset;
+            Settings.Tool.offset = mf.tool.offset;
 
             rbtnToolRightPositive.Checked = false;
             rbtnLeftNegative.Checked = false;
-            rbtnToolRightPositive.Checked = Settings.Tool.toolOffset > 0;
-            rbtnLeftNegative.Checked = Settings.Tool.toolOffset < 0;
+            rbtnToolRightPositive.Checked = Settings.Tool.offset > 0;
+            rbtnLeftNegative.Checked = Settings.Tool.offset < 0;
         }
 
         private void nudOverlaPGN_ValueChanged(object sender, EventArgs e)
@@ -355,12 +331,12 @@ namespace AgOpenGPS
             else
                 mf.tool.overlap = -nudOverlap.Value;
 
-            Settings.Tool.toolOverlap = mf.tool.overlap;
+            Settings.Tool.maxOverlap = mf.tool.overlap;
 
             rbtnToolOverlap.Checked = false;
             rbtnToolGap.Checked = false;
-            rbtnToolOverlap.Checked = Settings.Tool.toolOverlap > 0;
-            rbtnToolGap.Checked = Settings.Tool.toolOverlap < 0;
+            rbtnToolOverlap.Checked = Settings.Tool.maxOverlap > 0;
+            rbtnToolGap.Checked = Settings.Tool.maxOverlap < 0;
         }
 
         private void btnZeroOverlaPGN_Click(object sender, EventArgs e)
@@ -370,7 +346,7 @@ namespace AgOpenGPS
             rbtnToolGap.Checked = false;
 
             mf.tool.overlap = 0;
-            Settings.Tool.toolOverlap = mf.tool.overlap;
+            Settings.Tool.maxOverlap = mf.tool.overlap;
         }
 
         private void rbtnToolOverlaPGN_Click(object sender, EventArgs e)
@@ -379,13 +355,13 @@ namespace AgOpenGPS
                 mf.tool.overlap = nudOverlap.Value;
             else
                 mf.tool.overlap = -nudOverlap.Value;
-            Settings.Tool.toolOverlap = mf.tool.overlap;
+            Settings.Tool.maxOverlap = mf.tool.overlap;
             
 
             rbtnToolOverlap.Checked = false;
             rbtnToolGap.Checked = false;
-            rbtnToolOverlap.Checked = Settings.Tool.toolOverlap > 0;
-            rbtnToolGap.Checked = Settings.Tool.toolOverlap < 0;
+            rbtnToolOverlap.Checked = Settings.Tool.maxOverlap > 0;
+            rbtnToolGap.Checked = Settings.Tool.maxOverlap < 0;
         }
 
         #endregion
@@ -1071,7 +1047,6 @@ namespace AgOpenGPS
 
         private void nudCutoffSpeed_ValueChanged(object sender, EventArgs e)
         {
-            mf.vehicle.slowSpeedCutoff = nudCutoffSpeed.Value;
             Settings.Tool.slowSpeedCutoff = nudCutoffSpeed.Value;
         }
 

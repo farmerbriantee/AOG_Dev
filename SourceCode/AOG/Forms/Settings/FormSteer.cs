@@ -324,9 +324,6 @@ namespace AgOpenGPS
             Settings.Vehicle.setAS_deadZoneHeading = (int)(mf.vehicle.deadZoneHeading * 100);
             Settings.Vehicle.setAS_deadZoneDelay = mf.vehicle.deadZoneDelay;
 
-            Settings.Vehicle.setAS_ModeXTE = mf.vehicle.modeXTE;
-            Settings.Vehicle.setAS_ModeTime = mf.vehicle.modeTime;
-
             Settings.User.setWindow_steerSettingsLocation = Location;
 
             Settings.Vehicle.setAS_uTurnCompensation = mf.vehicle.uturnCompensation;
@@ -662,19 +659,16 @@ namespace AgOpenGPS
         private void nudMinSteerSpeed_ValueChanged(object sender, EventArgs e)
         {
             Settings.Vehicle.setAS_minSteerSpeed = nudMinSteerSpeed.Value;
-            mf.vehicle.minSteerSpeed = Settings.Vehicle.setAS_minSteerSpeed;
         }
 
         private void nudMaxSteerSpeed_ValueChanged(object sender, EventArgs e)
         {
             Settings.Vehicle.setAS_maxSteerSpeed = nudMaxSteerSpeed.Value;
-            mf.vehicle.maxSteerSpeed = Settings.Vehicle.setAS_maxSteerSpeed;
         }
 
         private void nudGuidanceSpeedLimit_ValueChanged(object sender, EventArgs e)
         {
             Settings.Vehicle.setAS_functionSpeedLimit = nudGuidanceSpeedLimit.Value;
-            mf.vehicle.functionSpeedLimit = Settings.Vehicle.setAS_functionSpeedLimit;
         }
 
         #endregion Alarms Tab

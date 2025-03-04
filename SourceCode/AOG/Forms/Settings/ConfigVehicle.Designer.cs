@@ -62,7 +62,6 @@ namespace AgOpenGPS
                     LoadBrandImage();
 
                     mf.vehicle.LoadSettings();
-                    mf.tool.LoadSettings();
 
                     //reset AgOpenGPS
                     mf.LoadSettings();
@@ -104,9 +103,6 @@ namespace AgOpenGPS
                     PGN_238.pgn[PGN_238.user4] = Settings.Vehicle.setArdMac_user4;
 
                     mf.SendPgnToLoop(PGN_238.pgn);
-
-                    //Send Pin configuration
-                    SendRelaySettingsToMachineModule();
 
                     ///Remind the user
                     mf.TimedMessageBox(2500, "Steer and Machine Settings Sent", "Were Modules Connected?");
@@ -256,7 +252,6 @@ namespace AgOpenGPS
                 LoadBrandImage();
 
                 mf.vehicle.LoadSettings();
-                mf.tool.LoadSettings();
 
                 //reset AgOpenGPS
                 mf.LoadSettings();
@@ -277,13 +272,6 @@ namespace AgOpenGPS
 
                 mf.SendPgnToLoop(PGN_252.pgn);
 
-                //machine module settings
-                PGN_238.pgn[PGN_238.set0] = Settings.Vehicle.setArdMac_setting0;
-                PGN_238.pgn[PGN_238.raiseTime] = Settings.Vehicle.setArdMac_hydRaiseTime;
-                PGN_238.pgn[PGN_238.lowerTime] = Settings.Vehicle.setArdMac_hydLowerTime;
-
-                mf.SendPgnToLoop(PGN_238.pgn);
-
                 //steer config
                 PGN_251.pgn[PGN_251.set0] = Settings.Vehicle.setArdSteer_setting0;
                 PGN_251.pgn[PGN_251.set1] = Settings.Vehicle.setArdSteer_setting1;
@@ -296,7 +284,7 @@ namespace AgOpenGPS
 
                 mf.SendPgnToLoop(PGN_251.pgn);
 
-                //machine settings    
+                //machine module settings
                 PGN_238.pgn[PGN_238.set0] = Settings.Vehicle.setArdMac_setting0;
                 PGN_238.pgn[PGN_238.raiseTime] = Settings.Vehicle.setArdMac_hydRaiseTime;
                 PGN_238.pgn[PGN_238.lowerTime] = Settings.Vehicle.setArdMac_hydLowerTime;
@@ -307,9 +295,6 @@ namespace AgOpenGPS
                 PGN_238.pgn[PGN_238.user4] = Settings.Vehicle.setArdMac_user4;
 
                 mf.SendPgnToLoop(PGN_238.pgn);
-
-                //Send Pin configuration
-                SendRelaySettingsToMachineModule();
 
                 ///Remind the user
                 mf.TimedMessageBox(2500, "Steer and Machine Settings Sent", "Were Modules Connected?");
@@ -411,6 +396,7 @@ namespace AgOpenGPS
                     if (result3 == DialogResult.Yes)
                     {
                         File.Delete(Path.Combine(RegistrySettings.toolsDirectory, lvTools.SelectedItems[0].SubItems[0].Text + ".XML"));
+                        UpdateToolListView();
                     }
                 }
                 else
@@ -418,8 +404,6 @@ namespace AgOpenGPS
                     mf.TimedMessageBox(2000, "Tool In Use", "Select Different Tool");
                 }
             }
-            UpdateToolListView();
-
         }
 
         private void btnToolLoad_Click(object sender, EventArgs e)
@@ -440,53 +424,9 @@ namespace AgOpenGPS
                     RegistrySettings.Save("ToolFileName", lvTools.SelectedItems[0].SubItems[0].Text);
                     if (Settings.Tool.Load() != Settings.LoadResult.Ok) return;
 
-                    LoadBrandImage();
-
-                    mf.vehicle.LoadSettings();
                     mf.tool.LoadSettings();
-
-                    //reset AgOpenGPS
-                    mf.LoadSettings();
-
-                    //TOODOO needed??
-
-                    ////Form Steer Settings
-                    //PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Settings.Vehicle.setAS_countsPerDegree);
-                    //PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)Settings.Vehicle.setAS_ackerman);
-
-                    //PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset >> 8));
-                    //PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset));
-
-                    //PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)Settings.Vehicle.setAS_highSteerPWM);
-                    //PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)Settings.Vehicle.setAS_lowSteerPWM);
-                    //PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)Settings.Vehicle.setAS_Kp);
-                    //PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)Settings.Vehicle.setAS_minSteerPWM);
-
-                    //mf.SendPgnToLoop(PGN_252.pgn);
-
-                    ////steer config
-                    //PGN_251.pgn[PGN_251.set0] = Settings.Vehicle.setArdSteer_setting0;
-                    //PGN_251.pgn[PGN_251.set1] = Settings.Vehicle.setArdSteer_setting1;
-                    //PGN_251.pgn[PGN_251.maxPulse] = Settings.Vehicle.setArdSteer_maxPulseCounts;
-                    //PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Settings.Vehicle.setAS_minSteerSpeed * 10));
-
-                    //if (Settings.Vehicle.setAS_isConstantContourOn)
-                    //    PGN_251.pgn[PGN_251.angVel] = 1;
-                    //else PGN_251.pgn[PGN_251.angVel] = 0;
-
-                    //mf.SendPgnToLoop(PGN_251.pgn);
-
-                    //machine settings    
-                    //PGN_238.pgn[PGN_238.set0] = Settings.Vehicle.setArdMac_setting0;
-                    //PGN_238.pgn[PGN_238.raiseTime] = Settings.Vehicle.setArdMac_hydRaiseTime;
-                    //PGN_238.pgn[PGN_238.lowerTime] = Settings.Vehicle.setArdMac_hydLowerTime;
-
-                    //PGN_238.pgn[PGN_238.user1] = Settings.Vehicle.setArdMac_user1;
-                    //PGN_238.pgn[PGN_238.user2] = Settings.Vehicle.setArdMac_user2;
-                    //PGN_238.pgn[PGN_238.user3] = Settings.Vehicle.setArdMac_user3;
-                    //PGN_238.pgn[PGN_238.user4] = Settings.Vehicle.setArdMac_user4;
-
-                    //mf.SendPgnToLoop(PGN_238.pgn);
+                    mf.SetNozzleSettings();
+                    mf.LineUpToolSections();
 
                     //Send Pin configuration
                     SendRelaySettingsToMachineModule();
@@ -495,8 +435,6 @@ namespace AgOpenGPS
                     mf.TimedMessageBox(2500, "Steer and Machine Settings Sent", "Were Modules Connected?");
 
                     Log.EventWriter("Tool Loaded: " + RegistrySettings.toolFileName + ".XML");
-
-                    Close();
                 }
             }
         }
@@ -516,62 +454,11 @@ namespace AgOpenGPS
                 RegistrySettings.Save("ToolFileName", toolName);
                 Settings.Tool.Reset();
 
-                LoadBrandImage();
-
-                mf.vehicle.LoadSettings();
                 mf.tool.LoadSettings();
-
-                //reset AgOpenGPS
-                mf.LoadSettings();
+                mf.SetNozzleSettings();
+                mf.LineUpToolSections();
 
                 SectionFeetInchesTotalWidthLabelUpdate();
-
-                //Needed ?? TOODOO
-
-                ////Form Steer Settings
-                //PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Settings.Vehicle.setAS_countsPerDegree);
-                //PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)Settings.Vehicle.setAS_ackerman);
-
-                //PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset >> 8));
-                //PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset));
-
-                //PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)Settings.Vehicle.setAS_highSteerPWM);
-                //PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)Settings.Vehicle.setAS_lowSteerPWM);
-                //PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)Settings.Vehicle.setAS_Kp);
-                //PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)Settings.Vehicle.setAS_minSteerPWM);
-
-                //mf.SendPgnToLoop(PGN_252.pgn);
-
-                ////machine module settings
-                //PGN_238.pgn[PGN_238.set0] = Settings.Vehicle.setArdMac_setting0;
-                //PGN_238.pgn[PGN_238.raiseTime] = Settings.Vehicle.setArdMac_hydRaiseTime;
-                //PGN_238.pgn[PGN_238.lowerTime] = Settings.Vehicle.setArdMac_hydLowerTime;
-
-                //mf.SendPgnToLoop(PGN_238.pgn);
-
-                ////steer config
-                //PGN_251.pgn[PGN_251.set0] = Settings.Vehicle.setArdSteer_setting0;
-                //PGN_251.pgn[PGN_251.set1] = Settings.Vehicle.setArdSteer_setting1;
-                //PGN_251.pgn[PGN_251.maxPulse] = Settings.Vehicle.setArdSteer_maxPulseCounts;
-                //PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Settings.Vehicle.setAS_minSteerSpeed * 10));
-
-                //if (Settings.Vehicle.setAS_isConstantContourOn)
-                //    PGN_251.pgn[PGN_251.angVel] = 1;
-                //else PGN_251.pgn[PGN_251.angVel] = 0;
-
-                //mf.SendPgnToLoop(PGN_251.pgn);
-
-                ////machine settings    
-                //PGN_238.pgn[PGN_238.set0] = Settings.Vehicle.setArdMac_setting0;
-                //PGN_238.pgn[PGN_238.raiseTime] = Settings.Vehicle.setArdMac_hydRaiseTime;
-                //PGN_238.pgn[PGN_238.lowerTime] = Settings.Vehicle.setArdMac_hydLowerTime;
-
-                //PGN_238.pgn[PGN_238.user1] = Settings.Vehicle.setArdMac_user1;
-                //PGN_238.pgn[PGN_238.user2] = Settings.Vehicle.setArdMac_user2;
-                //PGN_238.pgn[PGN_238.user3] = Settings.Vehicle.setArdMac_user3;
-                //PGN_238.pgn[PGN_238.user4] = Settings.Vehicle.setArdMac_user4;
-
-                //mf.SendPgnToLoop(PGN_238.pgn);
 
                 //Send Pin configuration
                 SendRelaySettingsToMachineModule();

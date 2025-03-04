@@ -273,7 +273,7 @@ namespace AgOpenGPS
 
             if (!timerSim.Enabled)
             {
-                if (avgSpeed > vehicle.maxSteerSpeed)
+                if (avgSpeed > Settings.Vehicle.setAS_maxSteerSpeed)
                 {
                     if (isBtnAutoSteerOn)
                     {
@@ -285,7 +285,7 @@ namespace AgOpenGPS
 
                     Log.EventWriter("Steer Off, Above Max Safe Speed for Autosteer");
 
-                    TimedMessageBox(3000, "AutoSteer Disabled", "Above Maximum Safe Steering Speed: " + (vehicle.maxSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + " " + glm.unitsKmhMph);
+                    TimedMessageBox(3000, "AutoSteer Disabled", "Above Maximum Safe Steering Speed: " + (Settings.Vehicle.setAS_maxSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + " " + glm.unitsKmhMph);
 
                     return;
                 }

@@ -989,23 +989,23 @@ namespace AgOpenGPS
             #region Lookahead and ReadPixel
 
             //set the look ahead for hyd Lift in pixels per second
-            vehicle.hydLiftLookAheadDistanceLeft = tool.farLeftSpeed * vehicle.hydLiftLookAheadTime * 10;
-            vehicle.hydLiftLookAheadDistanceRight = tool.farRightSpeed * vehicle.hydLiftLookAheadTime * 10;
+            vehicle.hydLiftLookAheadDistanceLeft = tool.farLeftSpeed * Settings.Tool.hydraulicLiftLookAhead * 10;
+            vehicle.hydLiftLookAheadDistanceRight = tool.farRightSpeed * Settings.Tool.hydraulicLiftLookAhead * 10;
 
             if (vehicle.hydLiftLookAheadDistanceLeft > 200) vehicle.hydLiftLookAheadDistanceLeft = 200;
             if (vehicle.hydLiftLookAheadDistanceRight > 200) vehicle.hydLiftLookAheadDistanceRight = 200;
 
-            tool.lookAheadDistanceOnPixelsLeft = tool.farLeftSpeed * tool.lookAheadOnSetting * 10;
-            tool.lookAheadDistanceOnPixelsRight = tool.farRightSpeed * tool.lookAheadOnSetting * 10;
+            tool.lookAheadDistanceOnPixelsLeft = tool.farLeftSpeed * Settings.Tool.lookAheadOn * 10;
+            tool.lookAheadDistanceOnPixelsRight = tool.farRightSpeed * Settings.Tool.lookAheadOn * 10;
 
             if (tool.lookAheadDistanceOnPixelsLeft > 200) tool.lookAheadDistanceOnPixelsLeft = 200;
             if (tool.lookAheadDistanceOnPixelsRight > 200) tool.lookAheadDistanceOnPixelsRight = 200;
 
-            tool.lookAheadDistanceOffPixelsLeft = tool.farLeftSpeed * tool.lookAheadOffSetting * 10;
-            tool.lookAheadDistanceOffPixelsRight = tool.farRightSpeed * tool.lookAheadOffSetting * 10;
+            tool.lookAheadDistanceOffPixelsLeft = tool.farLeftSpeed * Settings.Tool.lookAheadOff * 10;
+            tool.lookAheadDistanceOffPixelsRight = tool.farRightSpeed * Settings.Tool.lookAheadOff * 10;
 
-            if (tool.lookAheadDistanceOffPixelsLeft > 160) tool.lookAheadDistanceOffPixelsLeft = 160;
-            if (tool.lookAheadDistanceOffPixelsRight > 160) tool.lookAheadDistanceOffPixelsRight = 160;
+            if (tool.lookAheadDistanceOffPixelsLeft > 200) tool.lookAheadDistanceOffPixelsLeft = 200;
+            if (tool.lookAheadDistanceOffPixelsRight > 200) tool.lookAheadDistanceOffPixelsRight = 200;
 
             //determine farthest ahead lookahead - is the height of the readpixel line
             double rpHeight = 0;
@@ -1156,7 +1156,7 @@ namespace AgOpenGPS
                 }
 
                 //Off or too slow or going backwards
-                if (section[j].sectionBtnState == btnStates.Off || avgSpeed < vehicle.slowSpeedCutoff || section[j].speedPixels < 0)
+                if (section[j].sectionBtnState == btnStates.Off || avgSpeed < Settings.Tool.slowSpeedCutoff || section[j].speedPixels < 0)
                 {
                     section[j].sectionOnRequest = false;
                     section[j].sectionOffRequest = true;
@@ -1273,19 +1273,19 @@ namespace AgOpenGPS
                 //Mapping timers
                 if (section[j].sectionOnRequest && !section[j].isMappingOn && section[j].mappingOnTimer == 0)
                 {
-                    section[j].mappingOnTimer = (int)(tool.lookAheadOnSetting * gpsHz) - mappingFactor;
+                    section[j].mappingOnTimer = (int)(Settings.Tool.lookAheadOn * gpsHz) - mappingFactor;
                 }
                 else if (section[j].sectionOnRequest && section[j].isMappingOn && section[j].mappingOffTimer > 1)
                 {
                     section[j].mappingOffTimer = 0;
-                    section[j].mappingOnTimer = (int)(tool.lookAheadOnSetting * gpsHz) - mappingFactor;
+                    section[j].mappingOnTimer = (int)(Settings.Tool.lookAheadOn * gpsHz) - mappingFactor;
                 }
 
-                if (tool.lookAheadOffSetting > 0)
+                if (Settings.Tool.lookAheadOff > 0)
                 {
                     if (section[j].sectionOffRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
                     {
-                        section[j].mappingOffTimer = (int)(tool.lookAheadOffSetting * gpsHz)+ mappingFactor;
+                        section[j].mappingOffTimer = (int)(Settings.Tool.lookAheadOff * gpsHz) + mappingFactor;
                     }
                 }
                 else if (tool.turnOffDelay > 0)

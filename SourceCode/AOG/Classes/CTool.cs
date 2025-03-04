@@ -8,7 +8,7 @@ namespace AgOpenGPS
     {
         private readonly FormGPS mf;
 
-        public double width, contourWidth;
+        public double width;
         public double farLeftPosition = 0;
         public double farLeftSpeed = 0;
         public double farRightPosition = 0;
@@ -18,7 +18,6 @@ namespace AgOpenGPS
         public double trailingHitchLength, tankTrailingHitchLength, trailingToolToPivotLength;
         public double offset;
 
-        public double lookAheadOffSetting, lookAheadOnSetting;
         public double turnOffDelay;
 
         public double lookAheadDistanceOnPixelsLeft, lookAheadDistanceOnPixelsRight;
@@ -67,9 +66,9 @@ namespace AgOpenGPS
 
             trailingToolToPivotLength = Settings.Tool.trailingToolToPivotLength;
             width = Settings.Tool.toolWidth;
-            overlap = Settings.Tool.toolOverlap;
+            overlap = Settings.Tool.maxOverlap;
 
-            offset = Settings.Tool.toolOffset;
+            offset = Settings.Tool.offset;
 
             trailingHitchLength = Settings.Tool.toolTrailingHitchLength;
             tankTrailingHitchLength = Settings.Tool.tankTrailingHitchLength;
@@ -80,9 +79,7 @@ namespace AgOpenGPS
             isToolTBT = Settings.Tool.isToolTBT;
             isToolFrontFixed = Settings.Tool.isToolFront;
 
-            lookAheadOnSetting = Settings.Tool.toolLookAheadOn;
-            lookAheadOffSetting = Settings.Tool.toolLookAheadOff;
-            turnOffDelay = Settings.Tool.toolOffDelay;
+            turnOffDelay = Settings.Tool.offDelay;
 
             isSectionOffWhenOut = Settings.Tool.isSectionOffWhenOut;
 

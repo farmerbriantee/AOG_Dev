@@ -347,21 +347,8 @@ namespace AgOpenGPS
             btnStartAgIO.Visible = Settings.User.setFeatures.isAgIOOn;
         }
 
-        public void LoadSettings()
+        public void SetNozzleSettings()
         {
-            //kiosk mode
-            kioskModeToolStrip.Checked = Settings.User.setWindow_isKioskMode;
-            guidelinesToolStripMenuItem.Checked = Settings.User.isSideGuideLines;
-
-            SetFeatureSettings();
-
-            //OGL control
-            cboxpRowWidth.SelectedIndex = (Settings.Vehicle.set_youSkipWidth - 1);
-            btnYouSkipEnable.Image = Resources.YouSkipOff;
-
-            ChangeMetricImperial();
-
-            //Nozzz
             //Nozzle Spray Controller
 
             nozzleAppToolStripMenuItem.Checked = Settings.Vehicle.setApp_isNozzleApp;
@@ -423,34 +410,10 @@ namespace AgOpenGPS
                 PGN_231.pgn[PGN_231.invertSteer] = Settings.Tool.setToolSteer.isInvertSteer;
                 PGN_231.pgn[PGN_231.maxSteerAngle] = Settings.Tool.setToolSteer.maxSteerAngle;
             }
+        }
 
-
-            simulatorOnToolStripMenuItem.Checked = Settings.User.isSimulatorOn;
-
-            vehicleOpacity = ((double)(Settings.Vehicle.vehicleOpacity) * 0.01);
-            vehicleOpacityByte = (byte)(255 * ((double)(Settings.Vehicle.vehicleOpacity) * 0.01));
-
-            if (simulatorOnToolStripMenuItem.Checked)
-            {
-                panelSim.Visible = true;
-                timerSim.Enabled = true;
-            }
-            else
-            {
-                panelSim.Visible = false;
-                timerSim.Enabled = false;
-            }
-
-            //set the flag mark button to red dot
-            btnFlag.Image = Properties.Resources.FlagRed;
-
-            vehicleColor = Settings.User.colorVehicle;
-
-            btnHeadlandOnOff.Image = bnd.isHeadlandOn ? Properties.Resources.HeadlandOn : Properties.Resources.HeadlandOff;
-
-            //btnChangeMappingColor.BackColor = sectionColorDay;
-            btnChangeMappingColor.Text = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
-
+        public void LineUpToolSections()
+        {
             btnSection1Man.Visible = false;
             btnSection2Man.Visible = false;
             btnSection3Man.Visible = false;
@@ -491,6 +454,41 @@ namespace AgOpenGPS
                 SectionCalcMulti();
                 LineUpAllZoneButtons();
             }
+        }
+
+        public void LoadSettings()
+        {
+            //kiosk mode
+            kioskModeToolStrip.Checked = Settings.User.setWindow_isKioskMode;
+            guidelinesToolStripMenuItem.Checked = Settings.User.isSideGuideLines;
+
+            SetFeatureSettings();
+
+            //OGL control
+            cboxpRowWidth.SelectedIndex = (Settings.Vehicle.set_youSkipWidth - 1);
+            btnYouSkipEnable.Image = Resources.YouSkipOff;
+
+            ChangeMetricImperial();
+
+            SetNozzleSettings();
+
+
+            vehicleOpacity = ((double)(Settings.Vehicle.vehicleOpacity) * 0.01);
+            vehicleOpacityByte = (byte)(255 * ((double)(Settings.Vehicle.vehicleOpacity) * 0.01));
+
+            panelSim.Visible = timerSim.Enabled = simulatorOnToolStripMenuItem.Checked = Settings.User.isSimulatorOn;
+
+            //set the flag mark button to red dot
+            btnFlag.Image = Properties.Resources.FlagRed;
+
+            vehicleColor = Settings.User.colorVehicle;
+
+            btnHeadlandOnOff.Image = bnd.isHeadlandOn ? Properties.Resources.HeadlandOn : Properties.Resources.HeadlandOff;
+
+            //btnChangeMappingColor.BackColor = sectionColorDay;
+            btnChangeMappingColor.Text = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
+
+            LineUpToolSections();
 
             DisableYouTurnButtons();
 
@@ -499,8 +497,6 @@ namespace AgOpenGPS
             fd.workedAreaTotalUser = Settings.Vehicle.setF_UserTotalArea;
 
             yt.uTurnSmoothing = Settings.Vehicle.setAS_uTurnSmoothing;
-
-            tool.contourWidth = (tool.width - tool.overlap) / 3.0;
 
             if (Settings.User.setDisplay_isStartFullScreen)
             {
@@ -1078,7 +1074,7 @@ namespace AgOpenGPS
                                     }
                                     else
                                     {
-                                        if (vehicle.functionSpeedLimit > avgSpeed)
+                                        if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                         {
                                             yt.BuildManualYouTurn(false, true);
                                         }
@@ -1098,7 +1094,7 @@ namespace AgOpenGPS
                                     }
                                     else
                                     {
-                                        if (vehicle.functionSpeedLimit > avgSpeed)
+                                        if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                         {
                                             yt.BuildManualYouTurn(true, true);
                                         }
@@ -1119,7 +1115,7 @@ namespace AgOpenGPS
                             int middle = centerX - oglMain.Width / 4;
                             if (point.X > middle - 100 && point.X < middle && Settings.User.setFeatures.isLateralOn)
                             {
-                                if (vehicle.functionSpeedLimit > avgSpeed)
+                                if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                 {
                                     yt.BuildManualYouLateral(false);
                                     yt.ResetYouTurn();
@@ -1134,7 +1130,7 @@ namespace AgOpenGPS
 
                             if (point.X > middle && point.X < middle + 100 && Settings.User.setFeatures.isLateralOn)
                             {
-                                if (vehicle.functionSpeedLimit > avgSpeed)
+                                if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                 {
                                     yt.BuildManualYouLateral(true);
                                     yt.ResetYouTurn();
@@ -1252,7 +1248,7 @@ namespace AgOpenGPS
         private void SpeedLimitExceeded()
         {
             TimedMessageBox(2000, gStr.Get(gs.gsTooFast), gStr.Get(gs.gsSlowDownBelow) + " "
-                + (vehicle.functionSpeedLimit * glm.kmhToMphOrKmh).ToString("N1") + " " + glm.unitsKmhMph);
+                + (Settings.Vehicle.setAS_functionSpeedLimit * glm.kmhToMphOrKmh).ToString("N1") + " " + glm.unitsKmhMph);
 
             Log.EventWriter("UTurn or Lateral Speed exceeded");
 

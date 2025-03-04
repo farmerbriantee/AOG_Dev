@@ -209,7 +209,6 @@ namespace AgOpenGPS
             public double setAS_maxSteerSpeed = 15;
             public double setAS_minSteerSpeed = 0;
             public double setAS_ModeMultiplierStanley = 0.6;
-            public double setAS_ModeXTE = 0.1;
             public double setAS_sideHillComp = 0.0;
             public double setAS_snapDistance = 0.2;
             public double setAS_snapDistanceRef = 0.05;
@@ -219,7 +218,6 @@ namespace AgOpenGPS
             public int setAS_deadZoneDelay = 5;
             public int setAS_deadZoneDistance = 1;
             public int setAS_deadZoneHeading = 10;
-            public int setAS_ModeTime = 1;
             public int setAS_numGuideLines = 10;
             public int setAS_uTurnSmoothing = 14;
             public int setAS_wasOffset = 3;
@@ -374,12 +372,12 @@ namespace AgOpenGPS
             public double hydraulicLiftLookAhead = 2;
             public double lookAheadMinimum = 2;
             public double slowSpeedCutoff = 0.5;
-            public double toolLookAheadOff = 0.5;
-            public double toolLookAheadOn = 1;
-            public double toolOffDelay = 0;
+            public double lookAheadOff = 0.5;
+            public double lookAheadOn = 1;
+            public double offDelay = 0;
 
-            public double toolOffset = 0;
-            public double toolOverlap = 0.0;
+            public double offset = 0;
+            public double maxOverlap = 0.0;
             public double toolWidth = 4.0;
 
             public int minCoverage = 100;

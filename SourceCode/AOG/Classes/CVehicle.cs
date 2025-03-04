@@ -15,33 +15,30 @@ namespace AgOpenGPS
         public int vehicleType, deadZoneDelayCounter, deadZoneDelay;
         public bool isInDeadZone;
 
-        //min vehicle speed allowed before turning shit off
-        public double slowSpeedCutoff = 0;
-
         //autosteer values
         public double goalPointLookAheadHold, goalPointLookAheadMult, goalPointAcquireFactor, uturnCompensation;
 
         public double stanleyDistanceErrorGain, stanleyHeadingErrorGain;
         public double minLookAheadDistance = 2.0;
-        public double maxSteerAngle, maxSteerSpeed, minSteerSpeed;
+        public double maxSteerAngle;
         public double maxAngularVelocity;
-        public double hydLiftLookAheadTime, trackWidth;
+        public double trackWidth;
 
         public double hydLiftLookAheadDistanceLeft, hydLiftLookAheadDistanceRight;
 
-        public bool isHydLiftOn;
+        public bool isHydLiftOn = false;
         public double stanleyIntegralDistanceAwayTriggerAB, stanleyIntegralGainAB, purePursuitIntegralGain;
 
         //flag for free drive window to control autosteer
-        public bool isInFreeDriveMode;
+        public bool isInFreeDriveMode = false;
 
         //the trackbar angle for free drive
         public double driveFreeSteerAngle = 0;
 
-        public double modeXTE, modeActualXTE = 0, modeActualHeadingError = 0;
-        public int modeTime = 0;
+        public double modeActualXTE = 0, modeActualHeadingError = 0;
 
-        public double functionSpeedLimit;
+        public int modeTimeCounter = 0;
+        public double goalDistance = 0;
 
         public CVehicle(FormGPS _f)
         {
@@ -58,8 +55,6 @@ namespace AgOpenGPS
 
             wheelbase = Settings.Vehicle.setVehicle_wheelbase;
 
-            slowSpeedCutoff = Settings.Tool.slowSpeedCutoff;
-
             goalPointLookAheadHold = Settings.Vehicle.setVehicle_goalPointLookAheadHold;
             goalPointLookAheadMult = Settings.Vehicle.setVehicle_goalPointLookAheadMult;
             goalPointAcquireFactor = Settings.Vehicle.setVehicle_goalPointAcquireFactor;
@@ -70,7 +65,6 @@ namespace AgOpenGPS
             maxAngularVelocity = Settings.Vehicle.setVehicle_maxAngularVelocity;
             maxSteerAngle = Settings.Vehicle.setVehicle_maxSteerAngle;
 
-            isHydLiftOn = false;
 
             trackWidth = Settings.Vehicle.setVehicle_trackWidth;
 
@@ -80,28 +74,12 @@ namespace AgOpenGPS
             purePursuitIntegralGain = Settings.Vehicle.setAS_purePursuitIntegralGain;
             vehicleType = Settings.Vehicle.setVehicle_vehicleType;
 
-            hydLiftLookAheadTime = Settings.Tool.hydraulicLiftLookAhead;
 
             deadZoneHeading = Settings.Vehicle.setAS_deadZoneHeading * 0.01;
             deadZoneDelay = Settings.Vehicle.setAS_deadZoneDelay;
 
-            isInFreeDriveMode = false;
-
-            //how far from line before it becomes Hold
-            modeXTE = 0.2;
-
-            //how long before hold is activated
-            modeTime = 1;
-
-            functionSpeedLimit = Settings.Vehicle.setAS_functionSpeedLimit;
-            maxSteerSpeed = Settings.Vehicle.setAS_maxSteerSpeed;
-            minSteerSpeed = Settings.Vehicle.setAS_minSteerSpeed;
-
             uturnCompensation = Settings.Vehicle.setAS_uTurnCompensation;
         }
-
-        public int modeTimeCounter = 0;
-        public double goalDistance = 0;
 
         public double UpdateGoalPointDistance()
         {

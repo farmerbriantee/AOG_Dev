@@ -108,7 +108,6 @@ namespace AgOpenGPS
             Settings.Vehicle.setArdMac_user4 = (byte)nudUser4.Value;
 
             Settings.Tool.hydraulicLiftLookAhead = nudHydLiftLookAhead.Value;
-            mf.vehicle.hydLiftLookAheadTime = Settings.Tool.hydraulicLiftLookAhead;
 
             PGN_238.pgn[PGN_238.set0] = (byte)sett;
             PGN_238.pgn[PGN_238.raiseTime] = (byte)nudRaiseTime.Value;

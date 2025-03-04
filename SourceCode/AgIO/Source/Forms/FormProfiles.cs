@@ -106,6 +106,8 @@ namespace AgIO
             {
                 RegistrySettings.profileName = SanitizeFileName(tboxCreateNew.Text.ToString().Trim());
 
+                Settings.User.Save();
+
                 //reset to Default Profile and save
                 Settings.User.Reset();
 
@@ -200,7 +202,7 @@ namespace AgIO
                 RegistrySettings.profileName = cboxChooseExisting.SelectedItem.ToString().Trim();
 
                 RegistrySettings.Save("ProfileName", RegistrySettings.profileName);
-                Settings.User.Save();
+                Settings.User.Load();
 
                 DialogResult = DialogResult.Yes;
                 Close();

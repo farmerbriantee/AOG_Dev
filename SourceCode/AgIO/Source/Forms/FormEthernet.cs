@@ -43,7 +43,7 @@ namespace AgIO
             mf.KeypadToNUD((NumericUpDown)sender, this);
         }
 
-        private void btnSerialCancel_Click(object sender, EventArgs e)
+        private void btnOK_Click(object sender, EventArgs e)
         {
             //Settings.User.etIP_SubnetOne = (byte)nudSub1.Value;
             //Settings.User.etIP_SubnetTwo = (byte)nudSub2.Value;

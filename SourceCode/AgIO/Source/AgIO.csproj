@@ -223,7 +223,7 @@
     <Compile Include="Forms\FormUDP.designer.cs">
       <DependentUpon>FormUDP.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Properties\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\FormCommSetGPS.resx">
       <DependentUpon>FormCommSetGPS.cs</DependentUpon>

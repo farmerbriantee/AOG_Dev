@@ -16,10 +16,6 @@ namespace AgIO
         [STAThread]
         private static void Main()
         {
-            //reset to Default Profile and save
-            Settings.User.Reset();
-            Settings.User.Save();
-
             Log.EventWriter("Program Started: " + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
             Log.EventWriter("AgIO Version: " + Application.ProductVersion.ToString(CultureInfo.InvariantCulture));
 

@@ -95,7 +95,7 @@ namespace AgIO
 
             public LoadResult Load()
             {
-                string path = Path.Combine(RegistrySettings.profileDirectory, "User.XML");
+                string path = Path.Combine(RegistrySettings.profileDirectory, RegistrySettings.profileName + ".XML");
                 var result = XmlSettingsHandler.LoadXMLFile(path, this);
                 if (result == LoadResult.MissingFile)
                 {
@@ -111,7 +111,7 @@ namespace AgIO
 
             public void Save()
             {
-                string path = Path.Combine(RegistrySettings.profileDirectory, "User.XML");
+                string path = Path.Combine(RegistrySettings.profileDirectory, RegistrySettings.profileName + ".XML");
 
                 XmlSettingsHandler.SaveXMLFile(path, "User", this);
             }

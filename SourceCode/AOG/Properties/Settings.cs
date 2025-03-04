@@ -65,7 +65,7 @@ namespace AgOpenGPS
             public int setDisplay_camSmooth = 50;
             public int setDisplay_lightbarCmPerPixel = 5;
             public int setDisplay_lineWidth = 2;
-            public string setDisplay_buttonOrder = "0,1,2,3,4,5,6,7";
+            public string setDisplay_buttonOrder = "0,1,2,3,4,5,6";
             public string setDisplay_customColors = "-62208,-12299010,-16190712,-1505559,-3621034,-16712458,-7330570,-1546731,-24406,-3289866,-2756674,-538377,-134768,-4457734,-1848839,-530985";
             public string setDisplay_customSectionColors = "-62208,-12299010,-16190712,-1505559,-3621034,-16712458,-7330570,-1546731,-24406,-3289866,-2756674,-538377,-134768,-4457734,-1848839,-530985";
 

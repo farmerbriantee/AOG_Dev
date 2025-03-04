@@ -36,10 +36,6 @@ namespace AgOpenGPS
         public double vehicleOpacity;
         public byte vehicleOpacityByte;
 
-        //Is it in 2D or 3D, metric or imperial, display lightbar, display grid etc
-
-        public int[] customColorsList = new int[16];
-
         public bool isFlashOnOff = false, isPanFormVisible = false;
         public bool isPanelBottomHidden = false;
 
@@ -61,9 +57,6 @@ namespace AgOpenGPS
         public int twoSecondCounter = 0;
         private int oneSecondCounter = 0;
         private int oneHalfSecondCounter = 0;
-
-        public List<int> buttonOrder = new List<int>();
-
 
         //Timer triggers at 125 msec
         private void tmrWatchdog_tick(object sender, EventArgs e)
@@ -478,15 +471,6 @@ namespace AgOpenGPS
             pn.headingTrueDualOffset = Settings.Vehicle.setGPS_dualHeadingOffset;
             dualReverseDetectionDistance = Settings.Vehicle.setGPS_dualReverseDetectionDistance;
 
-            //load the string of custom colors
-            string[] words = Settings.User.setDisplay_customColors.Split(',');
-            for (int i = 0; i < 16; i++)
-            {
-                customColorsList[i] = int.Parse(words[i], CultureInfo.InvariantCulture);
-                Color test = Color.FromArgb(customColorsList[i]).CheckColorFor255();
-                customColorsList[i] = test.ToArgb();
-            }
-
             simulatorOnToolStripMenuItem.Checked = Settings.User.isSimulatorOn;
             //isLogNMEA = Settings.Default.setMenu_isLogNMEA;
 
@@ -643,8 +627,7 @@ namespace AgOpenGPS
             }
 
             //night mode
-            Settings.User.setDisplay_isDayMode = !Settings.User.setDisplay_isDayMode;
-            SwapDayNightMode();
+            SwapDayNightMode(false);
 
             //load uturn properties
             yt = new CYouTurn(this);
@@ -652,19 +635,11 @@ namespace AgOpenGPS
             lblNumCu.Visible = false;
             lblNumCu.Text = "";
 
-            words = Settings.User.setDisplay_buttonOrder.Split(',');
-            buttonOrder?.Clear();
-
-            for (int i = 0; i < words.Length; i++)
-            {
-                buttonOrder.Add(int.Parse(words[i], CultureInfo.InvariantCulture));
-            }
-
             bnd.isSectionControlledByHeadland = true;
             cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOn;
 
             //right side build
-            PanelBuildRightMenu();
+            PanelBuildRightMenu(Settings.User.setDisplay_buttonOrder.Split(','));
 
             PanelsAndOGLSize();
             PanelUpdateRightAndBottom();
@@ -799,39 +774,39 @@ namespace AgOpenGPS
             }
         }
 
-        public void PanelBuildRightMenu()
+        public void PanelBuildRightMenu(string[] buttonOrder)
         {
             panelRight.Controls.Clear();
 
-            for (int i = 0; i < buttonOrder.Count; i++)
+            for (int i = 0; i < buttonOrder.Length; i++)
             {
                 switch (buttonOrder[i])
                 {
-                    case 0:
+                    case "0":
                         panelRight.Controls.Add(btnAutoSteer);
                         break;
 
-                    case 1:
+                    case "1":
                         panelRight.Controls.Add(btnAutoYouTurn);
                         break;
 
-                    case 2:
+                    case "2":
                         panelRight.Controls.Add(btnSectionMasterAuto);
                         break;
 
-                    case 3:
+                    case "3":
                         panelRight.Controls.Add(btnSectionMasterManual);
                         break;
 
-                    case 4:
+                    case "4":
                         panelRight.Controls.Add(btnCycleLinesBk);
                         break;
 
-                    case 5:
+                    case "5":
                         panelRight.Controls.Add(btnCycleLines);
                         break;
 
-                    case 6:
+                    case "6":
                         panelRight.Controls.Add(btnContour);
                         panelRight.Controls.Add(btnContourLock);
                         break;
@@ -951,9 +926,10 @@ namespace AgOpenGPS
             SetZoom();
         }
 
-        public void SwapDayNightMode()
+        public void SwapDayNightMode(bool swap = true)
         {
-            Settings.User.setDisplay_isDayMode = !Settings.User.setDisplay_isDayMode;
+            if (swap)
+                Settings.User.setDisplay_isDayMode = !Settings.User.setDisplay_isDayMode;
 
             Color foreColor = Settings.User.setDisplay_isDayMode ? Settings.User.colorTextDay : Settings.User.colorTextNight;
             btnDayNightMode.Image = Settings.User.setDisplay_isDayMode ? Properties.Resources.WindowNightMode : Properties.Resources.WindowDayMode;

@@ -1,6 +1,7 @@
 ﻿using MechanikaDesign.WinForms.UI.ColorPicker;
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -18,11 +19,22 @@ namespace AgOpenGPS
         private HslColor colorHsl = HslColor.FromAhsl(0xff);
         private Color colorRgb = Color.Empty;
 
+        public int[] customColorsList = new int[16];
+
         public FormColorPicker(Form callingForm, Color _inColor)
         {
             //get copy of the calling main form
             mf = callingForm as FormGPS;
             InitializeComponent();
+
+            //load the string of custom colors
+            string[] words = Settings.User.setDisplay_customColors.Split(',');
+            for (int i = 0; i < 16; i++)
+            {
+                customColorsList[i] = int.Parse(words[i], CultureInfo.InvariantCulture);
+                Color test = Color.FromArgb(customColorsList[i]).CheckColorFor255();
+                customColorsList[i] = test.ToArgb();
+            }
 
             inColor = _inColor;
 
@@ -82,22 +94,22 @@ namespace AgOpenGPS
 
         private void FormColorPicker_Load(object sender, EventArgs e)
         {
-            btn00.BackColor = (Color.FromArgb(mf.customColorsList[0]));
-            btn01.BackColor = (Color.FromArgb(mf.customColorsList[1]));
-            btn02.BackColor = (Color.FromArgb(mf.customColorsList[2]));
-            btn03.BackColor = (Color.FromArgb(mf.customColorsList[3]));
-            btn04.BackColor = (Color.FromArgb(mf.customColorsList[4]));
-            btn05.BackColor = (Color.FromArgb(mf.customColorsList[5]));
-            btn06.BackColor = (Color.FromArgb(mf.customColorsList[6]));
-            btn07.BackColor = (Color.FromArgb(mf.customColorsList[7]));
-            btn08.BackColor = (Color.FromArgb(mf.customColorsList[8]));
-            btn09.BackColor = (Color.FromArgb(mf.customColorsList[9]));
-            btn10.BackColor = (Color.FromArgb(mf.customColorsList[10]));
-            btn11.BackColor = (Color.FromArgb(mf.customColorsList[11]));
-            btn12.BackColor = (Color.FromArgb(mf.customColorsList[12]));
-            btn13.BackColor = (Color.FromArgb(mf.customColorsList[13]));
-            btn14.BackColor = (Color.FromArgb(mf.customColorsList[14]));
-            btn15.BackColor = (Color.FromArgb(mf.customColorsList[15]));
+            btn00.BackColor = (Color.FromArgb(customColorsList[0]));
+            btn01.BackColor = (Color.FromArgb(customColorsList[1]));
+            btn02.BackColor = (Color.FromArgb(customColorsList[2]));
+            btn03.BackColor = (Color.FromArgb(customColorsList[3]));
+            btn04.BackColor = (Color.FromArgb(customColorsList[4]));
+            btn05.BackColor = (Color.FromArgb(customColorsList[5]));
+            btn06.BackColor = (Color.FromArgb(customColorsList[6]));
+            btn07.BackColor = (Color.FromArgb(customColorsList[7]));
+            btn08.BackColor = (Color.FromArgb(customColorsList[8]));
+            btn09.BackColor = (Color.FromArgb(customColorsList[9]));
+            btn10.BackColor = (Color.FromArgb(customColorsList[10]));
+            btn11.BackColor = (Color.FromArgb(customColorsList[11]));
+            btn12.BackColor = (Color.FromArgb(customColorsList[12]));
+            btn13.BackColor = (Color.FromArgb(customColorsList[13]));
+            btn14.BackColor = (Color.FromArgb(customColorsList[14]));
+            btn15.BackColor = (Color.FromArgb(customColorsList[15]));
 
             //save them just in case
             SaveCustomColor();
@@ -107,8 +119,8 @@ namespace AgOpenGPS
         {
             Settings.User.setDisplay_customColors = "";
             for (int i = 0; i < 15; i++)
-                Settings.User.setDisplay_customColors += mf.customColorsList[i].ToString() + ",";
-            Settings.User.setDisplay_customColors += mf.customColorsList[15].ToString();
+                Settings.User.setDisplay_customColors += customColorsList[i].ToString() + ",";
+            Settings.User.setDisplay_customColors += customColorsList[15].ToString();
         }
 
         private void btn00_Click(object sender, EventArgs e)
@@ -124,7 +136,7 @@ namespace AgOpenGPS
                 int.TryParse(butt.Name.Substring(3, 2), out int buttNumber);
 
                 useThisColor = useThisColor.CheckColorFor255();
-                mf.customColorsList[buttNumber] = useThisColor.ToArgb();
+                customColorsList[buttNumber] = useThisColor.ToArgb();
                 butt.BackColor = useThisColor;
 
                 SaveCustomColor();

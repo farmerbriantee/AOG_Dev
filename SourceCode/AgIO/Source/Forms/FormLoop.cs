@@ -52,13 +52,12 @@ namespace AgIO
 
         public StringBuilder logMonitorSentence = new StringBuilder();
         public StringBuilder logUDPSentence = new StringBuilder();
+
         public bool isLogNMEA, isLogMonitorOn, isUDPMonitorOn, isGPSLogOn, isNTRIPLogOn;
 
         private StringBuilder sbRTCM = new StringBuilder();
 
         public bool isKeyboardOn = true;
-
-        public bool isSendToSerial = true, isSendToUDP = false;
 
         public bool isGPSSentencesOn = false; //, isSendNMEAToUDP;
 
@@ -68,9 +67,6 @@ namespace AgIO
         public string lastSentence;
 
         public bool isNTRIPToggle;
-
-        //usually 256 - send ntrip to serial in chunks
-        public int packetSizeNTRIP;
 
         public bool lastHelloGPS, lastHelloAutoSteer, lastHelloMachine, lastHelloIMU, lastHelloGPSTool;
         public bool isConnectedIMU, isConnectedSteer, isConnectedMachine;
@@ -129,15 +125,6 @@ namespace AgIO
             this.Width = 428;
 
             LoadLoopback();
-
-            //isSendNMEAToUDP = Settings.User.setUDP_isSendNMEAToUDP;
-
-            packetSizeNTRIP = Settings.User.setNTRIP_packetSize;
-
-            isSendToSerial = Settings.User.setNTRIP_sendToSerial;
-            isSendToUDP = Settings.User.setNTRIP_sendToUDP;
-
-            //lblMount.Text = Settings.User.setNTRIP_mount;
 
             lblGPS1Comm.Text = "";
             lblIMUComm.Text = "";
@@ -226,10 +213,10 @@ namespace AgIO
             SetModulesOnOff();
 
             //update Caster IP from URL, just use the old one if can't find
-            if (isNTRIP_RequiredOn)
+            if (Settings.User.setNTRIP_isOn)
             {
                 //broadCasterIP = Settings.User.setNTRIP_casterIP; //Select correct Address
-                broadCasterIP = null;
+                Settings.User.setNTRIP_casterIP = null;
                 string actualIP = Settings.User.setNTRIP_casterURL.Trim();
 
                 try
@@ -239,14 +226,13 @@ namespace AgIO
                     {
                         if (address.AddressFamily == AddressFamily.InterNetwork)
                         {
-                            broadCasterIP = address.ToString().Trim();
-                            Settings.User.setNTRIP_casterIP = broadCasterIP;
+                            Settings.User.setNTRIP_casterIP = address.ToString().Trim();
 
                             break;
                         }
                     }
 
-                    if (broadCasterIP == null) throw new NullReferenceException();
+                    if (Settings.User.setNTRIP_casterIP == null) throw new NullReferenceException();
                 }
                 catch (Exception ex)
                 {
@@ -256,7 +242,7 @@ namespace AgIO
                     tmr?.Dispose();
 
                     //use last known
-                    broadCasterIP = Settings.User.setNTRIP_casterIP; //Select correct Address
+                    Settings.User.setNTRIP_casterIP = Settings.User.setNTRIP_casterIP; //Select correct Address
 
                     // Close the socket if it is still open
                     if (clientSocket != null && clientSocket.Connected)
@@ -442,7 +428,7 @@ namespace AgIO
             // 1 Second Loop Part2
             if (isViewAdvanced)
             {
-                if (isNTRIP_RequiredOn)
+                if (Settings.User.setNTRIP_isOn)
                 {
                     sbRTCM.Append(".");
                     lblMessages.Text = sbRTCM.ToString();
@@ -505,7 +491,7 @@ namespace AgIO
                     }
                 }
 
-                if (isViewAdvanced && isNTRIP_RequiredOn)
+                if (isViewAdvanced && Settings.User.setNTRIP_isOn)
                 {
                     try
                     {

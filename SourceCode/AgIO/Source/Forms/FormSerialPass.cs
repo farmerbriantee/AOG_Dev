@@ -57,8 +57,8 @@ namespace AgIO
 
             if (cboxSerialPassOn.Checked)
             {
-                Settings.User.setNTRIP_isOn = mf.isNTRIP_RequiredOn = false;
-                Settings.User.setRadio_isOn = mf.isRadio_RequiredOn = false;
+                Settings.User.setNTRIP_isOn = false;
+                Settings.User.setRadio_isOn = false;
             }
 
             Settings.User.setNTRIP_sendToUDPPort = (int)nudSendToUDPPort.Value;
@@ -66,8 +66,8 @@ namespace AgIO
             Settings.User.setNTRIP_sendToSerial = cboxToSerial.Checked;
             Settings.User.setNTRIP_sendToUDP = cboxToUDP.Checked;
 
-            mf.isSendToSerial = cboxToSerial.Checked;
-            mf.isSendToUDP = cboxToUDP.Checked;
+            Settings.User.setNTRIP_sendToSerial = cboxToSerial.Checked;
+            Settings.User.setNTRIP_sendToUDP = cboxToUDP.Checked;
 
             Settings.User.setPort_portNameRadio = cboxRadioPort.Text;
             Settings.User.setPort_baudRateRadio = cboxBaud.Text;

@@ -63,20 +63,18 @@ namespace AgIO
         {
             if (Settings.User.setNTRIP_isOn || Settings.User.setRadio_isOn)
             {
-                if (isNTRIP_RequiredOn || isRadio_RequiredOn)
+                if (Settings.User.setNTRIP_isOn || Settings.User.setRadio_isOn)
                 {
                     ShutDownNTRIP();
                     lblWatch.Text = "Stopped";
                     btnStartStopNtrip.Text = "OffLine";
-                    isNTRIP_RequiredOn = false;
-                    isRadio_RequiredOn = false;
+                    Settings.User.setNTRIP_isOn = false;
+                    Settings.User.setRadio_isOn = false;
                     lblNTRIP_IP.Text = "--";
                     lblMount.Text = "--";
                 }
                 else
                 {
-                    isNTRIP_RequiredOn = Settings.User.setNTRIP_isOn;
-                    isRadio_RequiredOn = Settings.User.setRadio_isOn;
                     lblWatch.Text = "Waiting";
                     lblNTRIP_IP.Text = "--";
                     lblMount.Text= "--";
@@ -248,13 +246,13 @@ namespace AgIO
                 return;
             }
 
-            if (isRadio_RequiredOn)
+            if (Settings.User.setRadio_isOn)
             {
                 TimedMessageBox(2000, "Radio NTRIP ON", "Turn it off before using Serial Pass Thru");
                 return;
             }
 
-            if (isNTRIP_RequiredOn)
+            if (Settings.User.setNTRIP_isOn)
             {
                 TimedMessageBox(2000, "Air NTRIP ON", "Turn it off before using Serial Pass Thru");
                 return;
@@ -382,13 +380,13 @@ namespace AgIO
 
         private void SettingsNTRIP()
         {
-            if (isRadio_RequiredOn)
+            if (Settings.User.setRadio_isOn)
             {
                 TimedMessageBox(2000, "Radio NTRIP ON", "Turn it off before using NTRIP");
                 return;
             }
 
-            if (isSerialPass_RequiredOn)
+            if (Settings.User.setPass_isOn)
             {
                 TimedMessageBox(2000, "Serial NTRIP ON", "Turn it off before using NTRIP");
                 return;
@@ -409,24 +407,24 @@ namespace AgIO
 
         private void SettingsRadio()
         {
-            if (isSerialPass_RequiredOn)
+            if (Settings.User.setPass_isOn)
             {
                 TimedMessageBox(2000, "Serial Pass NTRIP ON", "Turn it off before using Radio NTRIP");
                 return;
             }
 
-            if (isNTRIP_RequiredOn)
+            if (Settings.User.setNTRIP_isOn)
             {
                 TimedMessageBox(2000, "Air NTRIP ON", "Turn it off before using Radio NTRIP");
                 return;
             }
 
-            if (isRadio_RequiredOn && isNTRIP_Connected)
+            if (Settings.User.setRadio_isOn && isNTRIP_Connected)
             {
                 ShutDownNTRIP();
                 lblWatch.Text = "Stopped";
                 btnStartStopNtrip.Text = "OffLine";
-                isRadio_RequiredOn = false;
+                Settings.User.setRadio_isOn = false;
             }
 
             using (var form = new FormRadio(this))

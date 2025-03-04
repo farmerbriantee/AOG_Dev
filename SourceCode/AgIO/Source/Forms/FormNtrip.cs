@@ -91,7 +91,7 @@ namespace AgIO
             if (Settings.User.setNTRIP_isHTTP10) cboxHTTP.Text = "1.0";
             else cboxHTTP.Text = "1.1";
 
-            comboboxPacketSize.Text = mf.packetSizeNTRIP.ToString();
+            comboboxPacketSize.Text = Settings.User.setNTRIP_packetSize.ToString();
         }
 
         private void cboxIsNTRIPOn_Click(object sender, EventArgs e)
@@ -100,8 +100,8 @@ namespace AgIO
 
             if (cboxIsNTRIPOn.Checked)
             {
-                Settings.User.setRadio_isOn = mf.isRadio_RequiredOn = false;
-                Settings.User.setPass_isOn = mf.isSerialPass_RequiredOn = false;
+                Settings.User.setRadio_isOn = false;
+                Settings.User.setPass_isOn = false;
                 Log.EventWriter("NTRIP Turned on");
             }
             else
@@ -145,8 +145,7 @@ namespace AgIO
                         if (addr.AddressFamily == AddressFamily.InterNetwork)
                         {
                             tboxCasterIP.Text = addr.ToString().Trim();
-                            mf.broadCasterIP = addr.ToString().Trim();
-                            Settings.User.setNTRIP_casterIP = mf.broadCasterIP;
+                            Settings.User.setNTRIP_casterIP = addr.ToString().Trim();
 
                             break;
                         }
@@ -218,8 +217,8 @@ namespace AgIO
 
             if (cboxIsNTRIPOn.Checked)
             {
-                Settings.User.setRadio_isOn = mf.isRadio_RequiredOn = false;
-                Settings.User.setPass_isOn = mf.isSerialPass_RequiredOn = false;
+                Settings.User.setRadio_isOn = false;
+                Settings.User.setPass_isOn = false;
             }
 
             Settings.User.setNTRIP_userName = tboxUserName.Text;
@@ -238,10 +237,9 @@ namespace AgIO
             Settings.User.setNTRIP_sendToSerial = cboxToSerial.Checked;
             Settings.User.setNTRIP_sendToUDP = cboxToUDP.Checked;
 
-            mf.isSendToSerial = cboxToSerial.Checked;
-            mf.isSendToUDP = cboxToUDP.Checked;
+            Settings.User.setNTRIP_sendToSerial = cboxToSerial.Checked;
+            Settings.User.setNTRIP_sendToUDP = cboxToUDP.Checked;
 
-            mf.packetSizeNTRIP = Convert.ToInt32(comboboxPacketSize.Text);
             Settings.User.setNTRIP_packetSize = Convert.ToInt32(comboboxPacketSize.Text);
 
             if (Settings.User.setNTRIP_isOn && Settings.User.setRadio_isOn)

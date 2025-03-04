@@ -27,7 +27,6 @@ namespace AgIO
 
         public sealed class UserSettings
         {
-
             public string setPort_portNameGPS = "GPS**";
             public string setPort_portNameTool = "Tool*";
             public string setPort_portNameSteer = "Steer*";
@@ -52,10 +51,10 @@ namespace AgIO
             public bool setMod_isSteerConnected = true;
 
             public string setNTRIP_casterIP = "69.75.31.235";
+            public string setNTRIP_casterURL = "NTRIP.itsware.net";
             public string setNTRIP_mount = "SCSC";
             public string setNTRIP_userName = "";
             public string setNTRIP_userPassword = "";
-            public string setNTRIP_casterURL = "NTRIP.itsware.net";
 
             public int setNTRIP_casterPort = 2101;
             public int setNTRIP_sendGGAInterval = 10;

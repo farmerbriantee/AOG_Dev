@@ -24,29 +24,17 @@ namespace AgIO
         //Send GGA back timer
         Timer tmr;
 
-        private string mount;
-        private string username;
-        private string password;
-
-        public string broadCasterIP;
-        private int broadCasterPort;
-
-        private int sendGGAInterval = 0;
         private string GGASentence;
 
         public uint tripBytes = 0;
-        private int toUDP_Port = 0;
         private int NTRIP_Watchdog = 100;
 
-        public bool isNTRIP_RequiredOn = false;
         public bool isNTRIP_Connected = false;
         public bool isNTRIP_Starting = false;
         public bool isNTRIP_Connecting = false;
         public bool isNTRIP_Sending = false;
         public bool isRunGGAInterval = false;
 
-        public bool isRadio_RequiredOn = false;
-        public bool isSerialPass_RequiredOn = false;
         internal SerialPort spRadio = new SerialPort("Radio", 9600, Parity.None, 8, StopBits.One);
 
         List<int> rList = new List<int>();
@@ -59,13 +47,13 @@ namespace AgIO
         private void DoNTRIPSecondRoutine()
         {
             //count up the ntrip clock only if everything is alive
-            if (isNTRIP_RequiredOn || isRadio_RequiredOn || isSerialPass_RequiredOn)
+            if (Settings.User.setNTRIP_isOn || Settings.User.setRadio_isOn || Settings.User.setPass_isOn)
             {
                 IncrementNTRIPWatchDog();
             }
 
             //Have we NTRIP connection
-            if (isNTRIP_RequiredOn && !isNTRIP_Connected && !isNTRIP_Connecting)
+            if (Settings.User.setNTRIP_isOn && !isNTRIP_Connected && !isNTRIP_Connecting)
             {
                 if (!isNTRIP_Starting && ntripCounter > 20)
                 {
@@ -73,7 +61,7 @@ namespace AgIO
                 }
             }
 
-            if ((isRadio_RequiredOn || isSerialPass_RequiredOn) && !isNTRIP_Connected && !isNTRIP_Connecting)
+            if ((Settings.User.setRadio_isOn || Settings.User.setPass_isOn) && !isNTRIP_Connected && !isNTRIP_Connecting)
             {
                 if (!isNTRIP_Starting)
                 {
@@ -94,7 +82,7 @@ namespace AgIO
                 }
             }
 
-            if (isNTRIP_RequiredOn || isRadio_RequiredOn)
+            if (Settings.User.setNTRIP_isOn || Settings.User.setRadio_isOn)
             {
                 //pbarNtripMenu.Value = unchecked((byte)(tripBytes * 0.02));
                 lblNTRIPBytes.Text = ((tripBytes >> 10)).ToString("###,###,### kb");
@@ -114,7 +102,7 @@ namespace AgIO
                     }
                     else
                     {
-                        if (isNTRIP_RequiredOn && NTRIP_Watchdog > 10)
+                        if (Settings.User.setNTRIP_isOn && NTRIP_Watchdog > 10)
                         {
                             lblWatch.Text = "Waiting";
                         }
@@ -122,25 +110,25 @@ namespace AgIO
                         {
                             lblWatch.Text = "Listening";
 
-                            if (isNTRIP_RequiredOn)
+                            if (Settings.User.setNTRIP_isOn)
                             {
                                 lblWatch.Text += " NTRIP";
                             }
-                            else if (isRadio_RequiredOn)
+                            else if (Settings.User.setRadio_isOn)
                             {
                                 lblWatch.Text += " Radio";
                             }
                         }
                     }
 
-                    if (sendGGAInterval > 0 && isNTRIP_Sending)
+                    if (Settings.User.setNTRIP_sendGGAInterval > 0 && isNTRIP_Sending)
                     {
                         lblWatch.Text = "Send GGA";
                         isNTRIP_Sending = false;
                     }
                 }
             }
-            else if (isSerialPass_RequiredOn)
+            else if (Settings.User.setPass_isOn)
             {
                 //pbarNtripMenu.Value = unchecked((byte)(tripBytes * 0.02));
                 lblNTRIPBytes.Text = ((tripBytes >> 10)).ToString("###,###,### kb");
@@ -164,17 +152,13 @@ namespace AgIO
             lblMessages.Text = "Reading....";
 
             //start NTRIP if required
-            isNTRIP_RequiredOn = Settings.User.setNTRIP_isOn;
-            isRadio_RequiredOn = Settings.User.setRadio_isOn;
-            isSerialPass_RequiredOn = Settings.User.setPass_isOn;
-
-            if (isRadio_RequiredOn || isSerialPass_RequiredOn)
+            if (Settings.User.setRadio_isOn || Settings.User.setPass_isOn)
             {
                 // Immediatly connect radio
                 ntripCounter = 20;
             }
 
-            if (isNTRIP_RequiredOn || isRadio_RequiredOn || isSerialPass_RequiredOn)
+            if (Settings.User.setNTRIP_isOn || Settings.User.setRadio_isOn || Settings.User.setPass_isOn)
             {
                 btnStartStopNtrip.Visible = true;
                 btnStartStopNtrip.Visible = true;
@@ -200,15 +184,8 @@ namespace AgIO
 
         public void StartNTRIP()
         {
-            if (isNTRIP_RequiredOn)
+            if (Settings.User.setNTRIP_isOn)
             {
-                broadCasterPort = Settings.User.setNTRIP_casterPort; //Select correct port (usually 80 or 2101)
-                mount = Settings.User.setNTRIP_mount; //Insert the correct mount
-                username = Settings.User.setNTRIP_userName; //Insert your username!
-                password = Settings.User.setNTRIP_userPassword; //Insert your password!
-                toUDP_Port = Settings.User.setNTRIP_sendToUDPPort; //send rtcm to which udp port
-                sendGGAInterval = Settings.User.setNTRIP_sendGGAInterval; //how often to send fixes
-
                 //if we had a timer already, kill it
                 if (tmr != null)
                 {
@@ -216,7 +193,7 @@ namespace AgIO
                 }
 
                 //create new timer at fast rate to start
-                if (sendGGAInterval > 0)
+                if (Settings.User.setNTRIP_sendGGAInterval > 0)
                 {
                     this.tmr = new System.Windows.Forms.Timer();
                     this.tmr.Interval = 5000;
@@ -237,16 +214,16 @@ namespace AgIO
                     epNtrip = new IPEndPoint(IPAddress.Parse(
                         Settings.User.etIP_SubnetOne.ToString() + "." +
                         Settings.User.etIP_SubnetTwo.ToString() + "." +
-                        Settings.User.etIP_SubnetThree.ToString() + ".255"), toUDP_Port);
+                        Settings.User.etIP_SubnetThree.ToString() + ".255"), Settings.User.setNTRIP_sendToUDPPort);
 
                     // Create the socket object
                     clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     clientSocket.NoDelay = true;
                     clientSocket.Blocking = false;
-                    clientSocket.BeginConnect(new IPEndPoint(IPAddress.Parse(broadCasterIP), broadCasterPort), new AsyncCallback(OnConnect), null);
+                    clientSocket.BeginConnect(new IPEndPoint(IPAddress.Parse(Settings.User.setNTRIP_casterIP), Settings.User.setNTRIP_casterPort), new AsyncCallback(OnConnect), null);
 
-                    Log.EventWriter("NTRIP - IP: " + broadCasterIP.ToString() + ":" + broadCasterPort.ToString()
-                        + " To Port: " + toUDP_Port.ToString() + " Mount: " + mount);
+                    Log.EventWriter("NTRIP - IP: " + Settings.User.setNTRIP_casterIP.ToString() + ":" + Settings.User.setNTRIP_casterPort.ToString()
+                        + " To Port: " + Settings.User.setNTRIP_sendToUDPPort.ToString() + " Mount: " + Settings.User.setNTRIP_mount);
                 }
                 catch (Exception ex)
                 {
@@ -257,10 +234,10 @@ namespace AgIO
                 }
 
                 isNTRIP_Connecting = true;
-                lblNTRIP_IP.Text = broadCasterIP;
-                lblMount.Text = mount;
+                lblNTRIP_IP.Text = Settings.User.setNTRIP_casterIP;
+                lblMount.Text = Settings.User.setNTRIP_mount;
             }
-            else if (isRadio_RequiredOn)
+            else if (Settings.User.setRadio_isOn)
             {
                 if (!string.IsNullOrEmpty(Settings.User.setPort_portNameRadio))
                 {
@@ -286,20 +263,19 @@ namespace AgIO
                     {
                         isNTRIP_Connecting = false;
                         isNTRIP_Connected = false;
-                        isRadio_RequiredOn = false;
+                        Settings.User.setRadio_isOn = false;
                         Log.EventWriter("Catch - > Error connecting to radio" + ex.ToString());
 
                         TimedMessageBox(2000, "Error connecting to radio", $"{ex.Message}");
                     }
                 }
             }
-            else if (isSerialPass_RequiredOn)
+            else if (Settings.User.setPass_isOn)
             {
-                toUDP_Port = Settings.User.setNTRIP_sendToUDPPort; //send rtcm to which udp port
                 epNtrip = new IPEndPoint(IPAddress.Parse(
                     Settings.User.etIP_SubnetOne.ToString() + "." +
                     Settings.User.etIP_SubnetTwo.ToString() + "." +
-                    Settings.User.etIP_SubnetThree.ToString() + ".255"), toUDP_Port);
+                    Settings.User.etIP_SubnetThree.ToString() + ".255"), Settings.User.setNTRIP_sendToUDPPort);
 
                 if (!string.IsNullOrEmpty(Settings.User.setPort_portNameRadio))
                 {
@@ -327,7 +303,7 @@ namespace AgIO
                     {
                         isNTRIP_Connecting = false;
                         isNTRIP_Connected = false;
-                        isSerialPass_RequiredOn = false;
+                        Settings.User.setPass_isOn = false;
                         Log.EventWriter("Catch - > Serial Pass Radio: " + ex.ToString());
 
                         TimedMessageBox(2000, "Error connecting to Serial Pass", $"{ex.Message}");
@@ -361,7 +337,7 @@ namespace AgIO
                 ReconnectRequest();
 
             //Once all connected set the timer GGA to NTRIP Settings
-            if (sendGGAInterval > 0 && ntripCounter == 40) tmr.Interval = sendGGAInterval * 1000;
+            if (Settings.User.setNTRIP_sendGGAInterval > 0 && ntripCounter == 40) tmr.Interval = Settings.User.setNTRIP_sendGGAInterval * 1000;
         }
 
         private void SendAuthorization()
@@ -380,7 +356,7 @@ namespace AgIO
                 if (!Settings.User.setNTRIP_isTCP)
                 {
                     //encode user and password
-                    string auth = ToBase64(username + ":" + password);
+                    string auth = ToBase64(Settings.User.setNTRIP_userName + ":" + Settings.User.setNTRIP_userPassword);
 
                     //grab location sentence
                     BuildGGA();
@@ -391,7 +367,7 @@ namespace AgIO
                     else htt = "1.1";
 
                     //Build authorization string
-                    string str = "GET /" + mount + " HTTP/" + htt + "\r\n";
+                    string str = "GET /" + Settings.User.setNTRIP_mount + " HTTP/" + htt + "\r\n";
                     str += "User-Agent: NTRIP AgOpenGPSClient/6.4\r\n";
                     str += "Authorization: Basic " + auth + "\r\n"; //This line can be removed if no authorization is needed
                                                                     //str += GGASentence; //this line can be removed if no position feedback is needed
@@ -403,7 +379,7 @@ namespace AgIO
                     clientSocket.Send(byteDateLine, byteDateLine.Length, 0);
 
                     //enable to periodically send GGA sentence to server.
-                    if (sendGGAInterval > 0) tmr.Enabled = true;
+                    if (Settings.User.setNTRIP_sendGGAInterval > 0) tmr.Enabled = true;
                 }
                 //say its connected
                 isNTRIP_Connected = true;
@@ -422,7 +398,7 @@ namespace AgIO
             //update gui with stats
             tripBytes += (uint)data.Length;
             
-            if (isViewAdvanced && isNTRIP_RequiredOn )
+            if (isViewAdvanced && Settings.User.setNTRIP_isOn )
             {
                 int mess = 0;
                 //lblPacketSize.Text = data.Length.ToString();
@@ -462,7 +438,7 @@ namespace AgIO
             //reset watchdog since we have updated data
             NTRIP_Watchdog = 0;
 
-            if (isNTRIP_RequiredOn)
+            if (Settings.User.setNTRIP_isOn)
             {
                 //move the ntrip stream to queue
                 for (int i = 0; i < data.Length; i++)
@@ -492,7 +468,7 @@ namespace AgIO
             traffic.cntrGPSIn++;
 
             //128 bytes chunks max
-            if (cnt > packetSizeNTRIP) cnt = packetSizeNTRIP;
+            if (cnt > Settings.User.setNTRIP_packetSize) cnt = Settings.User.setNTRIP_packetSize;
 
             //new data array to send
             byte[] trip = new byte[cnt];
@@ -528,13 +504,13 @@ namespace AgIO
         public void SendNTRIP(byte[] data)
         {
             //serial send out GPS port
-            if (isSendToSerial)
+            if (Settings.User.setNTRIP_sendToSerial)
             {
                 SendGPSPort(data);
             }
 
             //send out UDP Port
-            if (isSendToUDP)
+            if (Settings.User.setNTRIP_sendToUDP)
             {
                 SendUDPMessage(data, epNtrip);
             }
@@ -667,7 +643,7 @@ namespace AgIO
                 ReconnectRequest();
 
                 //Also stop the requests now
-                isNTRIP_RequiredOn = false;
+                Settings.User.setNTRIP_isOn = false;
             }
             else if(spRadio != null)
             {
@@ -678,7 +654,7 @@ namespace AgIO
                 ReconnectRequest();
 
                 //Also stop the requests now
-                isRadio_RequiredOn = false;
+                Settings.User.setRadio_isOn = false;
             }
         }
 

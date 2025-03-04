@@ -493,15 +493,13 @@ namespace AgOpenGPS
             Settings.Tool.isTramOuterInverted = chkBoxOverrideTramControlPos.Checked;
 
             Settings.Tool.isDisplayTramControl = cboxDisplayTramControl.Checked;
-            mf.tool.isDisplayTramControl = cboxDisplayTramControl.Checked;
 
             mf.tram.IsTramOuterOrInner();
         }
 
         private void nudTramWidth_ValueChanged(object sender, EventArgs e)
         {
-            mf.tram.tramWidth = nudTramWidth.Value;
-            Settings.Tool.tram_Width = mf.tram.tramWidth;
+            Settings.Tool.tram_Width = nudTramWidth.Value;
         }
 
         #endregion

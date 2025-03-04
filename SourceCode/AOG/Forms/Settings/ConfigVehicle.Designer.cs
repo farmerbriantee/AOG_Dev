@@ -894,10 +894,10 @@ namespace AgOpenGPS
             }
 
             //the old brand code
-            Settings.Vehicle.setDisplay_isVehicleImage = !cboxIsImage.Checked;
+            Settings.Vehicle.isVehicleImage = !cboxIsImage.Checked;
 
             mf.vehicleOpacityByte = (byte)(255 * (mf.vehicleOpacity));
-            Settings.Vehicle.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
+            Settings.Vehicle.vehicleOpacity = (int)(mf.vehicleOpacity * 100);
 
             Settings.User.colorVehicle = mf.vehicleColor;
 
@@ -990,7 +990,7 @@ namespace AgOpenGPS
             mf.vehicleOpacity = Math.Min(mf.vehicleOpacity + 0.2, 1);
             lblOpacityPercent.Text = ((int)(mf.vehicleOpacity * 100)).ToString() + "%";
             mf.vehicleOpacityByte = (byte)(255 * (mf.vehicleOpacity));
-            Settings.Vehicle.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
+            Settings.Vehicle.vehicleOpacity = (int)(mf.vehicleOpacity * 100);
             
             SetOpacity();
         }
@@ -1000,7 +1000,7 @@ namespace AgOpenGPS
             mf.vehicleOpacity = Math.Max(mf.vehicleOpacity - 0.2, 0.2);
             lblOpacityPercent.Text = ((int)(mf.vehicleOpacity * 100)).ToString() + "%";
             mf.vehicleOpacityByte = (byte)(255 * (mf.vehicleOpacity));
-            Settings.Vehicle.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
+            Settings.Vehicle.vehicleOpacity = (int)(mf.vehicleOpacity * 100);
             
             SetOpacity();
         }
@@ -1009,10 +1009,8 @@ namespace AgOpenGPS
         {
             //mf.vehicleOpacity = (hsbarOpacity.Value * 0.01);
             mf.vehicleOpacityByte = (byte)(255 * (mf.vehicleOpacity));
-            Settings.Vehicle.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
-
-            mf.isVehicleImage = (!cboxIsImage.Checked);
-            Settings.Vehicle.setDisplay_isVehicleImage = mf.isVehicleImage;
+            Settings.Vehicle.vehicleOpacity = (int)(mf.vehicleOpacity * 100);
+            Settings.Vehicle.isVehicleImage = (!cboxIsImage.Checked);
             
             //original = null;
             TabImageSetup();
@@ -1024,7 +1022,7 @@ namespace AgOpenGPS
             panelTractorBrands.Visible = false;
             panelHarvesterBrands.Visible = false;
 
-            if (mf.isVehicleImage)
+            if (Settings.Vehicle.isVehicleImage)
             {
                 if (mf.vehicle.vehicleType == 0)
                 {
@@ -1103,7 +1101,7 @@ namespace AgOpenGPS
                 }
 
                 mf.vehicleOpacityByte = (byte)(255 * (mf.vehicleOpacity));
-                Settings.Vehicle.setDisplay_vehicleOpacity = (int)(mf.vehicleOpacity * 100);
+                Settings.Vehicle.vehicleOpacity = (int)(mf.vehicleOpacity * 100);
                 lblOpacityPercent.Text = ((int)(mf.vehicleOpacity * 100)).ToString() + "%";
             }
             else
@@ -1113,7 +1111,7 @@ namespace AgOpenGPS
             }
             mf.vehicleColor = Color.FromArgb(254, 254, 254);
 
-            cboxIsImage.Checked = !mf.isVehicleImage;
+            cboxIsImage.Checked = !Settings.Vehicle.isVehicleImage;
 
             original = null;
             SetOpacity();

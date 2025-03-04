@@ -172,14 +172,12 @@ namespace AgOpenGPS
 
                 trk.isTrackValid = false;
                 ct.isLocked = false;
-                guidanceLookAheadTime = Settings.Vehicle.setAS_guidanceLookAheadTime;
                 btnContourLock.Image = Resources.ColorUnlocked;
                 if (isBtnAutoSteerOn)
                 {
                     btnAutoSteer.PerformClick();
                     TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), gStr.Get(gs.gsContourOn));
                 }
-
             }
 
             PanelUpdateRightAndBottom();
@@ -1225,9 +1223,9 @@ namespace AgOpenGPS
                 //return;
             }
 
-            isNozzleApp = !isNozzleApp;
+            Settings.Vehicle.setApp_isNozzleApp = !Settings.Vehicle.setApp_isNozzleApp;
 
-            if (isNozzleApp)
+            if (Settings.Vehicle.setApp_isNozzleApp)
             {
                 TimedMessageBox(2000, "", "Nozzle App On");
                 Log.EventWriter("Turning Nozzle App On");
@@ -1238,8 +1236,7 @@ namespace AgOpenGPS
                 Log.EventWriter("Turning Nozzle App Off");
             }
 
-            nozzleAppToolStripMenuItem.Checked = isNozzleApp;
-            Settings.Vehicle.setApp_isNozzleApp = isNozzleApp;
+            nozzleAppToolStripMenuItem.Checked = Settings.Vehicle.setApp_isNozzleApp;
 
             PanelsAndOGLSize();
         }

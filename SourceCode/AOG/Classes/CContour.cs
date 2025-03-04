@@ -308,13 +308,13 @@ namespace AgOpenGPS
             ////draw the guidance line
             int ptCount = ctList.Count;
             if (ptCount < 2) return;
-            GL.LineWidth(mf.trk.lineWidth);
+            GL.LineWidth(Settings.User.setDisplay_lineWidth);
             GL.Color3(0.98f, 0.2f, 0.980f);
             GL.Begin(PrimitiveType.LineStrip);
             for (int h = 0; h < ptCount; h++) GL.Vertex3(ctList[h].easting, ctList[h].northing, 0);
             GL.End();
 
-            GL.PointSize(mf.trk.lineWidth);
+            GL.PointSize(Settings.User.setDisplay_lineWidth);
             GL.Color3(0.87f, 08.7f, 0.25f);
 
             GL.Begin(PrimitiveType.Points);
@@ -331,7 +331,7 @@ namespace AgOpenGPS
             else
             {
                 GL.Color3(0.3f, 0.982f, 0.0f);
-                GL.LineWidth(mf.trk.lineWidth);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth);
             }
 
             //GL.PointSize(6.0f);

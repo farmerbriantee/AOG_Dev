@@ -29,16 +29,12 @@ namespace AgOpenGPS
         //colors for sections and field background
         public byte flagColor = 0;
 
-        //how many cm off line per big pixel
-        public int lightbarCmPerPixel = 5;
-
         //polygon mode for section drawing
         public bool isDrawPolygons = false, isPauseFieldTextCounter = false;
 
         public Color vehicleColor;
         public double vehicleOpacity;
         public byte vehicleOpacityByte;
-        public bool isVehicleImage;
 
         //Is it in 2D or 3D, metric or imperial, display lightbar, display grid etc
 
@@ -47,7 +43,6 @@ namespace AgOpenGPS
         public bool isFlashOnOff = false, isPanFormVisible = false;
         public bool isPanelBottomHidden = false;
 
-        public bool isNozzleApp = false;
         public int makeUTurnCounter = 0;
 
         //makes nav panel disappear after 6 seconds
@@ -264,7 +259,7 @@ namespace AgOpenGPS
                 lblSpeed.Text = Speed;
 
                 //Nozzz
-                if (isNozzleApp)
+                if (Settings.Vehicle.setApp_isNozzleApp)
                 {
                     //nozz.tankVolumeTotal += 1;
                     if (nozz.isAppliedUnitsNotTankDisplayed)
@@ -420,11 +415,9 @@ namespace AgOpenGPS
             //Nozzz
             //Nozzle Spray Controller
 
-            isNozzleApp = Settings.Vehicle.setApp_isNozzleApp;
+            nozzleAppToolStripMenuItem.Checked = Settings.Vehicle.setApp_isNozzleApp;
 
-            nozzleAppToolStripMenuItem.Checked = isNozzleApp;
-
-            //if (isNozzleApp)
+            //if (Settings.Vehicle.setApp_isNozzleApp)
             {
                 PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(Settings.Tool.setNozzleSettings.flowCal >> 8)); ;
                 PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(Settings.Tool.setNozzleSettings.flowCal));
@@ -497,10 +490,8 @@ namespace AgOpenGPS
             simulatorOnToolStripMenuItem.Checked = Settings.User.isSimulatorOn;
             //isLogNMEA = Settings.Default.setMenu_isLogNMEA;
 
-            vehicleOpacity = ((double)(Settings.Vehicle.setDisplay_vehicleOpacity) * 0.01);
-            vehicleOpacityByte = (byte)(255 * ((double)(Settings.Vehicle.setDisplay_vehicleOpacity) * 0.01));
-            isVehicleImage = Settings.Vehicle.setDisplay_isVehicleImage;
-
+            vehicleOpacity = ((double)(Settings.Vehicle.vehicleOpacity) * 0.01);
+            vehicleOpacityByte = (byte)(255 * ((double)(Settings.Vehicle.vehicleOpacity) * 0.01));
 
             if (simulatorOnToolStripMenuItem.Checked)
             {
@@ -545,8 +536,6 @@ namespace AgOpenGPS
 
             isConstantContourOn = Settings.Vehicle.setAS_isConstantContourOn;
             isSteerInReverse = Settings.Vehicle.setAS_isSteerInReverse;
-
-            guidanceLookAheadTime = Settings.Vehicle.setAS_guidanceLookAheadTime;
 
             gyd.sideHillCompFactor = Settings.Vehicle.setAS_sideHillComp;
 
@@ -616,9 +605,6 @@ namespace AgOpenGPS
             yt.uTurnSmoothing = Settings.Vehicle.setAS_uTurnSmoothing;
 
             tool.contourWidth = (tool.width - tool.overlap) / 3.0;
-
-            //load the lightbar resolution
-            lightbarCmPerPixel = Settings.User.setDisplay_lightbarCmPerPixel;
 
             //main window first
             if (!Settings.User.setWindow_isKioskMode)
@@ -920,7 +906,7 @@ namespace AgOpenGPS
 
         private void PanelsAndOGLSize()
         {
-            bool visible = isJobStarted && isNozzleApp;
+            bool visible = isJobStarted && Settings.Vehicle.setApp_isNozzleApp;
 
             tlpNozzle.Visible = visible;
 
@@ -1249,7 +1235,7 @@ namespace AgOpenGPS
                     //tram override
                     int bottomSide = oglMain.Height / 5 + 25;
 
-                    if (tool.isDisplayTramControl && (point.Y > (bottomSide - 50) && point.Y < bottomSide))
+                    if (Settings.Tool.isDisplayTramControl && (point.Y > (bottomSide - 50) && point.Y < bottomSide))
                     {
                         if (point.X > centerX - 100 && point.X < centerX - 20)
                         {

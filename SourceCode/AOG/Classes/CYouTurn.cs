@@ -1524,7 +1524,7 @@ namespace AgOpenGPS
         {
             if (ytList.Count < 3) return;
 
-            GL.PointSize(mf.trk.lineWidth + 2);
+            GL.PointSize(Settings.User.setDisplay_lineWidth + 2);
 
             if (isYouTurnTriggered)
                 GL.Color3(0.95f, 0.5f, 0.95f);
@@ -1562,7 +1562,7 @@ namespace AgOpenGPS
 
             //if (ytList2?.Count > 0)
             //{
-            //    GL.PointSize(mf.trk.lineWidth + 2);
+            //    GL.PointSize(Settings.User.setDisplay_lineWidth + 2);
             //    GL.Color3(0.3f, 0.941f, 0.980f);
             //    GL.Begin(PrimitiveType.Points);
             //    for (int i = 0; i < ytList2.Count; i++)

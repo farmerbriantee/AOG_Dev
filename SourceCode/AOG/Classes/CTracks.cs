@@ -62,7 +62,7 @@ namespace AgOpenGPS
         //to fake the user into thinking they are making a line - but is a curve
         public bool isMakingABLine;
 
-        public int lineWidth = 2, numGuideLines;
+        public int numGuideLines;
 
         public double inty;
 
@@ -71,7 +71,6 @@ namespace AgOpenGPS
             //constructor
             mf = _f;
             idx = -1;
-            lineWidth = Settings.User.setDisplay_lineWidth;
             numGuideLines = Settings.Vehicle.setAS_numGuideLines;
         }
 
@@ -533,7 +532,7 @@ namespace AgOpenGPS
 
             if (guideArr.Count > 0)
             {
-                GL.LineWidth(lineWidth * 3);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth * 3);
                 GL.Color3(0, 0, 0);
 
                 if (gArr[idx].mode != TrackMode.bndCurve)
@@ -550,7 +549,7 @@ namespace AgOpenGPS
                 }
                 GL.End();
 
-                GL.LineWidth(lineWidth);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth);
                 GL.Color4(0.2, 0.75, 0.2, 0.6);
 
                 if (gArr[idx].mode != TrackMode.bndCurve)
@@ -573,7 +572,7 @@ namespace AgOpenGPS
             {
                 if (gArr[idx].curvePts == null || gArr[idx].curvePts.Count == 0) return;
 
-                GL.LineWidth(lineWidth * 2);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth * 2);
                 GL.Color3(0.96, 0.2f, 0.2f);
                 GL.Begin(PrimitiveType.Lines);
 
@@ -596,7 +595,7 @@ namespace AgOpenGPS
                 {
                     if (smooList == null || smooList.Count == 0) return;
 
-                    GL.LineWidth(lineWidth);
+                    GL.LineWidth(Settings.User.setDisplay_lineWidth);
                     GL.Color3(0.930f, 0.92f, 0.260f);
                     GL.Begin(PrimitiveType.Lines);
                     for (int h = 0; h < smooList.Count; h++) GL.Vertex3(smooList[h].easting, smooList[h].northing, 0);
@@ -607,7 +606,7 @@ namespace AgOpenGPS
             //Draw Tracks
             if (currentGuidanceTrack.Count > 0 && !isSmoothWindowOpen) //normal. Smoothing window is not open.
             {
-                GL.LineWidth(lineWidth * 4);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth * 4);
                 GL.Color3(0, 0, 0);
 
                 //ablines and curves are a line - the rest a loop
@@ -631,7 +630,7 @@ namespace AgOpenGPS
                 for (int h = 0; h < currentGuidanceTrack.Count; h++) GL.Vertex3(currentGuidanceTrack[h].easting, currentGuidanceTrack[h].northing, 0);
                 GL.End();
 
-                GL.LineWidth(lineWidth);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth);
                 GL.Color3(0.95f, 0.2f, 0.95f);
 
                 //ablines and curves are a track - the rest a loop
@@ -680,7 +679,7 @@ namespace AgOpenGPS
         public void DrawABLineNew()
         {
             //AB Line currently being designed
-            GL.LineWidth(lineWidth);
+            GL.LineWidth(Settings.User.setDisplay_lineWidth);
             GL.Begin(PrimitiveType.Lines);
             GL.Color3(0.95f, 0.70f, 0.50f);
             GL.Vertex3(designLineEndA.easting, designLineEndA.northing, 0.0);

@@ -28,7 +28,6 @@ namespace AgOpenGPS
         public bool isConstantContourOn;
 
         //guidance line look ahead
-        public double guidanceLookAheadTime = 2;
         public vec2 guidanceLookPos = new vec2(0, 0);
         public double dualReverseDetectionDistance;
 
@@ -458,7 +457,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    distanceX2 = (int)((guidanceLineDistanceOff * glm.m2InchOrCm) / lightbarCmPerPixel);
+                    distanceX2 = (int)((guidanceLineDistanceOff * glm.m2InchOrCm) / Settings.User.setDisplay_lightbarCmPerPixel);
 
                     if (distanceX2 < -127) distanceX2 = -127;
                     else if (distanceX2 > 127) distanceX2 = 127;
@@ -867,7 +866,7 @@ namespace AgOpenGPS
 
             //guidance look ahead distance based on time or tool width at least 
             
-            double guidanceLookDist = (Math.Max(tool.width * 0.5, avgSpeed * 0.277777 * guidanceLookAheadTime));
+            double guidanceLookDist = (Math.Max(tool.width * 0.5, avgSpeed * 0.277777 * Settings.Vehicle.setAS_guidanceLookAheadTime));
             guidanceLookPos.easting = pivotAxlePos.easting + (Math.Sin(fixHeading) * guidanceLookDist);
             guidanceLookPos.northing = pivotAxlePos.northing + (Math.Cos(fixHeading) * guidanceLookDist);
             

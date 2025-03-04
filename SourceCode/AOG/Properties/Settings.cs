@@ -54,14 +54,11 @@ namespace AgOpenGPS
             public bool setDisplay_isHardwareMessages = false;
             public bool setDisplay_isKeyboardOn = true;
             public bool setDisplay_isLineSmooth = false;
-            public bool isLogElevation = false;
             public bool setDisplay_isSectionLinesOn = true;
             public bool setDisplay_isShutdownWhenNoPower = false;
             public bool setDisplay_isStartFullScreen = false;
             public bool setDisplay_isSvennArrowOn = false;
             public bool setDisplay_isTextureOn = true;
-
-            public bool isDirectionMarkers = true;
 
             public int setDisplay_brightness = 40;
             public int setDisplay_brightnessSystem = 40;
@@ -116,6 +113,8 @@ namespace AgOpenGPS
             public bool isAutoOffAgIO = true;
             public bool isAutoStartAgIO = true;
             public bool isTermsAccepted = false;
+            public bool isLogElevation = false;
+            public bool isDirectionMarkers = true;
 
             public bool isCompassOn = true;
             public bool isGridOn = true;
@@ -180,6 +179,7 @@ namespace AgOpenGPS
             public bool setApp_isNozzleApp = false;
 
             public bool setArdMac_isDanfoss = false;
+
             public byte setArdMac_hydLowerTime = 4;
             public byte setArdMac_hydRaiseTime = 3;
             public byte setArdMac_isHydEnabled = 0;
@@ -199,12 +199,14 @@ namespace AgOpenGPS
             public bool setAS_isAutoSteerAutoOn = false;
             public bool setAS_isConstantContourOn = false;
             public bool setAS_isSteerInReverse = false;
+
             public byte setAS_ackerman = 100;
             public byte setAS_countsPerDegree = 110;
             public byte setAS_highSteerPWM = 180;
             public byte setAS_Kp = 50;
             public byte setAS_lowSteerPWM = 30;
             public byte setAS_minSteerPWM = 25;
+
             public double setAS_functionSpeedLimit = 12;
             public double setAS_guidanceLookAheadTime = 1.5;
             public double setAS_maxSteerSpeed = 15;
@@ -215,6 +217,8 @@ namespace AgOpenGPS
             public double setAS_snapDistance = 0.2;
             public double setAS_snapDistanceRef = 0.05;
             public double setAS_uTurnCompensation = 1;
+            public double setAS_purePursuitIntegralGain = 0;
+
             public int setAS_deadZoneDelay = 5;
             public int setAS_deadZoneDistance = 1;
             public int setAS_deadZoneHeading = 10;
@@ -222,18 +226,19 @@ namespace AgOpenGPS
             public int setAS_numGuideLines = 10;
             public int setAS_uTurnSmoothing = 14;
             public int setAS_wasOffset = 3;
-            public double setAS_purePursuitIntegralGain = 0;
 
             public bool setBnd_isDrawPivot = true;
 
-            public bool setDisplay_isVehicleImage = true;
-            public int setDisplay_vehicleOpacity = 100;
+            public bool isVehicleImage = true;
+            public int vehicleOpacity = 100;
 
             public string setF_CurrentFieldDir = "";
             public string setF_CurrentJobDir = "";
+
             public double setF_boundaryTriggerDistance = 1.0;
             public double setF_minHeadingStepDistance = 0.5;
             public double setF_UserTotalArea = 0.0;
+
             public bool setF_isRemoteWorkSystemOn = false;
             public bool setF_isSteerWorkSwitchEnabled = false;
             public bool setF_isSteerWorkSwitchManualSections = false;
@@ -242,8 +247,10 @@ namespace AgOpenGPS
             public bool setF_isWorkSwitchManualSections = false;
 
             public string setGPS_headingFromWhichSource = "Fix";
+
             public bool setGPS_isRTK = false;
             public bool setGPS_isRTK_KillAutoSteer = false;
+
             public double setGPS_dualHeadingOffset = 0.0;
             public double setGPS_dualReverseDetectionDistance = 0.25;
             public double setGPS_forwardComp = 0.15;
@@ -251,6 +258,7 @@ namespace AgOpenGPS
             public double setGPS_reverseComp = 0.3;
             public double setGPS_SimLatitude = 53.4360564;
             public double setGPS_SimLongitude = -111.160047;
+
             public int setGPS_ageAlarm = 20;
             public int setGPS_jumpFixAlarmDistance = 0;
 
@@ -259,10 +267,12 @@ namespace AgOpenGPS
             public bool setIMU_invertRoll = false;
             public bool setIMU_isHeadingCorrectionFromAutoSteer = false;
             public bool setIMU_isReverseOn = true;
+
+            public int setIMU_pitchZeroX16 = 0;
+
             public double setIMU_fusionWeight2 = 0.06;
             public double setIMU_rollFilter = 0.0;
             public double setIMU_rollZero = 0.0;
-            public int setIMU_pitchZeroX16 = 0;
 
             public double stanleyDistanceErrorGain = 1;
             public double stanleyHeadingErrorGain = 1;
@@ -283,15 +293,17 @@ namespace AgOpenGPS
             public double setVehicle_panicStopSpeed = 0;
             public double setVehicle_trackWidth = 1.9;
             public double setVehicle_wheelbase = 3.3;
-            public int setVehicle_vehicleType = 0;
+
             public bool setVehicle_isMachineControlToAutoSteer = false;
             public bool setVehicle_isStanleyUsed = false;
 
-            public int set_uTurnStyle = 0;
             public double set_youMoveDistance = 0.25;
             public double set_youToolWidths = 2;
             public double set_youTurnDistanceFromBoundary = 2;
             public double set_youTurnRadius = 8.1;
+
+            public int setVehicle_vehicleType = 0;
+            public int set_uTurnStyle = 0;
             public int set_youSkipWidth = 1;
             public int set_youTurnExtensionLength = 20;
 
@@ -353,10 +365,12 @@ namespace AgOpenGPS
 
             public bool isTramOnBackBuffer = true;
             public bool isTramOuterInverted = false;
+
             public double tram_alpha = 0.8;
             public double tram_offset = 0.0;
             public double tram_snapAdj = 1.0;
             public double tram_Width = 24.0;
+
             public int tram_BasedOn = 0;
             public int tram_passes = 1;
             public int tram_Skips = 0;
@@ -376,13 +390,13 @@ namespace AgOpenGPS
 
             public int numSections = 3;
             public int numSectionsMulti = 20;
+
             public double defaultSectionWidth = 2;
             public double sectionWidthMulti = 0.5;
 
             public double[] setSection_Widths = new double[3] { 2, 2, 2 };
 
             public string setRelay_pinConfig = "1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0";
-
 
             public Color setColor_sec01 = Color.FromArgb(249, 22, 10);
             public Color setColor_sec02 = Color.FromArgb(68, 84, 254);

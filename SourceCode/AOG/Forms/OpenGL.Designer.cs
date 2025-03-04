@@ -479,7 +479,7 @@ namespace AgOpenGPS
                     {
                         if (flagNumberPicked > 0)
                         {
-                            GL.LineWidth(trk.lineWidth);
+                            GL.LineWidth(Settings.User.setDisplay_lineWidth);
                             GL.Enable(EnableCap.LineStipple);
                             GL.LineStipple(1, 0x0707);
                             GL.Begin(PrimitiveType.Lines);
@@ -596,7 +596,7 @@ namespace AgOpenGPS
 
                     DrawSteerCircle();
 
-                    if (tool.isDisplayTramControl && tram.displayMode != 0) { DrawTramMarkers(); }
+                    if (Settings.Tool.isDisplayTramControl && tram.displayMode != 0) { DrawTramMarkers(); }
 
                     if (vehicle.isHydLiftOn) DrawLiftIndicator();
 
@@ -952,7 +952,7 @@ namespace AgOpenGPS
             //tram tracks
             GL.Color3((byte)0, (byte)bbColors.tram, (byte)0);
 
-            if (tool.isDisplayTramControl && tram.displayMode != 0)
+            if (Settings.Tool.isDisplayTramControl && tram.displayMode != 0)
             {
                 GL.LineWidth(4);
 
@@ -2013,7 +2013,7 @@ namespace AgOpenGPS
             //offlineDistance *= -1;
             //  Dot distance is representation of how far from AB Line
             int dotDistance = (int)(offlineDistance);
-            int limit = (int)lightbarCmPerPixel * 8;
+            int limit = (int)Settings.User.setDisplay_lightbarCmPerPixel * 8;
             if (dotDistance < -limit) dotDistance = -limit;
             if (dotDistance > limit) dotDistance = limit;
 
@@ -2044,7 +2044,7 @@ namespace AgOpenGPS
             //Are you on the right side of line? So its green.
             if ((offlineDistance) < 0.0)
             {
-                int dots = (dotDistance * -1 / lightbarCmPerPixel) + 1;
+                int dots = (dotDistance * -1 / Settings.User.setDisplay_lightbarCmPerPixel) + 1;
 
                 GL.PointSize(24.0f);
                 GL.Color3(0.0f, 0.0f, 0.0f);
@@ -2062,7 +2062,7 @@ namespace AgOpenGPS
 
             else //red side
             {
-                int dots = (int)(dotDistance / lightbarCmPerPixel) + 1;
+                int dots = (int)(dotDistance / Settings.User.setDisplay_lightbarCmPerPixel) + 1;
 
                 GL.PointSize(24.0f);
                 GL.Color3(0.0f, 0.0f, 0.0f);

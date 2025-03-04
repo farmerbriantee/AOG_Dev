@@ -17,8 +17,6 @@ namespace AgOpenGPS
         public List<vec2> tramBndInnerArr = new List<vec2>();
 
         //tram settings
-        //public double wheelTrack;
-        public double tramWidth;
 
         public double halfWheelTrack, alpha;
         public int passes;
@@ -41,9 +39,6 @@ namespace AgOpenGPS
             //constructor
             mf = _f;
 
-            tramWidth = Settings.Tool.tram_Width;
-            //halfTramWidth = (Math.Round((Properties.Settings.Default.tram_Width) / 2.0, 3));
-
             halfWheelTrack = Settings.Vehicle.setVehicle_trackWidth * 0.5;
 
             IsTramOuterOrInner();
@@ -56,7 +51,7 @@ namespace AgOpenGPS
 
         public void IsTramOuterOrInner()
         {
-            isOuter = ((int)(tramWidth / mf.tool.width + 0.5)) % 2 == 0;
+            isOuter = ((int)(Settings.Tool.tram_Width / mf.tool.width + 0.5)) % 2 == 0;
             if (Settings.Tool.isTramOuterInverted) isOuter = !isOuter;
         }
 
@@ -152,17 +147,17 @@ namespace AgOpenGPS
             //outside point
             vec2 pt3 = new vec2();
 
-            double distSq = ((tramWidth * 0.5) + halfWheelTrack) * ((tramWidth * 0.5) + halfWheelTrack) * 0.999;
+            double distSq = ((Settings.Tool.tram_Width * 0.5) + halfWheelTrack) * ((Settings.Tool.tram_Width * 0.5) + halfWheelTrack) * 0.999;
 
             //make the boundary tram outer array
             for (int i = 0; i < ptCount; i++)
             {
                 //calculate the point inside the boundary
                 pt3.easting = mf.bnd.bndList[0].fenceLine[i].easting -
-                    (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (tramWidth * 0.5 + halfWheelTrack));
+                    (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (Settings.Tool.tram_Width * 0.5 + halfWheelTrack));
 
                 pt3.northing = mf.bnd.bndList[0].fenceLine[i].northing -
-                    (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (tramWidth * 0.5 + halfWheelTrack));
+                    (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (Settings.Tool.tram_Width * 0.5 + halfWheelTrack));
 
                 bool Add = true;
 
@@ -200,17 +195,17 @@ namespace AgOpenGPS
             //outside point
             vec2 pt3 = new vec2();
 
-            double distSq = ((tramWidth * 0.5) - halfWheelTrack) * ((tramWidth * 0.5) - halfWheelTrack) * 0.999;
+            double distSq = ((Settings.Tool.tram_Width * 0.5) - halfWheelTrack) * ((Settings.Tool.tram_Width * 0.5) - halfWheelTrack) * 0.999;
 
             //make the boundary tram outer array
             for (int i = 0; i < ptCount; i++)
             {
                 //calculate the point inside the boundary
                 pt3.easting = mf.bnd.bndList[0].fenceLine[i].easting -
-                    (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (tramWidth * 0.5 - halfWheelTrack));
+                    (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (Settings.Tool.tram_Width * 0.5 - halfWheelTrack));
 
                 pt3.northing = mf.bnd.bndList[0].fenceLine[i].northing -
-                    (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (tramWidth * 0.5 - halfWheelTrack));
+                    (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (Settings.Tool.tram_Width * 0.5 - halfWheelTrack));
 
                 bool Add = true;
 

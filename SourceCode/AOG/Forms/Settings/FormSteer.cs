@@ -708,13 +708,11 @@ namespace AgOpenGPS
         private void nudcmPerPixel_ValueChanged(object sender, EventArgs e)
         {
             Settings.User.setDisplay_lightbarCmPerPixel = ((int)nudcmPerPixel.Value);
-            mf.lightbarCmPerPixel = Settings.User.setDisplay_lightbarCmPerPixel;
         }
 
         private void nudLineWidth_ValueChanged(object sender, EventArgs e)
         {
             Settings.User.setDisplay_lineWidth = (int)nudLineWidth.Value;
-            mf.trk.lineWidth = Settings.User.setDisplay_lineWidth;
         }
 
         private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
@@ -725,7 +723,6 @@ namespace AgOpenGPS
         private void nudGuidanceLookAhead_ValueChanged(object sender, EventArgs e)
         {
             Settings.Vehicle.setAS_guidanceLookAheadTime = ((double)nudGuidanceLookAhead.Value);
-            mf.guidanceLookAheadTime = Settings.Vehicle.setAS_guidanceLookAheadTime;
         }
 
         private void rbtnLightBar_Click(object sender, EventArgs e)

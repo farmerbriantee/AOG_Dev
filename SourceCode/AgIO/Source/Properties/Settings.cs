@@ -27,58 +27,54 @@ namespace AgIO
 
         public sealed class UserSettings
         {
-            public CRadioChannel setRadio_Channels = new CRadioChannel();
 
             public string setPort_portNameGPS = "GPS**";
-            public int setPort_baudRateGPS = 9600;
-            public bool setUDP_isOn = false;
-            public bool setPort_wasSteerModuleConnected = false;
-            public string setPort_portNameSteer = "Steer*";
-            public bool setPort_wasModule3Connected = false;
             public string setPort_portNameTool = "Tool*";
-            public int setIP_thisPort = 9999;
-            public string setNTRIP_casterIP = "69.75.31.235";
-            public int setNTRIP_casterPort = 2101;
-            public string setNTRIP_mount = "SCSC";
-            public string setNTRIP_userName = "";
-            public string setNTRIP_userPassword = "";
-            public bool setNTRIP_isOn = false;
-            public int setNTRIP_sendGGAInterval = 10;
-            public int setNTRIP_sendToUDPPort = 2233;
-            public double setNTRIP_manualLat = 53;
-            public double setNTRIP_manualLon = -111;
-            public string setNTRIP_casterURL = "NTRIP.itsware.net";
-            public bool setNTRIP_isGGAManual = false;
-            public bool setNTRIP_isTCP = false;
-            public bool setNTRIP_isHTTP10 = false;
-            public bool setPgm_isFirstRun = true;
-            public double setPgm_defaultLat = 0;
-            public double setPgm_defaultLon = 0;
-            public double setGPS_SimLatitude = 0;
-            public double setGPS_SimLongitude = 0;
-            public string setPort_portNameGPS2 = "GPS2";
-            public int setPort_baudRateGPS2 = 9600;
+            public string setPort_portNameSteer = "Steer*";
             public string setPort_portNameMachine = "Mach**";
+            public string setPort_portNameGPS2 = "GPS2";
+            public string setPort_portNameRtcm = "RTCM";
+            public string setPort_portNameIMU = "IMU*";
+
+            public int setPort_baudRateGPS = 9600;
+            public int setPort_baudRateRtcm = 9600;
+            public int setPort_baudRateGPS2 = 9600;
+            
             public bool setPort_wasMachineModuleConnected = false;
             public bool setPort_wasIMUConnected = false;
-            public string setPort_portNameIMU = "IMU*";
-            public bool setPort_wasGPSConnected = false;
-            public string setPort_portNameRadio = "***";
-            public string setPort_baudRateRadio = "9600";
-            public string setPort_radioChannel = "439.000";
-            public bool setRadio_isOn = false;
-            public bool setUDP_isSendNMEAToUDP = false;
-            public string setPort_portNameRtcm = "RTCM";
-            public int setPort_baudRateRtcm = 9600;
+            public bool setPort_wasSteerModuleConnected = false;
+            public bool setPort_wasModule3Connected = false;
             public bool setPort_wasRtcmConnected = false;
-            public bool setNTRIP_sendToSerial = true;
-            public bool setNTRIP_sendToUDP = true;
+            public bool setPort_wasGPSConnected = false;
 
-            public int setNTRIP_packetSize = 256;
             public bool setMod_isIMUConnected = true;
             public bool setMod_isMachineConnected = true;
             public bool setMod_isSteerConnected = true;
+
+            public string setNTRIP_casterIP = "69.75.31.235";
+            public string setNTRIP_mount = "SCSC";
+            public string setNTRIP_userName = "";
+            public string setNTRIP_userPassword = "";
+            public string setNTRIP_casterURL = "NTRIP.itsware.net";
+
+            public int setNTRIP_casterPort = 2101;
+            public int setNTRIP_sendGGAInterval = 10;
+            public int setNTRIP_sendToUDPPort = 2233;
+            public int setNTRIP_packetSize = 256;
+
+            public double setNTRIP_manualLat = 53;
+            public double setNTRIP_manualLon = -111;
+
+            public bool setNTRIP_isOn = false;
+            public bool setNTRIP_isGGAManual = false;
+            public bool setNTRIP_isTCP = false;
+            public bool setNTRIP_isHTTP10 = false;
+            public bool setNTRIP_sendToSerial = true;
+            public bool setNTRIP_sendToUDP = true;
             public bool setPass_isOn = false;
+
+            public int setIP_thisPort = 9999;
+            public bool setUDP_isOn = false;
             public byte etIP_SubnetOne = 192;
             public byte etIP_SubnetTwo = 168;
             public byte etIP_SubnetThree = 5;
@@ -88,10 +84,16 @@ namespace AgIO
             public byte eth_loopThree = 255;
             public byte eth_loopFour = 255;
 
-            public bool setDisplay_isAutoRunGPS_Out = false;
             public int setIP_autoSteerPortTool = 18888;
             public int setIP_thisPortTool = 19999;
 
+            public bool setDisplay_isAutoRunGPS_Out = false;
+
+            public CRadioChannel setRadio_Channels = new CRadioChannel();
+            public bool setRadio_isOn = false;
+            public string setPort_baudRateRadio = "9600";
+            public string setPort_portNameRadio = "***";
+            public string setPort_radioChannel = "439.000";
 
             public LoadResult Load()
             {

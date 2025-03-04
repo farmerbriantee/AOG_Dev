@@ -353,7 +353,6 @@ namespace AgIO
         private void btnUDPOff_Click(object sender, EventArgs e)
         {
             Settings.User.setUDP_isOn = false;
-            Settings.User.setUDP_isSendNMEAToUDP = false;
 
             mf.YesMessageBox("AgIO will Restart to Disable UDP Networking Features");
             Log.EventWriter("Program Reset: Turning UDP OFF");

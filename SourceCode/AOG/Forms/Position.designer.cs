@@ -1107,7 +1107,7 @@ namespace AgOpenGPS
 
             //build the boundary line
 
-            if (bnd.isOkToAddPoints && (!bnd.isRecFenceWhenSectionOn || (bnd.isRecFenceWhenSectionOn && (manualBtnState == btnStates.On || autoBtnState == btnStates.Auto))))
+            if (bnd.isOkToAddPoints && (!bnd.isRecFenceWhenSectionOn || (bnd.isRecFenceWhenSectionOn && (workState == btnStates.On || workState == btnStates.Auto))))
             {
                 if (bnd.isDrawAtPivot)
                 {

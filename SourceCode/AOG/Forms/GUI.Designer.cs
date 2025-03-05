@@ -82,7 +82,7 @@ namespace AgOpenGPS
                     if (++currentFieldTextCounter > 3) currentFieldTextCounter = 0;
                 }
 
-                if ((isBtnAutoSteerOn || manualBtnState == btnStates.On || autoBtnState == btnStates.Auto))
+                if (isBtnAutoSteerOn || workState != btnStates.Off)
                 {
                     if (this.WindowState == FormWindowState.Minimized)
                     {
@@ -412,50 +412,6 @@ namespace AgOpenGPS
             }
         }
 
-        public void LineUpToolSections()
-        {
-            btnSection1Man.Visible = false;
-            btnSection2Man.Visible = false;
-            btnSection3Man.Visible = false;
-            btnSection4Man.Visible = false;
-            btnSection5Man.Visible = false;
-            btnSection6Man.Visible = false;
-            btnSection7Man.Visible = false;
-            btnSection8Man.Visible = false;
-            btnSection9Man.Visible = false;
-            btnSection10Man.Visible = false;
-            btnSection11Man.Visible = false;
-            btnSection12Man.Visible = false;
-            btnSection13Man.Visible = false;
-            btnSection14Man.Visible = false;
-            btnSection15Man.Visible = false;
-            btnSection16Man.Visible = false;
-
-            btnZone1.Visible = false;
-            btnZone2.Visible = false;
-            btnZone3.Visible = false;
-            btnZone4.Visible = false;
-            btnZone5.Visible = false;
-            btnZone6.Visible = false;
-            btnZone7.Visible = false;
-            btnZone8.Visible = false;
-
-            if (Settings.Tool.isSectionsNotZones)
-            {
-                //Set width of section and positions for each section
-                SectionSetPosition();
-
-                //Calculate total width and each section width
-                SectionCalcWidths();
-                LineUpIndividualSectionBtns();
-            }
-            else
-            {
-                SectionCalcMulti();
-                LineUpAllZoneButtons();
-            }
-        }
-
         public void LoadSettings()
         {
             //kiosk mode
@@ -486,8 +442,6 @@ namespace AgOpenGPS
 
             //btnChangeMappingColor.BackColor = sectionColorDay;
             btnChangeMappingColor.Text = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
-
-            LineUpToolSections();
 
             DisableYouTurnButtons();
 
@@ -728,17 +682,6 @@ namespace AgOpenGPS
 
                 PanelSizeRightAndBottom();
             }
-
-            if (!isJobStarted)
-            {
-                btnSectionMasterAuto.Visible = false;
-                btnSectionMasterManual.Visible = false;
-            }
-            else
-            {
-                btnSectionMasterAuto.Visible = true;
-                btnSectionMasterManual.Visible = true;
-            }
         }
 
         public void PanelBuildRightMenu(string[] buttonOrder)
@@ -874,15 +817,6 @@ namespace AgOpenGPS
 
 
             PanelSizeRightAndBottom();
-
-            if (Settings.Tool.isSectionsNotZones)
-            {
-                LineUpIndividualSectionBtns();
-            }
-            else
-            {
-                LineUpAllZoneButtons();
-            }
         }
 
         private void ZoomByMouseWheel(object sender, MouseEventArgs e)
@@ -934,15 +868,6 @@ namespace AgOpenGPS
             }
 
             btnChangeMappingColor.ForeColor = foreColor;
-
-            if (Settings.Tool.isSectionsNotZones)
-            {
-                LineUpIndividualSectionBtns();
-            }
-            else
-            {
-                LineUpAllZoneButtons();
-            }
         }
 
         public void SaveFormGPSWindowSettings()

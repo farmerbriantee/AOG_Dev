@@ -44,7 +44,6 @@ namespace AgOpenGPS
         {
             //constructor
             mf = _f;
-            LoadSettings();
         }
 
         public void LoadSettings()

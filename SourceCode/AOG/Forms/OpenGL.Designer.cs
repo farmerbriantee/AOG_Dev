@@ -79,7 +79,7 @@ namespace AgOpenGPS
         private void oglMain_Resize(object sender, EventArgs e)
         {
             ChangePerspective(true);
-
+            SetSectionButtonPositions();
             if (Settings.User.setDisplay_isLineSmooth) GL.Enable(EnableCap.LineSmooth);
             else GL.Disable(EnableCap.LineSmooth);
         }

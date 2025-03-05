@@ -447,6 +447,9 @@ namespace AgOpenGPS
             // load all the gui elements in gui.designer.cs
             LoadSettings();
 
+            tool.LoadSettings();
+            vehicle.LoadSettings();
+
             if (RegistrySettings.vehicleFileName != "" && Settings.User.isAutoStartAgIO)
             {
                 //Start AgIO process
@@ -551,11 +554,7 @@ namespace AgOpenGPS
 
             if (isFieldStarted)
             {
-                if (autoBtnState == btnStates.Auto)
-                    btnSectionMasterAuto.PerformClick();
-
-                if (manualBtnState == btnStates.On)
-                    btnSectionMasterManual.PerformClick();
+                SetWorkState(btnStates.Off);
 
                 FileSaveEverythingBeforeClosingField();
             }
@@ -717,109 +716,20 @@ namespace AgOpenGPS
             isJobStarted = true;
             btnFieldStats.Visible = true;
 
-            btnSectionMasterManual.Enabled = true;
-            manualBtnState = btnStates.Off;
-            btnSectionMasterManual.Image = Properties.Resources.ManualOff;
+            btnSectionMasterManual.Visible = btnSectionMasterAuto.Visible = true;
 
-            btnSectionMasterAuto.Enabled = true;
-            autoBtnState = btnStates.Off;
-            btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
-
-            btnSection1Man.BackColor = Color.Red;
-            btnSection2Man.BackColor = Color.Red;
-            btnSection3Man.BackColor = Color.Red;
-            btnSection4Man.BackColor = Color.Red;
-            btnSection5Man.BackColor = Color.Red;
-            btnSection6Man.BackColor = Color.Red;
-            btnSection7Man.BackColor = Color.Red;
-            btnSection8Man.BackColor = Color.Red;
-            btnSection9Man.BackColor = Color.Red;
-            btnSection10Man.BackColor = Color.Red;
-            btnSection11Man.BackColor = Color.Red;
-            btnSection12Man.BackColor = Color.Red;
-            btnSection13Man.BackColor = Color.Red;
-            btnSection14Man.BackColor = Color.Red;
-            btnSection15Man.BackColor = Color.Red;
-            btnSection16Man.BackColor = Color.Red;
-
-            btnSection1Man.Enabled = true;
-            btnSection2Man.Enabled = true;
-            btnSection3Man.Enabled = true;
-            btnSection4Man.Enabled = true;
-            btnSection5Man.Enabled = true;
-            btnSection6Man.Enabled = true;
-            btnSection7Man.Enabled = true;
-            btnSection8Man.Enabled = true;
-            btnSection9Man.Enabled = true;
-            btnSection10Man.Enabled = true;
-            btnSection11Man.Enabled = true;
-            btnSection12Man.Enabled = true;
-            btnSection13Man.Enabled = true;
-            btnSection14Man.Enabled = true;
-            btnSection15Man.Enabled = true;
-            btnSection16Man.Enabled = true;
-
-            btnZone1.BackColor = Color.Red;
-            btnZone2.BackColor = Color.Red;
-            btnZone3.BackColor = Color.Red;
-            btnZone4.BackColor = Color.Red;
-            btnZone5.BackColor = Color.Red;
-            btnZone6.BackColor = Color.Red;
-            btnZone7.BackColor = Color.Red;
-            btnZone8.BackColor = Color.Red;
-
-            btnZone1.Enabled = true;
-            btnZone2.Enabled = true;
-            btnZone3.Enabled = true;
-            btnZone4.Enabled = true;
-            btnZone5.Enabled = true;
-            btnZone6.Enabled = true;
-            btnZone7.Enabled = true;
-            btnZone8.Enabled = true;
-
-            if (Settings.Tool.isSectionsNotZones)
-            {
-                LineUpIndividualSectionBtns();
-            }
-            else
-            {
-                LineUpAllZoneButtons();
-            }
+            SetSectionButtonVisible(true);
 
             PanelsAndOGLSize();
         }
 
         public void JobClose()
         {
-            if (autoBtnState == btnStates.Auto)
-                btnSectionMasterAuto.PerformClick();
-
-            if (manualBtnState == btnStates.On)
-                btnSectionMasterManual.PerformClick();
-
-            //turn off all the sections
-            for (int j = 0; j < tool.numOfSections; j++)
+            if (isJobStarted)
             {
-                section[j].sectionOffRequest = true;
-                section[j].sectionOnRequest = false;
-            }
+                TurnOffSectionsSafely();
 
-            //turn off patching
-            foreach (var patch in triStrip)
-            {
-                if (patch.isDrawing) patch.TurnMappingOff();
-            }
-
-            //fix ManualOffOnAuto buttons
-            manualBtnState = btnStates.Off;
-            btnSectionMasterManual.Image = Properties.Resources.ManualOff;
-
-            //fix auto button
-            autoBtnState = btnStates.Off;
-            btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
-
-            if(isJobStarted)
-            {
+                btnSectionMasterManual.Visible = btnSectionMasterAuto.Visible = true;
                 Settings.Vehicle.setF_CurrentJobDir = currentJobDirectory;
 
                 //auto save the field patches, contours accumulated so far
@@ -844,19 +754,7 @@ namespace AgOpenGPS
             btnContour.Image = Properties.Resources.ContourOff;
             ct.isContourOn = false;
 
-            if (Settings.Tool.isSectionsNotZones)
-            {
-                //Update the button colors and text
-                AllSectionsAndButtonsToState(btnStates.Off);
-
-                //enable disable manual buttons
-                LineUpIndividualSectionBtns();
-            }
-            else
-            {
-                AllZonesAndButtonsToState(autoBtnState);
-                LineUpAllZoneButtons();
-            }
+            SetSectionButtonVisible(false);
 
             triStrip?.Clear();
             patchList?.Clear();
@@ -964,8 +862,6 @@ namespace AgOpenGPS
             worldGrid.isGeoMap = false;
 
             PanelUpdateRightAndBottom();
-
-            btnSection1Man.Text = "1";
 
             using (Bitmap bitmap = Properties.Resources.z_bingMap)
             {

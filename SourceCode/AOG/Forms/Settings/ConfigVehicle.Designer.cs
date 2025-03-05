@@ -18,27 +18,6 @@ namespace AgOpenGPS
 {
     public partial class FormConfig
     {
-        public  void TurnOffSectionsSafely()
-        {
-            if (mf.autoBtnState == btnStates.Auto)
-                mf.btnSectionMasterAuto.PerformClick();
-
-            if (mf.manualBtnState == btnStates.On)
-                mf.btnSectionMasterManual.PerformClick();
-
-            //turn off all the sections
-            for (int j = 0; j < mf.tool.numOfSections; j++)
-            {
-                mf.section[j].sectionOffRequest = true;
-                mf.section[j].sectionOnRequest = false;
-            }
-
-            //turn off patching
-            foreach (var patch in mf.triStrip)
-            {
-                if (patch.isDrawing) patch.TurnMappingOff();
-            }
-        }
         #region Vehicle Save---------------------------------------------
 
         private void btnVehicleLoad_Click(object sender, EventArgs e)
@@ -54,7 +33,7 @@ namespace AgOpenGPS
 
                 if (result3 == DialogResult.Yes)
                 {
-                    TurnOffSectionsSafely();
+                    mf.TurnOffSectionsSafely();
 
                     RegistrySettings.Save("VehicleFileName", lvVehicles.SelectedItems[0].SubItems[0].Text);
                     if (Settings.Vehicle.Load() != Settings.LoadResult.Ok) return;
@@ -142,7 +121,7 @@ namespace AgOpenGPS
         //Save As Vehicle
         private void btnVehicleSave_Click(object sender, EventArgs e)
         {
-            TurnOffSectionsSafely();
+            mf.TurnOffSectionsSafely();
 
             btnVehicleSave.BackColor = Color.Transparent;
             btnVehicleSave.Enabled = false;            
@@ -226,7 +205,7 @@ namespace AgOpenGPS
         }
         private void tboxCreateNewVehicle_Click(object sender, EventArgs e)
         {
-            TurnOffSectionsSafely();
+            mf.TurnOffSectionsSafely();
 
             if (Settings.User.setDisplay_isKeyboardOn)
             {
@@ -236,7 +215,7 @@ namespace AgOpenGPS
 
         private void btnVehicleNewSave_Click(object sender, EventArgs e)
         {
-            TurnOffSectionsSafely();
+            mf.TurnOffSectionsSafely();
 
             btnVehicleNewSave.BackColor = Color.Transparent;
             btnVehicleNewSave.Enabled = false;
@@ -419,14 +398,13 @@ namespace AgOpenGPS
 
                 if (result3 == DialogResult.Yes)
                 {
-                    TurnOffSectionsSafely();
+                    mf.TurnOffSectionsSafely();
 
                     RegistrySettings.Save("ToolFileName", lvTools.SelectedItems[0].SubItems[0].Text);
                     if (Settings.Tool.Load() != Settings.LoadResult.Ok) return;
 
                     mf.tool.LoadSettings();
                     mf.SetNozzleSettings();
-                    mf.LineUpToolSections();
 
                     //Send Pin configuration
                     SendRelaySettingsToMachineModule();
@@ -441,7 +419,7 @@ namespace AgOpenGPS
 
         private void btnToolNewSave_Click(object sender, EventArgs e)
         {
-            TurnOffSectionsSafely();
+            mf.TurnOffSectionsSafely();
 
             btnToolNewSave.BackColor = Color.Transparent;
             btnToolNewSave.Enabled = false;
@@ -456,7 +434,6 @@ namespace AgOpenGPS
 
                 mf.tool.LoadSettings();
                 mf.SetNozzleSettings();
-                mf.LineUpToolSections();
 
                 SectionFeetInchesTotalWidthLabelUpdate();
 
@@ -474,7 +451,7 @@ namespace AgOpenGPS
 
         private void btnToolSave_Click(object sender, EventArgs e)
         {
-            TurnOffSectionsSafely();
+            mf.TurnOffSectionsSafely();
 
             btnToolSave.BackColor = Color.Transparent;
             btnToolSave.Enabled = false;
@@ -519,7 +496,7 @@ namespace AgOpenGPS
 
         private void tboxCreateNewTool_Click(object sender, EventArgs e)
         {
-            TurnOffSectionsSafely();
+            mf.TurnOffSectionsSafely();
 
             if (Settings.User.setDisplay_isKeyboardOn)
             {

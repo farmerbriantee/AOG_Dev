@@ -652,14 +652,7 @@ namespace AgOpenGPS
                     return;
                 }
 
-                if (isFieldStarted)
-                {
-                    if (autoBtnState == btnStates.Auto)
-                        btnSectionMasterAuto.PerformClick();
-
-                    if (manualBtnState == btnStates.On)
-                        btnSectionMasterManual.PerformClick();
-                }
+                    SetWorkState(btnStates.Off);
 
                 if (result == DialogResult.Yes)
                 {
@@ -1295,14 +1288,7 @@ namespace AgOpenGPS
             isFirstHeadingSet = false;
             startCounter = 0;
 
-            if (Settings.Tool.isSectionsNotZones)
-            {
-                LineUpIndividualSectionBtns();
-            }
-            else
-            {
-                LineUpAllZoneButtons();
-            }
+            SetSectionButtonPositions();
 
             Settings.User.isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
         }
@@ -1766,7 +1752,7 @@ namespace AgOpenGPS
         {
             if (isFieldStarted && isJobStarted)
             {
-                if (autoBtnState == btnStates.Off && manualBtnState == btnStates.Off)
+                if (workState == btnStates.Off)
                 {
 
                     DialogResult result3 = MessageBox.Show(gStr.Get(gs.gsDeleteAllContoursAndSections),
@@ -1777,29 +1763,7 @@ namespace AgOpenGPS
                     if (result3 == DialogResult.Yes)
                     {
                         //FileCreateElevation();
-
-                        if (Settings.Tool.isSectionsNotZones)
-                        {
-                            //Update the button colors and text
-                            AllSectionsAndButtonsToState(btnStates.Off);
-
-                            //enable disable manual buttons
-                            LineUpIndividualSectionBtns();
-                        }
-                        else
-                        {
-                            AllZonesAndButtonsToState(btnStates.Off);
-                            LineUpAllZoneButtons();
-                        }
-
-                        //turn manual button off
-                        manualBtnState = btnStates.Off;
-                        btnSectionMasterManual.Image = Properties.Resources.ManualOff;
-
-                        //turn auto button off
-                        autoBtnState = btnStates.Off;
-                        btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
-
+                        TurnOffSectionsSafely();
 
                         //clear out the contour Lists
                         ct.StopContourLine();

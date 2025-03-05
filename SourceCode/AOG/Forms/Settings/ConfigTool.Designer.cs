@@ -423,37 +423,7 @@ namespace AgOpenGPS
 
         private void tabTSections_Enter(object sender, EventArgs e)
         {
-            TurnOffSectionsSafely();
-            
-            if (Settings.Tool.isSectionsNotZones)
-            {
-                //fix ManualOffOnAuto buttons
-                mf.manualBtnState = btnStates.Off;
-                mf.btnSectionMasterManual.Image = Properties.Resources.ManualOff;
-
-                //fix auto button
-                mf.autoBtnState = btnStates.Off;
-                mf.btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
-
-                //Update the button colors and text
-                mf.AllSectionsAndButtonsToState(mf.autoBtnState);
-
-                //enable disable manual buttons
-                mf.LineUpIndividualSectionBtns();
-
-                nudDefaultSectionWidth.DecimalPlaces = 0;
-            }
-            else
-            {
-                //turn section buttons all OFF
-                mf.AllZonesAndButtonsToState(btnStates.Off);
-
-                mf.LineUpAllZoneButtons();
-
-                nudDefaultSectionWidth.DecimalPlaces = 1;
-            }
-
-            cboxIsUnique.Checked = !Settings.Tool.isSectionsNotZones;
+            mf.TurnOffSectionsSafely();
 
             cboxSectionBoundaryControl.Checked = Settings.Tool.isSectionOffWhenOut;
             if (cboxSectionBoundaryControl.Checked)
@@ -467,36 +437,18 @@ namespace AgOpenGPS
 
             nudCutoffSpeed.Value = Settings.Tool.slowSpeedCutoff;
 
-            if (cboxIsUnique.Checked)
-            {
-                cboxIsUnique.BackgroundImage = Properties.Resources.ConT_Symmetric;
-                cboxNumberOfZones.Visible = lblZonesBox.Visible = true;
-            }
-            else
-            {
-                cboxIsUnique.BackgroundImage = Properties.Resources.ConT_Asymmetric;
-                cboxNumberOfZones.Visible = lblZonesBox.Visible = false;
-            }
-
             nudNumberOfSections.Maximum = FormGPS.MAXSECTIONS;
-            
-            //fix ManualOffOnAuto buttons
-            mf.manualBtnState = btnStates.Off;
-            mf.btnSectionMasterManual.Image = Properties.Resources.ManualOff;
-
-            //fix auto button
-            mf.autoBtnState = btnStates.Off;
-            mf.btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
 
             nudMinCoverage.Value = Settings.Tool.minCoverage;
 
-            if (Settings.Tool.isSectionsNotZones)
-            {
-                //Update the button colors and text
-                mf.AllSectionsAndButtonsToState(btnStates.Off);
+            label178.Text = glm.unitsInCm;
+            cboxIsUnique.Checked = !Settings.Tool.isSectionsNotZones;
+            nudDefaultSectionWidth.DecimalPlaces = cboxIsUnique.Checked ? 1 : 0;
 
-                //enable disable manual buttons
-                mf.LineUpIndividualSectionBtns();
+            if (!cboxIsUnique.Checked)
+            {
+                cboxIsUnique.BackgroundImage = Properties.Resources.ConT_Asymmetric;
+                cboxNumberOfZones.Visible = lblZonesBox.Visible = false;
 
                 numberOfSections = Settings.Tool.numSections;
 
@@ -533,8 +485,8 @@ namespace AgOpenGPS
             }
             else
             {
-                //turn section buttons all OFF
-                mf.AllZonesAndButtonsToState(btnStates.Off);
+                cboxIsUnique.BackgroundImage = Properties.Resources.ConT_Symmetric;
+                cboxNumberOfZones.Visible = lblZonesBox.Visible = true;
 
                 cboxNumSections.Visible = false;
 
@@ -565,16 +517,15 @@ namespace AgOpenGPS
                 words = Settings.Tool.zones.Split(',');
                 lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * glm.m2InchOrCm));
 
-                mf.LineUpAllZoneButtons();
                 SetNudZoneVisibility();
             }
-
-            label178.Text = glm.unitsInCm;
         }
 
         private void tabTSections_Leave(object sender, EventArgs e)
         {
-            if (Settings.Tool.isSectionsNotZones)
+            Settings.Tool.isSectionsNotZones = !cboxIsUnique.Checked;
+
+            if (!cboxIsUnique.Checked)
             {
                 //take the section widths and convert to meters and positions along tool.
                 CalculateSectionPositions();
@@ -587,21 +538,17 @@ namespace AgOpenGPS
 
                 Settings.Tool.numSections = mf.tool.numOfSections;
 
-                //line up manual buttons based on # of sections
-                mf.LineUpIndividualSectionBtns();
-
                 //update the sections to newly configured widths and positions in main
                 mf.SectionSetPosition();
-
-                //update the widths of sections and tool width in main
-                mf.SectionCalcWidths();
-
                 mf.tram.IsTramOuterOrInner();
 
                 SendRelaySettingsToMachineModule();
             }
             else
             {
+                //no multi color zones
+                Settings.Tool.setColor_isMultiColorSections = false;
+
                 mf.tool.numOfSections = numberOfSections;
                 Settings.Tool.numSectionsMulti = mf.tool.numOfSections;
 
@@ -609,7 +556,7 @@ namespace AgOpenGPS
 
                 mf.tram.IsTramOuterOrInner();                
 
-                mf.SectionCalcMulti();
+                mf.SectionSetPosition();
 
                 for (int i = 0; i < 9; i++)
                 {
@@ -679,12 +626,10 @@ namespace AgOpenGPS
                 str = String.Join(",",mf.tool.zoneRanges);
                 Settings.Tool.zones = str;
 
-                mf.LineUpAllZoneButtons();
+                //mf.LineUpAllZoneButtons();
             }
 
-            //no multi color zones
-            if (Settings.Tool.isSectionsNotZones)
-                Settings.Tool.setColor_isMultiColorSections = false;            
+            mf.SetNumOfSectionButtons(!cboxIsUnique.Checked ? mf.tool.numOfSections : mf.tool.zones);
         }
 
         private void nudZone1To_ValueChanged(object sender, EventArgs e)
@@ -947,8 +892,8 @@ namespace AgOpenGPS
         private void cboxIsUnique_Click(object sender, EventArgs e)
         {
             Settings.Tool.isSectionsNotZones = !cboxIsUnique.Checked;
-            Settings.Tool.isSectionsNotZones = !cboxIsUnique.Checked;
-            tabTSections_Enter(this, e);
+            tabTSections_Enter(null, null);
+            tabTSections_Leave(null, null);
         }
 
         private void nudNumberOfSections_ValueChanged(object sender, EventArgs e)
@@ -975,7 +920,7 @@ namespace AgOpenGPS
         {
             defaultSectionWidth = nudDefaultSectionWidth.Value;
 
-            if (Settings.Tool.isSectionsNotZones)
+            if (!cboxIsUnique.Checked)
                 Settings.Tool.defaultSectionWidth = defaultSectionWidth;
             else
                 Settings.Tool.sectionWidthMulti = defaultSectionWidth;
@@ -986,7 +931,7 @@ namespace AgOpenGPS
 
         private void cboxNumSections_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Settings.Tool.isSectionsNotZones && numberOfSections != cboxNumSections.SelectedIndex + 1)
+            if (!cboxIsUnique.Checked && numberOfSections != cboxNumSections.SelectedIndex + 1)
             {
                 numberOfSections = cboxNumSections.SelectedIndex + 1;
 

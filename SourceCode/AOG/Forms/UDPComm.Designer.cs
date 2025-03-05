@@ -751,13 +751,13 @@ namespace AgOpenGPS
 
             if ((char)keyData == hotkeys[4]) //auto section on off
             {
-                btnSectionMasterManual.PerformClick();
+                SetWorkState(workState == btnStates.On ? btnStates.Off : btnStates.On);
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == hotkeys[5]) //auto section on off
             {
-                btnSectionMasterAuto.PerformClick();
+                SetWorkState(workState == btnStates.Auto ? btnStates.Off : btnStates.Auto);
                 return true;    // indicate that you handled this keystroke
             }
 
@@ -818,57 +818,49 @@ namespace AgOpenGPS
 
             if ((char)keyData == (hotkeys[11])) //section or zone button
             {
-                if (Settings.Tool.isSectionsNotZones) btnSection1Man.PerformClick();
-                else btnZone1.PerformClick();
+                sectionButtons[0].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == (hotkeys[12])) //section or zone button
             {
-                if (Settings.Tool.isSectionsNotZones) btnSection2Man.PerformClick();
-                else btnZone2.PerformClick();
+                sectionButtons[1].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == (hotkeys[13])) //section or zone button
             {
-                if (Settings.Tool.isSectionsNotZones) btnSection3Man.PerformClick();
-                else btnZone3.PerformClick();
+                sectionButtons[2].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == (hotkeys[14])) //section or zone button
             {
-                if (Settings.Tool.isSectionsNotZones) btnSection4Man.PerformClick();
-                else btnZone4.PerformClick();
+                sectionButtons[3].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == (hotkeys[15])) //section or zone button
             {
-                if (Settings.Tool.isSectionsNotZones) btnSection5Man.PerformClick();
-                else btnZone5.PerformClick();
+                sectionButtons[4].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == (hotkeys[16])) //section or zone button
             {
-                if (Settings.Tool.isSectionsNotZones) btnSection6Man.PerformClick();
-                else btnZone6.PerformClick();
+                sectionButtons[5].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == (hotkeys[17])) //section or zone button
             {
-                if (Settings.Tool.isSectionsNotZones) btnSection7Man.PerformClick();
-                else btnZone7.PerformClick();
+                sectionButtons[6].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == (hotkeys[18])) //section or zone button
             {
-                if (Settings.Tool.isSectionsNotZones) btnSection8Man.PerformClick();
-                else btnZone8.PerformClick();
+                sectionButtons[7].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
@@ -876,13 +868,13 @@ namespace AgOpenGPS
 
             if (keyData == (Keys.NumPad1)) //auto section on off
             {
-                btnSectionMasterAuto.PerformClick();
+                SetWorkState(workState == btnStates.Auto ? btnStates.Off : btnStates.Auto);
                 return true;    // indicate that you handled this keystroke
             }
 
             if (keyData == (Keys.NumPad0)) //auto section on off
             {
-                btnSectionMasterManual.PerformClick();
+                SetWorkState(workState == btnStates.On ? btnStates.Off : btnStates.On);
                 return true;    // indicate that you handled this keystroke
             }
 

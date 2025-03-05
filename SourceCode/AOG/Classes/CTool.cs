@@ -39,7 +39,6 @@ namespace AgOpenGPS
         public CTool(FormGPS _f)
         {
             mf = _f;
-            LoadSettings();
         }
 
         public void LoadSettings()
@@ -73,6 +72,11 @@ namespace AgOpenGPS
             {
                 zoneRanges[i] = int.Parse(words[i]);
             }
+
+            mf.SetNumOfSectionButtons(Settings.Tool.isSectionsNotZones ? numOfSections : zones);
+
+            //Set width of section and positions for each section
+            mf.SectionSetPosition();
         }
 
         public void DrawTool()

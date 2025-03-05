@@ -1913,44 +1913,44 @@ namespace AgOpenGPS
 
         private void btnTiltUPGN_Click(object sender, EventArgs e)
         {
-            camera.camPitch -= ((camera.camPitch * 0.012) - 1);
-            if (camera.camPitch > -58) camera.camPitch = 0;
+            Settings.User.setDisplay_camPitch -= ((Settings.User.setDisplay_camPitch * 0.012) - 1);
+            if (Settings.User.setDisplay_camPitch > -58) Settings.User.setDisplay_camPitch = 0;
             navPanelCounter = 2;
         }
         private void btnTiltDn_Click(object sender, EventArgs e)
         {
-            if (camera.camPitch > -59) camera.camPitch = -60;
-            camera.camPitch += ((camera.camPitch * 0.012) - 1);
-            if (camera.camPitch < -70) camera.camPitch = -70;
+            if (Settings.User.setDisplay_camPitch > -59) Settings.User.setDisplay_camPitch = -60;
+            Settings.User.setDisplay_camPitch += ((Settings.User.setDisplay_camPitch * 0.012) - 1);
+            if (Settings.User.setDisplay_camPitch < -70) Settings.User.setDisplay_camPitch = -70;
             navPanelCounter = 2;
         }
         private void btnN2D_Click(object sender, EventArgs e)
         {
             camera.camFollowing = false;
-            camera.camPitch = 0;
+            Settings.User.setDisplay_camPitch = 0;
             navPanelCounter = 0;
         }
         private void btn2D_Click(object sender, EventArgs e)
         {
             camera.camFollowing = true;
-            camera.camPitch = 0;
+            Settings.User.setDisplay_camPitch = 0;
             navPanelCounter = 0;
         }
         private void btn3D_Click(object sender, EventArgs e)
         {
             camera.camFollowing = true;
-            camera.camPitch = -65;
+            Settings.User.setDisplay_camPitch = -65;
             navPanelCounter = 0;
         }
         //private void btnN2D_Click(object sender, EventArgs e)
         //{
         //    camera.camFollowing = false;
-        //    camera.camPitch = 0;
+        //    Settings.User.setDisplay_camPitch = 0;
         //    navPanelCounter = 0;
         //}
         //private void btnN3D_Click(object sender, EventArgs e)
         //{
-        //    camera.camPitch = -65;
+        //    Settings.User.setDisplay_camPitch = -65;
         //    camera.camFollowing = false;
         //    navPanelCounter = 0;
         //}

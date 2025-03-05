@@ -1053,9 +1053,9 @@ namespace AgOpenGPS
         //take the distance from object and convert to camera data
         public void SetZoom()
         {
-            if (camera.zoomValue < 4.0) camera.zoomValue = 4.0;
-            if (camera.zoomValue > 120) camera.zoomValue = 120;
-            camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
+            if (Settings.User.setDisplay_camZoom < 4.0) Settings.User.setDisplay_camZoom = 4.0;
+            if (Settings.User.setDisplay_camZoom > 120) Settings.User.setDisplay_camZoom = 120;
+            camera.camSetDistance = Settings.User.setDisplay_camZoom * Settings.User.setDisplay_camZoom * -1;
 
             //match grid to cam distance and redo perspective
             gridToolSpacing = (int)((camera.camSetDistance / -15) / tool.width + 0.5);

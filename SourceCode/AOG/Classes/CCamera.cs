@@ -11,13 +11,11 @@ namespace AgOpenGPS
         //private double fixHeading;
         private double camYaw;
 
-        public double camPitch;
         public double panX = 0, panY = 0;
         public double camSetDistance = -75;
 
         public double gridZoom;
 
-        public double zoomValue = 15;
         public double previousZoom = 25;
 
         public bool camFollowing;
@@ -29,8 +27,6 @@ namespace AgOpenGPS
         public CCamera()
         {
             //get the pitch of camera from settings
-            camPitch = Settings.User.setDisplay_camPitch;
-            zoomValue = Settings.User.setDisplay_camZoom;
             camPosZ = 0.0;
             camFollowing = true;
             camSmoothFactor = (Settings.User.setDisplay_camSmooth * 0.004) + 0.2;
@@ -46,7 +42,7 @@ namespace AgOpenGPS
             GL.Translate(0, 0, camSetDistance * 0.5);
 
             //rotate the camera down to look at fix
-            GL.Rotate(camPitch, 1.0, 0.0, 0.0);
+            GL.Rotate(Settings.User.setDisplay_camPitch, 1.0, 0.0, 0.0);
 
             //pan if set
             //GL.Translate(0, camSetDistance * -0.04, 0);

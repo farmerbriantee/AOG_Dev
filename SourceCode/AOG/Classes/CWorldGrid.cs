@@ -65,11 +65,11 @@ namespace AgOpenGPS
             Color field = Settings.User.setDisplay_isDayMode ? Settings.User.colorFieldDay : Settings.User.colorFieldNight;
 
             //adjust bitmap zoom based on cam zoom
-            if (mf.camera.zoomValue > 100) Count = 4;
-            else if (mf.camera.zoomValue > 80) Count = 8;
-            else if (mf.camera.zoomValue > 50) Count = 16;
-            else if (mf.camera.zoomValue > 20) Count = 32;
-            else if (mf.camera.zoomValue > 10) Count = 64;
+            if (Settings.User.setDisplay_camZoom > 100) Count = 4;
+            else if (Settings.User.setDisplay_camZoom > 80) Count = 8;
+            else if (Settings.User.setDisplay_camZoom > 50) Count = 16;
+            else if (Settings.User.setDisplay_camZoom > 20) Count = 32;
+            else if (Settings.User.setDisplay_camZoom > 10) Count = 64;
             else Count = 80;
 
             GL.Color3(field.R, field.G, field.B);

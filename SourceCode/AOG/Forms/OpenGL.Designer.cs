@@ -1982,7 +1982,7 @@ namespace AgOpenGPS
                 if (flagNumberPicked != 0)
                 {
                     ////draw the box around flag
-                    double offSet = (camera.zoomValue * camera.zoomValue * 0.01);
+                    double offSet = (Settings.User.setDisplay_camZoom * Settings.User.setDisplay_camZoom * 0.01);
                     GL.LineWidth(4);
                     GL.Color3(0.980f, 0.0f, 0.980f);
                     GL.Begin(PrimitiveType.LineStrip);

@@ -889,8 +889,8 @@ namespace AgOpenGPS
 
         private void ZoomByMouseWheel(object sender, MouseEventArgs e)
         {
-            if (camera.zoomValue <= 20) camera.zoomValue -= camera.zoomValue * 0.06 * Math.Sign(e.Delta);
-            else camera.zoomValue -= camera.zoomValue * 0.02 * Math.Sign(e.Delta);
+            if (Settings.User.setDisplay_camZoom <= 20) Settings.User.setDisplay_camZoom -= Settings.User.setDisplay_camZoom * 0.06 * Math.Sign(e.Delta);
+            else Settings.User.setDisplay_camZoom -= Settings.User.setDisplay_camZoom * 0.02 * Math.Sign(e.Delta);
 
             SetZoom();
         }
@@ -971,9 +971,6 @@ namespace AgOpenGPS
                 Settings.User.setWindow_Maximized = false;
                 Settings.User.setWindow_Minimized = true;
             }
-
-            Settings.User.setDisplay_camPitch = camera.camPitch;
-            Settings.User.setDisplay_camZoom = camera.zoomValue;
 
             Settings.Vehicle.setF_UserTotalArea = fd.workedAreaTotalUser;
         }
@@ -1211,8 +1208,8 @@ namespace AgOpenGPS
 
                     if (zoom != 0)
                     {
-                        if (camera.zoomValue <= 20) camera.zoomValue += camera.zoomValue * 0.2 * zoom;
-                        else camera.zoomValue += camera.zoomValue * 0.1 * zoom;
+                        if (Settings.User.setDisplay_camZoom <= 20) Settings.User.setDisplay_camZoom += Settings.User.setDisplay_camZoom * 0.2 * zoom;
+                        else Settings.User.setDisplay_camZoom += Settings.User.setDisplay_camZoom * 0.1 * zoom;
                         SetZoom();
                         return;
                     }

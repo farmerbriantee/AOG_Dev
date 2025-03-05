@@ -213,25 +213,25 @@ namespace AgIO
         private void cboxBaud_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             mf.spGPS.BaudRate = Convert.ToInt32(cboxBaud.Text);
-            FormLoop.baudRateGPS = Convert.ToInt32(cboxBaud.Text);
+            Settings.User.setPort_baudRateGPS = Convert.ToInt32(cboxBaud.Text);
         }
 
         private void cboxBaud2_SelectedIndexChanged(object sender, EventArgs e)
         {
             mf.spGPS2.BaudRate = Convert.ToInt32(cboxBaud2.Text);
-            FormLoop.baudRateGPS2 = Convert.ToInt32(cboxBaud2.Text);
+            Settings.User.setPort_baudRateGPS2 = Convert.ToInt32(cboxBaud2.Text);
         }
 
         private void cboxPort_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             mf.spGPS.PortName = cboxPort.Text;
-            FormLoop.portNameGPS = cboxPort.Text;
+            Settings.User.setPort_portNameGPS = cboxPort.Text;
         }
 
         private void cboxPort2_SelectedIndexChanged(object sender, EventArgs e)
         {
             mf.spGPS2.PortName = cboxPort2.Text;
-            FormLoop.portNameGPS2 = cboxPort2.Text;
+            Settings.User.setPort_portNameGPS2 = cboxPort2.Text;
         }
 
         private void btnOpenSerial_Click(object sender, EventArgs e)
@@ -403,8 +403,7 @@ namespace AgIO
         private void btnClrGPS_Click(object sender, EventArgs e)
         {
             mf.CloseGPSPort();
-            FormLoop.portNameGPS = "GPS 1";
-            Settings.User.setPort_portNameGPS = FormLoop.portNameGPS;
+            Settings.User.setPort_portNameGPS = "GPS 1";
         }
 
         private void btnOpenIMU_Click(object sender, EventArgs e)
@@ -445,7 +444,7 @@ namespace AgIO
         private void cboxIMU_SelectedIndexChanged(object sender, EventArgs e)
         {
             mf.spIMU.PortName = cboxIMU.Text;
-            FormLoop.portNameIMU = cboxIMU.Text;
+            Settings.User.setPort_portNameIMU = cboxIMU.Text;
             lblCurrentIMU.Text = cboxIMU.Text;
         }
 
@@ -487,14 +486,14 @@ namespace AgIO
         private void cboxSteerModule_SelectedIndexChanged(object sender, EventArgs e)
         {
             mf.spSteerModule.PortName = cboxSteerModulePort.Text;
-            FormLoop.portNameSteerModule = cboxSteerModulePort.Text;
+            Settings.User.setPort_portNameSteer = cboxSteerModulePort.Text;
             lblCurrentSteerModulePort.Text = cboxSteerModulePort.Text;
         }
 
         private void cboxMachineModulePort_SelectedIndexChanged(object sender, EventArgs e)
         {
             mf.spMachineModule.PortName = cboxMachineModulePort.Text;
-            FormLoop.portNameMachineModule = cboxMachineModulePort.Text;
+            Settings.User.setPort_portNameMachine = cboxMachineModulePort.Text;
             lblCurrentMachineModulePort.Text = cboxMachineModulePort.Text;
         }
 
@@ -578,13 +577,13 @@ namespace AgIO
         private void cboxRtcmPort_SelectedIndexChanged(object sender, EventArgs e)
         {
             mf.spRtcm.PortName = cboxRtcmPort.Text;
-            FormLoop.portNameRtcm = cboxRtcmPort.Text;
+            Settings.User.setPort_portNameRtcm = cboxRtcmPort.Text;
         }
 
         private void cboxRtcmBaud_SelectedIndexChanged(object sender, EventArgs e)
         {
             mf.spRtcm.BaudRate = Convert.ToInt32(cboxRtcmBaud.Text);
-            FormLoop.baudRateRtcm = Convert.ToInt32(cboxRtcmBaud.Text);
+            Settings.User.setPort_baudRateRtcm = Convert.ToInt32(cboxRtcmBaud.Text);
         }
     } //class
 } //namespace

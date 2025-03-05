@@ -196,19 +196,19 @@ namespace AgIO
 
         private void cboxIsSteerModule_Click(object sender, EventArgs e)
         {
-            isConnectedSteer = cboxIsSteerModule.Checked;
+            Settings.User.setMod_isSteerConnected = cboxIsSteerModule.Checked;
             SetModulesOnOff();
         }
 
         private void cboxIsMachineModule_Click(object sender, EventArgs e)
         {
-            isConnectedMachine = cboxIsMachineModule.Checked;
+            Settings.User.setMod_isMachineConnected = cboxIsMachineModule.Checked;
             SetModulesOnOff();
         }
 
         private void cboxIsIMUModule_Click(object sender, EventArgs e)
         {
-            isConnectedIMU = cboxIsIMUModule.Checked;
+            Settings.User.setMod_isIMUConnected = cboxIsIMUModule.Checked;
             SetModulesOnOff();
         }
 

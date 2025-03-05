@@ -13,26 +13,9 @@ namespace AgIO
         //B5,62,7F,PGN_ID,Length
         private int totalHeaderByteCount = 5;
 
-        public static string portNameGPS = "***";
-        public  static int baudRateGPS = 4800;
-
-        public  static string portNameGPS2 = "***";
-        public  static int baudRateGPS2 = 4800;
-
-        public  static string portNameRtcm = "***";
-        public  static int baudRateRtcm = 4800;
-
-        public  static string portNameIMU = "***";
         public  static int baudRateIMU = 38400;
-
-        public  static string portNameSteerModule = "***";
         public  static int baudRateSteerModule = 38400;
-
-        public  static string portNameMachineModule = "***";
         public  static int baudRateMachineModule = 38400;
-
-        //public  static string portNameModule3 = "***";
-        //public  static int baudRateModule3 = 38400;
 
         //used to decide to autoconnect section arduino this run
         public string recvGPSSentence = "GPS";
@@ -40,38 +23,29 @@ namespace AgIO
         public string recvIMUSentence = "IMU";
         public string recvSteerModuleSentence = "Module 1";
         public string recvMachineModuleSentence = "Module 2";
-        //public string recvModule3Sentence = "Module 3";
 
         public bool isGPSCommOpen = false;
 
         public byte checksumSent = 0;
         public byte checksumRecd = 0;
 
-        //used to decide to autoconnect autosteer arduino this run
-        public bool wasGPSConnectedLastRun = false;
-        //public bool wasModule3ConnectedLastRun = false;
-        public bool wasMachineModuleConnectedLastRun = false;
-        public bool wasSteerModuleConnectedLastRun = false;
-        public bool wasIMUConnectedLastRun = false;
-        public bool wasRtcmConnectedLastRun = false;
-
         //serial port gps is connected to
-        public SerialPort spGPS = new SerialPort(portNameGPS, baudRateGPS, Parity.None, 8, StopBits.One);
+        public SerialPort spGPS = new SerialPort(Settings.User.setPort_portNameGPS, Settings.User.setPort_baudRateGPS, Parity.None, 8, StopBits.One);
 
         //serial port gps2 is connected to
-        public SerialPort spGPS2 = new SerialPort(portNameGPS2, baudRateGPS2, Parity.None, 8, StopBits.One);
+        public SerialPort spGPS2 = new SerialPort(Settings.User.setPort_portNameGPS2, Settings.User.setPort_baudRateGPS2, Parity.None, 8, StopBits.One);
 
         //serial port gps is connected to
-        public SerialPort spRtcm = new SerialPort(portNameRtcm, baudRateRtcm, Parity.None, 8, StopBits.One);
+        public SerialPort spRtcm = new SerialPort(Settings.User.setPort_portNameRtcm, Settings.User.setPort_baudRateRtcm, Parity.None, 8, StopBits.One);
 
         //serial port Arduino is connected to
-        public SerialPort spIMU = new SerialPort(portNameIMU, baudRateIMU, Parity.None, 8, StopBits.One);
+        public SerialPort spIMU = new SerialPort(Settings.User.setPort_portNameIMU, baudRateIMU, Parity.None, 8, StopBits.One);
 
         //serial port Arduino is connected to
-        public SerialPort spSteerModule = new SerialPort(portNameSteerModule, baudRateSteerModule, Parity.None, 8, StopBits.One);
+        public SerialPort spSteerModule = new SerialPort(Settings.User.setPort_portNameSteer, baudRateSteerModule, Parity.None, 8, StopBits.One);
 
         //serial port Arduino is connected to
-        public SerialPort spMachineModule = new SerialPort(portNameMachineModule, baudRateMachineModule, Parity.None, 8, StopBits.One);
+        public SerialPort spMachineModule = new SerialPort(Settings.User.setPort_portNameMachine, baudRateMachineModule, Parity.None, 8, StopBits.One);
 
         //serial port Ardiuno is connected to
         //public SerialPort spModule3 = new SerialPort(portNameModule3, baudRateModule3, Parity.None, 8, StopBits.One);
@@ -111,7 +85,7 @@ namespace AgIO
         {
             if (!spIMU.IsOpen)
             {
-                spIMU.PortName = portNameIMU;
+                spIMU.PortName = Settings.User.setPort_portNameIMU;
                 spIMU.BaudRate = baudRateIMU;
                 spIMU.DataReceived += sp_DataReceivedIMU;
                 spIMU.DtrEnable = true;
@@ -124,11 +98,8 @@ namespace AgIO
                 Log.EventWriter("Opening Machine Port" + e.ToString());
 
                 MessageBox.Show(e.Message + "\n\r" + "\n\r" + "Go to Settings -> COM Ports to Fix", "No Arduino Port Active");
-
-
-                Settings.User.setPort_wasIMUConnected = false;
                 
-                wasIMUConnectedLastRun = false;
+                Settings.User.setPort_wasIMUConnected = false;
             }
 
             if (spIMU.IsOpen)
@@ -139,11 +110,8 @@ namespace AgIO
                 spIMU.DiscardOutBuffer();
                 spIMU.DiscardInBuffer();
 
-                Settings.User.setPort_portNameIMU = portNameIMU;
                 Settings.User.setPort_wasIMUConnected = true;
-                
-                wasIMUConnectedLastRun = true;
-                lblIMUComm.Text = portNameIMU;
+                lblIMUComm.Text = Settings.User.setPort_portNameIMU;
             }
         }
 
@@ -172,7 +140,6 @@ namespace AgIO
                 
 
                 spIMU.Dispose();
-                wasIMUConnectedLastRun = false;
             }
 
             else
@@ -181,10 +148,10 @@ namespace AgIO
 
                 //tell AgOpenGPS IMU is disconnected
                 SendToLoopBackMessageAOG(imuClose);
-                wasIMUConnectedLastRun = false;
+                Settings.User.setPort_wasIMUConnected = false;
             }
 
-            wasIMUConnectedLastRun = false;
+            Settings.User.setPort_wasIMUConnected = false;
             lblIMUComm.Text = "---";
         }
 
@@ -331,7 +298,7 @@ namespace AgIO
         {
             if (!spSteerModule.IsOpen)
             {
-                spSteerModule.PortName = portNameSteerModule;
+                spSteerModule.PortName = Settings.User.setPort_portNameSteer;
                 spSteerModule.BaudRate = baudRateSteerModule;
                 spSteerModule.DataReceived += sp_DataReceivedSteerModule;
                 spSteerModule.DtrEnable = true;
@@ -361,12 +328,8 @@ namespace AgIO
                 spSteerModule.DiscardOutBuffer();
                 spSteerModule.DiscardInBuffer();
 
-                Settings.User.setPort_portNameSteer = portNameSteerModule;
-                Settings.User.setPort_wasSteerModuleConnected = true;
-                
-
-                wasSteerModuleConnectedLastRun = true;
-                lblMod1Comm.Text = portNameSteerModule;
+                Settings.User.setPort_wasSteerModuleConnected = true;                
+                lblMod1Comm.Text = Settings.User.setPort_portNameSteer;
             }
         }
 
@@ -389,7 +352,7 @@ namespace AgIO
                 spSteerModule.Dispose();
             }
 
-            wasSteerModuleConnectedLastRun = false;
+            Settings.User.setPort_wasSteerModuleConnected = false;
             lblMod1Comm.Text = "---";
         }
 
@@ -543,7 +506,7 @@ namespace AgIO
         {
             if (!spMachineModule.IsOpen)
             {
-                spMachineModule.PortName = portNameMachineModule;
+                spMachineModule.PortName = Settings.User.setPort_portNameMachine;
                 spMachineModule.BaudRate = baudRateMachineModule;
                 spMachineModule.DataReceived += sp_DataReceivedMachineModule;
                 spMachineModule.DtrEnable = true;
@@ -563,9 +526,7 @@ namespace AgIO
 
                 MessageBox.Show(e.Message + "\n\r" + "\n\r" + "Go to Settings -> COM Ports to Fix", "No Arduino Port Active");
 
-
-                Settings.User.setPort_wasMachineModuleConnected = false;
-                
+                Settings.User.setPort_wasMachineModuleConnected = false;                
             }
 
             if (spMachineModule.IsOpen)
@@ -573,12 +534,8 @@ namespace AgIO
                 spMachineModule.DiscardOutBuffer();
                 spMachineModule.DiscardInBuffer();
 
-                Settings.User.setPort_portNameMachine = portNameMachineModule;
                 Settings.User.setPort_wasMachineModuleConnected = true;
-                
-
-                wasMachineModuleConnectedLastRun = true;
-                lblMod2Comm.Text = portNameMachineModule;
+                lblMod2Comm.Text = Settings.User.setPort_portNameMachine;
             }
         }
 
@@ -601,7 +558,7 @@ namespace AgIO
                 spMachineModule.Dispose();
             }
 
-            wasMachineModuleConnectedLastRun = false;
+            Settings.User.setPort_wasMachineModuleConnected = false;
             lblMod2Comm.Text = "---";
         }
 
@@ -962,8 +919,8 @@ namespace AgIO
 
             if (!spGPS.IsOpen)
             {
-                spGPS.PortName = portNameGPS;
-                spGPS.BaudRate = baudRateGPS;
+                spGPS.PortName = Settings.User.setPort_portNameGPS;
+                spGPS.BaudRate = Settings.User.setPort_baudRateGPS;
                 spGPS.DataReceived += sp_DataReceivedGPS;
                 spGPS.WriteTimeout = 1000;
             }
@@ -981,12 +938,10 @@ namespace AgIO
                 spGPS.DiscardOutBuffer();
                 spGPS.DiscardInBuffer();
 
-                Settings.User.setPort_portNameGPS = portNameGPS;
-                Settings.User.setPort_baudRateGPS = baudRateGPS;
                 Settings.User.setPort_wasGPSConnected = true;
                 
-                lblGPS1Comm.Text = portNameGPS;
-                wasGPSConnectedLastRun = true;
+                lblGPS1Comm.Text = Settings.User.setPort_portNameGPS;
+                Settings.User.setPort_wasGPSConnected = true;
             }
         }
         public void CloseGPSPort()
@@ -1008,7 +963,7 @@ namespace AgIO
                 spGPS.Dispose();
             }
             lblGPS1Comm.Text = "---";
-            wasGPSConnectedLastRun = false;
+            Settings.User.setPort_wasGPSConnected = false;
 
         }
 
@@ -1081,8 +1036,8 @@ namespace AgIO
 
             if (!spGPS2.IsOpen)
             {
-                spGPS2.PortName = portNameGPS2;
-                spGPS2.BaudRate = baudRateGPS2;
+                spGPS2.PortName = Settings.User.setPort_portNameGPS2;
+                spGPS2.BaudRate = Settings.User.setPort_baudRateGPS2;
                 spGPS2.DataReceived += sp_DataReceivedGPS2;
                 spGPS2.WriteTimeout = 1000;
             }
@@ -1097,11 +1052,7 @@ namespace AgIO
             {
                 //discard any stuff in the buffers
                 spGPS2.DiscardOutBuffer();
-                spGPS2.DiscardInBuffer();
-
-                Settings.User.setPort_portNameGPS2 = portNameGPS2;
-                Settings.User.setPort_baudRateGPS2 = baudRateGPS2;
-                
+                spGPS2.DiscardInBuffer();                
             }
         }
         public void CloseGPS2Port()
@@ -1151,8 +1102,8 @@ namespace AgIO
 
             if (!spRtcm.IsOpen)
             {
-                spRtcm.PortName = portNameRtcm;
-                spRtcm.BaudRate = baudRateRtcm;
+                spRtcm.PortName = Settings.User.setPort_portNameRtcm;
+                spRtcm.BaudRate = Settings.User.setPort_baudRateRtcm;
                 spRtcm.WriteTimeout = 1000;
             }
 
@@ -1168,12 +1119,7 @@ namespace AgIO
                 spRtcm.DiscardOutBuffer();
                 spRtcm.DiscardInBuffer();
 
-                Settings.User.setPort_portNameRtcm = portNameRtcm;
-                Settings.User.setPort_baudRateRtcm = baudRateRtcm;
                 Settings.User.setPort_wasRtcmConnected = true;
-                
-                //lblRtcmComm.Text = portNameRtcm;
-                wasRtcmConnectedLastRun = true;
             }
         }
 
@@ -1188,7 +1134,7 @@ namespace AgIO
                 }
             }
 
-            wasRtcmConnectedLastRun = false;
+            Settings.User.setPort_wasRtcmConnected = false;
         }
     }//end class
 }//end namespace

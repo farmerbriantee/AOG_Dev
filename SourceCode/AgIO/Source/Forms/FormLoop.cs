@@ -69,7 +69,6 @@ namespace AgIO
         public bool isNTRIPToggle;
 
         public bool lastHelloGPS, lastHelloAutoSteer, lastHelloMachine, lastHelloIMU, lastHelloGPSTool;
-        public bool isConnectedIMU, isConnectedSteer, isConnectedMachine;
 
         public bool lastHelloGPSTuu, isConnectedSteerTuu;
 
@@ -132,50 +131,37 @@ namespace AgIO
             lblMod2Comm.Text = "";
 
             //set baud and port from last time run
-            baudRateGPS = Settings.User.setPort_baudRateGPS;
-            portNameGPS = Settings.User.setPort_portNameGPS;
-            wasGPSConnectedLastRun = Settings.User.setPort_wasGPSConnected;
-            if (wasGPSConnectedLastRun)
+            if (Settings.User.setPort_wasGPSConnected)
             {
                 OpenGPSPort();
-                if (spGPS.IsOpen) lblGPS1Comm.Text = portNameGPS;
+                if (spGPS.IsOpen) lblGPS1Comm.Text = Settings.User.setPort_portNameGPS;
             }
 
             // set baud and port for rtcm from last time run
-            baudRateRtcm = Settings.User.setPort_baudRateRtcm;
-            portNameRtcm = Settings.User.setPort_portNameRtcm;
-            wasRtcmConnectedLastRun = Settings.User.setPort_wasRtcmConnected;
-
-            if (wasRtcmConnectedLastRun)
+            if (Settings.User.setPort_wasRtcmConnected)
             {
                 OpenRtcmPort();
             }
 
             //Open IMU
-            portNameIMU = Settings.User.setPort_portNameIMU;
-            wasIMUConnectedLastRun = Settings.User.setPort_wasIMUConnected;
-            if (wasIMUConnectedLastRun)
+            if (Settings.User.setPort_wasIMUConnected)
             {
                 OpenIMUPort();
-                if (spIMU.IsOpen) lblIMUComm.Text = portNameIMU;
+                if (spIMU.IsOpen) lblIMUComm.Text = Settings.User.setPort_portNameIMU;
             }
 
             //same for SteerModule port
-            portNameSteerModule = Settings.User.setPort_portNameSteer;
-            wasSteerModuleConnectedLastRun = Settings.User.setPort_wasSteerModuleConnected;
-            if (wasSteerModuleConnectedLastRun)
+            if (Settings.User.setPort_wasSteerModuleConnected)
             {
                 OpenSteerModulePort();
-                if (spSteerModule.IsOpen) lblMod1Comm.Text = portNameSteerModule;
+                if (spSteerModule.IsOpen) lblMod1Comm.Text = Settings.User.setPort_portNameSteer;
             }
 
             //same for MachineModule port
-            portNameMachineModule = Settings.User.setPort_portNameMachine;
-            wasMachineModuleConnectedLastRun = Settings.User.setPort_wasMachineModuleConnected;
-            if (wasMachineModuleConnectedLastRun)
+            if (Settings.User.setPort_wasMachineModuleConnected)
             {
                 OpenMachineModulePort();
-                if (spMachineModule.IsOpen) lblMod2Comm.Text = portNameMachineModule;
+                if (spMachineModule.IsOpen) lblMod2Comm.Text = Settings.User.setPort_portNameMachine;
             }
 
             ConfigureNTRIP();
@@ -194,9 +180,9 @@ namespace AgIO
                 }
             }
 
-            isConnectedIMU = cboxIsIMUModule.Checked = Settings.User.setMod_isIMUConnected;
-            isConnectedSteer = cboxIsSteerModule.Checked = Settings.User.setMod_isSteerConnected;
-            isConnectedMachine = cboxIsMachineModule.Checked = Settings.User.setMod_isMachineConnected;
+            cboxIsIMUModule.Checked = Settings.User.setMod_isIMUConnected;
+            cboxIsSteerModule.Checked = Settings.User.setMod_isSteerConnected;
+            cboxIsMachineModule.Checked = Settings.User.setMod_isMachineConnected;
 
             SetModulesOnOff();
 
@@ -298,12 +284,6 @@ namespace AgIO
 
         private void FormLoop_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Settings.User.setPort_wasGPSConnected = wasGPSConnectedLastRun;
-            Settings.User.setPort_wasIMUConnected = wasIMUConnectedLastRun;
-            Settings.User.setPort_wasSteerModuleConnected = wasSteerModuleConnectedLastRun;
-            Settings.User.setPort_wasMachineModuleConnected = wasMachineModuleConnectedLastRun;
-            Settings.User.setPort_wasRtcmConnected = wasRtcmConnectedLastRun;
-
             if (RegistrySettings.profileName != "Default Profile")
                 Settings.User.Save();
             else
@@ -539,7 +519,7 @@ namespace AgIO
 
                 #region Serial update
 
-                if (wasIMUConnectedLastRun)
+                if (Settings.User.setPort_wasIMUConnected)
                 {
                     if (!spIMU.IsOpen)
                     {
@@ -547,34 +527,34 @@ namespace AgIO
 
                         //tell AgOpenGPS IMU is disconnected
                         SendToLoopBackMessageAOG(imuClose);
-                        wasIMUConnectedLastRun = false;
+                        Settings.User.setPort_wasIMUConnected = false;
                         lblIMUComm.Text = "";
                     }
                 }
 
-                if (wasGPSConnectedLastRun)
+                if (Settings.User.setPort_wasGPSConnected)
                 {
                     if (!spGPS.IsOpen)
                     {
-                        wasGPSConnectedLastRun = false;
+                        Settings.User.setPort_wasGPSConnected = false;
                         lblGPS1Comm.Text = "";
                     }
                 }
 
-                if (wasSteerModuleConnectedLastRun)
+                if (Settings.User.setPort_wasSteerModuleConnected)
                 {
                     if (!spSteerModule.IsOpen)
                     {
-                        wasSteerModuleConnectedLastRun = false;
+                        Settings.User.setPort_wasSteerModuleConnected = false;
                         lblMod1Comm.Text = "";
                     }
                 }
 
-                if (wasMachineModuleConnectedLastRun)
+                if (Settings.User.setPort_wasMachineModuleConnected)
                 {
                     if (!spMachineModule.IsOpen)
                     {
-                        wasMachineModuleConnectedLastRun = false;
+                        Settings.User.setPort_wasMachineModuleConnected = false;
                         lblMod2Comm.Text = "";
                     }
                 }
@@ -595,7 +575,7 @@ namespace AgIO
         {
             bool currentHello;
 
-            if (isConnectedMachine)
+            if (Settings.User.setMod_isMachineConnected)
             {
                 currentHello = traffic.helloFromMachine < 3;
 
@@ -608,7 +588,7 @@ namespace AgIO
                 }
             }
 
-            if (isConnectedSteer)
+            if (Settings.User.setMod_isSteerConnected)
             {
                 currentHello = traffic.helloFromAutoSteer < 3;
 
@@ -621,7 +601,7 @@ namespace AgIO
                 }
             }
 
-            if (isConnectedIMU)
+            if (Settings.User.setMod_isIMUConnected)
             {
                 currentHello = traffic.helloFromIMU < 3;
 
@@ -699,7 +679,7 @@ namespace AgIO
 
         public void SetModulesOnOff()
         {
-            if (isConnectedIMU)
+            if (Settings.User.setMod_isIMUConnected)
             {
                 btnIMU.Visible = true;
                 lblIMUComm.Visible = true;
@@ -712,7 +692,7 @@ namespace AgIO
                 cboxIsIMUModule.BackgroundImage = Properties.Resources.AddNew;
             }
 
-            if (isConnectedMachine)
+            if (Settings.User.setMod_isMachineConnected)
             {
                 btnMachine.Visible = true;
                 lblMod2Comm.Visible = true;
@@ -725,7 +705,7 @@ namespace AgIO
                 cboxIsMachineModule.BackgroundImage = Properties.Resources.AddNew;
             }
 
-            if (isConnectedSteer)
+            if (Settings.User.setMod_isSteerConnected)
             {
                 btnSteer.Visible = true;
                 lblMod1Comm.Visible = true;
@@ -737,10 +717,6 @@ namespace AgIO
                 lblMod1Comm.Visible = false;
                 cboxIsSteerModule.BackgroundImage = Properties.Resources.AddNew;
             }
-
-            Settings.User.setMod_isIMUConnected = isConnectedIMU;
-            Settings.User.setMod_isSteerConnected = isConnectedSteer;
-            Settings.User.setMod_isMachineConnected = isConnectedMachine;
         }
 
         private void DoTraffic()

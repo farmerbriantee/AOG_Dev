@@ -169,7 +169,6 @@ namespace AgOpenGPS
             public TBrand setBrand_TBrand = TBrand.AgOpenGPS;
             public WDBrand setBrand_WDBrand = WDBrand.AgOpenGPS;
 
-            public double setAB_lineLength = 1600.0;
             public double setAutoSwitchDualFixSpeed = 2.0;
             public bool setAutoSwitchDualFixOn = false;
 
@@ -193,7 +192,6 @@ namespace AgOpenGPS
             public byte setArdSteer_setting1 = 0;
             public byte setArdSteer_setting2 = 0;
 
-            public bool setAS_isAutoSteerAutoOn = false;
             public bool setAS_isConstantContourOn = false;
             public bool setAS_isSteerInReverse = false;
 
@@ -337,7 +335,7 @@ namespace AgOpenGPS
 
         public sealed class ToolSettings
         {
-            public CNozzleSettings setNozzleSettings = new CNozzleSettings();
+            public CNozzleSettings setNozz = new CNozzleSettings();
             public CToolSteerSettings setToolSteer = new CToolSteerSettings();
 
             public bool setApp_isNozzleApp = false;

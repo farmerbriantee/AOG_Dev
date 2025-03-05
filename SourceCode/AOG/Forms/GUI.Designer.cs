@@ -255,10 +255,10 @@ namespace AgOpenGPS
                 if (Settings.Vehicle.setApp_isNozzleApp)
                 {
                     //nozz.tankVolumeTotal += 1;
-                    if (nozz.isAppliedUnitsNotTankDisplayed)
-                        btnSprayVolumeTotal.Text = nozz.volumeApplied.ToString("N1");
+                    if (Settings.Tool.setNozz.isAppliedUnitsNotTankDisplayed)
+                        btnSprayVolumeTotal.Text = Settings.Tool.setNozz.volumeApplied.ToString("N1");
                     else
-                        btnSprayVolumeTotal.Text = (nozz.volumeTankStart - nozz.volumeApplied).ToString("N1");
+                        btnSprayVolumeTotal.Text = (Settings.Tool.setNozz.volumeTankStart - Settings.Tool.setNozz.volumeApplied).ToString("N1");
 
                     //pressure reading
                     btnSprayPSI.Text = nozz.pressureActual.ToString();
@@ -296,7 +296,7 @@ namespace AgOpenGPS
                             btnSprayGalPerAcre.Text = (nozz.volumePerAreaActualFiltered).ToString("N0");
 
                         //flow error alarm
-                        if ((Math.Abs(nozz.volumePerAreaSetSelected - nozz.volumePerAreaActualFiltered)) > (nozz.volumePerAreaSetSelected * nozz.rateAlarmPercent))
+                        if ((Math.Abs(nozz.volumePerAreaSetSelected - nozz.volumePerAreaActualFiltered)) > (nozz.volumePerAreaSetSelected * Settings.Tool.setNozz.rateAlarmPercent))
                         {
                             if (isFlashOnOff) btnSprayGalPerAcre.BackColor = Color.DarkRed;
                             else btnSprayGalPerAcre.BackColor = Color.Transparent;
@@ -355,19 +355,19 @@ namespace AgOpenGPS
 
             //if (Settings.Vehicle.setApp_isNozzleApp)
             {
-                PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(Settings.Tool.setNozzleSettings.flowCal >> 8)); ;
-                PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(Settings.Tool.setNozzleSettings.flowCal));
-                PGN_226.pgn[PGN_226.pressureCalHi] = unchecked((byte)(Settings.Tool.setNozzleSettings.pressureCal >> 8));
-                PGN_226.pgn[PGN_226.pressureCalLo] = unchecked((byte)(Settings.Tool.setNozzleSettings.pressureCal));
-                PGN_226.pgn[PGN_226.Kp] = Settings.Tool.setNozzleSettings.Kp;
-                PGN_226.pgn[PGN_226.Ki] = Settings.Tool.setNozzleSettings.Ki;
-                PGN_226.pgn[PGN_226.minPressure] = unchecked((byte)(Settings.Tool.setNozzleSettings.pressureMin));
-                PGN_226.pgn[PGN_226.fastPWM] = Settings.Tool.setNozzleSettings.fastPWM;
-                PGN_226.pgn[PGN_226.slowPWM] = Settings.Tool.setNozzleSettings.slowPWM;
-                PGN_226.pgn[PGN_226.deadbandError] = Settings.Tool.setNozzleSettings.deadbandError;
-                PGN_226.pgn[PGN_226.switchAtFlowError] = Settings.Tool.setNozzleSettings.switchAtFlowError;
+                PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(Settings.Tool.setNozz.flowCal >> 8)); ;
+                PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(Settings.Tool.setNozz.flowCal));
+                PGN_226.pgn[PGN_226.pressureCalHi] = unchecked((byte)(Settings.Tool.setNozz.pressureCal >> 8));
+                PGN_226.pgn[PGN_226.pressureCalLo] = unchecked((byte)(Settings.Tool.setNozz.pressureCal));
+                PGN_226.pgn[PGN_226.Kp] = Settings.Tool.setNozz.Kp;
+                PGN_226.pgn[PGN_226.Ki] = Settings.Tool.setNozz.Ki;
+                PGN_226.pgn[PGN_226.minPressure] = unchecked((byte)(Settings.Tool.setNozz.pressureMin));
+                PGN_226.pgn[PGN_226.fastPWM] = Settings.Tool.setNozz.fastPWM;
+                PGN_226.pgn[PGN_226.slowPWM] = Settings.Tool.setNozz.slowPWM;
+                PGN_226.pgn[PGN_226.deadbandError] = Settings.Tool.setNozz.deadbandError;
+                PGN_226.pgn[PGN_226.switchAtFlowError] = Settings.Tool.setNozz.switchAtFlowError;
 
-                if (Settings.Tool.setNozzleSettings.isBypass)
+                if (Settings.Tool.setNozz.isBypass)
                     PGN_226.pgn[PGN_226.isBypass] = 1;
                 else
                     PGN_226.pgn[PGN_226.isBypass] = 0;
@@ -375,21 +375,21 @@ namespace AgOpenGPS
                 //units
                 if (cboxRate1Rate2Select.Checked)
                 {
-                    cboxRate1Rate2Select.Text = Settings.Tool.setNozzleSettings.volumePerAreaSet2 + nozz.unitsPerArea;
-                    nozz.volumePerAreaSetSelected = Settings.Tool.setNozzleSettings.volumePerAreaSet2;
+                    cboxRate1Rate2Select.Text = Settings.Tool.setNozz.volumePerAreaSet2 + Settings.Tool.setNozz.unitsPerArea;
+                    nozz.volumePerAreaSetSelected = Settings.Tool.setNozz.volumePerAreaSet2;
                 }
                 else
                 {
-                    cboxRate1Rate2Select.Text = Settings.Tool.setNozzleSettings.volumePerAreaSet1 + nozz.unitsPerArea;
-                    nozz.volumePerAreaSetSelected = Settings.Tool.setNozzleSettings.volumePerAreaSet1;
+                    cboxRate1Rate2Select.Text = Settings.Tool.setNozz.volumePerAreaSet1 + Settings.Tool.setNozz.unitsPerArea;
+                    nozz.volumePerAreaSetSelected = Settings.Tool.setNozz.volumePerAreaSet1;
                 }
 
-                btnSprayVolumeTotal.Text = nozz.volumeApplied.ToString();
+                btnSprayVolumeTotal.Text = Settings.Tool.setNozz.volumeApplied.ToString();
 
-                if (!nozz.isAppliedUnitsNotTankDisplayed)
-                    lbl_Volume.Text = "Tank " + nozz.unitsApplied;
+                if (!Settings.Tool.setNozz.isAppliedUnitsNotTankDisplayed)
+                    lbl_Volume.Text = "Tank " + Settings.Tool.setNozz.unitsApplied;
                 else
-                    lbl_Volume.Text = "App " + nozz.unitsApplied;
+                    lbl_Volume.Text = "App " + Settings.Tool.setNozz.unitsApplied;
             }
 
             //Tool GPS on

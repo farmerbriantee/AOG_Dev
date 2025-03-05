@@ -25,14 +25,14 @@ namespace AgOpenGPS
         {
             if (cboxRate1Rate2Select.Checked)
             {
-                nozz.volumePerAreaSetSelected = Settings.Tool.setNozzleSettings.volumePerAreaSet2;
+                nozz.volumePerAreaSetSelected = Settings.Tool.setNozz.volumePerAreaSet2;
             }
             else
             {
-                nozz.volumePerAreaSetSelected = Settings.Tool.setNozzleSettings.volumePerAreaSet1;
+                nozz.volumePerAreaSetSelected = Settings.Tool.setNozz.volumePerAreaSet1;
             }
 
-            cboxRate1Rate2Select.Text = nozz.volumePerAreaSetSelected + nozz.unitsPerArea;
+            cboxRate1Rate2Select.Text = nozz.volumePerAreaSetSelected + Settings.Tool.setNozz.unitsPerArea;
         }
 
         private void cboxSprayAutoManual_Click(object sender, EventArgs e)
@@ -58,11 +58,11 @@ namespace AgOpenGPS
 
         private void btnSprayVolumeTotal_Click(object sender, EventArgs e)
         {
-            nozz.isAppliedUnitsNotTankDisplayed = !nozz.isAppliedUnitsNotTankDisplayed;
-            if (!nozz.isAppliedUnitsNotTankDisplayed)
-                lbl_Volume.Text = "Tank " + nozz.unitsApplied;
+            Settings.Tool.setNozz.isAppliedUnitsNotTankDisplayed = !Settings.Tool.setNozz.isAppliedUnitsNotTankDisplayed;
+            if (!Settings.Tool.setNozz.isAppliedUnitsNotTankDisplayed)
+                lbl_Volume.Text = "Tank " + Settings.Tool.setNozz.unitsApplied;
             else
-                lbl_Volume.Text = "App " + nozz.unitsApplied;
+                lbl_Volume.Text = "App " + Settings.Tool.setNozz.unitsApplied;
         }
 
         private void btnSprayRate_Click(object sender, EventArgs e)
@@ -74,14 +74,14 @@ namespace AgOpenGPS
 
             if (cboxRate1Rate2Select.Checked)
             {
-                nozz.volumePerAreaSetSelected = Settings.Tool.setNozzleSettings.volumePerAreaSet2;
+                nozz.volumePerAreaSetSelected = Settings.Tool.setNozz.volumePerAreaSet2;
             }
             else
             {
-                nozz.volumePerAreaSetSelected = Settings.Tool.setNozzleSettings.volumePerAreaSet1;
+                nozz.volumePerAreaSetSelected = Settings.Tool.setNozz.volumePerAreaSet1;
             }
 
-            cboxRate1Rate2Select.Text = nozz.volumePerAreaSetSelected + nozz.unitsPerArea;
+            cboxRate1Rate2Select.Text = nozz.volumePerAreaSetSelected + Settings.Tool.setNozz.unitsPerArea;
         }
 
         private void btnNozConfig_Click(object sender, EventArgs e)
@@ -125,9 +125,9 @@ namespace AgOpenGPS
             }
             else
             {
-                nozz.volumePerAreaSetSelected -= nozz.rateNudge;
+                nozz.volumePerAreaSetSelected -= Settings.Tool.setNozz.rateNudge;
                 if (nozz.volumePerAreaSetSelected < 2) nozz.volumePerAreaSetSelected = 2;
-                cboxRate1Rate2Select.Text = nozz.volumePerAreaSetSelected.ToString("N1") + nozz.unitsPerArea;
+                cboxRate1Rate2Select.Text = nozz.volumePerAreaSetSelected.ToString("N1") + Settings.Tool.setNozz.unitsPerArea;
             }
         }
 
@@ -143,8 +143,8 @@ namespace AgOpenGPS
             }
             else
             {
-                nozz.volumePerAreaSetSelected += nozz.rateNudge;
-                cboxRate1Rate2Select.Text = nozz.volumePerAreaSetSelected.ToString("N1") + nozz.unitsPerArea;
+                nozz.volumePerAreaSetSelected += Settings.Tool.setNozz.rateNudge;
+                cboxRate1Rate2Select.Text = nozz.volumePerAreaSetSelected.ToString("N1") + Settings.Tool.setNozz.unitsPerArea;
             }
         }
 

@@ -27,18 +27,18 @@ namespace AgOpenGPS
 
         private void FormDisplaySettings_Load(object sender, EventArgs e)
         {
-            nudSprayFlowCal.Value = Settings.Tool.setNozzleSettings.flowCal;
-            nudSprayPressureCal.Value = Settings.Tool.setNozzleSettings.pressureCal;
+            nudSprayFlowCal.Value = Settings.Tool.setNozz.flowCal;
+            nudSprayPressureCal.Value = Settings.Tool.setNozz.pressureCal;
 
-            nudSprayKp.Value = Settings.Tool.setNozzleSettings.Kp;
-            //nudSprayKi.Value = Settings.Tool.setNozzleSettings.Ki;
+            nudSprayKp.Value = Settings.Tool.setNozz.Kp;
+            //nudSprayKi.Value = Settings.Tool.setNozz.Ki;
 
-            nudFastPWM.Value = Settings.Tool.setNozzleSettings.fastPWM;
-            nudSlowPWM.Value = Settings.Tool.setNozzleSettings.slowPWM;
-            nudDeadbandError.Value = Settings.Tool.setNozzleSettings.deadbandError * 0.01;
-            nudSwitchAtFlowError.Value = Settings.Tool.setNozzleSettings.switchAtFlowError * 0.01;
+            nudFastPWM.Value = Settings.Tool.setNozz.fastPWM;
+            nudSlowPWM.Value = Settings.Tool.setNozz.slowPWM;
+            nudDeadbandError.Value = Settings.Tool.setNozz.deadbandError * 0.01;
+            nudSwitchAtFlowError.Value = Settings.Tool.setNozz.switchAtFlowError * 0.01;
 
-            cboxBypass.Checked = Settings.Tool.setNozzleSettings.isBypass;
+            cboxBypass.Checked = Settings.Tool.setNozz.isBypass;
             if (cboxBypass.Checked)
             {
                 cboxBypass.Text = "Bypass";
@@ -48,10 +48,10 @@ namespace AgOpenGPS
                 cboxBypass.Text = "Closed";
             }
 
-            tboxUnitsApplied.Text = mf.nozz.unitsApplied.Trim();
-            tboxUnitsPerArea.Text = mf.nozz.unitsPerArea.Trim();
+            tboxUnitsApplied.Text = Settings.Tool.setNozz.unitsApplied.Trim();
+            tboxUnitsPerArea.Text = Settings.Tool.setNozz.unitsPerArea.Trim();
 
-            cboxSectionValve3Wire.Checked = Settings.Tool.setNozzleSettings.isSectionValve3Wire;
+            cboxSectionValve3Wire.Checked = Settings.Tool.setNozz.isSectionValve3Wire;
             if (cboxSectionValve3Wire.Checked)
             {
                 cboxSectionValve3Wire.Text = "3 Wire";
@@ -64,65 +64,65 @@ namespace AgOpenGPS
 
         private void nudSprayFlowCal_ValueChanged(object sender, EventArgs e)
         {
-            Settings.Tool.setNozzleSettings.flowCal = (int)nudSprayFlowCal.Value;
+            Settings.Tool.setNozz.flowCal = (int)nudSprayFlowCal.Value;
 
-            PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(Settings.Tool.setNozzleSettings.flowCal >> 8)); ;
-            PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(Settings.Tool.setNozzleSettings.flowCal));
+            PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(Settings.Tool.setNozz.flowCal >> 8)); ;
+            PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(Settings.Tool.setNozz.flowCal));
 
             mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void nudSprayPressureCal_ValueChanged(object sender, EventArgs e)
         {
-            Settings.Tool.setNozzleSettings.pressureCal = (int)nudSprayPressureCal.Value;
+            Settings.Tool.setNozz.pressureCal = (int)nudSprayPressureCal.Value;
 
-            PGN_226.pgn[PGN_226.pressureCalHi] = unchecked((byte)(Settings.Tool.setNozzleSettings.pressureCal >> 8)); ;
-            PGN_226.pgn[PGN_226.pressureCalLo] = unchecked((byte)(Settings.Tool.setNozzleSettings.pressureCal));
+            PGN_226.pgn[PGN_226.pressureCalHi] = unchecked((byte)(Settings.Tool.setNozz.pressureCal >> 8)); ;
+            PGN_226.pgn[PGN_226.pressureCalLo] = unchecked((byte)(Settings.Tool.setNozz.pressureCal));
 
             mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void nudFastPWM_ValueChanged(object sender, EventArgs e)
         {
-            Settings.Tool.setNozzleSettings.fastPWM = (byte)nudFastPWM.Value;
+            Settings.Tool.setNozz.fastPWM = (byte)nudFastPWM.Value;
 
-            PGN_226.pgn[PGN_226.fastPWM] = unchecked((byte)(Settings.Tool.setNozzleSettings.fastPWM));
+            PGN_226.pgn[PGN_226.fastPWM] = unchecked((byte)(Settings.Tool.setNozz.fastPWM));
 
             mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void nudSlowPWM_ValueChanged(object sender, EventArgs e)
         {
-            Settings.Tool.setNozzleSettings.slowPWM = (byte)nudSlowPWM.Value;
+            Settings.Tool.setNozz.slowPWM = (byte)nudSlowPWM.Value;
 
-            PGN_226.pgn[PGN_226.slowPWM] = unchecked((byte)(Settings.Tool.setNozzleSettings.slowPWM));
+            PGN_226.pgn[PGN_226.slowPWM] = unchecked((byte)(Settings.Tool.setNozz.slowPWM));
 
             mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void nudDeadbandError_ValueChanged(object sender, EventArgs e)
         {
-            Settings.Tool.setNozzleSettings.deadbandError = (byte)(nudDeadbandError.Value * 100);
+            Settings.Tool.setNozz.deadbandError = (byte)(nudDeadbandError.Value * 100);
 
-            PGN_226.pgn[PGN_226.deadbandError] = unchecked((byte)(Settings.Tool.setNozzleSettings.deadbandError));
+            PGN_226.pgn[PGN_226.deadbandError] = unchecked((byte)(Settings.Tool.setNozz.deadbandError));
 
             mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void nudSwitchAtFlowError_ValueChanged(object sender, EventArgs e)
         {
-            Settings.Tool.setNozzleSettings.switchAtFlowError = (byte)(nudSwitchAtFlowError.Value * 100);
+            Settings.Tool.setNozz.switchAtFlowError = (byte)(nudSwitchAtFlowError.Value * 100);
 
-            PGN_226.pgn[PGN_226.switchAtFlowError] = unchecked((byte)(Settings.Tool.setNozzleSettings.switchAtFlowError));
+            PGN_226.pgn[PGN_226.switchAtFlowError] = unchecked((byte)(Settings.Tool.setNozz.switchAtFlowError));
 
             mf.SendPgnToLoop(PGN_226.pgn);
         }
 
         private void nudSprayKp_ValueChanged(object sender, EventArgs e)
         {
-            Settings.Tool.setNozzleSettings.Kp = (byte)nudSprayKp.Value;
+            Settings.Tool.setNozz.Kp = (byte)nudSprayKp.Value;
 
-            PGN_226.pgn[PGN_226.Kp] = unchecked((byte)(Settings.Tool.setNozzleSettings.Kp));
+            PGN_226.pgn[PGN_226.Kp] = unchecked((byte)(Settings.Tool.setNozz.Kp));
 
             mf.SendPgnToLoop(PGN_226.pgn);
         }
@@ -132,17 +132,17 @@ namespace AgOpenGPS
             if (cboxSectionValve3Wire.Checked)
             {
                 cboxSectionValve3Wire.Text = "3 Wire";
-                mf.nozz.isSectionValve3Wire = true;
+                Settings.Tool.setNozz.isSectionValve3Wire = true;
                 PGN_226.pgn[PGN_226.isSectionValve3Wire] = 1;
             }
             else
             {
                 cboxSectionValve3Wire.Text = "Reverse";
-                mf.nozz.isSectionValve3Wire = false;
+                Settings.Tool.setNozz.isSectionValve3Wire = false;
                 PGN_226.pgn[PGN_226.isSectionValve3Wire] = 0;
             }
 
-            Settings.Tool.setNozzleSettings.isSectionValve3Wire = mf.nozz.isSectionValve3Wire;
+            Settings.Tool.setNozz.isSectionValve3Wire = Settings.Tool.setNozz.isSectionValve3Wire;
 
             mf.SendPgnToLoop(PGN_226.pgn);
         }
@@ -152,17 +152,15 @@ namespace AgOpenGPS
             if (cboxBypass.Checked)
             {
                 cboxBypass.Text = "Bypass";
-                mf.nozz.isBypass = true;
+                Settings.Tool.setNozz.isBypass = true;
                 PGN_226.pgn[PGN_226.isBypass] = 1;
             }
             else
             {
                 cboxBypass.Text = "Closed";
-                mf.nozz.isBypass = false;
+                Settings.Tool.setNozz.isBypass = false;
                 PGN_226.pgn[PGN_226.isBypass] = 0;
             }
-
-            Settings.Tool.setNozzleSettings.isBypass = mf.nozz.isBypass;
 
             mf.SendPgnToLoop(PGN_226.pgn);
         }
@@ -203,22 +201,20 @@ namespace AgOpenGPS
 
         private void tboxUnitsApplied_TextChanged(object sender, EventArgs e)
         {
-            mf.nozz.unitsApplied = " " + tboxUnitsApplied.Text.Trim();
-            Settings.Tool.setNozzleSettings.unitsApplied = mf.nozz.unitsApplied;
+            Settings.Tool.setNozz.unitsApplied = " " + tboxUnitsApplied.Text.Trim();
         }
 
         private void tboxUnitsPerArea_TextChanged(object sender, EventArgs e)
         {
-            mf.nozz.unitsPerArea = " " + tboxUnitsPerArea.Text.Trim();
-            Settings.Tool.setNozzleSettings.unitsPerArea = mf.nozz.unitsPerArea;
+            Settings.Tool.setNozz.unitsPerArea = " " + tboxUnitsPerArea.Text.Trim();
         }
 
         private void FormNozConfig_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!mf.nozz.isAppliedUnitsNotTankDisplayed)
-                mf.lbl_Volume.Text = "Tank " + mf.nozz.unitsApplied;
+            if (!Settings.Tool.setNozz.isAppliedUnitsNotTankDisplayed)
+                mf.lbl_Volume.Text = "Tank " + Settings.Tool.setNozz.unitsApplied;
             else
-                mf.lbl_Volume.Text = "App " + mf.nozz.unitsApplied;
+                mf.lbl_Volume.Text = "App " + Settings.Tool.setNozz.unitsApplied;
         }
     }
 }

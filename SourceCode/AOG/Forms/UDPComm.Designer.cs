@@ -342,8 +342,8 @@ namespace AgOpenGPS
                     //back from spray controller
                     case 224:
                         {
-                            nozz.volumeApplied = (Int16)((data[6] << 8) + data[5]);
-                            nozz.volumeApplied *= 0.1;
+                            Settings.Tool.setNozz.volumeApplied = (Int16)((data[6] << 8) + data[5]);
+                            Settings.Tool.setNozz.volumeApplied *= 0.1;
 
                             //times 100
                             nozz.volumePerMinuteActual = (Int16)((data[8] << 8) + data[7]);

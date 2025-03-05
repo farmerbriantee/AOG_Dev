@@ -99,9 +99,11 @@ namespace AgOpenGPS
         //oglMain rendering, Draw
         private void oglMain_Paint(object sender, PaintEventArgs e)
         {
-            if (sentenceCounter < 299)
+            if (uint.MaxValue == sentenceCounter) return;
+
+            if (true || sentenceCounter < 299)
             {
-                if (isGPSPositionInitialized)
+                if (true || isGPSPositionInitialized)
                 {
                     #region Initialize
 
@@ -635,6 +637,52 @@ namespace AgOpenGPS
 
                     //if hardware messages
                     if (isHardwareMessages) DrawHardwareMessageText();
+
+                    double leftPos = 170;
+                    double size = 150;
+                    double topPos = oglMain.Height * 0.5 - 50;
+
+                    if (sentenceCounter > 299 || !isGPSPositionInitialized)
+                    {
+                        GL.Enable(EnableCap.Texture2D);
+                        GL.Color4(1.25f, 1.25f, 1.275f, 0.75);
+                        GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.NoGPS]);        // Select Our Texture
+
+                        GL.PushMatrix();
+
+                        GL.Translate(leftPos, topPos, 0.0f);
+                        //GL.Rotate(deadCam, 0.0f, 1.0f, 0.0f);
+                        //deadCam += 5;
+                        GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
+                        GL.TexCoord2(1, 0); GL.Vertex2(size, -size); // Top Right
+                        GL.TexCoord2(0, 0); GL.Vertex2(-size, -size); // Top Left
+                        GL.TexCoord2(1, 1); GL.Vertex2(size, size); // Bottom Right
+                        GL.TexCoord2(0, 1); GL.Vertex2(-size, size); // Bottom Left
+                        GL.End();                       // Done Building Triangle Strip
+                        GL.PopMatrix();
+
+                        GL.Color3(0.98f, 0.98f, 0.70f);
+
+                        int edge = -oglMain.Width / 2 + 10;
+                        font.DrawText(edge, oglMain.Height - 120, "<-- AgIO ?");
+
+                        lblSpeed.Text = "???";
+                        lblHz.Text = " ???? \r\n Not Connected";
+                    }
+                    else if (!isFirstHeadingSet)
+                    {
+                        GL.Enable(EnableCap.Texture2D);
+                        GL.Color4(1, 1, 1, 0.75);
+                        GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.QuestionMark]);        // Select Our Texture
+                        GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
+                        GL.TexCoord2(1, 0); GL.Vertex2(leftPos + size, topPos - size); // Top Right
+                        GL.TexCoord2(0, 0); GL.Vertex2(leftPos - size, topPos - size); // Top Left
+                        GL.TexCoord2(1, 1); GL.Vertex2(leftPos + size, topPos + size); // Bottom Right
+                        GL.TexCoord2(0, 1); GL.Vertex2(leftPos - size, topPos + size); // Bottom Left
+                        GL.End();                       // Done Building Triangle Strip
+                        GL.Disable(EnableCap.Texture2D);
+                    }
+
 
                     //just in case
                     GL.Disable(EnableCap.LineStipple);

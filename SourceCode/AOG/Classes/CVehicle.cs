@@ -195,20 +195,6 @@ namespace AgOpenGPS
 
             //draw the vehicle Body
 
-            if (!mf.isFirstHeadingSet)
-            {
-                GL.Enable(EnableCap.Texture2D);
-                GL.Color4(1, 1, 1, 0.75);
-                GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.QuestionMark]);        // Select Our Texture
-                GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
-                GL.TexCoord2(1, 0); GL.Vertex2(5, 5); // Top Right
-                GL.TexCoord2(0, 0); GL.Vertex2(1, 5); // Top Left
-                GL.TexCoord2(1, 1); GL.Vertex2(5, 1); // Bottom Right
-                GL.TexCoord2(0, 1); GL.Vertex2(1, 1); // Bottom Left
-                GL.End();                       // Done Building Triangle Strip
-                GL.Disable(EnableCap.Texture2D);
-            }
-
             //3 vehicle types  tractor=0 harvestor=1 4wd=2
 
             if (Settings.Vehicle.isVehicleImage)

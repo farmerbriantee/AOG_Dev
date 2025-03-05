@@ -43,7 +43,7 @@ namespace AgOpenGPS
 
         //makes nav panel disappear after 6 seconds
         private int navPanelCounter = 0, trackMethodPanelCounter = 0;
-        public uint sentenceCounter = 0;
+        public uint sentenceCounter = uint.MaxValue;
         public int guideLineCounter = 0;
         public int hardwareLineCounter = 0;
         public bool isHardwareMessages = false;

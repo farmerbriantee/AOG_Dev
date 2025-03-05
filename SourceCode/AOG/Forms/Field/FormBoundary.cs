@@ -252,7 +252,7 @@ namespace AgOpenGPS
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (mf.tool.width < 0.2)
+            if (Settings.Tool.toolWidth < 0.2)
             {
                 mf.TimedMessageBox(2000, "Tool Error", "Your tool is too small");
                 Log.EventWriter("Boundary, Tool is too narrow");

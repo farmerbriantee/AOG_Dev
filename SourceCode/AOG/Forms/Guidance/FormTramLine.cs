@@ -750,7 +750,7 @@ namespace AgOpenGPS
             this.Text = gStr.Get(gs.gsTramLines);
             this.Text += "    Track: " + (mf.vehicle.trackWidth * glm.m2FtOrM).ToString("N2") + glm.unitsFtM;
             this.Text += "    Tram: " + (Settings.Tool.tram_Width * glm.m2FtOrM).ToString("N2") + glm.unitsFtM;
-            this.Text += "    Seed: " + (mf.tool.width * glm.m2FtOrM).ToString("N2") + glm.unitsFtM;
+            this.Text += "    Seed: " + (Settings.Tool.toolWidth * glm.m2FtOrM).ToString("N2") + glm.unitsFtM;
 
             if (indx > -1 && gTemp.Count > 0)
             {

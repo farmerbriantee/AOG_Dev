@@ -133,7 +133,7 @@ namespace AgOpenGPS
                     switch (currentFieldTextCounter)
                     {
                         case 0:
-                            lblCurrentField.Text = (tool.width * glm.m2FtOrM).ToString("N2") + glm.unitsFtM + " - " + RegistrySettings.vehicleFileName;
+                            lblCurrentField.Text = (Settings.Tool.toolWidth * glm.m2FtOrM).ToString("N2") + glm.unitsFtM + " - " + RegistrySettings.vehicleFileName;
                             break;
 
                         case 1:
@@ -440,7 +440,7 @@ namespace AgOpenGPS
             btnZone7.Visible = false;
             btnZone8.Visible = false;
 
-            if (tool.isSectionsNotZones)
+            if (Settings.Tool.isSectionsNotZones)
             {
                 //Set width of section and positions for each section
                 SectionSetPosition();
@@ -471,7 +471,6 @@ namespace AgOpenGPS
             ChangeMetricImperial();
 
             SetNozzleSettings();
-
 
             vehicleOpacity = ((double)(Settings.Vehicle.vehicleOpacity) * 0.01);
             vehicleOpacityByte = (byte)(255 * ((double)(Settings.Vehicle.vehicleOpacity) * 0.01));
@@ -876,7 +875,7 @@ namespace AgOpenGPS
 
             PanelSizeRightAndBottom();
 
-            if (tool.isSectionsNotZones)
+            if (Settings.Tool.isSectionsNotZones)
             {
                 LineUpIndividualSectionBtns();
             }
@@ -936,7 +935,7 @@ namespace AgOpenGPS
 
             btnChangeMappingColor.ForeColor = foreColor;
 
-            if (tool.isSectionsNotZones)
+            if (Settings.Tool.isSectionsNotZones)
             {
                 LineUpIndividualSectionBtns();
             }

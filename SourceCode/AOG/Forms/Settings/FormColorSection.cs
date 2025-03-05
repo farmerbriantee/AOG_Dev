@@ -153,9 +153,7 @@ namespace AgOpenGPS
             mf.tool.secColors[14] = Settings.Tool.setColor_sec15 = cb15.BackColor;
             mf.tool.secColors[15] = Settings.Tool.setColor_sec16 = cb16.BackColor;
 
-            if (cboxIsMulti.Checked)
-                Settings.Tool.setColor_isMultiColorSections = mf.tool.isMultiColoredSections = true;
-            else Settings.Tool.setColor_isMultiColorSections = mf.tool.isMultiColoredSections = false;
+            Settings.Tool.setColor_isMultiColorSections = cboxIsMulti.Checked;
 
             isClosing = true;
             Close();

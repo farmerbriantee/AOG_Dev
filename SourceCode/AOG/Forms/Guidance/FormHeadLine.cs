@@ -41,7 +41,7 @@ namespace AgOpenGPS
             mf.hdl.idx = -1;
             //label3.Text = glm.unitsFtM +"       Tool: ";
 
-            lblToolWidth.Text = "( " + glm.unitsFtM + " )           Tool: " + ((mf.tool.width - mf.tool.overlap) * glm.m2FtOrM).ToString("N1") + " " + glm.unitsFtM;
+            lblToolWidth.Text = "( " + glm.unitsFtM + " )           Tool: " + ((Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * glm.m2FtOrM).ToString("N1") + " " + glm.unitsFtM;
 
             start = 99999; end = 99999;
             isA = true;
@@ -933,7 +933,7 @@ namespace AgOpenGPS
 
         private void cboxToolWidths_SelectedIndexChanged(object sender, EventArgs e)
         {
-            nudSetDistance.Value = Math.Round((mf.tool.width - mf.tool.overlap) * cboxToolWidths.SelectedIndex, 1);
+            nudSetDistance.Value = Math.Round((Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * cboxToolWidths.SelectedIndex, 1);
         }
 
         private void btnALength_Click(object sender, EventArgs e)

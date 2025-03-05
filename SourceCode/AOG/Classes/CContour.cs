@@ -61,7 +61,7 @@ namespace AgOpenGPS
             double minDistance = double.MaxValue;
             int start, stop;
 
-            double toolContourDistance = (mf.tool.width * 3 + Math.Abs(mf.tool.offset));
+            double toolContourDistance = (Settings.Tool.toolWidth * 3 + Math.Abs(Settings.Tool.offset));
 
             //check if no strips yet, return
             int stripCount = stripList.Count;
@@ -129,8 +129,8 @@ namespace AgOpenGPS
                 //are we going same direction as stripList was created?
                 bool isSameWay = Math.PI - Math.Abs(Math.Abs(mf.fixHeading - stripList[stripNum][A].heading) - Math.PI) < 1.57;
 
-                double howManyPathsAway = Math.Round((distanceFromRefLine + (isSameWay ? mf.tool.offset : -mf.tool.offset))
-                                    / (mf.tool.width - mf.tool.overlap), MidpointRounding.AwayFromZero);
+                double howManyPathsAway = Math.Round((distanceFromRefLine + (isSameWay ? Settings.Tool.offset : -Settings.Tool.offset))
+                                    / (Settings.Tool.toolWidth - Settings.Tool.maxOverlap), MidpointRounding.AwayFromZero);
 
                 //beside what is done
                 if (howManyPathsAway < -1) howManyPathsAway = -1;
@@ -154,8 +154,8 @@ namespace AgOpenGPS
                     stop = pt + 20; if (stop > ptCount) stop = ptCount;
                 }
 
-                double distAway = (mf.tool.width - mf.tool.overlap) * howManyPathsAway
-                    + (isSameWay ? -mf.tool.offset : mf.tool.offset);
+                double distAway = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * howManyPathsAway
+                    + (isSameWay ? -Settings.Tool.offset : Settings.Tool.offset);
                 double distSqAway = (distAway * distAway) * 0.97;
 
                 for (int i = start; i < stop; i++)
@@ -223,8 +223,8 @@ namespace AgOpenGPS
         //Add current position to stripList
         public void AddPoint(vec3 pivot)
         {
-            ptList.Add(new vec3(pivot.easting + Math.Cos(pivot.heading) * mf.tool.offset,
-                pivot.northing - Math.Sin(pivot.heading) * mf.tool.offset,
+            ptList.Add(new vec3(pivot.easting + Math.Cos(pivot.heading) * Settings.Tool.offset,
+                pivot.northing - Math.Sin(pivot.heading) * Settings.Tool.offset,
                 pivot.heading));
         }
 
@@ -269,7 +269,7 @@ namespace AgOpenGPS
 
             signPass = -1;
             //determine how wide a headland space
-            totalHeadWidth = ((mf.tool.width - mf.tool.overlap) * 0.5) - spacingInt;
+            totalHeadWidth = ((Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5) - spacingInt;
 
             //totalHeadWidth = (mf.tool.toolWidth - mf.tool.toolOverlap) * 0.5 + 0.2 + (mf.tool.toolWidth - mf.tool.toolOverlap);
 

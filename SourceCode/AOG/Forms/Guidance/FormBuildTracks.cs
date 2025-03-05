@@ -705,13 +705,13 @@ namespace AgOpenGPS
 
                 if (isRefRightSide)
                 {
-                    dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
+                    dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5 + Settings.Tool.offset;
                     mf.trk.idx = idx;
                     mf.trk.NudgeRefTrack(dist);
                 }
                 else
                 {
-                    dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
+                    dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * -0.5 + Settings.Tool.offset;
                     mf.trk.idx = idx;
                     mf.trk.NudgeRefTrack(dist);
                 }

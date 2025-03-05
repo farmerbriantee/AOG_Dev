@@ -338,8 +338,6 @@ namespace AgOpenGPS
             public CNozzleSettings setNozz = new CNozzleSettings();
             public CToolSteerSettings setToolSteer = new CToolSteerSettings();
 
-            public bool setApp_isNozzleApp = false;
-
             public bool isDisplayTramControl = true;
             public bool isSectionOffWhenOut = true;
             public bool isSectionsNotZones = true;

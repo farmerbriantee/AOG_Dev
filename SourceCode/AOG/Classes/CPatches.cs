@@ -43,7 +43,7 @@ namespace AgOpenGPS
                 //starting a new patch chunk so create a new triangle list
                 triangleList = new List<vec3>(32);
 
-                if (mf.tool.isMultiColoredSections && mf.tool.isSectionsNotZones)
+                if (Settings.Tool.setColor_isMultiColorSections && Settings.Tool.isSectionsNotZones)
                     triangleList.Add(new vec3(mf.tool.secColors[j].R, mf.tool.secColors[j].G, mf.tool.secColors[j].B));
                 else
                 {
@@ -136,7 +136,7 @@ namespace AgOpenGPS
                 triangleList = new List<vec3>(32);
 
                 //Add Patch colour
-                if (mf.tool.isMultiColoredSections && mf.tool.isSectionsNotZones)
+                if (Settings.Tool.setColor_isMultiColorSections && Settings.Tool.isSectionsNotZones)
                     triangleList.Add(new vec3(mf.tool.secColors[currentStartSectionNum].R, mf.tool.secColors[currentStartSectionNum].G, mf.tool.secColors[currentStartSectionNum].B));
                 else
                 {

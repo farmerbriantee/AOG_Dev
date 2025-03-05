@@ -817,7 +817,7 @@ namespace AgOpenGPS
             }
 
             //contour points
-            if (isFieldStarted && (contourTriggerDistance > (tool.width - tool.overlap) / 3.0
+            if (isFieldStarted && (contourTriggerDistance > (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) / 3.0
                 || contourTriggerDistance > sectionTriggerStepDistance))
             {
                 AddContourPoints();
@@ -858,16 +858,16 @@ namespace AgOpenGPS
 
             //guidance look ahead distance based on time or tool width at least 
             
-            double guidanceLookDist = (Math.Max(tool.width * 0.5, avgSpeed * 0.277777 * Settings.Vehicle.setAS_guidanceLookAheadTime));
+            double guidanceLookDist = (Math.Max(Settings.Tool.toolWidth * 0.5, avgSpeed * 0.277777 * Settings.Vehicle.setAS_guidanceLookAheadTime));
             guidanceLookPos.easting = pivotAxlePos.easting + (Math.Sin(fixHeading) * guidanceLookDist);
             guidanceLookPos.northing = pivotAxlePos.northing + (Math.Cos(fixHeading) * guidanceLookDist);
             
             //determine where the rigid vehicle hitch ends
-            hitchPos.easting = pivotAxlePos.easting + Math.Sin(fixHeading) * tool.hitchLength;
-            hitchPos.northing = pivotAxlePos.northing + Math.Cos(fixHeading) * tool.hitchLength;
+            hitchPos.easting = pivotAxlePos.easting + Math.Sin(fixHeading) * Settings.Tool.hitchLength;
+            hitchPos.northing = pivotAxlePos.northing + Math.Cos(fixHeading) * Settings.Tool.hitchLength;
 
             //tool attached via a trailing hitch
-            if (isGPSToolActive && tool.isToolTrailing && !tool.isToolTBT && !timerSim.Enabled)
+            if (isGPSToolActive && Settings.Tool.isToolTrailing && !Settings.Tool.isToolTBT && !timerSim.Enabled)
             {
                 tankPos.heading = fixHeading;
                 tankPos.easting = hitchPos.easting;
@@ -882,15 +882,15 @@ namespace AgOpenGPS
 
                 toolPos.heading = toolPivotPos.heading;
                 toolPos.easting = toolPivotPos.easting +
-                    (Math.Sin(toolPivotPos.heading) * (tool.trailingToolToPivotLength));
+                    (Math.Sin(toolPivotPos.heading) * (Settings.Tool.trailingToolToPivotLength));
                 toolPos.northing = toolPivotPos.northing +
-                    (Math.Cos(toolPivotPos.heading) * (tool.trailingToolToPivotLength));
+                    (Math.Cos(toolPivotPos.heading) * (Settings.Tool.trailingToolToPivotLength));
             }
 
-            else if (tool.isToolTrailing)
+            else if (Settings.Tool.isToolTrailing)
             {
                 double over;
-                if (tool.isToolTBT)
+                if (Settings.Tool.isToolTBT)
                 {
                     //Torriem rules!!!!! Oh yes, this is all his. Thank-you
                     if (distanceCurrentStepFix != 0)
@@ -904,16 +904,16 @@ namespace AgOpenGPS
 
                     if (over < 2.0 && startCounter > 50)
                     {
-                        tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (tool.tankTrailingHitchLength));
-                        tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (tool.tankTrailingHitchLength));
+                        tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (Settings.Tool.tankTrailingHitchLength));
+                        tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (Settings.Tool.tankTrailingHitchLength));
                     }
 
                     //criteria for a forced reset to put tool directly behind vehicle
                     if (over > 2.0 | startCounter < 51)
                     {
                         tankPos.heading = fixHeading;
-                        tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (tool.tankTrailingHitchLength));
-                        tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (tool.tankTrailingHitchLength));
+                        tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (Settings.Tool.tankTrailingHitchLength));
+                        tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (Settings.Tool.tankTrailingHitchLength));
                     }
                 }
                 else
@@ -935,23 +935,23 @@ namespace AgOpenGPS
 
                 if (over < 1.9 && startCounter > 50)
                 {
-                    toolPivotPos.easting = tankPos.easting + (Math.Sin(toolPivotPos.heading) * (tool.trailingHitchLength));
-                    toolPivotPos.northing = tankPos.northing + (Math.Cos(toolPivotPos.heading) * (tool.trailingHitchLength));
+                    toolPivotPos.easting = tankPos.easting + (Math.Sin(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength));
+                    toolPivotPos.northing = tankPos.northing + (Math.Cos(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength));
                 }
 
                 //criteria for a forced reset to put tool directly behind vehicle
                 if (over > 1.9 | startCounter < 51)
                 {
                     toolPivotPos.heading = tankPos.heading;
-                    toolPivotPos.easting = tankPos.easting + (Math.Sin(toolPivotPos.heading) * (tool.trailingHitchLength));
-                    toolPivotPos.northing = tankPos.northing + (Math.Cos(toolPivotPos.heading) * (tool.trailingHitchLength));
+                    toolPivotPos.easting = tankPos.easting + (Math.Sin(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength));
+                    toolPivotPos.northing = tankPos.northing + (Math.Cos(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength));
                 }
 
                 toolPos.heading = toolPivotPos.heading;
                 toolPos.easting = tankPos.easting + 
-                    (Math.Sin(toolPivotPos.heading) * (tool.trailingHitchLength - tool.trailingToolToPivotLength));
+                    (Math.Sin(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength - Settings.Tool.trailingToolToPivotLength));
                 toolPos.northing = tankPos.northing + 
-                    (Math.Cos(toolPivotPos.heading) * (tool.trailingHitchLength - tool.trailingToolToPivotLength));
+                    (Math.Cos(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength - Settings.Tool.trailingToolToPivotLength));
             }
 
             //rigidly connected to vehicle
@@ -971,18 +971,18 @@ namespace AgOpenGPS
         //used to increase triangle countExit when going around corners, less on straight
         private void CalculateSectionTriggerStepDistance()
         {
-            double distance = tool.width*0.75;
+            double distance = Settings.Tool.toolWidth*0.75;
             if (distance > 6) distance = 6;
 
             double twist = 0.2;
             //whichever is less
             if (tool.farLeftSpeed < tool.farRightSpeed)
             {
-                twist = tool.farLeftSpeed * (tool.width / 50) / tool.farRightSpeed * (50/ tool.width);
+                twist = tool.farLeftSpeed * (Settings.Tool.toolWidth / 50) / tool.farRightSpeed * (50/ Settings.Tool.toolWidth);
             }
             else
             {
-                twist = tool.farRightSpeed * (tool.width / 50) / tool.farLeftSpeed * (50 / tool.width);
+                twist = tool.farRightSpeed * (Settings.Tool.toolWidth / 50) / tool.farLeftSpeed * (50 / Settings.Tool.toolWidth);
             }
 
             twist *= twist;

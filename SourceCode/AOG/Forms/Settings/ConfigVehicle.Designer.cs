@@ -694,12 +694,11 @@ namespace AgOpenGPS
 
         private void nudTractorHitchLength_ValueChanged(object sender, EventArgs e)
         {
-            mf.tool.hitchLength = nudTractorHitchLength.Value;
+            Settings.Tool.hitchLength = nudTractorHitchLength.Value;
             if (!Settings.Tool.isToolFront)
             {
-                mf.tool.hitchLength *= -1;
+                Settings.Tool.hitchLength *= -1;
             }
-            Settings.Tool.hitchLength = mf.tool.hitchLength;
         }
 
         private void nudWheelbase_ValueChanged(object sender, EventArgs e)
@@ -741,7 +740,7 @@ namespace AgOpenGPS
                 mf.vehicle.vehicleType = 1;
                 Settings.Vehicle.setVehicle_vehicleType = 1;
 
-                if ( mf.tool.hitchLength < 0) mf.tool.hitchLength *= -1;
+                if ( Settings.Tool.hitchLength < 0) Settings.Tool.hitchLength *= -1;
 
                 Settings.Tool.isToolFront = true;
                 Settings.Tool.isToolTBT = false;

@@ -120,7 +120,7 @@ namespace AgOpenGPS
 
         private void FormConfig_Load(object sender, EventArgs e)
         {
-            lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * glm.m2InchOrCm));
+            lblVehicleToolWidth.Text = Convert.ToString((int)(Settings.Tool.toolWidth * glm.m2InchOrCm));
             SectionFeetInchesTotalWidthLabelUpdate();
 
             lblSaveAs.Text = gStr.Get(gs.gsSaveAs);
@@ -262,7 +262,7 @@ namespace AgOpenGPS
             Settings.User.isMetric = false;
             mf.ChangeMetricImperial();
 
-            lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * glm.m2InchOrCm));
+            lblVehicleToolWidth.Text = Convert.ToString((int)(Settings.Tool.toolWidth * glm.m2InchOrCm));
             SectionFeetInchesTotalWidthLabelUpdate();
         }
 
@@ -274,7 +274,7 @@ namespace AgOpenGPS
             Settings.User.isMetric = true;
             mf.ChangeMetricImperial();
 
-            lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * glm.m2InchOrCm));
+            lblVehicleToolWidth.Text = Convert.ToString((int)(Settings.Tool.toolWidth * glm.m2InchOrCm));
             SectionFeetInchesTotalWidthLabelUpdate();
         }
 

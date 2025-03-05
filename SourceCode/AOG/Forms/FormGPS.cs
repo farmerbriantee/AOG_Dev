@@ -777,7 +777,7 @@ namespace AgOpenGPS
             btnZone7.Enabled = true;
             btnZone8.Enabled = true;
 
-            if (tool.isSectionsNotZones)
+            if (Settings.Tool.isSectionsNotZones)
             {
                 LineUpIndividualSectionBtns();
             }
@@ -844,7 +844,7 @@ namespace AgOpenGPS
             btnContour.Image = Properties.Resources.ContourOff;
             ct.isContourOn = false;
 
-            if (tool.isSectionsNotZones)
+            if (Settings.Tool.isSectionsNotZones)
             {
                 //Update the button colors and text
                 AllSectionsAndButtonsToState(btnStates.Off);
@@ -1058,9 +1058,9 @@ namespace AgOpenGPS
             camera.camSetDistance = Settings.User.setDisplay_camZoom * Settings.User.setDisplay_camZoom * -1;
 
             //match grid to cam distance and redo perspective
-            gridToolSpacing = (int)((camera.camSetDistance / -15) / tool.width + 0.5);
+            gridToolSpacing = (int)((camera.camSetDistance / -15) / Settings.Tool.toolWidth + 0.5);
             if (gridToolSpacing < 1) gridToolSpacing = 1;
-            camera.gridZoom = gridToolSpacing * tool.width;
+            camera.gridZoom = gridToolSpacing * Settings.Tool.toolWidth;
             ChangePerspective();
         }
 

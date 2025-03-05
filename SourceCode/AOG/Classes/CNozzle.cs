@@ -46,11 +46,11 @@
                 }
             }
 
-            mf.nozz.percentWidthBypass = (int)(mf.nozz.currentSectionsWidthMeters / mf.tool.width * 100);
+            mf.nozz.percentWidthBypass = (int)(mf.nozz.currentSectionsWidthMeters / Settings.Tool.toolWidth * 100);
 
             if (Settings.Tool.setNozz.isBypass)
             {
-                mf.nozz.currentSectionsWidthMeters = mf.tool.width;
+                mf.nozz.currentSectionsWidthMeters = Settings.Tool.toolWidth;
             }
 
             if (mf.nozz.currentSectionsWidthMeters != 0)

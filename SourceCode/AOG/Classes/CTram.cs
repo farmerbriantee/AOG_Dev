@@ -51,7 +51,7 @@ namespace AgOpenGPS
 
         public void IsTramOuterOrInner()
         {
-            isOuter = ((int)(Settings.Tool.tram_Width / mf.tool.width + 0.5)) % 2 == 0;
+            isOuter = ((int)(Settings.Tool.tram_Width / Settings.Tool.toolWidth + 0.5)) % 2 == 0;
             if (Settings.Tool.isTramOuterInverted) isOuter = !isOuter;
         }
 

@@ -41,7 +41,7 @@ namespace AgOpenGPS
             }
 
             //go set the butons and section states
-            if (tool.isSectionsNotZones)
+            if (Settings.Tool.isSectionsNotZones)
                 AllSectionsAndButtonsToState(manualBtnState);
             else
                 AllZonesAndButtonsToState(manualBtnState);
@@ -71,7 +71,7 @@ namespace AgOpenGPS
             }
 
             //go set the butons and section states
-            if (tool.isSectionsNotZones)
+            if (Settings.Tool.isSectionsNotZones)
                 AllSectionsAndButtonsToState(autoBtnState);
             else
                 AllZonesAndButtonsToState(autoBtnState);
@@ -314,7 +314,7 @@ namespace AgOpenGPS
 
             int buttonMaxWidth = 360, buttonHeight = 35;
 
-            if (tool.isSectionsNotZones)
+            if (Settings.Tool.isSectionsNotZones)
             {
                 //if (!isFieldStarted) top = Height - 40;
 
@@ -539,7 +539,7 @@ namespace AgOpenGPS
         //function to set section positions
         public void SectionSetPosition()
         {
-            if (tool.isSectionsNotZones)
+            if (Settings.Tool.isSectionsNotZones)
             {
                 int count = tool.numOfSections;
                 double position = 0;
@@ -563,7 +563,7 @@ namespace AgOpenGPS
         //function to calculate the width of each section and update
         public void SectionCalcWidths()
         {
-            if (tool.isSectionsNotZones)
+            if (Settings.Tool.isSectionsNotZones)
             {
                 for (int j = 0; j < MAXSECTIONS; j++)
                 {
@@ -573,7 +573,7 @@ namespace AgOpenGPS
                 }
 
                 //calculate tool width based on extreme right and left values
-                tool.width = (section[tool.numOfSections - 1].positionRight) - (section[0].positionLeft);
+                Settings.Tool.toolWidth = (section[tool.numOfSections - 1].positionRight) - (section[0].positionLeft);
 
                 //left and right tool position
                 tool.farLeftPosition = section[0].positionLeft;
@@ -581,13 +581,13 @@ namespace AgOpenGPS
 
                 //find the right side pixel position
                 tool.rpXPosition = 250 + (int)(Math.Round(tool.farLeftPosition * 10, 0, MidpointRounding.AwayFromZero));
-                tool.rpWidth = (int)(Math.Round(tool.width * 10, 0, MidpointRounding.AwayFromZero));
+                tool.rpWidth = (int)(Math.Round(Settings.Tool.toolWidth * 10, 0, MidpointRounding.AwayFromZero));
             }
         }
 
         public void SectionCalcMulti()
         {
-            double leftside = tool.width / -2.0;
+            double leftside = Settings.Tool.toolWidth / -2.0;
             double defaultSectionWidth = Settings.Tool.sectionWidthMulti;
             double offset = Settings.Tool.offset;
             section[0].positionLeft = leftside+offset;
@@ -610,7 +610,7 @@ namespace AgOpenGPS
             section[tool.numOfSections - 1].rpSectionWidth = (int)(Math.Round(section[tool.numOfSections - 1].sectionWidth * 10, 0, MidpointRounding.AwayFromZero));
 
             //calculate tool width based on extreme right and left values
-            tool.width = (section[tool.numOfSections - 1].positionRight) - (section[0].positionLeft);
+            Settings.Tool.toolWidth = (section[tool.numOfSections - 1].positionRight) - (section[0].positionLeft);
 
             //left and right tool position
             tool.farLeftPosition = section[0].positionLeft;
@@ -618,12 +618,12 @@ namespace AgOpenGPS
 
             //find the right side pixel position
             tool.rpXPosition = 250 + (int)(Math.Round(tool.farLeftPosition * 10, 0, MidpointRounding.AwayFromZero));
-            tool.rpWidth = (int)(Math.Round(tool.width * 10, 0, MidpointRounding.AwayFromZero));
+            tool.rpWidth = (int)(Math.Round(Settings.Tool.toolWidth * 10, 0, MidpointRounding.AwayFromZero));
         }
 
         private void BuildMachineByte()
         {
-            if (tool.isSectionsNotZones)
+            if (Settings.Tool.isSectionsNotZones)
             {
                 PGN_254.pgn[PGN_254.sc1to8] = 0;
                 PGN_254.pgn[PGN_254.sc9to16] = 0;
@@ -715,7 +715,7 @@ namespace AgOpenGPS
                     mc.ssP[mc.swMain] = mc.ss[mc.swMain];
                 }  //Main or shpList SW
 
-                if (tool.isSectionsNotZones)
+                if (Settings.Tool.isSectionsNotZones)
                 {
                     #region NoZones
                     if (mc.ss[mc.swOnGr0] != 0)

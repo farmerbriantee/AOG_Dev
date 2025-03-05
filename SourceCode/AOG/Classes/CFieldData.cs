@@ -77,14 +77,14 @@ namespace AgOpenGPS
                 if (mf.avgSpeed > 2)
                 {
                     TimeSpan timeSpan = TimeSpan.FromHours(((areaBoundaryOuterLessInner - workedAreaTotal) * glm.m2ha
-                        / (mf.tool.width * mf.avgSpeed * 0.1)));
+                        / (Settings.Tool.toolWidth * mf.avgSpeed * 0.1)));
                     return timeSpan.Hours.ToString("00:") + timeSpan.Minutes.ToString("00") + '"';
                 }
                 else return "\u221E Hrs";
             }
         }
 
-        public string WorkRateHour => (mf.tool.width * mf.avgSpeed * glm.m22HaOrAc * 1000).ToString("N1") + glm.unitsHaOrAcHr;
+        public string WorkRateHour => (Settings.Tool.toolWidth * mf.avgSpeed * glm.m22HaOrAc * 1000).ToString("N1") + glm.unitsHaOrAcHr;
 
         //constructor
         public CFieldData(FormGPS _f)
@@ -131,11 +131,11 @@ namespace AgOpenGPS
             sb.AppendLine();
             sb.AppendFormat("Missing Acres: {0}", ((areaBoundaryOuterLessInner - workedAreaTotal) * glm.m2ac).ToString("N2"));
             sb.AppendLine();
-            sb.AppendFormat("Tool Width: {0}", mf.tool.width);
+            sb.AppendFormat("Tool Width: {0}", Settings.Tool.toolWidth);
             sb.AppendLine();
             sb.AppendFormat("Sections: {0}", mf.tool.numOfSections);
             sb.AppendLine();
-            sb.AppendFormat("Section Overlap: {0}", mf.tool.overlap);
+            sb.AppendFormat("Section Overlap: {0}", Settings.Tool.maxOverlap);
             sb.AppendLine();
             return sb.ToString();
         }

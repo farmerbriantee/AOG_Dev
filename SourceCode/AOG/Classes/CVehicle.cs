@@ -150,22 +150,22 @@ namespace AgOpenGPS
             //draw vehicle
             GL.Rotate(glm.toDegrees(-mf.fixHeading), 0.0, 0.0, 1.0);
             //mf.font.DrawText3D(0, 0, "&TGF");
-            if (!mf.tool.isToolFrontFixed)
+            if (!Settings.Tool.isToolFront)
             {
-                if (!mf.tool.isToolRearFixed)
+                if (!Settings.Tool.isToolRearFixed)
                 {
                     GL.LineWidth(4);
                     //draw the rigid hitch
                     GL.Color3(0, 0, 0);
                     GL.Begin(PrimitiveType.Lines);
-                    GL.Vertex3(0, mf.tool.hitchLength, 0);
+                    GL.Vertex3(0, Settings.Tool.hitchLength, 0);
                     GL.Vertex3(0, 0, 0);
                     GL.End();
 
                     GL.LineWidth(1);
                     GL.Color3(1.237f, 0.037f, 0.0397f);
                     GL.Begin(PrimitiveType.Lines);
-                    GL.Vertex3(0, mf.tool.hitchLength, 0);
+                    GL.Vertex3(0, Settings.Tool.hitchLength, 0);
                     GL.Vertex3(0, 0, 0);
                     GL.End();
                 }
@@ -175,18 +175,18 @@ namespace AgOpenGPS
                     //draw the rigid hitch
                     GL.Color3(0, 0, 0);
                     GL.Begin(PrimitiveType.Lines);
-                    GL.Vertex3(-0.35, mf.tool.hitchLength, 0);
+                    GL.Vertex3(-0.35, Settings.Tool.hitchLength, 0);
                     GL.Vertex3(-0.350, 0, 0);
-                    GL.Vertex3(0.35, mf.tool.hitchLength, 0);
+                    GL.Vertex3(0.35, Settings.Tool.hitchLength, 0);
                     GL.Vertex3(0.350, 0, 0);
                     GL.End();
 
                     GL.LineWidth(1);
                     GL.Color3(1.237f, 0.037f, 0.0397f);
                     GL.Begin(PrimitiveType.Lines);
-                    GL.Vertex3(-0.35, mf.tool.hitchLength, 0);
+                    GL.Vertex3(-0.35, Settings.Tool.hitchLength, 0);
                     GL.Vertex3(-0.35, 0, 0);
-                    GL.Vertex3(0.35, mf.tool.hitchLength, 0);
+                    GL.Vertex3(0.35, Settings.Tool.hitchLength, 0);
                     GL.Vertex3(0.35, 0, 0);
                     GL.End();
                 }

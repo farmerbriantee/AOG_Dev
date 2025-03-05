@@ -1295,7 +1295,7 @@ namespace AgOpenGPS
             isFirstHeadingSet = false;
             startCounter = 0;
 
-            if (tool.isSectionsNotZones)
+            if (Settings.Tool.isSectionsNotZones)
             {
                 LineUpIndividualSectionBtns();
             }
@@ -1315,7 +1315,7 @@ namespace AgOpenGPS
         }
         private void colorsSectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (tool.isSectionsNotZones)
+            if (Settings.Tool.isSectionsNotZones)
             {
                 using (var form = new FormColorSection(this))
                 {
@@ -1577,12 +1577,12 @@ namespace AgOpenGPS
         private void btnResetToolHeading_Click(object sender, EventArgs e)
         {
             tankPos.heading = fixHeading;
-            tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (tool.tankTrailingHitchLength));
-            tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (tool.tankTrailingHitchLength));
+            tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (Settings.Tool.tankTrailingHitchLength));
+            tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (Settings.Tool.tankTrailingHitchLength));
             
             toolPivotPos.heading = tankPos.heading;
-            toolPivotPos.easting = tankPos.easting + (Math.Sin(toolPivotPos.heading) * (tool.trailingHitchLength));
-            toolPivotPos.northing = tankPos.northing + (Math.Cos(toolPivotPos.heading) * (tool.trailingHitchLength));
+            toolPivotPos.easting = tankPos.easting + (Math.Sin(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength));
+            toolPivotPos.northing = tankPos.northing + (Math.Cos(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength));
         }
         private void btnTramDisplayMode_Click(object sender, EventArgs e)
         {
@@ -1778,7 +1778,7 @@ namespace AgOpenGPS
                     {
                         //FileCreateElevation();
 
-                        if (tool.isSectionsNotZones)
+                        if (Settings.Tool.isSectionsNotZones)
                         {
                             //Update the button colors and text
                             AllSectionsAndButtonsToState(btnStates.Off);

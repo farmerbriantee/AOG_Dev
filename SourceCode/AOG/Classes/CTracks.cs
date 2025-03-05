@@ -76,7 +76,7 @@ namespace AgOpenGPS
 
         public async void GetDistanceFromRefTrack(vec3 pivot)
         {
-            double widthMinusOverlap = mf.tool.width - mf.tool.overlap;
+            double widthMinusOverlap = Settings.Tool.toolWidth - Settings.Tool.maxOverlap;
 
             CTrk track = gArr[idx];
 
@@ -114,13 +114,13 @@ namespace AgOpenGPS
 
                 distanceFromRefLine -= (0.5 * widthMinusOverlap);
 
-                double RefDist = (distanceFromRefLine + (isHeadingSameWay ? mf.tool.offset : -mf.tool.offset) - track.nudgeDistance) / widthMinusOverlap;
+                double RefDist = (distanceFromRefLine + (isHeadingSameWay ? Settings.Tool.offset : -Settings.Tool.offset) - track.nudgeDistance) / widthMinusOverlap;
 
                 if (RefDist < 0) howManyPathsAway = (int)(RefDist - 0.5);
                 else howManyPathsAway = (int)(RefDist + 0.5);
             }
 
-            if (!isTrackValid || howManyPathsAway != lastHowManyPathsAway || (isHeadingSameWay != lastIsHeadingSameWay && mf.tool.offset != 0))
+            if (!isTrackValid || howManyPathsAway != lastHowManyPathsAway || (isHeadingSameWay != lastIsHeadingSameWay && Settings.Tool.offset != 0))
             {
                 if (!isBusyWorking)
                 {
@@ -131,7 +131,7 @@ namespace AgOpenGPS
                         isTrackValid = true;
                         lastHowManyPathsAway = howManyPathsAway;
                         lastIsHeadingSameWay = isHeadingSameWay;
-                        double distAway = widthMinusOverlap * howManyPathsAway + (isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) + track.nudgeDistance;
+                        double distAway = widthMinusOverlap * howManyPathsAway + (isHeadingSameWay ? -Settings.Tool.offset : Settings.Tool.offset) + track.nudgeDistance;
 
                         distAway += (0.5 * widthMinusOverlap);
 
@@ -141,7 +141,7 @@ namespace AgOpenGPS
                         mf.gyd.isFindGlobalNearestTrackPoint = true;
 
                         guideArr?.Clear();
-                        if (Settings.User.isSideGuideLines && mf.camera.camSetDistance > mf.tool.width * -400)
+                        if (Settings.User.isSideGuideLines && mf.camera.camSetDistance > Settings.Tool.toolWidth * -400)
                         {
                             //build the list list of guide lines
                             guideArr = await Task.Run(() => BuildTrackGuidelines(distAway, mf.trk.numGuideLines, track));
@@ -206,7 +206,7 @@ namespace AgOpenGPS
                 {
                     vec3 point;
 
-                    double step = (mf.tool.width - mf.tool.overlap) * 0.4;
+                    double step = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.4;
                     if (step > 2) step = 2;
                     if (step < 0.5) step = 0.5;
 
@@ -422,16 +422,16 @@ namespace AgOpenGPS
 
                     newGuideLL.Add(newGuideList);
 
-                    double nextGuideDist = (mf.tool.width - mf.tool.overlap) * numGuides +
-                        (isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) ;
+                    double nextGuideDist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * numGuides +
+                        (isHeadingSameWay ? -Settings.Tool.offset : Settings.Tool.offset) ;
 
-                    //nextGuideDist += (0.5 * (mf.tool.width - mf.tool.overlap));
+                    //nextGuideDist += (0.5 * (Settings.Tool.toolWidth - Settings.Tool.maxOverlap));
 
                     nextGuideDist += distAway;
 
                     vec3 point;
 
-                    double step = (mf.tool.width - mf.tool.overlap) * 0.48;
+                    double step = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.48;
                     if (step > 4) step = 4;
                     if (step < 1) step = 1;
 
@@ -859,12 +859,12 @@ namespace AgOpenGPS
             double dist;
             if (isRefRightSide)
             {
-                dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
+                dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5 + Settings.Tool.offset;
                 NudgeRefTrack(dist);
             }
             else
             {
-                dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
+                dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * -0.5 + Settings.Tool.offset;
                 NudgeRefTrack(dist);
             }
 

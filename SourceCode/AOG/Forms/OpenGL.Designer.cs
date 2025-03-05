@@ -1049,7 +1049,7 @@ namespace AgOpenGPS
             #region Tram Painting
             ///////////////////////////////////////////  Tram control  ///////////////////////////////////////////
 
-            if (tram.displayMode > 0 && tool.width > vehicle.trackWidth)
+            if (tram.displayMode > 0 && Settings.Tool.toolWidth > vehicle.trackWidth)
             {
                 tram.controlByte = 0;
                 //1 pixels in is there a tram line?
@@ -1195,12 +1195,12 @@ namespace AgOpenGPS
                     }
 
                     //check for off
-                    int coverage = (end - start + 1) - ((end - start + 1) * tool.minCoverage) / 100;
+                    int coverage = (end - start + 1) - ((end - start + 1) * Settings.Tool.minCoverage) / 100;
 
                     if (onCount > coverage) section[j].sectionOnRequest = true;
                     else section[j].sectionOnRequest = false;
 
-                    coverage = ((end - start + 1) * tool.minCoverage) / 100;
+                    coverage = ((end - start + 1) * Settings.Tool.minCoverage) / 100;
                     if (offCount < (coverage) && section[j].sectionOnRequest == false)
                         section[j].sectionOnRequest = true;
                 }
@@ -1253,9 +1253,9 @@ namespace AgOpenGPS
                     section[j].isSectionOn = true;
 
                 //turn off delay
-                if (tool.turnOffDelay > 0)
+                if (Settings.Tool.offDelay > 0)
                 {
-                    if (!section[j].sectionOffRequest) section[j].sectionOffTimer = (int)(gpsHz * tool.turnOffDelay);
+                    if (!section[j].sectionOffRequest) section[j].sectionOffTimer = (int)(gpsHz * Settings.Tool.offDelay);
 
                     if (section[j].sectionOffTimer > 0) section[j].sectionOffTimer--;
 
@@ -1288,10 +1288,10 @@ namespace AgOpenGPS
                         section[j].mappingOffTimer = (int)(Settings.Tool.lookAheadOff * gpsHz) + mappingFactor;
                     }
                 }
-                else if (tool.turnOffDelay > 0)
+                else if (Settings.Tool.offDelay > 0)
                 {
                     if (section[j].sectionOffRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
-                        section[j].mappingOffTimer = (int)(tool.turnOffDelay * gpsHz)+ mappingFactor;
+                        section[j].mappingOffTimer = (int)(Settings.Tool.offDelay * gpsHz)+ mappingFactor;
                 }
                 else
                 {
@@ -1358,7 +1358,7 @@ namespace AgOpenGPS
                             patch.TurnMappingOff();
                     }
                 }
-                else if (!tool.isMultiColoredSections)
+                else if (!Settings.Tool.setColor_isMultiColorSections)
                 {
                     //set the start and end positions from section points
                     for (int j = 0; j < tool.numOfSections; j++)
@@ -1409,7 +1409,7 @@ namespace AgOpenGPS
                             if (triStrip[j].newStartSectionNum != triStrip[j].currentStartSectionNum
                                 || triStrip[j].newEndSectionNum != triStrip[j].currentEndSectionNum)
                             {
-                                //if (tool.isSectionsNotZones)
+                                //if (Settings.Tool.isSectionsNotZones)
                                 {
                                     triStrip[j].AddMappingPoint();
                                 }
@@ -1437,7 +1437,7 @@ namespace AgOpenGPS
                         }
                     }
                 }
-                else if (tool.isMultiColoredSections) //could be else only but this is more clear
+                else if (Settings.Tool.setColor_isMultiColorSections) //could be else only but this is more clear
                 {
                     //set the start and end positions from section points
                     for (int j = 0; j < tool.numOfSections; j++)

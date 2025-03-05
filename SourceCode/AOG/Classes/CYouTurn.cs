@@ -110,7 +110,7 @@ namespace AgOpenGPS
         {
             //TODO: is calculated many taimes after the priveous turn is complete
             //grab the vehicle widths and offsets
-            double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
+            double turnOffset = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * rowSkipsWidth + (isTurnLeft ? -Settings.Tool.offset * 2.0 : Settings.Tool.offset * 2.0);
             pointSpacing = youTurnRadius * 0.1;
 
             if (uTurnStyle == 0)
@@ -151,7 +151,7 @@ namespace AgOpenGPS
             CTrk track = mf.trk.gArr[mf.trk.idx];
 
             //grab the vehicle widths and offsets
-            double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
+            double turnOffset = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * rowSkipsWidth + (isTurnLeft ? -Settings.Tool.offset * 2.0 : Settings.Tool.offset * 2.0);
 
             switch (youTurnPhase)
             {
@@ -273,9 +273,9 @@ namespace AgOpenGPS
 
                 case 1:
                     //build the next line to add sequencelines
-                    double widthMinusOverlap = mf.tool.width - mf.tool.overlap;
+                    double widthMinusOverlap = Settings.Tool.toolWidth - Settings.Tool.maxOverlap;
 
-                    double distAway = widthMinusOverlap * (mf.trk.howManyPathsAway + ((isTurnLeft ^ mf.trk.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth)) + (mf.trk.isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) + track.nudgeDistance;
+                    double distAway = widthMinusOverlap * (mf.trk.howManyPathsAway + ((isTurnLeft ^ mf.trk.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth)) + (mf.trk.isHeadingSameWay ? -Settings.Tool.offset : Settings.Tool.offset) + track.nudgeDistance;
 
                     distAway += (0.5 * widthMinusOverlap);
 
@@ -479,9 +479,9 @@ namespace AgOpenGPS
 
                 case 1:
                     //build the next line to add sequencelines
-                    double widthMinusOverlap = mf.tool.width - mf.tool.overlap;
+                    double widthMinusOverlap = Settings.Tool.toolWidth - Settings.Tool.maxOverlap;
 
-                    double distAway = widthMinusOverlap * (mf.trk.howManyPathsAway + ((isTurnLeft ^ mf.trk.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth)) + (mf.trk.isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) + track.nudgeDistance;
+                    double distAway = widthMinusOverlap * (mf.trk.howManyPathsAway + ((isTurnLeft ^ mf.trk.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth)) + (mf.trk.isHeadingSameWay ? -Settings.Tool.offset : Settings.Tool.offset) + track.nudgeDistance;
 
                     distAway += (0.5 * widthMinusOverlap);
 
@@ -732,7 +732,7 @@ namespace AgOpenGPS
         public bool KStyleTurnCurve()
         {
             //grab the vehicle widths and offsets
-            double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
+            double turnOffset = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * rowSkipsWidth + (isTurnLeft ? -Settings.Tool.offset * 2.0 : Settings.Tool.offset * 2.0);
             double pointSpacing = youTurnRadius * 0.1;
 
             isHeadingSameWay = mf.trk.isHeadingSameWay;
@@ -1480,7 +1480,7 @@ namespace AgOpenGPS
             //else return;
 
             //grab the vehicle widths and offsets
-            double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth + (isTurnRight ? mf.tool.offset * 2.0 : -mf.tool.offset * 2.0);
+            double turnOffset = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * rowSkipsWidth + (isTurnRight ? Settings.Tool.offset * 2.0 : -Settings.Tool.offset * 2.0);
 
             CDubins dubYouTurnPath = new CDubins();
             CDubins.turningRadius = youTurnRadius;

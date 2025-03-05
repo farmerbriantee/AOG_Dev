@@ -25,7 +25,7 @@ namespace AgOpenGPS
 
         private void FormBoundaryPlayer_Load(object sender, EventArgs e)
         {
-            nudOffset.Value = mf.tool.width * 0.5;
+            nudOffset.Value = Settings.Tool.toolWidth * 0.5;
 
             if (Settings.User.isMetric)
             {
@@ -44,7 +44,7 @@ namespace AgOpenGPS
             btnLeftRight.Image = mf.bnd.isDrawRightSide ? Properties.Resources.BoundaryRight : Properties.Resources.BoundaryLeft;
             btnAntennaTool.Image = mf.bnd.isDrawAtPivot ? Properties.Resources.BoundaryRecordPivot : Properties.Resources.BoundaryRecordTool;
 
-            mf.bnd.createFenceOffset = (mf.tool.width * 0.5);
+            mf.bnd.createFenceOffset = (Settings.Tool.toolWidth * 0.5);
             mf.bnd.isFenceBeingMade = true;
             mf.Focus();
 

@@ -30,7 +30,6 @@
             //constructor
             mf = _f;
             volumePerAreaSetSelected = Settings.Tool.setNozz.volumePerAreaSet1;
-
         }
 
         public void BuildRatePGN()

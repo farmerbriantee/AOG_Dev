@@ -665,7 +665,6 @@ namespace AgOpenGPS
             }
         }
 
-
         public void PanelUpdateRightAndBottom()
         {
             if (isFieldStarted)
@@ -1242,6 +1241,7 @@ namespace AgOpenGPS
                 leftMouseDownOnOpenGL = true;
             }
         }
+
         private void SpeedLimitExceeded()
         {
             TimedMessageBox(2000, gStr.Get(gs.gsTooFast), gStr.Get(gs.gsSlowDownBelow) + " "
@@ -1276,12 +1276,14 @@ namespace AgOpenGPS
                 for (int i = 0; i < flagCnt; i++) flagPts[i].ID = i + 1;
             }
         }
+
         public void EnableYouTurnButtons()
         {
             yt.ResetYouTurn();
             yt.isYouTurnBtnOn = false;
             btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
         }
+
         public void DisableYouTurnButtons()
         {
             yt.isYouTurnBtnOn = false;

@@ -72,7 +72,6 @@ namespace AgIO
             public bool setNTRIP_sendToUDP = true;
             public bool setPass_isOn = false;
 
-            public int setIP_thisPort = 9999;
             public bool setUDP_isOn = false;
             public byte etIP_SubnetOne = 192;
             public byte etIP_SubnetTwo = 168;
@@ -83,12 +82,10 @@ namespace AgIO
             public byte eth_loopThree = 255;
             public byte eth_loopFour = 255;
 
-            public int setIP_autoSteerPortTool = 18888;
-            public int setIP_thisPortTool = 19999;
-
             public bool setDisplay_isAutoRunGPS_Out = false;
 
             public CRadioChannel setRadio_Channels = new CRadioChannel();
+
             public bool setRadio_isOn = false;
             public string setPort_baudRateRadio = "9600";
             public string setPort_portNameRadio = "***";

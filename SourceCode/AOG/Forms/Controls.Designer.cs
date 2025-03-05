@@ -2008,22 +2008,6 @@ namespace AgOpenGPS
         #endregion
 
         #region OpenGL Window context Menu and functions
-        private void contextMenuStripOpenGL_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            //dont bring up menu if no flag selected
-            if (flagNumberPicked == 0) e.Cancel = true;
-        }
-        private void googleEarthOpenGLContextMenu_Click(object sender, EventArgs e)
-        {
-            if (isFieldStarted)
-            {
-                //save new copy of kml with selected flag and view in GoogleEarth
-                FileSaveSingleFlagKML(flagNumberPicked);
-
-                //Process.Start(@"C:\Program Files (x86)\Google\Google Earth\client\googleearth", workingDirectory + currentFieldDirectory + "\\Flags.KML");
-                Process.Start(Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Flag.KML"));
-            }
-        }
 
         private void lblHardwareMessage_Click(object sender, EventArgs e)
         {

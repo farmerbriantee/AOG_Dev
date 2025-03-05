@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -39,6 +41,15 @@ namespace AgOpenGPS
                 Top = 0;
                 Left = 0;
             }
+        }
+
+        //need to add button to this form
+        private void OpenGoogleEarthFlag_Click(object sender, EventArgs e)
+        {
+            //save new copy of kml with selected flag and view in GoogleEarth
+            mf.FileSaveSingleFlagKML(mf.flagNumberPicked);
+
+            Process.Start(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "Flag.KML"));
         }
 
         private void btnNorth_MouseDown(object sender, MouseEventArgs e)

@@ -30,9 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGPS));
-            this.contextMenuStripOpenGL = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.googleEarthOpenGLContextMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -219,7 +216,6 @@
             this.btnNozConfig = new System.Windows.Forms.Button();
             this.lblGPM_Set = new System.Windows.Forms.Label();
             this.lblAlgo = new System.Windows.Forms.Label();
-            this.contextMenuStripOpenGL.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripFlag.SuspendLayout();
             this.statusStripLeft.SuspendLayout();
@@ -234,32 +230,6 @@
             this.panelControlBox.SuspendLayout();
             this.tlpNozzle.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // contextMenuStripOpenGL
-            // 
-            this.contextMenuStripOpenGL.AutoSize = false;
-            this.contextMenuStripOpenGL.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSeparator5,
-            this.googleEarthOpenGLContextMenu});
-            this.contextMenuStripOpenGL.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Table;
-            this.contextMenuStripOpenGL.Name = "contextMenuStripOpenGL";
-            this.contextMenuStripOpenGL.Size = new System.Drawing.Size(72, 160);
-            this.contextMenuStripOpenGL.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripOpenGL_Opening);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(68, 6);
-            // 
-            // googleEarthOpenGLContextMenu
-            // 
-            this.googleEarthOpenGLContextMenu.AutoSize = false;
-            this.googleEarthOpenGLContextMenu.Image = global::AgOpenGPS.Properties.Resources.GoogleEarth;
-            this.googleEarthOpenGLContextMenu.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.googleEarthOpenGLContextMenu.Name = "googleEarthOpenGLContextMenu";
-            this.googleEarthOpenGLContextMenu.Size = new System.Drawing.Size(70, 70);
-            this.googleEarthOpenGLContextMenu.Text = ".";
-            this.googleEarthOpenGLContextMenu.Click += new System.EventHandler(this.googleEarthOpenGLContextMenu_Click);
             // 
             // menuStrip1
             // 
@@ -648,7 +618,6 @@
             // btnResetSim
             // 
             this.btnResetSim.BackColor = System.Drawing.Color.Transparent;
-            this.btnResetSim.ContextMenuStrip = this.contextMenuStripFlag;
             this.btnResetSim.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnResetSim.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnResetSim.Font = new System.Drawing.Font("Tahoma", 9.75F);
@@ -664,7 +633,6 @@
             // btnResetSteerAngle
             // 
             this.btnResetSteerAngle.BackColor = System.Drawing.Color.Transparent;
-            this.btnResetSteerAngle.ContextMenuStrip = this.contextMenuStripFlag;
             this.btnResetSteerAngle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnResetSteerAngle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnResetSteerAngle.Font = new System.Drawing.Font("Tahoma", 9.75F);
@@ -911,7 +879,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.oglMain.BackColor = System.Drawing.Color.Black;
-            this.oglMain.ContextMenuStrip = this.contextMenuStripOpenGL;
             this.oglMain.Location = new System.Drawing.Point(250, 50);
             this.oglMain.Margin = new System.Windows.Forms.Padding(0);
             this.oglMain.Name = "oglMain";
@@ -1189,7 +1156,6 @@
             this.btnSimSetSpeedToZero.BackColor = System.Drawing.Color.Transparent;
             this.btnSimSetSpeedToZero.BackgroundImage = global::AgOpenGPS.Properties.Resources.AutoStop;
             this.btnSimSetSpeedToZero.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSimSetSpeedToZero.ContextMenuStrip = this.contextMenuStripFlag;
             this.btnSimSetSpeedToZero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimSetSpeedToZero.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.btnSimSetSpeedToZero.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -1206,7 +1172,6 @@
             this.btnSimReverseDirection.BackColor = System.Drawing.Color.Transparent;
             this.btnSimReverseDirection.BackgroundImage = global::AgOpenGPS.Properties.Resources.Youturn80;
             this.btnSimReverseDirection.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSimReverseDirection.ContextMenuStrip = this.contextMenuStripFlag;
             this.btnSimReverseDirection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimReverseDirection.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.btnSimReverseDirection.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -3201,7 +3166,6 @@
             this.Load += new System.EventHandler(this.FormGPS_Load);
             this.ResizeEnd += new System.EventHandler(this.FormGPS_ResizeEnd);
             this.Move += new System.EventHandler(this.FormGPS_Move);
-            this.contextMenuStripOpenGL.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.contextMenuStripFlag.ResumeLayout(false);
@@ -3238,9 +3202,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFlagRed;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuFlagGrn;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuFlagYel;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripOpenGL;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem googleEarthOpenGLContextMenu;
         private System.Windows.Forms.Button btnSection8Man;
         private System.Windows.Forms.Button btnSection7Man;
         private System.Windows.Forms.Button btnSection6Man;

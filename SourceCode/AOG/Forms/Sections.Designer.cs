@@ -110,7 +110,7 @@ namespace AgOpenGPS
                 {
                     if (tool.zoneRanges[val] != 0)//???
                     {
-                        btnStates state = GetNextState(section[tool.zoneRanges[val]].sectionBtnState);
+                        btnStates state = GetNextState(section[tool.zoneRanges[val] - 1].sectionBtnState);
                         IndividualZoneAndButtonToState(state, val == 1 ? 0 : tool.zoneRanges[val - 1], tool.zoneRanges[val], butt);
                     }
                 }

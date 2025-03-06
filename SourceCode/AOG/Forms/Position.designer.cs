@@ -597,7 +597,7 @@ namespace AgOpenGPS
 
                             if (yt.uTurnStyle == 0 && yt.youTurnPhase == 10)
                             {
-                                yt.SmoothYouTurn(6); //yt.uTurnSmoothing????
+                                //yt.SmoothYouTurn(6); //yt.uTurnSmoothing????
                             }
 
                             if (yt.isTurnCreationTooClose && !yt.turnTooCloseTrigger)

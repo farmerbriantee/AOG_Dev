@@ -996,7 +996,7 @@ namespace AgOpenGPS
                                     {
                                         if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                         {
-                                            yt.BuildManualYouTurn(false, true);
+                                            yt.BuildManualYouTurn(false);
                                         }
                                         else
                                         {
@@ -1016,7 +1016,7 @@ namespace AgOpenGPS
                                     {
                                         if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                         {
-                                            yt.BuildManualYouTurn(true, true);
+                                            yt.BuildManualYouTurn(true);
                                         }
                                         else
                                         {

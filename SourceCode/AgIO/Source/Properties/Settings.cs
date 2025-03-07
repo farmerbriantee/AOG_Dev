@@ -84,7 +84,7 @@ namespace AgIO
 
             public bool setDisplay_isAutoRunGPS_Out = false;
 
-            public CRadioChannel setRadio_Channels = new CRadioChannel();
+            public List<CRadioChannel> setRadio_Channels = new List<CRadioChannel>();
 
             public bool setRadio_isOn = false;
             public string setPort_baudRateRadio = "9600";

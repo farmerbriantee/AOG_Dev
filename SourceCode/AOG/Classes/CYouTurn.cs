@@ -128,7 +128,7 @@ namespace AgOpenGPS
                     {
                         if (track.mode == TrackMode.waterPivot || track.mode == TrackMode.bndCurve)
                         {
-                            youTurnPhase = 245;//ignore
+                            youTurnPhase = 251;//ignore
                         }
                         else
                             FailCreate();
@@ -1028,7 +1028,7 @@ namespace AgOpenGPS
             isOutOfBounds = true;
             isTurnCreationTooClose = true;
             mf.mc.isOutOfBounds = true;
-            youTurnPhase = 240;//error
+            youTurnPhase = 250;//error
         }
 
         public void BuildManualYouLateral(bool isTurnLeft)

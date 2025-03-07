@@ -579,7 +579,7 @@ namespace AgOpenGPS
                     {
                         mc.isOutOfBounds = false;
                         //now check to make sure we are not in an inner turn boundary - drive thru is ok
-                        if (yt.youTurnPhase < 245)
+                        if (yt.youTurnPhase < 240)
                         {
                             if (crossTrackError > 1)
                             {

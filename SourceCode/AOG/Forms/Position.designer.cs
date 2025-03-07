@@ -579,7 +579,7 @@ namespace AgOpenGPS
                     {
                         mc.isOutOfBounds = false;
                         //now check to make sure we are not in an inner turn boundary - drive thru is ok
-                        if (yt.youTurnPhase != 10)
+                        if (yt.youTurnPhase < 245)
                         {
                             if (crossTrackError > 1)
                             {
@@ -590,8 +590,9 @@ namespace AgOpenGPS
                                 yt.BuildCurveDubinsYouTurn();
                             }
 
-                            if (yt.uTurnStyle == 0 && yt.youTurnPhase == 10)
+                            if (yt.uTurnStyle == 0 && yt.youTurnPhase == 254)
                             {
+                                yt.youTurnPhase = 255;
                                 //yt.SmoothYouTurn(6); //yt.uTurnSmoothing????
                             }
 

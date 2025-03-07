@@ -31,6 +31,9 @@ namespace AgIO
 
         //serial port gps is connected to
         public SerialPort spGPS = new SerialPort(Settings.User.setPort_portNameGPS, Settings.User.setPort_baudRateGPS, Parity.None, 8, StopBits.One);
+        
+        //serial port gps is connected to
+        public SerialPort spGPSOut = new SerialPort(Settings.User.setPort_portNameGPSOut, Settings.User.setPort_baudRateGPSOut, Parity.None, 8, StopBits.One);
 
         //serial port gps2 is connected to
         public SerialPort spGPS2 = new SerialPort(Settings.User.setPort_portNameGPS2, Settings.User.setPort_baudRateGPS2, Parity.None, 8, StopBits.One);
@@ -941,7 +944,6 @@ namespace AgIO
                 Settings.User.setPort_wasGPSConnected = true;
                 
                 lblGPS1Comm.Text = Settings.User.setPort_portNameGPS;
-                Settings.User.setPort_wasGPSConnected = true;
             }
         }
         public void CloseGPSPort()
@@ -1136,5 +1138,81 @@ namespace AgIO
 
             Settings.User.setPort_wasRtcmConnected = false;
         }
+
+        #region GPSOut
+
+        public void SendGPSOutPort(string gps)
+        {
+            try
+            {
+                if (spGPSOut.IsOpen)
+                {
+                    spGPSOut.WriteLine(gps);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public void OpenGPSOutPort()
+        {
+
+            if (spGPSOut.IsOpen)
+            {
+                //close it first
+                CloseGPSOutPort();
+            }
+
+
+            if (!spGPSOut.IsOpen)
+            {
+                spGPSOut.PortName = Settings.User.setPort_portNameGPSOut;
+                spGPSOut.BaudRate = Settings.User.setPort_baudRateGPSOut;
+                spGPSOut.WriteTimeout = 1000;
+            }
+
+            try { spGPSOut.Open(); }
+            catch (Exception ex)
+            {
+                Log.EventWriter("Catch - > Serial GPSOut Open Fail: " + ex.ToString());
+            }
+
+            if (spGPSOut.IsOpen)
+            {
+                //discard any stuff in the buffers
+                spGPSOut.DiscardOutBuffer();
+                spGPSOut.DiscardInBuffer();
+
+                Settings.User.setPort_wasGPSOutConnected = true;
+
+                lblGPSOut1Comm.Text = Settings.User.setPort_portNameGPSOut;
+            }
+        }
+        public void CloseGPSOutPort()
+        {
+            //if (sp.IsOpen)
+            {
+                //spGPSOut.DataReceived -= sp_DataReceivedGPSOut;
+                try { spGPSOut.Close(); }
+                catch (Exception e)
+                {
+                    Log.EventWriter("Closing GPSOut Port" + e.ToString());
+                    MessageBox.Show(e.Message, "Connection already terminated?");
+                }
+
+                //update port status labels
+                //stripPortGPSOut.Text = " * * " + baudRateGPSOut.ToString();
+                //stripPortGPSOut.ForeColor = Color.ForestGreen;
+                //stripOnlineGPSOut.Value = 1;
+                spGPSOut.Dispose();
+            }
+            lblGPSOut1Comm.Text = "---";
+            Settings.User.setPort_wasGPSOutConnected = false;
+
+        }
+
+        #endregion
+
     }//end class
 }//end namespace

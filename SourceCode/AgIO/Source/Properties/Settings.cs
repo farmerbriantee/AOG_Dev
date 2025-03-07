@@ -49,6 +49,11 @@ namespace AgIO
             public bool setMod_isIMUConnected = true;
             public bool setMod_isMachineConnected = true;
             public bool setMod_isSteerConnected = true;
+            
+            public string setPort_portNameGPSOut = "Out";
+            public int setPort_baudRateGPSOut = 9600;
+            public bool setMod_isGPSOutConnected = true;
+            public bool setPort_wasGPSOutConnected = false;
 
             public string setNTRIP_casterIP = "69.75.31.235";
             public string setNTRIP_casterURL = "NTRIP.itsware.net";

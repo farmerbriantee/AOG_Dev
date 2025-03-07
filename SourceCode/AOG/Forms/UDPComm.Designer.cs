@@ -726,8 +726,7 @@ namespace AgOpenGPS
         {
             if ((char)keyData == hotkeys[0]) //autosteer button on off
             {
-                btnAutoSteer.PerformClick();
-                if (!isBtnAutoSteerOn) TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Hotkey Triggered");
+                SetAutoSteerButton(!isBtnAutoSteerOn, "Hotkey Triggered");
                 return true;    // indicate that you handled this keystroke
             }
 

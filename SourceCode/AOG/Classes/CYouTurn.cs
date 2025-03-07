@@ -128,7 +128,7 @@ namespace AgOpenGPS
                     {
                         if (track.mode == TrackMode.waterPivot || track.mode == TrackMode.bndCurve)
                         {
-                            youTurnPhase = 11;//ignore
+                            youTurnPhase = 245;//ignore
                         }
                         else
                             FailCreate();
@@ -205,7 +205,7 @@ namespace AgOpenGPS
                                 ytList.Insert(0, pt);
 
                                 ytList = MoveTurnInsideTurnLine(ytList, head, false, false);
-                                youTurnPhase = 10;
+                                youTurnPhase = 254;
                                 return true;
                             }
                             else
@@ -460,7 +460,7 @@ namespace AgOpenGPS
                     isGoingStraightThrough = Math.PI - Math.Abs(Math.Abs(ytList[ytList.Count - 2].heading - ytList[1].heading) - Math.PI) < glm.PIBy2;
                     ytList2?.Clear();
                     isOutOfBounds = false;
-                    youTurnPhase = 10;
+                    youTurnPhase = 254;
                     turnTooCloseTrigger = false;
                     isTurnCreationTooClose = false;
                     return true;
@@ -992,7 +992,6 @@ namespace AgOpenGPS
         {
             isYouTurnTriggered = false;
             ResetCreatedYouTurn();
-            mf.sounds.isBoundAlarming = false;
         }
 
         public void Set_Alternate_skips()
@@ -1005,18 +1004,16 @@ namespace AgOpenGPS
         //something went seriously wrong so reset everything
         public void ResetYouTurn()
         {
-            //fix you turn
-            isYouTurnTriggered = false;
-            ytList?.Clear();
-            ResetCreatedYouTurn();
-            mf.sounds.isBoundAlarming = false;
+            turnTooCloseTrigger = false;
             isTurnCreationTooClose = false;
             isTurnCreationNotCrossingError = false;
-            PGN_239.pgn[PGN_239.uturn] = 0;
+            ResetCreatedYouTurn();
         }
 
         public void ResetCreatedYouTurn()
         {
+            mf.sounds.isBoundAlarming = false;
+            isYouTurnTriggered = false;
             youTurnPhase = 0;
             ytList?.Clear();
             mf.makeUTurnCounter = 0;
@@ -1031,7 +1028,7 @@ namespace AgOpenGPS
             isOutOfBounds = true;
             isTurnCreationTooClose = true;
             mf.mc.isOutOfBounds = true;
-            youTurnPhase = 11;
+            youTurnPhase = 240;//error
         }
 
         public void BuildManualYouLateral(bool isTurnLeft)

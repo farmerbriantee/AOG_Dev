@@ -122,12 +122,8 @@ namespace AgOpenGPS
             isClosing = true;
             mf.trk.designPtsList?.Clear();
 
-            if (mf.isBtnAutoSteerOn)
-            {
-                mf.btnAutoSteer.PerformClick();
-                mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Return From Editing");
-            }
-            if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
+            mf.SetAutoSteerButton(false, "Return From Editing");
+            mf.SetYouTurnButton(false);
 
             mf.trk.gArr.Clear();
 
@@ -152,8 +148,7 @@ namespace AgOpenGPS
             mf.trk.isTrackValid = false;
             mf.trk.designPtsList?.Clear();
 
-            if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
-
+            mf.SetYouTurnButton(false);
             mf.FileSaveTracks();
 
             if (selectedItem > -1 && mf.trk.gArr.Count > 0 && mf.trk.gArr[selectedItem].isVisible)
@@ -189,12 +184,13 @@ namespace AgOpenGPS
                 {
                     idx = -1;
                     mf.DisableYouTurnButtons();
+
                     if (mf.isBtnAutoSteerOn)
                     {
-                        mf.btnAutoSteer.PerformClick();
-                        mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), gStr.Get(gs.gsNoGuidanceLines));
                         Log.EventWriter("Autosteer Stop, No Tracks Available");
                     }
+                    mf.SetAutoSteerButton(false, gStr.Get(gs.gsNoGuidanceLines));
+
                     Close();
                 }
             }
@@ -202,7 +198,7 @@ namespace AgOpenGPS
             {
                 idx = -1;
                 mf.DisableYouTurnButtons();
-                if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
+                mf.SetYouTurnButton(false);
 
                 //mf.trk.numCurveLineSelected = 0;
                 Close();

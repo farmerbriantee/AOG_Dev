@@ -368,12 +368,8 @@ namespace AgOpenGPS
             //{
             //    Log.EventWriter(": " + jumpDistance.ToString("N0") + " cm");
 
-            //    if (isBtnAutoSteerOn)
-            //    {
-            //        btnAutoSteer.PerformClick();
-            //        TimedMessageBox(3000, gStr.Get(gs.gsAutoSteer, "Big Jump in GPS position:" + jumpDistance.ToString("N0") + " cm");
-            //        Log.EventWriter("Autosteer Off, Jump in GPS position: " + jumpDistance.ToString("N0") + " cm");
-            //    }
+            //    SetAutoSteerButton(false, "Big Jump in GPS position:" + jumpDistance.ToString("N0") + " cm");
+            //    Log.EventWriter("Autosteer Off, Jump in GPS position: " + jumpDistance.ToString("N0") + " cm");
 
             //}
 
@@ -463,7 +459,7 @@ namespace AgOpenGPS
                 {
                     if (isBtnAutoSteerOn && avgSpeed > Settings.Vehicle.setAS_maxSteerSpeed)
                     {
-                        btnAutoSteer.PerformClick();
+                        SetAutoSteerButton(false, "Above Maximum Safe Steering Speed: " + (Settings.Vehicle.setAS_maxSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + glm.unitsKmhMph);
                     }
 
                     if (isBtnAutoSteerOn && avgSpeed < Settings.Vehicle.setAS_minSteerSpeed)
@@ -471,8 +467,7 @@ namespace AgOpenGPS
                         minSteerSpeedTimer++;
                         if (minSteerSpeedTimer > 80)
                         {
-                            btnAutoSteer.PerformClick();
-                            TimedMessageBox(3000, "AutoSteer Disabled", "Below Minimum Safe Steering Speed: " + (Settings.Vehicle.setAS_minSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + glm.unitsKmhMph);
+                            SetAutoSteerButton(false, "Below Minimum Safe Steering Speed: " + (Settings.Vehicle.setAS_minSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + glm.unitsKmhMph);
                             Log.EventWriter("Steer Off, Below Min Steering Speed");
                         }
                     }
@@ -584,7 +579,7 @@ namespace AgOpenGPS
                     {
                         mc.isOutOfBounds = false;
                         //now check to make sure we are not in an inner turn boundary - drive thru is ok
-                        if (yt.youTurnPhase != 10)
+                        if (yt.youTurnPhase < 245)
                         {
                             if (crossTrackError > 1)
                             {
@@ -595,8 +590,9 @@ namespace AgOpenGPS
                                 yt.BuildCurveDubinsYouTurn();
                             }
 
-                            if (yt.uTurnStyle == 0 && yt.youTurnPhase == 10)
+                            if (yt.uTurnStyle == 0 && yt.youTurnPhase == 254)
                             {
+                                yt.youTurnPhase = 255;
                                 //yt.SmoothYouTurn(6); //yt.uTurnSmoothing????
                             }
 
@@ -630,11 +626,6 @@ namespace AgOpenGPS
                                 yt.YouTurnTrigger();
                                 sounds.isBoundAlarming = false;
                             }
-
-                            //if (isBtnAutoSteerOn && guidanceLineDistanceOff > 300 && !yt.isYouTurnTriggered)
-                            //{
-                            //    yt.ResetCreatedYouTurn();
-                            //}
                         }
                     }
                     else

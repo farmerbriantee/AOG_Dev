@@ -51,21 +51,11 @@
             {
                 oldSteerSwitchRemote = steerSwitchHigh;
                 //steerSwith is active low
-                if (steerSwitchHigh == mf.isBtnAutoSteerOn)
-                {
-                    mf.btnAutoSteer.PerformClick();
-                }
+                mf.SetAutoSteerButton(!steerSwitchHigh, "");
 
                 if (Settings.Vehicle.setF_isSteerWorkSwitchEnabled)
                 {
-                    if ((mf.isBtnAutoSteerOn && true) || false && !steerSwitchHigh)
-                    {
-                        mf.SetWorkState(Settings.Vehicle.setF_isSteerWorkSwitchManualSections ? btnStates.On : btnStates.Auto);
-                    }
-                    else
-                    {
-                        mf.SetWorkState(btnStates.Off);
-                    }
+                    mf.SetWorkState(mf.isBtnAutoSteerOn ? (Settings.Vehicle.setF_isSteerWorkSwitchManualSections ? btnStates.On : btnStates.Auto) : btnStates.Off);
                 }
             }
 

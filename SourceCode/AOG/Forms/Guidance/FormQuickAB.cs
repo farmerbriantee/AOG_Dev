@@ -459,12 +459,9 @@ namespace AgOpenGPS
 
             mf.FileSaveTracks();
 
-            if (mf.isBtnAutoSteerOn)
-            {
-                mf.btnAutoSteer.PerformClick();
-                mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Return From Editing");
-            }
-            if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
+            mf.SetAutoSteerButton(false, "Return From Editing");
+
+            mf.SetYouTurnButton(false);
 
             mf.trk.isMakingABLine = false;
             mf.trk.designPtsList?.Clear();

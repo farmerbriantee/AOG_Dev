@@ -155,34 +155,35 @@ namespace AgOpenGPS
         public bool isABCyled = false;
         private void btnContour_Click(object sender, EventArgs e)
         {
-            ct.isContourBtnOn = !ct.isContourBtnOn;
-            btnContour.Image = ct.isContourBtnOn ? Properties.Resources.ContourOn : Properties.Resources.ContourOff;
-
-            if (ct.isContourBtnOn)
-            {
-                DisableYouTurnButtons();
-                //guidanceLookAheadTime = 0.5;
-                btnContourLock.Image = Resources.ColorUnlocked;
-                ct.isLocked = false;
-            }
-
-            else
-            {
-                EnableYouTurnButtons();
-
-                trk.isTrackValid = false;
-                ct.isLocked = false;
-                btnContourLock.Image = Resources.ColorUnlocked;
-                if (isBtnAutoSteerOn)
-                {
-                    btnAutoSteer.PerformClick();
-                    TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), gStr.Get(gs.gsContourOn));
-                }
-            }
-
-            PanelUpdateRightAndBottom();
+            SetContourButton(!ct.isContourBtnOn);
         }
-        
+
+        internal void SetContourButton(bool state)
+        {
+            if (ct.isContourBtnOn != state)
+            {
+                ct.isContourBtnOn = state;
+                btnContour.Image = state ? Properties.Resources.ContourOn : Properties.Resources.ContourOff;
+
+                btnContourLock.Image = Resources.ColorUnlocked;
+                ct.isLocked = false;
+
+                if (state)
+                {
+                    DisableYouTurnButtons();
+                }
+                else
+                {
+                    EnableYouTurnButtons();
+                    trk.isTrackValid = false;
+                    SetAutoSteerButton(false, gStr.Get(gs.gsContourOn));
+                }
+
+                PanelUpdateRightAndBottom();
+
+            }
+        }
+
         private void btnContourLock_Click(object sender, EventArgs e)
         {
             if (ct.isContourBtnOn)
@@ -196,8 +197,7 @@ namespace AgOpenGPS
         }
         private void btnTrack_Click(object sender, EventArgs e)
         {
-            //if contour is on, turn it off
-            if (ct.isContourBtnOn) { if (ct.isContourBtnOn) btnContour.PerformClick(); }
+            SetContourButton(false);
 
             if (trk.gArr.Count > 0)
             {
@@ -267,97 +267,78 @@ namespace AgOpenGPS
 
             PanelUpdateRightAndBottom();
         }
+
         private void btnAutoSteer_Click(object sender, EventArgs e)
         {
+            SetAutoSteerButton(!isBtnAutoSteerOn, "");
+        }
+
+        internal void SetAutoSteerButton(bool state, string reason)
+        {
+            if (state && (!ct.isContourBtnOn && trk.idx < 0))
+            {
+                state = false;
+                reason = gStr.Get(gs.gsTurnOnContourOrMakeABLine);
+            }
+
+            if (state && !timerSim.Enabled && avgSpeed > Settings.Vehicle.setAS_maxSteerSpeed)
+            {
+                state = false;
+                reason = "Above Maximum Safe Steering Speed: " + (Settings.Vehicle.setAS_maxSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + glm.unitsKmhMph;
+            }
+
             longAvgPivDistance = 0;
 
-            if (!timerSim.Enabled)
+            if (isBtnAutoSteerOn != state)
             {
-                if (avgSpeed > Settings.Vehicle.setAS_maxSteerSpeed)
+                isBtnAutoSteerOn = state;
+                btnAutoSteer.Image = state ? Properties.Resources.AutoSteerOn : Properties.Resources.AutoSteerOff;
+
+                if (Settings.User.sound_isAutoSteerOn)
                 {
-                    if (isBtnAutoSteerOn)
-                    {
-                        isBtnAutoSteerOn = false;
-                        btnAutoSteer.Image = Properties.Resources.AutoSteerOff;
-                        //if (yt.isYouTurnBtnOn) btnAutoYouTurn.PerformClick();
-                        if (Settings.User.sound_isAutoSteerOn) sounds.sndAutoSteerOff.Play();
-                    }
-
-                    Log.EventWriter("Steer Off, Above Max Safe Speed for Autosteer");
-
-                    TimedMessageBox(3000, "AutoSteer Disabled", "Above Maximum Safe Steering Speed: " + (Settings.Vehicle.setAS_maxSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + " " + glm.unitsKmhMph);
-
-                    return;
+                    if (state) sounds.sndAutoSteerOn.Play();
+                    else sounds.sndAutoSteerOff.Play();
                 }
-            }
 
-            if (isBtnAutoSteerOn)
-            {
-                isBtnAutoSteerOn = false;
-                btnAutoSteer.Image = Properties.Resources.AutoSteerOff;
-                //if (yt.isYouTurnBtnOn) btnAutoYouTurn.PerformClick();
-                if (Settings.User.sound_isAutoSteerOn) sounds.sndAutoSteerOff.Play();
-            }
-            else
-            {
-                if (ct.isContourBtnOn | trk.idx > -1)
+                if (state)
                 {
-                    isBtnAutoSteerOn = true;
-                    btnAutoSteer.Image = Properties.Resources.AutoSteerOn;
-                    if (Settings.User.sound_isAutoSteerOn) sounds.sndAutoSteerOn.Play();
-
-                    //redraw uturn if btn enabled.
-                    if (yt.isYouTurnBtnOn)
-                    {
-                        yt.ResetYouTurn();
-                    }
+                    yt.ResetYouTurn();
                 }
-                else
-                {
-                    TimedMessageBox(2000, gStr.Get(gs.gsNoGuidanceLines), gStr.Get(gs.gsTurnOnContourOrMakeABLine));
-                }
+                else if (reason != "")
+                    TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), reason);
             }
         }
 
         private void btnAutoYouTurn_Click(object sender, EventArgs e)
         {
-            yt.isTurnCreationTooClose = false;
+            SetYouTurnButton(!yt.isYouTurnBtnOn);
+        }
 
-            if (bnd.bndList.Count == 0)
-            {
-                TimedMessageBox(2000, gStr.Get(gs.gsNoBoundary), gStr.Get(gs.gsCreateABoundaryFirst));
-                Log.EventWriter("Uturn attempted without boundary");
-                return;
-            }
-
+        internal void SetYouTurnButton(bool state)
+        {
             yt.turnTooCloseTrigger = false;
 
-            if (!yt.isYouTurnBtnOn)
+            if (yt.isYouTurnBtnOn != state)
             {
-                //new direction so reset where to put turn diagnostic
-                yt.ResetCreatedYouTurn();
+                if (state)
+                {
+                    if (bnd.bndList.Count == 0)
+                    {
+                        state = false;
+                        TimedMessageBox(2000, gStr.Get(gs.gsNoBoundary), gStr.Get(gs.gsCreateABoundaryFirst));
+                        Log.EventWriter("Uturn attempted without boundary");
+                    }
 
-                if (trk.idx == -1) return;
+                    if (trk.idx == -1)
+                        state = false;
+                }
 
-                yt.isYouTurnBtnOn = true;
-                yt.isTurnCreationTooClose = false;
-                yt.isTurnCreationNotCrossingError = false;
+                yt.isYouTurnBtnOn = state;
+                btnAutoYouTurn.Image = state ? Properties.Resources.Youturn80 : Properties.Resources.YouTurnNo;
                 yt.ResetYouTurn();
-                btnAutoYouTurn.Image = Properties.Resources.Youturn80;
-            }
-            else
-            {
-                yt.isYouTurnBtnOn = false;
-                //yt.rowSkipsWidth = Properties.Settings.Default.set_youSkipWidth;
-                //yt.Set_Alternate_skips();
-
-                btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
-                yt.ResetYouTurn();
-
-                //new direction so reset where to put turn diagnostic
-                yt.ResetCreatedYouTurn();
             }
         }
+
         private void btnCycleLines_Click(object sender, EventArgs e)
         {
             if (trk.gArr.Count > 1)
@@ -376,13 +357,8 @@ namespace AgOpenGPS
                     }
                 }
 
-                if (isBtnAutoSteerOn)
-                {
-                    btnAutoSteer.PerformClick();
-                    TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Track Changed");
-                }
-
-                if (yt.isYouTurnBtnOn) btnAutoYouTurn.PerformClick();
+                SetAutoSteerButton(false, "Track Changed");
+                SetYouTurnButton(false);
 
                 lblNumCu.Text = (trk.idx + 1).ToString() + "/" + trk.gArr.Count.ToString();
             }
@@ -415,11 +391,7 @@ namespace AgOpenGPS
                     }
                 }
 
-                if (isBtnAutoSteerOn)
-                {
-                    btnAutoSteer.PerformClick();
-                    TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Track Changed");
-                }
+                SetAutoSteerButton(false, "Track Changed");
 
                 lblNumCu.Text = (trk.idx + 1).ToString() + "/" + trk.gArr.Count.ToString();
             }
@@ -503,8 +475,7 @@ namespace AgOpenGPS
         }
         private void btnBuildTracks_Click(object sender, EventArgs e)
         {
-            //if contour is on, turn it off
-            if (ct.isContourBtnOn) { if (ct.isContourBtnOn) btnContour.PerformClick(); }
+            SetContourButton(false);
 
             //check if window already exists
             Form fc = Application.OpenForms["FormBuildTracks"];
@@ -526,8 +497,7 @@ namespace AgOpenGPS
 
         private void btnPlusAB_Click(object sender, EventArgs e)
         {
-            //if contour is on, turn it off
-            if (ct.isContourBtnOn) { if (ct.isContourBtnOn) btnContour.PerformClick(); }
+            SetContourButton(false);
 
             //check if window already exists
             Form fc = Application.OpenForms["FormQuickAB"];
@@ -556,7 +526,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            if (ct.isContourBtnOn) { if (ct.isContourBtnOn) btnContour.PerformClick(); }
+            SetContourButton(false);
 
             if (flp1.Visible)
             {
@@ -734,7 +704,7 @@ namespace AgOpenGPS
 
         private void tramLinesMenuMulti_Click(object sender, EventArgs e)
         {
-            if (ct.isContourBtnOn) btnContour.PerformClick();
+            SetContourButton(false);
 
             if (trk.gArr.Count < 1 )
             {
@@ -1632,8 +1602,7 @@ namespace AgOpenGPS
                     cboxpRowWidth.Text = "1";
                 }
                 yt.Set_Alternate_skips();
-                yt.ResetCreatedYouTurn();
-                if (!yt.isYouTurnBtnOn) btnAutoYouTurn.PerformClick();
+                SetYouTurnButton(true);
             }
             else
             {

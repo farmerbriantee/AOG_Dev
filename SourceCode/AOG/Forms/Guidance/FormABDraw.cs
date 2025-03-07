@@ -96,12 +96,9 @@ namespace AgOpenGPS
                     mf.trk.idx = -1;
                     mf.trk.gArr.Clear();
                     mf.FileSaveTracks();
-                    if (mf.isBtnAutoSteerOn)
-                    {
-                        mf.btnAutoSteer.PerformClick();
-                        mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Return From Editing");
-                    }
-                    if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
+
+                    mf.SetAutoSteerButton(false, "Return From Editing");
+                    mf.SetYouTurnButton(false);
                 }
                 else
                 {
@@ -119,9 +116,8 @@ namespace AgOpenGPS
                         mf.trk.idx = indx;
                         if (mf.trk.idx != originalLine)
                         {
-                            if (mf.isBtnAutoSteerOn) mf.btnAutoSteer.PerformClick();
-                            mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Return From Editing");
-                            if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
+                            mf.SetAutoSteerButton(false, "Return From Editing");
+                            mf.SetYouTurnButton(false);
                         }
                     }
                     else
@@ -153,21 +149,16 @@ namespace AgOpenGPS
 
                             if (mf.trk.idx != originalLine)
                             {
-                                if (mf.isBtnAutoSteerOn)
-                                {
-                                    mf.btnAutoSteer.PerformClick();
-                                    mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Return From Editing");
-                                }
-                                if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
+                                mf.SetAutoSteerButton(false, "Return From Editing");
+                                mf.SetYouTurnButton(false);
                             }
                         }
                         else
                         {
                             mf.trk.idx = -1;
 
-                            mf.TimedMessageBox(2000, gStr.Get(gs.gsEditABLine), gStr.Get(gs.gsNoABLineActive));
-                            if (mf.isBtnAutoSteerOn) mf.btnAutoSteer.PerformClick();
-                            if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
+                            mf.SetAutoSteerButton(false, gStr.Get(gs.gsNoABLineActive));
+                            mf.SetYouTurnButton(false);
                         }
                     }
                 }

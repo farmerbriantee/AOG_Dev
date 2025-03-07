@@ -158,8 +158,7 @@ namespace AgOpenGPS
 
             //if (isBtnAutoSteerOn)
             {
-                //btnAutoSteer.PerformClick();
-                //TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Sim Reverse Touched");
+                //mf.SetAutoSteerButton(false, "Sim Reverse Touched");
                 //Log.EventWriter("Steer Off, Sim Reverse Activated");
             }
         }

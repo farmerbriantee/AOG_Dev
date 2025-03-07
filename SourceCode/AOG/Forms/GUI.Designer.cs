@@ -244,8 +244,7 @@ namespace AgOpenGPS
                 //Make sure it is off when it should
                 if (!ct.isContourBtnOn && trk.idx == -1 && isBtnAutoSteerOn)
                 {
-                    btnAutoSteer.PerformClick();
-                    TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), gStr.Get(gs.gsNoGuidanceLines));
+                    SetAutoSteerButton(false, gStr.Get(gs.gsNoGuidanceLines));
                     Log.EventWriter("Steer Safe Off, No Tracks, Idx -1");
                 }
 
@@ -643,10 +642,10 @@ namespace AgOpenGPS
                 {
                     if (isBtnAutoSteerOn)
                     {
-                        btnAutoSteer.PerformClick();
-                        TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), gStr.Get(gs.gsNoGuidanceLines));
                         Log.EventWriter("Steer Safe Off, No Tracks, Idx -1");
                     }
+                    SetAutoSteerButton(false, gStr.Get(gs.gsNoGuidanceLines));
+
                     btnAutoSteer.Enabled = false;
                 }
 
@@ -963,8 +962,6 @@ namespace AgOpenGPS
                             if (point.X > middle - 80 && point.X < middle + 80)
                             {
                                 SwapDirection();
-                                yt.turnTooCloseTrigger = false;
-                                yt.isTurnCreationTooClose = false;
                                 return;
                             }
 
@@ -1180,10 +1177,9 @@ namespace AgOpenGPS
             if (!yt.isYouTurnTriggered)
             {
                 yt.isTurnLeft = !yt.isTurnLeft;
-                yt.ResetCreatedYouTurn();
+                yt.ResetYouTurn();
             }
-            else if (yt.isYouTurnBtnOn)
-                btnAutoYouTurn.PerformClick();
+            else SetYouTurnButton(false);
         }
 
         //Function to delete flag

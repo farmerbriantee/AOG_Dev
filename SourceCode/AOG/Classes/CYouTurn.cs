@@ -992,7 +992,6 @@ namespace AgOpenGPS
         {
             isYouTurnTriggered = false;
             ResetCreatedYouTurn();
-            mf.sounds.isBoundAlarming = false;
         }
 
         public void Set_Alternate_skips()
@@ -1005,18 +1004,16 @@ namespace AgOpenGPS
         //something went seriously wrong so reset everything
         public void ResetYouTurn()
         {
-            //fix you turn
-            isYouTurnTriggered = false;
-            ytList?.Clear();
-            ResetCreatedYouTurn();
-            mf.sounds.isBoundAlarming = false;
+            turnTooCloseTrigger = false;
             isTurnCreationTooClose = false;
             isTurnCreationNotCrossingError = false;
-            PGN_239.pgn[PGN_239.uturn] = 0;
+            ResetCreatedYouTurn();
         }
 
         public void ResetCreatedYouTurn()
         {
+            mf.sounds.isBoundAlarming = false;
+            isYouTurnTriggered = false;
             youTurnPhase = 0;
             ytList?.Clear();
             mf.makeUTurnCounter = 0;

@@ -613,8 +613,7 @@ namespace AgOpenGPS
                             {
                                 if (Settings.Vehicle.setGPS_isRTK_KillAutoSteer && isBtnAutoSteerOn)
                                 {
-                                    btnAutoSteer.PerformClick();
-                                    TimedMessageBox(2000, "Autosteer Turned Off", "RTK Fix Alarm");
+                                    SetAutoSteerButton(false, "RTK Fix Alarm");
                                     Log.EventWriter("Autosteer Off, RTK Fix Alarm");
                                 }
 

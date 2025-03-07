@@ -299,8 +299,9 @@ namespace AgIO
                 //Send nmea to AgOpenGPS
                 mf.SendToLoopBackMessageAOG(nmeaPGN);
 
-                //Send nmea to autosteer module 8888
-                //if (isSendNMEAToUDP) mf.SendUDPMessage(nmeaPGN, mf.epModuleTool);
+                nmeaPGN.CopyTo(GPSOut.nmeaPGN, 0);
+
+                //if (mf.spGPSOut.IsOpen) GPSOut.BuildSentences();
             }
         }
 

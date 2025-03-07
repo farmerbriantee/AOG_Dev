@@ -109,6 +109,7 @@ namespace AgIO
             this.lblFromGPSTool = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.lblPingTool = new System.Windows.Forms.Label();
+            this.lblGPSOut1Comm = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -1149,6 +1150,19 @@ namespace AgIO
             this.lblPingTool.Text = "*";
             this.lblPingTool.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblGPSOut1Comm
+            // 
+            this.lblGPSOut1Comm.BackColor = System.Drawing.Color.Transparent;
+            this.lblGPSOut1Comm.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGPSOut1Comm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblGPSOut1Comm.Location = new System.Drawing.Point(180, 252);
+            this.lblGPSOut1Comm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblGPSOut1Comm.Name = "lblGPSOut1Comm";
+            this.lblGPSOut1Comm.Size = new System.Drawing.Size(52, 24);
+            this.lblGPSOut1Comm.TabIndex = 535;
+            this.lblGPSOut1Comm.Text = "com 21";
+            this.lblGPSOut1Comm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // FormLoop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
@@ -1157,6 +1171,7 @@ namespace AgIO
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(758, 489);
             this.ControlBox = false;
+            this.Controls.Add(this.lblGPSOut1Comm);
             this.Controls.Add(this.lblPingTool);
             this.Controls.Add(this.lblFromGPSTool);
             this.Controls.Add(this.btnGPSTool);
@@ -1312,6 +1327,7 @@ namespace AgIO
         private Label lblFromGPSTool;
         private Label label14;
         private Label lblPingTool;
+        private Label lblGPSOut1Comm;
     }
 }
 

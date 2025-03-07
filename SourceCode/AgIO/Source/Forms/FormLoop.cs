@@ -137,6 +137,13 @@ namespace AgIO
                 if (spGPS.IsOpen) lblGPS1Comm.Text = Settings.User.setPort_portNameGPS;
             }
 
+            //set baud and port from last time run
+            if (Settings.User.setPort_wasGPSOutConnected)
+            {
+                OpenGPSOutPort();
+                if (spGPSOut.IsOpen) lblGPSOut1Comm.Text = Settings.User.setPort_portNameGPSOut;
+            }
+
             // set baud and port for rtcm from last time run
             if (Settings.User.setPort_wasRtcmConnected)
             {
@@ -277,7 +284,7 @@ namespace AgIO
 
             if (Settings.User.setDisplay_isAutoRunGPS_Out)
             {
-                StartGPS_Out();
+                GPS_OutSettings();
                 Log.EventWriter("Run GPS_Out");
             }
         }
@@ -538,6 +545,15 @@ namespace AgIO
                     {
                         Settings.User.setPort_wasGPSConnected = false;
                         lblGPS1Comm.Text = "";
+                    }
+                }
+
+                if (Settings.User.setPort_wasGPSOutConnected)
+                {
+                    if (!spGPSOut.IsOpen)
+                    {
+                        Settings.User.setPort_wasGPSOutConnected = false;
+                        lblGPSOut1Comm.Text = "";
                     }
                 }
 

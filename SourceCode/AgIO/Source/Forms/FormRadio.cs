@@ -30,7 +30,7 @@ namespace AgIO
             _currentLon = mf.pnGPS.longitude;
 
             // Load radio channels
-            //_channels = Settings.User.setRadio_Channels;
+            _channels = Settings.User.setRadio_Channels;
 
             if (_channels == null)
             {

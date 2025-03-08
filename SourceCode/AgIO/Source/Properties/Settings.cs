@@ -54,6 +54,11 @@ namespace AgIO
             public int setPort_baudRateGPSOut = 9600;
             public bool setMod_isGPSOutConnected = true;
             public bool setPort_wasGPSOutConnected = false;
+            public int sendRateGGA = 0;
+            public int sendRateVTG = 0;
+            public int sendRateRMC = 0;
+            public int sendRateZDA = 0;
+            public string sendPrefixGPGN = "GP";
 
             public string setNTRIP_casterIP = "69.75.31.235";
             public string setNTRIP_casterURL = "NTRIP.itsware.net";

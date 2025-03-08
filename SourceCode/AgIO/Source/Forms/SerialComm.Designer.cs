@@ -33,7 +33,7 @@ namespace AgIO
         public SerialPort spGPS = new SerialPort(Settings.User.setPort_portNameGPS, Settings.User.setPort_baudRateGPS, Parity.None, 8, StopBits.One);
         
         //serial port gps is connected to
-        public SerialPort spGPSOut = new SerialPort(Settings.User.setPort_portNameGPSOut, Settings.User.setPort_baudRateGPSOut, Parity.None, 8, StopBits.One);
+        public static SerialPort spGPSOut = new SerialPort(Settings.User.setPort_portNameGPSOut, Settings.User.setPort_baudRateGPSOut, Parity.None, 8, StopBits.One);
 
         //serial port gps2 is connected to
         public SerialPort spGPS2 = new SerialPort(Settings.User.setPort_portNameGPS2, Settings.User.setPort_baudRateGPS2, Parity.None, 8, StopBits.One);
@@ -1147,7 +1147,7 @@ namespace AgIO
             {
                 if (spGPSOut.IsOpen)
                 {
-                    spGPSOut.WriteLine(gps);
+                    spGPSOut.Write(gps);
                 }
             }
             catch (Exception)

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AgIO
 {
@@ -14,165 +16,266 @@ namespace AgIO
         static StringBuilder sbVTG = new StringBuilder();
         static StringBuilder sbRMC = new StringBuilder();
 
-        public static string strGGA = "";
-        public static string strVTG = "";
-        public static string strOGI = "";
-        public static string strNDA = "";
-
-        public static double latitude = 0;
-
-        public static bool isValidGGA = false;
-        public static bool isValidNDA = false;
-        public static bool isValidOGI = false;
+        public static int counterGGA = 10, counterVTG = 10, counterRMC = 10;
 
 
-        //public static void BuildSentences()
-        //{
-        //    //GGA
-        //    sbGGA.Clear();
-        //    sbGGA.Append("$GPGGA,");
-        //    sbGGA.Append(DateTime.Now.ToString("HHmmss"));
-        //    sbGGA.Append(".000,");
-        //    sbGGA.Append(pn.latitude.ToString("00.000000"));
-        //    sbGGA.Append(",");
-        //    sbGGA.Append(pn.longitude.ToString("000.000000"));
-        //    sbGGA.Append(",1,04,");
-        //    sbGGA.Append(pn.hdop.ToString("0.0"));
-        //    sbGGA.Append(",");
-        //    sbGGA.Append(pn.altitude.ToString("0.0"));
-        //    sbGGA.Append(",M,0.0,M,,");
-        //    sbGGA.Append(pn.age.ToString("0.0"));
-        //    sbGGA.Append(",0000");
-        //    sbGGA.Append("*");
-        //    sbGGA.Append(CalcNMEAChecksum(sbGGA.ToString()));
-        //    sbGGA.Append("\r\n");
-        //    //VTG
-        //    sbVTG.Clear();
-        //    sbVTG.Append("$GPVTG,");
-        //    sbVTG.Append(pn.headingTrue.ToString("0.0"));
-        //    sbVTG.Append(",T,,M,");
-        //    sbVTG.Append(pn.vtgSpeed.ToString("0.0"));
-        //    sbVTG.Append(",N,,K");
-        //    sbVTG.Append("*");
-        //    sbVTG.Append(CalcNMEAChecksum(sbVTG.ToString()));
-        //    sbVTG.Append("\r\n");
-        //    //RMC
-        //    sbRMC.Clear();
-        //    sbRMC.Append("$GPRMC,");
-        //    sbRMC.Append(DateTime.Now.ToString("HHmmss"));
-        //    sbRMC.Append(".000,A,");
-        //    sbRMC.Append(pn.latitude.ToString("00.000000"));
-        //    sbRMC.Append(",N,");
-        //    sbRMC.Append(pn.longitude.ToString("000.000000"));
-        //    sbRMC.Append(",W,");
-        //    sbRMC.Append(pn.vtgSpeed.ToString("0.0"));
-        //    sbRMC.Append(",");
-        //    sbRMC.Append(pn.headingTrue.ToString("0.0"));
-        //    sbRMC.Append(",");
-        //    sbRMC.Append(DateTime.Now.ToString("ddMMyy"));
-        //    sbRMC.Append(",,,A");
-        //    sbRMC.Append("*");
-        //    sbRMC.Append(CalcNMEAChecksum(sbRMC.ToString()));
-        //    sbRMC.Append("\r\n");
-        //    //copy
+        //GPS related properties
+        static int fixQuality = 8, satellitesTracked = 12;
+        static double HDOP = 0.9, AGE = 1;
+        static double altitude = 300;
+        static char EW = 'W';
+        static char NS = 'N';
+        static double latDeg, latMinu, longDeg, longMinu, latNMEA, longNMEA;
+        static double speed = 0.6, headingTrue;
 
-        //public static void DecodeNMEA()
-        //{
-        //    double Lon = BitConverter.ToDouble(nmeaPGN, 5);
-        //    double Lat = BitConverter.ToDouble(nmeaPGN, 13);
+        public static void BuildSentences()
+        {
+            double latitude = BitConverter.ToDouble(nmeaPGN, 5);
+            double longitude = BitConverter.ToDouble(nmeaPGN, 13);
 
-        //    if (Lon != double.MaxValue && Lat != double.MaxValue)
-        //    {
+            if (longitude != double.MaxValue && latitude != double.MaxValue)
+            {
 
-        //        pn.longitude = Lon;
-        //        pn.latitude = Lat;
+                //convert to DMS from Degrees
+                latMinu = latitude;
+                longMinu = longitude;
 
-        //        if (!isGPSPositionInitialized)
-        //            pn.SetLocalMetersPerDegree(pn.latitude, pn.longitude);
+                latDeg = (int)latitude;
+                longDeg = (int)longitude;
 
-        //        pn.ConvertWGS84ToLocal(Lat, Lon, out pn.fix.northing, out pn.fix.easting);
+                latMinu -= latDeg;
+                longMinu -= longDeg;
 
-        //        //From dual antenna heading sentences
-        //        float temp = BitConverter.ToSingle(nmeaPGN, 21);
-        //        if (temp != float.MaxValue)
-        //        {
-        //            pn.headingTrueDual = temp + Settings.Vehicle.setGPS_dualHeadingOffset;
-        //            if (pn.headingTrueDual >= 360) pn.headingTrueDual -= 360;
-        //            else if (pn.headingTrueDual < 0) pn.headingTrueDual += 360;
-        //        }
+                latMinu = Math.Round(latMinu * 60.0, 7);
+                longMinu = Math.Round(longMinu * 60.0, 7);
 
-        //        //from single antenna sentences (VTG,RMC)
-        //        pn.headingTrue = BitConverter.ToSingle(nmeaPGN, 25);
+                latDeg *= 100.0;
+                longDeg *= 100.0;
 
-        //        //always save the speed.
-        //        temp = BitConverter.ToSingle(nmeaPGN, 29);
-        //        if (temp != float.MaxValue)
-        //        {
-        //            pn.vtgSpeed = temp;
-        //        }
+                latNMEA = latMinu + latDeg;
+                longNMEA = longMinu + longDeg;
 
-        //        //roll in degrees
-        //        temp = BitConverter.ToSingle(nmeaPGN, 33);
-        //        if (temp != float.MaxValue)
-        //        {
-        //            if (Settings.Vehicle.setIMU_invertRoll) temp *= -1;
-        //            ahrs.imuRoll = temp - Settings.Vehicle.setIMU_rollZero;
-        //        }
-        //        if (temp == float.MinValue)
-        //            ahrs.imuRoll = 0;
+                if (latitude >= 0) NS = 'N';
+                else NS = 'S';
+                if (longitude >= 0) EW = 'E';
+                else EW = 'W';
 
-        //        //altitude in meters
-        //        temp = BitConverter.ToSingle(nmeaPGN, 37);
-        //        if (temp != float.MaxValue)
-        //            pn.altitude = temp;
+                //From dual antenna heading sentences
+                float temp = BitConverter.ToSingle(nmeaPGN, 21);
+                if (temp != float.MaxValue)
+                {
+                    headingTrue = temp;
+                    if (headingTrue >= 360) headingTrue -= 360;
+                    else if (headingTrue < 0) headingTrue += 360;
+                }
 
-        //        ushort sats = BitConverter.ToUInt16(nmeaPGN, 41);
-        //        if (sats != ushort.MaxValue)
-        //            pn.satellitesTracked = sats;
+                //from single antenna sentences (VTG,RMC)
+                if (temp != float.MaxValue)
+                    headingTrue = BitConverter.ToSingle(nmeaPGN, 25);
 
-        //        byte fix = data[43];
-        //        if (fix != byte.MaxValue)
-        //            pn.fixQuality = fix;
+                //always save the speed.
+                temp = BitConverter.ToSingle(nmeaPGN, 29);
+                if (temp != float.MaxValue)
+                {
+                    speed = temp;
+                }
 
-        //        ushort hdop = BitConverter.ToUInt16(nmeaPGN, 44);
-        //        if (hdop != ushort.MaxValue)
-        //            pn.hdop = hdop * 0.01;
+                //altitude in meters
+                temp = BitConverter.ToSingle(nmeaPGN, 37);
+                if (temp != float.MaxValue)
+                    altitude = temp;
 
-        //        ushort age = BitConverter.ToUInt16(nmeaPGN, 46);
-        //        if (age != ushort.MaxValue)
-        //            pn.age = age * 0.01;
+                ushort sats = BitConverter.ToUInt16(nmeaPGN, 41);
+                if (sats != ushort.MaxValue)
+                    satellitesTracked = sats;
 
-        //        ushort imuHead = BitConverter.ToUInt16(nmeaPGN, 48);
-        //        if (imuHead != ushort.MaxValue)
-        //        {
-        //            ahrs.imuHeading = imuHead;
-        //            ahrs.imuHeading *= 0.1;
-        //        }
+                byte fix = nmeaPGN[43];
+                if (fix != byte.MaxValue)
+                    fixQuality = fix;
 
-        //        short imuRol = BitConverter.ToInt16(nmeaPGN, 50);
-        //        if (imuRol != short.MaxValue)
-        //        {
-        //            double rollK = imuRol;
-        //            if (Settings.Vehicle.setIMU_invertRoll) rollK *= -0.1;
-        //            else rollK *= 0.1;
-        //            rollK -= Settings.Vehicle.setIMU_rollZero;
-        //            ahrs.imuRoll = ahrs.imuRoll * Settings.Vehicle.setIMU_rollFilter + rollK * (1 - Settings.Vehicle.setIMU_rollFilter);
-        //        }
+                ushort hdop = BitConverter.ToUInt16(nmeaPGN, 44);
+                if (hdop != ushort.MaxValue)
+                    HDOP = (double)hdop * 0.01;
 
-        //        short imuPich = BitConverter.ToInt16(nmeaPGN, 52);
-        //        if (imuPich != short.MaxValue)
-        //        {
-        //            ahrs.imuPitch = imuPich;
-        //        }
+                ushort age = BitConverter.ToUInt16(nmeaPGN, 46);
+                if (age != ushort.MaxValue)
+                    AGE = (double)age * 0.01;
+            }
+            else
+            {
+                return;
+            }
 
-        //        short imuYaw = BitConverter.ToInt16(nmeaPGN, 54);
-        //        if (imuYaw != short.MaxValue)
-        //        {
-        //            ahrs.imuYawRate = imuYaw;
-        //        }
+            /*    //GGA
+            //$GPGGA,123519,4807.038,N,01131.000,E,1,08,0.9,545.4,M,46.9,M ,  ,*47
+            //   0     1      2      3    4      5 6  7  8   9    10 11  12 13  14
+            //        Time Lat       Lon FixSatsOP Alt
+            //Where:
+            //GGA Global Positioning System Fix Data
+            // 123519       Fix taken at 12:35:19 UTC
+            // 4807.038,N Latitude 48 deg 07.038' N
+            // 01131.000,E Longitude 11 deg 31.000' E
+            // 1            Fix quality: 0 = invalid
+            //                           1 = GPS fix(SPS)
+            //                           2 = DGPS fix
+            //                           3 = PPS fix
+            //                           4 = Real Time Kinematic
+            //                           5 = Float RTK
+            //                           6 = estimated(dead reckoning) (2.3 feature)
+            //                           7 = Manual input mode
+            //                           8 = Simulation mode
+            // 08           Number of satellites being tracked
+            // 0.9          Horizontal dilution of position
+            // 545.4, M      Altitude, Meters, above mean sea level
+            // 46.9, M       Height of geoid(mean sea level) above WGS84
+            //                  ellipsoid
+            // (empty field) time in seconds since last DGPS update
+            // (empty field) DGPS station ID number
+            // *47          the checksum data, always begins with*
+            */
+
+            if (Settings.User.sendRateGGA != 0)
+            {
+                counterGGA--;
+                if (counterGGA < 1)
+                {
+                    sbGGA.Clear();
+                    sbGGA.Append("$").Append(Settings.User.sendPrefixGPGN).Append("GGA,");
+                    sbGGA.Append(DateTime.Now.ToString("HHmmss.ss"));
+                    sbGGA.Append(".000,");
+
+                    sbGGA.Append(Math.Abs(latNMEA).ToString("0000.0000000", CultureInfo.InvariantCulture))
+                        .Append(',').Append(NS).Append(',');
+                    sbGGA.Append(Math.Abs(longNMEA).ToString("00000.0000000", CultureInfo.InvariantCulture))
+                        .Append(',').Append(EW).Append(',');
+
+                    sbGGA.Append(fixQuality.ToString(CultureInfo.InvariantCulture)).Append(',')
+                        .Append(satellitesTracked.ToString(CultureInfo.InvariantCulture)).Append(',')
+                        .Append(HDOP.ToString(CultureInfo.InvariantCulture)).Append(',')
+                        .Append(altitude.ToString(CultureInfo.InvariantCulture)).Append(',');
+
+                    sbGGA.Append("M,46.9,M,");
+                    sbGGA.Append(AGE.ToString(CultureInfo.InvariantCulture)).Append(",37,,*");
+
+                    sbGGA.Append(CalculateChecksum(sbGGA.ToString()));
+                    sbGGA.Append("\r\n");
+
+                    if (FormLoop.spGPSOut.IsOpen)
+                    {
+                        FormLoop.spGPSOut.WriteLine(sbGGA.ToString());
+                    }
+
+                    counterGGA = Settings.User.sendRateGGA;
+                }
+            }
 
 
-        //    }
+            /* / $GPVTG,054.7,T,034.4,M,005.5,N,010.2,K*48
+            //
+            //   VTG          Track made good and ground speed
+            //   054.7,T True track made good(degrees)
+            //   034.4,M Magnetic track made good
+            //   005.5,N Ground speed, knots
+            //   010.2,K Ground speed, Kilometers per hour
+            //   *48          Checksum
+            if (Settings.User.sendRateVTG != 0)
+            */
+
+            {
+                counterVTG--;
+
+                if (counterVTG < 1)
+                {
+                    sbVTG.Clear();
+                    sbVTG.Append("$").Append(Settings.User.sendPrefixGPGN).Append("VTG,");
+                    sbVTG.Append(headingTrue.ToString("N5", CultureInfo.InvariantCulture));
+                    sbVTG.Append(",T,034.4,M,");
+                    sbVTG.Append(speed.ToString(CultureInfo.InvariantCulture));
+                    sbVTG.Append(",N,");
+                    sbVTG.Append(Math.Round((speed * 1.852), 1).ToString(CultureInfo.InvariantCulture));
+                    sbVTG.Append(",K*");
+                    sbVTG.Append(CalculateChecksum(sbVTG.ToString()));
+                    sbVTG.Append("\r\n");
+
+                    if (FormLoop.spGPSOut.IsOpen)
+                    {
+                        FormLoop.spGPSOut.WriteLine(sbVTG.ToString());
+                    }
+
+                    counterVTG = Settings.User.sendRateVTG;
+                }
+            }
+
+            #region RMC Message
+
+            /* /$GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*6A
+
+            //RMC          Recommended Minimum sentence C
+            //123519       Fix taken at 12:35:19 UTC
+            //A            Status A=active or V=Void.
+            //4807.038,N   Latitude 48 deg 07.038' N
+            //01131.000,E  Longitude 11 deg 31.000' E
+            //022.4        Speed over the ground in knots
+            //084.4        Track angle in degrees True
+            //230394       Date - 23rd of March 1994
+            //003.1,W      Magnetic Variation
+            //*6A          * Checksum
+            */
+
+            if (Settings.User.sendRateRMC != 0)
+            {
+                counterRMC--;
+
+                if (counterRMC < 1)
+                {
+                    sbRMC.Clear();
+                    sbRMC.Append("$").Append(Settings.User.sendPrefixGPGN).Append("RMC,");
+
+                    sbRMC.Append(DateTime.Now.ToString("HHmmss"));
+                    sbRMC.Append(".000,");
+
+                    sbRMC.Append(Math.Abs(latNMEA).ToString("0000.0000000", CultureInfo.InvariantCulture)).Append(',').Append(NS).Append(',')
+                    .Append(Math.Abs(longNMEA).ToString("0000.0000000", CultureInfo.InvariantCulture)).Append(',').Append(EW).Append(',');
+
+                    sbRMC.Append((speed).ToString(CultureInfo.InvariantCulture)).Append(',')
+                    .Append(headingTrue.ToString("N5", CultureInfo.InvariantCulture))
+
+                    .Append(",230394,1.0,W,D*");
+
+                    sbRMC.Append(CalculateChecksum(sbRMC.ToString()));
+                    sbRMC.Append("\r\n");
+
+                    if (FormLoop.spGPSOut.IsOpen)
+                    {
+                        FormLoop.spGPSOut.WriteLine(sbRMC.ToString());
+                    }
+
+                    counterRMC = Settings.User.sendRateRMC;
+                }
+            }
+
+            #endregion RMC Message
+        }
+
+        static string CalculateChecksum(string Sentence)
+        {
+            int sum = 0, inx;
+            char[] sentence_chars = Sentence.ToCharArray();
+            char tmp;
+            // All character xor:ed results in the trailing hex checksum
+            // The checksum calc starts after '$' and ends before '*'
+            for (inx = 1; ; inx++)
+            {
+                tmp = sentence_chars[inx];
+                // Indicates end of data and start of checksum
+                if (tmp == '*')
+                    break;
+                sum ^= tmp;    // Build checksum
+            }
+            // Calculated checksum converted to a 2 digit hex string
+            return String.Format("{0:X2}", sum);
+        }
+
 
     }
 }

@@ -83,13 +83,9 @@ namespace AgIO
         public CNMEA pnGPS;
         public CNMEA_Tool pnGPSTool;
 
-        // GPSOut BackgroundWorker
-        public static BackgroundWorker bgGPSOut = new BackgroundWorker();
-
         public FormLoop()
         {
             InitializeComponent();
-            bgGPSOut.DoWork += bgGPSOut_DoWork;
         }
 
         //First run
@@ -786,17 +782,6 @@ namespace AgIO
                     lblSerialPorts.Text = ports[i] + " ";
                 }
             }
-        }
-
-        public void bgGPSOut_DoWork(object sender, DoWorkEventArgs e)
-        {
-            GPSOut.BuildSentences();
-        }
-
-        public void BackgroundSendGPS_NMEA()
-        {
-            traffic.cntrGPS_OutSerial += 1;
-            bgGPSOut.RunWorkerAsync();
         }
     }
 }

@@ -30,10 +30,12 @@ namespace AgIO
         static double latDeg, latMinu, longDeg, longMinu, latNMEA, longNMEA;
         static double speed = 0.6, headingTrue;
 
-        public static void BuildSentences()
+        public static int BuildSentences()
         {
             try
             {
+                int retCount = 0;
+
                 double latitude = BitConverter.ToDouble(nmeaPGN, 5);
                 double longitude = BitConverter.ToDouble(nmeaPGN, 13);
 
@@ -107,7 +109,7 @@ namespace AgIO
                 }
                 else
                 {
-                    return;
+                    return 0;
                 }
 
                 /*    //GGA
@@ -170,6 +172,7 @@ namespace AgIO
                         }
 
                         counterGGA = Settings.User.sendRateGGA;
+                        retCount += Settings.User.sendRateGGA;
                     }
                 }
 
@@ -206,6 +209,7 @@ namespace AgIO
                         }
 
                         counterVTG = Settings.User.sendRateVTG;
+                        retCount += Settings.User.sendRateVTG;
                     }
                 }
 
@@ -254,14 +258,17 @@ namespace AgIO
                         }
 
                         counterRMC = Settings.User.sendRateRMC;
+                        retCount += Settings.User.sendRateRMC;
                     }
                 }
 
                 #endregion RMC Message
+                return retCount;
             }
 
             catch
             {
+                return 0;
             }
         }
 

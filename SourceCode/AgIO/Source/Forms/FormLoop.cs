@@ -125,7 +125,7 @@ namespace AgIO
             }
 
             //small view
-            this.Width = 531;
+            this.Width = 500;
 
             LoadLoopback();
 
@@ -343,7 +343,7 @@ namespace AgIO
                 Controls.Remove(pictureBox1);
                 pictureBox1.Dispose();
                 oneSecondLoopTimer.Interval = 1000;
-                this.Width = 531;
+                this.Width = 500;
                 this.Height = 530;
                 return;
             }
@@ -653,11 +653,11 @@ namespace AgIO
 
             currentHello = traffic.cntrGPS_OutSerial != 0;
 
-            if (currentHello != lastHelloGPS)
+            if (currentHello != lastHelloGPSOutSerial)
             {
-                if (currentHello) btnGPS.BackColor = Color.LimeGreen;
-                else btnGPS.BackColor = Color.Red;
-                lastHelloGPS = currentHello;
+                if (currentHello) btnGPS_Out.BackColor = Color.LimeGreen;
+                else btnGPS_Out.BackColor = Color.Red;
+                lastHelloGPSOutSerial = currentHello;
                 ShowAgIO();
             }
 
@@ -757,10 +757,12 @@ namespace AgIO
             {
                 lblFromGPS.Text = traffic.cntrGPSOut == 0 ? "---" : ((traffic.cntrGPSOut >> 1)).ToString();
                 lblFromGPSTool.Text = traffic.cntrGPSOutTool == 0 ? "---" : ((traffic.cntrGPSOutTool >> 1)).ToString();
+                lblGPSOutSerial.Text = traffic.cntrGPS_OutSerial == 0 ? "---" : ((traffic.cntrGPS_OutSerial >> 1)).ToString();
 
                 //reset all counters
                 traffic.cntrGPSOut = 0;
                 traffic.cntrGPSOutTool = 0;
+                traffic.cntrGPS_OutSerial = 0;
 
                 lblCurentLon.Text = pnGPS.longitude.ToString("N7");
                 lblCurrentLat.Text = pnGPS.latitude.ToString("N7");
@@ -793,6 +795,7 @@ namespace AgIO
 
         public void BackgroundSendGPS_NMEA()
         {
+            traffic.cntrGPS_OutSerial += 1;
             bgGPSOut.RunWorkerAsync();
         }
     }

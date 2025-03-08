@@ -35,7 +35,7 @@ namespace AgIO
         {
             if (this.Width < 600)
             {
-                this.Width = 860;
+                this.Width = 830;
                 isViewAdvanced = true;
                 btnSlide.BackgroundImage = Properties.Resources.ArrowGrnLeft;
                 sbRTCM.Clear();

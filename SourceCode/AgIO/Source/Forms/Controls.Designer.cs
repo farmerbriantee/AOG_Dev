@@ -35,7 +35,7 @@ namespace AgIO
         {
             if (this.Width < 600)
             {
-                this.Width = 760;
+                this.Width = 860;
                 isViewAdvanced = true;
                 btnSlide.BackgroundImage = Properties.Resources.ArrowGrnLeft;
                 sbRTCM.Clear();
@@ -47,7 +47,7 @@ namespace AgIO
             }
             else
             {
-                this.Width = 428;
+                this.Width = 530;
                 isViewAdvanced = false;
                 btnSlide.BackgroundImage = Properties.Resources.ArrowGrnRight;
                 aList.Clear();
@@ -188,11 +188,6 @@ namespace AgIO
         #endregion
 
         #region CheckBoxes
-        private void cboxAutoRunGPS_Out_Click(object sender, EventArgs e)
-        {
-            Settings.User.setDisplay_isAutoRunGPS_Out = cboxAutoRunGPS_Out.Checked;
-            
-        }
 
         private void cboxIsSteerModule_Click(object sender, EventArgs e)
         {

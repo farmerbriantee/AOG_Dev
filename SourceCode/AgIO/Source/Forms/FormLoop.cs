@@ -1,5 +1,6 @@
 ﻿using AgIO.Properties;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -57,7 +58,8 @@ namespace AgIO
 
         private StringBuilder sbRTCM = new StringBuilder();
 
-        public bool isKeyboardOn = true;
+        public bool isKeyboardOn = true, isFlash = false;
+        public int gpsOutCount = 0;
 
         public bool isGPSSentencesOn = false; //, isSendNMEAToUDP;
 
@@ -68,9 +70,7 @@ namespace AgIO
 
         public bool isNTRIPToggle;
 
-        public bool lastHelloGPS, lastHelloAutoSteer, lastHelloMachine, lastHelloIMU, lastHelloGPSTool;
-
-        public bool lastHelloGPSTuu, isConnectedSteerTuu;
+        public bool lastHelloGPS, lastHelloAutoSteer, lastHelloMachine, lastHelloIMU, lastHelloGPSTool, lastHelloGPSOutSerial;
 
         //is the fly out displayed
         public bool isViewAdvanced = false;
@@ -83,9 +83,13 @@ namespace AgIO
         public CNMEA pnGPS;
         public CNMEA_Tool pnGPSTool;
 
+        // GPSOut BackgroundWorker
+        public static BackgroundWorker bgGPSOut = new BackgroundWorker();
+
         public FormLoop()
         {
             InitializeComponent();
+            bgGPSOut.DoWork += bgGPSOut_DoWork;
         }
 
         //First run
@@ -121,7 +125,7 @@ namespace AgIO
             }
 
             //small view
-            this.Width = 428;
+            this.Width = 531;
 
             LoadLoopback();
 
@@ -254,9 +258,6 @@ namespace AgIO
                 }
             }
 
-            //run gps_out or not
-            cboxAutoRunGPS_Out.Checked = Settings.User.setDisplay_isAutoRunGPS_Out;
-
             this.Text =
             "AgIO  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + "   Profile: " + RegistrySettings.profileName;
 
@@ -342,7 +343,7 @@ namespace AgIO
                 Controls.Remove(pictureBox1);
                 pictureBox1.Dispose();
                 oneSecondLoopTimer.Interval = 1000;
-                this.Width = 428;
+                this.Width = 531;
                 this.Height = 530;
                 return;
             }
@@ -649,6 +650,17 @@ namespace AgIO
                 lastHelloGPSTool = currentHello;
                 ShowAgIO();
             }
+
+            currentHello = traffic.cntrGPS_OutSerial != 0;
+
+            if (currentHello != lastHelloGPS)
+            {
+                if (currentHello) btnGPS.BackColor = Color.LimeGreen;
+                else btnGPS.BackColor = Color.Red;
+                lastHelloGPS = currentHello;
+                ShowAgIO();
+            }
+
         }
 
         private void FormLoop_Resize(object sender, EventArgs e)
@@ -772,6 +784,16 @@ namespace AgIO
                     lblSerialPorts.Text = ports[i] + " ";
                 }
             }
+        }
+
+        public void bgGPSOut_DoWork(object sender, DoWorkEventArgs e)
+        {
+            GPSOut.BuildSentences();
+        }
+
+        public void BackgroundSendGPS_NMEA()
+        {
+            bgGPSOut.RunWorkerAsync();
         }
     }
 }

@@ -14,6 +14,7 @@ namespace AgIO
         public int cntrGPSInBytes = 0;
         public int cntrGPSOut = 0;
         public int cntrGPSOutTool = 0;
+        public int cntrGPS_OutSerial = 0;
 
         public uint helloFromMachine = 99, helloFromAutoSteer = 99, helloFromIMU = 99;
     }

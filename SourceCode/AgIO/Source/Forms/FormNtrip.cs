@@ -113,8 +113,7 @@ namespace AgIO
             Log.EventWriter("Program Reset: Selecting NTRIP Feature");
 
             Settings.User.Save();
-            Application.Restart();
-            Environment.Exit(0);
+            Program.Restart();
         }
 
         //get the ipv4 address only
@@ -258,8 +257,7 @@ namespace AgIO
                 Log.EventWriter("Program Reset: Button Ok on Ntrip Form");
 
                 Settings.User.Save();
-                Application.Restart();
-                Environment.Exit(0);
+                Program.Restart();
             }
         }
 

@@ -36,6 +36,11 @@ namespace AgIO
 
     public partial class FormLoop
     {
+        private readonly Stopwatch swFrame = new Stopwatch();
+        public double frameTime = 0;
+        public double gpsHz = 10;
+        public double nowHz = 0;
+
         // loopback Socket
         private Socket loopBackSocket, loopBackSocketTool;
         private EndPoint endPointLoopBack = new IPEndPoint(IPAddress.Loopback, 0);
@@ -498,6 +503,17 @@ namespace AgIO
 
                 else if (data[0] == 36 && (data[1] == 71 || data[1] == 80 || data[1] == 75))
                 {
+                    double timeSliceOfLastFix = (double)(swFrame.ElapsedTicks) / (double)System.Diagnostics.Stopwatch.Frequency;
+                    swFrame.Restart();
+
+                    //get Hz from timeslice
+                    nowHz = 1 / timeSliceOfLastFix;
+                    if (nowHz > 35) nowHz = 35;
+                    if (nowHz < 5) nowHz = 5;
+
+                    //simple comp filter
+                    gpsHz = 0.98 * gpsHz + 0.02 * nowHz;
+
                     traffic.cntrGPSOut += data.Length;
                     pnGPS.rawBuffer += Encoding.ASCII.GetString(data);
                     pnGPS.ParseNMEA(ref pnGPS.rawBuffer);

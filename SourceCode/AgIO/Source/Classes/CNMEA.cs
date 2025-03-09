@@ -301,7 +301,11 @@ namespace AgIO
 
                 nmeaPGN.CopyTo(GPSOut.nmeaPGN, 0);
 
-                if (FormLoop.spGPSOut.IsOpen) mf.traffic.cntrGPS_OutSerial += GPSOut.BuildSentences();
+                mf.StartATimer();
+                if (FormLoop.spGPSOut.IsOpen) 
+                    mf.traffic.cntrGPS_OutSerial += GPSOut.BuildSentences((int)(mf.gpsHz*0.1+0.3));
+                mf.StopAtimer();
+
             }
         }
 

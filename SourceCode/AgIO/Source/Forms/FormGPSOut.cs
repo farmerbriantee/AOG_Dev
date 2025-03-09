@@ -202,6 +202,24 @@ namespace AgIO
             cboRMC.Text = "0";
             cboGGA.Text = "0";
             cboZDA.Text = "0";
+
+            mf.CloseGPSOutPort();
+            if (FormLoop.spGPSOut.IsOpen)
+            {
+                cboxBaud.Enabled = false;
+                cboxPort.Enabled = false;
+                btnCloseSerial.Enabled = true;
+                btnOpenSerial.Enabled = false;
+            }
+            else
+            {
+                cboxBaud.Enabled = true;
+                cboxPort.Enabled = true;
+                btnCloseSerial.Enabled = false;
+                btnOpenSerial.Enabled = true;
+            }
+
+
         }
 
         private void rbGP_CheckedChanged(object sender, EventArgs e)

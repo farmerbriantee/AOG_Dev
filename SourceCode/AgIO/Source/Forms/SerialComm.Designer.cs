@@ -972,6 +972,16 @@ namespace AgIO
         //called by the GPS delegate every time a chunk is rec'd
         private void ReceiveGPSPort(string sentence)
         {
+            double timeSliceOfLastFix = (double)(swFrame.ElapsedTicks) / (double)System.Diagnostics.Stopwatch.Frequency;
+            swFrame.Restart();
+
+            //get Hz from timeslice
+            nowHz = 1 / timeSliceOfLastFix;
+            if (nowHz > 35) nowHz = 35;
+            if (nowHz < 5) nowHz = 5;
+
+            //simple comp filter
+            gpsHz = 0.98 * gpsHz + 0.02 * nowHz;
             pnGPS.rawBuffer += sentence;
             pnGPS.ParseNMEA(ref pnGPS.rawBuffer);
 
@@ -1094,6 +1104,7 @@ namespace AgIO
         }
         #endregion //--------------------------------------------------------
 
+        #region RTCM Port
         public void OpenRtcmPort()
         {
             if (spRtcm.IsOpen)
@@ -1139,25 +1150,13 @@ namespace AgIO
             Settings.User.setPort_wasRtcmConnected = false;
         }
 
-        #region GPSOut
+        #endregion
 
-        public void SendGPSOutPort(string gps)
-        {
-            try
-            {
-                if (spGPSOut.IsOpen)
-                {
-                    spGPSOut.Write(gps);
-                }
-            }
-            catch (Exception)
-            {
-            }
-        }
+        #region GPSOut
 
         public void OpenGPSOutPort()
         {
-
+            
             if (spGPSOut.IsOpen)
             {
                 //close it first
@@ -1169,7 +1168,7 @@ namespace AgIO
             {
                 spGPSOut.PortName = Settings.User.setPort_portNameGPSOut;
                 spGPSOut.BaudRate = Settings.User.setPort_baudRateGPSOut;
-                spGPSOut.WriteTimeout = 1000;
+                spGPSOut.WriteTimeout = 100;
             }
 
             try { spGPSOut.Open(); }
@@ -1193,7 +1192,6 @@ namespace AgIO
         {
             //if (sp.IsOpen)
             {
-                //spGPSOut.DataReceived -= sp_DataReceivedGPSOut;
                 try { spGPSOut.Close(); }
                 catch (Exception e)
                 {
@@ -1201,15 +1199,11 @@ namespace AgIO
                     MessageBox.Show(e.Message, "Connection already terminated?");
                 }
 
-                //update port status labels
-                //stripPortGPSOut.Text = " * * " + baudRateGPSOut.ToString();
-                //stripPortGPSOut.ForeColor = Color.ForestGreen;
-                //stripOnlineGPSOut.Value = 1;
                 spGPSOut.Dispose();
             }
+
             lblGPSOut1Comm.Text = "---";
             Settings.User.setPort_wasGPSOutConnected = false;
-
         }
 
         #endregion

@@ -110,6 +110,9 @@ namespace AgIO
             this.lblPingTool = new System.Windows.Forms.Label();
             this.lblGPSOut1Comm = new System.Windows.Forms.Label();
             this.lblGPSOutSerial = new System.Windows.Forms.Label();
+            this.lblAlgo = new System.Windows.Forms.Label();
+            this.lblGPSHz = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -176,7 +179,7 @@ namespace AgIO
             this.lblWatch.BackColor = System.Drawing.Color.Transparent;
             this.lblWatch.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWatch.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblWatch.Location = new System.Drawing.Point(14, 96);
+            this.lblWatch.Location = new System.Drawing.Point(14, 98);
             this.lblWatch.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWatch.Name = "lblWatch";
             this.lblWatch.Size = new System.Drawing.Size(105, 18);
@@ -189,7 +192,7 @@ namespace AgIO
             this.lblNTRIPBytes.BackColor = System.Drawing.Color.Transparent;
             this.lblNTRIPBytes.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNTRIPBytes.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblNTRIPBytes.Location = new System.Drawing.Point(14, 72);
+            this.lblNTRIPBytes.Location = new System.Drawing.Point(14, 74);
             this.lblNTRIPBytes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNTRIPBytes.Name = "lblNTRIPBytes";
             this.lblNTRIPBytes.Size = new System.Drawing.Size(105, 18);
@@ -603,7 +606,7 @@ namespace AgIO
             this.btnStartStopNtrip.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStartStopNtrip.ForeColor = System.Drawing.Color.Black;
             this.btnStartStopNtrip.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnStartStopNtrip.Location = new System.Drawing.Point(25, 121);
+            this.btnStartStopNtrip.Location = new System.Drawing.Point(25, 123);
             this.btnStartStopNtrip.Margin = new System.Windows.Forms.Padding(4);
             this.btnStartStopNtrip.Name = "btnStartStopNtrip";
             this.btnStartStopNtrip.Size = new System.Drawing.Size(80, 27);
@@ -1134,29 +1137,69 @@ namespace AgIO
             // 
             // lblGPSOut1Comm
             // 
+            this.lblGPSOut1Comm.AutoSize = true;
             this.lblGPSOut1Comm.BackColor = System.Drawing.Color.Transparent;
             this.lblGPSOut1Comm.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGPSOut1Comm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblGPSOut1Comm.Location = new System.Drawing.Point(367, 131);
+            this.lblGPSOut1Comm.Location = new System.Drawing.Point(369, 44);
             this.lblGPSOut1Comm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblGPSOut1Comm.Name = "lblGPSOut1Comm";
-            this.lblGPSOut1Comm.Size = new System.Drawing.Size(52, 24);
+            this.lblGPSOut1Comm.Size = new System.Drawing.Size(49, 14);
             this.lblGPSOut1Comm.TabIndex = 535;
+            this.lblGPSOut1Comm.Text = "Com 21";
             this.lblGPSOut1Comm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblGPSOutSerial
             // 
-            this.lblGPSOutSerial.AutoSize = true;
             this.lblGPSOutSerial.BackColor = System.Drawing.Color.Transparent;
             this.lblGPSOutSerial.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGPSOutSerial.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblGPSOutSerial.Location = new System.Drawing.Point(439, 96);
+            this.lblGPSOutSerial.Location = new System.Drawing.Point(354, 132);
             this.lblGPSOutSerial.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblGPSOutSerial.Name = "lblGPSOutSerial";
-            this.lblGPSOutSerial.Size = new System.Drawing.Size(26, 18);
+            this.lblGPSOutSerial.Size = new System.Drawing.Size(80, 18);
             this.lblGPSOutSerial.TabIndex = 536;
             this.lblGPSOutSerial.Text = "---";
-            this.lblGPSOutSerial.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblGPSOutSerial.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblAlgo
+            // 
+            this.lblAlgo.AutoSize = true;
+            this.lblAlgo.BackColor = System.Drawing.Color.Transparent;
+            this.lblAlgo.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlgo.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblAlgo.Location = new System.Drawing.Point(261, 13);
+            this.lblAlgo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAlgo.Name = "lblAlgo";
+            this.lblAlgo.Size = new System.Drawing.Size(90, 18);
+            this.lblAlgo.TabIndex = 537;
+            this.lblAlgo.Text = "-53.1234567";
+            // 
+            // lblGPSHz
+            // 
+            this.lblGPSHz.AutoSize = true;
+            this.lblGPSHz.BackColor = System.Drawing.Color.Transparent;
+            this.lblGPSHz.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGPSHz.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblGPSHz.Location = new System.Drawing.Point(30, 51);
+            this.lblGPSHz.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblGPSHz.Name = "lblGPSHz";
+            this.lblGPSHz.Size = new System.Drawing.Size(37, 18);
+            this.lblGPSHz.TabIndex = 538;
+            this.lblGPSHz.Text = "10.1";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.Transparent;
+            this.label16.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label16.Location = new System.Drawing.Point(9, 53);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(21, 16);
+            this.label16.TabIndex = 539;
+            this.label16.Text = "Hz";
             // 
             // FormLoop
             // 
@@ -1168,6 +1211,9 @@ namespace AgIO
             this.ControlBox = false;
             this.Controls.Add(this.lblGPSOutSerial);
             this.Controls.Add(this.lblGPSOut1Comm);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.lblGPSHz);
+            this.Controls.Add(this.lblAlgo);
             this.Controls.Add(this.lblPingTool);
             this.Controls.Add(this.lblFromGPSTool);
             this.Controls.Add(this.btnGPSTool);
@@ -1323,6 +1369,9 @@ namespace AgIO
         private Label lblPingTool;
         private Label lblGPSOut1Comm;
         private Label lblGPSOutSerial;
+        private Label lblAlgo;
+        private Label lblGPSHz;
+        private Label label16;
     }
 }
 

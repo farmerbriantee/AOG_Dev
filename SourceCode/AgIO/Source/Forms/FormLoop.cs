@@ -43,6 +43,9 @@ namespace AgIO
         //static readonly int GWL_STYLE = -16;
         //static readonly int WS_VISIBLE = 0x10000000;
         //key event to restore window
+
+        private readonly Stopwatch algoTimer = new Stopwatch();
+
         private const int ALT = 0xA4;
 
         private const int EXTENDEDKEY = 0x1;
@@ -86,6 +89,20 @@ namespace AgIO
         public FormLoop()
         {
             InitializeComponent();
+        }
+
+        public void StartATimer()
+        {
+            algoTimer.Restart();
+        }
+
+        private double aTime;
+
+        public void StopAtimer()
+        {
+            double newTime = ((double)(algoTimer.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency);
+            aTime = newTime * 0.1 + aTime * 0.9;
+            lblAlgo.Text = aTime.ToString("N3");
         }
 
         //First run
@@ -271,8 +288,7 @@ namespace AgIO
                         Log.EventWriter("Program Reset: Saving or Selecting Profile");
 
                         Settings.User.Save();
-                        Application.Restart();
-                        Environment.Exit(0);
+                        Program.Restart();
                     }
                 }
                 this.Text = "AgIO  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + "  Profile: "
@@ -353,6 +369,8 @@ namespace AgIO
                 lblCurentLon.Text = pnGPS.longitude.ToString("N7");
                 lblCurrentLat.Text = pnGPS.latitude.ToString("N7");
             }
+
+            lblGPSHz.Text = gpsHz.ToString("N2");
 
             //do all the NTRIP routines
             DoNTRIPSecondRoutine();

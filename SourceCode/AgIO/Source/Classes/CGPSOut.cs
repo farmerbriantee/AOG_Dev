@@ -18,8 +18,9 @@ namespace AgIO
         static StringBuilder sbVTG = new StringBuilder();
         static StringBuilder sbRMC = new StringBuilder();
 
-        public static int counterGGA = 10, counterVTG = 10, counterRMC = 10, counterStatus = 0;
+        public static int counterGGA = 10, counterVTG = 10, counterRMC = 10;
 
+        public static int trafficBytes = 0;
 
         //GPS related properties
         static int fixQuality = 8, satellitesTracked = 12;
@@ -30,11 +31,12 @@ namespace AgIO
         static double latDeg, latMinu, longDeg, longMinu, latNMEA, longNMEA;
         static double speed = 0.6, headingTrue;
 
-        public static int BuildSentences()
+        public static int BuildSentences(int gpsRate)
         {
             try
             {
                 int retCount = 0;
+                
 
                 double latitude = BitConverter.ToDouble(nmeaPGN, 5);
                 double longitude = BitConverter.ToDouble(nmeaPGN, 13);
@@ -171,8 +173,8 @@ namespace AgIO
                             FormLoop.spGPSOut.Write(sbGGA.ToString());
                         }
 
-                        counterGGA = Settings.User.sendRateGGA;
-                        retCount += Settings.User.sendRateGGA;
+                        counterGGA = Settings.User.sendRateGGA * gpsRate;
+                        retCount += Settings.User.sendRateGGA * sbGGA.Length;
                     }
                 }
 
@@ -208,8 +210,8 @@ namespace AgIO
                             FormLoop.spGPSOut.Write(sbVTG.ToString());
                         }
 
-                        counterVTG = Settings.User.sendRateVTG;
-                        retCount += Settings.User.sendRateVTG;
+                        counterVTG = Settings.User.sendRateVTG * gpsRate;
+                        retCount += Settings.User.sendRateVTG * sbVTG.Length;
                     }
                 }
 
@@ -257,8 +259,8 @@ namespace AgIO
                             FormLoop.spGPSOut.Write(sbRMC.ToString());
                         }
 
-                        counterRMC = Settings.User.sendRateRMC;
-                        retCount += Settings.User.sendRateRMC;
+                        counterRMC = Settings.User.sendRateRMC * gpsRate;
+                        retCount += Settings.User.sendRateRMC * sbRMC.Length;
                     }
                 }
 
@@ -290,5 +292,20 @@ namespace AgIO
             // Calculated checksum converted to a 2 digit hex string
             return String.Format("{0:X2}", sum);
         }
+
+        public static void SendGPSOutPort(string gps)
+        {
+            try
+            {
+                if (FormLoop.spGPSOut.IsOpen)
+                {
+                    FormLoop.spGPSOut.Write(gps);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
     }
 }

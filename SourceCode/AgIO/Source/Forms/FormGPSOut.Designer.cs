@@ -383,7 +383,7 @@
             this.btnAllOff.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAllOff.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnAllOff.Image = global::AgIO.Properties.Resources.SwitchOff;
-            this.btnAllOff.Location = new System.Drawing.Point(494, 209);
+            this.btnAllOff.Location = new System.Drawing.Point(514, 475);
             this.btnAllOff.Name = "btnAllOff";
             this.btnAllOff.Size = new System.Drawing.Size(89, 63);
             this.btnAllOff.TabIndex = 177;

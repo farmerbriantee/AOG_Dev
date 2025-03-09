@@ -258,8 +258,7 @@ namespace AgIO
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
                     ////Clicked Save
-                    //Application.Restart();
-                    //Environment.Exit(0);
+                    //Program.Restart();
                 }
             }
         }
@@ -279,8 +278,7 @@ namespace AgIO
                     Log.EventWriter("Program Reset: Saving or Selecting Profile");
 
                     Settings.User.Save();
-                    Application.Restart();
-                    Environment.Exit(0);
+                    Program.Restart();
                 }
             }
             this.Text = "AgIO  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + "   Using Profile: " 

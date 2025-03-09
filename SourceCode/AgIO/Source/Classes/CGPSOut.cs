@@ -168,7 +168,7 @@ namespace AgIO
 
                         if (FormLoop.spGPSOut.IsOpen)
                         {
-                            FormLoop.spGPSOut.WriteLine(sbGGA.ToString());
+                            FormLoop.spGPSOut.Write(sbGGA.ToString());
                         }
 
                         counterGGA = Settings.User.sendRateGGA;
@@ -205,7 +205,7 @@ namespace AgIO
 
                         if (FormLoop.spGPSOut.IsOpen)
                         {
-                            FormLoop.spGPSOut.WriteLine(sbVTG.ToString());
+                            FormLoop.spGPSOut.Write(sbVTG.ToString());
                         }
 
                         counterVTG = Settings.User.sendRateVTG;
@@ -254,7 +254,7 @@ namespace AgIO
 
                         if (FormLoop.spGPSOut.IsOpen)
                         {
-                            FormLoop.spGPSOut.WriteLine(sbRMC.ToString());
+                            FormLoop.spGPSOut.Write(sbRMC.ToString());
                         }
 
                         counterRMC = Settings.User.sendRateRMC;

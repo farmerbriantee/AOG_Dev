@@ -85,6 +85,21 @@ namespace ModSim
                 }
             }
         }
+
+        private void btn10Hz_Click(object sender, EventArgs e)
+        {
+            if (simTimer.Interval == 40)
+            {
+                simTimer.Interval = 95;
+                btn10Hz.Text = "10 Hz";
+            }
+            else
+            {
+                simTimer.Interval = 40;
+                btn10Hz.Text = "20 Hz";
+            }
+
+        }
     }
 }
 

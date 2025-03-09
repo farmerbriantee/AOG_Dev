@@ -833,7 +833,7 @@ namespace AgIO
             this.btnGPS_Out.ForeColor = System.Drawing.Color.Black;
             this.btnGPS_Out.Image = global::AgIO.Properties.Resources.GPS_Out;
             this.btnGPS_Out.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnGPS_Out.Location = new System.Drawing.Point(354, 63);
+            this.btnGPS_Out.Location = new System.Drawing.Point(354, 68);
             this.btnGPS_Out.Margin = new System.Windows.Forms.Padding(4);
             this.btnGPS_Out.Name = "btnGPS_Out";
             this.btnGPS_Out.Size = new System.Drawing.Size(80, 65);
@@ -1141,7 +1141,7 @@ namespace AgIO
             this.lblGPSOut1Comm.BackColor = System.Drawing.Color.Transparent;
             this.lblGPSOut1Comm.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGPSOut1Comm.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblGPSOut1Comm.Location = new System.Drawing.Point(369, 44);
+            this.lblGPSOut1Comm.Location = new System.Drawing.Point(369, 49);
             this.lblGPSOut1Comm.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblGPSOut1Comm.Name = "lblGPSOut1Comm";
             this.lblGPSOut1Comm.Size = new System.Drawing.Size(49, 14);
@@ -1154,7 +1154,7 @@ namespace AgIO
             this.lblGPSOutSerial.BackColor = System.Drawing.Color.Transparent;
             this.lblGPSOutSerial.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGPSOutSerial.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblGPSOutSerial.Location = new System.Drawing.Point(354, 132);
+            this.lblGPSOutSerial.Location = new System.Drawing.Point(354, 137);
             this.lblGPSOutSerial.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblGPSOutSerial.Name = "lblGPSOutSerial";
             this.lblGPSOutSerial.Size = new System.Drawing.Size(80, 18);
@@ -1168,12 +1168,12 @@ namespace AgIO
             this.lblAlgo.BackColor = System.Drawing.Color.Transparent;
             this.lblAlgo.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAlgo.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblAlgo.Location = new System.Drawing.Point(261, 13);
+            this.lblAlgo.Location = new System.Drawing.Point(369, 161);
             this.lblAlgo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAlgo.Name = "lblAlgo";
-            this.lblAlgo.Size = new System.Drawing.Size(90, 18);
+            this.lblAlgo.Size = new System.Drawing.Size(53, 18);
             this.lblAlgo.TabIndex = 537;
-            this.lblAlgo.Text = "-53.1234567";
+            this.lblAlgo.Text = "53.123";
             // 
             // lblGPSHz
             // 

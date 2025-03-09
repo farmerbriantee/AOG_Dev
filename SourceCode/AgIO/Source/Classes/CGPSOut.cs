@@ -174,7 +174,7 @@ namespace AgIO
                         }
 
                         counterGGA = Settings.User.sendRateGGA * gpsRate;
-                        retCount += Settings.User.sendRateGGA * sbGGA.Length;
+                        retCount += sbGGA.Length;
                     }
                 }
 
@@ -211,7 +211,7 @@ namespace AgIO
                         }
 
                         counterVTG = Settings.User.sendRateVTG * gpsRate;
-                        retCount += Settings.User.sendRateVTG * sbVTG.Length;
+                        retCount += sbVTG.Length;
                     }
                 }
 
@@ -260,7 +260,7 @@ namespace AgIO
                         }
 
                         counterRMC = Settings.User.sendRateRMC * gpsRate;
-                        retCount += Settings.User.sendRateRMC * sbRMC.Length;
+                        retCount += sbRMC.Length;
                     }
                 }
 

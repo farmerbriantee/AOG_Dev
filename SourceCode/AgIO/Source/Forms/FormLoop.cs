@@ -771,7 +771,7 @@ namespace AgIO
             {
                 lblFromGPS.Text = traffic.cntrGPSOut == 0 ? "---" : ((traffic.cntrGPSOut >> 1)).ToString();
                 lblFromGPSTool.Text = traffic.cntrGPSOutTool == 0 ? "---" : ((traffic.cntrGPSOutTool >> 1)).ToString();
-                lblGPSOutSerial.Text = traffic.cntrGPS_OutSerial == 0 ? "---" : ((traffic.cntrGPS_OutSerial >> 1)).ToString();
+                lblGPSOutSerial.Text = traffic.cntrGPS_OutSerial == 0 ? "---" : ((traffic.cntrGPS_OutSerial)).ToString();
 
                 //reset all counters
                 traffic.cntrGPSOut = 0;

@@ -362,6 +362,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AgIO_ico.ico" />
+    <None Include="btnImages\B_GPSTool.png" />
     <None Include="btnImages\ModuleSim2.png" />
     <None Include="btnImages\EthernetOff.png" />
     <None Include="btnImages\WindowMinimize.png" />

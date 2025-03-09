@@ -1,6 +1,4 @@
-﻿//Please, if you use this, share the improvements
-
-using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL;
 using System;
 
 namespace AgOpenGPS
@@ -17,89 +15,70 @@ namespace AgOpenGPS
         public int vehicleType, deadZoneDelayCounter, deadZoneDelay;
         public bool isInDeadZone;
 
-        //min vehicle speed allowed before turning shit off
-        public double slowSpeedCutoff = 0;
-
         //autosteer values
         public double goalPointLookAheadHold, goalPointLookAheadMult, goalPointAcquireFactor, uturnCompensation;
 
         public double stanleyDistanceErrorGain, stanleyHeadingErrorGain;
         public double minLookAheadDistance = 2.0;
-        public double maxSteerAngle, maxSteerSpeed, minSteerSpeed;
+        public double maxSteerAngle;
         public double maxAngularVelocity;
-        public double hydLiftLookAheadTime, trackWidth;
+        public double trackWidth;
 
         public double hydLiftLookAheadDistanceLeft, hydLiftLookAheadDistanceRight;
 
-        public bool isHydLiftOn;
+        public bool isHydLiftOn = false;
         public double stanleyIntegralDistanceAwayTriggerAB, stanleyIntegralGainAB, purePursuitIntegralGain;
 
         //flag for free drive window to control autosteer
-        public bool isInFreeDriveMode;
+        public bool isInFreeDriveMode = false;
 
         //the trackbar angle for free drive
         public double driveFreeSteerAngle = 0;
 
-        public double modeXTE, modeActualXTE = 0, modeActualHeadingError = 0;
-        public int modeTime = 0;
+        public double modeActualXTE = 0, modeActualHeadingError = 0;
 
-        public double functionSpeedLimit;
+        public int modeTimeCounter = 0;
+        public double goalDistance = 0;
 
         public CVehicle(FormGPS _f)
         {
             //constructor
             mf = _f;
-
-            antennaHeight = Properties.Settings.Default.setVehicle_antennaHeight;
-            antennaPivot = Properties.Settings.Default.setVehicle_antennaPivot;
-            antennaOffset = Properties.Settings.Default.setVehicle_antennaOffset;
-
-            wheelbase = Properties.Settings.Default.setVehicle_wheelbase;
-
-            slowSpeedCutoff = Properties.ToolSettings.Default.setVehicle_slowSpeedCutoff;
-
-            goalPointLookAheadHold = Properties.Settings.Default.setVehicle_goalPointLookAheadHold;
-            goalPointLookAheadMult = Properties.Settings.Default.setVehicle_goalPointLookAheadMult;
-            goalPointAcquireFactor = Properties.Settings.Default.setVehicle_goalPointAcquireFactor;
-
-            stanleyDistanceErrorGain = Properties.Settings.Default.stanleyDistanceErrorGain;
-            stanleyHeadingErrorGain = Properties.Settings.Default.stanleyHeadingErrorGain;
-
-            maxAngularVelocity = Properties.Settings.Default.setVehicle_maxAngularVelocity;
-            maxSteerAngle = Properties.Settings.Default.setVehicle_maxSteerAngle;
-
-            isHydLiftOn = false;
-
-            trackWidth = Properties.Settings.Default.setVehicle_trackWidth;
-
-            stanleyIntegralGainAB = Properties.Settings.Default.stanleyIntegralGainAB;
-            stanleyIntegralDistanceAwayTriggerAB = Properties.Settings.Default.stanleyIntegralDistanceAwayTriggerAB;
-
-            purePursuitIntegralGain = Properties.Settings.Default.purePursuitIntegralGainAB;
-            vehicleType = Properties.Settings.Default.setVehicle_vehicleType;
-
-            hydLiftLookAheadTime = Properties.ToolSettings.Default.setVehicle_hydraulicLiftLookAhead;
-
-            deadZoneHeading = Properties.Settings.Default.setAS_deadZoneHeading * 0.01;
-            deadZoneDelay = Properties.Settings.Default.setAS_deadZoneDelay;
-
-            isInFreeDriveMode = false;
-
-            //how far from line before it becomes Hold
-            modeXTE = 0.2;
-
-            //how long before hold is activated
-            modeTime = 1;
-
-            functionSpeedLimit = Properties.Settings.Default.setAS_functionSpeedLimit;
-            maxSteerSpeed = Properties.Settings.Default.setAS_maxSteerSpeed;
-            minSteerSpeed = Properties.Settings.Default.setAS_minSteerSpeed;
-
-            uturnCompensation = Properties.Settings.Default.setAS_uTurnCompensation;
         }
 
-        public int modeTimeCounter = 0;
-        public double goalDistance = 0;
+        public void LoadSettings()
+        {
+            antennaHeight = Settings.Vehicle.setVehicle_antennaHeight;
+            antennaPivot = Settings.Vehicle.setVehicle_antennaPivot;
+            antennaOffset = Settings.Vehicle.setVehicle_antennaOffset;
+
+            wheelbase = Settings.Vehicle.setVehicle_wheelbase;
+
+            goalPointLookAheadHold = Settings.Vehicle.setVehicle_goalPointLookAheadHold;
+            goalPointLookAheadMult = Settings.Vehicle.setVehicle_goalPointLookAheadMult;
+            goalPointAcquireFactor = Settings.Vehicle.setVehicle_goalPointAcquireFactor;
+
+            stanleyDistanceErrorGain = Settings.Vehicle.stanleyDistanceErrorGain;
+            stanleyHeadingErrorGain = Settings.Vehicle.stanleyHeadingErrorGain;
+
+            maxAngularVelocity = Settings.Vehicle.setVehicle_maxAngularVelocity;
+            maxSteerAngle = Settings.Vehicle.setVehicle_maxSteerAngle;
+
+
+            trackWidth = Settings.Vehicle.setVehicle_trackWidth;
+
+            stanleyIntegralGainAB = Settings.Vehicle.stanleyIntegralGainAB;
+            stanleyIntegralDistanceAwayTriggerAB = Settings.Vehicle.stanleyIntegralDistanceAwayTriggerAB;
+
+            purePursuitIntegralGain = Settings.Vehicle.setAS_purePursuitIntegralGain;
+            vehicleType = Settings.Vehicle.setVehicle_vehicleType;
+
+
+            deadZoneHeading = Settings.Vehicle.setAS_deadZoneHeading * 0.01;
+            deadZoneDelay = Settings.Vehicle.setAS_deadZoneDelay;
+
+            uturnCompensation = Settings.Vehicle.setAS_uTurnCompensation;
+        }
 
         public double UpdateGoalPointDistance()
         {
@@ -170,22 +149,22 @@ namespace AgOpenGPS
             //draw vehicle
             GL.Rotate(glm.toDegrees(-mf.fixHeading), 0.0, 0.0, 1.0);
             //mf.font.DrawText3D(0, 0, "&TGF");
-            if (!mf.tool.isToolFrontFixed)
+            if (!Settings.Tool.isToolFront)
             {
-                if (!mf.tool.isToolRearFixed)
+                if (!Settings.Tool.isToolRearFixed)
                 {
                     GL.LineWidth(4);
                     //draw the rigid hitch
                     GL.Color3(0, 0, 0);
                     GL.Begin(PrimitiveType.Lines);
-                    GL.Vertex3(0, mf.tool.hitchLength, 0);
+                    GL.Vertex3(0, Settings.Tool.hitchLength, 0);
                     GL.Vertex3(0, 0, 0);
                     GL.End();
 
                     GL.LineWidth(1);
                     GL.Color3(1.237f, 0.037f, 0.0397f);
                     GL.Begin(PrimitiveType.Lines);
-                    GL.Vertex3(0, mf.tool.hitchLength, 0);
+                    GL.Vertex3(0, Settings.Tool.hitchLength, 0);
                     GL.Vertex3(0, 0, 0);
                     GL.End();
                 }
@@ -195,18 +174,18 @@ namespace AgOpenGPS
                     //draw the rigid hitch
                     GL.Color3(0, 0, 0);
                     GL.Begin(PrimitiveType.Lines);
-                    GL.Vertex3(-0.35, mf.tool.hitchLength, 0);
+                    GL.Vertex3(-0.35, Settings.Tool.hitchLength, 0);
                     GL.Vertex3(-0.350, 0, 0);
-                    GL.Vertex3(0.35, mf.tool.hitchLength, 0);
+                    GL.Vertex3(0.35, Settings.Tool.hitchLength, 0);
                     GL.Vertex3(0.350, 0, 0);
                     GL.End();
 
                     GL.LineWidth(1);
                     GL.Color3(1.237f, 0.037f, 0.0397f);
                     GL.Begin(PrimitiveType.Lines);
-                    GL.Vertex3(-0.35, mf.tool.hitchLength, 0);
+                    GL.Vertex3(-0.35, Settings.Tool.hitchLength, 0);
                     GL.Vertex3(-0.35, 0, 0);
-                    GL.Vertex3(0.35, mf.tool.hitchLength, 0);
+                    GL.Vertex3(0.35, Settings.Tool.hitchLength, 0);
                     GL.Vertex3(0.35, 0, 0);
                     GL.End();
                 }
@@ -215,23 +194,9 @@ namespace AgOpenGPS
 
             //draw the vehicle Body
 
-            if (!mf.isFirstHeadingSet)
-            {
-                GL.Enable(EnableCap.Texture2D);
-                GL.Color4(1, 1, 1, 0.75);
-                GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.QuestionMark]);        // Select Our Texture
-                GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
-                GL.TexCoord2(1, 0); GL.Vertex2(5, 5); // Top Right
-                GL.TexCoord2(0, 0); GL.Vertex2(1, 5); // Top Left
-                GL.TexCoord2(1, 1); GL.Vertex2(5, 1); // Bottom Right
-                GL.TexCoord2(0, 1); GL.Vertex2(1, 1); // Bottom Left
-                GL.End();                       // Done Building Triangle Strip
-                GL.Disable(EnableCap.Texture2D);
-            }
-
             //3 vehicle types  tractor=0 harvestor=1 4wd=2
 
-            if (mf.isVehicleImage)
+            if (Settings.Vehicle.isVehicleImage)
             {
                 if (vehicleType == 0)
                 {
@@ -267,7 +232,6 @@ namespace AgOpenGPS
                     GL.Rotate(rightAckerman, 0, 0, 1);
 
                     GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.FrontWheels]);        // Select Our Texture
-                    GL.Color4(mf.vehicleColor.R, mf.vehicleColor.G, mf.vehicleColor.B, mf.vehicleOpacityByte);
 
                     GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
                     GL.TexCoord2(1, 0); GL.Vertex2(trackWidth * 0.5, wheelbase * 0.75); // Top Right
@@ -474,12 +438,12 @@ namespace AgOpenGPS
             }
 
             //Svenn Arrow
-            if (mf.isSvennArrowOn && mf.camera.camSetDistance > -1000)
+            if (Settings.User.setDisplay_isSvennArrowOn && mf.camera.camSetDistance > -1000)
             {
                 //double offs = mf.trk.distanceFromCurrentLinePivot * 0.3;
                 double svennDist = mf.camera.camSetDistance * -0.07;
                 double svennWidth = svennDist * 0.22;
-                GL.LineWidth(mf.trk.lineWidth);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth);
                 GL.Color3(1.2, 1.25, 0.10);
                 GL.Begin(PrimitiveType.LineStrip);
                 {

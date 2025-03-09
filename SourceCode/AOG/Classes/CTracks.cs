@@ -27,7 +27,6 @@ namespace AgOpenGPS
         public double howManyPathsAway, lastHowManyPathsAway;
         public vec2 refPoint1 = new vec2(1, 1), refPoint2 = new vec2(2, 2);
 
-        private int C;
         private int rA, rB;
 
         public bool isSmoothWindowOpen, isLooping;
@@ -63,7 +62,7 @@ namespace AgOpenGPS
         //to fake the user into thinking they are making a line - but is a curve
         public bool isMakingABLine;
 
-        public int lineWidth = 2, numGuideLines;
+        public int numGuideLines;
 
         public double inty;
 
@@ -72,13 +71,12 @@ namespace AgOpenGPS
             //constructor
             mf = _f;
             idx = -1;
-            lineWidth = Properties.Settings.Default.setDisplay_lineWidth;
-            numGuideLines = Properties.Settings.Default.setAS_numGuideLines;
+            numGuideLines = Settings.Vehicle.setAS_numGuideLines;
         }
 
         public async void GetDistanceFromRefTrack(vec3 pivot)
         {
-            double widthMinusOverlap = mf.tool.width - mf.tool.overlap;
+            double widthMinusOverlap = Settings.Tool.toolWidth - Settings.Tool.maxOverlap;
 
             CTrk track = gArr[idx];
 
@@ -116,13 +114,13 @@ namespace AgOpenGPS
 
                 distanceFromRefLine -= (0.5 * widthMinusOverlap);
 
-                double RefDist = (distanceFromRefLine + (isHeadingSameWay ? mf.tool.offset : -mf.tool.offset) - track.nudgeDistance) / widthMinusOverlap;
+                double RefDist = (distanceFromRefLine + (isHeadingSameWay ? Settings.Tool.offset : -Settings.Tool.offset) - track.nudgeDistance) / widthMinusOverlap;
 
                 if (RefDist < 0) howManyPathsAway = (int)(RefDist - 0.5);
                 else howManyPathsAway = (int)(RefDist + 0.5);
             }
 
-            if (!isTrackValid || howManyPathsAway != lastHowManyPathsAway || (isHeadingSameWay != lastIsHeadingSameWay && mf.tool.offset != 0))
+            if (!isTrackValid || howManyPathsAway != lastHowManyPathsAway || (isHeadingSameWay != lastIsHeadingSameWay && Settings.Tool.offset != 0))
             {
                 if (!isBusyWorking)
                 {
@@ -133,7 +131,7 @@ namespace AgOpenGPS
                         isTrackValid = true;
                         lastHowManyPathsAway = howManyPathsAway;
                         lastIsHeadingSameWay = isHeadingSameWay;
-                        double distAway = widthMinusOverlap * howManyPathsAway + (isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) + track.nudgeDistance;
+                        double distAway = widthMinusOverlap * howManyPathsAway + (isHeadingSameWay ? -Settings.Tool.offset : Settings.Tool.offset) + track.nudgeDistance;
 
                         distAway += (0.5 * widthMinusOverlap);
 
@@ -143,7 +141,7 @@ namespace AgOpenGPS
                         mf.gyd.isFindGlobalNearestTrackPoint = true;
 
                         guideArr?.Clear();
-                        if (mf.isSideGuideLines && mf.camera.camSetDistance > mf.tool.width * -400)
+                        if (Settings.User.isSideGuideLines && mf.camera.camSetDistance > Settings.Tool.toolWidth * -400)
                         {
                             //build the list list of guide lines
                             guideArr = await Task.Run(() => BuildTrackGuidelines(distAway, mf.trk.numGuideLines, track));
@@ -208,7 +206,7 @@ namespace AgOpenGPS
                 {
                     vec3 point;
 
-                    double step = (mf.tool.width - mf.tool.overlap) * 0.4;
+                    double step = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.4;
                     if (step > 2) step = 2;
                     if (step < 0.5) step = 0.5;
 
@@ -410,31 +408,30 @@ namespace AgOpenGPS
             // the listlist of all the guidelines
             List<List<vec3>> newGuideLL = new List<List<vec3>>();
 
-            //the list of points of curve new list from async
-            List<vec3> newGuideList = new List<vec3>();
-
             try
             {
                 for (int numGuides = -_passes; numGuides <= _passes; numGuides++)
                 {
                     if (numGuides == 0) continue;
-                    newGuideList = new List<vec3>
+
+                    //the list of points of curve new list from async
+                    List<vec3> newGuideList = new List<vec3>
                     {
                         Capacity = 128
                     };
 
                     newGuideLL.Add(newGuideList);
 
-                    double nextGuideDist = (mf.tool.width - mf.tool.overlap) * numGuides +
-                        (isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) ;
+                    double nextGuideDist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * numGuides +
+                        (isHeadingSameWay ? -Settings.Tool.offset : Settings.Tool.offset) ;
 
-                    //nextGuideDist += (0.5 * (mf.tool.width - mf.tool.overlap));
+                    //nextGuideDist += (0.5 * (Settings.Tool.toolWidth - Settings.Tool.maxOverlap));
 
                     nextGuideDist += distAway;
 
                     vec3 point;
 
-                    double step = (mf.tool.width - mf.tool.overlap) * 0.48;
+                    double step = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.48;
                     if (step > 4) step = 4;
                     if (step < 1) step = 1;
 
@@ -535,7 +532,7 @@ namespace AgOpenGPS
 
             if (guideArr.Count > 0)
             {
-                GL.LineWidth(lineWidth * 3);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth * 3);
                 GL.Color3(0, 0, 0);
 
                 if (gArr[idx].mode != TrackMode.bndCurve)
@@ -552,7 +549,7 @@ namespace AgOpenGPS
                 }
                 GL.End();
 
-                GL.LineWidth(lineWidth);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth);
                 GL.Color4(0.2, 0.75, 0.2, 0.6);
 
                 if (gArr[idx].mode != TrackMode.bndCurve)
@@ -575,7 +572,7 @@ namespace AgOpenGPS
             {
                 if (gArr[idx].curvePts == null || gArr[idx].curvePts.Count == 0) return;
 
-                GL.LineWidth(lineWidth * 2);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth * 2);
                 GL.Color3(0.96, 0.2f, 0.2f);
                 GL.Begin(PrimitiveType.Lines);
 
@@ -598,7 +595,7 @@ namespace AgOpenGPS
                 {
                     if (smooList == null || smooList.Count == 0) return;
 
-                    GL.LineWidth(lineWidth);
+                    GL.LineWidth(Settings.User.setDisplay_lineWidth);
                     GL.Color3(0.930f, 0.92f, 0.260f);
                     GL.Begin(PrimitiveType.Lines);
                     for (int h = 0; h < smooList.Count; h++) GL.Vertex3(smooList[h].easting, smooList[h].northing, 0);
@@ -609,7 +606,7 @@ namespace AgOpenGPS
             //Draw Tracks
             if (currentGuidanceTrack.Count > 0 && !isSmoothWindowOpen) //normal. Smoothing window is not open.
             {
-                GL.LineWidth(lineWidth * 4);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth * 4);
                 GL.Color3(0, 0, 0);
 
                 //ablines and curves are a line - the rest a loop
@@ -633,7 +630,7 @@ namespace AgOpenGPS
                 for (int h = 0; h < currentGuidanceTrack.Count; h++) GL.Vertex3(currentGuidanceTrack[h].easting, currentGuidanceTrack[h].northing, 0);
                 GL.End();
 
-                GL.LineWidth(lineWidth);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth);
                 GL.Color3(0.95f, 0.2f, 0.95f);
 
                 //ablines and curves are a track - the rest a loop
@@ -682,7 +679,7 @@ namespace AgOpenGPS
         public void DrawABLineNew()
         {
             //AB Line currently being designed
-            GL.LineWidth(lineWidth);
+            GL.LineWidth(Settings.User.setDisplay_lineWidth);
             GL.Begin(PrimitiveType.Lines);
             GL.Color3(0.95f, 0.70f, 0.50f);
             GL.Vertex3(designLineEndA.easting, designLineEndA.northing, 0.0);
@@ -862,12 +859,12 @@ namespace AgOpenGPS
             double dist;
             if (isRefRightSide)
             {
-                dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
+                dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5 + Settings.Tool.offset;
                 NudgeRefTrack(dist);
             }
             else
             {
-                dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
+                dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * -0.5 + Settings.Tool.offset;
                 NudgeRefTrack(dist);
             }
 

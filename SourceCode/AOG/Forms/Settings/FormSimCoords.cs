@@ -21,8 +21,8 @@ namespace AgOpenGPS
 
         private void FormSimCoords_Load(object sender, EventArgs e)
         {
-            nudLatitude.Value = Properties.Settings.Default.setGPS_SimLatitude;
-            nudLongitude.Value = Properties.Settings.Default.setGPS_SimLongitude;
+            nudLatitude.Value = Settings.Vehicle.setGPS_SimLatitude;
+            nudLongitude.Value = Settings.Vehicle.setGPS_SimLongitude;
         }
 
         private void bntOK_Click(object sender, EventArgs e)

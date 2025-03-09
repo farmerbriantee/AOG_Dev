@@ -25,9 +25,9 @@ namespace AgOpenGPS
 
         private void FormBoundaryPlayer_Load(object sender, EventArgs e)
         {
-            nudOffset.Value = mf.tool.width * 0.5;
+            nudOffset.Value = Settings.Tool.toolWidth * 0.5;
 
-            if (mf.isMetric)
+            if (Settings.User.isMetric)
             {
                 lblMetersInches.Text = "cm";
             }
@@ -39,12 +39,12 @@ namespace AgOpenGPS
 
             btnPausePlay.Image = Properties.Resources.BoundaryRecord;
 
-            mf.bnd.isDrawAtPivot = Properties.Settings.Default.setBnd_isDrawPivot;
+            mf.bnd.isDrawAtPivot = Settings.Vehicle.setBnd_isDrawPivot;
 
             btnLeftRight.Image = mf.bnd.isDrawRightSide ? Properties.Resources.BoundaryRight : Properties.Resources.BoundaryLeft;
             btnAntennaTool.Image = mf.bnd.isDrawAtPivot ? Properties.Resources.BoundaryRecordPivot : Properties.Resources.BoundaryRecordTool;
 
-            mf.bnd.createFenceOffset = (mf.tool.width * 0.5);
+            mf.bnd.createFenceOffset = (Settings.Tool.toolWidth * 0.5);
             mf.bnd.isFenceBeingMade = true;
             mf.Focus();
 
@@ -69,7 +69,7 @@ namespace AgOpenGPS
             btnPausePlay.Focus();
             mf.bnd.createFenceOffset = nudOffset.Value;
 
-            if (!mf.isMetric)
+            if (!Settings.User.isMetric)
             {
                 double ftInches = (double)nudOffset.Value;
                 lblMetersInches.Text = ((int)(ftInches / 12)).ToString() + "' " + (ftInches % 12).ToString("N1") + '"';
@@ -191,7 +191,7 @@ namespace AgOpenGPS
         {
             mf.bnd.isDrawAtPivot = !mf.bnd.isDrawAtPivot;
             btnAntennaTool.Image = mf.bnd.isDrawAtPivot ? Properties.Resources.BoundaryRecordPivot : Properties.Resources.BoundaryRecordTool;
-            Properties.Settings.Default.setBnd_isDrawPivot = mf.bnd.isDrawAtPivot;
+            Settings.Vehicle.setBnd_isDrawPivot = mf.bnd.isDrawAtPivot;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

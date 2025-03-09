@@ -72,7 +72,7 @@ namespace AgOpenGPS
             cboxSmooth.SelectedIndexChanged += cboxSmooth_SelectedIndexChanged;
             cboxIsZoom.Checked = false;
 
-            Size = Properties.Settings.Default.setWindow_MapBndSize;
+            Size = Settings.User.setWindow_MapBndSize;
 
             Screen myScreen = Screen.FromControl(this);
             Rectangle area = myScreen.WorkingArea;
@@ -90,7 +90,7 @@ namespace AgOpenGPS
 
         private void FormBndTool_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.setWindow_MapBndSize = Size;
+            Settings.User.setWindow_MapBndSize = Size;
         }
 
         private void FormBndTool_ResizeEnd(object sender, EventArgs e)

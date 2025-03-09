@@ -44,11 +44,11 @@ namespace AgOpenGPS
             FixLabelsCurve();
 
             lblToolWidth.Text = "( " + glm.unitsFtM + " )      Tool: "
-                + ((mf.tool.width - mf.tool.overlap) * glm.m2FtOrM).ToString("N1") + glm.unitsFtM + " ";
+                + ((Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * glm.m2FtOrM).ToString("N1") + glm.unitsFtM + " ";
 
             mf.bnd.bndList[0].hdLine?.Clear();
 
-            Size = Properties.Settings.Default.setWindow_HeadAcheSize;
+            Size = Settings.User.setWindow_HeadAcheSize;
 
             Screen myScreen = Screen.FromControl(this);
             Rectangle area = myScreen.WorkingArea;
@@ -74,7 +74,7 @@ namespace AgOpenGPS
             }
             else mf.hdl.idx = -1;
 
-            Properties.Settings.Default.setWindow_HeadAcheSize = Size;
+            Settings.User.setWindow_HeadAcheSize = Size;
         }
 
         private void FormHeadAche_ResizeEnd(object sender, EventArgs e)
@@ -858,7 +858,7 @@ namespace AgOpenGPS
 
         private void cboxToolWidths_SelectedIndexChanged(object sender, EventArgs e)
         {
-            nudSetDistance.Value = Math.Round((mf.tool.width - mf.tool.overlap) * cboxToolWidths.SelectedIndex, 1);
+            nudSetDistance.Value = Math.Round((Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * cboxToolWidths.SelectedIndex, 1);
         }
 
         private void btnHeadlandOff_Click(object sender, EventArgs e)

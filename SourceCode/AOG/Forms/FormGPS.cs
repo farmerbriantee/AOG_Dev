@@ -1,11 +1,5 @@
-﻿//Please, if you use this, share the improvements
-
-using AgOpenGPS.Classes;
-
+﻿using AgOpenGPS.Classes;
 using AgOpenGPS.Properties;
-using ExcelDataReader;
-using OpenTK;
-using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
@@ -16,8 +10,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
-using System.Reflection;
-using System.Resources;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -85,9 +77,6 @@ namespace AgOpenGPS
 
         //Time to do fix position update and draw routine
         public double gpsHz = 10;
-
-        //whether or not to use Stanley control
-        public bool isStanleyUsed = true;
 
         public int pbarSteer, pbarMachine, pbarUDP;
 
@@ -257,7 +246,7 @@ namespace AgOpenGPS
                     btnChargeStatus.BackColor = Color.LightCoral;
                 }
 
-                if (Settings.Default.setDisplay_isShutdownWhenNoPower && powerLineStatus == PowerLineStatus.Offline)
+                if (Settings.User.setDisplay_isShutdownWhenNoPower && powerLineStatus == PowerLineStatus.Offline)
                 {
                     Log.EventWriter("Shutdown Computer By Power Lost Setting");
                     Close();
@@ -343,7 +332,7 @@ namespace AgOpenGPS
             sounds = new CSound();
 
             //brightness object class
-            displayBrightness = new CWindowsSettingsBrightnessController(Properties.Settings.Default.setDisplay_isBrightnessOn);
+            displayBrightness = new CWindowsSettingsBrightnessController(Settings.User.setDisplay_isBrightnessOn);
 
             //Application rate controller
             nozz = new CNozzle(this);
@@ -353,14 +342,15 @@ namespace AgOpenGPS
         {
             if (!gStr.Load()) YesMessageBox("Serious error loading languages");
 
-            if (!Properties.Settings.Default.setDisplay_isTermsAccepted)
+            if (!Settings.User.isTermsAccepted)
             {
                 using (var form = new Form_First(this))
                 {
                     if (form.ShowDialog(this) != DialogResult.OK)
                     {
                         Log.EventWriter("Terms Not Accepted");
-                        Close();
+                        FileSaveSystemEvents();
+                        Environment.Exit(0);
                     }
                     else
                     {
@@ -382,7 +372,7 @@ namespace AgOpenGPS
             FieldMenuButtonEnableDisable(false);
 
             //make sure current field directory exists, null if not
-            currentFieldDirectory = Settings.Default.setF_CurrentFieldDir;
+            currentFieldDirectory = Settings.Vehicle.setF_CurrentFieldDir;
 
             if (currentFieldDirectory != "")
             {
@@ -390,13 +380,13 @@ namespace AgOpenGPS
                 if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
                 {
                     currentFieldDirectory = "";
-                    Settings.Default.setF_CurrentFieldDir = "";
+                    Settings.Vehicle.setF_CurrentFieldDir = "";
 
                     Log.EventWriter("Field Directory is Empty or Missing");
                 }
             }
 
-            currentJobDirectory = Settings.Default.setF_CurrentJobDir;
+            currentJobDirectory = Settings.Vehicle.setF_CurrentJobDir;
 
             if (currentFieldDirectory != "" && currentJobDirectory != "")
             {
@@ -404,7 +394,7 @@ namespace AgOpenGPS
                 if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
                 {
                     currentJobDirectory = "";
-                    Settings.Default.setF_CurrentJobDir = "";
+                    Settings.Vehicle.setF_CurrentJobDir = "";
 
                     Log.EventWriter("Job Directory is Empty or Missing");
                 }
@@ -422,11 +412,11 @@ namespace AgOpenGPS
             inoVersionInt = inoV;
             inoVersionStr = inoV.ToString();
 
-            if (isBrightnessOn)
+            if (Settings.User.setDisplay_isBrightnessOn)
             {
                 if (displayBrightness.isWmiMonitor)
                 {
-                    Settings.Default.setDisplay_brightnessSystem = displayBrightness.GetBrightness();
+                    Settings.User.setDisplay_brightnessSystem = displayBrightness.GetBrightness();
                 }
                 else
                 {
@@ -437,12 +427,12 @@ namespace AgOpenGPS
                 //display brightness
                 if (displayBrightness.isWmiMonitor)
                 {
-                    if (Settings.Default.setDisplay_brightness < Settings.Default.setDisplay_brightnessSystem)
+                    if (Settings.User.setDisplay_brightness < Settings.User.setDisplay_brightnessSystem)
                     {
-                        Settings.Default.setDisplay_brightness = Settings.Default.setDisplay_brightnessSystem;
+                        Settings.User.setDisplay_brightness = Settings.User.setDisplay_brightnessSystem;
                     }
 
-                    displayBrightness.SetBrightness(Settings.Default.setDisplay_brightness);
+                    displayBrightness.SetBrightness(Settings.User.setDisplay_brightness);
                 }
                 else
                 {
@@ -457,7 +447,10 @@ namespace AgOpenGPS
             // load all the gui elements in gui.designer.cs
             LoadSettings();
 
-            if (RegistrySettings.vehicleFileName != "" && Properties.Settings.Default.setDisplay_isAutoStartAgIO)
+            tool.LoadSettings();
+            vehicle.LoadSettings();
+
+            if (RegistrySettings.vehicleFileName != "" && Settings.User.isAutoStartAgIO)
             {
                 //Start AgIO process
                 Process[] processName = Process.GetProcessesByName("AgIO");
@@ -490,7 +483,7 @@ namespace AgOpenGPS
 
             hotkeys = new char[19];
 
-            hotkeys = Properties.Settings.Default.setKey_hotkeys.ToCharArray();
+            hotkeys = Settings.User.hotkeys.ToCharArray();
 
             Log.EventWriter("Terms Accepted");
 
@@ -561,11 +554,7 @@ namespace AgOpenGPS
 
             if (isFieldStarted)
             {
-                if (autoBtnState == btnStates.Auto)
-                    btnSectionMasterAuto.PerformClick();
-
-                if (manualBtnState == btnStates.On)
-                    btnSectionMasterManual.PerformClick();
+                SetWorkState(btnStates.Off);
 
                 FileSaveEverythingBeforeClosingField();
             }
@@ -583,21 +572,24 @@ namespace AgOpenGPS
 
             Log.EventWriter("Program Exit: " + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)) + "\r");
 
-            //write the log file
-            FileSaveSystemEvents();
-
             //stop back buffer thread
             if (thread_oglBack != null && thread_oglBack.IsAlive)
                 thread_oglBack.Abort();
 
             //save current vehicle
-            Settings.Default.Save();
+            Settings.Vehicle.Save();
 
             //save current Tool
-            ToolSettings.Default.Save();
+            Settings.Tool.Save();
+
+            //save current User
+            Settings.User.Save();
+
+            //write the log file
+            FileSaveSystemEvents();
 
             if (displayBrightness.isWmiMonitor)
-                displayBrightness.SetBrightness(Settings.Default.setDisplay_brightnessSystem);
+                displayBrightness.SetBrightness(Settings.User.setDisplay_brightnessSystem);
 
             if (choice == 2)
             {
@@ -621,7 +613,7 @@ namespace AgOpenGPS
                 finally { }
             }
 
-            if (Properties.Settings.Default.setDisplay_isAutoOffAgIO)
+            if (Settings.User.isAutoOffAgIO)
             {
                 Process[] processName = Process.GetProcessesByName("AgIO");
                 if (processName.Length != 0)
@@ -724,117 +716,28 @@ namespace AgOpenGPS
             isJobStarted = true;
             btnFieldStats.Visible = true;
 
-            btnSectionMasterManual.Enabled = true;
-            manualBtnState = btnStates.Off;
-            btnSectionMasterManual.Image = Properties.Resources.ManualOff;
+            btnSectionMasterManual.Visible = btnSectionMasterAuto.Visible = true;
 
-            btnSectionMasterAuto.Enabled = true;
-            autoBtnState = btnStates.Off;
-            btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
-
-            btnSection1Man.BackColor = Color.Red;
-            btnSection2Man.BackColor = Color.Red;
-            btnSection3Man.BackColor = Color.Red;
-            btnSection4Man.BackColor = Color.Red;
-            btnSection5Man.BackColor = Color.Red;
-            btnSection6Man.BackColor = Color.Red;
-            btnSection7Man.BackColor = Color.Red;
-            btnSection8Man.BackColor = Color.Red;
-            btnSection9Man.BackColor = Color.Red;
-            btnSection10Man.BackColor = Color.Red;
-            btnSection11Man.BackColor = Color.Red;
-            btnSection12Man.BackColor = Color.Red;
-            btnSection13Man.BackColor = Color.Red;
-            btnSection14Man.BackColor = Color.Red;
-            btnSection15Man.BackColor = Color.Red;
-            btnSection16Man.BackColor = Color.Red;
-
-            btnSection1Man.Enabled = true;
-            btnSection2Man.Enabled = true;
-            btnSection3Man.Enabled = true;
-            btnSection4Man.Enabled = true;
-            btnSection5Man.Enabled = true;
-            btnSection6Man.Enabled = true;
-            btnSection7Man.Enabled = true;
-            btnSection8Man.Enabled = true;
-            btnSection9Man.Enabled = true;
-            btnSection10Man.Enabled = true;
-            btnSection11Man.Enabled = true;
-            btnSection12Man.Enabled = true;
-            btnSection13Man.Enabled = true;
-            btnSection14Man.Enabled = true;
-            btnSection15Man.Enabled = true;
-            btnSection16Man.Enabled = true;
-
-            btnZone1.BackColor = Color.Red;
-            btnZone2.BackColor = Color.Red;
-            btnZone3.BackColor = Color.Red;
-            btnZone4.BackColor = Color.Red;
-            btnZone5.BackColor = Color.Red;
-            btnZone6.BackColor = Color.Red;
-            btnZone7.BackColor = Color.Red;
-            btnZone8.BackColor = Color.Red;
-
-            btnZone1.Enabled = true;
-            btnZone2.Enabled = true;
-            btnZone3.Enabled = true;
-            btnZone4.Enabled = true;
-            btnZone5.Enabled = true;
-            btnZone6.Enabled = true;
-            btnZone7.Enabled = true;
-            btnZone8.Enabled = true;
-
-            if (tool.isSectionsNotZones)
-            {
-                LineUpIndividualSectionBtns();
-            }
-            else
-            {
-                LineUpAllZoneButtons();
-            }
+            SetSectionButtonVisible(true);
 
             PanelsAndOGLSize();
         }
 
         public void JobClose()
         {
-            if (autoBtnState == btnStates.Auto)
-                btnSectionMasterAuto.PerformClick();
-
-            if (manualBtnState == btnStates.On)
-                btnSectionMasterManual.PerformClick();
-
-            //turn off all the sections
-            for (int j = 0; j < tool.numOfSections; j++)
+            if (isJobStarted)
             {
-                section[j].sectionOffRequest = true;
-                section[j].sectionOnRequest = false;
-            }
+                TurnOffSectionsSafely();
 
-            //turn off patching
-            foreach (var patch in triStrip)
-            {
-                if (patch.isDrawing) patch.TurnMappingOff();
-            }
-
-            //fix ManualOffOnAuto buttons
-            manualBtnState = btnStates.Off;
-            btnSectionMasterManual.Image = Properties.Resources.ManualOff;
-
-            //fix auto button
-            autoBtnState = btnStates.Off;
-            btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
-
-            if(isJobStarted)
-            {
-                Settings.Default.setF_CurrentJobDir = currentJobDirectory;
+                btnSectionMasterManual.Visible = btnSectionMasterAuto.Visible = true;
+                Settings.Vehicle.setF_CurrentJobDir = currentJobDirectory;
 
                 //auto save the field patches, contours accumulated so far
                 FileSaveSections();
                 FileSaveContour();
 
                 //NMEA elevation file
-                if (isLogElevation && sbElevationString.Length > 0) FileSaveElevation();
+                if (Settings.User.isLogElevation && sbElevationString.Length > 0) FileSaveElevation();
 
                 Log.EventWriter("** Closed **   " + currentJobDirectory + "   "
                     + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
@@ -851,19 +754,7 @@ namespace AgOpenGPS
             btnContour.Image = Properties.Resources.ContourOff;
             ct.isContourOn = false;
 
-            if (tool.isSectionsNotZones)
-            {
-                //Update the button colors and text
-                AllSectionsAndButtonsToState(btnStates.Off);
-
-                //enable disable manual buttons
-                LineUpIndividualSectionBtns();
-            }
-            else
-            {
-                AllZonesAndButtonsToState(autoBtnState);
-                LineUpAllZoneButtons();
-            }
+            SetSectionButtonVisible(false);
 
             triStrip?.Clear();
             patchList?.Clear();
@@ -873,7 +764,7 @@ namespace AgOpenGPS
 
         public void FieldClose()
         {
-            Settings.Default.setF_CurrentFieldDir = currentFieldDirectory;
+            Settings.Vehicle.setF_CurrentFieldDir = currentFieldDirectory;
 
             if (isFieldStarted)
             {
@@ -972,8 +863,6 @@ namespace AgOpenGPS
 
             PanelUpdateRightAndBottom();
 
-            btnSection1Man.Text = "1";
-
             using (Bitmap bitmap = Properties.Resources.z_bingMap)
             {
                 GL.GenTextures(1, out texture[(int)FormGPS.textures.bingGrid]);
@@ -1060,14 +949,14 @@ namespace AgOpenGPS
         //take the distance from object and convert to camera data
         public void SetZoom()
         {
-            if (camera.zoomValue < 4.0) camera.zoomValue = 4.0;
-            if (camera.zoomValue > 120) camera.zoomValue = 120;
-            camera.camSetDistance = camera.zoomValue * camera.zoomValue * -1;
+            if (Settings.User.setDisplay_camZoom < 4.0) Settings.User.setDisplay_camZoom = 4.0;
+            if (Settings.User.setDisplay_camZoom > 120) Settings.User.setDisplay_camZoom = 120;
+            camera.camSetDistance = Settings.User.setDisplay_camZoom * Settings.User.setDisplay_camZoom * -1;
 
             //match grid to cam distance and redo perspective
-            gridToolSpacing = (int)((camera.camSetDistance / -15) / tool.width + 0.5);
+            gridToolSpacing = (int)((camera.camSetDistance / -15) / Settings.Tool.toolWidth + 0.5);
             if (gridToolSpacing < 1) gridToolSpacing = 1;
-            camera.gridZoom = gridToolSpacing * tool.width;
+            camera.gridZoom = gridToolSpacing * Settings.Tool.toolWidth;
             ChangePerspective();
         }
 
@@ -1111,10 +1000,10 @@ namespace AgOpenGPS
                 Resources.z_Turn,Resources.z_TurnCancel,Resources.z_TurnManual,
                 Resources.z_Compass,Resources.z_Speedo,Resources.z_SpeedoNeedle,
                 Resources.z_Lift,Resources.z_SteerPointer,
-                Resources.z_SteerDot,GetTractorBrand(Settings.Default.setBrand_TBrand),Resources.z_QuestionMark,
-                Resources.z_FrontWheels,Get4WDBrandFront(Settings.Default.setBrand_WDBrand),
-                Get4WDBrandRear(Settings.Default.setBrand_WDBrand),
-                GetHarvesterBrand(Settings.Default.setBrand_HBrand),
+                Resources.z_SteerDot,GetTractorBrand(Settings.Vehicle.setBrand_TBrand),Resources.z_QuestionMark,
+                Resources.z_FrontWheels,Get4WDBrandFront(Settings.Vehicle.setBrand_WDBrand),
+                Get4WDBrandRear(Settings.Vehicle.setBrand_WDBrand),
+                GetHarvesterBrand(Settings.Vehicle.setBrand_HBrand),
                 Resources.z_LateralManual, Resources.z_bingMap,
                 Resources.z_NoGPS, Resources.ZoomIn48, Resources.ZoomOut48,
                 Resources.Pan, Resources.MenuHideShow,

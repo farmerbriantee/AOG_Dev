@@ -27,7 +27,7 @@ namespace AgOpenGPS
             //Language keys
             //this.Text = gStr.Get(gs.gsColors;
 
-            string[] words = Properties.Settings.Default.setDisplay_customSectionColors.Split(',');
+            string[] words = Settings.User.setDisplay_customSectionColors.Split(',');
             for (int i = 0; i < 16; i++)
             {
                 customSectionColorsList[i] = Color.FromArgb(int.Parse(words[i], CultureInfo.InvariantCulture)).CheckColorFor255();
@@ -36,24 +36,24 @@ namespace AgOpenGPS
 
         private void FormDisplaySettings_Load(object sender, EventArgs e)
         {
-            cb01.BackColor = Settings.Default.setColor_sec01;
-            cb02.BackColor = Settings.Default.setColor_sec02;
-            cb03.BackColor = Settings.Default.setColor_sec03;
-            cb04.BackColor = Settings.Default.setColor_sec04;
-            cb05.BackColor = Settings.Default.setColor_sec05;
-            cb06.BackColor = Settings.Default.setColor_sec06;
-            cb07.BackColor = Settings.Default.setColor_sec07;
-            cb08.BackColor = Settings.Default.setColor_sec08;
-            cb09.BackColor = Settings.Default.setColor_sec09;
-            cb10.BackColor = Settings.Default.setColor_sec10;
-            cb11.BackColor = Settings.Default.setColor_sec11;
-            cb12.BackColor = Settings.Default.setColor_sec12;
-            cb13.BackColor = Settings.Default.setColor_sec13;
-            cb14.BackColor = Settings.Default.setColor_sec14;
-            cb15.BackColor = Settings.Default.setColor_sec15;
-            cb16.BackColor = Settings.Default.setColor_sec16;
+            cb01.BackColor = Settings.Tool.setColor_sec01;
+            cb02.BackColor = Settings.Tool.setColor_sec02;
+            cb03.BackColor = Settings.Tool.setColor_sec03;
+            cb04.BackColor = Settings.Tool.setColor_sec04;
+            cb05.BackColor = Settings.Tool.setColor_sec05;
+            cb06.BackColor = Settings.Tool.setColor_sec06;
+            cb07.BackColor = Settings.Tool.setColor_sec07;
+            cb08.BackColor = Settings.Tool.setColor_sec08;
+            cb09.BackColor = Settings.Tool.setColor_sec09;
+            cb10.BackColor = Settings.Tool.setColor_sec10;
+            cb11.BackColor = Settings.Tool.setColor_sec11;
+            cb12.BackColor = Settings.Tool.setColor_sec12;
+            cb13.BackColor = Settings.Tool.setColor_sec13;
+            cb14.BackColor = Settings.Tool.setColor_sec14;
+            cb15.BackColor = Settings.Tool.setColor_sec15;
+            cb16.BackColor = Settings.Tool.setColor_sec16;
 
-            if (Settings.Default.setColor_isMultiColorSections) cboxIsMulti.Checked = true;
+            if (Settings.Tool.setColor_isMultiColorSections) cboxIsMulti.Checked = true;
             else cboxIsMulti.Checked = false;
 
             btnC01.BackColor = customSectionColorsList[0];
@@ -126,36 +126,34 @@ namespace AgOpenGPS
 
         private void SaveCustomColor()
         {
-            Properties.Settings.Default.setDisplay_customSectionColors = "";
+            Settings.User.setDisplay_customSectionColors = "";
             for (int i = 0; i < 15; i++)
             {
-                Properties.Settings.Default.setDisplay_customSectionColors += customSectionColorsList[i].ToArgb() + ",";
+                Settings.User.setDisplay_customSectionColors += customSectionColorsList[i].ToArgb() + ",";
             }
-            Properties.Settings.Default.setDisplay_customSectionColors += customSectionColorsList[15].ToArgb();
+            Settings.User.setDisplay_customSectionColors += customSectionColorsList[15].ToArgb();
         }
 
         private void bntOK_Click(object sender, EventArgs e)
         {
-            mf.tool.secColors[0] = Settings.Default.setColor_sec01 = cb01.BackColor;
-            mf.tool.secColors[1] = Settings.Default.setColor_sec02 = cb02.BackColor;
-            mf.tool.secColors[2] = Settings.Default.setColor_sec03 = cb03.BackColor;
-            mf.tool.secColors[3] = Settings.Default.setColor_sec04 = cb04.BackColor;
-            mf.tool.secColors[4] = Settings.Default.setColor_sec05 = cb05.BackColor;
-            mf.tool.secColors[5] = Settings.Default.setColor_sec06 = cb06.BackColor;
-            mf.tool.secColors[6] = Settings.Default.setColor_sec07 = cb07.BackColor;
-            mf.tool.secColors[7] = Settings.Default.setColor_sec08 = cb08.BackColor;
-            mf.tool.secColors[8] = Settings.Default.setColor_sec09 = cb09.BackColor;
-            mf.tool.secColors[9] = Settings.Default.setColor_sec10 = cb10.BackColor;
-            mf.tool.secColors[10] = Settings.Default.setColor_sec11 = cb11.BackColor;
-            mf.tool.secColors[11] = Settings.Default.setColor_sec12 = cb12.BackColor;
-            mf.tool.secColors[12] = Settings.Default.setColor_sec13 = cb13.BackColor;
-            mf.tool.secColors[13] = Settings.Default.setColor_sec14 = cb14.BackColor;
-            mf.tool.secColors[14] = Settings.Default.setColor_sec15 = cb15.BackColor;
-            mf.tool.secColors[15] = Settings.Default.setColor_sec16 = cb16.BackColor;
+            mf.tool.secColors[0] = Settings.Tool.setColor_sec01 = cb01.BackColor;
+            mf.tool.secColors[1] = Settings.Tool.setColor_sec02 = cb02.BackColor;
+            mf.tool.secColors[2] = Settings.Tool.setColor_sec03 = cb03.BackColor;
+            mf.tool.secColors[3] = Settings.Tool.setColor_sec04 = cb04.BackColor;
+            mf.tool.secColors[4] = Settings.Tool.setColor_sec05 = cb05.BackColor;
+            mf.tool.secColors[5] = Settings.Tool.setColor_sec06 = cb06.BackColor;
+            mf.tool.secColors[6] = Settings.Tool.setColor_sec07 = cb07.BackColor;
+            mf.tool.secColors[7] = Settings.Tool.setColor_sec08 = cb08.BackColor;
+            mf.tool.secColors[8] = Settings.Tool.setColor_sec09 = cb09.BackColor;
+            mf.tool.secColors[9] = Settings.Tool.setColor_sec10 = cb10.BackColor;
+            mf.tool.secColors[10] = Settings.Tool.setColor_sec11 = cb11.BackColor;
+            mf.tool.secColors[11] = Settings.Tool.setColor_sec12 = cb12.BackColor;
+            mf.tool.secColors[12] = Settings.Tool.setColor_sec13 = cb13.BackColor;
+            mf.tool.secColors[13] = Settings.Tool.setColor_sec14 = cb14.BackColor;
+            mf.tool.secColors[14] = Settings.Tool.setColor_sec15 = cb15.BackColor;
+            mf.tool.secColors[15] = Settings.Tool.setColor_sec16 = cb16.BackColor;
 
-            if (cboxIsMulti.Checked)
-                Settings.Default.setColor_isMultiColorSections = mf.tool.isMultiColoredSections = true;
-            else Settings.Default.setColor_isMultiColorSections = mf.tool.isMultiColoredSections = false;
+            Settings.Tool.setColor_isMultiColorSections = cboxIsMulti.Checked;
 
             isClosing = true;
             Close();

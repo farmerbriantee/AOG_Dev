@@ -1,8 +1,5 @@
-﻿using AgOpenGPS.Classes;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 
 namespace AgOpenGPS
 {
@@ -26,12 +23,7 @@ namespace AgOpenGPS
 
         public double distSteerError, lastDistSteerError, derivativeDistError;
 
-        public double pivotDistanceError, stanleyModeMultiplier;
-
-        //public int modeTimeCounter = 0;
-
-        //for adding steering angle based on side slope hill
-        public double sideHillCompFactor;
+        public double pivotDistanceError;
 
         //derivative counters
         private int counter2;
@@ -40,19 +32,18 @@ namespace AgOpenGPS
         public bool isFindGlobalNearestTrackPoint = true;
 
         public int currentLocationIndex;
-        public double pivotDistanceErrorLast, pivotDerivative, pivotDerivativeSmoothed, lastTrackDistance = 10000;
+        public double pivotDistanceErrorLast, pivotDerivative;
 
         public CGuidance(FormGPS _f)
         {
             //constructor
             mf = _f;
-            sideHillCompFactor = Properties.Settings.Default.setAS_sideHillComp;
         }
 
         public void Guidance(vec3 pivot, vec3 steer, bool Uturn, List<vec3> curList)
         {
             bool completeUturn = !Uturn;
-            var vec2point = mf.isStanleyUsed ? new vec2(steer.easting, steer.northing) : new vec2(pivot.easting, pivot.northing);
+            var vec2point = Settings.Vehicle.setVehicle_isStanleyUsed ? new vec2(steer.easting, steer.northing) : new vec2(pivot.easting, pivot.northing);
 
             //close call hit
             int cc = FindGlobalRoughNearest(vec2point, curList, 5, Uturn);
@@ -89,7 +80,7 @@ namespace AgOpenGPS
 
                 manualUturnHeading = abHeading;
 
-                if (mf.isStanleyUsed)//Stanley
+                if (Settings.Vehicle.setVehicle_isStanleyUsed)//Stanley
                 {
                     #region Stanley
                     //double delta = 0;
@@ -275,8 +266,7 @@ namespace AgOpenGPS
                                 {
                                     if (glm.Distance(goalPointTrk, curList[(curList.Count - 1)]) < 0.5)
                                     {
-                                        mf.btnAutoSteer.PerformClick();
-                                        mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), gStr.Get(gs.gsPastEndOfCurve));
+                                        mf.SetAutoSteerButton(false, gStr.Get(gs.gsPastEndOfCurve));
                                         Log.EventWriter("Autosteer Stop, Past End of Curve");
                                     }
                                 }
@@ -284,8 +274,7 @@ namespace AgOpenGPS
                                 {
                                     if (glm.Distance(goalPointTrk, curList[0]) < 0.5)
                                     {
-                                        mf.btnAutoSteer.PerformClick();
-                                        mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), gStr.Get(gs.gsPastEndOfCurve));
+                                        mf.SetAutoSteerButton(false, gStr.Get(gs.gsPastEndOfCurve));
                                         Log.EventWriter("Autosteer Stop, Past End of Curve");
                                     }
                                 }
@@ -347,7 +336,7 @@ namespace AgOpenGPS
                 }
 
                 if (!Uturn && mf.ahrs.imuRoll != 88888)
-                    steerAngle += mf.ahrs.imuRoll * -mf.gyd.sideHillCompFactor;
+                    steerAngle += mf.ahrs.imuRoll * -Settings.Vehicle.setAS_sideHillComp;
 
                 if (steerAngle < -mf.vehicle.maxSteerAngle) steerAngle = -mf.vehicle.maxSteerAngle;
                 if (steerAngle > mf.vehicle.maxSteerAngle) steerAngle = mf.vehicle.maxSteerAngle;

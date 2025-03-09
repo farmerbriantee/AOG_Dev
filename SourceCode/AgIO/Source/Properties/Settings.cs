@@ -11,116 +11,124 @@ using System.Globalization;
 using System.Xml.Serialization;
 using System.Collections;
 
-namespace AgOpenGPS.Properties
+namespace AgIO
 {
-    public sealed class ToolSettings
+    public sealed class Settings
     {
-        private static ToolSettings toolSettings_ = new ToolSettings();
-        public static ToolSettings Default
+
+        private static UserSettings user_ = new UserSettings();
+        public static UserSettings User
         {
             get
             {
-                return toolSettings_;
+                return user_;
             }
         }
 
-        public CNozzleSettings setNozzleSettings = new CNozzleSettings();
-        public CToolSteerSettings setToolSteer = new CToolSteerSettings();
-
-        public bool setApp_isNozzleApp = false;
-        public bool setApPGN_isNozzleApp = false;
-
-        public double setSection_position1 = -2;
-        public double setSection_position10 = 0;
-        public double setSection_position11 = 0;
-        public double setSection_position12 = 0;
-        public double setSection_position13 = 0;
-        public double setSection_position14 = 0;
-        public double setSection_position15 = 0;
-        public double setSection_position16 = 0;
-        public double setSection_position17 = 0;
-        public double setSection_position2 = -1;
-        public double setSection_position3 = 1;
-        public double setSection_position4 = 2;
-        public double setSection_position5 = 0;
-        public double setSection_position6 = 0;
-        public double setSection_position7 = 0;
-        public double setSection_position8 = 0;
-        public double setSection_position9 = 0;
-        public bool setSection_isFast = true;
-
-
-        public bool setTool_isDirectionMarkers = true;
-        public bool setTool_isDisplayTramControl = true;
-        public bool setTool_isSectionOffWhenOut = true;
-        public bool setTool_isSectionsNotZones = true;
-        public bool setTool_isToolFront = false;
-        public bool setTool_isToolRearFixed = false;
-        public bool setTool_isToolTBT = false;
-        public bool setTool_isToolTrailing = true;
-        public bool setTool_isTramOuterInverted = false;
-        public int setTool_numSectionsMulti = 20;
-        public string setTool_zones = "2,10,20,0,0,0,0,0,0";
-        public double setTool_defaultSectionWidth = 2;
-        public double setTool_sectionWidthMulti = 0.5;
-        public double setTool_toolTrailingHitchLength = -2.5;
-        public double setTool_trailingToolToPivotLength = 0;
-
-        public bool setTram_isTramOnBackBuffer = true;
-        public double setTram_alpha = 0.8;
-        public double setTram_offset = 0.0;
-        public double setTram_snapAdj = 1.0;
-        public double setTram_tramWidth = 24.0;
-        public int setTram_BasedOn = 0;
-        public int setTram_passes = 1;
-        public int setTram_Skips = 0;
-
-
-        public double setVehicle_hitchLength = -1;
-        public double setVehicle_hydraulicLiftLookAhead = 2;
-        public double setVehicle_lookAheadMinimum = 2;
-        public double setVehicle_slowSpeedCutoff = 0.5;
-        public double setVehicle_tankTrailingHitchLength = 3;
-        public double setVehicle_toolLookAheadOff = 0.5;
-        public double setVehicle_toolLookAheadOn = 1;
-        public double setVehicle_toolOffDelay = 0;
-        public double setVehicle_toolOffset = 0;
-        public double setVehicle_toolOverlap = 0.0;
-        public double setVehicle_toolWidth = 4.0;
-        public int setVehicle_minCoverage = 100;
-        public int setVehicle_numSections = 3;
-
-        public LoadResult Load()
+        public sealed class UserSettings
         {
-            string path = Path.Combine(RegistrySettings.toolsDirectory, RegistrySettings.toolFileName + ".XML");
-            var result = XmlSettingsHandler.LoadXMLFile(path, this);
-            if (result == LoadResult.MissingFile)
+            public string setPort_portNameGPS = "GPS**";
+            public string setPort_portNameTool = "Tool*";
+            public string setPort_portNameSteer = "Steer*";
+            public string setPort_portNameMachine = "Mach**";
+            public string setPort_portNameGPS2 = "GPS2";
+            public string setPort_portNameRtcm = "RTCM";
+            public string setPort_portNameIMU = "IMU*";
+
+            public int setPort_baudRateGPS = 9600;
+            public int setPort_baudRateRtcm = 9600;
+            public int setPort_baudRateGPS2 = 9600;
+            
+            public bool setPort_wasMachineModuleConnected = false;
+            public bool setPort_wasIMUConnected = false;
+            public bool setPort_wasSteerModuleConnected = false;
+            public bool setPort_wasModule3Connected = false;
+            public bool setPort_wasRtcmConnected = false;
+            public bool setPort_wasGPSConnected = false;
+
+            public bool setMod_isIMUConnected = true;
+            public bool setMod_isMachineConnected = true;
+            public bool setMod_isSteerConnected = true;
+            
+            public string setPort_portNameGPSOut = "Out";
+            public int setPort_baudRateGPSOut = 9600;
+            public bool setMod_isGPSOutConnected = true;
+            public bool setPort_wasGPSOutConnected = false;
+            public int sendRateGGA = 0;
+            public int sendRateVTG = 0;
+            public int sendRateRMC = 0;
+            public int sendRateZDA = 0;
+            public string sendPrefixGPGN = "GP";
+
+            public string setNTRIP_casterIP = "69.75.31.235";
+            public string setNTRIP_casterURL = "NTRIP.itsware.net";
+            public string setNTRIP_mount = "SCSC";
+            public string setNTRIP_userName = "";
+            public string setNTRIP_userPassword = "";
+
+            public int setNTRIP_casterPort = 2101;
+            public int setNTRIP_sendGGAInterval = 10;
+            public int setNTRIP_sendToUDPPort = 2233;
+            public int setNTRIP_packetSize = 256;
+
+            public double setNTRIP_manualLat = 53;
+            public double setNTRIP_manualLon = -111;
+
+            public bool setNTRIP_isOn = false;
+            public bool setNTRIP_isGGAManual = false;
+            public bool setNTRIP_isTCP = false;
+            public bool setNTRIP_isHTTP10 = false;
+            public bool setNTRIP_sendToSerial = true;
+            public bool setNTRIP_sendToUDP = true;
+            public bool setPass_isOn = false;
+
+            public bool setUDP_isOn = false;
+            public byte etIP_SubnetOne = 192;
+            public byte etIP_SubnetTwo = 168;
+            public byte etIP_SubnetThree = 5;
+
+            public byte eth_loopOne = 127;
+            public byte eth_loopTwo = 255;
+            public byte eth_loopThree = 255;
+            public byte eth_loopFour = 255;
+
+            public bool setDisplay_isAutoRunGPS_Out = false;
+
+            public List<CRadioChannel> setRadio_Channels = new List<CRadioChannel>();
+
+            public bool setRadio_isOn = false;
+            public string setPort_baudRateRadio = "9600";
+            public string setPort_portNameRadio = "***";
+            public string setPort_radioChannel = "439.000";
+
+            public LoadResult Load()
             {
-                Log.EventWriter("Tool file does not exist or is Default, Default Vehicle used");
-                RegistrySettings.Save("ToolFileName", "");
+                string path = Path.Combine(RegistrySettings.profileDirectory, RegistrySettings.profileName + ".XML");
+                var result = XmlSettingsHandler.LoadXMLFile(path, this);
+                if (result == LoadResult.MissingFile)
+                {
+                    Log.EventWriter("User file does not exist or is Default, Default Interface used");
+                }
+                else if (result == LoadResult.Failed)
+                {
+                    Log.EventWriter("User XML Loaded With Error:" + result.ToString());
+                }
+
+                return result;
             }
-            else if (result == LoadResult.Failed)
+
+            public void Save()
             {
-                Log.EventWriter("Tool Loaded With Error:" + result.ToString());
+                string path = Path.Combine(RegistrySettings.profileDirectory, RegistrySettings.profileName + ".XML");
+
+                XmlSettingsHandler.SaveXMLFile(path, "User", this);
             }
 
-            return result;
-        }
-
-        public void Save()
-        {
-            string path = Path.Combine(RegistrySettings.toolsDirectory, RegistrySettings.toolFileName + ".XML");
-
-            if (RegistrySettings.toolFileName != "")
-                XmlSettingsHandler.SaveXMLFile(path, this);
-            else
-                Log.EventWriter("Default Tool Not saved to Tools");
-        }
-
-        public void Reset()
-        {
-            toolSettings_ = new ToolSettings();
-            toolSettings_.Save();
+            public void Reset()
+            {
+                user_ = new UserSettings();
+                user_.Save();
+            }
         }
 
         public enum LoadResult { Ok, MissingFile, Failed };
@@ -136,7 +144,6 @@ namespace AgOpenGPS.Properties
                     {
                         return LoadResult.MissingFile;
                     }
-
                     using (XmlTextReader reader = new XmlTextReader(filePath))
                     {
                         string name = "";
@@ -280,7 +287,7 @@ namespace AgOpenGPS.Properties
                 return int.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out outValue);
             }
 
-            public static void SaveXMLFile(string filePath, object obj)
+            public static void SaveXMLFile(string filePath, string element, object obj)
             {
                 try
                 {
@@ -299,9 +306,7 @@ namespace AgOpenGPS.Properties
                         xml.WriteStartDocument();
 
                         // Start the root element
-                        xml.WriteStartElement("configuration");
-                        xml.WriteStartElement("userSettings");
-                        xml.WriteStartElement(obj.ToString());
+                        xml.WriteStartElement(element);
 
                         foreach (var fld in obj.GetType().GetFields())
                         {
@@ -355,9 +360,7 @@ namespace AgOpenGPS.Properties
                         }
 
                         // Close all open elements
-                        xml.WriteEndElement(); // AgOpenGPS.Properties.Settings
-                        xml.WriteEndElement(); // userSettings
-                        xml.WriteEndElement(); // configuration
+                        xml.WriteEndElement(); //element
 
                         // End the document
                         xml.WriteEndDocument();

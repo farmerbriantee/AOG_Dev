@@ -81,7 +81,7 @@ namespace AgOpenGPS
             panelSim.Visible = false;
             timerSim.Enabled = false;
             simulatorOnToolStripMenuItem.Checked = false;
-            Properties.Settings.Default.setMenu_isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
+            Settings.User.isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
             
             return;
         }
@@ -142,7 +142,7 @@ namespace AgOpenGPS
                                 float temp = BitConverter.ToSingle(data, 21);
                                 if (temp != float.MaxValue)
                                 {
-                                    pn.headingTrueDual = temp + pn.headingTrueDualOffset;
+                                    pn.headingTrueDual = temp + Settings.Vehicle.setGPS_dualHeadingOffset;
                                     if (pn.headingTrueDual >= 360) pn.headingTrueDual -= 360;
                                     else if (pn.headingTrueDual < 0) pn.headingTrueDual += 360;
                                 }
@@ -161,8 +161,8 @@ namespace AgOpenGPS
                                 temp = BitConverter.ToSingle(data, 33);
                                 if (temp != float.MaxValue)
                                 {
-                                    if (ahrs.isRollInvert) temp *= -1;
-                                    ahrs.imuRoll = temp - ahrs.rollZero;
+                                    if (Settings.Vehicle.setIMU_invertRoll) temp *= -1;
+                                    ahrs.imuRoll = temp - Settings.Vehicle.setIMU_rollZero;
                                 }
                                 if (temp == float.MinValue)
                                     ahrs.imuRoll = 0;                               
@@ -199,10 +199,10 @@ namespace AgOpenGPS
                                 if (imuRol != short.MaxValue)
                                 {
                                     double rollK = imuRol;
-                                    if (ahrs.isRollInvert) rollK *= -0.1;
+                                    if (Settings.Vehicle.setIMU_invertRoll) rollK *= -0.1;
                                     else rollK *= 0.1;
-                                    rollK -= ahrs.rollZero;
-                                    ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
+                                    rollK -= Settings.Vehicle.setIMU_rollZero;
+                                    ahrs.imuRoll = ahrs.imuRoll * Settings.Vehicle.setIMU_rollFilter + rollK * (1 - Settings.Vehicle.setIMU_rollFilter);
                                 }
 
                                 short imuPich = BitConverter.ToInt16(data, 52);
@@ -236,10 +236,10 @@ namespace AgOpenGPS
                             //Roll
                             double rollK = (Int16)((data[8] << 8) + data[7]);
 
-                            if (ahrs.isRollInvert) rollK *= -0.1;
+                            if (Settings.Vehicle.setIMU_invertRoll) rollK *= -0.1;
                             else rollK *= 0.1;
-                            rollK -= ahrs.rollZero;                           
-                            ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
+                            rollK -= Settings.Vehicle.setIMU_rollZero;                           
+                            ahrs.imuRoll = ahrs.imuRoll * Settings.Vehicle.setIMU_rollFilter + rollK * (1 - Settings.Vehicle.setIMU_rollFilter);
 
                             //Angular velocity
                             ahrs.angVel = (Int16)((data[10] << 8) + data[9]);
@@ -278,10 +278,10 @@ namespace AgOpenGPS
                             double rollK = (Int16)((data[10] << 8) + data[9]);
                             if (rollK != 8888)
                             {
-                                if (ahrs.isRollInvert) rollK *= -0.1;
+                                if (Settings.Vehicle.setIMU_invertRoll) rollK *= -0.1;
                                 else rollK *= 0.1;
-                                rollK -= ahrs.rollZero;
-                                ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
+                                rollK -= Settings.Vehicle.setIMU_rollZero;
+                                ahrs.imuRoll = ahrs.imuRoll * Settings.Vehicle.setIMU_rollFilter + rollK * (1 - Settings.Vehicle.setIMU_rollFilter);
                             }
                             //else ahrs.imuRoll = 88888;
 
@@ -342,8 +342,8 @@ namespace AgOpenGPS
                     //back from spray controller
                     case 224:
                         {
-                            nozz.volumeApplied = (Int16)((data[6] << 8) + data[5]);
-                            nozz.volumeApplied *= 0.1;
+                            Settings.Tool.setNozz.volumeApplied = (Int16)((data[6] << 8) + data[5]);
+                            Settings.Tool.setNozz.volumeApplied *= 0.1;
 
                             //times 100
                             nozz.volumePerMinuteActual = (Int16)((data[8] << 8) + data[7]);
@@ -506,7 +506,7 @@ namespace AgOpenGPS
                                 float temp = BitConverter.ToSingle(data, 21);
                                 if (temp != float.MaxValue)
                                 {
-                                    pnTool.headingTrueDual = temp + pnTool.headingTrueDualOffset;
+                                    pnTool.headingTrueDual = temp + Settings.Vehicle.setGPS_dualHeadingOffset;
                                     if (pnTool.headingTrueDual < 0) pnTool.headingTrueDual += 360;
                                 }
 
@@ -524,8 +524,8 @@ namespace AgOpenGPS
                                 temp = BitConverter.ToSingle(data, 33);
                                 if (temp != float.MaxValue)
                                 {
-                                    if (ahrsTool.isRollInvert) temp *= -1;
-                                    ahrsTool.imuRoll = temp - ahrsTool.rollZero;
+                                    if (Settings.Vehicle.setIMU_invertRoll) temp *= -1;
+                                    ahrsTool.imuRoll = temp - Settings.Vehicle.setIMU_rollZero;
                                 }
                                 if (temp == float.MinValue)
                                     ahrsTool.imuRoll = 0;
@@ -562,10 +562,10 @@ namespace AgOpenGPS
                                 if (imuRol != short.MaxValue)
                                 {
                                     double rollK = imuRol;
-                                    if (ahrsTool.isRollInvert) rollK *= -0.1;
+                                    if (Settings.Vehicle.setIMU_invertRoll) rollK *= -0.1;
                                     else rollK *= 0.1;
-                                    rollK -= ahrsTool.rollZero;
-                                    ahrsTool.imuRoll = ahrsTool.imuRoll * ahrsTool.rollFilter + rollK * (1 - ahrsTool.rollFilter);
+                                    rollK -= Settings.Vehicle.setIMU_rollZero;
+                                    ahrsTool.imuRoll = ahrsTool.imuRoll * Settings.Vehicle.setIMU_rollFilter + rollK * (1 - Settings.Vehicle.setIMU_rollFilter);
                                 }
 
                                 short imuPich = BitConverter.ToInt16(data, 52);
@@ -670,7 +670,7 @@ namespace AgOpenGPS
             {
                 case 0x0084/*NCHITTEST*/ :
                     base.WndProc(ref m);
-                    if (!isKioskMode)
+                    if (!Settings.User.setWindow_isKioskMode)
                     {
                         if ((int)m.Result == 0x01/*HTCLIENT*/)
                         {
@@ -726,8 +726,7 @@ namespace AgOpenGPS
         {
             if ((char)keyData == hotkeys[0]) //autosteer button on off
             {
-                btnAutoSteer.PerformClick();
-                if (!isBtnAutoSteerOn) TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Hotkey Triggered");
+                SetAutoSteerButton(!isBtnAutoSteerOn, "Hotkey Triggered");
                 return true;    // indicate that you handled this keystroke
             }
 
@@ -751,13 +750,13 @@ namespace AgOpenGPS
 
             if ((char)keyData == hotkeys[4]) //auto section on off
             {
-                btnSectionMasterManual.PerformClick();
+                SetWorkState(workState == btnStates.On ? btnStates.Off : btnStates.On);
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == hotkeys[5]) //auto section on off
             {
-                btnSectionMasterAuto.PerformClick();
+                SetWorkState(workState == btnStates.Auto ? btnStates.Off : btnStates.Auto);
                 return true;    // indicate that you handled this keystroke
             }
 
@@ -771,7 +770,7 @@ namespace AgOpenGPS
             {
                 if (trk.idx > -1) //
                 {
-                    trk.NudgeTrack(-Properties.Settings.Default.setAS_snapDistance);
+                    trk.NudgeTrack(-Settings.Vehicle.setAS_snapDistance);
                 }
                 return true;
             }
@@ -780,7 +779,7 @@ namespace AgOpenGPS
             {
                 if (trk.idx > -1)
                 {
-                    trk.NudgeTrack(Properties.Settings.Default.setAS_snapDistance);
+                    trk.NudgeTrack(Settings.Vehicle.setAS_snapDistance);
                 }
                 return true;
             }
@@ -818,57 +817,49 @@ namespace AgOpenGPS
 
             if ((char)keyData == (hotkeys[11])) //section or zone button
             {
-                if (tool.isSectionsNotZones) btnSection1Man.PerformClick();
-                else btnZone1.PerformClick();
+                sectionButtons[0].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == (hotkeys[12])) //section or zone button
             {
-                if (tool.isSectionsNotZones) btnSection2Man.PerformClick();
-                else btnZone2.PerformClick();
+                sectionButtons[1].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == (hotkeys[13])) //section or zone button
             {
-                if (tool.isSectionsNotZones) btnSection3Man.PerformClick();
-                else btnZone3.PerformClick();
+                sectionButtons[2].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == (hotkeys[14])) //section or zone button
             {
-                if (tool.isSectionsNotZones) btnSection4Man.PerformClick();
-                else btnZone4.PerformClick();
+                sectionButtons[3].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == (hotkeys[15])) //section or zone button
             {
-                if (tool.isSectionsNotZones) btnSection5Man.PerformClick();
-                else btnZone5.PerformClick();
+                sectionButtons[4].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == (hotkeys[16])) //section or zone button
             {
-                if (tool.isSectionsNotZones) btnSection6Man.PerformClick();
-                else btnZone6.PerformClick();
+                sectionButtons[5].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == (hotkeys[17])) //section or zone button
             {
-                if (tool.isSectionsNotZones) btnSection7Man.PerformClick();
-                else btnZone7.PerformClick();
+                sectionButtons[6].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == (hotkeys[18])) //section or zone button
             {
-                if (tool.isSectionsNotZones) btnSection8Man.PerformClick();
-                else btnZone8.PerformClick();
+                sectionButtons[7].PerformClick();
                 return true;    // indicate that you handled this keystroke
             }
 
@@ -876,13 +867,13 @@ namespace AgOpenGPS
 
             if (keyData == (Keys.NumPad1)) //auto section on off
             {
-                btnSectionMasterAuto.PerformClick();
+                SetWorkState(workState == btnStates.Auto ? btnStates.Off : btnStates.Auto);
                 return true;    // indicate that you handled this keystroke
             }
 
             if (keyData == (Keys.NumPad0)) //auto section on off
             {
-                btnSectionMasterManual.PerformClick();
+                SetWorkState(workState == btnStates.On ? btnStates.Off : btnStates.On);
                 return true;    // indicate that you handled this keystroke
             }
 

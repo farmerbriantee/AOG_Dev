@@ -1,5 +1,4 @@
 ﻿using AgOpenGPS.Classes;
-
 using System;
 using System.Drawing;
 using System.Globalization;
@@ -35,10 +34,9 @@ namespace AgOpenGPS
             lblMin.Text = min.ToString();
             tboxNumber.SelectionStart = tboxNumber.Text.Length;
             tboxNumber.SelectionLength = 0;
-            keypad1.Focus();
         }
-
-        private void RegisterKeypad1_ButtonPressed(object sender, KeyPressEventArgs e)
+        
+        private void RaiseButtonPressed(char keyChar)
         {
             if (isFirstKey)
             {
@@ -55,13 +53,13 @@ namespace AgOpenGPS
             }
 
             //if its a number just add it
-            if (Char.IsNumber(e.KeyChar))
+            if (Char.IsNumber(keyChar))
             {
-                tboxNumber.Text += e.KeyChar;
+                tboxNumber.Text += keyChar;
             }
 
             //Backspace key, remove 1 char
-            else if (e.KeyChar == 'B')
+            else if (keyChar == 'B')
             {
                 if (tboxNumber.Text.Length > 0)
                 {
@@ -70,7 +68,7 @@ namespace AgOpenGPS
             }
 
             //decimal point
-            else if (e.KeyChar == '.')
+            else if (keyChar == '.')
             {
                 //does it already have a decimal?
                 if (!tboxNumber.Text.Contains(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator))
@@ -92,7 +90,7 @@ namespace AgOpenGPS
             }
 
             //negative sign
-            else if (e.KeyChar == '-')
+            else if (keyChar == '-')
             {
                 //If already has a negative don't add again
                 if (!tboxNumber.Text.Contains("-"))
@@ -111,20 +109,20 @@ namespace AgOpenGPS
             }
 
             //Exit or cancel
-            else if (e.KeyChar == 'X')
+            else if (keyChar == 'X')
             {
                 this.DialogResult = DialogResult.Cancel;
                 Close();
             }
 
             //clear whole display
-            else if (e.KeyChar == 'C')
+            else if (keyChar == 'C')
             {
                 tboxNumber.Text = "";
             }
 
             //ok button
-            else if (e.KeyChar == 'K')
+            else if (keyChar == 'K')
             {
                 //not ok if empty - just return
                 if (tboxNumber.Text == "") return;
@@ -191,6 +189,86 @@ namespace AgOpenGPS
             {
                 isFirstKey = false;
             }
+        }
+
+        private void btn1_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('1');
+        }
+
+        private void btn2_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('2');
+        }
+
+        private void btn3_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('3');
+        }
+
+        private void btn4_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('4');
+        }
+
+        private void btn5_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('5');
+        }
+
+        private void btn6_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('6');
+        }
+
+        private void btn7_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('7');
+        }
+
+        private void btn8_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('8');
+        }
+
+        private void btn9_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('9');
+        }
+
+        private void btn0_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('0');
+        }
+
+        private void btnPlusMinus_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('-');
+        }
+
+        private void btnDecimal_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('.');
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('C');
+        }
+
+        private void btnBackSpace_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('B');
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('X');
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            RaiseButtonPressed('K');
         }
     }
 }

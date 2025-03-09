@@ -62,19 +62,18 @@ namespace AgOpenGPS
 
         public void DrawFieldSurface()
         {
-            Color field = mf.fieldColorDay;
-            if (!mf.isDay) field = mf.fieldColorNight;
+            Color field = Settings.User.setDisplay_isDayMode ? Settings.User.colorFieldDay : Settings.User.colorFieldNight;
 
             //adjust bitmap zoom based on cam zoom
-            if (mf.camera.zoomValue > 100) Count = 4;
-            else if (mf.camera.zoomValue > 80) Count = 8;
-            else if (mf.camera.zoomValue > 50) Count = 16;
-            else if (mf.camera.zoomValue > 20) Count = 32;
-            else if (mf.camera.zoomValue > 10) Count = 64;
+            if (Settings.User.setDisplay_camZoom > 100) Count = 4;
+            else if (Settings.User.setDisplay_camZoom > 80) Count = 8;
+            else if (Settings.User.setDisplay_camZoom > 50) Count = 16;
+            else if (Settings.User.setDisplay_camZoom > 20) Count = 32;
+            else if (Settings.User.setDisplay_camZoom > 10) Count = 64;
             else Count = 80;
 
             GL.Color3(field.R, field.G, field.B);
-            if (mf.isTextureOn)
+            if (Settings.User.setDisplay_isTextureOn)
             {
                 GL.Enable(EnableCap.Texture2D);
                 GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.Floor]);
@@ -115,7 +114,7 @@ namespace AgOpenGPS
 
             GL.Rotate(-gridRotation, 0, 0, 1.0);
 
-            if (mf.isDay)
+            if (Settings.User.setDisplay_isDayMode)
             {
                 GL.Color3(0.25, 0.25, 0.25);
             }

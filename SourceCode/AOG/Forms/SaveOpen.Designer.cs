@@ -750,7 +750,7 @@ namespace AgOpenGPS
                 btnHeadlandOnOff.Visible = false;
             }
 
-            int sett = Properties.Settings.Default.setArdMac_setting0;
+            int sett = Settings.Vehicle.setArdMac_setting0;
             btnHydLift.Visible = (((sett & 2) == 2) && bnd.isHeadlandOn);
         }
 
@@ -1340,7 +1340,7 @@ namespace AgOpenGPS
                                 xml.WriteStartElement("LSG");//Line
                                 xml.WriteAttributeString("A", "5");
                                 xml.WriteAttributeString("B", trk.gArr[i].name);
-                                ///xml.WriteAttributeString("C", (tool.width).ToString());
+                                ///xml.WriteAttributeString("C", (Settings.Tool.toolWidth).ToString());
                                 {
                                     xml.WriteStartElement("PNT");//A
 
@@ -1384,7 +1384,7 @@ namespace AgOpenGPS
                                 xml.WriteStartElement("LSG");//Curve
                                 xml.WriteAttributeString("A", "5"); //denotes guidance
                                 xml.WriteAttributeString("B", trk.gArr[i].name);
-                                //xml.WriteAttributeString("C", (tool.width).ToString());
+                                //xml.WriteAttributeString("C", (Settings.Tool.toolWidth).ToString());
 
                                 for (int j = 0; j < trk.gArr[i].curvePts.Count; j++)
                                 {

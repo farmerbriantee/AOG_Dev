@@ -52,7 +52,7 @@ namespace AgOpenGPS
             FixLabelsCurve();
 
             //Window Properties
-            Size = Properties.Settings.Default.setWindow_tramLineSize;
+            Size = Settings.User.setWindow_tramLineSize;
 
             Screen myScreen = Screen.FromControl(this);
             Rectangle area = myScreen.WorkingArea;
@@ -117,9 +117,8 @@ namespace AgOpenGPS
             mf.PanelUpdateRightAndBottom();
             mf.FixTramModeButton();
 
-            Properties.Settings.Default.setWindow_tramLineSize = Size;
-            Properties.ToolSettings.Default.setTram_alpha = mf.tram.alpha;
-            Properties.Settings.Default.Save();
+            Settings.User.setWindow_tramLineSize = Size;
+            Settings.Tool.tram_alpha = mf.tram.alpha;
         }
 
         private void LoadAndFixLines()
@@ -250,8 +249,8 @@ namespace AgOpenGPS
 
                 tramList.Add(tramArr);
 
-                widd = (mf.tram.tramWidth * 0.5) - mf.tram.halfWheelTrack;
-                widd += (mf.tram.tramWidth * i);
+                widd = (Settings.Tool.tram_Width * 0.5) - mf.tram.halfWheelTrack;
+                widd += (Settings.Tool.tram_Width * i);
 
                 double distSqAway = widd * widd * 0.999999;
 
@@ -302,8 +301,8 @@ namespace AgOpenGPS
 
                 tramList.Add(tramArr);
 
-                widd = (mf.tram.tramWidth * 0.5) + mf.tram.halfWheelTrack;
-                widd += (mf.tram.tramWidth * i);
+                widd = (Settings.Tool.tram_Width * 0.5) + mf.tram.halfWheelTrack;
+                widd += (Settings.Tool.tram_Width * i);
                 double distSqAway = widd * widd * 0.999999;
 
                 for (int j = 0; j < refCount; j += 1)
@@ -750,8 +749,8 @@ namespace AgOpenGPS
         {
             this.Text = gStr.Get(gs.gsTramLines);
             this.Text += "    Track: " + (mf.vehicle.trackWidth * glm.m2FtOrM).ToString("N2") + glm.unitsFtM;
-            this.Text += "    Tram: " + (mf.tram.tramWidth * glm.m2FtOrM).ToString("N2") + glm.unitsFtM;
-            this.Text += "    Seed: " + (mf.tool.width * glm.m2FtOrM).ToString("N2") + glm.unitsFtM;
+            this.Text += "    Tram: " + (Settings.Tool.tram_Width * glm.m2FtOrM).ToString("N2") + glm.unitsFtM;
+            this.Text += "    Seed: " + (Settings.Tool.toolWidth * glm.m2FtOrM).ToString("N2") + glm.unitsFtM;
 
             if (indx > -1 && gTemp.Count > 0)
             {
@@ -827,17 +826,17 @@ namespace AgOpenGPS
             //outside point
             vec2 pt3 = new vec2();
 
-            double distSq = ((mf.tram.tramWidth * 0.5) + mf.tram.halfWheelTrack) * ((mf.tram.tramWidth * 0.5) + mf.tram.halfWheelTrack) * 0.999;
+            double distSq = ((Settings.Tool.tram_Width * 0.5) + mf.tram.halfWheelTrack) * ((Settings.Tool.tram_Width * 0.5) + mf.tram.halfWheelTrack) * 0.999;
 
             //make the boundary tram outer array
             for (int i = 0; i < ptCount; i++)
             {
                 //calculate the point inside the boundary
                 pt3.easting = mf.bnd.bndList[0].fenceLine[i].easting -
-                    (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (mf.tram.tramWidth * 0.5 + mf.tram.halfWheelTrack));
+                    (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (Settings.Tool.tram_Width * 0.5 + mf.tram.halfWheelTrack));
 
                 pt3.northing = mf.bnd.bndList[0].fenceLine[i].northing -
-                    (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (mf.tram.tramWidth * 0.5 + mf.tram.halfWheelTrack));
+                    (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (Settings.Tool.tram_Width * 0.5 + mf.tram.halfWheelTrack));
 
                 bool Add = true;
 
@@ -875,17 +874,17 @@ namespace AgOpenGPS
             //outside point
             vec2 pt3 = new vec2();
 
-            double distSq = ((mf.tram.tramWidth * 0.5) - mf.tram.halfWheelTrack) * ((mf.tram.tramWidth * 0.5) - mf.tram.halfWheelTrack) * 0.999;
+            double distSq = ((Settings.Tool.tram_Width * 0.5) - mf.tram.halfWheelTrack) * ((Settings.Tool.tram_Width * 0.5) - mf.tram.halfWheelTrack) * 0.999;
 
             //make the boundary tram outer array
             for (int i = 0; i < ptCount; i++)
             {
                 //calculate the point inside the boundary
                 pt3.easting = mf.bnd.bndList[0].fenceLine[i].easting -
-                    (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (mf.tram.tramWidth * 0.5 - mf.tram.halfWheelTrack));
+                    (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (Settings.Tool.tram_Width * 0.5 - mf.tram.halfWheelTrack));
 
                 pt3.northing = mf.bnd.bndList[0].fenceLine[i].northing -
-                    (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (mf.tram.tramWidth * 0.5 - mf.tram.halfWheelTrack));
+                    (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (Settings.Tool.tram_Width * 0.5 - mf.tram.halfWheelTrack));
 
                 bool Add = true;
 

@@ -89,14 +89,14 @@ namespace AgOpenGPS
 
         public void SetHydPosition()
         {
-            if (mf.vehicle.isHydLiftOn && mf.avgSpeed > 0.2 && mf.autoBtnState == btnStates.Auto && !mf.isReverse)
+            if (mf.vehicle.isHydLiftOn && mf.avgSpeed > 0.2 && mf.workState == btnStates.Auto && !mf.isReverse)
             {
                 if (isToolInHeadland)
                 {
                     PGN_239.pgn[PGN_239.hydLift] = 2;
                     if (mf.sounds.isHydLiftChange != isToolInHeadland)
                     {
-                        if (mf.sounds.isHydLiftSoundOn) mf.sounds.sndHydLiftUp.Play();
+                        if (Settings.User.sound_isHydLiftOn) mf.sounds.sndHydLiftUp.Play();
                         mf.sounds.isHydLiftChange = isToolInHeadland;
                     }
                 }
@@ -105,7 +105,7 @@ namespace AgOpenGPS
                     PGN_239.pgn[PGN_239.hydLift] = 1;
                     if (mf.sounds.isHydLiftChange != isToolInHeadland)
                     {
-                        if (mf.sounds.isHydLiftSoundOn) mf.sounds.sndHydLiftDn.Play();
+                        if (Settings.User.sound_isHydLiftOn) mf.sounds.sndHydLiftDn.Play();
                         mf.sounds.isHydLiftChange = isToolInHeadland;
                     }
                 }
@@ -124,12 +124,12 @@ namespace AgOpenGPS
             //Draw headland
             if (mf.bnd.isHeadlandOn)
             {
-                GL.LineWidth(mf.trk.lineWidth * 4);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth * 4);
 
                 GL.Color4(0, 0, 0, 0.80f);
                 mf.bnd.bndList[0].hdLine.DrawPolygon();
 
-                GL.LineWidth(mf.trk.lineWidth);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth);
                 GL.Color4(0.960f, 0.96232f, 0.30f, 1.0f);
                 mf.bnd.bndList[0].hdLine.DrawPolygon();
             }
@@ -140,7 +140,7 @@ namespace AgOpenGPS
             //draw the turnLines
             if (mf.yt.isYouTurnBtnOn && !mf.ct.isContourBtnOn)
             {
-                GL.LineWidth(mf.trk.lineWidth * 4);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth * 4);
                 GL.Color4(0, 0, 0, 0.80f);
 
                 for (int i = 0; i < mf.bnd.bndList.Count; i++)
@@ -149,7 +149,7 @@ namespace AgOpenGPS
                 }
 
                 GL.Color3(0.76f, 0.6f, 0.95f);
-                GL.LineWidth(mf.trk.lineWidth);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth);
                 for (int i = 0; i < mf.bnd.bndList.Count; i++)
                 {
                     mf.bnd.bndList[i].turnLine.DrawPolygon();
@@ -160,7 +160,7 @@ namespace AgOpenGPS
         public void DrawFenceLines()
         {
             GL.Color4(0, 0, 0, 0.8);
-            GL.LineWidth(mf.trk.lineWidth * 4);
+            GL.LineWidth(Settings.User.setDisplay_lineWidth * 4);
 
             for (int i = 0; i < bndList.Count; i++)
             {
@@ -168,7 +168,7 @@ namespace AgOpenGPS
             }
 
             GL.Color4(0.95f, 0.5f, 0.50f, 1.0f);
-            GL.LineWidth(mf.trk.lineWidth);
+            GL.LineWidth(Settings.User.setDisplay_lineWidth);
 
             for (int i = 0; i < bndList.Count; i++)
             {
@@ -180,7 +180,7 @@ namespace AgOpenGPS
             {
                 //the boundary so far
                 vec3 pivot = mf.pivotAxlePos;
-                GL.LineWidth(mf.trk.lineWidth);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth);
                 GL.Color3(0.825f, 0.22f, 0.90f);
                 GL.Begin(PrimitiveType.LineStrip);
                 for (int h = 0; h < fenceBeingMadePts.Count; h++) GL.Vertex3(fenceBeingMadePts[h].easting, fenceBeingMadePts[h].northing, 0);

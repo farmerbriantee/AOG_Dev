@@ -17,10 +17,10 @@ namespace AgOpenGPS
 
         private void FormSaveOrNot_Load(object sender, EventArgs e)
         {
-            lblExit.Visible = !Properties.Settings.Default.setWindow_isShutdownComputer;
-            lblExitCtr.Visible = !Properties.Settings.Default.setWindow_isShutdownComputer;
-            lblShut.Visible = Properties.Settings.Default.setWindow_isShutdownComputer;
-            lblShutCtr.Visible = Properties.Settings.Default.setWindow_isShutdownComputer;
+            lblExit.Visible = !Settings.User.setWindow_isShutdownComputer;
+            lblExitCtr.Visible = !Settings.User.setWindow_isShutdownComputer;
+            lblShut.Visible = Settings.User.setWindow_isShutdownComputer;
+            lblShutCtr.Visible = Settings.User.setWindow_isShutdownComputer;
 
             lblExitCtr.Text = countExit.ToString();
             lblShutCtr.Text = countShutdown.ToString();
@@ -31,7 +31,7 @@ namespace AgOpenGPS
         {
             //back to FormGPS
             DialogResult = DialogResult.OK;
-            Properties.Settings.Default.setWindow_isShutdownComputer = false;
+            Settings.User.setWindow_isShutdownComputer = false;
             Close();
         }
 
@@ -46,13 +46,13 @@ namespace AgOpenGPS
         private void btnShutDown_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Yes;
-            Properties.Settings.Default.setWindow_isShutdownComputer = true;
+            Settings.User.setWindow_isShutdownComputer = true;
             Close();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.setWindow_isShutdownComputer)
+            if (Settings.User.setWindow_isShutdownComputer)
             {
                 countShutdown--;
                 lblShutCtr.Text = countShutdown.ToString();

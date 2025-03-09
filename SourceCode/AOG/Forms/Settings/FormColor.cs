@@ -15,7 +15,7 @@ namespace AgOpenGPS
         //class variables
         private readonly FormGPS mf = null;
 
-        private bool daySet;
+        private bool originDaySet;
 
         //constructor
         public FormColor(Form callingForm)
@@ -30,8 +30,8 @@ namespace AgOpenGPS
 
         private void FormDisplaySettings_Load(object sender, EventArgs e)
         {
-            daySet = mf.isDay;
-            hsbarSmooth.Value = Properties.Settings.Default.setDisplay_camSmooth;
+            originDaySet = Settings.User.setDisplay_isDayMode;
+            hsbarSmooth.Value = Settings.User.setDisplay_camSmooth;
             lblSmoothCam.Text = hsbarSmooth.Value.ToString() + "%";
 
             if (!mf.IsOnScreen(Location, Size, 1))
@@ -43,8 +43,8 @@ namespace AgOpenGPS
 
         private void bntOK_Click(object sender, EventArgs e)
         {
-            if (daySet != mf.isDay) mf.SwapDayNightMode();
-            Properties.Settings.Default.setDisplay_camSmooth = hsbarSmooth.Value;
+            if (originDaySet != Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();//reset to old value
+            Settings.User.setDisplay_camSmooth = hsbarSmooth.Value;
 
             mf.camera.camSmoothFactor = ((double)(hsbarSmooth.Value) * 0.004) + 0.15;
 
@@ -53,74 +53,58 @@ namespace AgOpenGPS
 
         private void btnFrameDay_Click(object sender, EventArgs e)
         {
-            if (!mf.isDay) mf.SwapDayNightMode();
+            if (!Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, mf.frameDayColor))
+            using (FormColorPicker form = new FormColorPicker(mf, Settings.User.colorDayFrame))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    mf.frameDayColor = form.useThisColor;
+                    Settings.User.colorDayFrame = form.useThisColor;
+                    mf.SwapDayNightMode(false);
                 }
             }
-
-            Properties.Settings.Default.setDisplay_colorDayFrame = mf.frameDayColor;
-
-            mf.SwapDayNightMode();
-            mf.SwapDayNightMode();
         }
 
         private void btnFrameNight_Click(object sender, EventArgs e)
         {
-            if (mf.isDay) mf.SwapDayNightMode();
+            if (Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, mf.frameNightColor))
+            using (FormColorPicker form = new FormColorPicker(mf, Settings.User.colorNightFrame))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    mf.frameNightColor = form.useThisColor;
+                    Settings.User.colorNightFrame = form.useThisColor;
+                    mf.SwapDayNightMode(false);
                 }
             }
-
-            Properties.Settings.Default.setDisplay_colorNightFrame = mf.frameNightColor;
-
-            mf.SwapDayNightMode();
-            mf.SwapDayNightMode();
         }
 
         private void btnFieldDay_Click(object sender, EventArgs e)
         {
-            if (!mf.isDay) mf.SwapDayNightMode();
+            if (!Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, mf.fieldColorDay))
+            using (FormColorPicker form = new FormColorPicker(mf, Settings.User.colorFieldDay))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    mf.fieldColorDay = form.useThisColor;
+                    Settings.User.colorFieldDay = form.useThisColor;
+                    mf.SwapDayNightMode(false);
                 }
             }
-
-            Settings.Default.setDisplay_colorFieldDay = mf.fieldColorDay;
-
-            mf.SwapDayNightMode();
-            mf.SwapDayNightMode();
         }
 
         private void btnFieldNight_Click(object sender, EventArgs e)
         {
-            if (mf.isDay) mf.SwapDayNightMode();
+            if (Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, mf.fieldColorNight))
+            using (FormColorPicker form = new FormColorPicker(mf, Settings.User.colorFieldNight))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    mf.fieldColorNight = form.useThisColor;
+                    Settings.User.colorFieldNight = form.useThisColor;
+                    mf.SwapDayNightMode(false);
                 }
             }
-
-            Settings.Default.setDisplay_colorFieldNight = mf.fieldColorNight;
-
-            mf.SwapDayNightMode();
-            mf.SwapDayNightMode();
         }
 
         private void btnSwaPGN_Click(object sender, EventArgs e)
@@ -130,36 +114,30 @@ namespace AgOpenGPS
 
         private void btnNightText_Click(object sender, EventArgs e)
         {
-            if (mf.isDay) mf.SwapDayNightMode();
+            if (Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, mf.textColorNight))
+            using (FormColorPicker form = new FormColorPicker(mf, Settings.User.colorTextNight))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    mf.textColorNight = form.useThisColor;
+                    Settings.User.colorTextNight = form.useThisColor;
+                    mf.SwapDayNightMode(false);
                 }
             }
-
-            Settings.Default.setDisplay_colorTextNight = mf.textColorNight;
-
-            mf.SwapDayNightMode();
-            mf.SwapDayNightMode();
         }
 
         private void btnDayText_Click(object sender, EventArgs e)
         {
-            if (!mf.isDay) mf.SwapDayNightMode();
+            if (!Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, Settings.Default.setDisplay_colorTextDay))
+            using (FormColorPicker form = new FormColorPicker(mf, Settings.User.colorTextDay))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    Settings.Default.setDisplay_colorTextDay = form.useThisColor;
+                    Settings.User.colorTextDay = form.useThisColor;
+                    mf.SwapDayNightMode(false);
                 }
             }
-
-            mf.SwapDayNightMode();
-            mf.SwapDayNightMode();
         }
 
         private void hsbarSmooth_ValueChanged(object sender, EventArgs e)
@@ -169,37 +147,20 @@ namespace AgOpenGPS
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            if (!mf.isDay) mf.SwapDayNightMode();
-            mf.frameDayColor = Color.FromArgb(210, 210, 230);
-            mf.BackColor = mf.frameDayColor;
-            mf.frameNightColor = Color.FromArgb(50, 50, 65);
-            mf.sectionColorDay = Color.FromArgb(27, 151, 160);
-            mf.fieldColorDay = Color.FromArgb(100, 100, 125);
-            mf.fieldColorNight = Color.FromArgb(60, 60, 60);
+            if (!Settings.User.setDisplay_isDayMode) mf.SwapDayNightMode();
 
-            Properties.Settings.Default.setDisplay_colorDayFrame = mf.frameDayColor;
-            Properties.Settings.Default.setDisplay_colorNightFrame = mf.frameNightColor;
-            Properties.Settings.Default.setDisplay_colorSectionsDay = mf.sectionColorDay;
-            Properties.Settings.Default.setDisplay_colorFieldDay = mf.fieldColorDay;
-            Properties.Settings.Default.setDisplay_colorFieldNight = mf.fieldColorNight;
+            Settings.User.colorDayFrame = Color.FromArgb(210, 210, 230);
+            Settings.User.colorNightFrame = Color.FromArgb(50, 50, 65);
+            Settings.User.colorSectionsDay = Color.FromArgb(27, 151, 160);
+            Settings.User.colorFieldDay = Color.FromArgb(100, 100, 125);
+            Settings.User.colorFieldNight = Color.FromArgb(60, 60, 60);
 
-            mf.textColorNight = Color.FromArgb(230, 230, 230);
+            Settings.User.colorTextDay = Color.FromArgb(10, 10, 20);
+            Settings.User.colorTextNight = Color.FromArgb(230, 230, 230);
 
-            Settings.Default.setDisplay_colorTextDay = Color.FromArgb(10, 10, 20);
-            Settings.Default.setDisplay_colorTextNight = mf.textColorNight;
+            Settings.User.setDisplay_customColors = "-62208,-12299010,-16190712,-1505559,-3621034,-16712458,-7330570,-1546731,-24406,-3289866,-2756674,-538377,-134768,-4457734,-1848839,-530985";
 
-            Settings.Default.setDisplay_customColors = "-62208,-12299010,-16190712,-1505559,-3621034,-16712458,-7330570,-1546731,-24406,-3289866,-2756674,-538377,-134768,-4457734,-1848839,-530985";
-
-            string[] words = Properties.Settings.Default.setDisplay_customColors.Split(',');
-            for (int i = 0; i < 16; i++)
-            {
-                mf.customColorsList[i] = int.Parse(words[i], CultureInfo.InvariantCulture);
-                Color test = Color.FromArgb(mf.customColorsList[i]).CheckColorFor255();
-                mf.customColorsList[i] = test.ToArgb();
-            }
-
-            mf.SwapDayNightMode();
-            mf.SwapDayNightMode();
+            mf.SwapDayNightMode(false);
         }
     }
 }

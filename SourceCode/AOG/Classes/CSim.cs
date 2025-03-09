@@ -61,7 +61,7 @@ namespace AgOpenGPS
 
             if (!mf.isGPSPositionInitialized)
             {
-                mf.pn.SetLocalMetersPerDegree(Properties.Settings.Default.setGPS_SimLatitude, Properties.Settings.Default.setGPS_SimLongitude);
+                mf.pn.SetLocalMetersPerDegree(Settings.Vehicle.setGPS_SimLatitude, Settings.Vehicle.setGPS_SimLongitude);
             }
 
             double SteerRadius = mf.vehicle.wheelbase / Math.Tan(glm.toRadians(steerangleAve));
@@ -145,6 +145,8 @@ namespace AgOpenGPS
             easting = northing = heading = 0;
             sinH = Math.Sin(0);
             cosH = Math.Cos(0);
+            if (mf.timerSim.Enabled)
+                mf.pn.ConvertLocalToWGS84(0, 0, out mf.pn.latitude, out mf.pn.longitude);
         }
 
         public void Reverse()
@@ -156,8 +158,7 @@ namespace AgOpenGPS
 
             //if (isBtnAutoSteerOn)
             {
-                //btnAutoSteer.PerformClick();
-                //TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Sim Reverse Touched");
+                //mf.SetAutoSteerButton(false, "Sim Reverse Touched");
                 //Log.EventWriter("Steer Off, Sim Reverse Activated");
             }
         }

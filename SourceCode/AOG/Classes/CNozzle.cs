@@ -8,8 +8,7 @@
         public double currentSectionsWidthMeters = 0;
 
         public double volumePerAreaSetSelected = 0;
-        public double volumePerAreaSet1 = 0;
-        public double volumePerAreaSet2 = 0;
+
         public double volumePerAreaActualFiltered = 0;
 
         public int volumePerMinuteSet = 0;
@@ -19,55 +18,18 @@
 
         public int isFlowingFlag = 0;
 
-        public int pressureMax = 200;
-        public int pressureMin = 0;
         public int pwmDriveActual = 0;
         public bool isSprayAutoMode = true;
-        public bool isBypass = false;
 
-        public double volumeApplied = 0;
         public double volumeAppliedLast = 0;
-        public int volumeTankStart = 0;
-
-        public string unitsApplied = "Gallons";
-        public string unitsPerArea = "GPA";
-
-        public bool isAppliedUnitsNotTankDisplayed = true;
-
-        public double rateNudge;
 
         public int percentWidthBypass = 1;
-
-        public double rateAlarmPercent = 0.1;
-
-        public bool isSectionValve3Wire = true;
 
         public CNozzle(FormGPS _f)
         {
             //constructor
             mf = _f;
-            volumePerAreaSet1 = Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet1;
-            volumePerAreaSet2 = Properties.ToolSettings.Default.setNozzleSettings.volumePerAreaSet2;
-            volumePerAreaSetSelected = volumePerAreaSet1;
-            pressureMax = Properties.ToolSettings.Default.setNozzleSettings.pressureMax;
-            pressureMin = Properties.ToolSettings.Default.setNozzleSettings.pressureMin;
-
-            volumeApplied = Properties.ToolSettings.Default.setNozzleSettings.volumeApplied;
-            volumeTankStart = Properties.ToolSettings.Default.setNozzleSettings.volumeTankStart;
-
-            isBypass = Properties.ToolSettings.Default.setNozzleSettings.isBypass;
-
-            rateNudge = Properties.ToolSettings.Default.setNozzleSettings.rateNudge;
-
-            rateAlarmPercent = Properties.ToolSettings.Default.setNozzleSettings.rateAlarmPercent;
-
-            //units
-            unitsApplied = Properties.ToolSettings.Default.setNozzleSettings.unitsApplied;
-            unitsPerArea = Properties.ToolSettings.Default.setNozzleSettings.unitsPerArea;
-
-            isAppliedUnitsNotTankDisplayed = Properties.ToolSettings.Default.setNozzleSettings.isAppliedUnitsNotTankDisplayed;
-
-            isSectionValve3Wire = Properties.ToolSettings.Default.setNozzleSettings.isSectionValve3Wire;
+            volumePerAreaSetSelected = Settings.Tool.setNozz.volumePerAreaSet1;
         }
 
         public void BuildRatePGN()
@@ -84,16 +46,16 @@
                 }
             }
 
-            mf.nozz.percentWidthBypass = (int)(mf.nozz.currentSectionsWidthMeters / mf.tool.width * 100);
+            mf.nozz.percentWidthBypass = (int)(mf.nozz.currentSectionsWidthMeters / Settings.Tool.toolWidth * 100);
 
-            if (isBypass)
+            if (Settings.Tool.setNozz.isBypass)
             {
-                mf.nozz.currentSectionsWidthMeters = mf.tool.width;
+                mf.nozz.currentSectionsWidthMeters = Settings.Tool.toolWidth;
             }
 
             if (mf.nozz.currentSectionsWidthMeters != 0)
             {
-                if (mf.isMetric)
+                if (Settings.User.isMetric)
                 {
                     //Liters * 0.00167 𝑥 𝑠𝑤𝑎𝑡ℎ 𝑤𝑖𝑑𝑡ℎ 𝑥 𝐾mh * ( to send as integer 100)
                     mf.nozz.volumePerMinuteSet =

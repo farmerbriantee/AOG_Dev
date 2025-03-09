@@ -10,324 +10,352 @@ namespace AgOpenGPS
 {
     public partial class FormConfig
     {
-        private void HideSubMenu()
+        private TabPage oldTabPage = null;
+        private Button oldbutton = null;
+        private Panel oldPanel = null;
+
+        #region menu Buttons
+
+        private void btnVehicle_Click(object sender, EventArgs e)
         {
-            panelVehicleSubMenu.Visible = false;
-            panelToolSubMenu.Visible = false;
-            panelDataSourcesSubMenu.Visible = false;
-            panelArduinoSubMenu.Visible = false;
+            SetTab(btnSubVehicleType, tabVConfig, true, panelVehicleSubMenu);
         }
 
-        private void ShowSubMenu(Panel subMenu, Button btn)
+        private void btnTool_Click(object sender, EventArgs e)
         {
-            ClearVehicleSubBackgrounds();
-            ClearToolSubBackgrounds();
-            ClearMachineSubBackgrounds();
-            ClearDataSubBackgrounds();
-            ClearNoSubBackgrounds();
-
-            if (subMenu.Visible == false)
-            {
-                HideSubMenu();
-                subMenu.Visible = true;
-                if (subMenu.Name == "panelVehicleSubMenu")
-                {
-                    tab1.SelectedTab = tabVConfig;
-                }
-                else if (subMenu.Name == "panelToolSubMenu")
-                {
-                    tab1.SelectedTab = tabTConfig;
-                }
-                else if (subMenu.Name == "panelDataSourcesSubMenu")
-                {
-                    tab1.SelectedTab = tabDHeading;
-                }
-                else if (subMenu.Name == "panelArduinoSubMenu")
-                {
-                    tab1.SelectedTab = tabAMachine;
-                }
-                else if (btn.Name == "btnUTurn") tab1.SelectedTab = tabUTurn;
-                else if (btn.Name == "btnFeatureHides") tab1.SelectedTab = tabBtns;
-                else if (btn.Name == "btnDisplay") tab1.SelectedTab = tabDisplay;
-            }
-            else
-            {
-                tab1.SelectedTab = tabSummary;
-                subMenu.Visible = false;
-            }
+            SetTab(btnSubToolType, tabTConfig, true, panelToolSubMenu);
         }
 
-        private void UpdateSummary()
+        private void btnDataSources_Click(object sender, EventArgs e)
         {
-            lblSumWheelbase.Text = (Properties.Settings.Default.setVehicle_wheelbase * glm.m2InchOrCm).ToString("N0")
-                + glm.unitsInCm;
-
-            lblSumNumSections.Text = mf.tool.numOfSections.ToString();
-
-            string snapDist = (Properties.Settings.Default.setAS_snapDistance * glm.m2InchOrCm).ToString("N1");
-
-            lblNudgeDistance.Text = snapDist + glm.unitsInCm.ToString();
-            lblUnits.Text = mf.isMetric ? "Metric" : "Imperial";
-
-            lblCurrentVehicle.Text = gStr.Get(gs.gsCurrent) + ": "+ RegistrySettings.vehicleFileName;
-            lblSummaryVehicleName.Text = lblCurrentVehicle.Text;
-
-            lblTramWidth.Text = mf.isMetric ?
-                ((Properties.ToolSettings.Default.setTram_tramWidth).ToString() + " m") :
-                ConvertMeterToFeet(Properties.ToolSettings.Default.setTram_tramWidth);
-
-            lblToolOffset.Text = (Properties.ToolSettings.Default.setVehicle_toolOffset * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
-
-            lblOverlap.Text = (Properties.ToolSettings.Default.setVehicle_toolOverlap * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
-
-            lblLookahead.Text = Properties.ToolSettings.Default.setVehicle_toolLookAheadOn.ToString() + " sec";
+            SetTab(btnSubHeading, tabDHeading, true, panelDataSourcesSubMenu);
         }
-
-        public string ConvertMeterToFeet(double meter)
-        {
-            double toFeet = meter * glm.m2FtOrM;
-            string feetInch = Convert.ToString((int)toFeet) + "' ";
-            double temp = Math.Round((toFeet - Math.Truncate(toFeet)) * 12, 0);
-            feetInch += Convert.ToString(temp) + '"';
-            return feetInch;
-        }
-
-        #region No Sub menu Buttons
-
-        private void ClearNoSubBackgrounds()
-        {
-            btnTram.BackColor = SystemColors.GradientInactiveCaption;
-            btnUTurn.BackColor = SystemColors.GradientInactiveCaption;
-            btnDisplay.BackColor = SystemColors.GradientInactiveCaption;
-            btnFeatureHides.BackColor = SystemColors.GradientInactiveCaption;
-        }
-        private void btnTram_Click(object sender, EventArgs e)
-        {
-            HideSubMenu();
-            ClearNoSubBackgrounds();
-            if (tab1.SelectedTab == tabTram)
-            {
-                tab1.SelectedTab = tabSummary;
-            }
-            else
-            {
-                tab1.SelectedTab = tabTram;
-                btnTram.BackColor = SystemColors.GradientActiveCaption;
-            }
-        }
-
         private void btnUTurn_Click(object sender, EventArgs e)
         {
-            HideSubMenu();
-            ClearNoSubBackgrounds();
-            if (tab1.SelectedTab == tabUTurn)
-            {
-                tab1.SelectedTab = tabSummary;
-            }
-            else
-            {
-                tab1.SelectedTab = tabUTurn;
-                btnUTurn.BackColor = SystemColors.GradientActiveCaption;
-            }
+            SetTab(btnUTurn, tabUTurn, true);
+        }
+
+        private void btnArduino_Click(object sender, EventArgs e)
+        {
+            SetTab(btnMachineModule, tabAMachine, true, panelArduinoSubMenu);
+        }
+
+        private void btnTram_Click(object sender, EventArgs e)
+        {
+            SetTab(btnTram, tabTram, true);
         }
 
         private void btnFeatureHides_Click(object sender, EventArgs e)
         {
-            HideSubMenu();
-            ClearNoSubBackgrounds();
-            if (tab1.SelectedTab == tabBtns)
-            {
-                tab1.SelectedTab = tabSummary;
-            }
-            else
-            {
-                tab1.SelectedTab = tabBtns;
-                btnFeatureHides.BackColor = SystemColors.GradientActiveCaption;
-            }
+            SetTab(btnFeatureHides, tabBtns, true);
         }
 
         private void btnDisplay_Click(object sender, EventArgs e)
         {
-            HideSubMenu();
-            ClearNoSubBackgrounds();
-            if (tab1.SelectedTab == tabDisplay)
-            {
-                tab1.SelectedTab = tabSummary;
-            }
-            else
-            {
-                tab1.SelectedTab = tabDisplay;
-                btnDisplay.BackColor = SystemColors.GradientActiveCaption;
-            }
+            SetTab(btnDisplay, tabDisplay, true);
         }
-
         #endregion
 
         #region Vehicle Sub Menu Btns
-        private void btnVehicle_Click(object sender, EventArgs e)
-        {
-            ShowSubMenu(panelVehicleSubMenu, btnVehicle);
-            btnSubVehicleType.BackColor = SystemColors.GradientActiveCaption;
-            UpdateSummary();
-            UpdateVehicleListView();
-        }
-
-        private void ClearVehicleSubBackgrounds()
-        {
-            btnSubVehicleType.BackColor = SystemColors.GradientInactiveCaption;
-            btnSubAntenna.BackColor = SystemColors.GradientInactiveCaption;
-            btnSubDimensions.BackColor = SystemColors.GradientInactiveCaption;
-            //btnSubGuidance.BackColor = SystemColors.GradientInactiveCaption;
-        }
         private void btnSubVehicleType_Click(object sender, EventArgs e)
         {
-            ClearVehicleSubBackgrounds();
-            tab1.SelectedTab = tabVConfig;
-            btnSubVehicleType.BackColor = SystemColors.GradientActiveCaption;
+            SetTab(btnSubVehicleType, tabVConfig, false);
         }
 
         private void btnSubDimensions_Click(object sender, EventArgs e)
         {
-            ClearVehicleSubBackgrounds();
-            tab1.SelectedTab = tabVDimensions;
-            btnSubDimensions.BackColor = SystemColors.GradientActiveCaption;
+            SetTab(btnSubDimensions, tabVDimensions, false);
         }
 
         private void btnSubAntenna_Click(object sender, EventArgs e)
         {
-            ClearVehicleSubBackgrounds();
-            tab1.SelectedTab = tabVAntenna;
-            btnSubAntenna.BackColor = SystemColors.GradientActiveCaption;
+            SetTab(btnSubAntenna, tabVAntenna, false);
         }
 
         #endregion Region
 
         #region Tool Sub Menu
-        private void btnTool_Click(object sender, EventArgs e)
-        {
-            ShowSubMenu(panelToolSubMenu, btnTool);
-            btnSubToolType.BackColor=SystemColors.GradientActiveCaption;
-            UpdateVehicleListView();
-        }
-
-        private void ClearToolSubBackgrounds()
-        {
-            btnSubToolType.BackColor = SystemColors.GradientInactiveCaption;
-            btnSubHitch.BackColor = SystemColors.GradientInactiveCaption;
-            btnSubSections.BackColor = SystemColors.GradientInactiveCaption;
-            btnSubSwitches.BackColor = SystemColors.GradientInactiveCaption;
-            btnSubToolSettings.BackColor = SystemColors.GradientInactiveCaption;
-            btnSubToolOffset.BackColor = SystemColors.GradientInactiveCaption;
-            btnSubPivot.BackColor = SystemColors.GradientInactiveCaption;
-        }
 
         private void btnSubToolType_Click(object sender, EventArgs e)
         {
-            ClearToolSubBackgrounds();
-            tab1.SelectedTab = tabTConfig;
-            btnSubToolType.BackColor = SystemColors.GradientActiveCaption;
+            SetTab(btnSubToolType, tabTConfig, false);
         }
 
         private void btnSubHitch_Click(object sender, EventArgs e)
         {
-            ClearToolSubBackgrounds();
-            tab1.SelectedTab = tabTHitch;
-            btnSubHitch.BackColor= SystemColors.GradientActiveCaption;
+            SetTab(btnSubHitch, tabTHitch, false);
         }
 
-        private void btnSubToolOffset_Click
-            (object sender, EventArgs e)
+        private void btnSubToolOffset_Click (object sender, EventArgs e)
         {
-            ClearToolSubBackgrounds();
-            tab1.SelectedTab = tabToolOffset;
-            btnSubToolOffset.BackColor = SystemColors.GradientActiveCaption;
+            SetTab(btnSubToolOffset, tabToolOffset, false);
         }
 
         private void btnSubPivot_Click(object sender, EventArgs e)
         {
-            ClearToolSubBackgrounds();
-            tab1.SelectedTab = tabToolPivot;
-            btnSubPivot.BackColor = SystemColors.GradientActiveCaption;
+            SetTab(btnSubPivot, tabToolPivot, false);
         }
 
         private void btnSubSections_Click(object sender, EventArgs e)
         {
-            ClearToolSubBackgrounds();
-            tab1.SelectedTab = tabTSections;
-            btnSubSections.BackColor= SystemColors.GradientActiveCaption;
+            SetTab(btnSubSections, tabTSections, false);
         }
 
         private void btnSubSwitches_Click(object sender, EventArgs e)
         {
-            ClearToolSubBackgrounds();
-            tab1.SelectedTab = tabTSwitches;
-            btnSubSwitches .BackColor = SystemColors.GradientActiveCaption;
+            SetTab(btnSubSwitches, tabTSwitches, false);
         }
 
         private void btnSubToolSettings_Click(object sender, EventArgs e)
         {
-            ClearToolSubBackgrounds();
-            tab1.SelectedTab = tabTSettings;
-            btnSubToolSettings.BackColor = SystemColors.GradientActiveCaption;
+            SetTab(btnSubToolSettings, tabTSettings, false);
         }
         #endregion
 
         #region SubMenu Data Sources
 
-        private void ClearDataSubBackgrounds()
-        {
-            btnSubHeading.BackColor = SystemColors.GradientInactiveCaption;
-            btnSubRoll.BackColor = SystemColors.GradientInactiveCaption;
-        }
-        private void btnDataSources_Click(object sender, EventArgs e)
-        {
-            ShowSubMenu(panelDataSourcesSubMenu, btnDataSources);
-            btnSubHeading.BackColor=SystemColors.GradientActiveCaption;
-            UpdateVehicleListView();
-        }
 
         private void btnSubHeading_Click(object sender, EventArgs e)
         {
-            ClearDataSubBackgrounds();
-            tab1.SelectedTab = tabDHeading;
-            btnSubHeading.BackColor=SystemColors.GradientActiveCaption;
+            SetTab(btnSubHeading, tabDHeading, false);
         }
 
         private void btnSubRoll_Click(object sender, EventArgs e)
         {
-            ClearDataSubBackgrounds();
-            tab1.SelectedTab = tabDRoll;
-            btnSubRoll.BackColor=SystemColors.GradientActiveCaption;
+            SetTab(btnSubRoll, tabDRoll, false);
         }
 
         #endregion
 
         #region Module
-        private void ClearMachineSubBackgrounds()
-        {
-            btnMachineModule.BackColor = SystemColors.GradientInactiveCaption;
-            btnMachineRelay.BackColor = SystemColors.GradientInactiveCaption;
-        }
-
-        private void btnArduino_Click(object sender, EventArgs e)
-        {
-            ShowSubMenu(panelArduinoSubMenu, btnArduino);
-            btnMachineModule.BackColor = SystemColors.GradientActiveCaption;
-            UpdateVehicleListView();
-        }
 
         private void btnMachineModule_Click(object sender, EventArgs e)
         {
-            ClearMachineSubBackgrounds();
-            tab1.SelectedTab = tabAMachine;
-            btnMachineModule.BackColor = SystemColors.GradientActiveCaption;
+            SetTab(btnMachineModule, tabAMachine, false);
         }
 
         private void btnMachineRelay_Click(object sender, EventArgs e)
         {
-            ClearMachineSubBackgrounds();
-            tab1.SelectedTab = tabRelay;
-            btnMachineRelay.BackColor= SystemColors.GradientActiveCaption;
+            SetTab(btnMachineRelay, tabRelay, false);
+        }
+
+        private void SetTab(Button btn, TabPage newTabPage, bool back, Panel panel = null)
+        {
+            if (back && oldPanel != null)
+                oldPanel.Visible = false;
+
+            if (panel != null && panel == oldPanel)
+            {
+                if (oldbutton != null)
+                    oldbutton.BackColor = SystemColors.GradientInactiveCaption;
+
+                tab1.SelectedTab = tabSummary;
+                oldPanel = null;
+                SelectedTabChanged();
+            }
+            else if (oldTabPage != newTabPage)
+            {
+                tab1.SelectedTab = newTabPage;
+                if (panel != null)
+                {
+                    panel.Visible = true;
+                    oldPanel = panel;
+                }
+                if (oldbutton != null)
+                    oldbutton.BackColor = SystemColors.GradientInactiveCaption;
+
+                btn.BackColor = SystemColors.GradientActiveCaption;
+                oldbutton = btn;
+                SelectedTabChanged();
+            }
+            else if (back)
+            {
+                if (oldbutton != null)
+                    oldbutton.BackColor = SystemColors.GradientInactiveCaption;
+
+                tab1.SelectedTab = tabSummary;
+                SelectedTabChanged();
+            }
+        }
+
+        private void SelectedTabChanged()
+        {
+            //this is what we actually want
+            //The Enter event is raised when the tab page gains focus,
+            //but focus can behave unpredictably.
+            TabPage newTabPage = tab1.SelectedTab;
+            if (newTabPage != oldTabPage)
+            {
+                if (oldTabPage != null)
+                {
+                    if (oldTabPage == tabSummary)
+                    {
+                        tabSummary_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabDHeading)
+                    {
+                        tabDHeading_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabVConfig)
+                    {
+                        tabVConfig_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabDisplay)
+                    {
+                        tabDisplay_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabBtns)
+                    {
+                        tabBtns_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabTram)
+                    {
+                        tabTram_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabAMachine)
+                    {
+                        tabAMachine_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabRelay)
+                    {
+                        tabRelay_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabUTurn)
+                    {
+                        tabUTurn_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabDRoll)
+                    {
+                        tabDRoll_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabTSettings)
+                    {
+                        tabTSettings_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabTSwitches)
+                    {
+                        tabTSwitches_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabTSections)
+                    {
+                        tabTSections_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabToolPivot)
+                    {
+                        tabToolPivot_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabToolOffset)
+                    {
+                        tabToolOffset_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabTHitch)
+                    {
+                        tabTHitch_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabTConfig)
+                    {
+                        tabTConfig_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabVDimensions)
+                    {
+                        tabVDimensions_Leave(null, null);
+                    }
+                    else if (oldTabPage == tabVAntenna)
+                    {
+                        tabVAntenna_Leave(null, null);
+                    }
+                    else
+                    {
+                        throw new Exception($"Unknown tab left: {oldTabPage.Text}");
+                    }
+                }
+
+                if (newTabPage != null)
+                {
+                    if (newTabPage == tabSummary)
+                    {
+                        tabSummary_Enter(null, null);
+                    }
+                    else if (newTabPage == tabDHeading)
+                    {
+                        tabDHeading_Enter(null, null);
+                    }
+                    else if (newTabPage == tabVConfig)
+                    {
+                        tabVConfig_Enter(null, null);
+                    }
+                    else if (newTabPage == tabDisplay)
+                    {
+                        tabDisplay_Enter(null, null);
+                    }
+                    else if (newTabPage == tabBtns)
+                    {
+                        tabBtns_Enter(null, null);
+                    }
+                    else if (newTabPage == tabTram)
+                    {
+                        tabTram_Enter(null, null);
+                    }
+                    else if (newTabPage == tabAMachine)
+                    {
+                        tabAMachine_Enter(null, null);
+                    }
+                    else if (newTabPage == tabRelay)
+                    {
+                        tabRelay_Enter(null, null);
+                    }
+                    else if (newTabPage == tabUTurn)
+                    {
+                        tabUTurn_Enter(null, null);
+                    }
+                    else if (newTabPage == tabDRoll)
+                    {
+                        tabDRoll_Enter(null, null);
+                    }
+                    else if (newTabPage == tabTSettings)
+                    {
+                        tabTSettings_Enter(null, null);
+                    }
+                    else if (newTabPage == tabTSwitches)
+                    {
+                        tabTSwitches_Enter(null, null);
+                    }
+                    else if (newTabPage == tabTSections)
+                    {
+                        tabTSections_Enter(null, null);
+                    }
+                    else if (newTabPage == tabToolPivot)
+                    {
+                        tabToolPivot_Enter(null, null);
+                    }
+                    else if (newTabPage == tabToolOffset)
+                    {
+                        tabToolOffset_Enter(null, null);
+                    }
+                    else if (newTabPage == tabTHitch)
+                    {
+                        tabTHitch_Enter(null, null);
+                    }
+                    else if (newTabPage == tabTConfig)
+                    {
+                        tabTConfig_Enter(null, null);
+                    }
+                    else if (newTabPage == tabVDimensions)
+                    {
+                        tabVDimensions_Enter(null, null);
+                    }
+                    else if (newTabPage == tabVAntenna)
+                    {
+                        tabVAntenna_Enter(null, null);
+                    }
+                    else
+                    {
+                        throw new Exception($"Unknown tab entered: {newTabPage.Text}");
+                    }
+                }
+
+                oldTabPage = newTabPage;
+            }
         }
         #endregion
     }

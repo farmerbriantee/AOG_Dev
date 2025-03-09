@@ -79,8 +79,8 @@ namespace AgOpenGPS
         private void oglMain_Resize(object sender, EventArgs e)
         {
             ChangePerspective(true);
-
-            if (isLineSmooth) GL.Enable(EnableCap.LineSmooth);
+            SetSectionButtonPositions();
+            if (Settings.User.setDisplay_isLineSmooth) GL.Enable(EnableCap.LineSmooth);
             else GL.Disable(EnableCap.LineSmooth);
         }
 
@@ -99,9 +99,11 @@ namespace AgOpenGPS
         //oglMain rendering, Draw
         private void oglMain_Paint(object sender, PaintEventArgs e)
         {
-            if (sentenceCounter < 299)
+            if (uint.MaxValue == sentenceCounter) return;
+
+            if (true || sentenceCounter < 299)
             {
-                if (isGPSPositionInitialized)
+                if (true || isGPSPositionInitialized)
                 {
                     #region Initialize
 
@@ -116,7 +118,7 @@ namespace AgOpenGPS
                     //  Clear the color and depth buffer.
                     GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
-                    if (isDay) GL.ClearColor(0.27f, 0.4f, 0.7f, 1.0f);
+                    if (Settings.User.setDisplay_isDayMode) GL.ClearColor(0.27f, 0.4f, 0.7f, 1.0f);
                     else GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
                     GL.LoadIdentity();
@@ -136,7 +138,7 @@ namespace AgOpenGPS
                     worldGrid.DrawFieldSurface();
 
                     ////if grid is on draw it
-                    if (isGridOn) worldGrid.DrawWorldGrid(camera.gridZoom);
+                    if (Settings.User.isGridOn) worldGrid.DrawWorldGrid(camera.gridZoom);
 
                     GL.Enable(EnableCap.Blend);
 
@@ -302,7 +304,7 @@ namespace AgOpenGPS
                             count2 = triList.Count;
                             GL.Begin(PrimitiveType.TriangleStrip);
 
-                            if (isDay) GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)152);
+                            if (Settings.User.setDisplay_isDayMode) GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)152);
                             else GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)(152 * 0.5));
 
                             //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
@@ -319,7 +321,7 @@ namespace AgOpenGPS
                             else { for (int i = 1; i < count2; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
                             GL.End();
 
-                            if (isSectionlinesOn)
+                            if (Settings.User.setDisplay_isSectionLinesOn)
                             {
                                 //highlight lines
                                 GL.Color4(0.2, 0.2, 0.2, 1.0);
@@ -354,7 +356,7 @@ namespace AgOpenGPS
                             }
 
 
-                            if (isDirectionMarkers)
+                            if (Settings.User.isDirectionMarkers)
                             {
                                 if (triList.Count > 31)
                                 {
@@ -401,7 +403,7 @@ namespace AgOpenGPS
                             {
                                     try
                                     {
-                                    GL.Color4((byte)patch.triangleList[0].easting, (byte)patch.triangleList[0].northing, (byte)patch.triangleList[0].heading, (byte)(isDay ? 152 : 76));
+                                    GL.Color4((byte)patch.triangleList[0].easting, (byte)patch.triangleList[0].northing, (byte)patch.triangleList[0].heading, (byte)(Settings.User.setDisplay_isDayMode ? 152 : 76));
 
                                         //draw the triangle in each triangle strip
                                         GL.Begin(PrimitiveType.TriangleStrip);
@@ -479,7 +481,7 @@ namespace AgOpenGPS
                     {
                         if (flagNumberPicked > 0)
                         {
-                            GL.LineWidth(trk.lineWidth);
+                            GL.LineWidth(Settings.User.setDisplay_lineWidth);
                             GL.Enable(EnableCap.LineStipple);
                             GL.LineStipple(1, 0x0707);
                             GL.Begin(PrimitiveType.Lines);
@@ -523,7 +525,7 @@ namespace AgOpenGPS
                             GL.End();
                         }
 
-                        if (!isStanleyUsed && trk.idx > -1)
+                        if (!Settings.Vehicle.setVehicle_isStanleyUsed && trk.idx > -1)
                         {
                             GL.PointSize(16);
                             GL.Begin(PrimitiveType.Points);
@@ -538,7 +540,7 @@ namespace AgOpenGPS
                             GL.End();
                         }
 
-                        if (isStanleyUsed)
+                        if (Settings.Vehicle.setVehicle_isStanleyUsed)
                         {
                             GL.PointSize(16);
                             GL.Begin(PrimitiveType.Points);
@@ -573,13 +575,13 @@ namespace AgOpenGPS
                     GL.LoadIdentity();
 
                     //LightBar if AB Line is set and turned on or contour
-                    if (isLightBarNotSteerBar)
+                    if (Settings.User.isLightbarNotSteerBar)
                     {
                         DrawLightBarText();
                     }
                     else
                     {
-                        if (isLightbarOn) DrawSteerBarText();
+                        if (Settings.User.isLightbarOn) DrawSteerBarText();
                     }
 
                     if (trk.idx > -1 && !ct.isContourBtnOn) DrawTrackInfo();
@@ -589,30 +591,29 @@ namespace AgOpenGPS
 
                     if ((isBtnAutoSteerOn || yt.isYouTurnBtnOn) && !ct.isContourBtnOn) DrawManUTurnBtn();
 
-                    if (isCompassOn) DrawCompass();
+                    if (Settings.User.isCompassOn) DrawCompass();
                     DrawCompassText();
 
-                    if (isSpeedoOn) DrawSpeedo();
+                    if (Settings.User.isSpeedoOn) DrawSpeedo();
 
                     DrawSteerCircle();
 
-                    if (tool.isDisplayTramControl && tram.displayMode != 0) { DrawTramMarkers(); }
+                    if (Settings.Tool.isDisplayTramControl && tram.displayMode != 0) { DrawTramMarkers(); }
 
                     if (vehicle.isHydLiftOn) DrawLiftIndicator();
 
                     if (isReverse)
                         DrawReverse();
 
-                    if (isRTK_AlarmOn)
+                    if (Settings.Vehicle.setGPS_isRTK)
                     {
                         if (pn.fixQuality != 4)
                         {
                             if (!sounds.isRTKAlarming)
                             {
-                                if (isRTK_KillAutosteer && isBtnAutoSteerOn)
+                                if (Settings.Vehicle.setGPS_isRTK_KillAutoSteer && isBtnAutoSteerOn)
                                 {
-                                    btnAutoSteer.PerformClick();
-                                    TimedMessageBox(2000, "Autosteer Turned Off", "RTK Fix Alarm");
+                                    SetAutoSteerButton(false, "RTK Fix Alarm");
                                     Log.EventWriter("Autosteer Off, RTK Fix Alarm");
                                 }
 
@@ -628,13 +629,59 @@ namespace AgOpenGPS
                         }
                     }
 
-                    if (pn.age > pn.ageAlarm) DrawAge();
+                    if (pn.age > Settings.Vehicle.setGPS_ageAlarm) DrawAge();
 
                     //at least one track
                     if (guideLineCounter > 0) DrawGuidanceLineText();
 
                     //if hardware messages
                     if (isHardwareMessages) DrawHardwareMessageText();
+
+                    double leftPos = 170;
+                    double size = 150;
+                    double topPos = oglMain.Height * 0.5 - 50;
+
+                    if (sentenceCounter > 299 || !isGPSPositionInitialized)
+                    {
+                        GL.Enable(EnableCap.Texture2D);
+                        GL.Color4(1.25f, 1.25f, 1.275f, 0.75);
+                        GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.NoGPS]);        // Select Our Texture
+
+                        GL.PushMatrix();
+
+                        GL.Translate(leftPos, topPos, 0.0f);
+                        //GL.Rotate(deadCam, 0.0f, 1.0f, 0.0f);
+                        //deadCam += 5;
+                        GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
+                        GL.TexCoord2(1, 0); GL.Vertex2(size, -size); // Top Right
+                        GL.TexCoord2(0, 0); GL.Vertex2(-size, -size); // Top Left
+                        GL.TexCoord2(1, 1); GL.Vertex2(size, size); // Bottom Right
+                        GL.TexCoord2(0, 1); GL.Vertex2(-size, size); // Bottom Left
+                        GL.End();                       // Done Building Triangle Strip
+                        GL.PopMatrix();
+
+                        GL.Color3(0.98f, 0.98f, 0.70f);
+
+                        int edge = -oglMain.Width / 2 + 10;
+                        font.DrawText(edge, oglMain.Height - 120, "<-- AgIO ?");
+
+                        lblSpeed.Text = "???";
+                        lblHz.Text = " ???? \r\n Not Connected";
+                    }
+                    else if (!isFirstHeadingSet)
+                    {
+                        GL.Enable(EnableCap.Texture2D);
+                        GL.Color4(1, 1, 1, 0.75);
+                        GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.QuestionMark]);        // Select Our Texture
+                        GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
+                        GL.TexCoord2(1, 0); GL.Vertex2(leftPos + size, topPos - size); // Top Right
+                        GL.TexCoord2(0, 0); GL.Vertex2(leftPos - size, topPos - size); // Top Left
+                        GL.TexCoord2(1, 1); GL.Vertex2(leftPos + size, topPos + size); // Bottom Right
+                        GL.TexCoord2(0, 1); GL.Vertex2(leftPos - size, topPos + size); // Bottom Left
+                        GL.End();                       // Done Building Triangle Strip
+                        GL.Disable(EnableCap.Texture2D);
+                    }
+
 
                     //just in case
                     GL.Disable(EnableCap.LineStipple);
@@ -647,7 +694,7 @@ namespace AgOpenGPS
                         GL.Color3(1.0, 0.66, 0.33);
                         GL.LineWidth(16);
                     }
-                    if ((isRTK_AlarmOn && sounds.isRTKAlarming) || (yt.isYouTurnBtnOn && yt.turnTooCloseTrigger))
+                    if ((Settings.Vehicle.setGPS_isRTK && sounds.isRTKAlarming) || (yt.isYouTurnBtnOn && yt.turnTooCloseTrigger))
                     {
                         if (isFlashOnOff)
                         {
@@ -710,7 +757,7 @@ namespace AgOpenGPS
                             FileSaveContour();
 
                             //NMEA elevation file
-                            if (isLogElevation && sbElevationString.Length > 0) FileSaveElevation();
+                            if (Settings.User.isLogElevation && sbElevationString.Length > 0) FileSaveElevation();
                         }
 
                         //set saving flag off
@@ -952,7 +999,7 @@ namespace AgOpenGPS
             //tram tracks
             GL.Color3((byte)0, (byte)bbColors.tram, (byte)0);
 
-            if (tool.isDisplayTramControl && tram.displayMode != 0)
+            if (Settings.Tool.isDisplayTramControl && tram.displayMode != 0)
             {
                 GL.LineWidth(4);
 
@@ -989,23 +1036,23 @@ namespace AgOpenGPS
             #region Lookahead and ReadPixel
 
             //set the look ahead for hyd Lift in pixels per second
-            vehicle.hydLiftLookAheadDistanceLeft = tool.farLeftSpeed * vehicle.hydLiftLookAheadTime * 10;
-            vehicle.hydLiftLookAheadDistanceRight = tool.farRightSpeed * vehicle.hydLiftLookAheadTime * 10;
+            vehicle.hydLiftLookAheadDistanceLeft = tool.farLeftSpeed * Settings.Tool.hydraulicLiftLookAhead * 10;
+            vehicle.hydLiftLookAheadDistanceRight = tool.farRightSpeed * Settings.Tool.hydraulicLiftLookAhead * 10;
 
             if (vehicle.hydLiftLookAheadDistanceLeft > 200) vehicle.hydLiftLookAheadDistanceLeft = 200;
             if (vehicle.hydLiftLookAheadDistanceRight > 200) vehicle.hydLiftLookAheadDistanceRight = 200;
 
-            tool.lookAheadDistanceOnPixelsLeft = tool.farLeftSpeed * tool.lookAheadOnSetting * 10;
-            tool.lookAheadDistanceOnPixelsRight = tool.farRightSpeed * tool.lookAheadOnSetting * 10;
+            tool.lookAheadDistanceOnPixelsLeft = tool.farLeftSpeed * Settings.Tool.lookAheadOn * 10;
+            tool.lookAheadDistanceOnPixelsRight = tool.farRightSpeed * Settings.Tool.lookAheadOn * 10;
 
             if (tool.lookAheadDistanceOnPixelsLeft > 200) tool.lookAheadDistanceOnPixelsLeft = 200;
             if (tool.lookAheadDistanceOnPixelsRight > 200) tool.lookAheadDistanceOnPixelsRight = 200;
 
-            tool.lookAheadDistanceOffPixelsLeft = tool.farLeftSpeed * tool.lookAheadOffSetting * 10;
-            tool.lookAheadDistanceOffPixelsRight = tool.farRightSpeed * tool.lookAheadOffSetting * 10;
+            tool.lookAheadDistanceOffPixelsLeft = tool.farLeftSpeed * Settings.Tool.lookAheadOff * 10;
+            tool.lookAheadDistanceOffPixelsRight = tool.farRightSpeed * Settings.Tool.lookAheadOff * 10;
 
-            if (tool.lookAheadDistanceOffPixelsLeft > 160) tool.lookAheadDistanceOffPixelsLeft = 160;
-            if (tool.lookAheadDistanceOffPixelsRight > 160) tool.lookAheadDistanceOffPixelsRight = 160;
+            if (tool.lookAheadDistanceOffPixelsLeft > 200) tool.lookAheadDistanceOffPixelsLeft = 200;
+            if (tool.lookAheadDistanceOffPixelsRight > 200) tool.lookAheadDistanceOffPixelsRight = 200;
 
             //determine farthest ahead lookahead - is the height of the readpixel line
             double rpHeight = 0;
@@ -1049,7 +1096,7 @@ namespace AgOpenGPS
             #region Tram Painting
             ///////////////////////////////////////////  Tram control  ///////////////////////////////////////////
 
-            if (tram.displayMode > 0 && tool.width > vehicle.trackWidth)
+            if (tram.displayMode > 0 && Settings.Tool.toolWidth > vehicle.trackWidth)
             {
                 tram.controlByte = 0;
                 //1 pixels in is there a tram line?
@@ -1156,7 +1203,7 @@ namespace AgOpenGPS
                 }
 
                 //Off or too slow or going backwards
-                if (section[j].sectionBtnState == btnStates.Off || avgSpeed < vehicle.slowSpeedCutoff || section[j].speedPixels < 0)
+                if (section[j].sectionBtnState == btnStates.Off || avgSpeed < Settings.Tool.slowSpeedCutoff || section[j].speedPixels < 0)
                 {
                     section[j].sectionOnRequest = false;
                     section[j].sectionOffRequest = true;
@@ -1195,12 +1242,12 @@ namespace AgOpenGPS
                     }
 
                     //check for off
-                    int coverage = (end - start + 1) - ((end - start + 1) * tool.minCoverage) / 100;
+                    int coverage = (end - start + 1) - ((end - start + 1) * Settings.Tool.minCoverage) / 100;
 
                     if (onCount > coverage) section[j].sectionOnRequest = true;
                     else section[j].sectionOnRequest = false;
 
-                    coverage = ((end - start + 1) * tool.minCoverage) / 100;
+                    coverage = ((end - start + 1) * Settings.Tool.minCoverage) / 100;
                     if (offCount < (coverage) && section[j].sectionOnRequest == false)
                         section[j].sectionOnRequest = true;
                 }
@@ -1253,9 +1300,9 @@ namespace AgOpenGPS
                     section[j].isSectionOn = true;
 
                 //turn off delay
-                if (tool.turnOffDelay > 0)
+                if (Settings.Tool.offDelay > 0)
                 {
-                    if (!section[j].sectionOffRequest) section[j].sectionOffTimer = (int)(gpsHz * tool.turnOffDelay);
+                    if (!section[j].sectionOffRequest) section[j].sectionOffTimer = (int)(gpsHz * Settings.Tool.offDelay);
 
                     if (section[j].sectionOffTimer > 0) section[j].sectionOffTimer--;
 
@@ -1273,25 +1320,25 @@ namespace AgOpenGPS
                 //Mapping timers
                 if (section[j].sectionOnRequest && !section[j].isMappingOn && section[j].mappingOnTimer == 0)
                 {
-                    section[j].mappingOnTimer = (int)(tool.lookAheadOnSetting * gpsHz) - mappingFactor;
+                    section[j].mappingOnTimer = (int)(Settings.Tool.lookAheadOn * gpsHz) - mappingFactor;
                 }
                 else if (section[j].sectionOnRequest && section[j].isMappingOn && section[j].mappingOffTimer > 1)
                 {
                     section[j].mappingOffTimer = 0;
-                    section[j].mappingOnTimer = (int)(tool.lookAheadOnSetting * gpsHz) - mappingFactor;
+                    section[j].mappingOnTimer = (int)(Settings.Tool.lookAheadOn * gpsHz) - mappingFactor;
                 }
 
-                if (tool.lookAheadOffSetting > 0)
+                if (Settings.Tool.lookAheadOff > 0)
                 {
                     if (section[j].sectionOffRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
                     {
-                        section[j].mappingOffTimer = (int)(tool.lookAheadOffSetting * gpsHz)+ mappingFactor;
+                        section[j].mappingOffTimer = (int)(Settings.Tool.lookAheadOff * gpsHz) + mappingFactor;
                     }
                 }
-                else if (tool.turnOffDelay > 0)
+                else if (Settings.Tool.offDelay > 0)
                 {
                     if (section[j].sectionOffRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
-                        section[j].mappingOffTimer = (int)(tool.turnOffDelay * gpsHz)+ mappingFactor;
+                        section[j].mappingOffTimer = (int)(Settings.Tool.offDelay * gpsHz)+ mappingFactor;
                 }
                 else
                 {
@@ -1327,8 +1374,7 @@ namespace AgOpenGPS
             #region Workswitch control
 
             //Checks the workswitch or steerSwitch if required
-            if (ahrs.isAutoSteerAuto || mc.isRemoteWorkSystemOn)
-                mc.CheckWorkAndSteerSwitch();
+            mc.CheckWorkAndSteerSwitch();
 
             #endregion
 
@@ -1359,7 +1405,7 @@ namespace AgOpenGPS
                             patch.TurnMappingOff();
                     }
                 }
-                else if (!tool.isMultiColoredSections)
+                else if (!Settings.Tool.setColor_isMultiColorSections)
                 {
                     //set the start and end positions from section points
                     for (int j = 0; j < tool.numOfSections; j++)
@@ -1410,7 +1456,7 @@ namespace AgOpenGPS
                             if (triStrip[j].newStartSectionNum != triStrip[j].currentStartSectionNum
                                 || triStrip[j].newEndSectionNum != triStrip[j].currentEndSectionNum)
                             {
-                                //if (tool.isSectionsNotZones)
+                                //if (Settings.Tool.isSectionsNotZones)
                                 {
                                     triStrip[j].AddMappingPoint();
                                 }
@@ -1438,7 +1484,7 @@ namespace AgOpenGPS
                         }
                     }
                 }
-                else if (tool.isMultiColoredSections) //could be else only but this is more clear
+                else if (Settings.Tool.setColor_isMultiColorSections) //could be else only but this is more clear
                 {
                     //set the start and end positions from section points
                     for (int j = 0; j < tool.numOfSections; j++)
@@ -1611,7 +1657,7 @@ namespace AgOpenGPS
 
             int bottomSide = 90;
 
-            if (!isStanleyUsed && isUTurnOn)
+            if (!Settings.Vehicle.setVehicle_isStanleyUsed && Settings.User.setFeatures.isUTurnOn)
             {
                 GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.TurnManual]);        // Select Our Texture
                 GL.Color3(0.90f, 0.90f, 0.293f);
@@ -1636,7 +1682,7 @@ namespace AgOpenGPS
             //lateral line move
 
             bottomSide += 80;
-            if (isLateralOn)
+            if (Settings.User.setFeatures.isLateralOn)
             {
                 GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.Lateral]);        // Select Our Texture
                 GL.Color3(0.590f, 0.90f, 0.93f);
@@ -1661,7 +1707,7 @@ namespace AgOpenGPS
             if (!yt.isYouTurnTriggered)
             {
                 GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.Turn]);        // Select Our Texture
-                if (distancePivotToTurnLine > 0 && !yt.isOutOfBounds && yt.youTurnPhase == 10) GL.Color3(0.3f, 0.95f, 0.3f);
+                if (distancePivotToTurnLine > 0 && !yt.isOutOfBounds && yt.youTurnPhase == 255) GL.Color3(0.3f, 0.95f, 0.3f);
                 else GL.Color3(0.97f, 0.635f, 0.4f);
                 //mc.autoSteerData[mc.sdX] = 0;
                 PGN_239.pgn[PGN_239.uturn] = 0;
@@ -1983,7 +2029,7 @@ namespace AgOpenGPS
                 if (flagNumberPicked != 0)
                 {
                     ////draw the box around flag
-                    double offSet = (camera.zoomValue * camera.zoomValue * 0.01);
+                    double offSet = (Settings.User.setDisplay_camZoom * Settings.User.setDisplay_camZoom * 0.01);
                     GL.LineWidth(4);
                     GL.Color3(0.980f, 0.0f, 0.980f);
                     GL.Begin(PrimitiveType.LineStrip);
@@ -2013,7 +2059,7 @@ namespace AgOpenGPS
             //offlineDistance *= -1;
             //  Dot distance is representation of how far from AB Line
             int dotDistance = (int)(offlineDistance);
-            int limit = (int)lightbarCmPerPixel * 8;
+            int limit = (int)Settings.User.setDisplay_lightbarCmPerPixel * 8;
             if (dotDistance < -limit) dotDistance = -limit;
             if (dotDistance > limit) dotDistance = limit;
 
@@ -2044,7 +2090,7 @@ namespace AgOpenGPS
             //Are you on the right side of line? So its green.
             if ((offlineDistance) < 0.0)
             {
-                int dots = (dotDistance * -1 / lightbarCmPerPixel) + 1;
+                int dots = (dotDistance * -1 / Settings.User.setDisplay_lightbarCmPerPixel) + 1;
 
                 GL.PointSize(24.0f);
                 GL.Color3(0.0f, 0.0f, 0.0f);
@@ -2062,7 +2108,7 @@ namespace AgOpenGPS
 
             else //red side
             {
-                int dots = (int)(dotDistance / lightbarCmPerPixel) + 1;
+                int dots = (int)(dotDistance / Settings.User.setDisplay_lightbarCmPerPixel) + 1;
 
                 GL.PointSize(24.0f);
                 GL.Color3(0.0f, 0.0f, 0.0f);
@@ -2089,7 +2135,7 @@ namespace AgOpenGPS
 
                 double avgPivotDistance = avgPivDistance * glm.m2InchOrCm;
 
-                if (isLightbarOn) DrawLightBar(avgPivotDistance);
+                if (Settings.User.isLightbarOn) DrawLightBar(avgPivotDistance);
 
                 if (avgPivotDistance > 999) avgPivotDistance = 999;
                 if (avgPivotDistance < -999) avgPivotDistance = -999;

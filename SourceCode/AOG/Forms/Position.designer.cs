@@ -14,8 +14,7 @@ namespace AgOpenGPS
     public partial class FormGPS
     {
         //very first fix to setup grid etc
-        public bool isGPSPositionInitialized = false, isFirstHeadingSet = false,
-            isReverse = false, isSteerInReverse = true;
+        public bool isGPSPositionInitialized = false, isFirstHeadingSet = false, isReverse = false;
 
         //string to record fixes for elevation maps
         public StringBuilder sbElevationString = new StringBuilder();
@@ -25,15 +24,9 @@ namespace AgOpenGPS
         public double guidanceLineSteerAngle;
 
         public double setAngVel, actAngVel;
-        public bool isConstantContourOn;
 
         //guidance line look ahead
-        public double guidanceLookAheadTime = 2;
         public vec2 guidanceLookPos = new vec2(0, 0);
-        public double dualReverseDetectionDistance;
-
-        //for heading or Atan2 as camera
-        public string headingFromSource, headingFromSourceBak;
 
         public vec3 pivotAxlePos = new vec3(0, 0, 0);
         public vec3 steerAxlePos = new vec3(0, 0, 0);
@@ -91,12 +84,10 @@ namespace AgOpenGPS
         private int currentStepFix = 0;
         private const int totalFixSteps = 10;
         public vecFix2Fix[] stepFixPts = new vecFix2Fix[totalFixSteps];
-        public double distanceCurrentStepFix = 0, distanceCurrentStepFixDisplay = 0, minHeadingStepDist = 1, startSpeed = 0.5;
-        public double fixToFixHeadingDistance = 0, gpsMinimumStepDistance = 0.05;
+        public double distanceCurrentStepFix = 0, distanceCurrentStepFixDisplay = 0;
+        public double fixToFixHeadingDistance = 0;
 
         private double nowHz = 0;
-
-        public bool isRTK_AlarmOn, isRTK_KillAutosteer;
 
         public double uncorrectedEastingGraph = 0;
         public double correctionDistanceGraph = 0;
@@ -163,7 +154,7 @@ namespace AgOpenGPS
             }
 
             #region Heading
-            switch (headingFromSource)
+            switch (Settings.Vehicle.setGPS_headingFromWhichSource)
             {
                 //calculate current heading only when moving, otherwise use last
                 case "Fix":
@@ -176,14 +167,14 @@ namespace AgOpenGPS
                     //how far since last fix
                     distanceCurrentStepFix = glm.Distance(stepFixPts[0], pn.fix);
 
-                    if (distanceCurrentStepFix > gpsMinimumStepDistance)// 0.1 or 0.05 
+                    if (distanceCurrentStepFix > Settings.Vehicle.setGPS_minimumStepLimit)// 0.1 or 0.05 
                     {
                         //save a copy of previous for jump test
                         //jumpFix.easting = stepFixPts[0].easting; jumpFix.northing = stepFixPts[0].northing;
 
                         if ((fd.distanceUser += distanceCurrentStepFix) > 9999) fd.distanceUser = 0;
 
-                        double minFixHeadingDistSquared = minHeadingStepDist * minHeadingStepDist;
+                        double minFixHeadingDistSquared = Settings.Vehicle.setF_minHeadingStepDistance * Settings.Vehicle.setF_minHeadingStepDistance;
                         fixToFixHeadingDistance = 0;
 
                         for (int i = 0; i < totalFixSteps; i++)
@@ -240,16 +231,16 @@ namespace AgOpenGPS
                                 ////what is angle between the last valid heading and one just now
                                 double delta = Math.Abs(Math.PI - Math.Abs(Math.Abs(gpsHeading - fixHeading) - Math.PI));
 
-                                isReverse = ahrs.isReverseOn && delta > glm.PIBy2;
+                                isReverse = Settings.Vehicle.setIMU_isReverseOn && delta > glm.PIBy2;
                                 
                                 if (isReverse)
                                 {
                                     gpsHeading -= glm.toRadians(vehicle.antennaPivot / 1
-                                        * mc.actualSteerAngleDegrees * Properties.Settings.Default.setGPS_reverseComp);
+                                        * mc.actualSteerAngleDegrees * Settings.Vehicle.setGPS_reverseComp);
                                 }
                                 else
                                     gpsHeading -= glm.toRadians(vehicle.antennaPivot / 1
-                                        * mc.actualSteerAngleDegrees * Properties.Settings.Default.setGPS_forwardComp);
+                                        * mc.actualSteerAngleDegrees * Settings.Vehicle.setGPS_forwardComp);
                                 
                                 if (gpsHeading < 0) gpsHeading += glm.twoPI;
                                 else if (gpsHeading >= glm.twoPI) gpsHeading -= glm.twoPI;
@@ -317,7 +308,7 @@ namespace AgOpenGPS
                             prevFix = pn.fix;
                         }
 
-                        if (glm.Distance(lastReverseFix, pn.fix) > dualReverseDetectionDistance)
+                        if (glm.Distance(lastReverseFix, pn.fix) > Settings.Vehicle.setGPS_dualReverseDetectionDistance)
                         {
                             //most recent heading
                             double newHeading = Math.Atan2(pn.fix.easting - lastReverseFix.easting,
@@ -377,12 +368,8 @@ namespace AgOpenGPS
             //{
             //    Log.EventWriter(": " + jumpDistance.ToString("N0") + " cm");
 
-            //    if (isBtnAutoSteerOn)
-            //    {
-            //        btnAutoSteer.PerformClick();
-            //        TimedMessageBox(3000, gStr.Get(gs.gsAutoSteer, "Big Jump in GPS position:" + jumpDistance.ToString("N0") + " cm");
-            //        Log.EventWriter("Autosteer Off, Jump in GPS position: " + jumpDistance.ToString("N0") + " cm");
-            //    }
+            //    SetAutoSteerButton(false, "Big Jump in GPS position:" + jumpDistance.ToString("N0") + " cm");
+            //    Log.EventWriter("Autosteer Off, Jump in GPS position: " + jumpDistance.ToString("N0") + " cm");
 
             //}
 
@@ -458,7 +445,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    distanceX2 = (int)((guidanceLineDistanceOff * glm.m2InchOrCm) / lightbarCmPerPixel);
+                    distanceX2 = (int)((guidanceLineDistanceOff * glm.m2InchOrCm) / Settings.User.setDisplay_lightbarCmPerPixel);
 
                     if (distanceX2 < -127) distanceX2 = -127;
                     else if (distanceX2 > 127) distanceX2 = 127;
@@ -470,18 +457,17 @@ namespace AgOpenGPS
 
                 if (!timerSim.Enabled)
                 {
-                    if (isBtnAutoSteerOn && avgSpeed > vehicle.maxSteerSpeed)
+                    if (isBtnAutoSteerOn && avgSpeed > Settings.Vehicle.setAS_maxSteerSpeed)
                     {
-                        btnAutoSteer.PerformClick();
+                        SetAutoSteerButton(false, "Above Maximum Safe Steering Speed: " + (Settings.Vehicle.setAS_maxSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + glm.unitsKmhMph);
                     }
 
-                    if (isBtnAutoSteerOn && avgSpeed < vehicle.minSteerSpeed)
+                    if (isBtnAutoSteerOn && avgSpeed < Settings.Vehicle.setAS_minSteerSpeed)
                     {
                         minSteerSpeedTimer++;
                         if (minSteerSpeedTimer > 80)
                         {
-                            btnAutoSteer.PerformClick();
-                            TimedMessageBox(3000, "AutoSteer Disabled", "Below Minimum Safe Steering Speed: " + (vehicle.minSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + glm.unitsKmhMph);
+                            SetAutoSteerButton(false, "Below Minimum Safe Steering Speed: " + (Settings.Vehicle.setAS_minSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + glm.unitsKmhMph);
                             Log.EventWriter("Steer Off, Below Min Steering Speed");
                         }
                     }
@@ -492,7 +478,7 @@ namespace AgOpenGPS
                 }
 
                 //for now if backing up, turn off autosteer
-                if (!isSteerInReverse && isReverse)
+                if (!Settings.Vehicle.setAS_isSteerInReverse && isReverse)
                 {
                     PGN_254.pgn[PGN_254.status] = 0;
                 }
@@ -593,7 +579,7 @@ namespace AgOpenGPS
                     {
                         mc.isOutOfBounds = false;
                         //now check to make sure we are not in an inner turn boundary - drive thru is ok
-                        if (yt.youTurnPhase != 10)
+                        if (yt.youTurnPhase < 240)
                         {
                             if (crossTrackError > 1)
                             {
@@ -604,15 +590,16 @@ namespace AgOpenGPS
                                 yt.BuildCurveDubinsYouTurn();
                             }
 
-                            if (yt.uTurnStyle == 0 && yt.youTurnPhase == 10)
+                            if (yt.uTurnStyle == 0 && yt.youTurnPhase == 254)
                             {
-                                yt.SmoothYouTurn(6);
+                                yt.youTurnPhase = 255;
+                                //yt.SmoothYouTurn(6); //yt.uTurnSmoothing????
                             }
 
                             if (yt.isTurnCreationTooClose && !yt.turnTooCloseTrigger)
                             {
                                 yt.turnTooCloseTrigger = true;
-                                if (sounds.isTurnSoundOn)
+                                if (Settings.User.sound_isUturnOn)
                                 {
                                     sounds.sndUTurnTooClose.Play();
                                     Log.EventWriter("U Turn Creation Failure");
@@ -622,28 +609,23 @@ namespace AgOpenGPS
                         else if (yt.ytList.Count > 5)//wait to trigger the actual turn since its made and waiting
                         {
                             //distance from current pivot or steer to first point of youturn pattern
-                            if (isStanleyUsed) distancePivotToTurnLine = glm.Distance(yt.ytList[2], steerAxlePos);
+                            if (Settings.Vehicle.setVehicle_isStanleyUsed) distancePivotToTurnLine = glm.Distance(yt.ytList[2], steerAxlePos);
                             else distancePivotToTurnLine = glm.Distance(yt.ytList[2], pivotAxlePos);
 
                             if ((distancePivotToTurnLine <= 20.0) && (distancePivotToTurnLine >= 18.0) && !yt.isYouTurnTriggered)
 
                                 if (!sounds.isBoundAlarming)
                                 {
-                                    if (sounds.isTurnSoundOn) sounds.sndBoundaryAlarm.Play();
+                                    if (Settings.User.sound_isUturnOn) sounds.sndBoundaryAlarm.Play();
                                     sounds.isBoundAlarming = true;
                                 }
 
                             //if we are close enough to pattern, trigger.
-                            if ((distancePivotToTurnLine <= 1 || (!isStanleyUsed && glm.Distance(yt.ytList[2], gyd.goalPoint) <= 1.0)) && !yt.isYouTurnTriggered)
+                            if ((distancePivotToTurnLine <= 1 || (!Settings.Vehicle.setVehicle_isStanleyUsed && glm.Distance(yt.ytList[2], gyd.goalPoint) <= 1.0)) && !yt.isYouTurnTriggered)
                             {
                                 yt.YouTurnTrigger();
                                 sounds.isBoundAlarming = false;
                             }
-
-                            //if (isBtnAutoSteerOn && guidanceLineDistanceOff > 300 && !yt.isYouTurnTriggered)
-                            //{
-                            //    yt.ResetCreatedYouTurn();
-                            //}
                         }
                     }
                     else
@@ -737,7 +719,7 @@ namespace AgOpenGPS
             {
                 //move the offset to line up imu with gps
                 //if (!isReverseWithIMU)
-                    imuGPS_Offset += gyroDelta * ahrs.fusionWeight;
+                    imuGPS_Offset += gyroDelta * Settings.Vehicle.setIMU_fusionWeight2;
                 //else
                 //    imuGPS_Offset += gyroDelta * 0.02;
             }
@@ -807,7 +789,7 @@ namespace AgOpenGPS
             contourTriggerDistance = glm.Distance(pivotAxlePos, prevContourPos);
             gridTriggerDistance = glm.DistanceSquared(pivotAxlePos, prevGridPos);
 
-            if ( isLogElevation && gridTriggerDistance > 2.9 && patchCounter !=0 && isFieldStarted)
+            if (Settings.User.isLogElevation && gridTriggerDistance > 2.9 && patchCounter !=0 && isFieldStarted)
             {
                 //grab fix and elevation
                 sbElevationString.Append(
@@ -826,7 +808,7 @@ namespace AgOpenGPS
             }
 
             //contour points
-            if (isFieldStarted &&(contourTriggerDistance > tool.contourWidth 
+            if (isFieldStarted && (contourTriggerDistance > (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) / 3.0
                 || contourTriggerDistance > sectionTriggerStepDistance))
             {
                 AddContourPoints();
@@ -867,16 +849,16 @@ namespace AgOpenGPS
 
             //guidance look ahead distance based on time or tool width at least 
             
-            double guidanceLookDist = (Math.Max(tool.width * 0.5, avgSpeed * 0.277777 * guidanceLookAheadTime));
+            double guidanceLookDist = (Math.Max(Settings.Tool.toolWidth * 0.5, avgSpeed * 0.277777 * Settings.Vehicle.setAS_guidanceLookAheadTime));
             guidanceLookPos.easting = pivotAxlePos.easting + (Math.Sin(fixHeading) * guidanceLookDist);
             guidanceLookPos.northing = pivotAxlePos.northing + (Math.Cos(fixHeading) * guidanceLookDist);
             
             //determine where the rigid vehicle hitch ends
-            hitchPos.easting = pivotAxlePos.easting + Math.Sin(fixHeading) * tool.hitchLength;
-            hitchPos.northing = pivotAxlePos.northing + Math.Cos(fixHeading) * tool.hitchLength;
+            hitchPos.easting = pivotAxlePos.easting + Math.Sin(fixHeading) * Settings.Tool.hitchLength;
+            hitchPos.northing = pivotAxlePos.northing + Math.Cos(fixHeading) * Settings.Tool.hitchLength;
 
             //tool attached via a trailing hitch
-            if (isGPSToolActive && tool.isToolTrailing && !tool.isToolTBT && !timerSim.Enabled)
+            if (isGPSToolActive && Settings.Tool.isToolTrailing && !Settings.Tool.isToolTBT && !timerSim.Enabled)
             {
                 tankPos.heading = fixHeading;
                 tankPos.easting = hitchPos.easting;
@@ -891,15 +873,15 @@ namespace AgOpenGPS
 
                 toolPos.heading = toolPivotPos.heading;
                 toolPos.easting = toolPivotPos.easting +
-                    (Math.Sin(toolPivotPos.heading) * (tool.trailingToolToPivotLength));
+                    (Math.Sin(toolPivotPos.heading) * (Settings.Tool.trailingToolToPivotLength));
                 toolPos.northing = toolPivotPos.northing +
-                    (Math.Cos(toolPivotPos.heading) * (tool.trailingToolToPivotLength));
+                    (Math.Cos(toolPivotPos.heading) * (Settings.Tool.trailingToolToPivotLength));
             }
 
-            else if (tool.isToolTrailing)
+            else if (Settings.Tool.isToolTrailing)
             {
                 double over;
-                if (tool.isToolTBT)
+                if (Settings.Tool.isToolTBT)
                 {
                     //Torriem rules!!!!! Oh yes, this is all his. Thank-you
                     if (distanceCurrentStepFix != 0)
@@ -913,16 +895,16 @@ namespace AgOpenGPS
 
                     if (over < 2.0 && startCounter > 50)
                     {
-                        tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (tool.tankTrailingHitchLength));
-                        tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (tool.tankTrailingHitchLength));
+                        tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (Settings.Tool.tankTrailingHitchLength));
+                        tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (Settings.Tool.tankTrailingHitchLength));
                     }
 
                     //criteria for a forced reset to put tool directly behind vehicle
                     if (over > 2.0 | startCounter < 51)
                     {
                         tankPos.heading = fixHeading;
-                        tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (tool.tankTrailingHitchLength));
-                        tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (tool.tankTrailingHitchLength));
+                        tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (Settings.Tool.tankTrailingHitchLength));
+                        tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (Settings.Tool.tankTrailingHitchLength));
                     }
                 }
                 else
@@ -944,23 +926,23 @@ namespace AgOpenGPS
 
                 if (over < 1.9 && startCounter > 50)
                 {
-                    toolPivotPos.easting = tankPos.easting + (Math.Sin(toolPivotPos.heading) * (tool.trailingHitchLength));
-                    toolPivotPos.northing = tankPos.northing + (Math.Cos(toolPivotPos.heading) * (tool.trailingHitchLength));
+                    toolPivotPos.easting = tankPos.easting + (Math.Sin(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength));
+                    toolPivotPos.northing = tankPos.northing + (Math.Cos(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength));
                 }
 
                 //criteria for a forced reset to put tool directly behind vehicle
                 if (over > 1.9 | startCounter < 51)
                 {
                     toolPivotPos.heading = tankPos.heading;
-                    toolPivotPos.easting = tankPos.easting + (Math.Sin(toolPivotPos.heading) * (tool.trailingHitchLength));
-                    toolPivotPos.northing = tankPos.northing + (Math.Cos(toolPivotPos.heading) * (tool.trailingHitchLength));
+                    toolPivotPos.easting = tankPos.easting + (Math.Sin(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength));
+                    toolPivotPos.northing = tankPos.northing + (Math.Cos(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength));
                 }
 
                 toolPos.heading = toolPivotPos.heading;
                 toolPos.easting = tankPos.easting + 
-                    (Math.Sin(toolPivotPos.heading) * (tool.trailingHitchLength - tool.trailingToolToPivotLength));
+                    (Math.Sin(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength - Settings.Tool.trailingToolToPivotLength));
                 toolPos.northing = tankPos.northing + 
-                    (Math.Cos(toolPivotPos.heading) * (tool.trailingHitchLength - tool.trailingToolToPivotLength));
+                    (Math.Cos(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength - Settings.Tool.trailingToolToPivotLength));
             }
 
             //rigidly connected to vehicle
@@ -980,18 +962,18 @@ namespace AgOpenGPS
         //used to increase triangle countExit when going around corners, less on straight
         private void CalculateSectionTriggerStepDistance()
         {
-            double distance = tool.width*0.75;
+            double distance = Settings.Tool.toolWidth*0.75;
             if (distance > 6) distance = 6;
 
             double twist = 0.2;
             //whichever is less
             if (tool.farLeftSpeed < tool.farRightSpeed)
             {
-                twist = tool.farLeftSpeed * (tool.width / 50) / tool.farRightSpeed * (50/ tool.width);
+                twist = tool.farLeftSpeed * (Settings.Tool.toolWidth / 50) / tool.farRightSpeed * (50/ Settings.Tool.toolWidth);
             }
             else
             {
-                twist = tool.farRightSpeed * (tool.width / 50) / tool.farLeftSpeed * (50 / tool.width);
+                twist = tool.farRightSpeed * (Settings.Tool.toolWidth / 50) / tool.farLeftSpeed * (50 / Settings.Tool.toolWidth);
             }
 
             twist *= twist;
@@ -1116,7 +1098,7 @@ namespace AgOpenGPS
 
             //build the boundary line
 
-            if (bnd.isOkToAddPoints && (!bnd.isRecFenceWhenSectionOn || (bnd.isRecFenceWhenSectionOn && (manualBtnState == btnStates.On || autoBtnState == btnStates.Auto))))
+            if (bnd.isOkToAddPoints && (!bnd.isRecFenceWhenSectionOn || (bnd.isRecFenceWhenSectionOn && (workState == btnStates.On || workState == btnStates.Auto))))
             {
                 if (bnd.isDrawAtPivot)
                 {

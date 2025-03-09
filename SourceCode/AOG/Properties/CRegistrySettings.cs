@@ -1,9 +1,6 @@
-﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Properties;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.IO;
-using System.Threading;
 
 namespace AgOpenGPS
 {
@@ -13,7 +10,7 @@ namespace AgOpenGPS
 
         public static string vehiclesDirectory =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Vehicles");
-        
+
         public static string toolsDirectory =
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Tools");
 
@@ -22,43 +19,28 @@ namespace AgOpenGPS
 
         public static string vehicleFileName = "";
         public static string toolFileName = "";
-        public static string workingDirectory = "";
+        public static string workingDirectory = "Default";
         public static string baseDirectory = workingDirectory;
         public static string fieldsDirectory = workingDirectory;
 
         public static void Load()
         {
             try
-            {   
+            {
                 //Base Directory Registry Key
                 RegistryKey regKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
 
-                if (regKey.GetValue("WorkingDirectory") == null)
-                {
-                    regKey.SetValue("WorkingDirectory", "");
-                }
-                workingDirectory = regKey.GetValue("WorkingDirectory").ToString();
+                workingDirectory = regKey.GetValue("WorkingDirectory", "Default").ToString();
 
                 //Vehicle File Name Registry Key
-                if (regKey.GetValue("VehicleFileName") == null)
-                {
-                    regKey.SetValue("VehicleFileName", "");
-                }
-                vehicleFileName = regKey.GetValue("VehicleFileName").ToString();
+                vehicleFileName = regKey.GetValue("VehicleFileName", "Default").ToString();
 
                 //Tool File Name Registry Key
-                if (regKey.GetValue("ToolFileName") == null)
-                {
-                    regKey.SetValue("ToolFileName", "");
-                }
-                toolFileName = regKey.GetValue("ToolFileName").ToString();
+                toolFileName = regKey.GetValue("ToolFileName", "Default").ToString();
 
                 //Language Registry Key
-                if (regKey.GetValue("Language") == null || regKey.GetValue("Language").ToString() == "")
-                {
-                    regKey.SetValue("Language", "en");
-                }
-                culture = regKey.GetValue("Language").ToString();
+                culture = regKey.GetValue("Language", "en").ToString();
+                if (culture == "") culture = "en";
 
                 //close registry
                 regKey.Close();
@@ -75,15 +57,16 @@ namespace AgOpenGPS
             //keep below 500 kb
             Log.CheckLogSize(Path.Combine(logsDirectory, "AgOpenGPS_Events_Log.txt"), 500000);
 
-            Settings.Default.Load();
-            ToolSettings.Default.Load();
+            Settings.User.Load();
+            Settings.Vehicle.Load();
+            Settings.Tool.Load();
         }
 
         public static void Save(string name, string value)
         {
             try
             {
-                //adding or editing "Language" subkey to the "SOFTWARE" subkey  
+                //adding or editing "Language" subkey to the "SOFTWARE" subkey
                 RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
 
                 if (name == "VehicleFileName")
@@ -118,30 +101,7 @@ namespace AgOpenGPS
             {
                 Registry.CurrentUser.DeleteSubKeyTree(@"SOFTWARE\AOG");
 
-                //create all new key
-                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
-                key.SetValue("Language", "en");
-                key.SetValue("VehicleFileName", "Default Vehicle");
-                key.SetValue("ToolFileName", "Default Tool");
-                key.SetValue("WorkingDirectory", "Default");
-                key.Close();
-
-                Log.EventWriter("Registry -> Resetting Registry SubKey Tree and Full Default Reset");
-
-                culture = "en";
-                vehiclesDirectory =
-                   Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Vehicles");
-                toolsDirectory =
-                   Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Tools");
-                logsDirectory =
-                   Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Logs");
-                vehicleFileName = "Default Vehicle";
-                toolFileName = "Default Tool";
-                workingDirectory = "Default";
-                baseDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS");
-                fieldsDirectory = Path.Combine(baseDirectory, "Fields");
-
-                CreateDirectories();
+                Load();
             }
             catch (Exception ex)
             {
@@ -159,6 +119,21 @@ namespace AgOpenGPS
             {
                 baseDirectory = Path.Combine(workingDirectory, "AgOpenGPS");
             }
+
+            //get the interface directory, if not exist, create
+            //try
+            //{
+            //    userDirectory = Path.Combine(baseDirectory);
+            //    if (!string.IsNullOrEmpty(userDirectory) && !Directory.Exists(userDirectory))
+            //    {
+            //        Directory.CreateDirectory(userDirectory);
+            //        Log.EventWriter("Interfaces Dir Created");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Log.EventWriter("Catch, Serious Problem Making Interfaces Directory: " + ex.ToString());
+            //}
 
             //get the vehicles directory, if not exist, create
             try

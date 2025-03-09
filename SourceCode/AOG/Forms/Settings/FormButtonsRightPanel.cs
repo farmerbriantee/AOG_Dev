@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -10,8 +9,7 @@ namespace AgOpenGPS
         //class variables
         private readonly FormGPS mf = null;
 
-        private int btnCounter = 0;
-        private string original;
+        List<string> buttonOrder = new List<string>();
 
         public FormButtonsRightPanel(Form callingForm)
         {
@@ -22,13 +20,6 @@ namespace AgOpenGPS
 
         private void FormToolPivot_Load(object sender, EventArgs e)
         {
-            original = Properties.Settings.Default.setDisplay_buttonOrder;
-            mf.buttonOrder?.Clear();
-
-            //for (int i = 0; i < words.Length; i++)
-            //{
-            //    mf.buttonOrder.Add(int.Parse(words[i], CultureInfo.InvariantCulture));
-            //}
             flpRight.Controls.Clear();
 
             if (!mf.IsOnScreen(Location, Size, 1))
@@ -42,52 +33,46 @@ namespace AgOpenGPS
         {
             flpRight.Controls.Add(autoSteer);
             btnAutoSteer.Enabled = false;
-            mf.buttonOrder.Add(0);
-            btnCounter++;
+            buttonOrder.Add("0");
         }
 
         private void btnAutoYouTurn_Click(object sender, EventArgs e)
         {
             flpRight.Controls.Add(youTurn);
             btnAutoYouTurn.Enabled = false;
-            mf.buttonOrder.Add(1);
-            btnCounter++;
+            buttonOrder.Add("1");
         }
 
         private void btnSectionMasterAuto_Click(object sender, EventArgs e)
         {
             flpRight.Controls.Add(autoSection);
             btnSectionMasterAuto.Enabled = false;
-            mf.buttonOrder.Add(2);
-            btnCounter++;
+            buttonOrder.Add("2");
         }
 
         private void btnSectionMasterManual_Click(object sender, EventArgs e)
         {
             flpRight.Controls.Add(manualSection);
             btnSectionMasterManual.Enabled = false;
-            mf.buttonOrder.Add(3);
-            btnCounter++;
+            buttonOrder.Add("3");
         }
 
         private void btnAll_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setDisplay_buttonOrder = "0,1,2,3,4,5,6,7";
-
             flpRight.Controls?.Clear();
             flpRight.Controls.Add(autoSteer);
             flpRight.Controls.Add(youTurn);
             flpRight.Controls.Add(autoSection);
             flpRight.Controls.Add(manualSection);
+
             flpRight.Controls.Add(skipPrev);
             flpRight.Controls.Add(skipNext);
-            //flpRight.Controls.Add(track);
             flpRight.Controls.Add(contour);
 
-            mf.buttonOrder?.Clear();
+            buttonOrder?.Clear();
             for (int i = 0; i < flpRight.Controls.Count; i++)
             {
-                mf.buttonOrder.Add(i);
+                buttonOrder.Add(i.ToString());
             }
 
             btnAutoSteer.Enabled = false;
@@ -96,40 +81,28 @@ namespace AgOpenGPS
             btnSectionMasterAuto.Enabled = false;
             btnCycleLinesBk.Enabled = false;
             btnCycleLines.Enabled = false;
-            //btnTrack.Enabled = false;
             btnContour.Enabled = false;
         }
-
-        //private void btnTrack_Click(object sender, EventArgs e)
-        //{
-        //    flpRight.Controls.Add(track);
-        //    btnTrack.Enabled = false;
-        //    mf.buttonOrder.Add(4);
-        //    btnCounter++;
-        //}
 
         private void btnCycleLinesBk_Click(object sender, EventArgs e)
         {
             flpRight.Controls.Add(skipPrev);
             btnCycleLinesBk.Enabled = false;
-            mf.buttonOrder.Add(5);
-            btnCounter++;
+            buttonOrder.Add("5");
         }
 
         private void btnCycleLines_Click(object sender, EventArgs e)
         {
             flpRight.Controls.Add(skipNext);
             btnCycleLines.Enabled = false;
-            mf.buttonOrder.Add(6);
-            btnCounter++;
+            buttonOrder.Add("6");
         }
 
         private void btnContour_Click(object sender, EventArgs e)
         {
             flpRight.Controls.Add(contour);
             btnContour.Enabled = false;
-            mf.buttonOrder.Add(7);
-            btnCounter++;
+            buttonOrder.Add("7");
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -140,24 +113,20 @@ namespace AgOpenGPS
             btnSectionMasterAuto.Enabled = true;
             btnCycleLinesBk.Enabled = true;
             btnCycleLines.Enabled = true;
-            //btnTrack.Enabled = true;
             btnContour.Enabled = true;
 
-            btnCounter = 0;
             flpRight.Controls.Clear();
-            mf.buttonOrder?.Clear();
+            buttonOrder?.Clear();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setDisplay_buttonOrder = original;
-
             Close();
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (mf.buttonOrder.Count < 2)
+            if (buttonOrder.Count < 2)
             {
                 mf.TimedMessageBox(2000, "Button Error", "Not Enough Buttons Added");
                 Log.EventWriter("Button Picker, Not Enough Buttons");
@@ -165,21 +134,9 @@ namespace AgOpenGPS
             }
             else
             {
-                Properties.Settings.Default.setDisplay_buttonOrder = "";
-                for (int i = 0; i < mf.buttonOrder.Count; i++)
-                {
-                    if (i < mf.buttonOrder.Count - 1)
-                    {
-                        Properties.Settings.Default.setDisplay_buttonOrder
-                            += mf.buttonOrder[i].ToString() + ",";
-                    }
-                    else
-                    {
-                        Properties.Settings.Default.setDisplay_buttonOrder += mf.buttonOrder[i].ToString();
-                    }
-                }
+                Settings.User.setDisplay_buttonOrder = string.Join(",", buttonOrder);
 
-                mf.PanelBuildRightMenu();
+                mf.PanelBuildRightMenu(buttonOrder.ToArray());
                 mf.PanelUpdateRightAndBottom();
                 Close();
             }
@@ -187,21 +144,7 @@ namespace AgOpenGPS
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setDisplay_buttonOrder = "";
-            for (int i = 0; i < mf.buttonOrder.Count; i++)
-            {
-                if (i < mf.buttonOrder.Count - 1)
-                {
-                    Properties.Settings.Default.setDisplay_buttonOrder
-                        += mf.buttonOrder[i].ToString() + ",";
-                }
-                else
-                {
-                    Properties.Settings.Default.setDisplay_buttonOrder += mf.buttonOrder[i].ToString();
-                }
-            }
-
-            mf.PanelBuildRightMenu();
+            mf.PanelBuildRightMenu(buttonOrder.ToArray());
             mf.PanelUpdateRightAndBottom();
         }
     }

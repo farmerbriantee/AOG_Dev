@@ -28,14 +28,14 @@ namespace AgIO
 
         private void btnGPS_Out_Click(object sender, EventArgs e)
         {
-            StartGPS_Out();
+            GPS_OutSettings();
         }
 
         private void btnSlide_Click(object sender, EventArgs e)
         {
             if (this.Width < 600)
             {
-                this.Width = 760;
+                this.Width = 830;
                 isViewAdvanced = true;
                 btnSlide.BackgroundImage = Properties.Resources.ArrowGrnLeft;
                 sbRTCM.Clear();
@@ -47,7 +47,7 @@ namespace AgIO
             }
             else
             {
-                this.Width = 428;
+                this.Width = 530;
                 isViewAdvanced = false;
                 btnSlide.BackgroundImage = Properties.Resources.ArrowGrnRight;
                 aList.Clear();
@@ -61,22 +61,20 @@ namespace AgIO
 
         private void btnStartStopNtrip_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.setNTRIP_isOn || Properties.Settings.Default.setRadio_isOn)
+            if (Settings.User.setNTRIP_isOn || Settings.User.setRadio_isOn)
             {
-                if (isNTRIP_RequiredOn || isRadio_RequiredOn)
+                if (Settings.User.setNTRIP_isOn || Settings.User.setRadio_isOn)
                 {
                     ShutDownNTRIP();
                     lblWatch.Text = "Stopped";
                     btnStartStopNtrip.Text = "OffLine";
-                    isNTRIP_RequiredOn = false;
-                    isRadio_RequiredOn = false;
+                    Settings.User.setNTRIP_isOn = false;
+                    Settings.User.setRadio_isOn = false;
                     lblNTRIP_IP.Text = "--";
                     lblMount.Text = "--";
                 }
                 else
                 {
-                    isNTRIP_RequiredOn = Properties.Settings.Default.setNTRIP_isOn;
-                    isRadio_RequiredOn = Properties.Settings.Default.setRadio_isOn;
                     lblWatch.Text = "Waiting";
                     lblNTRIP_IP.Text = "--";
                     lblMount.Text= "--";
@@ -124,7 +122,7 @@ namespace AgIO
                 TimedMessageBox(3000, "Using Default Profile", "Choose Existing or Create New Profile");
                 return;
             }
-            if (!Settings.Default.setUDP_isOn) SettingsEthernet();
+            if (!Settings.User.setUDP_isOn) SettingsEthernet();
             else SettingsUDP();
         }
 
@@ -190,27 +188,22 @@ namespace AgIO
         #endregion
 
         #region CheckBoxes
-        private void cboxAutoRunGPS_Out_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.setDisplay_isAutoRunGPS_Out = cboxAutoRunGPS_Out.Checked;
-            
-        }
 
         private void cboxIsSteerModule_Click(object sender, EventArgs e)
         {
-            isConnectedSteer = cboxIsSteerModule.Checked;
+            Settings.User.setMod_isSteerConnected = cboxIsSteerModule.Checked;
             SetModulesOnOff();
         }
 
         private void cboxIsMachineModule_Click(object sender, EventArgs e)
         {
-            isConnectedMachine = cboxIsMachineModule.Checked;
+            Settings.User.setMod_isMachineConnected = cboxIsMachineModule.Checked;
             SetModulesOnOff();
         }
 
         private void cboxIsIMUModule_Click(object sender, EventArgs e)
         {
-            isConnectedIMU = cboxIsIMUModule.Checked;
+            Settings.User.setMod_isIMUConnected = cboxIsIMUModule.Checked;
             SetModulesOnOff();
         }
 
@@ -248,13 +241,13 @@ namespace AgIO
                 return;
             }
 
-            if (isRadio_RequiredOn)
+            if (Settings.User.setRadio_isOn)
             {
                 TimedMessageBox(2000, "Radio NTRIP ON", "Turn it off before using Serial Pass Thru");
                 return;
             }
 
-            if (isNTRIP_RequiredOn)
+            if (Settings.User.setNTRIP_isOn)
             {
                 TimedMessageBox(2000, "Air NTRIP ON", "Turn it off before using Serial Pass Thru");
                 return;
@@ -265,8 +258,7 @@ namespace AgIO
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
                     ////Clicked Save
-                    //Application.Restart();
-                    //Environment.Exit(0);
+                    //Program.Restart();
                 }
             }
         }
@@ -285,9 +277,8 @@ namespace AgIO
                 {
                     Log.EventWriter("Program Reset: Saving or Selecting Profile");
 
-                    RegistrySettings.Save();
-                    Application.Restart();
-                    Environment.Exit(0);
+                    Settings.User.Save();
+                    Program.Restart();
                 }
             }
             this.Text = "AgIO  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + "   Using Profile: " 
@@ -382,13 +373,13 @@ namespace AgIO
 
         private void SettingsNTRIP()
         {
-            if (isRadio_RequiredOn)
+            if (Settings.User.setRadio_isOn)
             {
                 TimedMessageBox(2000, "Radio NTRIP ON", "Turn it off before using NTRIP");
                 return;
             }
 
-            if (isSerialPass_RequiredOn)
+            if (Settings.User.setPass_isOn)
             {
                 TimedMessageBox(2000, "Serial NTRIP ON", "Turn it off before using NTRIP");
                 return;
@@ -409,24 +400,24 @@ namespace AgIO
 
         private void SettingsRadio()
         {
-            if (isSerialPass_RequiredOn)
+            if (Settings.User.setPass_isOn)
             {
                 TimedMessageBox(2000, "Serial Pass NTRIP ON", "Turn it off before using Radio NTRIP");
                 return;
             }
 
-            if (isNTRIP_RequiredOn)
+            if (Settings.User.setNTRIP_isOn)
             {
                 TimedMessageBox(2000, "Air NTRIP ON", "Turn it off before using Radio NTRIP");
                 return;
             }
 
-            if (isRadio_RequiredOn && isNTRIP_Connected)
+            if (Settings.User.setRadio_isOn && isNTRIP_Connected)
             {
                 ShutDownNTRIP();
                 lblWatch.Text = "Stopped";
                 btnStartStopNtrip.Text = "OffLine";
-                isRadio_RequiredOn = false;
+                Settings.User.setRadio_isOn = false;
             }
 
             using (var form = new FormRadio(this))
@@ -472,39 +463,11 @@ namespace AgIO
             }
         }
 
-        private void StartGPS_Out()
+        private void GPS_OutSettings()
         {
-            Process[] processName = Process.GetProcessesByName("RateController");
-            if (processName.Length == 0)
+            using (FormGPSOut form = new FormGPSOut(this))
             {
-                //Start application here
-                string strPath = Path.Combine(Application.StartupPath, "RC", "RateController.exe");
-
-                try
-                {
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = strPath;
-                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
-                    Process p = Process.Start(processInfo);
-
-                    //p.WaitForInputIdle();
-                    //Thread.Sleep(1000); //sleep for 3 seconds
-                    //SetParent(p.MainWindowHandle, panel1.Handle);
-                    //SetWindowLong(p.MainWindowHandle, GWL_STYLE, WS_VISIBLE);
-                    //MoveWindow(p.MainWindowHandle, 0, 0, panel1.Width, panel1.Height, true);
-
-                }
-                catch
-                {
-                    TimedMessageBox(2000, "No File Found", "Can't Find GPS_Out");
-                    Log.EventWriter("No File Found, Can't Find GPS_Out");
-                }
-            }
-            else
-            {
-                //Set foreground window
-                ShowWindow(processName[0].MainWindowHandle, 9);
-                SetForegroundWindow(processName[0].MainWindowHandle);
+                form.ShowDialog(this);
             }
         }
 

@@ -14,6 +14,7 @@ namespace AgIO
         public int cntrGPSInBytes = 0;
         public int cntrGPSOut = 0;
         public int cntrGPSOutTool = 0;
+        public int cntrGPS_OutSerial = 0;
 
         public uint helloFromMachine = 99, helloFromAutoSteer = 99, helloFromIMU = 99;
     }
@@ -35,6 +36,11 @@ namespace AgIO
 
     public partial class FormLoop
     {
+        private readonly Stopwatch swFrame = new Stopwatch();
+        public double frameTime = 0;
+        public double gpsHz = 10;
+        public double nowHz = 0;
+
         // loopback Socket
         private Socket loopBackSocket, loopBackSocketTool;
         private EndPoint endPointLoopBack = new IPEndPoint(IPAddress.Loopback, 0);
@@ -49,26 +55,26 @@ namespace AgIO
 
         //2 endpoints for local and 2 udp
         private IPEndPoint epAgOpen = new IPEndPoint(IPAddress.Parse(
-            Properties.Settings.Default.eth_loopOne.ToString() + "." +
-            Properties.Settings.Default.eth_loopTwo.ToString() + "." +
-            Properties.Settings.Default.eth_loopThree.ToString() + "." +
-            Properties.Settings.Default.eth_loopFour.ToString()), 15555);
+            Settings.User.eth_loopOne.ToString() + "." +
+            Settings.User.eth_loopTwo.ToString() + "." +
+            Settings.User.eth_loopThree.ToString() + "." +
+            Settings.User.eth_loopFour.ToString()), 15555);
 
         private IPEndPoint epAgOpenTool = new IPEndPoint(IPAddress.Parse(
-            Properties.Settings.Default.eth_loopOne.ToString() + "." +
-            Properties.Settings.Default.eth_loopTwo.ToString() + "." +
-            Properties.Settings.Default.eth_loopThree.ToString() + "." +
-            Properties.Settings.Default.eth_loopFour.ToString()), 25555);
+            Settings.User.eth_loopOne.ToString() + "." +
+            Settings.User.eth_loopTwo.ToString() + "." +
+            Settings.User.eth_loopThree.ToString() + "." +
+            Settings.User.eth_loopFour.ToString()), 25555);
 
         public IPEndPoint epModule = new IPEndPoint(IPAddress.Parse(
-            Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
-            Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
-            Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 8888);
+            Settings.User.etIP_SubnetOne.ToString() + "." +
+            Settings.User.etIP_SubnetTwo.ToString() + "." +
+            Settings.User.etIP_SubnetThree.ToString() + ".255"), 8888);
 
         public IPEndPoint epModuleTool = new IPEndPoint(IPAddress.Parse(
-            Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
-            Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
-            Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 18888);
+            Settings.User.etIP_SubnetOne.ToString() + "." +
+            Settings.User.etIP_SubnetTwo.ToString() + "." +
+            Settings.User.etIP_SubnetThree.ToString() + ".255"), 18888);
 
         public IPEndPoint epModuleSet = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 8888);
         public IPEndPoint epModuleSetTool = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 18888);
@@ -78,9 +84,9 @@ namespace AgIO
         public byte[] ipAutoSet = { 192, 168, 5 };
 
         //public IPEndPoint epHello = new IPEndPoint(IPAddress.Parse(
-        //        Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
-        //        Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
-        //        Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 27777);
+        //        Settings.User.etIP_SubnetOne.ToString() + "." +
+        //        Settings.User.etIP_SubnetTwo.ToString() + "." +
+        //        Settings.User.etIP_SubnetThree.ToString() + ".255"), 27777);
 
         //class for counting bytes
         public CTraffic traffic = new CTraffic();
@@ -154,7 +160,7 @@ namespace AgIO
 
                 //if (!isFound)
                 //{
-                //    MessageBox.Show("Network Address of Modules -> " + Properties.Settings.Default.setIP_localAOG+"[2 - 254] May not exist. \r\n"
+                //    MessageBox.Show("Network Address of Modules -> " + Settings.User.setIP_localAOG+"[2 - 254] May not exist. \r\n"
                 //    + "Are you sure ethernet is connected?\r\n" + "Go to UDP Settings to fix.\r\n\r\n", "Network Connection Error",
                 //    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //    //btnUDP.BackColor = Color.Red;
@@ -497,6 +503,17 @@ namespace AgIO
 
                 else if (data[0] == 36 && (data[1] == 71 || data[1] == 80 || data[1] == 75))
                 {
+                    double timeSliceOfLastFix = (double)(swFrame.ElapsedTicks) / (double)System.Diagnostics.Stopwatch.Frequency;
+                    swFrame.Restart();
+
+                    //get Hz from timeslice
+                    nowHz = 1 / timeSliceOfLastFix;
+                    if (nowHz > 35) nowHz = 35;
+                    if (nowHz < 5) nowHz = 5;
+
+                    //simple comp filter
+                    gpsHz = 0.98 * gpsHz + 0.02 * nowHz;
+
                     traffic.cntrGPSOut += data.Length;
                     pnGPS.rawBuffer += Encoding.ASCII.GetString(data);
                     pnGPS.ParseNMEA(ref pnGPS.rawBuffer);

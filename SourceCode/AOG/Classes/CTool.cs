@@ -8,39 +8,20 @@ namespace AgOpenGPS
     {
         private readonly FormGPS mf;
 
-        public double width, contourWidth;
         public double farLeftPosition = 0;
         public double farLeftSpeed = 0;
         public double farRightPosition = 0;
         public double farRightSpeed = 0;
 
-        public double overlap;
-        public double trailingHitchLength, tankTrailingHitchLength, trailingToolToPivotLength;
-        public double offset;
-
-        public double lookAheadOffSetting, lookAheadOnSetting;
-        public double turnOffDelay;
-
         public double lookAheadDistanceOnPixelsLeft, lookAheadDistanceOnPixelsRight;
         public double lookAheadDistanceOffPixelsLeft, lookAheadDistanceOffPixelsRight;
-
-        public bool isToolTrailing, isToolTBT;
-        public bool isToolRearFixed, isToolFrontFixed;
-
-        public bool isMultiColoredSections, isSectionOffWhenOut;
-        public string toolAttachType;
-
-        public double hitchLength;
 
         //how many individual sections
         public int numOfSections;
 
-        //used for super section off on
-        public int minCoverage;
-
         public bool areAllSectionBtnsOn = true;
 
-        public bool isLeftSideInHeadland = true, isRightSideInHeadland = true, isSectionsNotZones;
+        public bool isLeftSideInHeadland = true, isRightSideInHeadland = true;
 
         //read pixel values
         public int rpXPosition;
@@ -54,64 +35,37 @@ namespace AgOpenGPS
         public int zones;
         public int[] zoneRanges = new int[9];
 
-        public bool isDisplayTramControl;
-
         //Constructor called by FormGPS
         public CTool(FormGPS _f)
         {
             mf = _f;
+        }
 
-            //from settings grab the vehicle specifics
-
-            trailingToolToPivotLength = Properties.ToolSettings.Default.setTool_trailingToolToPivotLength;
-            width = Properties.ToolSettings.Default.setVehicle_toolWidth;
-            overlap = Properties.ToolSettings.Default.setVehicle_toolOverlap;
-
-            offset = Properties.ToolSettings.Default.setVehicle_toolOffset;
-
-            trailingHitchLength = Properties.ToolSettings.Default.setTool_toolTrailingHitchLength;
-            tankTrailingHitchLength = Properties.ToolSettings.Default.setVehicle_tankTrailingHitchLength;
-            hitchLength = Properties.ToolSettings.Default.setVehicle_hitchLength;
-
-            isToolRearFixed = Properties.ToolSettings.Default.setTool_isToolRearFixed;
-            isToolTrailing = Properties.ToolSettings.Default.setTool_isToolTrailing;
-            isToolTBT = Properties.ToolSettings.Default.setTool_isToolTBT;
-            isToolFrontFixed = Properties.ToolSettings.Default.setTool_isToolFront;
-
-            lookAheadOnSetting = Properties.ToolSettings.Default.setVehicle_toolLookAheadOn;
-            lookAheadOffSetting = Properties.ToolSettings.Default.setVehicle_toolLookAheadOff;
-            turnOffDelay = Properties.ToolSettings.Default.setVehicle_toolOffDelay;
-
-            isSectionOffWhenOut = Properties.ToolSettings.Default.setTool_isSectionOffWhenOut;
-
-            isSectionsNotZones = Properties.ToolSettings.Default.setTool_isSectionsNotZones;
-
-            if (isSectionsNotZones)
-                numOfSections = Properties.ToolSettings.Default.setVehicle_numSections;
+        public void LoadSettings()
+        {
+            if (Settings.Tool.isSectionsNotZones)
+                numOfSections = Settings.Tool.numSections;
             else
-                numOfSections = Properties.ToolSettings.Default.setTool_numSectionsMulti;
+                numOfSections = Settings.Tool.numSectionsMulti;
 
-            minCoverage = Properties.ToolSettings.Default.setVehicle_minCoverage;
-            isMultiColoredSections = Properties.Settings.Default.setColor_isMultiColorSections;
+            secColors[0] = Settings.Tool.setColor_sec01;
+            secColors[1] = Settings.Tool.setColor_sec02;
+            secColors[2] = Settings.Tool.setColor_sec03;
+            secColors[3] = Settings.Tool.setColor_sec04;
+            secColors[4] = Settings.Tool.setColor_sec05;
+            secColors[5] = Settings.Tool.setColor_sec06;
+            secColors[6] = Settings.Tool.setColor_sec07;
+            secColors[7] = Settings.Tool.setColor_sec08;
+            secColors[8] = Settings.Tool.setColor_sec09;
+            secColors[9] = Settings.Tool.setColor_sec10;
+            secColors[10] = Settings.Tool.setColor_sec11;
+            secColors[11] = Settings.Tool.setColor_sec12;
+            secColors[12] = Settings.Tool.setColor_sec13;
+            secColors[13] = Settings.Tool.setColor_sec14;
+            secColors[14] = Settings.Tool.setColor_sec15;
+            secColors[15] = Settings.Tool.setColor_sec16;
 
-            secColors[0] = Properties.Settings.Default.setColor_sec01;
-            secColors[1] = Properties.Settings.Default.setColor_sec02;
-            secColors[2] = Properties.Settings.Default.setColor_sec03;
-            secColors[3] = Properties.Settings.Default.setColor_sec04;
-            secColors[4] = Properties.Settings.Default.setColor_sec05;
-            secColors[5] = Properties.Settings.Default.setColor_sec06;
-            secColors[6] = Properties.Settings.Default.setColor_sec07;
-            secColors[7] = Properties.Settings.Default.setColor_sec08;
-            secColors[8] = Properties.Settings.Default.setColor_sec09;
-            secColors[9] = Properties.Settings.Default.setColor_sec10;
-            secColors[10] = Properties.Settings.Default.setColor_sec11;
-            secColors[11] = Properties.Settings.Default.setColor_sec12;
-            secColors[12] = Properties.Settings.Default.setColor_sec13;
-            secColors[13] = Properties.Settings.Default.setColor_sec14;
-            secColors[14] = Properties.Settings.Default.setColor_sec15;
-            secColors[15] = Properties.Settings.Default.setColor_sec16;
-
-            string[] words = Properties.ToolSettings.Default.setTool_zones.Split(',');
+            string[] words = Settings.Tool.zones.Split(',');
             zones = int.Parse(words[0]);
 
             for (int i = 0; i < words.Length; i++)
@@ -119,7 +73,10 @@ namespace AgOpenGPS
                 zoneRanges[i] = int.Parse(words[i]);
             }
 
-            isDisplayTramControl = Properties.ToolSettings.Default.setTool_isDisplayTramControl;
+            mf.SetNumOfSectionButtons(Settings.Tool.isSectionsNotZones ? numOfSections : zones);
+
+            //Set width of section and positions for each section
+            mf.SectionSetPosition();
         }
 
         public void DrawTool()
@@ -131,20 +88,20 @@ namespace AgOpenGPS
                 GL.PushMatrix();
 
                 //translate down to the hitch pin
-                GL.Translate(Math.Sin(mf.fixHeading) * (hitchLength),
-                                Math.Cos(mf.fixHeading) * (hitchLength), 0);
+                GL.Translate(Math.Sin(mf.fixHeading) * (Settings.Tool.hitchLength),
+                                Math.Cos(mf.fixHeading) * (Settings.Tool.hitchLength), 0);
 
                 //settings doesn't change trailing hitch length if set to rigid, so do it here
                 double trailingTank, trailingTool;
-                if (isToolTrailing)
+                if (Settings.Tool.isToolTrailing)
                 {
-                    trailingTank = tankTrailingHitchLength;
-                    trailingTool = trailingHitchLength;
+                    trailingTank = Settings.Tool.tankTrailingHitchLength;
+                    trailingTool = Settings.Tool.toolTrailingHitchLength;
                 }
                 else { trailingTank = 0; trailingTool = 0; }
 
                 //there is a trailing tow between hitch
-                if (isToolTBT && isToolTrailing)
+                if (Settings.Tool.isToolTBT && Settings.Tool.isToolTrailing)
                 {
                     //rotate to tank heading
                     GL.Rotate(glm.toDegrees(-mf.tankPos.heading), 0.0, 0.0, 1.0);
@@ -194,14 +151,14 @@ namespace AgOpenGPS
                 }
 
                 //draw the hitch if trailing
-                if (isToolTrailing)
+                if (Settings.Tool.isToolTrailing)
                 {
                     GL.LineWidth(6);
                     GL.Color3(0, 0, 0);
                     GL.Begin(PrimitiveType.LineLoop);
-                    GL.Vertex3(-0.65 + mf.tool.offset, trailingTool, 0);
+                    GL.Vertex3(-0.65 + Settings.Tool.offset, trailingTool, 0);
                     GL.Vertex3(0, 0, 0);
-                    GL.Vertex3(0.65 + mf.tool.offset, trailingTool, 0);
+                    GL.Vertex3(0.65 + Settings.Tool.offset, trailingTool, 0);
 
                     GL.End();
 
@@ -209,34 +166,34 @@ namespace AgOpenGPS
                     //draw the rigid hitch
                     GL.Color3(0.7f, 0.4f, 0.2f);
                     GL.Begin(PrimitiveType.LineLoop);
-                    GL.Vertex3(-0.65 + mf.tool.offset, trailingTool, 0);
+                    GL.Vertex3(-0.65 + Settings.Tool.offset, trailingTool, 0);
                     GL.Vertex3(0, 0, 0);
-                    GL.Vertex3(0.65 + mf.tool.offset, trailingTool, 0);
+                    GL.Vertex3(0.65 + Settings.Tool.offset, trailingTool, 0);
 
                     GL.End();
 
-                    if (Math.Abs(trailingToolToPivotLength) > 1 && mf.camera.camSetDistance > -100)
+                    if (Math.Abs(Settings.Tool.trailingToolToPivotLength) > 1 && mf.camera.camSetDistance > -100)
                     {
                         textRotate += (mf.sim.stepDistance);
                         GL.Enable(EnableCap.Texture2D);
                         GL.Color4(1, 1, 1, 0.75);
                         GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.Tire]);        // Select Our Texture
                         GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
-                        GL.TexCoord2(1, 0 + textRotate); GL.Vertex2(1.4 + offset, trailingTool + 0.51); // Top Right
-                        GL.TexCoord2(0, 0 + textRotate); GL.Vertex2(0.75 + offset, trailingTool + 0.51); // Top Left
-                        GL.TexCoord2(1, 1 + textRotate); GL.Vertex2(1.4 + offset, trailingTool - 0.51); // Bottom Right
-                        GL.TexCoord2(0, 1 + textRotate); GL.Vertex2(0.75 + offset, trailingTool - 0.51); // Bottom Left
+                        GL.TexCoord2(1, 0 + textRotate); GL.Vertex2(1.4 + Settings.Tool.offset, trailingTool + 0.51); // Top Right
+                        GL.TexCoord2(0, 0 + textRotate); GL.Vertex2(0.75 + Settings.Tool.offset, trailingTool + 0.51); // Top Left
+                        GL.TexCoord2(1, 1 + textRotate); GL.Vertex2(1.4 + Settings.Tool.offset, trailingTool - 0.51); // Bottom Right
+                        GL.TexCoord2(0, 1 + textRotate); GL.Vertex2(0.75 + Settings.Tool.offset, trailingTool - 0.51); // Bottom Left
                         GL.End();                       // Done Building Triangle Strip
                         GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
-                        GL.TexCoord2(1, 0 + textRotate); GL.Vertex2(-1.4 + offset, trailingTool + 0.51); // Top Right
-                        GL.TexCoord2(0, 0 + textRotate); GL.Vertex2(-0.75 + offset, trailingTool + 0.51); // Top Left
-                        GL.TexCoord2(1, 1 + textRotate); GL.Vertex2(-1.4 + offset, trailingTool - 0.51); // Bottom Right
-                        GL.TexCoord2(0, 1 + textRotate); GL.Vertex2(-0.75 + offset, trailingTool - 0.51); // Bottom Left
+                        GL.TexCoord2(1, 0 + textRotate); GL.Vertex2(-1.4 + Settings.Tool.offset, trailingTool + 0.51); // Top Right
+                        GL.TexCoord2(0, 0 + textRotate); GL.Vertex2(-0.75 + Settings.Tool.offset, trailingTool + 0.51); // Top Left
+                        GL.TexCoord2(1, 1 + textRotate); GL.Vertex2(-1.4 + Settings.Tool.offset, trailingTool - 0.51); // Bottom Right
+                        GL.TexCoord2(0, 1 + textRotate); GL.Vertex2(-0.75 + Settings.Tool.offset, trailingTool - 0.51); // Bottom Left
                         GL.End();                       // Done Building Triangle Strip
                         GL.Disable(EnableCap.Texture2D);
                     }
 
-                    trailingTool -= trailingToolToPivotLength;
+                    trailingTool -= Settings.Tool.trailingToolToPivotLength;
                 }
 
                 if (mf.isFieldStarted)
@@ -310,7 +267,7 @@ namespace AgOpenGPS
                     }
                     GL.End();
 
-                    if (mf.camera.camSetDistance > -width * 200)
+                    if (mf.camera.camSetDistance > -Settings.Tool.toolWidth * 200)
                     {
                         GL.Begin(PrimitiveType.LineLoop);
                         {
@@ -329,7 +286,7 @@ namespace AgOpenGPS
 
                 //zones
 
-                if (!isSectionsNotZones && zones > 0 && mf.camera.camSetDistance > -150)
+                if (!Settings.Tool.isSectionsNotZones && zones > 0 && mf.camera.camSetDistance > -150)
                 {
                     //GL.PointSize(8);
 
@@ -345,7 +302,7 @@ namespace AgOpenGPS
                 }
 
                 //tram Dots
-                if (isDisplayTramControl && mf.tram.displayMode != 0)
+                if (Settings.Tool.isDisplayTramControl && mf.tram.displayMode != 0)
                 {
                     if (mf.camera.camSetDistance > -300)
                     {
@@ -466,7 +423,7 @@ namespace AgOpenGPS
                     }
                     GL.End();
 
-                    if (mf.camera.camSetDistance > -width * 200)
+                    if (mf.camera.camSetDistance > -Settings.Tool.toolWidth * 200)
                     {
                         GL.Begin(PrimitiveType.LineLoop);
                         {
@@ -485,7 +442,7 @@ namespace AgOpenGPS
 
                 //zones
 
-                if (!isSectionsNotZones && zones > 0 && mf.camera.camSetDistance > -150)
+                if (!Settings.Tool.isSectionsNotZones && zones > 0 && mf.camera.camSetDistance > -150)
                 {
                     //GL.PointSize(8);
 
@@ -501,7 +458,7 @@ namespace AgOpenGPS
                 }
 
                 //tram Dots
-                if (isDisplayTramControl && mf.tram.displayMode != 0)
+                if (Settings.Tool.isDisplayTramControl && mf.tram.displayMode != 0)
                 {
                     if (mf.camera.camSetDistance > -300)
                     {

@@ -22,9 +22,9 @@ namespace AgOpenGPS
         //other GIS Info
         public double altitude, vtgSpeed = 0;
 
-        public double headingTrueDual, headingTrue, hdop, age, headingTrueDualOffset;
+        public double headingTrueDual, headingTrue, hdop, age;
 
-        public int fixQuality, ageAlarm;
+        public int fixQuality;
         public int satellitesTracked;
 
         private readonly FormGPS mf;
@@ -35,7 +35,6 @@ namespace AgOpenGPS
             mf = f;
             latStart = 0;
             lonStart = 0;
-            ageAlarm = Properties.Settings.Default.setGPS_ageAlarm;
         }
 
         public void AverageTheSpeed()
@@ -51,14 +50,14 @@ namespace AgOpenGPS
             latStart = lat;
             lonStart = lon;
 
-            Properties.Settings.Default.setGPS_SimLatitude = lat;//this is actuallly the last field position
-            Properties.Settings.Default.setGPS_SimLongitude = lon;
+            Settings.Vehicle.setGPS_SimLatitude = lat;//this is actuallly the last field position
+            Settings.Vehicle.setGPS_SimLongitude = lon;
             
-            mf.sim.Reset();
-
             mPerDegreeLat = 111132.92 - 559.82 * Math.Cos(2.0 * latStart * 0.01745329251994329576923690766743) + 1.175
             * Math.Cos(4.0 * latStart * 0.01745329251994329576923690766743) - 0.0023
             * Math.Cos(6.0 * latStart * 0.01745329251994329576923690766743);
+
+            mf.sim.Reset();
 
             mf.FileLoadFields();
         }

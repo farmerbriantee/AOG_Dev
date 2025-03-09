@@ -39,13 +39,13 @@ namespace AgIO
             lblHostname.Text = Dns.GetHostName(); // Retrieve the Name of HOST
 
             lblNetworkHelp.Text =
-                Properties.Settings.Default.etIP_SubnetOne.ToString() + " . " +
-                Properties.Settings.Default.etIP_SubnetTwo.ToString() + " . " +
-                Properties.Settings.Default.etIP_SubnetThree.ToString();
+                Settings.User.etIP_SubnetOne.ToString() + " . " +
+                Settings.User.etIP_SubnetTwo.ToString() + " . " +
+                Settings.User.etIP_SubnetThree.ToString();
 
-            nudFirstIP.Value = ipNew[0] = ipCurrent[0] = Properties.Settings.Default.etIP_SubnetOne;
-            nudSecndIP.Value = ipNew[1] = ipCurrent[1] = Properties.Settings.Default.etIP_SubnetTwo;
-            nudThirdIP.Value = ipNew[2] = ipCurrent[2] = Properties.Settings.Default.etIP_SubnetThree;
+            nudFirstIP.Value = ipNew[0] = ipCurrent[0] = Settings.User.etIP_SubnetOne;
+            nudSecndIP.Value = ipNew[1] = ipCurrent[1] = Settings.User.etIP_SubnetTwo;
+            nudThirdIP.Value = ipNew[2] = ipCurrent[2] = Settings.User.etIP_SubnetThree;
 
             ScanNetwork();
         }
@@ -283,24 +283,24 @@ namespace AgIO
                     }
                 }
 
-                Properties.Settings.Default.etIP_SubnetOne = ipCurrent[0] = ipNew[0];
-                Properties.Settings.Default.etIP_SubnetTwo = ipCurrent[1] = ipNew[1];
-                Properties.Settings.Default.etIP_SubnetThree = ipCurrent[2] = ipNew[2];
+                Settings.User.etIP_SubnetOne = ipCurrent[0] = ipNew[0];
+                Settings.User.etIP_SubnetTwo = ipCurrent[1] = ipNew[1];
+                Settings.User.etIP_SubnetThree = ipCurrent[2] = ipNew[2];
 
                 mf.epModule = new IPEndPoint(IPAddress.Parse(
-                    Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
-                    Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
-                    Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 8888);
+                    Settings.User.etIP_SubnetOne.ToString() + "." +
+                    Settings.User.etIP_SubnetTwo.ToString() + "." +
+                    Settings.User.etIP_SubnetThree.ToString() + ".255"), 8888);
 
                 mf.epModuleTool = new IPEndPoint(IPAddress.Parse(
-                    Properties.Settings.Default.etIP_SubnetOne.ToString() + "." +
-                    Properties.Settings.Default.etIP_SubnetTwo.ToString() + "." +
-                    Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), 18888);
+                    Settings.User.etIP_SubnetOne.ToString() + "." +
+                    Settings.User.etIP_SubnetTwo.ToString() + "." +
+                    Settings.User.etIP_SubnetThree.ToString() + ".255"), 18888);
 
                 lblNetworkHelp.Text =
-                    Properties.Settings.Default.etIP_SubnetOne.ToString() + " . " +
-                    Properties.Settings.Default.etIP_SubnetTwo.ToString() + " . " +
-                    Properties.Settings.Default.etIP_SubnetThree.ToString();
+                    Settings.User.etIP_SubnetOne.ToString() + " . " +
+                    Settings.User.etIP_SubnetTwo.ToString() + " . " +
+                    Settings.User.etIP_SubnetThree.ToString();
             }
 
             pboxSendSteer.Visible = false;
@@ -352,15 +352,13 @@ namespace AgIO
 
         private void btnUDPOff_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setUDP_isOn = false;
-            Properties.Settings.Default.setUDP_isSendNMEAToUDP = false;
+            Settings.User.setUDP_isOn = false;
 
             mf.YesMessageBox("AgIO will Restart to Disable UDP Networking Features");
             Log.EventWriter("Program Reset: Turning UDP OFF");
 
-            RegistrySettings.Save();
-            Application.Restart();
-            Environment.Exit(0);
+            Settings.User.Save();
+            Program.Restart();
 
             Close();
         }

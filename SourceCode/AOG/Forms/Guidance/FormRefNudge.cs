@@ -9,7 +9,7 @@ namespace AgOpenGPS
         private readonly FormGPS mf = null;
         public List<CTrk> gTemp = new List<CTrk>();
 
-        private double snapAdj = 0, distanceMoved = 0;
+        private double distanceMoved = 0;
 
         public FormRefNudge(Form callingForm)
         {
@@ -24,17 +24,16 @@ namespace AgOpenGPS
         private void FormEditTrack_Load(object sender, EventArgs e)
         {
             mf.panelRight.Enabled = false;
-            nudSnapDistance.DecimalPlaces = mf.isMetric ? 0 : 1;
-            nudSnapDistance.Value = Properties.Settings.Default.setAS_snapDistanceRef * 0.01;
+            nudSnapDistance.DecimalPlaces = Settings.User.isMetric ? 0 : 1;
+            nudSnapDistance.Value = Settings.Vehicle.setAS_snapDistanceRef;
 
-            snapAdj = Properties.Settings.Default.setAS_snapDistanceRef * 0.01;
 
             foreach (var item in mf.trk.gArr)
             {
                 gTemp.Add(new CTrk(item));
             }
 
-            lblOffset.Text = ((int)(distanceMoved * glm.m2InchOrCm)).ToString() + " " + glm.unitsInCm;
+            lblOffset.Text = ((int)(distanceMoved * glm.m2InchOrCm)).ToString("N1") + " " + glm.unitsInCm;
 
             //Location = Properties.Settings.Default.setWindow_formNudgeLocation;
             //Size = Properties.Settings.Default.setWindow_formNudgeSize;
@@ -53,47 +52,46 @@ namespace AgOpenGPS
 
         private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
         {
-            snapAdj = nudSnapDistance.Value;
-            Properties.Settings.Default.setAS_snapDistanceRef = snapAdj * 100;
+            Settings.Vehicle.setAS_snapDistanceRef = nudSnapDistance.Value;
 
             mf.Activate();
         }
 
         private void btnAdjRight_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeRefTrack(snapAdj);
-            distanceMoved += snapAdj;
+            mf.trk.NudgeRefTrack(nudSnapDistance.Value);
+            distanceMoved += nudSnapDistance.Value;
             DistanceMovedLabel();
             mf.Activate();
         }
 
         private void btnAdjLeft_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeRefTrack(-snapAdj);
-            distanceMoved += -snapAdj;
+            mf.trk.NudgeRefTrack(-nudSnapDistance.Value);
+            distanceMoved += -nudSnapDistance.Value;
             DistanceMovedLabel();
             mf.Activate();
         }
 
         private void btnHalfToolRight_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeRefTrack((mf.tool.width - mf.tool.overlap) * 0.5);
-            distanceMoved += (mf.tool.width - mf.tool.overlap) * 0.5;
+            mf.trk.NudgeRefTrack((Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5);
+            distanceMoved += (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5;
             DistanceMovedLabel();
             mf.Activate();
         }
 
         private void btnHalfToolLeft_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeRefTrack((mf.tool.width - mf.tool.overlap) * -0.5);
-            distanceMoved += (mf.tool.width - mf.tool.overlap) * -0.5;
+            mf.trk.NudgeRefTrack((Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * -0.5);
+            distanceMoved += (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * -0.5;
             DistanceMovedLabel();
             mf.Activate();
         }
 
         private void DistanceMovedLabel()
         {
-            lblOffset.Text = ((int)(distanceMoved * glm.m2InchOrCm)).ToString() + " " + glm.unitsInCm;
+            lblOffset.Text = ((int)(distanceMoved * glm.m2InchOrCm)).ToString("N1") + " " + glm.unitsInCm;
             mf.Focus();
         }
 

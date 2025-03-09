@@ -73,12 +73,12 @@ namespace AgIO
             if (result3 == DialogResult.Yes)
             {
                 //save profile in registry
-                RegistrySettings.Save();
+                Settings.User.Save();
 
                 RegistrySettings.profileName = SanitizeFileName(cboxOverWrite.SelectedItem.ToString().Trim());
-
-                //save profile in registry
-                RegistrySettings.Save();
+                
+                RegistrySettings.Save("ProfileName", RegistrySettings.profileName);
+                Settings.User.Save();
 
                 Close();
             }
@@ -106,13 +106,13 @@ namespace AgIO
             {
                 RegistrySettings.profileName = SanitizeFileName(tboxCreateNew.Text.ToString().Trim());
 
+                Settings.User.Save();
+
                 //reset to Default Profile and save
-                Settings.Default.Reset();
+                Settings.User.Reset();
 
-                //save profile in registry
-                RegistrySettings.Save();
-
-                SettingsIO.ExportSettings(Path.Combine(RegistrySettings.profileDirectory, RegistrySettings.profileName + ".xml"));
+                RegistrySettings.Save("ProfileName", RegistrySettings.profileName);
+                Settings.User.Save();
 
                 DialogResult = DialogResult.Yes;
                 Close();
@@ -166,8 +166,8 @@ namespace AgIO
             {
                 RegistrySettings.profileName = SanitizeFileName(tboxSaveAs.Text.ToString().Trim());
 
-                //save profile in registry
-                RegistrySettings.Save();
+                RegistrySettings.Save("ProfileName", RegistrySettings.profileName);
+                Settings.User.Save();
 
                 DialogResult = DialogResult.OK;
                 Close();
@@ -197,13 +197,12 @@ namespace AgIO
             else
             {
                 //save current profile
-                RegistrySettings.Save();
-
-                SettingsIO.ImportSettings(Path.Combine(RegistrySettings.profileDirectory, cboxChooseExisting.SelectedItem.ToString().Trim() + ".xml"));
+                Settings.User.Save();
 
                 RegistrySettings.profileName = cboxChooseExisting.SelectedItem.ToString().Trim();
 
-                RegistrySettings.Save();
+                RegistrySettings.Save("ProfileName", RegistrySettings.profileName);
+                Settings.User.Load();
 
                 DialogResult = DialogResult.Yes;
                 Close();

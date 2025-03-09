@@ -154,6 +154,7 @@ namespace ModSim
             this.lblZone6 = new System.Windows.Forms.Label();
             this.lblZone7 = new System.Windows.Forms.Label();
             this.lblZone8 = new System.Windows.Forms.Label();
+            this.btn10Hz = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbarSteerAngleWAS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbarSpeed)).BeginInit();
@@ -168,7 +169,7 @@ namespace ModSim
             this.lblIP.BackColor = System.Drawing.Color.Transparent;
             this.lblIP.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIP.ForeColor = System.Drawing.Color.Black;
-            this.lblIP.Location = new System.Drawing.Point(5, 150);
+            this.lblIP.Location = new System.Drawing.Point(5, 178);
             this.lblIP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblIP.Name = "lblIP";
             this.lblIP.Size = new System.Drawing.Size(143, 59);
@@ -195,7 +196,7 @@ namespace ModSim
             this.lbl1To8.BackColor = System.Drawing.Color.Transparent;
             this.lbl1To8.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl1To8.ForeColor = System.Drawing.Color.Black;
-            this.lbl1To8.Location = new System.Drawing.Point(-2, 242);
+            this.lbl1To8.Location = new System.Drawing.Point(-2, 267);
             this.lbl1To8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl1To8.Name = "lbl1To8";
             this.lbl1To8.Size = new System.Drawing.Size(88, 18);
@@ -208,7 +209,7 @@ namespace ModSim
             this.lbl9To16.BackColor = System.Drawing.Color.Transparent;
             this.lbl9To16.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl9To16.ForeColor = System.Drawing.Color.Black;
-            this.lbl9To16.Location = new System.Drawing.Point(83, 242);
+            this.lbl9To16.Location = new System.Drawing.Point(83, 267);
             this.lbl9To16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl9To16.Name = "lbl9To16";
             this.lbl9To16.Size = new System.Drawing.Size(88, 18);
@@ -1057,7 +1058,7 @@ namespace ModSim
             this.tbarSteerAngleWAS.Maximum = 6000;
             this.tbarSteerAngleWAS.Minimum = -6000;
             this.tbarSteerAngleWAS.Name = "tbarSteerAngleWAS";
-            this.tbarSteerAngleWAS.Size = new System.Drawing.Size(190, 64);
+            this.tbarSteerAngleWAS.Size = new System.Drawing.Size(190, 45);
             this.tbarSteerAngleWAS.TabIndex = 534;
             this.tbarSteerAngleWAS.TickFrequency = 500;
             this.tbarSteerAngleWAS.Scroll += new System.EventHandler(this.tbarSteerAngleWAS_Scroll);
@@ -1142,7 +1143,7 @@ namespace ModSim
             this.tbarSpeed.Maximum = 500;
             this.tbarSpeed.Minimum = -200;
             this.tbarSpeed.Name = "tbarSpeed";
-            this.tbarSpeed.Size = new System.Drawing.Size(190, 64);
+            this.tbarSpeed.Size = new System.Drawing.Size(190, 45);
             this.tbarSpeed.TabIndex = 519;
             this.tbarSpeed.TickFrequency = 50;
             this.tbarSpeed.Scroll += new System.EventHandler(this.tbarSpeed_Scroll);
@@ -1150,7 +1151,7 @@ namespace ModSim
             // simTimer
             // 
             this.simTimer.Enabled = true;
-            this.simTimer.Interval = 40;
+            this.simTimer.Interval = 95;
             this.simTimer.Tick += new System.EventHandler(this.simTimer_Tick);
             // 
             // lblHeading
@@ -1183,7 +1184,7 @@ namespace ModSim
             this.tbarRoll.Maximum = 200;
             this.tbarRoll.Minimum = -200;
             this.tbarRoll.Name = "tbarRoll";
-            this.tbarRoll.Size = new System.Drawing.Size(190, 64);
+            this.tbarRoll.Size = new System.Drawing.Size(190, 45);
             this.tbarRoll.TabIndex = 558;
             this.tbarRoll.TickFrequency = 50;
             this.tbarRoll.Scroll += new System.EventHandler(this.tbarRoll_Scroll);
@@ -1629,7 +1630,7 @@ namespace ModSim
             this.lbl1To8M.BackColor = System.Drawing.Color.Transparent;
             this.lbl1To8M.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl1To8M.ForeColor = System.Drawing.Color.Black;
-            this.lbl1To8M.Location = new System.Drawing.Point(-2, 291);
+            this.lbl1To8M.Location = new System.Drawing.Point(-2, 308);
             this.lbl1To8M.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl1To8M.Name = "lbl1To8M";
             this.lbl1To8M.Size = new System.Drawing.Size(88, 18);
@@ -1642,7 +1643,7 @@ namespace ModSim
             this.lbl9To16M.BackColor = System.Drawing.Color.Transparent;
             this.lbl9To16M.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl9To16M.ForeColor = System.Drawing.Color.Black;
-            this.lbl9To16M.Location = new System.Drawing.Point(83, 291);
+            this.lbl9To16M.Location = new System.Drawing.Point(83, 308);
             this.lbl9To16M.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl9To16M.Name = "lbl9To16M";
             this.lbl9To16M.Size = new System.Drawing.Size(88, 18);
@@ -1655,7 +1656,7 @@ namespace ModSim
             this.label17.BackColor = System.Drawing.Color.Transparent;
             this.label17.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.Black;
-            this.label17.Location = new System.Drawing.Point(5, 219);
+            this.label17.Location = new System.Drawing.Point(5, 244);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(45, 19);
@@ -1668,7 +1669,7 @@ namespace ModSim
             this.label21.BackColor = System.Drawing.Color.Transparent;
             this.label21.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.ForeColor = System.Drawing.Color.Black;
-            this.label21.Location = new System.Drawing.Point(5, 271);
+            this.label21.Location = new System.Drawing.Point(5, 288);
             this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(66, 19);
@@ -1820,6 +1821,16 @@ namespace ModSim
             this.lblZone8.TabIndex = 597;
             this.lblZone8.Text = "00000000";
             // 
+            // btn10Hz
+            // 
+            this.btn10Hz.Location = new System.Drawing.Point(20, 144);
+            this.btn10Hz.Name = "btn10Hz";
+            this.btn10Hz.Size = new System.Drawing.Size(101, 28);
+            this.btn10Hz.TabIndex = 598;
+            this.btn10Hz.Text = "10 Hz";
+            this.btn10Hz.UseVisualStyleBackColor = true;
+            this.btn10Hz.Click += new System.EventHandler(this.btn10Hz_Click);
+            // 
             // FormSim
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
@@ -1827,6 +1838,8 @@ namespace ModSim
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(702, 500);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.btn10Hz);
             this.Controls.Add(this.lblBypassPercent);
             this.Controls.Add(this.lblZone8);
             this.Controls.Add(this.label12);
@@ -1848,7 +1861,6 @@ namespace ModSim
             this.Controls.Add(this.lblCurrentLon);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.lblCurrentLat);
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblLatt);
             this.Controls.Add(this.nudLon);
             this.Controls.Add(this.nudLat);
@@ -2022,6 +2034,7 @@ namespace ModSim
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label lblScanReply;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btn10Hz;
     }
 }
 

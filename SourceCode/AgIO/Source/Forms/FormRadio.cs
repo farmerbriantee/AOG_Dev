@@ -30,7 +30,7 @@ namespace AgIO
             _currentLon = mf.pnGPS.longitude;
 
             // Load radio channels
-            _channels = Properties.Settings.Default.setRadio_Channels;
+            _channels = Settings.User.setRadio_Channels;
 
             if (_channels == null)
             {
@@ -53,17 +53,17 @@ namespace AgIO
                 cboxRadioPort.Items.Add(s);
             }
 
-            lblCurrentPort.Text = Properties.Settings.Default.setPort_portNameRadio;
-            lblCurrentBaud.Text = Properties.Settings.Default.setPort_baudRateRadio;
-            cboxRadioPort.Text = Properties.Settings.Default.setPort_portNameRadio;
-            cboxBaud.Text = Properties.Settings.Default.setPort_baudRateRadio;
-            cboxIsRadioOn.Checked = Properties.Settings.Default.setRadio_isOn;
+            lblCurrentPort.Text = Settings.User.setPort_portNameRadio;
+            lblCurrentBaud.Text = Settings.User.setPort_baudRateRadio;
+            cboxRadioPort.Text = Settings.User.setPort_portNameRadio;
+            cboxBaud.Text = Settings.User.setPort_baudRateRadio;
+            cboxIsRadioOn.Checked = Settings.User.setRadio_isOn;
 
             for (var i = 0; i < lvChannels.Items.Count; i++)
             {
                 ListViewItem lvItem = lvChannels.Items[i];
 
-                if (((CRadioChannel)lvItem.Tag).Frequency == Properties.Settings.Default.setPort_radioChannel)
+                if (((CRadioChannel)lvItem.Tag).Frequency == Settings.User.setPort_radioChannel)
                 {
                     lvItem.Selected = true;
                     lvItem.Focused = true;
@@ -91,21 +91,21 @@ namespace AgIO
             if (lvChannels.SelectedItems.Count > 0)
             {
                 var selectedChannel = (CRadioChannel)lvChannels.SelectedItems[0].Tag;
-                Properties.Settings.Default.setPort_radioChannel = selectedChannel.Frequency;
+                Settings.User.setPort_radioChannel = selectedChannel.Frequency;
             }
 
-            Properties.Settings.Default.setPort_portNameRadio = cboxRadioPort.Text;
-            Properties.Settings.Default.setPort_baudRateRadio = cboxBaud.Text;
-            Properties.Settings.Default.setRadio_isOn = cboxIsRadioOn.Checked;
+            Settings.User.setPort_portNameRadio = cboxRadioPort.Text;
+            Settings.User.setPort_baudRateRadio = cboxBaud.Text;
+            Settings.User.setRadio_isOn = cboxIsRadioOn.Checked;
 
-            if (Properties.Settings.Default.setRadio_isOn && Properties.Settings.Default.setNTRIP_isOn)
+            if (Settings.User.setRadio_isOn && Settings.User.setNTRIP_isOn)
             {
                 mf.TimedMessageBox(2000, "NTRIP also enabled", "NTRIP is also enabled, diabling it");
-                Properties.Settings.Default.setNTRIP_isOn = false;
+                Settings.User.setNTRIP_isOn = false;
             }
 
             // Save radio channels
-            Properties.Settings.Default.setRadio_Channels = _channels;
+            //Settings.User.setRadio_Channels = _channels;
 
             Close();
             mf.ConfigureNTRIP();
@@ -144,8 +144,8 @@ namespace AgIO
             {
                 mf.spRadio.Open();
 
-                lblCurrentPort.Text = Properties.Settings.Default.setPort_portNameRadio;
-                lblCurrentBaud.Text = Properties.Settings.Default.setPort_baudRateRadio;
+                lblCurrentPort.Text = Settings.User.setPort_portNameRadio;
+                lblCurrentBaud.Text = Settings.User.setPort_baudRateRadio;
 
                 cboxRadioPort.Enabled = false;
                 cboxBaud.Enabled = false;

@@ -74,10 +74,10 @@ namespace AgOpenGPS
 
         private void FormSteer_Load(object sender, EventArgs e)
         {
-            mf.vehicle.goalPointLookAheadHold = Properties.Settings.Default.setVehicle_goalPointLookAheadHold;
-            cboxSteerInReverse.Checked = Properties.Settings.Default.setAS_isSteerInReverse;
+            mf.vehicle.goalPointLookAheadHold = Settings.Vehicle.setVehicle_goalPointLookAheadHold;
+            cboxSteerInReverse.Checked = Settings.Vehicle.setAS_isSteerInReverse;
 
-            if (mf.isStanleyUsed)
+            if (Settings.Vehicle.setVehicle_isStanleyUsed)
             {
                 btnStanleyPure.Image = Resources.ModeStanley;
             }
@@ -86,7 +86,7 @@ namespace AgOpenGPS
                 btnStanleyPure.Image = Resources.ModePurePursuit;
             }
 
-            if (mf.isStanleyUsed)
+            if (Settings.Vehicle.setVehicle_isStanleyUsed)
             {
                 tabControl1.TabPages.Remove(tabPP);
                 tabControl1.TabPages.Remove(tabPPAdv);
@@ -98,13 +98,13 @@ namespace AgOpenGPS
                 this.tabControl1.ItemSize = new System.Drawing.Size(89, 48);
             }
 
-            Location = Properties.Settings.Default.setWindow_steerSettingsLocation;
+            Location = Settings.User.setWindow_steerSettingsLocation;
             //WAS Zero, CPD
             hsbarWasOffset.ValueChanged -= hsbarSteerAngleSensorZero_ValueChanged;
             hsbarCountsPerDegree.ValueChanged -= hsbarCountsPerDegree_ValueChanged;
 
-            hsbarWasOffset.Value = Properties.Settings.Default.setAS_wasOffset;
-            hsbarCountsPerDegree.Value = Properties.Settings.Default.setAS_countsPerDegree;
+            hsbarWasOffset.Value = Settings.Vehicle.setAS_wasOffset;
+            hsbarCountsPerDegree.Value = Settings.Vehicle.setAS_countsPerDegree;
 
             lblCountsPerDegree.Text = hsbarCountsPerDegree.Value.ToString();
             lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)(hsbarCountsPerDegree.Value)).ToString("N2");
@@ -113,7 +113,7 @@ namespace AgOpenGPS
             hsbarCountsPerDegree.ValueChanged += hsbarCountsPerDegree_ValueChanged;
 
             hsbarAckerman.ValueChanged -= hsbarAckerman_ValueChanged;
-            hsbarAckerman.Value = Properties.Settings.Default.setAS_ackerman;
+            hsbarAckerman.Value = Settings.Vehicle.setAS_ackerman;
             lblAckerman.Text = hsbarAckerman.Value.ToString();
             hsbarAckerman.ValueChanged += hsbarAckerman_ValueChanged;
 
@@ -121,10 +121,10 @@ namespace AgOpenGPS
             hsbarMinPWM.ValueChanged -= hsbarMinPWM_ValueChanged;
             hsbarProportionalGain.ValueChanged -= hsbarProportionalGain_ValueChanged;
 
-            hsbarMinPWM.Value = Properties.Settings.Default.setAS_minSteerPWM;
+            hsbarMinPWM.Value = Settings.Vehicle.setAS_minSteerPWM;
             lblMinPWM.Text = hsbarMinPWM.Value.ToString();
 
-            hsbarProportionalGain.Value = Properties.Settings.Default.setAS_Kp;
+            hsbarProportionalGain.Value = Settings.Vehicle.setAS_Kp;
             lblProportionalGain.Text = hsbarProportionalGain.Value.ToString();
 
             hsbarMinPWM.ValueChanged += hsbarMinPWM_ValueChanged;
@@ -137,47 +137,46 @@ namespace AgOpenGPS
             //hsbarLowSteerPWM.Value = Properties.Settings.Default.setAS_lowSteerPWM;
             //lblLowSteerPWM.Text = hsbarLowSteerPWM.Value.ToString();
 
-            hsbarHighSteerPWM.Value = Properties.Settings.Default.setAS_highSteerPWM;
+            hsbarHighSteerPWM.Value = Settings.Vehicle.setAS_highSteerPWM;
             lblHighSteerPWM.Text = hsbarHighSteerPWM.Value.ToString();
 
             //hsbarLowSteerPWM.ValueChanged += hsbarLowSteerPWM_ValueChanged;
             hsbarHighSteerPWM.ValueChanged += hsbarHighSteerPWM_ValueChanged;
 
-            hsbarMaxSteerAngle.Value = (Int16)Properties.Settings.Default.setVehicle_maxSteerAngle;
+            hsbarMaxSteerAngle.Value = (Int16)Settings.Vehicle.setVehicle_maxSteerAngle;
             lblMaxSteerAngle.Text = hsbarMaxSteerAngle.Value.ToString();
 
-            mf.vehicle.stanleyDistanceErrorGain = Properties.Settings.Default.stanleyDistanceErrorGain;
+            mf.vehicle.stanleyDistanceErrorGain = Settings.Vehicle.stanleyDistanceErrorGain;
             hsbarStanleyGain.Value = (Int16)(mf.vehicle.stanleyDistanceErrorGain * 10);
             lblStanleyGain.Text = mf.vehicle.stanleyDistanceErrorGain.ToString();
 
-            mf.vehicle.stanleyHeadingErrorGain = Properties.Settings.Default.stanleyHeadingErrorGain;
+            mf.vehicle.stanleyHeadingErrorGain = Settings.Vehicle.stanleyHeadingErrorGain;
             hsbarHeadingErrorGain.Value = (Int16)(mf.vehicle.stanleyHeadingErrorGain * 10);
             lblHeadingErrorGain.Text = mf.vehicle.stanleyHeadingErrorGain.ToString();
 
-            mf.vehicle.stanleyIntegralGainAB = Properties.Settings.Default.stanleyIntegralGainAB;
-            hsbarIntegral_Tool.Value = (int)(Properties.Settings.Default.stanleyIntegralGainAB * 100);
+            mf.vehicle.stanleyIntegralGainAB = Settings.Vehicle.stanleyIntegralGainAB;
+            hsbarIntegral_Tool.Value = (int)(Settings.Vehicle.stanleyIntegralGainAB * 100);
             lblIntegral_Tool.Text = ((int)(mf.vehicle.stanleyIntegralGainAB * 100)).ToString();
 
-            mf.vehicle.purePursuitIntegralGain = Properties.Settings.Default.purePursuitIntegralGainAB;
-            hsbarIntegralPurePursuit.Value = (int)(Properties.Settings.Default.purePursuitIntegralGainAB * 100);
+            mf.vehicle.purePursuitIntegralGain = Settings.Vehicle.setAS_purePursuitIntegralGain;
+            hsbarIntegralPurePursuit.Value = (int)(Settings.Vehicle.setAS_purePursuitIntegralGain * 100);
             lblPureIntegral.Text = ((int)(mf.vehicle.purePursuitIntegralGain * 100)).ToString();
 
-            mf.gyd.sideHillCompFactor = Properties.Settings.Default.setAS_sideHillComp;
-            hsbarSideHillComp.Value = (int)(Properties.Settings.Default.setAS_sideHillComp * 100);
+            hsbarSideHillComp.Value = (int)(Settings.Vehicle.setAS_sideHillComp * 100);
 
-            mf.vehicle.goalPointLookAheadHold = Properties.Settings.Default.setVehicle_goalPointLookAheadHold;
+            mf.vehicle.goalPointLookAheadHold = Settings.Vehicle.setVehicle_goalPointLookAheadHold;
             hsbarHoldLookAhead.Value = (Int16)(mf.vehicle.goalPointLookAheadHold * 10);
             lblHoldLookAhead.Text = mf.vehicle.goalPointLookAheadHold.ToString();
 
-            hsbarLookAheadMult.Value = (Int16)(Properties.Settings.Default.setVehicle_goalPointLookAheadMult * 10);
+            hsbarLookAheadMult.Value = (Int16)(Settings.Vehicle.setVehicle_goalPointLookAheadMult * 10);
             lblLookAheadMult.Text = mf.vehicle.goalPointLookAheadMult.ToString();
 
-            hsbarAcquireFactor.Value = (int)(Properties.Settings.Default.setVehicle_goalPointAcquireFactor * 100);
+            hsbarAcquireFactor.Value = (int)(Settings.Vehicle.setVehicle_goalPointAcquireFactor * 100);
             lblAcquireFactor.Text = mf.vehicle.goalPointAcquireFactor.ToString();
 
             lblAcquirePP.Text = (mf.vehicle.goalPointLookAheadHold * mf.vehicle.goalPointAcquireFactor).ToString("N1");
 
-            hsbarUTurnCompensation.Value = (Int16)(Properties.Settings.Default.setAS_uTurnCompensation * 10);
+            hsbarUTurnCompensation.Value = (Int16)(Settings.Vehicle.setAS_uTurnCompensation * 10);
             lblUTurnCompensation.Text = (hsbarUTurnCompensation.Value - 10).ToString();
 
             //make sure free drive is off
@@ -188,12 +187,12 @@ namespace AgOpenGPS
             mf.vehicle.driveFreeSteerAngle = 0;
 
             //nudDeadZoneDistance.Value = (decimal)((double)(Properties.Settings.Default.setAS_deadZoneDistance)/10);
-            nudDeadZoneHeading.Value = Properties.Settings.Default.setAS_deadZoneHeading * 0.01;
+            nudDeadZoneHeading.Value = Settings.Vehicle.setAS_deadZoneHeading * 0.01;
             nudDeadZoneDelay.Value = mf.vehicle.deadZoneDelay;
 
             toSend = false;
 
-            int sett = Properties.Settings.Default.setArdSteer_setting0;
+            int sett = Settings.Vehicle.setArdSteer_setting0;
 
             if ((sett & 1) == 0) chkInvertWAS.Checked = false;
             else chkInvertWAS.Checked = true;
@@ -217,11 +216,11 @@ namespace AgOpenGPS
             if ((sett & 128) == 0) cboxEncoder.Checked = false;
             else cboxEncoder.Checked = true;
 
-            nudMaxCounts.Value = Properties.Settings.Default.setArdSteer_maxPulseCounts;
-            hsbarSensor.Value = Properties.Settings.Default.setArdSteer_maxPulseCounts;
+            nudMaxCounts.Value = Settings.Vehicle.setArdSteer_maxPulseCounts;
+            hsbarSensor.Value = Settings.Vehicle.setArdSteer_maxPulseCounts;
             lblhsbarSensor.Text = ((int)(hsbarSensor.Value * 0.3921568627)).ToString() + "%";
 
-            sett = Properties.Settings.Default.setArdSteer_setting1;
+            sett = Settings.Vehicle.setArdSteer_setting1;
 
             if ((sett & 1) == 0) cboxDanfoss.Checked = false;
             else cboxDanfoss.Checked = true;
@@ -292,7 +291,7 @@ namespace AgOpenGPS
                 Left = 0;
             }
 
-            if (mf.isLightBarNotSteerBar) rbtnLightBar.Checked = true;
+            if (Settings.User.isLightbarNotSteerBar) rbtnLightBar.Checked = true;
             else rbtnSteerBar.Checked = true;
         }
 
@@ -300,40 +299,37 @@ namespace AgOpenGPS
         {
             mf.vehicle.isInFreeDriveMode = false;
 
-            Properties.Settings.Default.setVehicle_goalPointLookAheadHold = mf.vehicle.goalPointLookAheadHold;
-            Properties.Settings.Default.setVehicle_goalPointLookAheadMult = mf.vehicle.goalPointLookAheadMult;
-            Properties.Settings.Default.setVehicle_goalPointAcquireFactor = mf.vehicle.goalPointAcquireFactor;
+            Settings.Vehicle.setVehicle_goalPointLookAheadHold = mf.vehicle.goalPointLookAheadHold;
+            Settings.Vehicle.setVehicle_goalPointLookAheadMult = mf.vehicle.goalPointLookAheadMult;
+            Settings.Vehicle.setVehicle_goalPointAcquireFactor = mf.vehicle.goalPointAcquireFactor;
 
-            Properties.Settings.Default.stanleyHeadingErrorGain = mf.vehicle.stanleyHeadingErrorGain;
-            Properties.Settings.Default.stanleyDistanceErrorGain = mf.vehicle.stanleyDistanceErrorGain;
-            Properties.Settings.Default.stanleyIntegralGainAB = mf.vehicle.stanleyIntegralGainAB;
-            Properties.Settings.Default.purePursuitIntegralGainAB = mf.vehicle.purePursuitIntegralGain;
-            Properties.Settings.Default.setVehicle_maxSteerAngle = mf.vehicle.maxSteerAngle;
+            Settings.Vehicle.stanleyHeadingErrorGain = mf.vehicle.stanleyHeadingErrorGain;
+            Settings.Vehicle.stanleyDistanceErrorGain = mf.vehicle.stanleyDistanceErrorGain;
+            Settings.Vehicle.stanleyIntegralGainAB = mf.vehicle.stanleyIntegralGainAB;
+            Settings.Vehicle.setAS_purePursuitIntegralGain = mf.vehicle.purePursuitIntegralGain;
+            Settings.Vehicle.setVehicle_maxSteerAngle = mf.vehicle.maxSteerAngle;
 
-            Properties.Settings.Default.setAS_countsPerDegree = PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)hsbarCountsPerDegree.Value);
-            Properties.Settings.Default.setAS_ackerman = PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)hsbarAckerman.Value);
+            Settings.Vehicle.setAS_countsPerDegree = PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)hsbarCountsPerDegree.Value);
+            Settings.Vehicle.setAS_ackerman = PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)hsbarAckerman.Value);
 
-            Properties.Settings.Default.setAS_wasOffset = hsbarWasOffset.Value;
+            Settings.Vehicle.setAS_wasOffset = hsbarWasOffset.Value;
             PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(hsbarWasOffset.Value >> 8));
             PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(hsbarWasOffset.Value));
 
-            Properties.Settings.Default.setAS_highSteerPWM = PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)hsbarHighSteerPWM.Value);
-            Properties.Settings.Default.setAS_lowSteerPWM = PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)(hsbarHighSteerPWM.Value / 3));
-            Properties.Settings.Default.setAS_Kp = PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)hsbarProportionalGain.Value);
-            Properties.Settings.Default.setAS_minSteerPWM = PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)hsbarMinPWM.Value);
+            Settings.Vehicle.setAS_highSteerPWM = PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)hsbarHighSteerPWM.Value);
+            Settings.Vehicle.setAS_lowSteerPWM = PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)(hsbarHighSteerPWM.Value / 3));
+            Settings.Vehicle.setAS_Kp = PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)hsbarProportionalGain.Value);
+            Settings.Vehicle.setAS_minSteerPWM = PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)hsbarMinPWM.Value);
 
-            Properties.Settings.Default.setAS_deadZoneHeading = (int)(mf.vehicle.deadZoneHeading * 100);
-            Properties.Settings.Default.setAS_deadZoneDelay = mf.vehicle.deadZoneDelay;
+            Settings.Vehicle.setAS_deadZoneHeading = (int)(mf.vehicle.deadZoneHeading * 100);
+            Settings.Vehicle.setAS_deadZoneDelay = mf.vehicle.deadZoneDelay;
 
-            Properties.Settings.Default.setAS_ModeXTE = mf.vehicle.modeXTE;
-            Properties.Settings.Default.setAS_ModeTime = mf.vehicle.modeTime;
+            Settings.User.setWindow_steerSettingsLocation = Location;
 
-            Properties.Settings.Default.setWindow_steerSettingsLocation = Location;
-
-            Properties.Settings.Default.setAS_uTurnCompensation = mf.vehicle.uturnCompensation;
+            Settings.Vehicle.setAS_uTurnCompensation = mf.vehicle.uturnCompensation;
 
             //save current vehicle
-            Properties.Settings.Default.Save();
+            Settings.Vehicle.Save();
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -566,9 +562,9 @@ namespace AgOpenGPS
 
         private void tabSettings_Enter(object sender, EventArgs e)
         {
-            cboxSteerInReverse.Checked = Properties.Settings.Default.setAS_isSteerInReverse;
+            cboxSteerInReverse.Checked = Settings.Vehicle.setAS_isSteerInReverse;
 
-            if (mf.isStanleyUsed)
+            if (Settings.Vehicle.setVehicle_isStanleyUsed)
             {
                 btnStanleyPure.Image = Resources.ModeStanley;
             }
@@ -580,7 +576,7 @@ namespace AgOpenGPS
 
         private void tabSettings_Leave(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_isSteerInReverse = cboxSteerInReverse.Checked;
+            Settings.Vehicle.setAS_isSteerInReverse = cboxSteerInReverse.Checked;
         }
 
         private void hsbarUTurnCompensation_ValueChanged(object sender, EventArgs e)
@@ -591,8 +587,7 @@ namespace AgOpenGPS
 
         private void cboxSteerInReverse_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_isSteerInReverse = cboxSteerInReverse.Checked;
-            mf.isSteerInReverse = cboxSteerInReverse.Checked;
+            Settings.Vehicle.setAS_isSteerInReverse = cboxSteerInReverse.Checked;
         }
 
         private void hsbarSideHillComPGN_ValueChanged(object sender, EventArgs e)
@@ -600,15 +595,14 @@ namespace AgOpenGPS
             double deg = hsbarSideHillComp.Value;
             deg *= 0.01;
             lblSideHillComp.Text = (deg.ToString("N2") + "\u00B0");
-            Properties.Settings.Default.setAS_sideHillComp = deg;
-            mf.gyd.sideHillCompFactor = deg;
+            Settings.Vehicle.setAS_sideHillComp = deg;
         }
 
         private void btnStanleyPure_Click(object sender, EventArgs e)
         {
-            mf.isStanleyUsed = !mf.isStanleyUsed;
+            Settings.Vehicle.setVehicle_isStanleyUsed = !Settings.Vehicle.setVehicle_isStanleyUsed;
 
-            if (mf.isStanleyUsed)
+            if (Settings.Vehicle.setVehicle_isStanleyUsed)
             {
                 btnStanleyPure.Image = Resources.ModeStanley;
                 Log.EventWriter("Stanley Steer Mode Selectede");
@@ -625,9 +619,8 @@ namespace AgOpenGPS
             tabControl1.TabPages.Remove(tabSteer);
             tabControl1.TabPages.Remove(tabStan);
 
-            Properties.Settings.Default.setVehicle_isStanleyUsed = mf.isStanleyUsed;
 
-            if (mf.isStanleyUsed)
+            if (Settings.Vehicle.setVehicle_isStanleyUsed)
             {
                 this.tabControl1.ItemSize = new System.Drawing.Size(105, 48);
                 tabControl1.TabPages.Add(tabStan);
@@ -651,9 +644,9 @@ namespace AgOpenGPS
 
         private void tabAlarm_Enter(object sender, EventArgs e)
         {
-            nudMaxSteerSpeed.Value = Properties.Settings.Default.setAS_maxSteerSpeed;
-            nudMinSteerSpeed.Value = Properties.Settings.Default.setAS_minSteerSpeed;
-            nudGuidanceSpeedLimit.Value = Properties.Settings.Default.setAS_functionSpeedLimit;
+            nudMaxSteerSpeed.Value = Settings.Vehicle.setAS_maxSteerSpeed;
+            nudMinSteerSpeed.Value = Settings.Vehicle.setAS_minSteerSpeed;
+            nudGuidanceSpeedLimit.Value = Settings.Vehicle.setAS_functionSpeedLimit;
 
             label160.Text = label163.Text = label166.Text = glm.unitsKmhMph;
             label20.Text = glm.unitsInCm;
@@ -665,20 +658,17 @@ namespace AgOpenGPS
 
         private void nudMinSteerSpeed_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_minSteerSpeed = nudMinSteerSpeed.Value;
-            mf.vehicle.minSteerSpeed = Properties.Settings.Default.setAS_minSteerSpeed;
+            Settings.Vehicle.setAS_minSteerSpeed = nudMinSteerSpeed.Value;
         }
 
         private void nudMaxSteerSpeed_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_maxSteerSpeed = nudMaxSteerSpeed.Value;
-            mf.vehicle.maxSteerSpeed = Properties.Settings.Default.setAS_maxSteerSpeed;
+            Settings.Vehicle.setAS_maxSteerSpeed = nudMaxSteerSpeed.Value;
         }
 
         private void nudGuidanceSpeedLimit_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_functionSpeedLimit = nudGuidanceSpeedLimit.Value;
-            mf.vehicle.functionSpeedLimit = Properties.Settings.Default.setAS_functionSpeedLimit;
+            Settings.Vehicle.setAS_functionSpeedLimit = nudGuidanceSpeedLimit.Value;
         }
 
         #endregion Alarms Tab
@@ -687,17 +677,17 @@ namespace AgOpenGPS
 
         private void tabOnTheLine_Enter(object sender, EventArgs e)
         {
-            chkDisplayLightbar.Checked = mf.isLightbarOn;
+            chkDisplayLightbar.Checked = Settings.User.isLightbarOn;
             chkDisplayLightbar.Image = chkDisplayLightbar.Checked ? Resources.SwitchOn : Resources.SwitchOff;
 
-            nudSnapDistance.DecimalPlaces = mf.isMetric ? 0 : 1;
-            nudSnapDistance.Value = Properties.Settings.Default.setAS_snapDistance;
+            nudSnapDistance.DecimalPlaces = Settings.User.isMetric ? 0 : 1;
+            nudSnapDistance.Value = Settings.Vehicle.setAS_snapDistance;
 
-            nudGuidanceLookAhead.Value = Properties.Settings.Default.setAS_guidanceLookAheadTime;
+            nudGuidanceLookAhead.Value = Settings.Vehicle.setAS_guidanceLookAheadTime;
 
-            nudLineWidth.Value = Properties.Settings.Default.setDisplay_lineWidth;
+            nudLineWidth.Value = Settings.User.setDisplay_lineWidth;
 
-            nudcmPerPixel.Value = Properties.Settings.Default.setDisplay_lightbarCmPerPixel;
+            nudcmPerPixel.Value = Settings.User.setDisplay_lightbarCmPerPixel;
 
             label20.Text = glm.unitsInCm;
         }
@@ -708,37 +698,32 @@ namespace AgOpenGPS
 
         private void nudcmPerPixel_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setDisplay_lightbarCmPerPixel = ((int)nudcmPerPixel.Value);
-            mf.lightbarCmPerPixel = Properties.Settings.Default.setDisplay_lightbarCmPerPixel;
+            Settings.User.setDisplay_lightbarCmPerPixel = ((int)nudcmPerPixel.Value);
         }
 
         private void nudLineWidth_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setDisplay_lineWidth = (int)nudLineWidth.Value;
-            mf.trk.lineWidth = Properties.Settings.Default.setDisplay_lineWidth;
+            Settings.User.setDisplay_lineWidth = (int)nudLineWidth.Value;
         }
 
         private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_snapDistance = nudSnapDistance.Value;
+            Settings.Vehicle.setAS_snapDistance = nudSnapDistance.Value;
         }
 
         private void nudGuidanceLookAhead_ValueChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setAS_guidanceLookAheadTime = ((double)nudGuidanceLookAhead.Value);
-            mf.guidanceLookAheadTime = Properties.Settings.Default.setAS_guidanceLookAheadTime;
+            Settings.Vehicle.setAS_guidanceLookAheadTime = ((double)nudGuidanceLookAhead.Value);
         }
 
         private void rbtnLightBar_Click(object sender, EventArgs e)
         {
-            mf.isLightBarNotSteerBar = true;
-            Properties.Settings.Default.setMenu_isLightbarNotSteerBar = mf.isLightBarNotSteerBar;
+            Settings.User.isLightbarNotSteerBar = true;
         }
 
         private void rbtnSteerBar_Click(object sender, EventArgs e)
         {
-            mf.isLightBarNotSteerBar = false;
-            Properties.Settings.Default.setMenu_isLightbarNotSteerBar = mf.isLightBarNotSteerBar;
+            Settings.User.isLightbarNotSteerBar = false;
         }
 
         private void chkDisplayLightbar_Click(object sender, EventArgs e)
@@ -746,9 +731,9 @@ namespace AgOpenGPS
             if (chkDisplayLightbar.Checked) { chkDisplayLightbar.Image = Resources.SwitchOn; }
             else { chkDisplayLightbar.Image = Resources.SwitchOff; }
 
-            Properties.Settings.Default.setMenu_isLightbarOn = chkDisplayLightbar.Checked;
+            Settings.User.isLightbarOn = chkDisplayLightbar.Checked;
 
-            mf.isLightbarOn = chkDisplayLightbar.Checked;
+            Settings.User.isLightbarOn = chkDisplayLightbar.Checked;
         }
 
         #endregion Tab On the Line
@@ -760,19 +745,19 @@ namespace AgOpenGPS
             cboxGPSTool.Checked = mf.isGPSToolActive;
 
             //settings
-            hsbarPGain_Tool.Value = Properties.ToolSettings.Default.setToolSteer.gainP;
-            hsbarIntegral_Tool.Value = Properties.ToolSettings.Default.setToolSteer.integral;
-            hsbarMinPWM_Tool.Value = Properties.ToolSettings.Default.setToolSteer.minPWM;
-            hsbarHighPWM_Tool.Value = Properties.ToolSettings.Default.setToolSteer.highPWM;
-            hsbarAckermann_Tool.Value = Properties.ToolSettings.Default.setToolSteer.ackermann;
-            hsbarCPD_Tool.Value = Properties.ToolSettings.Default.setToolSteer.countsPerDegree;
-            hsbarZeroWAS_Tool.Value = Properties.ToolSettings.Default.setToolSteer.wasOffset;
+            hsbarPGain_Tool.Value = Settings.Tool.setToolSteer.gainP;
+            hsbarIntegral_Tool.Value = Settings.Tool.setToolSteer.integral;
+            hsbarMinPWM_Tool.Value = Settings.Tool.setToolSteer.minPWM;
+            hsbarHighPWM_Tool.Value = Settings.Tool.setToolSteer.highPWM;
+            hsbarAckermann_Tool.Value = Settings.Tool.setToolSteer.ackermann;
+            hsbarCPD_Tool.Value = Settings.Tool.setToolSteer.countsPerDegree;
+            hsbarZeroWAS_Tool.Value = Settings.Tool.setToolSteer.wasOffset;
 
             //config
-            hsbarMaxSteerAngle_Tool.Value = Properties.ToolSettings.Default.setToolSteer.maxSteerAngle;
-            cboxInvertSteer_Tool.Checked = (Properties.ToolSettings.Default.setToolSteer.isInvertSteer == 1);
-            cboxInvertWAS_Tool.Checked = (Properties.ToolSettings.Default.setToolSteer.isInvertWAS == 1);
-            cboxIsSteerNotSlide_Tool.Checked = (Properties.ToolSettings.Default.setToolSteer.isSteerNotSlide == 1);
+            hsbarMaxSteerAngle_Tool.Value = Settings.Tool.setToolSteer.maxSteerAngle;
+            cboxInvertSteer_Tool.Checked = (Settings.Tool.setToolSteer.isInvertSteer == 1);
+            cboxInvertWAS_Tool.Checked = (Settings.Tool.setToolSteer.isInvertWAS == 1);
+            cboxIsSteerNotSlide_Tool.Checked = (Settings.Tool.setToolSteer.isSteerNotSlide == 1);
 
             //settings
             lblPGain_Tool.Text = hsbarPGain_Tool.Value.ToString();
@@ -790,41 +775,41 @@ namespace AgOpenGPS
         private void tabTool_Leave(object sender, EventArgs e)
         {
             //settings
-            Properties.ToolSettings.Default.setToolSteer.gainP = (byte)hsbarPGain_Tool.Value;
-            Properties.ToolSettings.Default.setToolSteer.integral = (byte)hsbarIntegral_Tool.Value;
-            Properties.ToolSettings.Default.setToolSteer.minPWM = (byte)hsbarMinPWM_Tool.Value;
-            Properties.ToolSettings.Default.setToolSteer.highPWM = (byte)hsbarHighPWM_Tool.Value;
-            Properties.ToolSettings.Default.setToolSteer.countsPerDegree = (byte)hsbarCPD_Tool.Value;
-            Properties.ToolSettings.Default.setToolSteer.ackermann = (byte)hsbarAckermann_Tool.Value;
-            Properties.ToolSettings.Default.setToolSteer.wasOffset = hsbarZeroWAS_Tool.Value;
+            Settings.Tool.setToolSteer.gainP = (byte)hsbarPGain_Tool.Value;
+            Settings.Tool.setToolSteer.integral = (byte)hsbarIntegral_Tool.Value;
+            Settings.Tool.setToolSteer.minPWM = (byte)hsbarMinPWM_Tool.Value;
+            Settings.Tool.setToolSteer.highPWM = (byte)hsbarHighPWM_Tool.Value;
+            Settings.Tool.setToolSteer.countsPerDegree = (byte)hsbarCPD_Tool.Value;
+            Settings.Tool.setToolSteer.ackermann = (byte)hsbarAckermann_Tool.Value;
+            Settings.Tool.setToolSteer.wasOffset = hsbarZeroWAS_Tool.Value;
 
             //config
-            Properties.ToolSettings.Default.setToolSteer.maxSteerAngle = (byte)hsbarMaxSteerAngle_Tool.Value;
+            Settings.Tool.setToolSteer.maxSteerAngle = (byte)hsbarMaxSteerAngle_Tool.Value;
 
-            if (cboxInvertSteer_Tool.Checked) Properties.ToolSettings.Default.setToolSteer.isInvertWAS = 1;
-            else Properties.ToolSettings.Default.setToolSteer.isInvertWAS = 0;
+            if (cboxInvertSteer_Tool.Checked) Settings.Tool.setToolSteer.isInvertWAS = 1;
+            else Settings.Tool.setToolSteer.isInvertWAS = 0;
 
-            if (cboxInvertWAS_Tool.Checked) Properties.ToolSettings.Default.setToolSteer.isInvertSteer = 1;
-            else Properties.ToolSettings.Default.setToolSteer.isInvertSteer = 0;
+            if (cboxInvertWAS_Tool.Checked) Settings.Tool.setToolSteer.isInvertSteer = 1;
+            else Settings.Tool.setToolSteer.isInvertSteer = 0;
 
-            if (cboxIsSteerNotSlide_Tool.Checked) Properties.ToolSettings.Default.setToolSteer.isSteerNotSlide = 1;
-            else Properties.ToolSettings.Default.setToolSteer.isSteerNotSlide = 0;
+            if (cboxIsSteerNotSlide_Tool.Checked) Settings.Tool.setToolSteer.isSteerNotSlide = 1;
+            else Settings.Tool.setToolSteer.isSteerNotSlide = 0;
 
-            PGN_232.pgn[PGN_232.gainP] = Properties.ToolSettings.Default.setToolSteer.gainP;
-            PGN_232.pgn[PGN_232.integral] = Properties.ToolSettings.Default.setToolSteer.integral;
-            PGN_232.pgn[PGN_232.minPWM] = Properties.ToolSettings.Default.setToolSteer.minPWM;
-            PGN_232.pgn[PGN_232.highPWM] = Properties.ToolSettings.Default.setToolSteer.highPWM;
-            PGN_232.pgn[PGN_232.countsPerDegree] = Properties.ToolSettings.Default.setToolSteer.countsPerDegree;
-            PGN_232.pgn[PGN_232.ackerman] = Properties.ToolSettings.Default.setToolSteer.ackermann;
+            PGN_232.pgn[PGN_232.gainP] = Settings.Tool.setToolSteer.gainP;
+            PGN_232.pgn[PGN_232.integral] = Settings.Tool.setToolSteer.integral;
+            PGN_232.pgn[PGN_232.minPWM] = Settings.Tool.setToolSteer.minPWM;
+            PGN_232.pgn[PGN_232.highPWM] = Settings.Tool.setToolSteer.highPWM;
+            PGN_232.pgn[PGN_232.countsPerDegree] = Settings.Tool.setToolSteer.countsPerDegree;
+            PGN_232.pgn[PGN_232.ackerman] = Settings.Tool.setToolSteer.ackermann;
 
-            PGN_232.pgn[PGN_232.wasOffsetHi] = unchecked((byte)(Properties.ToolSettings.Default.setToolSteer.wasOffset >> 8));
-            PGN_232.pgn[PGN_232.wasOffsetLo] = unchecked((byte)(Properties.ToolSettings.Default.setToolSteer.wasOffset));
+            PGN_232.pgn[PGN_232.wasOffsetHi] = unchecked((byte)(Settings.Tool.setToolSteer.wasOffset >> 8));
+            PGN_232.pgn[PGN_232.wasOffsetLo] = unchecked((byte)(Settings.Tool.setToolSteer.wasOffset));
             
             //config
-            PGN_231.pgn[PGN_231.maxSteerAngle] = Properties.ToolSettings.Default.setToolSteer.maxSteerAngle;
-            PGN_231.pgn[PGN_231.invertWAS] = Properties.ToolSettings.Default.setToolSteer.isInvertWAS;
-            PGN_231.pgn[PGN_231.invertSteer] = Properties.ToolSettings.Default.setToolSteer.isInvertSteer;
-            PGN_231.pgn[PGN_231.isSteer] = Properties.ToolSettings.Default.setToolSteer.isSteerNotSlide;
+            PGN_231.pgn[PGN_231.maxSteerAngle] = Settings.Tool.setToolSteer.maxSteerAngle;
+            PGN_231.pgn[PGN_231.invertWAS] = Settings.Tool.setToolSteer.isInvertWAS;
+            PGN_231.pgn[PGN_231.invertSteer] = Settings.Tool.setToolSteer.isInvertSteer;
+            PGN_231.pgn[PGN_231.isSteer] = Settings.Tool.setToolSteer.isSteerNotSlide;
         }
 
         private void cboxGPSTool_Click(object sender, EventArgs e)
@@ -832,7 +817,7 @@ namespace AgOpenGPS
             mf.isGPSToolActive = cboxGPSTool.Checked;
             mf.YesMessageBox("You must restart AgOpenGPS to make changes to the networking");
             Log.EventWriter("GPS Tool set to: " + cboxGPSTool.Checked.ToString());
-            ToolSettings.Default.setToolSteer.isGPSToolActive = mf.isGPSToolActive;
+            Settings.Tool.setToolSteer.isGPSToolActive = mf.isGPSToolActive;
         }
 
         //config tool 
@@ -1233,16 +1218,16 @@ namespace AgOpenGPS
             //if ( ) sett |= set;
             //else sett &= reset;
 
-            Properties.Settings.Default.setArdSteer_setting0 = (byte)sett;
-            Properties.Settings.Default.setArdMac_isDanfoss = cboxDanfoss.Checked;
+            Settings.Vehicle.setArdSteer_setting0 = (byte)sett;
+            Settings.Vehicle.setArdMac_isDanfoss = cboxDanfoss.Checked;
 
             if (cboxCurrentSensor.Checked || cboxPressureSensor.Checked)
             {
-                Properties.Settings.Default.setArdSteer_maxPulseCounts = (byte)hsbarSensor.Value;
+                Settings.Vehicle.setArdSteer_maxPulseCounts = (byte)hsbarSensor.Value;
             }
             else
             {
-                Properties.Settings.Default.setArdSteer_maxPulseCounts = (byte)nudMaxCounts.Value;
+                Settings.Vehicle.setArdSteer_maxPulseCounts = (byte)nudMaxCounts.Value;
             }
 
             // Settings1
@@ -1273,14 +1258,14 @@ namespace AgOpenGPS
             if (cboxXY.Text == "Y") sett |= set;
             else sett &= reset;
 
-            Properties.Settings.Default.setArdSteer_setting1 = (byte)sett;
+            Settings.Vehicle.setArdSteer_setting1 = (byte)sett;
 
-            PGN_251.pgn[PGN_251.set0] = Properties.Settings.Default.setArdSteer_setting0;
-            PGN_251.pgn[PGN_251.set1] = Properties.Settings.Default.setArdSteer_setting1;
-            PGN_251.pgn[PGN_251.maxPulse] = Properties.Settings.Default.setArdSteer_maxPulseCounts;
-            PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Properties.Settings.Default.setAS_minSteerSpeed * 10));
+            PGN_251.pgn[PGN_251.set0] = Settings.Vehicle.setArdSteer_setting0;
+            PGN_251.pgn[PGN_251.set1] = Settings.Vehicle.setArdSteer_setting1;
+            PGN_251.pgn[PGN_251.maxPulse] = Settings.Vehicle.setArdSteer_maxPulseCounts;
+            PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Settings.Vehicle.setAS_minSteerSpeed * 10));
 
-            if (Properties.Settings.Default.setAS_isConstantContourOn)
+            if (Settings.Vehicle.setAS_isConstantContourOn)
                 PGN_251.pgn[PGN_251.angVel] = 1;
             else PGN_251.pgn[PGN_251.angVel] = 0;
 
@@ -1306,59 +1291,55 @@ namespace AgOpenGPS
                 Log.EventWriter("Steer Form - Steer Settings Set to Default");
 
                 mf.TimedMessageBox(2000, "Reset To Default", "Values Set to Inital Default");
-                Properties.Settings.Default.setVehicle_maxSteerAngle = mf.vehicle.maxSteerAngle
+                Settings.Vehicle.setVehicle_maxSteerAngle = mf.vehicle.maxSteerAngle
                     = 45;
 
-                Properties.Settings.Default.setAS_countsPerDegree = 110;
+                Settings.Vehicle.setAS_countsPerDegree = 110;
 
-                Properties.Settings.Default.setAS_ackerman = 100;
+                Settings.Vehicle.setAS_ackerman = 100;
                 
-                Properties.Settings.Default.setAS_wasOffset = 3;
+                Settings.Vehicle.setAS_wasOffset = 3;
 
-                Properties.Settings.Default.setAS_highSteerPWM = 180;
-                Properties.Settings.Default.setAS_Kp = 50;
-                Properties.Settings.Default.setAS_minSteerPWM = 25;
+                Settings.Vehicle.setAS_highSteerPWM = 180;
+                Settings.Vehicle.setAS_Kp = 50;
+                Settings.Vehicle.setAS_minSteerPWM = 25;
 
-                Properties.Settings.Default.setArdSteer_setting0 = 56;
-                Properties.Settings.Default.setArdSteer_setting1 = 0;
-                Properties.Settings.Default.setArdMac_isDanfoss = false;
+                Settings.Vehicle.setArdSteer_setting0 = 56;
+                Settings.Vehicle.setArdSteer_setting1 = 0;
+                Settings.Vehicle.setArdMac_isDanfoss = false;
 
-                Properties.Settings.Default.setArdSteer_maxPulseCounts = 3;
+                Settings.Vehicle.setArdSteer_maxPulseCounts = 3;
 
-                Properties.Settings.Default.setVehicle_goalPointAcquireFactor = 0.85;
-                Properties.Settings.Default.setVehicle_goalPointLookAheadHold = 3;
-                Properties.Settings.Default.setVehicle_goalPointLookAheadMult = 1.5;
+                Settings.Vehicle.setVehicle_goalPointAcquireFactor = 0.85;
+                Settings.Vehicle.setVehicle_goalPointLookAheadHold = 3;
+                Settings.Vehicle.setVehicle_goalPointLookAheadMult = 1.5;
 
-                Properties.Settings.Default.stanleyHeadingErrorGain = 1;
-                Properties.Settings.Default.stanleyDistanceErrorGain = 1;
-                Properties.Settings.Default.stanleyIntegralGainAB = 0;
+                Settings.Vehicle.stanleyHeadingErrorGain = 1;
+                Settings.Vehicle.stanleyDistanceErrorGain = 1;
+                Settings.Vehicle.stanleyIntegralGainAB = 0;
 
-                Properties.Settings.Default.purePursuitIntegralGainAB = 0;
+                Settings.Vehicle.setAS_purePursuitIntegralGain = 0;
 
-                Properties.Settings.Default.setAS_sideHillComp = 0;
+                Settings.Vehicle.setAS_sideHillComp = 0;
 
-                Properties.Settings.Default.setAS_uTurnCompensation = 1;
+                Settings.Vehicle.setAS_uTurnCompensation = 1;
 
-                Properties.Settings.Default.setIMU_invertRoll = false;
+                Settings.Vehicle.setIMU_invertRoll = false;
 
-                Properties.Settings.Default.setIMU_rollZero = 0;
+                Settings.Vehicle.setIMU_rollZero = 0;
 
-                Properties.Settings.Default.setAS_minSteerSpeed = 0;
-                Properties.Settings.Default.setAS_maxSteerSpeed = 15;
-                Properties.Settings.Default.setAS_functionSpeedLimit = 12;
-                Properties.Settings.Default.setDisplay_lightbarCmPerPixel = 5;
-                Properties.Settings.Default.setDisplay_lineWidth = 2;
-                Properties.Settings.Default.setAS_snapDistance = 0.2;
-                Properties.Settings.Default.setAS_guidanceLookAheadTime = 1.5;
-                Properties.Settings.Default.setAS_uTurnCompensation = 1;
+                Settings.Vehicle.setAS_minSteerSpeed = 0;
+                Settings.Vehicle.setAS_maxSteerSpeed = 15;
+                Settings.Vehicle.setAS_functionSpeedLimit = 12;
+                Settings.Vehicle.setAS_snapDistance = 0.2;
+                Settings.Vehicle.setAS_guidanceLookAheadTime = 1.5;
+                Settings.Vehicle.setAS_uTurnCompensation = 1;
 
-                Properties.Settings.Default.setVehicle_isStanleyUsed = false;
-                mf.isStanleyUsed = false;
+                Settings.Vehicle.setVehicle_isStanleyUsed = false;
 
-                Properties.Settings.Default.setAS_isSteerInReverse = false;
-                mf.isSteerInReverse = false;
+                Settings.Vehicle.setAS_isSteerInReverse = false;
 
-                mf.vehicle = new CVehicle(mf);
+                mf.vehicle.LoadSettings();
 
                 FormSteer_Load(this, e);
 

@@ -45,7 +45,7 @@ namespace AgOpenGPS
 
             this.Size = new System.Drawing.Size(270, 360);
 
-            Location = Properties.Settings.Default.setWindow_QuickABLocation;
+            Location = Settings.User.setWindow_QuickABLocation;
 
             nudHeading.Value = 0;
 
@@ -58,7 +58,7 @@ namespace AgOpenGPS
 
         private void FormQuickAB_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.setWindow_QuickABLocation = Location;
+            Settings.User.setWindow_QuickABLocation = Location;
 
             mf.twoSecondCounter = 100;
 
@@ -199,13 +199,13 @@ namespace AgOpenGPS
 
                 if (isRefRightSide)
                 {
-                    dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
+                    dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5 + Settings.Tool.offset;
                     mf.trk.idx = idx;
                     mf.trk.NudgeRefTrack(dist);
                 }
                 else
                 {
-                    dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
+                    dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * -0.5 + Settings.Tool.offset;
                     mf.trk.idx = idx;
                     mf.trk.NudgeRefTrack(dist);
                 }
@@ -441,7 +441,7 @@ namespace AgOpenGPS
 
         private void textBox_Click(object sender, EventArgs e)
         {
-            if (mf.isKeyboardOn)
+            if (Settings.User.setDisplay_isKeyboardOn)
                 mf.KeyboardToText((TextBox)sender, this);
         }
 
@@ -459,12 +459,9 @@ namespace AgOpenGPS
 
             mf.FileSaveTracks();
 
-            if (mf.isBtnAutoSteerOn)
-            {
-                mf.btnAutoSteer.PerformClick();
-                mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Return From Editing");
-            }
-            if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
+            mf.SetAutoSteerButton(false, "Return From Editing");
+
+            mf.SetYouTurnButton(false);
 
             mf.trk.isMakingABLine = false;
             mf.trk.designPtsList?.Clear();

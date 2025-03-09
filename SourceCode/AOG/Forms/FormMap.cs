@@ -1,5 +1,4 @@
 ﻿using AgOpenGPS.Classes;
-
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
@@ -44,9 +43,9 @@ namespace AgOpenGPS
 
         private void FormMaPGN_Load(object sender, EventArgs e)
         {
-            Size = Properties.Settings.Default.setWindow_BingMapSize;
+            Size = Settings.User.setWindow_BingMapSize;
 
-            mapControl.ZoomLevel = Properties.Settings.Default.setWindow_BingZoom;//mapControl
+            mapControl.ZoomLevel = Settings.User.setWindow_BingZoom;//mapControl
             mapControl.Center = new GeoPoint((float)mf.pn.longitude, (float)mf.pn.latitude);
 
             mapControl.Invalidate();
@@ -73,7 +72,7 @@ namespace AgOpenGPS
             label3.Text = gStr.Get(gs.gsBoundary);
         }
 
-        private void FormMaPGN_FormClosing(object sender, FormClosingEventArgs e)
+        private void FormMap_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!isClosing)
             {
@@ -81,9 +80,8 @@ namespace AgOpenGPS
                 return;
             }
 
-            Properties.Settings.Default.setWindow_BingMapSize = Size;
-            Properties.Settings.Default.setWindow_BingZoom = mapControl.ZoomLevel;
-            Properties.Settings.Default.Save();
+            Settings.User.setWindow_BingMapSize = Size;
+            Settings.User.setWindow_BingZoom = mapControl.ZoomLevel;
         }
 
         private void btnExit_Click(object sender, EventArgs e)

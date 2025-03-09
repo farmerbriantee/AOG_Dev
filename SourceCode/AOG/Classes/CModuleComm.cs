@@ -30,10 +30,9 @@
         public int actualSteerAngleChart = 0, sensorData = -1;
 
         //for the workswitch
-        public bool isWorkSwitchActiveLow, isRemoteWorkSystemOn, isWorkSwitchEnabled,
-            isWorkSwitchManualSections, isSteerWorkSwitchManualSections, isSteerWorkSwitchEnabled;
+        public bool isSteerWorkSwitchEnabled;
 
-        public bool workSwitchHigh, oldWorkSwitchHigh, steerSwitchHigh, oldSteerSwitchHigh, oldSteerSwitchRemote;
+        public bool workSwitchHigh, oldWorkSwitchHigh, steerSwitchHigh, oldSteerSwitchRemote;
 
         public double actualToolSteerAngleDegrees = 0;
 
@@ -42,84 +41,38 @@
         public CModuleComm(FormGPS _f)
         {
             mf = _f;
-            //WorkSwitch logic
-            isRemoteWorkSystemOn = false;
-
-            //does a low, grounded out, mean on
-            isWorkSwitchActiveLow = true;
         }
 
         //Called from "OpenGL.Designer.cs" when requied
         public void CheckWorkAndSteerSwitch()
         {
             //AutoSteerAuto button enable - Ray Bear inspired code - Thx Ray!
-            if (mf.ahrs.isAutoSteerAuto && steerSwitchHigh != oldSteerSwitchRemote)
+            if (steerSwitchHigh != oldSteerSwitchRemote)
             {
                 oldSteerSwitchRemote = steerSwitchHigh;
                 //steerSwith is active low
-                if (steerSwitchHigh == mf.isBtnAutoSteerOn)
+                mf.SetAutoSteerButton(!steerSwitchHigh, "");
+
+                if (Settings.Vehicle.setF_isSteerWorkSwitchEnabled)
                 {
-                    mf.btnAutoSteer.PerformClick();
+                    mf.SetWorkState(mf.isBtnAutoSteerOn ? (Settings.Vehicle.setF_isSteerWorkSwitchManualSections ? btnStates.On : btnStates.Auto) : btnStates.Off);
                 }
             }
 
-            if (isRemoteWorkSystemOn)
+            if (Settings.Vehicle.setF_isWorkSwitchEnabled && (oldWorkSwitchHigh != workSwitchHigh))
             {
-                if (isWorkSwitchEnabled && (oldWorkSwitchHigh != workSwitchHigh))
+                oldWorkSwitchHigh = workSwitchHigh;
+
+                if (workSwitchHigh != Settings.Vehicle.setF_isWorkSwitchActiveLow)
                 {
-                    oldWorkSwitchHigh = workSwitchHigh;
-
-                    if (workSwitchHigh != isWorkSwitchActiveLow)
-                    {
-                        if (isWorkSwitchManualSections)
-                        {
-                            if (mf.manualBtnState != btnStates.On)
-                                mf.btnSectionMasterManual.PerformClick();
-                        }
-                        else
-                        {
-                            if (mf.autoBtnState != btnStates.Auto)
-                                mf.btnSectionMasterAuto.PerformClick();
-                        }
-                    }
-
-                    else//Checks both on-screen buttons, performs click if button is not off
-                    {
-                        if (mf.autoBtnState != btnStates.Off)
-                            mf.btnSectionMasterAuto.PerformClick();
-                        if (mf.manualBtnState != btnStates.Off)
-                            mf.btnSectionMasterManual.PerformClick();
-                    }
+                    mf.SetWorkState(Settings.Vehicle.setF_isWorkSwitchManualSections ? btnStates.On : btnStates.Auto);
                 }
-
-                if (isSteerWorkSwitchEnabled && (oldSteerSwitchHigh != steerSwitchHigh))
+                else
                 {
-                    oldSteerSwitchHigh = steerSwitchHigh;
-
-                    if ((mf.isBtnAutoSteerOn && mf.ahrs.isAutoSteerAuto)
-                        || !mf.ahrs.isAutoSteerAuto && !steerSwitchHigh)
-                    {
-                        if (isSteerWorkSwitchManualSections)
-                        {
-                            if (mf.manualBtnState != btnStates.On)
-                                mf.btnSectionMasterManual.PerformClick();
-                        }
-                        else
-                        {
-                            if (mf.autoBtnState != btnStates.Auto)
-                                mf.btnSectionMasterAuto.PerformClick();
-                        }
-                    }
-
-                    else//Checks both on-screen buttons, performs click if button is not off
-                    {
-                        if (mf.autoBtnState != btnStates.Off)
-                            mf.btnSectionMasterAuto.PerformClick();
-                        if (mf.manualBtnState != btnStates.Off)
-                            mf.btnSectionMasterManual.PerformClick();
-                    }
+                    mf.SetWorkState(btnStates.Off);
                 }
             }
+
         }
     }
 }

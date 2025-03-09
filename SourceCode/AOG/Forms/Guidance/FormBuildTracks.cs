@@ -1,11 +1,9 @@
 ﻿using AgOpenGPS.Classes;
-
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -82,7 +80,7 @@ namespace AgOpenGPS
             originalLine = mf.trk.idx;
 
             selectedItem = -1;
-            Location = Properties.Settings.Default.setWindow_buildTracksLocation;
+            Location = Settings.User.setWindow_buildTracksLocation;
 
 
             nudLatitudeA.Value = mf.pn.latitude;
@@ -111,7 +109,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            Properties.Settings.Default.setWindow_buildTracksLocation = Location;
+            Settings.User.setWindow_buildTracksLocation = Location;
 
             mf.twoSecondCounter = 100;
 
@@ -124,12 +122,8 @@ namespace AgOpenGPS
             isClosing = true;
             mf.trk.designPtsList?.Clear();
 
-            if (mf.isBtnAutoSteerOn)
-            {
-                mf.btnAutoSteer.PerformClick();
-                mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), "Return From Editing");
-            }
-            if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
+            mf.SetAutoSteerButton(false, "Return From Editing");
+            mf.SetYouTurnButton(false);
 
             mf.trk.gArr.Clear();
 
@@ -154,8 +148,7 @@ namespace AgOpenGPS
             mf.trk.isTrackValid = false;
             mf.trk.designPtsList?.Clear();
 
-            if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
-
+            mf.SetYouTurnButton(false);
             mf.FileSaveTracks();
 
             if (selectedItem > -1 && mf.trk.gArr.Count > 0 && mf.trk.gArr[selectedItem].isVisible)
@@ -191,12 +184,13 @@ namespace AgOpenGPS
                 {
                     idx = -1;
                     mf.DisableYouTurnButtons();
+
                     if (mf.isBtnAutoSteerOn)
                     {
-                        mf.btnAutoSteer.PerformClick();
-                        mf.TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), gStr.Get(gs.gsNoGuidanceLines));
                         Log.EventWriter("Autosteer Stop, No Tracks Available");
                     }
+                    mf.SetAutoSteerButton(false, gStr.Get(gs.gsNoGuidanceLines));
+
                     Close();
                 }
             }
@@ -204,7 +198,7 @@ namespace AgOpenGPS
             {
                 idx = -1;
                 mf.DisableYouTurnButtons();
-                if (mf.yt.isYouTurnBtnOn) mf.btnAutoYouTurn.PerformClick();
+                mf.SetYouTurnButton(false);
 
                 //mf.trk.numCurveLineSelected = 0;
                 Close();
@@ -707,13 +701,13 @@ namespace AgOpenGPS
 
                 if (isRefRightSide)
                 {
-                    dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
+                    dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5 + Settings.Tool.offset;
                     mf.trk.idx = idx;
                     mf.trk.NudgeRefTrack(dist);
                 }
                 else
                 {
-                    dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
+                    dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * -0.5 + Settings.Tool.offset;
                     mf.trk.idx = idx;
                     mf.trk.NudgeRefTrack(dist);
                 }
@@ -1347,7 +1341,7 @@ namespace AgOpenGPS
 
         private void textBox_Click(object sender, EventArgs e)
         {
-            if (mf.isKeyboardOn)
+            if (Settings.User.setDisplay_isKeyboardOn)
                 mf.KeyboardToText((TextBox)sender, this);
         }
 

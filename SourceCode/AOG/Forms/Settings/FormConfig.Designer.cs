@@ -66,12 +66,12 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnToolNewSave = new System.Windows.Forms.Button();
             this.tboxCreateNewTool = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblNewTool = new System.Windows.Forms.Label();
             this.btnToolSave = new System.Windows.Forms.Button();
             this.btnToolLoad = new System.Windows.Forms.Button();
             this.btnToolDelete = new System.Windows.Forms.Button();
             this.tboxToolNameSave = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblSaveAsTool = new System.Windows.Forms.Label();
             this.lvVehicles = new System.Windows.Forms.ListView();
             this.chVehicle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnVehicleNewSave = new System.Windows.Forms.Button();
@@ -1176,12 +1176,12 @@
             this.tabSummary.Controls.Add(this.lvTools);
             this.tabSummary.Controls.Add(this.btnToolNewSave);
             this.tabSummary.Controls.Add(this.tboxCreateNewTool);
-            this.tabSummary.Controls.Add(this.label2);
+            this.tabSummary.Controls.Add(this.lblNewTool);
             this.tabSummary.Controls.Add(this.btnToolSave);
             this.tabSummary.Controls.Add(this.btnToolLoad);
             this.tabSummary.Controls.Add(this.btnToolDelete);
             this.tabSummary.Controls.Add(this.tboxToolNameSave);
-            this.tabSummary.Controls.Add(this.label5);
+            this.tabSummary.Controls.Add(this.lblSaveAsTool);
             this.tabSummary.Controls.Add(this.lvVehicles);
             this.tabSummary.Controls.Add(this.btnVehicleNewSave);
             this.tabSummary.Controls.Add(this.tboxCreateNewVehicle);
@@ -1300,18 +1300,18 @@
             this.tboxCreateNewTool.Click += new System.EventHandler(this.tboxCreateNewTool_Click);
             this.tboxCreateNewTool.TextChanged += new System.EventHandler(this.tboxCreateNewTool_TextChanged);
             // 
-            // label2
+            // lblNewTool
             // 
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(452, 83);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(316, 23);
-            this.label2.TabIndex = 531;
-            this.label2.Text = "New:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNewTool.BackColor = System.Drawing.Color.Transparent;
+            this.lblNewTool.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNewTool.ForeColor = System.Drawing.Color.Black;
+            this.lblNewTool.Location = new System.Drawing.Point(452, 83);
+            this.lblNewTool.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lblNewTool.Name = "lblNewTool";
+            this.lblNewTool.Size = new System.Drawing.Size(316, 23);
+            this.lblNewTool.TabIndex = 531;
+            this.lblNewTool.Text = "New:";
+            this.lblNewTool.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnToolSave
             // 
@@ -1375,18 +1375,18 @@
             this.tboxToolNameSave.TextChanged += new System.EventHandler(this.tboxToolNameSave_TextChanged);
             this.tboxToolNameSave.Enter += new System.EventHandler(this.tboxToolNameSave_Enter);
             // 
-            // label5
+            // lblSaveAsTool
             // 
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(452, -2);
-            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(316, 23);
-            this.label5.TabIndex = 528;
-            this.label5.Text = "Save As:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblSaveAsTool.BackColor = System.Drawing.Color.Transparent;
+            this.lblSaveAsTool.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSaveAsTool.ForeColor = System.Drawing.Color.Black;
+            this.lblSaveAsTool.Location = new System.Drawing.Point(452, -2);
+            this.lblSaveAsTool.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lblSaveAsTool.Name = "lblSaveAsTool";
+            this.lblSaveAsTool.Size = new System.Drawing.Size(316, 23);
+            this.lblSaveAsTool.TabIndex = 528;
+            this.lblSaveAsTool.Text = "Save As:";
+            this.lblSaveAsTool.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lvVehicles
             // 
@@ -9184,12 +9184,12 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.Button btnToolNewSave;
         private System.Windows.Forms.TextBox tboxCreateNewTool;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblNewTool;
         private System.Windows.Forms.Button btnToolSave;
         private System.Windows.Forms.Button btnToolLoad;
         private System.Windows.Forms.Button btnToolDelete;
         private System.Windows.Forms.TextBox tboxToolNameSave;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblSaveAsTool;
         private System.Windows.Forms.Label lblSummaryToolName;
         private System.Windows.Forms.Label lblCurrentTool;
         private System.Windows.Forms.Label label8;

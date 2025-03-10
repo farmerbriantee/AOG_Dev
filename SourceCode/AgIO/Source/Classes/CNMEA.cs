@@ -302,13 +302,8 @@ namespace AgIO
 
                 nmeaPGN.CopyTo(GPSOut.nmeaPGN, 0);
 
-                mf.StartATimer();
-
                 if (FormLoop.spGPSOut.IsOpen)
                     mf.StartBgGPSOutWorker();
-
-                mf.StopAtimer();
-
             }
         }
 

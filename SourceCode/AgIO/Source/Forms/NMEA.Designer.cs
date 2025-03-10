@@ -21,9 +21,7 @@ namespace AgIO
         {
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            int count = GPSOut.BuildSentences((int)(FormLoop.gpsHz * 0.1 + 0.3));
-
-            worker.ReportProgress(count);
+            worker.ReportProgress(GPSOut.BuildSentences((int)(FormLoop.gpsHz * 0.1 + 0.3)));
 
             if (worker.CancellationPending)
             {
@@ -40,7 +38,8 @@ namespace AgIO
             }
             else
             {
-                FormLoop.spGPSOut.DiscardOutBuffer();
+                lblSlowGPSOut.Text = "Baud Too Low";
+                if (FormLoop.spGPSOut.IsOpen) FormLoop.spGPSOut.DiscardOutBuffer();
             }
         }
 
@@ -50,11 +49,11 @@ namespace AgIO
             {
                 bgGPSOut.RunWorkerAsync();  //this will call the DoWork
             }
-            //else
-            //{
-            //    FormLoop.spGPSOut.DiscardOutBuffer();
-            //    return;
-            //}
+            else
+            {
+                FormLoop.spGPSOut.DiscardOutBuffer();
+                return;
+            }
         }
 
         public void StartATimer()
@@ -68,7 +67,7 @@ namespace AgIO
         {
             double newTime = ((double)(algoTimer.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency);
             aTime = newTime * 0.1 + aTime * 0.9;
-            lblAlgo.Text = aTime.ToString("N3");
+            lblSlowGPSOut.Text = aTime.ToString("N3");
         }
     }
 }

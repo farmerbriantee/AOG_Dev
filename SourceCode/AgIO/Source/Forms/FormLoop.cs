@@ -710,6 +710,8 @@ namespace AgIO
                 traffic.cntrGPSOutTool = 0;
                 traffic.cntrGPS_OutSerial = 0;
 
+                lblSlowGPSOut.Text = "";
+
                 lblCurentLon.Text = pnGPS.longitude.ToString("N7");
                 lblCurrentLat.Text = pnGPS.latitude.ToString("N7");
             }

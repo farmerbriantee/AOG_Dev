@@ -35,7 +35,7 @@ namespace AgIO
         {
             try
             {
-                int retCount = 0;              
+                int retCount = 0;
 
                 double latitude = BitConverter.ToDouble(nmeaPGN, 5);
                 double longitude = BitConverter.ToDouble(nmeaPGN, 13);
@@ -270,7 +270,10 @@ namespace AgIO
 
             catch (System.IO.IOException e)
             {
-                FormLoop.spGPSOut.DiscardOutBuffer();
+                if (FormLoop.spGPSOut.IsOpen)
+                {
+                    FormLoop.spGPSOut.DiscardOutBuffer();
+                }
                 return -1;
             }
         }

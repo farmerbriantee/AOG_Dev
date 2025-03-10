@@ -34,7 +34,14 @@ namespace AgIO
 
         private void bgGPSOut_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            traffic.cntrGPS_OutSerial += e.ProgressPercentage;
+            if (e.ProgressPercentage > -1)
+            {
+                traffic.cntrGPS_OutSerial += e.ProgressPercentage;
+            }
+            else
+            {
+                FormLoop.spGPSOut.DiscardOutBuffer();
+            }
         }
 
         public void StartBgGPSOutWorker()
@@ -43,10 +50,11 @@ namespace AgIO
             {
                 bgGPSOut.RunWorkerAsync();  //this will call the DoWork
             }
-            else
-            {
-                return;
-            }
+            //else
+            //{
+            //    FormLoop.spGPSOut.DiscardOutBuffer();
+            //    return;
+            //}
         }
 
         public void StartATimer()

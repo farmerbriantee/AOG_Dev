@@ -264,12 +264,14 @@ namespace AgIO
                 }
 
                 #endregion RMC Message
+
                 return retCount;
             }
 
-            catch
+            catch (System.IO.IOException e)
             {
-                return 0;
+                FormLoop.spGPSOut.DiscardOutBuffer();
+                return -1;
             }
         }
 
@@ -291,20 +293,5 @@ namespace AgIO
             // Calculated checksum converted to a 2 digit hex string
             return String.Format("{0:X2}", sum);
         }
-
-        public static void SendGPSOutPort(string gps)
-        {
-            try
-            {
-                if (FormLoop.spGPSOut.IsOpen)
-                {
-                    FormLoop.spGPSOut.Write(gps);
-                }
-            }
-            catch (Exception)
-            {
-            }
-        }
-
     }
 }

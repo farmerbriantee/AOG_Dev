@@ -38,7 +38,7 @@ namespace AgIO
     {
         private readonly Stopwatch swFrame = new Stopwatch();
         public double frameTime = 0;
-        public double gpsHz = 10;
+        public static double gpsHz = 10;
         public double nowHz = 0;
 
         // loopback Socket

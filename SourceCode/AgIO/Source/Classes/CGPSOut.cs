@@ -35,8 +35,7 @@ namespace AgIO
         {
             try
             {
-                int retCount = 0;
-                
+                int retCount = 0;              
 
                 double latitude = BitConverter.ToDouble(nmeaPGN, 5);
                 double longitude = BitConverter.ToDouble(nmeaPGN, 13);

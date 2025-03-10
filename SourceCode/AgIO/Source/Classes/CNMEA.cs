@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace AgIO
 {
@@ -302,12 +303,29 @@ namespace AgIO
                 nmeaPGN.CopyTo(GPSOut.nmeaPGN, 0);
 
                 mf.StartATimer();
-                if (FormLoop.spGPSOut.IsOpen) 
-                    mf.traffic.cntrGPS_OutSerial += GPSOut.BuildSentences((int)(mf.gpsHz*0.1+0.3));
+
+                if (FormLoop.spGPSOut.IsOpen)
+                    //mf.traffic.cntrGPS_OutSerial += GPSOut.BuildSentences((int)(FormLoop.gpsHz*0.1+0.3));
+                    _ = DoStuff();
+
                 mf.StopAtimer();
 
             }
         }
+        public int count = 0;
+        public async Task DoStuff()
+        {
+            await Task.Run(() =>
+            {
+                int count = GPSOut.BuildSentences((int)(FormLoop.gpsHz * 0.1 + 0.3));
+                mf.traffic.cntrGPS_OutSerial += count;
+            });
+        }
+
+        //public async static void SendGPSOutAsync()
+        //{
+        //    int count = await GPSOut.BuildSentences((int)(FormLoop.gpsHz*0.1+0.3));
+        //}
 
         private void ParseKSXT()
         {

@@ -305,8 +305,9 @@ namespace AgIO
                 mf.StartATimer();
 
                 if (FormLoop.spGPSOut.IsOpen)
+                    mf.StartBgGPSOutWorker();
                     //mf.traffic.cntrGPS_OutSerial += GPSOut.BuildSentences((int)(FormLoop.gpsHz*0.1+0.3));
-                    _ = DoStuff();
+                    //_ = DoStuff();
 
                 mf.StopAtimer();
 

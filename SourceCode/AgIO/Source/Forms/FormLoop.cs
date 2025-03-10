@@ -86,23 +86,13 @@ namespace AgIO
         public CNMEA pnGPS;
         public CNMEA_Tool pnGPSTool;
 
+
         public FormLoop()
         {
             InitializeComponent();
-        }
-
-        public void StartATimer()
-        {
-            algoTimer.Restart();
-        }
-
-        private double aTime;
-
-        public void StopAtimer()
-        {
-            double newTime = ((double)(algoTimer.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency);
-            aTime = newTime * 0.1 + aTime * 0.9;
-            lblAlgo.Text = aTime.ToString("N3");
+            bgGPSOut.DoWork += bgGPSOut_DoWork;
+            bgGPSOut.ProgressChanged += bgGPSOut_ProgressChanged;
+            bgGPSOut.WorkerReportsProgress = true;
         }
 
         //First run

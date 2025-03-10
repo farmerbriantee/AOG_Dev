@@ -59,8 +59,6 @@ namespace AgIO
 
         public bool isLogNMEA, isLogMonitorOn, isUDPMonitorOn, isGPSLogOn, isNTRIPLogOn;
 
-        private StringBuilder sbRTCM = new StringBuilder();
-
         public bool isKeyboardOn = true, isFlash = false;
         public int gpsOutCount = 0;
 
@@ -417,16 +415,6 @@ namespace AgIO
                 threeMinuteTimer = secondsSinceStart;
             }
 
-            // 1 Second Loop Part2
-            if (isViewAdvanced)
-            {
-                if (Settings.User.setNTRIP_isOn)
-                {
-                    sbRTCM.Append(".");
-                    lblMessages.Text = sbRTCM.ToString();
-                }
-            }
-
             if (focusSkipCounter != 0)
             {
                 if (ntripCounter > 30)
@@ -480,52 +468,6 @@ namespace AgIO
                     {
                         _ = IPA.ToString();
                         lblIP.Text += IPA.ToString() + "\r\n";
-                    }
-                }
-
-                if (isViewAdvanced && Settings.User.setNTRIP_isOn)
-                {
-                    try
-                    {
-                        //add the uniques messages to all the new ones
-                        foreach (var item in aList)
-                        {
-                            rList.Add(item);
-                        }
-
-                        //sort and group using Linq
-                        sbRTCM.Clear();
-
-                        var g = rList.GroupBy(i => i)
-                            .OrderBy(grp => grp.Key);
-                        int count = 0;
-                        aList.Clear();
-
-                        //Create the text box of unique message numbers
-                        foreach (var grp in g)
-                        {
-                            aList.Add(grp.Key);
-                            sbRTCM.AppendLine(grp.Key + " - " + (grp.Count() - 1));
-                            count++;
-                        }
-
-                        rList?.Clear();
-
-                        //too many messages or trash
-                        if (count > 25)
-                        {
-                            aList?.Clear();
-                            sbRTCM.Clear();
-                            sbRTCM.Append("Reset..");
-                        }
-
-                        lblMessagesFound.Text = count.ToString();
-                    }
-                    catch
-                    {
-                        sbRTCM.Clear();
-                        sbRTCM.Append("Error");
-                        Log.EventWriter("RTCM List compilation error");
                     }
                 }
 

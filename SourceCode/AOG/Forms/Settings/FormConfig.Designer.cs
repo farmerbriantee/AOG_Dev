@@ -287,6 +287,9 @@
             this.chkSetManualSections = new System.Windows.Forms.CheckBox();
             this.chkWorkSwActiveLow = new System.Windows.Forms.CheckBox();
             this.tabTSettings = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.nudLookAheadDistanceOff = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudLookAheadDistanceOn = new AgOpenGPS.NudlessNumericUpDown();
             this.lblLookAheadTimeSettings = new System.Windows.Forms.Label();
             this.lblOnSecs = new System.Windows.Forms.Label();
             this.lblOffSecs = new System.Windows.Forms.Label();
@@ -535,6 +538,7 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label5 = new System.Windows.Forms.Label();
             this.panelLeftSideMenu.SuspendLayout();
             this.panelArduinoSubMenu.SuspendLayout();
             this.panelDataSourcesSubMenu.SuspendLayout();
@@ -4473,6 +4477,10 @@
             // tabTSettings
             // 
             this.tabTSettings.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tabTSettings.Controls.Add(this.label5);
+            this.tabTSettings.Controls.Add(this.label2);
+            this.tabTSettings.Controls.Add(this.nudLookAheadDistanceOff);
+            this.tabTSettings.Controls.Add(this.nudLookAheadDistanceOn);
             this.tabTSettings.Controls.Add(this.lblLookAheadTimeSettings);
             this.tabTSettings.Controls.Add(this.lblOnSecs);
             this.tabTSettings.Controls.Add(this.lblOffSecs);
@@ -4489,6 +4497,42 @@
             this.tabTSettings.TabIndex = 10;
             this.tabTSettings.Text = "TSettings";
             // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label2.Location = new System.Drawing.Point(198, 529);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(159, 44);
+            this.label2.TabIndex = 138;
+            this.label2.Text = "Fixed Distance\r\n(m)";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // nudLookAheadDistanceOff
+            // 
+            this.nudLookAheadDistanceOff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.nudLookAheadDistanceOff.DecimalPlaces = 1;
+            this.nudLookAheadDistanceOff.Location = new System.Drawing.Point(363, 526);
+            this.nudLookAheadDistanceOff.Maximum = 500D;
+            this.nudLookAheadDistanceOff.Name = "nudLookAheadDistanceOff";
+            this.nudLookAheadDistanceOff.Size = new System.Drawing.Size(114, 52);
+            this.nudLookAheadDistanceOff.TabIndex = 136;
+            this.nudLookAheadDistanceOff.ValueChanged += new System.EventHandler(this.nudLookAheadDistanceOff_ValueChanged);
+            // 
+            // nudLookAheadDistanceOn
+            // 
+            this.nudLookAheadDistanceOn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.nudLookAheadDistanceOn.DecimalPlaces = 1;
+            this.nudLookAheadDistanceOn.Location = new System.Drawing.Point(78, 526);
+            this.nudLookAheadDistanceOn.Maximum = 500D;
+            this.nudLookAheadDistanceOn.Name = "nudLookAheadDistanceOn";
+            this.nudLookAheadDistanceOn.Size = new System.Drawing.Size(114, 52);
+            this.nudLookAheadDistanceOn.TabIndex = 135;
+            this.nudLookAheadDistanceOn.ValueChanged += new System.EventHandler(this.nudLookAheadDistanceOn_ValueChanged);
+            // 
             // lblLookAheadTimeSettings
             // 
             this.lblLookAheadTimeSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -4496,7 +4540,7 @@
             this.lblLookAheadTimeSettings.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLookAheadTimeSettings.ForeColor = System.Drawing.Color.Black;
             this.lblLookAheadTimeSettings.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblLookAheadTimeSettings.Location = new System.Drawing.Point(62, 31);
+            this.lblLookAheadTimeSettings.Location = new System.Drawing.Point(62, 7);
             this.lblLookAheadTimeSettings.Name = "lblLookAheadTimeSettings";
             this.lblLookAheadTimeSettings.Size = new System.Drawing.Size(707, 33);
             this.lblLookAheadTimeSettings.TabIndex = 134;
@@ -4510,7 +4554,7 @@
             this.lblOnSecs.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOnSecs.ForeColor = System.Drawing.Color.Black;
             this.lblOnSecs.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblOnSecs.Location = new System.Drawing.Point(60, 528);
+            this.lblOnSecs.Location = new System.Drawing.Point(60, 472);
             this.lblOnSecs.Name = "lblOnSecs";
             this.lblOnSecs.Size = new System.Drawing.Size(145, 29);
             this.lblOnSecs.TabIndex = 131;
@@ -4524,7 +4568,7 @@
             this.lblOffSecs.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOffSecs.ForeColor = System.Drawing.Color.Black;
             this.lblOffSecs.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblOffSecs.Location = new System.Drawing.Point(346, 528);
+            this.lblOffSecs.Location = new System.Drawing.Point(346, 472);
             this.lblOffSecs.Name = "lblOffSecs";
             this.lblOffSecs.Size = new System.Drawing.Size(145, 29);
             this.lblOffSecs.TabIndex = 130;
@@ -4538,7 +4582,7 @@
             this.lblTurnOffDelay.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTurnOffDelay.ForeColor = System.Drawing.Color.Black;
             this.lblTurnOffDelay.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblTurnOffDelay.Location = new System.Drawing.Point(634, 528);
+            this.lblTurnOffDelay.Location = new System.Drawing.Point(634, 465);
             this.lblTurnOffDelay.Name = "lblTurnOffDelay";
             this.lblTurnOffDelay.Size = new System.Drawing.Size(145, 29);
             this.lblTurnOffDelay.TabIndex = 129;
@@ -4550,7 +4594,7 @@
             this.pictureBox18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox18.Image = global::AgOpenGPS.Properties.Resources.SectionLookAheadDelay;
-            this.pictureBox18.Location = new System.Drawing.Point(574, 108);
+            this.pictureBox18.Location = new System.Drawing.Point(574, 45);
             this.pictureBox18.Name = "pictureBox18";
             this.pictureBox18.Size = new System.Drawing.Size(279, 353);
             this.pictureBox18.TabIndex = 133;
@@ -4561,7 +4605,7 @@
             this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox4.Image = global::AgOpenGPS.Properties.Resources.SectionLookAheadOff;
-            this.pictureBox4.Location = new System.Drawing.Point(287, 108);
+            this.pictureBox4.Location = new System.Drawing.Point(287, 45);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(279, 353);
             this.pictureBox4.TabIndex = 132;
@@ -4572,7 +4616,7 @@
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox3.Image = global::AgOpenGPS.Properties.Resources.SectionOnLookAhead;
-            this.pictureBox3.Location = new System.Drawing.Point(0, 108);
+            this.pictureBox3.Location = new System.Drawing.Point(0, 45);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(279, 353);
             this.pictureBox3.TabIndex = 127;
@@ -4582,7 +4626,7 @@
             // 
             this.nudLookAheadOff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudLookAheadOff.DecimalPlaces = 1;
-            this.nudLookAheadOff.Location = new System.Drawing.Point(363, 467);
+            this.nudLookAheadOff.Location = new System.Drawing.Point(363, 404);
             this.nudLookAheadOff.Maximum = 20D;
             this.nudLookAheadOff.Name = "nudLookAheadOff";
             this.nudLookAheadOff.Size = new System.Drawing.Size(114, 52);
@@ -4593,7 +4637,7 @@
             // 
             this.nudTurnOffDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudTurnOffDelay.DecimalPlaces = 1;
-            this.nudTurnOffDelay.Location = new System.Drawing.Point(649, 467);
+            this.nudTurnOffDelay.Location = new System.Drawing.Point(649, 404);
             this.nudTurnOffDelay.Maximum = 10D;
             this.nudTurnOffDelay.Name = "nudTurnOffDelay";
             this.nudTurnOffDelay.Size = new System.Drawing.Size(114, 52);
@@ -4604,7 +4648,7 @@
             // 
             this.nudLookAhead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudLookAhead.DecimalPlaces = 1;
-            this.nudLookAhead.Location = new System.Drawing.Point(78, 467);
+            this.nudLookAhead.Location = new System.Drawing.Point(78, 404);
             this.nudLookAhead.Maximum = 22D;
             this.nudLookAhead.Minimum = 0.2D;
             this.nudLookAhead.Name = "nudLookAhead";
@@ -8588,6 +8632,20 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label5.Location = new System.Drawing.Point(198, 409);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(159, 44);
+            this.label5.TabIndex = 139;
+            this.label5.Text = "Time\r\n(Seconds)";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FormConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -9194,5 +9252,9 @@
         private System.Windows.Forms.Label lblCurrentTool;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label2;
+        private NudlessNumericUpDown nudLookAheadDistanceOff;
+        private NudlessNumericUpDown nudLookAheadDistanceOn;
+        private System.Windows.Forms.Label label5;
     }
 }

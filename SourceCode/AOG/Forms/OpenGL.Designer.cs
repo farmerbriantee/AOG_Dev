@@ -965,36 +965,36 @@ namespace AgOpenGPS
             double pivNplus = toolPos.northing + 50;
             double pivNminus = toolPos.northing - 50;
 
-                    //for every new chunk of patch
+            //for every new chunk of patch
             foreach (var triList in patchList)
-                    {
-                        isDraw = false;
-                        int count2 = triList.Count;
-                        for (int i = 1; i < count2; i += 3)
-                        {
-                            //determine if point is in frustum or not
-                            if (triList[i].easting > pivEplus)
-                                continue;
-                            if (triList[i].easting < pivEminus)
-                                continue;
-                            if (triList[i].northing > pivNplus)
-                                continue;
-                            if (triList[i].northing < pivNminus)
-                                continue;
+            {
+                isDraw = false;
+                int count2 = triList.Count;
+                for (int i = 1; i < count2; i += 3)
+                {
+                    //determine if point is in frustum or not
+                    if (triList[i].easting > pivEplus)
+                        continue;
+                    if (triList[i].easting < pivEminus)
+                        continue;
+                    if (triList[i].northing > pivNplus)
+                        continue;
+                    if (triList[i].northing < pivNminus)
+                        continue;
 
-                            //point is in frustum so draw the entire patch
-                            isDraw = true;
-                            break;
-                        }
+                    //point is in frustum so draw the entire patch
+                    isDraw = true;
+                    break;
+                }
 
-                        if (isDraw)
-                        {
-                            //draw the triangles in each triangle strip
-                            GL.Begin(PrimitiveType.TriangleStrip);
-                            for (int i = 1; i < count2; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0);
-                            GL.End();
-                        }
-                    }
+                if (isDraw)
+                {
+                    //draw the triangles in each triangle strip
+                    GL.Begin(PrimitiveType.TriangleStrip);
+                    for (int i = 1; i < count2; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0);
+                    GL.End();
+                }
+            }
 
             //tram tracks
             GL.Color3((byte)0, (byte)bbColors.tram, (byte)0);
@@ -1053,6 +1053,17 @@ namespace AgOpenGPS
 
             if (tool.lookAheadDistanceOffPixelsLeft > 200) tool.lookAheadDistanceOffPixelsLeft = 200;
             if (tool.lookAheadDistanceOffPixelsRight > 200) tool.lookAheadDistanceOffPixelsRight = 200;
+
+            if (Settings.Tool.lookAheadDistanceOff != 0)
+            {
+                tool.lookAheadDistanceOffPixelsLeft =  Settings.Tool.lookAheadDistanceOff * 10;
+                tool.lookAheadDistanceOffPixelsRight = Settings.Tool.lookAheadDistanceOff * 10;
+            }
+            if (Settings.Tool.lookAheadDistanceOn != 0)
+            {
+                tool.lookAheadDistanceOnPixelsLeft =  Settings.Tool.lookAheadDistanceOn * 10;
+                tool.lookAheadDistanceOnPixelsRight = Settings.Tool.lookAheadDistanceOn * 10;
+            }
 
             //determine farthest ahead lookahead - is the height of the readpixel line
             double rpHeight = 0;

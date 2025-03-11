@@ -281,5 +281,6 @@ namespace AgOpenGPS
         {
             mf.trk.numGuideLines = (int)nudNumGuideLines.Value;
         }
+
     }
 }

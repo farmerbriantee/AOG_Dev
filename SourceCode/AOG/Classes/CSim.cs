@@ -151,7 +151,14 @@ namespace AgOpenGPS
 
         public void Reverse()
         {
-            heading += Math.PI;
+            heading -= Math.PI;
+
+            mf.stepFixPts[0].isSet = false;
+
+            mf.gpsHeading += Math.PI;
+            mf.gpsHeading %= glm.twoPI;
+
+
             sinH = Math.Sin(heading);
             cosH = Math.Cos(heading);
             mf.trk.isHeadingSameWay = !mf.trk.isHeadingSameWay;

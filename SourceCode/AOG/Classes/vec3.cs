@@ -30,8 +30,8 @@ namespace AgOpenGPS
         public double easting;
         public double northing;
         public double heading;
-
-        public vec3(double easting, double northing, double heading)
+        
+        public vec3(double easting, double northing, double heading = 0)
         {
             this.easting = easting;
             this.northing = northing;
@@ -78,6 +78,16 @@ namespace AgOpenGPS
         public static vec3 operator -(vec3 lhs, vec3 rhs)
         {
             return new vec3(lhs.easting - rhs.easting, lhs.northing - rhs.northing, lhs.heading - rhs.heading);
+        }
+
+        public static vec3 operator +(vec3 lhs, vec3 rhs)
+        {
+            return new vec3(lhs.easting + rhs.easting, lhs.northing + rhs.northing);
+        }
+
+        public static vec3 operator *(vec3 self, double s)
+        {
+            return new vec3(self.easting * s, self.northing * s);
         }
 
         //public static bool operator ==(vec3 lhs, vec3 rhs)

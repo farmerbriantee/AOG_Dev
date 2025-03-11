@@ -12,12 +12,10 @@ namespace AgOpenGPS
         private readonly FormGPS mf;
 
         /// <summary>/// triggered right after youTurnTriggerPoint is set /// </summary>
-        public bool isYouTurnTriggered, isGoingStraightThrough = false;
+        public bool isYouTurnTriggered;
 
         /// <summary>  /// turning right or left?/// </summary>
         public bool isTurnLeft;
-
-        private int semiCircleIndex = -1;
 
         /// <summary> /// Is the youturn button enabled? /// </summary>
         public bool isYouTurnBtnOn;
@@ -35,7 +33,6 @@ namespace AgOpenGPS
         //guidance values
         public double uturnDistanceFromBoundary;
 
-        private bool isHeadingSameWay = true;
         public bool isTurnCreationTooClose = false, isTurnCreationNotCrossingError = false, turnTooCloseTrigger = false;
 
         //list of points for scaled and rotated YouTurn line, used for pattern, dubins, abcurve
@@ -47,7 +44,7 @@ namespace AgOpenGPS
         public List<vec3> nextCurve = new List<vec3>();
 
         //if we continue on the same line or change to the next one after the uTurn
-        public bool isOutSameCurve;
+        public bool isGoingStraightThrough;
 
         public int uTurnStyle = 0;
 
@@ -70,6 +67,17 @@ namespace AgOpenGPS
         public CClose inClosestTurnPt = new CClose();
 
         public CClose outClosestTurnPt = new CClose();
+
+
+
+        CClose movePoint = new CClose();
+
+        CClose exitPoint = new CClose();
+        CClose exitPoint2 = new CClose();
+        CClose entryPoint = new CClose();
+        CClose entryPoint2 = new CClose();
+
+
         public CClose startOfTurnPt = new CClose();
 
         public int onA;
@@ -105,369 +113,288 @@ namespace AgOpenGPS
 
         #region CreateTurn
         //Finds the point where an AB Curve crosses the turn line
-        public bool BuildCurveDubinsYouTurn()
+        public void BuildCurveDubinsYouTurn()
         {
-            if (mf.makeUTurnCounter < 4)
-            {
-                youTurnPhase = 0;
-                return true;
-            }
-
             double turnOffset = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * rowSkipsWidth + (isTurnLeft ? -Settings.Tool.offset * 2.0 : Settings.Tool.offset * 2.0);
+            bool isTurnRight = turnOffset > 0 ^ isTurnLeft;
 
-            if (mf.trk.idx < 0 || mf.trk.gArr.Count < mf.trk.idx) return true;
+
+            if (mf.trk.idx < 0 || mf.trk.gArr.Count < mf.trk.idx) return;
             CTrk track = mf.trk.gArr[mf.trk.idx];
 
-            //we are doing a wide turn
-            int count = mf.trk.isHeadingSameWay ? -1 : 1;
-            switch (youTurnPhase)
+            bool loop = track.mode == TrackMode.bndCurve || track.mode == TrackMode.waterPivot;
+
+
+            if (youTurnPhase < 4)
             {
-                case 0:
-                    //Create first semicircle
-                    if (!FindCurveTurnPoint(mf.trk, false))
-                    {
-                        if (track.mode == TrackMode.waterPivot || track.mode == TrackMode.bndCurve)
-                        {
-                            youTurnPhase = 251;//ignore
-                        }
-                        else
-                            FailCreate();
-                        return false;
-                    }
-                    inClosestTurnPt = new CClose(closestTurnPt);
-                    startOfTurnPt = new CClose(inClosestTurnPt);
-
-                    int stopIfWayOut = 0;
-                    isOutOfBounds = true;
-
-                    while (isOutOfBounds)
-                    {
-                        isOutOfBounds = false;
-                        stopIfWayOut++;
-
-                        vec3 currentPos = new vec3(mf.trk.currentGuidanceTrack[inClosestTurnPt.curveIndex]);
-
-                        double head = currentPos.heading;
-                        if (!mf.trk.isHeadingSameWay) head += Math.PI;
-                        if (head > glm.twoPI) head -= glm.twoPI;
-                        currentPos.heading = head;
-
-                        // creates half a circle starting at the crossing point
-                        double extraSagitta = 0;
-                        if (Math.Abs(turnOffset) < youTurnRadius * 2)
-                            extraSagitta = (youTurnRadius * 2 - Math.Abs(turnOffset)) * 0.5;
-
-                        if (uTurnStyle == 1) extraSagitta = 0;
-
-                        ytList = GetOffsetSemicirclePoints(currentPos, head, !isTurnLeft, youTurnRadius, extraSagitta, uTurnStyle == 1 ? 2.2 : Math.PI);
-
-                        int cnt4 = ytList.Count;
-                        if (cnt4 == 0)
-                        {
-                            FailCreate();
-                            return false;
-                        }
-                        
-                        //Are we out of bounds?
-                        for (int j = 0; j < cnt4; j += 2)
-                        {
-                            if (mf.bnd.IsPointInsideTurnArea(ytList[j]) != 0)
-                            {
-                                isOutOfBounds = true;
-                                break;
-                            }
-                        }
-
-                        //first check if not out of bounds, add a bit more to clear turn line, set to phase 2
-                        if (!isOutOfBounds)
-                        {
-                            if (uTurnStyle == 1)
-                            {
-                                //add the tail to first turn
-                                head = ytList[ytList.Count - 1].heading;
-
-                                vec3 pt;
-                                var dd = (head + (isTurnLeft ? -2.2 : 2.2));
-                                var east = (Math.Sin(dd) * 0.5);
-                                var north = (Math.Cos(dd) * 0.5);
-                                pt.heading = 0;
-
-                                for (int i = 1; i <= (int)(3 * turnOffset); i++)
-                                {
-                                    pt.easting = ytList[ytList.Count - 1].easting + east;
-                                    pt.northing = ytList[ytList.Count - 1].northing + north;
-                                    ytList.Add(pt);
-                                }
-
-                                pt.easting = ytList[0].easting - Math.Sin(head) * youTurnStartOffset;
-                                pt.northing = ytList[0].northing - Math.Cos(head) * youTurnStartOffset;
-                                pt.heading = 0;
-                                ytList.Insert(0, pt);
-
-                                ytList = MoveTurnInsideTurnLine(ytList, head, false, false);
-                                youTurnPhase = 254;
-                                return true;
-                            }
-                            else
-                            {
-                                ytList = MoveTurnInsideTurnLine(ytList, head, true, false);
-                                if (ytList.Count == 0)
-                                {
-                                    FailCreate();
-                                    return false;
-                                }
-
-                                youTurnPhase = 1;
-                                return true;
-                            }
-                        }
-
-                        if (stopIfWayOut == 300 || inClosestTurnPt.curveIndex < 1 || inClosestTurnPt.curveIndex > (mf.trk.currentGuidanceTrack.Count - 2))
-                        {
-                            //for some reason it doesn't go inside boundary
-                            FailCreate();
-                            return false;
-                        }
-
-                        //keep moving infield till pattern is all inside
-                        inClosestTurnPt.curveIndex = inClosestTurnPt.curveIndex + count;
-                        inClosestTurnPt.closePt = new vec3(mf.trk.currentGuidanceTrack[inClosestTurnPt.curveIndex]);
-
-                        //set the flag to Critical stop machine
-                        if (glm.Distance(ytList[0], mf.pivotAxlePos) < 3)
-                        {
-                            FailCreate();
-                            return false;
-                        }
-                    }
-
-                    return false;
-
-                case 1:
-                    //build the next line to add sequencelines
-                    double widthMinusOverlap = Settings.Tool.toolWidth - Settings.Tool.maxOverlap;
-
-                    double distAway = widthMinusOverlap * (mf.trk.howManyPathsAway + ((isTurnLeft ^ mf.trk.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth)) + (mf.trk.isHeadingSameWay ? -Settings.Tool.offset : Settings.Tool.offset) + track.nudgeDistance;
-
-                    distAway += 0.5 * widthMinusOverlap;
-
-                    //create the next line
-                    nextCurve = mf.trk.BuildCurrentGuidanceTrack(distAway, track);
-
-                    //going with or against boundary?
-                    bool isTurnLineSameWay = true;
-                    double headingDifference = Math.Abs(inClosestTurnPt.turnLineHeading - ytList[ytList.Count - 1].heading);
-                    if (headingDifference > glm.PIBy2 && headingDifference < 3 * glm.PIBy2) isTurnLineSameWay = false;
-
-                    if (!FindCurveOutTurnPoint(mf.trk, ref nextCurve, startOfTurnPt, isTurnLineSameWay))
-                    {
-                        //error
-                        FailCreate();
-                        return false;
-                    }
-                    outClosestTurnPt = new CClose(closestTurnPt);
-
-                    //move the turn inside of turnline with help from the crossingCurvePoints
-                    isOutOfBounds = true;
-                    while (isOutOfBounds)
-                    {
-                        isOutOfBounds = false;
-                        vec3 currentPos = new vec3(nextCurve[outClosestTurnPt.curveIndex]);
-
-                        double head = currentPos.heading;
-                        if ((!mf.trk.isHeadingSameWay && !isOutSameCurve) || (mf.trk.isHeadingSameWay && isOutSameCurve)) head += Math.PI;
-                        if (head > glm.twoPI) head -= glm.twoPI;
-                        currentPos.heading = head;
-
-                        // creates half a circle starting at the crossing point
-                        double extraSagitta = 0;
-                        if (Math.Abs(turnOffset) < youTurnRadius * 2)
-                            extraSagitta = (youTurnRadius * 2 - Math.Abs(turnOffset)) * 0.5;
-
-                        ytList2 = GetOffsetSemicirclePoints(currentPos, head, isTurnLeft, youTurnRadius, extraSagitta);
-
-                        int cnt3 = ytList2.Count;
-
-                        //Are we out of bounds?
-                        for (int j = 0; j < cnt3; j += 2)
-                        {
-                            if (mf.bnd.IsPointInsideTurnArea(ytList2[j]) != 0)
-                            {
-                                isOutOfBounds = true;
-                                break;
-                            }
-                        }
-
-                        //first check if not out of bounds, add a bit more to clear turn line, set to phase 2
-                        if (!isOutOfBounds)
-                        {
-                            ytList2 = MoveTurnInsideTurnLine(ytList2, head, true, true);
-                            if (ytList2.Count == 0)
-                            {
-                                FailCreate();
-                                return false;
-                            }
-                            youTurnPhase = 2;
-                            return true;
-                        }
-
-                        if (outClosestTurnPt.curveIndex < 1 || outClosestTurnPt.curveIndex > (nextCurve.Count - 2))
-                        {
-                            //for some reason it doesn't go inside boundary
-                            FailCreate();
-                            return false;
-                        }
-
-                        //keep moving infield till pattern is all inside
-                        if (!isOutSameCurve) outClosestTurnPt.curveIndex = outClosestTurnPt.curveIndex + count;
-                        else outClosestTurnPt.curveIndex = outClosestTurnPt.curveIndex - count;
-                        outClosestTurnPt.closePt = new vec3(nextCurve[outClosestTurnPt.curveIndex]);
-                    }
-                    return false;
-
-                case 2:
-                    //Bind the two turns together
-                    int cnt1 = ytList.Count;
-                    int cnt2 = ytList2.Count;
-
-                    //Find if the turn goes same way as turnline heading
-                    bool isFirstTurnLineSameWay = true;
-                    double firstHeadingDifference = Math.Abs(inClosestTurnPt.turnLineHeading - ytList[ytList.Count - 1].heading);
-                    if (firstHeadingDifference > glm.PIBy2 && firstHeadingDifference < 3 * glm.PIBy2) isFirstTurnLineSameWay = false;
-
-                    //finds out start and goal point along the tunline
-                    FindInnerTurnPoints(ytList[cnt1 - 1], ytList[0].heading, inClosestTurnPt, isFirstTurnLineSameWay);
-                    CClose startClosestTurnPt = new CClose(closestTurnPt);
-
-                    FindInnerTurnPoints(ytList2[cnt2 - 1], ytList2[0].heading + Math.PI, outClosestTurnPt, !isFirstTurnLineSameWay);
-                    CClose goalClosestTurnPt = new CClose(closestTurnPt);
-
-                    //we have 2 different turnLine crossings
-                    if (startClosestTurnPt.turnLineNum != goalClosestTurnPt.turnLineNum)
-                    {
-                        FailCreate();
-                        return false;
-                    }
-
-                    //segment index is the "A" of the segment. segmentIndex+1 would be the "B"
-                    //is in and out on same segment? so only 1 segment
-                    if (startClosestTurnPt.turnLineIndex == goalClosestTurnPt.turnLineIndex)
-                    {
-                        ytList2.Reverse();
-                        ytList.AddRange(ytList2);
-                    }
-                    else
-                    {
-                        //mulitple segments
-                        vec3 tPoint = new vec3();
-                        int turnCount = mf.bnd.bndList[startClosestTurnPt.turnLineNum].turnLine.Count;
-
-                        //how many points from turnline do we add
-                        int loops = Math.Abs(startClosestTurnPt.turnLineIndex - goalClosestTurnPt.turnLineIndex);
-
-                        //are we crossing a border?
-                        if (loops > (mf.bnd.bndList[startClosestTurnPt.turnLineNum].turnLine.Count / 2))
-                        {
-                            if (startClosestTurnPt.turnLineIndex < goalClosestTurnPt.turnLineIndex)
-                            {
-                                loops = (turnCount - goalClosestTurnPt.turnLineIndex) + startClosestTurnPt.turnLineIndex;
-                            }
-                            else
-                            {
-                                loops = (turnCount - startClosestTurnPt.turnLineIndex) + goalClosestTurnPt.turnLineIndex;
-                            }
-                        }
-
-                        //countExit up - start with B which is next A
-                        if (isFirstTurnLineSameWay)
-                        {
-                            for (int i = 0; i < loops; i++)
-                            {
-                                if ((startClosestTurnPt.turnLineIndex + 1) >= turnCount) startClosestTurnPt.turnLineIndex = -1;
-
-                                tPoint = mf.bnd.bndList[startClosestTurnPt.turnLineNum].turnLine[startClosestTurnPt.turnLineIndex + 1];
-                                startClosestTurnPt.turnLineIndex++;
-                                if (startClosestTurnPt.turnLineIndex >= turnCount)
-                                    startClosestTurnPt.turnLineIndex = 0;
-                                ytList.Add(tPoint);
-                            }
-                        }
-                        else //countExit down = start with A
-                        {
-                            for (int i = 0; i < loops; i++)
-                            {
-                                tPoint = mf.bnd.bndList[startClosestTurnPt.turnLineNum].turnLine[startClosestTurnPt.turnLineIndex];
-                                startClosestTurnPt.turnLineIndex--;
-                                if (startClosestTurnPt.turnLineIndex == -1)
-                                    startClosestTurnPt.turnLineIndex = turnCount - 1;
-                                ytList.Add(tPoint);
-                            }
-                        }
-
-                        //add the out from ytList2
-                        for (int a = 0; a < cnt2; cnt2--)
-                        {
-                            ytList.Add(new vec3(ytList2[cnt2 - 1]));
-                        }
-                    }
-
-                    if (!AddCurveSequenceLines(Settings.Vehicle.set_youTurnExtensionLength)) return false;
-
-                    //fill in the gaps
-                    double distance;
-
-                    int cnt = ytList.Count;
-                    for (int i = 1; i < cnt - 2; i++)
-                    {
-                        int j = i + 1;
-                        if (j == cnt - 1) continue;
-                        distance = glm.DistanceSquared(ytList[i], ytList[j]);
-                        if (distance > 1)
-                        {
-                            vec3 pointB = new vec3((ytList[i].easting + ytList[j].easting) / 2.0,
-                                (ytList[i].northing + ytList[j].northing) / 2.0, ytList[i].heading);
-
-                            ytList.Insert(j, pointB);
-                            cnt = ytList.Count;
-                            i--;
-                        }
-                    }
-
-                    //calculate the new points headings based on fore and aft of point - smoother turns
-                    cnt = ytList.Count;
-                    vec3[] arr = new vec3[cnt];
-                    cnt -= 2;
-                    ytList.CopyTo(arr);
-                    ytList.Clear();
-
-                    for (int i = 2; i < cnt; i++)
-                    {
-                        vec3 pt3 = new vec3(arr[i]);
-                        pt3.heading = Math.Atan2(arr[i + 1].easting - arr[i - 1].easting,
-                            arr[i + 1].northing - arr[i - 1].northing);
-                        if (pt3.heading < 0) pt3.heading += glm.twoPI;
-                        ytList.Add(pt3);
-                    }
-
-                    //check to close
-                    if (glm.Distance(ytList[0], mf.pivotAxlePos) < 3)
-                    {
-                        FailCreate();
-                        return false;
-                    }
-
-                    //are we continuing the same way?
-                    isGoingStraightThrough = Math.PI - Math.Abs(Math.Abs(ytList[ytList.Count - 2].heading - ytList[1].heading) - Math.PI) < glm.PIBy2;
-                    ytList2?.Clear();
-                    isOutOfBounds = false;
-                    youTurnPhase = 254;
-                    turnTooCloseTrigger = false;
-                    isTurnCreationTooClose = false;
-                    return true;
+                youTurnPhase++;
+                if (youTurnPhase == 4)
+                    youTurnPhase = 10;
             }
+            else if (youTurnPhase == 10)
+            {
+                #region FindExitPoint
+                ytList.Clear();
 
-            // just in case
-            return false;
+                bool Loop = true;
+                int Count = mf.trk.isHeadingSameWay ? 1 : -1;
+                CClose Crossing = new CClose();
+
+                vec3 Start = new vec3(mf.gyd.rEastTrk, mf.gyd.rNorthTrk), End;
+
+                for (int i = mf.trk.isHeadingSameWay ? mf.gyd.B : mf.gyd.A; (mf.trk.isHeadingSameWay ? i < mf.gyd.B : i > mf.gyd.A) || Loop; i += Count)
+                {
+                    if ((mf.trk.isHeadingSameWay && i >= mf.trk.currentGuidanceTrack.Count) || (!mf.trk.isHeadingSameWay && i < 0))
+                    {
+                        if (loop && Loop)
+                        {
+                            if (i < 0)
+                                i = mf.trk.currentGuidanceTrack.Count;
+                            else
+                                i = -1;
+                            Loop = false;
+                            continue;
+                        }
+                        else break;
+                    }
+
+                    End = new vec3(mf.trk.currentGuidanceTrack[i].easting, mf.trk.currentGuidanceTrack[i].northing);
+                    for (int j = 0; j < mf.bnd.bndList.Count; j++)
+                    {
+                        if (mf.bnd.bndList[j].isDriveThru) continue;
+
+                        int k = mf.bnd.bndList[j].turnLine.Count - 1;
+                        for (int l = 0; l < mf.bnd.bndList[j].turnLine.Count; l++)
+                        {
+                            if (GetLineIntersection(Start, End, mf.bnd.bndList[j].turnLine[k], mf.bnd.bndList[j].turnLine[l], out vec3 _Crossing, out double time, out _))
+                            {
+                                if (time < Crossing.time)
+                                    Crossing = new CClose(_Crossing, time, j, i, k);
+                            }
+                            k = l;
+                        }
+                    }
+
+                    if (Crossing.turnLineNum >= 0)
+                    {
+                        movePoint = new CClose(exitPoint = Crossing);
+                        break;
+                    }
+                    Start = End;
+                }
+
+                if (Crossing.turnLineNum == -1)//didnt hit any turn line
+                {
+                    if (track.mode == TrackMode.waterPivot || track.mode == TrackMode.bndCurve)
+                    {
+                        youTurnPhase = 251;//ignore
+                    }
+                    else//curve does not cross a boundary - oops
+                    {
+                        isTurnCreationNotCrossingError = true;
+                        FailCreate();
+                    }
+                }
+                else
+                    youTurnPhase = 20;
+                #endregion FindExitPoint
+            }
+            else if (youTurnPhase < 60)//step 2 move the turn inside with steps of 1 meter
+            {
+                double step = youTurnPhase == 20 ? 5.0 : youTurnPhase == 30 ? 1.0 : youTurnPhase == 40 ? 0.2 : 0.04;
+
+                movePoint = MoveTurnLine(mf.trk.currentGuidanceTrack, movePoint, step, mf.trk.isHeadingSameWay ^ youTurnPhase % 20 == 0, false, loop);
+
+                // creates half a circle starting at the crossing point
+                double extraSagitta = 0;
+                if (Math.Abs(turnOffset) < youTurnRadius * 2)
+                    extraSagitta = (youTurnRadius * 2 - Math.Abs(turnOffset)) * 0.5;
+
+                int A = movePoint.curveIndex;
+                double head = Math.Atan2(mf.trk.currentGuidanceTrack[A + 1].easting - mf.trk.currentGuidanceTrack[A].easting, mf.trk.currentGuidanceTrack[A + 1].northing - mf.trk.currentGuidanceTrack[A].northing);
+
+                ytList = GetOffsetSemicirclePoints(movePoint.closePt, head + (mf.trk.isHeadingSameWay ? 0 : Math.PI), isTurnRight, youTurnRadius, extraSagitta, uTurnStyle == 1 ? 2.2 : Math.PI);
+
+                mf.distancePivotToTurnLine = glm.Distance(ytList[0], mf.pivotAxlePos);
+
+                if (mf.distancePivotToTurnLine < 3)
+                {
+                    FailCreate();
+                }
+                else
+                {
+                    isOutOfBounds = false;
+                    //Are we out of bounds?
+                    for (int j = 0; j < ytList.Count; j++)
+                    {
+                        if (mf.bnd.IsPointInsideTurnArea(ytList[j]) != 0)
+                        {
+                            isOutOfBounds = true;
+                            break;
+                        }
+                    }
+                    if (isOutOfBounds ^ youTurnPhase % 20 == 0)
+                        youTurnPhase += 10;
+
+                    isOutOfBounds = true;
+                }
+            }
+            else if (uTurnStyle == 1)
+            {
+                isOutOfBounds = false;
+                youTurnPhase = 255;
+            }
+            else if (youTurnPhase == 60)//remove part outside
+            {
+                bool found = false;
+                var turnLine = mf.bnd.bndList[movePoint.turnLineNum].turnLine;
+                //Are we out of bounds?
+                for (int i = 1; i < ytList.Count; i++)
+                {
+                    int j = turnLine.Count - 1;
+                    for (int k = 0; k < turnLine.Count; j = k++)
+                    {
+                        if (GetLineIntersection(turnLine[j], turnLine[k], ytList[i - 1], ytList[i], out vec3 _crossing, out double time, out _))
+                        {
+                            found = true;
+                            ytList.RemoveRange(i, ytList.Count - i);
+                            exitPoint2 = new CClose(_crossing, time, movePoint.turnLineNum, 0, j);
+                            break;
+                        }
+                    }
+                    if (found) break;
+                }
+
+                if (!found)
+                {
+                    FailCreate();
+                }
+                else
+                    youTurnPhase += 10;
+            }
+            else if (youTurnPhase == 70)//build the next line to add sequencelines
+            {
+                //build the next line to add sequencelines
+                double widthMinusOverlap = Settings.Tool.toolWidth - Settings.Tool.maxOverlap;
+
+                double distAway = widthMinusOverlap * (mf.trk.howManyPathsAway + (isTurnLeft ^ mf.trk.isHeadingSameWay ? rowSkipsWidth : -rowSkipsWidth)) + (mf.trk.isHeadingSameWay ? -Settings.Tool.offset : Settings.Tool.offset) + track.nudgeDistance;
+
+                distAway += 0.5 * widthMinusOverlap;
+
+                //create the next line
+                nextCurve = mf.trk.BuildCurrentGuidanceTrack(distAway, track);
+
+
+                bool isTurnLineSameWay = !isTurnRight ^ movePoint.turnLineNum == 0;
+                if (!FindCurveOutTurnPoint(mf.trk, ref nextCurve, exitPoint, isTurnLineSameWay))
+                {
+                    //error
+                    FailCreate();
+                }
+                else
+                {
+                    youTurnPhase += 10;
+                    movePoint = new CClose(entryPoint = closestTurnPt);
+                }
+            }
+            else if (youTurnPhase < 120)//step 2 move the turn inside with steps of 1 meter
+            {
+                double step = youTurnPhase == 80 ? 5.0 : youTurnPhase == 90 ? 1.0 : youTurnPhase == 100 ? 0.2 : 0.04;
+
+                movePoint = MoveTurnLine(nextCurve, movePoint, step, mf.trk.isHeadingSameWay ^ isGoingStraightThrough ^ youTurnPhase % 20 == 0, false, loop);
+
+                // creates half a circle starting at the crossing point
+                double extraSagitta = 0;
+                if (Math.Abs(turnOffset) < youTurnRadius * 2)
+                    extraSagitta = (youTurnRadius * 2 - Math.Abs(turnOffset)) * 0.5;
+
+                int A = movePoint.curveIndex;
+                double head = Math.Atan2(nextCurve[A + 1].easting - nextCurve[A].easting, nextCurve[A + 1].northing - nextCurve[A].northing);
+
+                ytList2 = GetOffsetSemicirclePoints(movePoint.closePt, head + (mf.trk.isHeadingSameWay ^ isGoingStraightThrough ? 0 : Math.PI), !isTurnRight, youTurnRadius, extraSagitta, uTurnStyle == 1 ? 2.2 : Math.PI);
+
+                isOutOfBounds = false;
+                //Are we out of bounds?
+                for (int j = 0; j < ytList2.Count; j++)
+                {
+                    if (mf.bnd.IsPointInsideTurnArea(ytList2[j]) != 0)
+                    {
+                        isOutOfBounds = true;
+                        break;
+                    }
+                }
+                if (isOutOfBounds ^ youTurnPhase % 20 == 0)
+                    youTurnPhase += 10;
+
+                isOutOfBounds = true;
+            }
+            else if (youTurnPhase == 120)//remove part outside
+            {
+                bool found = false;
+                var turnLine = mf.bnd.bndList[movePoint.turnLineNum].turnLine;
+                //Are we out of bounds?
+                for (int i = 1; i < ytList2.Count; i++)
+                {
+                    int j = turnLine.Count - 1;
+                    for (int k = 0; k < turnLine.Count; j = k++)
+                    {
+                        if (GetLineIntersection(turnLine[j], turnLine[k], ytList2[i - 1], ytList2[i], out vec3 _crossing, out double time, out _))
+                        {
+                            found = true;
+                            ytList2.RemoveRange(i, ytList2.Count - i);
+                            entryPoint2 = new CClose(_crossing, time, movePoint.turnLineNum, 0, j);
+                            break;
+                        }
+                    }
+                    if (found) break;
+                }
+
+                if (!found)
+                {
+                    FailCreate();
+                }
+                else
+                    youTurnPhase += 10;
+            }
+            else//join the two halves
+            {
+                if (exitPoint2.turnLineIndex != entryPoint2.turnLineIndex)
+                {
+                    var turnLine = mf.bnd.bndList[movePoint.turnLineNum].turnLine;
+                    bool isTurnLineSameWay = isTurnRight ^ movePoint.turnLineNum != 0;
+                    bool loop2 = isTurnLineSameWay == exitPoint2.turnLineIndex > entryPoint2.turnLineIndex;
+                    int cc = isTurnLineSameWay ? 1 : -1;
+
+                    for (int i = exitPoint2.turnLineIndex + cc; loop2 || (isTurnLineSameWay ? i < entryPoint2.turnLineIndex : i > entryPoint2.turnLineIndex); i += cc)
+                    {
+                        if (i < 0)
+                        {
+                            i = turnLine.Count - 1;
+                            loop2 = false;
+                        }
+                        else if (i >= turnLine.Count)
+                        {
+                            i = 0;
+                            loop2 = false;
+
+                        }
+                        //add the points between
+                        ytList.Add(turnLine[i]);
+                    }
+                }
+
+                ytList2.Reverse();
+                ytList.AddRange(ytList2);
+                ytList2.Clear();
+
+                //start at ytList[0] and ytList[count -1]!!!!
+                //AddCurveSequenceLines(Settings.Vehicle.set_youTurnExtensionLength);
+
+
+                isOutOfBounds = false;
+                youTurnPhase = 255;
+
+            }
         }
 
         #endregion CreateTurn
@@ -526,94 +453,92 @@ namespace AgOpenGPS
         {
             int a = isTurnLineSameWay ? 1 : -1;
 
-            int turnLineIndex = inPt.turnLineIndex;
-            int turnLineNum = inPt.turnLineNum;
-            int stopTurnLineIndex = inPt.turnLineIndex - a;
-            if (stopTurnLineIndex < 0) stopTurnLineIndex = mf.bnd.bndList[turnLineNum].turnLine.Count - 3;
-            if (stopTurnLineIndex > mf.bnd.bndList[turnLineNum].turnLine.Count - 1) turnLineIndex = 3;
+            int turnLineNum = inPt.turnLineNum;//ss
+            var turnLine = mf.bnd.bndList[turnLineNum].turnLine;
 
-            for (; turnLineIndex != stopTurnLineIndex; turnLineIndex += a)
+            int stopTurnLineIndex = isTurnLineSameWay ? inPt.turnLineIndex : inPt.turnLineIndex + 1;
+
+            vec3 from = new vec3(inPt.closePt);
+
+            //int turnLineIndex = inPt.turnLineIndex;
+
+
+            closestTurnPt = new CClose();
+
+
+            for (int turnLineIndex = isTurnLineSameWay ? inPt.turnLineIndex + 1 : inPt.turnLineIndex; turnLineIndex != stopTurnLineIndex; turnLineIndex += a)
             {
-                if (turnLineIndex < 0) turnLineIndex = mf.bnd.bndList[turnLineNum].turnLine.Count - 2; //AAA could be less than 0???
-                if (turnLineIndex > mf.bnd.bndList[turnLineNum].turnLine.Count - 2) turnLineIndex = 0;
+                if (turnLineIndex < 0) turnLineIndex = turnLine.Count - 1; //AAA could be less than 0???
+                if (turnLineIndex >= turnLine.Count) turnLineIndex = 0;
+
+
+
 
                 for (int i = 0; i < nextCurve.Count - 2; i++)
                 {
-                    int res = GetLineIntersection(
-                                    mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex].easting,
-                                    mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex].northing,
-                                    mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex + 1].easting,
-                                    mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex + 1].northing,
-
-                                    nextCurve[i].easting,
-                                    nextCurve[i].northing,
-                                    nextCurve[i + 1].easting,
-                                    nextCurve[i + 1].northing,
-                                     ref iE, ref iN);
-                    if (res == 1)
+                    if (GetLineIntersection(from, turnLine[turnLineIndex], nextCurve[i], nextCurve[i + 1], out vec3 _crossing, out double time, out _))
                     {
-                        closestTurnPt = new CClose();
-                        closestTurnPt.closePt.easting = iE;
-                        closestTurnPt.closePt.northing = iN;
-                        closestTurnPt.closePt.heading = nextCurve[i].heading;
-                        closestTurnPt.turnLineIndex = turnLineIndex;
-                        closestTurnPt.curveIndex = i;
-                        closestTurnPt.turnLineHeading = mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex].heading;
-                        closestTurnPt.turnLineNum = turnLineNum;
-                        return true;
+                        if (time < closestTurnPt.time)
+                        {
+                            closestTurnPt.time = time;
+                            closestTurnPt.closePt = _crossing;
+                            closestTurnPt.turnLineIndex = turnLineIndex;
+                            closestTurnPt.curveIndex = i;
+                            closestTurnPt.turnLineNum = turnLineNum;
+                            isGoingStraightThrough = false;
+                        }
                     }
                 }
 
                 for (int i = 0; i < thisCurve.currentGuidanceTrack.Count - 2; i++)
                 {
-                    int res = GetLineIntersection(
-                                    mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex].easting,
-                                    mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex].northing,
-                                    mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex + 1].easting,
-                                    mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex + 1].northing,
-
-                                    thisCurve.currentGuidanceTrack[i].easting,
-                                    thisCurve.currentGuidanceTrack[i].northing,
-                                    thisCurve.currentGuidanceTrack[i + 1].easting,
-                                    thisCurve.currentGuidanceTrack[i + 1].northing,
-
-                                     ref iE, ref iN);
-                    if (res == 1)
+                    if (GetLineIntersection(from, turnLine[turnLineIndex], thisCurve.currentGuidanceTrack[i], thisCurve.currentGuidanceTrack[i + 1], out vec3 _crossing, out double time, out _))
                     {
                         if ((i < inPt.curveIndex && thisCurve.isHeadingSameWay) || (i > inPt.curveIndex && !thisCurve.isHeadingSameWay))
                         {
                             return false; //hitting the curve behind us
                         }
+                        else if (time < closestTurnPt.time)
+                        {
+                            closestTurnPt.time = time;
+                            closestTurnPt.closePt = _crossing;
+                            closestTurnPt.turnLineIndex = turnLineIndex;
+                            closestTurnPt.curveIndex = i;
+                            closestTurnPt.turnLineNum = turnLineNum;
+                            isGoingStraightThrough = true;
+                        }
+
                         else if (i == inPt.curveIndex)
                         {
                             //do nothing hitting the curve at the same place as in
                         }
                         else
                         {
-                            closestTurnPt = new CClose();
-                            closestTurnPt.closePt.easting = iE;
-                            closestTurnPt.closePt.northing = iN;
-                            closestTurnPt.closePt.heading = thisCurve.currentGuidanceTrack[i].heading; //ändrad nyss till this curve
+                            closestTurnPt.closePt = _crossing;
                             closestTurnPt.turnLineIndex = turnLineIndex;
                             closestTurnPt.curveIndex = i;
-                            closestTurnPt.turnLineHeading = mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex].heading;
                             closestTurnPt.turnLineNum = turnLineNum;
-                            isOutSameCurve = true;
-                            nextCurve = thisCurve.currentGuidanceTrack;//???? already created the line so why change it
+                            isGoingStraightThrough = true;
                             return true;
                         }
                     }
                 }
+
+                if (closestTurnPt.time <= 1)
+                {
+                    if (isGoingStraightThrough)
+                        nextCurve = thisCurve.currentGuidanceTrack;//???? already created the line so why change it
+                    return true;
+                }
+
+                from = turnLine[turnLineIndex];
             }
             return false;
         }
 
         private bool FindInnerTurnPoints(vec3 fromPt, double inDirection, CClose refClosePt, bool isTurnLineSameWay)
         {
-            double eP, nP;
-
-            eP = fromPt.easting + Math.Sin(inDirection);
-            nP = fromPt.northing + Math.Cos(inDirection);
+            vec3 toPt = new vec3(fromPt.easting + Math.Sin(inDirection), fromPt.northing + Math.Cos(inDirection), 0);
 
             int a = isTurnLineSameWay ? 1 : -1;
 
@@ -628,15 +553,11 @@ namespace AgOpenGPS
                 if (turnLineIndex < 0) turnLineIndex = mf.bnd.bndList[turnLineNum].turnLine.Count - 2;
                 if (turnLineIndex > mf.bnd.bndList[turnLineNum].turnLine.Count - 2) turnLineIndex = 0;
 
-                int res = GetLineIntersection(
-                                mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex].easting,
-                                mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex].northing,
-                                mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex + 1].easting,
-                                mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex + 1].northing,
+                if (GetLineIntersection(
+                                mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex],
+                                mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex + 1],
 
-                                fromPt.easting,
-                                fromPt.northing, eP, nP, ref iE, ref iN);
-                if (res == 1)
+                                fromPt, toPt, out iE, out iN))
                 {
                     closestTurnPt = new CClose();
                     closestTurnPt.closePt.easting = iE;
@@ -644,120 +565,12 @@ namespace AgOpenGPS
                     closestTurnPt.closePt.heading = -1; //isnt needed but could be calculated
                     closestTurnPt.turnLineIndex = turnLineIndex;
                     closestTurnPt.curveIndex = -1;
-                    closestTurnPt.turnLineHeading = mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex].heading;
+                    closestTurnPt.time = mf.bnd.bndList[turnLineNum].turnLine[turnLineIndex].heading;
                     closestTurnPt.turnLineNum = turnLineNum;
                     return true;
                 }
             }
             return false;
-        }
-
-        private bool FindCurveTurnPoint(CTracks thisCurve, bool noIdea)
-        {
-            //AAA Is updated but not tested....
-            //find closet AB Curve point that will cross and go out of bounds
-            int Count = mf.trk.isHeadingSameWay ? 1 : -1;
-            int turnNum = 99;
-            int j;
-
-            closestTurnPt = new CClose();
-
-            if (mf.trk.idx < 0 || mf.trk.gArr.Count < mf.trk.idx) return true;
-            CTrk track = mf.trk.gArr[mf.trk.idx];
-
-            bool loop = track.mode == TrackMode.bndCurve || track.mode == TrackMode.waterPivot;
-
-            for (j = mf.gyd.currentLocationIndex; j > 0 && j < thisCurve.currentGuidanceTrack.Count; j += Count)
-            {
-                if (j < 0)
-                {
-                    if (loop)
-                    {
-                        loop = false;
-                        j = thisCurve.currentGuidanceTrack.Count;
-                        continue;
-                    }
-                    break;
-                }
-                else if (j >= thisCurve.currentGuidanceTrack.Count)
-                {
-                    if (loop)
-                    {
-                        loop = false;
-                        j = -1;
-                        continue;
-                    }
-                    break;
-                }
-
-                int turnIndex = mf.bnd.IsPointInsideTurnArea(thisCurve.currentGuidanceTrack[j]);
-                if (turnIndex != 0)
-                {
-                    closestTurnPt.curveIndex = j - Count;
-                    closestTurnPt.turnLineNum = turnIndex;
-                    turnNum = turnIndex;
-                    break;
-                }
-            }
-
-            if (turnNum < 0) //uturn will be on outer boundary turn
-            {
-                closestTurnPt.turnLineNum = 0;
-                turnNum = 0;
-            }
-            else if (turnNum == 99)
-            {
-                //curve does not cross a boundary - oops
-                isTurnCreationNotCrossingError = true;
-                return false;
-            }
-
-            if (closestTurnPt.curveIndex == -1)
-            {
-                isTurnCreationNotCrossingError = true;
-                return false;
-            }
-
-            for (int i = 0; i < mf.bnd.bndList[turnNum].turnLine.Count - 1; i++)
-            {
-                int res = GetLineIntersection(
-                        mf.bnd.bndList[turnNum].turnLine[i].easting,
-                        mf.bnd.bndList[turnNum].turnLine[i].northing,
-                        mf.bnd.bndList[turnNum].turnLine[i + 1].easting,
-                        mf.bnd.bndList[turnNum].turnLine[i + 1].northing,
-
-                        thisCurve.currentGuidanceTrack[closestTurnPt.curveIndex].easting,
-                        thisCurve.currentGuidanceTrack[closestTurnPt.curveIndex].northing,
-                        thisCurve.currentGuidanceTrack[closestTurnPt.curveIndex + Count].easting,
-                        thisCurve.currentGuidanceTrack[closestTurnPt.curveIndex + Count].northing,
-
-                         ref iE, ref iN);
-
-                if (res == 1)
-                {
-                    closestTurnPt.closePt.easting = iE;
-                    closestTurnPt.closePt.northing = iN;
-                    if (noIdea)
-                    {
-                        double hed = Math.Atan2(mf.bnd.bndList[turnNum].turnLine[i + 1].easting - mf.bnd.bndList[turnNum].turnLine[i].easting,
-                            mf.bnd.bndList[turnNum].turnLine[i + 1].northing - mf.bnd.bndList[turnNum].turnLine[i].northing);
-                        if (hed < 0) hed += glm.twoPI;
-                        closestTurnPt.closePt.heading = hed;
-                        closestTurnPt.turnLineIndex = i;
-                    }
-                    else
-                    {
-                        closestTurnPt.closePt.heading = thisCurve.currentGuidanceTrack[closestTurnPt.curveIndex].heading;
-                        closestTurnPt.turnLineIndex = i;
-                        closestTurnPt.turnLineNum = turnNum;
-                        closestTurnPt.turnLineHeading = mf.bnd.bndList[turnNum].turnLine[i].heading;
-                        if (!thisCurve.isHeadingSameWay && closestTurnPt.curveIndex > 0) closestTurnPt.curveIndex--;
-                    }
-                    break;
-                }
-            }
-
-            return closestTurnPt.turnLineIndex != -1 && closestTurnPt.curveIndex != -1;
         }
 
         #endregion FindTurnPoint
@@ -781,7 +594,7 @@ namespace AgOpenGPS
                     return false;
                 }
             }
-            if (isOutSameCurve) sameWay = !sameWay;
+            if (isGoingStraightThrough) sameWay = !sameWay;
             a = sameWay ? -1 : 1;
 
             for (int i = 0; i < lenny && i > -lenny; i += a)
@@ -802,115 +615,139 @@ namespace AgOpenGPS
 
         /// <summary>/// Calculates the crosing point between the two lines and returns the easting and northing in the reference vaiables
         /// returns 0 for no collision and 1 for collision /// </summary>
-        public int GetLineIntersection(double p0x, double p0y, double p1x, double p1y,
-                double p2x, double p2y, double p3x, double p3y, ref double iEast, ref double iNorth)
+        public bool GetLineIntersection(vec3 p0, vec3 p1, vec3 p2, vec3 p3, out double iEast, out double iNorth)
         {
-            double s1x, s1y, s2x, s2y;
-            s1x = p1x - p0x;
-            s1y = p1y - p0y;
+            double dx1 = p1.northing - p0.northing;
+            double dy1 = p1.easting - p0.easting;
 
-            s2x = p3x - p2x;
-            s2y = p3y - p2y;
+            double dx2 = p3.northing - p2.northing;
+            double dy2 = p3.easting - p2.easting;
 
             double s, t;
-            s = (-s1y * (p0x - p2x) + s1x * (p0y - p2y)) / (-s2x * s1y + s1x * s2y);
+            s = (-dy1 * (p0.northing - p2.northing) + dx1 * (p0.easting - p2.easting)) / (-dx2 * dy1 + dx1 * dy2);
 
             if (s >= 0 && s <= 1)
             {
                 //check oher side
-                t = (s2x * (p0y - p2y) - s2y * (p0x - p2x)) / (-s2x * s1y + s1x * s2y);
+                t = (dx2 * (p0.easting - p2.easting) - dy2 * (p0.northing - p2.northing)) / (-dx2 * dy1 + dx1 * dy2);
                 if (t >= 0 && t <= 1)
                 {
                     // Collision detected
-                    iEast = p0x + (t * s1x);
-                    iNorth = p0y + (t * s1y);
-                    return 1;
+                    iNorth = p0.northing + (t * dx1);
+                    iEast = p0.easting + (t * dy1);
+                    return true;
                 }
             }
 
-            return 0; // No collision
+            iEast = 0; iNorth = 0;
+            return false; // No collision
         }
 
-        private List<vec3> MoveTurnInsideTurnLine(List<vec3> uTurnList, double head, bool deleteSecondHalf, bool invertHeading)
+
+        private const double Epsilon = 1.0E-15;
+        public static bool GetLineIntersection(vec3 PointAA, vec3 PointAB, vec3 PointBA, vec3 PointBB, out vec3 Crossing, out double TimeA, out double TimeB, bool Limit = false, bool enableEnd = false)
         {
-            //step 1 make array out of the list so that we can modify the position
-            double cosHead = Math.Cos(head);
-            double sinHead = Math.Sin(head);
-            int cnt = uTurnList.Count;
-            vec3[] arr2 = new vec3[cnt];
-            uTurnList.CopyTo(arr2);
-            uTurnList.Clear();
+            TimeA = -1;
+            TimeB = -1;
+            Crossing = new vec3();
+            double denominator = (PointAB.northing - PointAA.northing) * (PointBB.easting - PointBA.easting) - (PointBB.northing - PointBA.northing) * (PointAB.easting - PointAA.easting);
 
-            semiCircleIndex = -1;
-            //step 2 move the turn inside with steps of 1 meter
-            bool pointOutOfBnd = isOutOfBounds;
-            int j = 0;
-            int stopIfWayOut = 0;
-            while (pointOutOfBnd)
+            if (denominator < -0.00000001 || denominator > 0.00000001)
             {
-                stopIfWayOut++;
-                pointOutOfBnd = false;
-                mf.distancePivotToTurnLine = glm.Distance(arr2[0], mf.pivotAxlePos);
+                TimeA = ((PointBB.northing - PointBA.northing) * (PointAA.easting - PointBA.easting) - (PointAA.northing - PointBA.northing) * (PointBB.easting - PointBA.easting)) / denominator;
 
-                for (int i = 0; i < cnt; i++)
+                if (Limit || (enableEnd && (TimeA > 0.0 - Epsilon || TimeA < 1.0 + Epsilon)) || (TimeA > Epsilon && TimeA < 1.0 - Epsilon))
                 {
-                    arr2[i].easting -= (sinHead);
-                    arr2[i].northing -= (cosHead);
-                }
-
-                for (; j < cnt; j += 1)
-                {
-                    if (mf.bnd.IsPointInsideTurnArea(arr2[j]) != 0)
+                    TimeB = ((PointAB.northing - PointAA.northing) * (PointAA.easting - PointBA.easting) - (PointAA.northing - PointBA.northing) * (PointAB.easting - PointAA.easting)) / denominator;
+                    if (Limit || (enableEnd && (TimeB == 0.0 || TimeB == 1.0)) || (TimeB > 0.0 && TimeB < 1.0))
                     {
-                        pointOutOfBnd = true;
-                        if (j > 0) j--;
+                        Crossing = PointAA + (PointAB - PointAA) * TimeA;
+                        return true;
+                    }
+                    else return false;
+                }
+                else return false;
+            }
+            return false;
+        }
+
+        private CClose MoveTurnLine(List<vec3> curList, CClose startPoint, double stepSize, bool CountUp, bool deleteSecondHalf, bool loop)
+        {
+            int A = startPoint.curveIndex;
+            int B = (startPoint.curveIndex + 1) % curList.Count;
+
+            var goalPoint = startPoint;
+
+            if (A == 0 && !CountUp)
+            {
+                double head = Math.Atan2(curList[B].easting - curList[A].easting, curList[B].northing - curList[A].northing);
+                goalPoint.closePt.easting = startPoint.closePt.easting - (Math.Sin(head) * stepSize);
+                goalPoint.closePt.northing = startPoint.closePt.northing - (Math.Cos(head) * stepSize);
+            }
+            else if (B == curList.Count - 1 && CountUp)
+            {
+                double head = Math.Atan2(curList[B].easting - curList[A].easting, curList[B].northing - curList[A].northing);
+                goalPoint.closePt.easting = startPoint.closePt.easting + (Math.Sin(head) * stepSize);
+                goalPoint.closePt.northing = startPoint.closePt.northing + (Math.Cos(head) * stepSize);
+            }
+            else
+            {
+                int count = CountUp ? 1 : -1;
+                double distSoFar = 0;
+
+                vec3 start = startPoint.closePt;
+
+                for (int i = CountUp ? B : A; i < curList.Count && i >= 0;)
+                {
+                    // used for calculating the length squared of next segment.
+                    double tempDist = glm.Distance(start, curList[i]);
+
+                    //will we go too far?
+                    if ((tempDist + distSoFar) > stepSize)
+                    {
+                        double j = (stepSize - distSoFar) / tempDist; // the remainder to yet travel
+
+                        goalPoint.closePt.easting = (((1 - j) * start.easting) + (j * curList[i].easting));
+                        goalPoint.closePt.northing = (((1 - j) * start.northing) + (j * curList[i].northing));
+
                         break;
                     }
-                }
+                    else distSoFar += tempDist;
+                    start = curList[i];
 
-                if (stopIfWayOut == 1000 || (mf.distancePivotToTurnLine < 3))
-                {
-                    //for some reason it doesn't go inside boundary, return empty list
-                    return uTurnList;
-                }
-            }
+                    i += count;
 
-            //step 3, we ar now inside turnline, move the turn forward until it hits the turnfence in steps of 0.1 meters
-            while (!pointOutOfBnd)
-            {
-                for (int i = 0; i < cnt; i++)
-                {
-                    arr2[i].easting += (sinHead * 0.1);
-                    arr2[i].northing += (cosHead * 0.1);
-                }
-
-                for (int a = 0; a < cnt; a++)
-                {
-                    if (mf.bnd.IsPointInsideTurnArea(arr2[a]) != 0)
+                    if (i < 0)
                     {
-                        semiCircleIndex = a;
-                        pointOutOfBnd = true;
-                        break;
+                        if (!loop)
+                        {
+                            double j = stepSize - distSoFar;
+                            double head = Math.Atan2(curList[i + 2].easting - curList[i + 1].easting, curList[i + 2].northing - curList[i + 1].northing);
+                            goalPoint.closePt.northing = start.northing - (Math.Cos(head) * j);
+                            goalPoint.closePt.easting = start.easting - (Math.Sin(head) * j);
+                            break;
+                        }
+                        else
+                            i = curList.Count - 1;
                     }
+                    if (i > curList.Count - 1)
+                    {
+                        if (!loop)
+                        {
+                            double j = stepSize - distSoFar;
+                            double head = Math.Atan2(curList[i - 1].easting - curList[i - 2].easting, curList[i - 1].northing - curList[i - 2].northing);
+                            goalPoint.closePt.northing = start.northing + (Math.Cos(head) * j);
+                            goalPoint.closePt.easting = start.easting + (Math.Sin(head) * j);
+
+                            break;
+                        }
+                        else
+                            i = 0;
+                    }
+                    startPoint.curveIndex = CountUp ? i - 1 : i;
                 }
             }
-
-            //step 4, Should we delete the points after the one that is outside? and where the points made in the wrong direction?
-            for (int i = 0; i < cnt; i++)
-            {
-                if (i == semiCircleIndex && deleteSecondHalf)
-                    break;
-                if (invertHeading) arr2[i].heading += Math.PI;
-                if (arr2[i].heading >= glm.twoPI) arr2[i].heading -= glm.twoPI;
-                else if (arr2[i].heading < 0) arr2[i].heading += glm.twoPI;
-                uTurnList.Add(arr2[i]);
-            }
-
-            //we have succesfully moved the turn inside
-            isOutOfBounds = false;
-
-            //if empty - no creation.
-            return uTurnList;
+            return goalPoint;
         }
 
         public void SmoothYouTurn(int smPts)
@@ -1016,9 +853,7 @@ namespace AgOpenGPS
             isYouTurnTriggered = false;
             youTurnPhase = 0;
             ytList?.Clear();
-            mf.makeUTurnCounter = 0;
             PGN_239.pgn[PGN_239.uturn] = 0;
-            isOutSameCurve = false;
             isGoingStraightThrough = false;
         }
 
@@ -1036,40 +871,25 @@ namespace AgOpenGPS
             //point on AB line closest to pivot axle point from AB Line PurePursuit
             if (mf.trk.idx > -1 && mf.trk.gArr.Count > 0)
             {
-                isHeadingSameWay = mf.trk.isHeadingSameWay;
-                if (isHeadingSameWay == isTurnLeft)
-                {
-                    mf.trk.howManyPathsAway += 1;
-                }
-                else
-                {
-                    mf.trk.howManyPathsAway -= 1;
-                }
-                return;
+                mf.trk.howManyPathsAway += mf.trk.isHeadingSameWay == isTurnLeft ? 1 : -1;
             }
-            else return;
         }
 
         //build the points and path of youturn to be scaled and transformed
         public void BuildManualYouTurn(bool isTurnRight)
         {
             double head;
-            double rEastYT = mf.gyd.rEastTrk;
-            double rNorthYT = mf.gyd.rNorthTrk;
-            isHeadingSameWay = mf.trk.isHeadingSameWay;
             head = mf.gyd.manualUturnHeading;
 
             //grab the vehicle widths and offsets
             double turnOffset = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * rowSkipsWidth + (isTurnRight ? Settings.Tool.offset * 2.0 : -Settings.Tool.offset * 2.0);
 
-
             //if its straight across it makes 2 loops instead so goal is a little lower then start
-            if (!isHeadingSameWay) head += 3.14;
-            else head -= 0.01;
+            if (!mf.trk.isHeadingSameWay) head += Math.PI;
 
             //move the start forward 2 meters, this point is critical to formation of uturn
-            rEastYT += Math.Sin(head) * (4 + Settings.Vehicle.set_youTurnExtensionLength);
-            rNorthYT += Math.Cos(head) * (4 + Settings.Vehicle.set_youTurnExtensionLength);
+            double rEastYT = mf.gyd.rEastTrk + Math.Sin(head) * (4 + Settings.Vehicle.set_youTurnExtensionLength);
+            double rNorthYT = mf.gyd.rNorthTrk + Math.Cos(head) * (4 + Settings.Vehicle.set_youTurnExtensionLength);
 
             //now we have our start point
             vec3 start = new vec3(rEastYT, rNorthYT, head);
@@ -1111,7 +931,9 @@ namespace AgOpenGPS
 
             GL.PointSize(Settings.User.setDisplay_lineWidth + 2);
 
-            if (isYouTurnTriggered)
+            if (youTurnPhase < 130)
+                GL.Color3(1.0f, 1.0f, 0.0f);
+            else if (isYouTurnTriggered)
                 GL.Color3(0.95f, 0.5f, 0.95f);
             else if (isOutOfBounds)
                 GL.Color3(0.9495f, 0.395f, 0.325f);
@@ -1124,6 +946,27 @@ namespace AgOpenGPS
                 GL.Vertex3(ytList[i].easting, ytList[i].northing, 0);
             }
             GL.End();
+
+            if (youTurnPhase > 70 && youTurnPhase < 130)
+            {
+                //GL.Color3(1.0f, 1.0f, 0.0f);
+                GL.Begin(PrimitiveType.Points);
+                for (int i = 0; i < ytList2.Count; i++)
+                {
+                    GL.Vertex3(ytList2[i].easting, ytList2[i].northing, 0);
+                }
+                GL.End();
+            }
+
+            /*
+            GL.Color3(0.0f, 1.0f, 1.0f);
+            GL.Begin(PrimitiveType.Points);
+            for (int i = 0; i < nextCurve.Count; i++)
+            {
+                GL.Vertex3(nextCurve[i].easting, nextCurve[i].northing, 0);
+            }
+            GL.End();
+            */
 
             //GL.PointSize(12.0f);
             //GL.Begin(PrimitiveType.Points);
@@ -1163,7 +1006,7 @@ namespace AgOpenGPS
             public vec3 closePt = new vec3();
             public int turnLineNum;
             public int turnLineIndex;
-            public double turnLineHeading;
+            public double time;
             public int curveIndex;
 
             public CClose()
@@ -1171,8 +1014,17 @@ namespace AgOpenGPS
                 closePt = new vec3();
                 turnLineNum = -1;
                 turnLineIndex = -1;
-                turnLineHeading = -1;
+                time = double.MaxValue;
                 curveIndex = -1;
+            }
+
+            public CClose(vec3 crossing, double _time, int j, int i, int k)
+            {
+                closePt = crossing;
+                time = _time;
+                turnLineIndex = k;
+                turnLineNum = j;
+                curveIndex = i;
             }
 
             public CClose(CClose _clo)
@@ -1180,8 +1032,13 @@ namespace AgOpenGPS
                 closePt = new vec3(_clo.closePt);
                 turnLineNum = _clo.turnLineNum;
                 turnLineIndex = _clo.turnLineIndex;
-                turnLineHeading = _clo.turnLineHeading;
+                time = _clo.time;
                 curveIndex = _clo.curveIndex;
+            }
+
+            public override string ToString()
+            {
+                return "east:" + closePt.easting.ToString("0.0") + ", north:" + closePt.northing.ToString("0.0") + ", time:" + time.ToString("0.0");
             }
         }
     }

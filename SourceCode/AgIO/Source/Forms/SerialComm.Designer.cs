@@ -31,6 +31,9 @@ namespace AgIO
 
         //serial port gps is connected to
         public SerialPort spGPS = new SerialPort(Settings.User.setPort_portNameGPS, Settings.User.setPort_baudRateGPS, Parity.None, 8, StopBits.One);
+        
+        //serial port gps is connected to
+        public static SerialPort spGPSOut = new SerialPort(Settings.User.setPort_portNameGPSOut, Settings.User.setPort_baudRateGPSOut, Parity.None, 8, StopBits.One);
 
         //serial port gps2 is connected to
         public SerialPort spGPS2 = new SerialPort(Settings.User.setPort_portNameGPS2, Settings.User.setPort_baudRateGPS2, Parity.None, 8, StopBits.One);
@@ -941,7 +944,6 @@ namespace AgIO
                 Settings.User.setPort_wasGPSConnected = true;
                 
                 lblGPS1Comm.Text = Settings.User.setPort_portNameGPS;
-                Settings.User.setPort_wasGPSConnected = true;
             }
         }
         public void CloseGPSPort()
@@ -970,6 +972,16 @@ namespace AgIO
         //called by the GPS delegate every time a chunk is rec'd
         private void ReceiveGPSPort(string sentence)
         {
+            double timeSliceOfLastFix = (double)(swFrame.ElapsedTicks) / (double)System.Diagnostics.Stopwatch.Frequency;
+            swFrame.Restart();
+
+            //get Hz from timeslice
+            nowHz = 1 / timeSliceOfLastFix;
+            if (nowHz > 35) nowHz = 35;
+            if (nowHz < 5) nowHz = 5;
+
+            //simple comp filter
+            gpsHz = 0.98 * gpsHz + 0.02 * nowHz;
             pnGPS.rawBuffer += sentence;
             pnGPS.ParseNMEA(ref pnGPS.rawBuffer);
 
@@ -1092,6 +1104,7 @@ namespace AgIO
         }
         #endregion //--------------------------------------------------------
 
+        #region RTCM Port
         public void OpenRtcmPort()
         {
             if (spRtcm.IsOpen)
@@ -1136,5 +1149,64 @@ namespace AgIO
 
             Settings.User.setPort_wasRtcmConnected = false;
         }
+
+        #endregion
+
+        #region GPSOut
+
+        public void OpenGPSOutPort()
+        {
+            
+            if (spGPSOut.IsOpen)
+            {
+                //close it first
+                CloseGPSOutPort();
+            }
+
+
+            if (!spGPSOut.IsOpen)
+            {
+                spGPSOut.PortName = Settings.User.setPort_portNameGPSOut;
+                spGPSOut.BaudRate = Settings.User.setPort_baudRateGPSOut;
+                spGPSOut.WriteTimeout = 100;
+            }
+
+            try { spGPSOut.Open(); }
+            catch (Exception ex)
+            {
+                Log.EventWriter("Catch - > Serial GPSOut Open Fail: " + ex.ToString());
+            }
+
+            if (spGPSOut.IsOpen)
+            {
+                //discard any stuff in the buffers
+                spGPSOut.DiscardOutBuffer();
+                spGPSOut.DiscardInBuffer();
+
+                Settings.User.setPort_wasGPSOutConnected = true;
+
+                lblGPSOut1Comm.Text = Settings.User.setPort_portNameGPSOut;
+            }
+        }
+        public void CloseGPSOutPort()
+        {
+            //if (sp.IsOpen)
+            {
+                try { spGPSOut.Close(); }
+                catch (Exception e)
+                {
+                    Log.EventWriter("Closing GPSOut Port" + e.ToString());
+                    MessageBox.Show(e.Message, "Connection already terminated?");
+                }
+
+                spGPSOut.Dispose();
+            }
+
+            lblGPSOut1Comm.Text = "---";
+            Settings.User.setPort_wasGPSOutConnected = false;
+        }
+
+        #endregion
+
     }//end class
 }//end namespace

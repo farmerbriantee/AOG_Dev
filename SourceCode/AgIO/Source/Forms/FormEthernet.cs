@@ -61,9 +61,7 @@ namespace AgIO
             Log.EventWriter("Program Reset: Start Ethernet Selected");
 
             Settings.User.Save();
-            Application.Restart();
-            Environment.Exit(0);
-            Close();
+            Program.Restart(); Close();
         }
 
         private void cboxIsUDPOn_Click(object sender, EventArgs e)

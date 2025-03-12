@@ -27,8 +27,10 @@ namespace AgOpenGPS
             label122.Text = gStr.Get(gs.gsSendAndSave);
             label103.Text = gStr.Get(gs.gsSound);
 
-            lblSaveAs.Text = gStr.Get(gs.gsSaveAs);
-            lblNew.Text = gStr.Get(gs.gsNew);
+            lblSaveAs.Text = gStr.Get(gs.gsCopyCurrentVehicleAs);
+            lblNew.Text = gStr.Get(gs.gsNewDefaultVehicle);
+            lblSaveAsTool.Text = gStr.Get(gs.gsCopyCurrentToolAs);
+            lblNewTool.Text = gStr.Get(gs.gsNewDefaultTool);
             lblToolWidth.Text = gStr.Get(gs.gsWidth);
             lblOpen.Text = gStr.Get(gs.gsOpen);
             lblDelete.Text = gStr.Get(gs.gsDelete);
@@ -122,9 +124,6 @@ namespace AgOpenGPS
         {
             lblVehicleToolWidth.Text = Convert.ToString((int)(Settings.Tool.toolWidth * glm.m2InchOrCm));
             SectionFeetInchesTotalWidthLabelUpdate();
-
-            lblSaveAs.Text = gStr.Get(gs.gsSaveAs);
-            lblNew.Text = gStr.Get(gs.gsNew);
 
             if (!mf.IsOnScreen(Location, Size, 1))
             {
@@ -282,5 +281,6 @@ namespace AgOpenGPS
         {
             mf.trk.numGuideLines = (int)nudNumGuideLines.Value;
         }
+
     }
 }

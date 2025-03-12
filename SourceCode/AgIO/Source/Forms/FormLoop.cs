@@ -1,5 +1,6 @@
 ﻿using AgIO.Properties;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -42,6 +43,9 @@ namespace AgIO
         //static readonly int GWL_STYLE = -16;
         //static readonly int WS_VISIBLE = 0x10000000;
         //key event to restore window
+
+        private readonly Stopwatch algoTimer = new Stopwatch();
+
         private const int ALT = 0xA4;
 
         private const int EXTENDEDKEY = 0x1;
@@ -55,9 +59,8 @@ namespace AgIO
 
         public bool isLogNMEA, isLogMonitorOn, isUDPMonitorOn, isGPSLogOn, isNTRIPLogOn;
 
-        private StringBuilder sbRTCM = new StringBuilder();
-
-        public bool isKeyboardOn = true;
+        public bool isKeyboardOn = true, isFlash = false;
+        public int gpsOutCount = 0;
 
         public bool isGPSSentencesOn = false; //, isSendNMEAToUDP;
 
@@ -68,9 +71,7 @@ namespace AgIO
 
         public bool isNTRIPToggle;
 
-        public bool lastHelloGPS, lastHelloAutoSteer, lastHelloMachine, lastHelloIMU, lastHelloGPSTool;
-
-        public bool lastHelloGPSTuu, isConnectedSteerTuu;
+        public bool lastHelloGPS, lastHelloAutoSteer, lastHelloMachine, lastHelloIMU, lastHelloGPSTool, lastHelloGPSOutSerial;
 
         //is the fly out displayed
         public bool isViewAdvanced = false;
@@ -83,9 +84,13 @@ namespace AgIO
         public CNMEA pnGPS;
         public CNMEA_Tool pnGPSTool;
 
+
         public FormLoop()
         {
             InitializeComponent();
+            bgGPSOut.DoWork += bgGPSOut_DoWork;
+            bgGPSOut.ProgressChanged += bgGPSOut_ProgressChanged;
+            bgGPSOut.WorkerReportsProgress = true;
         }
 
         //First run
@@ -121,7 +126,7 @@ namespace AgIO
             }
 
             //small view
-            this.Width = 428;
+            this.Width = 500;
 
             LoadLoopback();
 
@@ -135,6 +140,13 @@ namespace AgIO
             {
                 OpenGPSPort();
                 if (spGPS.IsOpen) lblGPS1Comm.Text = Settings.User.setPort_portNameGPS;
+            }
+
+            //set baud and port from last time run
+            if (Settings.User.setPort_wasGPSOutConnected)
+            {
+                OpenGPSOutPort();
+                if (spGPSOut.IsOpen) lblGPSOut1Comm.Text = Settings.User.setPort_portNameGPSOut;
             }
 
             // set baud and port for rtcm from last time run
@@ -247,9 +259,6 @@ namespace AgIO
                 }
             }
 
-            //run gps_out or not
-            cboxAutoRunGPS_Out.Checked = Settings.User.setDisplay_isAutoRunGPS_Out;
-
             this.Text =
             "AgIO  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + "   Profile: " + RegistrySettings.profileName;
 
@@ -267,8 +276,7 @@ namespace AgIO
                         Log.EventWriter("Program Reset: Saving or Selecting Profile");
 
                         Settings.User.Save();
-                        Application.Restart();
-                        Environment.Exit(0);
+                        Program.Restart();
                     }
                 }
                 this.Text = "AgIO  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + "  Profile: "
@@ -277,7 +285,7 @@ namespace AgIO
 
             if (Settings.User.setDisplay_isAutoRunGPS_Out)
             {
-                StartGPS_Out();
+                GPS_OutSettings();
                 Log.EventWriter("Run GPS_Out");
             }
         }
@@ -335,7 +343,7 @@ namespace AgIO
                 Controls.Remove(pictureBox1);
                 pictureBox1.Dispose();
                 oneSecondLoopTimer.Interval = 1000;
-                this.Width = 428;
+                this.Width = 500;
                 this.Height = 530;
                 return;
             }
@@ -349,6 +357,8 @@ namespace AgIO
                 lblCurentLon.Text = pnGPS.longitude.ToString("N7");
                 lblCurrentLat.Text = pnGPS.latitude.ToString("N7");
             }
+
+            lblGPSHz.Text = gpsHz.ToString("N2");
 
             //do all the NTRIP routines
             DoNTRIPSecondRoutine();
@@ -403,16 +413,6 @@ namespace AgIO
             {
                 ThreeMinuteLoop();
                 threeMinuteTimer = secondsSinceStart;
-            }
-
-            // 1 Second Loop Part2
-            if (isViewAdvanced)
-            {
-                if (Settings.User.setNTRIP_isOn)
-                {
-                    sbRTCM.Append(".");
-                    lblMessages.Text = sbRTCM.ToString();
-                }
             }
 
             if (focusSkipCounter != 0)
@@ -471,52 +471,6 @@ namespace AgIO
                     }
                 }
 
-                if (isViewAdvanced && Settings.User.setNTRIP_isOn)
-                {
-                    try
-                    {
-                        //add the uniques messages to all the new ones
-                        foreach (var item in aList)
-                        {
-                            rList.Add(item);
-                        }
-
-                        //sort and group using Linq
-                        sbRTCM.Clear();
-
-                        var g = rList.GroupBy(i => i)
-                            .OrderBy(grp => grp.Key);
-                        int count = 0;
-                        aList.Clear();
-
-                        //Create the text box of unique message numbers
-                        foreach (var grp in g)
-                        {
-                            aList.Add(grp.Key);
-                            sbRTCM.AppendLine(grp.Key + " - " + (grp.Count() - 1));
-                            count++;
-                        }
-
-                        rList?.Clear();
-
-                        //too many messages or trash
-                        if (count > 25)
-                        {
-                            aList?.Clear();
-                            sbRTCM.Clear();
-                            sbRTCM.Append("Reset..");
-                        }
-
-                        lblMessagesFound.Text = count.ToString();
-                    }
-                    catch
-                    {
-                        sbRTCM.Clear();
-                        sbRTCM.Append("Error");
-                        Log.EventWriter("RTCM List compilation error");
-                    }
-                }
-
                 #region Serial update
 
                 if (Settings.User.setPort_wasIMUConnected)
@@ -538,6 +492,15 @@ namespace AgIO
                     {
                         Settings.User.setPort_wasGPSConnected = false;
                         lblGPS1Comm.Text = "";
+                    }
+                }
+
+                if (Settings.User.setPort_wasGPSOutConnected)
+                {
+                    if (!spGPSOut.IsOpen)
+                    {
+                        Settings.User.setPort_wasGPSOutConnected = false;
+                        lblGPSOut1Comm.Text = "";
                     }
                 }
 
@@ -633,6 +596,17 @@ namespace AgIO
                 lastHelloGPSTool = currentHello;
                 ShowAgIO();
             }
+
+            currentHello = traffic.cntrGPS_OutSerial != 0;
+
+            if (currentHello != lastHelloGPSOutSerial)
+            {
+                if (currentHello) btnGPS_Out.BackColor = Color.LimeGreen;
+                else btnGPS_Out.BackColor = Color.Red;
+                lastHelloGPSOutSerial = currentHello;
+                ShowAgIO();
+            }
+
         }
 
         private void FormLoop_Resize(object sender, EventArgs e)
@@ -729,10 +703,14 @@ namespace AgIO
             {
                 lblFromGPS.Text = traffic.cntrGPSOut == 0 ? "---" : ((traffic.cntrGPSOut >> 1)).ToString();
                 lblFromGPSTool.Text = traffic.cntrGPSOutTool == 0 ? "---" : ((traffic.cntrGPSOutTool >> 1)).ToString();
+                lblGPSOutSerial.Text = traffic.cntrGPS_OutSerial == 0 ? "---" : ((traffic.cntrGPS_OutSerial)).ToString();
 
                 //reset all counters
                 traffic.cntrGPSOut = 0;
                 traffic.cntrGPSOutTool = 0;
+                traffic.cntrGPS_OutSerial = 0;
+
+                lblSlowGPSOut.Text = "";
 
                 lblCurentLon.Text = pnGPS.longitude.ToString("N7");
                 lblCurrentLat.Text = pnGPS.latitude.ToString("N7");

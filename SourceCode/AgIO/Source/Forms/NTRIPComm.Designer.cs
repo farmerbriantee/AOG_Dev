@@ -37,9 +37,6 @@ namespace AgIO
 
         internal SerialPort spRadio = new SerialPort("Radio", 9600, Parity.None, 8, StopBits.One);
 
-        List<int> rList = new List<int>();
-        List<int> aList = new List<int>();
-
         //NTRIP metering
         Queue<byte> rawTrip = new Queue<byte>();
 
@@ -143,13 +140,8 @@ namespace AgIO
         public void ConfigureNTRIP()
         {
             lblWatch.Text = "Wait GPS";
-            lblMessages.Text = "Reading...";
             lblNTRIP_IP.Text = "";
             lblMount.Text = "";
-
-            aList.Clear();
-            rList.Clear();
-            lblMessages.Text = "Reading....";
 
             //start NTRIP if required
             if (Settings.User.setRadio_isOn || Settings.User.setPass_isOn)
@@ -398,43 +390,6 @@ namespace AgIO
             //update gui with stats
             tripBytes += (uint)data.Length;
             
-            if (isViewAdvanced && Settings.User.setNTRIP_isOn )
-            {
-                int mess = 0;
-                //lblPacketSize.Text = data.Length.ToString();
-
-                try
-                {
-                    if (data.Length < 7) 
-                        return;
-
-                    lblStationID.Text = (((data[4] & 15) << 8) + (data[5])).ToString();
-
-                    for (int i = 0; i < data.Length - 5; i++)
-                    {
-
-                        if (data[i] == 211 && (data[i + 1] >> 2) == 0)
-                        {
-                            mess = ((data[i + 3] << 4) + (data[i + 4] >> 4));
-                            if (mess > 1000 && mess < 1231)
-                            {
-                                rList.Add(mess);
-                                i += (data[i + 1] << 6) + (data[i + 2])+5;
-                            }
-                            else
-                            {
-                                rList.Clear();
-                                break;
-                            }
-                        }
-                    }
-                }
-                catch
-                {
-                    return;
-                }
-            }
-
             //reset watchdog since we have updated data
             NTRIP_Watchdog = 0;
 

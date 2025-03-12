@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace AgIO
 {
@@ -299,8 +300,10 @@ namespace AgIO
                 //Send nmea to AgOpenGPS
                 mf.SendToLoopBackMessageAOG(nmeaPGN);
 
-                //Send nmea to autosteer module 8888
-                //if (isSendNMEAToUDP) mf.SendUDPMessage(nmeaPGN, mf.epModuleTool);
+                nmeaPGN.CopyTo(GPSOut.nmeaPGN, 0);
+
+                if (FormLoop.spGPSOut.IsOpen)
+                    mf.StartBgGPSOutWorker();
             }
         }
 

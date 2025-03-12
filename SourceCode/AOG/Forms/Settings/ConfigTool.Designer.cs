@@ -202,6 +202,9 @@ namespace AgOpenGPS
             nudLookAhead.Value = Settings.Tool.lookAheadOn;
             nudLookAheadOff.Value = Settings.Tool.lookAheadOff;
             nudTurnOffDelay.Value = Settings.Tool.offDelay;
+            nudLookAheadDistanceOn.Value = Settings.Tool.lookAheadDistanceOn;
+            nudLookAheadDistanceOff.Value = Settings.Tool.lookAheadDistanceOff;
+
             //pictureBox3.Image = Resources.ToolLookaheadOn;
             //pictureBox4.Image = Resources.ToolLookaheadOff;
         }
@@ -240,6 +243,25 @@ namespace AgOpenGPS
                 Settings.Tool.lookAheadOff = nudLookAheadOff.Value = 0;
             }
             Settings.Tool.offDelay = nudTurnOffDelay.Value;
+        }
+
+        private void nudLookAheadDistanceOn_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void nudLookAheadDistanceOff_Click(object sender, EventArgs e)
+        {
+        }
+        private void nudLookAheadDistanceOn_ValueChanged(object sender, EventArgs e)
+        {
+            Settings.Tool.lookAheadDistanceOn = nudLookAheadDistanceOn.Value;
+
+        }
+
+        private void nudLookAheadDistanceOff_ValueChanged(object sender, EventArgs e)
+        {
+            Settings.Tool.lookAheadDistanceOff = nudLookAheadDistanceOff.Value;
+
         }
 
         #endregion

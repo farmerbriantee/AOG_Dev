@@ -371,6 +371,8 @@ namespace AgOpenGPS
             public double lookAheadOff = 0.5;
             public double lookAheadOn = 1;
             public double offDelay = 0;
+            public double lookAheadDistanceOn = 0;
+            public double lookAheadDistanceOff = 0;
 
             public double offset = 0;
             public double maxOverlap = 0.0;

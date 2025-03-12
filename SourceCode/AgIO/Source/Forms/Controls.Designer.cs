@@ -28,34 +28,23 @@ namespace AgIO
 
         private void btnGPS_Out_Click(object sender, EventArgs e)
         {
-            StartGPS_Out();
+            GPS_OutSettings();
         }
 
         private void btnSlide_Click(object sender, EventArgs e)
         {
             if (this.Width < 600)
             {
-                this.Width = 760;
+                this.Width = 710;
                 isViewAdvanced = true;
                 btnSlide.BackgroundImage = Properties.Resources.ArrowGrnLeft;
-                sbRTCM.Clear();
-                lblMessages.Text = "Reading...";
                 threeMinuteTimer = secondsSinceStart;
-                lblMessagesFound.Text = "-";
-                aList.Clear();
-                rList.Clear();
             }
             else
             {
-                this.Width = 428;
+                this.Width = 530;
                 isViewAdvanced = false;
                 btnSlide.BackgroundImage = Properties.Resources.ArrowGrnRight;
-                aList.Clear();
-                rList.Clear();
-                lblMessages.Text = "Reading...";
-                lblMessagesFound.Text = "-";
-                aList.Clear();
-                rList.Clear();
             }
         }
 
@@ -173,12 +162,6 @@ namespace AgIO
                 }
             }
         }
-        private void lblMessages_Click(object sender, EventArgs e)
-        {
-            aList?.Clear();
-            sbRTCM.Clear();
-            sbRTCM.Append("Reset..");
-        }
 
         private void lblNTRIPBytes_Click(object sender, EventArgs e)
         {
@@ -188,11 +171,6 @@ namespace AgIO
         #endregion
 
         #region CheckBoxes
-        private void cboxAutoRunGPS_Out_Click(object sender, EventArgs e)
-        {
-            Settings.User.setDisplay_isAutoRunGPS_Out = cboxAutoRunGPS_Out.Checked;
-            
-        }
 
         private void cboxIsSteerModule_Click(object sender, EventArgs e)
         {
@@ -263,8 +241,7 @@ namespace AgIO
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
                     ////Clicked Save
-                    //Application.Restart();
-                    //Environment.Exit(0);
+                    //Program.Restart();
                 }
             }
         }
@@ -284,8 +261,7 @@ namespace AgIO
                     Log.EventWriter("Program Reset: Saving or Selecting Profile");
 
                     Settings.User.Save();
-                    Application.Restart();
-                    Environment.Exit(0);
+                    Program.Restart();
                 }
             }
             this.Text = "AgIO  v" + Application.ProductVersion.ToString(CultureInfo.InvariantCulture) + "   Using Profile: " 
@@ -470,39 +446,11 @@ namespace AgIO
             }
         }
 
-        private void StartGPS_Out()
+        private void GPS_OutSettings()
         {
-            Process[] processName = Process.GetProcessesByName("RateController");
-            if (processName.Length == 0)
+            using (FormGPSOut form = new FormGPSOut(this))
             {
-                //Start application here
-                string strPath = Path.Combine(Application.StartupPath, "RC", "RateController.exe");
-
-                try
-                {
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = strPath;
-                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
-                    Process p = Process.Start(processInfo);
-
-                    //p.WaitForInputIdle();
-                    //Thread.Sleep(1000); //sleep for 3 seconds
-                    //SetParent(p.MainWindowHandle, panel1.Handle);
-                    //SetWindowLong(p.MainWindowHandle, GWL_STYLE, WS_VISIBLE);
-                    //MoveWindow(p.MainWindowHandle, 0, 0, panel1.Width, panel1.Height, true);
-
-                }
-                catch
-                {
-                    TimedMessageBox(2000, "No File Found", "Can't Find GPS_Out");
-                    Log.EventWriter("No File Found, Can't Find GPS_Out");
-                }
-            }
-            else
-            {
-                //Set foreground window
-                ShowWindow(processName[0].MainWindowHandle, 9);
-                SetForegroundWindow(processName[0].MainWindowHandle);
+                form.ShowDialog(this);
             }
         }
 

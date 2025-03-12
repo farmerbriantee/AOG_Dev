@@ -203,6 +203,8 @@ namespace AgOpenGPS.Classes
         public static string gsConfiguration = "gsConfiguration";
         public static string gsContourFileIsCorrupt = "gsContourFileIsCorrupt";
         public static string gsContourOn = "gsContourOn";
+        public static string gsCopyCurrentToolAs = "gsCopyCurrentToolAs";
+        public static string gsCopyCurrentVehicleAs = "gsCopyCurrentVehicleAs";
         public static string gsCouldntGenerateValidPath = "gsCouldntGenerateValidPath";
         public static string gsCountsPerDegree = "gsCountsPerDegree";
         public static string gsCoverage = "gsCoverage";
@@ -349,6 +351,8 @@ namespace AgOpenGPS.Classes
         public static string gsN_East = "gsN_East";
         public static string gsN_West = "gsN_West";
         public static string gsNew = "gsNew";
+        public static string gsNewDefaultTool = "gsNewDefaultTool";
+        public static string gsNewDefaultVehicle = "gsNewDefaultVehicle";
         public static string gsNextGuidanceLine = "gsNextGuidanceLine";
         public static string gsNight = "gsNight";
         public static string gsNoABLineActive = "gsNoABLineActive";

@@ -24,72 +24,50 @@ namespace AgOpenGPS
         {
             if (lvVehicles.SelectedItems.Count > 0)
             {
-                DialogResult result3 = MessageBox.Show(
-                    "Open: " + lvVehicles.SelectedItems[0].SubItems[0].Text + ".XML ?",
-                    gStr.Get(gs.gsSaveAndReturn),
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button2);
+                mf.TurnOffSectionsSafely();
 
-                if (result3 == DialogResult.Yes)
-                {
-                    mf.TurnOffSectionsSafely();
+                RegistrySettings.Save("VehicleFileName", lvVehicles.SelectedItems[0].SubItems[0].Text);
+                if (Settings.Vehicle.Load() != Settings.LoadResult.Ok) return;
 
-                    RegistrySettings.Save("VehicleFileName", lvVehicles.SelectedItems[0].SubItems[0].Text);
-                    if (Settings.Vehicle.Load() != Settings.LoadResult.Ok) return;
+                LoadBrandImage();
 
-                    LoadBrandImage();
+                mf.vehicle.LoadSettings();
 
-                    mf.vehicle.LoadSettings();
+                //reset AgOpenGPS
+                mf.LoadSettings();
 
-                    //reset AgOpenGPS
-                    mf.LoadSettings();
+                //Form Steer Settings
+                PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Settings.Vehicle.setAS_countsPerDegree);
+                PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)Settings.Vehicle.setAS_ackerman);
 
-                    //Form Steer Settings
-                    PGN_252.pgn[PGN_252.countsPerDegree] = unchecked((byte)Settings.Vehicle.setAS_countsPerDegree);
-                    PGN_252.pgn[PGN_252.ackerman] = unchecked((byte)Settings.Vehicle.setAS_ackerman);
+                PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset >> 8));
+                PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset));
 
-                    PGN_252.pgn[PGN_252.wasOffsetHi] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset >> 8));
-                    PGN_252.pgn[PGN_252.wasOffsetLo] = unchecked((byte)(Settings.Vehicle.setAS_wasOffset));
+                PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)Settings.Vehicle.setAS_highSteerPWM);
+                PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)Settings.Vehicle.setAS_lowSteerPWM);
+                PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)Settings.Vehicle.setAS_Kp);
+                PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)Settings.Vehicle.setAS_minSteerPWM);
 
-                    PGN_252.pgn[PGN_252.highPWM] = unchecked((byte)Settings.Vehicle.setAS_highSteerPWM);
-                    PGN_252.pgn[PGN_252.lowPWM] = unchecked((byte)Settings.Vehicle.setAS_lowSteerPWM);
-                    PGN_252.pgn[PGN_252.gainProportional] = unchecked((byte)Settings.Vehicle.setAS_Kp);
-                    PGN_252.pgn[PGN_252.minPWM] = unchecked((byte)Settings.Vehicle.setAS_minSteerPWM);
+                mf.SendPgnToLoop(PGN_252.pgn);
 
-                    mf.SendPgnToLoop(PGN_252.pgn);
+                //steer config
+                PGN_251.pgn[PGN_251.set0] = Settings.Vehicle.setArdSteer_setting0;
+                PGN_251.pgn[PGN_251.set1] = Settings.Vehicle.setArdSteer_setting1;
+                PGN_251.pgn[PGN_251.maxPulse] = Settings.Vehicle.setArdSteer_maxPulseCounts;
+                PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Settings.Vehicle.setAS_minSteerSpeed * 10));
 
-                    //steer config
-                    PGN_251.pgn[PGN_251.set0] = Settings.Vehicle.setArdSteer_setting0;
-                    PGN_251.pgn[PGN_251.set1] = Settings.Vehicle.setArdSteer_setting1;
-                    PGN_251.pgn[PGN_251.maxPulse] = Settings.Vehicle.setArdSteer_maxPulseCounts;
-                    PGN_251.pgn[PGN_251.minSpeed] = unchecked((byte)(Settings.Vehicle.setAS_minSteerSpeed * 10));
+                if (Settings.Vehicle.setAS_isConstantContourOn)
+                    PGN_251.pgn[PGN_251.angVel] = 1;
+                else PGN_251.pgn[PGN_251.angVel] = 0;
 
-                    if (Settings.Vehicle.setAS_isConstantContourOn)
-                        PGN_251.pgn[PGN_251.angVel] = 1;
-                    else PGN_251.pgn[PGN_251.angVel] = 0;
+                mf.SendPgnToLoop(PGN_251.pgn);
 
-                    mf.SendPgnToLoop(PGN_251.pgn);
+                ///Remind the user
+                mf.TimedMessageBox(2500, "Steer Settings Sent", "Were Modules Connected?");
 
-                    //machine settings    
-                    PGN_238.pgn[PGN_238.set0] = Settings.Vehicle.setArdMac_setting0;
-                    PGN_238.pgn[PGN_238.raiseTime] = Settings.Vehicle.setArdMac_hydRaiseTime;
-                    PGN_238.pgn[PGN_238.lowerTime] = Settings.Vehicle.setArdMac_hydLowerTime;
+                Log.EventWriter("Vehicle Loaded: " + RegistrySettings.vehicleFileName + ".XML");
 
-                    PGN_238.pgn[PGN_238.user1] = Settings.Vehicle.setArdMac_user1;
-                    PGN_238.pgn[PGN_238.user2] = Settings.Vehicle.setArdMac_user2;
-                    PGN_238.pgn[PGN_238.user3] = Settings.Vehicle.setArdMac_user3;
-                    PGN_238.pgn[PGN_238.user4] = Settings.Vehicle.setArdMac_user4;
-
-                    mf.SendPgnToLoop(PGN_238.pgn);
-
-                    ///Remind the user
-                    mf.TimedMessageBox(2500, "Steer and Machine Settings Sent", "Were Modules Connected?");
-
-                    Log.EventWriter("Vehicle Loaded: " + RegistrySettings.vehicleFileName + ".XML");
-
-                    Close();
-                }
+                UpdateVehicleListView();
             }
         }
 
@@ -305,10 +283,13 @@ namespace AgOpenGPS
 
             //deselect everything
             lvVehicles.SelectedItems.Clear();
-            lblSummaryVehicleName.Text = RegistrySettings.workingDirectory;
 
-            //tboxCreateNewVehicle.Text = "";
-            //tboxVehicleNameSave.Text = "";
+            lblCurrentVehicle.Text = "Vehicle" + ": " + RegistrySettings.vehicleFileName;
+            lblSummaryVehicleName.Text = lblCurrentVehicle.Text;
+
+            lblCurrentTool.Text = "Tool" + ": " + RegistrySettings.toolFileName;
+            lblSummaryToolName.Text = lblCurrentTool.Text;
+
         }
 
         private void SaveDisplaySettings()
@@ -356,8 +337,11 @@ namespace AgOpenGPS
             lvTools.SelectedItems.Clear();
             lblSummaryToolName.Text = RegistrySettings.workingDirectory;
 
-            //tboxCreateNewVehicle.Text = "";
-            //tboxVehicleNameSave.Text = "";
+            lblCurrentVehicle.Text = "Vehicle" + ": " + RegistrySettings.vehicleFileName;
+            lblSummaryVehicleName.Text = lblCurrentVehicle.Text;
+
+            lblCurrentTool.Text = "Tool" + ": " + RegistrySettings.toolFileName;
+            lblSummaryToolName.Text = lblCurrentTool.Text;
         }
 
         private void btnToolDelete_Click(object sender, EventArgs e)
@@ -389,31 +373,35 @@ namespace AgOpenGPS
         {
             if (lvTools.SelectedItems.Count > 0)
             {
-                DialogResult result3 = MessageBox.Show(
-                    "Open: " + lvTools.SelectedItems[0].SubItems[0].Text + ".XML ?",
-                    gStr.Get(gs.gsSaveAndReturn),
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button2);
+                mf.TurnOffSectionsSafely();
 
-                if (result3 == DialogResult.Yes)
-                {
-                    mf.TurnOffSectionsSafely();
+                RegistrySettings.Save("ToolFileName", lvTools.SelectedItems[0].SubItems[0].Text);
+                if (Settings.Tool.Load() != Settings.LoadResult.Ok) return;
 
-                    RegistrySettings.Save("ToolFileName", lvTools.SelectedItems[0].SubItems[0].Text);
-                    if (Settings.Tool.Load() != Settings.LoadResult.Ok) return;
+                mf.tool.LoadSettings();
+                mf.SetNozzleSettings();
 
-                    mf.tool.LoadSettings();
-                    mf.SetNozzleSettings();
+                //Send Pin configuration
+                SendRelaySettingsToMachineModule();
 
-                    //Send Pin configuration
-                    SendRelaySettingsToMachineModule();
+                //machine settings    
+                PGN_238.pgn[PGN_238.set0] = Settings.Vehicle.setArdMac_setting0;
+                PGN_238.pgn[PGN_238.raiseTime] = Settings.Vehicle.setArdMac_hydRaiseTime;
+                PGN_238.pgn[PGN_238.lowerTime] = Settings.Vehicle.setArdMac_hydLowerTime;
 
-                    ///Remind the user
-                    mf.TimedMessageBox(2500, "Steer and Machine Settings Sent", "Were Modules Connected?");
+                PGN_238.pgn[PGN_238.user1] = Settings.Vehicle.setArdMac_user1;
+                PGN_238.pgn[PGN_238.user2] = Settings.Vehicle.setArdMac_user2;
+                PGN_238.pgn[PGN_238.user3] = Settings.Vehicle.setArdMac_user3;
+                PGN_238.pgn[PGN_238.user4] = Settings.Vehicle.setArdMac_user4;
 
-                    Log.EventWriter("Tool Loaded: " + RegistrySettings.toolFileName + ".XML");
-                }
+                mf.SendPgnToLoop(PGN_238.pgn);
+
+                ///Remind the user
+                mf.TimedMessageBox(1500, "Machine Settings Sent", "Were Modules Connected?");
+
+                Log.EventWriter("Tool Loaded: " + RegistrySettings.toolFileName + ".XML");
+
+                UpdateToolListView();
             }
         }
 
@@ -466,7 +454,6 @@ namespace AgOpenGPS
 
                 UpdateToolListView();
             }
-
         }
 
         private void tboxCreateNewTool_TextChanged(object sender, EventArgs e)

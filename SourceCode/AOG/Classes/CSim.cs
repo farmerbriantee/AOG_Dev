@@ -145,8 +145,7 @@ namespace AgOpenGPS
             easting = northing = heading = 0;
 
             mf.stepFixPts[0].isSet = false;
-            mf.gpsHeading += Math.PI;
-            mf.gpsHeading %= glm.twoPI;
+            mf.gpsHeading = 0;
 
             sinH = Math.Sin(0);
             cosH = Math.Cos(0);

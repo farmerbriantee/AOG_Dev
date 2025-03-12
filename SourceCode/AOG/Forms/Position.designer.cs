@@ -609,8 +609,8 @@ namespace AgOpenGPS
                         else if (yt.ytList.Count > 5)//wait to trigger the actual turn since its made and waiting
                         {
                             //distance from current pivot or steer to first point of youturn pattern
-                            if (Settings.Vehicle.setVehicle_isStanleyUsed) distancePivotToTurnLine = glm.Distance(yt.ytList[2], steerAxlePos);
-                            else distancePivotToTurnLine = glm.Distance(yt.ytList[2], pivotAxlePos);
+                            if (Settings.Vehicle.setVehicle_isStanleyUsed) distancePivotToTurnLine = glm.Distance(yt.ytList[0], steerAxlePos);
+                            else distancePivotToTurnLine = glm.Distance(yt.ytList[0], pivotAxlePos);
 
                             if ((distancePivotToTurnLine <= 20.0) && (distancePivotToTurnLine >= 18.0) && !yt.isYouTurnTriggered)
 

@@ -60,7 +60,7 @@ namespace AgOpenGPS
         {
             double newTime = ((double)(algoTimer.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency);
             aTime = newTime * 0.1 + aTime * 0.9;
-            lblAlgo.Text = aTime.ToString("N3");
+            //lblAlgo.Text = aTime.ToString("N3");
         }
 
         // When oglMain is created

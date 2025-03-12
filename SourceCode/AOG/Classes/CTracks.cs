@@ -92,9 +92,9 @@ namespace AgOpenGPS
                         return;
                     }
 
-                    int cc = mf.gyd.FindGlobalRoughNearest(mf.guidanceLookPos, track.curvePts, 10, !isTrackValid);
+                    //int cc = mf.gyd.FindGlobalRoughNearest(mf.guidanceLookPos, track.curvePts, 10, !isTrackValid);
 
-                    if (mf.gyd.FindClosestSegment(track.curvePts, false, mf.guidanceLookPos, out rA, out rB, cc - 10, cc + 10))
+                    if (mf.gyd.FindClosestSegment(track.curvePts, false, mf.guidanceLookPos, out rA, out rB))//, cc - 10, cc + 10))
                     {
                         distanceFromRefLine = mf.gyd.FindDistanceToSegment(mf.guidanceLookPos, track.curvePts[rA], track.curvePts[rB], out vec3 point, out _, true, false, false);
 

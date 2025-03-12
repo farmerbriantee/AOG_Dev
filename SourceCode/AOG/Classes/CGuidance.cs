@@ -49,7 +49,7 @@ namespace AgOpenGPS
             int cc = FindGlobalRoughNearest(vec2point, curList, 5, Uturn);
 
             //long enough line?
-            if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
+            if (!Uturn && mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
             {
                 if (cc > curList.Count - 30)
                 {
@@ -59,6 +59,7 @@ namespace AgOpenGPS
                 if (cc < 30)
                 {
                     mf.trk.AddStartPoints(ref curList, 100);
+                    cc += 100;
                 }
             }
 
@@ -450,48 +451,7 @@ namespace AgOpenGPS
                 isFindGlobalNearestTrackPoint = false;
             }
 
-                /*
-                //long enough line?
-                if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
-                {
-                    if (cc > curList.Count - 30)
-                    {
-                        mf.trk.AddEndPoints(ref curList, 100);
-                        currentLocationIndex = cc;
-
-                        for (int j = 0; j < curList.Count; j += 5)
-                        {
-                            dist = glm.DistanceSquared(steer, curList[j]);
-                            if (dist < minDistA)
-                            {
-                                minDistA = dist;
-                                cc = j;
-                            }
-                        }
-                        isFindGlobalNearestTrackPoint = false;
-                        minDistA = double.MaxValue;
-                    }
-
-                    if (cc < 30)
-                    {
-                        mf.trk.AddStartPoints(ref curList, 100);
-                        currentLocationIndex = cc;
-
-                        for (int j = 0; j < curList.Count; j += 5)
-                        {
-                            dist = glm.DistanceSquared(steer, curList[j]);
-                            if (dist < minDistA)
-                            {
-                                minDistA = dist;
-                                cc = j;
-                            }
-                        }
-                        isFindGlobalNearestTrackPoint = false;
-                        minDistA = double.MaxValue;
-                    }
-                }
-                */
-                return currentLocationIndex;
+            return currentLocationIndex;
         }
     }
 }

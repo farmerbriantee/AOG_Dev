@@ -313,7 +313,6 @@ namespace AgOpenGPS
 
             Settings.User.isLightbarOn = Settings.User.isLightbarOn;
             Settings.User.isMetric = rbtnDisplayMetric.Checked;
-            Settings.Vehicle.setAS_numGuideLines = mf.trk.numGuideLines;
             Settings.User.setDisplay_isStartFullScreen = chkDisplayStartFullScreen.Checked;
         }
 

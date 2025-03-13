@@ -987,7 +987,7 @@ namespace AgOpenGPS
                                 {
                                     if (yt.isYouTurnTriggered)
                                     {
-                                        yt.ResetYouTurn();
+                                        yt.ResetCreatedYouTurn();
                                     }
                                     else
                                     {
@@ -1007,7 +1007,7 @@ namespace AgOpenGPS
                                 {
                                     if (yt.isYouTurnTriggered)
                                     {
-                                        yt.ResetYouTurn();
+                                        yt.ResetCreatedYouTurn();
                                     }
                                     else
                                     {
@@ -1035,7 +1035,6 @@ namespace AgOpenGPS
                                 if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                 {
                                     yt.BuildManualYouLateral(false);
-                                    yt.ResetYouTurn();
                                 }
                                 else
                                 {
@@ -1050,7 +1049,6 @@ namespace AgOpenGPS
                                 if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                 {
                                     yt.BuildManualYouLateral(true);
-                                    yt.ResetYouTurn();
                                 }
                                 else
                                 {
@@ -1177,7 +1175,7 @@ namespace AgOpenGPS
             if (!yt.isYouTurnTriggered)
             {
                 yt.isTurnLeft = !yt.isTurnLeft;
-                yt.ResetYouTurn();
+                yt.ResetCreatedYouTurn();
             }
             else SetYouTurnButton(false);
         }
@@ -1197,18 +1195,11 @@ namespace AgOpenGPS
             }
         }
 
-        public void EnableYouTurnButtons()
-        {
-            yt.ResetYouTurn();
-            yt.isYouTurnBtnOn = false;
-            btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
-        }
-
         public void DisableYouTurnButtons()
         {
             yt.isYouTurnBtnOn = false;
             btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
-            yt.ResetYouTurn();
+            yt.ResetCreatedYouTurn();
         }
 
         private void ShowNoGPSWarning()

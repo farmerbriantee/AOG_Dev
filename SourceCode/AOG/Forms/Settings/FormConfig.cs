@@ -245,7 +245,7 @@ namespace AgOpenGPS
             rbtnDisplayMetric.Checked = Settings.User.isMetric;
             rbtnDisplayImperial.Checked = !rbtnDisplayMetric.Checked;
 
-            nudNumGuideLines.Value = mf.trk.numGuideLines;
+            nudNumGuideLines.Value = Settings.Vehicle.setAS_numGuideLines;
         }
 
         private void tabDisplay_Leave(object sender, EventArgs e)
@@ -279,8 +279,7 @@ namespace AgOpenGPS
 
         private void nudNumGuideLines_ValueChanged(object sender, EventArgs e)
         {
-            mf.trk.numGuideLines = (int)nudNumGuideLines.Value;
+            Settings.Vehicle.setAS_numGuideLines = (int)nudNumGuideLines.Value;
         }
-
     }
 }

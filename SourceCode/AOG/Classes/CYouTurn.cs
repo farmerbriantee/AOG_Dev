@@ -33,8 +33,6 @@ namespace AgOpenGPS
         //guidance values
         public double uturnDistanceFromBoundary;
 
-        public bool isTurnCreationTooClose = false, isTurnCreationNotCrossingError = false, turnTooCloseTrigger = false;
-
         //list of points for scaled and rotated YouTurn line, used for pattern, dubins, abcurve
         public List<vec3> ytList = new List<vec3>();
 
@@ -73,7 +71,6 @@ namespace AgOpenGPS
         public CYouTurn(FormGPS _f)
         {
             mf = _f;
-            LoadSettings();
         }
 
         public void LoadSettings()
@@ -181,7 +178,6 @@ namespace AgOpenGPS
                     }
                     else//curve does not cross a boundary - oops
                     {
-                        isTurnCreationNotCrossingError = true;
                         FailCreate();
                     }
                 }
@@ -207,7 +203,7 @@ namespace AgOpenGPS
 
                 mf.distancePivotToTurnLine = glm.Distance(ytList[0], mf.pivotAxlePos);
 
-                if (mf.distancePivotToTurnLine < 3)
+                if (mf.distancePivotToTurnLine < Settings.Vehicle.set_youTurnExtensionLength + 1)
                 {
                     FailCreate();
                 }
@@ -388,7 +384,7 @@ namespace AgOpenGPS
                 int offsetIdx = movePoint2.curveIndex + (mf.trk.isHeadingSameWay ^ isGoingStraightThrough ? 0 : + 1);
                 upDownCount = mf.trk.isHeadingSameWay ^ isGoingStraightThrough ? -1 : 1;
 
-                AddCurveSequenceLines(nextCurve, ytList[ytList.Count - 1], movePoint2.curveIndex, upDownCount, Settings.Vehicle.set_youTurnExtensionLength, false);
+                AddCurveSequenceLines(nextCurve, ytList[ytList.Count - 1], offsetIdx, upDownCount, Settings.Vehicle.set_youTurnExtensionLength, false);
 
 
 
@@ -401,8 +397,7 @@ namespace AgOpenGPS
 
         private List<vec3> GetOffsetSemicirclePoints(vec3 currentPos, double theta, bool isTurningRight, double turningRadius, double offsetDistance, double angle = Math.PI)
         {
-            List<vec3> points = new List<vec3>();
-            points.Add(currentPos);
+            List<vec3> points = new List<vec3>() { currentPos };
 
             double firstArcAngle = Math.Acos(1 - (offsetDistance * 0.5) / turningRadius);
 
@@ -520,7 +515,6 @@ namespace AgOpenGPS
 
         #region SequenceLines
 
-        //TODO: is for some reason making longer for omegaturn....
         private bool AddCurveSequenceLines(List<vec3> points, vec3 point, int idx, int upDownCount, double Length, bool insert)
         {
             double distSoFar = 0;
@@ -743,7 +737,6 @@ namespace AgOpenGPS
         //Normal copmpletion of youturn
         public void CompleteYouTurn()
         {
-            isYouTurnTriggered = false;
             ResetCreatedYouTurn();
         }
 
@@ -752,15 +745,6 @@ namespace AgOpenGPS
             rowSkipsWidth2 = rowSkipsWidth;
             turnSkips = rowSkipsWidth2 * 2 - 1;
             previousBigSkip = false;
-        }
-
-        //something went seriously wrong so reset everything
-        public void ResetYouTurn()
-        {
-            turnTooCloseTrigger = false;
-            isTurnCreationTooClose = false;
-            isTurnCreationNotCrossingError = false;
-            ResetCreatedYouTurn();
         }
 
         public void ResetCreatedYouTurn()
@@ -776,14 +760,20 @@ namespace AgOpenGPS
         public void FailCreate()
         {
             //fail
+            ytList?.Clear();
             isOutOfBounds = true;
-            isTurnCreationTooClose = true;
             mf.mc.isOutOfBounds = true;
             youTurnPhase = 250;//error
+
+            Log.EventWriter("U Turn Creation Failure");
+
+            if (Settings.User.sound_isUturnOn)
+                mf.sounds.sndUTurnTooClose.Play();
         }
 
         public void BuildManualYouLateral(bool isTurnLeft)
         {
+            ResetCreatedYouTurn();
             //point on AB line closest to pivot axle point from AB Line PurePursuit
             if (mf.trk.idx > -1 && mf.trk.gArr.Count > 0)
             {

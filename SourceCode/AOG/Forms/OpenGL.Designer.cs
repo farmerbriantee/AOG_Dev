@@ -694,7 +694,7 @@ namespace AgOpenGPS
                         GL.Color3(1.0, 0.66, 0.33);
                         GL.LineWidth(16);
                     }
-                    if ((Settings.Vehicle.setGPS_isRTK && sounds.isRTKAlarming) || (yt.isYouTurnBtnOn && yt.turnTooCloseTrigger))
+                    if ((Settings.Vehicle.setGPS_isRTK && sounds.isRTKAlarming) || (yt.isYouTurnBtnOn && yt.youTurnPhase == 250))
                     {
                         if (isFlashOnOff)
                         {

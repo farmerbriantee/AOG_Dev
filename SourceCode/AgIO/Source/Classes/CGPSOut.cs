@@ -350,7 +350,7 @@ namespace AgIO
                 return retCount;
             }
 
-            catch (System.IO.IOException e)
+            catch (System.IO.IOException)
             {
                 if (FormLoop.spGPSOut.IsOpen)
                 {

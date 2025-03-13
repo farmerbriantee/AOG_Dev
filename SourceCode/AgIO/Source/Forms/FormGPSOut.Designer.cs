@@ -56,6 +56,9 @@
             this.btnAllOff = new System.Windows.Forms.Button();
             this.rbGP = new System.Windows.Forms.RadioButton();
             this.rbGN = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cboGSA = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -210,6 +213,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.cboGSA);
+            this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label19);
             this.groupBox2.Controls.Add(this.cboZDA);
             this.groupBox2.Controls.Add(this.label20);
@@ -225,7 +231,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(12, 142);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(455, 175);
+            this.groupBox2.Size = new System.Drawing.Size(676, 175);
             this.groupBox2.TabIndex = 176;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Transfer Rate";
@@ -233,7 +239,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(392, 122);
+            this.label19.Location = new System.Drawing.Point(606, 47);
             this.label19.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(39, 25);
@@ -250,7 +256,7 @@
             "1",
             "5",
             "10"});
-            this.cboZDA.Location = new System.Drawing.Point(317, 111);
+            this.cboZDA.Location = new System.Drawing.Point(531, 36);
             this.cboZDA.Name = "cboZDA";
             this.cboZDA.Size = new System.Drawing.Size(71, 47);
             this.cboZDA.TabIndex = 163;
@@ -259,7 +265,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(259, 122);
+            this.label20.Location = new System.Drawing.Point(473, 47);
             this.label20.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(55, 25);
@@ -420,6 +426,42 @@
             this.rbGN.Text = "Send $GN---";
             this.rbGN.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(606, 122);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(39, 25);
+            this.label1.TabIndex = 167;
+            this.label1.Text = "Hz";
+            // 
+            // cboGSA
+            // 
+            this.cboGSA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboGSA.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboGSA.FormattingEnabled = true;
+            this.cboGSA.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "5",
+            "10"});
+            this.cboGSA.Location = new System.Drawing.Point(531, 111);
+            this.cboGSA.Name = "cboGSA";
+            this.cboGSA.Size = new System.Drawing.Size(71, 47);
+            this.cboGSA.TabIndex = 166;
+            this.cboGSA.SelectedIndexChanged += new System.EventHandler(this.cboGSA_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(473, 122);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 25);
+            this.label2.TabIndex = 165;
+            this.label2.Text = "GSA";
+            // 
             // FormGPSOut
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -478,5 +520,8 @@
         private System.Windows.Forms.Button btnAllOff;
         private System.Windows.Forms.RadioButton rbGP;
         private System.Windows.Forms.RadioButton rbGN;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cboGSA;
+        private System.Windows.Forms.Label label2;
     }
 }

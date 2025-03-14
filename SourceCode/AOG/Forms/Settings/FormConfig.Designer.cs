@@ -287,6 +287,7 @@
             this.chkSetManualSections = new System.Windows.Forms.CheckBox();
             this.chkWorkSwActiveLow = new System.Windows.Forms.CheckBox();
             this.tabTSettings = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.nudLookAheadDistanceOff = new AgOpenGPS.NudlessNumericUpDown();
             this.nudLookAheadDistanceOn = new AgOpenGPS.NudlessNumericUpDown();
@@ -538,7 +539,6 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label5 = new System.Windows.Forms.Label();
             this.panelLeftSideMenu.SuspendLayout();
             this.panelArduinoSubMenu.SuspendLayout();
             this.panelDataSourcesSubMenu.SuspendLayout();
@@ -4497,6 +4497,20 @@
             this.tabTSettings.TabIndex = 10;
             this.tabTSettings.Text = "TSettings";
             // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label5.Location = new System.Drawing.Point(198, 409);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(159, 44);
+            this.label5.TabIndex = 139;
+            this.label5.Text = "Time\r\n(Seconds)";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -4508,7 +4522,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(159, 44);
             this.label2.TabIndex = 138;
-            this.label2.Text = "Fixed Distance\r\n(m)";
+            this.label2.Text = "Fixed Distance\r\n(cm/inch)";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // nudLookAheadDistanceOff
@@ -4517,6 +4531,7 @@
             this.nudLookAheadDistanceOff.DecimalPlaces = 1;
             this.nudLookAheadDistanceOff.Location = new System.Drawing.Point(363, 526);
             this.nudLookAheadDistanceOff.Maximum = 500D;
+            this.nudLookAheadDistanceOff.Mode = AgOpenGPS.UnitMode.Small;
             this.nudLookAheadDistanceOff.Name = "nudLookAheadDistanceOff";
             this.nudLookAheadDistanceOff.Size = new System.Drawing.Size(114, 52);
             this.nudLookAheadDistanceOff.TabIndex = 136;
@@ -4528,6 +4543,7 @@
             this.nudLookAheadDistanceOn.DecimalPlaces = 1;
             this.nudLookAheadDistanceOn.Location = new System.Drawing.Point(78, 526);
             this.nudLookAheadDistanceOn.Maximum = 500D;
+            this.nudLookAheadDistanceOn.Mode = AgOpenGPS.UnitMode.Small;
             this.nudLookAheadDistanceOn.Name = "nudLookAheadDistanceOn";
             this.nudLookAheadDistanceOn.Size = new System.Drawing.Size(114, 52);
             this.nudLookAheadDistanceOn.TabIndex = 135;
@@ -8631,20 +8647,6 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label5.Location = new System.Drawing.Point(198, 409);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(159, 44);
-            this.label5.TabIndex = 139;
-            this.label5.Text = "Time\r\n(Seconds)";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormConfig
             // 

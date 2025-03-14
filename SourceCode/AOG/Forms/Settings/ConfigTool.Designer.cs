@@ -245,13 +245,6 @@ namespace AgOpenGPS
             Settings.Tool.offDelay = nudTurnOffDelay.Value;
         }
 
-        private void nudLookAheadDistanceOn_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void nudLookAheadDistanceOff_Click(object sender, EventArgs e)
-        {
-        }
         private void nudLookAheadDistanceOn_ValueChanged(object sender, EventArgs e)
         {
             Settings.Tool.lookAheadDistanceOn = nudLookAheadDistanceOn.Value;

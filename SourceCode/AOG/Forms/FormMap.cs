@@ -31,7 +31,7 @@ namespace AOG
             {
                 new BingMapsHybridTileServer(),
                 new BingMapsRoadsTileServer(),
-                new OpenStreetMapTileServer(userAgent: "Map Control AgOpenGPS"),
+                new OpenStreetMapTileServer(userAgent: "Map Control AOG"),
                 new OfflineTileServer(),
                 new BingMapsAerialTileServer(),
             };

@@ -2691,7 +2691,7 @@
             this.MinimumSize = new System.Drawing.Size(1000, 720);
             this.Name = "FormGPS";
             this.Padding = new System.Windows.Forms.Padding(3);
-            this.Text = "AgOpenGPS";
+            this.Text = "AOG";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormGPS_FormClosing);
             this.Load += new System.EventHandler(this.FormGPS_Load);
             this.ResizeEnd += new System.EventHandler(this.FormGPS_ResizeEnd);

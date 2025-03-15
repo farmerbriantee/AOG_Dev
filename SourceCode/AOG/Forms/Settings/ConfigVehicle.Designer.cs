@@ -855,7 +855,7 @@ namespace AOG
                     brand = Settings.Vehicle.setBrand_TBrand;
 
                     if (brand == TBrand.AOG)
-                        rbtnBrandTAgOpenGPS.Checked = true;
+                        rbtnBrandTAog.Checked = true;
                     else if (brand == TBrand.Case)
                         rbtnBrandTCase.Checked = true;
                     else if (brand == TBrand.Claas)
@@ -889,8 +889,8 @@ namespace AOG
 
                     brandH = Settings.Vehicle.setBrand_HBrand;
 
-                    if (brandH == HBrand.AgOpenGPS)
-                        rbtnBrandHAgOpenGPS.Checked = true;
+                    if (brandH == HBrand.Aog)
+                        rbtnBrandHAog.Checked = true;
                     else if (brandH == HBrand.Case)
                         rbtnBrandHCase.Checked = true;
                     else if (brandH == HBrand.Claas)
@@ -908,8 +908,8 @@ namespace AOG
 
                     brand4WD = Settings.Vehicle.setBrand_WDBrand;
 
-                    if (brand4WD == WDBrand.AgOpenGPS)
-                        rbtnBrand4WDAgOpenGPS.Checked = true;
+                    if (brand4WD == WDBrand.Aog)
+                        rbtnBrand4WDAog.Checked = true;
                     else if (brand4WD == WDBrand.Case)
                         rbtnBrand4WDCase.Checked = true;
                     else if (brand4WD == WDBrand.Challenger)
@@ -1005,7 +1005,7 @@ namespace AOG
 
         //Check Brand is changed
 
-        private void rbtnBrandTAgOpenGPS_CheckedChanged(object sender, EventArgs e)
+        private void rbtnBrandTAog_CheckedChanged(object sender, EventArgs e)
         {
             if ((sender as RadioButton).Checked)
             {
@@ -1154,11 +1154,11 @@ namespace AOG
             }
         }
 
-        private void rbtnBrandHAgOpenGPS_CheckedChanged(object sender, EventArgs e)
+        private void rbtnBrandHAog_CheckedChanged(object sender, EventArgs e)
         {
             if ((sender as RadioButton).Checked)
             {
-                brandH = HBrand.AgOpenGPS;
+                brandH = HBrand.Aog;
                 pboxAlpha.BackgroundImage = mf.GetHarvesterBrand(brandH);
                 original = null;
                 SetOpacity();
@@ -1211,11 +1211,11 @@ namespace AOG
             }
         }
 
-        private void rbtnBrand4WDAgOpenGPS_CheckedChanged(object sender, EventArgs e)
+        private void rbtnBrand4WDAog_CheckedChanged(object sender, EventArgs e)
         {
             if ((sender as RadioButton).Checked)
             {
-                brand4WD = WDBrand.AgOpenGPS;
+                brand4WD = WDBrand.Aog;
                 pboxAlpha.BackgroundImage = mf.Get4WDBrandFront(brand4WD);
                 original = null;
                 SetOpacity();

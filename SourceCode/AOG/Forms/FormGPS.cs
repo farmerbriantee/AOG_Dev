@@ -673,7 +673,7 @@ namespace AOG
             JobClose();
             FieldClose();
 
-            this.Text = "AgOpenGPS";
+            this.Text = "AOG";
         }
 
         public void FieldNew()

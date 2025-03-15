@@ -20,7 +20,7 @@ namespace AOG
             {
                 Log.EventWriter("Program Started: "
                     + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
-                Log.EventWriter("AgOpenGPS Version: " + Application.ProductVersion.ToString(CultureInfo.InvariantCulture));
+                Log.EventWriter("AOG Version: " + Application.ProductVersion.ToString(CultureInfo.InvariantCulture));
 
                 RegistrySettings.Load();
 
@@ -32,7 +32,7 @@ namespace AOG
             }
             else
             {
-                MessageBox.Show("AgOpenGPS is Already Running");
+                MessageBox.Show("AOG is Already Running");
             }
         }
     }

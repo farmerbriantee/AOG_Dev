@@ -420,7 +420,7 @@
             this.groupBox2.Size = new System.Drawing.Size(136, 612);
             this.groupBox2.TabIndex = 553;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "AgOpenGPS Menu";
+            this.groupBox2.Text = "AOG Menu";
             // 
             // label15
             // 

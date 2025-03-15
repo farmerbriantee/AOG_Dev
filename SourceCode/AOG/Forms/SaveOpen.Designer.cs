@@ -1244,7 +1244,7 @@ namespace AOG
 
                 xml.WriteStartElement("ISO11783_TaskData");//Settings
                 xml.WriteAttributeString("DataTransferOrigin", "1");
-                xml.WriteAttributeString("ManagementSoftwareManufacturer", "AgOpenGPS");
+                xml.WriteAttributeString("ManagementSoftwareManufacturer", "AOG");
                 xml.WriteAttributeString("ManagementSoftwareVersion", "1.4.0");
                 xml.WriteAttributeString("VersionMajor", "3");
                 xml.WriteAttributeString("VersionMinor", "3");
@@ -1443,7 +1443,7 @@ namespace AOG
 
                 xml.WriteStartElement("ISO11783_TaskData");//Settings
                 xml.WriteAttributeString("DataTransferOrigin", "1");
-                xml.WriteAttributeString("ManagementSoftwareManufacturer", "AgOpenGPS");
+                xml.WriteAttributeString("ManagementSoftwareManufacturer", "AOG");
                 xml.WriteAttributeString("ManagementSoftwareVersion", "1.4.0");
                 xml.WriteAttributeString("VersionMajor", "4");
                 xml.WriteAttributeString("VersionMinor", "2");

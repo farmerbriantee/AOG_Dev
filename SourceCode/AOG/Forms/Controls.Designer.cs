@@ -1799,7 +1799,7 @@ namespace AOG
         }
         private void eventViewerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form form = new FormEventViewer(Path.Combine(RegistrySettings.logsDirectory, "AgOpenGPS_Events_Log.txt"));
+            Form form = new FormEventViewer(Path.Combine(RegistrySettings.logsDirectory, "AOG_Events_Log.txt"));
             form.Show(this);
             this.Activate();
         }

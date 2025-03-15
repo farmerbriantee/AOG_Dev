@@ -17,8 +17,8 @@ using AOG.Classes;
 namespace AOG
 {
     public enum TBrand { AOG, Case, Claas, Deutz, Fendt, JDeere, Kubota, Massey, NewHolland, Same, Steyr, Ursus, Valtra }
-    public enum HBrand { AgOpenGPS, Case, Claas, JDeere, NewHolland }
-    public enum WDBrand { AgOpenGPS, Case, Challenger, JDeere, NewHolland, Holder }
+    public enum HBrand { Aog, Case, Claas, JDeere, NewHolland }
+    public enum WDBrand { Aog, Case, Challenger, JDeere, NewHolland, Holder }
 
     public partial class FormGPS
     {

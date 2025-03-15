@@ -815,7 +815,7 @@ namespace AOG
         private void cboxGPSTool_Click(object sender, EventArgs e)
         {
             mf.isGPSToolActive = cboxGPSTool.Checked;
-            mf.YesMessageBox("You must restart AgOpenGPS to make changes to the networking");
+            mf.YesMessageBox("You must restart AOG to make changes to the networking");
             Log.EventWriter("GPS Tool set to: " + cboxGPSTool.Checked.ToString());
             Settings.Tool.setToolSteer.isGPSToolActive = mf.isGPSToolActive;
         }

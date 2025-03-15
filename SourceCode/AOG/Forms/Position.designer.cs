@@ -595,22 +595,12 @@ namespace AgOpenGPS
                                 yt.youTurnPhase = 255;
                                 //yt.SmoothYouTurn(6); //yt.uTurnSmoothing????
                             }
-
-                            if (yt.isTurnCreationTooClose && !yt.turnTooCloseTrigger)
-                            {
-                                yt.turnTooCloseTrigger = true;
-                                if (Settings.User.sound_isUturnOn)
-                                {
-                                    sounds.sndUTurnTooClose.Play();
-                                    Log.EventWriter("U Turn Creation Failure");
                                 }
-                            }
-                        }
-                        else if (yt.ytList.Count > 5)//wait to trigger the actual turn since its made and waiting
+                        else if (yt.ytList.Count > 0)//wait to trigger the actual turn since its made and waiting
                         {
                             //distance from current pivot or steer to first point of youturn pattern
-                            if (Settings.Vehicle.setVehicle_isStanleyUsed) distancePivotToTurnLine = glm.Distance(yt.ytList[2], steerAxlePos);
-                            else distancePivotToTurnLine = glm.Distance(yt.ytList[2], pivotAxlePos);
+                            if (Settings.Vehicle.setVehicle_isStanleyUsed) distancePivotToTurnLine = glm.Distance(yt.ytList[0], steerAxlePos);
+                            else distancePivotToTurnLine = glm.Distance(yt.ytList[0], pivotAxlePos);
 
                             if ((distancePivotToTurnLine <= 20.0) && (distancePivotToTurnLine >= 18.0) && !yt.isYouTurnTriggered)
 
@@ -808,7 +798,7 @@ namespace AgOpenGPS
             }
 
             //contour points
-            if (isFieldStarted && (contourTriggerDistance > (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) / 3.0
+            if (isFieldStarted && (contourTriggerDistance > (Settings.Tool.toolWidth - Settings.Tool.overlap) / 3.0
                 || contourTriggerDistance > sectionTriggerStepDistance))
             {
                 AddContourPoints();

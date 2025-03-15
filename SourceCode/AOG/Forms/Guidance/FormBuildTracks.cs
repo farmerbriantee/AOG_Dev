@@ -154,7 +154,7 @@ namespace AgOpenGPS
             if (selectedItem > -1 && mf.trk.gArr.Count > 0 && mf.trk.gArr[selectedItem].isVisible)
             {
                 mf.trk.idx = selectedItem;
-                mf.yt.ResetYouTurn();
+                mf.yt.ResetCreatedYouTurn();
 
                 Close();
             }
@@ -177,7 +177,7 @@ namespace AgOpenGPS
                 if (isOneVis)
                 {
                     mf.trk.idx = trac;
-                    mf.yt.ResetYouTurn();
+                    mf.yt.ResetCreatedYouTurn();
                     Close();
                 }
                 else //nothing visible
@@ -701,13 +701,13 @@ namespace AgOpenGPS
 
                 if (isRefRightSide)
                 {
-                    dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5 + Settings.Tool.offset;
+                    dist = (Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5 + Settings.Tool.offset;
                     mf.trk.idx = idx;
                     mf.trk.NudgeRefTrack(dist);
                 }
                 else
                 {
-                    dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * -0.5 + Settings.Tool.offset;
+                    dist = (Settings.Tool.toolWidth - Settings.Tool.overlap) * -0.5 + Settings.Tool.offset;
                     mf.trk.idx = idx;
                     mf.trk.NudgeRefTrack(dist);
                 }

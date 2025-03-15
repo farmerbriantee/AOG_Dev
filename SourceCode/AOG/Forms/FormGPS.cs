@@ -845,7 +845,7 @@ namespace AgOpenGPS
             //auto YouTurn shutdown
             yt.isYouTurnBtnOn = false;
             btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
-            yt.ResetYouTurn();
+            yt.ResetCreatedYouTurn();
             DisableYouTurnButtons();
 
             //reset acre and distance counters

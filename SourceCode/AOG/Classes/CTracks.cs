@@ -18,18 +18,12 @@ namespace AgOpenGPS
 
         public int idx;
 
-        public bool isBtnTrackOn;
-
-        public double distanceFromRefLine;
-
         public bool isHeadingSameWay = true, lastIsHeadingSameWay = true;
 
         public double howManyPathsAway, lastHowManyPathsAway;
-        public vec2 refPoint1 = new vec2(1, 1), refPoint2 = new vec2(2, 2);
 
-        private int rA, rB;
+        public bool isSmoothWindowOpen;
 
-        public bool isSmoothWindowOpen, isLooping;
         public List<vec3> smooList = new List<vec3>();
 
         //the list of points of curve to drive on
@@ -62,26 +56,22 @@ namespace AgOpenGPS
         //to fake the user into thinking they are making a line - but is a curve
         public bool isMakingABLine;
 
-        public int numGuideLines;
-
-        public double inty;
-
         public CTracks(FormGPS _f)
         {
             //constructor
             mf = _f;
             idx = -1;
-            numGuideLines = Settings.Vehicle.setAS_numGuideLines;
         }
 
         public async void GetDistanceFromRefTrack(vec3 pivot)
         {
-            double widthMinusOverlap = Settings.Tool.toolWidth - Settings.Tool.maxOverlap;
+            double widthMinusOverlap = Settings.Tool.toolWidth - Settings.Tool.overlap;
 
             CTrk track = gArr[idx];
 
             if (!isTrackValid || ((mf.secondsSinceStart - lastSecond) > 3 && (!mf.isBtnAutoSteerOn || mf.mc.steerSwitchHigh)))
             {
+                double distanceFromRefLine = 0;
                 lastSecond = mf.secondsSinceStart;
                 if (track.mode != TrackMode.waterPivot)
                 {
@@ -92,9 +82,9 @@ namespace AgOpenGPS
                         return;
                     }
 
-                    int cc = mf.gyd.FindGlobalRoughNearest(mf.guidanceLookPos, track.curvePts, 10, !isTrackValid);
+                    //int cc = mf.gyd.FindGlobalRoughNearest(mf.guidanceLookPos, track.curvePts, 10, !isTrackValid);
 
-                    if (mf.gyd.FindClosestSegment(track.curvePts, false, mf.guidanceLookPos, out rA, out rB, cc - 10, cc + 10))
+                    if (mf.gyd.FindClosestSegment(track.curvePts, false, mf.guidanceLookPos, out int rA, out int rB))//, cc - 10, cc + 10))
                     {
                         distanceFromRefLine = mf.gyd.FindDistanceToSegment(mf.guidanceLookPos, track.curvePts[rA], track.curvePts[rB], out vec3 point, out _, true, false, false);
 
@@ -144,7 +134,7 @@ namespace AgOpenGPS
                         if (Settings.User.isSideGuideLines && mf.camera.camSetDistance > Settings.Tool.toolWidth * -400)
                         {
                             //build the list list of guide lines
-                            guideArr = await Task.Run(() => BuildTrackGuidelines(distAway, mf.trk.numGuideLines, track));
+                            guideArr = await Task.Run(() => BuildTrackGuidelines(distAway, Settings.Vehicle.setAS_numGuideLines, track));
                         }
                     }
                     catch (Exception ex)
@@ -206,7 +196,7 @@ namespace AgOpenGPS
                 {
                     vec3 point;
 
-                    double step = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.4;
+                    double step = (Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.4;
                     if (step > 2) step = 2;
                     if (step < 0.5) step = 0.5;
 
@@ -422,16 +412,16 @@ namespace AgOpenGPS
 
                     newGuideLL.Add(newGuideList);
 
-                    double nextGuideDist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * numGuides +
+                    double nextGuideDist = (Settings.Tool.toolWidth - Settings.Tool.overlap) * numGuides +
                         (isHeadingSameWay ? -Settings.Tool.offset : Settings.Tool.offset) ;
 
-                    //nextGuideDist += (0.5 * (Settings.Tool.toolWidth - Settings.Tool.maxOverlap));
+                    //nextGuideDist += (0.5 * (Settings.Tool.toolWidth - Settings.Tool.overlap));
 
                     nextGuideDist += distAway;
 
                     vec3 point;
 
-                    double step = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.48;
+                    double step = (Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.48;
                     if (step > 4) step = 4;
                     if (step < 1) step = 1;
 
@@ -859,12 +849,12 @@ namespace AgOpenGPS
             double dist;
             if (isRefRightSide)
             {
-                dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5 + Settings.Tool.offset;
+                dist = (Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5 + Settings.Tool.offset;
                 NudgeRefTrack(dist);
             }
             else
             {
-                dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * -0.5 + Settings.Tool.offset;
+                dist = (Settings.Tool.toolWidth - Settings.Tool.overlap) * -0.5 + Settings.Tool.offset;
                 NudgeRefTrack(dist);
             }
 

@@ -168,19 +168,14 @@ namespace AgOpenGPS
                 btnContourLock.Image = Resources.ColorUnlocked;
                 ct.isLocked = false;
 
-                if (state)
+                DisableYouTurnButtons();
+                if (!state)
                 {
-                    DisableYouTurnButtons();
-                }
-                else
-                {
-                    EnableYouTurnButtons();
                     trk.isTrackValid = false;
                     SetAutoSteerButton(false, gStr.Get(gs.gsContourOn));
                 }
 
                 PanelUpdateRightAndBottom();
-
             }
         }
 
@@ -201,16 +196,16 @@ namespace AgOpenGPS
 
             if (trk.gArr.Count > 0)
             {
+                DisableYouTurnButtons();
+
                 if (trk.idx == -1)
                 {
                     trk.idx = 0;
-                    EnableYouTurnButtons();
                     PanelUpdateRightAndBottom();
                     twoSecondCounter = 100;
                     return;
                 }
 
-                EnableYouTurnButtons();
                 twoSecondCounter = 100;
             }
 
@@ -302,7 +297,7 @@ namespace AgOpenGPS
 
                 if (state)
                 {
-                    yt.ResetYouTurn();
+                    yt.ResetCreatedYouTurn();
                 }
                 else if (reason != "")
                     TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), reason);
@@ -316,8 +311,6 @@ namespace AgOpenGPS
 
         internal void SetYouTurnButton(bool state)
         {
-            yt.turnTooCloseTrigger = false;
-
             if (yt.isYouTurnBtnOn != state)
             {
                 if (state)
@@ -335,7 +328,7 @@ namespace AgOpenGPS
 
                 yt.isYouTurnBtnOn = state;
                 btnAutoYouTurn.Image = state ? Properties.Resources.Youturn80 : Properties.Resources.YouTurnNo;
-                yt.ResetYouTurn();
+                yt.ResetCreatedYouTurn();
             }
         }
 
@@ -695,11 +688,10 @@ namespace AgOpenGPS
             if (trk.gArr.Count > 0)
             {
                 trk.idx = 0;
-                EnableYouTurnButtons();
+                DisableYouTurnButtons();
                 PanelUpdateRightAndBottom();
                 twoSecondCounter = 100;
             }
-
         }
 
         private void tramLinesMenuMulti_Click(object sender, EventArgs e)

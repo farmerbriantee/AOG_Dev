@@ -45,7 +45,7 @@ namespace AgIO
 
             lblCurrentBaud.Text = mf.spGPS.BaudRate.ToString();
 
-            if (Settings.User.sendPrefixGPGN == "GP")
+            if (Settings.User.sendPrefixGPGN == "$GP")
             {
                 rbGP.Checked = true;
                 rbGN.Checked = false;
@@ -83,6 +83,13 @@ namespace AgIO
             if (Settings.User.sendRateZDA == 5) cboZDA.Text = "5";
             if (Settings.User.sendRateZDA == 1) cboZDA.Text = "10";
             this.cboZDA.SelectedIndexChanged += cboZDA_SelectedIndexChanged;
+
+            this.cboGSA.SelectedIndexChanged -= cboGSA_SelectedIndexChanged;
+            if (Settings.User.sendRateGSA == 0) cboGSA.Text = "0";
+            if (Settings.User.sendRateGSA == 10) cboGSA.Text = "1";
+            if (Settings.User.sendRateGSA == 5) cboGSA.Text = "5";
+            if (Settings.User.sendRateGSA == 1) cboGSA.Text = "10";
+            this.cboGSA.SelectedIndexChanged += cboGSA_SelectedIndexChanged;
 
         }
 
@@ -196,12 +203,21 @@ namespace AgIO
             if (cboZDA.SelectedIndex == 3) Settings.User.sendRateZDA = 1;
         }
 
+        private void cboGSA_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboGSA.SelectedIndex == 0) Settings.User.sendRateGSA = 0;
+            if (cboGSA.SelectedIndex == 1) Settings.User.sendRateGSA = 10;
+            if (cboGSA.SelectedIndex == 2) Settings.User.sendRateGSA = 5;
+            if (cboGSA.SelectedIndex == 3) Settings.User.sendRateGSA = 1;
+        }
+
         private void btnAllOff_Click(object sender, EventArgs e)
         {
             cboVTG.Text = "0";
             cboRMC.Text = "0";
             cboGGA.Text = "0";
             cboZDA.Text = "0";
+            cboGSA.Text = "0";
 
             mf.CloseGPSOutPort();
             if (FormLoop.spGPSOut.IsOpen)
@@ -224,8 +240,8 @@ namespace AgIO
 
         private void rbGP_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbGP.Checked) Settings.User.sendPrefixGPGN = "GP";
-            else Settings.User.sendPrefixGPGN = "GN";
+            if (rbGP.Checked) Settings.User.sendPrefixGPGN = "$GP";
+            else Settings.User.sendPrefixGPGN = "$GN";
         }
     } //class
 } //namespace

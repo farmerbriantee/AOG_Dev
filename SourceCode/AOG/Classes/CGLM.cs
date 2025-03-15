@@ -216,7 +216,7 @@ namespace AgOpenGPS
         //Regex file expression
         public const string fileRegex = " /^(?!.{256,})(?!(aux|clock\\$|con|nul|prn|com[1-9]|lpt[1-9])(?:$|\\.))[^ ][ \\.\\w-$()+=[\\];#@~,&amp;']+[^\\. ]$/i";
 
-        public static double m2InchOrCm, inchOrCm2m, m2FtOrM, ftOrMtoM, kmhToMphOrKmh = 1, mphOrKmhToKmh = 1, m22HaOrAc = 0.0001;
+        public static double m2InchOrCm, inchOrCm2m, m2FtOrM, ftOrMtoM, kmhToMphOrKmh = 1, mphOrKmhToKmh = 1, m22HaOrAc = 0.0001, cm2CmOrIn = 1;
         public static string unitsFtM, unitsInCm, unitsInCmNS, unitsKmhMph, unitsHaOrAc, unitsHaOrAcHr;
 
         //Meters to Acres

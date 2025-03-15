@@ -17,8 +17,10 @@ namespace AgIO
         static StringBuilder sbGGA = new StringBuilder();
         static StringBuilder sbVTG = new StringBuilder();
         static StringBuilder sbRMC = new StringBuilder();
+        static StringBuilder sbZDA = new StringBuilder();
+        static StringBuilder sbGSA = new StringBuilder();
 
-        public static int counterGGA = 10, counterVTG = 10, counterRMC = 10;
+        public static int counterGGA = 10, counterVTG = 10, counterRMC = 10, counterZDA, counterGSA;
 
         public static int trafficBytes = 0;
 
@@ -36,7 +38,6 @@ namespace AgIO
             try
             {
                 int retCount = 0;
-                
 
                 double latitude = BitConverter.ToDouble(nmeaPGN, 5);
                 double longitude = BitConverter.ToDouble(nmeaPGN, 13);
@@ -148,7 +149,7 @@ namespace AgIO
                     if (counterGGA < 1)
                     {
                         sbGGA.Clear();
-                        sbGGA.Append("$").Append(Settings.User.sendPrefixGPGN).Append("GGA,");
+                        sbGGA.Append(Settings.User.sendPrefixGPGN).Append("GGA,");
                         sbGGA.Append(DateTime.Now.ToString("HHmmss.ss"));
                         sbGGA.Append(".000,");
 
@@ -195,7 +196,7 @@ namespace AgIO
                     if (counterVTG < 1)
                     {
                         sbVTG.Clear();
-                        sbVTG.Append("$").Append(Settings.User.sendPrefixGPGN).Append("VTG,");
+                        sbVTG.Append(Settings.User.sendPrefixGPGN).Append("VTG,");
                         sbVTG.Append(headingTrue.ToString("N5", CultureInfo.InvariantCulture));
                         sbVTG.Append(",T,034.4,M,");
                         sbVTG.Append(speed.ToString(CultureInfo.InvariantCulture));
@@ -238,7 +239,7 @@ namespace AgIO
                     if (counterRMC < 1)
                     {
                         sbRMC.Clear();
-                        sbRMC.Append("$").Append(Settings.User.sendPrefixGPGN).Append("RMC,");
+                        sbRMC.Append(Settings.User.sendPrefixGPGN).Append("RMC,");
 
                         sbRMC.Append(DateTime.Now.ToString("HHmmss"));
                         sbRMC.Append(".000,");
@@ -265,12 +266,97 @@ namespace AgIO
                 }
 
                 #endregion RMC Message
+
+
+                #region ZDA Message
+
+                /*/$GPZDA,160012.71,11,03,2004,-01,00*7D
+
+                //ZDA       time and date
+                //160012    hhmmss.ss
+                //11        day, 01 to 31
+                //03        month, 01 to 12
+                //2004      year, 4 digits
+                //-01       local time zone description, 00 to +-13 hours
+                //00        local time zone description, 00 to 59, same sign as local hours
+                //*7D       checksum */
+
+                if (Settings.User.sendRateZDA != 0)
+                {
+                    counterZDA--;
+
+                    if (counterZDA < 1)
+                    {
+                        sbZDA.Clear();
+                        sbZDA.Append(Settings.User.sendPrefixGPGN).Append("ZDA,");
+
+                        DateTime daat = DateTime.UtcNow;
+
+                        sbZDA.Append(daat.ToString("HHmmss.fff", CultureInfo.InvariantCulture)).Append(",");
+                        sbZDA.Append(daat.Day.ToString("00")).Append(",");
+                        sbZDA.Append(daat.Month.ToString("00")).Append(",");
+                        sbZDA.Append(daat.Year.ToString("0000")).Append(",");
+
+                        var offset = TimeZoneInfo.Local.GetUtcOffset(daat);
+                        sbZDA.Append(offset.Hours.ToString("00")).Append(",");
+                        sbZDA.Append(offset.Minutes.ToString("00")).Append("*");
+
+                        sbZDA.Append(CalculateChecksum(sbZDA.ToString()));
+                        sbZDA.Append("\r\n");
+
+                        if (FormLoop.spGPSOut.IsOpen)
+                        {
+                            FormLoop.spGPSOut.Write(sbZDA.ToString());
+                        }
+
+                        counterZDA = Settings.User.sendRateZDA * gpsRate;
+                        retCount += sbZDA.Length;
+                    }
+                }
+
+
+                #endregion ZDA Message
+
+                #region GSA Message
+
+                if (Settings.User.sendRateGSA != 0)
+                {
+                    counterGSA--;
+
+                    if (counterGSA < 1)
+                    {
+                        sbGSA.Clear();
+                        sbGSA.Append(Settings.User.sendPrefixGPGN).Append("GSA,");
+
+                        sbGSA.Append("GSA,A,3,01,02,03,,,,,,,,,,2,");
+                        sbGSA.Append(HDOP.ToString("N2", CultureInfo.InvariantCulture));
+                        sbGSA.Append(",2*");
+
+                        sbGSA.Append(CalculateChecksum(sbGSA.ToString()));
+                        sbGSA.Append("\r\n");
+
+                        if (FormLoop.spGPSOut.IsOpen)
+                        {
+                            FormLoop.spGPSOut.Write(sbGSA.ToString());
+                        }
+
+                        counterGSA = Settings.User.sendRateGSA * gpsRate;
+                        retCount += sbGSA.Length;
+                    }
+                }
+
+                #endregion GSA
+
                 return retCount;
             }
 
-            catch
+            catch (System.IO.IOException)
             {
-                return 0;
+                if (FormLoop.spGPSOut.IsOpen)
+                {
+                    FormLoop.spGPSOut.DiscardOutBuffer();
+                }
+                return -1;
             }
         }
 
@@ -292,20 +378,5 @@ namespace AgIO
             // Calculated checksum converted to a 2 digit hex string
             return String.Format("{0:X2}", sum);
         }
-
-        public static void SendGPSOutPort(string gps)
-        {
-            try
-            {
-                if (FormLoop.spGPSOut.IsOpen)
-                {
-                    FormLoop.spGPSOut.Write(gps);
-                }
-            }
-            catch (Exception)
-            {
-            }
-        }
-
     }
 }

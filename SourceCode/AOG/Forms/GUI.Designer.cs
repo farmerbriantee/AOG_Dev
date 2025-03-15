@@ -574,6 +574,8 @@ namespace AgOpenGPS
                 glm.inchOrCm2m = 0.01;
                 glm.m2InchOrCm = 100.0;
 
+                glm.cm2CmOrIn = 1;
+
                 glm.m2FtOrM = 1.0;
                 glm.ftOrMtoM = 1.0;
 
@@ -601,6 +603,10 @@ namespace AgOpenGPS
                 glm.m2FtOrM = 3.28084;
                 //feet to meters
                 glm.ftOrMtoM = 0.3048;
+
+                //cm to inch
+                glm.cm2CmOrIn = 0.3937;
+
 
                 glm.kmhToMphOrKmh = 0.621371;//Km/H to mph
                 glm.mphOrKmhToKmh = 1.60934;//mph to Km/H
@@ -987,7 +993,7 @@ namespace AgOpenGPS
                                 {
                                     if (yt.isYouTurnTriggered)
                                     {
-                                        yt.ResetYouTurn();
+                                        yt.ResetCreatedYouTurn();
                                     }
                                     else
                                     {
@@ -1007,7 +1013,7 @@ namespace AgOpenGPS
                                 {
                                     if (yt.isYouTurnTriggered)
                                     {
-                                        yt.ResetYouTurn();
+                                        yt.ResetCreatedYouTurn();
                                     }
                                     else
                                     {
@@ -1035,7 +1041,6 @@ namespace AgOpenGPS
                                 if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                 {
                                     yt.BuildManualYouLateral(false);
-                                    yt.ResetYouTurn();
                                 }
                                 else
                                 {
@@ -1050,7 +1055,6 @@ namespace AgOpenGPS
                                 if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                 {
                                     yt.BuildManualYouLateral(true);
-                                    yt.ResetYouTurn();
                                 }
                                 else
                                 {
@@ -1177,7 +1181,7 @@ namespace AgOpenGPS
             if (!yt.isYouTurnTriggered)
             {
                 yt.isTurnLeft = !yt.isTurnLeft;
-                yt.ResetYouTurn();
+                yt.ResetCreatedYouTurn();
             }
             else SetYouTurnButton(false);
         }
@@ -1197,18 +1201,11 @@ namespace AgOpenGPS
             }
         }
 
-        public void EnableYouTurnButtons()
-        {
-            yt.ResetYouTurn();
-            yt.isYouTurnBtnOn = false;
-            btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
-        }
-
         public void DisableYouTurnButtons()
         {
             yt.isYouTurnBtnOn = false;
             btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
-            yt.ResetYouTurn();
+            yt.ResetCreatedYouTurn();
         }
 
         private void ShowNoGPSWarning()

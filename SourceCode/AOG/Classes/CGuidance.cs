@@ -16,7 +16,7 @@ namespace AgOpenGPS
 
         public vec2 goalPoint = new vec2();
 
-        public double rEastTrk, rNorthTrk, manualUturnHeading;
+        public double rEastTrk, rNorthTrk, rTimeTrk, manualUturnHeading;
 
         public double inty, xTrackSteerCorrection = 0;
         public double steerHeadingError, steerHeadingErrorDegrees;
@@ -48,7 +48,22 @@ namespace AgOpenGPS
             //close call hit
             int cc = FindGlobalRoughNearest(vec2point, curList, 5, Uturn);
 
-            if (mf.gyd.FindClosestSegment(curList, false, vec2point, out A, out B, cc - 10, cc + 10))
+            //long enough line?
+            if (!Uturn && mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
+            {
+                if (cc > curList.Count - 30)
+                {
+                    mf.trk.AddEndPoints(ref curList, 100);
+                }
+
+                if (cc < 30)
+                {
+                    mf.trk.AddStartPoints(ref curList, 100);
+                    cc += 100;
+                }
+            }
+
+            if (mf.gyd.FindClosestSegment(curList, false, vec2point, out A, out B))// cc - 10, cc + 10))
             {
                 if (Uturn)
                 {
@@ -66,7 +81,7 @@ namespace AgOpenGPS
                 if (Uturn)
                 {
                     //return and reset if too far away or end of the line
-                    if (B >= curList.Count - 2 || (mf.yt.uTurnStyle == 1 && mf.isReverse) || distanceFromCurrentLine > 3)
+                    if (B >= curList.Count - 1 || (mf.yt.uTurnStyle == 1 && mf.isReverse) || distanceFromCurrentLine > 3)
                     {
                         completeUturn = true;
                     }
@@ -74,6 +89,7 @@ namespace AgOpenGPS
 
                 rEastTrk = point.easting;
                 rNorthTrk = point.northing;
+                rTimeTrk = A + time;
 
                 double abHeading = Math.Atan2(curList[B].easting - curList[A].easting, curList[B].northing - curList[A].northing);
                 if (abHeading < 0) abHeading += glm.twoPI;
@@ -83,25 +99,9 @@ namespace AgOpenGPS
                 if (Settings.Vehicle.setVehicle_isStanleyUsed)//Stanley
                 {
                     #region Stanley
-                    //double delta = 0;
-                    //double abDist = glm.DistanceSquared(steerA, steerB);
-                    //double rDist = glm.DistanceSquared(rNorthSteer, rEastSteer, steerA.northing, steerA.easting);
-                    //rDist /= abDist;
-                    //if (Math.Abs(steerA.heading - steerB.heading) > Math.PI)
-                    //{
-                    //    if (steerA.heading < Math.PI) delta = (1 - rDist) * (steerA.heading + glm.twoPI) + (rDist) * steerB.heading;
-                    //    else delta = (1 - rDist) * steerA.heading + (rDist) * (steerB.heading + glm.twoPI);
-                    //}
-                    //else
-                    //{
-                    //    delta = (1 - rDist) * steerA.heading + (rDist) * steerB.heading;
-                    //}
-                    //steerHeadingError = steer.heading - delta;
 
                     //distance is negative if on left, positive if on right
                     steerHeadingError = steer.heading - abHeading + (Uturn || mf.trk.isHeadingSameWay ? 0 : Math.PI);
-
-                    mf.lblAlgo.Text = steerHeadingError.ToString();
 
                     //Fix the circular error
                     if (steerHeadingError > Math.PI) steerHeadingError -= glm.twoPI;
@@ -452,48 +452,7 @@ namespace AgOpenGPS
                 isFindGlobalNearestTrackPoint = false;
             }
 
-                /*
-                //long enough line?
-                if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
-                {
-                    if (cc > curList.Count - 30)
-                    {
-                        mf.trk.AddEndPoints(ref curList, 100);
-                        currentLocationIndex = cc;
-
-                        for (int j = 0; j < curList.Count; j += 5)
-                        {
-                            dist = glm.DistanceSquared(steer, curList[j]);
-                            if (dist < minDistA)
-                            {
-                                minDistA = dist;
-                                cc = j;
-                            }
-                        }
-                        isFindGlobalNearestTrackPoint = false;
-                        minDistA = double.MaxValue;
-                    }
-
-                    if (cc < 30)
-                    {
-                        mf.trk.AddStartPoints(ref curList, 100);
-                        currentLocationIndex = cc;
-
-                        for (int j = 0; j < curList.Count; j += 5)
-                        {
-                            dist = glm.DistanceSquared(steer, curList[j]);
-                            if (dist < minDistA)
-                            {
-                                minDistA = dist;
-                                cc = j;
-                            }
-                        }
-                        isFindGlobalNearestTrackPoint = false;
-                        minDistA = double.MaxValue;
-                    }
-                }
-                */
-                return currentLocationIndex;
+            return currentLocationIndex;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace AgIO
 {
@@ -301,11 +302,8 @@ namespace AgIO
 
                 nmeaPGN.CopyTo(GPSOut.nmeaPGN, 0);
 
-                mf.StartATimer();
-                if (FormLoop.spGPSOut.IsOpen) 
-                    mf.traffic.cntrGPS_OutSerial += GPSOut.BuildSentences((int)(mf.gpsHz*0.1+0.3));
-                mf.StopAtimer();
-
+                if (FormLoop.spGPSOut.IsOpen)
+                    mf.StartBgGPSOutWorker();
             }
         }
 

@@ -123,8 +123,6 @@
             this.label106 = new System.Windows.Forms.Label();
             this.label107 = new System.Windows.Forms.Label();
             this.label108 = new System.Windows.Forms.Label();
-            this.label111 = new System.Windows.Forms.Label();
-            this.label112 = new System.Windows.Forms.Label();
             this.label113 = new System.Windows.Forms.Label();
             this.label114 = new System.Windows.Forms.Label();
             this.label115 = new System.Windows.Forms.Label();
@@ -231,7 +229,6 @@
             this.label217 = new System.Windows.Forms.Label();
             this.label218 = new System.Windows.Forms.Label();
             this.label219 = new System.Windows.Forms.Label();
-            this.label220 = new System.Windows.Forms.Label();
             this.label222 = new System.Windows.Forms.Label();
             this.label224 = new System.Windows.Forms.Label();
             this.label225 = new System.Windows.Forms.Label();
@@ -1468,31 +1465,6 @@
             this.label108.TabIndex = 702;
             this.label108.Text = "0";
             this.label108.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label111
-            // 
-            this.label111.AutoSize = true;
-            this.label111.BackColor = System.Drawing.Color.Transparent;
-            this.label111.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label111.ForeColor = System.Drawing.Color.DimGray;
-            this.label111.Location = new System.Drawing.Point(466, 348);
-            this.label111.Name = "label111";
-            this.label111.Size = new System.Drawing.Size(216, 22);
-            this.label111.TabIndex = 707;
-            this.label111.Text = "Section Off Out Bnds?";
-            this.label111.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label112
-            // 
-            this.label112.BackColor = System.Drawing.Color.Linen;
-            this.label112.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label112.ForeColor = System.Drawing.Color.MediumBlue;
-            this.label112.Location = new System.Drawing.Point(403, 348);
-            this.label112.Name = "label112";
-            this.label112.Size = new System.Drawing.Size(62, 22);
-            this.label112.TabIndex = 706;
-            this.label112.Text = "True";
-            this.label112.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label113
             // 
@@ -2793,18 +2765,6 @@
             this.label219.Text = "True";
             this.label219.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label220
-            // 
-            this.label220.BackColor = System.Drawing.Color.Transparent;
-            this.label220.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label220.ForeColor = System.Drawing.Color.DimGray;
-            this.label220.Location = new System.Drawing.Point(341, 348);
-            this.label220.Name = "label220";
-            this.label220.Size = new System.Drawing.Size(62, 22);
-            this.label220.TabIndex = 836;
-            this.label220.Text = "True";
-            this.label220.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // label222
             // 
             this.label222.BackColor = System.Drawing.Color.Transparent;
@@ -3620,7 +3580,6 @@
             this.Controls.Add(this.label217);
             this.Controls.Add(this.label218);
             this.Controls.Add(this.label219);
-            this.Controls.Add(this.label220);
             this.Controls.Add(this.label222);
             this.Controls.Add(this.label224);
             this.Controls.Add(this.label225);
@@ -3698,7 +3657,6 @@
             this.Controls.Add(this.label131);
             this.Controls.Add(this.label127);
             this.Controls.Add(this.label113);
-            this.Controls.Add(this.label111);
             this.Controls.Add(this.label105);
             this.Controls.Add(this.label97);
             this.Controls.Add(this.label95);
@@ -3762,7 +3720,6 @@
             this.Controls.Add(this.label118);
             this.Controls.Add(this.label116);
             this.Controls.Add(this.label114);
-            this.Controls.Add(this.label112);
             this.Controls.Add(this.label108);
             this.Controls.Add(this.label106);
             this.Controls.Add(this.label102);
@@ -3923,8 +3880,6 @@
         private System.Windows.Forms.Label label106;
         private System.Windows.Forms.Label label107;
         private System.Windows.Forms.Label label108;
-        private System.Windows.Forms.Label label111;
-        private System.Windows.Forms.Label label112;
         private System.Windows.Forms.Label label113;
         private System.Windows.Forms.Label label114;
         private System.Windows.Forms.Label label115;
@@ -4031,7 +3986,6 @@
         private System.Windows.Forms.Label label217;
         private System.Windows.Forms.Label label218;
         private System.Windows.Forms.Label label219;
-        private System.Windows.Forms.Label label220;
         private System.Windows.Forms.Label label222;
         private System.Windows.Forms.Label label224;
         private System.Windows.Forms.Label label225;

@@ -202,6 +202,9 @@ namespace AgOpenGPS
             nudLookAhead.Value = Settings.Tool.lookAheadOn;
             nudLookAheadOff.Value = Settings.Tool.lookAheadOff;
             nudTurnOffDelay.Value = Settings.Tool.offDelay;
+            nudLookAheadDistanceOn.Value = Settings.Tool.lookAheadDistanceOn;
+            nudLookAheadDistanceOff.Value = Settings.Tool.lookAheadDistanceOff;
+
             //pictureBox3.Image = Resources.ToolLookaheadOn;
             //pictureBox4.Image = Resources.ToolLookaheadOff;
         }
@@ -242,6 +245,18 @@ namespace AgOpenGPS
             Settings.Tool.offDelay = nudTurnOffDelay.Value;
         }
 
+        private void nudLookAheadDistanceOn_ValueChanged(object sender, EventArgs e)
+        {
+            Settings.Tool.lookAheadDistanceOn = nudLookAheadDistanceOn.Value;
+
+        }
+
+        private void nudLookAheadDistanceOff_ValueChanged(object sender, EventArgs e)
+        {
+            Settings.Tool.lookAheadDistanceOff = nudLookAheadDistanceOff.Value;
+
+        }
+
         #endregion
 
         #region offset
@@ -254,12 +269,12 @@ namespace AgOpenGPS
             rbtnToolRightPositive.Checked = Settings.Tool.offset > 0;
             rbtnLeftNegative.Checked = Settings.Tool.offset < 0;
 
-            nudOverlap.Value = Math.Abs(Settings.Tool.maxOverlap);
+            nudOverlap.Value = Math.Abs(Settings.Tool.overlap);
 
             rbtnToolOverlap.Checked = false;
             rbtnToolGap.Checked = false;
-            rbtnToolOverlap.Checked = Settings.Tool.maxOverlap > 0;
-            rbtnToolGap.Checked = Settings.Tool.maxOverlap < 0;
+            rbtnToolOverlap.Checked = Settings.Tool.overlap > 0;
+            rbtnToolGap.Checked = Settings.Tool.overlap < 0;
 
             label175.Text = glm.unitsInCm;
             label176.Text = glm.unitsInCm;
@@ -318,16 +333,16 @@ namespace AgOpenGPS
                 rbtnToolOverlap.Checked = true;
 
             if (rbtnToolOverlap.Checked)
-                Settings.Tool.maxOverlap = nudOverlap.Value;
+                Settings.Tool.overlap = nudOverlap.Value;
             else
-                Settings.Tool.maxOverlap = -nudOverlap.Value;
+                Settings.Tool.overlap = -nudOverlap.Value;
 
-            Settings.Tool.maxOverlap = Settings.Tool.maxOverlap;
+            Settings.Tool.overlap = Settings.Tool.overlap;
 
             rbtnToolOverlap.Checked = false;
             rbtnToolGap.Checked = false;
-            rbtnToolOverlap.Checked = Settings.Tool.maxOverlap > 0;
-            rbtnToolGap.Checked = Settings.Tool.maxOverlap < 0;
+            rbtnToolOverlap.Checked = Settings.Tool.overlap > 0;
+            rbtnToolGap.Checked = Settings.Tool.overlap < 0;
         }
 
         private void btnZeroOverlaPGN_Click(object sender, EventArgs e)
@@ -336,23 +351,23 @@ namespace AgOpenGPS
             rbtnToolOverlap.Checked = false;
             rbtnToolGap.Checked = false;
 
-            Settings.Tool.maxOverlap = 0;
-            Settings.Tool.maxOverlap = Settings.Tool.maxOverlap;
+            Settings.Tool.overlap = 0;
+            Settings.Tool.overlap = Settings.Tool.overlap;
         }
 
         private void rbtnToolOverlaPGN_Click(object sender, EventArgs e)
         {
             if (rbtnToolOverlap.Checked)
-                Settings.Tool.maxOverlap = nudOverlap.Value;
+                Settings.Tool.overlap = nudOverlap.Value;
             else
-                Settings.Tool.maxOverlap = -nudOverlap.Value;
-            Settings.Tool.maxOverlap = Settings.Tool.maxOverlap;
+                Settings.Tool.overlap = -nudOverlap.Value;
+            Settings.Tool.overlap = Settings.Tool.overlap;
             
 
             rbtnToolOverlap.Checked = false;
             rbtnToolGap.Checked = false;
-            rbtnToolOverlap.Checked = Settings.Tool.maxOverlap > 0;
-            rbtnToolGap.Checked = Settings.Tool.maxOverlap < 0;
+            rbtnToolOverlap.Checked = Settings.Tool.overlap > 0;
+            rbtnToolGap.Checked = Settings.Tool.overlap < 0;
         }
 
         #endregion
@@ -425,15 +440,15 @@ namespace AgOpenGPS
         {
             mf.TurnOffSectionsSafely();
 
-            cboxSectionBoundaryControl.Checked = Settings.Tool.isSectionOffWhenOut;
-            if (cboxSectionBoundaryControl.Checked)
-            {
-                cboxSectionBoundaryControl.BackgroundImage = Properties.Resources.SectionOffBoundary;
-            }
-            else
-            {
-                cboxSectionBoundaryControl.BackgroundImage = Properties.Resources.SectionOnBoundary;
-            }
+            //cboxSectionBoundaryControl.Checked = Settings.Tool.isSectionOffWhenOut;
+            //if (cboxSectionBoundaryControl.Checked)
+            //{
+            //    cboxSectionBoundaryControl.BackgroundImage = Properties.Resources.SectionOffBoundary;
+            //}
+            //else
+            //{
+            //    cboxSectionBoundaryControl.BackgroundImage = Properties.Resources.SectionOnBoundary;
+            //}
 
             nudCutoffSpeed.Value = Settings.Tool.slowSpeedCutoff;
 
@@ -530,7 +545,7 @@ namespace AgOpenGPS
                 //take the section widths and convert to meters and positions along tool.
                 CalculateSectionPositions();
 
-                Settings.Tool.isSectionOffWhenOut = cboxSectionBoundaryControl.Checked;
+                //Settings.Tool.isSectionOffWhenOut = cboxSectionBoundaryControl.Checked;
 
                 Settings.Tool.setSection_Widths = sectionWidthArr;
                                                                     
@@ -873,22 +888,6 @@ namespace AgOpenGPS
 
         }
 
-        private void cboxSectionBoundaryControl_Click(object sender, EventArgs e)
-        {
-            Settings.Tool.isSectionOffWhenOut = !Settings.Tool.isSectionOffWhenOut;
-            
-
-            cboxSectionBoundaryControl.Checked = Settings.Tool.isSectionOffWhenOut;
-            if (cboxSectionBoundaryControl.Checked)
-            {
-                cboxSectionBoundaryControl.BackgroundImage = Properties.Resources.SectionOffBoundary;
-            }
-            else
-            {
-                cboxSectionBoundaryControl.BackgroundImage = Properties.Resources.SectionOnBoundary;
-            }
-        }
-
         private void cboxIsUnique_Click(object sender, EventArgs e)
         {
             Settings.Tool.isSectionsNotZones = !cboxIsUnique.Checked;
@@ -1047,6 +1046,7 @@ namespace AgOpenGPS
             {
                 lblUnits.Text = "Metric";
                 lblSecTotalWidthMeters.Text = ((int)(Settings.Tool.toolWidth * 100)).ToString() + " cm";
+                lblSummaryWidth.Text = Settings.Tool.toolWidth.ToString("N2") + " m";
             }
             else
             {
@@ -1055,6 +1055,7 @@ namespace AgOpenGPS
                 double toFeet = (Convert.ToDouble(lblVehicleToolWidth.Text) * 0.08334);
                 double temp = Math.Round((toFeet - Math.Truncate(toFeet)) * 12, 0);
                 lblSecTotalWidthMeters.Text = Convert.ToString((int)toFeet) + "'   " + Convert.ToString(temp) + '"';
+                lblSummaryWidth.Text = lblSecTotalWidthMeters.Text;
             }
         }
 

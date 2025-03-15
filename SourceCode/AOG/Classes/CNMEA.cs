@@ -57,6 +57,7 @@ namespace AgOpenGPS
             * Math.Cos(4.0 * latStart * 0.01745329251994329576923690766743) - 0.0023
             * Math.Cos(6.0 * latStart * 0.01745329251994329576923690766743);
 
+            mf.stepFixPts[0].isSet = false;
             mf.sim.Reset();
 
             mf.FileLoadFields();

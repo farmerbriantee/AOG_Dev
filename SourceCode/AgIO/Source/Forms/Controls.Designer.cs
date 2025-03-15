@@ -35,27 +35,16 @@ namespace AgIO
         {
             if (this.Width < 600)
             {
-                this.Width = 830;
+                this.Width = 710;
                 isViewAdvanced = true;
                 btnSlide.BackgroundImage = Properties.Resources.ArrowGrnLeft;
-                sbRTCM.Clear();
-                lblMessages.Text = "Reading...";
                 threeMinuteTimer = secondsSinceStart;
-                lblMessagesFound.Text = "-";
-                aList.Clear();
-                rList.Clear();
             }
             else
             {
                 this.Width = 530;
                 isViewAdvanced = false;
                 btnSlide.BackgroundImage = Properties.Resources.ArrowGrnRight;
-                aList.Clear();
-                rList.Clear();
-                lblMessages.Text = "Reading...";
-                lblMessagesFound.Text = "-";
-                aList.Clear();
-                rList.Clear();
             }
         }
 
@@ -172,12 +161,6 @@ namespace AgIO
                     lblIP.Text += IPA.ToString() + "\r\n";
                 }
             }
-        }
-        private void lblMessages_Click(object sender, EventArgs e)
-        {
-            aList?.Clear();
-            sbRTCM.Clear();
-            sbRTCM.Append("Reset..");
         }
 
         private void lblNTRIPBytes_Click(object sender, EventArgs e)

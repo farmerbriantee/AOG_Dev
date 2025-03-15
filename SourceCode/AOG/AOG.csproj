@@ -743,7 +743,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AgOpenGPS.ico" />
     <None Include="btnImages\SimUDP.png" />
     <None Include="btnImages\Images\z_crossTrackBkgnd.png" />
     <None Include="btnImages\Config\ConD_SteerBarBar.png" />

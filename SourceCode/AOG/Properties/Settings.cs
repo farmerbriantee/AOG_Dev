@@ -166,7 +166,7 @@ namespace AOG
         public sealed class VehicleSettings
         {
             public HBrand setBrand_HBrand = HBrand.AgOpenGPS;
-            public TBrand setBrand_TBrand = TBrand.AgOpenGPS;
+            public TBrand setBrand_TBrand = TBrand.AOG;
             public WDBrand setBrand_WDBrand = WDBrand.AgOpenGPS;
 
             public double setAutoSwitchDualFixSpeed = 2.0;

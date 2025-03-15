@@ -854,7 +854,7 @@ namespace AOG
 
                     brand = Settings.Vehicle.setBrand_TBrand;
 
-                    if (brand == TBrand.AgOpenGPS)
+                    if (brand == TBrand.AOG)
                         rbtnBrandTAgOpenGPS.Checked = true;
                     else if (brand == TBrand.Case)
                         rbtnBrandTCase.Checked = true;
@@ -1010,7 +1010,7 @@ namespace AOG
             if ((sender as RadioButton).Checked)
             {
                 {
-                    brand = TBrand.AgOpenGPS;
+                    brand = TBrand.AOG;
                     pboxAlpha.BackgroundImage = mf.GetTractorBrand(brand);
                     original = null;
                     SetOpacity();

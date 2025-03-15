@@ -68,7 +68,7 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>AgOpenGPS.ico</ApplicationIcon>
+    <ApplicationIcon>AOG.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -756,6 +756,7 @@
     <None Include="btnImages\IncrementMinus.png" />
     <None Include="btnImages\IncrementPlus.png" />
     <None Include="btnImages\ABPivotCircle.png" />
+    <Content Include="AOG.ico" />
     <Content Include="btnImages\Shift.png" />
     <Content Include="btnImages\ZoomOut.png" />
     <Content Include="License.txt">

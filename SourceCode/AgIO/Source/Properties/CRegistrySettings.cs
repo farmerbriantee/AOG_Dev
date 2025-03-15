@@ -11,10 +11,10 @@ namespace AgIO
         public static string culture = "en";
 
         public static string profilesDirectory =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "AgIO");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AOG", "AgIO");
 
         public static string logsDirectory =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Logs");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AOG", "Logs");
 
         public static string profileName = "";
         public static string workingDirectory = "Default";

@@ -23,12 +23,12 @@ namespace AgIO
             keyboard1.Focus();
 
             //opening the subkey
-            RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AgOpenGPS");
+            RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AOG");
 
             //create default keys if not existing
             if (regKey == null)
             {
-                RegistryKey Key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AgOpenGPS");
+                RegistryKey Key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\AOG");
 
                 //storing the values
                 Key.SetValue("Language", "en");

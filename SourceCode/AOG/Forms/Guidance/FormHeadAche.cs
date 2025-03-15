@@ -44,7 +44,7 @@ namespace AgOpenGPS
             FixLabelsCurve();
 
             lblToolWidth.Text = "( " + glm.unitsFtM + " )      Tool: "
-                + ((Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * glm.m2FtOrM).ToString("N1") + glm.unitsFtM + " ";
+                + ((Settings.Tool.toolWidth - Settings.Tool.overlap) * glm.m2FtOrM).ToString("N1") + glm.unitsFtM + " ";
 
             mf.bnd.bndList[0].hdLine?.Clear();
 
@@ -858,7 +858,7 @@ namespace AgOpenGPS
 
         private void cboxToolWidths_SelectedIndexChanged(object sender, EventArgs e)
         {
-            nudSetDistance.Value = Math.Round((Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * cboxToolWidths.SelectedIndex, 1);
+            nudSetDistance.Value = Math.Round((Settings.Tool.toolWidth - Settings.Tool.overlap) * cboxToolWidths.SelectedIndex, 1);
         }
 
         private void btnHeadlandOff_Click(object sender, EventArgs e)

@@ -130,7 +130,7 @@ namespace AgOpenGPS
                 bool isSameWay = Math.PI - Math.Abs(Math.Abs(mf.fixHeading - stripList[stripNum][A].heading) - Math.PI) < 1.57;
 
                 double howManyPathsAway = Math.Round((distanceFromRefLine + (isSameWay ? Settings.Tool.offset : -Settings.Tool.offset))
-                                    / (Settings.Tool.toolWidth - Settings.Tool.maxOverlap), MidpointRounding.AwayFromZero);
+                                    / (Settings.Tool.toolWidth - Settings.Tool.overlap), MidpointRounding.AwayFromZero);
 
                 //beside what is done
                 if (howManyPathsAway < -1) howManyPathsAway = -1;
@@ -154,7 +154,7 @@ namespace AgOpenGPS
                     stop = pt + 20; if (stop > ptCount) stop = ptCount;
                 }
 
-                double distAway = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * howManyPathsAway
+                double distAway = (Settings.Tool.toolWidth - Settings.Tool.overlap) * howManyPathsAway
                     + (isSameWay ? -Settings.Tool.offset : Settings.Tool.offset);
                 double distSqAway = (distAway * distAway) * 0.97;
 
@@ -269,7 +269,7 @@ namespace AgOpenGPS
 
             signPass = -1;
             //determine how wide a headland space
-            totalHeadWidth = ((Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5) - spacingInt;
+            totalHeadWidth = ((Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5) - spacingInt;
 
             //totalHeadWidth = (mf.tool.toolWidth - mf.tool.toolOverlap) * 0.5 + 0.2 + (mf.tool.toolWidth - mf.tool.toolOverlap);
 

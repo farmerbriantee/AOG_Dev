@@ -75,16 +75,16 @@ namespace AgOpenGPS
 
         private void btnHalfToolRight_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeRefTrack((Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5);
-            distanceMoved += (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5;
+            mf.trk.NudgeRefTrack((Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5);
+            distanceMoved += (Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5;
             DistanceMovedLabel();
             mf.Activate();
         }
 
         private void btnHalfToolLeft_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeRefTrack((Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * -0.5);
-            distanceMoved += (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * -0.5;
+            mf.trk.NudgeRefTrack((Settings.Tool.toolWidth - Settings.Tool.overlap) * -0.5);
+            distanceMoved += (Settings.Tool.toolWidth - Settings.Tool.overlap) * -0.5;
             DistanceMovedLabel();
             mf.Activate();
         }

@@ -14,6 +14,7 @@ namespace AgOpenGPS
         private Button oldbutton = null;
         private Panel oldPanel = null;
 
+
         #region menu Buttons
 
         private void btnVehicle_Click(object sender, EventArgs e)

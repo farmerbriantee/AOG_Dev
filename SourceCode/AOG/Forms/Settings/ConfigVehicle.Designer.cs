@@ -290,6 +290,7 @@ namespace AgOpenGPS
             lblCurrentTool.Text = "Tool" + ": " + RegistrySettings.toolFileName;
             lblSummaryToolName.Text = lblCurrentTool.Text;
 
+            UpdateSummary();
         }
 
         private void SaveDisplaySettings()

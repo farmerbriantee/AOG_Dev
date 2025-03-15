@@ -339,7 +339,6 @@ namespace AgOpenGPS
             public CToolSteerSettings setToolSteer = new CToolSteerSettings();
 
             public bool isDisplayTramControl = true;
-            public bool isSectionOffWhenOut = true;
             public bool isSectionsNotZones = true;
             public bool isToolFront = false;
             public bool isToolRearFixed = false;
@@ -375,7 +374,7 @@ namespace AgOpenGPS
             public double lookAheadDistanceOff = 0;
 
             public double offset = 0;
-            public double maxOverlap = 0.0;
+            public double overlap = 0.0;
             public double toolWidth = 4.0;
 
             public int minCoverage = 100;

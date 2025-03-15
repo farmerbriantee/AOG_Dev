@@ -97,7 +97,7 @@ namespace AgOpenGPS
         //Finds the point where an AB Curve crosses the turn line
         public void BuildCurveDubinsYouTurn()
         {
-            double turnOffset = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * rowSkipsWidth + (isTurnLeft ? -Settings.Tool.offset * 2.0 : Settings.Tool.offset * 2.0);
+            double turnOffset = (Settings.Tool.toolWidth - Settings.Tool.overlap) * rowSkipsWidth + (isTurnLeft ? -Settings.Tool.offset * 2.0 : Settings.Tool.offset * 2.0);
             bool isTurnRight = turnOffset > 0 ^ isTurnLeft;
 
 
@@ -261,7 +261,7 @@ namespace AgOpenGPS
             else if (youTurnPhase == 70)//build the next line to add sequencelines
             {
                 //build the next line to add sequencelines
-                double widthMinusOverlap = Settings.Tool.toolWidth - Settings.Tool.maxOverlap;
+                double widthMinusOverlap = Settings.Tool.toolWidth - Settings.Tool.overlap;
 
                 double distAway = widthMinusOverlap * (mf.trk.howManyPathsAway + (isTurnLeft ^ mf.trk.isHeadingSameWay ? rowSkipsWidth : -rowSkipsWidth)) + (mf.trk.isHeadingSameWay ? -Settings.Tool.offset : Settings.Tool.offset) + track.nudgeDistance;
 
@@ -788,7 +788,7 @@ namespace AgOpenGPS
             head = mf.gyd.manualUturnHeading;
 
             //grab the vehicle widths and offsets
-            double turnOffset = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * rowSkipsWidth + (isTurnRight ? Settings.Tool.offset * 2.0 : -Settings.Tool.offset * 2.0);
+            double turnOffset = (Settings.Tool.toolWidth - Settings.Tool.overlap) * rowSkipsWidth + (isTurnRight ? Settings.Tool.offset * 2.0 : -Settings.Tool.offset * 2.0);
 
             //if its straight across it makes 2 loops instead so goal is a little lower then start
             if (!mf.trk.isHeadingSameWay) head += Math.PI;

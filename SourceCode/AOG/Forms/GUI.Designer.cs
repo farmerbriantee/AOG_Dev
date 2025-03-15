@@ -574,6 +574,8 @@ namespace AgOpenGPS
                 glm.inchOrCm2m = 0.01;
                 glm.m2InchOrCm = 100.0;
 
+                glm.cm2CmOrIn = 1;
+
                 glm.m2FtOrM = 1.0;
                 glm.ftOrMtoM = 1.0;
 
@@ -601,6 +603,10 @@ namespace AgOpenGPS
                 glm.m2FtOrM = 3.28084;
                 //feet to meters
                 glm.ftOrMtoM = 0.3048;
+
+                //cm to inch
+                glm.cm2CmOrIn = 0.3937;
+
 
                 glm.kmhToMphOrKmh = 0.621371;//Km/H to mph
                 glm.mphOrKmhToKmh = 1.60934;//mph to Km/H

@@ -199,13 +199,13 @@ namespace AgOpenGPS
 
                 if (isRefRightSide)
                 {
-                    dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5 + Settings.Tool.offset;
+                    dist = (Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5 + Settings.Tool.offset;
                     mf.trk.idx = idx;
                     mf.trk.NudgeRefTrack(dist);
                 }
                 else
                 {
-                    dist = (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * -0.5 + Settings.Tool.offset;
+                    dist = (Settings.Tool.toolWidth - Settings.Tool.overlap) * -0.5 + Settings.Tool.offset;
                     mf.trk.idx = idx;
                     mf.trk.NudgeRefTrack(dist);
                 }

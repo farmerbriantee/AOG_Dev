@@ -78,7 +78,6 @@ namespace AgOpenGPS
             label102.Text = Settings.Vehicle.setIMU_invertRoll.ToString();
             label106.Text = Settings.Vehicle.setIMU_isReverseOn.ToString();
             label108.Text = Settings.Vehicle.setIMU_rollFilter.ToString();
-            label112.Text = Settings.Tool.isSectionOffWhenOut.ToString();
             label114.Text = Settings.Tool.isSectionsNotZones.ToString();
             label116.Text = Settings.Tool.isToolFront.ToString();
             label118.Text = Settings.Tool.isToolRearFixed.ToString();
@@ -101,7 +100,7 @@ namespace AgOpenGPS
             label150.Text = Settings.Tool.lookAheadOff.ToString();
             label152.Text = Settings.Tool.offDelay.ToString();
             label154.Text = Settings.Tool.offset.ToString();
-            label156.Text = Settings.Tool.maxOverlap.ToString();
+            label156.Text = Settings.Tool.overlap.ToString();
             label158.Text = Settings.Tool.toolWidth.ToString();
             label160.Text = RegistrySettings.workingDirectory;
             label162.Text = Settings.Vehicle.setVehicle_vehicleType.ToString();

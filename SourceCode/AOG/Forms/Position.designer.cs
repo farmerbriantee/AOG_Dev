@@ -798,7 +798,7 @@ namespace AgOpenGPS
             }
 
             //contour points
-            if (isFieldStarted && (contourTriggerDistance > (Settings.Tool.toolWidth - Settings.Tool.maxOverlap) / 3.0
+            if (isFieldStarted && (contourTriggerDistance > (Settings.Tool.toolWidth - Settings.Tool.overlap) / 3.0
                 || contourTriggerDistance > sectionTriggerStepDistance))
             {
                 AddContourPoints();

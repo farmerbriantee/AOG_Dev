@@ -32,8 +32,8 @@ namespace AgOpenGPS
             lblSaveAsTool.Text = gStr.Get(gs.gsCopyCurrentToolAs);
             lblNewTool.Text = gStr.Get(gs.gsNewDefaultTool);
             lblToolWidth.Text = gStr.Get(gs.gsWidth);
-            lblOpen.Text = gStr.Get(gs.gsOpen);
-            lblDelete.Text = gStr.Get(gs.gsDelete);
+            //lblOpen.Text = gStr.Get(gs.gsOpen);
+            //lblDelete.Text = gStr.Get(gs.gsDelete);
             lblPivotDistance.Text = gStr.Get(gs.gsPivotDistance);
             lblAntennaHeight.Text = gStr.Get(gs.gsAntennaHeight);
             groupBox5.Text = gStr.Get(gs.gsAntennaOffset);
@@ -49,7 +49,7 @@ namespace AgOpenGPS
             lblSectionWidth.Text = gStr.Get(gs.gsWidth);
             lblCoverage.Text = gStr.Get(gs.gsCoverage);
             lblChoose.Text = gStr.Get(gs.gsChoose);
-            lblBoundary.Text = gStr.Get(gs.gsBoundary);
+            //lblBoundary.Text = gStr.Get(gs.gsBoundary);
             lblSections.Text = gStr.Get(gs.gsSections);
 
             grpSwitch.Text = gStr.Get(gs.gsWorkSwitch);
@@ -131,6 +131,8 @@ namespace AgOpenGPS
                 Left = 0;
             }
             SetTab(null, null, true);
+
+            UpdateSummary();
         }
 
         private void FormConfig_FormClosing(object sender, FormClosingEventArgs e)
@@ -154,11 +156,49 @@ namespace AgOpenGPS
         {
             Close();
         }
+        private void UpdateSummary()
+        {
+            lblSumWheelbase.Text = (Settings.User.isMetric ?
+                (Settings.Vehicle.setVehicle_wheelbase * glm.m2InchOrCm).ToString("N0") :
+                (Settings.Vehicle.setVehicle_wheelbase * glm.m2InchOrCm).ToString("N0"))
+                + glm.unitsInCm;
+
+            lblSumNumSections.Text = mf.tool.numOfSections.ToString();
+
+            string snapDist = Settings.User.isMetric ?
+                Settings.Vehicle.setAS_snapDistance.ToString() :
+                (Settings.Vehicle.setAS_snapDistance * glm.cm2CmOrIn).ToString("N1");
+
+            lblNudgeDistance.Text = snapDist + glm.unitsInCm.ToString();
+            lblUnits.Text = Settings.User.isMetric ? "Metric" : "Imperial";
+
+            //labelCurrentVehicle.Text = gStr.gsCurrent + ": " + RegistrySettings.vehicleFileName;
+            //lblSummaryVehicleName.Text = labelCurrentVehicle.Text;
+
+            lblSumTramWidth.Text = Settings.User.isMetric ?
+                ((Settings.Tool.tram_Width).ToString() + " m") :
+                ConvertMeterToFeet(Settings.Tool.tram_Width);
+
+            lblSumToolOffset.Text = (Settings.User.isMetric ?
+                (Settings.Tool.offset * glm.m2InchOrCm).ToString() :
+                (Settings.Tool.offset * glm.m2InchOrCm).ToString("N1")) +
+                glm.unitsInCm;
+
+            lblSumOverlap.Text = (Settings.User.isMetric ?
+                (Settings.Tool.overlap * glm.m2InchOrCm).ToString() :
+                (Settings.Tool.overlap * glm.m2InchOrCm).ToString("N1")) +
+                glm.unitsInCm;
+
+            lblSumLookaheadOn.Text = $"{Settings.Tool.lookAheadOn} sec";
+            lblSumLookAheadOff.Text = $"{Settings.Tool.lookAheadOff} sec";
+        }
 
         private void tabSummary_Enter(object sender, EventArgs e)
         {
             UpdateVehicleListView(); 
             UpdateToolListView();
+
+            UpdateSummary();
 
             //lblSumWheelbase.Text = (Settings.Vehicle.setVehicle_wheelbase * glm.m2InchOrCm).ToString("N0")
             //    + glm.unitsInCm;
@@ -176,15 +216,15 @@ namespace AgOpenGPS
             lblCurrentTool.Text = "Tool" + ": " + RegistrySettings.toolFileName;
             lblSummaryToolName.Text = lblCurrentTool.Text;
 
-            //lblTramWidth.Text = mf.isMetric ?
+            //lblSumTramWidth.Text = mf.isMetric ?
             //    ((Settings.Tool.tram_Width).ToString() + " m") :
             //    ConvertMeterToFeet(Settings.Tool.tram_Width);
 
-            //lblToolOffset.Text = (Settings.Tool.toolOffset * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
+            //lblSumToolOffset.Text = (Settings.Tool.toolOffset * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
 
-            //lblOverlap.Text = (Settings.Tool.toolOverlap * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
+            //lblSumOverlap.Text = (Settings.Tool.toolOverlap * glm.m2InchOrCm).ToString("N1") + glm.unitsInCm;
 
-            //lblLookahead.Text = Settings.Tool.toolLookAheadOn.ToString() + " sec";
+            //lblSumLookaheadOn.Text = Settings.Tool.toolLookAheadOn.ToString() + " sec";
         }
 
         public string ConvertMeterToFeet(double meter)

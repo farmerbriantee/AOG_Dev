@@ -120,14 +120,14 @@ namespace AgOpenGPS
 
         private void btnHalfToolRight_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeTrack((Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * 0.5);
+            mf.trk.NudgeTrack((Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5);
             UpdateMoveLabel();
             mf.Activate();
         }
 
         private void btnHalfToolLeft_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeTrack((Settings.Tool.toolWidth - Settings.Tool.maxOverlap) * -0.5);
+            mf.trk.NudgeTrack((Settings.Tool.toolWidth - Settings.Tool.overlap) * -0.5);
             UpdateMoveLabel();
             mf.Activate();
         }

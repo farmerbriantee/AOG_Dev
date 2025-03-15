@@ -135,7 +135,7 @@ namespace AgOpenGPS
             sb.AppendLine();
             sb.AppendFormat("Sections: {0}", mf.tool.numOfSections);
             sb.AppendLine();
-            sb.AppendFormat("Section Overlap: {0}", Settings.Tool.maxOverlap);
+            sb.AppendFormat("Section Overlap: {0}", Settings.Tool.overlap);
             sb.AppendLine();
             return sb.ToString();
         }

@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     public class CModuleComm
     {
@@ -8,7 +8,7 @@
         //Critical Safety Properties
         public bool isOutOfBounds = true;
 
-        // ---- Section control switches to AgOpenGPS  ---------------------------------------------------------
+        // ---- Section control switches to AOG  ---------------------------------------------------------
         //PGN - 32736 - 127.249 0x7FF9
         public byte[] ss = new byte[9];
 

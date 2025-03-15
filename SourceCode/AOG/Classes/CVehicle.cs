@@ -1,7 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using System;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public class CVehicle
     {

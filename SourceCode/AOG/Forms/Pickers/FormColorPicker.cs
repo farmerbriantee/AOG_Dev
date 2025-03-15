@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormColorPicker : Form
     {

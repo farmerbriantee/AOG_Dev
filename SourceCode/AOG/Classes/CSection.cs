@@ -1,6 +1,6 @@
 ﻿//Please, if you use this, share the improvements
 
-namespace AgOpenGPS
+namespace AOG
 {
     //each section is composed of a patchlist and triangle list
     //the triangle list makes up the individual triangles that make the block or patch of applied (green spot)

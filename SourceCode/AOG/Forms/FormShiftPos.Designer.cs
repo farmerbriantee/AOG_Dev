@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormShiftPos
     {
@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.nudNorth = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudEast = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudNorth = new AOG.NudlessNumericUpDown();
+            this.nudEast = new AOG.NudlessNumericUpDown();
             this.label27 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -117,7 +117,7 @@
             // 
             this.btnSouth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSouth.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.btnSouth.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
+            this.btnSouth.Image = global::AOG.Properties.Resources.DnArrow64;
             this.btnSouth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSouth.Location = new System.Drawing.Point(103, 335);
             this.btnSouth.Name = "btnSouth";
@@ -130,7 +130,7 @@
             // 
             this.btnNorth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnNorth.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.btnNorth.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnNorth.Image = global::AOG.Properties.Resources.UpArrow64;
             this.btnNorth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnNorth.Location = new System.Drawing.Point(103, 174);
             this.btnNorth.Name = "btnNorth";
@@ -143,7 +143,7 @@
             // 
             this.btnEast.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnEast.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.btnEast.Image = global::AgOpenGPS.Properties.Resources.ArrowRight;
+            this.btnEast.Image = global::AOG.Properties.Resources.ArrowRight;
             this.btnEast.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnEast.Location = new System.Drawing.Point(438, 335);
             this.btnEast.Name = "btnEast";
@@ -156,7 +156,7 @@
             // 
             this.btnWest.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnWest.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.btnWest.Image = global::AgOpenGPS.Properties.Resources.ArrowLeft;
+            this.btnWest.Image = global::AOG.Properties.Resources.ArrowLeft;
             this.btnWest.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnWest.Location = new System.Drawing.Point(438, 174);
             this.btnWest.Name = "btnWest";
@@ -170,7 +170,7 @@
             this.bntOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bntOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.bntOK.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.bntOK.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.bntOK.Image = global::AOG.Properties.Resources.OK64;
             this.bntOK.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.bntOK.Location = new System.Drawing.Point(502, 596);
             this.bntOK.Name = "bntOK";

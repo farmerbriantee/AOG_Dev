@@ -9,7 +9,7 @@ using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormGPS
     {

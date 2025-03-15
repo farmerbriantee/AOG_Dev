@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormColorPicker
     {
@@ -306,7 +306,7 @@
             this.chkUse.FlatAppearance.CheckedBackColor = System.Drawing.Color.PaleGreen;
             this.chkUse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkUse.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkUse.Image = global::AgOpenGPS.Properties.Resources.ColorLocked;
+            this.chkUse.Image = global::AOG.Properties.Resources.ColorLocked;
             this.chkUse.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkUse.Location = new System.Drawing.Point(495, 428);
             this.chkUse.Name = "chkUse";
@@ -322,7 +322,7 @@
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnSave.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnSave.Image = global::AOG.Properties.Resources.OK64;
             this.btnSave.Location = new System.Drawing.Point(503, 532);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(71, 62);

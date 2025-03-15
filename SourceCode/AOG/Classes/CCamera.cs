@@ -1,6 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public class CCamera
     {

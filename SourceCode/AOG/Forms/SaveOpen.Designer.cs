@@ -10,9 +10,9 @@ using System.Globalization;
 using System.Xml;
 using System.Text;
 
-using AgOpenGPS.Classes;
+using AOG.Classes;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public class CFieldFile
     {

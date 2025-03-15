@@ -1,6 +1,6 @@
 ﻿using System.Media;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public class CSound
     {

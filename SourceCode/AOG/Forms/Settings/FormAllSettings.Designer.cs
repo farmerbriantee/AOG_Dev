@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormAllSettings
     {
@@ -3334,7 +3334,7 @@
             this.btnScreenShot.FlatAppearance.BorderSize = 0;
             this.btnScreenShot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnScreenShot.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnScreenShot.Image = global::AgOpenGPS.Properties.Resources.ScreenShot;
+            this.btnScreenShot.Image = global::AOG.Properties.Resources.ScreenShot;
             this.btnScreenShot.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnScreenShot.Location = new System.Drawing.Point(1101, 599);
             this.btnScreenShot.Name = "btnScreenShot";
@@ -3387,7 +3387,7 @@
             this.btnCreatePNG.FlatAppearance.BorderSize = 0;
             this.btnCreatePNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCreatePNG.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCreatePNG.Image = global::AgOpenGPS.Properties.Resources.Screen2PNG;
+            this.btnCreatePNG.Image = global::AOG.Properties.Resources.Screen2PNG;
             this.btnCreatePNG.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCreatePNG.Location = new System.Drawing.Point(999, 599);
             this.btnCreatePNG.Name = "btnCreatePNG";

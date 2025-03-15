@@ -8,13 +8,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AgOpenGPS.Classes;
+using AOG.Classes;
 
-using AgOpenGPS.Properties;
+using AOG.Properties;
 using Microsoft.Win32;
 using OpenTK.Graphics.OpenGL;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormConfig
     {
@@ -33,7 +33,7 @@ namespace AgOpenGPS
 
                 mf.vehicle.LoadSettings();
 
-                //reset AgOpenGPS
+                //reset AOG
                 mf.LoadSettings();
 
                 //Form Steer Settings
@@ -210,7 +210,7 @@ namespace AgOpenGPS
 
                 mf.vehicle.LoadSettings();
 
-                //reset AgOpenGPS
+                //reset AOG
                 mf.LoadSettings();
 
                 SectionFeetInchesTotalWidthLabelUpdate();

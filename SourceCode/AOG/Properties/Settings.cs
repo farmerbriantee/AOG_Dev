@@ -11,7 +11,7 @@ using System.Globalization;
 using System.Xml.Serialization;
 using System.Collections;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public sealed class Settings
     {

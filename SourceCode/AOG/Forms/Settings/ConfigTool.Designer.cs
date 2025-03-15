@@ -1,5 +1,5 @@
-﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Properties;
+﻿using AOG.Classes;
+using AOG.Properties;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormConfig
     {

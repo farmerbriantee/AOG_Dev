@@ -10,13 +10,13 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using AgOpenGPS.Classes;
+using AOG.Classes;
 
-using AgOpenGPS.Properties;
+using AOG.Properties;
 using Microsoft.Win32;
 using OpenTK.Input;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormGPS
     {

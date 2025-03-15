@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public class CNMEA
     {

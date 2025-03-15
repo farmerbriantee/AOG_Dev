@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormFieldISOXML
     {
@@ -62,7 +62,7 @@
             this.btnSerialCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSerialCancel.Font = new System.Drawing.Font("Tahoma", 12F);
             this.btnSerialCancel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSerialCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnSerialCancel.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnSerialCancel.Location = new System.Drawing.Point(524, 303);
             this.btnSerialCancel.Name = "btnSerialCancel";
             this.btnSerialCancel.Size = new System.Drawing.Size(83, 79);
@@ -101,7 +101,7 @@
             this.btnBuildFields.FlatAppearance.BorderSize = 0;
             this.btnBuildFields.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuildFields.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnBuildFields.Image = global::AgOpenGPS.Properties.Resources.FileSave;
+            this.btnBuildFields.Image = global::AOG.Properties.Resources.FileSave;
             this.btnBuildFields.Location = new System.Drawing.Point(524, 414);
             this.btnBuildFields.Name = "btnBuildFields";
             this.btnBuildFields.Size = new System.Drawing.Size(83, 79);
@@ -130,7 +130,7 @@
             this.btnAddDate.FlatAppearance.BorderSize = 0;
             this.btnAddDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddDate.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnAddDate.Image = global::AgOpenGPS.Properties.Resources.JobNameCalendar;
+            this.btnAddDate.Image = global::AOG.Properties.Resources.JobNameCalendar;
             this.btnAddDate.Location = new System.Drawing.Point(358, 54);
             this.btnAddDate.Name = "btnAddDate";
             this.btnAddDate.Size = new System.Drawing.Size(83, 66);
@@ -147,7 +147,7 @@
             this.btnAddTime.FlatAppearance.BorderSize = 0;
             this.btnAddTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddTime.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnAddTime.Image = global::AgOpenGPS.Properties.Resources.JobNameTime;
+            this.btnAddTime.Image = global::AOG.Properties.Resources.JobNameTime;
             this.btnAddTime.Location = new System.Drawing.Point(524, 54);
             this.btnAddTime.Name = "btnAddTime";
             this.btnAddTime.Size = new System.Drawing.Size(83, 66);

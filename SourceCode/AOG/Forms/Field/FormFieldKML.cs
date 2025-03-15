@@ -1,4 +1,4 @@
-﻿using AgOpenGPS.Classes;
+﻿using AOG.Classes;
 
 using System;
 using System.Globalization;
@@ -6,7 +6,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormFieldKML : Form
     {

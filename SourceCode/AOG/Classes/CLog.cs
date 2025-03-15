@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public static class Log
     {

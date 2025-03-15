@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormYes : Form
     {

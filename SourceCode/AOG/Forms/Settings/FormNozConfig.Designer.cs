@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormNozConfig
     {
@@ -63,15 +63,15 @@
             this.lblUnitsSet = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.nudSlowPWM = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudFastPWM = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSwitchAtFlowError = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSprayKp = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudDeadbandError = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSprayPressureCal = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSprayFlowCal = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudMaxHz = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudMinHz = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudSlowPWM = new AOG.NudlessNumericUpDown();
+            this.nudFastPWM = new AOG.NudlessNumericUpDown();
+            this.nudSwitchAtFlowError = new AOG.NudlessNumericUpDown();
+            this.nudSprayKp = new AOG.NudlessNumericUpDown();
+            this.nudDeadbandError = new AOG.NudlessNumericUpDown();
+            this.nudSprayPressureCal = new AOG.NudlessNumericUpDown();
+            this.nudSprayFlowCal = new AOG.NudlessNumericUpDown();
+            this.nudMaxHz = new AOG.NudlessNumericUpDown();
+            this.nudMinHz = new AOG.NudlessNumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabFlow.SuspendLayout();
             this.tabUnits.SuspendLayout();

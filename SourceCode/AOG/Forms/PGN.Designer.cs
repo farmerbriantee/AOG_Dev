@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormGPS
     {

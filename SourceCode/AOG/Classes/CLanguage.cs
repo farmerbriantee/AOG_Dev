@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
-namespace AgOpenGPS.Classes
+namespace AOG.Classes
 {
     public static class gStr
     {

@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormNozSettings
     {
@@ -47,15 +47,15 @@
             this.btnZeroVolume = new System.Windows.Forms.Button();
             this.lblRateSet = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.nudTankVolume = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudZeroVolume = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSprayRateSet2 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSprayMinPressure = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSprayRateSet1 = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudTankVolume = new AOG.NudlessNumericUpDown();
+            this.nudZeroVolume = new AOG.NudlessNumericUpDown();
+            this.nudSprayRateSet2 = new AOG.NudlessNumericUpDown();
+            this.nudSprayMinPressure = new AOG.NudlessNumericUpDown();
+            this.nudSprayRateSet1 = new AOG.NudlessNumericUpDown();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.nudNudge = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudNudge = new AOG.NudlessNumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.nudRateAlarmPercent = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudRateAlarmPercent = new AOG.NudlessNumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -66,7 +66,7 @@
             this.bntOK.FlatAppearance.BorderSize = 0;
             this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOK.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.bntOK.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.bntOK.Image = global::AOG.Properties.Resources.OK64;
             this.bntOK.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.bntOK.Location = new System.Drawing.Point(576, 420);
             this.bntOK.Name = "bntOK";
@@ -247,7 +247,7 @@
             // btnZeroVolume
             // 
             this.btnZeroVolume.BackColor = System.Drawing.Color.White;
-            this.btnZeroVolume.BackgroundImage = global::AgOpenGPS.Properties.Resources.SteerZero;
+            this.btnZeroVolume.BackgroundImage = global::AOG.Properties.Resources.SteerZero;
             this.btnZeroVolume.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnZeroVolume.FlatAppearance.BorderColor = System.Drawing.SystemColors.AppWorkspace;
             this.btnZeroVolume.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

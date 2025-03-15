@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormConfig
     {
@@ -140,8 +140,8 @@
             this.pboxAlpha = new System.Windows.Forms.PictureBox();
             this.cboxIsImage = new System.Windows.Forms.CheckBox();
             this.tabVAntenna = new System.Windows.Forms.TabPage();
-            this.nudAntennaHeight = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudAntennaOffset = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudAntennaHeight = new AOG.NudlessNumericUpDown();
+            this.nudAntennaOffset = new AOG.NudlessNumericUpDown();
             this.lblPivotDistance = new System.Windows.Forms.Label();
             this.lblAntennaHeight = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -156,11 +156,11 @@
             this.label99 = new System.Windows.Forms.Label();
             this.label98 = new System.Windows.Forms.Label();
             this.pboxAntenna = new System.Windows.Forms.PictureBox();
-            this.nudAntennaPivot = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudAntennaPivot = new AOG.NudlessNumericUpDown();
             this.tabVDimensions = new System.Windows.Forms.TabPage();
-            this.nudWheelbase = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudTractorHitchLength = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudVehicleTrack = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudWheelbase = new AOG.NudlessNumericUpDown();
+            this.nudTractorHitchLength = new AOG.NudlessNumericUpDown();
+            this.nudVehicleTrack = new AOG.NudlessNumericUpDown();
             this.label97 = new System.Windows.Forms.Label();
             this.label95 = new System.Windows.Forms.Label();
             this.label94 = new System.Windows.Forms.Label();
@@ -176,9 +176,9 @@
             this.rbtnFront = new System.Windows.Forms.RadioButton();
             this.rbtnTrailing = new System.Windows.Forms.RadioButton();
             this.tabTHitch = new System.Windows.Forms.TabPage();
-            this.nudTrailingHitchLength = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudDrawbarLength = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudTankHitch = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudTrailingHitchLength = new AOG.NudlessNumericUpDown();
+            this.nudDrawbarLength = new AOG.NudlessNumericUpDown();
+            this.nudTankHitch = new AOG.NudlessNumericUpDown();
             this.label112 = new System.Windows.Forms.Label();
             this.lblUnitsHitch = new System.Windows.Forms.Label();
             this.picboxToolHitch = new System.Windows.Forms.PictureBox();
@@ -197,30 +197,30 @@
             this.rbtnLeftNegative = new System.Windows.Forms.RadioButton();
             this.rbtnToolRightPositive = new System.Windows.Forms.RadioButton();
             this.label65 = new System.Windows.Forms.Label();
-            this.nudOverlap = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudOffset = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudOverlap = new AOG.NudlessNumericUpDown();
+            this.nudOffset = new AOG.NudlessNumericUpDown();
             this.tabToolPivot = new System.Windows.Forms.TabPage();
             this.btnPivotOffsetZero = new System.Windows.Forms.Button();
             this.label177 = new System.Windows.Forms.Label();
             this.rbtnPivotBehindPos = new System.Windows.Forms.RadioButton();
             this.rbtnPivotAheadNeg = new System.Windows.Forms.RadioButton();
-            this.nudTrailingToolToPivotLength = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudTrailingToolToPivotLength = new AOG.NudlessNumericUpDown();
             this.tabTSections = new System.Windows.Forms.TabPage();
             this.panelSymmetricSections = new System.Windows.Forms.Panel();
-            this.nudZone8To = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudZone8To = new AOG.NudlessNumericUpDown();
             this.lblZoneStart8 = new System.Windows.Forms.Label();
             this.label157 = new System.Windows.Forms.Label();
             this.label158 = new System.Windows.Forms.Label();
-            this.nudZone7To = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudZone7To = new AOG.NudlessNumericUpDown();
             this.lblZoneStart7 = new System.Windows.Forms.Label();
             this.label154 = new System.Windows.Forms.Label();
             this.label155 = new System.Windows.Forms.Label();
-            this.nudZone6To = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudZone4To = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudZone1To = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudZone5To = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudZone3To = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudZone2To = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudZone6To = new AOG.NudlessNumericUpDown();
+            this.nudZone4To = new AOG.NudlessNumericUpDown();
+            this.nudZone1To = new AOG.NudlessNumericUpDown();
+            this.nudZone5To = new AOG.NudlessNumericUpDown();
+            this.nudZone3To = new AOG.NudlessNumericUpDown();
+            this.nudZone2To = new AOG.NudlessNumericUpDown();
             this.lblZoneStart6 = new System.Windows.Forms.Label();
             this.lblZoneStart5 = new System.Windows.Forms.Label();
             this.lblZoneStart4 = new System.Windows.Forms.Label();
@@ -268,26 +268,26 @@
             this.label48 = new System.Windows.Forms.Label();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.cboxIsUnique = new System.Windows.Forms.CheckBox();
-            this.nudCutoffSpeed = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudDefaultSectionWidth = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudMinCoverage = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection16 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection15 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection14 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection13 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection12 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection11 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection10 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection09 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection08 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection07 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection06 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection05 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection04 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection03 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection02 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudSection01 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudNumberOfSections = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudCutoffSpeed = new AOG.NudlessNumericUpDown();
+            this.nudDefaultSectionWidth = new AOG.NudlessNumericUpDown();
+            this.nudMinCoverage = new AOG.NudlessNumericUpDown();
+            this.nudSection16 = new AOG.NudlessNumericUpDown();
+            this.nudSection15 = new AOG.NudlessNumericUpDown();
+            this.nudSection14 = new AOG.NudlessNumericUpDown();
+            this.nudSection13 = new AOG.NudlessNumericUpDown();
+            this.nudSection12 = new AOG.NudlessNumericUpDown();
+            this.nudSection11 = new AOG.NudlessNumericUpDown();
+            this.nudSection10 = new AOG.NudlessNumericUpDown();
+            this.nudSection09 = new AOG.NudlessNumericUpDown();
+            this.nudSection08 = new AOG.NudlessNumericUpDown();
+            this.nudSection07 = new AOG.NudlessNumericUpDown();
+            this.nudSection06 = new AOG.NudlessNumericUpDown();
+            this.nudSection05 = new AOG.NudlessNumericUpDown();
+            this.nudSection04 = new AOG.NudlessNumericUpDown();
+            this.nudSection03 = new AOG.NudlessNumericUpDown();
+            this.nudSection02 = new AOG.NudlessNumericUpDown();
+            this.nudSection01 = new AOG.NudlessNumericUpDown();
+            this.nudNumberOfSections = new AOG.NudlessNumericUpDown();
             this.tabTSwitches = new System.Windows.Forms.TabPage();
             this.grpControls = new System.Windows.Forms.GroupBox();
             this.chkSetAutoSectionsSteer = new System.Windows.Forms.CheckBox();
@@ -308,11 +308,11 @@
             this.pictureBox18 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.nudLookAheadDistanceOff = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudLookAheadDistanceOn = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudLookAheadOff = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudTurnOffDelay = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudLookAhead = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudLookAheadDistanceOff = new AOG.NudlessNumericUpDown();
+            this.nudLookAheadDistanceOn = new AOG.NudlessNumericUpDown();
+            this.nudLookAheadOff = new AOG.NudlessNumericUpDown();
+            this.nudTurnOffDelay = new AOG.NudlessNumericUpDown();
+            this.nudLookAhead = new AOG.NudlessNumericUpDown();
             this.tabDHeading = new System.Windows.Forms.TabPage();
             this.lblAlarmStopsAutoSteer = new System.Windows.Forms.Label();
             this.label118 = new System.Windows.Forms.Label();
@@ -320,9 +320,9 @@
             this.lblRTKFixAlarm = new System.Windows.Forms.Label();
             this.gboxDual = new System.Windows.Forms.GroupBox();
             this.lblReverseDistance = new System.Windows.Forms.Label();
-            this.nudDualReverseDistance = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudDualReverseDistance = new AOG.NudlessNumericUpDown();
             this.pictureBox13 = new System.Windows.Forms.PictureBox();
-            this.nudDualHeadingOffset = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudDualHeadingOffset = new AOG.NudlessNumericUpDown();
             this.lblHeadingOffset = new System.Windows.Forms.Label();
             this.gboxSingle = new System.Windows.Forms.GroupBox();
             this.lblHeadingDistance = new System.Windows.Forms.Label();
@@ -342,10 +342,10 @@
             this.rbtnHeadingFix = new System.Windows.Forms.RadioButton();
             this.cboxIsRTK_KillAutoSteer = new System.Windows.Forms.CheckBox();
             this.cboxIsRTK = new System.Windows.Forms.CheckBox();
-            this.nudFixJumpDistance = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudFixJumpDistance = new AOG.NudlessNumericUpDown();
             this.tabDRoll = new System.Windows.Forms.TabPage();
-            this.btnRollOffsetUp = new AgOpenGPS.RepeatButton();
-            this.btnRollOffsetDown = new AgOpenGPS.RepeatButton();
+            this.btnRollOffsetUp = new AOG.RepeatButton();
+            this.btnRollOffsetDown = new AOG.RepeatButton();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.lblInvertRoll = new System.Windows.Forms.Label();
             this.lblZeroRoll = new System.Windows.Forms.Label();
@@ -371,12 +371,12 @@
             this.label59 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
             this.lblWhenTrig = new System.Windows.Forms.Label();
-            this.btnTurnSmoothingUp = new AgOpenGPS.RepeatButton();
-            this.btnTurnSmoothingDown = new AgOpenGPS.RepeatButton();
-            this.btnDistanceUp = new AgOpenGPS.RepeatButton();
-            this.btnDistanceDn = new AgOpenGPS.RepeatButton();
-            this.nudYouTurnRadius = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudTurnDistanceFromBoundary = new AgOpenGPS.NudlessNumericUpDown();
+            this.btnTurnSmoothingUp = new AOG.RepeatButton();
+            this.btnTurnSmoothingDown = new AOG.RepeatButton();
+            this.btnDistanceUp = new AOG.RepeatButton();
+            this.btnDistanceDn = new AOG.RepeatButton();
+            this.nudYouTurnRadius = new AOG.NudlessNumericUpDown();
+            this.nudTurnDistanceFromBoundary = new AOG.NudlessNumericUpDown();
             this.tabRelay = new System.Windows.Forms.TabPage();
             this.cboxPin23 = new System.Windows.Forms.ComboBox();
             this.cboxPin22 = new System.Windows.Forms.ComboBox();
@@ -437,26 +437,26 @@
             this.lblUser2 = new System.Windows.Forms.Label();
             this.lblUser1 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.nudHydLiftLookAhead = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudHydLiftLookAhead = new AOG.NudlessNumericUpDown();
             this.lblHydLookAhead = new System.Windows.Forms.Label();
             this.lblRaiseTime = new System.Windows.Forms.Label();
             this.lblEnable = new System.Windows.Forms.Label();
             this.lblHydLowerTime = new System.Windows.Forms.Label();
             this.cboxIsHydOn = new System.Windows.Forms.CheckBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.nudLowerTime = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudLowerTime = new AOG.NudlessNumericUpDown();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.nudRaiseTime = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudRaiseTime = new AOG.NudlessNumericUpDown();
             this.lblHydInvertRelays = new System.Windows.Forms.Label();
             this.lblSendAndSave = new System.Windows.Forms.Label();
             this.lblMachineModule = new System.Windows.Forms.Label();
             this.pboxSendMachine = new System.Windows.Forms.PictureBox();
             this.cboxMachInvertRelays = new System.Windows.Forms.CheckBox();
             this.btnSendMachinePGN = new System.Windows.Forms.Button();
-            this.nudUser4 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudUser3 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudUser2 = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudUser1 = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudUser4 = new AOG.NudlessNumericUpDown();
+            this.nudUser3 = new AOG.NudlessNumericUpDown();
+            this.nudUser2 = new AOG.NudlessNumericUpDown();
+            this.nudUser1 = new AOG.NudlessNumericUpDown();
             this.tabTram = new System.Windows.Forms.TabPage();
             this.lblDisplay = new System.Windows.Forms.Label();
             this.lblOveride = new System.Windows.Forms.Label();
@@ -465,7 +465,7 @@
             this.cboxDisplayTramControl = new System.Windows.Forms.CheckBox();
             this.chkBoxOverrideTramControlPos = new System.Windows.Forms.CheckBox();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.nudTramWidth = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudTramWidth = new AOG.NudlessNumericUpDown();
             this.tabBtns = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
             this.lblPowerLoss = new System.Windows.Forms.Label();
@@ -542,7 +542,7 @@
             this.chkDisplayGrid = new System.Windows.Forms.CheckBox();
             this.chkDisplaySpeedo = new System.Windows.Forms.CheckBox();
             this.chkDisplayExtraGuides = new System.Windows.Forms.CheckBox();
-            this.nudNumGuideLines = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudNumGuideLines = new AOG.NudlessNumericUpDown();
             this.lblCurrentVehicle = new System.Windows.Forms.Label();
             this.lblSecTotalWidthMeters = new System.Windows.Forms.Label();
             this.lblToolWidth = new System.Windows.Forms.Label();
@@ -643,7 +643,7 @@
             this.btnFeatureHides.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFeatureHides.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFeatureHides.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnFeatureHides.Image = global::AgOpenGPS.Properties.Resources.Con_FeatureMenu;
+            this.btnFeatureHides.Image = global::AOG.Properties.Resources.Con_FeatureMenu;
             this.btnFeatureHides.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFeatureHides.Location = new System.Drawing.Point(0, 1596);
             this.btnFeatureHides.Name = "btnFeatureHides";
@@ -664,7 +664,7 @@
             this.btnDisplay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDisplay.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDisplay.Image = global::AgOpenGPS.Properties.Resources.Con_Display;
+            this.btnDisplay.Image = global::AOG.Properties.Resources.Con_Display;
             this.btnDisplay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDisplay.Location = new System.Drawing.Point(0, 1516);
             this.btnDisplay.Name = "btnDisplay";
@@ -685,7 +685,7 @@
             this.btnTram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTram.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTram.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTram.Image = global::AgOpenGPS.Properties.Resources.Con_TramMenu;
+            this.btnTram.Image = global::AOG.Properties.Resources.Con_TramMenu;
             this.btnTram.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTram.Location = new System.Drawing.Point(0, 1436);
             this.btnTram.Name = "btnTram";
@@ -718,7 +718,7 @@
             this.btnMachineRelay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMachineRelay.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMachineRelay.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnMachineRelay.Image = global::AgOpenGPS.Properties.Resources.ConS_Pins;
+            this.btnMachineRelay.Image = global::AOG.Properties.Resources.ConS_Pins;
             this.btnMachineRelay.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnMachineRelay.Location = new System.Drawing.Point(0, 80);
             this.btnMachineRelay.Name = "btnMachineRelay";
@@ -738,7 +738,7 @@
             this.btnMachineModule.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMachineModule.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMachineModule.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnMachineModule.Image = global::AgOpenGPS.Properties.Resources.ConS_ModulesMachine;
+            this.btnMachineModule.Image = global::AOG.Properties.Resources.ConS_ModulesMachine;
             this.btnMachineModule.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnMachineModule.Location = new System.Drawing.Point(0, 0);
             this.btnMachineModule.Name = "btnMachineModule";
@@ -758,7 +758,7 @@
             this.btnArduino.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnArduino.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnArduino.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnArduino.Image = global::AgOpenGPS.Properties.Resources.Con_ModulesMenu;
+            this.btnArduino.Image = global::AOG.Properties.Resources.Con_ModulesMenu;
             this.btnArduino.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnArduino.Location = new System.Drawing.Point(0, 1196);
             this.btnArduino.Name = "btnArduino";
@@ -779,7 +779,7 @@
             this.btnUTurn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUTurn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUTurn.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnUTurn.Image = global::AgOpenGPS.Properties.Resources.Con_UTurnMenu;
+            this.btnUTurn.Image = global::AOG.Properties.Resources.Con_UTurnMenu;
             this.btnUTurn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnUTurn.Location = new System.Drawing.Point(0, 1121);
             this.btnUTurn.Name = "btnUTurn";
@@ -812,7 +812,7 @@
             this.btnSubRoll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubRoll.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubRoll.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSubRoll.Image = global::AgOpenGPS.Properties.Resources.ConS_SourcesRoll;
+            this.btnSubRoll.Image = global::AOG.Properties.Resources.ConS_SourcesRoll;
             this.btnSubRoll.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSubRoll.Location = new System.Drawing.Point(0, 80);
             this.btnSubRoll.Name = "btnSubRoll";
@@ -832,7 +832,7 @@
             this.btnSubHeading.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubHeading.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubHeading.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSubHeading.Image = global::AgOpenGPS.Properties.Resources.ConS_SourcesHeading;
+            this.btnSubHeading.Image = global::AOG.Properties.Resources.ConS_SourcesHeading;
             this.btnSubHeading.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSubHeading.Location = new System.Drawing.Point(0, 0);
             this.btnSubHeading.Name = "btnSubHeading";
@@ -852,7 +852,7 @@
             this.btnDataSources.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDataSources.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDataSources.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDataSources.Image = global::AgOpenGPS.Properties.Resources.Con_SourcesMenu;
+            this.btnDataSources.Image = global::AOG.Properties.Resources.Con_SourcesMenu;
             this.btnDataSources.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDataSources.Location = new System.Drawing.Point(0, 881);
             this.btnDataSources.Name = "btnDataSources";
@@ -890,7 +890,7 @@
             this.btnSubSwitches.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubSwitches.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubSwitches.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSubSwitches.Image = global::AgOpenGPS.Properties.Resources.ConS_ImplementSwitch;
+            this.btnSubSwitches.Image = global::AOG.Properties.Resources.ConS_ImplementSwitch;
             this.btnSubSwitches.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSubSwitches.Location = new System.Drawing.Point(0, 432);
             this.btnSubSwitches.Name = "btnSubSwitches";
@@ -910,7 +910,7 @@
             this.btnSubToolSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubToolSettings.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubToolSettings.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSubToolSettings.Image = global::AgOpenGPS.Properties.Resources.ConS_ImplementSettings;
+            this.btnSubToolSettings.Image = global::AOG.Properties.Resources.ConS_ImplementSettings;
             this.btnSubToolSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSubToolSettings.Location = new System.Drawing.Point(0, 360);
             this.btnSubToolSettings.Name = "btnSubToolSettings";
@@ -930,7 +930,7 @@
             this.btnSubSections.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubSections.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubSections.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSubSections.Image = global::AgOpenGPS.Properties.Resources.ConS_ImplementSection;
+            this.btnSubSections.Image = global::AOG.Properties.Resources.ConS_ImplementSection;
             this.btnSubSections.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSubSections.Location = new System.Drawing.Point(0, 288);
             this.btnSubSections.Name = "btnSubSections";
@@ -950,7 +950,7 @@
             this.btnSubToolOffset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubToolOffset.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubToolOffset.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSubToolOffset.Image = global::AgOpenGPS.Properties.Resources.ConS_ImplementOffset;
+            this.btnSubToolOffset.Image = global::AOG.Properties.Resources.ConS_ImplementOffset;
             this.btnSubToolOffset.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSubToolOffset.Location = new System.Drawing.Point(0, 216);
             this.btnSubToolOffset.Name = "btnSubToolOffset";
@@ -970,7 +970,7 @@
             this.btnSubPivot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubPivot.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubPivot.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSubPivot.Image = global::AgOpenGPS.Properties.Resources.ConS_ImplementPivot;
+            this.btnSubPivot.Image = global::AOG.Properties.Resources.ConS_ImplementPivot;
             this.btnSubPivot.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSubPivot.Location = new System.Drawing.Point(0, 144);
             this.btnSubPivot.Name = "btnSubPivot";
@@ -990,7 +990,7 @@
             this.btnSubHitch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubHitch.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubHitch.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSubHitch.Image = global::AgOpenGPS.Properties.Resources.ConS_ImplementHitch;
+            this.btnSubHitch.Image = global::AOG.Properties.Resources.ConS_ImplementHitch;
             this.btnSubHitch.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSubHitch.Location = new System.Drawing.Point(0, 72);
             this.btnSubHitch.Name = "btnSubHitch";
@@ -1010,7 +1010,7 @@
             this.btnSubToolType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubToolType.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubToolType.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSubToolType.Image = global::AgOpenGPS.Properties.Resources.ConS_ImplementConfig;
+            this.btnSubToolType.Image = global::AOG.Properties.Resources.ConS_ImplementConfig;
             this.btnSubToolType.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSubToolType.Location = new System.Drawing.Point(0, 0);
             this.btnSubToolType.Name = "btnSubToolType";
@@ -1030,7 +1030,7 @@
             this.btnTool.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTool.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTool.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTool.Image = global::AgOpenGPS.Properties.Resources.Con_ImplementMenu;
+            this.btnTool.Image = global::AOG.Properties.Resources.Con_ImplementMenu;
             this.btnTool.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTool.Location = new System.Drawing.Point(0, 295);
             this.btnTool.Name = "btnTool";
@@ -1081,7 +1081,7 @@
             this.btnSubAntenna.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubAntenna.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubAntenna.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSubAntenna.Image = global::AgOpenGPS.Properties.Resources.ConS_ImplementAntenna;
+            this.btnSubAntenna.Image = global::AOG.Properties.Resources.ConS_ImplementAntenna;
             this.btnSubAntenna.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSubAntenna.Location = new System.Drawing.Point(0, 144);
             this.btnSubAntenna.Name = "btnSubAntenna";
@@ -1101,7 +1101,7 @@
             this.btnSubDimensions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubDimensions.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubDimensions.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSubDimensions.Image = global::AgOpenGPS.Properties.Resources.ConS_ImplementHitch;
+            this.btnSubDimensions.Image = global::AOG.Properties.Resources.ConS_ImplementHitch;
             this.btnSubDimensions.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSubDimensions.Location = new System.Drawing.Point(0, 72);
             this.btnSubDimensions.Name = "btnSubDimensions";
@@ -1121,7 +1121,7 @@
             this.btnSubVehicleType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubVehicleType.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubVehicleType.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSubVehicleType.Image = global::AgOpenGPS.Properties.Resources.ConS_VehicleConfig;
+            this.btnSubVehicleType.Image = global::AOG.Properties.Resources.ConS_VehicleConfig;
             this.btnSubVehicleType.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSubVehicleType.Location = new System.Drawing.Point(0, 0);
             this.btnSubVehicleType.Name = "btnSubVehicleType";
@@ -1141,7 +1141,7 @@
             this.btnVehicle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVehicle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVehicle.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnVehicle.Image = global::AgOpenGPS.Properties.Resources.Con_VehicleMenu;
+            this.btnVehicle.Image = global::AOG.Properties.Resources.Con_VehicleMenu;
             this.btnVehicle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnVehicle.Location = new System.Drawing.Point(0, 0);
             this.btnVehicle.Name = "btnVehicle";
@@ -1488,7 +1488,7 @@
             this.btnToolNewSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
             this.btnToolNewSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnToolNewSave.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnToolNewSave.Image = global::AgOpenGPS.Properties.Resources.FileSave;
+            this.btnToolNewSave.Image = global::AOG.Properties.Resources.FileSave;
             this.btnToolNewSave.Location = new System.Drawing.Point(833, 88);
             this.btnToolNewSave.Name = "btnToolNewSave";
             this.btnToolNewSave.Size = new System.Drawing.Size(60, 52);
@@ -1529,7 +1529,7 @@
             this.btnToolSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
             this.btnToolSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnToolSave.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnToolSave.Image = global::AgOpenGPS.Properties.Resources.FileSaveAs;
+            this.btnToolSave.Image = global::AOG.Properties.Resources.FileSaveAs;
             this.btnToolSave.Location = new System.Drawing.Point(833, 15);
             this.btnToolSave.Name = "btnToolSave";
             this.btnToolSave.Size = new System.Drawing.Size(60, 52);
@@ -1545,7 +1545,7 @@
             this.btnToolLoad.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
             this.btnToolLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnToolLoad.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnToolLoad.Image = global::AgOpenGPS.Properties.Resources.FileUse;
+            this.btnToolLoad.Image = global::AOG.Properties.Resources.FileUse;
             this.btnToolLoad.Location = new System.Drawing.Point(832, 205);
             this.btnToolLoad.Name = "btnToolLoad";
             this.btnToolLoad.Size = new System.Drawing.Size(60, 64);
@@ -1560,7 +1560,7 @@
             this.btnToolDelete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
             this.btnToolDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnToolDelete.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnToolDelete.Image = global::AgOpenGPS.Properties.Resources.Trash;
+            this.btnToolDelete.Image = global::AOG.Properties.Resources.Trash;
             this.btnToolDelete.Location = new System.Drawing.Point(832, 318);
             this.btnToolDelete.Name = "btnToolDelete";
             this.btnToolDelete.Size = new System.Drawing.Size(60, 52);
@@ -1628,7 +1628,7 @@
             this.btnVehicleNewSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
             this.btnVehicleNewSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVehicleNewSave.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnVehicleNewSave.Image = global::AgOpenGPS.Properties.Resources.FileSave;
+            this.btnVehicleNewSave.Image = global::AOG.Properties.Resources.FileSave;
             this.btnVehicleNewSave.Location = new System.Drawing.Point(351, 88);
             this.btnVehicleNewSave.Name = "btnVehicleNewSave";
             this.btnVehicleNewSave.Size = new System.Drawing.Size(60, 52);
@@ -1669,7 +1669,7 @@
             this.btnVehicleSave.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
             this.btnVehicleSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVehicleSave.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnVehicleSave.Image = global::AgOpenGPS.Properties.Resources.FileSaveAs;
+            this.btnVehicleSave.Image = global::AOG.Properties.Resources.FileSaveAs;
             this.btnVehicleSave.Location = new System.Drawing.Point(351, 15);
             this.btnVehicleSave.Name = "btnVehicleSave";
             this.btnVehicleSave.Size = new System.Drawing.Size(60, 52);
@@ -1698,7 +1698,7 @@
             this.btnVehicleLoad.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
             this.btnVehicleLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVehicleLoad.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnVehicleLoad.Image = global::AgOpenGPS.Properties.Resources.FileUse;
+            this.btnVehicleLoad.Image = global::AOG.Properties.Resources.FileUse;
             this.btnVehicleLoad.Location = new System.Drawing.Point(351, 205);
             this.btnVehicleLoad.Name = "btnVehicleLoad";
             this.btnVehicleLoad.Size = new System.Drawing.Size(60, 64);
@@ -1713,7 +1713,7 @@
             this.btnVehicleDelete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
             this.btnVehicleDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVehicleDelete.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnVehicleDelete.Image = global::AgOpenGPS.Properties.Resources.Trash;
+            this.btnVehicleDelete.Image = global::AOG.Properties.Resources.Trash;
             this.btnVehicleDelete.Location = new System.Drawing.Point(351, 318);
             this.btnVehicleDelete.Name = "btnVehicleDelete";
             this.btnVehicleDelete.Size = new System.Drawing.Size(60, 52);
@@ -1799,7 +1799,7 @@
             this.btnOpacityUp.BackColor = System.Drawing.Color.Transparent;
             this.btnOpacityUp.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnOpacityUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpacityUp.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnOpacityUp.Image = global::AOG.Properties.Resources.UpArrow64;
             this.btnOpacityUp.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnOpacityUp.Location = new System.Drawing.Point(769, 438);
             this.btnOpacityUp.Name = "btnOpacityUp";
@@ -1814,7 +1814,7 @@
             this.btnOpacityDn.BackColor = System.Drawing.Color.Transparent;
             this.btnOpacityDn.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnOpacityDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpacityDn.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
+            this.btnOpacityDn.Image = global::AOG.Properties.Resources.DnArrow64;
             this.btnOpacityDn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnOpacityDn.Location = new System.Drawing.Point(551, 438);
             this.btnOpacityDn.Name = "btnOpacityDn";
@@ -1854,7 +1854,7 @@
             // rbtnHarvester
             // 
             this.rbtnHarvester.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnHarvester.BackgroundImage = global::AgOpenGPS.Properties.Resources.vehiclePageHarvester;
+            this.rbtnHarvester.BackgroundImage = global::AOG.Properties.Resources.vehiclePageHarvester;
             this.rbtnHarvester.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.rbtnHarvester.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.rbtnHarvester.FlatAppearance.BorderSize = 0;
@@ -1870,7 +1870,7 @@
             // rbtn4WD
             // 
             this.rbtn4WD.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn4WD.BackgroundImage = global::AgOpenGPS.Properties.Resources.vehiclePage4WD;
+            this.rbtn4WD.BackgroundImage = global::AOG.Properties.Resources.vehiclePage4WD;
             this.rbtn4WD.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.rbtn4WD.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.rbtn4WD.FlatAppearance.BorderSize = 0;
@@ -1886,7 +1886,7 @@
             // rbtnTractor
             // 
             this.rbtnTractor.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnTractor.BackgroundImage = global::AgOpenGPS.Properties.Resources.vehiclePageTractor;
+            this.rbtnTractor.BackgroundImage = global::AOG.Properties.Resources.vehiclePageTractor;
             this.rbtnTractor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.rbtnTractor.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.rbtnTractor.Checked = true;
@@ -1924,7 +1924,7 @@
             this.rbtnBrand4WDHolder.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrand4WDHolder.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrand4WDHolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrand4WDHolder.Image = global::AgOpenGPS.Properties.Resources.Holder;
+            this.rbtnBrand4WDHolder.Image = global::AOG.Properties.Resources.Holder;
             this.rbtnBrand4WDHolder.Location = new System.Drawing.Point(8, 395);
             this.rbtnBrand4WDHolder.Name = "rbtnBrand4WDHolder";
             this.rbtnBrand4WDHolder.Size = new System.Drawing.Size(64, 64);
@@ -1941,7 +1941,7 @@
             this.rbtnBrand4WDAgOpenGPS.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrand4WDAgOpenGPS.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrand4WDAgOpenGPS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrand4WDAgOpenGPS.Image = global::AgOpenGPS.Properties.Resources.AoG;
+            this.rbtnBrand4WDAgOpenGPS.Image = global::AOG.Properties.Resources.AoG;
             this.rbtnBrand4WDAgOpenGPS.Location = new System.Drawing.Point(8, 6);
             this.rbtnBrand4WDAgOpenGPS.Name = "rbtnBrand4WDAgOpenGPS";
             this.rbtnBrand4WDAgOpenGPS.Size = new System.Drawing.Size(64, 64);
@@ -1958,7 +1958,7 @@
             this.rbtnBrand4WDChallenger.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrand4WDChallenger.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrand4WDChallenger.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrand4WDChallenger.Image = global::AgOpenGPS.Properties.Resources.Challenger;
+            this.rbtnBrand4WDChallenger.Image = global::AOG.Properties.Resources.Challenger;
             this.rbtnBrand4WDChallenger.Location = new System.Drawing.Point(8, 84);
             this.rbtnBrand4WDChallenger.Name = "rbtnBrand4WDChallenger";
             this.rbtnBrand4WDChallenger.Size = new System.Drawing.Size(64, 64);
@@ -1976,7 +1976,7 @@
             this.rbtnBrand4WDCase.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrand4WDCase.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrand4WDCase.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrand4WDCase.Image = global::AgOpenGPS.Properties.Resources.Case;
+            this.rbtnBrand4WDCase.Image = global::AOG.Properties.Resources.Case;
             this.rbtnBrand4WDCase.Location = new System.Drawing.Point(8, 162);
             this.rbtnBrand4WDCase.Name = "rbtnBrand4WDCase";
             this.rbtnBrand4WDCase.Size = new System.Drawing.Size(64, 64);
@@ -1994,7 +1994,7 @@
             this.rbtnBrand4WDNH.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrand4WDNH.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrand4WDNH.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrand4WDNH.Image = global::AgOpenGPS.Properties.Resources.NewHolland;
+            this.rbtnBrand4WDNH.Image = global::AOG.Properties.Resources.NewHolland;
             this.rbtnBrand4WDNH.Location = new System.Drawing.Point(8, 318);
             this.rbtnBrand4WDNH.Name = "rbtnBrand4WDNH";
             this.rbtnBrand4WDNH.Size = new System.Drawing.Size(64, 64);
@@ -2012,7 +2012,7 @@
             this.rbtnBrand4WDJDeere.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrand4WDJDeere.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrand4WDJDeere.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrand4WDJDeere.Image = global::AgOpenGPS.Properties.Resources.JohnDeere;
+            this.rbtnBrand4WDJDeere.Image = global::AOG.Properties.Resources.JohnDeere;
             this.rbtnBrand4WDJDeere.Location = new System.Drawing.Point(8, 240);
             this.rbtnBrand4WDJDeere.Name = "rbtnBrand4WDJDeere";
             this.rbtnBrand4WDJDeere.Size = new System.Drawing.Size(64, 64);
@@ -2054,7 +2054,7 @@
             this.rbtnBrandHAgOpenGPS.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandHAgOpenGPS.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandHAgOpenGPS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandHAgOpenGPS.Image = global::AgOpenGPS.Properties.Resources.AoG;
+            this.rbtnBrandHAgOpenGPS.Image = global::AOG.Properties.Resources.AoG;
             this.rbtnBrandHAgOpenGPS.Location = new System.Drawing.Point(8, 6);
             this.rbtnBrandHAgOpenGPS.Name = "rbtnBrandHAgOpenGPS";
             this.rbtnBrandHAgOpenGPS.Size = new System.Drawing.Size(64, 64);
@@ -2071,7 +2071,7 @@
             this.rbtnBrandHCase.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandHCase.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandHCase.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandHCase.Image = global::AgOpenGPS.Properties.Resources.Case;
+            this.rbtnBrandHCase.Image = global::AOG.Properties.Resources.Case;
             this.rbtnBrandHCase.Location = new System.Drawing.Point(8, 102);
             this.rbtnBrandHCase.Name = "rbtnBrandHCase";
             this.rbtnBrandHCase.Size = new System.Drawing.Size(64, 64);
@@ -2089,7 +2089,7 @@
             this.rbtnBrandHClaas.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandHClaas.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandHClaas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandHClaas.Image = global::AgOpenGPS.Properties.Resources.Claas;
+            this.rbtnBrandHClaas.Image = global::AOG.Properties.Resources.Claas;
             this.rbtnBrandHClaas.Location = new System.Drawing.Point(8, 198);
             this.rbtnBrandHClaas.Name = "rbtnBrandHClaas";
             this.rbtnBrandHClaas.Size = new System.Drawing.Size(64, 64);
@@ -2107,7 +2107,7 @@
             this.rbtnBrandHJDeere.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandHJDeere.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandHJDeere.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandHJDeere.Image = global::AgOpenGPS.Properties.Resources.JohnDeere;
+            this.rbtnBrandHJDeere.Image = global::AOG.Properties.Resources.JohnDeere;
             this.rbtnBrandHJDeere.Location = new System.Drawing.Point(8, 294);
             this.rbtnBrandHJDeere.Name = "rbtnBrandHJDeere";
             this.rbtnBrandHJDeere.Size = new System.Drawing.Size(64, 64);
@@ -2125,7 +2125,7 @@
             this.rbtnBrandHNH.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandHNH.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandHNH.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandHNH.Image = global::AgOpenGPS.Properties.Resources.NewHolland;
+            this.rbtnBrandHNH.Image = global::AOG.Properties.Resources.NewHolland;
             this.rbtnBrandHNH.Location = new System.Drawing.Point(8, 390);
             this.rbtnBrandHNH.Name = "rbtnBrandHNH";
             this.rbtnBrandHNH.Size = new System.Drawing.Size(64, 64);
@@ -2164,7 +2164,7 @@
             this.rbtnBrandTAgOpenGPS.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandTAgOpenGPS.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandTAgOpenGPS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTAgOpenGPS.Image = global::AgOpenGPS.Properties.Resources.AoG;
+            this.rbtnBrandTAgOpenGPS.Image = global::AOG.Properties.Resources.AoG;
             this.rbtnBrandTAgOpenGPS.Location = new System.Drawing.Point(112, 6);
             this.rbtnBrandTAgOpenGPS.Name = "rbtnBrandTAgOpenGPS";
             this.rbtnBrandTAgOpenGPS.Size = new System.Drawing.Size(64, 64);
@@ -2175,7 +2175,7 @@
             // rbtnBrandTCase
             // 
             this.rbtnBrandTCase.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtnBrandTCase.BackgroundImage = global::AgOpenGPS.Properties.Resources.Case;
+            this.rbtnBrandTCase.BackgroundImage = global::AOG.Properties.Resources.Case;
             this.rbtnBrandTCase.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rbtnBrandTCase.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.rbtnBrandTCase.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
@@ -2196,7 +2196,7 @@
             this.rbtnBrandTClaas.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandTClaas.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandTClaas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTClaas.Image = global::AgOpenGPS.Properties.Resources.Claas;
+            this.rbtnBrandTClaas.Image = global::AOG.Properties.Resources.Claas;
             this.rbtnBrandTClaas.Location = new System.Drawing.Point(112, 102);
             this.rbtnBrandTClaas.Name = "rbtnBrandTClaas";
             this.rbtnBrandTClaas.Size = new System.Drawing.Size(64, 64);
@@ -2212,7 +2212,7 @@
             this.rbtnBrandTDeutz.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandTDeutz.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandTDeutz.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTDeutz.Image = global::AgOpenGPS.Properties.Resources.Deutz;
+            this.rbtnBrandTDeutz.Image = global::AOG.Properties.Resources.Deutz;
             this.rbtnBrandTDeutz.Location = new System.Drawing.Point(211, 102);
             this.rbtnBrandTDeutz.Name = "rbtnBrandTDeutz";
             this.rbtnBrandTDeutz.Size = new System.Drawing.Size(64, 64);
@@ -2228,7 +2228,7 @@
             this.rbtnBrandTFendt.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandTFendt.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandTFendt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTFendt.Image = global::AgOpenGPS.Properties.Resources.Fendt;
+            this.rbtnBrandTFendt.Image = global::AOG.Properties.Resources.Fendt;
             this.rbtnBrandTFendt.Location = new System.Drawing.Point(13, 390);
             this.rbtnBrandTFendt.Name = "rbtnBrandTFendt";
             this.rbtnBrandTFendt.Size = new System.Drawing.Size(64, 64);
@@ -2244,7 +2244,7 @@
             this.rbtnBrandTJDeere.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandTJDeere.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandTJDeere.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTJDeere.Image = global::AgOpenGPS.Properties.Resources.JohnDeere;
+            this.rbtnBrandTJDeere.Image = global::AOG.Properties.Resources.JohnDeere;
             this.rbtnBrandTJDeere.Location = new System.Drawing.Point(211, 294);
             this.rbtnBrandTJDeere.Name = "rbtnBrandTJDeere";
             this.rbtnBrandTJDeere.Size = new System.Drawing.Size(64, 64);
@@ -2260,7 +2260,7 @@
             this.rbtnBrandTKubota.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandTKubota.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandTKubota.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTKubota.Image = global::AgOpenGPS.Properties.Resources.Kubota;
+            this.rbtnBrandTKubota.Image = global::AOG.Properties.Resources.Kubota;
             this.rbtnBrandTKubota.Location = new System.Drawing.Point(211, 390);
             this.rbtnBrandTKubota.Name = "rbtnBrandTKubota";
             this.rbtnBrandTKubota.Size = new System.Drawing.Size(64, 64);
@@ -2276,7 +2276,7 @@
             this.rbtnBrandTMassey.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandTMassey.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandTMassey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTMassey.Image = global::AgOpenGPS.Properties.Resources.Massey;
+            this.rbtnBrandTMassey.Image = global::AOG.Properties.Resources.Massey;
             this.rbtnBrandTMassey.Location = new System.Drawing.Point(13, 198);
             this.rbtnBrandTMassey.Name = "rbtnBrandTMassey";
             this.rbtnBrandTMassey.Size = new System.Drawing.Size(64, 64);
@@ -2292,7 +2292,7 @@
             this.rbtnBrandTNH.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandTNH.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandTNH.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTNH.Image = global::AgOpenGPS.Properties.Resources.NewHolland;
+            this.rbtnBrandTNH.Image = global::AOG.Properties.Resources.NewHolland;
             this.rbtnBrandTNH.Location = new System.Drawing.Point(112, 198);
             this.rbtnBrandTNH.Name = "rbtnBrandTNH";
             this.rbtnBrandTNH.Size = new System.Drawing.Size(64, 64);
@@ -2308,7 +2308,7 @@
             this.rbtnBrandTSame.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandTSame.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandTSame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTSame.Image = global::AgOpenGPS.Properties.Resources.Same;
+            this.rbtnBrandTSame.Image = global::AOG.Properties.Resources.Same;
             this.rbtnBrandTSame.Location = new System.Drawing.Point(211, 198);
             this.rbtnBrandTSame.Name = "rbtnBrandTSame";
             this.rbtnBrandTSame.Size = new System.Drawing.Size(64, 64);
@@ -2324,7 +2324,7 @@
             this.rbtnBrandTSteyr.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandTSteyr.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandTSteyr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTSteyr.Image = global::AgOpenGPS.Properties.Resources.Steyr;
+            this.rbtnBrandTSteyr.Image = global::AOG.Properties.Resources.Steyr;
             this.rbtnBrandTSteyr.Location = new System.Drawing.Point(112, 390);
             this.rbtnBrandTSteyr.Name = "rbtnBrandTSteyr";
             this.rbtnBrandTSteyr.Size = new System.Drawing.Size(64, 64);
@@ -2340,7 +2340,7 @@
             this.rbtnBrandTValtra.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandTValtra.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandTValtra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTValtra.Image = global::AgOpenGPS.Properties.Resources.Valtra;
+            this.rbtnBrandTValtra.Image = global::AOG.Properties.Resources.Valtra;
             this.rbtnBrandTValtra.Location = new System.Drawing.Point(112, 294);
             this.rbtnBrandTValtra.Name = "rbtnBrandTValtra";
             this.rbtnBrandTValtra.Size = new System.Drawing.Size(64, 64);
@@ -2356,7 +2356,7 @@
             this.rbtnBrandTUrsus.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.rbtnBrandTUrsus.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnBrandTUrsus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnBrandTUrsus.Image = global::AgOpenGPS.Properties.Resources.Ursus;
+            this.rbtnBrandTUrsus.Image = global::AOG.Properties.Resources.Ursus;
             this.rbtnBrandTUrsus.Location = new System.Drawing.Point(13, 294);
             this.rbtnBrandTUrsus.Name = "rbtnBrandTUrsus";
             this.rbtnBrandTUrsus.Size = new System.Drawing.Size(64, 64);
@@ -2380,7 +2380,7 @@
             // 
             this.panelOpacity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panelOpacity.BackColor = System.Drawing.Color.MistyRose;
-            this.panelOpacity.BackgroundImage = global::AgOpenGPS.Properties.Resources.VehicleOpacity;
+            this.panelOpacity.BackgroundImage = global::AOG.Properties.Resources.VehicleOpacity;
             this.panelOpacity.Controls.Add(this.pboxAlpha);
             this.panelOpacity.Location = new System.Drawing.Point(571, 144);
             this.panelOpacity.Name = "panelOpacity";
@@ -2390,7 +2390,7 @@
             // pboxAlpha
             // 
             this.pboxAlpha.BackColor = System.Drawing.Color.Transparent;
-            this.pboxAlpha.BackgroundImage = global::AgOpenGPS.Properties.Resources.z_TractorDeutz;
+            this.pboxAlpha.BackgroundImage = global::AOG.Properties.Resources.z_TractorDeutz;
             this.pboxAlpha.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pboxAlpha.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pboxAlpha.Location = new System.Drawing.Point(0, 0);
@@ -2409,7 +2409,7 @@
             this.cboxIsImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxIsImage.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsImage.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxIsImage.Image = global::AgOpenGPS.Properties.Resources.TriangleVehicle;
+            this.cboxIsImage.Image = global::AOG.Properties.Resources.TriangleVehicle;
             this.cboxIsImage.Location = new System.Drawing.Point(651, 17);
             this.cboxIsImage.Name = "cboxIsImage";
             this.cboxIsImage.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -2446,7 +2446,7 @@
             // 
             this.nudAntennaHeight.Location = new System.Drawing.Point(392, 208);
             this.nudAntennaHeight.Maximum = 10D;
-            this.nudAntennaHeight.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudAntennaHeight.Mode = AOG.UnitMode.Small;
             this.nudAntennaHeight.Name = "nudAntennaHeight";
             this.nudAntennaHeight.Size = new System.Drawing.Size(144, 52);
             this.nudAntennaHeight.TabIndex = 3;
@@ -2456,7 +2456,7 @@
             // 
             this.nudAntennaOffset.Location = new System.Drawing.Point(474, 352);
             this.nudAntennaOffset.Maximum = 10D;
-            this.nudAntennaOffset.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudAntennaOffset.Mode = AOG.UnitMode.Small;
             this.nudAntennaOffset.Name = "nudAntennaOffset";
             this.nudAntennaOffset.Size = new System.Drawing.Size(144, 52);
             this.nudAntennaOffset.TabIndex = 2;
@@ -2518,7 +2518,7 @@
             this.rbtnAntennaCenter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rbtnAntennaCenter.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnAntennaCenter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnAntennaCenter.Image = global::AgOpenGPS.Properties.Resources.AntennaNoOffset;
+            this.rbtnAntennaCenter.Image = global::AOG.Properties.Resources.AntennaNoOffset;
             this.rbtnAntennaCenter.Location = new System.Drawing.Point(168, 25);
             this.rbtnAntennaCenter.Name = "rbtnAntennaCenter";
             this.rbtnAntennaCenter.Size = new System.Drawing.Size(73, 81);
@@ -2533,7 +2533,7 @@
             this.rbtnAntennaRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rbtnAntennaRight.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnAntennaRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnAntennaRight.Image = global::AgOpenGPS.Properties.Resources.AntennaRightOffset;
+            this.rbtnAntennaRight.Image = global::AOG.Properties.Resources.AntennaRightOffset;
             this.rbtnAntennaRight.Location = new System.Drawing.Point(306, 25);
             this.rbtnAntennaRight.Name = "rbtnAntennaRight";
             this.rbtnAntennaRight.Size = new System.Drawing.Size(73, 81);
@@ -2548,7 +2548,7 @@
             this.rbtnAntennaLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rbtnAntennaLeft.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnAntennaLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnAntennaLeft.Image = global::AgOpenGPS.Properties.Resources.AntennaLeftOffset;
+            this.rbtnAntennaLeft.Image = global::AOG.Properties.Resources.AntennaLeftOffset;
             this.rbtnAntennaLeft.Location = new System.Drawing.Point(28, 25);
             this.rbtnAntennaLeft.Name = "rbtnAntennaLeft";
             this.rbtnAntennaLeft.Size = new System.Drawing.Size(73, 81);
@@ -2633,7 +2633,7 @@
             // 
             // pboxAntenna
             // 
-            this.pboxAntenna.BackgroundImage = global::AgOpenGPS.Properties.Resources.AntennaTractor;
+            this.pboxAntenna.BackgroundImage = global::AOG.Properties.Resources.AntennaTractor;
             this.pboxAntenna.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pboxAntenna.Location = new System.Drawing.Point(22, 106);
             this.pboxAntenna.Name = "pboxAntenna";
@@ -2645,7 +2645,7 @@
             // 
             this.nudAntennaPivot.Location = new System.Drawing.Point(126, 43);
             this.nudAntennaPivot.Maximum = 10D;
-            this.nudAntennaPivot.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudAntennaPivot.Mode = AOG.UnitMode.Small;
             this.nudAntennaPivot.Name = "nudAntennaPivot";
             this.nudAntennaPivot.Size = new System.Drawing.Size(144, 52);
             this.nudAntennaPivot.TabIndex = 1;
@@ -2675,7 +2675,7 @@
             this.nudWheelbase.Location = new System.Drawing.Point(179, 397);
             this.nudWheelbase.Maximum = 20D;
             this.nudWheelbase.Minimum = 0.5D;
-            this.nudWheelbase.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudWheelbase.Mode = AOG.UnitMode.Small;
             this.nudWheelbase.Name = "nudWheelbase";
             this.nudWheelbase.Size = new System.Drawing.Size(152, 52);
             this.nudWheelbase.TabIndex = 52;
@@ -2685,7 +2685,7 @@
             // 
             this.nudTractorHitchLength.Location = new System.Drawing.Point(37, 272);
             this.nudTractorHitchLength.Maximum = 40D;
-            this.nudTractorHitchLength.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudTractorHitchLength.Mode = AOG.UnitMode.Small;
             this.nudTractorHitchLength.Name = "nudTractorHitchLength";
             this.nudTractorHitchLength.Size = new System.Drawing.Size(152, 52);
             this.nudTractorHitchLength.TabIndex = 478;
@@ -2696,7 +2696,7 @@
             this.nudVehicleTrack.Location = new System.Drawing.Point(700, 165);
             this.nudVehicleTrack.Maximum = 20D;
             this.nudVehicleTrack.Minimum = 0.2D;
-            this.nudVehicleTrack.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudVehicleTrack.Mode = AOG.UnitMode.Small;
             this.nudVehicleTrack.Name = "nudVehicleTrack";
             this.nudVehicleTrack.Size = new System.Drawing.Size(133, 52);
             this.nudVehicleTrack.TabIndex = 53;
@@ -2773,7 +2773,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::AgOpenGPS.Properties.Resources.RadiusWheelBase;
+            this.pictureBox1.Image = global::AOG.Properties.Resources.RadiusWheelBase;
             this.pictureBox1.InitialImage = null;
             this.pictureBox1.Location = new System.Drawing.Point(4, 22);
             this.pictureBox1.Name = "pictureBox1";
@@ -2811,7 +2811,7 @@
             // 
             // pboxConfigHarvester
             // 
-            this.pboxConfigHarvester.BackgroundImage = global::AgOpenGPS.Properties.Resources.vehiclePageHarvester;
+            this.pboxConfigHarvester.BackgroundImage = global::AOG.Properties.Resources.vehiclePageHarvester;
             this.pboxConfigHarvester.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pboxConfigHarvester.Location = new System.Drawing.Point(206, 123);
             this.pboxConfigHarvester.Name = "pboxConfigHarvester";
@@ -2827,7 +2827,7 @@
             this.rbtnTBT.FlatAppearance.BorderSize = 0;
             this.rbtnTBT.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnTBT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnTBT.Image = global::AgOpenGPS.Properties.Resources.ToolChkTBT;
+            this.rbtnTBT.Image = global::AOG.Properties.Resources.ToolChkTBT;
             this.rbtnTBT.Location = new System.Drawing.Point(394, 48);
             this.rbtnTBT.Name = "rbtnTBT";
             this.rbtnTBT.Size = new System.Drawing.Size(309, 152);
@@ -2842,7 +2842,7 @@
             this.rbtnFixedRear.FlatAppearance.BorderSize = 0;
             this.rbtnFixedRear.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnFixedRear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnFixedRear.Image = global::AgOpenGPS.Properties.Resources.ToolChkRear;
+            this.rbtnFixedRear.Image = global::AOG.Properties.Resources.ToolChkRear;
             this.rbtnFixedRear.Location = new System.Drawing.Point(16, 48);
             this.rbtnFixedRear.Name = "rbtnFixedRear";
             this.rbtnFixedRear.Size = new System.Drawing.Size(309, 152);
@@ -2857,7 +2857,7 @@
             this.rbtnFront.FlatAppearance.BorderSize = 0;
             this.rbtnFront.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnFront.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnFront.Image = global::AgOpenGPS.Properties.Resources.ToolChkFront;
+            this.rbtnFront.Image = global::AOG.Properties.Resources.ToolChkFront;
             this.rbtnFront.Location = new System.Drawing.Point(16, 290);
             this.rbtnFront.Name = "rbtnFront";
             this.rbtnFront.Size = new System.Drawing.Size(309, 152);
@@ -2873,7 +2873,7 @@
             this.rbtnTrailing.FlatAppearance.BorderSize = 0;
             this.rbtnTrailing.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnTrailing.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnTrailing.Image = global::AgOpenGPS.Properties.Resources.ToolChkTrailing;
+            this.rbtnTrailing.Image = global::AOG.Properties.Resources.ToolChkTrailing;
             this.rbtnTrailing.Location = new System.Drawing.Point(394, 290);
             this.rbtnTrailing.Name = "rbtnTrailing";
             this.rbtnTrailing.Size = new System.Drawing.Size(309, 152);
@@ -2901,7 +2901,7 @@
             this.nudTrailingHitchLength.Location = new System.Drawing.Point(456, 407);
             this.nudTrailingHitchLength.Maximum = 30D;
             this.nudTrailingHitchLength.Minimum = 0.1D;
-            this.nudTrailingHitchLength.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudTrailingHitchLength.Mode = AOG.UnitMode.Small;
             this.nudTrailingHitchLength.Name = "nudTrailingHitchLength";
             this.nudTrailingHitchLength.Size = new System.Drawing.Size(124, 52);
             this.nudTrailingHitchLength.TabIndex = 3;
@@ -2911,7 +2911,7 @@
             // 
             this.nudDrawbarLength.Location = new System.Drawing.Point(401, 407);
             this.nudDrawbarLength.Maximum = 30D;
-            this.nudDrawbarLength.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudDrawbarLength.Mode = AOG.UnitMode.Small;
             this.nudDrawbarLength.Name = "nudDrawbarLength";
             this.nudDrawbarLength.Size = new System.Drawing.Size(124, 52);
             this.nudDrawbarLength.TabIndex = 1;
@@ -2922,7 +2922,7 @@
             this.nudTankHitch.Location = new System.Drawing.Point(643, 407);
             this.nudTankHitch.Maximum = 30D;
             this.nudTankHitch.Minimum = 0.1D;
-            this.nudTankHitch.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudTankHitch.Mode = AOG.UnitMode.Small;
             this.nudTankHitch.Name = "nudTankHitch";
             this.nudTankHitch.Size = new System.Drawing.Size(124, 52);
             this.nudTankHitch.TabIndex = 2;
@@ -2956,7 +2956,7 @@
             // 
             // picboxToolHitch
             // 
-            this.picboxToolHitch.BackgroundImage = global::AgOpenGPS.Properties.Resources.ToolHitchPageFront;
+            this.picboxToolHitch.BackgroundImage = global::AOG.Properties.Resources.ToolHitchPageFront;
             this.picboxToolHitch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picboxToolHitch.Location = new System.Drawing.Point(13, 12);
             this.picboxToolHitch.Name = "picboxToolHitch";
@@ -2990,7 +2990,7 @@
             this.btnZeroOverlap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnZeroOverlap.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnZeroOverlap.ForeColor = System.Drawing.Color.Black;
-            this.btnZeroOverlap.Image = global::AgOpenGPS.Properties.Resources.SteerZero;
+            this.btnZeroOverlap.Image = global::AOG.Properties.Resources.SteerZero;
             this.btnZeroOverlap.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnZeroOverlap.Location = new System.Drawing.Point(513, 109);
             this.btnZeroOverlap.Name = "btnZeroOverlap";
@@ -3008,7 +3008,7 @@
             this.btnZeroToolOffset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnZeroToolOffset.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnZeroToolOffset.ForeColor = System.Drawing.Color.Black;
-            this.btnZeroToolOffset.Image = global::AgOpenGPS.Properties.Resources.SteerZero;
+            this.btnZeroToolOffset.Image = global::AOG.Properties.Resources.SteerZero;
             this.btnZeroToolOffset.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnZeroToolOffset.Location = new System.Drawing.Point(93, 109);
             this.btnZeroToolOffset.Name = "btnZeroToolOffset";
@@ -3089,7 +3089,7 @@
             this.rbtnToolOverlap.Checked = true;
             this.rbtnToolOverlap.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnToolOverlap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnToolOverlap.Image = global::AgOpenGPS.Properties.Resources.ToolOverlap;
+            this.rbtnToolOverlap.Image = global::AOG.Properties.Resources.ToolOverlap;
             this.rbtnToolOverlap.Location = new System.Drawing.Point(23, 35);
             this.rbtnToolOverlap.Name = "rbtnToolOverlap";
             this.rbtnToolOverlap.Size = new System.Drawing.Size(166, 218);
@@ -3105,7 +3105,7 @@
             this.rbtnToolGap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rbtnToolGap.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnToolGap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnToolGap.Image = global::AgOpenGPS.Properties.Resources.ToolGap;
+            this.rbtnToolGap.Image = global::AOG.Properties.Resources.ToolGap;
             this.rbtnToolGap.Location = new System.Drawing.Point(214, 35);
             this.rbtnToolGap.Name = "rbtnToolGap";
             this.rbtnToolGap.Size = new System.Drawing.Size(166, 218);
@@ -3146,7 +3146,7 @@
             this.rbtnLeftNegative.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rbtnLeftNegative.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnLeftNegative.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnLeftNegative.Image = global::AgOpenGPS.Properties.Resources.ToolOffsetNegativeLeft;
+            this.rbtnLeftNegative.Image = global::AOG.Properties.Resources.ToolOffsetNegativeLeft;
             this.rbtnLeftNegative.Location = new System.Drawing.Point(17, 35);
             this.rbtnLeftNegative.Name = "rbtnLeftNegative";
             this.rbtnLeftNegative.Size = new System.Drawing.Size(166, 218);
@@ -3161,7 +3161,7 @@
             this.rbtnToolRightPositive.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rbtnToolRightPositive.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnToolRightPositive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnToolRightPositive.Image = global::AgOpenGPS.Properties.Resources.ToolOffsetPositiveRight;
+            this.rbtnToolRightPositive.Image = global::AOG.Properties.Resources.ToolOffsetPositiveRight;
             this.rbtnToolRightPositive.Location = new System.Drawing.Point(205, 35);
             this.rbtnToolRightPositive.Name = "rbtnToolRightPositive";
             this.rbtnToolRightPositive.Size = new System.Drawing.Size(166, 218);
@@ -3185,7 +3185,7 @@
             // 
             this.nudOverlap.Location = new System.Drawing.Point(656, 109);
             this.nudOverlap.Maximum = 10D;
-            this.nudOverlap.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudOverlap.Mode = AOG.UnitMode.Small;
             this.nudOverlap.Name = "nudOverlap";
             this.nudOverlap.Size = new System.Drawing.Size(114, 52);
             this.nudOverlap.TabIndex = 116;
@@ -3195,7 +3195,7 @@
             // 
             this.nudOffset.Location = new System.Drawing.Point(233, 109);
             this.nudOffset.Maximum = 25D;
-            this.nudOffset.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudOffset.Mode = AOG.UnitMode.Small;
             this.nudOffset.Name = "nudOffset";
             this.nudOffset.Size = new System.Drawing.Size(114, 52);
             this.nudOffset.TabIndex = 115;
@@ -3225,7 +3225,7 @@
             this.btnPivotOffsetZero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPivotOffsetZero.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPivotOffsetZero.ForeColor = System.Drawing.Color.Black;
-            this.btnPivotOffsetZero.Image = global::AgOpenGPS.Properties.Resources.SteerZero;
+            this.btnPivotOffsetZero.Image = global::AOG.Properties.Resources.SteerZero;
             this.btnPivotOffsetZero.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnPivotOffsetZero.Location = new System.Drawing.Point(368, 410);
             this.btnPivotOffsetZero.Name = "btnPivotOffsetZero";
@@ -3254,7 +3254,7 @@
             this.rbtnPivotBehindPos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rbtnPivotBehindPos.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnPivotBehindPos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnPivotBehindPos.Image = global::AgOpenGPS.Properties.Resources.ToolHitchPivotOffsetNeg;
+            this.rbtnPivotBehindPos.Image = global::AOG.Properties.Resources.ToolHitchPivotOffsetNeg;
             this.rbtnPivotBehindPos.Location = new System.Drawing.Point(577, 162);
             this.rbtnPivotBehindPos.Name = "rbtnPivotBehindPos";
             this.rbtnPivotBehindPos.Size = new System.Drawing.Size(201, 300);
@@ -3269,7 +3269,7 @@
             this.rbtnPivotAheadNeg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.rbtnPivotAheadNeg.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
             this.rbtnPivotAheadNeg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtnPivotAheadNeg.Image = global::AgOpenGPS.Properties.Resources.ToolHitchPivotOffsetPos;
+            this.rbtnPivotAheadNeg.Image = global::AOG.Properties.Resources.ToolHitchPivotOffsetPos;
             this.rbtnPivotAheadNeg.Location = new System.Drawing.Point(72, 162);
             this.rbtnPivotAheadNeg.Name = "rbtnPivotAheadNeg";
             this.rbtnPivotAheadNeg.Size = new System.Drawing.Size(201, 300);
@@ -3281,7 +3281,7 @@
             // 
             this.nudTrailingToolToPivotLength.Location = new System.Drawing.Point(320, 337);
             this.nudTrailingToolToPivotLength.Maximum = 20D;
-            this.nudTrailingToolToPivotLength.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudTrailingToolToPivotLength.Mode = AOG.UnitMode.Small;
             this.nudTrailingToolToPivotLength.Name = "nudTrailingToolToPivotLength";
             this.nudTrailingToolToPivotLength.Size = new System.Drawing.Size(205, 52);
             this.nudTrailingToolToPivotLength.TabIndex = 214;
@@ -4192,7 +4192,7 @@
             // pictureBox11
             // 
             this.pictureBox11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox11.Image = global::AgOpenGPS.Properties.Resources.SectionOffBelow;
+            this.pictureBox11.Image = global::AOG.Properties.Resources.SectionOffBelow;
             this.pictureBox11.Location = new System.Drawing.Point(703, 448);
             this.pictureBox11.Name = "pictureBox11";
             this.pictureBox11.Size = new System.Drawing.Size(116, 57);
@@ -4204,7 +4204,7 @@
             this.cboxIsUnique.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cboxIsUnique.Appearance = System.Windows.Forms.Appearance.Button;
             this.cboxIsUnique.BackColor = System.Drawing.Color.AliceBlue;
-            this.cboxIsUnique.BackgroundImage = global::AgOpenGPS.Properties.Resources.ConT_Symmetric;
+            this.cboxIsUnique.BackgroundImage = global::AOG.Properties.Resources.ConT_Symmetric;
             this.cboxIsUnique.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.cboxIsUnique.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.cboxIsUnique.FlatAppearance.CheckedBackColor = System.Drawing.Color.AliceBlue;
@@ -4228,7 +4228,7 @@
             this.nudCutoffSpeed.DecimalPlaces = 1;
             this.nudCutoffSpeed.Location = new System.Drawing.Point(700, 508);
             this.nudCutoffSpeed.Maximum = 30D;
-            this.nudCutoffSpeed.Mode = AgOpenGPS.UnitMode.Speed;
+            this.nudCutoffSpeed.Mode = AOG.UnitMode.Speed;
             this.nudCutoffSpeed.Name = "nudCutoffSpeed";
             this.nudCutoffSpeed.Size = new System.Drawing.Size(127, 52);
             this.nudCutoffSpeed.TabIndex = 499;
@@ -4240,7 +4240,7 @@
             this.nudDefaultSectionWidth.Location = new System.Drawing.Point(249, 353);
             this.nudDefaultSectionWidth.Maximum = 10D;
             this.nudDefaultSectionWidth.Minimum = 0.1D;
-            this.nudDefaultSectionWidth.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudDefaultSectionWidth.Mode = AOG.UnitMode.Small;
             this.nudDefaultSectionWidth.Name = "nudDefaultSectionWidth";
             this.nudDefaultSectionWidth.Size = new System.Drawing.Size(179, 52);
             this.nudDefaultSectionWidth.TabIndex = 296;
@@ -4261,7 +4261,7 @@
             this.nudSection16.Location = new System.Drawing.Point(792, 104);
             this.nudSection16.Maximum = 50D;
             this.nudSection16.Minimum = 0.01D;
-            this.nudSection16.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection16.Mode = AOG.UnitMode.Small;
             this.nudSection16.Name = "nudSection16";
             this.nudSection16.Size = new System.Drawing.Size(104, 44);
             this.nudSection16.TabIndex = 289;
@@ -4273,7 +4273,7 @@
             this.nudSection15.Location = new System.Drawing.Point(680, 104);
             this.nudSection15.Maximum = 50D;
             this.nudSection15.Minimum = 0.01D;
-            this.nudSection15.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection15.Mode = AOG.UnitMode.Small;
             this.nudSection15.Name = "nudSection15";
             this.nudSection15.Size = new System.Drawing.Size(104, 44);
             this.nudSection15.TabIndex = 285;
@@ -4285,7 +4285,7 @@
             this.nudSection14.Location = new System.Drawing.Point(568, 104);
             this.nudSection14.Maximum = 50D;
             this.nudSection14.Minimum = 0.01D;
-            this.nudSection14.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection14.Mode = AOG.UnitMode.Small;
             this.nudSection14.Name = "nudSection14";
             this.nudSection14.Size = new System.Drawing.Size(104, 44);
             this.nudSection14.TabIndex = 284;
@@ -4297,7 +4297,7 @@
             this.nudSection13.Location = new System.Drawing.Point(456, 104);
             this.nudSection13.Maximum = 50D;
             this.nudSection13.Minimum = 0.01D;
-            this.nudSection13.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection13.Mode = AOG.UnitMode.Small;
             this.nudSection13.Name = "nudSection13";
             this.nudSection13.Size = new System.Drawing.Size(104, 44);
             this.nudSection13.TabIndex = 283;
@@ -4309,7 +4309,7 @@
             this.nudSection12.Location = new System.Drawing.Point(344, 104);
             this.nudSection12.Maximum = 50D;
             this.nudSection12.Minimum = 0.01D;
-            this.nudSection12.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection12.Mode = AOG.UnitMode.Small;
             this.nudSection12.Name = "nudSection12";
             this.nudSection12.Size = new System.Drawing.Size(104, 44);
             this.nudSection12.TabIndex = 270;
@@ -4321,7 +4321,7 @@
             this.nudSection11.Location = new System.Drawing.Point(232, 104);
             this.nudSection11.Maximum = 50D;
             this.nudSection11.Minimum = 0.01D;
-            this.nudSection11.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection11.Mode = AOG.UnitMode.Small;
             this.nudSection11.Name = "nudSection11";
             this.nudSection11.Size = new System.Drawing.Size(104, 44);
             this.nudSection11.TabIndex = 269;
@@ -4333,7 +4333,7 @@
             this.nudSection10.Location = new System.Drawing.Point(120, 104);
             this.nudSection10.Maximum = 50D;
             this.nudSection10.Minimum = 0.01D;
-            this.nudSection10.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection10.Mode = AOG.UnitMode.Small;
             this.nudSection10.Name = "nudSection10";
             this.nudSection10.Size = new System.Drawing.Size(104, 44);
             this.nudSection10.TabIndex = 268;
@@ -4345,7 +4345,7 @@
             this.nudSection09.Location = new System.Drawing.Point(8, 104);
             this.nudSection09.Maximum = 50D;
             this.nudSection09.Minimum = 0.01D;
-            this.nudSection09.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection09.Mode = AOG.UnitMode.Small;
             this.nudSection09.Name = "nudSection09";
             this.nudSection09.Size = new System.Drawing.Size(104, 44);
             this.nudSection09.TabIndex = 267;
@@ -4357,7 +4357,7 @@
             this.nudSection08.Location = new System.Drawing.Point(792, 233);
             this.nudSection08.Maximum = 50D;
             this.nudSection08.Minimum = 0.01D;
-            this.nudSection08.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection08.Mode = AOG.UnitMode.Small;
             this.nudSection08.Name = "nudSection08";
             this.nudSection08.Size = new System.Drawing.Size(104, 44);
             this.nudSection08.TabIndex = 266;
@@ -4369,7 +4369,7 @@
             this.nudSection07.Location = new System.Drawing.Point(680, 233);
             this.nudSection07.Maximum = 50D;
             this.nudSection07.Minimum = 0.01D;
-            this.nudSection07.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection07.Mode = AOG.UnitMode.Small;
             this.nudSection07.Name = "nudSection07";
             this.nudSection07.Size = new System.Drawing.Size(104, 44);
             this.nudSection07.TabIndex = 265;
@@ -4381,7 +4381,7 @@
             this.nudSection06.Location = new System.Drawing.Point(568, 233);
             this.nudSection06.Maximum = 50D;
             this.nudSection06.Minimum = 0.01D;
-            this.nudSection06.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection06.Mode = AOG.UnitMode.Small;
             this.nudSection06.Name = "nudSection06";
             this.nudSection06.Size = new System.Drawing.Size(104, 44);
             this.nudSection06.TabIndex = 264;
@@ -4393,7 +4393,7 @@
             this.nudSection05.Location = new System.Drawing.Point(456, 233);
             this.nudSection05.Maximum = 50D;
             this.nudSection05.Minimum = 0.01D;
-            this.nudSection05.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection05.Mode = AOG.UnitMode.Small;
             this.nudSection05.Name = "nudSection05";
             this.nudSection05.Size = new System.Drawing.Size(104, 44);
             this.nudSection05.TabIndex = 263;
@@ -4405,7 +4405,7 @@
             this.nudSection04.Location = new System.Drawing.Point(344, 233);
             this.nudSection04.Maximum = 50D;
             this.nudSection04.Minimum = 0.01D;
-            this.nudSection04.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection04.Mode = AOG.UnitMode.Small;
             this.nudSection04.Name = "nudSection04";
             this.nudSection04.Size = new System.Drawing.Size(104, 44);
             this.nudSection04.TabIndex = 262;
@@ -4417,7 +4417,7 @@
             this.nudSection03.Location = new System.Drawing.Point(232, 233);
             this.nudSection03.Maximum = 50D;
             this.nudSection03.Minimum = 0.01D;
-            this.nudSection03.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection03.Mode = AOG.UnitMode.Small;
             this.nudSection03.Name = "nudSection03";
             this.nudSection03.Size = new System.Drawing.Size(104, 44);
             this.nudSection03.TabIndex = 261;
@@ -4429,7 +4429,7 @@
             this.nudSection02.Location = new System.Drawing.Point(120, 233);
             this.nudSection02.Maximum = 50D;
             this.nudSection02.Minimum = 0.01D;
-            this.nudSection02.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection02.Mode = AOG.UnitMode.Small;
             this.nudSection02.Name = "nudSection02";
             this.nudSection02.Size = new System.Drawing.Size(104, 44);
             this.nudSection02.TabIndex = 260;
@@ -4441,7 +4441,7 @@
             this.nudSection01.Location = new System.Drawing.Point(8, 233);
             this.nudSection01.Maximum = 50D;
             this.nudSection01.Minimum = 0.01D;
-            this.nudSection01.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudSection01.Mode = AOG.UnitMode.Small;
             this.nudSection01.Name = "nudSection01";
             this.nudSection01.Size = new System.Drawing.Size(104, 44);
             this.nudSection01.TabIndex = 259;
@@ -4489,7 +4489,7 @@
             this.chkSetAutoSectionsSteer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSetAutoSectionsSteer.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSetAutoSectionsSteer.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkSetAutoSectionsSteer.Image = global::AgOpenGPS.Properties.Resources.SectionMasterOff;
+            this.chkSetAutoSectionsSteer.Image = global::AOG.Properties.Resources.SectionMasterOff;
             this.chkSetAutoSectionsSteer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.chkSetAutoSectionsSteer.Location = new System.Drawing.Point(44, 272);
             this.chkSetAutoSectionsSteer.Name = "chkSetAutoSectionsSteer";
@@ -4508,7 +4508,7 @@
             this.chkSelectSteerSwitch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSelectSteerSwitch.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSelectSteerSwitch.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkSelectSteerSwitch.Image = global::AgOpenGPS.Properties.Resources.AutoSteerOff;
+            this.chkSelectSteerSwitch.Image = global::AOG.Properties.Resources.AutoSteerOff;
             this.chkSelectSteerSwitch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.chkSelectSteerSwitch.Location = new System.Drawing.Point(44, 56);
             this.chkSelectSteerSwitch.Name = "chkSelectSteerSwitch";
@@ -4527,7 +4527,7 @@
             this.chkSetManualSectionsSteer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSetManualSectionsSteer.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSetManualSectionsSteer.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkSetManualSectionsSteer.Image = global::AgOpenGPS.Properties.Resources.ManualOff;
+            this.chkSetManualSectionsSteer.Image = global::AOG.Properties.Resources.ManualOff;
             this.chkSetManualSectionsSteer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.chkSetManualSectionsSteer.Location = new System.Drawing.Point(44, 172);
             this.chkSetManualSectionsSteer.Name = "chkSetManualSectionsSteer";
@@ -4562,7 +4562,7 @@
             this.chkSelectWorkSwitch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSelectWorkSwitch.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSelectWorkSwitch.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkSelectWorkSwitch.Image = global::AgOpenGPS.Properties.Resources.HydraulicLiftOff;
+            this.chkSelectWorkSwitch.Image = global::AOG.Properties.Resources.HydraulicLiftOff;
             this.chkSelectWorkSwitch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.chkSelectWorkSwitch.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.chkSelectWorkSwitch.Location = new System.Drawing.Point(38, 56);
@@ -4582,7 +4582,7 @@
             this.chkSetAutoSections.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSetAutoSections.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSetAutoSections.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkSetAutoSections.Image = global::AgOpenGPS.Properties.Resources.SectionMasterOff;
+            this.chkSetAutoSections.Image = global::AOG.Properties.Resources.SectionMasterOff;
             this.chkSetAutoSections.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.chkSetAutoSections.Location = new System.Drawing.Point(38, 272);
             this.chkSetAutoSections.Name = "chkSetAutoSections";
@@ -4601,7 +4601,7 @@
             this.chkSetManualSections.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSetManualSections.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSetManualSections.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkSetManualSections.Image = global::AgOpenGPS.Properties.Resources.ManualOff;
+            this.chkSetManualSections.Image = global::AOG.Properties.Resources.ManualOff;
             this.chkSetManualSections.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.chkSetManualSections.Location = new System.Drawing.Point(38, 172);
             this.chkSetManualSections.Name = "chkSetManualSections";
@@ -4622,7 +4622,7 @@
             this.chkWorkSwActiveLow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkWorkSwActiveLow.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkWorkSwActiveLow.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkWorkSwActiveLow.Image = global::AgOpenGPS.Properties.Resources.SwitchActiveClosed;
+            this.chkWorkSwActiveLow.Image = global::AOG.Properties.Resources.SwitchActiveClosed;
             this.chkWorkSwActiveLow.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.chkWorkSwActiveLow.Location = new System.Drawing.Point(38, 373);
             this.chkWorkSwActiveLow.Name = "chkWorkSwActiveLow";
@@ -4743,7 +4743,7 @@
             // 
             this.pictureBox18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox18.Image = global::AgOpenGPS.Properties.Resources.SectionLookAheadDelay;
+            this.pictureBox18.Image = global::AOG.Properties.Resources.SectionLookAheadDelay;
             this.pictureBox18.Location = new System.Drawing.Point(604, 45);
             this.pictureBox18.Name = "pictureBox18";
             this.pictureBox18.Size = new System.Drawing.Size(279, 353);
@@ -4754,7 +4754,7 @@
             // 
             this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox4.Image = global::AgOpenGPS.Properties.Resources.SectionLookAheadOff;
+            this.pictureBox4.Image = global::AOG.Properties.Resources.SectionLookAheadOff;
             this.pictureBox4.Location = new System.Drawing.Point(317, 45);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(279, 353);
@@ -4765,7 +4765,7 @@
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox3.Image = global::AgOpenGPS.Properties.Resources.SectionOnLookAhead;
+            this.pictureBox3.Image = global::AOG.Properties.Resources.SectionOnLookAhead;
             this.pictureBox3.Location = new System.Drawing.Point(30, 45);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(279, 353);
@@ -4778,7 +4778,7 @@
             this.nudLookAheadDistanceOff.DecimalPlaces = 1;
             this.nudLookAheadDistanceOff.Location = new System.Drawing.Point(393, 526);
             this.nudLookAheadDistanceOff.Maximum = 500D;
-            this.nudLookAheadDistanceOff.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudLookAheadDistanceOff.Mode = AOG.UnitMode.Small;
             this.nudLookAheadDistanceOff.Name = "nudLookAheadDistanceOff";
             this.nudLookAheadDistanceOff.Size = new System.Drawing.Size(114, 52);
             this.nudLookAheadDistanceOff.TabIndex = 136;
@@ -4790,7 +4790,7 @@
             this.nudLookAheadDistanceOn.DecimalPlaces = 1;
             this.nudLookAheadDistanceOn.Location = new System.Drawing.Point(108, 526);
             this.nudLookAheadDistanceOn.Maximum = 500D;
-            this.nudLookAheadDistanceOn.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudLookAheadDistanceOn.Mode = AOG.UnitMode.Small;
             this.nudLookAheadDistanceOn.Name = "nudLookAheadDistanceOn";
             this.nudLookAheadDistanceOn.Size = new System.Drawing.Size(114, 52);
             this.nudLookAheadDistanceOn.TabIndex = 135;
@@ -4941,7 +4941,7 @@
             this.nudDualReverseDistance.Location = new System.Drawing.Point(191, 218);
             this.nudDualReverseDistance.Maximum = 0.9D;
             this.nudDualReverseDistance.Minimum = 0.1D;
-            this.nudDualReverseDistance.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudDualReverseDistance.Mode = AOG.UnitMode.Small;
             this.nudDualReverseDistance.Name = "nudDualReverseDistance";
             this.nudDualReverseDistance.Size = new System.Drawing.Size(144, 52);
             this.nudDualReverseDistance.TabIndex = 472;
@@ -4949,7 +4949,7 @@
             // 
             // pictureBox13
             // 
-            this.pictureBox13.BackgroundImage = global::AgOpenGPS.Properties.Resources.Con_SourcesHead;
+            this.pictureBox13.BackgroundImage = global::AOG.Properties.Resources.Con_SourcesHead;
             this.pictureBox13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox13.Location = new System.Drawing.Point(19, 52);
             this.pictureBox13.Name = "pictureBox13";
@@ -5180,7 +5180,7 @@
             this.rbtnHeadingHDT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtnHeadingHDT.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnHeadingHDT.ForeColor = System.Drawing.Color.Black;
-            this.rbtnHeadingHDT.Image = global::AgOpenGPS.Properties.Resources.Con_SourcesGPSDual;
+            this.rbtnHeadingHDT.Image = global::AOG.Properties.Resources.Con_SourcesGPSDual;
             this.rbtnHeadingHDT.Location = new System.Drawing.Point(0, 44);
             this.rbtnHeadingHDT.Name = "rbtnHeadingHDT";
             this.rbtnHeadingHDT.Size = new System.Drawing.Size(117, 82);
@@ -5198,7 +5198,7 @@
             this.rbtnHeadingFix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtnHeadingFix.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnHeadingFix.ForeColor = System.Drawing.Color.Black;
-            this.rbtnHeadingFix.Image = global::AgOpenGPS.Properties.Resources.Con_SourcesGPSSingle;
+            this.rbtnHeadingFix.Image = global::AOG.Properties.Resources.Con_SourcesGPSSingle;
             this.rbtnHeadingFix.Location = new System.Drawing.Point(453, 44);
             this.rbtnHeadingFix.Name = "rbtnHeadingFix";
             this.rbtnHeadingFix.Size = new System.Drawing.Size(117, 82);
@@ -5217,7 +5217,7 @@
             this.cboxIsRTK_KillAutoSteer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxIsRTK_KillAutoSteer.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsRTK_KillAutoSteer.ForeColor = System.Drawing.Color.Black;
-            this.cboxIsRTK_KillAutoSteer.Image = global::AgOpenGPS.Properties.Resources.AutoSteerOff;
+            this.cboxIsRTK_KillAutoSteer.Image = global::AOG.Properties.Resources.AutoSteerOff;
             this.cboxIsRTK_KillAutoSteer.Location = new System.Drawing.Point(241, 451);
             this.cboxIsRTK_KillAutoSteer.Name = "cboxIsRTK_KillAutoSteer";
             this.cboxIsRTK_KillAutoSteer.Size = new System.Drawing.Size(103, 69);
@@ -5234,7 +5234,7 @@
             this.cboxIsRTK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxIsRTK.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsRTK.ForeColor = System.Drawing.Color.Black;
-            this.cboxIsRTK.Image = global::AgOpenGPS.Properties.Resources.Con_SourcesRTKAlarm;
+            this.cboxIsRTK.Image = global::AOG.Properties.Resources.Con_SourcesRTKAlarm;
             this.cboxIsRTK.Location = new System.Drawing.Point(46, 451);
             this.cboxIsRTK.Name = "cboxIsRTK";
             this.cboxIsRTK.Size = new System.Drawing.Size(103, 69);
@@ -5285,7 +5285,7 @@
             this.btnRollOffsetUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRollOffsetUp.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRollOffsetUp.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnRollOffsetUp.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnRollOffsetUp.Image = global::AOG.Properties.Resources.UpArrow64;
             this.btnRollOffsetUp.Location = new System.Drawing.Point(416, 214);
             this.btnRollOffsetUp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnRollOffsetUp.Name = "btnRollOffsetUp";
@@ -5301,7 +5301,7 @@
             this.btnRollOffsetDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRollOffsetDown.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRollOffsetDown.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnRollOffsetDown.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
+            this.btnRollOffsetDown.Image = global::AOG.Properties.Resources.DnArrow64;
             this.btnRollOffsetDown.Location = new System.Drawing.Point(342, 215);
             this.btnRollOffsetDown.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnRollOffsetDown.Name = "btnRollOffsetDown";
@@ -5314,7 +5314,7 @@
             // 
             this.pictureBox9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox9.BackColor = System.Drawing.Color.White;
-            this.pictureBox9.BackgroundImage = global::AgOpenGPS.Properties.Resources.ConD_RollHelper;
+            this.pictureBox9.BackgroundImage = global::AOG.Properties.Resources.ConD_RollHelper;
             this.pictureBox9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox9.Location = new System.Drawing.Point(577, 343);
             this.pictureBox9.Name = "pictureBox9";
@@ -5431,7 +5431,7 @@
             // btnResetIMU
             // 
             this.btnResetIMU.BackColor = System.Drawing.Color.White;
-            this.btnResetIMU.BackgroundImage = global::AgOpenGPS.Properties.Resources.ConDa_ResetIMU;
+            this.btnResetIMU.BackgroundImage = global::AOG.Properties.Resources.ConDa_ResetIMU;
             this.btnResetIMU.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnResetIMU.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnResetIMU.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
@@ -5454,7 +5454,7 @@
             this.btnZeroRoll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnZeroRoll.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnZeroRoll.ForeColor = System.Drawing.Color.Black;
-            this.btnZeroRoll.Image = global::AgOpenGPS.Properties.Resources.ConDa_RollSetZero;
+            this.btnZeroRoll.Image = global::AOG.Properties.Resources.ConDa_RollSetZero;
             this.btnZeroRoll.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnZeroRoll.Location = new System.Drawing.Point(86, 202);
             this.btnZeroRoll.Name = "btnZeroRoll";
@@ -5471,7 +5471,7 @@
             this.btnRemoveZeroOffset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemoveZeroOffset.Font = new System.Drawing.Font("Tahoma", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemoveZeroOffset.ForeColor = System.Drawing.Color.Black;
-            this.btnRemoveZeroOffset.Image = global::AgOpenGPS.Properties.Resources.ConDa_RemoveOffset;
+            this.btnRemoveZeroOffset.Image = global::AOG.Properties.Resources.ConDa_RemoveOffset;
             this.btnRemoveZeroOffset.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnRemoveZeroOffset.Location = new System.Drawing.Point(86, 46);
             this.btnRemoveZeroOffset.Name = "btnRemoveZeroOffset";
@@ -5489,7 +5489,7 @@
             this.cboxDataInvertRoll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxDataInvertRoll.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxDataInvertRoll.ForeColor = System.Drawing.Color.Black;
-            this.cboxDataInvertRoll.Image = global::AgOpenGPS.Properties.Resources.ConDa_InvertRoll;
+            this.cboxDataInvertRoll.Image = global::AOG.Properties.Resources.ConDa_InvertRoll;
             this.cboxDataInvertRoll.Location = new System.Drawing.Point(593, 201);
             this.cboxDataInvertRoll.Name = "cboxDataInvertRoll";
             this.cboxDataInvertRoll.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -5599,7 +5599,7 @@
             // 
             this.label64.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label64.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label64.Image = global::AgOpenGPS.Properties.Resources.ConU_UturnRadius;
+            this.label64.Image = global::AOG.Properties.Resources.ConU_UturnRadius;
             this.label64.Location = new System.Drawing.Point(602, 27);
             this.label64.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label64.Name = "label64";
@@ -5611,7 +5611,7 @@
             // 
             this.label59.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label59.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label59.Image = global::AgOpenGPS.Properties.Resources.ConU_UTurnSmooth;
+            this.label59.Image = global::AOG.Properties.Resources.ConU_UTurnSmooth;
             this.label59.Location = new System.Drawing.Point(313, 141);
             this.label59.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label59.Name = "label59";
@@ -5623,7 +5623,7 @@
             // 
             this.label58.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label58.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label58.Image = global::AgOpenGPS.Properties.Resources.ConU_UturnDistance;
+            this.label58.Image = global::AOG.Properties.Resources.ConU_UturnDistance;
             this.label58.Location = new System.Drawing.Point(602, 308);
             this.label58.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label58.Name = "label58";
@@ -5635,7 +5635,7 @@
             // 
             this.lblWhenTrig.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWhenTrig.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblWhenTrig.Image = global::AgOpenGPS.Properties.Resources.ConU_UturnLength;
+            this.lblWhenTrig.Image = global::AOG.Properties.Resources.ConU_UturnLength;
             this.lblWhenTrig.Location = new System.Drawing.Point(84, 141);
             this.lblWhenTrig.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblWhenTrig.Name = "lblWhenTrig";
@@ -5650,7 +5650,7 @@
             this.btnTurnSmoothingUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTurnSmoothingUp.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTurnSmoothingUp.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTurnSmoothingUp.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnTurnSmoothingUp.Image = global::AOG.Properties.Resources.UpArrow64;
             this.btnTurnSmoothingUp.Location = new System.Drawing.Point(387, 317);
             this.btnTurnSmoothingUp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnTurnSmoothingUp.Name = "btnTurnSmoothingUp";
@@ -5666,7 +5666,7 @@
             this.btnTurnSmoothingDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTurnSmoothingDown.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTurnSmoothingDown.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTurnSmoothingDown.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
+            this.btnTurnSmoothingDown.Image = global::AOG.Properties.Resources.DnArrow64;
             this.btnTurnSmoothingDown.Location = new System.Drawing.Point(294, 317);
             this.btnTurnSmoothingDown.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnTurnSmoothingDown.Name = "btnTurnSmoothingDown";
@@ -5682,7 +5682,7 @@
             this.btnDistanceUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDistanceUp.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDistanceUp.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDistanceUp.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnDistanceUp.Image = global::AOG.Properties.Resources.UpArrow64;
             this.btnDistanceUp.Location = new System.Drawing.Point(160, 317);
             this.btnDistanceUp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnDistanceUp.Name = "btnDistanceUp";
@@ -5698,7 +5698,7 @@
             this.btnDistanceDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDistanceDn.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDistanceDn.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDistanceDn.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
+            this.btnDistanceDn.Image = global::AOG.Properties.Resources.DnArrow64;
             this.btnDistanceDn.Location = new System.Drawing.Point(67, 317);
             this.btnDistanceDn.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnDistanceDn.Name = "btnDistanceDn";
@@ -5712,7 +5712,7 @@
             this.nudYouTurnRadius.DecimalPlaces = 2;
             this.nudYouTurnRadius.Location = new System.Drawing.Point(582, 154);
             this.nudYouTurnRadius.Minimum = 0.02D;
-            this.nudYouTurnRadius.Mode = AgOpenGPS.UnitMode.Large;
+            this.nudYouTurnRadius.Mode = AOG.UnitMode.Large;
             this.nudYouTurnRadius.Name = "nudYouTurnRadius";
             this.nudYouTurnRadius.Size = new System.Drawing.Size(160, 52);
             this.nudYouTurnRadius.TabIndex = 471;
@@ -5722,7 +5722,7 @@
             // 
             this.nudTurnDistanceFromBoundary.DecimalPlaces = 2;
             this.nudTurnDistanceFromBoundary.Location = new System.Drawing.Point(582, 434);
-            this.nudTurnDistanceFromBoundary.Mode = AgOpenGPS.UnitMode.Large;
+            this.nudTurnDistanceFromBoundary.Mode = AOG.UnitMode.Large;
             this.nudTurnDistanceFromBoundary.Name = "nudTurnDistanceFromBoundary";
             this.nudTurnDistanceFromBoundary.Size = new System.Drawing.Size(160, 52);
             this.nudTurnDistanceFromBoundary.TabIndex = 468;
@@ -6859,7 +6859,7 @@
             this.btnRelaySetDefaultConfig.BackColor = System.Drawing.Color.Transparent;
             this.btnRelaySetDefaultConfig.FlatAppearance.BorderSize = 0;
             this.btnRelaySetDefaultConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRelaySetDefaultConfig.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnRelaySetDefaultConfig.Image = global::AOG.Properties.Resources.UpArrow64;
             this.btnRelaySetDefaultConfig.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnRelaySetDefaultConfig.Location = new System.Drawing.Point(148, 500);
             this.btnRelaySetDefaultConfig.Name = "btnRelaySetDefaultConfig";
@@ -6874,7 +6874,7 @@
             this.btnRelayResetConfigToNone.BackColor = System.Drawing.Color.Transparent;
             this.btnRelayResetConfigToNone.FlatAppearance.BorderSize = 0;
             this.btnRelayResetConfigToNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRelayResetConfigToNone.Image = global::AgOpenGPS.Properties.Resources.back_button;
+            this.btnRelayResetConfigToNone.Image = global::AOG.Properties.Resources.back_button;
             this.btnRelayResetConfigToNone.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnRelayResetConfigToNone.Location = new System.Drawing.Point(0, 502);
             this.btnRelayResetConfigToNone.Name = "btnRelayResetConfigToNone";
@@ -6886,7 +6886,7 @@
             // pboxSendRelay
             // 
             this.pboxSendRelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pboxSendRelay.BackgroundImage = global::AgOpenGPS.Properties.Resources.ConSt_Mandatory1;
+            this.pboxSendRelay.BackgroundImage = global::AOG.Properties.Resources.ConSt_Mandatory1;
             this.pboxSendRelay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pboxSendRelay.Location = new System.Drawing.Point(751, 494);
             this.pboxSendRelay.Name = "pboxSendRelay";
@@ -6901,7 +6901,7 @@
             this.btnSendRelayConfigPGN.BackColor = System.Drawing.Color.Transparent;
             this.btnSendRelayConfigPGN.FlatAppearance.BorderSize = 0;
             this.btnSendRelayConfigPGN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSendRelayConfigPGN.Image = global::AgOpenGPS.Properties.Resources.ToolAcceptChange;
+            this.btnSendRelayConfigPGN.Image = global::AOG.Properties.Resources.ToolAcceptChange;
             this.btnSendRelayConfigPGN.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSendRelayConfigPGN.Location = new System.Drawing.Point(616, 507);
             this.btnSendRelayConfigPGN.Name = "btnSendRelayConfigPGN";
@@ -7069,7 +7069,7 @@
             this.cboxIsHydOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxIsHydOn.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsHydOn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxIsHydOn.Image = global::AgOpenGPS.Properties.Resources.SwitchOn;
+            this.cboxIsHydOn.Image = global::AOG.Properties.Resources.SwitchOn;
             this.cboxIsHydOn.Location = new System.Drawing.Point(34, 74);
             this.cboxIsHydOn.Name = "cboxIsHydOn";
             this.cboxIsHydOn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -7081,7 +7081,7 @@
             // 
             // pictureBox6
             // 
-            this.pictureBox6.BackgroundImage = global::AgOpenGPS.Properties.Resources.ConMa_LiftLowerTime;
+            this.pictureBox6.BackgroundImage = global::AOG.Properties.Resources.ConMa_LiftLowerTime;
             this.pictureBox6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox6.Location = new System.Drawing.Point(384, 226);
             this.pictureBox6.Name = "pictureBox6";
@@ -7101,7 +7101,7 @@
             // 
             // pictureBox7
             // 
-            this.pictureBox7.BackgroundImage = global::AgOpenGPS.Properties.Resources.ConMa_LiftRaiseTime;
+            this.pictureBox7.BackgroundImage = global::AOG.Properties.Resources.ConMa_LiftRaiseTime;
             this.pictureBox7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox7.Location = new System.Drawing.Point(384, 26);
             this.pictureBox7.Name = "pictureBox7";
@@ -7161,7 +7161,7 @@
             // pboxSendMachine
             // 
             this.pboxSendMachine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pboxSendMachine.BackgroundImage = global::AgOpenGPS.Properties.Resources.ConSt_Mandatory1;
+            this.pboxSendMachine.BackgroundImage = global::AOG.Properties.Resources.ConSt_Mandatory1;
             this.pboxSendMachine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pboxSendMachine.Location = new System.Drawing.Point(767, 412);
             this.pboxSendMachine.Name = "pboxSendMachine";
@@ -7182,7 +7182,7 @@
             this.cboxMachInvertRelays.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxMachInvertRelays.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxMachInvertRelays.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxMachInvertRelays.Image = global::AgOpenGPS.Properties.Resources.ConSt_InvertRelay;
+            this.cboxMachInvertRelays.Image = global::AOG.Properties.Resources.ConSt_InvertRelay;
             this.cboxMachInvertRelays.Location = new System.Drawing.Point(116, 462);
             this.cboxMachInvertRelays.Name = "cboxMachInvertRelays";
             this.cboxMachInvertRelays.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -7198,7 +7198,7 @@
             this.btnSendMachinePGN.BackColor = System.Drawing.Color.White;
             this.btnSendMachinePGN.FlatAppearance.BorderSize = 0;
             this.btnSendMachinePGN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSendMachinePGN.Image = global::AgOpenGPS.Properties.Resources.ToolAcceptChange;
+            this.btnSendMachinePGN.Image = global::AOG.Properties.Resources.ToolAcceptChange;
             this.btnSendMachinePGN.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSendMachinePGN.Location = new System.Drawing.Point(759, 494);
             this.btnSendMachinePGN.Name = "btnSendMachinePGN";
@@ -7328,7 +7328,7 @@
             this.cboxDisplayTramControl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxDisplayTramControl.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxDisplayTramControl.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cboxDisplayTramControl.Image = global::AgOpenGPS.Properties.Resources.ConT_TramOverrideDisplay;
+            this.cboxDisplayTramControl.Image = global::AOG.Properties.Resources.ConT_TramOverrideDisplay;
             this.cboxDisplayTramControl.Location = new System.Drawing.Point(594, 31);
             this.cboxDisplayTramControl.Name = "cboxDisplayTramControl";
             this.cboxDisplayTramControl.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -7347,7 +7347,7 @@
             this.chkBoxOverrideTramControlPos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkBoxOverrideTramControlPos.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkBoxOverrideTramControlPos.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.chkBoxOverrideTramControlPos.Image = global::AgOpenGPS.Properties.Resources.ConT_TramOverride;
+            this.chkBoxOverrideTramControlPos.Image = global::AOG.Properties.Resources.ConT_TramOverride;
             this.chkBoxOverrideTramControlPos.Location = new System.Drawing.Point(301, 305);
             this.chkBoxOverrideTramControlPos.Name = "chkBoxOverrideTramControlPos";
             this.chkBoxOverrideTramControlPos.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -7359,7 +7359,7 @@
             // pictureBox8
             // 
             this.pictureBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox8.Image = global::AgOpenGPS.Properties.Resources.ConT_TramSpacing;
+            this.pictureBox8.Image = global::AOG.Properties.Resources.ConT_TramSpacing;
             this.pictureBox8.Location = new System.Drawing.Point(107, 31);
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.Size = new System.Drawing.Size(179, 195);
@@ -7372,7 +7372,7 @@
             this.nudTramWidth.Location = new System.Drawing.Point(291, 105);
             this.nudTramWidth.Maximum = 50D;
             this.nudTramWidth.Minimum = 1D;
-            this.nudTramWidth.Mode = AgOpenGPS.UnitMode.Small;
+            this.nudTramWidth.Mode = AOG.UnitMode.Small;
             this.nudTramWidth.Name = "nudTramWidth";
             this.nudTramWidth.Size = new System.Drawing.Size(157, 52);
             this.nudTramWidth.TabIndex = 1;
@@ -7752,7 +7752,7 @@
             this.cboxHardwareMessages.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxHardwareMessages.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxHardwareMessages.ForeColor = System.Drawing.Color.Red;
-            this.cboxHardwareMessages.Image = global::AgOpenGPS.Properties.Resources.HardwareMessage;
+            this.cboxHardwareMessages.Image = global::AOG.Properties.Resources.HardwareMessage;
             this.cboxHardwareMessages.Location = new System.Drawing.Point(605, 495);
             this.cboxHardwareMessages.Name = "cboxHardwareMessages";
             this.cboxHardwareMessages.Size = new System.Drawing.Size(123, 77);
@@ -7771,7 +7771,7 @@
             this.cboxShutdownWhenNoPower.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxShutdownWhenNoPower.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxShutdownWhenNoPower.ForeColor = System.Drawing.Color.Red;
-            this.cboxShutdownWhenNoPower.Image = global::AgOpenGPS.Properties.Resources.ChargingNo;
+            this.cboxShutdownWhenNoPower.Image = global::AOG.Properties.Resources.ChargingNo;
             this.cboxShutdownWhenNoPower.Location = new System.Drawing.Point(38, 495);
             this.cboxShutdownWhenNoPower.Name = "cboxShutdownWhenNoPower";
             this.cboxShutdownWhenNoPower.Size = new System.Drawing.Size(114, 77);
@@ -7792,7 +7792,7 @@
             this.cboxAutoOffAgIO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxAutoOffAgIO.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxAutoOffAgIO.ForeColor = System.Drawing.Color.Red;
-            this.cboxAutoOffAgIO.Image = global::AgOpenGPS.Properties.Resources.AgIO;
+            this.cboxAutoOffAgIO.Image = global::AOG.Properties.Resources.AgIO;
             this.cboxAutoOffAgIO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cboxAutoOffAgIO.Location = new System.Drawing.Point(398, 495);
             this.cboxAutoOffAgIO.Margin = new System.Windows.Forms.Padding(0);
@@ -7816,7 +7816,7 @@
             this.cboxSectionsSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxSectionsSound.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxSectionsSound.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxSectionsSound.Image = global::AgOpenGPS.Properties.Resources.ConF_SoundSections;
+            this.cboxSectionsSound.Image = global::AOG.Properties.Resources.ConF_SoundSections;
             this.cboxSectionsSound.Location = new System.Drawing.Point(766, 404);
             this.cboxSectionsSound.Name = "cboxSectionsSound";
             this.cboxSectionsSound.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -7839,7 +7839,7 @@
             this.cboxFeatureNudge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxFeatureNudge.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureNudge.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureNudge.Image = global::AgOpenGPS.Properties.Resources.SnapToPivot;
+            this.cboxFeatureNudge.Image = global::AOG.Properties.Resources.SnapToPivot;
             this.cboxFeatureNudge.Location = new System.Drawing.Point(516, 213);
             this.cboxFeatureNudge.Name = "cboxFeatureNudge";
             this.cboxFeatureNudge.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -7857,7 +7857,7 @@
             this.btnRightMenuOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRightMenuOrder.Font = new System.Drawing.Font("Tahoma", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRightMenuOrder.ForeColor = System.Drawing.Color.Black;
-            this.btnRightMenuOrder.Image = global::AgOpenGPS.Properties.Resources.Con_RightMenuEdit;
+            this.btnRightMenuOrder.Image = global::AOG.Properties.Resources.Con_RightMenuEdit;
             this.btnRightMenuOrder.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnRightMenuOrder.Location = new System.Drawing.Point(507, 344);
             this.btnRightMenuOrder.Name = "btnRightMenuOrder";
@@ -7879,7 +7879,7 @@
             this.cboxAutoStartAgIO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxAutoStartAgIO.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxAutoStartAgIO.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxAutoStartAgIO.Image = global::AgOpenGPS.Properties.Resources.AgIO;
+            this.cboxAutoStartAgIO.Image = global::AOG.Properties.Resources.AgIO;
             this.cboxAutoStartAgIO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cboxAutoStartAgIO.Location = new System.Drawing.Point(219, 495);
             this.cboxAutoStartAgIO.Name = "cboxAutoStartAgIO";
@@ -7902,7 +7902,7 @@
             this.cboxHydLiftSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxHydLiftSound.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxHydLiftSound.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxHydLiftSound.Image = global::AgOpenGPS.Properties.Resources.ConF_HydLiftSound;
+            this.cboxHydLiftSound.Image = global::AOG.Properties.Resources.ConF_HydLiftSound;
             this.cboxHydLiftSound.Location = new System.Drawing.Point(766, 289);
             this.cboxHydLiftSound.Name = "cboxHydLiftSound";
             this.cboxHydLiftSound.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -7924,7 +7924,7 @@
             this.cboxTurnSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxTurnSound.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxTurnSound.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxTurnSound.Image = global::AgOpenGPS.Properties.Resources.ConF_TurnSound;
+            this.cboxTurnSound.Image = global::AOG.Properties.Resources.ConF_TurnSound;
             this.cboxTurnSound.Location = new System.Drawing.Point(766, 174);
             this.cboxTurnSound.Name = "cboxTurnSound";
             this.cboxTurnSound.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -7946,7 +7946,7 @@
             this.cboxSteerSound.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxSteerSound.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxSteerSound.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxSteerSound.Image = global::AgOpenGPS.Properties.Resources.ConF_SteerSound;
+            this.cboxSteerSound.Image = global::AOG.Properties.Resources.ConF_SteerSound;
             this.cboxSteerSound.Location = new System.Drawing.Point(766, 59);
             this.cboxSteerSound.Name = "cboxSteerSound";
             this.cboxSteerSound.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -7960,7 +7960,7 @@
             this.cboxFeatureLateral.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cboxFeatureLateral.Appearance = System.Windows.Forms.Appearance.Button;
             this.cboxFeatureLateral.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cboxFeatureLateral.BackgroundImage = global::AgOpenGPS.Properties.Resources.z_LateralManual;
+            this.cboxFeatureLateral.BackgroundImage = global::AOG.Properties.Resources.z_LateralManual;
             this.cboxFeatureLateral.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.cboxFeatureLateral.Checked = true;
             this.cboxFeatureLateral.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -7983,7 +7983,7 @@
             this.cboxFeatureUTurn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cboxFeatureUTurn.Appearance = System.Windows.Forms.Appearance.Button;
             this.cboxFeatureUTurn.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cboxFeatureUTurn.BackgroundImage = global::AgOpenGPS.Properties.Resources.z_TurnManual;
+            this.cboxFeatureUTurn.BackgroundImage = global::AOG.Properties.Resources.z_TurnManual;
             this.cboxFeatureUTurn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.cboxFeatureUTurn.Checked = true;
             this.cboxFeatureUTurn.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -8014,7 +8014,7 @@
             this.cboxFeatureOffsetFix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxFeatureOffsetFix.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureOffsetFix.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureOffsetFix.Image = global::AgOpenGPS.Properties.Resources.YouTurnReverse;
+            this.cboxFeatureOffsetFix.Image = global::AOG.Properties.Resources.YouTurnReverse;
             this.cboxFeatureOffsetFix.Location = new System.Drawing.Point(247, 371);
             this.cboxFeatureOffsetFix.Name = "cboxFeatureOffsetFix";
             this.cboxFeatureOffsetFix.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8036,7 +8036,7 @@
             this.cboxFeatureWebcam.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxFeatureWebcam.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureWebcam.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureWebcam.Image = global::AgOpenGPS.Properties.Resources.Webcam;
+            this.cboxFeatureWebcam.Image = global::AOG.Properties.Resources.Webcam;
             this.cboxFeatureWebcam.Location = new System.Drawing.Point(247, 267);
             this.cboxFeatureWebcam.Name = "cboxFeatureWebcam";
             this.cboxFeatureWebcam.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8058,7 +8058,7 @@
             this.cboxFeatureHideContour.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxFeatureHideContour.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureHideContour.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureHideContour.Image = global::AgOpenGPS.Properties.Resources.Trash;
+            this.cboxFeatureHideContour.Image = global::AOG.Properties.Resources.Trash;
             this.cboxFeatureHideContour.Location = new System.Drawing.Point(247, 163);
             this.cboxFeatureHideContour.Name = "cboxFeatureHideContour";
             this.cboxFeatureHideContour.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8080,7 +8080,7 @@
             this.cboxFeatureABSmooth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxFeatureABSmooth.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureABSmooth.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureABSmooth.Image = global::AgOpenGPS.Properties.Resources.ABSmooth;
+            this.cboxFeatureABSmooth.Image = global::AOG.Properties.Resources.ABSmooth;
             this.cboxFeatureABSmooth.Location = new System.Drawing.Point(247, 59);
             this.cboxFeatureABSmooth.Name = "cboxFeatureABSmooth";
             this.cboxFeatureABSmooth.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8102,7 +8102,7 @@
             this.cboxFeatureBoundary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxFeatureBoundary.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureBoundary.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureBoundary.Image = global::AgOpenGPS.Properties.Resources.Boundary;
+            this.cboxFeatureBoundary.Image = global::AOG.Properties.Resources.Boundary;
             this.cboxFeatureBoundary.Location = new System.Drawing.Point(33, 267);
             this.cboxFeatureBoundary.Name = "cboxFeatureBoundary";
             this.cboxFeatureBoundary.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8124,7 +8124,7 @@
             this.cboxFeatureHeadland.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxFeatureHeadland.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureHeadland.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureHeadland.Image = global::AgOpenGPS.Properties.Resources.HeadlandOn;
+            this.cboxFeatureHeadland.Image = global::AOG.Properties.Resources.HeadlandOn;
             this.cboxFeatureHeadland.Location = new System.Drawing.Point(33, 163);
             this.cboxFeatureHeadland.Name = "cboxFeatureHeadland";
             this.cboxFeatureHeadland.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8159,7 +8159,7 @@
             this.cboxFeatureTram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxFeatureTram.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxFeatureTram.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureTram.Image = global::AgOpenGPS.Properties.Resources.TramAll;
+            this.cboxFeatureTram.Image = global::AOG.Properties.Resources.TramAll;
             this.cboxFeatureTram.Location = new System.Drawing.Point(33, 59);
             this.cboxFeatureTram.Name = "cboxFeatureTram";
             this.cboxFeatureTram.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8223,7 +8223,7 @@
             this.chkLineSmooth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkLineSmooth.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkLineSmooth.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.chkLineSmooth.BackgroundImage = global::AgOpenGPS.Properties.Resources.ConD_LineSmooth;
+            this.chkLineSmooth.BackgroundImage = global::AOG.Properties.Resources.ConD_LineSmooth;
             this.chkLineSmooth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.chkLineSmooth.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.chkLineSmooth.FlatAppearance.BorderSize = 2;
@@ -8256,7 +8256,7 @@
             this.chkSectionLines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkSectionLines.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkSectionLines.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.chkSectionLines.BackgroundImage = global::AgOpenGPS.Properties.Resources.ConD_SectionHighlights;
+            this.chkSectionLines.BackgroundImage = global::AOG.Properties.Resources.ConD_SectionHighlights;
             this.chkSectionLines.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.chkSectionLines.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.chkSectionLines.FlatAppearance.BorderSize = 2;
@@ -8298,7 +8298,7 @@
             this.chkDirectionMarkers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDirectionMarkers.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDirectionMarkers.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkDirectionMarkers.Image = global::AgOpenGPS.Properties.Resources.ConD_DirectionMarker;
+            this.chkDirectionMarkers.Image = global::AOG.Properties.Resources.ConD_DirectionMarker;
             this.chkDirectionMarkers.Location = new System.Drawing.Point(234, 403);
             this.chkDirectionMarkers.Name = "chkDirectionMarkers";
             this.chkDirectionMarkers.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8345,7 +8345,7 @@
             this.rbtnDisplayImperial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtnDisplayImperial.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnDisplayImperial.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.rbtnDisplayImperial.Image = global::AgOpenGPS.Properties.Resources.ConD_Imperial;
+            this.rbtnDisplayImperial.Image = global::AOG.Properties.Resources.ConD_Imperial;
             this.rbtnDisplayImperial.Location = new System.Drawing.Point(130, 37);
             this.rbtnDisplayImperial.Name = "rbtnDisplayImperial";
             this.rbtnDisplayImperial.Size = new System.Drawing.Size(112, 64);
@@ -8365,7 +8365,7 @@
             this.rbtnDisplayMetric.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtnDisplayMetric.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnDisplayMetric.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.rbtnDisplayMetric.Image = global::AgOpenGPS.Properties.Resources.ConD_Metric;
+            this.rbtnDisplayMetric.Image = global::AOG.Properties.Resources.ConD_Metric;
             this.rbtnDisplayMetric.Location = new System.Drawing.Point(8, 37);
             this.rbtnDisplayMetric.Name = "rbtnDisplayMetric";
             this.rbtnDisplayMetric.Size = new System.Drawing.Size(112, 64);
@@ -8493,7 +8493,7 @@
             this.chkDisplayLogElevation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplayLogElevation.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayLogElevation.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkDisplayLogElevation.Image = global::AgOpenGPS.Properties.Resources.ConD_LogElevation;
+            this.chkDisplayLogElevation.Image = global::AOG.Properties.Resources.ConD_LogElevation;
             this.chkDisplayLogElevation.Location = new System.Drawing.Point(704, 39);
             this.chkDisplayLogElevation.Name = "chkDisplayLogElevation";
             this.chkDisplayLogElevation.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8513,7 +8513,7 @@
             this.chkSvennArrow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkSvennArrow.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSvennArrow.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkSvennArrow.Image = global::AgOpenGPS.Properties.Resources.SvennArrow;
+            this.chkSvennArrow.Image = global::AOG.Properties.Resources.SvennArrow;
             this.chkSvennArrow.Location = new System.Drawing.Point(231, 160);
             this.chkSvennArrow.Name = "chkSvennArrow";
             this.chkSvennArrow.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8533,7 +8533,7 @@
             this.chkDisplayBrightness.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplayBrightness.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayBrightness.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkDisplayBrightness.Image = global::AgOpenGPS.Properties.Resources.BrightnessUp;
+            this.chkDisplayBrightness.Image = global::AOG.Properties.Resources.BrightnessUp;
             this.chkDisplayBrightness.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.chkDisplayBrightness.Location = new System.Drawing.Point(37, 160);
             this.chkDisplayBrightness.Name = "chkDisplayBrightness";
@@ -8556,7 +8556,7 @@
             this.chkDisplayFloor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplayFloor.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayFloor.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkDisplayFloor.Image = global::AgOpenGPS.Properties.Resources.ConD_FloorTexture;
+            this.chkDisplayFloor.Image = global::AOG.Properties.Resources.ConD_FloorTexture;
             this.chkDisplayFloor.Location = new System.Drawing.Point(37, 282);
             this.chkDisplayFloor.Name = "chkDisplayFloor";
             this.chkDisplayFloor.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8576,7 +8576,7 @@
             this.chkDisplayKeyboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplayKeyboard.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayKeyboard.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkDisplayKeyboard.Image = global::AgOpenGPS.Properties.Resources.ConD_KeyBoard;
+            this.chkDisplayKeyboard.Image = global::AOG.Properties.Resources.ConD_KeyBoard;
             this.chkDisplayKeyboard.Location = new System.Drawing.Point(425, 39);
             this.chkDisplayKeyboard.Name = "chkDisplayKeyboard";
             this.chkDisplayKeyboard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8596,7 +8596,7 @@
             this.chkDisplayPolygons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplayPolygons.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayPolygons.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkDisplayPolygons.Image = global::AgOpenGPS.Properties.Resources.ConD_Poligons;
+            this.chkDisplayPolygons.Image = global::AOG.Properties.Resources.ConD_Poligons;
             this.chkDisplayPolygons.Location = new System.Drawing.Point(37, 39);
             this.chkDisplayPolygons.Name = "chkDisplayPolygons";
             this.chkDisplayPolygons.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8618,7 +8618,7 @@
             this.chkDisplayStartFullScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplayStartFullScreen.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayStartFullScreen.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkDisplayStartFullScreen.Image = global::AgOpenGPS.Properties.Resources.ConD_FullScreenBegin;
+            this.chkDisplayStartFullScreen.Image = global::AOG.Properties.Resources.ConD_FullScreenBegin;
             this.chkDisplayStartFullScreen.Location = new System.Drawing.Point(425, 160);
             this.chkDisplayStartFullScreen.Name = "chkDisplayStartFullScreen";
             this.chkDisplayStartFullScreen.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8640,7 +8640,7 @@
             this.chkDisplayGrid.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplayGrid.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayGrid.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkDisplayGrid.Image = global::AgOpenGPS.Properties.Resources.ConD_Grid;
+            this.chkDisplayGrid.Image = global::AOG.Properties.Resources.ConD_Grid;
             this.chkDisplayGrid.Location = new System.Drawing.Point(231, 282);
             this.chkDisplayGrid.Name = "chkDisplayGrid";
             this.chkDisplayGrid.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8660,7 +8660,7 @@
             this.chkDisplaySpeedo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplaySpeedo.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplaySpeedo.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkDisplaySpeedo.Image = global::AgOpenGPS.Properties.Resources.ConD_Speedometer;
+            this.chkDisplaySpeedo.Image = global::AOG.Properties.Resources.ConD_Speedometer;
             this.chkDisplaySpeedo.Location = new System.Drawing.Point(231, 39);
             this.chkDisplaySpeedo.Name = "chkDisplaySpeedo";
             this.chkDisplaySpeedo.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8680,7 +8680,7 @@
             this.chkDisplayExtraGuides.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkDisplayExtraGuides.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDisplayExtraGuides.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkDisplayExtraGuides.Image = global::AgOpenGPS.Properties.Resources.ConD_ExtraGuides;
+            this.chkDisplayExtraGuides.Image = global::AOG.Properties.Resources.ConD_ExtraGuides;
             this.chkDisplayExtraGuides.Location = new System.Drawing.Point(425, 278);
             this.chkDisplayExtraGuides.Name = "chkDisplayExtraGuides";
             this.chkDisplayExtraGuides.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -8790,7 +8790,7 @@
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOK.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOK.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnOK.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnOK.Image = global::AOG.Properties.Resources.OK64;
             this.btnOK.Location = new System.Drawing.Point(823, 1);
             this.btnOK.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnOK.Name = "btnOK";

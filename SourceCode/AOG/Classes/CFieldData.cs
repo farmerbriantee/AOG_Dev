@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public class CFieldData
     {

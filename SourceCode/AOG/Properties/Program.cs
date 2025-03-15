@@ -1,10 +1,10 @@
-﻿using AgOpenGPS.Properties;
+﻿using AOG.Properties;
 using System;
 using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     internal static class Program
     {

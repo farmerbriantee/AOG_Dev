@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormMap
     {
@@ -183,7 +183,7 @@
             this.btnZoomIn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnZoomIn.FlatAppearance.BorderSize = 0;
             this.btnZoomIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnZoomIn.Image = global::AgOpenGPS.Properties.Resources.ZoomOGL;
+            this.btnZoomIn.Image = global::AOG.Properties.Resources.ZoomOGL;
             this.btnZoomIn.Location = new System.Drawing.Point(162, 623);
             this.btnZoomIn.Name = "btnZoomIn";
             this.btnZoomIn.Size = new System.Drawing.Size(69, 56);
@@ -198,7 +198,7 @@
             this.btnZoomOut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnZoomOut.FlatAppearance.BorderSize = 0;
             this.btnZoomOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnZoomOut.Image = global::AgOpenGPS.Properties.Resources.ZoomOut;
+            this.btnZoomOut.Image = global::AOG.Properties.Resources.ZoomOut;
             this.btnZoomOut.Location = new System.Drawing.Point(20, 619);
             this.btnZoomOut.Name = "btnZoomOut";
             this.btnZoomOut.Size = new System.Drawing.Size(64, 63);
@@ -215,7 +215,7 @@
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnExit.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnExit.Image = global::AOG.Properties.Resources.OK64;
             this.btnExit.Location = new System.Drawing.Point(166, 702);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(61, 63);
@@ -229,7 +229,7 @@
             this.btnGo.BackColor = System.Drawing.Color.Transparent;
             this.btnGo.FlatAppearance.BorderSize = 0;
             this.btnGo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGo.Image = global::AgOpenGPS.Properties.Resources.FlagGrn;
+            this.btnGo.Image = global::AOG.Properties.Resources.FlagGrn;
             this.btnGo.Location = new System.Drawing.Point(21, 705);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(63, 57);
@@ -247,7 +247,7 @@
             this.cboxEnableLineDraw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxEnableLineDraw.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxEnableLineDraw.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxEnableLineDraw.Image = global::AgOpenGPS.Properties.Resources.BoundaryOuter;
+            this.cboxEnableLineDraw.Image = global::AOG.Properties.Resources.BoundaryOuter;
             this.cboxEnableLineDraw.Location = new System.Drawing.Point(11, 5);
             this.cboxEnableLineDraw.Name = "cboxEnableLineDraw";
             this.cboxEnableLineDraw.Size = new System.Drawing.Size(83, 72);
@@ -262,7 +262,7 @@
             this.btnDeleteAll.Enabled = false;
             this.btnDeleteAll.FlatAppearance.BorderSize = 0;
             this.btnDeleteAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteAll.Image = global::AgOpenGPS.Properties.Resources.Trash;
+            this.btnDeleteAll.Image = global::AOG.Properties.Resources.Trash;
             this.btnDeleteAll.Location = new System.Drawing.Point(166, 11);
             this.btnDeleteAll.Name = "btnDeleteAll";
             this.btnDeleteAll.Size = new System.Drawing.Size(61, 59);
@@ -291,7 +291,7 @@
             this.btnAddFence.Enabled = false;
             this.btnAddFence.FlatAppearance.BorderSize = 0;
             this.btnAddFence.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddFence.Image = global::AgOpenGPS.Properties.Resources.AddNew;
+            this.btnAddFence.Image = global::AOG.Properties.Resources.AddNew;
             this.btnAddFence.Location = new System.Drawing.Point(22, 283);
             this.btnAddFence.Name = "btnAddFence";
             this.btnAddFence.Size = new System.Drawing.Size(61, 61);
@@ -306,7 +306,7 @@
             this.btnDeletePoint.Enabled = false;
             this.btnDeletePoint.FlatAppearance.BorderSize = 0;
             this.btnDeletePoint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeletePoint.Image = global::AgOpenGPS.Properties.Resources.PointDelete;
+            this.btnDeletePoint.Image = global::AOG.Properties.Resources.PointDelete;
             this.btnDeletePoint.Location = new System.Drawing.Point(9, 142);
             this.btnDeletePoint.Name = "btnDeletePoint";
             this.btnDeletePoint.Size = new System.Drawing.Size(87, 78);
@@ -339,7 +339,7 @@
             this.cboxDrawMap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxDrawMap.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxDrawMap.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxDrawMap.Image = global::AgOpenGPS.Properties.Resources.MappingOff;
+            this.cboxDrawMap.Image = global::AOG.Properties.Resources.MappingOff;
             this.cboxDrawMap.Location = new System.Drawing.Point(81, 449);
             this.cboxDrawMap.Name = "cboxDrawMap";
             this.cboxDrawMap.Size = new System.Drawing.Size(78, 76);

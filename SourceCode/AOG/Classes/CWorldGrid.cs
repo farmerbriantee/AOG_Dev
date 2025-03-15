@@ -4,7 +4,7 @@ using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public class CWorldGrid
     {

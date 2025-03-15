@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public static class RegistrySettings
     {

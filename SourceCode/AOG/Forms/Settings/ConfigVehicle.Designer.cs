@@ -342,6 +342,8 @@ namespace AOG
 
             lblCurrentTool.Text = "Tool" + ": " + RegistrySettings.toolFileName;
             lblSummaryToolName.Text = lblCurrentTool.Text;
+
+            UpdateSummary();
         }
 
         private void btnToolDelete_Click(object sender, EventArgs e)

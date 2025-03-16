@@ -191,6 +191,9 @@ namespace AOG
 
             lblSumLookaheadOn.Text = $"{Settings.Tool.lookAheadOn} sec";
             lblSumLookAheadOff.Text = $"{Settings.Tool.lookAheadOff} sec";
+
+            lblSummaryWidth.Text = $"{Settings.Tool.toolWidth} {glm.unitsFtM}";
+            SectionFeetInchesTotalWidthLabelUpdate();
         }
 
         private void tabSummary_Enter(object sender, EventArgs e)

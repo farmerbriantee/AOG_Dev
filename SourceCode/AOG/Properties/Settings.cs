@@ -320,7 +320,7 @@ namespace AOG
             {
                 string path = Path.Combine(RegistrySettings.vehiclesDirectory, RegistrySettings.vehicleFileName + ".XML");
 
-                if (RegistrySettings.vehicleFileName != "")
+                if (RegistrySettings.vehicleFileName != "" && RegistrySettings.vehicleFileName != "Default")
                     XmlSettingsHandler.SaveXMLFile(path, "Vehicle", this);
                 else
                     Log.EventWriter("Default Vehicle Not saved to Vehicles");
@@ -429,7 +429,7 @@ namespace AOG
             {
                 string path = Path.Combine(RegistrySettings.toolsDirectory, RegistrySettings.toolFileName + ".XML");
 
-                if (RegistrySettings.toolFileName != "")
+                if (RegistrySettings.toolFileName != "" && RegistrySettings.toolFileName != "Default")
                     XmlSettingsHandler.SaveXMLFile(path, "Tool", this);
                 else
                     Log.EventWriter("Default Tool Not saved to Tools");

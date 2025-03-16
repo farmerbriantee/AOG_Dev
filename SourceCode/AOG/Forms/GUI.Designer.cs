@@ -75,7 +75,7 @@ namespace AOG
 
             ////////////////////////////////////////////// 10 second ///////////////////////////////////////////////////////
             //every 3 second update status
-            if (fourSecondCounter >= 1)
+            if (fourSecondCounter >= 3)
             {
                 if (!isPauseFieldTextCounter)
                 {

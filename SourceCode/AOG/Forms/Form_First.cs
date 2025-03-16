@@ -24,16 +24,20 @@ namespace AOG
                 Left = 0;
             }
 
-            label1.Text = RegistrySettings.vehiclesDirectory + RegistrySettings.vehicleFileName + ".xml";
+            label1.Text = RegistrySettings.vehicleFileName + ".xml";
+            label3.Text = RegistrySettings.toolFileName + ".xml";
 
-            if (RegistrySettings.workingDirectory == "Default")
-            {
-                label7.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString();
-            }
-            else
-            {
-                label7.Text = RegistrySettings.workingDirectory.ToString();
-            }
+            //if (RegistrySettings.workingDirectory == "Default")
+            //{
+            //    label7.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).ToString() + RegistrySettings.vehiclesDirectory;
+            //}
+            //else
+            //{
+            //    label7.Text = RegistrySettings.workingDirectory.ToString();
+            //}
+            label7.Text = RegistrySettings.vehiclesDirectory;
+            label16.Text = RegistrySettings.toolsDirectory;
+
             label8.Text = RegistrySettings.culture;
         }
 

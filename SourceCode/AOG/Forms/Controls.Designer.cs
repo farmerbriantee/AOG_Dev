@@ -1131,6 +1131,9 @@ namespace AOG
         }
         private void setWorkingDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            YesMessageBox("Disabled For Now");
+            return;
+
             if (isFieldStarted)
             {
                 TimedMessageBox(2000, gStr.Get(gs.gsFieldIsOpen), gStr.Get(gs.gsCloseFieldFirst));

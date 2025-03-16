@@ -1921,7 +1921,7 @@ namespace AOG
 
         public void FileSaveSystemEvents()
         {
-            using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.logsDirectory, "AgOpenGPS_Events_Log.txt"), true))
+            using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.logsDirectory, "AOG_Events_Log.txt"), true))
             {
                 writer.Write(Log.sbEvents);
                 Log.sbEvents.Clear();

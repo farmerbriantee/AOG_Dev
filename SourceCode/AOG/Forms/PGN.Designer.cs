@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormGPS
     {
@@ -340,18 +340,22 @@ namespace AgOpenGPS
     // Tool Steer ------------------------------------------------------------------------------
 
     //ToolSteerData
+    //Low XTE	High XTE	Status	Vehicle XTE		Speed * 10	Vehicle Heading
+
     public static class PGN_233
     {
         /// <summary>
-        /// PGN_233_E9 speedLo = 5 speedHi = 6 
-        ///    status = 7 xteLo = 8 xteHi = 9;
+        /// PGN_233_E9
         /// </summary>
         public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 233, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-        public static int speedLo = 5;
-        public static int speedHi = 6;
+        public static int xteLo = 5;
+        public static int xteHi = 6;
         public static int status = 7;
-        public static int xteLo = 8;
-        public static int xteHi = 9;
+        public static int xteVehLo = 8;
+        public static int xteVehHi = 9;
+        public static int speed10 = 10;
+        public static int headLo = 11;
+        public static int headHi = 12;
     }
 
     //ToolSteer Settings

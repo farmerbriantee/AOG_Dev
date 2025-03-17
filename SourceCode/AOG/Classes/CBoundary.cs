@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class CBoundary
     {

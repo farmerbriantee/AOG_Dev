@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormTemp
     {
@@ -55,7 +55,7 @@
             this.btnAutoSteer.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
             this.btnAutoSteer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAutoSteer.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.btnAutoSteer.Image = global::AgOpenGPS.Properties.Resources.AutoSteerOff;
+            this.btnAutoSteer.Image = global::AOG.Properties.Resources.AutoSteerOff;
             this.btnAutoSteer.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAutoSteer.Location = new System.Drawing.Point(195, 50);
             this.btnAutoSteer.Margin = new System.Windows.Forms.Padding(0);
@@ -72,7 +72,7 @@
             this.btnAutoYouTurn.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
             this.btnAutoYouTurn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAutoYouTurn.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnAutoYouTurn.Image = global::AgOpenGPS.Properties.Resources.YouTurnNo;
+            this.btnAutoYouTurn.Image = global::AOG.Properties.Resources.YouTurnNo;
             this.btnAutoYouTurn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAutoYouTurn.Location = new System.Drawing.Point(195, 150);
             this.btnAutoYouTurn.Name = "btnAutoYouTurn";
@@ -89,7 +89,7 @@
             this.btnSectionMasterAuto.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
             this.btnSectionMasterAuto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSectionMasterAuto.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSectionMasterAuto.Image = global::AgOpenGPS.Properties.Resources.SectionMasterOff;
+            this.btnSectionMasterAuto.Image = global::AOG.Properties.Resources.SectionMasterOff;
             this.btnSectionMasterAuto.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSectionMasterAuto.Location = new System.Drawing.Point(195, 249);
             this.btnSectionMasterAuto.Margin = new System.Windows.Forms.Padding(0);
@@ -108,7 +108,7 @@
             this.btnSectionMasterManual.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
             this.btnSectionMasterManual.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSectionMasterManual.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSectionMasterManual.Image = global::AgOpenGPS.Properties.Resources.ManualOff;
+            this.btnSectionMasterManual.Image = global::AOG.Properties.Resources.ManualOff;
             this.btnSectionMasterManual.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSectionMasterManual.Location = new System.Drawing.Point(195, 348);
             this.btnSectionMasterManual.Name = "btnSectionMasterManual";
@@ -126,7 +126,7 @@
             this.btnTrack.FlatAppearance.BorderColor = System.Drawing.Color.RoyalBlue;
             this.btnTrack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTrack.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTrack.Image = global::AgOpenGPS.Properties.Resources.TrackOn;
+            this.btnTrack.Image = global::AOG.Properties.Resources.TrackOn;
             this.btnTrack.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnTrack.Location = new System.Drawing.Point(67, 149);
             this.btnTrack.Margin = new System.Windows.Forms.Padding(0);
@@ -144,7 +144,7 @@
             this.btnCycleLinesBk.FlatAppearance.BorderColor = System.Drawing.Color.RoyalBlue;
             this.btnCycleLinesBk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCycleLinesBk.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCycleLinesBk.Image = global::AgOpenGPS.Properties.Resources.ABLineCycleBk;
+            this.btnCycleLinesBk.Image = global::AOG.Properties.Resources.ABLineCycleBk;
             this.btnCycleLinesBk.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCycleLinesBk.Location = new System.Drawing.Point(67, 347);
             this.btnCycleLinesBk.Name = "btnCycleLinesBk";
@@ -160,7 +160,7 @@
             this.btnCycleLines.FlatAppearance.BorderColor = System.Drawing.Color.RoyalBlue;
             this.btnCycleLines.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCycleLines.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCycleLines.Image = global::AgOpenGPS.Properties.Resources.ABLineCycle;
+            this.btnCycleLines.Image = global::AOG.Properties.Resources.ABLineCycle;
             this.btnCycleLines.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCycleLines.Location = new System.Drawing.Point(67, 248);
             this.btnCycleLines.Name = "btnCycleLines";
@@ -177,7 +177,7 @@
             this.btnContour.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
             this.btnContour.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnContour.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnContour.Image = global::AgOpenGPS.Properties.Resources.ContourOn;
+            this.btnContour.Image = global::AOG.Properties.Resources.ContourOn;
             this.btnContour.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnContour.Location = new System.Drawing.Point(67, 50);
             this.btnContour.Name = "btnContour";
@@ -194,7 +194,7 @@
             this.button1.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Image = global::AgOpenGPS.Properties.Resources.back_button;
+            this.button1.Image = global::AOG.Properties.Resources.back_button;
             this.button1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.button1.Location = new System.Drawing.Point(131, 461);
             this.button1.Name = "button1";

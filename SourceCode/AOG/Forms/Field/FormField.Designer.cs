@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormField
     {
@@ -85,7 +85,7 @@
             this.btnFieldClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFieldClose.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFieldClose.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnFieldClose.Image = global::AgOpenGPS.Properties.Resources.FileClose;
+            this.btnFieldClose.Image = global::AOG.Properties.Resources.FileClose;
             this.btnFieldClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFieldClose.Location = new System.Drawing.Point(258, 4);
             this.btnFieldClose.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -108,7 +108,7 @@
             this.btnFromKML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFromKML.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFromKML.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnFromKML.Image = global::AgOpenGPS.Properties.Resources.BoundaryLoadFromGE;
+            this.btnFromKML.Image = global::AOG.Properties.Resources.BoundaryLoadFromGE;
             this.btnFromKML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFromKML.Location = new System.Drawing.Point(5, 4);
             this.btnFromKML.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -131,7 +131,7 @@
             this.btnFromISOXML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFromISOXML.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFromISOXML.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnFromISOXML.Image = global::AgOpenGPS.Properties.Resources.FileExisting;
+            this.btnFromISOXML.Image = global::AOG.Properties.Resources.FileExisting;
             this.btnFromISOXML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFromISOXML.Location = new System.Drawing.Point(5, 164);
             this.btnFromISOXML.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -202,7 +202,7 @@
             this.btnFieldResume.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFieldResume.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFieldResume.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnFieldResume.Image = global::AgOpenGPS.Properties.Resources.FilePrevious;
+            this.btnFieldResume.Image = global::AOG.Properties.Resources.FilePrevious;
             this.btnFieldResume.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFieldResume.Location = new System.Drawing.Point(512, 164);
             this.btnFieldResume.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -225,7 +225,7 @@
             this.btnFieldOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFieldOpen.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFieldOpen.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnFieldOpen.Image = global::AgOpenGPS.Properties.Resources.FileOpen;
+            this.btnFieldOpen.Image = global::AOG.Properties.Resources.FileOpen;
             this.btnFieldOpen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFieldOpen.Location = new System.Drawing.Point(258, 164);
             this.btnFieldOpen.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -248,7 +248,7 @@
             this.btnFieldNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFieldNew.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFieldNew.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnFieldNew.Image = global::AgOpenGPS.Properties.Resources.FileNew;
+            this.btnFieldNew.Image = global::AOG.Properties.Resources.FileNew;
             this.btnFieldNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFieldNew.Location = new System.Drawing.Point(512, 4);
             this.btnFieldNew.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -271,7 +271,7 @@
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
             this.btnCancel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancel.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnCancel.Location = new System.Drawing.Point(642, 430);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(107, 57);

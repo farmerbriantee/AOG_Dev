@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormColor
     {
@@ -60,7 +60,7 @@
             this.bntOK.FlatAppearance.BorderSize = 0;
             this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOK.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.bntOK.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.bntOK.Image = global::AOG.Properties.Resources.OK64;
             this.bntOK.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.bntOK.Location = new System.Drawing.Point(587, 319);
             this.bntOK.Name = "bntOK";
@@ -77,7 +77,7 @@
             this.btnFrameDay.FlatAppearance.BorderSize = 0;
             this.btnFrameDay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFrameDay.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnFrameDay.Image = global::AgOpenGPS.Properties.Resources.ColourPick;
+            this.btnFrameDay.Image = global::AOG.Properties.Resources.ColourPick;
             this.btnFrameDay.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnFrameDay.Location = new System.Drawing.Point(247, 12);
             this.btnFrameDay.Name = "btnFrameDay";
@@ -94,7 +94,7 @@
             this.btnFrameNight.FlatAppearance.BorderSize = 0;
             this.btnFrameNight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFrameNight.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnFrameNight.Image = global::AgOpenGPS.Properties.Resources.ColourPick;
+            this.btnFrameNight.Image = global::AOG.Properties.Resources.ColourPick;
             this.btnFrameNight.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnFrameNight.Location = new System.Drawing.Point(247, 181);
             this.btnFrameNight.Name = "btnFrameNight";
@@ -111,7 +111,7 @@
             this.btnFieldNight.FlatAppearance.BorderSize = 0;
             this.btnFieldNight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFieldNight.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnFieldNight.Image = global::AgOpenGPS.Properties.Resources.ColourPick;
+            this.btnFieldNight.Image = global::AOG.Properties.Resources.ColourPick;
             this.btnFieldNight.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnFieldNight.Location = new System.Drawing.Point(164, 280);
             this.btnFieldNight.Name = "btnFieldNight";
@@ -128,7 +128,7 @@
             this.btnFieldDay.FlatAppearance.BorderSize = 0;
             this.btnFieldDay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFieldDay.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnFieldDay.Image = global::AgOpenGPS.Properties.Resources.ColourPick;
+            this.btnFieldDay.Image = global::AOG.Properties.Resources.ColourPick;
             this.btnFieldDay.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnFieldDay.Location = new System.Drawing.Point(164, 94);
             this.btnFieldDay.Name = "btnFieldDay";
@@ -144,7 +144,7 @@
             this.btnSwap.FlatAppearance.BorderSize = 0;
             this.btnSwap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSwap.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnSwap.Image = global::AgOpenGPS.Properties.Resources.ConD_AutoDayNight;
+            this.btnSwap.Image = global::AOG.Properties.Resources.ConD_AutoDayNight;
             this.btnSwap.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSwap.Location = new System.Drawing.Point(396, 181);
             this.btnSwap.Name = "btnSwap";
@@ -161,7 +161,7 @@
             this.btnDayText.FlatAppearance.BorderSize = 0;
             this.btnDayText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDayText.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnDayText.Image = global::AgOpenGPS.Properties.Resources.ColourPick;
+            this.btnDayText.Image = global::AOG.Properties.Resources.ColourPick;
             this.btnDayText.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnDayText.Location = new System.Drawing.Point(12, 38);
             this.btnDayText.Name = "btnDayText";
@@ -178,7 +178,7 @@
             this.btnNightText.FlatAppearance.BorderSize = 0;
             this.btnNightText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNightText.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnNightText.Image = global::AgOpenGPS.Properties.Resources.ColourPick;
+            this.btnNightText.Image = global::AOG.Properties.Resources.ColourPick;
             this.btnNightText.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnNightText.Location = new System.Drawing.Point(12, 224);
             this.btnNightText.Name = "btnNightText";
@@ -269,7 +269,7 @@
             this.btnReset.FlatAppearance.BorderSize = 0;
             this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReset.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnReset.Image = global::AgOpenGPS.Properties.Resources.ResetColors;
+            this.btnReset.Image = global::AOG.Properties.Resources.ResetColors;
             this.btnReset.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnReset.Location = new System.Drawing.Point(396, 272);
             this.btnReset.Name = "btnReset";
@@ -294,7 +294,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.BackgroundImage = global::AgOpenGPS.Properties.Resources.ColorBackGnd;
+            this.BackgroundImage = global::AOG.Properties.Resources.ColorBackGnd;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(665, 396);
             this.ControlBox = false;

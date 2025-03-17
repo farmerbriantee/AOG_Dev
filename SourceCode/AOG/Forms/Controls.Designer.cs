@@ -10,13 +10,13 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using AgOpenGPS.Classes;
+using AOG.Classes;
 
-using AgOpenGPS.Properties;
+using AOG.Properties;
 using Microsoft.Win32;
 using OpenTK.Input;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormGPS
     {
@@ -1131,6 +1131,9 @@ namespace AgOpenGPS
         }
         private void setWorkingDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            YesMessageBox("Disabled For Now");
+            return;
+
             if (isFieldStarted)
             {
                 TimedMessageBox(2000, gStr.Get(gs.gsFieldIsOpen), gStr.Get(gs.gsCloseFieldFirst));
@@ -1799,7 +1802,7 @@ namespace AgOpenGPS
         }
         private void eventViewerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form form = new FormEventViewer(Path.Combine(RegistrySettings.logsDirectory, "AgOpenGPS_Events_Log.txt"));
+            Form form = new FormEventViewer(Path.Combine(RegistrySettings.logsDirectory, "AOG_Events_Log.txt"));
             form.Show(this);
             this.Activate();
         }

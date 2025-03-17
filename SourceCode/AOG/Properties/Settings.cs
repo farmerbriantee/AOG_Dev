@@ -11,7 +11,7 @@ using System.Globalization;
 using System.Xml.Serialization;
 using System.Collections;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public sealed class Settings
     {
@@ -165,9 +165,9 @@ namespace AgOpenGPS
 
         public sealed class VehicleSettings
         {
-            public HBrand setBrand_HBrand = HBrand.AgOpenGPS;
-            public TBrand setBrand_TBrand = TBrand.AgOpenGPS;
-            public WDBrand setBrand_WDBrand = WDBrand.AgOpenGPS;
+            public HBrand setBrand_HBrand = HBrand.Aog;
+            public TBrand setBrand_TBrand = TBrand.AOG;
+            public WDBrand setBrand_WDBrand = WDBrand.Aog;
 
             public double setAutoSwitchDualFixSpeed = 2.0;
             public bool setAutoSwitchDualFixOn = false;
@@ -320,7 +320,7 @@ namespace AgOpenGPS
             {
                 string path = Path.Combine(RegistrySettings.vehiclesDirectory, RegistrySettings.vehicleFileName + ".XML");
 
-                if (RegistrySettings.vehicleFileName != "")
+                if (RegistrySettings.vehicleFileName != "" && RegistrySettings.vehicleFileName != "Default")
                     XmlSettingsHandler.SaveXMLFile(path, "Vehicle", this);
                 else
                     Log.EventWriter("Default Vehicle Not saved to Vehicles");
@@ -429,7 +429,7 @@ namespace AgOpenGPS
             {
                 string path = Path.Combine(RegistrySettings.toolsDirectory, RegistrySettings.toolFileName + ".XML");
 
-                if (RegistrySettings.toolFileName != "")
+                if (RegistrySettings.toolFileName != "" && RegistrySettings.toolFileName != "Default")
                     XmlSettingsHandler.SaveXMLFile(path, "Tool", this);
                 else
                     Log.EventWriter("Default Tool Not saved to Tools");

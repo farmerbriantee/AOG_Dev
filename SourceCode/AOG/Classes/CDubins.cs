@@ -6,7 +6,7 @@ using System.Collections.Generic;
  *  http://www.habrador.com/about/
  */
 
-namespace AgOpenGPS
+namespace AOG
 {
     //To keep track of the different paths when debugging
     public enum PathType

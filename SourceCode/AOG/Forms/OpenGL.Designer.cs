@@ -7,7 +7,7 @@ using System.Diagnostics;
 using OpenTK.Graphics;
 using System.Threading;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormGPS
     {

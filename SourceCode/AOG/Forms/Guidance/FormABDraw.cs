@@ -1,4 +1,4 @@
-﻿using AgOpenGPS.Classes;
+﻿using AOG.Classes;
 
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormABDraw : Form
     {

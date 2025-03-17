@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormQuickAB
     {
@@ -61,7 +61,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.btnCancel_APlus = new System.Windows.Forms.Button();
             this.btnEnter_APlus = new System.Windows.Forms.Button();
-            this.nudHeading = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudHeading = new AOG.NudlessNumericUpDown();
             this.btnAPlus = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panelName.SuspendLayout();
@@ -141,7 +141,7 @@
             this.btnAddTime.FlatAppearance.BorderSize = 0;
             this.btnAddTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddTime.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddTime.Image = global::AgOpenGPS.Properties.Resources.JobNameTime;
+            this.btnAddTime.Image = global::AOG.Properties.Resources.JobNameTime;
             this.btnAddTime.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAddTime.Location = new System.Drawing.Point(87, 133);
             this.btnAddTime.Name = "btnAddTime";
@@ -158,7 +158,7 @@
             this.btnAdd.FlatAppearance.BorderSize = 0;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnAdd.Image = global::AOG.Properties.Resources.OK64;
             this.btnAdd.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAdd.Location = new System.Drawing.Point(141, 233);
             this.btnAdd.Name = "btnAdd";
@@ -220,7 +220,7 @@
             this.btnRefSideCurve.FlatAppearance.BorderSize = 0;
             this.btnRefSideCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefSideCurve.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnRefSideCurve.Image = global::AgOpenGPS.Properties.Resources.BoundaryRight;
+            this.btnRefSideCurve.Image = global::AOG.Properties.Resources.BoundaryRight;
             this.btnRefSideCurve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnRefSideCurve.Location = new System.Drawing.Point(88, 2);
             this.btnRefSideCurve.Name = "btnRefSideCurve";
@@ -238,7 +238,7 @@
             this.btnCancel_Curve.FlatAppearance.BorderSize = 0;
             this.btnCancel_Curve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel_Curve.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancel_Curve.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancel_Curve.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnCancel_Curve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancel_Curve.Location = new System.Drawing.Point(7, 233);
             this.btnCancel_Curve.Name = "btnCancel_Curve";
@@ -254,7 +254,7 @@
             this.btnACurve.FlatAppearance.BorderSize = 0;
             this.btnACurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnACurve.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnACurve.Image = global::AgOpenGPS.Properties.Resources.LetterABlue;
+            this.btnACurve.Image = global::AOG.Properties.Resources.LetterABlue;
             this.btnACurve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnACurve.Location = new System.Drawing.Point(7, 97);
             this.btnACurve.Name = "btnACurve";
@@ -271,7 +271,7 @@
             this.btnBCurve.FlatAppearance.BorderSize = 0;
             this.btnBCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBCurve.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnBCurve.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnBCurve.Image = global::AOG.Properties.Resources.OK64;
             this.btnBCurve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnBCurve.Location = new System.Drawing.Point(144, 233);
             this.btnBCurve.Name = "btnBCurve";
@@ -288,7 +288,7 @@
             this.btnPausePlay.FlatAppearance.BorderSize = 0;
             this.btnPausePlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPausePlay.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPausePlay.Image = global::AgOpenGPS.Properties.Resources.boundaryPause;
+            this.btnPausePlay.Image = global::AOG.Properties.Resources.boundaryPause;
             this.btnPausePlay.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnPausePlay.Location = new System.Drawing.Point(144, 97);
             this.btnPausePlay.Name = "btnPausePlay";
@@ -318,7 +318,7 @@
             this.btnCancelChoose.FlatAppearance.BorderSize = 0;
             this.btnCancelChoose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelChoose.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancelChoose.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancelChoose.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnCancelChoose.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancelChoose.Location = new System.Drawing.Point(12, 223);
             this.btnCancelChoose.Name = "btnCancelChoose";
@@ -333,7 +333,7 @@
             this.btnzAPlus.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnzAPlus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnzAPlus.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnzAPlus.Image = global::AgOpenGPS.Properties.Resources.ABTrackA_;
+            this.btnzAPlus.Image = global::AOG.Properties.Resources.ABTrackA_;
             this.btnzAPlus.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnzAPlus.Location = new System.Drawing.Point(9, 29);
             this.btnzAPlus.Name = "btnzAPlus";
@@ -349,7 +349,7 @@
             this.btnzABLine.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnzABLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnzABLine.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnzABLine.Image = global::AgOpenGPS.Properties.Resources.ABTrackAB;
+            this.btnzABLine.Image = global::AOG.Properties.Resources.ABTrackAB;
             this.btnzABLine.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnzABLine.Location = new System.Drawing.Point(138, 29);
             this.btnzABLine.Name = "btnzABLine";
@@ -365,7 +365,7 @@
             this.btnzABCurve.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnzABCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnzABCurve.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnzABCurve.Image = global::AgOpenGPS.Properties.Resources.ABTrackCurve;
+            this.btnzABCurve.Image = global::AOG.Properties.Resources.ABTrackCurve;
             this.btnzABCurve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnzABCurve.Location = new System.Drawing.Point(138, 195);
             this.btnzABCurve.Name = "btnzABCurve";
@@ -396,7 +396,7 @@
             this.btnRefSideAB.FlatAppearance.BorderSize = 0;
             this.btnRefSideAB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefSideAB.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnRefSideAB.Image = global::AgOpenGPS.Properties.Resources.BoundaryRight;
+            this.btnRefSideAB.Image = global::AOG.Properties.Resources.BoundaryRight;
             this.btnRefSideAB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnRefSideAB.Location = new System.Drawing.Point(90, 3);
             this.btnRefSideAB.Name = "btnRefSideAB";
@@ -426,7 +426,7 @@
             this.btnCancel_ABLine.FlatAppearance.BorderSize = 0;
             this.btnCancel_ABLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel_ABLine.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancel_ABLine.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancel_ABLine.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnCancel_ABLine.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancel_ABLine.Location = new System.Drawing.Point(8, 233);
             this.btnCancel_ABLine.Name = "btnCancel_ABLine";
@@ -443,7 +443,7 @@
             this.btnEnter_AB.FlatAppearance.BorderSize = 0;
             this.btnEnter_AB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEnter_AB.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnEnter_AB.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnEnter_AB.Image = global::AOG.Properties.Resources.OK64;
             this.btnEnter_AB.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEnter_AB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnEnter_AB.Location = new System.Drawing.Point(142, 233);
@@ -461,7 +461,7 @@
             this.btnALine.FlatAppearance.BorderSize = 0;
             this.btnALine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnALine.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnALine.Image = global::AgOpenGPS.Properties.Resources.LetterABlue;
+            this.btnALine.Image = global::AOG.Properties.Resources.LetterABlue;
             this.btnALine.Location = new System.Drawing.Point(13, 103);
             this.btnALine.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnALine.Name = "btnALine";
@@ -477,7 +477,7 @@
             this.btnBLine.FlatAppearance.BorderSize = 0;
             this.btnBLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBLine.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnBLine.Image = global::AgOpenGPS.Properties.Resources.LetterBBlue;
+            this.btnBLine.Image = global::AOG.Properties.Resources.LetterBBlue;
             this.btnBLine.Location = new System.Drawing.Point(156, 103);
             this.btnBLine.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnBLine.Name = "btnBLine";
@@ -507,7 +507,7 @@
             this.btnRefSideAPlus.FlatAppearance.BorderSize = 0;
             this.btnRefSideAPlus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefSideAPlus.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnRefSideAPlus.Image = global::AgOpenGPS.Properties.Resources.BoundaryRight;
+            this.btnRefSideAPlus.Image = global::AOG.Properties.Resources.BoundaryRight;
             this.btnRefSideAPlus.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnRefSideAPlus.Location = new System.Drawing.Point(26, 62);
             this.btnRefSideAPlus.Name = "btnRefSideAPlus";
@@ -537,7 +537,7 @@
             this.btnCancel_APlus.FlatAppearance.BorderSize = 0;
             this.btnCancel_APlus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel_APlus.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancel_APlus.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancel_APlus.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnCancel_APlus.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancel_APlus.Location = new System.Drawing.Point(8, 238);
             this.btnCancel_APlus.Name = "btnCancel_APlus";
@@ -554,7 +554,7 @@
             this.btnEnter_APlus.FlatAppearance.BorderSize = 0;
             this.btnEnter_APlus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEnter_APlus.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnEnter_APlus.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnEnter_APlus.Image = global::AOG.Properties.Resources.OK64;
             this.btnEnter_APlus.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEnter_APlus.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnEnter_APlus.Location = new System.Drawing.Point(142, 238);
@@ -582,7 +582,7 @@
             this.btnAPlus.FlatAppearance.BorderSize = 0;
             this.btnAPlus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAPlus.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnAPlus.Image = global::AgOpenGPS.Properties.Resources.LetterABlue;
+            this.btnAPlus.Image = global::AOG.Properties.Resources.LetterABlue;
             this.btnAPlus.Location = new System.Drawing.Point(140, 53);
             this.btnAPlus.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnAPlus.Name = "btnAPlus";

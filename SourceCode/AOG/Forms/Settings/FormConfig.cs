@@ -1,11 +1,11 @@
 ﻿//Please, if you use this, share the improvements
 
-using AgOpenGPS.Classes;
+using AOG.Classes;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormConfig : Form
     {
@@ -191,6 +191,9 @@ namespace AgOpenGPS
 
             lblSumLookaheadOn.Text = $"{Settings.Tool.lookAheadOn} sec";
             lblSumLookAheadOff.Text = $"{Settings.Tool.lookAheadOff} sec";
+
+            lblSummaryWidth.Text = $"{Settings.Tool.toolWidth} {glm.unitsFtM}";
+            SectionFeetInchesTotalWidthLabelUpdate();
         }
 
         private void tabSummary_Enter(object sender, EventArgs e)

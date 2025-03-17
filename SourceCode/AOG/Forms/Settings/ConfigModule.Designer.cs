@@ -1,11 +1,11 @@
-﻿using AgOpenGPS.Classes;
+﻿using AOG.Classes;
 
 using System;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormConfig
     {

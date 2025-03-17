@@ -8,12 +8,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AgOpenGPS.Properties;
+using AOG.Properties;
 using OpenTK.Graphics.OpenGL;
 
 //                MessageBox.Show(gs, gStr.Get(gs.gsHelp);
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormConfig
     {

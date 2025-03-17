@@ -419,11 +419,11 @@ namespace AgIO
 
         private void StartAby()
         {
-            Process[] processName = Process.GetProcessesByName("AgOpenGPS");
+            Process[] processName = Process.GetProcessesByName("AOG");
             if (processName.Length == 0)
             {
                 //Start application here
-                string strPath = Path.Combine(Application.StartupPath, "AgOpenGPS.exe");
+                string strPath = Path.Combine(Application.StartupPath, "AOG.exe");
 
                 try
                 {
@@ -434,8 +434,8 @@ namespace AgIO
                 }
                 catch
                 {
-                    TimedMessageBox(2000, "No File Found", "Can't Find AgOpenGPS");
-                    Log.EventWriter("Can't Find AgOpenGPS - File Not Found");
+                    TimedMessageBox(2000, "No File Found", "Can't Find AOG");
+                    Log.EventWriter("Can't Find AOG - File Not Found");
                 }
             }
             else

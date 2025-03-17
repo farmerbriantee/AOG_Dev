@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormSimCoords
     {
@@ -30,8 +30,8 @@
         {
             this.btnCancel = new System.Windows.Forms.Button();
             this.bntOK = new System.Windows.Forms.Button();
-            this.nudLongitude = new AgOpenGPS.NudlessNumericUpDown();
-            this.nudLatitude = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudLongitude = new AOG.NudlessNumericUpDown();
+            this.nudLatitude = new AOG.NudlessNumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -49,7 +49,7 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancel.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnCancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancel.Location = new System.Drawing.Point(671, 459);
             this.btnCancel.Name = "btnCancel";
@@ -68,7 +68,7 @@
             this.bntOK.FlatAppearance.BorderSize = 0;
             this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOK.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.bntOK.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.bntOK.Image = global::AOG.Properties.Resources.OK64;
             this.bntOK.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.bntOK.Location = new System.Drawing.Point(783, 459);
             this.bntOK.Name = "bntOK";
@@ -169,7 +169,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
-            this.BackgroundImage = global::AgOpenGPS.Properties.Resources.LatLon;
+            this.BackgroundImage = global::AOG.Properties.Resources.LatLon;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(931, 551);
             this.ControlBox = false;

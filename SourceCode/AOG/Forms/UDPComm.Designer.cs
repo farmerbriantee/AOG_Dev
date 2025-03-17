@@ -8,9 +8,9 @@ using System.Diagnostics;
 using System.Xml.Linq;
 
 using System.Text;
-using AgOpenGPS.Classes;
+using AOG.Classes;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormGPS
     {

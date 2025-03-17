@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormRefNudge
     {
@@ -32,7 +32,7 @@
             this.btnAdjRight = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnHalfToolLeft = new System.Windows.Forms.Button();
-            this.nudSnapDistance = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudSnapDistance = new AOG.NudlessNumericUpDown();
             this.btnHalfToolRight = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnCancelMain = new System.Windows.Forms.Button();
@@ -51,7 +51,7 @@
             this.btnAdjLeft.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnAdjLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdjLeft.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnAdjLeft.Image = global::AgOpenGPS.Properties.Resources.SnapLeft;
+            this.btnAdjLeft.Image = global::AOG.Properties.Resources.SnapLeft;
             this.btnAdjLeft.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAdjLeft.Location = new System.Drawing.Point(10, 122);
             this.btnAdjLeft.Name = "btnAdjLeft";
@@ -71,7 +71,7 @@
             this.btnAdjRight.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnAdjRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdjRight.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnAdjRight.Image = global::AgOpenGPS.Properties.Resources.SnapRight;
+            this.btnAdjRight.Image = global::AOG.Properties.Resources.SnapRight;
             this.btnAdjRight.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAdjRight.Location = new System.Drawing.Point(101, 122);
             this.btnAdjRight.Name = "btnAdjRight";
@@ -114,7 +114,7 @@
             this.btnHalfToolLeft.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnHalfToolLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHalfToolLeft.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnHalfToolLeft.Image = global::AgOpenGPS.Properties.Resources.SnapLeftHalf;
+            this.btnHalfToolLeft.Image = global::AOG.Properties.Resources.SnapLeftHalf;
             this.btnHalfToolLeft.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnHalfToolLeft.Location = new System.Drawing.Point(10, 21);
             this.btnHalfToolLeft.Name = "btnHalfToolLeft";
@@ -146,7 +146,7 @@
             this.btnHalfToolRight.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnHalfToolRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHalfToolRight.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnHalfToolRight.Image = global::AgOpenGPS.Properties.Resources.SnapRightHalf;
+            this.btnHalfToolRight.Image = global::AOG.Properties.Resources.SnapRightHalf;
             this.btnHalfToolRight.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnHalfToolRight.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnHalfToolRight.Location = new System.Drawing.Point(101, 21);
@@ -165,7 +165,7 @@
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnExit.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnExit.Image = global::AOG.Properties.Resources.OK64;
             this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnExit.Location = new System.Drawing.Point(111, 334);
             this.btnExit.Name = "btnExit";
@@ -183,7 +183,7 @@
             this.btnCancelMain.FlatAppearance.BorderSize = 0;
             this.btnCancelMain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelMain.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancelMain.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancelMain.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnCancelMain.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancelMain.Location = new System.Drawing.Point(3, 334);
             this.btnCancelMain.Name = "btnCancelMain";

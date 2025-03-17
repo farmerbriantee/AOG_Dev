@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormGPS
     {
@@ -98,8 +98,8 @@
             this.webcamToolStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.offsetFixToolStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSim = new System.Windows.Forms.TableLayoutPanel();
-            this.btnSpeedDn = new AgOpenGPS.RepeatButton();
-            this.btnSimSpeedUp = new AgOpenGPS.RepeatButton();
+            this.btnSpeedDn = new AOG.RepeatButton();
+            this.btnSimSpeedUp = new AOG.RepeatButton();
             this.btnSimSetSpeedToZero = new System.Windows.Forms.Button();
             this.btnSimReverseDirection = new System.Windows.Forms.Button();
             this.panelNavigation = new System.Windows.Forms.TableLayoutPanel();
@@ -235,7 +235,7 @@
             this.resetALLToolStripMenuItem,
             this.nozzleAppToolStripMenuItem});
             this.fileToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fileToolStripMenuItem.Image = global::AgOpenGPS.Properties.Resources.fileMenu;
+            this.fileToolStripMenuItem.Image = global::AOG.Properties.Resources.fileMenu;
             this.fileToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fileToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -506,7 +506,7 @@
             this.toolStripMenuItemFlagRed.AutoSize = false;
             this.toolStripMenuItemFlagRed.BackColor = System.Drawing.SystemColors.ControlLight;
             this.toolStripMenuItemFlagRed.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripMenuItemFlagRed.Image = global::AgOpenGPS.Properties.Resources.FlagYel;
+            this.toolStripMenuItemFlagRed.Image = global::AOG.Properties.Resources.FlagYel;
             this.toolStripMenuItemFlagRed.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuItemFlagRed.Name = "toolStripMenuItemFlagRed";
             this.toolStripMenuItemFlagRed.Size = new System.Drawing.Size(70, 70);
@@ -518,7 +518,7 @@
             this.toolStripMenuFlagGrn.AutoSize = false;
             this.toolStripMenuFlagGrn.BackColor = System.Drawing.SystemColors.ControlLight;
             this.toolStripMenuFlagGrn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripMenuFlagGrn.Image = global::AgOpenGPS.Properties.Resources.FlagGrn;
+            this.toolStripMenuFlagGrn.Image = global::AOG.Properties.Resources.FlagGrn;
             this.toolStripMenuFlagGrn.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuFlagGrn.Name = "toolStripMenuFlagGrn";
             this.toolStripMenuFlagGrn.Size = new System.Drawing.Size(70, 70);
@@ -530,7 +530,7 @@
             this.toolStripMenuFlagYel.AutoSize = false;
             this.toolStripMenuFlagYel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.toolStripMenuFlagYel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripMenuFlagYel.Image = global::AgOpenGPS.Properties.Resources.FlagRed;
+            this.toolStripMenuFlagYel.Image = global::AOG.Properties.Resources.FlagRed;
             this.toolStripMenuFlagYel.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuFlagYel.Name = "toolStripMenuFlagYel";
             this.toolStripMenuFlagYel.Size = new System.Drawing.Size(70, 70);
@@ -544,7 +544,7 @@
             // 
             // toolStripMenuFlagForm
             // 
-            this.toolStripMenuFlagForm.Image = global::AgOpenGPS.Properties.Resources.FileEditName;
+            this.toolStripMenuFlagForm.Image = global::AOG.Properties.Resources.FileEditName;
             this.toolStripMenuFlagForm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuFlagForm.Name = "toolStripMenuFlagForm";
             this.toolStripMenuFlagForm.Size = new System.Drawing.Size(259, 70);
@@ -736,7 +736,7 @@
             this.webcamToolStrip,
             this.offsetFixToolStrip});
             this.toolStripDropDownButton4.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripDropDownButton4.Image = global::AgOpenGPS.Properties.Resources.SpecialFunctions;
+            this.toolStripDropDownButton4.Image = global::AOG.Properties.Resources.SpecialFunctions;
             this.toolStripDropDownButton4.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripDropDownButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton4.Margin = new System.Windows.Forms.Padding(0);
@@ -749,14 +749,14 @@
             // 
             this.wizardsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.steerWizardMenuItem});
-            this.wizardsMenu.Image = global::AgOpenGPS.Properties.Resources.WizardWand;
+            this.wizardsMenu.Image = global::AOG.Properties.Resources.WizardWand;
             this.wizardsMenu.Name = "wizardsMenu";
             this.wizardsMenu.Size = new System.Drawing.Size(450, 70);
             this.wizardsMenu.Text = "Wizards";
             // 
             // steerWizardMenuItem
             // 
-            this.steerWizardMenuItem.Image = global::AgOpenGPS.Properties.Resources.AutoSteerOn;
+            this.steerWizardMenuItem.Image = global::AOG.Properties.Resources.AutoSteerOn;
             this.steerWizardMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.steerWizardMenuItem.Name = "steerWizardMenuItem";
             this.steerWizardMenuItem.Size = new System.Drawing.Size(301, 44);
@@ -770,14 +770,14 @@
             this.headingChartToolStripMenuItem,
             this.xTEChartToolStripMenuItem,
             this.rollCheckToolStripMenuItem});
-            this.steerChartStripMenu.Image = global::AgOpenGPS.Properties.Resources.Chart;
+            this.steerChartStripMenu.Image = global::AOG.Properties.Resources.Chart;
             this.steerChartStripMenu.Name = "steerChartStripMenu";
             this.steerChartStripMenu.Size = new System.Drawing.Size(450, 70);
             this.steerChartStripMenu.Text = "Charts";
             // 
             // steerChartToolStripMenuItem
             // 
-            this.steerChartToolStripMenuItem.Image = global::AgOpenGPS.Properties.Resources.AutoSteerOn;
+            this.steerChartToolStripMenuItem.Image = global::AOG.Properties.Resources.AutoSteerOn;
             this.steerChartToolStripMenuItem.Name = "steerChartToolStripMenuItem";
             this.steerChartToolStripMenuItem.Size = new System.Drawing.Size(322, 44);
             this.steerChartToolStripMenuItem.Text = "Steer Chart";
@@ -785,7 +785,7 @@
             // 
             // headingChartToolStripMenuItem
             // 
-            this.headingChartToolStripMenuItem.Image = global::AgOpenGPS.Properties.Resources.ConS_SourcesHeading;
+            this.headingChartToolStripMenuItem.Image = global::AOG.Properties.Resources.ConS_SourcesHeading;
             this.headingChartToolStripMenuItem.Name = "headingChartToolStripMenuItem";
             this.headingChartToolStripMenuItem.Size = new System.Drawing.Size(322, 44);
             this.headingChartToolStripMenuItem.Text = "Heading Chart";
@@ -793,7 +793,7 @@
             // 
             // xTEChartToolStripMenuItem
             // 
-            this.xTEChartToolStripMenuItem.Image = global::AgOpenGPS.Properties.Resources.AutoManualIsAuto;
+            this.xTEChartToolStripMenuItem.Image = global::AOG.Properties.Resources.AutoManualIsAuto;
             this.xTEChartToolStripMenuItem.Name = "xTEChartToolStripMenuItem";
             this.xTEChartToolStripMenuItem.Size = new System.Drawing.Size(322, 44);
             this.xTEChartToolStripMenuItem.Text = "XTE Chart";
@@ -808,7 +808,7 @@
             // 
             // boundaryToolToolStripMenu
             // 
-            this.boundaryToolToolStripMenu.Image = global::AgOpenGPS.Properties.Resources.Boundary;
+            this.boundaryToolToolStripMenu.Image = global::AOG.Properties.Resources.Boundary;
             this.boundaryToolToolStripMenu.Name = "boundaryToolToolStripMenu";
             this.boundaryToolToolStripMenu.Size = new System.Drawing.Size(450, 70);
             this.boundaryToolToolStripMenu.Text = "Boundary Tool";
@@ -816,7 +816,7 @@
             // 
             // eventViewerToolStripMenuItem
             // 
-            this.eventViewerToolStripMenuItem.Image = global::AgOpenGPS.Properties.Resources.ABTracks;
+            this.eventViewerToolStripMenuItem.Image = global::AOG.Properties.Resources.ABTracks;
             this.eventViewerToolStripMenuItem.Name = "eventViewerToolStripMenuItem";
             this.eventViewerToolStripMenuItem.Size = new System.Drawing.Size(450, 70);
             this.eventViewerToolStripMenuItem.Text = "Log Viewer";
@@ -824,7 +824,7 @@
             // 
             // guidelinesToolStripMenuItem
             // 
-            this.guidelinesToolStripMenuItem.Image = global::AgOpenGPS.Properties.Resources.ConD_ExtraGuides;
+            this.guidelinesToolStripMenuItem.Image = global::AOG.Properties.Resources.ConD_ExtraGuides;
             this.guidelinesToolStripMenuItem.Name = "guidelinesToolStripMenuItem";
             this.guidelinesToolStripMenuItem.Size = new System.Drawing.Size(450, 70);
             this.guidelinesToolStripMenuItem.Text = "Extra Guides";
@@ -832,7 +832,7 @@
             // 
             // SmoothABtoolStripMenu
             // 
-            this.SmoothABtoolStripMenu.Image = global::AgOpenGPS.Properties.Resources.ABSmooth;
+            this.SmoothABtoolStripMenu.Image = global::AOG.Properties.Resources.ABSmooth;
             this.SmoothABtoolStripMenu.Name = "SmoothABtoolStripMenu";
             this.SmoothABtoolStripMenu.Size = new System.Drawing.Size(450, 70);
             this.SmoothABtoolStripMenu.Text = "Smooth AB Curve";
@@ -840,7 +840,7 @@
             // 
             // deleteContourPathsToolStripMenuItem
             // 
-            this.deleteContourPathsToolStripMenuItem.Image = global::AgOpenGPS.Properties.Resources.TrashContourRef;
+            this.deleteContourPathsToolStripMenuItem.Image = global::AOG.Properties.Resources.TrashContourRef;
             this.deleteContourPathsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.deleteContourPathsToolStripMenuItem.Name = "deleteContourPathsToolStripMenuItem";
             this.deleteContourPathsToolStripMenuItem.Size = new System.Drawing.Size(450, 70);
@@ -849,7 +849,7 @@
             // 
             // webcamToolStrip
             // 
-            this.webcamToolStrip.Image = global::AgOpenGPS.Properties.Resources.Webcam;
+            this.webcamToolStrip.Image = global::AOG.Properties.Resources.Webcam;
             this.webcamToolStrip.Name = "webcamToolStrip";
             this.webcamToolStrip.Size = new System.Drawing.Size(450, 70);
             this.webcamToolStrip.Text = "WebCam";
@@ -857,7 +857,7 @@
             // 
             // offsetFixToolStrip
             // 
-            this.offsetFixToolStrip.Image = global::AgOpenGPS.Properties.Resources.YouTurnReverse;
+            this.offsetFixToolStrip.Image = global::AOG.Properties.Resources.YouTurnReverse;
             this.offsetFixToolStrip.Name = "offsetFixToolStrip";
             this.offsetFixToolStrip.Size = new System.Drawing.Size(450, 70);
             this.offsetFixToolStrip.Text = "Offset Fix";
@@ -877,7 +877,7 @@
             this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 132F));
+            this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 134F));
             this.panelSim.Controls.Add(this.btnSpeedDn, 5, 0);
             this.panelSim.Controls.Add(this.btnSimSpeedUp, 7, 0);
             this.panelSim.Controls.Add(this.btnResetSim, 0, 0);
@@ -895,14 +895,14 @@
             // btnSpeedDn
             // 
             this.btnSpeedDn.BackColor = System.Drawing.Color.Transparent;
-            this.btnSpeedDn.BackgroundImage = global::AgOpenGPS.Properties.Resources.DnArrow64;
+            this.btnSpeedDn.BackgroundImage = global::AOG.Properties.Resources.DnArrow64;
             this.btnSpeedDn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSpeedDn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSpeedDn.FlatAppearance.BorderSize = 0;
             this.btnSpeedDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSpeedDn.Location = new System.Drawing.Point(342, 4);
             this.btnSpeedDn.Name = "btnSpeedDn";
-            this.btnSpeedDn.Size = new System.Drawing.Size(26, 37);
+            this.btnSpeedDn.Size = new System.Drawing.Size(25, 37);
             this.btnSpeedDn.TabIndex = 533;
             this.btnSpeedDn.UseVisualStyleBackColor = false;
             this.btnSpeedDn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSpeedDn_MouseDown);
@@ -910,14 +910,14 @@
             // btnSimSpeedUp
             // 
             this.btnSimSpeedUp.BackColor = System.Drawing.Color.Transparent;
-            this.btnSimSpeedUp.BackgroundImage = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnSimSpeedUp.BackgroundImage = global::AOG.Properties.Resources.UpArrow64;
             this.btnSimSpeedUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSimSpeedUp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSimSpeedUp.FlatAppearance.BorderSize = 0;
             this.btnSimSpeedUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSimSpeedUp.Location = new System.Drawing.Point(451, 4);
+            this.btnSimSpeedUp.Location = new System.Drawing.Point(450, 4);
             this.btnSimSpeedUp.Name = "btnSimSpeedUp";
-            this.btnSimSpeedUp.Size = new System.Drawing.Size(26, 37);
+            this.btnSimSpeedUp.Size = new System.Drawing.Size(25, 37);
             this.btnSimSpeedUp.TabIndex = 532;
             this.btnSimSpeedUp.UseVisualStyleBackColor = false;
             this.btnSimSpeedUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSimSpeedUPGN_MouseDown);
@@ -925,12 +925,12 @@
             // btnSimSetSpeedToZero
             // 
             this.btnSimSetSpeedToZero.BackColor = System.Drawing.Color.Transparent;
-            this.btnSimSetSpeedToZero.BackgroundImage = global::AgOpenGPS.Properties.Resources.AutoStop;
+            this.btnSimSetSpeedToZero.BackgroundImage = global::AOG.Properties.Resources.AutoStop;
             this.btnSimSetSpeedToZero.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSimSetSpeedToZero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimSetSpeedToZero.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.btnSimSetSpeedToZero.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSimSetSpeedToZero.Location = new System.Drawing.Point(375, 4);
+            this.btnSimSetSpeedToZero.Location = new System.Drawing.Point(374, 4);
             this.btnSimSetSpeedToZero.Name = "btnSimSetSpeedToZero";
             this.btnSimSetSpeedToZero.Size = new System.Drawing.Size(69, 34);
             this.btnSimSetSpeedToZero.TabIndex = 453;
@@ -941,12 +941,12 @@
             // 
             this.btnSimReverseDirection.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnSimReverseDirection.BackColor = System.Drawing.Color.Transparent;
-            this.btnSimReverseDirection.BackgroundImage = global::AgOpenGPS.Properties.Resources.Youturn80;
+            this.btnSimReverseDirection.BackgroundImage = global::AOG.Properties.Resources.Youturn80;
             this.btnSimReverseDirection.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnSimReverseDirection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimReverseDirection.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.btnSimReverseDirection.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSimReverseDirection.Location = new System.Drawing.Point(530, 5);
+            this.btnSimReverseDirection.Location = new System.Drawing.Point(529, 5);
             this.btnSimReverseDirection.Name = "btnSimReverseDirection";
             this.btnSimReverseDirection.Size = new System.Drawing.Size(35, 34);
             this.btnSimReverseDirection.TabIndex = 537;
@@ -993,7 +993,7 @@
             this.btnTiltDn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnTiltDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTiltDn.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTiltDn.Image = global::AgOpenGPS.Properties.Resources.TiltDown;
+            this.btnTiltDn.Image = global::AOG.Properties.Resources.TiltDown;
             this.btnTiltDn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnTiltDn.Location = new System.Drawing.Point(16, 18);
             this.btnTiltDn.Name = "btnTiltDn";
@@ -1015,7 +1015,7 @@
             this.btnTiltUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnTiltUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTiltUp.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTiltUp.Image = global::AgOpenGPS.Properties.Resources.TiltUp;
+            this.btnTiltUp.Image = global::AOG.Properties.Resources.TiltUp;
             this.btnTiltUp.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnTiltUp.Location = new System.Drawing.Point(105, 18);
             this.btnTiltUp.Name = "btnTiltUp";
@@ -1035,7 +1035,7 @@
             this.btnBrightnessDn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnBrightnessDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrightnessDn.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBrightnessDn.Image = global::AgOpenGPS.Properties.Resources.BrightnessDn;
+            this.btnBrightnessDn.Image = global::AOG.Properties.Resources.BrightnessDn;
             this.btnBrightnessDn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnBrightnessDn.Location = new System.Drawing.Point(3, 371);
             this.btnBrightnessDn.Name = "btnBrightnessDn";
@@ -1055,7 +1055,7 @@
             this.btnBrightnessUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnBrightnessUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnBrightnessUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBrightnessUp.Image = global::AgOpenGPS.Properties.Resources.BrightnessUp;
+            this.btnBrightnessUp.Image = global::AOG.Properties.Resources.BrightnessUp;
             this.btnBrightnessUp.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnBrightnessUp.Location = new System.Drawing.Point(92, 371);
             this.btnBrightnessUp.Name = "btnBrightnessUp";
@@ -1074,7 +1074,7 @@
             this.btnDayNightMode.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnDayNightMode.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnDayNightMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDayNightMode.Image = global::AgOpenGPS.Properties.Resources.WindowNightMode;
+            this.btnDayNightMode.Image = global::AOG.Properties.Resources.WindowNightMode;
             this.btnDayNightMode.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnDayNightMode.Location = new System.Drawing.Point(16, 294);
             this.btnDayNightMode.Name = "btnDayNightMode";
@@ -1095,7 +1095,7 @@
             this.btn3D.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btn3D.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn3D.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn3D.Image = global::AgOpenGPS.Properties.Resources.Camera3D64;
+            this.btn3D.Image = global::AOG.Properties.Resources.Camera3D64;
             this.btn3D.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btn3D.Location = new System.Drawing.Point(105, 110);
             this.btn3D.Name = "btn3D";
@@ -1117,7 +1117,7 @@
             this.btn2D.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btn2D.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn2D.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn2D.Image = global::AgOpenGPS.Properties.Resources.Camera2D64;
+            this.btn2D.Image = global::AOG.Properties.Resources.Camera2D64;
             this.btn2D.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btn2D.Location = new System.Drawing.Point(16, 110);
             this.btn2D.Name = "btn2D";
@@ -1139,7 +1139,7 @@
             this.btnGrid.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnGrid.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGrid.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGrid.Image = global::AgOpenGPS.Properties.Resources.GridRotate;
+            this.btnGrid.Image = global::AOG.Properties.Resources.GridRotate;
             this.btnGrid.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnGrid.Location = new System.Drawing.Point(94, 188);
             this.btnGrid.Name = "btnGrid";
@@ -1161,7 +1161,7 @@
             this.btnN2D.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnN2D.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnN2D.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnN2D.Image = global::AgOpenGPS.Properties.Resources.CameraNorth2D;
+            this.btnN2D.Image = global::AOG.Properties.Resources.CameraNorth2D;
             this.btnN2D.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnN2D.Location = new System.Drawing.Point(16, 202);
             this.btnN2D.Name = "btnN2D";
@@ -1261,7 +1261,7 @@
             this.toolStripSectionColors,
             this.toolStripHotkeys});
             this.toolStripDropDownButton1.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripDropDownButton1.Image = global::AgOpenGPS.Properties.Resources.Settings48;
+            this.toolStripDropDownButton1.Image = global::AOG.Properties.Resources.Settings48;
             this.toolStripDropDownButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Margin = new System.Windows.Forms.Padding(0);
@@ -1272,7 +1272,7 @@
             // 
             // toolStripConfig
             // 
-            this.toolStripConfig.Image = global::AgOpenGPS.Properties.Resources.Settings48;
+            this.toolStripConfig.Image = global::AOG.Properties.Resources.Settings48;
             this.toolStripConfig.Name = "toolStripConfig";
             this.toolStripConfig.Size = new System.Drawing.Size(419, 44);
             this.toolStripConfig.Text = "Configuration";
@@ -1280,7 +1280,7 @@
             // 
             // toolStripSteerSettings
             // 
-            this.toolStripSteerSettings.Image = global::AgOpenGPS.Properties.Resources.AutoSteerOff;
+            this.toolStripSteerSettings.Image = global::AOG.Properties.Resources.AutoSteerOff;
             this.toolStripSteerSettings.Name = "toolStripSteerSettings";
             this.toolStripSteerSettings.Size = new System.Drawing.Size(419, 44);
             this.toolStripSteerSettings.Text = "Auto Steer";
@@ -1288,7 +1288,7 @@
             // 
             // toolStripAllSettings
             // 
-            this.toolStripAllSettings.Image = global::AgOpenGPS.Properties.Resources.ScreenShot;
+            this.toolStripAllSettings.Image = global::AOG.Properties.Resources.ScreenShot;
             this.toolStripAllSettings.Name = "toolStripAllSettings";
             this.toolStripAllSettings.Size = new System.Drawing.Size(419, 44);
             this.toolStripAllSettings.Text = "View All Settings";
@@ -1296,7 +1296,7 @@
             // 
             // toolStripWorkingDirectories
             // 
-            this.toolStripWorkingDirectories.Image = global::AgOpenGPS.Properties.Resources.FileOpen;
+            this.toolStripWorkingDirectories.Image = global::AOG.Properties.Resources.FileOpen;
             this.toolStripWorkingDirectories.Name = "toolStripWorkingDirectories";
             this.toolStripWorkingDirectories.Size = new System.Drawing.Size(419, 44);
             this.toolStripWorkingDirectories.Text = "Directories";
@@ -1304,7 +1304,7 @@
             // 
             // toolStripGPSData
             // 
-            this.toolStripGPSData.Image = global::AgOpenGPS.Properties.Resources.GPSQuality;
+            this.toolStripGPSData.Image = global::AOG.Properties.Resources.GPSQuality;
             this.toolStripGPSData.Name = "toolStripGPSData";
             this.toolStripGPSData.Size = new System.Drawing.Size(419, 44);
             this.toolStripGPSData.Text = "GPS Data";
@@ -1312,7 +1312,7 @@
             // 
             // toolStripColors
             // 
-            this.toolStripColors.Image = global::AgOpenGPS.Properties.Resources.ColourPick;
+            this.toolStripColors.Image = global::AOG.Properties.Resources.ColourPick;
             this.toolStripColors.Name = "toolStripColors";
             this.toolStripColors.Size = new System.Drawing.Size(419, 44);
             this.toolStripColors.Text = "Colors";
@@ -1320,7 +1320,7 @@
             // 
             // toolStripSectionColors
             // 
-            this.toolStripSectionColors.Image = global::AgOpenGPS.Properties.Resources.SectionMapping;
+            this.toolStripSectionColors.Image = global::AOG.Properties.Resources.SectionMapping;
             this.toolStripSectionColors.Name = "toolStripSectionColors";
             this.toolStripSectionColors.Size = new System.Drawing.Size(419, 44);
             this.toolStripSectionColors.Text = "Multi-Section Colors";
@@ -1328,7 +1328,7 @@
             // 
             // toolStripHotkeys
             // 
-            this.toolStripHotkeys.Image = global::AgOpenGPS.Properties.Resources.ConD_KeyBoard;
+            this.toolStripHotkeys.Image = global::AOG.Properties.Resources.ConD_KeyBoard;
             this.toolStripHotkeys.Name = "toolStripHotkeys";
             this.toolStripHotkeys.Size = new System.Drawing.Size(419, 44);
             this.toolStripHotkeys.Text = "HotKeys";
@@ -1347,7 +1347,7 @@
             this.btnNavigationSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNavigationSettings.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNavigationSettings.ForeColor = System.Drawing.Color.DarkGray;
-            this.btnNavigationSettings.Image = global::AgOpenGPS.Properties.Resources.NavigationSettings;
+            this.btnNavigationSettings.Image = global::AOG.Properties.Resources.NavigationSettings;
             this.btnNavigationSettings.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnNavigationSettings.Location = new System.Drawing.Point(0, 1);
             this.btnNavigationSettings.Margin = new System.Windows.Forms.Padding(0);
@@ -1370,7 +1370,7 @@
             this.btnAutoSteerConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAutoSteerConfig.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAutoSteerConfig.ForeColor = System.Drawing.Color.Black;
-            this.btnAutoSteerConfig.Image = global::AgOpenGPS.Properties.Resources.AutoSteerConf;
+            this.btnAutoSteerConfig.Image = global::AOG.Properties.Resources.AutoSteerConf;
             this.btnAutoSteerConfig.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAutoSteerConfig.Location = new System.Drawing.Point(0, 442);
             this.btnAutoSteerConfig.Margin = new System.Windows.Forms.Padding(0);
@@ -1396,7 +1396,7 @@
             this.btnStartAgIO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartAgIO.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStartAgIO.ForeColor = System.Drawing.Color.DarkGray;
-            this.btnStartAgIO.Image = global::AgOpenGPS.Properties.Resources.AgIO;
+            this.btnStartAgIO.Image = global::AOG.Properties.Resources.AgIO;
             this.btnStartAgIO.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnStartAgIO.Location = new System.Drawing.Point(0, 518);
             this.btnStartAgIO.Margin = new System.Windows.Forms.Padding(0);
@@ -1420,7 +1420,7 @@
             this.btnFieldMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFieldMenu.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFieldMenu.ForeColor = System.Drawing.Color.DarkGray;
-            this.btnFieldMenu.Image = global::AgOpenGPS.Properties.Resources.JobActive;
+            this.btnFieldMenu.Image = global::AOG.Properties.Resources.JobActive;
             this.btnFieldMenu.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnFieldMenu.Location = new System.Drawing.Point(0, 257);
             this.btnFieldMenu.Margin = new System.Windows.Forms.Padding(0);
@@ -1467,7 +1467,7 @@
             this.recordedPathStripMenu});
             this.toolStripBtnFieldTools.Enabled = false;
             this.toolStripBtnFieldTools.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripBtnFieldTools.Image = global::AgOpenGPS.Properties.Resources.FieldTools;
+            this.toolStripBtnFieldTools.Image = global::AOG.Properties.Resources.FieldTools;
             this.toolStripBtnFieldTools.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnFieldTools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnFieldTools.Margin = new System.Windows.Forms.Padding(0);
@@ -1478,7 +1478,7 @@
             // boundariesToolStripMenuItem
             // 
             this.boundariesToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.boundariesToolStripMenuItem.Image = global::AgOpenGPS.Properties.Resources.Boundary;
+            this.boundariesToolStripMenuItem.Image = global::AOG.Properties.Resources.Boundary;
             this.boundariesToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.boundariesToolStripMenuItem.Name = "boundariesToolStripMenuItem";
             this.boundariesToolStripMenuItem.Size = new System.Drawing.Size(445, 70);
@@ -1488,7 +1488,7 @@
             // headlandToolStripMenuItem
             // 
             this.headlandToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.headlandToolStripMenuItem.Image = global::AgOpenGPS.Properties.Resources.HeadlandBuild;
+            this.headlandToolStripMenuItem.Image = global::AOG.Properties.Resources.HeadlandBuild;
             this.headlandToolStripMenuItem.Name = "headlandToolStripMenuItem";
             this.headlandToolStripMenuItem.Size = new System.Drawing.Size(445, 70);
             this.headlandToolStripMenuItem.Text = "Headland";
@@ -1497,7 +1497,7 @@
             // headlandBuildToolStripMenuItem
             // 
             this.headlandBuildToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.headlandBuildToolStripMenuItem.Image = global::AgOpenGPS.Properties.Resources.Headache;
+            this.headlandBuildToolStripMenuItem.Image = global::AOG.Properties.Resources.Headache;
             this.headlandBuildToolStripMenuItem.Name = "headlandBuildToolStripMenuItem";
             this.headlandBuildToolStripMenuItem.Size = new System.Drawing.Size(445, 70);
             this.headlandBuildToolStripMenuItem.Text = "Headland (Build)";
@@ -1505,7 +1505,7 @@
             // 
             // tramsMultiMenuField
             // 
-            this.tramsMultiMenuField.Image = global::AgOpenGPS.Properties.Resources.TramMulti;
+            this.tramsMultiMenuField.Image = global::AOG.Properties.Resources.TramMulti;
             this.tramsMultiMenuField.Name = "tramsMultiMenuField";
             this.tramsMultiMenuField.Size = new System.Drawing.Size(445, 70);
             this.tramsMultiMenuField.Text = "Multi Tramlines";
@@ -1514,7 +1514,7 @@
             // deleteAppliedToolStripMenuItem
             // 
             this.deleteAppliedToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteAppliedToolStripMenuItem.Image = global::AgOpenGPS.Properties.Resources.TrashApplied;
+            this.deleteAppliedToolStripMenuItem.Image = global::AOG.Properties.Resources.TrashApplied;
             this.deleteAppliedToolStripMenuItem.Name = "deleteAppliedToolStripMenuItem";
             this.deleteAppliedToolStripMenuItem.Size = new System.Drawing.Size(445, 70);
             this.deleteAppliedToolStripMenuItem.Text = "Delete Applied";
@@ -1523,7 +1523,7 @@
             // flagByLatLonToolStripMenuItem
             // 
             this.flagByLatLonToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flagByLatLonToolStripMenuItem.Image = global::AgOpenGPS.Properties.Resources.FlagRed;
+            this.flagByLatLonToolStripMenuItem.Image = global::AOG.Properties.Resources.FlagRed;
             this.flagByLatLonToolStripMenuItem.Name = "flagByLatLonToolStripMenuItem";
             this.flagByLatLonToolStripMenuItem.Size = new System.Drawing.Size(445, 70);
             this.flagByLatLonToolStripMenuItem.Text = "Flag By Lat Lon";
@@ -1532,7 +1532,7 @@
             // recordedPathStripMenu
             // 
             this.recordedPathStripMenu.Font = new System.Drawing.Font("Tahoma", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.recordedPathStripMenu.Image = global::AgOpenGPS.Properties.Resources.RecPath;
+            this.recordedPathStripMenu.Image = global::AOG.Properties.Resources.RecPath;
             this.recordedPathStripMenu.Name = "recordedPathStripMenu";
             this.recordedPathStripMenu.Size = new System.Drawing.Size(445, 70);
             this.recordedPathStripMenu.Text = "Recorded Path";
@@ -1593,7 +1593,7 @@
             this.btnNudge.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnNudge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNudge.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNudge.Image = global::AgOpenGPS.Properties.Resources.ABSnapNudgeMenu;
+            this.btnNudge.Image = global::AOG.Properties.Resources.ABSnapNudgeMenu;
             this.btnNudge.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnNudge.Location = new System.Drawing.Point(3, 413);
             this.btnNudge.Name = "btnNudge";
@@ -1616,7 +1616,7 @@
             this.btnABDraw.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnABDraw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnABDraw.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.btnABDraw.Image = global::AgOpenGPS.Properties.Resources.ABDraw;
+            this.btnABDraw.Image = global::AOG.Properties.Resources.ABDraw;
             this.btnABDraw.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnABDraw.Location = new System.Drawing.Point(3, 335);
             this.btnABDraw.Name = "btnABDraw";
@@ -1638,7 +1638,7 @@
             this.btnPlusAB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnPlusAB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPlusAB.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.btnPlusAB.Image = global::AgOpenGPS.Properties.Resources.AddNew;
+            this.btnPlusAB.Image = global::AOG.Properties.Resources.AddNew;
             this.btnPlusAB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnPlusAB.Location = new System.Drawing.Point(3, 252);
             this.btnPlusAB.Name = "btnPlusAB";
@@ -1660,7 +1660,7 @@
             this.btnBuildTracks.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnBuildTracks.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuildTracks.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.btnBuildTracks.Image = global::AgOpenGPS.Properties.Resources.ABTracks;
+            this.btnBuildTracks.Image = global::AOG.Properties.Resources.ABTracks;
             this.btnBuildTracks.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnBuildTracks.Location = new System.Drawing.Point(3, 169);
             this.btnBuildTracks.Name = "btnBuildTracks";
@@ -1681,7 +1681,7 @@
             this.btnTracksOff.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnTracksOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTracksOff.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTracksOff.Image = global::AgOpenGPS.Properties.Resources.SwitchOff;
+            this.btnTracksOff.Image = global::AOG.Properties.Resources.SwitchOff;
             this.btnTracksOff.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnTracksOff.Location = new System.Drawing.Point(3, 86);
             this.btnTracksOff.Name = "btnTracksOff";
@@ -1702,7 +1702,7 @@
             this.btnRefNudge.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnRefNudge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefNudge.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRefNudge.Image = global::AgOpenGPS.Properties.Resources.ABSnapNudgeMenuRef;
+            this.btnRefNudge.Image = global::AOG.Properties.Resources.ABSnapNudgeMenuRef;
             this.btnRefNudge.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnRefNudge.Location = new System.Drawing.Point(3, 3);
             this.btnRefNudge.Name = "btnRefNudge";
@@ -1748,7 +1748,7 @@
             this.btnTrack.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnTrack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTrack.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTrack.Image = global::AgOpenGPS.Properties.Resources.TrackOn;
+            this.btnTrack.Image = global::AOG.Properties.Resources.TrackOn;
             this.btnTrack.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnTrack.Location = new System.Drawing.Point(902, 3);
             this.btnTrack.Margin = new System.Windows.Forms.Padding(0);
@@ -1771,7 +1771,7 @@
             this.btnSnapToPivot.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnSnapToPivot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSnapToPivot.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnSnapToPivot.Image = global::AgOpenGPS.Properties.Resources.SnapToPivot;
+            this.btnSnapToPivot.Image = global::AOG.Properties.Resources.SnapToPivot;
             this.btnSnapToPivot.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSnapToPivot.Location = new System.Drawing.Point(827, 3);
             this.btnSnapToPivot.Name = "btnSnapToPivot";
@@ -1792,7 +1792,7 @@
             this.btnAdjRight.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnAdjRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdjRight.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnAdjRight.Image = global::AgOpenGPS.Properties.Resources.SnapRight;
+            this.btnAdjRight.Image = global::AOG.Properties.Resources.SnapRight;
             this.btnAdjRight.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAdjRight.Location = new System.Drawing.Point(749, 3);
             this.btnAdjRight.Name = "btnAdjRight";
@@ -1812,7 +1812,7 @@
             this.btnAdjLeft.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnAdjLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdjLeft.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnAdjLeft.Image = global::AgOpenGPS.Properties.Resources.SnapLeft;
+            this.btnAdjLeft.Image = global::AOG.Properties.Resources.SnapLeft;
             this.btnAdjLeft.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAdjLeft.Location = new System.Drawing.Point(671, 3);
             this.btnAdjLeft.Name = "btnAdjLeft";
@@ -1833,7 +1833,7 @@
             this.btnFlag.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnFlag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFlag.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFlag.Image = global::AgOpenGPS.Properties.Resources.FlagRed;
+            this.btnFlag.Image = global::AOG.Properties.Resources.FlagRed;
             this.btnFlag.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnFlag.Location = new System.Drawing.Point(593, 3);
             this.btnFlag.Name = "btnFlag";
@@ -1855,7 +1855,7 @@
             this.btnHeadlandOnOff.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnHeadlandOnOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHeadlandOnOff.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHeadlandOnOff.Image = global::AgOpenGPS.Properties.Resources.HeadlandOff;
+            this.btnHeadlandOnOff.Image = global::AOG.Properties.Resources.HeadlandOff;
             this.btnHeadlandOnOff.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnHeadlandOnOff.Location = new System.Drawing.Point(515, 3);
             this.btnHeadlandOnOff.Name = "btnHeadlandOnOff";
@@ -1881,7 +1881,7 @@
             this.cboxIsSectionControlled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxIsSectionControlled.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsSectionControlled.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cboxIsSectionControlled.Image = global::AgOpenGPS.Properties.Resources.HeadlandSectionOn;
+            this.cboxIsSectionControlled.Image = global::AOG.Properties.Resources.HeadlandSectionOn;
             this.cboxIsSectionControlled.Location = new System.Drawing.Point(437, 3);
             this.cboxIsSectionControlled.Name = "cboxIsSectionControlled";
             this.cboxIsSectionControlled.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -1903,7 +1903,7 @@
             this.btnHydLift.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnHydLift.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHydLift.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.btnHydLift.Image = global::AgOpenGPS.Properties.Resources.HydraulicLiftOff;
+            this.btnHydLift.Image = global::AOG.Properties.Resources.HydraulicLiftOff;
             this.btnHydLift.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnHydLift.Location = new System.Drawing.Point(359, 3);
             this.btnHydLift.Name = "btnHydLift";
@@ -1925,7 +1925,7 @@
             this.btnTramDisplayMode.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnTramDisplayMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTramDisplayMode.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTramDisplayMode.Image = global::AgOpenGPS.Properties.Resources.TramOff;
+            this.btnTramDisplayMode.Image = global::AOG.Properties.Resources.TramOff;
             this.btnTramDisplayMode.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnTramDisplayMode.Location = new System.Drawing.Point(281, 3);
             this.btnTramDisplayMode.Name = "btnTramDisplayMode";
@@ -1948,7 +1948,7 @@
             this.btnResetToolHeading.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnResetToolHeading.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnResetToolHeading.ForeColor = System.Drawing.Color.Black;
-            this.btnResetToolHeading.Image = global::AgOpenGPS.Properties.Resources.ResetTool;
+            this.btnResetToolHeading.Image = global::AOG.Properties.Resources.ResetTool;
             this.btnResetToolHeading.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnResetToolHeading.Location = new System.Drawing.Point(206, 3);
             this.btnResetToolHeading.Margin = new System.Windows.Forms.Padding(0);
@@ -1972,7 +1972,7 @@
             this.btnChangeMappingColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChangeMappingColor.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChangeMappingColor.ForeColor = System.Drawing.Color.Black;
-            this.btnChangeMappingColor.Image = global::AgOpenGPS.Properties.Resources.SectionMapping;
+            this.btnChangeMappingColor.Image = global::AOG.Properties.Resources.SectionMapping;
             this.btnChangeMappingColor.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnChangeMappingColor.Location = new System.Drawing.Point(134, 3);
             this.btnChangeMappingColor.Margin = new System.Windows.Forms.Padding(0);
@@ -1996,7 +1996,7 @@
             this.btnYouSkipEnable.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnYouSkipEnable.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnYouSkipEnable.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnYouSkipEnable.Image = global::AgOpenGPS.Properties.Resources.YouSkipOff;
+            this.btnYouSkipEnable.Image = global::AOG.Properties.Resources.YouSkipOff;
             this.btnYouSkipEnable.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnYouSkipEnable.Location = new System.Drawing.Point(59, 3);
             this.btnYouSkipEnable.Name = "btnYouSkipEnable";
@@ -2038,7 +2038,7 @@
             this.btnAutoSteer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnAutoSteer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAutoSteer.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.btnAutoSteer.Image = global::AgOpenGPS.Properties.Resources.AutoSteerOff;
+            this.btnAutoSteer.Image = global::AOG.Properties.Resources.AutoSteerOff;
             this.btnAutoSteer.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAutoSteer.Location = new System.Drawing.Point(3, 510);
             this.btnAutoSteer.Margin = new System.Windows.Forms.Padding(0);
@@ -2060,7 +2060,7 @@
             this.btnAutoYouTurn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnAutoYouTurn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAutoYouTurn.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnAutoYouTurn.Image = global::AgOpenGPS.Properties.Resources.YouTurnNo;
+            this.btnAutoYouTurn.Image = global::AOG.Properties.Resources.YouTurnNo;
             this.btnAutoYouTurn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAutoYouTurn.Location = new System.Drawing.Point(3, 443);
             this.btnAutoYouTurn.Name = "btnAutoYouTurn";
@@ -2082,7 +2082,7 @@
             this.btnSectionMasterAuto.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnSectionMasterAuto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSectionMasterAuto.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSectionMasterAuto.Image = global::AgOpenGPS.Properties.Resources.SectionMasterOff;
+            this.btnSectionMasterAuto.Image = global::AOG.Properties.Resources.SectionMasterOff;
             this.btnSectionMasterAuto.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSectionMasterAuto.Location = new System.Drawing.Point(3, 376);
             this.btnSectionMasterAuto.Margin = new System.Windows.Forms.Padding(0);
@@ -2106,7 +2106,7 @@
             this.btnSectionMasterManual.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnSectionMasterManual.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSectionMasterManual.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSectionMasterManual.Image = global::AgOpenGPS.Properties.Resources.ManualOff;
+            this.btnSectionMasterManual.Image = global::AOG.Properties.Resources.ManualOff;
             this.btnSectionMasterManual.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSectionMasterManual.Location = new System.Drawing.Point(3, 309);
             this.btnSectionMasterManual.Name = "btnSectionMasterManual";
@@ -2129,7 +2129,7 @@
             this.btnCycleLinesBk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnCycleLinesBk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCycleLinesBk.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCycleLinesBk.Image = global::AgOpenGPS.Properties.Resources.ABLineCycleBk;
+            this.btnCycleLinesBk.Image = global::AOG.Properties.Resources.ABLineCycleBk;
             this.btnCycleLinesBk.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCycleLinesBk.Location = new System.Drawing.Point(3, 239);
             this.btnCycleLinesBk.Name = "btnCycleLinesBk";
@@ -2151,7 +2151,7 @@
             this.btnCycleLines.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnCycleLines.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCycleLines.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCycleLines.Image = global::AgOpenGPS.Properties.Resources.ABLineCycle;
+            this.btnCycleLines.Image = global::AOG.Properties.Resources.ABLineCycle;
             this.btnCycleLines.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCycleLines.Location = new System.Drawing.Point(3, 169);
             this.btnCycleLines.Name = "btnCycleLines";
@@ -2173,7 +2173,7 @@
             this.btnContour.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnContour.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnContour.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnContour.Image = global::AgOpenGPS.Properties.Resources.ContourOff;
+            this.btnContour.Image = global::AOG.Properties.Resources.ContourOff;
             this.btnContour.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnContour.Location = new System.Drawing.Point(3, 99);
             this.btnContour.Name = "btnContour";
@@ -2195,7 +2195,7 @@
             this.btnContourLock.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnContourLock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnContourLock.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnContourLock.Image = global::AgOpenGPS.Properties.Resources.ColorUnlocked;
+            this.btnContourLock.Image = global::AOG.Properties.Resources.ColorUnlocked;
             this.btnContourLock.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnContourLock.Location = new System.Drawing.Point(3, 29);
             this.btnContourLock.Name = "btnContourLock";
@@ -2244,7 +2244,7 @@
             this.btnChargeStatus.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnChargeStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChargeStatus.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChargeStatus.Image = global::AgOpenGPS.Properties.Resources.ChargeIndicator;
+            this.btnChargeStatus.Image = global::AOG.Properties.Resources.ChargeIndicator;
             this.btnChargeStatus.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnChargeStatus.Location = new System.Drawing.Point(86, 5);
             this.btnChargeStatus.Name = "btnChargeStatus";
@@ -2262,7 +2262,7 @@
             this.btnGPSData.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnGPSData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGPSData.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGPSData.Image = global::AgOpenGPS.Properties.Resources.GPSQuality;
+            this.btnGPSData.Image = global::AOG.Properties.Resources.GPSQuality;
             this.btnGPSData.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnGPSData.Location = new System.Drawing.Point(124, 2);
             this.btnGPSData.Name = "btnGPSData";
@@ -2275,7 +2275,7 @@
             // 
             this.btnShutdown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnShutdown.BackColor = System.Drawing.Color.Transparent;
-            this.btnShutdown.BackgroundImage = global::AgOpenGPS.Properties.Resources.WindowClose;
+            this.btnShutdown.BackgroundImage = global::AOG.Properties.Resources.WindowClose;
             this.btnShutdown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnShutdown.FlatAppearance.BorderSize = 0;
             this.btnShutdown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -2293,7 +2293,7 @@
             // 
             this.btnMaximizeMainForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMaximizeMainForm.BackColor = System.Drawing.Color.Transparent;
-            this.btnMaximizeMainForm.BackgroundImage = global::AgOpenGPS.Properties.Resources.WindowMaximize;
+            this.btnMaximizeMainForm.BackgroundImage = global::AOG.Properties.Resources.WindowMaximize;
             this.btnMaximizeMainForm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnMaximizeMainForm.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
             this.btnMaximizeMainForm.FlatAppearance.BorderSize = 0;
@@ -2313,7 +2313,7 @@
             // 
             this.btnMinimizeMainForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMinimizeMainForm.BackColor = System.Drawing.Color.Transparent;
-            this.btnMinimizeMainForm.BackgroundImage = global::AgOpenGPS.Properties.Resources.WindowMinimize;
+            this.btnMinimizeMainForm.BackgroundImage = global::AOG.Properties.Resources.WindowMinimize;
             this.btnMinimizeMainForm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnMinimizeMainForm.FlatAppearance.BorderSize = 0;
             this.btnMinimizeMainForm.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -2341,7 +2341,7 @@
             this.btnFieldStats.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnFieldStats.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFieldStats.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFieldStats.Image = global::AgOpenGPS.Properties.Resources.FieldStats;
+            this.btnFieldStats.Image = global::AOG.Properties.Resources.FieldStats;
             this.btnFieldStats.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnFieldStats.Location = new System.Drawing.Point(2, 2);
             this.btnFieldStats.Name = "btnFieldStats";
@@ -2358,7 +2358,7 @@
             this.lblHardwareMessage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblHardwareMessage.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHardwareMessage.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.lblHardwareMessage.Location = new System.Drawing.Point(62, 110);
+            this.lblHardwareMessage.Location = new System.Drawing.Point(62, 87);
             this.lblHardwareMessage.Name = "lblHardwareMessage";
             this.lblHardwareMessage.Size = new System.Drawing.Size(888, 43);
             this.lblHardwareMessage.TabIndex = 543;
@@ -2586,7 +2586,7 @@
             this.btnSprayRateUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSprayRateUp.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSprayRateUp.ForeColor = System.Drawing.Color.Black;
-            this.btnSprayRateUp.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnSprayRateUp.Image = global::AOG.Properties.Resources.UpArrow64;
             this.btnSprayRateUp.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSprayRateUp.Location = new System.Drawing.Point(80, 369);
             this.btnSprayRateUp.Margin = new System.Windows.Forms.Padding(0);
@@ -2610,7 +2610,7 @@
             this.btnSprayRateDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSprayRateDn.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSprayRateDn.ForeColor = System.Drawing.Color.Black;
-            this.btnSprayRateDn.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
+            this.btnSprayRateDn.Image = global::AOG.Properties.Resources.DnArrow64;
             this.btnSprayRateDn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSprayRateDn.Location = new System.Drawing.Point(14, 369);
             this.btnSprayRateDn.Margin = new System.Windows.Forms.Padding(0);
@@ -2626,7 +2626,7 @@
             // 
             this.btnNozConfig.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnNozConfig.BackColor = System.Drawing.Color.Transparent;
-            this.btnNozConfig.BackgroundImage = global::AgOpenGPS.Properties.Resources.SpecialFunctions;
+            this.btnNozConfig.BackgroundImage = global::AOG.Properties.Resources.SpecialFunctions;
             this.btnNozConfig.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.tlpNozzle.SetColumnSpan(this.btnNozConfig, 2);
             this.btnNozConfig.FlatAppearance.BorderColor = System.Drawing.Color.Olive;
@@ -2691,7 +2691,7 @@
             this.MinimumSize = new System.Drawing.Size(1000, 720);
             this.Name = "FormGPS";
             this.Padding = new System.Windows.Forms.Padding(3);
-            this.Text = "AgOpenGPS";
+            this.Text = "AOG";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormGPS_FormClosing);
             this.Load += new System.EventHandler(this.FormGPS_Load);
             this.ResizeEnd += new System.EventHandler(this.FormGPS_ResizeEnd);

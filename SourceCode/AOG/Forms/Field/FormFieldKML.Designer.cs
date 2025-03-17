@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormFieldKML
     {
@@ -85,7 +85,7 @@
             this.btnLoadKML.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnLoadKML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadKML.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnLoadKML.Image = global::AgOpenGPS.Properties.Resources.BoundaryLoadFromGE;
+            this.btnLoadKML.Image = global::AOG.Properties.Resources.BoundaryLoadFromGE;
             this.btnLoadKML.Location = new System.Drawing.Point(53, 238);
             this.btnLoadKML.Name = "btnLoadKML";
             this.btnLoadKML.Size = new System.Drawing.Size(83, 79);
@@ -102,7 +102,7 @@
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSave.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnSave.Image = global::AOG.Properties.Resources.OK64;
             this.btnSave.Location = new System.Drawing.Point(520, 248);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(83, 79);
@@ -121,7 +121,7 @@
             this.btnSerialCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSerialCancel.Font = new System.Drawing.Font("Tahoma", 12F);
             this.btnSerialCancel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSerialCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnSerialCancel.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnSerialCancel.Location = new System.Drawing.Point(376, 247);
             this.btnSerialCancel.Name = "btnSerialCancel";
             this.btnSerialCancel.Size = new System.Drawing.Size(77, 79);
@@ -150,7 +150,7 @@
             this.btnAddDate.FlatAppearance.BorderSize = 0;
             this.btnAddDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddDate.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnAddDate.Image = global::AgOpenGPS.Properties.Resources.JobNameCalendar;
+            this.btnAddDate.Image = global::AOG.Properties.Resources.JobNameCalendar;
             this.btnAddDate.Location = new System.Drawing.Point(46, 125);
             this.btnAddDate.Name = "btnAddDate";
             this.btnAddDate.Size = new System.Drawing.Size(83, 79);
@@ -166,7 +166,7 @@
             this.btnAddTime.FlatAppearance.BorderSize = 0;
             this.btnAddTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddTime.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnAddTime.Image = global::AgOpenGPS.Properties.Resources.JobNameTime;
+            this.btnAddTime.Image = global::AOG.Properties.Resources.JobNameTime;
             this.btnAddTime.Location = new System.Drawing.Point(203, 126);
             this.btnAddTime.Name = "btnAddTime";
             this.btnAddTime.Size = new System.Drawing.Size(83, 79);

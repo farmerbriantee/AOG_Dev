@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormEventViewer : Form
     {

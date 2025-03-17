@@ -2,7 +2,7 @@
 using System;
 using System.Drawing;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public class CTool
     {

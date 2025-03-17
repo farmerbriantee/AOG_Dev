@@ -1,4 +1,4 @@
-﻿using AgOpenGPS.Classes;
+﻿using AOG.Classes;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormBndTool : Form
     {

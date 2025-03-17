@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormHeadLine
     {
@@ -36,7 +36,7 @@
             this.cboxToolWidths = new System.Windows.Forms.ComboBox();
             this.tlp1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnSlice = new System.Windows.Forms.Button();
-            this.nudSetDistance = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudSetDistance = new AOG.NudlessNumericUpDown();
             this.cboxIsZoom = new System.Windows.Forms.CheckBox();
             this.btnDeletePoints = new System.Windows.Forms.Button();
             this.btnBndLoop = new System.Windows.Forms.Button();
@@ -172,7 +172,7 @@
             this.btnSlice.FlatAppearance.BorderSize = 0;
             this.btnSlice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSlice.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnSlice.Image = global::AgOpenGPS.Properties.Resources.HeadlandSlice;
+            this.btnSlice.Image = global::AOG.Properties.Resources.HeadlandSlice;
             this.btnSlice.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSlice.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSlice.Location = new System.Drawing.Point(25, 439);
@@ -206,7 +206,7 @@
             this.cboxIsZoom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxIsZoom.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsZoom.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.cboxIsZoom.Image = global::AgOpenGPS.Properties.Resources.ZoomOGL;
+            this.cboxIsZoom.Image = global::AOG.Properties.Resources.ZoomOGL;
             this.cboxIsZoom.Location = new System.Drawing.Point(25, 539);
             this.cboxIsZoom.Name = "cboxIsZoom";
             this.cboxIsZoom.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -226,7 +226,7 @@
             this.btnDeletePoints.FlatAppearance.BorderSize = 0;
             this.btnDeletePoints.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeletePoints.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnDeletePoints.Image = global::AgOpenGPS.Properties.Resources.HeadlandReset;
+            this.btnDeletePoints.Image = global::AOG.Properties.Resources.HeadlandReset;
             this.btnDeletePoints.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnDeletePoints.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnDeletePoints.Location = new System.Drawing.Point(174, 339);
@@ -247,7 +247,7 @@
             this.btnBndLoop.FlatAppearance.BorderSize = 0;
             this.btnBndLoop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBndLoop.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnBndLoop.Image = global::AgOpenGPS.Properties.Resources.HeadlandBuild;
+            this.btnBndLoop.Image = global::AOG.Properties.Resources.HeadlandBuild;
             this.btnBndLoop.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnBndLoop.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnBndLoop.Location = new System.Drawing.Point(25, 339);
@@ -270,7 +270,7 @@
             this.btnAShrink.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnAShrink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAShrink.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnAShrink.Image = global::AgOpenGPS.Properties.Resources.APlusMinusA;
+            this.btnAShrink.Image = global::AOG.Properties.Resources.APlusMinusA;
             this.btnAShrink.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAShrink.Location = new System.Drawing.Point(179, 71);
             this.btnAShrink.Name = "btnAShrink";
@@ -290,7 +290,7 @@
             this.btnBShrink.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnBShrink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBShrink.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnBShrink.Image = global::AgOpenGPS.Properties.Resources.APlusMinusB;
+            this.btnBShrink.Image = global::AOG.Properties.Resources.APlusMinusB;
             this.btnBShrink.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnBShrink.Location = new System.Drawing.Point(179, 8);
             this.btnBShrink.Name = "btnBShrink";
@@ -310,7 +310,7 @@
             this.btnBLength.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnBLength.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBLength.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnBLength.Image = global::AgOpenGPS.Properties.Resources.APlusPlusB;
+            this.btnBLength.Image = global::AOG.Properties.Resources.APlusPlusB;
             this.btnBLength.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnBLength.Location = new System.Drawing.Point(30, 8);
             this.btnBLength.Name = "btnBLength";
@@ -328,7 +328,7 @@
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnExit.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnExit.Image = global::AOG.Properties.Resources.OK64;
             this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnExit.Location = new System.Drawing.Point(163, 630);
             this.btnExit.Name = "btnExit";
@@ -348,7 +348,7 @@
             this.btnALength.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnALength.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnALength.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnALength.Image = global::AgOpenGPS.Properties.Resources.APlusPlusA;
+            this.btnALength.Image = global::AOG.Properties.Resources.APlusPlusA;
             this.btnALength.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnALength.Location = new System.Drawing.Point(30, 71);
             this.btnALength.Name = "btnALength";
@@ -366,7 +366,7 @@
             this.btnHeadlandOff.FlatAppearance.BorderSize = 0;
             this.btnHeadlandOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHeadlandOff.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnHeadlandOff.Image = global::AgOpenGPS.Properties.Resources.SwitchOff;
+            this.btnHeadlandOff.Image = global::AOG.Properties.Resources.SwitchOff;
             this.btnHeadlandOff.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnHeadlandOff.Location = new System.Drawing.Point(26, 634);
             this.btnHeadlandOff.Name = "btnHeadlandOff";
@@ -384,7 +384,7 @@
             this.rbtnLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtnLine.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnLine.ForeColor = System.Drawing.Color.Black;
-            this.rbtnLine.Image = global::AgOpenGPS.Properties.Resources.ABTrackAB;
+            this.rbtnLine.Image = global::AOG.Properties.Resources.ABTrackAB;
             this.rbtnLine.Location = new System.Drawing.Point(174, 137);
             this.rbtnLine.Name = "rbtnLine";
             this.rbtnLine.Size = new System.Drawing.Size(104, 85);
@@ -402,7 +402,7 @@
             this.rbtnCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtnCurve.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnCurve.ForeColor = System.Drawing.Color.Black;
-            this.rbtnCurve.Image = global::AgOpenGPS.Properties.Resources.ABTrackCurve;
+            this.rbtnCurve.Image = global::AOG.Properties.Resources.ABTrackCurve;
             this.rbtnCurve.Location = new System.Drawing.Point(25, 137);
             this.rbtnCurve.Name = "rbtnCurve";
             this.rbtnCurve.Size = new System.Drawing.Size(104, 85);
@@ -420,7 +420,7 @@
             this.btnUndo.FlatAppearance.BorderSize = 0;
             this.btnUndo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUndo.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnUndo.Image = global::AgOpenGPS.Properties.Resources.back_button;
+            this.btnUndo.Image = global::AOG.Properties.Resources.back_button;
             this.btnUndo.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnUndo.Location = new System.Drawing.Point(177, 457);
             this.btnUndo.Name = "btnUndo";

@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormSmoothAB
     {
@@ -42,7 +42,7 @@
             this.btnSouth.FlatAppearance.BorderSize = 0;
             this.btnSouth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSouth.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.btnSouth.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
+            this.btnSouth.Image = global::AOG.Properties.Resources.DnArrow64;
             this.btnSouth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSouth.Location = new System.Drawing.Point(33, 12);
             this.btnSouth.Name = "btnSouth";
@@ -57,7 +57,7 @@
             this.btnNorth.FlatAppearance.BorderSize = 0;
             this.btnNorth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNorth.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.btnNorth.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnNorth.Image = global::AOG.Properties.Resources.UpArrow64;
             this.btnNorth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnNorth.Location = new System.Drawing.Point(130, 12);
             this.btnNorth.Name = "btnNorth";
@@ -73,7 +73,7 @@
             this.bntOK.FlatAppearance.BorderSize = 0;
             this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOK.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.bntOK.Image = global::AgOpenGPS.Properties.Resources.FileDontSave;
+            this.bntOK.Image = global::AOG.Properties.Resources.FileDontSave;
             this.bntOK.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.bntOK.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.bntOK.Location = new System.Drawing.Point(12, 179);
@@ -92,7 +92,7 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancel.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnCancel.Location = new System.Drawing.Point(130, 298);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnCancel.Name = "btnCancel";
@@ -109,7 +109,7 @@
             this.btnSave.FlatAppearance.BorderSize = 0;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnSave.Image = global::AgOpenGPS.Properties.Resources.FileSave;
+            this.btnSave.Image = global::AOG.Properties.Resources.FileSave;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSave.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSave.Location = new System.Drawing.Point(130, 179);

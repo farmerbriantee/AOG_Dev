@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public static class glm
     {

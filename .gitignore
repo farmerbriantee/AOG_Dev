@@ -30,8 +30,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
-/AgOpenGPS/
-/AOG/
+/AOG_Pgm/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -356,6 +355,7 @@ MigrationBackup/
 
 Application/
 AgOpenGPS/
+AOG_Pgm/
 Installer/
 Program/
 *.filters

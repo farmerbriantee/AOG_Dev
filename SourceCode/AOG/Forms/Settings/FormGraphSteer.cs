@@ -1,11 +1,11 @@
-﻿using AgOpenGPS.Classes;
+﻿using AOG.Classes;
 
 using System;
 using System.Globalization;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormGraphSteer : Form
     {

@@ -1,4 +1,4 @@
-﻿using AgOpenGPS.Classes;
+﻿using AOG.Classes;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Drawing;
@@ -7,7 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormMap : Form
     {
@@ -31,7 +31,7 @@ namespace AgOpenGPS
             {
                 new BingMapsHybridTileServer(),
                 new BingMapsRoadsTileServer(),
-                new OpenStreetMapTileServer(userAgent: "Map Control AgOpenGPS"),
+                new OpenStreetMapTileServer(userAgent: "Map Control AOG"),
                 new OfflineTileServer(),
                 new BingMapsAerialTileServer(),
             };

@@ -1,5 +1,5 @@
-﻿using AgOpenGPS.Classes;
-using AgOpenGPS.Properties;
+﻿using AOG.Classes;
+using AOG.Properties;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     //the main form object
     public partial class FormGPS : Form
@@ -545,7 +545,7 @@ namespace AgOpenGPS
 
             int choice = SaveOrNot();
 
-            //simple cancel return to AgOpenGPS
+            //simple cancel return to AOG
             if (choice == 1)
             {
                 e.Cancel = true;
@@ -673,7 +673,7 @@ namespace AgOpenGPS
             JobClose();
             FieldClose();
 
-            this.Text = "AgOpenGPS";
+            this.Text = "AOG";
         }
 
         public void FieldNew()
@@ -1036,4 +1036,4 @@ namespace AgOpenGPS
 
         private readonly Random _random = new Random();
     }//class FormGPS
-}//namespace AgOpenGPS
+}//namespace AOG

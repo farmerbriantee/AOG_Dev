@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormEnterFlag
     {
@@ -124,7 +124,7 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancel.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnCancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancel.Location = new System.Drawing.Point(275, 193);
             this.btnCancel.Name = "btnCancel";
@@ -140,7 +140,7 @@
             this.btnYellow.FlatAppearance.BorderSize = 0;
             this.btnYellow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnYellow.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnYellow.Image = global::AgOpenGPS.Properties.Resources.FlagYel;
+            this.btnYellow.Image = global::AOG.Properties.Resources.FlagYel;
             this.btnYellow.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnYellow.Location = new System.Drawing.Point(441, 193);
             this.btnYellow.Name = "btnYellow";
@@ -157,7 +157,7 @@
             this.btnRed.FlatAppearance.BorderSize = 0;
             this.btnRed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRed.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRed.Image = global::AgOpenGPS.Properties.Resources.FlagRed;
+            this.btnRed.Image = global::AOG.Properties.Resources.FlagRed;
             this.btnRed.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnRed.Location = new System.Drawing.Point(672, 193);
             this.btnRed.Name = "btnRed";
@@ -174,7 +174,7 @@
             this.btnGreen.FlatAppearance.BorderSize = 0;
             this.btnGreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGreen.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGreen.Image = global::AgOpenGPS.Properties.Resources.FlagGrn;
+            this.btnGreen.Image = global::AOG.Properties.Resources.FlagGrn;
             this.btnGreen.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnGreen.Location = new System.Drawing.Point(556, 193);
             this.btnGreen.Name = "btnGreen";

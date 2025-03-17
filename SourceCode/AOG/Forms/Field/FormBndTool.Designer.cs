@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormBndTool
     {
@@ -193,7 +193,7 @@
             this.cboxIsZoom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxIsZoom.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsZoom.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cboxIsZoom.Image = global::AgOpenGPS.Properties.Resources.ZoomOGL;
+            this.cboxIsZoom.Image = global::AOG.Properties.Resources.ZoomOGL;
             this.cboxIsZoom.Location = new System.Drawing.Point(39, 342);
             this.cboxIsZoom.Name = "cboxIsZoom";
             this.cboxIsZoom.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -212,7 +212,7 @@
             this.btnCenterOGL.FlatAppearance.BorderSize = 0;
             this.btnCenterOGL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCenterOGL.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCenterOGL.Image = global::AgOpenGPS.Properties.Resources.ConS_SourceFix;
+            this.btnCenterOGL.Image = global::AOG.Properties.Resources.ConS_SourceFix;
             this.btnCenterOGL.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCenterOGL.Location = new System.Drawing.Point(39, 450);
             this.btnCenterOGL.Name = "btnCenterOGL";
@@ -231,7 +231,7 @@
             this.btnSlice.FlatAppearance.BorderSize = 0;
             this.btnSlice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSlice.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnSlice.Image = global::AgOpenGPS.Properties.Resources.BoundaryMakeLine;
+            this.btnSlice.Image = global::AOG.Properties.Resources.BoundaryMakeLine;
             this.btnSlice.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSlice.Location = new System.Drawing.Point(188, 342);
             this.btnSlice.Name = "btnSlice";
@@ -251,7 +251,7 @@
             this.btnMakeBoundary.FlatAppearance.BorderSize = 0;
             this.btnMakeBoundary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMakeBoundary.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnMakeBoundary.Image = global::AgOpenGPS.Properties.Resources.BoundaryOuter;
+            this.btnMakeBoundary.Image = global::AOG.Properties.Resources.BoundaryOuter;
             this.btnMakeBoundary.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnMakeBoundary.Location = new System.Drawing.Point(171, 232);
             this.btnMakeBoundary.Name = "btnMakeBoundary";
@@ -271,7 +271,7 @@
             this.btnStartStop.FlatAppearance.BorderSize = 0;
             this.btnStartStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartStop.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnStartStop.Image = global::AgOpenGPS.Properties.Resources.BoundaryReduce;
+            this.btnStartStop.Image = global::AOG.Properties.Resources.BoundaryReduce;
             this.btnStartStop.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnStartStop.Location = new System.Drawing.Point(169, 120);
             this.btnStartStop.Name = "btnStartStop";
@@ -290,7 +290,7 @@
             this.btnResetReduce.FlatAppearance.BorderSize = 0;
             this.btnResetReduce.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnResetReduce.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnResetReduce.Image = global::AgOpenGPS.Properties.Resources.SwitchOn;
+            this.btnResetReduce.Image = global::AOG.Properties.Resources.SwitchOn;
             this.btnResetReduce.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnResetReduce.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnResetReduce.Location = new System.Drawing.Point(30, 4);
@@ -313,7 +313,7 @@
             this.btnCancelTouch.FlatAppearance.BorderSize = 0;
             this.btnCancelTouch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelTouch.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancelTouch.Image = global::AgOpenGPS.Properties.Resources.HeadlandDeletePoints;
+            this.btnCancelTouch.Image = global::AOG.Properties.Resources.HeadlandDeletePoints;
             this.btnCancelTouch.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancelTouch.Location = new System.Drawing.Point(188, 450);
             this.btnCancelTouch.Name = "btnCancelTouch";
@@ -332,7 +332,7 @@
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnExit.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnExit.Image = global::AOG.Properties.Resources.OK64;
             this.btnExit.Location = new System.Drawing.Point(229, 623);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(63, 70);
@@ -451,7 +451,7 @@
             this.btnAddPoints.FlatAppearance.BorderSize = 0;
             this.btnAddPoints.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddPoints.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnAddPoints.Image = global::AgOpenGPS.Properties.Resources.PointAdd;
+            this.btnAddPoints.Image = global::AOG.Properties.Resources.PointAdd;
             this.btnAddPoints.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAddPoints.Location = new System.Drawing.Point(189, 11);
             this.btnAddPoints.Name = "btnAddPoints";
@@ -537,7 +537,7 @@
             this.btnMoveDn.FlatAppearance.BorderSize = 0;
             this.btnMoveDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMoveDn.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMoveDn.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
+            this.btnMoveDn.Image = global::AOG.Properties.Resources.DnArrow64;
             this.btnMoveDn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnMoveDn.Location = new System.Drawing.Point(11, 544);
             this.btnMoveDn.Name = "btnMoveDn";
@@ -555,7 +555,7 @@
             this.btnMoveUp.FlatAppearance.BorderSize = 0;
             this.btnMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMoveUp.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMoveUp.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnMoveUp.Image = global::AOG.Properties.Resources.UpArrow64;
             this.btnMoveUp.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnMoveUp.Location = new System.Drawing.Point(92, 544);
             this.btnMoveUp.Name = "btnMoveUp";
@@ -573,7 +573,7 @@
             this.btnMoveLeft.FlatAppearance.BorderSize = 0;
             this.btnMoveLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMoveLeft.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMoveLeft.Image = global::AgOpenGPS.Properties.Resources.ArrowLeft;
+            this.btnMoveLeft.Image = global::AOG.Properties.Resources.ArrowLeft;
             this.btnMoveLeft.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnMoveLeft.Location = new System.Drawing.Point(161, 544);
             this.btnMoveLeft.Name = "btnMoveLeft";
@@ -591,7 +591,7 @@
             this.btnMoveRight.FlatAppearance.BorderSize = 0;
             this.btnMoveRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMoveRight.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMoveRight.Image = global::AgOpenGPS.Properties.Resources.ArrowRight;
+            this.btnMoveRight.Image = global::AOG.Properties.Resources.ArrowRight;
             this.btnMoveRight.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnMoveRight.Location = new System.Drawing.Point(237, 544);
             this.btnMoveRight.Name = "btnMoveRight";

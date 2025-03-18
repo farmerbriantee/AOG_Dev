@@ -43,7 +43,7 @@ namespace AgOpenGPS
         public void Guidance(vec3 pivot, vec3 steer, bool Uturn, List<vec3> curList)
         {
             bool completeUturn = !Uturn;
-            var vec2point = Settings.Vehicle.setVehicle_isStanleyUsed ? new vec2(steer.easting, steer.northing) : new vec2(pivot.easting, pivot.northing);
+            var vec2point = new vec2(Settings.Vehicle.setVehicle_isStanleyUsed ? steer : pivot);
 
             //close call hit
             int cc = FindGlobalRoughNearest(vec2point, curList, 5, Uturn);
@@ -294,7 +294,7 @@ namespace AgOpenGPS
                     }
 
                     //calc "D" the distance from pivot axle to lookahead point
-                    double goalPointDistanceSquared = glm.DistanceSquared(goalPoint.northing, goalPoint.easting, pivot.northing, pivot.easting);
+                    double goalPointDistanceSquared = glm.DistanceSquared(goalPoint, pivot);
 
                     //calculate the the delta x in local coordinates and steering angle degrees based on wheelbase
                     double localHeading = -mf.fixHeading + inty;

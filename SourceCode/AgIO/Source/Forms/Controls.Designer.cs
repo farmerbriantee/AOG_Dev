@@ -115,9 +115,14 @@ namespace AgIO
             else SettingsUDP();
         }
 
-        private void btnRunAby_Click(object sender, EventArgs e)
+        private void btnRunAOG_Click(object sender, EventArgs e)
         {
-            StartAby();
+            StartAOG();
+        }
+
+        private void btnModSim_Click(object sender, EventArgs e)
+        {
+            StartModsim();
         }
 
         private void btnNTRIP_Click(object sender, EventArgs e)
@@ -417,7 +422,7 @@ namespace AgIO
             }
         }
 
-        private void StartAby()
+        private void StartAOG()
         {
             Process[] processName = Process.GetProcessesByName("AOG");
             if (processName.Length == 0)
@@ -445,6 +450,36 @@ namespace AgIO
                 SetForegroundWindow(processName[0].MainWindowHandle);
             }
         }
+
+        private void StartModsim()
+        {
+            Process[] processName = Process.GetProcessesByName("Modsim");
+            if (processName.Length == 0)
+            {
+                //Start application here
+                string strPath = Path.Combine(Application.StartupPath, "Modsim.exe");
+
+                try
+                {
+                    ProcessStartInfo processInfo = new ProcessStartInfo();
+                    processInfo.FileName = strPath;
+                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    Process proc = Process.Start(processInfo);
+                }
+                catch
+                {
+                    TimedMessageBox(2000, "No File Found", "Can't Find Modsim");
+                    Log.EventWriter("Can't Find Modsim - File Not Found");
+                }
+            }
+            else
+            {
+                //Set foreground window
+                ShowWindow(processName[0].MainWindowHandle, 9);
+                SetForegroundWindow(processName[0].MainWindowHandle);
+            }
+        }
+
 
         private void GPS_OutSettings()
         {

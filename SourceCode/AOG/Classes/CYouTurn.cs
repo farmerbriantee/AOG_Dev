@@ -20,7 +20,7 @@ namespace AOG
         /// <summary> /// Is the youturn button enabled? /// </summary>
         public bool isYouTurnBtnOn;
 
-        public double youTurnRadius;
+        public double youTurnRadius, totalUTurnLength;
 
         public int rowSkipsWidth = 1, uTurnSmoothing;
 
@@ -63,7 +63,7 @@ namespace AOG
 
         public CClose startOfTurnPt = new CClose();
 
-        public int onA;
+        public double onA;
 
         #endregion Fields
 
@@ -342,7 +342,7 @@ namespace AOG
                 else
                     youTurnPhase += 10;
             }
-            else//join the two halves
+            else if (youTurnPhase == 130)//join the two halves
             {
                 if (exitPoint2.turnLineIndex != entryPoint2.turnLineIndex)
                 {
@@ -386,9 +386,13 @@ namespace AOG
 
                 AddCurveSequenceLines(nextCurve, ytList[ytList.Count - 1], offsetIdx, upDownCount, Settings.Vehicle.set_youTurnExtensionLength, false);
 
-
-
                 isOutOfBounds = false;
+                youTurnPhase = 240;
+            }
+            else if (youTurnPhase == 240)
+            {
+                if (uTurnSmoothing > 0)
+                    SmoothYouTurn(6);// uTurnSmoothing????
                 youTurnPhase = 255;
             }
         }
@@ -712,9 +716,17 @@ namespace AOG
         {
             //trigger pulled
             isYouTurnTriggered = true;
-
-            if (!isGoingStraightThrough)
+            totalUTurnLength = 0;
+            for (int k = 0; k < ytList.Count - 1; k++)
             {
+                totalUTurnLength += glm.Distance(ytList[k], ytList[k + 1]);
+            }
+        }
+
+        public void NextPath()
+            {
+            isGoingStraightThrough = true;
+
                 mf.trk.howManyPathsAway += (isTurnLeft ^ mf.trk.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth;
                 mf.trk.isHeadingSameWay = !mf.trk.isHeadingSameWay;
 
@@ -732,7 +744,6 @@ namespace AOG
                 }
                 else isTurnLeft = !isTurnLeft;
             }
-        }
 
         //Normal copmpletion of youturn
         public void CompleteYouTurn()
@@ -773,13 +784,9 @@ namespace AOG
 
         public void BuildManualYouLateral(bool isTurnLeft)
         {
-            ResetCreatedYouTurn();
             //point on AB line closest to pivot axle point from AB Line PurePursuit
-            if (mf.trk.idx > -1 && mf.trk.gArr.Count > 0)
-            {
                 mf.trk.howManyPathsAway += mf.trk.isHeadingSameWay == isTurnLeft ? 1 : -1;
             }
-        }
 
         //build the points and path of youturn to be scaled and transformed
         public void BuildManualYouTurn(bool isTurnRight)

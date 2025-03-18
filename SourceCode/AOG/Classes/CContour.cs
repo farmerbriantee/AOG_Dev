@@ -120,7 +120,7 @@ namespace AOG
                 mf.SetContourLockImage(isLocked);
                 return;
             }
-            vec2 vec2pivot = new vec2(pivot.easting, pivot.northing);
+            vec2 vec2pivot = new vec2(pivot);
 
             if (mf.gyd.FindClosestSegment(stripList[stripNum], false, vec2pivot, out int A, out int B, pt - 10, pt + 10))
             {

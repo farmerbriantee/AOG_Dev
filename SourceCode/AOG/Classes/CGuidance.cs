@@ -43,7 +43,7 @@ namespace AOG
         public void Guidance(vec3 pivot, vec3 steer, bool Uturn, List<vec3> curList)
         {
             bool completeUturn = !Uturn;
-            var vec2point = Settings.Vehicle.setVehicle_isStanleyUsed ? new vec2(steer.easting, steer.northing) : new vec2(pivot.easting, pivot.northing);
+            var vec2point = new vec2(Settings.Vehicle.setVehicle_isStanleyUsed ? steer : pivot);
 
             //close call hit
             int cc = FindGlobalRoughNearest(vec2point, curList, 5, Uturn);
@@ -65,15 +65,25 @@ namespace AOG
 
             if (mf.gyd.FindClosestSegment(curList, false, vec2point, out A, out B))// cc - 10, cc + 10))
             {
+                distanceFromCurrentLine = FindDistanceToSegment(vec2point, curList[A], curList[B], out vec3 point, out double time, true, false, false);
+
                 if (Uturn)
                 {
                     //the number in the cancel uturn button on display
-                    mf.yt.onA = A;
+                    mf.yt.onA = 0;
+                    for (int k = 0; k < A; k++)
+                    {
+                        mf.yt.onA += glm.Distance(curList[k], curList[k + 1]);
+                    }
+
+                    mf.yt.onA += glm.Distance(curList[A], point);
+                    if (!mf.yt.isGoingStraightThrough && mf.yt.onA > mf.yt.totalUTurnLength * 0.5)
+                    {
+                        mf.yt.NextPath();
+                    }
                 }
                 else
                     currentLocationIndex = A;
-
-                distanceFromCurrentLine = FindDistanceToSegment(vec2point, curList[A], curList[B], out vec3 point, out double time, true, false, false);
 
                 if (!Uturn && !mf.trk.isHeadingSameWay)
                     distanceFromCurrentLine *= -1;
@@ -284,7 +294,7 @@ namespace AOG
                     }
 
                     //calc "D" the distance from pivot axle to lookahead point
-                    double goalPointDistanceSquared = glm.DistanceSquared(goalPoint.northing, goalPoint.easting, pivot.northing, pivot.easting);
+                    double goalPointDistanceSquared = glm.DistanceSquared(goalPoint, pivot);
 
                     //calculate the the delta x in local coordinates and steering angle degrees based on wheelbase
                     double localHeading = -mf.fixHeading + inty;

@@ -67,7 +67,6 @@ namespace AOG
         //public double totalSquareMetersWorked = 0, totalUserSquareMeters = 0, userSquareMetersAlarm = 0;
 
         public double avgSpeed, previousSpeed;//for average speed
-        public double crossTrackError;
 
         //youturn
         public double distancePivotToTurnLine = -2222;
@@ -411,7 +410,6 @@ namespace AOG
             {
                 //build new current ref line if required
                 trk.GetDistanceFromRefTrack(pivotAxlePos);
-
             }
 
             if (trk.currentGuidanceTrack.Count > 0)
@@ -420,6 +418,12 @@ namespace AOG
             }
             else
             {
+                if (isBtnAutoSteerOn)
+                {
+                    SetAutoSteerButton(false, gStr.Get(gs.gsNoGuidanceLines));
+                    Log.EventWriter("Steer Safe Off, No Tracks");
+                }
+
                 //invalid distance so tell AS module
                 gyd.distanceFromCurrentLine = 0;
                 guidanceLineDistanceOff = double.NaN;
@@ -556,14 +560,6 @@ namespace AOG
             //out serial to autosteer module  //indivdual classes load the distance and heading deltas 
             SendPgnToLoop(PGN_254.pgn);
 
-
-
-            //for average cross track error
-            if (!double.IsNaN(guidanceLineDistanceOff))
-            {
-                crossTrackError = crossTrackError * 0.90 + Math.Abs(guidanceLineDistanceOff) * 0.1;
-            }
-
             #endregion
 
             #region Youturn
@@ -576,31 +572,25 @@ namespace AOG
                 {
                     mc.isOutOfBounds = !bnd.IsPointInsideFenceArea(pivotAxlePos);
                 }
+                else if (ct.isContourBtnOn)
+                {
+                    if (yt.youTurnPhase != 0)
+                        yt.ResetCreatedYouTurn();
+                }
                 else //Youturn is on
                 {
                     bool isInTurnBounds = bnd.IsPointInsideTurnArea(pivotAxlePos) != -1;
                     //Are we inside outer and outside inner all turn boundaries, no turn creation problems
-                    //if we are too much off track > 1.3m, kill the diagnostic creation, start again
-                    //if (!yt.isYouTurnTriggered) 
                     if (isInTurnBounds)
                     {
                         mc.isOutOfBounds = false;
                         //now check to make sure we are not in an inner turn boundary - drive thru is ok
-                        if (yt.youTurnPhase < 240)
+
+                        if (yt.youTurnPhase < 250)
                         {
-                            if (crossTrackError > 1)
-                            {
-                                yt.ResetCreatedYouTurn();
-                            }
-                            else
+                            if (trk.currTrk != null)
                             {
                                 yt.BuildCurveDubinsYouTurn();
-                            }
-
-                            if (yt.uTurnStyle == 0 && yt.youTurnPhase == 254)
-                            {
-                                yt.youTurnPhase = 255;
-                                //yt.SmoothYouTurn(6); //yt.uTurnSmoothing????
                             }
                                 }
                         else if (yt.ytList.Count > 0)//wait to trigger the actual turn since its made and waiting
@@ -625,16 +615,11 @@ namespace AOG
                             }
                         }
                     }
-                    else
+                    else if (!yt.isYouTurnTriggered)
                     {
-                        if (!yt.isYouTurnTriggered)
-                        {
                             yt.ResetCreatedYouTurn();
                             mc.isOutOfBounds = !bnd.IsPointInsideFenceArea(pivotAxlePos);
                         }
-
-                    }
-
                     //}
                     //// here is stop logic for out of bounds - in an inner or out the outer turn border.
                     //else

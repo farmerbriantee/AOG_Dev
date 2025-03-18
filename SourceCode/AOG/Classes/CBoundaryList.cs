@@ -141,13 +141,13 @@ namespace AOG
             {
                 if (i == 0)
                 {
-                    fenceLineEar.Add(new vec2(fenceLine[i].easting, fenceLine[i].northing));
+                    fenceLineEar.Add(new vec2(fenceLine[i]));
                     continue;
                 }
                 delta += (fenceLine[i - 1].heading - fenceLine[i].heading);
                 if (Math.Abs(delta) > 0.005)
                 {
-                    fenceLineEar.Add(new vec2(fenceLine[i].easting, fenceLine[i].northing));
+                    fenceLineEar.Add(new vec2(fenceLine[i]));
                     delta = 0;
                 }
             }

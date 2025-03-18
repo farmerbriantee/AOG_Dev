@@ -82,6 +82,7 @@ namespace AgIO
         public int focusSkipCounter = 310;
 
         public CNMEA pnGPS;
+
         public CNMEA_Tool pnGPSTool;
 
 

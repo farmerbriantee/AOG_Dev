@@ -587,7 +587,7 @@ namespace AOG
                     if (trk.idx > -1 && !ct.isContourBtnOn) DrawTrackInfo();
 
 
-                    if (bnd.bndList.Count > 0 && yt.isYouTurnBtnOn) DrawUTurnBtn();
+                    if (bnd.bndList.Count > 0 && yt.isYouTurnBtnOn && !ct.isContourBtnOn) DrawUTurnBtn();
 
                     if ((isBtnAutoSteerOn || yt.isYouTurnBtnOn) && !ct.isContourBtnOn) DrawManUTurnBtn();
 
@@ -1693,7 +1693,7 @@ namespace AOG
             //lateral line move
 
             bottomSide += 80;
-            if (Settings.User.setFeatures.isLateralOn)
+            if (Settings.User.setFeatures.isLateralOn && isBtnAutoSteerOn)
             {
                 GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.Lateral]);        // Select Our Texture
                 GL.Color3(0.590f, 0.90f, 0.93f);
@@ -1785,7 +1785,7 @@ namespace AOG
             }
             else
             {
-                font.DrawText(-40 + two3, 120, yt.onA.ToString());
+                font.DrawText(-40 + two3, 120, ((yt.totalUTurnLength - yt.onA) * glm.m2FtOrM).ToString("0.0") + glm.unitsFtM);
             }
         }
 
@@ -2138,9 +2138,7 @@ namespace AOG
 
         private void DrawLightBarText()
         {
-            GL.Disable(EnableCap.DepthTest);
-
-            if ((ct.isContourBtnOn || trk.idx > -1) && !double.IsNaN(guidanceLineDistanceOff))
+            if (trk.currentGuidanceTrack.Count > 1 && !double.IsNaN(guidanceLineDistanceOff))
             {
                 avgPivDistance = avgPivDistance * 0.5 + guidanceLineDistanceOff * 0.5;
 
@@ -2207,19 +2205,13 @@ namespace AOG
                     center = -(int)(((double)(hede.Length) * 0.5) * 16);
                     font.DrawText(center, 45, hede, 1);
                 }
-
-                if (vehicle.isInDeadZone)
-                {
-
                 }
             }
-        }
 
         private void DrawSteerBarText()
         {
-            if ((ct.isContourBtnOn || trk.idx > -1) && !double.IsNaN(guidanceLineDistanceOff))
+            if (trk.currentGuidanceTrack.Count > 1 && !double.IsNaN(guidanceLineDistanceOff))
             {
-                GL.Disable(EnableCap.DepthTest);
                 int spacing = oglMain.Width / 50;
                 if (spacing < 28) spacing = 28;
                 int offset = (int)((double)oglMain.Height / 40);

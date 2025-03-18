@@ -28,7 +28,7 @@ namespace AOG
             polygonPts = new vec2[_points.Length];
             for (int i = 0; i < _points.Length; i++)
             {
-                polygonPts[i] = new vec2(_points[i].easting, _points[i].northing);
+                polygonPts[i] = new vec2(_points[i]);
             }
         }
 

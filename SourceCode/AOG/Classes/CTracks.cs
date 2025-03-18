@@ -127,6 +127,11 @@ namespace AgOpenGPS
 
                         currentGuidanceTrack = await Task.Run(() => BuildCurrentGuidanceTrack(distAway, track));
 
+                        if (!mf.yt.isYouTurnTriggered)
+                        {
+                            mf.yt.ResetCreatedYouTurn();
+                        }
+
                         isBusyWorking = false;
                         mf.gyd.isFindGlobalNearestTrackPoint = true;
 

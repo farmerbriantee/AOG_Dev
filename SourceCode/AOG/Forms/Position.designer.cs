@@ -136,7 +136,7 @@ namespace AOG
             //simple comp filter
             gpsHz = 0.98 * gpsHz + 0.02 * nowHz;
 
-            if (timerSim.Enabled) gpsHz = 20;
+            //if (timerSim.Enabled) gpsHz = 20;
 
             //Initialization counter
             startCounter++;
@@ -665,6 +665,19 @@ namespace AOG
 
             //do section control
             oglBack.Refresh();
+
+            BuildMachineByte();
+
+            if (isJobStarted && Settings.Vehicle.setApp_isNozzleApp)
+            {
+                nozz.BuildRatePGN();
+            }
+
+            //if (isGPSToolActive)
+            //{
+            //    //send to tool steer
+            //    SendPgnToLoopTool(PGN_233.pgn);
+            //}
 
             //stop the timer and calc how long it took to do calcs and draw
             frameTimeRough = (double)(swFrame.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency;

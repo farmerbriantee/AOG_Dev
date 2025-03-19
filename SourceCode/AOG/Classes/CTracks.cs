@@ -73,6 +73,7 @@ namespace AgOpenGPS
 
                     mf.SetAutoSteerButton(false, _currTrk == null ? gStr.Get(gs.gsNoABLineActive) : "Track Changed");
 
+                    //mf.SetYouTurnButton(false);
                     //ss Log.EventWriter("Autosteer Stop, No Tracks Available");
 
                     int index2 = gArr.FindIndex(x => x == _currTrk);

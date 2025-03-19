@@ -168,6 +168,7 @@ namespace AgOpenGPS
                 btnContourLock.Image = Resources.ColorUnlocked;
                 ct.isLocked = false;
 
+                //SetYouTurnButton(false);
                 if (!state)
                 {
                     trk.isTrackValid = false;
@@ -195,6 +196,7 @@ namespace AgOpenGPS
 
             if (trk.gArr.Count > 0)
             {
+                //SetYouTurnButton(false);
                 if (trk.currTrk == null)
                 {
                     trk.GetNextTrack();
@@ -286,11 +288,11 @@ namespace AgOpenGPS
                     if (state) sounds.sndAutoSteerOn.Play();
                     else sounds.sndAutoSteerOff.Play();
                 }
-                }
+            }
 
             if (!state && reason != "" && (isBtnAutoSteerOn || triggerstate))
-                    TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), reason);
-            }
+                TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), reason);
+        }
 
         private void btnAutoYouTurn_Click(object sender, EventArgs e)
         {
@@ -309,6 +311,8 @@ namespace AgOpenGPS
                         TimedMessageBox(2000, gStr.Get(gs.gsNoBoundary), gStr.Get(gs.gsCreateABoundaryFirst));
                         Log.EventWriter("Uturn attempted without boundary");
                     }
+                    //if (trk.currTrk == null)
+                    //    state = false;
                 }
 
                 yt.isYouTurnBtnOn = state;
@@ -322,9 +326,9 @@ namespace AgOpenGPS
             trk.GetNextTrack();
 
             if (trk.currTrk != null)
-                    {
-                        guideLineCounter = 20;
-                        lblGuidanceLine.Visible = true;
+            {
+                guideLineCounter = 20;
+                lblGuidanceLine.Visible = true;
                 lblGuidanceLine.Text = trk.currTrk.name;
             }
         }
@@ -336,13 +340,13 @@ namespace AgOpenGPS
                 ct.SetLockToLine();
             }
             else
-                {
+            {
                 trk.GetNextTrack(false);
 
                 if (trk.currTrk != null)
-                    {
-                        guideLineCounter = 20;
-                        lblGuidanceLine.Visible = true;
+                {
+                    guideLineCounter = 20;
+                    lblGuidanceLine.Visible = true;
                     lblGuidanceLine.Text = trk.currTrk.name;
                 }
             }
@@ -568,7 +572,7 @@ namespace AgOpenGPS
                     return;
                 }
 
-                    SetWorkState(btnStates.Off);
+                SetWorkState(btnStates.Off);
 
                 if (result == DialogResult.Yes)
                 {
@@ -634,7 +638,7 @@ namespace AgOpenGPS
 
             bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
 
-                PanelUpdateRightAndBottom();
+            PanelUpdateRightAndBottom();
         }
 
         private void tramLinesMenuMulti_Click(object sender, EventArgs e)

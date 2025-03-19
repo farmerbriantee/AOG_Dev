@@ -270,7 +270,8 @@ namespace AgOpenGPS
 
         internal void SetAutoSteerButton(bool state, string reason)
         {
-            if (state && (!ct.isContourBtnOn && trk.idx < 0))
+            var triggerstate = state;
+            if (state && (!ct.isContourBtnOn && trk.currTrk == null))
             {
                 state = false;
                 reason = gStr.Get(gs.gsTurnOnContourOrMakeABLine);
@@ -280,6 +281,12 @@ namespace AgOpenGPS
             {
                 state = false;
                 reason = "Above Maximum Safe Steering Speed: " + (Settings.Vehicle.setAS_maxSteerSpeed * glm.kmhToMphOrKmh).ToString("N1") + glm.unitsKmhMph;
+            }
+
+            if (state && trk.currentGuidanceTrack.Count == 0)
+            {
+                state = false;
+                reason = gStr.Get(gs.gsNoGuidanceLines);
             }
 
             longAvgPivDistance = 0;
@@ -294,15 +301,11 @@ namespace AgOpenGPS
                     if (state) sounds.sndAutoSteerOn.Play();
                     else sounds.sndAutoSteerOff.Play();
                 }
-
-                if (state)
-                {
-                    yt.ResetCreatedYouTurn();
                 }
-                else if (reason != "")
+
+            if (!state && reason != "" && (isBtnAutoSteerOn || triggerstate))
                     TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), reason);
             }
-        }
 
         private void btnAutoYouTurn_Click(object sender, EventArgs e)
         {
@@ -412,7 +415,7 @@ namespace AgOpenGPS
 
             if (trk.idx > -1)
             {
-                Form form = new FormRefNudge(this);
+                Form form = new FormRefNudge(this, trk.gArr[trk.idx]);
                 form.Show(this);
             }
             else
@@ -427,6 +430,7 @@ namespace AgOpenGPS
 
             this.Activate();
         }
+
         private void btnTracksOff_Click(object sender, EventArgs e)
         {
             trk.idx = -1;
@@ -437,6 +441,7 @@ namespace AgOpenGPS
             }
             PanelUpdateRightAndBottom();
         }
+
         private void btnNudge_Click(object sender, EventArgs e)
         {
             Form fcc = Application.OpenForms["FormNudge"];
@@ -449,7 +454,7 @@ namespace AgOpenGPS
 
             if (trk.idx > -1)
             {
-                Form form = new FormNudge(this);
+                Form form = new FormNudge(this, trk.gArr[trk.idx]);
                 form.Show(this);
             }
             else
@@ -464,8 +469,8 @@ namespace AgOpenGPS
             }
 
             this.Activate();
-
         }
+
         private void btnBuildTracks_Click(object sender, EventArgs e)
         {
             SetContourButton(false);
@@ -543,8 +548,6 @@ namespace AgOpenGPS
             headlandBuildToolStripMenuItem.Enabled = (bnd.bndList.Count > 0);
         }
 
-        public bool isCancelFieldMenu;
-
         private void btnFieldMenu_Click(object sender, EventArgs e)
         {
             if (!isGPSPositionInitialized || sentenceCounter > 299)
@@ -609,9 +612,8 @@ namespace AgOpenGPS
             {
                 var result = form.ShowDialog(this);
 
-                if (isCancelFieldMenu)
+                if (result == DialogResult.Cancel)
                 {
-                    isCancelFieldMenu = false;
                     return;
                 }
 
@@ -681,24 +683,14 @@ namespace AgOpenGPS
 
             bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
 
-            trk.idx = -1;
-
-            PanelUpdateRightAndBottom();
-
-            if (trk.gArr.Count > 0)
-            {
-                trk.idx = 0;
-                DisableYouTurnButtons();
                 PanelUpdateRightAndBottom();
-                twoSecondCounter = 100;
-            }
         }
 
         private void tramLinesMenuMulti_Click(object sender, EventArgs e)
         {
             SetContourButton(false);
 
-            if (trk.gArr.Count < 1 )
+            if (trk.gArr.Count < 1)
             {
                 TimedMessageBox(1500, gStr.Get(gs.gsNoGuidanceLines), gStr.Get(gs.gsNoGuidanceLines));
                 return;
@@ -969,17 +961,17 @@ namespace AgOpenGPS
 
         private void btnSnapToPivot_Click(object sender, EventArgs e)
         {
-            trk.SnapToPivot();
+            trk.SnapToPivot(trk.gArr[trk.idx]);
         }
 
         private void btnAdjRight_Click(object sender, EventArgs e)
         {
-            trk.NudgeTrack(Settings.Vehicle.setAS_snapDistance);
+            trk.NudgeTrack(trk.gArr[trk.idx], Settings.Vehicle.setAS_snapDistance);
         }
 
         private void btnAdjLeft_Click(object sender, EventArgs e)
         {
-            trk.NudgeTrack(-Settings.Vehicle.setAS_snapDistance);
+            trk.NudgeTrack(trk.gArr[trk.idx], -Settings.Vehicle.setAS_snapDistance);
         }
 
         #endregion
@@ -1690,7 +1682,7 @@ namespace AgOpenGPS
         {
             if (isFieldStarted && trk.idx > -1)
             {
-                using (var form = new FormSmoothAB(this))
+                using (var form = new FormSmoothAB(this, trk.gArr[trk.idx]))
                 {
                     form.ShowDialog(this);
                 }

@@ -1,5 +1,4 @@
 ﻿using AgOpenGPS.Classes;
-
 using System;
 using System.Windows.Forms;
 
@@ -11,9 +10,11 @@ namespace AgOpenGPS
         private readonly FormGPS mf = null;
 
         private int smoothCount = 20;
+        private CTrk track;
 
-        public FormSmoothAB(Form callingForm)
+        public FormSmoothAB(Form callingForm, CTrk _track)
         {
+            track = _track;
             //get copy of the calling main form
             mf = callingForm as FormGPS;
             InitializeComponent();
@@ -27,8 +28,7 @@ namespace AgOpenGPS
         private void bntOK_Click(object sender, EventArgs e)
         {
             mf.trk.isSmoothWindowOpen = false;
-            mf.trk.SaveSmoothList();
-            mf.trk.smooList?.Clear();
+            mf.trk.SaveSmoothList(track);
             Close();
         }
 
@@ -55,7 +55,7 @@ namespace AgOpenGPS
         private void btnNorth_MouseDown(object sender, MouseEventArgs e)
         {
             if (smoothCount++ > 100) smoothCount = 100;
-            mf.trk.SmoothAB(smoothCount * 2);
+            mf.trk.SmoothAB(ref track.curvePts, smoothCount * 2);
             lblSmooth.Text = smoothCount.ToString();
         }
 
@@ -63,15 +63,14 @@ namespace AgOpenGPS
         {
             smoothCount--;
             if (smoothCount < 2) smoothCount = 2;
-            mf.trk.SmoothAB(smoothCount * 2);
+            mf.trk.SmoothAB(ref track.curvePts, smoothCount * 2);
             lblSmooth.Text = smoothCount.ToString();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             mf.trk.isSmoothWindowOpen = false;
-            mf.trk.SaveSmoothList();
-            mf.trk.smooList?.Clear();
+            mf.trk.SaveSmoothList(track);
 
             //save entire list
             mf.FileSaveTracks();

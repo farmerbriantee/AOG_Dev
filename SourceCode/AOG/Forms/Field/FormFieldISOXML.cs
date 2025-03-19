@@ -1,5 +1,4 @@
 ﻿using AgOpenGPS.Classes;
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -512,43 +511,30 @@ namespace AgOpenGPS
                             {
                                 if (nodePart.ChildNodes[0].ChildNodes[0].Attributes["A"].Value == "5") //Guidance Pattern
                                 {
-                                    //get the name
-                                    mf.trk.designName = nodePart.ChildNodes[0].Attributes["B"].Value;
+                                    var track = new CTrk(TrackMode.AB);
+
+                                    track.name = nodePart.ChildNodes[0].Attributes["B"].Value.Trim();
 
                                     double.TryParse(nodePart.ChildNodes[0].ChildNodes[0].ChildNodes[0].Attributes["C"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
                                     double.TryParse(nodePart.ChildNodes[0].ChildNodes[0].ChildNodes[0].Attributes["D"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
 
                                     mf.pn.ConvertWGS84ToLocal(latK, lonK, out norting, out easting);
 
-                                    mf.trk.designPtA.easting = easting;
-                                    mf.trk.designPtA.northing = norting;
+                                    track.ptA = new vec2(easting, norting);
 
                                     double.TryParse(nodePart.ChildNodes[0].ChildNodes[0].ChildNodes[1].Attributes["C"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
                                     double.TryParse(nodePart.ChildNodes[0].ChildNodes[0].ChildNodes[1].Attributes["D"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
 
                                     mf.pn.ConvertWGS84ToLocal(latK, lonK, out norting, out easting);
 
-                                    mf.trk.designPtB.easting = easting;
-                                    mf.trk.designPtB.northing = norting;
+                                    track.ptB = new vec2(easting, norting);
 
                                     // heading based on AB points
-                                    mf.trk.designHeading = Math.Atan2(mf.trk.designPtB.easting - mf.trk.designPtA.easting,
-                                        mf.trk.designPtB.northing - mf.trk.designPtA.northing);
-                                    if (mf.trk.designHeading < 0) mf.trk.designHeading += glm.twoPI;
+                                    track.heading = Math.Atan2(track.ptB.easting - track.ptA.easting,
+                                        track.ptB.northing - track.ptA.northing);
+                                    if (track.heading < 0) track.heading += glm.twoPI;
 
-                                    mf.trk.gArr.Add(new CTrk());
-
-                                    //index to last one.
-                                    int idx = mf.trk.gArr.Count - 1;
-
-                                    mf.trk.gArr[idx].heading = mf.trk.designHeading;
-                                    mf.trk.gArr[idx].mode = TrackMode.AB;
-
-                                    ////calculate the new points for the reference line and points
-                                    mf.trk.gArr[idx].ptA = new vec2(mf.trk.designPtA);
-                                    mf.trk.gArr[idx].ptB = new vec2(mf.trk.designPtB);
-
-                                    mf.trk.gArr[idx].name = mf.trk.designName.Trim();
+                                    mf.trk.gArr.Add(track);
                                 }
                             } //LSG
                         }
@@ -561,7 +547,7 @@ namespace AgOpenGPS
                                 if (nodePart.ChildNodes[0].ChildNodes[0].Attributes["A"].Value == "5") //Guidance Pattern
                                 {
                                     //get the name
-                                    mf.trk.designName = nodePart.ChildNodes[0].Attributes["B"].Value;
+                                    var designName = nodePart.ChildNodes[0].Attributes["B"].Value;
 
                                     double.TryParse(nodePart.ChildNodes[0].ChildNodes[0].ChildNodes[0].Attributes["C"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
                                     double.TryParse(nodePart.ChildNodes[0].ChildNodes[0].ChildNodes[0].Attributes["D"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
@@ -570,7 +556,7 @@ namespace AgOpenGPS
 
                                     if (nodePart.ChildNodes[0].ChildNodes[0].ChildNodes.Count > 2)
                                     {
-                                        mf.trk.designPtsList?.Clear();
+                                        var designPtsList = new List<vec3>();
                                         //GGP / GPN / LSG / PNT
                                         int cnt = nodePart.ChildNodes[0].ChildNodes[0].ChildNodes.Count;
 
@@ -586,54 +572,50 @@ namespace AgOpenGPS
                                             pt3.northing = norting;
                                             pt3.heading = 0;
 
-                                            mf.trk.designPtsList.Add(pt3);
+                                            designPtsList.Add(pt3);
                                         }
 
-                                        cnt = mf.trk.designPtsList.Count;
+                                        cnt = designPtsList.Count;
                                         if (cnt > 3)
                                         {
-                                            mf.trk.gArr.Add(new CTrk());
-                                            int idx = mf.trk.gArr.Count - 1;
+                                            var track = new CTrk(TrackMode.Curve);
 
                                             //make sure point distance isn't too big
-                                            mf.trk.MakePointMinimumSpacing(ref mf.trk.designPtsList, 1.6);
-                                            mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
+                                            mf.trk.MakePointMinimumSpacing(ref designPtsList, 1.6);
+                                            mf.trk.CalculateHeadings(ref designPtsList);
 
                                             //calculate average heading of line
                                             double x = 0, y = 0;
 
-                                            foreach (vec3 pt in mf.trk.designPtsList)
+                                            foreach (vec3 pt in designPtsList)
                                             {
                                                 x += Math.Cos(pt.heading);
                                                 y += Math.Sin(pt.heading);
                                             }
-                                            x /= mf.trk.designPtsList.Count;
-                                            y /= mf.trk.designPtsList.Count;
-                                            mf.trk.gArr[idx].heading = Math.Atan2(y, x);
-                                            if (mf.trk.gArr[idx].heading < 0) mf.trk.gArr[idx].heading += glm.twoPI;
+                                            x /= designPtsList.Count;
+                                            y /= designPtsList.Count;
+                                            track.heading = Math.Atan2(y, x);
+                                            if (track.heading < 0) track.heading += glm.twoPI;
 
                                             //build the tail extensions
-                                            mf.trk.AddFirstLastPoints(ref mf.trk.designPtsList,100);
-                                            mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
+                                            mf.trk.AddFirstLastPoints(ref designPtsList, 100);
+                                            mf.trk.CalculateHeadings(ref designPtsList);
 
-                                            if (string.IsNullOrEmpty(mf.trk.designName))
+                                            if (string.IsNullOrEmpty(designName))
                                             {
                                                 //create a name
-                                                mf.trk.gArr[idx].name = (Math.Round(glm.toDegrees(mf.trk.gArr[idx].heading), 1)).ToString(CultureInfo.InvariantCulture)
+                                                track.name = (Math.Round(glm.toDegrees(track.heading), 1)).ToString(CultureInfo.InvariantCulture)
                                                      + "\u00B0" + DateTime.Now.ToString("hh:mm:ss", CultureInfo.InvariantCulture);
                                             }
                                             else
                                             {
-                                                mf.trk.gArr[idx].name = mf.trk.designName;
+                                                track.name = designName;
                                             }
-
-                                            mf.trk.gArr[idx].mode = TrackMode.Curve;
 
                                             //write out the trk Points
-                                            foreach (vec3 item in mf.trk.designPtsList)
-                                            {
-                                                mf.trk.gArr[idx].curvePts.Add(item);
-                                            }
+                                            track.curvePts = designPtsList;
+
+                                            mf.trk.gArr.Add(track);
                                         }
                                     }
                                 }
@@ -667,50 +649,36 @@ namespace AgOpenGPS
                         //AB Line ----------------------------------------------------------------
                         if (nodePart.Attributes["A"].Value == "5" && nodePart.ChildNodes.Count < 3) //Guidance Pattern
                         {
+                            var track = new CTrk(TrackMode.AB);
                             //get the name
-                            mf.trk.designName = nodePart.Attributes["B"].Value;
+                            track.name = nodePart.Attributes["B"].Value.Trim();
 
                             double.TryParse(nodePart.ChildNodes[0].Attributes["C"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
                             double.TryParse(nodePart.ChildNodes[0].Attributes["D"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
 
                             mf.pn.ConvertWGS84ToLocal(latK, lonK, out norting, out easting);
 
-                            mf.trk.designPtA.easting = easting;
-                            mf.trk.designPtA.northing = norting;
+                            track.ptA = new vec2(easting, norting);
 
                             double.TryParse(nodePart.ChildNodes[1].Attributes["C"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
                             double.TryParse(nodePart.ChildNodes[1].Attributes["D"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
 
                             mf.pn.ConvertWGS84ToLocal(latK, lonK, out norting, out easting);
 
-                            mf.trk.designPtB.easting = easting;
-                            mf.trk.designPtB.northing = norting;
+                            track.ptB = new vec2(easting, norting);
 
                             // heading based on AB points
-                            mf.trk.designHeading = Math.Atan2(mf.trk.designPtB.easting - mf.trk.designPtA.easting,
-                                mf.trk.designPtB.northing - mf.trk.designPtA.northing);
-                            if (mf.trk.designHeading < 0) mf.trk.designHeading += glm.twoPI;
+                            track.heading = Math.Atan2(track.ptB.easting - track.ptA.easting,
+                                track.ptB.northing - track.ptA.northing);
+                            if (track.heading < 0) track.heading += glm.twoPI;
 
-                            mf.trk.gArr.Add(new CTrk());
-
-                            //index to last one.
-                            int idx = mf.trk.gArr.Count - 1;
-
-                            mf.trk.gArr[idx].heading = mf.trk.designHeading;
-                            mf.trk.gArr[idx].mode = TrackMode.AB;
-
-                            ////calculate the new points for the reference line and points
-                            mf.trk.gArr[idx].ptA = new vec2(mf.trk.designPtA);
-                            mf.trk.gArr[idx].ptB = new vec2(mf.trk.designPtB);
-
-                            mf.trk.gArr[idx].name = mf.trk.designName.Trim();
+                            mf.trk.gArr.Add(track);
                         }
                         //curve ------------------------------------------------------------------
                         else if (nodePart.Attributes["A"].Value == "5" && nodePart.ChildNodes.Count > 2) //Guidance Pattern
-
                         {
                             //get the name
-                            mf.trk.designName = nodePart.Attributes["B"].Value;
+                            var designName = nodePart.Attributes["B"].Value;
 
                             double.TryParse(nodePart.ChildNodes[0].Attributes["C"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
                             double.TryParse(nodePart.ChildNodes[0].Attributes["D"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
@@ -719,7 +687,7 @@ namespace AgOpenGPS
 
                             if (nodePart.ChildNodes.Count > 2)
                             {
-                                mf.trk.designPtsList?.Clear();
+                                var designPtsList = new List<vec3>();
                                 //GGP / GPN / LSG / PNT
                                 int cnt = nodePart.ChildNodes.Count;
 
@@ -735,53 +703,49 @@ namespace AgOpenGPS
                                     pt3.northing = norting;
                                     pt3.heading = 0;
 
-                                    mf.trk.designPtsList.Add(pt3);
+                                    designPtsList.Add(pt3);
                                 }
 
-                                cnt = mf.trk.designPtsList.Count;
+                                cnt = designPtsList.Count;
                                 if (cnt > 3)
                                 {
-                                    mf.trk.gArr.Add(new CTrk());
-                                    int idx = mf.trk.gArr.Count - 1;
+                                    var track = new CTrk(TrackMode.Curve);
 
                                     //make sure point distance isn't too big
-                                    mf.trk.MakePointMinimumSpacing(ref mf.trk.designPtsList, 1.6);
-                                    mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
+                                    mf.trk.MakePointMinimumSpacing(ref designPtsList, 1.6);
+                                    mf.trk.CalculateHeadings(ref designPtsList);
 
                                     //calculate average heading of line
                                     double x = 0, y = 0;
 
-                                    foreach (vec3 pt in mf.trk.designPtsList)
+                                    foreach (vec3 pt in designPtsList)
                                     {
                                         x += Math.Cos(pt.heading);
                                         y += Math.Sin(pt.heading);
                                     }
-                                    x /= mf.trk.designPtsList.Count;
-                                    y /= mf.trk.designPtsList.Count;
-                                    mf.trk.gArr[idx].heading = Math.Atan2(y, x);
-                                    if (mf.trk.gArr[idx].heading < 0) mf.trk.gArr[idx].heading += glm.twoPI;
+                                    x /= designPtsList.Count;
+                                    y /= designPtsList.Count;
+                                    track.heading = Math.Atan2(y, x);
+                                    if (track.heading < 0) track.heading += glm.twoPI;
 
                                     //build the tail extensions
-                                    mf.trk.AddFirstLastPoints(ref mf.trk.designPtsList,100);
-                                    mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
+                                    mf.trk.AddFirstLastPoints(ref designPtsList, 100);
+                                    mf.trk.CalculateHeadings(ref designPtsList);
 
                                     //array number is 1 less since it starts at zero
 
                                     //create a name
-                                    if (!string.IsNullOrEmpty(mf.trk.designName))
-                                        mf.trk.gArr[idx].name = mf.trk.designName;
-                                    else mf.trk.gArr[idx].name =
-                                            (Math.Round(glm.toDegrees(mf.trk.gArr[idx].heading), 1)).ToString(CultureInfo.InvariantCulture)
+                                    if (!string.IsNullOrEmpty(designName))
+                                        track.name = designName;
+                                    else track.name =
+                                            (Math.Round(glm.toDegrees(track.heading), 1)).ToString(CultureInfo.InvariantCulture)
                                             + "\u00B0"
                                             + DateTime.Now.ToString("hh:mm:ss", CultureInfo.InvariantCulture);
 
-                                    mf.trk.gArr[idx].mode = TrackMode.Curve;
-
                                     //write out the Curve Points
-                                    foreach (vec3 item in mf.trk.designPtsList)
-                                    {
-                                        mf.trk.gArr[idx].curvePts.Add(new vec3(item));
-                                    }
+                                    track.curvePts = designPtsList;
+
+                                    mf.trk.gArr.Add(track);
                                 }
                             }
                         }

@@ -9,16 +9,16 @@ namespace AgOpenGPS
         private readonly FormGPS mf = null;
 
         private double snapAdj = 0;
+        private CTrk track;
 
-        public FormNudge(Form callingForm)
+        public FormNudge(Form callingForm, CTrk _track)
         {
             //get copy of the calling main form
             mf = callingForm as FormGPS;
 
             InitializeComponent();
 
-            UpdateMoveLabel();
-
+            track = _track;
             this.Text = "";
         }
 
@@ -40,11 +40,6 @@ namespace AgOpenGPS
             }
         }
 
-        private void FormEditTrack_MouseEnter(object sender, EventArgs e)
-        {
-            UpdateMoveLabel();
-        }
-
         private void FormEditTrack_FormClosing(object sender, FormClosingEventArgs e)
         {
             Settings.User.setWindow_formNudgeLocation = Location;
@@ -56,22 +51,20 @@ namespace AgOpenGPS
 
         private void UpdateMoveLabel()
         {
-            if (mf.trk.idx > -1)
-            {
-                if (mf.trk.gArr[mf.trk.idx].nudgeDistance == 0)
-                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm * -1)).ToString() + glm.unitsInCm;
-                else if (mf.trk.gArr[mf.trk.idx].nudgeDistance < 0)
-                    lblOffset.Text = "< " + ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm * -1)).ToString() + glm.unitsInCm;
-                else
-                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm)).ToString() + " >" + glm.unitsInCm;
-            }
+            if (track.nudgeDistance == 0)
+                lblOffset.Text = ((int)(track.nudgeDistance * glm.m2InchOrCm * -1)).ToString() + glm.unitsInCm;
+            else if (track.nudgeDistance < 0)
+                lblOffset.Text = "< " + ((int)(track.nudgeDistance * glm.m2InchOrCm * -1)).ToString() + glm.unitsInCm;
+            else
+                lblOffset.Text = ((int)(track.nudgeDistance * glm.m2InchOrCm)).ToString() + " >" + glm.unitsInCm;
+
+            mf.Activate();
         }
 
         private void btnZeroMove_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeDistanceReset();
+            mf.trk.NudgeDistanceReset(track);
             UpdateMoveLabel();
-            mf.Activate();
         }
 
         private void nudSnapDistance_ValueChanged(object sender, EventArgs e)
@@ -83,23 +76,20 @@ namespace AgOpenGPS
 
         private void btnAdjRight_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeTrack(snapAdj);
+            mf.trk.NudgeTrack(track, snapAdj);
             UpdateMoveLabel();
-            mf.Activate();
         }
 
         private void btnAdjLeft_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeTrack(-snapAdj);
+            mf.trk.NudgeTrack(track, -snapAdj);
             UpdateMoveLabel();
-            mf.Activate();
         }
 
         private void btnSnapToPivot_Click(object sender, EventArgs e)
         {
-            mf.trk.SnapToPivot();
+            mf.trk.SnapToPivot(track);
             UpdateMoveLabel();
-            mf.Activate();
         }
 
         private void bntOk_Click(object sender, EventArgs e)
@@ -107,29 +97,16 @@ namespace AgOpenGPS
             Close();
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (mf.trk.idx > -1 && mf.trk.gArr.Count > 0)
-            {
-                if (mf.trk.gArr[mf.trk.idx].nudgeDistance < 0)
-                    lblOffset.Text = "< " + ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm * -1)).ToString();
-                else
-                    lblOffset.Text = ((int)(mf.trk.gArr[mf.trk.idx].nudgeDistance * glm.m2InchOrCm)).ToString() + " >";
-            }
-        }
-
         private void btnHalfToolRight_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeTrack((Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5);
+            mf.trk.NudgeTrack(track, (Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5);
             UpdateMoveLabel();
-            mf.Activate();
         }
 
         private void btnHalfToolLeft_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeTrack((Settings.Tool.toolWidth - Settings.Tool.overlap) * -0.5);
+            mf.trk.NudgeTrack(track, (Settings.Tool.toolWidth - Settings.Tool.overlap) * -0.5);
             UpdateMoveLabel();
-            mf.Activate();
         }
 
         protected override void WndProc(ref Message m)

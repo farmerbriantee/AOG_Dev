@@ -525,7 +525,7 @@ namespace AgOpenGPS
                             GL.End();
                         }
 
-                        if (!Settings.Vehicle.setVehicle_isStanleyUsed && trk.idx > -1)
+                        if (!Settings.Vehicle.setVehicle_isStanleyUsed && trk.currentGuidanceTrack.Count > 1)
                         {
                             GL.PointSize(16);
                             GL.Begin(PrimitiveType.Points);
@@ -579,9 +579,9 @@ namespace AgOpenGPS
                     {
                         DrawLightBarText();
                     }
-                    else
+                    else if (Settings.User.isLightbarOn)
                     {
-                        if (Settings.User.isLightbarOn) DrawSteerBarText();
+                        DrawSteerBarText();
                     }
 
                     if (trk.idx > -1 && !ct.isContourBtnOn) DrawTrackInfo();

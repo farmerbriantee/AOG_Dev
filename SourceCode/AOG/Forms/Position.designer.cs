@@ -1,6 +1,7 @@
 ﻿//Please, if you use this, share the improvements
 
 
+using AgOpenGPS.Classes;
 using System;
 using System.Collections;
 using System.Collections.Generic;

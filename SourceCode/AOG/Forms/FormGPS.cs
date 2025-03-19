@@ -690,7 +690,6 @@ namespace AgOpenGPS
 
             btnAutoSteer.Enabled = true;
 
-            DisableYouTurnButtons();
             btnFlag.Enabled = true;
 
             //update the menu
@@ -819,13 +818,6 @@ namespace AgOpenGPS
             //ABLine
             tram.tramList?.Clear();
 
-            //curve line
-            trk.ResetTrack();
-
-            //tracks
-            trk.gArr?.Clear();
-            trk.idx = -1;
-
             //clean up tram
             tram.displayMode = 0;
             tram.generateMode = 0;
@@ -839,14 +831,13 @@ namespace AgOpenGPS
 
             //AutoSteer
             btnAutoSteer.Enabled = false;
-            isBtnAutoSteerOn = false;
-            btnAutoSteer.Image = Properties.Resources.AutoSteerOff;
+            SetAutoSteerButton(false, "Field Closed");
+
+            //tracks
+            trk.ResetTrack();
 
             //auto YouTurn shutdown
-            yt.isYouTurnBtnOn = false;
-            btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
-            yt.ResetCreatedYouTurn();
-            DisableYouTurnButtons();
+            SetYouTurnButton(false);
 
             //reset acre and distance counters
             fd.workedAreaTotal = 0;

@@ -241,13 +241,6 @@ namespace AgOpenGPS
                 //status strip values
                 distanceToolBtn.Text = fd.DistanceUser + "\r\n" + fd.WorkedUserArea;
 
-                //Make sure it is off when it should
-                if (!ct.isContourBtnOn && trk.idx == -1 && isBtnAutoSteerOn)
-                {
-                    SetAutoSteerButton(false, gStr.Get(gs.gsNoGuidanceLines));
-                    Log.EventWriter("Steer Safe Off, No Tracks, Idx -1");
-                }
-
                 lblSpeed.Text = Speed;
 
                 //Nozzz
@@ -442,7 +435,7 @@ namespace AgOpenGPS
             //btnChangeMappingColor.BackColor = sectionColorDay;
             btnChangeMappingColor.Text = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
 
-            DisableYouTurnButtons();
+            yt.ResetCreatedYouTurn();
 
             //workswitch stuff
 
@@ -958,12 +951,11 @@ namespace AgOpenGPS
 
                 if (isFieldStarted)
                 {
-                    if (isBtnAutoSteerOn || yt.isYouTurnBtnOn)
+                    if (yt.isYouTurnBtnOn && !ct.isContourBtnOn && trk.currentGuidanceTrack.Count > 1)
                     {
                         //uturn and swap uturn direction
-                        if (point.Y < 150 && point.Y > 90 && (trk.idx > -1))
+                        if (point.Y < 150 && point.Y > 90)
                         {
-
                             int middle = centerX + oglMain.Width / 5;
                             if (point.X > middle - 80 && point.X < middle + 80)
                             {
@@ -981,15 +973,14 @@ namespace AgOpenGPS
 
                                 Settings.Vehicle.set_uTurnStyle = yt.uTurnStyle;
 
-
                                 return;
                             }
 
-                            if (!Settings.Vehicle.setVehicle_isStanleyUsed)
+                            if (!Settings.Vehicle.setVehicle_isStanleyUsed && Settings.User.setFeatures.isUTurnOn)
                             {
                                 //manual uturn triggering
                                 middle = centerX - oglMain.Width / 4;
-                                if (point.X > middle - 100 && point.X < middle && Settings.User.setFeatures.isUTurnOn)
+                                if (point.X > middle - 100 && point.X < middle + 100)
                                 {
                                     if (yt.isYouTurnTriggered)
                                     {
@@ -999,33 +990,12 @@ namespace AgOpenGPS
                                     {
                                         if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                         {
-                                            yt.BuildManualYouTurn(false);
+                                            yt.BuildManualYouTurn(point.X > middle);
                                         }
                                         else
                                         {
                                             SpeedLimitExceeded();
                                         }
-                                        return;
-                                    }
-                                }
-
-                                if (point.X > middle && point.X < middle + 100 && Settings.User.setFeatures.isUTurnOn)
-                                {
-                                    if (yt.isYouTurnTriggered)
-                                    {
-                                        yt.ResetCreatedYouTurn();
-                                    }
-                                    else
-                                    {
-                                        if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
-                                        {
-                                            yt.BuildManualYouTurn(true);
-                                        }
-                                        else
-                                        {
-                                            SpeedLimitExceeded();
-                                        }
-
                                         return;
                                     }
                                 }
@@ -1033,35 +1003,19 @@ namespace AgOpenGPS
                         }
 
                         //lateral
-                        if (point.Y < 240 && point.Y > 170 && (trk.idx > -1))
+                        else if (Settings.User.setFeatures.isLateralOn && point.Y < 240 && point.Y > 170)
                         {
                             int middle = centerX - oglMain.Width / 4;
-                            if (point.X > middle - 100 && point.X < middle && Settings.User.setFeatures.isLateralOn)
+                            if (point.X > middle - 100 && point.X < middle + 100)
                             {
                                 if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                 {
-                                    yt.BuildManualYouLateral(false);
-                                }
-                                else
-                                {
-                                    SpeedLimitExceeded();
-                                }
-
-                                return;
+                                    yt.BuildManualYouLateral(point.X > middle);
                             }
-
-                            if (point.X > middle && point.X < middle + 100 && Settings.User.setFeatures.isLateralOn)
-                            {
-                                if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
-                                {
-                                    yt.BuildManualYouLateral(true);
-                                }
                                 else
                                 {
                                     SpeedLimitExceeded();
                                 }
-
-                                return;
                             }
                         }
                     }
@@ -1179,12 +1133,10 @@ namespace AgOpenGPS
         public void SwapDirection()
         {
             if (!yt.isYouTurnTriggered)
-            {
                 yt.isTurnLeft = !yt.isTurnLeft;
+
                 yt.ResetCreatedYouTurn();
             }
-            else SetYouTurnButton(false);
-        }
 
         //Function to delete flag
         public void DeleteSelectedFlag()

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -7,14 +6,16 @@ namespace AgOpenGPS
     public partial class FormRefNudge : Form
     {
         private readonly FormGPS mf = null;
-        public List<CTrk> gTemp = new List<CTrk>();
+        public CTrk gBack;
+        public CTrk track;
 
         private double distanceMoved = 0;
 
-        public FormRefNudge(Form callingForm)
+        public FormRefNudge(Form callingForm, CTrk _track)
         {
-            //get copy of the calling main form
             mf = callingForm as FormGPS;
+            track = _track;
+            gBack = new CTrk(_track);
 
             InitializeComponent();
 
@@ -26,12 +27,6 @@ namespace AgOpenGPS
             mf.panelRight.Enabled = false;
             nudSnapDistance.DecimalPlaces = Settings.User.isMetric ? 0 : 1;
             nudSnapDistance.Value = Settings.Vehicle.setAS_snapDistanceRef;
-
-
-            foreach (var item in mf.trk.gArr)
-            {
-                gTemp.Add(new CTrk(item));
-            }
 
             lblOffset.Text = ((int)(distanceMoved * glm.m2InchOrCm)).ToString("N1") + " " + glm.unitsInCm;
 
@@ -59,7 +54,7 @@ namespace AgOpenGPS
 
         private void btnAdjRight_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeRefTrack(nudSnapDistance.Value);
+            mf.trk.NudgeRefTrack(track, nudSnapDistance.Value);
             distanceMoved += nudSnapDistance.Value;
             DistanceMovedLabel();
             mf.Activate();
@@ -67,7 +62,7 @@ namespace AgOpenGPS
 
         private void btnAdjLeft_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeRefTrack(-nudSnapDistance.Value);
+            mf.trk.NudgeRefTrack(track, -nudSnapDistance.Value);
             distanceMoved += -nudSnapDistance.Value;
             DistanceMovedLabel();
             mf.Activate();
@@ -75,7 +70,7 @@ namespace AgOpenGPS
 
         private void btnHalfToolRight_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeRefTrack((Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5);
+            mf.trk.NudgeRefTrack(track, (Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5);
             distanceMoved += (Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5;
             DistanceMovedLabel();
             mf.Activate();
@@ -83,7 +78,7 @@ namespace AgOpenGPS
 
         private void btnHalfToolLeft_Click(object sender, EventArgs e)
         {
-            mf.trk.NudgeRefTrack((Settings.Tool.toolWidth - Settings.Tool.overlap) * -0.5);
+            mf.trk.NudgeRefTrack(track, (Settings.Tool.toolWidth - Settings.Tool.overlap) * -0.5);
             distanceMoved += (Settings.Tool.toolWidth - Settings.Tool.overlap) * -0.5;
             DistanceMovedLabel();
             mf.Activate();
@@ -97,7 +92,7 @@ namespace AgOpenGPS
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            //if (mf.trk.gArr.Count > 0)
+            if (distanceMoved != 0)
             {
                 //save entire list
                 mf.FileSaveTracks();
@@ -107,15 +102,14 @@ namespace AgOpenGPS
 
         private void btnCancelMain_Click(object sender, EventArgs e)
         {
-            mf.trk.gArr.Clear();
-
-            foreach (var item in gTemp)
+            int index = mf.trk.gArr.FindIndex(item => item == track);
+            if (index != -1)
             {
-                mf.trk.gArr.Add(new CTrk(item));
+                if (track == mf.trk.currTrk)
+                    mf.trk.isTrackValid = false;
+
+                mf.trk.gArr[index] = gBack;
             }
-
-            mf.trk.isTrackValid = false;
-
             //mf.FileSaveTracks();
             Close();
         }

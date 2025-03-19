@@ -24,7 +24,7 @@ namespace AgOpenGPS
     public class CFieldFiles
     {
         public List<CFieldFile> fieldArr = new List<CFieldFile>();
-        
+
     }
 
     public partial class FormGPS
@@ -1104,6 +1104,8 @@ namespace AgOpenGPS
 
                             trk.gArr.Add(track);
                         }
+
+                        trk.GetNextTrack();
                     }
                     catch (Exception er)
                     {
@@ -1112,8 +1114,6 @@ namespace AgOpenGPS
                     }
                 }
             }
-
-            trk.idx = -1;
         }
 
         public void FileLoadTrams()
@@ -1334,34 +1334,34 @@ namespace AgOpenGPS
                         {
                             if (track.mode != TrackMode.AB) continue;
 
-                                xml.WriteStartElement("LSG");//Line
-                                xml.WriteAttributeString("A", "5");
+                            xml.WriteStartElement("LSG");//Line
+                            xml.WriteAttributeString("A", "5");
                             xml.WriteAttributeString("B", track.name);
-                                ///xml.WriteAttributeString("C", (Settings.Tool.toolWidth).ToString());
-                                {
-                                    xml.WriteStartElement("PNT");//A
+                            ///xml.WriteAttributeString("C", (Settings.Tool.toolWidth).ToString());
+                            {
+                                xml.WriteStartElement("PNT");//A
 
                                 pn.ConvertLocalToWGS84(track.ptA.northing - (Math.Cos(track.heading) * 1000),
                                     track.ptA.easting - (Math.Sin(track.heading) * 1000), out lat, out lon);
 
-                                    xml.WriteAttributeString("A", "2");
-                                    xml.WriteAttributeString("C", lat.ToString());
-                                    xml.WriteAttributeString("D", lon.ToString());
+                                xml.WriteAttributeString("A", "2");
+                                xml.WriteAttributeString("C", lat.ToString());
+                                xml.WriteAttributeString("D", lon.ToString());
 
-                                    xml.WriteEndElement();//A
-                                    xml.WriteStartElement("PNT");//B
+                                xml.WriteEndElement();//A
+                                xml.WriteStartElement("PNT");//B
 
                                 pn.ConvertLocalToWGS84(track.ptA.northing + (Math.Cos(track.heading) * 1000),
                                     track.ptA.easting + (Math.Sin(track.heading) * 1000), out lat, out lon);
 
-                                    xml.WriteAttributeString("A", "2");
+                                xml.WriteAttributeString("A", "2");
 
-                                    xml.WriteAttributeString("C", lat.ToString());
-                                    xml.WriteAttributeString("D", lon.ToString());
-                                }
-                                xml.WriteEndElement();//B
-                                xml.WriteEndElement();//Line
+                                xml.WriteAttributeString("C", lat.ToString());
+                                xml.WriteAttributeString("D", lon.ToString());
                             }
+                            xml.WriteEndElement();//B
+                            xml.WriteEndElement();//Line
+                        }
 
                         //curves
                         /*
@@ -1375,26 +1375,26 @@ namespace AgOpenGPS
                         {
                             if (track.mode != TrackMode.Curve) continue;
 
-                                xml.WriteStartElement("LSG");//Curve
-                                xml.WriteAttributeString("A", "5"); //denotes guidance
+                            xml.WriteStartElement("LSG");//Curve
+                            xml.WriteAttributeString("A", "5"); //denotes guidance
                             xml.WriteAttributeString("B", track.name);
-                                //xml.WriteAttributeString("C", (Settings.Tool.toolWidth).ToString());
+                            //xml.WriteAttributeString("C", (Settings.Tool.toolWidth).ToString());
 
                             for (int j = 0; j < track.curvePts.Count; j++)
-                                {
-                                    xml.WriteStartElement("PNT");//point
+                            {
+                                xml.WriteStartElement("PNT");//point
                                 pn.ConvertLocalToWGS84(track.curvePts[j].northing,
                                     track.curvePts[j].easting, out lat, out lon);
 
-                                    xml.WriteAttributeString("A", "2");
-                                    xml.WriteAttributeString("C", lat.ToString());
-                                    xml.WriteAttributeString("D", lon.ToString());
+                                xml.WriteAttributeString("A", "2");
+                                xml.WriteAttributeString("C", lat.ToString());
+                                xml.WriteAttributeString("D", lon.ToString());
 
-                                    xml.WriteEndElement();//point
-                                }
-                                xml.WriteEndElement(); //Curve   
+                                xml.WriteEndElement();//point
                             }
+                            xml.WriteEndElement(); //Curve   
                         }
+                    }
 
                     //Last
                     xml.WriteEndElement();//End Field
@@ -1491,26 +1491,26 @@ namespace AgOpenGPS
                         {
                             if (boundary.hdLine.Count < 1) continue;
 
-                                xml.WriteStartElement("PLN");//BND
+                            xml.WriteStartElement("PLN");//BND
 
-                                xml.WriteAttributeString("A", "10"); //headland
+                            xml.WriteAttributeString("A", "10"); //headland
 
-                                xml.WriteStartElement("LSG");//Polygon
-                                xml.WriteAttributeString("A", "1");
+                            xml.WriteStartElement("LSG");//Polygon
+                            xml.WriteAttributeString("A", "1");
 
                             foreach (var hdPoint in boundary.hdLine)
-                                {
+                            {
                                 pn.ConvertLocalToWGS84(hdPoint.northing, hdPoint.easting, out lat, out lon);
-                                    xml.WriteStartElement("PNT");//Boundary Points
-                                    xml.WriteAttributeString("A", "10");
-                                    xml.WriteAttributeString("C", lat.ToString());
-                                    xml.WriteAttributeString("D", lon.ToString());
-                                    xml.WriteEndElement(); //Boundary Points                   
-                                }
-
-                                xml.WriteEndElement();//Polygon
-                                xml.WriteEndElement();//BND
+                                xml.WriteStartElement("PNT");//Boundary Points
+                                xml.WriteAttributeString("A", "10");
+                                xml.WriteAttributeString("C", lat.ToString());
+                                xml.WriteAttributeString("D", lon.ToString());
+                                xml.WriteEndElement(); //Boundary Points                   
                             }
+
+                            xml.WriteEndElement();//Polygon
+                            xml.WriteEndElement();//BND
+                        }
 
                         //AB Lines
                         /*
@@ -1524,50 +1524,50 @@ namespace AgOpenGPS
                         {
                             if (track.mode != TrackMode.AB) continue;
 
-                                xml.WriteStartElement("GGP");//Guide-P
-                                string name = "GGP" + lineCounter.ToString();
-                                lineCounter++;
-                                xml.WriteAttributeString("A", name);
+                            xml.WriteStartElement("GGP");//Guide-P
+                            string name = "GGP" + lineCounter.ToString();
+                            lineCounter++;
+                            xml.WriteAttributeString("A", name);
                             xml.WriteAttributeString("B", track.name);
-                                {
-                                    xml.WriteStartElement("GPN");//Guide-N
-                                    xml.WriteAttributeString("A", name);
+                            {
+                                xml.WriteStartElement("GPN");//Guide-N
+                                xml.WriteAttributeString("A", name);
                                 xml.WriteAttributeString("B", track.name);
-                                    xml.WriteAttributeString("C", "1");
-                                    xml.WriteAttributeString("E", "1");
-                                    xml.WriteAttributeString("F", "1");
-                                    xml.WriteAttributeString("I", "16");
+                                xml.WriteAttributeString("C", "1");
+                                xml.WriteAttributeString("E", "1");
+                                xml.WriteAttributeString("F", "1");
+                                xml.WriteAttributeString("I", "16");
+                                {
+                                    xml.WriteStartElement("LSG");//Line
+                                    xml.WriteAttributeString("A", "5");
                                     {
-                                        xml.WriteStartElement("LSG");//Line
-                                        xml.WriteAttributeString("A", "5");
-                                        {
-                                            xml.WriteStartElement("PNT");//A
+                                        xml.WriteStartElement("PNT");//A
 
                                         pn.ConvertLocalToWGS84(track.ptA.northing - (Math.Cos(track.heading) * 1000),
                                             track.ptA.easting - (Math.Sin(track.heading) * 1000), out lat, out lon);
 
-                                            xml.WriteAttributeString("A", "6");
-                                            xml.WriteAttributeString("C", lat.ToString());
-                                            xml.WriteAttributeString("D", lon.ToString());
+                                        xml.WriteAttributeString("A", "6");
+                                        xml.WriteAttributeString("C", lat.ToString());
+                                        xml.WriteAttributeString("D", lon.ToString());
 
-                                            xml.WriteEndElement();//A
-                                            xml.WriteStartElement("PNT");//B
+                                        xml.WriteEndElement();//A
+                                        xml.WriteStartElement("PNT");//B
 
                                         pn.ConvertLocalToWGS84(track.ptA.northing + (Math.Cos(track.heading) * 1000),
                                             track.ptA.easting + (Math.Sin(track.heading) * 1000), out lat, out lon);
 
-                                            xml.WriteAttributeString("A", "7");
+                                        xml.WriteAttributeString("A", "7");
 
-                                            xml.WriteAttributeString("C", lat.ToString());
-                                            xml.WriteAttributeString("D", lon.ToString());
-                                            xml.WriteEndElement();//B
-                                        }
-                                        xml.WriteEndElement();//Line
+                                        xml.WriteAttributeString("C", lat.ToString());
+                                        xml.WriteAttributeString("D", lon.ToString());
+                                        xml.WriteEndElement();//B
                                     }
-                                    xml.WriteEndElement(); //Guide-N
+                                    xml.WriteEndElement();//Line
                                 }
-                                xml.WriteEndElement(); //Guide-P
+                                xml.WriteEndElement(); //Guide-N
                             }
+                            xml.WriteEndElement(); //Guide-P
+                        }
 
                         //curves
                         /*
@@ -1582,52 +1582,52 @@ namespace AgOpenGPS
                         {
                             if (track.mode != TrackMode.Curve) continue;
 
-                                xml.WriteStartElement("GGP");//Guide-P
-                                string name = "GGP" + lineCounter.ToString();
-                                lineCounter++;
-                                xml.WriteAttributeString("A", name);
+                            xml.WriteStartElement("GGP");//Guide-P
+                            string name = "GGP" + lineCounter.ToString();
+                            lineCounter++;
+                            xml.WriteAttributeString("A", name);
                             xml.WriteAttributeString("B", track.name);
-                                {
-                                    xml.WriteStartElement("GPN");//Guide-N
-                                    xml.WriteAttributeString("A", name);
+                            {
+                                xml.WriteStartElement("GPN");//Guide-N
+                                xml.WriteAttributeString("A", name);
                                 xml.WriteAttributeString("B", track.name);
-                                    xml.WriteAttributeString("C", "3");
-                                    xml.WriteAttributeString("E", "1");
-                                    xml.WriteAttributeString("F", "1");
-                                    xml.WriteAttributeString("I", "16");
-                                    {
-                                        xml.WriteStartElement("LSG");//Curve
-                                        xml.WriteAttributeString("A", "5"); //denotes guidance
+                                xml.WriteAttributeString("C", "3");
+                                xml.WriteAttributeString("E", "1");
+                                xml.WriteAttributeString("F", "1");
+                                xml.WriteAttributeString("I", "16");
+                                {
+                                    xml.WriteStartElement("LSG");//Curve
+                                    xml.WriteAttributeString("A", "5"); //denotes guidance
 
                                     for (int j = 0; j < track.curvePts.Count; j++)
-                                        {
-                                            xml.WriteStartElement("PNT");//point
+                                    {
+                                        xml.WriteStartElement("PNT");//point
                                         pn.ConvertLocalToWGS84(track.curvePts[j].northing,
                                             track.curvePts[j].easting, out lat, out lon);
-                                            if (j == 0)
-                                            {
-                                                xml.WriteAttributeString("A", "6");
-                                            }
-                                        else if (j == track.curvePts.Count - 1)
-                                            {
-                                                xml.WriteAttributeString("A", "7");
-                                            }
-                                            else
-                                            {
-                                                xml.WriteAttributeString("A", "9");
-                                            }
-                                            xml.WriteAttributeString("C", lat.ToString());
-                                            xml.WriteAttributeString("D", lon.ToString());
-
-                                            xml.WriteEndElement();//point
+                                        if (j == 0)
+                                        {
+                                            xml.WriteAttributeString("A", "6");
                                         }
-                                        xml.WriteEndElement(); //end LSG curve
+                                        else if (j == track.curvePts.Count - 1)
+                                        {
+                                            xml.WriteAttributeString("A", "7");
+                                        }
+                                        else
+                                        {
+                                            xml.WriteAttributeString("A", "9");
+                                        }
+                                        xml.WriteAttributeString("C", lat.ToString());
+                                        xml.WriteAttributeString("D", lon.ToString());
+
+                                        xml.WriteEndElement();//point
                                     }
-                                    xml.WriteEndElement(); //Guide-N
+                                    xml.WriteEndElement(); //end LSG curve
                                 }
-                                xml.WriteEndElement(); //Guide-P
+                                xml.WriteEndElement(); //Guide-N
                             }
+                            xml.WriteEndElement(); //Guide-P
                         }
+                    }
 
                     //Last
                     xml.WriteEndElement();//End Field
@@ -1829,35 +1829,35 @@ namespace AgOpenGPS
             {
                 try
                 {
-                        writer.WriteLine("$HeadLines");
+                    writer.WriteLine("$HeadLines");
 
                     foreach (var headPath in hdl.tracksArr)
-                        {
-                            //write out the name
+                    {
+                        //write out the name
                         writer.WriteLine(headPath.name);
 
-                            //write out the moveDistance
+                        //write out the moveDistance
                         writer.WriteLine(headPath.moveDistance.ToString(CultureInfo.InvariantCulture));
 
-                            //write out the mode
+                        //write out the mode
                         writer.WriteLine(headPath.mode.ToString(CultureInfo.InvariantCulture));
 
-                            //write out the A_Point index
+                        //write out the A_Point index
                         writer.WriteLine(headPath.a_point.ToString(CultureInfo.InvariantCulture));
 
-                            //write out the points of ref line
+                        //write out the points of ref line
                         int cnt2 = headPath.trackPts.Count;
 
-                            writer.WriteLine(cnt2.ToString(CultureInfo.InvariantCulture));
+                        writer.WriteLine(cnt2.ToString(CultureInfo.InvariantCulture));
                         if (headPath.trackPts.Count > 0)
-                            {
-                                for (int j = 0; j < cnt2; j++)
+                        {
+                            for (int j = 0; j < cnt2; j++)
                                 writer.WriteLine(Math.Round(headPath.trackPts[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
                                                  Math.Round(headPath.trackPts[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
                                                  Math.Round(headPath.trackPts[j].heading, 5).ToString(CultureInfo.InvariantCulture));
-                            }
                         }
                     }
+                }
                 catch (Exception er)
                 {
                     Log.EventWriter("Saving Head Lines" + er.ToString());
@@ -1915,42 +1915,42 @@ namespace AgOpenGPS
             {
                 try
                 {
-                        writer.WriteLine("$TrackLines");
+                    writer.WriteLine("$TrackLines");
 
                     foreach (var track in trk.gArr)
-                        {
-                            //write out the name
+                    {
+                        //write out the name
                         writer.WriteLine(track.name);
 
-                            //write out the heading
+                        //write out the heading
                         writer.WriteLine(track.heading.ToString(CultureInfo.InvariantCulture));
 
-                            //A nd B
+                        //A nd B
                         writer.WriteLine(Math.Round(track.ptA.easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
                                             Math.Round(track.ptA.northing, 3).ToString(CultureInfo.InvariantCulture));
                         writer.WriteLine(Math.Round(track.ptB.easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
                                             Math.Round(track.ptB.northing, 3).ToString(CultureInfo.InvariantCulture));
 
-                            //write out the nudgeDistance
+                        //write out the nudgeDistance
                         writer.WriteLine(track.nudgeDistance.ToString(CultureInfo.InvariantCulture));
 
-                            //write out the mode
+                        //write out the mode
                         writer.WriteLine(((int)track.mode).ToString(CultureInfo.InvariantCulture));
 
-                            //visible?
+                        //visible?
                         writer.WriteLine(track.isVisible.ToString(CultureInfo.InvariantCulture));
 
-                            //write out the points of ref line
+                        //write out the points of ref line
                         int cnt2 = track.curvePts.Count;
 
-                            writer.WriteLine(cnt2.ToString(CultureInfo.InvariantCulture));
+                        writer.WriteLine(cnt2.ToString(CultureInfo.InvariantCulture));
                         if (track.curvePts.Count > 0)
-                            {
-                                for (int j = 0; j < cnt2; j++)
+                        {
+                            for (int j = 0; j < cnt2; j++)
                                 writer.WriteLine(Math.Round(track.curvePts[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
                                                  Math.Round(track.curvePts[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
                                                  Math.Round(track.curvePts[j].heading, 5).ToString(CultureInfo.InvariantCulture));
-                    }
+                        }
                     }
                 }
                 catch (Exception er)

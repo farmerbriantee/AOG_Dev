@@ -1,7 +1,8 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using AgOpenGPS.Classes;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AgOpenGPS
@@ -15,8 +16,7 @@ namespace AgOpenGPS
         private readonly FormGPS mf;
 
         public List<CTrk> gArr = new List<CTrk>();
-
-        public int idx;
+        private CTrk _currTrk;
 
         public bool isHeadingSameWay = true, lastIsHeadingSameWay = true;
 
@@ -41,8 +41,6 @@ namespace AgOpenGPS
         //design a new track
         public List<vec3> designPtsList = new List<vec3>();
 
-        public string designName = "**";
-
         public vec2 designPtA = new vec2(0.2, 0.15);
         public vec2 designPtB = new vec2(0.3, 0.3);
         public vec2 designLineEndA = new vec2(0.2, 0.15);
@@ -60,14 +58,62 @@ namespace AgOpenGPS
         {
             //constructor
             mf = _f;
-            idx = -1;
         }
 
-        public async void GetDistanceFromRefTrack(vec3 pivot)
+        public CTrk currTrk
+        {
+            get => _currTrk;
+            set
+            {
+                if (_currTrk != value)
+                {
+                    _currTrk = value;
+
+                    isTrackValid = false;
+
+                    mf.SetAutoSteerButton(false, _currTrk == null ? gStr.Get(gs.gsNoABLineActive) : "Track Changed");
+
+                    //ss Log.EventWriter("Autosteer Stop, No Tracks Available");
+
+                    int index2 = gArr.FindIndex(x => x == _currTrk);
+                    mf.lblNumCu.Text = (index2 + 1).ToString() + "/" + gArr.Count.ToString();
+                    mf.lblNumCu.Visible = !mf.ct.isContourBtnOn;
+                }
+            }
+        }
+
+        public int GetVisibleTracks()
+        {
+            int tracksVisible = 0;
+            foreach (var track in gArr)
+            {
+                if (track.isVisible) tracksVisible++;
+            }
+            return tracksVisible;
+        }
+        public CTrk GetNextTrack(CTrk track, List<CTrk> gTemp, bool next = true, bool invisible = false)
+        {
+            int index = gTemp.FindIndex(x => x == track);
+
+            if (next)
+                return gTemp.Skip(index + 1).Concat(gTemp.Take(index)).FirstOrDefault(x => x.isVisible || invisible);
+            else
+                return gTemp.Take(index).Reverse().Concat(gTemp.Skip(index + 1).Reverse()).FirstOrDefault(x => x.isVisible || invisible);
+        }
+
+        public void GetNextTrack(bool next = true)
+        {
+            int index = gArr.FindIndex(x => x == currTrk);
+
+            if (next)
+                currTrk = gArr.Skip(index + 1).Concat(gArr.Take(index)).FirstOrDefault(x => x.isVisible);
+            else
+                currTrk = gArr.Take(index).Reverse().Concat(gArr.Skip(index + 1).Reverse()).FirstOrDefault(x => x.isVisible);
+        }
+
+        public async void GetDistanceFromRefTrack(CTrk track, vec3 pivot)
         {
             double widthMinusOverlap = Settings.Tool.toolWidth - Settings.Tool.overlap;
-
-            CTrk track = gArr[idx];
 
             if (!isTrackValid || ((mf.secondsSinceStart - lastSecond) > 3 && (!mf.isBtnAutoSteerOn || mf.mc.steerSwitchHigh)))
             {
@@ -523,57 +569,44 @@ namespace AgOpenGPS
 
         public void DrawTrack()
         {
-            if (idx == -1) return;
-
             if (guideArr.Count > 0)
             {
                 GL.LineWidth(Settings.User.setDisplay_lineWidth * 3);
                 GL.Color3(0, 0, 0);
 
-                if (gArr[idx].mode != TrackMode.bndCurve)
-                    GL.Begin(PrimitiveType.LineStrip);
-                else
-                    GL.Begin(PrimitiveType.LineLoop);
-
                 for (int i = 0; i < guideArr.Count; i++)
                 {
-                    GL.Begin(PrimitiveType.LineStrip);
+                    GL.Begin(currTrk.mode != TrackMode.bndCurve ? PrimitiveType.LineStrip : PrimitiveType.LineLoop);
+
                     for (int h = 0; h < guideArr[i].Count; h++)
                         GL.Vertex3(guideArr[i][h].easting, guideArr[i][h].northing, 0);
                     GL.End();
                 }
-                GL.End();
 
                 GL.LineWidth(Settings.User.setDisplay_lineWidth);
                 GL.Color4(0.2, 0.75, 0.2, 0.6);
 
-                if (gArr[idx].mode != TrackMode.bndCurve)
-                    GL.Begin(PrimitiveType.LineStrip);
-                else
-                    GL.Begin(PrimitiveType.LineLoop);
-
                 for (int i = 0; i < guideArr.Count; i++)
                 {
-                    GL.Begin(PrimitiveType.LineStrip);
+                    GL.Begin(currTrk.mode != TrackMode.bndCurve ? PrimitiveType.LineStrip : PrimitiveType.LineLoop);
                     for (int h = 0; h < guideArr[i].Count; h++)
                         GL.Vertex3(guideArr[i][h].easting, guideArr[i][h].northing, 0);
                     GL.End();
                 }
-                GL.End();
             }
 
             //draw reference line
-            if (gArr[idx].mode != TrackMode.waterPivot)
+            if (currTrk.mode != TrackMode.waterPivot)
             {
-                if (gArr[idx].curvePts == null || gArr[idx].curvePts.Count == 0) return;
+                if (currTrk.curvePts == null || currTrk.curvePts.Count == 0) return;
 
                 GL.LineWidth(Settings.User.setDisplay_lineWidth * 2);
                 GL.Color3(0.96, 0.2f, 0.2f);
                 GL.Begin(PrimitiveType.Lines);
 
-                for (int h = 0; h < gArr[idx].curvePts.Count; h++) GL.Vertex3(
-                    gArr[idx].curvePts[h].easting,
-                    gArr[idx].curvePts[h].northing,
+                for (int h = 0; h < currTrk.curvePts.Count; h++) GL.Vertex3(
+                    currTrk.curvePts[h].easting,
+                    currTrk.curvePts[h].northing,
                     0);
 
                 GL.End();
@@ -581,8 +614,8 @@ namespace AgOpenGPS
                 if (mf.font.isFontOn)
                 {
                     GL.Color3(0.40f, 0.90f, 0.95f);
-                    mf.font.DrawText3D(gArr[idx].ptA.easting, gArr[idx].ptA.northing, "&A");
-                    mf.font.DrawText3D(gArr[idx].ptB.easting, gArr[idx].ptB.northing, "&B");
+                    mf.font.DrawText3D(currTrk.ptA.easting, currTrk.ptA.northing, "&A");
+                    mf.font.DrawText3D(currTrk.ptB.easting, currTrk.ptB.northing, "&B");
                 }
 
                 //just draw ref and smoothed line if smoothing window is open
@@ -605,17 +638,17 @@ namespace AgOpenGPS
                 GL.Color3(0, 0, 0);
 
                 //ablines and curves are a line - the rest a loop
-                if (gArr[idx].mode <= TrackMode.Curve)
+                if (currTrk.mode <= TrackMode.Curve)
                 {
                     GL.Begin(PrimitiveType.LineStrip);
                 }
                 else
                 {
-                    if (gArr[idx].mode == TrackMode.waterPivot)
+                    if (currTrk.mode == TrackMode.waterPivot)
                     {
                         GL.PointSize(15.0f);
                         GL.Begin(PrimitiveType.Points);
-                        GL.Vertex3(gArr[idx].ptA.easting, gArr[idx].ptA.northing, 0);
+                        GL.Vertex3(currTrk.ptA.easting, currTrk.ptA.northing, 0);
                         GL.End();
                     }
 
@@ -629,17 +662,17 @@ namespace AgOpenGPS
                 GL.Color3(0.95f, 0.2f, 0.95f);
 
                 //ablines and curves are a track - the rest a loop
-                if (gArr[idx].mode <= TrackMode.Curve)
+                if (currTrk.mode <= TrackMode.Curve)
                 {
                     GL.Begin(PrimitiveType.Lines);
                 }
                 else
                 {
-                    if (gArr[idx].mode == TrackMode.waterPivot)
+                    if (currTrk.mode == TrackMode.waterPivot)
                     {
                         GL.PointSize(15.0f);
                         GL.Begin(PrimitiveType.Points);
-                        GL.Vertex3(gArr[idx].ptA.easting, gArr[idx].ptA.northing, 0);
+                        GL.Vertex3(currTrk.ptA.easting, currTrk.ptA.northing, 0);
                         GL.End();
                     }
 
@@ -835,7 +868,7 @@ namespace AgOpenGPS
             AddFirstLastPoints(ref track.curvePts, 100);
 
             gArr.Add(track);
-            idx = gArr.Count - 1;
+            currTrk = track;
         }
 
         public void AddFirstLastPoints(ref List<vec3> xList, int ptsToAdd)
@@ -895,20 +928,20 @@ namespace AgOpenGPS
         }
 
         public void NudgeTrack(CTrk track, double dist)
-            {
-                isTrackValid = false;
+        {
+            isTrackValid = false;
             if (track != null)
                 track.nudgeDistance += isHeadingSameWay ? dist : -dist;
         }
 
         public void NudgeDistanceReset(CTrk track)
-            {
-                isTrackValid = false;
+        {
+            isTrackValid = false;
             track.nudgeDistance = 0;
-            }
+        }
 
         public void SnapToPivot(CTrk track)
-            {
+        {
             NudgeTrack(track, mf.gyd.distanceFromCurrentLine);
         }
 
@@ -1059,7 +1092,8 @@ namespace AgOpenGPS
         public void ResetTrack()
         {
             currentGuidanceTrack?.Clear();
-            idx = -1;
+            currTrk = null;
+            gArr.Clear();
         }
 
         public bool PointOnLine(vec3 pt1, vec3 pt2, vec3 pt)

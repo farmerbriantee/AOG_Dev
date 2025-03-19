@@ -401,36 +401,36 @@ namespace AgOpenGPS
                         {
                             if (patch.isDrawing)
                             {
-                                    try
-                                    {
+                                try
+                                {
                                     GL.Color4((byte)patch.triangleList[0].easting, (byte)patch.triangleList[0].northing, (byte)patch.triangleList[0].heading, (byte)(Settings.User.setDisplay_isDayMode ? 152 : 76));
 
-                                        //draw the triangle in each triangle strip
-                                        GL.Begin(PrimitiveType.TriangleStrip);
+                                    //draw the triangle in each triangle strip
+                                    GL.Begin(PrimitiveType.TriangleStrip);
 
                                     for (int i = 1; i < patch.triangleList.Count; i++)
                                         GL.Vertex3(patch.triangleList[i].easting, patch.triangleList[i].northing, 0);
-                                    
-                                        //left side of triangle
+
+                                    //left side of triangle
                                     vec2 pt = new vec2((cosSectionHeading * section[patch.currentStartSectionNum].positionLeft) + toolPos.easting,
                                             (sinSectionHeading * section[patch.currentStartSectionNum].positionLeft) + toolPos.northing);
 
-                                        GL.Vertex3(pt.easting, pt.northing, 0);
+                                    GL.Vertex3(pt.easting, pt.northing, 0);
 
-                                        //Right side of triangle
+                                    //Right side of triangle
                                     pt = new vec2((cosSectionHeading * section[patch.currentEndSectionNum].positionRight) + toolPos.easting,
                                        (sinSectionHeading * section[patch.currentEndSectionNum].positionRight) + toolPos.northing);
 
-                                        GL.Vertex3(pt.easting, pt.northing, 0);
+                                    GL.Vertex3(pt.easting, pt.northing, 0);
 
-                                        GL.End();
-                                    }
-                                    catch
-                                    { 
-                                    }
+                                    GL.End();
+                                }
+                                catch
+                                {
                                 }
                             }
                         }
+                    }
 
                     if (tram.displayMode != 0) tram.DrawTram();
 
@@ -454,13 +454,10 @@ namespace AgOpenGPS
                     {
                         ct.DrawContourLine();
                     }
-                    else// draw the current and reference AB Lines or CurveAB Ref and line
+                    else if (trk.currTrk != null)// draw the current and reference AB Lines or CurveAB Ref and line
                     {
                         //when switching lines, draw the ghost
-                        if (trk.idx > -1)
-                        {
-                            trk.DrawTrack();
-                        }
+                        trk.DrawTrack();
                     }
 
                     //draw line creations
@@ -584,7 +581,7 @@ namespace AgOpenGPS
                         DrawSteerBarText();
                     }
 
-                    if (trk.idx > -1 && !ct.isContourBtnOn) DrawTrackInfo();
+                    if (!ct.isContourBtnOn && trk.currTrk != null) DrawTrackInfo();
 
 
                     if (bnd.bndList.Count > 0 && yt.isYouTurnBtnOn && !ct.isContourBtnOn) DrawUTurnBtn();
@@ -1247,7 +1244,7 @@ namespace AgOpenGPS
 
                         if (redPixels[onHeight] == (byte)bbColors.headland && grnPixels[onHeight] == 0)
                             onCount++;
-                        if (redPixels[offHeight] != (byte)bbColors.headland || 
+                        if (redPixels[offHeight] != (byte)bbColors.headland ||
                             (grnPixels[offHeight] == (byte)bbColors.section || grnPixels[offHeight] == (byte)bbColors.tram))
                             offCount++;
                     }
@@ -1569,7 +1566,7 @@ namespace AgOpenGPS
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
                 GL.LoadIdentity();                  // Reset The View
                 if (bnd.bndList.Count == 0)
-                CalculateSectionPatchesMinMax();
+                    CalculateSectionPatchesMinMax();
                 //back the camera up
                 GL.Translate(0, 0, -maxFieldDistance);
                 GL.Enable(EnableCap.Blend);
@@ -1579,35 +1576,35 @@ namespace AgOpenGPS
 
                 GL.Color4(0.5, 0.5, 0.5, 0.5);
                 //draw patches
-                        //for every new chunk of patch
+                //for every new chunk of patch
                 foreach (var triList in patchList)
-                        {
-                            //draw the triangle in each triangle strip
-                            GL.Begin(PrimitiveType.TriangleStrip);
+                {
+                    //draw the triangle in each triangle strip
+                    GL.Begin(PrimitiveType.TriangleStrip);
                     int count2 = triList.Count;
-                            int mipmap = 2;
+                    int mipmap = 2;
 
-                            //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
-                            if (count2 >= (mipmap))
-                            {
-                                int step = mipmap;
-                                for (int i = 1; i < count2; i += step)
-                                {
-                                    GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
-                                    GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
+                    //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
+                    if (count2 >= (mipmap))
+                    {
+                        int step = mipmap;
+                        for (int i = 1; i < count2; i += step)
+                        {
+                            GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
+                            GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
 
-                                    //too small to mipmap it
-                                    if (count2 - i <= (mipmap))
-                                        break;
-                                }
-                            }
-
-                            else
-                            {
-                                for (int i = 1; i < count2; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0);
-                            }
-                            GL.End();
+                            //too small to mipmap it
+                            if (count2 - i <= (mipmap))
+                                break;
                         }
+                    }
+
+                    else
+                    {
+                        for (int i = 1; i < count2; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0);
+                    }
+                    GL.End();
+                }
 
                 GL.Flush();
 
@@ -2205,8 +2202,8 @@ namespace AgOpenGPS
                     center = -(int)(((double)(hede.Length) * 0.5) * 16);
                     font.DrawText(center, 45, hede, 1);
                 }
-                }
             }
+        }
 
         private void DrawSteerBarText()
         {
@@ -2440,8 +2437,8 @@ namespace AgOpenGPS
         {
             string offs = "";
 
-            if (trk.gArr[trk.idx].nudgeDistance != 0)
-                offs = ((int)(trk.gArr[trk.idx].nudgeDistance * glm.m2InchOrCm)).ToString() + glm.unitsInCmNS;
+            if (trk.currTrk.nudgeDistance != 0)
+                offs = ((int)(trk.currTrk.nudgeDistance * glm.m2InchOrCm)).ToString() + glm.unitsInCmNS;
 
             string dire;
 
@@ -2823,23 +2820,23 @@ namespace AgOpenGPS
             }
             else
             {
-                        //for every new chunk of patch
+                //for every new chunk of patch
                 foreach (var triList in patchList)
-                        {
-                            int count2 = triList.Count;
-                            for (int i = 1; i < count2; i += 3)
-                            {
-                                double x = triList[i].easting;
-                                double y = triList[i].northing;
+                {
+                    int count2 = triList.Count;
+                    for (int i = 1; i < count2; i += 3)
+                    {
+                        double x = triList[i].easting;
+                        double y = triList[i].northing;
 
-                                //also tally the max/min of field x and z
-                                if (minFieldX > x) minFieldX = x;
-                                if (maxFieldX < x) maxFieldX = x;
-                                if (minFieldY > y) minFieldY = y;
-                                if (maxFieldY < y) maxFieldY = y;
-                            }
-                        }
+                        //also tally the max/min of field x and z
+                        if (minFieldX > x) minFieldX = x;
+                        if (maxFieldX < x) maxFieldX = x;
+                        if (minFieldY > y) minFieldY = y;
+                        if (maxFieldY < y) maxFieldY = y;
                     }
+                }
+            }
 
             if (maxFieldX == -9999999 | minFieldX == 9999999 | maxFieldY == -9999999 | minFieldY == 9999999)
             {

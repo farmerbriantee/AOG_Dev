@@ -110,8 +110,8 @@ namespace AgOpenGPS
                             break;
 
                         case 2:
-                            if (trk.idx > -1)
-                                lblCurrentField.Text = "Line: " + trk.gArr[trk.idx].name;
+                            if (trk.currTrk != null)
+                                lblCurrentField.Text = "Line: " + trk.currTrk.name;
                             else
                                 lblCurrentField.Text = "Line: " + gStr.Get(gs.gsNoGuidanceLines);
                             break;
@@ -490,9 +490,6 @@ namespace AgOpenGPS
             //load uturn properties
             yt.LoadSettings();
 
-            lblNumCu.Visible = false;
-            lblNumCu.Text = "";
-
             bnd.isSectionControlledByHeadland = true;
             cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOn;
 
@@ -620,44 +617,29 @@ namespace AgOpenGPS
         {
             if (isFieldStarted)
             {
-                int tracksTotal = 0, tracksVisible = 0;
-
                 bool isBnd = bnd.bndList.Count > 0;
                 bool isHdl = isBnd && bnd.bndList[0].hdLine.Count > 0;
 
                 bool istram = (tram.tramList.Count + tram.tramBndOuterArr.Count) > 0;
 
-                for (int i = 0; i < trk.gArr.Count; i++)
-                {
-                    tracksTotal++;
-                    if (trk.gArr[i].isVisible) tracksVisible++;
-                }
+                int tracksVisible = trk.GetVisibleTracks();
 
                 btnContourLock.Visible = ct.isContourBtnOn;
 
-                if (trk.idx > -1 || ct.isContourBtnOn)
-                    btnAutoSteer.Enabled = true;
-                else
-                {
-                    if (isBtnAutoSteerOn)
-                    {
-                        Log.EventWriter("Steer Safe Off, No Tracks, Idx -1");
-                    }
-                    SetAutoSteerButton(false, gStr.Get(gs.gsNoGuidanceLines));
+                btnAutoSteer.Enabled = trk.currTrk != null || ct.isContourBtnOn;
 
-                    btnAutoSteer.Enabled = false;
-                }
+                bool validTrk = trk.currTrk != null && !ct.isContourBtnOn;
 
-                btnAutoYouTurn.Visible = trk.idx > -1 && !ct.isContourBtnOn && isBnd;
-                btnCycleLines.Visible = tracksVisible > 1 && trk.idx > -1 && !ct.isContourBtnOn;
-                btnCycleLinesBk.Visible = tracksVisible > 1 && trk.idx > -1 && !ct.isContourBtnOn;
+                btnAutoYouTurn.Visible = validTrk && isBnd;
+                btnCycleLines.Visible = tracksVisible > 1 && validTrk;
+                btnCycleLinesBk.Visible = tracksVisible > 1 && validTrk;
 
-                cboxpRowWidth.Visible = trk.idx > -1;
-                btnYouSkipEnable.Visible = trk.idx > -1;
+                cboxpRowWidth.Visible = validTrk;
+                btnYouSkipEnable.Visible = validTrk;
 
-                btnSnapToPivot.Visible = trk.idx > -1 && Settings.User.setFeatures.isABLineOn;
-                btnAdjLeft.Visible = trk.idx > -1 && Settings.User.setFeatures.isABLineOn;
-                btnAdjRight.Visible = trk.idx > -1 && Settings.User.setFeatures.isABLineOn;
+                btnSnapToPivot.Visible = validTrk && Settings.User.setFeatures.isABLineOn;
+                btnAdjLeft.Visible = validTrk && Settings.User.setFeatures.isABLineOn;
+                btnAdjRight.Visible = validTrk && Settings.User.setFeatures.isABLineOn;
 
                 btnTramDisplayMode.Visible = istram;
                 btnHeadlandOnOff.Visible = isHdl;
@@ -666,17 +648,6 @@ namespace AgOpenGPS
                 btnHydLift.Visible = (((sett & 2) == 2) && isHdl);
 
                 cboxIsSectionControlled.Visible = isHdl;
-
-                if (trk.idx > -1 && trk.gArr.Count > 0 && !ct.isContourBtnOn)
-                {
-                    lblNumCu.Visible = true;
-                    lblNumCu.Text = (trk.idx + 1).ToString() + "/" + trk.gArr.Count.ToString();
-                }
-                else
-                {
-                    lblNumCu.Visible = false;
-                    lblNumCu.Text = "";
-                }
 
                 PanelSizeRightAndBottom();
             }
@@ -1011,7 +982,7 @@ namespace AgOpenGPS
                                 if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                 {
                                     yt.BuildManualYouLateral(point.X > middle);
-                            }
+                                }
                                 else
                                 {
                                     SpeedLimitExceeded();
@@ -1135,8 +1106,8 @@ namespace AgOpenGPS
             if (!yt.isYouTurnTriggered)
                 yt.isTurnLeft = !yt.isTurnLeft;
 
-                yt.ResetCreatedYouTurn();
-            }
+            yt.ResetCreatedYouTurn();
+        }
 
         //Function to delete flag
         public void DeleteSelectedFlag()
@@ -1151,13 +1122,6 @@ namespace AgOpenGPS
             {
                 for (int i = 0; i < flagCnt; i++) flagPts[i].ID = i + 1;
             }
-        }
-
-        public void DisableYouTurnButtons()
-        {
-            yt.isYouTurnBtnOn = false;
-            btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
-            yt.ResetCreatedYouTurn();
         }
 
         private void ShowNoGPSWarning()

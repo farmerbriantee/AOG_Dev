@@ -419,16 +419,18 @@ namespace AgOpenGPS
             if (textBox1.Text.Length == 0) textBox1.Text = "No Name " + DateTime.Now.ToString("hh:mm:ss", CultureInfo.InvariantCulture);
 
             int idx = mf.trk.gArr.Count - 1;
+            if (idx >= 0)
+            {
+                mf.trk.currTrk = mf.trk.gArr[idx];//fix this!!
 
-            mf.trk.gArr[idx].name = textBox1.Text.Trim();
-
+                mf.trk.currTrk.name = textBox1.Text.Trim();
+            }
             panelName.Visible = false;
 
             mf.FileSaveTracks();
 
             mf.trk.isMakingABLine = false;
             mf.trk.designPtsList?.Clear();
-            mf.trk.idx = idx;
 
             Close();
         }

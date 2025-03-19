@@ -1,6 +1,4 @@
-﻿using AgOpenGPS.Classes;
-
-using OpenTK;
+﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
@@ -19,12 +17,11 @@ namespace AgOpenGPS
 
         private bool isA = true;
         private int start = 99999, end = 99999;
-        private int bndSelect = 0, originalLine;
+        private int bndSelect = 0;
+        private CTrk selectedLine;
         private bool isCancel = false;
 
         private bool zoomToggle;
-
-        private int indx = -1;
 
         private double zoom = 1, sX = 0, sY = 0;
 
@@ -44,26 +41,9 @@ namespace AgOpenGPS
 
         private void FormABDraw_Load(object sender, EventArgs e)
         {
-            if (isDrawSections) btnDrawSections.Image = Properties.Resources.MappingOn;
-            else btnDrawSections.Image = Properties.Resources.MappingOff;
-
-            originalLine = mf.trk.idx;
-
-            gTemp.Clear();
-
             foreach (var item in mf.trk.gArr)
             {
                 gTemp.Add(new CTrk(item));
-            }
-
-            if (gTemp.Count != 0)
-            {
-                if (mf.trk.idx > -1 && mf.trk.idx <= gTemp.Count)
-                {
-                    indx = mf.trk.idx;
-                }
-                else
-                    indx = 0;
             }
 
             FixLabelsCurve();
@@ -91,82 +71,15 @@ namespace AgOpenGPS
         {
             if (!isCancel)
             {
-                if (gTemp.Count == 0)
+                //load tracks from temp
+                mf.trk.gArr = gTemp;
+                mf.FileSaveTracks();
+
+                if (selectedLine != null && selectedLine.isVisible)
                 {
-                    mf.trk.idx = -1;
-                    mf.trk.gArr.Clear();
-                    mf.FileSaveTracks();
-
-                    mf.SetAutoSteerButton(false, "Return From Editing");
-                    mf.SetYouTurnButton(false);
-                }
-                else
-                {
-                    //load tracks from temp
-                    mf.trk.gArr.Clear();
-                    foreach (var item in gTemp)
-                    {
-                        mf.trk.gArr.Add(new CTrk(item));
-                    }
-
-                    mf.FileSaveTracks();
-
-                    if (gTemp[indx].isVisible)
-                    {
-                        mf.trk.idx = indx;
-                        if (mf.trk.idx != originalLine)
-                        {
-                            mf.SetAutoSteerButton(false, "Return From Editing");
-                            mf.SetYouTurnButton(false);
-                        }
-                    }
-                    else
-                    {
-                        bool isOneVis = false;
-
-                        foreach (var item in gTemp)
-                        {
-                            if (item.isVisible) isOneVis = true;
-                            break;
-                        }
-
-                        if (isOneVis)
-                        {
-                            if (gTemp.Count > 1)
-                            {
-                                while (true)
-                                {
-                                    indx++;
-                                    if (indx == gTemp.Count) indx = 0;
-
-                                    if (gTemp[indx].isVisible)
-                                    {
-                                        mf.trk.idx = indx;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            if (mf.trk.idx != originalLine)
-                            {
-                                mf.SetAutoSteerButton(false, "Return From Editing");
-                                mf.SetYouTurnButton(false);
-                            }
-                        }
-                        else
-                        {
-                            mf.trk.idx = -1;
-
-                            mf.SetAutoSteerButton(false, gStr.Get(gs.gsNoABLineActive));
-                            mf.SetYouTurnButton(false);
-                        }
-                    }
+                    mf.trk.currTrk = selectedLine;
                 }
             }
-
-            mf.trk.isTrackValid = false;
-            mf.twoSecondCounter = 100;
-
             Settings.User.setWindow_abDrawSize = Size;
         }
 
@@ -209,16 +122,17 @@ namespace AgOpenGPS
 
         private void FixLabelsCurve()
         {
-            if (indx > -1 && gTemp.Count > 0)
+            if (selectedLine != null)
             {
-                tboxNameCurve.Text = gTemp[indx].name;
+                tboxNameCurve.Text = selectedLine.name;
                 tboxNameCurve.Enabled = true;
-                lblCurveSelected.Text = (indx + 1).ToString() + " / " + gTemp.Count.ToString();
+
+                int index = gTemp.FindIndex(x => x == selectedLine);
+
+                lblCurveSelected.Text = (index + 1).ToString() + " / " + gTemp.Count.ToString();
                 cboxIsVisible.Visible = true;
-                cboxIsVisible.Checked = gTemp[indx].isVisible;
-                if (gTemp[indx].isVisible)
-                    cboxIsVisible.Image = Properties.Resources.TrackVisible;
-                else cboxIsVisible.Image = Properties.Resources.TracksInvisible;
+                cboxIsVisible.Checked = selectedLine.isVisible;
+                cboxIsVisible.Image = selectedLine.isVisible ? Properties.Resources.TrackVisible : Properties.Resources.TracksInvisible;
             }
             else
             {
@@ -231,89 +145,42 @@ namespace AgOpenGPS
 
         private void btnSelectCurve_Click(object sender, EventArgs e)
         {
-            if (gTemp.Count > 0)
-            {
-                indx++;
-                if (indx > (gTemp.Count - 1)) indx = 0;
-            }
-            else
-            {
-                indx = -1;
-            }
-
+            selectedLine = mf.trk.GetNextTrack(selectedLine, gTemp, true, true);
             FixLabelsCurve();
-
-            //if (mf.trk.numCurveLines > 0)
-            //{
-            //    mf.trk.numCurveLineSelected++;
-            //    if (mf.trk.numCurveLineSelected > mf.trk.numCurveLines) mf.trk.numCurveLineSelected = 1;
-            //}
-            //else
-            //{
-            //    mf.trk.numCurveLineSelected = 0;
-            //}
-
-            //FixLabels();
         }
 
         private void btnSelectCurveBk_Click(object sender, EventArgs e)
         {
-            if (gTemp.Count > 0)
-            {
-                indx--;
-                if (indx < 0) indx = gTemp.Count - 1;
-            }
-            else
-            {
-                indx = -1;
-            }
-
+            selectedLine = mf.trk.GetNextTrack(selectedLine, gTemp, false, true);
             FixLabelsCurve();
         }
 
         private void cboxIsVisible_Click(object sender, EventArgs e)
         {
-            gTemp[indx].isVisible = cboxIsVisible.Checked;
-            if (gTemp[indx].isVisible)
-                cboxIsVisible.Image = Properties.Resources.TrackVisible;
-            else cboxIsVisible.Image = Properties.Resources.TracksInvisible;
+            selectedLine.isVisible = cboxIsVisible.Checked;
+            cboxIsVisible.Image = selectedLine.isVisible ? Properties.Resources.TrackVisible : Properties.Resources.TracksInvisible;
         }
 
         private void btnDeleteCurve_Click(object sender, EventArgs e)
         {
-            if (indx > -1)
+            if (selectedLine != null)
             {
-                gTemp.RemoveAt(indx);
+                gTemp.Remove(selectedLine);
+                mf.trk.GetNextTrack(selectedLine, gTemp, true, true);
+                FixLabelsCurve();
             }
-
-            if (gTemp.Count > 0)
-            {
-                if (indx > gTemp.Count - 1)
-                {
-                    indx = gTemp.Count - 1;
-                }
-            }
-            else
-            {
-                indx = -1;
-            }
-
-            originalLine = -2;
-
-            FixLabelsCurve();
         }
 
         private void btnDrawSections_Click(object sender, EventArgs e)
         {
             isDrawSections = !isDrawSections;
-            if (isDrawSections) btnDrawSections.Image = Properties.Resources.MappingOn;
-            else btnDrawSections.Image = Properties.Resources.MappingOff;
+            btnDrawSections.Image = isDrawSections ? Properties.Resources.MappingOn : Properties.Resources.MappingOff;
         }
 
         private void tboxNameCurve_Leave(object sender, EventArgs e)
         {
-            if (indx > -1)
-                gTemp[indx].name = tboxNameCurve.Text.Trim();
+            if (selectedLine != null)
+                selectedLine.name = tboxNameCurve.Text.Trim();
             btnExit.Focus();
         }
 
@@ -323,68 +190,56 @@ namespace AgOpenGPS
             {
                 mf.KeyboardToText((System.Windows.Forms.TextBox)sender, this);
 
-                if (indx > -1)
-                    gTemp[indx].name = tboxNameCurve.Text.Trim();
+                if (selectedLine != null)
+                    selectedLine.name = tboxNameCurve.Text.Trim();
                 btnExit.Focus();
             }
         }
 
         private void btnAddTime_Click(object sender, EventArgs e)
         {
-            if (indx > -1)
+            if (selectedLine != null)
             {
-                gTemp[indx].name += DateTime.Now.ToString(" hh:mm:ss", CultureInfo.InvariantCulture);
+                selectedLine.name += DateTime.Now.ToString(" hh:mm:ss", CultureInfo.InvariantCulture);
                 FixLabelsCurve();
             }
         }
 
         private void btnMakeBoundaryCurve_Click(object sender, EventArgs e)
-        {            //countExit the points from the boundary
+        {
             for (int q = 0; q < mf.bnd.bndList.Count; q++)
             {
-                vec3 pt3;
-                mf.trk.designPtsList?.Clear();
-                for (int i = 0; i < mf.bnd.bndList[bndSelect].fenceLine.Count; i++)
-                {
-                    //calculate the point inside the boundary
-                    pt3 = new vec3(mf.bnd.bndList[bndSelect].fenceLine[i]);
+                var designPtsList = new List<vec3>();
 
-                    mf.trk.designPtsList.Add(new vec3(pt3));
+                for (int i = 0; i < mf.bnd.bndList[q].fenceLine.Count; i++)
+                {
+                    designPtsList.Add(new vec3(mf.bnd.bndList[q].fenceLine[i]));
                 }
 
-                gTemp.Add(new CTrk());
-                //array number is 1 less since it starts at zero
-                indx = gTemp.Count - 1;
-
-                gTemp[indx].ptA = new vec2(mf.trk.designPtsList[0].easting, mf.trk.designPtsList[0].northing);
-                gTemp[indx].ptB = new vec2(mf.trk.designPtsList[mf.trk.designPtsList.Count - 1].easting, mf.trk.designPtsList[mf.trk.designPtsList.Count - 1].northing);
-
-                pt3 = new vec3(mf.trk.designPtsList[0]);
-                mf.trk.designPtsList.Add(pt3);
-
-                int cnt = mf.trk.designPtsList.Count;
+                int cnt = designPtsList.Count;
                 if (cnt > 3)
                 {
-                    pt3 = new vec3(mf.trk.designPtsList[0]);
-                    mf.trk.designPtsList.Add(pt3);
+                    var track = new CTrk(TrackMode.bndCurve);
+
+                    designPtsList.Add(new vec3(designPtsList[0]));//WUT
+
+                    track.ptA = new vec2(designPtsList[0]);
+                    track.ptB = new vec2(designPtsList[designPtsList.Count - 1]);
 
                     //make sure point distance isn't too big
-                    mf.trk.MakePointMinimumSpacing(ref mf.trk.designPtsList, 1.6);
-                    mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
+                    mf.trk.MakePointMinimumSpacing(ref designPtsList, 1.6);
+                    mf.trk.CalculateHeadings(ref designPtsList);
 
                     //create a name
-                    gTemp[indx].name = "Boundary Curve";
+                    track.name = q == 0 ? "Boundary Curve" : "Inner Boundary Curve " + q.ToString();
 
-                    if (q > 0) gTemp[indx].name = "Inner Boundary Curve " + q.ToString();
-
-                    gTemp[indx].heading = 0;
-                    gTemp[indx].mode = TrackMode.bndCurve;
+                    track.heading = 0;
 
                     //write out the Curve Points
-                    foreach (vec3 item in mf.trk.designPtsList)
-                    {
-                        gTemp[indx].curvePts.Add(item);
-                    }
+                    track.curvePts = designPtsList;
+
+                    gTemp.Add(track);
+                    selectedLine = track;
                 }
             }
 
@@ -394,8 +249,6 @@ namespace AgOpenGPS
             start = 99999; end = 99999;
 
             FixLabelsCurve();
-
-            mf.trk.designPtsList?.Clear();
 
             btnExit.Focus();
         }
@@ -424,15 +277,12 @@ namespace AgOpenGPS
                 }
             }
 
-            mf.trk.designPtsList?.Clear();
-            vec3 pt3;
+            var designPtsList = new List<vec3>();
 
             for (int i = start; i < end; i++)
             {
                 //calculate the point inside the boundary
-                pt3 = new vec3(mf.bnd.bndList[bndSelect].fenceLine[i]);
-
-                mf.trk.designPtsList.Add(new vec3(pt3));
+                designPtsList.Add(new vec3(mf.bnd.bndList[bndSelect].fenceLine[i]));
 
                 if (isLoop && i == mf.bnd.bndList[bndSelect].fenceLine.Count - 1)
                 {
@@ -442,56 +292,43 @@ namespace AgOpenGPS
                 }
             }
 
-            gTemp.Add(new CTrk());
-            //array number is 1 less since it starts at zero
-            indx = gTemp.Count - 1;
-
-            gTemp[indx].ptA =
-                new vec2(mf.trk.designPtsList[0].easting, mf.trk.designPtsList[0].northing);
-            gTemp[indx].ptB =
-                new vec2(mf.trk.designPtsList[mf.trk.designPtsList.Count - 1].easting,
-                mf.trk.designPtsList[mf.trk.designPtsList.Count - 1].northing);
-
-            int cnt = mf.trk.designPtsList.Count;
+            int cnt = designPtsList.Count;
             if (cnt > 3)
             {
+                var track = new CTrk(TrackMode.Curve);
+
+                track.ptA = new vec2(designPtsList[0]);
+                track.ptB = new vec2(designPtsList[designPtsList.Count - 1]);
+
                 //make sure point distance isn't too big
-                mf.trk.MakePointMinimumSpacing(ref mf.trk.designPtsList, 1.6);
-                mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
+                mf.trk.MakePointMinimumSpacing(ref designPtsList, 1.6);
+                mf.trk.CalculateHeadings(ref designPtsList);
 
                 //calculate average heading of line
                 double x = 0, y = 0;
 
-                foreach (vec3 pt in mf.trk.designPtsList)
+                foreach (vec3 pt in designPtsList)
                 {
                     x += Math.Cos(pt.heading);
                     y += Math.Sin(pt.heading);
                 }
-                x /= mf.trk.designPtsList.Count;
-                y /= mf.trk.designPtsList.Count;
-                gTemp[indx].heading = Math.Atan2(y, x);
-                if (gTemp[indx].heading < 0) gTemp[indx].heading += glm.twoPI;
+                x /= designPtsList.Count;
+                y /= designPtsList.Count;
+                track.heading = Math.Atan2(y, x);
+                if (track.heading < 0) track.heading += glm.twoPI;
 
                 //build the tail extensions
-                mf.trk.AddFirstLastPoints(ref mf.trk.designPtsList, 100);
-                //mf.trk.SmoothAB(2);
-                mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
-
-                //array number is 1 less since it starts at zero
-                indx = gTemp.Count - 1;
+                mf.trk.AddFirstLastPoints(ref designPtsList, 100);
+                //mf.trk.SmoothAB(ref designPtsList, 2, false);
+                mf.trk.CalculateHeadings(ref designPtsList);
 
                 //create a name
-                gTemp[indx].name = "Cu " +
-                    (Math.Round(glm.toDegrees(gTemp[indx].heading), 1)).ToString(CultureInfo.InvariantCulture)
+                track.name = "Cu " +
+                    (Math.Round(glm.toDegrees(track.heading), 1)).ToString(CultureInfo.InvariantCulture)
                     + "\u00B0";
 
-                gTemp[indx].mode = TrackMode.Curve;
-
                 //write out the Curve Points
-                foreach (vec3 item in mf.trk.designPtsList)
-                {
-                    gTemp[indx].curvePts.Add(item);
-                }
+                track.curvePts = designPtsList;
 
                 //update the arrays
                 btnMakeABLine.Enabled = false;
@@ -499,12 +336,12 @@ namespace AgOpenGPS
                 start = 99999; end = 99999;
 
                 FixLabelsCurve();
+
+                gTemp.Add(track);
+                selectedLine = track;
             }
-            else
-            {
-            }
+
             btnExit.Focus();
-            mf.trk.designPtsList?.Clear();
         }
 
         private void BtnMakeABLine_Click(object sender, EventArgs e)
@@ -531,47 +368,43 @@ namespace AgOpenGPS
                 mf.bnd.bndList[bndSelect].fenceLine[start].northing - mf.bnd.bndList[bndSelect].fenceLine[end].northing);
             if (abHead < 0) abHead += glm.twoPI;
 
-            gTemp.Add(new CTrk());
+            var track = new CTrk(TrackMode.AB);
 
-            indx = gTemp.Count - 1;
-
-            gTemp[indx].heading = abHead;
+            track.heading = abHead;
             double hsin = Math.Sin(abHead);
             double hcos = Math.Cos(abHead);
 
-            gTemp[indx].mode = TrackMode.AB;
-
             //calculate the new points for the reference line and points
-            gTemp[indx].ptA.easting = mf.bnd.bndList[bndSelect].fenceLine[end].easting;
-            gTemp[indx].ptA.northing = mf.bnd.bndList[bndSelect].fenceLine[end].northing;
+            track.ptA.easting = mf.bnd.bndList[bndSelect].fenceLine[end].easting;
+            track.ptA.northing = mf.bnd.bndList[bndSelect].fenceLine[end].northing;
 
-            gTemp[indx].ptB.easting = mf.bnd.bndList[bndSelect].fenceLine[start].easting;
-            gTemp[indx].ptB.northing = mf.bnd.bndList[bndSelect].fenceLine[start].northing;
+            track.ptB.easting = mf.bnd.bndList[bndSelect].fenceLine[start].easting;
+            track.ptB.northing = mf.bnd.bndList[bndSelect].fenceLine[start].northing;
 
             //fill in the dots between A and B
-            double len = glm.Distance(gTemp[indx].ptA, gTemp[indx].ptB);
+            double len = glm.Distance(track.ptA, track.ptB);
             if (len < 20)
             {
-                gTemp[indx].ptB.easting = gTemp[indx].ptA.easting + (Math.Sin(abHead) * 30);
-                gTemp[indx].ptB.northing = gTemp[indx].ptA.northing + (Math.Cos(abHead) * 30);
+                track.ptB.easting = track.ptA.easting + (Math.Sin(abHead) * 30);
+                track.ptB.northing = track.ptA.northing + (Math.Cos(abHead) * 30);
             }
-            len = glm.Distance(gTemp[indx].ptA, gTemp[indx].ptB);
+            len = glm.Distance(track.ptA, track.ptB);
 
             vec3 P1 = new vec3();
             for (int i = 0; i < (int)len; i += 1)
             {
-                P1.easting = (hsin * i) + gTemp[indx].ptA.easting;
-                P1.northing = (hcos * i) + gTemp[indx].ptA.northing;
+                P1.easting = (hsin * i) + track.ptA.easting;
+                P1.northing = (hcos * i) + track.ptA.northing;
                 P1.heading = abHead;
-                gTemp[indx].curvePts.Add(P1);
+                track.curvePts.Add(P1);
             }
 
             //build the tail extensions
-            mf.trk.AddFirstLastPoints(ref gTemp[indx].curvePts, 50);
+            mf.trk.AddFirstLastPoints(ref track.curvePts, 50);
 
             //create a name
-            gTemp[indx].name = "AB: " +
-                (Math.Round(glm.toDegrees(gTemp[indx].heading), 1)).ToString(CultureInfo.InvariantCulture) + "\u00B0";
+            track.name = "AB: " +
+                Math.Round(glm.toDegrees(track.heading), 1).ToString(CultureInfo.InvariantCulture) + "\u00B0";
 
             //clean up gui
             btnMakeABLine.Enabled = false;
@@ -579,6 +412,8 @@ namespace AgOpenGPS
 
             start = 99999; end = 99999;
 
+            gTemp.Add(track);
+            selectedLine = track;
             FixLabelsCurve();
         }
 
@@ -730,26 +565,26 @@ namespace AgOpenGPS
         private void DrawBuiltLines()
         {
             GL.LineStipple(1, 0x0707);
-            for (int i = 0; i < gTemp.Count; i++)
+            foreach (var track in gTemp)
             {
                 GL.Enable(EnableCap.LineStipple);
                 GL.LineWidth(5);
 
-                if (gTemp[i].mode == TrackMode.bndCurve) GL.LineStipple(1, 0x0007);
+                if (track.mode == TrackMode.bndCurve) GL.LineStipple(1, 0x0007);
                 else GL.LineStipple(1, 0x0707);
 
-                if (i == indx)
+                if (track == selectedLine)
                 {
                     GL.LineWidth(8);
                     GL.Disable(EnableCap.LineStipple);
                 }
 
                 GL.Color3(0.30f, 0.97f, 0.30f);
-                if (gTemp[i].mode == TrackMode.AB) GL.Color3(1.0f, 0.20f, 0.20f);
-                if (gTemp[i].mode == TrackMode.bndCurve) GL.Color3(0.70f, 0.5f, 0.2f);
+                if (track.mode == TrackMode.AB) GL.Color3(1.0f, 0.20f, 0.20f);
+                if (track.mode == TrackMode.bndCurve) GL.Color3(0.70f, 0.5f, 0.2f);
 
                 GL.Begin(PrimitiveType.LineStrip);
-                foreach (vec3 pts in gTemp[i].curvePts)
+                foreach (vec3 pts in track.curvePts)
                 {
                     GL.Vertex3(pts.easting, pts.northing, 0);
                 }
@@ -757,19 +592,17 @@ namespace AgOpenGPS
 
                 GL.Disable(EnableCap.LineStipple);
 
-                if (i == indx) GL.PointSize(16);
+                if (track == selectedLine) GL.PointSize(16);
                 else GL.PointSize(8);
 
                 GL.Color3(1.0f, 0.75f, 0.350f);
                 GL.Begin(PrimitiveType.Points);
 
-                GL.Vertex3(gTemp[i].curvePts[0].easting,
-                            gTemp[i].curvePts[0].northing,
-                            0);
+                GL.Vertex3(track.curvePts[0].easting, track.curvePts[0].northing, 0);
 
                 GL.Color3(0.5f, 0.5f, 1.0f);
-                GL.Vertex3(gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].easting,
-                            gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].northing,
+                GL.Vertex3(track.curvePts[track.curvePts.Count - 1].easting,
+                            track.curvePts[track.curvePts.Count - 1].northing,
                             0);
                 GL.End();
             }
@@ -802,16 +635,16 @@ namespace AgOpenGPS
             oglSelf.Refresh();
 
             btnMakeBoundaryCurve.Enabled = true;
-            for (int i = 0; i < gTemp.Count; i++)
+            foreach (var track in gTemp)
             {
-                if (gTemp[i].mode == TrackMode.bndCurve)
+                if (track.mode == TrackMode.bndCurve)
                 {
                     btnMakeBoundaryCurve.Enabled = false;
                     break;
                 }
             }
 
-            if (indx > -1 && gTemp[indx].mode != TrackMode.Curve)
+            if (selectedLine != null && selectedLine.mode != TrackMode.Curve)
             {
                 btnALength.Enabled = false;
                 btnBLength.Enabled = false;
@@ -825,33 +658,33 @@ namespace AgOpenGPS
 
         private void btnALength_Click(object sender, EventArgs e)
         {
-            if (indx > -1 && gTemp[indx].mode == TrackMode.Curve)
+            if (selectedLine != null && selectedLine.mode == TrackMode.Curve)
             {
                 //and the beginning
-                vec3 start = new vec3(gTemp[indx].curvePts[0]);
+                vec3 start = new vec3(selectedLine.curvePts[0]);
 
                 for (int i = 1; i < 50; i++)
                 {
                     vec3 pt = new vec3(start);
                     pt.easting -= (Math.Sin(pt.heading) * i);
                     pt.northing -= (Math.Cos(pt.heading) * i);
-                    gTemp[indx].curvePts.Insert(0, pt);
+                    selectedLine.curvePts.Insert(0, pt);
                 }
             }
         }
 
         private void btnBLength_Click(object sender, EventArgs e)
         {
-            if (indx > -1 && gTemp[indx].mode == TrackMode.Curve)
+            if (selectedLine != null && selectedLine.mode == TrackMode.Curve)
             {
-                int ptCnt = gTemp[indx].curvePts.Count - 1;
+                int ptCnt = selectedLine.curvePts.Count - 1;
 
                 for (int i = 1; i < 50; i++)
                 {
-                    vec3 pt = new vec3(gTemp[indx].curvePts[ptCnt]);
+                    vec3 pt = new vec3(selectedLine.curvePts[ptCnt]);
                     pt.easting += (Math.Sin(pt.heading) * i);
                     pt.northing += (Math.Cos(pt.heading) * i);
-                    gTemp[indx].curvePts.Add(pt);
+                    selectedLine.curvePts.Add(pt);
                 }
             }
         }

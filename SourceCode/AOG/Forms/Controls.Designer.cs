@@ -168,7 +168,6 @@ namespace AgOpenGPS
                 btnContourLock.Image = Resources.ColorUnlocked;
                 ct.isLocked = false;
 
-                DisableYouTurnButtons();
                 if (!state)
                 {
                     trk.isTrackValid = false;
@@ -196,17 +195,12 @@ namespace AgOpenGPS
 
             if (trk.gArr.Count > 0)
             {
-                DisableYouTurnButtons();
-
-                if (trk.idx == -1)
+                if (trk.currTrk == null)
                 {
-                    trk.idx = 0;
+                    trk.GetNextTrack();
                     PanelUpdateRightAndBottom();
-                    twoSecondCounter = 100;
                     return;
                 }
-
-                twoSecondCounter = 100;
             }
 
             if (flp1.Visible)
@@ -218,17 +212,8 @@ namespace AgOpenGPS
                 flp1.Visible = true;
 
                 //build the flyout based on properties of program
-                int tracksTotal = 0, tracksVisible = 0;
+                int tracksVisible = trk.GetVisibleTracks();
                 bool isBnd = bnd.bndList.Count > 0;
-
-                for (int i = 0; i < trk.gArr.Count; i++)
-                {
-                    tracksTotal++;
-                    if (trk.gArr[i].isVisible)
-                    {
-                        tracksVisible++;
-                    }
-                }
 
                 int btnCount = 0;
                 //nudge closest
@@ -324,9 +309,6 @@ namespace AgOpenGPS
                         TimedMessageBox(2000, gStr.Get(gs.gsNoBoundary), gStr.Get(gs.gsCreateABoundaryFirst));
                         Log.EventWriter("Uturn attempted without boundary");
                     }
-
-                    if (trk.idx == -1)
-                        state = false;
                 }
 
                 yt.isYouTurnBtnOn = state;
@@ -337,30 +319,14 @@ namespace AgOpenGPS
 
         private void btnCycleLines_Click(object sender, EventArgs e)
         {
-            if (trk.gArr.Count > 1)
-            {
-                while (true)
-                {
-                    trk.idx++;
-                    if (trk.idx == trk.gArr.Count) trk.idx = 0;
+            trk.GetNextTrack();
 
-                    if (trk.gArr[trk.idx].isVisible)
+            if (trk.currTrk != null)
                     {
                         guideLineCounter = 20;
                         lblGuidanceLine.Visible = true;
-                        lblGuidanceLine.Text = trk.gArr[trk.idx].name;
-                        break;
-                    }
-                }
-
-                SetAutoSteerButton(false, "Track Changed");
-                SetYouTurnButton(false);
-
-                lblNumCu.Text = (trk.idx + 1).ToString() + "/" + trk.gArr.Count.ToString();
+                lblGuidanceLine.Text = trk.currTrk.name;
             }
-
-            twoSecondCounter = 100;
-            trk.isTrackValid = false;
         }
 
         private void btnCycleLinesBk_Click(object sender, EventArgs e)
@@ -368,33 +334,18 @@ namespace AgOpenGPS
             if (ct.isContourBtnOn)
             {
                 ct.SetLockToLine();
-                return;
             }
-
-            if (trk.gArr.Count > 1)
-            {
-                while (true)
+            else
                 {
-                    trk.idx--;
-                    if (trk.idx == -1) trk.idx = trk.gArr.Count - 1;
+                trk.GetNextTrack(false);
 
-                    if (trk.gArr[trk.idx].isVisible)
+                if (trk.currTrk != null)
                     {
                         guideLineCounter = 20;
                         lblGuidanceLine.Visible = true;
-                        lblGuidanceLine.Text = trk.gArr[trk.idx].name;
-                        break;
-                    }
+                    lblGuidanceLine.Text = trk.currTrk.name;
                 }
-
-                SetAutoSteerButton(false, "Track Changed");
-
-                lblNumCu.Text = (trk.idx + 1).ToString() + "/" + trk.gArr.Count.ToString();
             }
-
-            trk.isTrackValid = false;
-
-            twoSecondCounter = 100;
         }
 
         #endregion
@@ -413,9 +364,9 @@ namespace AgOpenGPS
             }
 
 
-            if (trk.idx > -1)
+            if (trk.currTrk != null)
             {
-                Form form = new FormRefNudge(this, trk.gArr[trk.idx]);
+                Form form = new FormRefNudge(this, trk.currTrk);
                 form.Show(this);
             }
             else
@@ -433,7 +384,7 @@ namespace AgOpenGPS
 
         private void btnTracksOff_Click(object sender, EventArgs e)
         {
-            trk.idx = -1;
+            trk.currTrk = null;
 
             if (flp1.Visible)
             {
@@ -452,9 +403,9 @@ namespace AgOpenGPS
                 return;
             }
 
-            if (trk.idx > -1)
+            if (trk.currTrk != null)
             {
-                Form form = new FormNudge(this, trk.gArr[trk.idx]);
+                Form form = new FormNudge(this, trk.currTrk);
                 form.Show(this);
             }
             else
@@ -961,17 +912,17 @@ namespace AgOpenGPS
 
         private void btnSnapToPivot_Click(object sender, EventArgs e)
         {
-            trk.SnapToPivot(trk.gArr[trk.idx]);
+            trk.SnapToPivot(trk.currTrk);
         }
 
         private void btnAdjRight_Click(object sender, EventArgs e)
         {
-            trk.NudgeTrack(trk.gArr[trk.idx], Settings.Vehicle.setAS_snapDistance);
+            trk.NudgeTrack(trk.currTrk, Settings.Vehicle.setAS_snapDistance);
         }
 
         private void btnAdjLeft_Click(object sender, EventArgs e)
         {
-            trk.NudgeTrack(trk.gArr[trk.idx], -Settings.Vehicle.setAS_snapDistance);
+            trk.NudgeTrack(trk.currTrk, -Settings.Vehicle.setAS_snapDistance);
         }
 
         #endregion
@@ -1680,9 +1631,9 @@ namespace AgOpenGPS
         }
         private void SmoothABtoolStripMenu_Click(object sender, EventArgs e)
         {
-            if (isFieldStarted && trk.idx > -1)
+            if (isFieldStarted && trk.currTrk != null && trk.currTrk.mode > TrackMode.AB)
             {
-                using (var form = new FormSmoothAB(this, trk.gArr[trk.idx]))
+                using (var form = new FormSmoothAB(this, trk.currTrk))
                 {
                     form.ShowDialog(this);
                 }

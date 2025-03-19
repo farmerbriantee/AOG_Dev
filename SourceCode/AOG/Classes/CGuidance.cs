@@ -49,7 +49,7 @@ namespace AgOpenGPS
             int cc = FindGlobalRoughNearest(vec2point, curList, 5, Uturn);
 
             //long enough line?
-            if (!Uturn && mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
+            if (!Uturn && mf.trk.currTrk != null && mf.trk.currTrk.mode <= TrackMode.Curve)//crashed on contour!!
             {
                 if (cc > curList.Count - 30)
                 {

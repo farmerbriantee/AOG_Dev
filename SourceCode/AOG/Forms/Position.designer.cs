@@ -407,10 +407,10 @@ namespace AgOpenGPS
             }
 
             //like normal
-            if (trk.gArr.Count > 0 && trk.idx > -1)
+            else if (trk.currTrk != null)
             {
                 //build new current ref line if required
-                trk.GetDistanceFromRefTrack(pivotAxlePos);
+                trk.GetDistanceFromRefTrack(trk.currTrk, pivotAxlePos);
             }
 
             if (trk.currentGuidanceTrack.Count > 0)
@@ -586,7 +586,7 @@ namespace AgOpenGPS
                             {
                                 yt.BuildCurveDubinsYouTurn();
                             }
-                                }
+                        }
                         else if (yt.ytList.Count > 0)//wait to trigger the actual turn since its made and waiting
                         {
                             //distance from current pivot or steer to first point of youturn pattern
@@ -611,9 +611,9 @@ namespace AgOpenGPS
                     }
                     else if (!yt.isYouTurnTriggered)
                     {
-                            yt.ResetCreatedYouTurn();
-                            mc.isOutOfBounds = !bnd.IsPointInsideFenceArea(pivotAxlePos);
-                        }
+                        yt.ResetCreatedYouTurn();
+                        mc.isOutOfBounds = !bnd.IsPointInsideFenceArea(pivotAxlePos);
+                    }
                     //}
                     //// here is stop logic for out of bounds - in an inner or out the outer turn border.
                     //else

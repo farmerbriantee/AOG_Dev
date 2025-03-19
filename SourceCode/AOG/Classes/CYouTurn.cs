@@ -101,8 +101,7 @@ namespace AgOpenGPS
             bool isTurnRight = turnOffset > 0 ^ isTurnLeft;
 
 
-            if (mf.trk.idx < 0 || mf.trk.gArr.Count < mf.trk.idx) return;
-            CTrk track = mf.trk.gArr[mf.trk.idx];
+            CTrk track = mf.trk.currTrk;
 
             bool loop = track.mode == TrackMode.bndCurve || track.mode == TrackMode.waterPivot;
 
@@ -724,26 +723,26 @@ namespace AgOpenGPS
         }
 
         public void NextPath()
-            {
+        {
             isGoingStraightThrough = true;
 
-                mf.trk.howManyPathsAway += (isTurnLeft ^ mf.trk.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth;
-                mf.trk.isHeadingSameWay = !mf.trk.isHeadingSameWay;
+            mf.trk.howManyPathsAway += (isTurnLeft ^ mf.trk.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth;
+            mf.trk.isHeadingSameWay = !mf.trk.isHeadingSameWay;
 
-                if (alternateSkips && rowSkipsWidth2 > 1)
+            if (alternateSkips && rowSkipsWidth2 > 1)
+            {
+                if (--turnSkips == 0)
                 {
-                    if (--turnSkips == 0)
-                    {
-                        isTurnLeft = !isTurnLeft;
-                        turnSkips = rowSkipsWidth2 * 2 - 1;
-                    }
-                    else if (previousBigSkip = !previousBigSkip)
-                        rowSkipsWidth = rowSkipsWidth2 - 1;
-                    else
-                        rowSkipsWidth = rowSkipsWidth2;
+                    isTurnLeft = !isTurnLeft;
+                    turnSkips = rowSkipsWidth2 * 2 - 1;
                 }
-                else isTurnLeft = !isTurnLeft;
+                else if (previousBigSkip = !previousBigSkip)
+                    rowSkipsWidth = rowSkipsWidth2 - 1;
+                else
+                    rowSkipsWidth = rowSkipsWidth2;
             }
+            else isTurnLeft = !isTurnLeft;
+        }
 
         //Normal copmpletion of youturn
         public void CompleteYouTurn()
@@ -785,8 +784,8 @@ namespace AgOpenGPS
         public void BuildManualYouLateral(bool isTurnLeft)
         {
             //point on AB line closest to pivot axle point from AB Line PurePursuit
-                mf.trk.howManyPathsAway += mf.trk.isHeadingSameWay == isTurnLeft ? 1 : -1;
-            }
+            mf.trk.howManyPathsAway += mf.trk.isHeadingSameWay == isTurnLeft ? 1 : -1;
+        }
 
         //build the points and path of youturn to be scaled and transformed
         public void BuildManualYouTurn(bool isTurnRight)

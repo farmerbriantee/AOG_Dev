@@ -762,19 +762,19 @@ namespace AgOpenGPS
 
             if ((char)keyData == hotkeys[6]) // Snap/Prioritu click
             {
-                trk.SnapToPivot(trk.gArr[trk.idx]);
+                trk.SnapToPivot(trk.currTrk);
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == hotkeys[7])
             {
-                trk.NudgeTrack(trk.gArr[trk.idx], -Settings.Vehicle.setAS_snapDistance);
+                trk.NudgeTrack(trk.currTrk, -Settings.Vehicle.setAS_snapDistance);
                 return true;
             }
 
             if ((char)keyData == hotkeys[8])
             {
-                trk.NudgeTrack(trk.gArr[trk.idx], Settings.Vehicle.setAS_snapDistance);
+                trk.NudgeTrack(trk.currTrk, Settings.Vehicle.setAS_snapDistance);
                 return true;
             }
 

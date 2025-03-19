@@ -2216,6 +2216,7 @@
             this.lblNumCu.Size = new System.Drawing.Size(58, 26);
             this.lblNumCu.TabIndex = 542;
             this.lblNumCu.Text = "12/24";
+            this.lblNumCu.Visible = false;
             this.lblNumCu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelControlBox
@@ -2822,7 +2823,7 @@
         private System.Windows.Forms.FlowLayoutPanel panelBottom;
         public System.Windows.Forms.Button btnContourLock;
         public System.Windows.Forms.FlowLayoutPanel panelRight;
-        private System.Windows.Forms.Label lblNumCu;
+        internal System.Windows.Forms.Label lblNumCu;
         public System.Windows.Forms.Button btnNavigationSettings;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripDropDownButton toolStripBtnFieldTools;

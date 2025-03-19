@@ -79,6 +79,7 @@ namespace AOG
                     int index2 = gArr.FindIndex(x => x == _currTrk);
                     mf.lblNumCu.Text = (index2 + 1).ToString() + "/" + gArr.Count.ToString();
                     mf.lblNumCu.Visible = !mf.ct.isContourBtnOn;
+                    mf.PanelUpdateRightAndBottom();
                 }
             }
         }

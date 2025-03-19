@@ -227,6 +227,17 @@ namespace AOG
             else if (uTurnStyle == 1)
             {
                 isOutOfBounds = false;
+                if (ytList.Count > 1)
+                {
+                    var pt3 = ytList[ytList.Count - 1];
+                    pt3.heading = Math.Atan2(ytList[ytList.Count - 1].easting - ytList[ytList.Count - 2].easting,
+                         ytList[ytList.Count - 1].northing - ytList[ytList.Count - 2].northing);
+                    if (pt3.heading < 0) pt3.heading += glm.twoPI;
+                    ytList[ytList.Count - 1] = pt3;
+
+                    mf.trk.AddEndPoints(ref ytList, 25);
+                }
+
                 youTurnPhase = 255;
             }
             else if (youTurnPhase == 60)//remove part outside

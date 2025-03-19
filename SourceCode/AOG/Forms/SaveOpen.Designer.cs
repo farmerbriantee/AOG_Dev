@@ -349,6 +349,8 @@ namespace AOG
 
             //update bndPts data
             oglZoom.Refresh();
+
+            PanelUpdateRightAndBottom();
         }
 
         public void FileLoadFields()

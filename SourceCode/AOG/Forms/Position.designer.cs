@@ -1,7 +1,7 @@
 ﻿//Please, if you use this, share the improvements
 
 
-using AgOpenGPS.Classes;
+using AOG.Classes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormGPS
     {
@@ -136,7 +136,7 @@ namespace AgOpenGPS
             //simple comp filter
             gpsHz = 0.98 * gpsHz + 0.02 * nowHz;
 
-            if (timerSim.Enabled) gpsHz = 20;
+            //if (timerSim.Enabled) gpsHz = 20;
 
             //Initialization counter
             startCounter++;
@@ -513,17 +513,24 @@ namespace AgOpenGPS
 
                 if (isGPSToolActive)
                 {
-                    PGN_233.pgn[PGN_233.speedHi] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0) >> 8));
-                    PGN_233.pgn[PGN_233.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
+                    PGN_233.pgn[PGN_233.speed10] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
 
                     var distX1000 = (Int16)(gyd.distanceFromCurrentLineTool * 1000);
                     PGN_233.pgn[PGN_233.xteHi] = unchecked((byte)(distX1000 >> 8));
                     PGN_233.pgn[PGN_233.xteLo] = unchecked((byte)(distX1000));
-                    
+
+                    distX1000 = (Int16)(gyd.distanceFromCurrentLine * 1000);
+                    PGN_233.pgn[PGN_233.xteVehHi] = unchecked((byte)(distX1000 >> 8));
+                    PGN_233.pgn[PGN_233.xteVehLo] = unchecked((byte)(distX1000));
+
+                    distX1000 = (Int16)(glm.toDegrees(gpsHeading) * 10);
+                    PGN_233.pgn[PGN_233.headHi] = unchecked((byte)(distX1000 >> 8));
+                    PGN_233.pgn[PGN_233.headLo] = unchecked((byte)(distX1000));
+
+
                     if (!vehicle.isInFreeDriveMode)
                     {
-                        if (PGN_254.pgn[PGN_254.status] == 1) PGN_233.pgn[PGN_233.status] = 1;
-                        else PGN_233.pgn[PGN_233.status] = 0;
+                        PGN_233.pgn[PGN_233.status] = PGN_254.pgn[PGN_254.status];
                     }
                     else
                     {
@@ -644,6 +651,19 @@ namespace AgOpenGPS
 
             //do section control
             oglBack.Refresh();
+
+            BuildMachineByte();
+
+            if (isJobStarted && Settings.Vehicle.setApp_isNozzleApp)
+            {
+                nozz.BuildRatePGN();
+            }
+
+            //if (isGPSToolActive)
+            //{
+            //    //send to tool steer
+            //    SendPgnToLoopTool(PGN_233.pgn);
+            //}
 
             //stop the timer and calc how long it took to do calcs and draw
             frameTimeRough = (double)(swFrame.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency;

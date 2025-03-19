@@ -8,13 +8,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AgOpenGPS.Classes;
+using AOG.Classes;
 
-using AgOpenGPS.Properties;
+using AOG.Properties;
 using Microsoft.Win32;
 using OpenTK.Graphics.OpenGL;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormConfig
     {
@@ -33,7 +33,7 @@ namespace AgOpenGPS
 
                 mf.vehicle.LoadSettings();
 
-                //reset AgOpenGPS
+                //reset AOG
                 mf.LoadSettings();
 
                 //Form Steer Settings
@@ -210,7 +210,7 @@ namespace AgOpenGPS
 
                 mf.vehicle.LoadSettings();
 
-                //reset AgOpenGPS
+                //reset AOG
                 mf.LoadSettings();
 
                 SectionFeetInchesTotalWidthLabelUpdate();
@@ -342,6 +342,8 @@ namespace AgOpenGPS
 
             lblCurrentTool.Text = "Tool" + ": " + RegistrySettings.toolFileName;
             lblSummaryToolName.Text = lblCurrentTool.Text;
+
+            UpdateSummary();
         }
 
         private void btnToolDelete_Click(object sender, EventArgs e)
@@ -854,8 +856,8 @@ namespace AgOpenGPS
 
                     brand = Settings.Vehicle.setBrand_TBrand;
 
-                    if (brand == TBrand.AgOpenGPS)
-                        rbtnBrandTAgOpenGPS.Checked = true;
+                    if (brand == TBrand.AOG)
+                        rbtnBrandTAog.Checked = true;
                     else if (brand == TBrand.Case)
                         rbtnBrandTCase.Checked = true;
                     else if (brand == TBrand.Claas)
@@ -889,8 +891,8 @@ namespace AgOpenGPS
 
                     brandH = Settings.Vehicle.setBrand_HBrand;
 
-                    if (brandH == HBrand.AgOpenGPS)
-                        rbtnBrandHAgOpenGPS.Checked = true;
+                    if (brandH == HBrand.Aog)
+                        rbtnBrandHAog.Checked = true;
                     else if (brandH == HBrand.Case)
                         rbtnBrandHCase.Checked = true;
                     else if (brandH == HBrand.Claas)
@@ -908,8 +910,8 @@ namespace AgOpenGPS
 
                     brand4WD = Settings.Vehicle.setBrand_WDBrand;
 
-                    if (brand4WD == WDBrand.AgOpenGPS)
-                        rbtnBrand4WDAgOpenGPS.Checked = true;
+                    if (brand4WD == WDBrand.Aog)
+                        rbtnBrand4WDAog.Checked = true;
                     else if (brand4WD == WDBrand.Case)
                         rbtnBrand4WDCase.Checked = true;
                     else if (brand4WD == WDBrand.Challenger)
@@ -1005,12 +1007,12 @@ namespace AgOpenGPS
 
         //Check Brand is changed
 
-        private void rbtnBrandTAgOpenGPS_CheckedChanged(object sender, EventArgs e)
+        private void rbtnBrandTAog_CheckedChanged(object sender, EventArgs e)
         {
             if ((sender as RadioButton).Checked)
             {
                 {
-                    brand = TBrand.AgOpenGPS;
+                    brand = TBrand.AOG;
                     pboxAlpha.BackgroundImage = mf.GetTractorBrand(brand);
                     original = null;
                     SetOpacity();
@@ -1154,11 +1156,11 @@ namespace AgOpenGPS
             }
         }
 
-        private void rbtnBrandHAgOpenGPS_CheckedChanged(object sender, EventArgs e)
+        private void rbtnBrandHAog_CheckedChanged(object sender, EventArgs e)
         {
             if ((sender as RadioButton).Checked)
             {
-                brandH = HBrand.AgOpenGPS;
+                brandH = HBrand.Aog;
                 pboxAlpha.BackgroundImage = mf.GetHarvesterBrand(brandH);
                 original = null;
                 SetOpacity();
@@ -1211,11 +1213,11 @@ namespace AgOpenGPS
             }
         }
 
-        private void rbtnBrand4WDAgOpenGPS_CheckedChanged(object sender, EventArgs e)
+        private void rbtnBrand4WDAog_CheckedChanged(object sender, EventArgs e)
         {
             if ((sender as RadioButton).Checked)
             {
-                brand4WD = WDBrand.AgOpenGPS;
+                brand4WD = WDBrand.Aog;
                 pboxAlpha.BackgroundImage = mf.Get4WDBrandFront(brand4WD);
                 original = null;
                 SetOpacity();

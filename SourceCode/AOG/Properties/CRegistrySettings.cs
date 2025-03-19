@@ -2,20 +2,20 @@
 using System;
 using System.IO;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public static class RegistrySettings
     {
         public static string culture = "en";
 
         public static string vehiclesDirectory =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Vehicles");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AOG", "Vehicles");
 
         public static string toolsDirectory =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Tools");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AOG", "Tools");
 
         public static string logsDirectory =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS", "Logs");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AOG", "Logs");
 
         public static string vehicleFileName = "";
         public static string toolFileName = "";
@@ -55,7 +55,7 @@ namespace AgOpenGPS
             CreateDirectories();
 
             //keep below 500 kb
-            Log.CheckLogSize(Path.Combine(logsDirectory, "AgOpenGPS_Events_Log.txt"), 500000);
+            Log.CheckLogSize(Path.Combine(logsDirectory, "AOG_Events_Log.txt"), 500000);
 
             Settings.User.Load();
             Settings.Vehicle.Load();
@@ -113,11 +113,11 @@ namespace AgOpenGPS
         {
             if (workingDirectory == "Default" || workingDirectory == "")
             {
-                baseDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AgOpenGPS");
+                baseDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AOG");
             }
             else //user set to other
             {
-                baseDirectory = Path.Combine(workingDirectory, "AgOpenGPS");
+                baseDirectory = Path.Combine(workingDirectory, "AOG");
             }
 
             //get the interface directory, if not exist, create

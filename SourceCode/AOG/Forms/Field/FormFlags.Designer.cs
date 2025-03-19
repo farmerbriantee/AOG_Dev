@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormFlags
     {
@@ -56,7 +56,7 @@
             this.btnSouth.FlatAppearance.BorderSize = 0;
             this.btnSouth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSouth.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.btnSouth.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
+            this.btnSouth.Image = global::AOG.Properties.Resources.DnArrow64;
             this.btnSouth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSouth.Location = new System.Drawing.Point(192, 5);
             this.btnSouth.Name = "btnSouth";
@@ -71,7 +71,7 @@
             this.btnNorth.FlatAppearance.BorderSize = 0;
             this.btnNorth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNorth.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.btnNorth.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
+            this.btnNorth.Image = global::AOG.Properties.Resources.UpArrow64;
             this.btnNorth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnNorth.Location = new System.Drawing.Point(65, 5);
             this.btnNorth.Name = "btnNorth";
@@ -217,7 +217,7 @@
             this.btnExit.FlatAppearance.BorderSize = 0;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnExit.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnExit.Image = global::AOG.Properties.Resources.OK64;
             this.btnExit.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnExit.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnExit.Location = new System.Drawing.Point(210, 227);
@@ -235,7 +235,7 @@
             this.btnDeleteFlag.FlatAppearance.BorderSize = 0;
             this.btnDeleteFlag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteFlag.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnDeleteFlag.Image = global::AgOpenGPS.Properties.Resources.FlagDelete;
+            this.btnDeleteFlag.Image = global::AOG.Properties.Resources.FlagDelete;
             this.btnDeleteFlag.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnDeleteFlag.Location = new System.Drawing.Point(7, 225);
             this.btnDeleteFlag.Name = "btnDeleteFlag";

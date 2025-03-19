@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormJobPicker
     {
@@ -76,7 +76,7 @@
             this.btnOpenExistingLv.BackColor = System.Drawing.Color.Transparent;
             this.btnOpenExistingLv.DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.btnOpenExistingLv.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenExistingLv.Image = global::AgOpenGPS.Properties.Resources.FileOpen;
+            this.btnOpenExistingLv.Image = global::AOG.Properties.Resources.FileOpen;
             this.btnOpenExistingLv.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnOpenExistingLv.Location = new System.Drawing.Point(739, 398);
             this.btnOpenExistingLv.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -94,7 +94,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
             this.btnCancel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancel.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnCancel.Location = new System.Drawing.Point(572, 398);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(71, 63);
@@ -108,7 +108,7 @@
             this.btnDeleteJob.BackColor = System.Drawing.Color.CadetBlue;
             this.btnDeleteJob.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
             this.btnDeleteJob.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnDeleteJob.Image = global::AgOpenGPS.Properties.Resources.Trash;
+            this.btnDeleteJob.Image = global::AOG.Properties.Resources.Trash;
             this.btnDeleteJob.Location = new System.Drawing.Point(46, 398);
             this.btnDeleteJob.Name = "btnDeleteJob";
             this.btnDeleteJob.Size = new System.Drawing.Size(71, 63);

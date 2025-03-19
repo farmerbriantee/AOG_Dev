@@ -1,4 +1,4 @@
-﻿using AgOpenGPS.Classes;
+﻿using AOG.Classes;
 
 using System;
 using System.Collections;
@@ -7,7 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormJobPicker : Form
     {

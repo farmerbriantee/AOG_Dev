@@ -4,7 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using AgOpenGPS.Properties;
+using AOG.Properties;
 using System.Globalization;
 using System.IO;
 using System.Media;
@@ -12,13 +12,13 @@ using System.Reflection;
 using System.Collections.Generic;
 
 using System.Text;
-using AgOpenGPS.Classes;
+using AOG.Classes;
 
-namespace AgOpenGPS
+namespace AOG
 {
-    public enum TBrand { AgOpenGPS, Case, Claas, Deutz, Fendt, JDeere, Kubota, Massey, NewHolland, Same, Steyr, Ursus, Valtra }
-    public enum HBrand { AgOpenGPS, Case, Claas, JDeere, NewHolland }
-    public enum WDBrand { AgOpenGPS, Case, Challenger, JDeere, NewHolland, Holder }
+    public enum TBrand { AOG, Case, Claas, Deutz, Fendt, JDeere, Kubota, Massey, NewHolland, Same, Steyr, Ursus, Valtra }
+    public enum HBrand { Aog, Case, Claas, JDeere, NewHolland }
+    public enum WDBrand { Aog, Case, Challenger, JDeere, NewHolland, Holder }
 
     public partial class FormGPS
     {
@@ -75,7 +75,7 @@ namespace AgOpenGPS
 
             ////////////////////////////////////////////// 10 second ///////////////////////////////////////////////////////
             //every 3 second update status
-            if (fourSecondCounter >= 1)
+            if (fourSecondCounter >= 3)
             {
                 if (!isPauseFieldTextCounter)
                 {

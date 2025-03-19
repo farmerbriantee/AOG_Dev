@@ -297,7 +297,7 @@ namespace AgIO
                 //checksum
                 nmeaPGN[56] = (byte)CK_A;
 
-                //Send nmea to AgOpenGPS
+                //Send nmea to AOG
                 mf.SendToLoopBackMessageAOG(nmeaPGN);
 
                 nmeaPGN.CopyTo(GPSOut.nmeaPGN, 0);

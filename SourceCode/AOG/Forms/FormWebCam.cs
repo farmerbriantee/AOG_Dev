@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using WebEye.Controls.WinForms.WebCameraControl;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormWebCam : Form
     {

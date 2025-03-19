@@ -1,10 +1,10 @@
-﻿using AgOpenGPS.Properties;
+﻿using AOG.Properties;
 using System;
 using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     internal static class Program
     {
@@ -20,7 +20,7 @@ namespace AgOpenGPS
             {
                 Log.EventWriter("Program Started: "
                     + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
-                Log.EventWriter("AgOpenGPS Version: " + Application.ProductVersion.ToString(CultureInfo.InvariantCulture));
+                Log.EventWriter("AOG Version: " + Application.ProductVersion.ToString(CultureInfo.InvariantCulture));
 
                 RegistrySettings.Load();
 
@@ -32,7 +32,7 @@ namespace AgOpenGPS
             }
             else
             {
-                MessageBox.Show("AgOpenGPS is Already Running");
+                MessageBox.Show("AOG is Already Running");
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormPan
     {
@@ -195,7 +195,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
-            this.BackgroundImage = global::AgOpenGPS.Properties.Resources.PanBackground;
+            this.BackgroundImage = global::AOG.Properties.Resources.PanBackground;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(180, 180);
             this.ControlBox = false;

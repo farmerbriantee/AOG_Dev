@@ -2,13 +2,13 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using AgOpenGPS.Properties;
+using AOG.Properties;
 using System.Globalization;
 using System.IO;
 using System.Media;
 using System.Collections.Generic;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public enum btnStates { Off, Auto, On }
 

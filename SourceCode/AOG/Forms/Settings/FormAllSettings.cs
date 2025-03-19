@@ -1,13 +1,13 @@
 ﻿//Please, if you use this, share the improvements
 
-using AgOpenGPS.Properties;
+using AOG.Properties;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormAllSettings : Form
     {

@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AgOpenGPS")]
+[assembly: AssemblyTitle("AOG")]
 [assembly: AssemblyDescription("Ag Guidance Program")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("AgOpenGPS")]
-[assembly: AssemblyProduct("AgOpenGPS")]
+[assembly: AssemblyCompany("AOG")]
+[assembly: AssemblyProduct("AOG")]
 [assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

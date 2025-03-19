@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public class CGuidance
     {

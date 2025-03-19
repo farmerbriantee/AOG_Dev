@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormSaveOrNot : Form
     {
@@ -35,7 +35,7 @@ namespace AgOpenGPS
             Close();
         }
 
-        //just cancel and return to AgOpenGPS
+        //just cancel and return to AOG
         private void btnReturn_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Ignore;

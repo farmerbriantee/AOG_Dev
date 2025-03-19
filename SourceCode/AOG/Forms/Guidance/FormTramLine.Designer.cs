@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormTramLine
     {
@@ -145,7 +145,7 @@
             this.btnDnAlpha.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDnAlpha.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDnAlpha.ForeColor = System.Drawing.Color.White;
-            this.btnDnAlpha.Image = global::AgOpenGPS.Properties.Resources.IncrementMinus;
+            this.btnDnAlpha.Image = global::AOG.Properties.Resources.IncrementMinus;
             this.btnDnAlpha.Location = new System.Drawing.Point(13, 5);
             this.btnDnAlpha.Name = "btnDnAlpha";
             this.tlp1.SetRowSpan(this.btnDnAlpha, 2);
@@ -163,7 +163,7 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.SwitchOff;
+            this.btnCancel.Image = global::AOG.Properties.Resources.SwitchOff;
             this.btnCancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancel.Location = new System.Drawing.Point(5, 626);
             this.btnCancel.Name = "btnCancel";
@@ -181,7 +181,7 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnSave.Image = global::AgOpenGPS.Properties.Resources.FileSave;
+            this.btnSave.Image = global::AOG.Properties.Resources.FileSave;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSave.Location = new System.Drawing.Point(204, 626);
             this.btnSave.Name = "btnSave";
@@ -214,7 +214,7 @@
             this.cboxIsOuter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxIsOuter.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsOuter.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cboxIsOuter.Image = global::AgOpenGPS.Properties.Resources.TramOuter;
+            this.cboxIsOuter.Image = global::AOG.Properties.Resources.TramOuter;
             this.cboxIsOuter.Location = new System.Drawing.Point(205, 178);
             this.cboxIsOuter.Name = "cboxIsOuter";
             this.cboxIsOuter.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -233,7 +233,7 @@
             this.btnDeleteAllTrams.FlatAppearance.BorderSize = 0;
             this.btnDeleteAllTrams.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteAllTrams.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnDeleteAllTrams.Image = global::AgOpenGPS.Properties.Resources.Trash;
+            this.btnDeleteAllTrams.Image = global::AOG.Properties.Resources.Trash;
             this.btnDeleteAllTrams.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnDeleteAllTrams.Location = new System.Drawing.Point(111, 93);
             this.btnDeleteAllTrams.Name = "btnDeleteAllTrams";
@@ -251,7 +251,7 @@
             this.btnCancelTouch.FlatAppearance.BorderSize = 0;
             this.btnCancelTouch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelTouch.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancelTouch.Image = global::AgOpenGPS.Properties.Resources.HeadlandDeletePoints;
+            this.btnCancelTouch.Image = global::AOG.Properties.Resources.HeadlandDeletePoints;
             this.btnCancelTouch.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancelTouch.Location = new System.Drawing.Point(13, 183);
             this.btnCancelTouch.Name = "btnCancelTouch";
@@ -268,7 +268,7 @@
             this.btnSwapAB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSwapAB.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSwapAB.ForeColor = System.Drawing.Color.White;
-            this.btnSwapAB.Image = global::AgOpenGPS.Properties.Resources.ABSwapPoints;
+            this.btnSwapAB.Image = global::AOG.Properties.Resources.ABSwapPoints;
             this.btnSwapAB.Location = new System.Drawing.Point(13, 88);
             this.btnSwapAB.Name = "btnSwapAB";
             this.btnSwapAB.Size = new System.Drawing.Size(72, 62);
@@ -312,7 +312,7 @@
             this.btnSelectCurveBk.FlatAppearance.BorderSize = 0;
             this.btnSelectCurveBk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSelectCurveBk.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnSelectCurveBk.Image = global::AgOpenGPS.Properties.Resources.ABLineCycleBk;
+            this.btnSelectCurveBk.Image = global::AOG.Properties.Resources.ABLineCycleBk;
             this.btnSelectCurveBk.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSelectCurveBk.Location = new System.Drawing.Point(3, 268);
             this.btnSelectCurveBk.Name = "btnSelectCurveBk";
@@ -330,7 +330,7 @@
             this.btnSelectCurve.FlatAppearance.BorderSize = 0;
             this.btnSelectCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSelectCurve.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnSelectCurve.Image = global::AgOpenGPS.Properties.Resources.ABLineCycle;
+            this.btnSelectCurve.Image = global::AOG.Properties.Resources.ABLineCycle;
             this.btnSelectCurve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSelectCurve.Location = new System.Drawing.Point(200, 268);
             this.btnSelectCurve.Name = "btnSelectCurve";
@@ -348,7 +348,7 @@
             this.btnAddLines.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddLines.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddLines.ForeColor = System.Drawing.Color.White;
-            this.btnAddLines.Image = global::AgOpenGPS.Properties.Resources.AddNew;
+            this.btnAddLines.Image = global::AOG.Properties.Resources.AddNew;
             this.btnAddLines.Location = new System.Drawing.Point(113, 552);
             this.btnAddLines.Name = "btnAddLines";
             this.btnAddLines.Size = new System.Drawing.Size(70, 59);
@@ -378,7 +378,7 @@
             this.btnUpAlpha.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpAlpha.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpAlpha.ForeColor = System.Drawing.Color.White;
-            this.btnUpAlpha.Image = global::AgOpenGPS.Properties.Resources.IncrementPlus;
+            this.btnUpAlpha.Image = global::AOG.Properties.Resources.IncrementPlus;
             this.btnUpAlpha.Location = new System.Drawing.Point(212, 5);
             this.btnUpAlpha.Name = "btnUpAlpha";
             this.tlp1.SetRowSpan(this.btnUpAlpha, 2);
@@ -395,7 +395,7 @@
             this.btnDnTrams.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDnTrams.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDnTrams.ForeColor = System.Drawing.Color.White;
-            this.btnDnTrams.Image = global::AgOpenGPS.Properties.Resources.IncrementMinus;
+            this.btnDnTrams.Image = global::AOG.Properties.Resources.IncrementMinus;
             this.btnDnTrams.Location = new System.Drawing.Point(13, 458);
             this.btnDnTrams.Name = "btnDnTrams";
             this.btnDnTrams.Size = new System.Drawing.Size(72, 62);
@@ -411,7 +411,7 @@
             this.btnDnStartTram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDnStartTram.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDnStartTram.ForeColor = System.Drawing.Color.White;
-            this.btnDnStartTram.Image = global::AgOpenGPS.Properties.Resources.IncrementMinus;
+            this.btnDnStartTram.Image = global::AOG.Properties.Resources.IncrementMinus;
             this.btnDnStartTram.Location = new System.Drawing.Point(13, 359);
             this.btnDnStartTram.Name = "btnDnStartTram";
             this.btnDnStartTram.Size = new System.Drawing.Size(72, 62);
@@ -427,7 +427,7 @@
             this.btnUpStartTram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpStartTram.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpStartTram.ForeColor = System.Drawing.Color.White;
-            this.btnUpStartTram.Image = global::AgOpenGPS.Properties.Resources.IncrementPlus;
+            this.btnUpStartTram.Image = global::AOG.Properties.Resources.IncrementPlus;
             this.btnUpStartTram.Location = new System.Drawing.Point(212, 359);
             this.btnUpStartTram.Name = "btnUpStartTram";
             this.btnUpStartTram.Size = new System.Drawing.Size(72, 62);
@@ -443,7 +443,7 @@
             this.btnUpTrams.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpTrams.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpTrams.ForeColor = System.Drawing.Color.White;
-            this.btnUpTrams.Image = global::AgOpenGPS.Properties.Resources.IncrementPlus;
+            this.btnUpTrams.Image = global::AOG.Properties.Resources.IncrementPlus;
             this.btnUpTrams.Location = new System.Drawing.Point(212, 458);
             this.btnUpTrams.Name = "btnUpTrams";
             this.btnUpTrams.Size = new System.Drawing.Size(72, 62);
@@ -459,7 +459,7 @@
             this.btnResize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnResize.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnResize.ForeColor = System.Drawing.Color.White;
-            this.btnResize.Image = global::AgOpenGPS.Properties.Resources.ConD_FullScreenBegin;
+            this.btnResize.Image = global::AOG.Properties.Resources.ConD_FullScreenBegin;
             this.btnResize.Location = new System.Drawing.Point(212, 88);
             this.btnResize.Name = "btnResize";
             this.btnResize.Size = new System.Drawing.Size(72, 62);

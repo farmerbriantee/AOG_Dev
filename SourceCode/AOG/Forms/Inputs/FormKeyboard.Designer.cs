@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormKeyboard
     {
@@ -115,7 +115,7 @@
             this.btnCharLeft.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
             this.btnCharLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCharLeft.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnCharLeft.Image = global::AgOpenGPS.Properties.Resources.ArrowLeft;
+            this.btnCharLeft.Image = global::AOG.Properties.Resources.ArrowLeft;
             this.btnCharLeft.Location = new System.Drawing.Point(765, 5);
             this.btnCharLeft.Name = "btnCharLeft";
             this.btnCharLeft.Size = new System.Drawing.Size(75, 46);
@@ -131,7 +131,7 @@
             this.btnCharRight.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
             this.btnCharRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCharRight.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnCharRight.Image = global::AgOpenGPS.Properties.Resources.ArrowRight;
+            this.btnCharRight.Image = global::AOG.Properties.Resources.ArrowRight;
             this.btnCharRight.Location = new System.Drawing.Point(850, 5);
             this.btnCharRight.Name = "btnCharRight";
             this.btnCharRight.Size = new System.Drawing.Size(75, 46);
@@ -491,7 +491,7 @@
             this.chk_shift.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chk_shift.Appearance = System.Windows.Forms.Appearance.Button;
             this.chk_shift.BackColor = System.Drawing.SystemColors.Control;
-            this.chk_shift.BackgroundImage = global::AgOpenGPS.Properties.Resources.Shift;
+            this.chk_shift.BackgroundImage = global::AOG.Properties.Resources.Shift;
             this.chk_shift.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.chk_shift.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.chk_shift.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -509,7 +509,7 @@
             this.btn_backspace.BackColor = System.Drawing.Color.LightSalmon;
             this.btn_backspace.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_backspace.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_backspace.Image = global::AgOpenGPS.Properties.Resources.BackSpace;
+            this.btn_backspace.Image = global::AOG.Properties.Resources.BackSpace;
             this.btn_backspace.Location = new System.Drawing.Point(830, 75);
             this.btn_backspace.Name = "btn_backspace";
             this.btn_backspace.Size = new System.Drawing.Size(93, 65);
@@ -524,7 +524,7 @@
             this.btn_OK.BackColor = System.Drawing.SystemColors.Control;
             this.btn_OK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_OK.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_OK.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btn_OK.Image = global::AOG.Properties.Resources.OK64;
             this.btn_OK.Location = new System.Drawing.Point(775, 450);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(150, 65);
@@ -539,7 +539,7 @@
             this.btn_cancel.BackColor = System.Drawing.SystemColors.Control;
             this.btn_cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancel.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_cancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btn_cancel.Image = global::AOG.Properties.Resources.Cancel64;
             this.btn_cancel.Location = new System.Drawing.Point(5, 450);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(100, 65);

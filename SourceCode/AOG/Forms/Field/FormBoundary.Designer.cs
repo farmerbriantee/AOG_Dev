@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormBoundary
     {
@@ -125,7 +125,7 @@
             this.btnBingMaps.FlatAppearance.BorderSize = 0;
             this.btnBingMaps.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBingMaps.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBingMaps.Image = global::AgOpenGPS.Properties.Resources.bing1;
+            this.btnBingMaps.Image = global::AOG.Properties.Resources.bing1;
             this.btnBingMaps.Location = new System.Drawing.Point(273, 10);
             this.btnBingMaps.Name = "btnBingMaps";
             this.btnBingMaps.Size = new System.Drawing.Size(62, 63);
@@ -139,7 +139,7 @@
             this.btnAdd.FlatAppearance.BorderSize = 0;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Image = global::AgOpenGPS.Properties.Resources.AddNew;
+            this.btnAdd.Image = global::AOG.Properties.Resources.AddNew;
             this.btnAdd.Location = new System.Drawing.Point(535, 10);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(62, 63);
@@ -155,7 +155,7 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnCancel.Image = global::AOG.Properties.Resources.OK64;
             this.btnCancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancel.Location = new System.Drawing.Point(666, 10);
             this.btnCancel.Name = "btnCancel";
@@ -169,7 +169,7 @@
             this.btnOpenGoogleEarth.FlatAppearance.BorderSize = 0;
             this.btnOpenGoogleEarth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOpenGoogleEarth.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenGoogleEarth.Image = global::AgOpenGPS.Properties.Resources.GoogleEarth;
+            this.btnOpenGoogleEarth.Image = global::AOG.Properties.Resources.GoogleEarth;
             this.btnOpenGoogleEarth.Location = new System.Drawing.Point(142, 10);
             this.btnOpenGoogleEarth.Name = "btnOpenGoogleEarth";
             this.btnOpenGoogleEarth.Size = new System.Drawing.Size(62, 63);
@@ -183,7 +183,7 @@
             this.btnDelete.FlatAppearance.BorderSize = 0;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Image = global::AgOpenGPS.Properties.Resources.Trash;
+            this.btnDelete.Image = global::AOG.Properties.Resources.Trash;
             this.btnDelete.Location = new System.Drawing.Point(11, 10);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(62, 63);
@@ -210,7 +210,7 @@
             this.btnCancelChoose.FlatAppearance.BorderSize = 0;
             this.btnCancelChoose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelChoose.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancelChoose.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancelChoose.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnCancelChoose.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancelChoose.Location = new System.Drawing.Point(141, 237);
             this.btnCancelChoose.Name = "btnCancelChoose";
@@ -225,7 +225,7 @@
             this.btnGetKML.FlatAppearance.BorderSize = 0;
             this.btnGetKML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGetKML.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGetKML.Image = global::AgOpenGPS.Properties.Resources.BoundaryLoadFromGE;
+            this.btnGetKML.Image = global::AOG.Properties.Resources.BoundaryLoadFromGE;
             this.btnGetKML.Location = new System.Drawing.Point(41, 16);
             this.btnGetKML.Name = "btnGetKML";
             this.btnGetKML.Size = new System.Drawing.Size(81, 78);
@@ -241,7 +241,7 @@
             this.btnDriveOrExt.FlatAppearance.BorderSize = 0;
             this.btnDriveOrExt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDriveOrExt.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDriveOrExt.Image = global::AgOpenGPS.Properties.Resources.SteerRight;
+            this.btnDriveOrExt.Image = global::AOG.Properties.Resources.SteerRight;
             this.btnDriveOrExt.Location = new System.Drawing.Point(41, 139);
             this.btnDriveOrExt.Name = "btnDriveOrExt";
             this.btnDriveOrExt.Size = new System.Drawing.Size(81, 78);
@@ -296,7 +296,7 @@
             this.btnCancelKML.FlatAppearance.BorderSize = 0;
             this.btnCancelKML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelKML.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancelKML.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancelKML.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnCancelKML.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancelKML.Location = new System.Drawing.Point(153, 237);
             this.btnCancelKML.Name = "btnCancelKML";
@@ -311,7 +311,7 @@
             this.btnLoadBoundaryFromGE.FlatAppearance.BorderSize = 0;
             this.btnLoadBoundaryFromGE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadBoundaryFromGE.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLoadBoundaryFromGE.Image = global::AgOpenGPS.Properties.Resources.BoundaryLoadFromGE;
+            this.btnLoadBoundaryFromGE.Image = global::AOG.Properties.Resources.BoundaryLoadFromGE;
             this.btnLoadBoundaryFromGE.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnLoadBoundaryFromGE.Location = new System.Drawing.Point(49, 16);
             this.btnLoadBoundaryFromGE.Name = "btnLoadBoundaryFromGE";
@@ -327,7 +327,7 @@
             this.btnLoadMultiBoundaryFromGE.FlatAppearance.BorderSize = 0;
             this.btnLoadMultiBoundaryFromGE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadMultiBoundaryFromGE.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLoadMultiBoundaryFromGE.Image = global::AgOpenGPS.Properties.Resources.BoundaryLoadMultiFromGE;
+            this.btnLoadMultiBoundaryFromGE.Image = global::AOG.Properties.Resources.BoundaryLoadMultiFromGE;
             this.btnLoadMultiBoundaryFromGE.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnLoadMultiBoundaryFromGE.Location = new System.Drawing.Point(49, 137);
             this.btnLoadMultiBoundaryFromGE.Name = "btnLoadMultiBoundaryFromGE";
@@ -343,7 +343,7 @@
             this.btnBndLines.FlatAppearance.BorderSize = 0;
             this.btnBndLines.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBndLines.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBndLines.Image = global::AgOpenGPS.Properties.Resources.Headache;
+            this.btnBndLines.Image = global::AOG.Properties.Resources.Headache;
             this.btnBndLines.Location = new System.Drawing.Point(404, 10);
             this.btnBndLines.Name = "btnBndLines";
             this.btnBndLines.Size = new System.Drawing.Size(62, 63);

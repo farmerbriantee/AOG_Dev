@@ -82,6 +82,7 @@ namespace AgIO
         public int focusSkipCounter = 310;
 
         public CNMEA pnGPS;
+
         public CNMEA_Tool pnGPSTool;
 
 
@@ -479,7 +480,7 @@ namespace AgIO
                     {
                         byte[] imuClose = new byte[] { 0x80, 0x81, 0x7C, 0xD4, 2, 1, 0, 83 };
 
-                        //tell AgOpenGPS IMU is disconnected
+                        //tell AOG IMU is disconnected
                         SendToLoopBackMessageAOG(imuClose);
                         Settings.User.setPort_wasIMUConnected = false;
                         lblIMUComm.Text = "";

@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormBoundaryPlayer
     {
@@ -43,7 +43,7 @@
             this.btnPausePlay = new System.Windows.Forms.Button();
             this.btnRestart = new System.Windows.Forms.Button();
             this.btnDeleteLast = new System.Windows.Forms.Button();
-            this.nudOffset = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudOffset = new AOG.NudlessNumericUpDown();
             this.cboxIsRecBoundaryWhenSectionOn = new System.Windows.Forms.CheckBox();
             this.lblPoints = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -136,7 +136,7 @@
             this.btnAntennaTool.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnAntennaTool.FlatAppearance.BorderSize = 0;
             this.btnAntennaTool.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAntennaTool.Image = global::AgOpenGPS.Properties.Resources.BoundaryRecordTool;
+            this.btnAntennaTool.Image = global::AOG.Properties.Resources.BoundaryRecordTool;
             this.btnAntennaTool.Location = new System.Drawing.Point(11, 303);
             this.btnAntennaTool.Name = "btnAntennaTool";
             this.btnAntennaTool.Size = new System.Drawing.Size(80, 64);
@@ -151,7 +151,7 @@
             this.btnAddPoint.FlatAppearance.BorderSize = 0;
             this.btnAddPoint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddPoint.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnAddPoint.Image = global::AgOpenGPS.Properties.Resources.PointAdd;
+            this.btnAddPoint.Image = global::AOG.Properties.Resources.PointAdd;
             this.btnAddPoint.Location = new System.Drawing.Point(155, 303);
             this.btnAddPoint.Name = "btnAddPoint";
             this.btnAddPoint.Size = new System.Drawing.Size(80, 64);
@@ -165,7 +165,7 @@
             this.btnLeftRight.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnLeftRight.FlatAppearance.BorderSize = 0;
             this.btnLeftRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLeftRight.Image = global::AgOpenGPS.Properties.Resources.BoundaryLeft;
+            this.btnLeftRight.Image = global::AOG.Properties.Resources.BoundaryLeft;
             this.btnLeftRight.Location = new System.Drawing.Point(5, 186);
             this.btnLeftRight.Name = "btnLeftRight";
             this.btnLeftRight.Size = new System.Drawing.Size(80, 64);
@@ -179,7 +179,7 @@
             this.btnStop.FlatAppearance.BorderSize = 0;
             this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStop.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnStop.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnStop.Image = global::AOG.Properties.Resources.OK64;
             this.btnStop.Location = new System.Drawing.Point(5, 402);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(80, 64);
@@ -195,7 +195,7 @@
             this.btnPausePlay.FlatAppearance.BorderSize = 0;
             this.btnPausePlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPausePlay.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnPausePlay.Image = global::AgOpenGPS.Properties.Resources.BoundaryRecord;
+            this.btnPausePlay.Image = global::AOG.Properties.Resources.BoundaryRecord;
             this.btnPausePlay.Location = new System.Drawing.Point(155, 417);
             this.btnPausePlay.Name = "btnPausePlay";
             this.btnPausePlay.Size = new System.Drawing.Size(80, 64);
@@ -211,7 +211,7 @@
             this.btnRestart.FlatAppearance.BorderSize = 0;
             this.btnRestart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRestart.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnRestart.Image = global::AgOpenGPS.Properties.Resources.Trash;
+            this.btnRestart.Image = global::AOG.Properties.Resources.Trash;
             this.btnRestart.Location = new System.Drawing.Point(15, 78);
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Size = new System.Drawing.Size(52, 52);
@@ -227,7 +227,7 @@
             this.btnDeleteLast.FlatAppearance.BorderSize = 0;
             this.btnDeleteLast.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteLast.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnDeleteLast.Image = global::AgOpenGPS.Properties.Resources.PointDelete;
+            this.btnDeleteLast.Image = global::AOG.Properties.Resources.PointDelete;
             this.btnDeleteLast.Location = new System.Drawing.Point(155, 189);
             this.btnDeleteLast.Name = "btnDeleteLast";
             this.btnDeleteLast.Size = new System.Drawing.Size(80, 64);
@@ -241,7 +241,7 @@
             this.nudOffset.DecimalPlaces = 2;
             this.nudOffset.Location = new System.Drawing.Point(8, 10);
             this.nudOffset.Maximum = 50D;
-            this.nudOffset.Mode = AgOpenGPS.UnitMode.Large;
+            this.nudOffset.Mode = AOG.UnitMode.Large;
             this.nudOffset.Name = "nudOffset";
             this.nudOffset.Size = new System.Drawing.Size(125, 46);
             this.nudOffset.TabIndex = 149;
@@ -257,7 +257,7 @@
             this.cboxIsRecBoundaryWhenSectionOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxIsRecBoundaryWhenSectionOn.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsRecBoundaryWhenSectionOn.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.cboxIsRecBoundaryWhenSectionOn.Image = global::AgOpenGPS.Properties.Resources.BoundarySectionControlOnOff;
+            this.cboxIsRecBoundaryWhenSectionOn.Image = global::AOG.Properties.Resources.BoundarySectionControlOnOff;
             this.cboxIsRecBoundaryWhenSectionOn.Location = new System.Drawing.Point(156, 67);
             this.cboxIsRecBoundaryWhenSectionOn.Name = "cboxIsRecBoundaryWhenSectionOn";
             this.cboxIsRecBoundaryWhenSectionOn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;

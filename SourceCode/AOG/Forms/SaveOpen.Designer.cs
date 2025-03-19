@@ -10,9 +10,9 @@ using System.Globalization;
 using System.Xml;
 using System.Text;
 
-using AgOpenGPS.Classes;
+using AOG.Classes;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public class CFieldFile
     {
@@ -1243,7 +1243,7 @@ namespace AgOpenGPS
 
                 xml.WriteStartElement("ISO11783_TaskData");//Settings
                 xml.WriteAttributeString("DataTransferOrigin", "1");
-                xml.WriteAttributeString("ManagementSoftwareManufacturer", "AgOpenGPS");
+                xml.WriteAttributeString("ManagementSoftwareManufacturer", "AOG");
                 xml.WriteAttributeString("ManagementSoftwareVersion", "1.4.0");
                 xml.WriteAttributeString("VersionMajor", "3");
                 xml.WriteAttributeString("VersionMinor", "3");
@@ -1436,7 +1436,7 @@ namespace AgOpenGPS
 
                 xml.WriteStartElement("ISO11783_TaskData");//Settings
                 xml.WriteAttributeString("DataTransferOrigin", "1");
-                xml.WriteAttributeString("ManagementSoftwareManufacturer", "AgOpenGPS");
+                xml.WriteAttributeString("ManagementSoftwareManufacturer", "AOG");
                 xml.WriteAttributeString("ManagementSoftwareVersion", "1.4.0");
                 xml.WriteAttributeString("VersionMajor", "4");
                 xml.WriteAttributeString("VersionMinor", "2");
@@ -1895,7 +1895,7 @@ namespace AgOpenGPS
 
         public void FileSaveSystemEvents()
         {
-            using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.logsDirectory, "AgOpenGPS_Events_Log.txt"), true))
+            using (StreamWriter writer = new StreamWriter(Path.Combine(RegistrySettings.logsDirectory, "AOG_Events_Log.txt"), true))
             {
                 writer.Write(Log.sbEvents);
                 Log.sbEvents.Clear();

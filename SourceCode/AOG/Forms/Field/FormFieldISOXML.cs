@@ -1,4 +1,5 @@
-﻿using AgOpenGPS.Classes;
+﻿using AOG.Classes;
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormFieldISOXML : Form
     {
@@ -58,7 +59,7 @@ namespace AgOpenGPS
             if (ofd.ShowDialog() != DialogResult.Cancel)
             {
                 xmlFilename = ofd.FileName;
-                //xmlFilename = "C:\\Users\\Grizs\\Documents\\AgOpenGPS\\Fields\\xml\\TASKDATARich3.XML";
+                //xmlFilename = "C:\\Users\\Grizs\\Documents\\AOG\\Fields\\xml\\TASKDATARich3.XML";
 
                 iso = new XmlDocument
                 {

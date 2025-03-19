@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormGraphHeading : Form
     {

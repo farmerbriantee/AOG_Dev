@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormNudge
     {
@@ -37,7 +37,7 @@
             this.btnZeroMove = new System.Windows.Forms.Button();
             this.btnHalfToolRight = new System.Windows.Forms.Button();
             this.lblOffset = new System.Windows.Forms.Label();
-            this.nudSnapDistance = new AgOpenGPS.NudlessNumericUpDown();
+            this.nudSnapDistance = new AOG.NudlessNumericUpDown();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +52,7 @@
             this.btnSnapToPivot.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnSnapToPivot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSnapToPivot.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnSnapToPivot.Image = global::AgOpenGPS.Properties.Resources.SnapToPivot;
+            this.btnSnapToPivot.Image = global::AOG.Properties.Resources.SnapToPivot;
             this.btnSnapToPivot.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSnapToPivot.Location = new System.Drawing.Point(90, 7);
             this.btnSnapToPivot.Name = "btnSnapToPivot";
@@ -66,7 +66,7 @@
             // 
             this.bthOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.bthOK.BackColor = System.Drawing.Color.Transparent;
-            this.bthOK.BackgroundImage = global::AgOpenGPS.Properties.Resources.WindowClose;
+            this.bthOK.BackgroundImage = global::AOG.Properties.Resources.WindowClose;
             this.bthOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.bthOK.DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.bthOK.FlatAppearance.BorderSize = 0;
@@ -92,7 +92,7 @@
             this.btnAdjLeft.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnAdjLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdjLeft.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnAdjLeft.Image = global::AgOpenGPS.Properties.Resources.SnapLeft;
+            this.btnAdjLeft.Image = global::AOG.Properties.Resources.SnapLeft;
             this.btnAdjLeft.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAdjLeft.Location = new System.Drawing.Point(7, 79);
             this.btnAdjLeft.Name = "btnAdjLeft";
@@ -112,7 +112,7 @@
             this.btnAdjRight.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnAdjRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdjRight.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnAdjRight.Image = global::AgOpenGPS.Properties.Resources.SnapRight;
+            this.btnAdjRight.Image = global::AOG.Properties.Resources.SnapRight;
             this.btnAdjRight.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAdjRight.Location = new System.Drawing.Point(90, 79);
             this.btnAdjRight.Name = "btnAdjRight";
@@ -160,7 +160,7 @@
             this.btnHalfToolLeft.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnHalfToolLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHalfToolLeft.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnHalfToolLeft.Image = global::AgOpenGPS.Properties.Resources.SnapLeftHalf;
+            this.btnHalfToolLeft.Image = global::AOG.Properties.Resources.SnapLeftHalf;
             this.btnHalfToolLeft.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnHalfToolLeft.Location = new System.Drawing.Point(7, 203);
             this.btnHalfToolLeft.Name = "btnHalfToolLeft";
@@ -180,7 +180,7 @@
             this.btnZeroMove.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnZeroMove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnZeroMove.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnZeroMove.Image = global::AgOpenGPS.Properties.Resources.SteerZero;
+            this.btnZeroMove.Image = global::AOG.Properties.Resources.SteerZero;
             this.btnZeroMove.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnZeroMove.Location = new System.Drawing.Point(7, 7);
             this.btnZeroMove.Name = "btnZeroMove";
@@ -200,7 +200,7 @@
             this.btnHalfToolRight.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnHalfToolRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHalfToolRight.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnHalfToolRight.Image = global::AgOpenGPS.Properties.Resources.SnapRightHalf;
+            this.btnHalfToolRight.Image = global::AOG.Properties.Resources.SnapRightHalf;
             this.btnHalfToolRight.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnHalfToolRight.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnHalfToolRight.Location = new System.Drawing.Point(90, 203);

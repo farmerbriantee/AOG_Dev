@@ -296,7 +296,7 @@ namespace AgIO
                 //checksum
                 nmeaPGN[56] = (byte)CK_A;
 
-                //Send nmea to AgOpenGPS
+                //Send nmea to AOG
                 mf.SendToLoopBackMessageAOGTool(nmeaPGN);
 
                 //Send nmea to autosteer module 8888

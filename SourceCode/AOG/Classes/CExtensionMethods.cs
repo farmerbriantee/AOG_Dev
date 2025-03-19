@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public class ListViewItemSorter : IComparer
     {
@@ -489,12 +489,15 @@ namespace AgOpenGPS
         {
             if (mode == UnitMode.None)
                 base.Text = _value.ToString(format);
-            if (Mode == UnitMode.Small)
-                base.Text = (_value * glm.m2InchOrCm).ToString(format);
-            else if (Mode == UnitMode.Large)
-                base.Text = (_value * glm.m2FtOrM).ToString(format);
             else
-                base.Text = (_value * glm.kmhToMphOrKmh).ToString(format);
+            {
+                if (Mode == UnitMode.Small)
+                    base.Text = (_value * glm.m2InchOrCm).ToString(format);
+                else if (Mode == UnitMode.Large)
+                    base.Text = (_value * glm.m2FtOrM).ToString(format);
+                else
+                    base.Text = (_value * glm.kmhToMphOrKmh).ToString(format);
+            }
         }
 
         [Bindable(false)]

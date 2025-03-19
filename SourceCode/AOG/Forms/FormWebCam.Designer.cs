@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormWebCam
     {
@@ -49,7 +49,7 @@
             // stopButton
             // 
             this.stopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.stopButton.BackgroundImage = global::AgOpenGPS.Properties.Resources.Stop;
+            this.stopButton.BackgroundImage = global::AOG.Properties.Resources.Stop;
             this.stopButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.stopButton.Enabled = false;
             this.stopButton.FlatAppearance.BorderSize = 0;
@@ -77,7 +77,7 @@
             // startButton
             // 
             this.startButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.startButton.BackgroundImage = global::AgOpenGPS.Properties.Resources.Play;
+            this.startButton.BackgroundImage = global::AOG.Properties.Resources.Play;
             this.startButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.startButton.Enabled = false;
             this.startButton.FlatAppearance.BorderSize = 0;

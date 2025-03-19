@@ -1,10 +1,10 @@
-﻿using AgOpenGPS.Classes;
+﻿using AOG.Classes;
 
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormSteerWiz : Form
     {

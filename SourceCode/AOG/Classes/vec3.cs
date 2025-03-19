@@ -2,7 +2,7 @@
 
 using System;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public struct vecRGB
     {

@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormSaveOrNot
     {
@@ -154,7 +154,7 @@
             // btnShutDown
             // 
             this.btnShutDown.BackColor = System.Drawing.Color.Transparent;
-            this.btnShutDown.BackgroundImage = global::AgOpenGPS.Properties.Resources.SwitchOff;
+            this.btnShutDown.BackgroundImage = global::AOG.Properties.Resources.SwitchOff;
             this.btnShutDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnShutDown.FlatAppearance.BorderSize = 0;
             this.btnShutDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -180,7 +180,7 @@
             // btnOk
             // 
             this.btnOk.BackColor = System.Drawing.Color.Transparent;
-            this.btnOk.BackgroundImage = global::AgOpenGPS.Properties.Resources.WindowClose;
+            this.btnOk.BackgroundImage = global::AOG.Properties.Resources.WindowClose;
             this.btnOk.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnOk.FlatAppearance.BorderSize = 0;
             this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -195,7 +195,7 @@
             // btnReturn
             // 
             this.btnReturn.BackColor = System.Drawing.Color.Transparent;
-            this.btnReturn.BackgroundImage = global::AgOpenGPS.Properties.Resources.back_button;
+            this.btnReturn.BackgroundImage = global::AOG.Properties.Resources.back_button;
             this.btnReturn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnReturn.FlatAppearance.BorderSize = 0;
             this.btnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

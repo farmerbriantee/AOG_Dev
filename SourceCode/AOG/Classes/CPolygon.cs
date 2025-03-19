@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public class Triangle : CPolygon
     {

@@ -1,2 +1,6 @@
-# Nozz
- AOG with Spray control
+# AOG Development
+
+Like AgOpenGPS but not.
+This version is constantly under development.
+
+ 

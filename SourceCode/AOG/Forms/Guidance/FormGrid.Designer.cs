@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormGrid
     {
@@ -89,7 +89,7 @@
             this.btnCancelTouch.FlatAppearance.BorderSize = 0;
             this.btnCancelTouch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelTouch.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancelTouch.Image = global::AgOpenGPS.Properties.Resources.HeadlandDeletePoints;
+            this.btnCancelTouch.Image = global::AOG.Properties.Resources.HeadlandDeletePoints;
             this.btnCancelTouch.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancelTouch.Location = new System.Drawing.Point(22, 36);
             this.btnCancelTouch.Name = "btnCancelTouch";
@@ -107,7 +107,7 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnCancel.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnCancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnCancel.Location = new System.Drawing.Point(22, 292);
             this.btnCancel.Name = "btnCancel";
@@ -125,7 +125,7 @@
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnExit.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnExit.Image = global::AOG.Properties.Resources.OK64;
             this.btnExit.Location = new System.Drawing.Point(22, 411);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(54, 56);
@@ -142,7 +142,7 @@
             this.btnAlignToTrack.FlatAppearance.BorderSize = 0;
             this.btnAlignToTrack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAlignToTrack.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnAlignToTrack.Image = global::AgOpenGPS.Properties.Resources.ABTrackAB;
+            this.btnAlignToTrack.Image = global::AOG.Properties.Resources.ABTrackAB;
             this.btnAlignToTrack.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnAlignToTrack.Location = new System.Drawing.Point(22, 151);
             this.btnAlignToTrack.Name = "btnAlignToTrack";

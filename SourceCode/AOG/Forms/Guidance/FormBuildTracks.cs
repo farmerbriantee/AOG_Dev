@@ -1,4 +1,4 @@
-﻿using AgOpenGPS.Classes;
+﻿using AOG.Classes;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,7 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 
-namespace AgOpenGPS
+namespace AOG
 {
     public partial class FormBuildTracks : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormJobNew
     {
@@ -48,7 +48,7 @@
             this.btnJobCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJobCancel.Font = new System.Drawing.Font("Tahoma", 12F);
             this.btnJobCancel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnJobCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
+            this.btnJobCancel.Image = global::AOG.Properties.Resources.Cancel64;
             this.btnJobCancel.Location = new System.Drawing.Point(457, 161);
             this.btnJobCancel.Name = "btnJobCancel";
             this.btnJobCancel.Size = new System.Drawing.Size(77, 79);
@@ -64,7 +64,7 @@
             this.btnSaveJob.FlatAppearance.BorderSize = 0;
             this.btnSaveJob.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSaveJob.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSaveJob.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.btnSaveJob.Image = global::AOG.Properties.Resources.OK64;
             this.btnSaveJob.Location = new System.Drawing.Point(573, 162);
             this.btnSaveJob.Name = "btnSaveJob";
             this.btnSaveJob.Size = new System.Drawing.Size(83, 79);
@@ -131,7 +131,7 @@
             this.btnAddTimeJob.FlatAppearance.BorderSize = 0;
             this.btnAddTimeJob.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddTimeJob.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnAddTimeJob.Image = global::AgOpenGPS.Properties.Resources.JobNameTime;
+            this.btnAddTimeJob.Image = global::AOG.Properties.Resources.JobNameTime;
             this.btnAddTimeJob.Location = new System.Drawing.Point(232, 117);
             this.btnAddTimeJob.Name = "btnAddTimeJob";
             this.btnAddTimeJob.Size = new System.Drawing.Size(83, 79);
@@ -147,7 +147,7 @@
             this.btnAddDateJob.FlatAppearance.BorderSize = 0;
             this.btnAddDateJob.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddDateJob.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnAddDateJob.Image = global::AgOpenGPS.Properties.Resources.JobNameCalendar;
+            this.btnAddDateJob.Image = global::AOG.Properties.Resources.JobNameCalendar;
             this.btnAddDateJob.Location = new System.Drawing.Point(75, 116);
             this.btnAddDateJob.Name = "btnAddDateJob";
             this.btnAddDateJob.Size = new System.Drawing.Size(83, 79);

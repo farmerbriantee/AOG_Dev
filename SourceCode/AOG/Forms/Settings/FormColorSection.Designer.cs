@@ -1,4 +1,4 @@
-﻿namespace AgOpenGPS
+﻿namespace AOG
 {
     partial class FormColorSection
     {
@@ -82,7 +82,7 @@
             this.bntOK.FlatAppearance.BorderSize = 0;
             this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntOK.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.bntOK.Image = global::AgOpenGPS.Properties.Resources.OK64;
+            this.bntOK.Image = global::AOG.Properties.Resources.OK64;
             this.bntOK.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.bntOK.Location = new System.Drawing.Point(808, 492);
             this.bntOK.Name = "bntOK";
@@ -339,7 +339,7 @@
             this.chkUse.FlatAppearance.CheckedBackColor = System.Drawing.Color.PaleGreen;
             this.chkUse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkUse.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkUse.Image = global::AgOpenGPS.Properties.Resources.ColorLocked;
+            this.chkUse.Image = global::AOG.Properties.Resources.ColorLocked;
             this.chkUse.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.chkUse.Location = new System.Drawing.Point(757, 47);
             this.chkUse.Name = "chkUse";

@@ -9,8 +9,8 @@
     <ProjectGuid>{73933709-370E-43B3-8563-CC0F48FF587B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AgOpenGPS</RootNamespace>
-    <AssemblyName>AgOpenGPS</AssemblyName>
+    <RootNamespace>AOG</RootNamespace>
+    <AssemblyName>AOG</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -38,7 +38,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\AgOpenGPS\</OutputPath>
+    <OutputPath>..\..\AOG_Pgm\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -52,7 +52,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\AgOpenGPS\</OutputPath>
+    <OutputPath>..\..\AOG_Pgm\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -68,7 +68,7 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>AgOpenGPS.ico</ApplicationIcon>
+    <ApplicationIcon>AOG.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -129,7 +129,6 @@
     <Compile Include="Classes\CSound.cs" />
     <Compile Include="Classes\CFieldData.cs" />
     <Compile Include="Classes\CBoundaryList.cs" />
-    <Compile Include="Classes\CDubins.cs" />
     <Compile Include="Classes\CAHRS.cs" />
     <Compile Include="Classes\CFont.cs" />
     <Compile Include="Classes\CSim.cs" />
@@ -743,7 +742,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AgOpenGPS.ico" />
     <None Include="btnImages\SimUDP.png" />
     <None Include="btnImages\Images\z_crossTrackBkgnd.png" />
     <None Include="btnImages\Config\ConD_SteerBarBar.png" />
@@ -756,6 +754,7 @@
     <None Include="btnImages\IncrementMinus.png" />
     <None Include="btnImages\IncrementPlus.png" />
     <None Include="btnImages\ABPivotCircle.png" />
+    <Content Include="AOG.ico" />
     <Content Include="btnImages\Shift.png" />
     <Content Include="btnImages\ZoomOut.png" />
     <Content Include="License.txt">

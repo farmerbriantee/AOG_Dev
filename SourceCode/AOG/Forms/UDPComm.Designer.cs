@@ -762,25 +762,19 @@ namespace AOG
 
             if ((char)keyData == hotkeys[6]) // Snap/Prioritu click
             {
-                trk.SnapToPivot();
+                trk.SnapToPivot(trk.currTrk);
                 return true;    // indicate that you handled this keystroke
             }
 
             if ((char)keyData == hotkeys[7])
             {
-                if (trk.idx > -1) //
-                {
-                    trk.NudgeTrack(-Settings.Vehicle.setAS_snapDistance);
-                }
+                trk.NudgeTrack(trk.currTrk, -Settings.Vehicle.setAS_snapDistance);
                 return true;
             }
 
             if ((char)keyData == hotkeys[8])
             {
-                if (trk.idx > -1)
-                {
-                    trk.NudgeTrack(Settings.Vehicle.setAS_snapDistance);
-                }
+                trk.NudgeTrack(trk.currTrk, Settings.Vehicle.setAS_snapDistance);
                 return true;
             }
 

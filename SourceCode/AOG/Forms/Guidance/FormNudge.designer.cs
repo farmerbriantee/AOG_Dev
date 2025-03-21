@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btnSnapToPivot = new System.Windows.Forms.Button();
             this.bthOK = new System.Windows.Forms.Button();
             this.btnAdjLeft = new System.Windows.Forms.Button();
@@ -38,7 +37,6 @@
             this.btnZeroMove = new System.Windows.Forms.Button();
             this.btnHalfToolRight = new System.Windows.Forms.Button();
             this.lblOffset = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.nudSnapDistance = new AOG.NudlessNumericUpDown();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -225,12 +223,6 @@
             this.lblOffset.Text = "0.35 >";
             this.lblOffset.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 3000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // nudSnapDistance
             // 
             this.nudSnapDistance.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -261,7 +253,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormEditTrack_FormClosing);
             this.Load += new System.EventHandler(this.FormEditTrack_Load);
-            this.MouseEnter += new System.EventHandler(this.FormEditTrack_MouseEnter);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -277,7 +268,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btnZeroMove;
         private System.Windows.Forms.Label lblOffset;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button btnHalfToolLeft;
         private System.Windows.Forms.Button btnHalfToolRight;
     }

@@ -49,7 +49,7 @@ namespace AOG
             int cc = FindGlobalRoughNearest(vec2point, curList, 5, Uturn);
 
             //long enough line?
-            if (!Uturn && mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
+            if (!Uturn && mf.trk.currTrk != null && mf.trk.currTrk.mode <= TrackMode.Curve)//crashed on contour!!
             {
                 if (cc > curList.Count - 30)
                 {
@@ -77,9 +77,14 @@ namespace AOG
                     }
 
                     mf.yt.onA += glm.Distance(curList[A], point);
-                    if (!mf.yt.isGoingStraightThrough && mf.yt.onA > mf.yt.totalUTurnLength * 0.5)
+                    if (!mf.yt.isGoingStraightThrough && mf.yt.onA > mf.yt.totalUTurnLength * 0.5 || (!mf.yt.isGoingStraightThrough && mf.yt.uTurnStyle == 1 && mf.yt.onA > mf.yt.totalUTurnLength - 50))
                     {
                         mf.yt.NextPath();
+                    }
+                    //return and reset if too far away or end of the line
+                    if (B >= curList.Count - 1 || (mf.yt.uTurnStyle == 1 && mf.isReverse) || distanceFromCurrentLine > 3)
+                    {
+                        completeUturn = true;
                     }
                 }
                 else
@@ -88,14 +93,6 @@ namespace AOG
                 if (!Uturn && !mf.trk.isHeadingSameWay)
                     distanceFromCurrentLine *= -1;
 
-                if (Uturn)
-                {
-                    //return and reset if too far away or end of the line
-                    if (B >= curList.Count - 1 || (mf.yt.uTurnStyle == 1 && mf.isReverse) || distanceFromCurrentLine > 3)
-                    {
-                        completeUturn = true;
-                    }
-                }
 
                 rEastTrk = point.easting;
                 rNorthTrk = point.northing;

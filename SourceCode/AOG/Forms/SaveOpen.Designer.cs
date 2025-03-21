@@ -24,7 +24,7 @@ namespace AOG
     public class CFieldFiles
     {
         public List<CFieldFile> fieldArr = new List<CFieldFile>();
-        
+
     }
 
     public partial class FormGPS
@@ -349,6 +349,8 @@ namespace AOG
 
             //update bndPts data
             oglZoom.Refresh();
+
+            PanelUpdateRightAndBottom();
         }
 
         public void FileLoadFields()
@@ -1028,43 +1030,40 @@ namespace AOG
 
                         while (!reader.EndOfStream)
                         {
-
-                            trk.gArr.Add(new CTrk());
-                            trk.idx = trk.gArr.Count - 1;
-
+                            var track = new CTrk(TrackMode.None);
                             //read header $CurveLine
-                            trk.gArr[trk.idx].name = reader.ReadLine();
+                            track.name = reader.ReadLine();
                             // get the average heading
                             line = reader.ReadLine();
-                            trk.gArr[trk.idx].heading = double.Parse(line, CultureInfo.InvariantCulture);
+                            track.heading = double.Parse(line, CultureInfo.InvariantCulture);
 
                             line = reader.ReadLine();
                             string[] words = line.Split(',');
                             vec2 vecPt = new vec2(double.Parse(words[0], CultureInfo.InvariantCulture),
                                 double.Parse(words[1], CultureInfo.InvariantCulture));
-                            trk.gArr[trk.idx].ptA = (vecPt);
+                            track.ptA = (vecPt);
 
                             line = reader.ReadLine();
                             words = line.Split(',');
                             vecPt = new vec2(double.Parse(words[0], CultureInfo.InvariantCulture),
                                 double.Parse(words[1], CultureInfo.InvariantCulture));
-                            trk.gArr[trk.idx].ptB = (vecPt);
+                            track.ptB = (vecPt);
 
                             line = reader.ReadLine();
-                            trk.gArr[trk.idx].nudgeDistance = double.Parse(line, CultureInfo.InvariantCulture);
+                            track.nudgeDistance = double.Parse(line, CultureInfo.InvariantCulture);
 
                             line = reader.ReadLine();
-                            trk.gArr[trk.idx].mode = (TrackMode)int.Parse(line, CultureInfo.InvariantCulture);
+                            track.mode = (TrackMode)int.Parse(line, CultureInfo.InvariantCulture);
 
                             line = reader.ReadLine();
-                            trk.gArr[trk.idx].isVisible = bool.Parse(line);
+                            track.isVisible = bool.Parse(line);
 
                             line = reader.ReadLine();
                             int numPoints = int.Parse(line);
 
                             if (numPoints > 3)
                             {
-                                trk.gArr[trk.idx].curvePts?.Clear();
+                                track.curvePts?.Clear();
 
                                 for (int i = 0; i < numPoints; i++)
                                 {
@@ -1073,38 +1072,42 @@ namespace AOG
                                     vec3 vecPtt = new vec3(double.Parse(words[0], CultureInfo.InvariantCulture),
                                         double.Parse(words[1], CultureInfo.InvariantCulture),
                                         double.Parse(words[2], CultureInfo.InvariantCulture));
-                                    trk.gArr[trk.idx].curvePts.Add(vecPtt);
+                                    track.curvePts.Add(vecPtt);
                                 }
                             }
 
-                            if (trk.gArr[trk.idx].mode == TrackMode.AB && trk.gArr[trk.idx].curvePts.Count == 0)
+                            if (track.mode == TrackMode.AB && track.curvePts.Count == 0)
                             {
-                                double designHeading = trk.gArr[trk.idx].heading;
+                                double designHeading = track.heading;
 
                                 double hsin = Math.Sin(designHeading);
                                 double hcos = Math.Cos(designHeading);
 
                                 //fill in the dots between A and B
-                                double len = glm.Distance(trk.gArr[trk.idx].ptA, trk.gArr[trk.idx].ptB);
+                                double len = glm.Distance(track.ptA, track.ptB);
                                 if (len < 30)
                                 {
-                                    trk.gArr[trk.idx].ptB.easting = trk.gArr[trk.idx].ptA.easting + (Math.Sin(designHeading) * 30);
-                                    trk.gArr[trk.idx].ptB.northing = trk.gArr[trk.idx].ptA.northing + (Math.Cos(designHeading) * 30);
+                                    track.ptB.easting = track.ptA.easting + (Math.Sin(designHeading) * 30);
+                                    track.ptB.northing = track.ptA.northing + (Math.Cos(designHeading) * 30);
                                 }
-                                len = glm.Distance(trk.gArr[trk.idx].ptA, trk.gArr[trk.idx].ptB);
+                                len = glm.Distance(track.ptA, track.ptB);
 
                                 vec3 P1 = new vec3();
                                 for (int i = 0; i < (int)len; i += 1)
                                 {
-                                    P1.easting = (hsin * i) + trk.gArr[trk.idx].ptA.easting;
-                                    P1.northing = (hcos * i) + trk.gArr[trk.idx].ptA.northing;
+                                    P1.easting = (hsin * i) + track.ptA.easting;
+                                    P1.northing = (hcos * i) + track.ptA.northing;
                                     P1.heading = designHeading;
-                                    trk.gArr[trk.idx].curvePts.Add(P1);
+                                    track.curvePts.Add(P1);
                                 }
 
-                                trk.AddFirstLastPoints(ref trk.gArr[trk.idx].curvePts, 50);
+                                trk.AddFirstLastPoints(ref track.curvePts, 50);
                             }
+
+                            trk.gArr.Add(track);
                         }
+
+                        trk.GetNextTrack();
                     }
                     catch (Exception er)
                     {
@@ -1113,8 +1116,6 @@ namespace AOG
                     }
                 }
             }
-
-            trk.idx = -1;
         }
 
         public void FileLoadTrams()
@@ -1297,9 +1298,9 @@ namespace AOG
                         //all the headlands A=10
                         if (bnd.bndList.Count > 0)
                         {
-                            for (int i = 0; i < bnd.bndList.Count; i++)
+                            foreach (var boundary in bnd.bndList)
                             {
-                                if (bnd.bndList[i].hdLine.Count < 1) continue;
+                                if (boundary.hdLine.Count < 1) continue;
 
                                 xml.WriteStartElement("PLN");//BND
 
@@ -1308,9 +1309,9 @@ namespace AOG
                                 xml.WriteStartElement("LSG");//Polygon
                                 xml.WriteAttributeString("A", "1");
 
-                                for (int j = 0; j < bnd.bndList[i].hdLine.Count; j++)
+                                foreach (var hdPoints in boundary.hdLine)
                                 {
-                                    pn.ConvertLocalToWGS84(bnd.bndList[i].hdLine[j].northing, bnd.bndList[i].hdLine[j].easting, out lat, out lon);
+                                    pn.ConvertLocalToWGS84(hdPoints.northing, hdPoints.easting, out lat, out lon);
                                     xml.WriteStartElement("PNT");//Boundary Points
                                     xml.WriteAttributeString("A", "2");
                                     xml.WriteAttributeString("C", lat.ToString());
@@ -1331,40 +1332,37 @@ namespace AOG
                         </ LSG >
                         */
 
-                        if (trk.gArr != null && trk.gArr.Count > 0)
+                        foreach (var track in trk.gArr)
                         {
-                            for (int i = 0; i < trk.gArr.Count; i++)
+                            if (track.mode != TrackMode.AB) continue;
+
+                            xml.WriteStartElement("LSG");//Line
+                            xml.WriteAttributeString("A", "5");
+                            xml.WriteAttributeString("B", track.name);
+                            ///xml.WriteAttributeString("C", (Settings.Tool.toolWidth).ToString());
                             {
-                                if (trk.gArr[i].mode != TrackMode.AB) continue;
+                                xml.WriteStartElement("PNT");//A
 
-                                xml.WriteStartElement("LSG");//Line
-                                xml.WriteAttributeString("A", "5");
-                                xml.WriteAttributeString("B", trk.gArr[i].name);
-                                ///xml.WriteAttributeString("C", (Settings.Tool.toolWidth).ToString());
-                                {
-                                    xml.WriteStartElement("PNT");//A
+                                pn.ConvertLocalToWGS84(track.ptA.northing - (Math.Cos(track.heading) * 1000),
+                                    track.ptA.easting - (Math.Sin(track.heading) * 1000), out lat, out lon);
 
-                                    pn.ConvertLocalToWGS84(trk.gArr[i].ptA.northing - (Math.Cos(trk.gArr[i].heading) * 1000),
-                                        trk.gArr[i].ptA.easting - (Math.Sin(trk.gArr[i].heading) * 1000), out lat, out lon);
+                                xml.WriteAttributeString("A", "2");
+                                xml.WriteAttributeString("C", lat.ToString());
+                                xml.WriteAttributeString("D", lon.ToString());
 
-                                    xml.WriteAttributeString("A", "2");
-                                    xml.WriteAttributeString("C", lat.ToString());
-                                    xml.WriteAttributeString("D", lon.ToString());
+                                xml.WriteEndElement();//A
+                                xml.WriteStartElement("PNT");//B
 
-                                    xml.WriteEndElement();//A
-                                    xml.WriteStartElement("PNT");//B
+                                pn.ConvertLocalToWGS84(track.ptA.northing + (Math.Cos(track.heading) * 1000),
+                                    track.ptA.easting + (Math.Sin(track.heading) * 1000), out lat, out lon);
 
-                                    pn.ConvertLocalToWGS84(trk.gArr[i].ptA.northing + (Math.Cos(trk.gArr[i].heading) * 1000),
-                                        trk.gArr[i].ptA.easting + (Math.Sin(trk.gArr[i].heading) * 1000), out lat, out lon);
+                                xml.WriteAttributeString("A", "2");
 
-                                    xml.WriteAttributeString("A", "2");
-
-                                    xml.WriteAttributeString("C", lat.ToString());
-                                    xml.WriteAttributeString("D", lon.ToString());
-                                }
-                                xml.WriteEndElement();//B
-                                xml.WriteEndElement();//Line
+                                xml.WriteAttributeString("C", lat.ToString());
+                                xml.WriteAttributeString("D", lon.ToString());
                             }
+                            xml.WriteEndElement();//B
+                            xml.WriteEndElement();//Line
                         }
 
                         //curves
@@ -1375,31 +1373,28 @@ namespace AOG
                             < PNT A = "2" C = "51.61962230" D = "4.51056760" />
                         </ LSG >
                         */
-                        if (trk.gArr != null && trk.gArr.Count > 0)
+                        foreach (var track in trk.gArr)
                         {
-                            for (int i = 0; i < trk.gArr.Count; i++)
+                            if (track.mode != TrackMode.Curve) continue;
+
+                            xml.WriteStartElement("LSG");//Curve
+                            xml.WriteAttributeString("A", "5"); //denotes guidance
+                            xml.WriteAttributeString("B", track.name);
+                            //xml.WriteAttributeString("C", (Settings.Tool.toolWidth).ToString());
+
+                            for (int j = 0; j < track.curvePts.Count; j++)
                             {
-                                if (trk.gArr[i].mode != TrackMode.Curve) continue;
+                                xml.WriteStartElement("PNT");//point
+                                pn.ConvertLocalToWGS84(track.curvePts[j].northing,
+                                    track.curvePts[j].easting, out lat, out lon);
 
-                                xml.WriteStartElement("LSG");//Curve
-                                xml.WriteAttributeString("A", "5"); //denotes guidance
-                                xml.WriteAttributeString("B", trk.gArr[i].name);
-                                //xml.WriteAttributeString("C", (Settings.Tool.toolWidth).ToString());
+                                xml.WriteAttributeString("A", "2");
+                                xml.WriteAttributeString("C", lat.ToString());
+                                xml.WriteAttributeString("D", lon.ToString());
 
-                                for (int j = 0; j < trk.gArr[i].curvePts.Count; j++)
-                                {
-                                    xml.WriteStartElement("PNT");//point
-                                    pn.ConvertLocalToWGS84(trk.gArr[i].curvePts[j].northing,
-                                        trk.gArr[i].curvePts[j].easting, out lat, out lon);
-
-                                    xml.WriteAttributeString("A", "2");
-                                    xml.WriteAttributeString("C", lat.ToString());
-                                    xml.WriteAttributeString("D", lon.ToString());
-
-                                    xml.WriteEndElement();//point
-                                }
-                                xml.WriteEndElement(); //Curve   
+                                xml.WriteEndElement();//point
                             }
+                            xml.WriteEndElement(); //Curve   
                         }
                     }
 
@@ -1494,32 +1489,29 @@ namespace AOG
                         }
 
                         //all the headlands A=10
-                        if (bnd.bndList.Count > 0)
+                        foreach (var boundary in bnd.bndList)
                         {
-                            for (int i = 0; i < bnd.bndList.Count; i++)
+                            if (boundary.hdLine.Count < 1) continue;
+
+                            xml.WriteStartElement("PLN");//BND
+
+                            xml.WriteAttributeString("A", "10"); //headland
+
+                            xml.WriteStartElement("LSG");//Polygon
+                            xml.WriteAttributeString("A", "1");
+
+                            foreach (var hdPoint in boundary.hdLine)
                             {
-                                if (bnd.bndList[i].hdLine.Count < 1) continue;
-
-                                xml.WriteStartElement("PLN");//BND
-
-                                xml.WriteAttributeString("A", "10"); //headland
-
-                                xml.WriteStartElement("LSG");//Polygon
-                                xml.WriteAttributeString("A", "1");
-
-                                for (int j = 0; j < bnd.bndList[i].hdLine.Count; j++)
-                                {
-                                    pn.ConvertLocalToWGS84(bnd.bndList[i].hdLine[j].northing, bnd.bndList[i].hdLine[j].easting, out lat, out lon);
-                                    xml.WriteStartElement("PNT");//Boundary Points
-                                    xml.WriteAttributeString("A", "10");
-                                    xml.WriteAttributeString("C", lat.ToString());
-                                    xml.WriteAttributeString("D", lon.ToString());
-                                    xml.WriteEndElement(); //Boundary Points                   
-                                }
-
-                                xml.WriteEndElement();//Polygon
-                                xml.WriteEndElement();//BND
+                                pn.ConvertLocalToWGS84(hdPoint.northing, hdPoint.easting, out lat, out lon);
+                                xml.WriteStartElement("PNT");//Boundary Points
+                                xml.WriteAttributeString("A", "10");
+                                xml.WriteAttributeString("C", lat.ToString());
+                                xml.WriteAttributeString("D", lon.ToString());
+                                xml.WriteEndElement(); //Boundary Points                   
                             }
+
+                            xml.WriteEndElement();//Polygon
+                            xml.WriteEndElement();//BND
                         }
 
                         //AB Lines
@@ -1530,56 +1522,53 @@ namespace AOG
                         </ LSG >
                         */
 
-                        if (trk.gArr != null && trk.gArr.Count > 0)
+                        foreach (var track in trk.gArr)
                         {
-                            for (int i = 0; i < trk.gArr.Count; i++)
+                            if (track.mode != TrackMode.AB) continue;
+
+                            xml.WriteStartElement("GGP");//Guide-P
+                            string name = "GGP" + lineCounter.ToString();
+                            lineCounter++;
+                            xml.WriteAttributeString("A", name);
+                            xml.WriteAttributeString("B", track.name);
                             {
-                                if (trk.gArr[i].mode != TrackMode.AB) continue;
-
-                                xml.WriteStartElement("GGP");//Guide-P
-                                string name = "GGP" + lineCounter.ToString();
-                                lineCounter++;
+                                xml.WriteStartElement("GPN");//Guide-N
                                 xml.WriteAttributeString("A", name);
-                                xml.WriteAttributeString("B", trk.gArr[i].name);
+                                xml.WriteAttributeString("B", track.name);
+                                xml.WriteAttributeString("C", "1");
+                                xml.WriteAttributeString("E", "1");
+                                xml.WriteAttributeString("F", "1");
+                                xml.WriteAttributeString("I", "16");
                                 {
-                                    xml.WriteStartElement("GPN");//Guide-N
-                                    xml.WriteAttributeString("A", name);
-                                    xml.WriteAttributeString("B", trk.gArr[i].name);
-                                    xml.WriteAttributeString("C", "1");
-                                    xml.WriteAttributeString("E", "1");
-                                    xml.WriteAttributeString("F", "1");
-                                    xml.WriteAttributeString("I", "16");
+                                    xml.WriteStartElement("LSG");//Line
+                                    xml.WriteAttributeString("A", "5");
                                     {
-                                        xml.WriteStartElement("LSG");//Line
-                                        xml.WriteAttributeString("A", "5");
-                                        {
-                                            xml.WriteStartElement("PNT");//A
+                                        xml.WriteStartElement("PNT");//A
 
-                                            pn.ConvertLocalToWGS84(trk.gArr[i].ptA.northing - (Math.Cos(trk.gArr[i].heading) * 1000),
-                                                trk.gArr[i].ptA.easting - (Math.Sin(trk.gArr[i].heading) * 1000), out lat, out lon);
+                                        pn.ConvertLocalToWGS84(track.ptA.northing - (Math.Cos(track.heading) * 1000),
+                                            track.ptA.easting - (Math.Sin(track.heading) * 1000), out lat, out lon);
 
-                                            xml.WriteAttributeString("A", "6");
-                                            xml.WriteAttributeString("C", lat.ToString());
-                                            xml.WriteAttributeString("D", lon.ToString());
+                                        xml.WriteAttributeString("A", "6");
+                                        xml.WriteAttributeString("C", lat.ToString());
+                                        xml.WriteAttributeString("D", lon.ToString());
 
-                                            xml.WriteEndElement();//A
-                                            xml.WriteStartElement("PNT");//B
+                                        xml.WriteEndElement();//A
+                                        xml.WriteStartElement("PNT");//B
 
-                                            pn.ConvertLocalToWGS84(trk.gArr[i].ptA.northing + (Math.Cos(trk.gArr[i].heading) * 1000),
-                                                trk.gArr[i].ptA.easting + (Math.Sin(trk.gArr[i].heading) * 1000), out lat, out lon);
+                                        pn.ConvertLocalToWGS84(track.ptA.northing + (Math.Cos(track.heading) * 1000),
+                                            track.ptA.easting + (Math.Sin(track.heading) * 1000), out lat, out lon);
 
-                                            xml.WriteAttributeString("A", "7");
+                                        xml.WriteAttributeString("A", "7");
 
-                                            xml.WriteAttributeString("C", lat.ToString());
-                                            xml.WriteAttributeString("D", lon.ToString());
-                                            xml.WriteEndElement();//B
-                                        }
-                                        xml.WriteEndElement();//Line
+                                        xml.WriteAttributeString("C", lat.ToString());
+                                        xml.WriteAttributeString("D", lon.ToString());
+                                        xml.WriteEndElement();//B
                                     }
-                                    xml.WriteEndElement(); //Guide-N
+                                    xml.WriteEndElement();//Line
                                 }
-                                xml.WriteEndElement(); //Guide-P
+                                xml.WriteEndElement(); //Guide-N
                             }
+                            xml.WriteEndElement(); //Guide-P
                         }
 
                         //curves
@@ -1591,57 +1580,54 @@ namespace AOG
                         </ LSG >
                         */
 
-                        if (trk.gArr != null && trk.gArr.Count > 0)
+                        foreach (var track in trk.gArr)
                         {
-                            for (int i = 0; i < trk.gArr.Count; i++)
+                            if (track.mode != TrackMode.Curve) continue;
+
+                            xml.WriteStartElement("GGP");//Guide-P
+                            string name = "GGP" + lineCounter.ToString();
+                            lineCounter++;
+                            xml.WriteAttributeString("A", name);
+                            xml.WriteAttributeString("B", track.name);
                             {
-                                if (trk.gArr[i].mode != TrackMode.Curve) continue;
-
-                                xml.WriteStartElement("GGP");//Guide-P
-                                string name = "GGP" + lineCounter.ToString();
-                                lineCounter++;
+                                xml.WriteStartElement("GPN");//Guide-N
                                 xml.WriteAttributeString("A", name);
-                                xml.WriteAttributeString("B", trk.gArr[i].name);
+                                xml.WriteAttributeString("B", track.name);
+                                xml.WriteAttributeString("C", "3");
+                                xml.WriteAttributeString("E", "1");
+                                xml.WriteAttributeString("F", "1");
+                                xml.WriteAttributeString("I", "16");
                                 {
-                                    xml.WriteStartElement("GPN");//Guide-N
-                                    xml.WriteAttributeString("A", name);
-                                    xml.WriteAttributeString("B", trk.gArr[i].name);
-                                    xml.WriteAttributeString("C", "3");
-                                    xml.WriteAttributeString("E", "1");
-                                    xml.WriteAttributeString("F", "1");
-                                    xml.WriteAttributeString("I", "16");
+                                    xml.WriteStartElement("LSG");//Curve
+                                    xml.WriteAttributeString("A", "5"); //denotes guidance
+
+                                    for (int j = 0; j < track.curvePts.Count; j++)
                                     {
-                                        xml.WriteStartElement("LSG");//Curve
-                                        xml.WriteAttributeString("A", "5"); //denotes guidance
-
-                                        for (int j = 0; j < trk.gArr[i].curvePts.Count; j++)
+                                        xml.WriteStartElement("PNT");//point
+                                        pn.ConvertLocalToWGS84(track.curvePts[j].northing,
+                                            track.curvePts[j].easting, out lat, out lon);
+                                        if (j == 0)
                                         {
-                                            xml.WriteStartElement("PNT");//point
-                                            pn.ConvertLocalToWGS84(trk.gArr[i].curvePts[j].northing,
-                                                trk.gArr[i].curvePts[j].easting, out lat, out lon);
-                                            if (j == 0)
-                                            {
-                                                xml.WriteAttributeString("A", "6");
-                                            }
-                                            else if (j == trk.gArr[i].curvePts.Count - 1)
-                                            {
-                                                xml.WriteAttributeString("A", "7");
-                                            }
-                                            else
-                                            {
-                                                xml.WriteAttributeString("A", "9");
-                                            }
-                                            xml.WriteAttributeString("C", lat.ToString());
-                                            xml.WriteAttributeString("D", lon.ToString());
-
-                                            xml.WriteEndElement();//point
+                                            xml.WriteAttributeString("A", "6");
                                         }
-                                        xml.WriteEndElement(); //end LSG curve
+                                        else if (j == track.curvePts.Count - 1)
+                                        {
+                                            xml.WriteAttributeString("A", "7");
+                                        }
+                                        else
+                                        {
+                                            xml.WriteAttributeString("A", "9");
+                                        }
+                                        xml.WriteAttributeString("C", lat.ToString());
+                                        xml.WriteAttributeString("D", lon.ToString());
+
+                                        xml.WriteEndElement();//point
                                     }
-                                    xml.WriteEndElement(); //Guide-N
+                                    xml.WriteEndElement(); //end LSG curve
                                 }
-                                xml.WriteEndElement(); //Guide-P
+                                xml.WriteEndElement(); //Guide-N
                             }
+                            xml.WriteEndElement(); //Guide-P
                         }
                     }
 
@@ -1690,18 +1676,18 @@ namespace AOG
             using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Boundary.Txt")))
             {
                 writer.WriteLine("$Boundary");
-                for (int i = 0; i < bnd.bndList.Count; i++)
+                foreach (var boundary in bnd.bndList)
                 {
-                    writer.WriteLine(bnd.bndList[i].isDriveThru);
+                    writer.WriteLine(boundary.isDriveThru);
                     //writer.WriteLine(bnd.buildList[i].isDriveAround);
 
-                    writer.WriteLine(bnd.bndList[i].fenceLine.Count.ToString(CultureInfo.InvariantCulture));
-                    if (bnd.bndList[i].fenceLine.Count > 0)
+                    writer.WriteLine(boundary.fenceLine.Count.ToString(CultureInfo.InvariantCulture));
+                    if (boundary.fenceLine.Count > 0)
                     {
-                        for (int j = 0; j < bnd.bndList[i].fenceLine.Count; j++)
-                            writer.WriteLine(Math.Round(bnd.bndList[i].fenceLine[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                Math.Round(bnd.bndList[i].fenceLine[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                    Math.Round(bnd.bndList[i].fenceLine[j].heading, 5).ToString(CultureInfo.InvariantCulture));
+                        foreach (var fence in boundary.fenceLine)
+                            writer.WriteLine(Math.Round(fence.easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                             Math.Round(fence.northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                             Math.Round(fence.heading, 5).ToString(CultureInfo.InvariantCulture));
                     }
                 }
             }
@@ -1774,20 +1760,19 @@ namespace AOG
                 {
                     writer.WriteLine("$Flags");
 
-                    int count2 = flagPts.Count;
-                    writer.WriteLine(count2);
+                    writer.WriteLine(flagPts.Count);
 
-                    for (int i = 0; i < count2; i++)
+                    foreach (var flag in flagPts)
                     {
                         writer.WriteLine(
-                            flagPts[i].latitude.ToString(CultureInfo.InvariantCulture) + "," +
-                            flagPts[i].longitude.ToString(CultureInfo.InvariantCulture) + "," +
-                            flagPts[i].easting.ToString(CultureInfo.InvariantCulture) + "," +
-                            flagPts[i].northing.ToString(CultureInfo.InvariantCulture) + "," +
-                            flagPts[i].heading.ToString(CultureInfo.InvariantCulture) + "," +
-                            flagPts[i].color.ToString(CultureInfo.InvariantCulture) + "," +
-                            flagPts[i].ID.ToString(CultureInfo.InvariantCulture) + "," +
-                            flagPts[i].notes);
+                            flag.latitude.ToString(CultureInfo.InvariantCulture) + "," +
+                            flag.longitude.ToString(CultureInfo.InvariantCulture) + "," +
+                            flag.easting.ToString(CultureInfo.InvariantCulture) + "," +
+                            flag.northing.ToString(CultureInfo.InvariantCulture) + "," +
+                            flag.heading.ToString(CultureInfo.InvariantCulture) + "," +
+                            flag.color.ToString(CultureInfo.InvariantCulture) + "," +
+                            flag.ID.ToString(CultureInfo.InvariantCulture) + "," +
+                            flag.notes);
                     }
                 }
 
@@ -1846,42 +1831,33 @@ namespace AOG
             {
                 try
                 {
-                    if (cnt > 0)
-                    {
-                        writer.WriteLine("$HeadLines");
+                    writer.WriteLine("$HeadLines");
 
-                        for (int i = 0; i < cnt; i++)
+                    foreach (var headPath in hdl.tracksArr)
+                    {
+                        //write out the name
+                        writer.WriteLine(headPath.name);
+
+                        //write out the moveDistance
+                        writer.WriteLine(headPath.moveDistance.ToString(CultureInfo.InvariantCulture));
+
+                        //write out the mode
+                        writer.WriteLine(headPath.mode.ToString(CultureInfo.InvariantCulture));
+
+                        //write out the A_Point index
+                        writer.WriteLine(headPath.a_point.ToString(CultureInfo.InvariantCulture));
+
+                        //write out the points of ref line
+                        int cnt2 = headPath.trackPts.Count;
+
+                        writer.WriteLine(cnt2.ToString(CultureInfo.InvariantCulture));
+                        if (headPath.trackPts.Count > 0)
                         {
-                            //write out the name
-                            writer.WriteLine(hdl.tracksArr[i].name);
-
-
-                            //write out the moveDistance
-                            writer.WriteLine(hdl.tracksArr[i].moveDistance.ToString(CultureInfo.InvariantCulture));
-
-                            //write out the mode
-                            writer.WriteLine(hdl.tracksArr[i].mode.ToString(CultureInfo.InvariantCulture));
-
-                            //write out the A_Point index
-                            writer.WriteLine(hdl.tracksArr[i].a_point.ToString(CultureInfo.InvariantCulture));
-
-                            //write out the points of ref line
-                            int cnt2 = hdl.tracksArr[i].trackPts.Count;
-
-                            writer.WriteLine(cnt2.ToString(CultureInfo.InvariantCulture));
-                            if (hdl.tracksArr[i].trackPts.Count > 0)
-                            {
-                                for (int j = 0; j < cnt2; j++)
-                                    writer.WriteLine(Math.Round(hdl.tracksArr[i].trackPts[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                        Math.Round(hdl.tracksArr[i].trackPts[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                            Math.Round(hdl.tracksArr[i].trackPts[j].heading, 5).ToString(CultureInfo.InvariantCulture));
-                            }
+                            for (int j = 0; j < cnt2; j++)
+                                writer.WriteLine(Math.Round(headPath.trackPts[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                                 Math.Round(headPath.trackPts[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                                 Math.Round(headPath.trackPts[j].heading, 5).ToString(CultureInfo.InvariantCulture));
                         }
-                    }
-                    else
-                    {
-                        writer.WriteLine("$HeadLines");
-                        return;
                     }
                 }
                 catch (Exception er)
@@ -1937,56 +1913,46 @@ namespace AOG
 
             string filename = Path.Combine(directoryName, "TrackLines.txt");
 
-            int cnt = trk.gArr.Count;
-
             using (StreamWriter writer = new StreamWriter(filename, false))
             {
                 try
                 {
-                    if (cnt > 0)
-                    {
-                        writer.WriteLine("$TrackLines");
+                    writer.WriteLine("$TrackLines");
 
-                        for (int i = 0; i < cnt; i++)
+                    foreach (var track in trk.gArr)
+                    {
+                        //write out the name
+                        writer.WriteLine(track.name);
+
+                        //write out the heading
+                        writer.WriteLine(track.heading.ToString(CultureInfo.InvariantCulture));
+
+                        //A nd B
+                        writer.WriteLine(Math.Round(track.ptA.easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                            Math.Round(track.ptA.northing, 3).ToString(CultureInfo.InvariantCulture));
+                        writer.WriteLine(Math.Round(track.ptB.easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                            Math.Round(track.ptB.northing, 3).ToString(CultureInfo.InvariantCulture));
+
+                        //write out the nudgeDistance
+                        writer.WriteLine(track.nudgeDistance.ToString(CultureInfo.InvariantCulture));
+
+                        //write out the mode
+                        writer.WriteLine(((int)track.mode).ToString(CultureInfo.InvariantCulture));
+
+                        //visible?
+                        writer.WriteLine(track.isVisible.ToString(CultureInfo.InvariantCulture));
+
+                        //write out the points of ref line
+                        int cnt2 = track.curvePts.Count;
+
+                        writer.WriteLine(cnt2.ToString(CultureInfo.InvariantCulture));
+                        if (track.curvePts.Count > 0)
                         {
-                            //write out the name
-                            writer.WriteLine(trk.gArr[i].name);
-
-                            //write out the heading
-                            writer.WriteLine(trk.gArr[i].heading.ToString(CultureInfo.InvariantCulture));
-
-                            //A nd B
-                            writer.WriteLine(Math.Round(trk.gArr[i].ptA.easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                Math.Round(trk.gArr[i].ptA.northing, 3).ToString(CultureInfo.InvariantCulture));
-                            writer.WriteLine(Math.Round(trk.gArr[i].ptB.easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                Math.Round(trk.gArr[i].ptB.northing, 3).ToString(CultureInfo.InvariantCulture));
-
-                            //write out the nudgeDistance
-                            writer.WriteLine(trk.gArr[i].nudgeDistance.ToString(CultureInfo.InvariantCulture));
-
-                            //write out the mode
-                            writer.WriteLine(((int)trk.gArr[i].mode).ToString(CultureInfo.InvariantCulture));
-
-                            //visible?
-                            writer.WriteLine(trk.gArr[i].isVisible.ToString(CultureInfo.InvariantCulture));
-
-                            //write out the points of ref line
-                            int cnt2 = trk.gArr[i].curvePts.Count;
-
-                            writer.WriteLine(cnt2.ToString(CultureInfo.InvariantCulture));
-                            if (trk.gArr[i].curvePts.Count > 0)
-                            {
-                                for (int j = 0; j < cnt2; j++)
-                                    writer.WriteLine(Math.Round(trk.gArr[i].curvePts[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                        Math.Round(trk.gArr[i].curvePts[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                            Math.Round(trk.gArr[i].curvePts[j].heading, 5).ToString(CultureInfo.InvariantCulture));
-                            }
+                            for (int j = 0; j < cnt2; j++)
+                                writer.WriteLine(Math.Round(track.curvePts[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                                 Math.Round(track.curvePts[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                                 Math.Round(track.curvePts[j].heading, 5).ToString(CultureInfo.InvariantCulture));
                         }
-                    }
-                    else
-                    {
-                        writer.WriteLine("$TrackLines");
-                        return;
                     }
                 }
                 catch (Exception er)
@@ -1996,9 +1962,6 @@ namespace AOG
                     return;
                 }
             }
-
-            if (trk.idx > (trk.gArr.Count - 1)) trk.idx = trk.gArr.Count - 1;
-
         }
 
         //save tram
@@ -2143,12 +2106,12 @@ namespace AOG
 
             string linePts = "";
 
-            for (int i = 0; i < trk.gArr.Count; i++)
+            foreach (var track in trk.gArr)
             {
                 kml.WriteStartElement("Placemark");
                 kml.WriteElementString("visibility", "0");
 
-                kml.WriteElementString("name", trk.gArr[i].name);
+                kml.WriteElementString("name", track.name);
                 kml.WriteStartElement("Style");
 
                 kml.WriteStartElement("LineStyle");
@@ -2161,11 +2124,11 @@ namespace AOG
                 kml.WriteElementString("tessellate", "1");
                 kml.WriteStartElement("coordinates");
 
-                if (trk.gArr[i].mode == TrackMode.AB)
+                if (track.mode == TrackMode.AB)
                 {
-                    for (int j = 0; j < trk.gArr[i].curvePts.Count; j++)
+                    for (int j = 0; j < track.curvePts.Count; j++)
                     {
-                        linePts += pn.GetLocalToWSG84_KML(trk.gArr[i].curvePts[j].easting, trk.gArr[i].curvePts[j].northing);
+                        linePts += pn.GetLocalToWSG84_KML(track.curvePts[j].easting, track.curvePts[j].northing);
                     }
                     kml.WriteRaw(linePts);
                 }
@@ -2183,13 +2146,13 @@ namespace AOG
             kml.WriteElementString("name", "Curve_Lines");
             kml.WriteElementString("visibility", "0");
 
-            for (int i = 0; i < trk.gArr.Count; i++)
+            foreach (var track in trk.gArr)
             {
                 linePts = "";
                 kml.WriteStartElement("Placemark");
                 kml.WriteElementString("visibility", "0");
 
-                kml.WriteElementString("name", trk.gArr[i].name);
+                kml.WriteElementString("name", track.name);
                 kml.WriteStartElement("Style");
 
                 kml.WriteStartElement("LineStyle");
@@ -2202,11 +2165,11 @@ namespace AOG
                 kml.WriteElementString("tessellate", "1");
                 kml.WriteStartElement("coordinates");
 
-                if (trk.gArr[i].mode != TrackMode.AB)
+                if (track.mode != TrackMode.AB)
                 {
-                    for (int j = 0; j < trk.gArr[i].curvePts.Count; j++)
+                    for (int j = 0; j < track.curvePts.Count; j++)
                     {
-                        linePts += pn.GetLocalToWSG84_KML(trk.gArr[i].curvePts[j].easting, trk.gArr[i].curvePts[j].northing);
+                        linePts += pn.GetLocalToWSG84_KML(track.curvePts[j].easting, track.curvePts[j].northing);
                     }
                     kml.WriteRaw(linePts);
                 }

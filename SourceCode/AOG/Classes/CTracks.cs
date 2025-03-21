@@ -1,7 +1,8 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using AOG.Classes;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AOG
@@ -15,8 +16,7 @@ namespace AOG
         private readonly FormGPS mf;
 
         public List<CTrk> gArr = new List<CTrk>();
-
-        public int idx;
+        private CTrk _currTrk;
 
         public bool isHeadingSameWay = true, lastIsHeadingSameWay = true;
 
@@ -41,8 +41,6 @@ namespace AOG
         //design a new track
         public List<vec3> designPtsList = new List<vec3>();
 
-        public string designName = "**";
-
         public vec2 designPtA = new vec2(0.2, 0.15);
         public vec2 designPtB = new vec2(0.3, 0.3);
         public vec2 designLineEndA = new vec2(0.2, 0.15);
@@ -60,14 +58,64 @@ namespace AOG
         {
             //constructor
             mf = _f;
-            idx = -1;
         }
 
-        public async void GetDistanceFromRefTrack(vec3 pivot)
+        public CTrk currTrk
+        {
+            get => _currTrk;
+            set
+            {
+                if (_currTrk != value)
+                {
+                    _currTrk = value;
+
+                    isTrackValid = false;
+
+                    mf.SetAutoSteerButton(false, _currTrk == null ? gStr.Get(gs.gsNoABLineActive) : "Track Changed");
+
+                    //mf.SetYouTurnButton(false);
+                    //ss Log.EventWriter("Autosteer Stop, No Tracks Available");
+
+                    int index2 = gArr.FindIndex(x => x == _currTrk);
+                    mf.lblNumCu.Text = (index2 + 1).ToString() + "/" + gArr.Count.ToString();
+                    mf.lblNumCu.Visible = !mf.ct.isContourBtnOn;
+                    mf.PanelUpdateRightAndBottom();
+                }
+            }
+        }
+
+        public int GetVisibleTracks()
+        {
+            int tracksVisible = 0;
+            foreach (var track in gArr)
+            {
+                if (track.isVisible) tracksVisible++;
+            }
+            return tracksVisible;
+        }
+        public CTrk GetNextTrack(CTrk track, List<CTrk> gTemp, bool next = true, bool invisible = false)
+        {
+            int index = gTemp.FindIndex(x => x == track);
+
+            if (next)
+                return gTemp.Skip(index + 1).Concat(gTemp.Take(index)).FirstOrDefault(x => x.isVisible || invisible);
+            else
+                return gTemp.Take(index).Reverse().Concat(gTemp.Skip(index + 1).Reverse()).FirstOrDefault(x => x.isVisible || invisible);
+        }
+
+        public void GetNextTrack(bool next = true)
+        {
+            int index = gArr.FindIndex(x => x == currTrk);
+
+            if (next)
+                currTrk = gArr.Skip(index + 1).Concat(gArr.Take(index)).FirstOrDefault(x => x.isVisible);
+            else
+                currTrk = gArr.Take(index).Reverse().Concat(gArr.Skip(index + 1).Reverse()).FirstOrDefault(x => x.isVisible);
+        }
+
+        public async void GetDistanceFromRefTrack(CTrk track, vec3 pivot)
         {
             double widthMinusOverlap = Settings.Tool.toolWidth - Settings.Tool.overlap;
-
-            CTrk track = gArr[idx];
 
             if (!isTrackValid || ((mf.secondsSinceStart - lastSecond) > 3 && (!mf.isBtnAutoSteerOn || mf.mc.steerSwitchHigh)))
             {
@@ -523,57 +571,44 @@ namespace AOG
 
         public void DrawTrack()
         {
-            if (idx == -1) return;
-
             if (guideArr.Count > 0)
             {
                 GL.LineWidth(Settings.User.setDisplay_lineWidth * 3);
                 GL.Color3(0, 0, 0);
 
-                if (gArr[idx].mode != TrackMode.bndCurve)
-                    GL.Begin(PrimitiveType.LineStrip);
-                else
-                    GL.Begin(PrimitiveType.LineLoop);
-
                 for (int i = 0; i < guideArr.Count; i++)
                 {
-                    GL.Begin(PrimitiveType.LineStrip);
+                    GL.Begin(currTrk.mode != TrackMode.bndCurve ? PrimitiveType.LineStrip : PrimitiveType.LineLoop);
+
                     for (int h = 0; h < guideArr[i].Count; h++)
                         GL.Vertex3(guideArr[i][h].easting, guideArr[i][h].northing, 0);
                     GL.End();
                 }
-                GL.End();
 
                 GL.LineWidth(Settings.User.setDisplay_lineWidth);
                 GL.Color4(0.2, 0.75, 0.2, 0.6);
 
-                if (gArr[idx].mode != TrackMode.bndCurve)
-                    GL.Begin(PrimitiveType.LineStrip);
-                else
-                    GL.Begin(PrimitiveType.LineLoop);
-
                 for (int i = 0; i < guideArr.Count; i++)
                 {
-                    GL.Begin(PrimitiveType.LineStrip);
+                    GL.Begin(currTrk.mode != TrackMode.bndCurve ? PrimitiveType.LineStrip : PrimitiveType.LineLoop);
                     for (int h = 0; h < guideArr[i].Count; h++)
                         GL.Vertex3(guideArr[i][h].easting, guideArr[i][h].northing, 0);
                     GL.End();
                 }
-                GL.End();
             }
 
             //draw reference line
-            if (gArr[idx].mode != TrackMode.waterPivot)
+            if (currTrk.mode != TrackMode.waterPivot)
             {
-                if (gArr[idx].curvePts == null || gArr[idx].curvePts.Count == 0) return;
+                if (currTrk.curvePts == null || currTrk.curvePts.Count == 0) return;
 
                 GL.LineWidth(Settings.User.setDisplay_lineWidth * 2);
                 GL.Color3(0.96, 0.2f, 0.2f);
                 GL.Begin(PrimitiveType.Lines);
 
-                for (int h = 0; h < gArr[idx].curvePts.Count; h++) GL.Vertex3(
-                    gArr[idx].curvePts[h].easting,
-                    gArr[idx].curvePts[h].northing,
+                for (int h = 0; h < currTrk.curvePts.Count; h++) GL.Vertex3(
+                    currTrk.curvePts[h].easting,
+                    currTrk.curvePts[h].northing,
                     0);
 
                 GL.End();
@@ -581,14 +616,14 @@ namespace AOG
                 if (mf.font.isFontOn)
                 {
                     GL.Color3(0.40f, 0.90f, 0.95f);
-                    mf.font.DrawText3D(gArr[idx].ptA.easting, gArr[idx].ptA.northing, "&A");
-                    mf.font.DrawText3D(gArr[idx].ptB.easting, gArr[idx].ptB.northing, "&B");
+                    mf.font.DrawText3D(currTrk.ptA.easting, currTrk.ptA.northing, "&A");
+                    mf.font.DrawText3D(currTrk.ptB.easting, currTrk.ptB.northing, "&B");
                 }
 
                 //just draw ref and smoothed line if smoothing window is open
                 if (isSmoothWindowOpen)
                 {
-                    if (smooList == null || smooList.Count == 0) return;
+                    if (smooList.Count == 0) return;
 
                     GL.LineWidth(Settings.User.setDisplay_lineWidth);
                     GL.Color3(0.930f, 0.92f, 0.260f);
@@ -605,17 +640,17 @@ namespace AOG
                 GL.Color3(0, 0, 0);
 
                 //ablines and curves are a line - the rest a loop
-                if (gArr[idx].mode <= TrackMode.Curve)
+                if (currTrk.mode <= TrackMode.Curve)
                 {
                     GL.Begin(PrimitiveType.LineStrip);
                 }
                 else
                 {
-                    if (gArr[idx].mode == TrackMode.waterPivot)
+                    if (currTrk.mode == TrackMode.waterPivot)
                     {
                         GL.PointSize(15.0f);
                         GL.Begin(PrimitiveType.Points);
-                        GL.Vertex3(gArr[idx].ptA.easting, gArr[idx].ptA.northing, 0);
+                        GL.Vertex3(currTrk.ptA.easting, currTrk.ptA.northing, 0);
                         GL.End();
                     }
 
@@ -629,17 +664,17 @@ namespace AOG
                 GL.Color3(0.95f, 0.2f, 0.95f);
 
                 //ablines and curves are a track - the rest a loop
-                if (gArr[idx].mode <= TrackMode.Curve)
+                if (currTrk.mode <= TrackMode.Curve)
                 {
                     GL.Begin(PrimitiveType.Lines);
                 }
                 else
                 {
-                    if (gArr[idx].mode == TrackMode.waterPivot)
+                    if (currTrk.mode == TrackMode.waterPivot)
                     {
                         GL.PointSize(15.0f);
                         GL.Begin(PrimitiveType.Points);
-                        GL.Vertex3(gArr[idx].ptA.easting, gArr[idx].ptA.northing, 0);
+                        GL.Vertex3(currTrk.ptA.easting, currTrk.ptA.northing, 0);
                         GL.End();
                     }
 
@@ -746,53 +781,37 @@ namespace AOG
         }
 
         //turning the visual line into the real reference line to use
-        public void SaveSmoothList()
+        public void SaveSmoothList(CTrk track)
         {
-            //oops no smooth list generated
-            if (smooList == null) return;
-            int cnt = smooList.Count;
-            if (cnt == 0) return;
-
-            //eek
-            gArr[idx].curvePts?.Clear();
-
-            //copy to an array to calculate all the new headings
-            vec3[] arr = new vec3[cnt];
-            smooList.CopyTo(arr);
-
-            //calculate new headings on smoothed line
-            for (int i = 1; i < cnt - 1; i++)
+            if (smooList.Count > 3)
             {
-                arr[i].heading = Math.Atan2(arr[i + 1].easting - arr[i].easting, arr[i + 1].northing - arr[i].northing);
-                if (arr[i].heading < 0) arr[i].heading += glm.twoPI;
-                gArr[idx].curvePts.Add(arr[i]);
+                CalculateHeadings(ref smooList);
+                track.curvePts = smooList;
+                smooList = new List<vec3>();
             }
         }
 
-        public void SmoothAB(int smPts)
+        public void SmoothAB(ref List<vec3> points, int smPts, bool setSmoothList = true)
         {
             //countExit the reference list of original curve
-            int cnt = gArr[idx].curvePts.Count;
-
-            //just go back if not very long
-            if (cnt < 100) return;
+            int cnt = points.Count;
 
             //the temp array
             vec3[] arr = new vec3[cnt];
 
             //read the points before and after the setpoint
-            for (int s = 0; s < smPts / 2; s++)
+            for (int s = 0; s < smPts / 2 && s < cnt; s++)
             {
-                arr[s].easting = gArr[idx].curvePts[s].easting;
-                arr[s].northing = gArr[idx].curvePts[s].northing;
-                arr[s].heading = gArr[idx].curvePts[s].heading;
+                arr[s].easting = points[s].easting;
+                arr[s].northing = points[s].northing;
+                arr[s].heading = points[s].heading;
             }
 
             for (int s = cnt - (smPts / 2); s < cnt; s++)
             {
-                arr[s].easting = gArr[idx].curvePts[s].easting;
-                arr[s].northing = gArr[idx].curvePts[s].northing;
-                arr[s].heading = gArr[idx].curvePts[s].heading;
+                arr[s].easting = points[s].easting;
+                arr[s].northing = points[s].northing;
+                arr[s].heading = points[s].heading;
             }
 
             //average them - center weighted average
@@ -800,33 +819,23 @@ namespace AOG
             {
                 for (int j = -smPts / 2; j < smPts / 2; j++)
                 {
-                    arr[i].easting += gArr[idx].curvePts[j + i].easting;
-                    arr[i].northing += gArr[idx].curvePts[j + i].northing;
+                    arr[i].easting += points[j + i].easting;
+                    arr[i].northing += points[j + i].northing;
                 }
                 arr[i].easting /= smPts;
                 arr[i].northing /= smPts;
-                arr[i].heading = gArr[idx].curvePts[i].heading;
+                arr[i].heading = points[i].heading;
             }
 
-            //make a list to draw
-            smooList?.Clear();
-
-            if (arr == null || cnt < 1) return;
-            if (smooList == null) return;
-
-            for (int i = 0; i < cnt; i++)
-            {
-                smooList.Add(arr[i]);
-            }
+            if (setSmoothList)
+                smooList = arr.ToList();
+            else
+                points = arr.ToList();
         }
 
         public void CreateDesignedABTrack(bool isRefRightSide)
         {
-            gArr.Add(new CTrk());
-
-            idx = gArr.Count - 1;
-
-            gArr[idx].mode = TrackMode.AB;
+            var track = new CTrk(TrackMode.AB);
 
             double hsin = Math.Sin(designHeading);
             double hcos = Math.Cos(designHeading);
@@ -846,30 +855,22 @@ namespace AOG
                 P1.easting = (hsin * i) + designPtA.easting;
                 P1.northing = (hcos * i) + designPtA.northing;
                 P1.heading = designHeading;
-                gArr[idx].curvePts.Add(P1);
+                track.curvePts.Add(P1);
             }
 
-            gArr[idx].heading = designHeading;
+            track.heading = designHeading;
 
-            double dist;
-            if (isRefRightSide)
-            {
-                dist = (Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5 + Settings.Tool.offset;
-                NudgeRefTrack(dist);
-            }
-            else
-            {
-                dist = (Settings.Tool.toolWidth - Settings.Tool.overlap) * -0.5 + Settings.Tool.offset;
-                NudgeRefTrack(dist);
-            }
+            double dist = (Settings.Tool.toolWidth - Settings.Tool.overlap) * (isRefRightSide ? 0.5 : -0.5) + Settings.Tool.offset;
+            NudgeRefTrack(track, dist);
 
-            gArr[idx].ptA.easting = (gArr[idx].curvePts[0].easting);
-            gArr[idx].ptA.northing = (gArr[idx].curvePts[0].northing);
-            gArr[idx].ptB.easting = (gArr[idx].curvePts[gArr[idx].curvePts.Count - 1].easting);
-            gArr[idx].ptB.northing = (gArr[idx].curvePts[gArr[idx].curvePts.Count - 1].northing);
+            track.ptA = new vec2(track.curvePts[0]);
+            track.ptB = new vec2(track.curvePts[track.curvePts.Count - 1]);
 
             //build the tail extensions
-            AddFirstLastPoints(ref gArr[idx].curvePts, 100);
+            AddFirstLastPoints(ref track.curvePts, 100);
+
+            gArr.Add(track);
+            currTrk = track;
         }
 
         public void AddFirstLastPoints(ref List<vec3> xList, int ptsToAdd)
@@ -928,55 +929,47 @@ namespace AOG
             }
         }
 
-        public void NudgeTrack(double dist)
+        public void NudgeTrack(CTrk track, double dist)
         {
-            if (idx > -1)
-            {
-                isTrackValid = false;
-                gArr[idx].nudgeDistance += isHeadingSameWay ? dist : -dist;
-            }
+            isTrackValid = false;
+            if (track != null)
+                track.nudgeDistance += isHeadingSameWay ? dist : -dist;
         }
 
-        public void NudgeDistanceReset()
+        public void NudgeDistanceReset(CTrk track)
         {
-            if (idx > -1 && gArr.Count > 0)
-            {
-                isTrackValid = false;
-                gArr[idx].nudgeDistance = 0;
-            }
+            isTrackValid = false;
+            track.nudgeDistance = 0;
         }
 
-        public void SnapToPivot()
+        public void SnapToPivot(CTrk track)
         {
-            if (idx > -1)
-            {
-                NudgeTrack(mf.gyd.distanceFromCurrentLine);
-            }
+            NudgeTrack(track, mf.gyd.distanceFromCurrentLine);
         }
 
-        public void NudgeRefTrack(double distAway)
+        public void NudgeRefTrack(CTrk track, double distAway)
         {
             isTrackValid = false;
 
             List<vec3> curList = new List<vec3>();
 
-            if (gArr[idx].mode != TrackMode.AB)
+            if (track.mode != TrackMode.AB)
             {
                 double distSqAway = (distAway * distAway) - 0.01;
                 vec3 point;
 
-                for (int i = 0; i < gArr[idx].curvePts.Count; i++)
+                for (int i = 0; i < track.curvePts.Count; i++)
                 {
                     point = new vec3(
-                    gArr[idx].curvePts[i].easting + (Math.Sin(glm.PIBy2 + gArr[idx].curvePts[i].heading) * distAway),
-                    gArr[idx].curvePts[i].northing + (Math.Cos(glm.PIBy2 + gArr[idx].curvePts[i].heading) * distAway),
-                    gArr[idx].curvePts[i].heading);
+                    track.curvePts[i].easting + (Math.Sin(glm.PIBy2 + track.curvePts[i].heading) * distAway),
+                    track.curvePts[i].northing + (Math.Cos(glm.PIBy2 + track.curvePts[i].heading) * distAway),
+                    track.curvePts[i].heading);
                     bool Add = true;
 
-                    for (int t = 0; t < gArr[idx].curvePts.Count; t++)
+                    for (int t = 0; t < track.curvePts.Count; t++)
                     {
-                        double dist = ((point.easting - gArr[idx].curvePts[t].easting) * (point.easting - gArr[idx].curvePts[t].easting))
-                            + ((point.northing - gArr[idx].curvePts[t].northing) * (point.northing - gArr[idx].curvePts[t].northing));
+                        double dist = ((point.easting - track.curvePts[t].easting) * (point.easting - track.curvePts[t].easting))
+                            + ((point.northing - track.curvePts[t].northing) * (point.northing - track.curvePts[t].northing));
                         if (dist < distSqAway)
                         {
                             Add = false;
@@ -1045,27 +1038,21 @@ namespace AOG
 
                     CalculateHeadings(ref curList);
 
-                    gArr[idx].curvePts.Clear();
-
-                    foreach (var item in curList)
-                    {
-                        gArr[idx].curvePts.Add(new vec3(item));
-                    }
+                    track.curvePts = curList;
                 }
             }
             else
             {
                 vec3 point;
-                curList?.Clear();
 
                 //find the A and B points in the ref
 
                 int aClose = 0, bClose = 0;
                 double minDist = double.MaxValue;
 
-                for (int i = 0; i < gArr[idx].curvePts.Count; i++)
+                for (int i = 0; i < track.curvePts.Count; i++)
                 {
-                    double dist = glm.DistanceSquared(gArr[idx].curvePts[i], gArr[idx].ptA);
+                    double dist = glm.DistanceSquared(track.curvePts[i], track.ptA);
                     if (dist < minDist)
                     {
                         aClose = i;
@@ -1073,9 +1060,9 @@ namespace AOG
                     }
                 }
                 minDist = double.MaxValue;
-                for (int i = 0; i < gArr[idx].curvePts.Count; i++)
+                for (int i = 0; i < track.curvePts.Count; i++)
                 {
-                    double dist = glm.DistanceSquared(gArr[idx].curvePts[i], gArr[idx].ptB);
+                    double dist = glm.DistanceSquared(track.curvePts[i], track.ptB);
                     if (dist < minDist)
                     {
                         bClose = i;
@@ -1083,34 +1070,32 @@ namespace AOG
                     }
                 }
 
-                for (int i = 0; i < gArr[idx].curvePts.Count; i++)
+                for (int i = 0; i < track.curvePts.Count; i++)
                 {
                     point = new vec3(
-                        gArr[idx].curvePts[i].easting + (Math.Sin(glm.PIBy2 + gArr[idx].curvePts[i].heading) * distAway),
-                        gArr[idx].curvePts[i].northing + (Math.Cos(glm.PIBy2 + gArr[idx].curvePts[i].heading) * distAway),
-                        gArr[idx].curvePts[i].heading);
+                        track.curvePts[i].easting + (Math.Sin(glm.PIBy2 + track.curvePts[i].heading) * distAway),
+                        track.curvePts[i].northing + (Math.Cos(glm.PIBy2 + track.curvePts[i].heading) * distAway),
+                        track.curvePts[i].heading);
 
                     curList.Add(point);
                 }
 
-                gArr[idx].curvePts.Clear();
+                track.curvePts.Clear();
 
-                foreach (var item in curList)
-                {
-                    gArr[idx].curvePts.Add(new vec3(item));
-                }
+                track.curvePts = curList;
 
-                gArr[idx].ptA.easting = (gArr[idx].curvePts[aClose].easting);
-                gArr[idx].ptA.northing = (gArr[idx].curvePts[aClose].northing);
-                gArr[idx].ptB.easting = (gArr[idx].curvePts[bClose].easting);
-                gArr[idx].ptB.northing = (gArr[idx].curvePts[bClose].northing);
+                track.ptA.easting = (track.curvePts[aClose].easting);
+                track.ptA.northing = (track.curvePts[aClose].northing);
+                track.ptB.easting = (track.curvePts[bClose].easting);
+                track.ptB.northing = (track.curvePts[bClose].northing);
             }
         }
 
         public void ResetTrack()
         {
             currentGuidanceTrack?.Clear();
-            idx = -1;
+            currTrk = null;
+            gArr.Clear();
         }
 
         public bool PointOnLine(vec3 pt1, vec3 pt2, vec3 pt)
@@ -1151,7 +1136,7 @@ namespace AOG
         public TrackMode mode;
         public double nudgeDistance;
 
-        public CTrk()
+        public CTrk(TrackMode _mode = TrackMode.None)
         {
             curvePts = new List<vec3>();
             heading = 3;
@@ -1161,7 +1146,7 @@ namespace AOG
             ptB = new vec2();
             endPtA = new vec2();
             endPtB = new vec2();
-            mode = TrackMode.None;
+            mode = _mode;
             nudgeDistance = 0;
         }
 
@@ -1177,6 +1162,31 @@ namespace AOG
             endPtB = new vec2();
             mode = _trk.mode;
             nudgeDistance = _trk.nudgeDistance;
+        }
+
+        public static bool operator ==(CTrk a, CTrk b)
+        {
+            if (a is null && b is null) return true;
+            if (a is null) return false;
+            if (b is null) return false;
+            return a.name == b.name;
+            //if (ReferenceEquals(a, b)) return true;
+        }
+
+        public static bool operator !=(CTrk a, CTrk b) => !(a == b);
+
+        public override string ToString()
+        {
+            return name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return this == (CTrk)obj;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

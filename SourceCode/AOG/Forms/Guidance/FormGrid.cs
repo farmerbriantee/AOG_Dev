@@ -11,19 +11,13 @@ namespace AOG
         //access to the main GPS form and all its variables
         private readonly FormGPS mf = null;
 
-        private Point fixPt;
-
         private bool isA = true;
         private int start = 99999, end = 99999;
-        private int bndSelect = 0, originalLine;
 
         private double zoom = 1, sX = 0, sY = 0;
 
-        public vec3 pint = new vec3(0.0, 1.0, 0.0);
         public vec3 pntA = new vec3(0.0, 1.0, 0.0);
         public vec3 pntB = new vec3(0.0, 1.0, 0.0);
-
-        private bool isDrawSections = true;
 
         public FormGrid(Form callingForm)
         {
@@ -35,8 +29,6 @@ namespace AOG
 
         private void FormABDraw_Load(object sender, EventArgs e)
         {
-            originalLine = mf.trk.idx;
-
             Size = Settings.User.setWindow_gridSize;
 
             Location = Settings.User.setWindow_gridLocation;
@@ -51,9 +43,6 @@ namespace AOG
 
         private void FormABDraw_FormClosing(object sender, FormClosingEventArgs e)
         {
-            mf.trk.isTrackValid = false;
-            mf.twoSecondCounter = 100;
-
             Settings.User.setWindow_gridSize = Size;
             Settings.User.setWindow_gridLocation = Location;
         }
@@ -101,21 +90,18 @@ namespace AOG
             //}
 
             //Convert to Origin in the center of window, 800 pixels
-            fixPt.X = pt.X - halfWid;
-            fixPt.Y = (wid - pt.Y - halfWid);
+            int X = pt.X - halfWid;
+            int Y = (wid - pt.Y - halfWid);
             vec3 plotPt = new vec3
             {
                 //convert screen coordinates to field coordinates
-                easting = fixPt.X * mf.maxFieldDistance / scale * zoom,
-                northing = fixPt.Y * mf.maxFieldDistance / scale * zoom,
+                easting = X * mf.maxFieldDistance / scale * zoom,
+                northing = Y * mf.maxFieldDistance / scale * zoom,
                 heading = 0
             };
 
             plotPt.easting += mf.fieldCenterX + mf.maxFieldDistance * -sX;
             plotPt.northing += mf.fieldCenterY + mf.maxFieldDistance * -sY;
-
-            pint.easting = plotPt.easting;
-            pint.northing = plotPt.northing;
 
             zoom = 1;
             sX = 0;
@@ -159,13 +145,13 @@ namespace AOG
             //translate to that spot in the world
             GL.Translate(-mf.fieldCenterX + sX * mf.maxFieldDistance, -mf.fieldCenterY + sY * mf.maxFieldDistance, 0);
 
-            if (isDrawSections) DrawSections();
+            DrawSections();
 
             GL.LineWidth(3);
 
             for (int j = 0; j < mf.bnd.bndList.Count; j++)
             {
-                if (j == bndSelect)
+                if (j == 0)
                     GL.Color3(1.0f, 1.0f, 1.0f);
                 else
                     GL.Color3(0.62f, 0.635f, 0.635f);
@@ -227,14 +213,7 @@ namespace AOG
 
         private void btnAlignToTrack_Click(object sender, EventArgs e)
         {
-            if (mf.trk.idx > -1)
-            {
-                mf.worldGrid.gridRotation = Math.Atan2(
-                    mf.trk.gArr[mf.trk.idx].ptB.easting - mf.trk.gArr[mf.trk.idx].ptA.easting,
-                    mf.trk.gArr[mf.trk.idx].ptB.northing - mf.trk.gArr[mf.trk.idx].ptA.northing);
-                if (mf.worldGrid.gridRotation < 0) mf.worldGrid.gridRotation += glm.twoPI;
-                mf.worldGrid.gridRotation = glm.toDegrees(mf.worldGrid.gridRotation);
-            }
+            mf.worldGrid.gridRotation = glm.toDegrees(mf.gyd.manualUturnHeading);
             Close();
         }
 

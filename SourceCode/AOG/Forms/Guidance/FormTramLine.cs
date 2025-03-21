@@ -18,7 +18,6 @@ namespace AOG
 
         private int indx = -1;
 
-        private Point fixPt;
         private vec2 ptA = new vec2(9999999, 9999999);
         private vec2 ptB = new vec2(9999999, 9999999);
         private vec2 ptCut = new vec2(9999999, 9999999);
@@ -126,12 +125,12 @@ namespace AOG
             //load the lines from Trks
             gTemp?.Clear();
 
-            foreach (var item in mf.trk.gArr)
+            foreach (var track in mf.trk.gArr)
             {
-                if ((item.mode == TrackMode.AB || item.mode == TrackMode.Curve) && item.isVisible)
+                if ((track.mode == TrackMode.AB || track.mode == TrackMode.Curve) && track.isVisible)
                 {
                     //default side assuming built in AB Draw - isVisible is used for side to draw
-                    gTemp.Add(new CTrk(item));
+                    gTemp.Add(new CTrk(track));
                     gTemp[gTemp.Count - 1].isVisible = true;
                 }
             }
@@ -359,13 +358,13 @@ namespace AOG
             double scale = (double)wid * 0.903;
 
             //Convert to Origin in the center of window, 800 pixels
-            fixPt.X = ptt.X - halfWid;
-            fixPt.Y = (wid - ptt.Y - halfWid);
+            int X = ptt.X - halfWid;
+            int Y = (wid - ptt.Y - halfWid);
             vec2 plotPt = new vec2
             {
                 //convert screen coordinates to field coordinates
-                easting = fixPt.X * mf.maxFieldDistance / scale,
-                northing = fixPt.Y * mf.maxFieldDistance / scale,
+                easting = X * mf.maxFieldDistance / scale,
+                northing = Y * mf.maxFieldDistance / scale,
             };
 
             plotPt.easting += mf.fieldCenterX;

@@ -110,8 +110,8 @@ namespace AOG
                             break;
 
                         case 2:
-                            if (trk.idx > -1)
-                                lblCurrentField.Text = "Line: " + trk.gArr[trk.idx].name;
+                            if (trk.currTrk != null)
+                                lblCurrentField.Text = "Line: " + trk.currTrk.name;
                             else
                                 lblCurrentField.Text = "Line: " + gStr.Get(gs.gsNoGuidanceLines);
                             break;
@@ -240,13 +240,6 @@ namespace AOG
                 //the main formgps window
                 //status strip values
                 distanceToolBtn.Text = fd.DistanceUser + "\r\n" + fd.WorkedUserArea;
-
-                //Make sure it is off when it should
-                if (!ct.isContourBtnOn && trk.idx == -1 && isBtnAutoSteerOn)
-                {
-                    SetAutoSteerButton(false, gStr.Get(gs.gsNoGuidanceLines));
-                    Log.EventWriter("Steer Safe Off, No Tracks, Idx -1");
-                }
 
                 lblSpeed.Text = Speed;
 
@@ -442,7 +435,7 @@ namespace AOG
             //btnChangeMappingColor.BackColor = sectionColorDay;
             btnChangeMappingColor.Text = Application.ProductVersion.ToString(CultureInfo.InvariantCulture);
 
-            DisableYouTurnButtons();
+            yt.ResetCreatedYouTurn();
 
             //workswitch stuff
 
@@ -496,9 +489,6 @@ namespace AOG
 
             //load uturn properties
             yt.LoadSettings();
-
-            lblNumCu.Visible = false;
-            lblNumCu.Text = "";
 
             bnd.isSectionControlledByHeadland = true;
             cboxIsSectionControlled.Image = Properties.Resources.HeadlandSectionOn;
@@ -627,44 +617,29 @@ namespace AOG
         {
             if (isFieldStarted)
             {
-                int tracksTotal = 0, tracksVisible = 0;
-
                 bool isBnd = bnd.bndList.Count > 0;
                 bool isHdl = isBnd && bnd.bndList[0].hdLine.Count > 0;
 
                 bool istram = (tram.tramList.Count + tram.tramBndOuterArr.Count) > 0;
 
-                for (int i = 0; i < trk.gArr.Count; i++)
-                {
-                    tracksTotal++;
-                    if (trk.gArr[i].isVisible) tracksVisible++;
-                }
+                int tracksVisible = trk.GetVisibleTracks();
 
                 btnContourLock.Visible = ct.isContourBtnOn;
 
-                if (trk.idx > -1 || ct.isContourBtnOn)
-                    btnAutoSteer.Enabled = true;
-                else
-                {
-                    if (isBtnAutoSteerOn)
-                    {
-                        Log.EventWriter("Steer Safe Off, No Tracks, Idx -1");
-                    }
-                    SetAutoSteerButton(false, gStr.Get(gs.gsNoGuidanceLines));
+                btnAutoSteer.Enabled = trk.currTrk != null || ct.isContourBtnOn;
 
-                    btnAutoSteer.Enabled = false;
-                }
+                bool validTrk = trk.currTrk != null && !ct.isContourBtnOn;
 
-                btnAutoYouTurn.Visible = trk.idx > -1 && !ct.isContourBtnOn && isBnd;
-                btnCycleLines.Visible = tracksVisible > 1 && trk.idx > -1 && !ct.isContourBtnOn;
-                btnCycleLinesBk.Visible = tracksVisible > 1 && trk.idx > -1 && !ct.isContourBtnOn;
+                btnAutoYouTurn.Visible = validTrk && isBnd;
+                btnCycleLines.Visible = tracksVisible > 1 && validTrk;
+                btnCycleLinesBk.Visible = tracksVisible > 1 && validTrk;
 
-                cboxpRowWidth.Visible = trk.idx > -1;
-                btnYouSkipEnable.Visible = trk.idx > -1;
+                cboxpRowWidth.Visible = validTrk;
+                btnYouSkipEnable.Visible = validTrk;
 
-                btnSnapToPivot.Visible = trk.idx > -1 && Settings.User.setFeatures.isABLineOn;
-                btnAdjLeft.Visible = trk.idx > -1 && Settings.User.setFeatures.isABLineOn;
-                btnAdjRight.Visible = trk.idx > -1 && Settings.User.setFeatures.isABLineOn;
+                btnSnapToPivot.Visible = validTrk && Settings.User.setFeatures.isABLineOn;
+                btnAdjLeft.Visible = validTrk && Settings.User.setFeatures.isABLineOn;
+                btnAdjRight.Visible = validTrk && Settings.User.setFeatures.isABLineOn;
 
                 btnTramDisplayMode.Visible = istram;
                 btnHeadlandOnOff.Visible = isHdl;
@@ -673,17 +648,6 @@ namespace AOG
                 btnHydLift.Visible = (((sett & 2) == 2) && isHdl);
 
                 cboxIsSectionControlled.Visible = isHdl;
-
-                if (trk.idx > -1 && trk.gArr.Count > 0 && !ct.isContourBtnOn)
-                {
-                    lblNumCu.Visible = true;
-                    lblNumCu.Text = (trk.idx + 1).ToString() + "/" + trk.gArr.Count.ToString();
-                }
-                else
-                {
-                    lblNumCu.Visible = false;
-                    lblNumCu.Text = "";
-                }
 
                 PanelSizeRightAndBottom();
             }
@@ -958,12 +922,11 @@ namespace AOG
 
                 if (isFieldStarted)
                 {
-                    if (isBtnAutoSteerOn || yt.isYouTurnBtnOn)
+                    if (yt.isYouTurnBtnOn && !ct.isContourBtnOn && trk.currentGuidanceTrack.Count > 1)
                     {
                         //uturn and swap uturn direction
-                        if (point.Y < 150 && point.Y > 90 && (trk.idx > -1))
+                        if (point.Y < 150 && point.Y > 90)
                         {
-
                             int middle = centerX + oglMain.Width / 5;
                             if (point.X > middle - 80 && point.X < middle + 80)
                             {
@@ -981,15 +944,14 @@ namespace AOG
 
                                 Settings.Vehicle.set_uTurnStyle = yt.uTurnStyle;
 
-
                                 return;
                             }
 
-                            if (!Settings.Vehicle.setVehicle_isStanleyUsed)
+                            if (!Settings.Vehicle.setVehicle_isStanleyUsed && Settings.User.setFeatures.isUTurnOn)
                             {
                                 //manual uturn triggering
                                 middle = centerX - oglMain.Width / 4;
-                                if (point.X > middle - 100 && point.X < middle && Settings.User.setFeatures.isUTurnOn)
+                                if (point.X > middle - 100 && point.X < middle + 100)
                                 {
                                     if (yt.isYouTurnTriggered)
                                     {
@@ -999,33 +961,12 @@ namespace AOG
                                     {
                                         if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                         {
-                                            yt.BuildManualYouTurn(false);
+                                            yt.BuildManualYouTurn(point.X > middle);
                                         }
                                         else
                                         {
                                             SpeedLimitExceeded();
                                         }
-                                        return;
-                                    }
-                                }
-
-                                if (point.X > middle && point.X < middle + 100 && Settings.User.setFeatures.isUTurnOn)
-                                {
-                                    if (yt.isYouTurnTriggered)
-                                    {
-                                        yt.ResetCreatedYouTurn();
-                                    }
-                                    else
-                                    {
-                                        if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
-                                        {
-                                            yt.BuildManualYouTurn(true);
-                                        }
-                                        else
-                                        {
-                                            SpeedLimitExceeded();
-                                        }
-
                                         return;
                                     }
                                 }
@@ -1033,35 +974,19 @@ namespace AOG
                         }
 
                         //lateral
-                        if (point.Y < 240 && point.Y > 170 && (trk.idx > -1))
+                        else if (Settings.User.setFeatures.isLateralOn && point.Y < 240 && point.Y > 170)
                         {
                             int middle = centerX - oglMain.Width / 4;
-                            if (point.X > middle - 100 && point.X < middle && Settings.User.setFeatures.isLateralOn)
+                            if (point.X > middle - 100 && point.X < middle + 100)
                             {
                                 if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
                                 {
-                                    yt.BuildManualYouLateral(false);
+                                    yt.BuildManualYouLateral(point.X > middle);
                                 }
                                 else
                                 {
                                     SpeedLimitExceeded();
                                 }
-
-                                return;
-                            }
-
-                            if (point.X > middle && point.X < middle + 100 && Settings.User.setFeatures.isLateralOn)
-                            {
-                                if (Settings.Vehicle.setAS_functionSpeedLimit > avgSpeed)
-                                {
-                                    yt.BuildManualYouLateral(true);
-                                }
-                                else
-                                {
-                                    SpeedLimitExceeded();
-                                }
-
-                                return;
                             }
                         }
                     }
@@ -1179,11 +1104,9 @@ namespace AOG
         public void SwapDirection()
         {
             if (!yt.isYouTurnTriggered)
-            {
                 yt.isTurnLeft = !yt.isTurnLeft;
-                yt.ResetCreatedYouTurn();
-            }
-            else SetYouTurnButton(false);
+
+            yt.ResetCreatedYouTurn();
         }
 
         //Function to delete flag
@@ -1199,13 +1122,6 @@ namespace AOG
             {
                 for (int i = 0; i < flagCnt; i++) flagPts[i].ID = i + 1;
             }
-        }
-
-        public void DisableYouTurnButtons()
-        {
-            yt.isYouTurnBtnOn = false;
-            btnAutoYouTurn.Image = Properties.Resources.YouTurnNo;
-            yt.ResetCreatedYouTurn();
         }
 
         private void ShowNoGPSWarning()

@@ -464,7 +464,7 @@ namespace AOG
         private void btnTurnSmoothingDown_Click(object sender, EventArgs e)
         {
             mf.yt.uTurnSmoothing -= 2;
-            if (mf.yt.uTurnSmoothing < 8) mf.yt.uTurnSmoothing = 8;
+            if (mf.yt.uTurnSmoothing < 0) mf.yt.uTurnSmoothing = 0;
             lblSmoothing.Text = mf.yt.uTurnSmoothing.ToString();
         }
 

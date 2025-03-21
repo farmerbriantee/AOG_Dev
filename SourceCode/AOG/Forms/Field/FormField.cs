@@ -241,7 +241,7 @@ namespace AOG
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            mf.isCancelFieldMenu = true;
+            this.DialogResult = DialogResult.Cancel;
         }
     }
 }

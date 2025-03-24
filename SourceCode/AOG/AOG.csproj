@@ -760,9 +760,6 @@
     <Content Include="License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="UDP_SimTool.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="btnImages\AntennaLeftOffset.png" />
     <None Include="btnImages\AntennaRightOffset.png" />
     <None Include="btnImages\AntennaNoOffset.png" />
@@ -873,9 +870,6 @@
     <None Include="btnImages\Images\z_RateMap1.png" />
     <None Include="btnImages\Images\z_RateMap2.png" />
     <None Include="btnImages\Images\z_RateMap3.png" />
-    <Content Include="OGL.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\rtk_lost.wav" />
     <None Include="btnImages\BrightnessDn.png" />
     <None Include="btnImages\BrightnessUp.png" />

@@ -1218,6 +1218,296 @@
 				)
 			)
 		)
+		(symbol "RC17Symbols:LED"
+			(pin_numbers hide)
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LED"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Light emitting diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "LED diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "LED* LED_SMD:* LED_THT:*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "LED_0_1"
+				(polyline
+					(pts
+						(xy -1.27 -1.27) (xy -1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "LED_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "RC17Symbols:R"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "RC17Symbols:WirePad"
 			(pin_numbers hide)
 			(pin_names
@@ -1730,6 +2020,12 @@
 		(uuid "7973c282-3ceb-4ddf-b36f-cf33de67a1c6")
 	)
 	(junction
+		(at 246.38 49.53)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8423cc0b-8fe6-4f80-a0a9-d2c9198ea316")
+	)
+	(junction
 		(at 274.32 115.57)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1838,6 +2134,10 @@
 		(uuid "97e6fc6a-1cdf-4fb3-aa51-feb91f0529ff")
 	)
 	(no_connect
+		(at 123.19 143.51)
+		(uuid "9dfa856b-965c-43ec-bc26-5af6bb024dd4")
+	)
+	(no_connect
 		(at 97.79 143.51)
 		(uuid "9fc7b3f2-e595-45a5-a890-64454bd1d2e4")
 	)
@@ -1888,6 +2188,10 @@
 	(no_connect
 		(at 200.66 82.55)
 		(uuid "dd90cd24-a609-4e8e-aa50-f97fe73a1a74")
+	)
+	(no_connect
+		(at 123.19 140.97)
+		(uuid "e6adcee1-556b-4458-92c0-ed501973ff7c")
 	)
 	(no_connect
 		(at 97.79 168.91)
@@ -2119,6 +2423,16 @@
 	)
 	(wire
 		(pts
+			(xy 252.73 87.63) (xy 246.38 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1c2e9bb6-ff64-4d41-9564-987c03564e88")
+	)
+	(wire
+		(pts
 			(xy 134.62 107.95) (xy 134.62 148.59)
 		)
 		(stroke
@@ -2219,6 +2533,16 @@
 	)
 	(wire
 		(pts
+			(xy 119.38 41.91) (xy 119.38 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3796cc1e-dc59-4157-afe6-b8f9eefaf561")
+	)
+	(wire
+		(pts
 			(xy 274.32 124.46) (xy 274.32 123.19)
 		)
 		(stroke
@@ -2249,6 +2573,26 @@
 	)
 	(wire
 		(pts
+			(xy 254 158.75) (xy 247.65 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3e08e012-533c-4b2b-92a9-acdb490de0bf")
+	)
+	(wire
+		(pts
+			(xy 254 130.81) (xy 254 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4073add9-e125-4d2d-b2ef-311752c14d0d")
+	)
+	(wire
+		(pts
 			(xy 274.32 115.57) (xy 262.89 115.57)
 		)
 		(stroke
@@ -2259,16 +2603,6 @@
 	)
 	(wire
 		(pts
-			(xy 123.19 143.51) (xy 128.27 143.51)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "444aef92-e1d3-4ca3-b087-1039efa97b62")
-	)
-	(wire
-		(pts
 			(xy 201.93 127) (xy 193.04 127)
 		)
 		(stroke
@@ -2276,6 +2610,16 @@
 			(type default)
 		)
 		(uuid "4532ba2a-c067-4297-b113-538a21e70277")
+	)
+	(wire
+		(pts
+			(xy 254 163.83) (xy 254 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "46fd846e-c875-4397-8d08-ac8ade8aa731")
 	)
 	(wire
 		(pts
@@ -2339,6 +2683,16 @@
 	)
 	(wire
 		(pts
+			(xy 246.38 93.98) (xy 246.38 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4fb2f5af-3a35-4c7a-871e-1e9f04687d40")
+	)
+	(wire
+		(pts
 			(xy 247.65 119.38) (xy 255.27 119.38)
 		)
 		(stroke
@@ -2369,6 +2723,16 @@
 	)
 	(wire
 		(pts
+			(xy 130.81 36.83) (xy 121.92 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5566fcfe-08e0-4877-b6f4-de9ad3f1ca57")
+	)
+	(wire
+		(pts
 			(xy 137.16 34.29) (xy 148.59 34.29)
 		)
 		(stroke
@@ -2376,6 +2740,26 @@
 			(type default)
 		)
 		(uuid "55d2612d-c9a7-4069-940b-adc2fb08a63e")
+	)
+	(wire
+		(pts
+			(xy 243.84 54.61) (xy 252.73 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "55f77b5c-ab58-432a-9d6b-32e4b07aa996")
+	)
+	(wire
+		(pts
+			(xy 246.38 130.81) (xy 254 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5778eb77-71b9-40c7-bd43-2c2c23baf775")
 	)
 	(wire
 		(pts
@@ -2409,13 +2793,13 @@
 	)
 	(wire
 		(pts
-			(xy 123.19 140.97) (xy 127 140.97)
+			(xy 132.08 31.75) (xy 121.92 31.75)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "5bab96b8-f113-4eba-8af6-195e6dbdba56")
+		(uuid "5c598a38-aca0-416a-bcef-ae96cc3fb431")
 	)
 	(wire
 		(pts
@@ -2426,6 +2810,16 @@
 			(type default)
 		)
 		(uuid "5c60b091-57f7-41c3-9b36-ee181367f69a")
+	)
+	(wire
+		(pts
+			(xy 130.81 45.72) (xy 130.81 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5df4774c-3f6e-4cc0-a9d7-726e3d0dbde7")
 	)
 	(wire
 		(pts
@@ -2509,6 +2903,16 @@
 	)
 	(wire
 		(pts
+			(xy 245.11 165.1) (xy 245.11 163.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "75d0ef04-c07a-46ed-92cc-c54f3d748ff6")
+	)
+	(wire
+		(pts
 			(xy 201.93 156.21) (xy 190.5 156.21)
 		)
 		(stroke
@@ -2526,6 +2930,16 @@
 			(type default)
 		)
 		(uuid "76d118fb-8cf5-4c8c-a33e-5acb89943fca")
+	)
+	(wire
+		(pts
+			(xy 246.38 92.71) (xy 252.73 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7775b204-ff0d-42a6-a9a3-a4d449af727e")
 	)
 	(wire
 		(pts
@@ -2569,6 +2983,16 @@
 	)
 	(wire
 		(pts
+			(xy 252.73 92.71) (xy 252.73 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "804f7e93-9f40-44a8-974b-7fafcf3dd84f")
+	)
+	(wire
+		(pts
 			(xy 134.62 107.95) (xy 73.66 107.95)
 		)
 		(stroke
@@ -2586,6 +3010,16 @@
 			(type default)
 		)
 		(uuid "84948e09-811a-4e44-b536-5370eb1b1e98")
+	)
+	(wire
+		(pts
+			(xy 130.81 41.91) (xy 130.81 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "84e41670-48e5-4bae-a67a-f18c3bf488f6")
 	)
 	(wire
 		(pts
@@ -2659,6 +3093,16 @@
 	)
 	(wire
 		(pts
+			(xy 252.73 49.53) (xy 246.38 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "97e0c565-56e3-4d3c-b1bf-689609ed6cb9")
+	)
+	(wire
+		(pts
 			(xy 191.77 87.63) (xy 191.77 74.93)
 		)
 		(stroke
@@ -2686,6 +3130,16 @@
 			(type default)
 		)
 		(uuid "9c117434-6dba-4b88-93c3-8c3eea183d0a")
+	)
+	(wire
+		(pts
+			(xy 245.11 163.83) (xy 254 163.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9c11cecf-6236-4574-9355-84cbde1c2fc6")
 	)
 	(wire
 		(pts
@@ -2739,6 +3193,16 @@
 	)
 	(wire
 		(pts
+			(xy 254 127) (xy 247.65 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a48aac3f-21a5-4d33-841e-fc211a1acd2c")
+	)
+	(wire
+		(pts
 			(xy 123.19 151.13) (xy 179.07 151.13)
 		)
 		(stroke
@@ -2779,6 +3243,16 @@
 	)
 	(wire
 		(pts
+			(xy 130.81 44.45) (xy 132.08 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba3a2a54-debe-445e-8cf7-a20c73b60d31")
+	)
+	(wire
+		(pts
 			(xy 73.66 34.29) (xy 76.2 34.29)
 		)
 		(stroke
@@ -2796,6 +3270,26 @@
 			(type default)
 		)
 		(uuid "bca391c1-5a8b-4f2e-9863-26e86b410af1")
+	)
+	(wire
+		(pts
+			(xy 243.84 55.88) (xy 243.84 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c16b12d4-90e4-4448-9dc0-d6257f024c0e")
+	)
+	(wire
+		(pts
+			(xy 243.84 49.53) (xy 246.38 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c5a6d685-eb20-475d-a7d9-6107d5183035")
 	)
 	(wire
 		(pts
@@ -2846,6 +3340,16 @@
 			(type default)
 		)
 		(uuid "cd946761-7e8d-478f-920e-8d0d54870c08")
+	)
+	(wire
+		(pts
+			(xy 132.08 44.45) (xy 132.08 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ce44e4fa-2606-46c6-9929-603d32c8bc6d")
 	)
 	(wire
 		(pts
@@ -2989,6 +3493,16 @@
 	)
 	(wire
 		(pts
+			(xy 119.38 41.91) (xy 130.81 41.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f30d19ef-f39e-4f96-85d9-ac407e1154b9")
+	)
+	(wire
+		(pts
 			(xy 246.38 90.17) (xy 256.54 90.17)
 		)
 		(stroke
@@ -3006,6 +3520,16 @@
 			(type default)
 		)
 		(uuid "f67c0684-affb-4d93-bb0b-4f9c7f149fef")
+	)
+	(wire
+		(pts
+			(xy 252.73 54.61) (xy 252.73 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f69e3eac-5745-459c-806a-e372cd5b9f94")
 	)
 	(wire
 		(pts
@@ -3472,6 +3996,76 @@
 			(project "NanoSprayLinear"
 				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
 					(reference "C29")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "RC17Symbols:R")
+		(at 246.38 97.79 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "098d44c2-47e5-4783-80da-6faf0e2931a8")
+		(property "Reference" "R7"
+			(at 251.714 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2.2K"
+			(at 252.476 99.314 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 248.158 97.79 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 246.38 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 246.38 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8283face-a3fb-49be-be98-2835d0464b15")
+		)
+		(pin "2"
+			(uuid "73974252-11a4-43dc-8df9-91c9d2c1c429")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "R7")
 					(unit 1)
 				)
 			)
@@ -3965,6 +4559,84 @@
 		)
 	)
 	(symbol
+		(lib_id "RC17Symbols:LED")
+		(at 246.38 142.24 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1e60d9ba-87a5-43be-85ee-7c71ec2b5267")
+		(property "Reference" "D15"
+			(at 249.3772 141.2494 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 249.3772 143.5608 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+			(at 246.38 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 246.38 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 246.38 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 249.3772 141.2494 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f062eda9-a52c-44f3-86a4-4b79495b6717")
+		)
+		(pin "2"
+			(uuid "8eb70c0e-246c-4e82-a3e7-702b4c2aa21c")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "D15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "RC17Symbols:DRV8251ADDAR")
 		(at 200.66 80.01 0)
 		(unit 1)
@@ -4435,6 +5107,136 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 246.38 146.05 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "32e8986a-2c2c-41c7-b360-30c9eac635af")
+		(property "Reference" "#PWR034"
+			(at 246.38 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 249.936 148.082 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 246.38 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 246.38 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 246.38 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b7100dcc-a858-44ca-9336-c3e06561defc")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "#PWR034")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 243.84 71.12 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "32f21fa4-a8ad-4a02-a472-c3c03abc2145")
+		(property "Reference" "#PWR016"
+			(at 243.84 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 243.967 75.5142 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 243.84 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 243.84 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 243.84 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8ee84f15-d2e8-41ef-b367-4df8339e769e")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "#PWR016")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "RC17Symbols:WirePad")
 		(at 34.29 30.48 270)
 		(unit 1)
@@ -4562,6 +5364,76 @@
 			(project "NanoSprayLinear"
 				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
 					(reference "#PWR054")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "RC17Symbols:R")
+		(at 246.38 134.62 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "34e79d4e-878d-4f37-9348-253c68d0991b")
+		(property "Reference" "R8"
+			(at 251.714 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2.2K"
+			(at 252.476 136.144 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 248.158 134.62 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 246.38 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 246.38 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3a41e534-b6d2-4b9e-9edc-28a5df0f9cee")
+		)
+		(pin "2"
+			(uuid "c3164bb1-4711-43f3-bc22-dafab675ed30")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "R8")
 					(unit 1)
 				)
 			)
@@ -4700,6 +5572,76 @@
 		)
 	)
 	(symbol
+		(lib_id "RC17Symbols:R")
+		(at 243.84 59.69 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3d16145c-3365-435c-9124-ffb84e6db196")
+		(property "Reference" "R6"
+			(at 249.174 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2.2K"
+			(at 249.936 61.214 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 245.618 59.69 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 243.84 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 243.84 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5c1cddf0-8e6a-4b94-856f-6d0b41b8b8d7")
+		)
+		(pin "2"
+			(uuid "250dab1d-1989-4114-81d5-2e9a4d6206ff")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 198.12 57.15 0)
 		(unit 1)
@@ -4760,6 +5702,76 @@
 			(project "SRX160"
 				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
 					(reference "#PWR025")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "RC17Symbols:R")
+		(at 245.11 168.91 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "410b68f5-5d1d-46ca-827e-074348acad18")
+		(property "Reference" "R11"
+			(at 250.444 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2.2K"
+			(at 251.206 170.434 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 246.888 168.91 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 245.11 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 245.11 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "991213b8-e634-4417-a7cd-03cbd6c5086c")
+		)
+		(pin "2"
+			(uuid "ed00b7f5-7ca2-4948-9c5b-a4b9aa93fa24")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "R11")
 					(unit 1)
 				)
 			)
@@ -5036,6 +6048,84 @@
 			(project "SRX160"
 				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
 					(reference "#PWR011")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "RC17Symbols:LED")
+		(at 245.11 176.53 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "59167c44-3c26-440e-ac32-9b34ca35a479")
+		(property "Reference" "D16"
+			(at 248.1072 175.5394 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 248.1072 177.8508 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+			(at 245.11 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 245.11 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 245.11 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 248.1072 175.5394 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cfa264d8-f379-45c2-afbe-01932e5dc64c")
+		)
+		(pin "2"
+			(uuid "1c5b8205-4cba-4c9b-950e-a31d527dea80")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "D16")
 					(unit 1)
 				)
 			)
@@ -5531,6 +6621,71 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 130.81 60.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "86a985bc-7d83-4da1-b4b2-2fac3d61a666")
+		(property "Reference" "#PWR037"
+			(at 130.81 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 130.937 65.3542 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 130.81 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 130.81 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 130.81 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9cbf4b2f-2a2a-4cf9-b22f-acb1d787fc0d")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "#PWR037")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 73.66 176.53 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5589,6 +6744,162 @@
 			(project "SRX160"
 				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
 					(reference "#PWR026")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "RC17Symbols:LED")
+		(at 119.38 57.15 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8a0dd07d-86ae-46ab-8689-1589a69b6d0f")
+		(property "Reference" "D17"
+			(at 122.3772 56.1594 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 122.3772 58.4708 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+			(at 119.38 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 119.38 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 119.38 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 122.3772 56.1594 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4a447d75-b992-4c12-857a-b00da6ca0ae4")
+		)
+		(pin "2"
+			(uuid "f31df70f-f280-4ff6-acba-7f0bd8a1e6c5")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "D17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "RC17Symbols:LED")
+		(at 246.38 105.41 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "92d2eef5-58b1-42a0-91ef-f5b552dab71b")
+		(property "Reference" "D6"
+			(at 249.3772 104.4194 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 249.3772 106.7308 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+			(at 246.38 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 246.38 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 246.38 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 249.3772 104.4194 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9fb4f508-1a8a-4a91-af14-f8ea01961f16")
+		)
+		(pin "2"
+			(uuid "dfde4563-eef9-41fb-8d23-5dbc51a8daaf")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "D6")
 					(unit 1)
 				)
 			)
@@ -5680,6 +6991,76 @@
 			(project "SRX160"
 				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
 					(reference "U4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "RC17Symbols:R")
+		(at 119.38 49.53 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "97ad26b5-c4fb-4d56-9148-54d23c736b1a")
+		(property "Reference" "R12"
+			(at 124.714 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2.2K"
+			(at 125.476 51.054 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 121.158 49.53 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 119.38 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 119.38 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cc858852-6dbb-4552-9126-a90adf9fd76d")
+		)
+		(pin "2"
+			(uuid "8163a023-5f47-4de8-a7ff-587fac378062")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "R12")
 					(unit 1)
 				)
 			)
@@ -5876,6 +7257,84 @@
 			(project "NanoSprayLinear"
 				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
 					(reference "#PWR056")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "RC17Symbols:LED")
+		(at 130.81 57.15 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ae342eb5-78ce-4566-884e-f8c5c0a21967")
+		(property "Reference" "D18"
+			(at 133.8072 56.1594 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 133.8072 58.4708 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+			(at 130.81 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 130.81 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 130.81 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 133.8072 56.1594 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "dc244d9a-9c12-4715-a417-c45498fcf3e2")
+		)
+		(pin "2"
+			(uuid "188d5218-93ab-4a99-a46d-c984a811d25e")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "D18")
 					(unit 1)
 				)
 			)
@@ -6757,6 +8216,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 119.38 60.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d305c9b6-de3d-41ac-8743-f2344510a449")
+		(property "Reference" "#PWR036"
+			(at 119.38 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 119.507 65.3542 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 119.38 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 119.38 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 119.38 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "50cc1d93-179d-44bf-b01b-04d371aa6da9")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "#PWR036")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "RC17Symbols:C_Polarized")
 		(at 73.66 180.34 180)
 		(unit 1)
@@ -6913,6 +8437,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 246.38 109.22 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d89ff2ea-4823-486c-bbdf-2d96ba4ef88c")
+		(property "Reference" "#PWR032"
+			(at 246.38 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 246.507 113.6142 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 246.38 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 246.38 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 246.38 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7530808e-1a82-4b61-ac95-7e03be3500c1")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "#PWR032")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "RC17Symbols:WirePad")
 		(at 34.29 57.15 270)
 		(unit 1)
@@ -7046,6 +8635,141 @@
 		)
 	)
 	(symbol
+		(lib_id "RC17Symbols:R")
+		(at 130.81 49.53 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e4a23786-3107-4793-94e3-a7c88872cd9f")
+		(property "Reference" "R13"
+			(at 136.144 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2.2K"
+			(at 136.906 51.054 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 132.588 49.53 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 130.81 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 130.81 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "aa354f8e-e965-4ca5-b142-7f2b356208c1")
+		)
+		(pin "2"
+			(uuid "63784750-f67c-4125-9387-f9837f4a27b4")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "R13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 245.11 180.34 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e548129b-6c30-46bc-a8f1-232e6802f977")
+		(property "Reference" "#PWR035"
+			(at 245.11 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 245.237 184.7342 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 245.11 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 245.11 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 245.11 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1cec155e-610d-4fb9-b790-532aa0f8d39d")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "#PWR035")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "RC17Symbols:C_Polarized")
 		(at 271.78 41.91 0)
 		(unit 1)
@@ -7118,6 +8842,84 @@
 			(project "SRX160"
 				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
 					(reference "C9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "RC17Symbols:LED")
+		(at 243.84 67.31 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f563d384-9b3b-456a-b16f-e468956ba886")
+		(property "Reference" "D4"
+			(at 246.8372 66.3194 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED"
+			(at 246.8372 68.6308 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+			(at 243.84 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 243.84 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 243.84 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 246.8372 66.3194 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f068d44f-24a4-4bf7-b5f5-6a0c416f9e1a")
+		)
+		(pin "2"
+			(uuid "038a6cfe-0728-4a7f-a9ec-cc47bc86cb28")
+		)
+		(instances
+			(project "SRX160"
+				(path "/872f1f1d-fe7e-4369-adff-2ab5311a98b7/02d4529e-9f08-458a-9284-4eedf257b8be"
+					(reference "D4")
 					(unit 1)
 				)
 			)

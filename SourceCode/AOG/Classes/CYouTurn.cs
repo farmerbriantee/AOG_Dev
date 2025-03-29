@@ -149,7 +149,7 @@ namespace AOG
                         int k = mf.bnd.bndList[j].turnLine.Count - 1;
                         for (int l = 0; l < mf.bnd.bndList[j].turnLine.Count; l++)
                         {
-                            if (GetLineIntersection(Start, End, mf.bnd.bndList[j].turnLine[k], mf.bnd.bndList[j].turnLine[l], out vec3 _Crossing, out double timeA, out _))
+                            if (glm.GetLineIntersection(Start, End, mf.bnd.bndList[j].turnLine[k], mf.bnd.bndList[j].turnLine[l], out vec3 _Crossing, out double timeA, out _))
                             {
                                 if (timeA < time)
                                 {
@@ -235,7 +235,7 @@ namespace AOG
                     if (pt3.heading < 0) pt3.heading += glm.twoPI;
                     ytList[ytList.Count - 1] = pt3;
 
-                    mf.trk.AddEndPoints(ref ytList, 25);
+                    mf.trk.AddEndPoints(ref ytList, 50);
                 }
 
                 youTurnPhase = 255;
@@ -250,7 +250,7 @@ namespace AOG
                     int j = turnLine.Count - 1;
                     for (int k = 0; k < turnLine.Count; j = k++)
                     {
-                        if (GetLineIntersection(turnLine[j], turnLine[k], ytList[i - 1], ytList[i], out vec3 _crossing, out _, out _))
+                        if (glm.GetLineIntersection(turnLine[j], turnLine[k], ytList[i - 1], ytList[i], out vec3 _crossing, out _, out _))
                         {
                             found = true;
                             ytList.RemoveRange(i, ytList.Count - i);
@@ -334,7 +334,7 @@ namespace AOG
                     int j = turnLine.Count - 1;
                     for (int k = 0; k < turnLine.Count; j = k++)
                     {
-                        if (GetLineIntersection(turnLine[j], turnLine[k], ytList2[i - 1], ytList2[i], out vec3 _crossing, out _, out _))
+                        if (glm.GetLineIntersection(turnLine[j], turnLine[k], ytList2[i - 1], ytList2[i], out vec3 _crossing, out _, out _))
                         {
                             found = true;
                             ytList2.RemoveRange(i, ytList2.Count - i);
@@ -479,7 +479,7 @@ namespace AOG
 
                 for (int i = 0; i < nextCurve.Count - 2; i++)
                 {
-                    if (GetLineIntersection(from, turnLine[turnLineIndex], nextCurve[i], nextCurve[i + 1], out vec3 _crossing, out double time_, out _))
+                    if (glm.GetLineIntersection(from, turnLine[turnLineIndex], nextCurve[i], nextCurve[i + 1], out vec3 _crossing, out double time_, out _))
                     {
                         if (time_ < time)
                         {
@@ -495,7 +495,7 @@ namespace AOG
 
                 for (int i = 0; i < thisCurve.currentGuidanceTrack.Count - 2; i++)
                 {
-                    if (GetLineIntersection(from, turnLine[turnLineIndex], thisCurve.currentGuidanceTrack[i], thisCurve.currentGuidanceTrack[i + 1], out vec3 _crossing, out double time_, out _))
+                    if (glm.GetLineIntersection(from, turnLine[turnLineIndex], thisCurve.currentGuidanceTrack[i], thisCurve.currentGuidanceTrack[i + 1], out vec3 _crossing, out double time_, out _))
                     {
                         if ((i + time_ < mf.gyd.rTimeTrk && thisCurve.isHeadingSameWay) || (i + time_ > mf.gyd.rTimeTrk && !thisCurve.isHeadingSameWay))
                         {
@@ -567,34 +567,6 @@ namespace AOG
         }
 
         #endregion SequenceLines
-
-        private const double Epsilon = 1.0E-15;
-        public static bool GetLineIntersection(vec3 PointAA, vec3 PointAB, vec3 PointBA, vec3 PointBB, out vec3 Crossing, out double TimeA, out double TimeB, bool Limit = false, bool enableEnd = false)
-        {
-            TimeA = -1;
-            TimeB = -1;
-            Crossing = new vec3();
-            double denominator = (PointAB.northing - PointAA.northing) * (PointBB.easting - PointBA.easting) - (PointBB.northing - PointBA.northing) * (PointAB.easting - PointAA.easting);
-
-            if (denominator < -0.00000001 || denominator > 0.00000001)
-            {
-                TimeA = ((PointBB.northing - PointBA.northing) * (PointAA.easting - PointBA.easting) - (PointAA.northing - PointBA.northing) * (PointBB.easting - PointBA.easting)) / denominator;
-
-                if (Limit || (enableEnd && (TimeA > 0.0 - Epsilon || TimeA < 1.0 + Epsilon)) || (TimeA > Epsilon && TimeA < 1.0 - Epsilon))
-                {
-                    TimeB = ((PointAB.northing - PointAA.northing) * (PointAA.easting - PointBA.easting) - (PointAA.northing - PointBA.northing) * (PointAB.easting - PointAA.easting)) / denominator;
-                    if (Limit || (enableEnd && (TimeB == 0.0 || TimeB == 1.0)) || (TimeB > 0.0 && TimeB < 1.0))
-                    {
-                        Crossing = PointAA + (PointAB - PointAA) * TimeA;
-                        return true;
-                    }
-                    else return false;
-                }
-                else return false;
-            }
-            return false;
-        }
-
         private CClose MoveTurnLine(List<vec3> curList, CClose startPoint, double stepSize, bool CountUp, bool loop)
         {
             int A = startPoint.curveIndex;
@@ -863,22 +835,11 @@ namespace AOG
             else
                 GL.Color3(0.395f, 0.925f, 0.30f);
 
-            GL.Begin(PrimitiveType.Points);
-            for (int i = 0; i < ytList.Count; i++)
-            {
-                GL.Vertex3(ytList[i].easting, ytList[i].northing, 0);
-            }
-            GL.End();
+            ytList.DrawPolygon(PrimitiveType.LineStrip);
 
             if (youTurnPhase > 70 && youTurnPhase < 130)
             {
-                //GL.Color3(1.0f, 1.0f, 0.0f);
-                GL.Begin(PrimitiveType.Points);
-                for (int i = 0; i < ytList2.Count; i++)
-                {
-                    GL.Vertex3(ytList2[i].easting, ytList2[i].northing, 0);
-                }
-                GL.End();
+                ytList2.DrawPolygon(PrimitiveType.LineStrip);
             }
 
             /*

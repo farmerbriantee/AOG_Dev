@@ -104,7 +104,6 @@ namespace AOG
         {
             if (isCancel)
             {
-                mf.tram.tramArr?.Clear();
                 mf.tram.tramList?.Clear();
                 mf.tram.tramBndOuterArr?.Clear();
                 mf.tram.tramBndInnerArr?.Clear();
@@ -193,18 +192,13 @@ namespace AOG
             {
                 for (int i = 0; i < tramList.Count; i++)
                 {
-                    mf.tram.tramArr = new List<vec2>
-                    {
-                        Capacity = 32
-                    };
-
-                    mf.tram.tramList.Add(mf.tram.tramArr);
+                    var tram = new List<vec2>(tramList[i].Count);
 
                     for (int j = 0; j < tramList[i].Count; j++)
                     {
-                        vec2 tr = new vec2(tramList[i][j]);
-                        mf.tram.tramArr.Add(tr);
+                        tram.Add(new vec2(tramList[i][j]));
                     }
+                    mf.tram.tramList.Add(tram);
                 }
             }
 
@@ -227,119 +221,51 @@ namespace AOG
         private void BuildCurveTram()
         {
             tramList?.Clear();
-            tramArr?.Clear();
-
-            int refCount = gTemp[indx].curvePts.Count;
 
             int cntr = startPass;
 
             double widd;
 
-            //draw on correct side
-            double sideHeading = 0;
-            if (gTemp[indx].isVisible) sideHeading = Math.PI;
-
             for (int i = cntr; i <= (passes + startPass) - 1; i++)
             {
-                tramArr = new List<vec2>
-                {
-                    Capacity = 128
-                };
-
-                tramList.Add(tramArr);
-
                 widd = (Settings.Tool.tram_Width * 0.5) - mf.tram.halfWheelTrack;
                 widd += (Settings.Tool.tram_Width * i);
 
-                double distSqAway = widd * widd * 0.999999;
+                var temp = gTemp[indx].curvePts.OffsetLine(gTemp[indx].isVisible ? -widd : widd, 1.2, gTemp[indx].mode > TrackMode.Curve);
 
-                for (int j = 0; j < refCount; j += 1)
+                tramArr = new List<vec2>(temp.Count);
+
+                for (int j = 0; j < temp.Count; j++)
                 {
-                    vec2 point = new vec2(
-                    (Math.Sin(glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
-                        widd) + gTemp[indx].curvePts[j].easting,
-                    (Math.Cos(glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
-                        widd) + gTemp[indx].curvePts[j].northing
-                        );
-
-                    bool Add = true;
-                    for (int t = 0; t < refCount; t++)
+                    //if inside the boundary, add
+                    if (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(temp[j]))
                     {
-                        //distance check to be not too close to ref line
-                        double dist = ((point.easting - gTemp[indx].curvePts[t].easting) * (point.easting - gTemp[indx].curvePts[t].easting))
-                            + ((point.northing - gTemp[indx].curvePts[t].northing) * (point.northing - gTemp[indx].curvePts[t].northing));
-                        if (dist < distSqAway)
-                        {
-                            Add = false;
-                            break;
-                        }
-                    }
-                    if (Add)
-                    {
-                        //a new point only every 2 meters
-                        double dist = tramArr.Count > 0 ? ((point.easting - tramArr[tramArr.Count - 1].easting) * (point.easting - tramArr[tramArr.Count - 1].easting))
-                            + ((point.northing - tramArr[tramArr.Count - 1].northing) * (point.northing - tramArr[tramArr.Count - 1].northing)) : 3.0;
-                        if (dist > 1.2)
-                        {
-                            //if inside the boundary, add
-                            if (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(point))
-                            {
-                                tramArr.Add(point);
-                            }
-                        }
+                        tramArr.Add(new vec2(temp[j]));
                     }
                 }
+
+                tramList.Add(tramArr);
             }
 
             for (int i = cntr; i <= (passes + startPass) - 1; i++)
             {
-                tramArr = new List<vec2>
-                {
-                    Capacity = 128
-                };
-
-                tramList.Add(tramArr);
-
                 widd = (Settings.Tool.tram_Width * 0.5) + mf.tram.halfWheelTrack;
                 widd += (Settings.Tool.tram_Width * i);
-                double distSqAway = widd * widd * 0.999999;
 
-                for (int j = 0; j < refCount; j += 1)
+                var temp = gTemp[indx].curvePts.OffsetLine(gTemp[indx].isVisible ? -widd : widd, 1.2, gTemp[indx].mode > TrackMode.Curve);
+
+                tramArr = new List<vec2>(temp.Count);
+
+                for (int j = 0; j < temp.Count; j++)
                 {
-                    vec2 point = new vec2(
-                    Math.Sin(glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
-                        widd + gTemp[indx].curvePts[j].easting,
-                    Math.Cos(glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
-                        widd + gTemp[indx].curvePts[j].northing
-                        );
-
-                    bool Add = true;
-                    for (int t = 0; t < refCount; t++)
+                    //if inside the boundary, add
+                    if (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(temp[j]))
                     {
-                        //distance check to be not too close to ref line
-                        double dist = ((point.easting - gTemp[indx].curvePts[t].easting) * (point.easting - gTemp[indx].curvePts[t].easting))
-                            + ((point.northing - gTemp[indx].curvePts[t].northing) * (point.northing - gTemp[indx].curvePts[t].northing));
-                        if (dist < distSqAway)
-                        {
-                            Add = false;
-                            break;
-                        }
-                    }
-                    if (Add)
-                    {
-                        //a new point only every 2 meters
-                        double dist = tramArr.Count > 0 ? ((point.easting - tramArr[tramArr.Count - 1].easting) * (point.easting - tramArr[tramArr.Count - 1].easting))
-                            + ((point.northing - tramArr[tramArr.Count - 1].northing) * (point.northing - tramArr[tramArr.Count - 1].northing)) : 3.0;
-                        if (dist > 1.2)
-                        {
-                            //if inside the boundary, add
-                            if (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(point))
-                            {
-                                tramArr.Add(point);
-                            }
-                        }
+                        tramArr.Add(new vec2(temp[j]));
                     }
                 }
+
+                tramList.Add(tramArr);
             }
         }
 
@@ -394,10 +320,7 @@ namespace AOG
                         ////check for line intersection
                         for (int j = 0; j < tramList[i].Count - 1; j++)
                         {
-                            if (GetLineIntersection(
-                                tramList[i][j].easting, tramList[i][j].northing,
-                                tramList[i][j + 1].easting, tramList[i][j + 1].northing,
-                                ptA.easting, ptA.northing, ptB.easting, ptB.northing))
+                            if (glm.GetLineIntersection(tramList[i][j], tramList[i][j + 1], ptA, ptB, out _, out _, out _))
                             {
                                 isIntersect = true;
                                 break;
@@ -440,33 +363,6 @@ namespace AOG
             }
         }
 
-        private bool GetLineIntersection(double p0x, double p0y, double p1x, double p1y,
-        double p2x, double p2y, double p3x, double p3y)
-        {
-            double s1x, s1y, s2x, s2y;
-            s1x = p1x - p0x;
-            s1y = p1y - p0y;
-
-            s2x = p3x - p2x;
-            s2y = p3y - p2y;
-
-            double s, t;
-            s = (-s1y * (p0x - p2x) + s1x * (p0y - p2y)) / (-s2x * s1y + s1x * s2y);
-
-            if (s >= 0 && s <= 1)
-            {
-                //check oher side
-                t = (s2x * (p0y - p2y) - s2y * (p0x - p2x)) / (-s2x * s1y + s1x * s2y);
-                if (t >= 0 && t <= 1)
-                {
-                    // Collision detected
-                    return true;
-                }
-            }
-
-            return false; // No collision
-        }
-
         private void oglSelf_Paint(object sender, PaintEventArgs e)
         {
             oglSelf.MakeCurrent();
@@ -489,12 +385,7 @@ namespace AOG
                 else
                     GL.Color3(0.62f, 0.635f, 0.635f);
 
-                GL.Begin(PrimitiveType.LineLoop);
-                for (int i = 0; i < mf.bnd.bndList[j].fenceLineEar.Count; i++)
-                {
-                    GL.Vertex3(mf.bnd.bndList[j].fenceLineEar[i].easting, mf.bnd.bndList[j].fenceLineEar[i].northing, 0);
-                }
-                GL.End();
+                mf.bnd.bndList[j].fenceLineEar.DrawPolygon();
             }
 
             DrawBuiltLines();
@@ -508,9 +399,6 @@ namespace AOG
             GL.Begin(PrimitiveType.Points);
             GL.Color3(1.0, 0, 0);
             GL.Vertex3(ptA.easting, ptA.northing, 0);
-            GL.End();
-
-            GL.Begin(PrimitiveType.Points);
             GL.Color3(0, 1.0, 0);
             GL.Vertex3(ptB.easting, ptB.northing, 0);
             GL.End();
@@ -542,10 +430,7 @@ namespace AOG
             {
                 for (int i = 0; i < mf.tram.tramList.Count; i++)
                 {
-                    GL.Begin(PrimitiveType.LineStrip);
-                    for (int h = 0; h < mf.tram.tramList[i].Count; h++)
-                        GL.Vertex3(mf.tram.tramList[i][h].easting, mf.tram.tramList[i][h].northing, 0);
-                    GL.End();
+                    mf.tram.tramList[i].DrawPolygon(PrimitiveType.LineStrip);
                 }
             }
 
@@ -553,12 +438,8 @@ namespace AOG
             {
                 GL.Color4(0.830f, 0.72f, 0.3530f, mf.tram.alpha);
 
-                GL.Begin(PrimitiveType.LineLoop);
-                for (int h = 0; h < mf.tram.tramBndOuterArr.Count; h++) GL.Vertex3(mf.tram.tramBndOuterArr[h].easting, mf.tram.tramBndOuterArr[h].northing, 0);
-                GL.End();
-                GL.Begin(PrimitiveType.LineLoop);
-                for (int h = 0; h < mf.tram.tramBndInnerArr.Count; h++) GL.Vertex3(mf.tram.tramBndInnerArr[h].easting, mf.tram.tramBndInnerArr[h].northing, 0);
-                GL.End();
+                mf.tram.tramBndOuterArr.DrawPolygon(PrimitiveType.LineLoop);
+                mf.tram.tramBndInnerArr.DrawPolygon(PrimitiveType.LineLoop);
             }
         }
 
@@ -572,10 +453,7 @@ namespace AOG
             {
                 for (int i = 0; i < tramList.Count; i++)
                 {
-                    GL.Begin(PrimitiveType.LineStrip);
-                    for (int h = 0; h < tramList[i].Count; h++)
-                        GL.Vertex3(tramList[i][h].easting, tramList[i][h].northing, 0);
-                    GL.End();
+                    tramList[i].DrawPolygon(PrimitiveType.LineStrip);
                 }
             }
         }
@@ -724,7 +602,6 @@ namespace AOG
             tramList?.Clear();
             tramArr?.Clear();
             mf.tram.tramList?.Clear();
-            mf.tram.tramArr?.Clear();
 
             mf.tram.tramBndOuterArr?.Clear();
             mf.tram.tramBndInnerArr?.Clear();
@@ -792,124 +669,33 @@ namespace AOG
 
         private void cboxIsOuter_Click(object sender, EventArgs e)
         {
-            if (cboxIsOuter.Checked)
+            mf.tram.tramBndOuterArr?.Clear();
+            mf.tram.tramBndInnerArr?.Clear();
+            
+            if (cboxIsOuter.Checked)//build outer tram
             {
-                mf.tram.tramBndOuterArr?.Clear();
-                mf.tram.tramBndInnerArr?.Clear();
-                BuildTramBnd();
+                mf.tram.displayMode = 1;
+
+                if (mf.bnd.bndList.Count > 0)
+                {
+                    var output = mf.bnd.bndList[0].fenceLine.OffsetLine(Settings.Tool.tram_Width * 0.5 - mf.tram.halfWheelTrack, 1.2, true);
+
+                    for (int i = 0; i < output.Count; i++)
+                    {
+                        mf.tram.tramBndOuterArr.Add(new vec2(output[i]));
+                    }
+
+                    var output2 = mf.bnd.bndList[0].fenceLine.OffsetLine(Settings.Tool.tram_Width * 0.5 + mf.tram.halfWheelTrack, 1.2, true);
+
+                    for (int i = 0; i < output2.Count; i++)
+                    {
+                        mf.tram.tramBndInnerArr.Add(new vec2(output2[i]));
+                    }
+                }
             }
-            else
-            {
-                mf.tram.tramBndOuterArr?.Clear();
-                mf.tram.tramBndInnerArr?.Clear();
-            }
+
             ResetStartNumLabels();
             BuildTram();
-        }
-
-        private void BuildTramBnd()
-        {
-            mf.tram.displayMode = 1;
-            mf.tram.tramBndOuterArr?.Clear();
-            mf.tram.tramBndInnerArr?.Clear();
-            CreateBndOuterTramTrack();
-            CreateBndInnerTramTrack();
-        }
-
-        private void CreateBndInnerTramTrack()
-        {
-            //countExit the points from the boundary
-            int ptCount = mf.bnd.bndList[0].fenceLine.Count;
-            mf.tram.tramBndInnerArr?.Clear();
-
-            //outside point
-            vec2 pt3 = new vec2();
-
-            double distSq = ((Settings.Tool.tram_Width * 0.5) + mf.tram.halfWheelTrack) * ((Settings.Tool.tram_Width * 0.5) + mf.tram.halfWheelTrack) * 0.999;
-
-            //make the boundary tram outer array
-            for (int i = 0; i < ptCount; i++)
-            {
-                //calculate the point inside the boundary
-                pt3.easting = mf.bnd.bndList[0].fenceLine[i].easting -
-                    (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (Settings.Tool.tram_Width * 0.5 + mf.tram.halfWheelTrack));
-
-                pt3.northing = mf.bnd.bndList[0].fenceLine[i].northing -
-                    (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (Settings.Tool.tram_Width * 0.5 + mf.tram.halfWheelTrack));
-
-                bool Add = true;
-
-                for (int j = 0; j < ptCount; j++)
-                {
-                    double check = glm.DistanceSquared(pt3.northing, pt3.easting,
-                                        mf.bnd.bndList[0].fenceLine[j].northing, mf.bnd.bndList[0].fenceLine[j].easting);
-                    if (check < distSq)
-                    {
-                        Add = false;
-                        break;
-                    }
-                }
-
-                if (Add)
-                {
-                    if (mf.tram.tramBndInnerArr.Count > 0)
-                    {
-                        double dist = ((pt3.easting - mf.tram.tramBndInnerArr[mf.tram.tramBndInnerArr.Count - 1].easting) * (pt3.easting - mf.tram.tramBndInnerArr[mf.tram.tramBndInnerArr.Count - 1].easting))
-                            + ((pt3.northing - mf.tram.tramBndInnerArr[mf.tram.tramBndInnerArr.Count - 1].northing) * (pt3.northing - mf.tram.tramBndInnerArr[mf.tram.tramBndInnerArr.Count - 1].northing));
-                        if (dist > 1.2)
-                            mf.tram.tramBndInnerArr.Add(pt3);
-                    }
-                    else mf.tram.tramBndInnerArr.Add(pt3);
-                }
-            }
-        }
-
-        private void CreateBndOuterTramTrack()
-        {
-            //countExit the points from the boundary
-            int ptCount = mf.bnd.bndList[0].fenceLine.Count;
-            mf.tram.tramBndOuterArr?.Clear();
-
-            //outside point
-            vec2 pt3 = new vec2();
-
-            double distSq = ((Settings.Tool.tram_Width * 0.5) - mf.tram.halfWheelTrack) * ((Settings.Tool.tram_Width * 0.5) - mf.tram.halfWheelTrack) * 0.999;
-
-            //make the boundary tram outer array
-            for (int i = 0; i < ptCount; i++)
-            {
-                //calculate the point inside the boundary
-                pt3.easting = mf.bnd.bndList[0].fenceLine[i].easting -
-                    (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (Settings.Tool.tram_Width * 0.5 - mf.tram.halfWheelTrack));
-
-                pt3.northing = mf.bnd.bndList[0].fenceLine[i].northing -
-                    (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (Settings.Tool.tram_Width * 0.5 - mf.tram.halfWheelTrack));
-
-                bool Add = true;
-
-                for (int j = 0; j < ptCount; j++)
-                {
-                    double check = glm.DistanceSquared(pt3.northing, pt3.easting,
-                                        mf.bnd.bndList[0].fenceLine[j].northing, mf.bnd.bndList[0].fenceLine[j].easting);
-                    if (check < distSq)
-                    {
-                        Add = false;
-                        break;
-                    }
-                }
-
-                if (Add)
-                {
-                    if (mf.tram.tramBndOuterArr.Count > 0)
-                    {
-                        double dist = ((pt3.easting - mf.tram.tramBndOuterArr[mf.tram.tramBndOuterArr.Count - 1].easting) * (pt3.easting - mf.tram.tramBndOuterArr[mf.tram.tramBndOuterArr.Count - 1].easting))
-                            + ((pt3.northing - mf.tram.tramBndOuterArr[mf.tram.tramBndOuterArr.Count - 1].northing) * (pt3.northing - mf.tram.tramBndOuterArr[mf.tram.tramBndOuterArr.Count - 1].northing));
-                        if (dist > 1.2)
-                            mf.tram.tramBndOuterArr.Add(pt3);
-                    }
-                    else mf.tram.tramBndOuterArr.Add(pt3);
-                }
-            }
         }
 
         #endregion Outer Tram

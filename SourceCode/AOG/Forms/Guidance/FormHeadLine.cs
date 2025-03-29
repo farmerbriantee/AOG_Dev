@@ -15,7 +15,7 @@ namespace AOG
         private Point fixPt;
 
         private bool isA = true;
-        private int start = 99999, end = 99999;
+        private int start = -1, end = -1;
         private int bndSelect = 0;
         private TrackMode mode = TrackMode.None;
         public List<vec3> sliceArr = new List<vec3>();
@@ -43,9 +43,8 @@ namespace AOG
 
             lblToolWidth.Text = "( " + glm.unitsFtM + " )           Tool: " + ((Settings.Tool.toolWidth - Settings.Tool.overlap) * glm.m2FtOrM).ToString("N1") + " " + glm.unitsFtM;
 
-            start = 99999; end = 99999;
+            start = -1; end = -1;
             isA = true;
-            mf.hdl.desList?.Clear();
             sliceArr?.Clear();
             backupList?.Clear();
 
@@ -53,8 +52,6 @@ namespace AOG
 
             if (mf.bnd.bndList[0].hdLine.Count == 0)
             {
-                mf.bnd.bndList[0].hdLine?.Clear();
-
                 if (mf.bnd.bndList[0].fenceLine.Count > 0)
                 {
                     for (int i = 0; i < mf.bnd.bndList[0].fenceLine.Count; i++)
@@ -67,7 +64,7 @@ namespace AOG
             {
                 //make sure point distance isn't too big
                 mf.trk.MakePointMinimumSpacing(ref mf.bnd.bndList[0].hdLine, 1.2);
-                mf.trk.CalculateHeadings(ref mf.bnd.bndList[0].hdLine);
+                mf.bnd.bndList[0].hdLine.CalculateHeadings(true);
             }
 
             cboxIsZoom.Checked = false;
@@ -176,44 +173,33 @@ namespace AOG
             sX = 0;
             sY = 0;
 
-            if (isA)
+            double minDistA = double.MaxValue;
+            int idx = -1;
+            for (int j = isA ? 0 : bndSelect; j < mf.bnd.bndList.Count; j++)
             {
-                double minDistA = double.MaxValue;
-                start = 99999; end = 99999;
-
-                for (int j = 0; j < mf.bnd.bndList.Count; j++)
+                for (int i = 0; i < mf.bnd.bndList[j].fenceLine.Count; i++)
                 {
-                    for (int i = 0; i < mf.bnd.bndList[j].fenceLine.Count; i++)
+                    double dist = glm.DistanceSquared(pint, mf.bnd.bndList[j].fenceLine[i]);
+
+                    if (dist < minDistA)
                     {
-                        double dist = ((pint.easting - mf.bnd.bndList[j].fenceLine[i].easting) * (pint.easting - mf.bnd.bndList[j].fenceLine[i].easting))
-                                        + ((pint.northing - mf.bnd.bndList[j].fenceLine[i].northing) * (pint.northing - mf.bnd.bndList[j].fenceLine[i].northing));
-                        if (dist < minDistA)
-                        {
-                            minDistA = dist;
-                            bndSelect = j;
-                            start = i;
-                        }
+                        minDistA = dist;
+                        bndSelect = j;
+                        idx = i;
                     }
                 }
+                if (!isA) break;
+            }
 
+            if (isA)
+            {
+                start = idx;
+                end = -1;
                 isA = false;
             }
             else
             {
-                double minDistA = double.MaxValue;
-                int j = bndSelect;
-
-                for (int i = 0; i < mf.bnd.bndList[j].fenceLine.Count; i++)
-                {
-                    double dist = ((pint.easting - mf.bnd.bndList[j].fenceLine[i].easting) * (pint.easting - mf.bnd.bndList[j].fenceLine[i].easting))
-                                    + ((pint.northing - mf.bnd.bndList[j].fenceLine[i].northing) * (pint.northing - mf.bnd.bndList[j].fenceLine[i].northing));
-                    if (dist < minDistA)
-                    {
-                        minDistA = dist;
-                        end = i;
-                    }
-                }
-
+                end = idx;
                 isA = true;
 
                 //build the lines
@@ -290,7 +276,7 @@ namespace AOG
                     if (ptCnt > 0)
                     {
                         //who knows which way it actually goes
-                        mf.trk.CalculateHeadings(ref sliceArr);
+                        sliceArr.CalculateHeadings(false);
 
                         for (int i = 1; i < 30; i++)
                         {
@@ -314,12 +300,12 @@ namespace AOG
                     }
                     else
                     {
-                        start = 99999; end = 99999;
+                        start = -1; end = -1;
                         return;
                     }
 
                     //update the arrays
-                    start = 99999; end = 99999;
+                    start = -1; end = -1;
 
                     btnExit.Focus();
                 }
@@ -387,7 +373,7 @@ namespace AOG
 
                     mode = TrackMode.AB;
 
-                    start = 99999; end = 99999;
+                    start = -1; end = -1;
                 }
 
                 //Move the line
@@ -420,13 +406,7 @@ namespace AOG
                     GL.Color3(0.75f, 0.75f, 0.750f);
                 else
                     GL.Color3(0.0f, 0.25f, 0.10f);
-
-                GL.Begin(PrimitiveType.LineStrip);
-                for (int i = 0; i < mf.bnd.bndList[j].fenceLine.Count; i++)
-                {
-                    GL.Vertex3(mf.bnd.bndList[j].fenceLine[i].easting, mf.bnd.bndList[j].fenceLine[i].northing, 0);
-                }
-                GL.End();
+                mf.bnd.bndList[j].fenceLine.DrawPolygon(PrimitiveType.LineLoop);
             }
 
             //the vehicle
@@ -437,10 +417,10 @@ namespace AOG
             GL.End();
 
             //draw the line building graphics
-            if (start != 99999 || end != 99999) DrawABTouchLine();
+            if (start != -1 || end != -1) DrawABTouchLine();
 
             //draw the actual built lines
-            //if (start == 99999 && end == 99999)
+            //if (start == -1 && end == -1)
             {
                 DrawBuiltLines();
             }
@@ -465,13 +445,7 @@ namespace AOG
 
             GL.LineWidth(8);
             GL.Color3(0.943f, 0.9083f, 0.09150f);
-            GL.Begin(PrimitiveType.LineLoop);
-
-            for (int i = 0; i < mf.bnd.bndList[0].hdLine.Count; i++)
-            {
-                GL.Vertex3(mf.bnd.bndList[0].hdLine[i].easting, mf.bnd.bndList[0].hdLine[i].northing, 0);
-            }
-            GL.End();
+            mf.bnd.bndList[0].hdLine.DrawPolygon(PrimitiveType.LineLoop);
 
             if (sliceArr.Count > 0)
             {
@@ -512,18 +486,18 @@ namespace AOG
             GL.Begin(PrimitiveType.Points);
 
             GL.Color3(0, 0, 0);
-            if (start != 99999) GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[start].easting, mf.bnd.bndList[bndSelect].fenceLine[start].northing, 0);
-            if (end != 99999) GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[end].easting, mf.bnd.bndList[bndSelect].fenceLine[end].northing, 0);
+            if (start != -1) GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[start].easting, mf.bnd.bndList[bndSelect].fenceLine[start].northing, 0);
+            if (end != -1) GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[end].easting, mf.bnd.bndList[bndSelect].fenceLine[end].northing, 0);
             GL.End();
 
             GL.PointSize(18);
             GL.Begin(PrimitiveType.Points);
 
             GL.Color3(1.0f, 0.75f, 0.350f);
-            if (start != 99999) GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[start].easting, mf.bnd.bndList[bndSelect].fenceLine[start].northing, 0);
+            if (start != -1) GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[start].easting, mf.bnd.bndList[bndSelect].fenceLine[start].northing, 0);
 
             GL.Color3(0.5f, 0.75f, 1.0f);
-            if (end != 99999) GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[end].easting, mf.bnd.bndList[bndSelect].fenceLine[end].northing, 0);
+            if (end != -1) GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[end].easting, mf.bnd.bndList[bndSelect].fenceLine[end].northing, 0);
             GL.End();
         }
 
@@ -629,70 +603,16 @@ namespace AOG
 
         private void SetLineDistance()
         {
-            mf.hdl.desList?.Clear();
-
-            if (sliceArr.Count < 1) return;
-
-            double distAway = nudSetDistance.Value;
-
-            double distSqAway = (distAway * distAway) - 0.01;
-            vec3 point;
-
-            int refCount = sliceArr.Count;
-            for (int i = 0; i < refCount; i++)
-            {
-                point = new vec3(
-                sliceArr[i].easting - (Math.Sin(glm.PIBy2 + sliceArr[i].heading) * distAway),
-                sliceArr[i].northing - (Math.Cos(glm.PIBy2 + sliceArr[i].heading) * distAway),
-                sliceArr[i].heading);
-                bool Add = true;
-
-                for (int t = 0; t < refCount; t++)
-                {
-                    double dist = ((point.easting - sliceArr[t].easting) * (point.easting - sliceArr[t].easting))
-                        + ((point.northing - sliceArr[t].northing) * (point.northing - sliceArr[t].northing));
-                    if (dist < distSqAway)
-                    {
-                        Add = false;
-                        break;
-                    }
-                }
-
-                if (Add)
-                {
-                    if (mf.hdl.desList.Count > 0)
-                    {
-                        double dist = ((point.easting - mf.hdl.desList[mf.hdl.desList.Count - 1].easting) * (point.easting - mf.hdl.desList[mf.hdl.desList.Count - 1].easting))
-                            + ((point.northing - mf.hdl.desList[mf.hdl.desList.Count - 1].northing) * (point.northing - mf.hdl.desList[mf.hdl.desList.Count - 1].northing));
-                        if (dist > 1)
-                            mf.hdl.desList.Add(point);
-                    }
-                    else mf.hdl.desList.Add(point);
-                }
-            }
-
-            sliceArr.Clear();
-
-            for (int i = 0; i < mf.hdl.desList.Count; i++)
-            {
-                sliceArr.Add(new vec3(mf.hdl.desList[i]));
-            }
-
-            mf.hdl.desList?.Clear();
+            sliceArr = sliceArr.OffsetLine(nudSetDistance.Value, 1, true);
         }
-
-        // Returns 1 if the lines intersect, otherwis
-        public double iE = 0, iN = 0;
 
         public List<int> crossings = new List<int>(1);
 
         private void btnBndLooPGN_Click(object sender, EventArgs e)
         {
-            int ptCount = mf.bnd.bndList[0].fenceLine.Count;
-
             if (nudSetDistance.Value == 0)
             {
-                mf.hdl.desList.Clear();
+                int ptCount = mf.bnd.bndList[0].fenceLine.Count;
 
                 mf.bnd.bndList[0].hdLine?.Clear();
 
@@ -703,77 +623,19 @@ namespace AOG
             }
             else
             {
-                mf.hdl.desList?.Clear();
-
-                //outside point
-                vec3 pt3 = new vec3();
-
                 double moveDist = nudSetDistance.Value;
-                double distSq = (moveDist) * (moveDist) * 0.999;
 
-                //make the boundary tram outer array
-                for (int i = 0; i < ptCount; i++)
-                {
-                    //calculate the point inside the boundary
-                    pt3.easting = mf.bnd.bndList[0].fenceLine[i].easting -
-                        (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (moveDist));
+                var desList = mf.bnd.bndList[0].fenceLine.OffsetLine(moveDist, 1, true);
 
-                    pt3.northing = mf.bnd.bndList[0].fenceLine[i].northing -
-                        (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (moveDist));
-
-                    pt3.heading = mf.bnd.bndList[0].fenceLine[i].heading;
-
-                    bool Add = true;
-
-                    for (int j = 0; j < ptCount; j++)
-                    {
-                        double check = glm.DistanceSquared(pt3.northing, pt3.easting,
-                                            mf.bnd.bndList[0].fenceLine[j].northing, mf.bnd.bndList[0].fenceLine[j].easting);
-                        if (check < distSq)
-                        {
-                            Add = false;
-                            break;
-                        }
-                    }
-
-                    if (Add)
-                    {
-                        if (mf.hdl.desList.Count > 0)
-                        {
-                            double dist = ((pt3.easting - mf.hdl.desList[mf.hdl.desList.Count - 1].easting) * (pt3.easting - mf.hdl.desList[mf.hdl.desList.Count - 1].easting))
-                                + ((pt3.northing - mf.hdl.desList[mf.hdl.desList.Count - 1].northing) * (pt3.northing - mf.hdl.desList[mf.hdl.desList.Count - 1].northing));
-                            if (dist > 1)
-                                mf.hdl.desList.Add(pt3);
-                        }
-                        else mf.hdl.desList.Add(pt3);
-                    }
-                }
-
-                if (mf.hdl.desList.Count == 0)
-                {
-                    return;
-                }
-
-                pt3 = new vec3(mf.hdl.desList[0]);
-                mf.hdl.desList.Add(pt3);
-
-                int cnt = mf.hdl.desList.Count;
+                int cnt = desList.Count;
                 if (cnt > 3)
                 {
-                    pt3 = new vec3(mf.hdl.desList[0]);
-                    mf.hdl.desList.Add(pt3);
-
                     //make sure point distance isn't too big
-                    mf.trk.MakePointMinimumSpacing(ref mf.hdl.desList, 1.2);
-                    mf.trk.CalculateHeadings(ref mf.hdl.desList);
-
-                    mf.bnd.bndList[0].hdLine.Clear();
+                    mf.trk.MakePointMinimumSpacing(ref desList, 1.2);
+                    desList.CalculateHeadings(true);
 
                     //write out the Points
-                    foreach (vec3 item in mf.hdl.desList)
-                    {
-                        mf.bnd.bndList[0].hdLine.Add(item);
-                    }
+                    mf.bnd.bndList[0].hdLine = desList;
                 }
             }
 
@@ -798,18 +660,12 @@ namespace AOG
             {
                 for (int k = 0; k < mf.bnd.bndList[0].hdLine.Count - 2; k++)
                 {
-                    int res = GetLineIntersection(
-                    sliceArr[i].easting,
-                    sliceArr[i].northing,
-                    sliceArr[i + 1].easting,
-                    sliceArr[i + 1].northing,
-
-                    mf.bnd.bndList[0].hdLine[k].easting,
-                    mf.bnd.bndList[0].hdLine[k].northing,
-                    mf.bnd.bndList[0].hdLine[k + 1].easting,
-                    mf.bnd.bndList[0].hdLine[k + 1].northing,
-                    ref iE, ref iN);
-                    if (res == 1)
+                    bool res = glm.GetLineIntersection(
+                    sliceArr[i],
+                    sliceArr[i + 1],
+                    mf.bnd.bndList[0].hdLine[k],
+                    mf.bnd.bndList[0].hdLine[k + 1], out _, out _, out _);
+                    if (res)
                     {
                         if (isStart == 0)
                         {
@@ -834,6 +690,8 @@ namespace AOG
                 return;
             }
 
+            var desList = new List<vec3>();
+
             //overlaps start finish
             if ((Math.Abs(startBnd - endBnd)) > (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
             {
@@ -842,26 +700,18 @@ namespace AOG
                     (startBnd, endBnd) = (endBnd, startBnd);
                 }
 
-                mf.hdl.desList?.Clear();
-
                 //first bnd segment
                 for (int i = endBnd; i < startBnd; i++)
                 {
-                    mf.hdl.desList.Add(mf.bnd.bndList[0].hdLine[i]);
+                    desList.Add(mf.bnd.bndList[0].hdLine[i]);
                 }
 
                 for (int i = startLine; i < endLine; i++)
                 {
-                    mf.hdl.desList.Add(sliceArr[i]);
+                    desList.Add(sliceArr[i]);
                 }
 
-                //build headline from designPtsList
-                mf.bnd.bndList[0].hdLine.Clear();
-
-                foreach (var item in mf.hdl.desList)
-                {
-                    mf.bnd.bndList[0].hdLine.Add(item);
-                }
+                mf.bnd.bndList[0].hdLine = desList;
             }
             // completely in between start finish
             else
@@ -871,44 +721,34 @@ namespace AOG
                     (startBnd, endBnd) = (endBnd, startBnd);
                 }
 
-                mf.hdl.desList?.Clear();
-
                 //first bnd segment
                 for (int i = 0; i < startBnd; i++)
                 {
-                    mf.hdl.desList.Add(mf.bnd.bndList[0].hdLine[i]);
+                    desList.Add(mf.bnd.bndList[0].hdLine[i]);
                 }
 
                 //line segment
                 for (int i = startLine; i < endLine; i++)
                 {
-                    mf.hdl.desList.Add(sliceArr[i]);
+                    desList.Add(sliceArr[i]);
                 }
 
                 //final bnd segment
                 for (int i = endBnd; i < mf.bnd.bndList[0].hdLine.Count; i++)
                 {
-                    mf.hdl.desList.Add(mf.bnd.bndList[0].hdLine[i]);
+                    desList.Add(mf.bnd.bndList[0].hdLine[i]);
                 }
 
-                //build headline from designPtsList
-                mf.bnd.bndList[0].hdLine.Clear();
-
-                foreach (var item in mf.hdl.desList)
-                {
-                    mf.bnd.bndList[0].hdLine.Add(item);
-                }
+                mf.bnd.bndList[0].hdLine = desList;
             }
 
-            mf.hdl.desList?.Clear();
             sliceArr?.Clear();
         }
 
         private void btnDeletePoints_Click(object sender, EventArgs e)
         {
-            start = 99999; end = 99999;
+            start = -1; end = -1;
             isA = true;
-            mf.hdl.desList?.Clear();
             sliceArr?.Clear();
             backupList?.Clear();
             mf.bnd.bndList[0].hdLine?.Clear();
@@ -995,35 +835,6 @@ namespace AOG
             mf.bnd.isHeadlandOn = false;
             mf.vehicle.isHydLiftOn = false;
             Close();
-        }
-
-        public int GetLineIntersection(double p0x, double p0y, double p1x, double p1y,
-        double p2x, double p2y, double p3x, double p3y, ref double iEast, ref double iNorth)
-        {
-            double s1x, s1y, s2x, s2y;
-            s1x = p1x - p0x;
-            s1y = p1y - p0y;
-
-            s2x = p3x - p2x;
-            s2y = p3y - p2y;
-
-            double s, t;
-            s = (-s1y * (p0x - p2x) + s1x * (p0y - p2y)) / (-s2x * s1y + s1x * s2y);
-
-            if (s >= 0 && s <= 1)
-            {
-                //check oher side
-                t = (s2x * (p0y - p2y) - s2y * (p0x - p2x)) / (-s2x * s1y + s1x * s2y);
-                if (t >= 0 && t <= 1)
-                {
-                    // Collision detected
-                    iEast = p0x + (t * s1x);
-                    iNorth = p0y + (t * s1y);
-                    return 1;
-                }
-            }
-
-            return 0; // No collision
         }
     }
 }

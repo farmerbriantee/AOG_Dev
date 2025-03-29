@@ -798,29 +798,25 @@ namespace AOG
 
                         while (!reader.EndOfStream)
                         {
-
-                            hdl.tracksArr.Add(new CHeadPath());
-                            hdl.idx = hdl.tracksArr.Count - 1;
+                            var headPath = new CHeadPath();
 
                             //read header $CurveLine
-                            hdl.tracksArr[hdl.idx].name = reader.ReadLine();
+                            headPath.name = reader.ReadLine();
 
                             line = reader.ReadLine();
-                            hdl.tracksArr[hdl.idx].moveDistance = double.Parse(line, CultureInfo.InvariantCulture);
+                            headPath.moveDistance = double.Parse(line, CultureInfo.InvariantCulture);
 
                             line = reader.ReadLine();
-                            hdl.tracksArr[hdl.idx].mode = int.Parse(line, CultureInfo.InvariantCulture);
+                            headPath.mode = (TrackMode)int.Parse(line, CultureInfo.InvariantCulture);
 
                             line = reader.ReadLine();
-                            hdl.tracksArr[hdl.idx].a_point = int.Parse(line, CultureInfo.InvariantCulture);
+                            headPath.a_point = int.Parse(line, CultureInfo.InvariantCulture);
 
                             line = reader.ReadLine();
                             int numPoints = int.Parse(line);
 
                             if (numPoints > 3)
                             {
-                                hdl.tracksArr[hdl.idx].trackPts?.Clear();
-
                                 for (int i = 0; i < numPoints; i++)
                                 {
                                     line = reader.ReadLine();
@@ -828,15 +824,10 @@ namespace AOG
                                     vec3 vecPt = new vec3(double.Parse(words[0], CultureInfo.InvariantCulture),
                                         double.Parse(words[1], CultureInfo.InvariantCulture),
                                         double.Parse(words[2], CultureInfo.InvariantCulture));
-                                    hdl.tracksArr[hdl.idx].trackPts.Add(vecPt);
+                                    headPath.trackPts.Add(vecPt);
                                 }
-                            }
-                            else
-                            {
-                                if (hdl.tracksArr.Count > 0)
-                                {
-                                    hdl.tracksArr.RemoveAt(hdl.idx);
-                                }
+
+                                hdl.tracksArr.Add(headPath);
                             }
                         }
                     }
@@ -868,8 +859,6 @@ namespace AOG
                     }
                 }
             }
-
-            hdl.idx = -1;
         }
 
         public void FileLoadContour(string dir)
@@ -1101,7 +1090,7 @@ namespace AOG
                                     track.curvePts.Add(P1);
                                 }
 
-                                trk.AddFirstLastPoints(ref track.curvePts, 50);
+                                trk.AddFirstLastPoints(ref track.curvePts, 100);
                             }
 
                             trk.gArr.Add(track);
@@ -1187,19 +1176,20 @@ namespace AOG
                                 {
                                     line = reader.ReadLine();
                                     numPoints = int.Parse(line);
-
-                                    tram.tramArr = new List<vec2>();
-                                    tram.tramList.Add(tram.tramArr);
-
-                                    for (int i = 0; i < numPoints; i++)
+                                    if (numPoints > 1)
                                     {
-                                        line = reader.ReadLine();
-                                        string[] words = line.Split(',');
-                                        vec2 vecPt = new vec2(
-                                        double.Parse(words[0], CultureInfo.InvariantCulture),
-                                        double.Parse(words[1], CultureInfo.InvariantCulture));
+                                        var tram = new List<vec2>(numPoints);
+                                        for (int i = 0; i < numPoints; i++)
+                                        {
+                                            line = reader.ReadLine();
+                                            string[] words = line.Split(',');
+                                            vec2 vecPt = new vec2(
+                                            double.Parse(words[0], CultureInfo.InvariantCulture),
+                                            double.Parse(words[1], CultureInfo.InvariantCulture));
 
-                                        tram.tramArr.Add(vecPt);
+                                            tram.Add(vecPt);
+                                        }
+                                        this.tram.tramList.Add(tram);
                                     }
                                 }
                             }
@@ -1825,8 +1815,6 @@ namespace AOG
 
             string filename = Path.Combine(directoryName, "Headlines.txt");
 
-            int cnt = hdl.tracksArr.Count;
-
             using (StreamWriter writer = new StreamWriter(filename, false))
             {
                 try
@@ -1842,7 +1830,7 @@ namespace AOG
                         writer.WriteLine(headPath.moveDistance.ToString(CultureInfo.InvariantCulture));
 
                         //write out the mode
-                        writer.WriteLine(headPath.mode.ToString(CultureInfo.InvariantCulture));
+                        writer.WriteLine(((int)headPath.mode).ToString(CultureInfo.InvariantCulture));
 
                         //write out the A_Point index
                         writer.WriteLine(headPath.a_point.ToString(CultureInfo.InvariantCulture));

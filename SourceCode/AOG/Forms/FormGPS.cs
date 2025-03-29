@@ -820,7 +820,6 @@ namespace AOG
 
             //clean up tram
             tram.displayMode = 0;
-            tram.generateMode = 0;
             tram.tramBndInnerArr?.Clear();
             tram.tramBndOuterArr?.Clear();
 

@@ -148,7 +148,7 @@ namespace AOG
             {
                 //make sure point distance isn't too big
                 mf.trk.MakePointMinimumSpacing(ref mf.trk.designPtsList, 1.6);
-                mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
+                mf.trk.designPtsList.CalculateHeadings(false);
                 var track = new CTrk(TrackMode.Curve);
 
                 //calculate average heading of line
@@ -166,7 +166,7 @@ namespace AOG
                 track.heading = aveLineHeading;
 
                 mf.trk.SmoothAB(ref mf.trk.designPtsList, 4, false);
-                mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
+                mf.trk.designPtsList.CalculateHeadings(false);
 
                 //write out the Curve Points
                 foreach (vec3 item in mf.trk.designPtsList)
@@ -187,7 +187,7 @@ namespace AOG
                 track.ptB = new vec2(track.curvePts[track.curvePts.Count - 1]);
 
                 //build the tail extensions
-                mf.trk.AddFirstLastPoints(ref track.curvePts, 100);
+                mf.trk.AddFirstLastPoints(ref track.curvePts, 200);
 
                 mf.trk.gArr.Add(track);
             }

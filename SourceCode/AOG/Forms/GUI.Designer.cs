@@ -922,13 +922,13 @@ namespace AOG
 
                 if (isFieldStarted)
                 {
-                    if (yt.isYouTurnBtnOn && !ct.isContourBtnOn && trk.currentGuidanceTrack.Count > 1)
+                    if (!ct.isContourBtnOn && trk.currentGuidanceTrack.Count > 1)
                     {
                         //uturn and swap uturn direction
                         if (point.Y < 150 && point.Y > 90)
                         {
                             int middle = centerX + oglMain.Width / 5;
-                            if (point.X > middle - 80 && point.X < middle + 80)
+                            if (yt.isYouTurnBtnOn && point.X > middle - 80 && point.X < middle + 80)
                             {
                                 SwapDirection();
                                 return;

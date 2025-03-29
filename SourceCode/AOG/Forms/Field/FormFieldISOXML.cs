@@ -468,7 +468,7 @@ namespace AOG
                                     }
 
                                     //build the boundary, make sure is clockwise for outer counter clockwise for inner
-                                    mf.trk.CalculateHeadings(ref desList);
+                                    desList.CalculateHeadings(true);
 
                                     mf.bnd.bndList[0].hdLine = desList;
                                 }
@@ -583,7 +583,7 @@ namespace AOG
 
                                             //make sure point distance isn't too big
                                             mf.trk.MakePointMinimumSpacing(ref designPtsList, 1.6);
-                                            mf.trk.CalculateHeadings(ref designPtsList);
+                                            designPtsList.CalculateHeadings(false);
 
                                             //calculate average heading of line
                                             double x = 0, y = 0;
@@ -599,8 +599,7 @@ namespace AOG
                                             if (track.heading < 0) track.heading += glm.twoPI;
 
                                             //build the tail extensions
-                                            mf.trk.AddFirstLastPoints(ref designPtsList, 100);
-                                            mf.trk.CalculateHeadings(ref designPtsList);
+                                            mf.trk.AddFirstLastPoints(ref designPtsList, 200);
 
                                             if (string.IsNullOrEmpty(designName))
                                             {
@@ -714,7 +713,7 @@ namespace AOG
 
                                     //make sure point distance isn't too big
                                     mf.trk.MakePointMinimumSpacing(ref designPtsList, 1.6);
-                                    mf.trk.CalculateHeadings(ref designPtsList);
+                                    designPtsList.CalculateHeadings(false);
 
                                     //calculate average heading of line
                                     double x = 0, y = 0;
@@ -730,8 +729,7 @@ namespace AOG
                                     if (track.heading < 0) track.heading += glm.twoPI;
 
                                     //build the tail extensions
-                                    mf.trk.AddFirstLastPoints(ref designPtsList, 100);
-                                    mf.trk.CalculateHeadings(ref designPtsList);
+                                    mf.trk.AddFirstLastPoints(ref designPtsList, 200);
 
                                     //array number is 1 less since it starts at zero
 

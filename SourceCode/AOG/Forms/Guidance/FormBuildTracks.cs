@@ -531,7 +531,7 @@ namespace AOG
             {
                 //make sure point distance isn't too big
                 mf.trk.MakePointMinimumSpacing(ref mf.trk.designPtsList, 1.6);
-                mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
+                mf.trk.designPtsList.CalculateHeadings(false);
 
                 var track = new CTrk(TrackMode.Curve);
 
@@ -550,7 +550,7 @@ namespace AOG
                 track.heading = aveLineHeading;
 
                 mf.trk.SmoothAB(ref mf.trk.designPtsList, 4, false);
-                mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
+                mf.trk.designPtsList.CalculateHeadings(false);
 
                 //write out the Curve Points
                 foreach (vec3 item in mf.trk.designPtsList)
@@ -569,7 +569,7 @@ namespace AOG
                 track.ptB = new vec2(track.curvePts[track.curvePts.Count - 1]);
 
                 //build the tail extensions
-                mf.trk.AddFirstLastPoints(ref track.curvePts, 100);
+                mf.trk.AddFirstLastPoints(ref track.curvePts, 200);
 
                 mf.trk.gArr.Add(track);
                 selectedItem = track;
@@ -879,7 +879,7 @@ namespace AOG
                     {
                         //make sure point distance isn't too big
                         mf.trk.MakePointMinimumSpacing(ref designPtsList, 1.6);
-                        mf.trk.CalculateHeadings(ref designPtsList);
+                        designPtsList.CalculateHeadings(false);
 
                         var track = new CTrk(TrackMode.Curve);
 
@@ -900,9 +900,8 @@ namespace AOG
                         track.heading = aveLineHeading;
 
                         //build the tail extensions
-                        mf.trk.AddFirstLastPoints(ref designPtsList, 100);
+                        mf.trk.AddFirstLastPoints(ref designPtsList, 200);
                         //mf.trk.SmoothAB(ref designPtsList, 4, false);
-                        mf.trk.CalculateHeadings(ref designPtsList);
 
                         //write out the Curve Points
                         track.curvePts = designPtsList;

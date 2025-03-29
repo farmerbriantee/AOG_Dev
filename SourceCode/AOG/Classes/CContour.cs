@@ -263,34 +263,15 @@ namespace AOG
                 return;
             }
 
-            vec3 point = new vec3();
-            double totalHeadWidth;
-            int signPass;
-
-            signPass = -1;
             //determine how wide a headland space
-            totalHeadWidth = ((Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5) - spacingInt;
+            double totalHeadWidth = ((Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.5) - spacingInt;
 
             //totalHeadWidth = (mf.tool.toolWidth - mf.tool.toolOverlap) * 0.5 + 0.2 + (mf.tool.toolWidth - mf.tool.toolOverlap);
 
             for (int j = 0; j < mf.bnd.bndList.Count; j++)
             {
-                //countExit the points from the boundary
-                int ptCount = mf.bnd.bndList[j].fenceLine.Count;
-
-                ptList = new List<vec3>(128);
+                ptList = mf.bnd.bndList[j].fenceLine.OffsetLine(totalHeadWidth, 1, true);
                 stripList.Add(ptList);
-
-                for (int i = ptCount - 1; i >= 0; i--)
-                {
-                    //calculate the point inside the boundary
-                    point.easting = mf.bnd.bndList[j].fenceLine[i].easting - (signPass * Math.Sin(glm.PIBy2 + mf.bnd.bndList[j].fenceLine[i].heading) * totalHeadWidth);
-                    point.northing = mf.bnd.bndList[j].fenceLine[i].northing - (signPass * Math.Cos(glm.PIBy2 + mf.bnd.bndList[j].fenceLine[i].heading) * totalHeadWidth);
-                    point.heading = mf.bnd.bndList[j].fenceLine[i].heading - Math.PI;
-                    if (point.heading < -glm.twoPI) point.heading += glm.twoPI;
-
-                    ptList.Add(point);
-                }
             }
 
             mf.TimedMessageBox(1500, "Boundary Contour", "Contour Path Created");
@@ -310,17 +291,12 @@ namespace AOG
             if (ptCount < 2) return;
             GL.LineWidth(Settings.User.setDisplay_lineWidth);
             GL.Color3(0.98f, 0.2f, 0.980f);
-            GL.Begin(PrimitiveType.LineStrip);
-            for (int h = 0; h < ptCount; h++) GL.Vertex3(ctList[h].easting, ctList[h].northing, 0);
-            GL.End();
+            ctList.DrawPolygon(PrimitiveType.LineStrip);
 
             GL.PointSize(Settings.User.setDisplay_lineWidth);
             GL.Color3(0.87f, 08.7f, 0.25f);
 
-            GL.Begin(PrimitiveType.Points);
-            for (int h = 0; h < ptCount; h++) GL.Vertex3(ctList[h].easting, ctList[h].northing, 0);
-
-            GL.End();
+            ctList.DrawPolygon(PrimitiveType.Points);
 
             //Draw the captured ref strip, red if locked
             if (isLocked)
@@ -337,9 +313,7 @@ namespace AOG
             //GL.PointSize(6.0f);
             if (stripNum > -1)
             {
-                GL.Begin(PrimitiveType.Points);
-                for (int h = 0; h < stripList[stripNum].Count; h++) GL.Vertex3(stripList[stripNum][h].easting, stripList[stripNum][h].northing, 0);
-                GL.End();
+                stripList[stripNum].DrawPolygon(PrimitiveType.Points);
 
                 GL.Color3(0.35f, 0.30f, 0.90f);
                 GL.PointSize(6.0f);

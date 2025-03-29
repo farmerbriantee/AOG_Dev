@@ -203,6 +203,8 @@ namespace AOG
             //the list of points of curve new list from async
             List<vec3> newCurList = new List<vec3>();
 
+            bool loops = track.mode > TrackMode.Curve;
+
             try
             {
                 if (track.mode == TrackMode.waterPivot)
@@ -221,87 +223,18 @@ namespace AOG
                         newCurList.Add(new vec3(centerPos.easting + distAway * Math.Sin(rotation), centerPos.northing + distAway * Math.Cos(rotation), 0));
                     }
 
-                    if (newCurList.Count > 1)
-                    {
-                        vec3[] arr = new vec3[newCurList.Count];
-                        newCurList.CopyTo(arr);
-                        newCurList.Clear();
-
-                        for (int i = 1; i < (arr.Length - 1); i++)
-                        {
-                            arr[i].heading = Math.Atan2(arr[i + 1].easting - arr[i-1].easting, arr[i + 1].northing - arr[i-1].northing);
-                            if (arr[i].heading < 0) arr[i].heading += glm.twoPI;
-                            if (arr[i].heading >= glm.twoPI) arr[i].heading -= glm.twoPI;
-                        }
-
-                        arr[arr.Length - 1].heading = Math.Atan2(arr[0].easting - arr[arr.Length - 1].easting, arr[0].northing - arr[arr.Length - 1].northing);
-                        if (arr[arr.Length - 1].heading < 0) arr[arr.Length - 1].heading += glm.twoPI;
-                        if (arr[arr.Length - 1].heading >= glm.twoPI) arr[arr.Length - 1].heading -= glm.twoPI;
-
-                        arr[0].heading = Math.Atan2(arr[ 1].easting - arr[arr.Length - 1].easting, arr[1].northing - arr[arr.Length - 1].northing);
-                        if (arr[0].heading < 0) arr[0].heading += glm.twoPI;
-                        if (arr[0].heading >= glm.twoPI) arr[0].heading -= glm.twoPI;
-
-                        newCurList.AddRange(arr);
-                    }
+                    newCurList.CalculateHeadings(loops);
                 }
                 else
                 {
-                    vec3 point;
-
                     double step = (Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.4;
                     if (step > 2) step = 2;
                     if (step < 0.5) step = 0.5;
 
-                    if (track.mode == TrackMode.AB)
+                    newCurList = track.curvePts.OffsetLine(distAway, step, loops);
+
+                    if (track.mode != TrackMode.AB)
                     {
-                        for (int i = 0; i < track.curvePts.Count; i++)
-                        {
-                            point = new vec3(
-                                track.curvePts[i].easting + (Math.Sin(glm.PIBy2 + track.curvePts[i].heading) * distAway),
-                                track.curvePts[i].northing + (Math.Cos(glm.PIBy2 + track.curvePts[i].heading) * distAway),
-                                track.curvePts[i].heading);
-
-                            newCurList.Add(point);
-                        }
-                    }
-                    else
-                    {
-                        double distSqAway = (distAway * distAway) - 0.01;
-
-                        int refCount = track.curvePts.Count;
-                        for (int i = 0; i < refCount; i++)
-                        {
-                            point = new vec3(
-                            track.curvePts[i].easting + (Math.Sin(glm.PIBy2 + track.curvePts[i].heading) * distAway),
-                            track.curvePts[i].northing + (Math.Cos(glm.PIBy2 + track.curvePts[i].heading) * distAway),
-                            track.curvePts[i].heading);
-                            bool Add = true;
-
-                            for (int t = 0; t < refCount; t++)
-                            {
-                                double dist = ((point.easting - track.curvePts[t].easting) * (point.easting - track.curvePts[t].easting))
-                                    + ((point.northing - track.curvePts[t].northing) * (point.northing - track.curvePts[t].northing));
-                                if (dist < distSqAway)
-                                {
-                                    Add = false;
-                                    break;
-                                }
-                            }
-
-                            if (Add)
-                            {
-                                if (newCurList.Count > 0)
-                                {
-                                    double dist = ((point.easting - newCurList[newCurList.Count - 1].easting) * (point.easting - newCurList[newCurList.Count - 1].easting))
-                                        + ((point.northing - newCurList[newCurList.Count - 1].northing) * (point.northing - newCurList[newCurList.Count - 1].northing));
-                                    if (dist > step)
-                                        newCurList.Add(point);
-                                }
-                                else newCurList.Add(point);
-                            }
-                        }
-
                         int cnt = newCurList.Count;
                         if (cnt > 6)
                         {
@@ -314,7 +247,6 @@ namespace AOG
                             {
                                 arr[i].heading = Math.Atan2(arr[i + 1].easting - arr[i].easting, arr[i + 1].northing - arr[i].northing);
                                 if (arr[i].heading < 0) arr[i].heading += glm.twoPI;
-                                if (arr[i].heading >= glm.twoPI) arr[i].heading -= glm.twoPI;
                             }
 
                             arr[arr.Length - 1].heading = arr[arr.Length - 2].heading;
@@ -346,36 +278,12 @@ namespace AOG
                             newCurList.Add(arr[cnt - 2]);
                             newCurList.Add(arr[cnt - 1]);
 
-                            //to calc heading based on next and previous points to give an average heading.
-                            cnt = newCurList.Count;
-                            arr = new vec3[cnt];
-                            cnt--;
-                            newCurList.CopyTo(arr);
-                            newCurList.Clear();
-
-                            newCurList.Add(new vec3(arr[0]));
-
-                            //middle points
-                            for (int i = 1; i < cnt; i++)
-                            {
-                                vec3 pt3 = new vec3(arr[i])
-                                {
-                                    heading = Math.Atan2(arr[i + 1].easting - arr[i - 1].easting, arr[i + 1].northing - arr[i - 1].northing)
-                                };
-                                if (pt3.heading < 0) pt3.heading += glm.twoPI;
-                                newCurList.Add(pt3);
-                            }
-
-                            int k = arr.Length - 1;
-                            vec3 pt33 = new vec3(arr[k])
-                            {
-                                heading = Math.Atan2(arr[k].easting - arr[k - 1].easting, arr[k].northing - arr[k - 1].northing)
-                            };
-                            if (pt33.heading < 0) pt33.heading += glm.twoPI;
-                            newCurList.Add(pt33);
                         }
                     }
-                    if (mf.bnd.bndList.Count > 0 && (track.mode == TrackMode.AB || track.mode == TrackMode.Curve))
+
+                    newCurList.CalculateHeadings(loops);
+
+                    if (mf.bnd.bndList.Count > 0 && !loops)
                     {
                         int ptCnt = newCurList.Count - 1;
                         int iStep = (int)step;
@@ -472,68 +380,19 @@ namespace AOG
 
                     nextGuideDist += distAway;
 
-                    vec3 point;
-
                     double step = (Settings.Tool.toolWidth - Settings.Tool.overlap) * 0.48;
                     if (step > 4) step = 4;
                     if (step < 1) step = 1;
 
-                    double distSqAway = (nextGuideDist * nextGuideDist) - 0.01;
+                    newGuideList = track.curvePts.OffsetLine(nextGuideDist, step, track.mode > TrackMode.Curve);
 
-                    int refCount = track.curvePts.Count;
-                    for (int i = 0; i < refCount; i++)
+                    if (mf.bnd.bndList.Count > 0)
                     {
-                        point = new vec3(
-                        track.curvePts[i].easting + (Math.Sin(glm.PIBy2 + track.curvePts[i].heading) * nextGuideDist),
-                        track.curvePts[i].northing + (Math.Cos(glm.PIBy2 + track.curvePts[i].heading) * nextGuideDist),
-                        track.curvePts[i].heading);
-                        bool Add = true;
-
-                        for (int t = 0; t < refCount; t++)
+                        for (int i = newGuideList.Count - 1; i >= 0; i--)
                         {
-                            double dist = ((point.easting - track.curvePts[t].easting) * (point.easting - track.curvePts[t].easting))
-                                + ((point.northing - track.curvePts[t].northing) * (point.northing - track.curvePts[t].northing));
-                            if (dist < distSqAway)
+                            if (!mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(newGuideList[i]))
                             {
-                                Add = false;
-                                break;
-                            }
-                        }
-
-                        if (Add)
-                        {
-                            if (newGuideList.Count > 0)
-                            {
-                                double dist = ((point.easting - newGuideList[newGuideList.Count - 1].easting) * (point.easting - newGuideList[newGuideList.Count - 1].easting))
-                                    + ((point.northing - newGuideList[newGuideList.Count - 1].northing) * (point.northing - newGuideList[newGuideList.Count - 1].northing));
-                                if (dist > step)
-                                {
-                                    if (mf.bnd.bndList.Count > 0)
-                                    {
-                                        if (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(point))
-                                        {
-                                            newGuideList.Add(point);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        newGuideList.Add(point);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if (mf.bnd.bndList.Count > 0)
-                                {
-                                    if (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(point))
-                                    {
-                                        newGuideList.Add(point);
-                                    }
-                                }
-                                else
-                                {
-                                    newGuideList.Add(point);
-                                }
+                                newGuideList.RemoveAt(i);
                             }
                         }
                     }
@@ -553,9 +412,7 @@ namespace AOG
             {
                 GL.Color3(0.95f, 0.42f, 0.750f);
                 GL.LineWidth(4.0f);
-                GL.Begin(PrimitiveType.LineStrip);
-                for (int h = 0; h < designPtsList.Count; h++) GL.Vertex3(designPtsList[h].easting, designPtsList[h].northing, 0);
-                GL.End();
+                designPtsList.DrawPolygon(PrimitiveType.LineStrip);
 
                 GL.Enable(EnableCap.LineStipple);
                 GL.LineStipple(1, 0x0F00);
@@ -578,11 +435,7 @@ namespace AOG
 
                 for (int i = 0; i < guideArr.Count; i++)
                 {
-                    GL.Begin(currTrk.mode != TrackMode.bndCurve ? PrimitiveType.LineStrip : PrimitiveType.LineLoop);
-
-                    for (int h = 0; h < guideArr[i].Count; h++)
-                        GL.Vertex3(guideArr[i][h].easting, guideArr[i][h].northing, 0);
-                    GL.End();
+                    guideArr[i].DrawPolygon(currTrk.mode != TrackMode.bndCurve ? PrimitiveType.LineStrip : PrimitiveType.LineLoop);
                 }
 
                 GL.LineWidth(Settings.User.setDisplay_lineWidth);
@@ -590,10 +443,7 @@ namespace AOG
 
                 for (int i = 0; i < guideArr.Count; i++)
                 {
-                    GL.Begin(currTrk.mode != TrackMode.bndCurve ? PrimitiveType.LineStrip : PrimitiveType.LineLoop);
-                    for (int h = 0; h < guideArr[i].Count; h++)
-                        GL.Vertex3(guideArr[i][h].easting, guideArr[i][h].northing, 0);
-                    GL.End();
+                    guideArr[i].DrawPolygon(currTrk.mode != TrackMode.bndCurve ? PrimitiveType.LineStrip : PrimitiveType.LineLoop);
                 }
             }
 
@@ -604,20 +454,13 @@ namespace AOG
 
                 GL.LineWidth(Settings.User.setDisplay_lineWidth * 2);
                 GL.Color3(0.96, 0.2f, 0.2f);
-                GL.Begin(PrimitiveType.Lines);
-
-                for (int h = 0; h < currTrk.curvePts.Count; h++) GL.Vertex3(
-                    currTrk.curvePts[h].easting,
-                    currTrk.curvePts[h].northing,
-                    0);
-
-                GL.End();
+                currTrk.curvePts.DrawPolygon(PrimitiveType.Lines);
 
                 if (mf.font.isFontOn)
                 {
                     GL.Color3(0.40f, 0.90f, 0.95f);
-                    mf.font.DrawText3D(currTrk.ptA.easting, currTrk.ptA.northing, "&A");
-                    mf.font.DrawText3D(currTrk.ptB.easting, currTrk.ptB.northing, "&B");
+                    mf.font.DrawText3D(currTrk.ptA.easting, currTrk.ptA.northing, "&A", true);
+                    mf.font.DrawText3D(currTrk.ptB.easting, currTrk.ptB.northing, "&B", true);
                 }
 
                 //just draw ref and smoothed line if smoothing window is open
@@ -627,9 +470,7 @@ namespace AOG
 
                     GL.LineWidth(Settings.User.setDisplay_lineWidth);
                     GL.Color3(0.930f, 0.92f, 0.260f);
-                    GL.Begin(PrimitiveType.Lines);
-                    for (int h = 0; h < smooList.Count; h++) GL.Vertex3(smooList[h].easting, smooList[h].northing, 0);
-                    GL.End();
+                    smooList.DrawPolygon(PrimitiveType.LineStrip);
                 }
             }
 
@@ -640,50 +481,22 @@ namespace AOG
                 GL.Color3(0, 0, 0);
 
                 //ablines and curves are a line - the rest a loop
-                if (currTrk.mode <= TrackMode.Curve)
-                {
-                    GL.Begin(PrimitiveType.LineStrip);
-                }
-                else
-                {
-                    if (currTrk.mode == TrackMode.waterPivot)
-                    {
-                        GL.PointSize(15.0f);
-                        GL.Begin(PrimitiveType.Points);
-                        GL.Vertex3(currTrk.ptA.easting, currTrk.ptA.northing, 0);
-                        GL.End();
-                    }
+                currentGuidanceTrack.DrawPolygon(currTrk.mode <= TrackMode.Curve ? PrimitiveType.LineStrip : PrimitiveType.LineLoop);
 
-                    GL.Begin(PrimitiveType.LineLoop);
-                }
-
-                for (int h = 0; h < currentGuidanceTrack.Count; h++) GL.Vertex3(currentGuidanceTrack[h].easting, currentGuidanceTrack[h].northing, 0);
-                GL.End();
 
                 GL.LineWidth(Settings.User.setDisplay_lineWidth);
                 GL.Color3(0.95f, 0.2f, 0.95f);
 
-                //ablines and curves are a track - the rest a loop
-                if (currTrk.mode <= TrackMode.Curve)
+                if (currTrk.mode == TrackMode.waterPivot)
                 {
-                    GL.Begin(PrimitiveType.Lines);
-                }
-                else
-                {
-                    if (currTrk.mode == TrackMode.waterPivot)
-                    {
-                        GL.PointSize(15.0f);
-                        GL.Begin(PrimitiveType.Points);
-                        GL.Vertex3(currTrk.ptA.easting, currTrk.ptA.northing, 0);
-                        GL.End();
-                    }
-
-                    GL.Begin(PrimitiveType.LineLoop);
+                    GL.PointSize(15.0f);
+                    GL.Begin(PrimitiveType.Points);
+                    GL.Vertex3(currTrk.ptA.easting, currTrk.ptA.northing, 0);
+                    GL.End();
                 }
 
-                for (int h = 0; h < currentGuidanceTrack.Count; h++) GL.Vertex3(currentGuidanceTrack[h].easting, currentGuidanceTrack[h].northing, 0);
-                GL.End();
-
+                currentGuidanceTrack.DrawPolygon(currTrk.mode <= TrackMode.Curve ? PrimitiveType.LineStrip : PrimitiveType.LineLoop);
+                
                 mf.yt.DrawYouTurn();
 
                 /*
@@ -717,42 +530,8 @@ namespace AOG
             GL.End();
 
             GL.Color3(0.2f, 0.950f, 0.20f);
-            mf.font.DrawText3D(designPtA.easting, designPtA.northing, "&A");
-            mf.font.DrawText3D(designPtB.easting, designPtB.northing, "&B");
-        }
-
-        //for calculating for display the averaged new line
-        public void CalculateHeadings(ref List<vec3> xList)
-        {
-            //to calc heading based on next and previous points to give an average heading.
-            int cnt = xList.Count;
-            if (cnt > 3)
-            {
-                vec3[] arr = new vec3[cnt];
-                cnt--;
-                xList.CopyTo(arr);
-                xList.Clear();
-
-                vec3 pt3 = arr[0];
-                pt3.heading = Math.Atan2(arr[1].easting - arr[0].easting, arr[1].northing - arr[0].northing);
-                if (pt3.heading < 0) pt3.heading += glm.twoPI;
-                xList.Add(pt3);
-
-                //middle points
-                for (int i = 1; i < cnt; i++)
-                {
-                    pt3 = arr[i];
-                    pt3.heading = Math.Atan2(arr[i + 1].easting - arr[i - 1].easting, arr[i + 1].northing - arr[i - 1].northing);
-                    if (pt3.heading < 0) pt3.heading += glm.twoPI;
-                    xList.Add(pt3);
-                }
-
-                pt3 = arr[arr.Length - 1];
-                pt3.heading = Math.Atan2(arr[arr.Length - 1].easting - arr[arr.Length - 2].easting,
-                    arr[arr.Length - 1].northing - arr[arr.Length - 2].northing);
-                if (pt3.heading < 0) pt3.heading += glm.twoPI;
-                xList.Add(pt3);
-            }
+            mf.font.DrawText3D(designPtA.easting, designPtA.northing, "&A", true);
+            mf.font.DrawText3D(designPtB.easting, designPtB.northing, "&B", true);
         }
 
         public void MakePointMinimumSpacing(ref List<vec3> xList, double minDistance)
@@ -785,7 +564,7 @@ namespace AOG
         {
             if (smooList.Count > 3)
             {
-                CalculateHeadings(ref smooList);
+                smooList.CalculateHeadings(track.mode > TrackMode.Curve);
                 track.curvePts = smooList;
                 smooList = new List<vec3>();
             }
@@ -867,19 +646,18 @@ namespace AOG
             track.ptB = new vec2(track.curvePts[track.curvePts.Count - 1]);
 
             //build the tail extensions
-            AddFirstLastPoints(ref track.curvePts, 100);
+            AddFirstLastPoints(ref track.curvePts, 200);
 
             gArr.Add(track);
             currTrk = track;
         }
 
-        public void AddFirstLastPoints(ref List<vec3> xList, int ptsToAdd)
+        public void AddFirstLastPoints(ref List<vec3> xList, int metersToAdd)
         {
             int ptCnt = xList.Count - 1;
             vec3 start;
-            ptsToAdd *= 2;
 
-            for (int i = 1; i < ptsToAdd; i += 2)
+            for (int i = 2; i < metersToAdd; i += 2)
             {
                 vec3 pt = new vec3(xList[ptCnt]);
                 pt.easting += (Math.Sin(pt.heading) * i);
@@ -890,7 +668,7 @@ namespace AOG
             //and the beginning
             start = new vec3(xList[0]);
 
-            for (int i = 1; i < ptsToAdd; i += 2)
+            for (int i = 2; i < metersToAdd; i += 2)
             {
                 vec3 pt = new vec3(start);
                 pt.easting -= (Math.Sin(pt.heading) * i);
@@ -951,45 +729,12 @@ namespace AOG
         {
             isTrackValid = false;
 
-            List<vec3> curList = new List<vec3>();
+            var curList = track.curvePts.OffsetLine(distAway, 1, track.mode > TrackMode.Curve);
 
             if (track.mode != TrackMode.AB)
             {
-                double distSqAway = (distAway * distAway) - 0.01;
-                vec3 point;
-
-                for (int i = 0; i < track.curvePts.Count; i++)
-                {
-                    point = new vec3(
-                    track.curvePts[i].easting + (Math.Sin(glm.PIBy2 + track.curvePts[i].heading) * distAway),
-                    track.curvePts[i].northing + (Math.Cos(glm.PIBy2 + track.curvePts[i].heading) * distAway),
-                    track.curvePts[i].heading);
-                    bool Add = true;
-
-                    for (int t = 0; t < track.curvePts.Count; t++)
-                    {
-                        double dist = ((point.easting - track.curvePts[t].easting) * (point.easting - track.curvePts[t].easting))
-                            + ((point.northing - track.curvePts[t].northing) * (point.northing - track.curvePts[t].northing));
-                        if (dist < distSqAway)
-                        {
-                            Add = false;
-                            break;
-                        }
-                    }
-
-                    if (Add)
-                    {
-                        if (curList.Count > 0)
-                        {
-                            double dist = ((point.easting - curList[curList.Count - 1].easting) * (point.easting - curList[curList.Count - 1].easting))
-                                + ((point.northing - curList[curList.Count - 1].northing) * (point.northing - curList[curList.Count - 1].northing));
-                            if (dist > 1.0)
-                                curList.Add(point);
-                        }
-                        else curList.Add(point);
-                    }
-                }
-
+                //curList.CalculateHeadings(track.mode > TrackMode.Curve);
+                
                 int cnt = curList.Count;
                 if (cnt > 6)
                 {
@@ -1036,15 +781,11 @@ namespace AOG
                     curList.Add(arr[cnt - 2]);
                     curList.Add(arr[cnt - 1]);
 
-                    CalculateHeadings(ref curList);
-
-                    track.curvePts = curList;
+                    curList.CalculateHeadings(track.mode > TrackMode.Curve);
                 }
             }
             else
             {
-                vec3 point;
-
                 //find the A and B points in the ref
 
                 int aClose = 0, bClose = 0;
@@ -1070,25 +811,14 @@ namespace AOG
                     }
                 }
 
-                for (int i = 0; i < track.curvePts.Count; i++)
-                {
-                    point = new vec3(
-                        track.curvePts[i].easting + (Math.Sin(glm.PIBy2 + track.curvePts[i].heading) * distAway),
-                        track.curvePts[i].northing + (Math.Cos(glm.PIBy2 + track.curvePts[i].heading) * distAway),
-                        track.curvePts[i].heading);
-
-                    curList.Add(point);
-                }
-
-                track.curvePts.Clear();
-
-                track.curvePts = curList;
 
                 track.ptA.easting = (track.curvePts[aClose].easting);
                 track.ptA.northing = (track.curvePts[aClose].northing);
                 track.ptB.easting = (track.curvePts[bClose].easting);
                 track.ptB.northing = (track.curvePts[bClose].northing);
             }
+
+            track.curvePts = curList;
         }
 
         public void ResetTrack()

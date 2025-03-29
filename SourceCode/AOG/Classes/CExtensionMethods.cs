@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace AOG
@@ -604,6 +604,98 @@ namespace AOG
             if (currentB == 255) currentB = 254;
 
             return Color.FromArgb(color.A, currentR, currentG, currentB);
+        }
+
+        public static List<vec3> OffsetLine(this List<vec3> points, double distance, double minDist, bool loop)
+        {
+            points.CalculateHeadings(loop);
+
+            var result = new List<vec3>();
+            //countExit the points from the boundary
+            int count = points.Count;
+
+            double distSq = distance * distance - 0.0001;
+
+            //make the boundary tram outer array
+            for (int i = 0; i < count; i++)
+            {
+                //calculate the point inside the boundary
+                var easting = points[i].easting + (Math.Cos(points[i].heading) * distance);
+                var northing = points[i].northing - (Math.Sin(points[i].heading) * distance);
+
+                //var easting = points[i].easting - (Math.Sin(glm.PIBy2 + points[i].heading) * distance);
+
+                //var northing = points[i].northing - (Math.Cos(glm.PIBy2 + points[i].heading) * distance);
+
+                bool Add = true;
+
+                for (int j = 0; j < count; j++)
+                {
+                    double check = glm.DistanceSquared(northing, easting, points[j].northing, points[j].easting);
+                    if (check < distSq)
+                    {
+                        Add = false;
+                        break;
+                    }
+                }
+
+                if (Add)
+                {
+                    if (result.Count > 0)
+                    {
+                        double dist = glm.DistanceSquared(northing, easting, result[result.Count - 1].northing, result[result.Count - 1].easting);
+                        if (dist > minDist)
+                            result.Add(new vec3(easting, northing));
+                    }
+                    else
+                        result.Add(new vec3(easting, northing));
+                }
+            }
+
+            return result;
+        }
+
+        public static void CalculateHeadings(this List<vec3> points, bool loop)
+        {
+            //to calc heading based on next and previous points to give an average heading.
+            int cnt = points.Count;
+
+            if (cnt > 1)
+            {
+                vec3[] arr = new vec3[cnt];
+                cnt--;
+                points.CopyTo(arr);
+                points.Clear();
+
+                //first point needs last, first, second points
+                vec3 pt3 = arr[0];
+                if (loop)
+                    pt3.heading = Math.Atan2(arr[1].easting - arr[cnt].easting, arr[1].northing - arr[cnt].northing);
+                else
+                    pt3.heading = Math.Atan2(arr[1].easting - arr[0].easting, arr[1].northing - arr[0].northing);
+
+                if (pt3.heading < 0) pt3.heading += glm.twoPI;
+                points.Add(pt3);
+
+                //middle points
+                for (int i = 1; i < cnt; i++)
+                {
+                    pt3 = arr[i];
+                    pt3.heading = Math.Atan2(arr[i + 1].easting - arr[i - 1].easting, arr[i + 1].northing - arr[i - 1].northing);
+                    if (pt3.heading < 0) pt3.heading += glm.twoPI;
+                    points.Add(pt3);
+                }
+
+                //last and first point
+                pt3 = arr[cnt];
+                if (loop)
+                    pt3.heading = Math.Atan2(arr[0].easting - arr[cnt - 1].easting, arr[0].northing - arr[cnt - 1].northing);
+                else
+                    pt3.heading = Math.Atan2(arr[cnt].easting - arr[cnt - 1].easting, arr[cnt].northing - arr[cnt - 1].northing);
+
+                if (pt3.heading < 0) pt3.heading += glm.twoPI;
+                points.Add(pt3);
+            }
         }
     }
 

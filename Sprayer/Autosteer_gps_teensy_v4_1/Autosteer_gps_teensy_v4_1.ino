@@ -72,8 +72,8 @@ byte mac[] = {0x00, 0x00, 0x56, 0x00, 0x00, 0x78};
 
 unsigned int portMy = 5120;             // port of this module
 unsigned int AOGNtripPort = 2233;       // port NTRIP data from AOG comes in
-unsigned int AOGAutoSteerPort = 18888;   // port Autosteer data from AOG comes in
-unsigned int portDestination = 19999;    // Port of AOG that listens
+unsigned int AOGAutoSteerPort = 8888;   // port Autosteer data from AOG comes in
+unsigned int portDestination = 9999;    // Port of AOG that listens
 char Eth_NTRIP_packetBuffer[512];       // buffer for receiving ntrip data
 
 // An EthernetUDP instance to let us send and receive packets over UDP
@@ -124,8 +124,6 @@ NMEAParser<2> parser;
 bool isTriggered = false;
 bool blink = false;
 
-bool Autosteer_running = true; //Auto set off in autosteer setup
-bool Ethernet_running = false; //Auto set on in ethernet setup
 bool GGA_Available = false;    //Do we have GGA on correct port?
 
 uint32_t PortSwapTime = 0;
@@ -139,29 +137,10 @@ uint8_t aogSerialCmdCounter = 0;
 bool passThroughGPS = false;
 bool passThroughGPS2 = false;
 
-//-=-=-=-=- UBX binary specific variables
-struct ubxPacket
-{
-	uint8_t cls;
-	uint8_t id;
-	uint16_t len; //Length of the payload. Does not include cls, id, or checksum bytes
-	uint16_t counter; //Keeps track of number of overall bytes received. Some responses are larger than 255 bytes.
-	uint16_t startingSpot; //The counter value needed to go past before we begin recording into payload array
-	uint8_t *payload; // We will allocate RAM for the payload if/when needed.
-	uint8_t checksumA; //Given to us from module. Checked against the rolling calculated A/B checksums.
-	uint8_t checksumB;
-    
-	////sfe_ublox_packet_validity_e valid;			 //Goes from NOT_DEFINED to VALID or NOT_VALID when checksum is checked
-	////sfe_ublox_packet_validity_e classAndIDmatch; // Goes from NOT_DEFINED to VALID or NOT_VALID when the Class and ID match the requestedClass and requestedID
-};
-
 // Setup procedure ------------------------
 void setup()
 {
     delay(500);                         //Small delay so serial can monitor start up
-    //set_arm_clock(150000000);           //Set CPU speed to 150mhz
-    //Serial.print("CPU speed set to: ");
-    //Serial.println(F_CPU_ACTUAL);
 
   pinMode(GGAReceivedLED, OUTPUT);
   pinMode(Power_on_LED, OUTPUT);
@@ -202,33 +181,15 @@ void setup()
   Serial.println("\r\nStarting Ethernet...");
   EthernetStart();
 
-  Serial.println("\r\nStarting IMU...");
-  //test if CMPS working
-  uint8_t error;
-
   Serial.println("\r\nEnd setup, waiting for GPS...\r\n");
 }
 
 void loop()
 {
-    // Pass NTRIP etc to GPS
-    if (SerialAOG.available())
-    {
-            SerialGPS.write(SerialAOG.read());
-    }
-
     // Read incoming nmea from GPS
     if (SerialGPS.available())
     {
-            parser << SerialGPS.read();
-    }
-
-    udpNtrip();
-
-    // Check for RTK Radio
-    if (SerialRTK.available())
-    {
-        SerialGPS.write(SerialRTK.read());
+        parser << SerialGPS.read();
     }
 
     // If both dual messages are ready, send to AgOpen
@@ -238,9 +199,9 @@ void loop()
         dualReadyGGA = false;
         dualReadyRelPos = false;
     }
-
+    
     // If anything comes in SerialGPS2 RelPos data
-    if (SerialGPS2.available())
+    while (SerialGPS2.available())
     {
         uint8_t incoming_char = SerialGPS2.read();  //Read RELPOSNED from F9P
 
@@ -280,26 +241,40 @@ void loop()
     }
 
     //GGA timeout, turn off GPS LED's etc
-    if((systick_millis_count - gpsReadyTime) > 10000) //GGA age over 10sec
+    if ((systick_millis_count - gpsReadyTime) > 10000) //GGA age over 10sec
     {
-      digitalWrite(GPSRED_LED, LOW);
-      digitalWrite(GPSGREEN_LED, LOW);
-      useDual = false;
+        digitalWrite(GPSRED_LED, LOW);
+        digitalWrite(GPSGREEN_LED, LOW);
+        useDual = false;
     }
 
-    if (Autosteer_running) autosteerLoop();
-    else ReceiveUdp();
-    
-  if (Ethernet.linkStatus() == LinkOFF) 
-  {
-    digitalWrite(Power_on_LED, 1);
-    digitalWrite(Ethernet_Active_LED, 0);
-  }
-  if (Ethernet.linkStatus() == LinkON) 
-  {
-    digitalWrite(Power_on_LED, 0);
-    digitalWrite(Ethernet_Active_LED, 1);
-  }
+    ReceiveUdp();
+    autosteerLoop();
+
+    udpNtrip();
+
+    // Pass NTRIP etc to GPS
+    if (SerialAOG.available())
+    {
+        SerialGPS.write(SerialAOG.read());
+    }
+
+    // Check for RTK Radio
+    if (SerialRTK.available())
+    {
+        SerialGPS.write(SerialRTK.read());
+    }
+
+    if (Ethernet.linkStatus() == LinkOFF)
+    {
+        digitalWrite(Power_on_LED, 1);
+        digitalWrite(Ethernet_Active_LED, 0);
+    }
+    if (Ethernet.linkStatus() == LinkON)
+    {
+        digitalWrite(Power_on_LED, 0);
+        digitalWrite(Ethernet_Active_LED, 1);
+    }
 }//End Loop
 //**************************************************************************
 
@@ -315,30 +290,4 @@ bool calcChecksum()
   }
 
   return (CK_A == ackPacket[70] && CK_B == ackPacket[71]);
-}
-
-//Given a message, calc and store the two byte "8-Bit Fletcher" checksum over the entirety of the message
-//This is called before we send a command message
-void calcChecksum(ubxPacket *msg)
-{
-  msg->checksumA = 0;
-  msg->checksumB = 0;
-
-  msg->checksumA += msg->cls;
-  msg->checksumB += msg->checksumA;
-
-  msg->checksumA += msg->id;
-  msg->checksumB += msg->checksumA;
-
-  msg->checksumA += (msg->len & 0xFF);
-  msg->checksumB += msg->checksumA;
-
-  msg->checksumA += (msg->len >> 8);
-  msg->checksumB += msg->checksumA;
-
-  for (uint16_t i = 0; i < msg->len; i++)
-  {
-    msg->checksumA += msg->payload[i];
-    msg->checksumB += msg->checksumA;
-  }
 }

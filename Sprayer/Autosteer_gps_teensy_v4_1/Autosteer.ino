@@ -172,102 +172,86 @@ void steerSettingsInit()
 
 void autosteerSetup()
 {
-  //PWM rate settings. Set them both the same!!!!
-  /*  PWM Frequency ->
-       490hz (default) = 0
-       122hz = 1
-       3921hz = 2
-  */
-  if (PWM_Frequency == 0)
-  {
-    analogWriteFrequency(PWM1_LPWM, 490);
-    analogWriteFrequency(PWM2_RPWM, 490);
-  }
-  else if (PWM_Frequency == 1)
-  {
-    analogWriteFrequency(PWM1_LPWM, 122);
-    analogWriteFrequency(PWM2_RPWM, 122);
-  }
-  else if (PWM_Frequency == 2)
-  {
-    analogWriteFrequency(PWM1_LPWM, 3921);
-    analogWriteFrequency(PWM2_RPWM, 3921);
-  }
+    //PWM rate settings. Set them both the same!!!!
+    /*  PWM Frequency ->
+         490hz (default) = 0
+         122hz = 1
+         3921hz = 2
+    */
+    if (PWM_Frequency == 0)
+    {
+        analogWriteFrequency(PWM1_LPWM, 490);
+        analogWriteFrequency(PWM2_RPWM, 490);
+    }
+    else if (PWM_Frequency == 1)
+    {
+        analogWriteFrequency(PWM1_LPWM, 122);
+        analogWriteFrequency(PWM2_RPWM, 122);
+    }
+    else if (PWM_Frequency == 2)
+    {
+        analogWriteFrequency(PWM1_LPWM, 3921);
+        analogWriteFrequency(PWM2_RPWM, 3921);
+    }
 
-  //keep pulled high and drag low to activate, noise free safe
-  pinMode(WORKSW_PIN, INPUT_PULLUP);
-  pinMode(STEERSW_PIN, INPUT_PULLUP);
-  pinMode(REMOTE_PIN, INPUT_PULLUP);
-  pinMode(DIR1_RL_ENABLE, OUTPUT);
+    //keep pulled high and drag low to activate, noise free safe
+    pinMode(WORKSW_PIN, INPUT_PULLUP);
+    pinMode(STEERSW_PIN, INPUT_PULLUP);
+    pinMode(REMOTE_PIN, INPUT_PULLUP);
+    pinMode(DIR1_RL_ENABLE, OUTPUT);
 
-  // Disable digital inputs for analog input pins
-  pinMode(CURRENT_SENSOR_PIN, INPUT_DISABLE);
-  pinMode(PRESSURE_SENSOR_PIN, INPUT_DISABLE);
+    // Disable digital inputs for analog input pins
+    pinMode(CURRENT_SENSOR_PIN, INPUT_DISABLE);
+    pinMode(PRESSURE_SENSOR_PIN, INPUT_DISABLE);
 
-  //set up communication
-  Wire1.end();
-  Wire1.begin();
-    
-  // Check ADC 
-  if(adc.testConnection())
-  {
-    Serial.println("ADC Connecton OK");
-  }
-  else
-  {
-    Serial.println("ADC Connecton FAILED!");
-    Autosteer_running = false;
-  }
+    //set up communication
+    Wire1.end();
+    Wire1.begin();
 
-  //50Khz I2C
-  //TWBR = 144;   //Is this needed?
+    // Check ADC 
+    if (adc.testConnection())
+    {
+        Serial.println("ADC Connecton OK");
+    }
+    else
+    {
+        Serial.println("ADC Connecton FAILED!");
+    }
 
-  EEPROM.get(0, EEread);              // read identifier
+    //50Khz I2C
+    //TWBR = 144;   //Is this needed?
 
-  if (EEread != EEP_Ident)            // check on first start and write EEPROM
-  {
-    EEPROM.put(0, EEP_Ident);
-    EEPROM.put(10, steerSettings);
-    EEPROM.put(40, steerConfig);
-    EEPROM.put(60, networkAddress);    
-  }
-  else
-  {
-    EEPROM.get(10, steerSettings);     // read the Settings
-    EEPROM.get(40, steerConfig);
-    EEPROM.get(60, networkAddress); 
-  }
+    EEPROM.get(0, EEread);              // read identifier
 
-  steerSettingsInit();
-  steerConfigInit();
+    if (EEread != EEP_Ident)            // check on first start and write EEPROM
+    {
+        EEPROM.put(0, EEP_Ident);
+        EEPROM.put(10, steerSettings);
+        EEPROM.put(40, steerConfig);
+        EEPROM.put(60, networkAddress);
+    }
+    else
+    {
+        EEPROM.get(10, steerSettings);     // read the Settings
+        EEPROM.get(40, steerConfig);
+        EEPROM.get(60, networkAddress);
+    }
 
-  if (Autosteer_running) 
-  {
+    steerSettingsInit();
+    steerConfigInit();
+
     Serial.println("Autosteer running, waiting for AgOpenGPS");
     // Autosteer Led goes Red if ADS1115 is found
     digitalWrite(AUTOSTEER_ACTIVE_LED, 0);
     digitalWrite(AUTOSTEER_STANDBY_LED, 1);
-  }
-  else
-  {
-    Autosteer_running = false;  //Turn off auto steer if no ethernet (Maybe running T4.0)
-//    if(!Ethernet_running)Serial.println("Ethernet not available");
-    Serial.println("Autosteer disabled, GPS only mode");   
-    return;
-  }
 
-  adc.setSampleRate(ADS1115_REG_CONFIG_DR_128SPS); //128 samples per second
-  adc.setGain(ADS1115_REG_CONFIG_PGA_6_144V);
+    adc.setSampleRate(ADS1115_REG_CONFIG_DR_128SPS); //128 samples per second
+    adc.setGain(ADS1115_REG_CONFIG_PGA_6_144V);
 
 }// End of Setup
 
 void autosteerLoop()
 {
-#ifdef ARDUINO_TEENSY41
-  ReceiveUdp();
-#endif
-  //Serial.println("AutoSteer loop");
-
   // Loop triggers every 100 msec and sends back gyro heading, and roll, steer angle etc
   currentTime = systick_millis_count;
 
@@ -511,23 +495,9 @@ int currentRoll = 0;
 int rollLeft = 0;
 int steerLeft = 0;
 
-#ifdef ARDUINO_TEENSY41
-// UDP Receive
 void ReceiveUdp()
 {
-    // When ethernet is not running, return directly. parsePacket() will block when we don't
-    if (!Ethernet_running)
-    {
-        return;
-    }
-
     uint16_t len = Eth_udpAutoSteer.parsePacket();
-
-    // if (len > 0)
-    // {
-    //  Serial.print("ReceiveUdp: ");
-    //  Serial.println(len);
-    // }
 
     // Check for len > 4, because we check byte 0, 1, 3 and 3
     if (len > 4)
@@ -536,7 +506,7 @@ void ReceiveUdp()
 
         if (autoSteerUdpData[0] == 0x80 && autoSteerUdpData[1] == 0x81 && autoSteerUdpData[2] == 0x7F) //Data
         {
-            if (autoSteerUdpData[3] == 0xFE && Autosteer_running)  //254
+            if (autoSteerUdpData[3] == 0xFE)  //254
             {
                 gpsSpeed = ((float)(autoSteerUdpData[5] | autoSteerUdpData[6] << 8)) * 0.1;
                 gpsSpeedUpdateTimer = 0;
@@ -630,7 +600,7 @@ void ReceiveUdp()
             }
 
             //steer settings
-            else if (autoSteerUdpData[3] == 0xFC && Autosteer_running)  //252
+            else if (autoSteerUdpData[3] == 0xFC)  //252
             {
                 //PID values
                 steerSettings.Kp = ((float)autoSteerUdpData[5]);   // read Kp from AgOpenGPS
@@ -698,8 +668,6 @@ void ReceiveUdp()
             }//end FB
             else if (autoSteerUdpData[3] == 200) // Hello from AgIO
             {
-                if(Autosteer_running)
-                {
                 int16_t sa = (int16_t)(steerAngleActual * 100);
 
                 helloFromAutoSteer[5] = (uint8_t)sa;
@@ -710,22 +678,21 @@ void ReceiveUdp()
                 helloFromAutoSteer[9] = switchByte;
 
                 SendUdp(helloFromAutoSteer, sizeof(helloFromAutoSteer), Eth_ipDestination, portDestination);
-                }
             }
 
             else if (autoSteerUdpData[3] == 201)
             {
-             //make really sure this is the subnet pgn
-             if (autoSteerUdpData[4] == 5 && autoSteerUdpData[5] == 201 && autoSteerUdpData[6] == 201)
-             {
-              networkAddress.ipOne = autoSteerUdpData[7];
-              networkAddress.ipTwo = autoSteerUdpData[8];
-              networkAddress.ipThree = autoSteerUdpData[9];
-        
-              //save in EEPROM and restart
-              EEPROM.put(60, networkAddress);
-              SCB_AIRCR = 0x05FA0004; //Teensy Reset
-              }
+                //make really sure this is the subnet pgn
+                if (autoSteerUdpData[4] == 5 && autoSteerUdpData[5] == 201 && autoSteerUdpData[6] == 201)
+                {
+                    networkAddress.ipOne = autoSteerUdpData[7];
+                    networkAddress.ipTwo = autoSteerUdpData[8];
+                    networkAddress.ipThree = autoSteerUdpData[9];
+
+                    //save in EEPROM and restart
+                    EEPROM.put(60, networkAddress);
+                    SCB_AIRCR = 0x05FA0004; //Teensy Reset
+                }
             }//end 201
 
             //whoami
@@ -738,7 +705,7 @@ void ReceiveUdp()
 
                     //hello from AgIO
                     uint8_t scanReply[] = { 128, 129, Eth_myip[3], 203, 7,
-                        Eth_myip[0], Eth_myip[1], Eth_myip[2], Eth_myip[3], 
+                        Eth_myip[0], Eth_myip[1], Eth_myip[2], Eth_myip[3],
                         rem_ip[0],rem_ip[1],rem_ip[2], 23 };
 
                     //checksum
@@ -747,10 +714,10 @@ void ReceiveUdp()
                     {
                         CK_A = (CK_A + scanReply[i]);
                     }
-                    scanReply[sizeof(scanReply)-1] = CK_A;
+                    scanReply[sizeof(scanReply) - 1] = CK_A;
 
                     static uint8_t ipDest[] = { 255,255,255,255 };
-                    uint16_t portDest = 19999; //AOG port that listens
+                    uint16_t portDest = 9999; //AOG port that listens
 
                     //off to AOG
                     SendUdp(scanReply, sizeof(scanReply), ipDest, portDest);
@@ -759,16 +726,13 @@ void ReceiveUdp()
         } //end if 80 81 7F
     }
 }
-#endif
 
-#ifdef ARDUINO_TEENSY41
-void SendUdp(uint8_t *data, uint8_t datalen, IPAddress dip, uint16_t dport)
+void SendUdp(uint8_t* data, uint8_t datalen, IPAddress dip, uint16_t dport)
 {
-  Eth_udpAutoSteer.beginPacket(dip, dport);
-  Eth_udpAutoSteer.write(data, datalen);
-  Eth_udpAutoSteer.endPacket();
+    Eth_udpAutoSteer.beginPacket(dip, dport);
+    Eth_udpAutoSteer.write(data, datalen);
+    Eth_udpAutoSteer.endPacket();
 }
-#endif
 
 //ISR Steering Wheel Encoder
 void EncoderFunc()

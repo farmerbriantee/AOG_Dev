@@ -71,13 +71,13 @@ void GGA_Handler() //Rec'd GGA
 
     blink = !blink;
     GGA_Available = true;
-    
+    dualReadyGGA = true;
+
     gpsReadyTime = systick_millis_count;    //Used for GGA timeout (LED's ETC) 
 }
 
 void imuHandler()
 {
-    int16_t temp = 0;
     if (useDual)
     {
         // the roll
@@ -152,18 +152,10 @@ void BuildNmea(void)
 
     strcat(nmea, "\r\n");
 
-    if (!passThroughGPS && !passThroughGPS2)
-    {
-        SerialAOG.write(nmea);  //Always send USB GPS data
-    }
-
-    if (Ethernet_running)   //If ethernet running send the GPS there
-    {
-        int len = strlen(nmea);
-        Eth_udpPAOGI.beginPacket(Eth_ipDestination, portDestination);
-        Eth_udpPAOGI.write(nmea, len);
-        Eth_udpPAOGI.endPacket();
-    }
+    int len = strlen(nmea);
+    Eth_udpPAOGI.beginPacket(Eth_ipDestination, portDestination);
+    Eth_udpPAOGI.write(nmea, len);
+    Eth_udpPAOGI.endPacket();
 }
 
 void CalculateChecksum(void)

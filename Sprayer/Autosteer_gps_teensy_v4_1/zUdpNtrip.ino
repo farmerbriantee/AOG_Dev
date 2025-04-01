@@ -12,7 +12,7 @@ void udpNtrip()
   if (packetLength > 0)
   {
     Eth_udpNtrip.read(Eth_NTRIP_packetBuffer, packetLength);
-    SerialGPS->write(Eth_NTRIP_packetBuffer, packetLength);
+    SerialGPS.write(Eth_NTRIP_packetBuffer, packetLength);
   }
  #endif
 }

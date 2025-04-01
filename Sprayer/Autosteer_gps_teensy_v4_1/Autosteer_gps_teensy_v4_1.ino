@@ -55,8 +55,6 @@ uint32_t gpsReadyTime = 0;        //Used for GGA timeout
 
 /*****************************************************************/
 
-// Ethernet Options (Teensy 4.1 Only)
-#ifdef ARDUINO_TEENSY41
 #include <NativeEthernet.h>
 #include <NativeEthernetUdp.h>
 
@@ -82,7 +80,6 @@ EthernetUDP Eth_udpNtrip;     //In port 2233
 EthernetUDP Eth_udpAutoSteer; //In & Out Port 8888
 
 IPAddress Eth_ipDestination;
-#endif // ARDUINO_TEENSY41
 
 byte CK_A = 0;
 byte CK_B = 0;

@@ -52,6 +52,7 @@
 ADS1115_lite adc(ADS1115_DEFAULT_ADDRESS);     // Use this for the 16-bit version ADS1115
 
 #include <IPAddress.h>
+#include "BNO08x_AOG.h"
 
 #ifdef ARDUINO_TEENSY41
 // ethernet
@@ -711,6 +712,10 @@ void ReceiveUdp()
 
                 SendUdp(helloFromAutoSteer, sizeof(helloFromAutoSteer), Eth_ipDestination, portDestination);
                 }
+                if(useBNO08x || useCMPS)
+                {
+                 SendUdp(helloFromIMU, sizeof(helloFromIMU), Eth_ipDestination, portDestination); 
+                }
             }
 
             else if (autoSteerUdpData[3] == 201)
@@ -750,7 +755,7 @@ void ReceiveUdp()
                     scanReply[sizeof(scanReply)-1] = CK_A;
 
                     static uint8_t ipDest[] = { 255,255,255,255 };
-                    uint16_t portDest = 19999; //AOG port that listens
+                    uint16_t portDest = 9999; //AOG port that listens
 
                     //off to AOG
                     SendUdp(scanReply, sizeof(scanReply), ipDest, portDest);

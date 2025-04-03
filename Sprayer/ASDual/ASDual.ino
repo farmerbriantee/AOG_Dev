@@ -195,9 +195,8 @@ void loop()
         parser << SerialGPS.read();
     }
 
-
     // If anything comes in SerialGPS2 RelPos data
-    while (SerialGPS2.available())
+    if (SerialGPS2.available())
     {
         uint8_t incoming_char = SerialGPS2.read();  //Read RELPOSNED from F9P
 

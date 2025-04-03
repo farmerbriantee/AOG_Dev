@@ -155,7 +155,7 @@ void BuildNmea(void)
 
     //if (!passThroughGPS && !passThroughGPS2)
     //{
-    //    SerialAOG.write(nmea);  //Always send USB GPS data
+    SerialAOG.write(nmea);  //Always send USB GPS data
     //}
 
     if (Ethernet_running)   //If ethernet running send the GPS there

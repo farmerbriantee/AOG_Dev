@@ -263,7 +263,22 @@ namespace AgIO
                             SendSteerModulePort(data, data.Length);
                             break;
                         }
-                    case 0xE5: //229 Symmetric Sections - Zones
+                    case 227: //227 Spray sections and rate Data
+                        {
+                            SendMachineModulePort(data, data.Length);
+                            break;
+                        }
+                    case 226: //227 Spray config
+                        {
+                            SendMachineModulePort(data, data.Length);
+                            break;
+                        }
+                    case 225: //227 Spray functions
+                        {
+                            SendMachineModulePort(data, data.Length);
+                            break;
+                        }
+                    case 229: //229 Symmetric Sections - Zones
                         {
                             SendMachineModulePort(data, data.Length);
                             //SendSteerModulePort(data, data.Length);
@@ -277,13 +292,15 @@ namespace AgIO
                     case 0xFB: //251 steer config
                         {
                             SendSteerModulePort(data, data.Length);
-                            break;                        }
+                            break;
+                        }
 
                     case 0xEE: //238 machine config
                         {
                             SendMachineModulePort(data, data.Length);
                             SendSteerModulePort(data, data.Length);
-                            break;                        }
+                            break;
+                        }
 
                     case 0xEC: //236 machine config
                         {

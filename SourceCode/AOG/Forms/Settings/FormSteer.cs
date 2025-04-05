@@ -846,11 +846,10 @@ namespace AOG
             toolCounterConfig = 0;
         }
 
-
         //settings tool
         private void btnZeroWAS_Tool_Click(object sender, EventArgs e)
         {
-            hsbarZeroWAS_Tool.Value += (int)(hsbarCPD_Tool.Value * -mf.mc.actualToolSteerAngleDegrees);
+            hsbarZeroWAS_Tool.Value += (int)(hsbarCPD_Tool.Value * -mf.mc.actualToolAngleDegrees);
             lblZeroWAS_Tool.Text = (hsbarZeroWAS_Tool.Value / (double)(hsbarCPD_Tool.Value)).ToString("N2");
             toolSend = true;
             toolCounterSettings = 0;

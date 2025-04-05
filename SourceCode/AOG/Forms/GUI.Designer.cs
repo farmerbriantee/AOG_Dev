@@ -304,6 +304,11 @@ namespace AOG
                     }
                 }
 
+                if (mc.actualToolAngleDegrees != double.MaxValue)
+                {
+                    btnStartAgIO.Text = mc.actualToolAngleDegrees.ToString("N1") + "°";
+                }
+
             } //end every 1/2 second
 
             //every fourth second update  ///////////////////////////   Fourth  ////////////////////////////

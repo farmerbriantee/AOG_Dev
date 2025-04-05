@@ -359,6 +359,7 @@ namespace AOG
                         }
 
 
+
                     #region Remote Switches
                     case 234://MTZ8302 Feb 2020
                         {
@@ -585,14 +586,16 @@ namespace AOG
                         }
                         break;
 
-                    case 253: //return from autosteer module
+                    case 223: //return from autosteer module
                         {
                             //Steer angle actual
                             if (data.Length != 14)
                                 break;
-                            mc.actualSteerAngleChart = (Int16)((data[6] << 8) + data[5]);
-                            mc.actualSteerAngleDegrees = (double)mc.actualSteerAngleChart * 0.01;
+                            mc.actualToolAngleChart = (Int16)((data[6] << 8) + data[5]);
+                            mc.actualToolAngleDegrees = (double)mc.actualToolAngleChart * 0.01;
 
+                            //Actual PWM
+                            mc.pwmDisplay = data[12];
                             //Heading
                             //double head253 = (Int16)((data[8] << 8) + data[7]);
                             //if (head253 != 9999)
@@ -611,14 +614,12 @@ namespace AOG
                             //}
 
                             //switch status
-                            mc.workSwitchHigh = (data[11] & 1) == 1;
-                            mc.steerSwitchHigh = (data[11] & 2) == 2;
+                            //mc.workSwitchHigh = (data[11] & 1) == 1;
+                            //mc.steerSwitchHigh = (data[11] & 2) == 2;
 
-                            //the pink steer dot reset
-                            steerModuleConnectedCounter = 0;
+                            ////the pink steer dot reset
+                            //steerModuleConnectedCounter = 0;
 
-                            //Actual PWM
-                            mc.pwmDisplay = data[12];
                             break;
                         }
                 }

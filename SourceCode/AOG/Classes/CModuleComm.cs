@@ -26,16 +26,18 @@
             swOffGr1 = 8;
 
         public int pwmDisplay = 0;
+        public int pwmToolDisplay = 0;
+
         public double actualSteerAngleDegrees = 0;
         public int actualSteerAngleChart = 0, sensorData = -1;
+        
+        public double actualToolAngleDegrees = double.MaxValue;
+        public int actualToolAngleChart = 0;
 
         //for the workswitch
         public bool isSteerWorkSwitchEnabled;
 
         public bool workSwitchHigh, oldWorkSwitchHigh, steerSwitchHigh, oldSteerSwitchRemote;
-
-        public double actualToolSteerAngleDegrees = 0;
-
 
         //constructor
         public CModuleComm(FormGPS _f)

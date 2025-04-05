@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ToolDual", "ToolDual.vcxproj", "{1CF1C231-0CD3-0C37-73BB-102294A1A3FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|ARM64 = Debug|ARM64
+		Release|ARM = Release|ARM
+		Release|ARM64 = Release|ARM64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1CF1C231-0CD3-0C37-73BB-102294A1A3FD}.Debug|ARM.ActiveCfg = Debug|ARM
+		{1CF1C231-0CD3-0C37-73BB-102294A1A3FD}.Debug|ARM.Build.0 = Debug|ARM
+		{1CF1C231-0CD3-0C37-73BB-102294A1A3FD}.Debug|ARM.Deploy.0 = Debug|ARM
+		{1CF1C231-0CD3-0C37-73BB-102294A1A3FD}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{1CF1C231-0CD3-0C37-73BB-102294A1A3FD}.Debug|ARM64.Build.0 = Debug|ARM64
+		{1CF1C231-0CD3-0C37-73BB-102294A1A3FD}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{1CF1C231-0CD3-0C37-73BB-102294A1A3FD}.Release|ARM.ActiveCfg = Release|ARM
+		{1CF1C231-0CD3-0C37-73BB-102294A1A3FD}.Release|ARM.Build.0 = Release|ARM
+		{1CF1C231-0CD3-0C37-73BB-102294A1A3FD}.Release|ARM.Deploy.0 = Release|ARM
+		{1CF1C231-0CD3-0C37-73BB-102294A1A3FD}.Release|ARM64.ActiveCfg = Release|ARM64
+		{1CF1C231-0CD3-0C37-73BB-102294A1A3FD}.Release|ARM64.Build.0 = Release|ARM64
+		{1CF1C231-0CD3-0C37-73BB-102294A1A3FD}.Release|ARM64.Deploy.0 = Release|ARM64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E27624D1-BCE2-4627-9312-F8D76F7C47CF}
+	EndGlobalSection
+EndGlobal

@@ -175,34 +175,9 @@ void loop()
 
 void DoRelays()
 {
-    uint8_t mcpOutA = 0; // Output for port A
-    uint8_t mcpOutB = 0; // Output for port B
-
-    if (settings.is3Wire)
-    {
-        mcpOutA = relayLo;
-        mcpOutB = relayHi;
-    }
-    else
-    {
-        // Calculate output for port A
-        mcpOutA = (bitRead(relayLo, 0) ? 2 : 1) |
-                   (bitRead(relayLo, 1) ? 8 : 4) |
-                   (bitRead(relayLo, 2) ? 32 : 16) |
-                   (bitRead(relayLo, 3) ? 128 : 64);
-
-        // Calculate output for port B
-        mcpOutB = (bitRead(relayLo, 4) ? 2 : 1) |
-                   (bitRead(relayLo, 5) ? 8 : 4) |
-                   (bitRead(relayLo, 6) ? 32 : 16) |
-                   (bitRead(relayLo, 7) ? 128 : 64);
-    }
-
-    // Send both outputs in a single transmission
-    Wire.beginTransmission(MCP1);
-    Wire.write(0x12); // address port A of MCP
-    Wire.write(mcpOutA); // value for port A
-    Wire.write(mcpOutB); // value for port B
-    Wire.endTransmission();
+    digitalWrite(5, (bitRead(relayLo, 0)));
+    digitalWrite(6, (bitRead(relayLo, 1)));
+    digitalWrite(7, (bitRead(relayLo, 2)));
+    digitalWrite(8, (bitRead(relayLo, 3)));
 }
   

@@ -586,7 +586,7 @@ namespace AOG
                         }
                         break;
 
-                    case 223: //return from autosteer module
+                    case 230: //return from autosteer module
                         {
                             //Steer angle actual
                             if (data.Length != 14)

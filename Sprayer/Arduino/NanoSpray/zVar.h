@@ -22,7 +22,6 @@
   //The variables used for sections
   uint8_t relayLo = 0;
   uint8_t relayHi = 0;
-  float sectionWidthPercent = 1;
   
   //flowmeter isr
   volatile uint8_t isr_isFlowing = 0; //have we updated since last loop    
@@ -30,8 +29,7 @@
   volatile uint32_t isr_flowTime = 1000UL; //the usec of count
   volatile uint32_t isr_flowTimeArr[] = {5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,
                                           5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,5000UL
-                                          } ; //the usec of count avergaged
-                                          
+                                          } ; //the usec of count avergaged                                          
   
   uint32_t isr_flowCount = 1UL; //the total count of flowmeter pulses  
   uint8_t ringPos = 0;
@@ -40,8 +38,7 @@
   uint32_t isr_currentTime = 100UL;
   uint32_t isr_lastTime = 50UL;
   
-  bool isFlowmeterMoving = true;  
- 
+  bool isFlowmeterMoving = true;   
   
   // Actual calculated volume, sent as 10x actual
   uint16_t totalVolume = 0;    
@@ -51,7 +48,7 @@
   float actualGPM;    // Actual calculated flow rate
 
   //Pressure sensor
-  float pressureActual;
+  float pressureActual = 50;
   bool isPressureLow = false;
 
   //functions

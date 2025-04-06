@@ -79,8 +79,8 @@ uint8_t helloFromAutoSteer[] = { 0x80, 0x81, 126, 126, 5, 0, 0, 0, 0, 0, 71 };
 int16_t helloSteerPosition = 0;
 
 //fromAutoSteerData FD 253 - ActualSteerAngle*100 -5,6, SwitchByte-7, pwmDisplay-8
-uint8_t PGN_223[] = {0x80,0x81, 126, 223, 8, 0, 0, 0, 0, 0,0,0,0, 0xCC };
-int8_t PGN_223_Size = sizeof(PGN_223) - 1;
+uint8_t PGN_230[] = {0x80,0x81, 126, 223, 8, 0, 0, 0, 0, 0,0,0,0, 0xCC };
+int8_t PGN_230_Size = sizeof(PGN_230) - 1;
 
 //EEPROM
 int16_t EEread = 0;
@@ -441,29 +441,29 @@ void ReceiveUdp()
 
                 int16_t sa = (int16_t)(steerAngleActual * 100);
 
-                PGN_223[5] = (uint8_t)sa;
-                PGN_223[6] = sa >> 8;
+                PGN_230[5] = (uint8_t)sa;
+                PGN_230[6] = sa >> 8;
 
                 // heading
-                PGN_223[7] = (uint8_t)9999;
-                PGN_223[8] = 9999 >> 8;
+                PGN_230[7] = (uint8_t)9999;
+                PGN_230[8] = 9999 >> 8;
 
                 // roll
-                PGN_223[9] = (uint8_t)8888;
-                PGN_223[10] = 8888 >> 8;
+                PGN_230[9] = (uint8_t)8888;
+                PGN_230[10] = 8888 >> 8;
 
-                PGN_223[11] = switchByte;
-                PGN_223[12] = (uint8_t)pwmDisplay;
+                PGN_230[11] = switchByte;
+                PGN_230[12] = (uint8_t)pwmDisplay;
 
                 //checksum
                 int16_t CK_A = 0;
-                for (uint8_t i = 2; i < PGN_223_Size; i++)
-                    CK_A = (CK_A + PGN_223[i]);
+                for (uint8_t i = 2; i < PGN_230_Size; i++)
+                    CK_A = (CK_A + PGN_230[i]);
 
-                PGN_223[PGN_223_Size] = CK_A;
+                PGN_230[PGN_230_Size] = CK_A;
 
                 //off to AOG
-                SendUdp(PGN_223, sizeof(PGN_223), Eth_ipDestination, portDestination);
+                SendUdp(PGN_230, sizeof(PGN_230), Eth_ipDestination, portDestination);
 
                 //Serial.println(steerAngleActual);
                 //--------------------------------------------------------------------------

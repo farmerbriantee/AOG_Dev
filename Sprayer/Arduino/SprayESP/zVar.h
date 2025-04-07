@@ -26,7 +26,7 @@
   
   //flowmeter isr
   volatile uint8_t isr_isFlowing = 0; //have we updated since last loop    
-  volatile float isr_flowCountThisLoop = 0; //the total count of flowmeter pulses from loop to loop
+  volatile uint16_t isr_flowCountThisLoop = 0; //the total count of flowmeter pulses from loop to loop
   volatile uint32_t isr_flowTime = 1000UL; //the usec of count
   volatile uint32_t isr_flowTimeArr[] = {5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,
                                           5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,5000UL

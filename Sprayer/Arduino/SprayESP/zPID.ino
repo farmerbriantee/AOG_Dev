@@ -2,13 +2,13 @@ void SetPWM(double PWM)
 {
     if (PWM > 0)
     {
-        ledcWrite(0, PWM);     // IN1
-        ledcWrite(1, 0);   // IN2
+        ledcWrite(Motor2, 0);   // IN2
+        ledcWrite(Motor1, PWM);     // IN1
     }
     else
     {
-        ledcWrite(1, PWM); // IN2
-        ledcWrite(0, 0);       // IN1
+        ledcWrite(Motor1, 0);       // IN1
+        ledcWrite(Motor2, PWM); // IN2
     }
 }
 

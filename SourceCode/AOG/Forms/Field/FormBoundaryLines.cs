@@ -635,7 +635,6 @@ namespace AOG
                 mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
 
                 mf.FileSaveBoundary();
-                mf.btnABDraw.Visible = true;
 
                 Log.EventWriter("Guidance Line Boundary Created");
             }

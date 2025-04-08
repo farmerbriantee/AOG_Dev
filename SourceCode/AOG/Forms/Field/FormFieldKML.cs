@@ -176,8 +176,6 @@ namespace AOG
 
                                 mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
 
-                                mf.btnABDraw.Visible = true;
-
                                 coordinates = "";
                             }
                             else

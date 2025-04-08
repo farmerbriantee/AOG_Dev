@@ -1608,7 +1608,6 @@
             this.btnABDraw.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnABDraw.BackColor = System.Drawing.Color.Transparent;
             this.btnABDraw.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnABDraw.Enabled = false;
             this.btnABDraw.FlatAppearance.BorderColor = System.Drawing.Color.RoyalBlue;
             this.btnABDraw.FlatAppearance.BorderSize = 0;
             this.btnABDraw.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
@@ -1624,6 +1623,7 @@
             this.btnABDraw.TabIndex = 250;
             this.btnABDraw.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnABDraw.UseVisualStyleBackColor = false;
+            this.btnABDraw.Visible = false;
             this.btnABDraw.Click += new System.EventHandler(this.btnABDraw_Click);
             // 
             // btnPlusAB

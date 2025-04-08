@@ -762,9 +762,6 @@ namespace AOG
 
             mf.FileSaveTracks();
 
-            //close out window
-            if (mf.bnd.bndList.Count > 0) mf.btnABDraw.Visible = true;
-
             mf.FieldMenuButtonEnableDisable(mf.bnd.bndList[0].hdLine.Count > 0);
 
             DialogResult = DialogResult.OK;

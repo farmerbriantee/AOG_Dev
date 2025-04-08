@@ -537,8 +537,6 @@ namespace AOG
 
                         CalculateSectionPatchesMinMax();
                         fd.UpdateFieldBoundaryGUIAreas();
-
-                        if (bnd.bndList.Count > 0) btnABDraw.Visible = true;
                     }
                     catch (Exception e)
                     {

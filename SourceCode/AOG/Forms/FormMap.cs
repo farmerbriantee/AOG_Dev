@@ -224,7 +224,6 @@ namespace AOG
 
                 //turn lines made from boundaries
                 mf.FileSaveBoundary();
-                mf.btnABDraw.Visible = true;
             }
 
             cboxEnableLineDraw.Checked = false;
@@ -268,7 +267,6 @@ namespace AOG
 
                 mf.FileSaveBoundary();
                 mf.FileSaveHeadland();
-                mf.btnABDraw.Visible = false;
                 //clean up line
                 mapControl.Markers.Clear();
                 bingLine.Clear();

@@ -1787,19 +1787,13 @@ namespace AOG
             {
                 writer.WriteLine("$Headland");
 
-                if (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0)
+                foreach (var boundary in bnd.bndList)
                 {
-                    for (int i = 0; i < bnd.bndList.Count; i++)
-                    {
-                        writer.WriteLine(bnd.bndList[i].hdLine.Count.ToString(CultureInfo.InvariantCulture));
-                        if (bnd.bndList[0].hdLine.Count > 0)
-                        {
-                            for (int j = 0; j < bnd.bndList[i].hdLine.Count; j++)
-                                writer.WriteLine(Math.Round(bnd.bndList[i].hdLine[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                    Math.Round(bnd.bndList[i].hdLine[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                    Math.Round(bnd.bndList[i].hdLine[j].heading, 3).ToString(CultureInfo.InvariantCulture));
-                        }
-                    }
+                    writer.WriteLine(boundary.hdLine.Count.ToString(CultureInfo.InvariantCulture));
+                    for (int j = 0; j < boundary.hdLine.Count; j++)
+                        writer.WriteLine(Math.Round(boundary.hdLine[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                         Math.Round(boundary.hdLine[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                         Math.Round(boundary.hdLine[j].heading, 3).ToString(CultureInfo.InvariantCulture));
                 }
             }
         }
@@ -2072,7 +2066,7 @@ namespace AOG
                 kml.WriteStartElement("coordinates");
                 string bndPts = "";
                 if (bnd.bndList[i].fenceLine.Count > 3)
-                    bndPts = GetBoundaryPointsLatLon(i);
+                    bndPts = GetBoundaryPointsLatLon(bnd.bndList[i].fenceLine);
                 kml.WriteRaw(bndPts);
                 kml.WriteEndElement(); // <coordinates>
 
@@ -2306,16 +2300,16 @@ namespace AOG
             kml.Close();
         }
 
-        public string GetBoundaryPointsLatLon(int bndNum)
+        public string GetBoundaryPointsLatLon(List<vec3> points)
         {
             StringBuilder sb = new StringBuilder();
 
-            for (int i = 0; i < bnd.bndList[bndNum].fenceLine.Count; i++)
+            foreach (vec3 point in points)
             {
                 double lat = 0;
                 double lon = 0;
 
-                pn.ConvertLocalToWGS84(bnd.bndList[bndNum].fenceLine[i].northing, bnd.bndList[bndNum].fenceLine[i].easting, out lat, out lon);
+                pn.ConvertLocalToWGS84(point.northing, point.easting, out lat, out lon);
 
                 sb.Append(lon.ToString("N7", CultureInfo.InvariantCulture) + ',' + lat.ToString("N7", CultureInfo.InvariantCulture) + ",0 ");
             }

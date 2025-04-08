@@ -2722,11 +2722,10 @@ namespace AOG
             //min max of the boundary
             if (bnd.bndList.Count > 0)
             {
-                int bndCnt = bnd.bndList[0].fenceLine.Count;
-                for (int i = 0; i < bndCnt; i++)
+                foreach (vec3 point in bnd.bndList[0].fenceLine)
                 {
-                    double x = bnd.bndList[0].fenceLine[i].easting;
-                    double y = bnd.bndList[0].fenceLine[i].northing;
+                    double x = point.easting;
+                    double y = point.northing;
 
                     //also tally the max/min of field x and z
                     if (minFieldX > x) minFieldX = x;
@@ -2734,7 +2733,6 @@ namespace AOG
                     if (minFieldY > y) minFieldY = y;
                     if (maxFieldY < y) maxFieldY = y;
                 }
-
             }
             else
             {

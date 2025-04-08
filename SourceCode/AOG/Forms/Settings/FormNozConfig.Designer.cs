@@ -59,7 +59,7 @@
             this.nudSlowPWM = new AOG.NudlessNumericUpDown();
             this.nudFastPWM = new AOG.NudlessNumericUpDown();
             this.nudSwitchAtFlowError = new AOG.NudlessNumericUpDown();
-            this.nudSprayKp = new AOG.NudlessNumericUpDown();
+            this.nudManualPWM = new AOG.NudlessNumericUpDown();
             this.nudDeadbandError = new AOG.NudlessNumericUpDown();
             this.tabUnits = new System.Windows.Forms.TabPage();
             this.nudSprayPressureCal = new AOG.NudlessNumericUpDown();
@@ -90,11 +90,11 @@
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(202, 149);
+            this.label9.Location = new System.Drawing.Point(238, 153);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(166, 29);
             this.label9.TabIndex = 586;
-            this.label9.Text = "P Gain";
+            this.label9.Text = "Manual PWM %";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label8
@@ -138,7 +138,7 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(10, 150);
+            this.label4.Location = new System.Drawing.Point(10, 153);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(166, 29);
             this.label4.TabIndex = 594;
@@ -150,7 +150,7 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(204, 60);
+            this.label6.Location = new System.Drawing.Point(240, 64);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(166, 29);
             this.label6.TabIndex = 597;
@@ -162,7 +162,7 @@
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(10, 247);
+            this.label11.Location = new System.Drawing.Point(10, 249);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(166, 29);
             this.label11.TabIndex = 599;
@@ -178,7 +178,7 @@
             this.cboxBypass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxBypass.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxBypass.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxBypass.Location = new System.Drawing.Point(220, 17);
+            this.cboxBypass.Location = new System.Drawing.Point(253, 17);
             this.cboxBypass.Name = "cboxBypass";
             this.cboxBypass.Size = new System.Drawing.Size(137, 46);
             this.cboxBypass.TabIndex = 601;
@@ -192,7 +192,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(220, 60);
+            this.label2.Location = new System.Drawing.Point(253, 60);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(137, 30);
             this.label2.TabIndex = 602;
@@ -212,7 +212,7 @@
             this.btnSprayAcres.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSprayAcres.ForeColor = System.Drawing.Color.White;
             this.btnSprayAcres.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSprayAcres.Location = new System.Drawing.Point(235, 195);
+            this.btnSprayAcres.Location = new System.Drawing.Point(271, 206);
             this.btnSprayAcres.Name = "btnSprayAcres";
             this.btnSprayAcres.Size = new System.Drawing.Size(104, 44);
             this.btnSprayAcres.TabIndex = 614;
@@ -224,7 +224,7 @@
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.White;
-            this.label12.Location = new System.Drawing.Point(239, 242);
+            this.label12.Location = new System.Drawing.Point(275, 253);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(88, 19);
             this.label12.TabIndex = 613;
@@ -236,7 +236,7 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(220, 159);
+            this.label5.Location = new System.Drawing.Point(253, 159);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(137, 29);
             this.label5.TabIndex = 616;
@@ -246,7 +246,7 @@
             // tboxUnitsPerArea
             // 
             this.tboxUnitsPerArea.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tboxUnitsPerArea.Location = new System.Drawing.Point(233, 200);
+            this.tboxUnitsPerArea.Location = new System.Drawing.Point(266, 200);
             this.tboxUnitsPerArea.MaxLength = 5;
             this.tboxUnitsPerArea.Name = "tboxUnitsPerArea";
             this.tboxUnitsPerArea.Size = new System.Drawing.Size(111, 46);
@@ -259,7 +259,7 @@
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(220, 244);
+            this.label7.Location = new System.Drawing.Point(253, 244);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(137, 29);
             this.label7.TabIndex = 618;
@@ -269,7 +269,7 @@
             // tboxUnitsApplied
             // 
             this.tboxUnitsApplied.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tboxUnitsApplied.Location = new System.Drawing.Point(220, 114);
+            this.tboxUnitsApplied.Location = new System.Drawing.Point(253, 114);
             this.tboxUnitsApplied.MaxLength = 10;
             this.tboxUnitsApplied.Name = "tboxUnitsApplied";
             this.tboxUnitsApplied.Size = new System.Drawing.Size(137, 46);
@@ -347,7 +347,7 @@
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(392, 348);
+            this.tabControl1.Size = new System.Drawing.Size(429, 348);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 626;
             // 
@@ -365,7 +365,7 @@
             this.tabFlow.Controls.Add(this.label12);
             this.tabFlow.Controls.Add(this.nudFastPWM);
             this.tabFlow.Controls.Add(this.nudSwitchAtFlowError);
-            this.tabFlow.Controls.Add(this.nudSprayKp);
+            this.tabFlow.Controls.Add(this.nudManualPWM);
             this.tabFlow.Controls.Add(this.nudDeadbandError);
             this.tabFlow.Controls.Add(this.label9);
             this.tabFlow.Controls.Add(this.label6);
@@ -373,7 +373,7 @@
             this.tabFlow.ImageIndex = 3;
             this.tabFlow.Location = new System.Drawing.Point(4, 52);
             this.tabFlow.Name = "tabFlow";
-            this.tabFlow.Size = new System.Drawing.Size(384, 292);
+            this.tabFlow.Size = new System.Drawing.Size(421, 292);
             this.tabFlow.TabIndex = 16;
             this.tabFlow.Text = "Gain";
             // 
@@ -426,19 +426,19 @@
             this.nudSwitchAtFlowError.TabIndex = 600;
             this.nudSwitchAtFlowError.ValueChanged += new System.EventHandler(this.nudSwitchAtFlowError_ValueChanged);
             // 
-            // nudSprayKp
+            // nudManualPWM
             // 
-            this.nudSprayKp.Location = new System.Drawing.Point(208, 107);
-            this.nudSprayKp.Maximum = 200D;
-            this.nudSprayKp.Minimum = 10D;
-            this.nudSprayKp.Name = "nudSprayKp";
-            this.nudSprayKp.Size = new System.Drawing.Size(155, 46);
-            this.nudSprayKp.TabIndex = 587;
-            this.nudSprayKp.ValueChanged += new System.EventHandler(this.nudSprayKp_ValueChanged);
+            this.nudManualPWM.Location = new System.Drawing.Point(244, 108);
+            this.nudManualPWM.Maximum = 200D;
+            this.nudManualPWM.Minimum = 10D;
+            this.nudManualPWM.Name = "nudManualPWM";
+            this.nudManualPWM.Size = new System.Drawing.Size(155, 46);
+            this.nudManualPWM.TabIndex = 587;
+            this.nudManualPWM.ValueChanged += new System.EventHandler(this.nudManualPWM_ValueChanged);
             // 
             // nudDeadbandError
             // 
-            this.nudDeadbandError.Location = new System.Drawing.Point(210, 18);
+            this.nudDeadbandError.Location = new System.Drawing.Point(246, 19);
             this.nudDeadbandError.Minimum = 1D;
             this.nudDeadbandError.Name = "nudDeadbandError";
             this.nudDeadbandError.Size = new System.Drawing.Size(155, 46);
@@ -464,7 +464,7 @@
             this.tabUnits.ImageIndex = 2;
             this.tabUnits.Location = new System.Drawing.Point(4, 52);
             this.tabUnits.Name = "tabUnits";
-            this.tabUnits.Size = new System.Drawing.Size(384, 292);
+            this.tabUnits.Size = new System.Drawing.Size(421, 292);
             this.tabUnits.TabIndex = 15;
             this.tabUnits.Text = "Cal";
             // 
@@ -500,7 +500,7 @@
             this.tabGain.ImageIndex = 1;
             this.tabGain.Location = new System.Drawing.Point(4, 52);
             this.tabGain.Name = "tabGain";
-            this.tabGain.Size = new System.Drawing.Size(384, 292);
+            this.tabGain.Size = new System.Drawing.Size(421, 292);
             this.tabGain.TabIndex = 13;
             this.tabGain.Text = "Limits";
             // 
@@ -563,7 +563,7 @@
             series4.Name = "PWM";
             this.unoChart.Series.Add(series3);
             this.unoChart.Series.Add(series4);
-            this.unoChart.Size = new System.Drawing.Size(431, 157);
+            this.unoChart.Size = new System.Drawing.Size(468, 157);
             this.unoChart.TabIndex = 627;
             this.unoChart.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.SystemDefault;
             // 
@@ -626,7 +626,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(45)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(392, 496);
+            this.ClientSize = new System.Drawing.Size(429, 496);
             this.Controls.Add(this.lblUnitsSet);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label16);
@@ -638,7 +638,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(408, 768);
+            this.MaximumSize = new System.Drawing.Size(508, 768);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(408, 449);
             this.Name = "FormNozConfig";
@@ -660,7 +660,7 @@
 
         #endregion
         private System.Windows.Forms.Timer timer1;
-        private NudlessNumericUpDown nudSprayKp;
+        private NudlessNumericUpDown nudManualPWM;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private NudlessNumericUpDown nudSprayPressureCal;

@@ -30,13 +30,13 @@ namespace AOG
             nudSprayFlowCal.Value = Settings.Tool.setNozz.flowCal;
             nudSprayPressureCal.Value = Settings.Tool.setNozz.pressureCal;
 
-            nudSprayKp.Value = Settings.Tool.setNozz.Kp;
+            nudManualPWM.Value = Settings.Tool.setNozz.Kp;
             //nudSprayKi.Value = Settings.Tool.setNozz.Ki;
 
             nudFastPWM.Value = Settings.Tool.setNozz.fastPWM;
             nudSlowPWM.Value = Settings.Tool.setNozz.slowPWM;
-            nudDeadbandError.Value = Settings.Tool.setNozz.deadbandError * 0.01;
-            nudSwitchAtFlowError.Value = Settings.Tool.setNozz.switchAtFlowError * 0.01;
+            nudDeadbandError.Value = Settings.Tool.setNozz.deadbandError;
+            nudSwitchAtFlowError.Value = Settings.Tool.setNozz.switchAtFlowError;
 
             cboxBypass.Checked = Settings.Tool.setNozz.isBypass;
             if (cboxBypass.Checked)
@@ -118,9 +118,10 @@ namespace AOG
             mf.SendPgnToLoop(PGN_226.pgn);
         }
 
-        private void nudSprayKp_ValueChanged(object sender, EventArgs e)
+        private void nudManualPWM_ValueChanged(object sender, EventArgs e)
         {
-            Settings.Tool.setNozz.Kp = (byte)nudSprayKp.Value;
+            //Manual PWM up and down value
+            Settings.Tool.setNozz.Kp = (byte)nudManualPWM.Value;
 
             PGN_226.pgn[PGN_226.Kp] = unchecked((byte)(Settings.Tool.setNozz.Kp));
 

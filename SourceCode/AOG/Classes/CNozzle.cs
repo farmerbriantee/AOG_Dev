@@ -102,16 +102,15 @@
         public int flowCal = 200;
         public int pressureCal = 1;
 
-        public byte Kp = 60;
+        public byte Kp = 80;
         public byte Ki = 100;
 
         public byte fastPWM = 100;
         public byte slowPWM = 50;
 
-        //these are entered as 0.2 and 1.0
-        public byte deadbandError = 20;
+        public byte deadbandError = 5;
 
-        public byte switchAtFlowError = 100;
+        public byte switchAtFlowError = 20;
 
         public double rateAlarmPercent = 0.1;
 

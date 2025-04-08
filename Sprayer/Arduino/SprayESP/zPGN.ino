@@ -75,6 +75,7 @@
               settings.pressureCalFactor = (Serial.read() | Serial.read() << 8);
               settings.pressureCalFactor *= 0.1;
 
+              //used for Manual PWM level
               settings.Kp = Serial.read(); 
 
               settings.Ki = Serial.read(); 
@@ -137,14 +138,14 @@
               if (manualUp)
               {
                 manualCounter = 2;
-                pwmDrive = 60;
+                pwmDrive = settings.Kp;
               }
               
               manualDn = Serial.read();
               if (manualDn)
               {
                 manualCounter = 2;
-                pwmDrive = -60;
+                pwmDrive = -settings.Kp;
               }
  
               //read the rest

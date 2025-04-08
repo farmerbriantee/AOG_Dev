@@ -394,9 +394,7 @@ namespace AOG
                     }
 
                     //draw line creations
-                    if (trk.isMakingCurveTrack) trk.DrawNewTrack();
-
-                    if (trk.isMakingABLine) trk.DrawABLineNew();
+                    if (trk.isMakingTrack) trk.DrawNewTrack();
 
                     #endregion
 

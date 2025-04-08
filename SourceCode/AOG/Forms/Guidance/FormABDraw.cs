@@ -72,7 +72,7 @@ namespace AOG
             if (!isCancel)
             {
                 //load tracks from temp
-                mf.trk.gArr = gTemp;
+                mf.trk.SetTracks(gTemp);
                 mf.FileSaveTracks();
 
                 if (selectedLine != null && selectedLine.isVisible)

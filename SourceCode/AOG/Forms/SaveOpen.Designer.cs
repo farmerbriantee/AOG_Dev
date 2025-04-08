@@ -985,7 +985,7 @@ namespace AOG
 
         public void FileLoadTracks()
         {
-            trk.gArr?.Clear();
+            trk.ResetTrack();
 
             //get the directory and make sure it exists, create if not
             string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
@@ -1091,7 +1091,7 @@ namespace AOG
                                 trk.AddFirstLastPoints(ref track.curvePts, 100);
                             }
 
-                            trk.gArr.Add(track);
+                            trk.AddTrack(track);
                         }
 
                         trk.GetNextTrack();

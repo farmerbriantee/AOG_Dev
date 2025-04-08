@@ -534,7 +534,7 @@ namespace AOG
                                         track.ptB.northing - track.ptA.northing);
                                     if (track.heading < 0) track.heading += glm.twoPI;
 
-                                    mf.trk.gArr.Add(track);
+                                    mf.trk.AddTrack(track);
                                 }
                             } //LSG
                         }
@@ -614,7 +614,7 @@ namespace AOG
                                             //write out the trk Points
                                             track.curvePts = designPtsList;
 
-                                            mf.trk.gArr.Add(track);
+                                            mf.trk.AddTrack(track);
                                         }
                                     }
                                 }
@@ -671,7 +671,7 @@ namespace AOG
                                 track.ptB.northing - track.ptA.northing);
                             if (track.heading < 0) track.heading += glm.twoPI;
 
-                            mf.trk.gArr.Add(track);
+                            mf.trk.AddTrack(track);
                         }
                         //curve ------------------------------------------------------------------
                         else if (nodePart.Attributes["A"].Value == "5" && nodePart.ChildNodes.Count > 2) //Guidance Pattern
@@ -743,7 +743,7 @@ namespace AOG
                                     //write out the Curve Points
                                     track.curvePts = designPtsList;
 
-                                    mf.trk.gArr.Add(track);
+                                    mf.trk.AddTrack(track);
                                 }
                             }
                         }

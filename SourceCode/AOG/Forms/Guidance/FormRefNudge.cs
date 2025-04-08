@@ -102,14 +102,7 @@ namespace AOG
 
         private void btnCancelMain_Click(object sender, EventArgs e)
         {
-            int index = mf.trk.gArr.FindIndex(item => item == track);
-            if (index != -1)
-            {
-                if (track == mf.trk.currTrk)
-                    mf.trk.isTrackValid = false;
-
-                mf.trk.gArr[index] = gBack;
-            }
+            mf.trk.setTrack(gBack);
             //mf.FileSaveTracks();
             Close();
         }

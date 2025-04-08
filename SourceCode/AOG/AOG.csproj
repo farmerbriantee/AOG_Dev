@@ -222,12 +222,6 @@
     <Compile Include="Forms\Guidance\FormGrid.Designer.cs">
       <DependentUpon>FormGrid.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Guidance\FormQuickAB.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Guidance\FormQuickAB.Designer.cs">
-      <DependentUpon>FormQuickAB.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Pickers\FormJobPicker.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -575,9 +569,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Guidance\FormGrid.resx">
       <DependentUpon>FormGrid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Guidance\FormQuickAB.resx">
-      <DependentUpon>FormQuickAB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pickers\FormJobPicker.resx">
       <DependentUpon>FormJobPicker.cs</DependentUpon>

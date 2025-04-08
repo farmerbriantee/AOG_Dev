@@ -15,7 +15,10 @@ namespace AOG
         //pointers to mainform controls
         private readonly FormGPS mf;
 
-        public List<CTrk> gArr = new List<CTrk>();
+        public IReadOnlyList<CTrk> gArr => _gArr;
+
+        private List<CTrk> _gArr = new List<CTrk>();
+
         private CTrk _currTrk;
 
         public bool isHeadingSameWay = true, lastIsHeadingSameWay = true;
@@ -49,7 +52,7 @@ namespace AOG
         public double designHeading = 0;
 
         //flag for starting stop adding points for curve
-        public bool isMakingCurveTrack, isRecordingCurveTrack;
+        public bool isMakingTrack, isRecordingCurveTrack;
 
         //to fake the user into thinking they are making a line - but is a curve
         public bool isMakingABLine;
@@ -58,6 +61,65 @@ namespace AOG
         {
             //constructor
             mf = _f;
+        }
+
+        public void AddTrack(CTrk track)
+        {
+            if (track == null) return;
+
+            string name = track.name;
+
+            while (_gArr.Any(t => t.name == name))
+                name += " ";
+
+            track.name = name;
+
+            _gArr.Add(track);
+        }
+
+        public void SetTracks(List<CTrk> tracks)
+        {
+            _gArr = tracks;
+        }
+
+        public void setTrack(CTrk track)
+        {
+            int index = _gArr.FindIndex(item => item == track);
+            if (index != -1)
+            {
+                if (track == currTrk)
+                    isTrackValid = false;
+                _gArr[index] = track;
+            }
+        }
+
+        public int TrackIndex(CTrk track)
+        {
+            return _gArr.FindIndex(item => item == track);
+        }
+
+        public void MoveTrackUp(CTrk track)
+        {
+            int index = _gArr.IndexOf(track);
+            if (track == null || index == 0)
+                return;
+
+            _gArr.Reverse(index - 1, 2);
+        }
+
+        public void MoveTrackDn(CTrk track)
+        {
+            int index = _gArr.IndexOf(track);
+
+            if (track == null || index == (_gArr.Count - 1))
+                return;
+
+            _gArr.Reverse(index, 2);
+        }
+
+        public void RemoveTrack(CTrk track)
+        {
+            _gArr.Remove(track);
         }
 
         public CTrk currTrk
@@ -76,7 +138,7 @@ namespace AOG
                     //mf.SetYouTurnButton(false);
                     //ss Log.EventWriter("Autosteer Stop, No Tracks Available");
 
-                    int index2 = gArr.FindIndex(x => x == _currTrk);
+                    int index2 = _gArr.FindIndex(x => x == _currTrk);
                     mf.lblNumCu.Text = (index2 + 1).ToString() + "/" + gArr.Count.ToString();
                     mf.lblNumCu.Visible = !mf.ct.isContourBtnOn;
                     mf.PanelUpdateRightAndBottom();
@@ -105,7 +167,7 @@ namespace AOG
 
         public void GetNextTrack(bool next = true)
         {
-            int index = gArr.FindIndex(x => x == currTrk);
+            int index = _gArr.FindIndex(x => x == currTrk);
 
             if (next)
                 currTrk = gArr.Skip(index + 1).Concat(gArr.Take(index)).FirstOrDefault(x => x.isVisible);
@@ -406,26 +468,6 @@ namespace AOG
             return newGuideLL;
         }
 
-        public void DrawNewTrack()
-        {
-            if (designPtsList.Count > 0)
-            {
-                GL.Color3(0.95f, 0.42f, 0.750f);
-                GL.LineWidth(4.0f);
-                designPtsList.DrawPolygon(PrimitiveType.LineStrip);
-
-                GL.Enable(EnableCap.LineStipple);
-                GL.LineStipple(1, 0x0F00);
-                GL.Begin(PrimitiveType.Lines);
-                GL.Color3(0.99f, 0.99f, 0.0);
-                GL.Vertex3(designPtsList[designPtsList.Count - 1].easting, designPtsList[designPtsList.Count - 1].northing, 0);
-                GL.Vertex3(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing, 0);
-                GL.End();
-
-                GL.Disable(EnableCap.LineStipple);
-            }
-        }
-
         public void DrawTrack()
         {
             if (guideArr.Count > 0)
@@ -534,6 +576,28 @@ namespace AOG
             mf.font.DrawText3D(designPtB.easting, designPtB.northing, "&B", true);
         }
 
+        public void DrawNewTrack()
+        {
+            DrawABLineNew();
+
+            if (designPtsList.Count > 0)
+            {
+                GL.Color3(0.95f, 0.42f, 0.750f);
+                GL.LineWidth(4.0f);
+                designPtsList.DrawPolygon(PrimitiveType.LineStrip);
+
+                GL.Enable(EnableCap.LineStipple);
+                GL.LineStipple(1, 0x0F00);
+                GL.Begin(PrimitiveType.Lines);
+                GL.Color3(0.99f, 0.99f, 0.0);
+                GL.Vertex3(designPtsList[designPtsList.Count - 1].easting, designPtsList[designPtsList.Count - 1].northing, 0);
+                GL.Vertex3(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing, 0);
+                GL.End();
+
+                GL.Disable(EnableCap.LineStipple);
+            }
+        }
+
         public void MakePointMinimumSpacing(ref List<vec3> xList, double minDistance)
         {
             int cnt = xList.Count;
@@ -612,7 +676,7 @@ namespace AOG
                 points = arr.ToList();
         }
 
-        public void CreateDesignedABTrack(bool isRefRightSide)
+        public CTrk CreateDesignedABTrack(bool isRefRightSide)
         {
             var track = new CTrk(TrackMode.AB);
 
@@ -648,8 +712,8 @@ namespace AOG
             //build the tail extensions
             AddFirstLastPoints(ref track.curvePts, 200);
 
-            gArr.Add(track);
-            currTrk = track;
+            AddTrack(track);
+            return track;
         }
 
         public void AddFirstLastPoints(ref List<vec3> xList, int metersToAdd)
@@ -825,7 +889,7 @@ namespace AOG
         {
             currentGuidanceTrack?.Clear();
             currTrk = null;
-            gArr.Clear();
+            _gArr.Clear();
         }
 
         public bool PointOnLine(vec3 pt1, vec3 pt2, vec3 pt)

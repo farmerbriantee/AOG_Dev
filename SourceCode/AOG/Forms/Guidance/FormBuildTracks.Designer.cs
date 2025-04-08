@@ -141,6 +141,11 @@
             this.label31 = new System.Windows.Forms.Label();
             this.btnCancel_Pivot3Pt = new System.Windows.Forms.Button();
             this.btnPivot1 = new System.Windows.Forms.Button();
+            this.panelChoose2 = new System.Windows.Forms.Panel();
+            this.btnCancelChoose2 = new System.Windows.Forms.Button();
+            this.btnzAPlus2 = new System.Windows.Forms.Button();
+            this.btnzABLine2 = new System.Windows.Forms.Button();
+            this.btnzABCurve2 = new System.Windows.Forms.Button();
             this.panelName.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.panelCurve.SuspendLayout();
@@ -153,6 +158,7 @@
             this.panelLatLonLatLon.SuspendLayout();
             this.panelPivot.SuspendLayout();
             this.panelPivot3Pt.SuspendLayout();
+            this.panelChoose2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblCurveExists
@@ -1809,16 +1815,94 @@
             this.btnPivot1.UseVisualStyleBackColor = false;
             this.btnPivot1.Click += new System.EventHandler(this.btnPivot1_Click);
             // 
+            // panelChoose2
+            // 
+            this.panelChoose2.BackColor = System.Drawing.Color.Gainsboro;
+            this.panelChoose2.Controls.Add(this.btnCancelChoose2);
+            this.panelChoose2.Controls.Add(this.btnzAPlus2);
+            this.panelChoose2.Controls.Add(this.btnzABLine2);
+            this.panelChoose2.Controls.Add(this.btnzABCurve2);
+            this.panelChoose2.Location = new System.Drawing.Point(1059, 750);
+            this.panelChoose2.Name = "panelChoose2";
+            this.panelChoose2.Size = new System.Drawing.Size(241, 310);
+            this.panelChoose2.TabIndex = 456;
+            // 
+            // btnCancelChoose2
+            // 
+            this.btnCancelChoose2.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancelChoose2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnCancelChoose2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancelChoose2.FlatAppearance.BorderSize = 0;
+            this.btnCancelChoose2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelChoose2.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.btnCancelChoose2.Image = global::AOG.Properties.Resources.Cancel64;
+            this.btnCancelChoose2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnCancelChoose2.Location = new System.Drawing.Point(12, 223);
+            this.btnCancelChoose2.Name = "btnCancelChoose2";
+            this.btnCancelChoose2.Size = new System.Drawing.Size(65, 70);
+            this.btnCancelChoose2.TabIndex = 423;
+            this.btnCancelChoose2.UseVisualStyleBackColor = false;
+            this.btnCancelChoose2.Click += new System.EventHandler(this.btnCancelCurve_Click);
+            // 
+            // btnzAPlus2
+            // 
+            this.btnzAPlus2.BackColor = System.Drawing.Color.White;
+            this.btnzAPlus2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnzAPlus2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnzAPlus2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnzAPlus2.Image = global::AOG.Properties.Resources.ABTrackA_;
+            this.btnzAPlus2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnzAPlus2.Location = new System.Drawing.Point(9, 29);
+            this.btnzAPlus2.Name = "btnzAPlus2";
+            this.btnzAPlus2.Size = new System.Drawing.Size(96, 98);
+            this.btnzAPlus2.TabIndex = 444;
+            this.btnzAPlus2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnzAPlus2.UseVisualStyleBackColor = false;
+            this.btnzAPlus2.Click += new System.EventHandler(this.btnzAPlus_Click);
+            // 
+            // btnzABLine2
+            // 
+            this.btnzABLine2.BackColor = System.Drawing.Color.White;
+            this.btnzABLine2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnzABLine2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnzABLine2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnzABLine2.Image = global::AOG.Properties.Resources.ABTrackAB;
+            this.btnzABLine2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnzABLine2.Location = new System.Drawing.Point(138, 29);
+            this.btnzABLine2.Name = "btnzABLine2";
+            this.btnzABLine2.Size = new System.Drawing.Size(96, 98);
+            this.btnzABLine2.TabIndex = 444;
+            this.btnzABLine2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnzABLine2.UseVisualStyleBackColor = false;
+            this.btnzABLine2.Click += new System.EventHandler(this.btnzABLine_Click);
+            // 
+            // btnzABCurve2
+            // 
+            this.btnzABCurve2.BackColor = System.Drawing.Color.White;
+            this.btnzABCurve2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnzABCurve2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnzABCurve2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnzABCurve2.Image = global::AOG.Properties.Resources.ABTrackCurve;
+            this.btnzABCurve2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnzABCurve2.Location = new System.Drawing.Point(138, 195);
+            this.btnzABCurve2.Name = "btnzABCurve2";
+            this.btnzABCurve2.Size = new System.Drawing.Size(96, 98);
+            this.btnzABCurve2.TabIndex = 443;
+            this.btnzABCurve2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnzABCurve2.UseVisualStyleBackColor = false;
+            this.btnzABCurve2.Click += new System.EventHandler(this.btnzABCurve_Click);
+            // 
             // FormBuildTracks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1615, 1181);
+            this.ClientSize = new System.Drawing.Size(1615, 1061);
             this.ControlBox = false;
+            this.Controls.Add(this.panelLatLonLatLon);
+            this.Controls.Add(this.panelChoose2);
             this.Controls.Add(this.panelPivot3Pt);
             this.Controls.Add(this.panelPivot);
-            this.Controls.Add(this.panelLatLonLatLon);
             this.Controls.Add(this.panelLatLonPlus);
             this.Controls.Add(this.panelAPlus);
             this.Controls.Add(this.panelABLine);
@@ -1860,6 +1944,7 @@
             this.panelPivot.PerformLayout();
             this.panelPivot3Pt.ResumeLayout(false);
             this.panelPivot3Pt.PerformLayout();
+            this.panelChoose2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1978,5 +2063,10 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Button btnCancel_Pivot3Pt;
         private System.Windows.Forms.Button btnPivot1;
+        private System.Windows.Forms.Panel panelChoose2;
+        private System.Windows.Forms.Button btnCancelChoose2;
+        private System.Windows.Forms.Button btnzAPlus2;
+        private System.Windows.Forms.Button btnzABLine2;
+        private System.Windows.Forms.Button btnzABCurve2;
     }
 }

@@ -439,7 +439,7 @@ namespace AOG
                 return;
             }
 
-            Form form = new FormBuildTracks(this);
+            Form form = new FormBuildTracks(this, false);
             form.Show(this);
 
             if (flp1.Visible)
@@ -453,7 +453,7 @@ namespace AOG
             SetContourButton(false);
 
             //check if window already exists
-            Form fc = Application.OpenForms["FormQuickAB"];
+            Form fc = Application.OpenForms["FormBuildTracks"];
 
             if (fc != null)
             {
@@ -461,7 +461,7 @@ namespace AOG
                 return;
             }
 
-            Form form = new FormQuickAB(this);
+            Form form = new FormBuildTracks(this, true);
             form.Show(this);
 
             if (flp1.Visible)

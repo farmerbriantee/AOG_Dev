@@ -64,8 +64,6 @@ namespace AOG
             start = 99999; end = 99999;
             isA = true;
 
-            mf.trk.designPtsList?.Clear();
-
             zoom = 1;
             sX = 0;
             sY = 0;

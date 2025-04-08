@@ -110,8 +110,6 @@ namespace AOG
 
             FixLabelsCurve();
 
-            mf.trk.designPtsList?.Clear();
-
             zoom = 1;
             sX = 0;
             sY = 0;

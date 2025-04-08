@@ -484,7 +484,6 @@ namespace AOG
             }
 
             mf.bnd.isOkToAddPoints = false;
-            mf.trk.designPtsList?.Clear();
 
             //load lines GGC ------------------------------------------------------------------------
             /*

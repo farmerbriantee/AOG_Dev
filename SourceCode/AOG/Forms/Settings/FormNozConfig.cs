@@ -66,7 +66,7 @@ namespace AOG
         {
             Settings.Tool.setNozz.flowCal = (int)nudSprayFlowCal.Value;
 
-            PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(Settings.Tool.setNozz.flowCal >> 8)); ;
+            PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(Settings.Tool.setNozz.flowCal >> 8));
             PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(Settings.Tool.setNozz.flowCal));
 
             mf.SendPgnToLoop(PGN_226.pgn);
@@ -102,7 +102,7 @@ namespace AOG
 
         private void nudDeadbandError_ValueChanged(object sender, EventArgs e)
         {
-            Settings.Tool.setNozz.deadbandError = (byte)(nudDeadbandError.Value * 100);
+            Settings.Tool.setNozz.deadbandError = (byte)(nudDeadbandError.Value);
 
             PGN_226.pgn[PGN_226.deadbandError] = unchecked((byte)(Settings.Tool.setNozz.deadbandError));
 
@@ -111,7 +111,7 @@ namespace AOG
 
         private void nudSwitchAtFlowError_ValueChanged(object sender, EventArgs e)
         {
-            Settings.Tool.setNozz.switchAtFlowError = (byte)(nudSwitchAtFlowError.Value * 100);
+            Settings.Tool.setNozz.switchAtFlowError = (byte)(nudSwitchAtFlowError.Value);
 
             PGN_226.pgn[PGN_226.switchAtFlowError] = unchecked((byte)(Settings.Tool.setNozz.switchAtFlowError));
 

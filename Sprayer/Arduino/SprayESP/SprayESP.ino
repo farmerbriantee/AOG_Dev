@@ -11,14 +11,14 @@
 #define MCP1 0x20
   
 // if not in eeprom, overwrite 
-#define EEP_Ident 5106
-
+#define EEP_Ident 5109
+#define EEPROM_SIZE 512
 //PWM for flow motor control
 
-#define Motor1 32
-#define Motor2 33
+#define Motor1 4
+#define Motor2 16
 
-#define FLOWPIN 17    //This is the input pin on the Arduino for flow meter
+#define FLOWPIN 32    //This is the input pin on the Arduino for flow meter
 
 byte ErrorCount;
 
@@ -28,6 +28,7 @@ void setup()
 {
     //set the baud rate
     Serial.begin(38400);
+    EEPROM.begin(EEPROM_SIZE);
 
     //D2 is interrupt 0 for flowmeter
     //pinMode(FLOWPIN, INPUT_PULLUP);           //Sets the pin as an input, pullup
@@ -40,7 +41,7 @@ void setup()
     pinMode(Motor1, OUTPUT);
     pinMode(Motor2, OUTPUT);
 
-    attachInterrupt(digitalPinToInterrupt(FLOWPIN), isr_Flow, RISING);  //Configures interrupt 0 (pin 2 on the Arduino Uno) to run the isr
+    attachInterrupt(32, isr_Flow, HIGH);  //Configures interrupt 0 (pin 2 on the Arduino Uno) to run the isr
 
     EEPROM.get(0, EEread);              // read identifier
 
@@ -144,7 +145,8 @@ void loop()
         //turn sections on/off          
         DoRelays();
 
-        if (isPressureLow || watchdogTimer > 29)
+        //if (isPressureLow || watchdogTimer > 29)
+        if (watchdogTimer > 29)
         {
             //make sure flow control doesn't move
             relayLo = 0;
@@ -203,7 +205,7 @@ void loop()
             AOG[7] = (uint8_t)aGPM;
             AOG[8] = (uint8_t)(aGPM >> 8);
 
-            AOG[9] = (int8_t)(pressureActual);
+            AOG[9] = (int8_t)(settings.deadbandError*100);
             AOG[10] = (int8_t)(isr_isFlowing);
 
             //1 is positive pwm drive, 0 is negative
@@ -237,24 +239,26 @@ void DoRelays()
     uint8_t mcpOutA = 0; // Output for port A
     uint8_t mcpOutB = 0; // Output for port B
 
-    if (settings.is3Wire)
-    {
-        mcpOutA = relayLo;
-        mcpOutB = relayHi;
-    }
-    else
+
+    //if (settings.is3Wire)
+    //{
+    //    //mcpOutA = relayLo;
+    //    //mcpOutB = relayHi;
+    //    
+    //}
+    //else
     {
         // Calculate output for port A
-        mcpOutA = (bitRead(relayLo, 0) ? 2 : 1) |
-                   (bitRead(relayLo, 1) ? 8 : 4) |
-                   (bitRead(relayLo, 2) ? 32 : 16) |
-                   (bitRead(relayLo, 3) ? 128 : 64);
+        mcpOutB = (bitRead(relayLo, 0) ? 1:0) |
+                   (bitRead(relayLo, 1) ? 4 : 0) |
+                   (bitRead(relayLo, 2) ? 16 : 0) |
+                   (bitRead(relayLo, 3) ? 64 : 0);
 
         // Calculate output for port B
-        mcpOutB = (bitRead(relayLo, 4) ? 2 : 1) |
-                   (bitRead(relayLo, 5) ? 8 : 4) |
-                   (bitRead(relayLo, 6) ? 32 : 16) |
-                   (bitRead(relayLo, 7) ? 128 : 64);
+        //mcpOutA = (bitRead(relayLo, 4) ? 2 : 1) |
+        //           (bitRead(relayLo, 5) ? 8 : 4) |
+        //           (bitRead(relayLo, 6) ? 32 : 16) |
+        //           (bitRead(relayLo, 7) ? 128 : 64);
     }
 
     // Send both outputs in a single transmission

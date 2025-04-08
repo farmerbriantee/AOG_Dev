@@ -33,7 +33,7 @@
           if (pgn == 227) // Spray data
           {
               //do the percent calc first
-              isr_flowCount = isr_flowCount + (isr_flowCountThisLoop * sectionWidthPercent);
+              isr_flowCount = isr_flowCount + isr_flowCountThisLoop;
               isr_flowCountThisLoop = 0;
               
               //just 8 sections
@@ -83,9 +83,16 @@
               settings.minPressurePSI = Serial.read();
               
               settings.fastPWM = Serial.read();
+			  settings.fastPWM = ((float)(settings.fastPWM)) * 2.5;
+
               settings.slowPWM = Serial.read();
-              settings.deadbandError = Serial.read(); 
+              settings.slowPWM = ((float)(settings.slowPWM)) * 2.5;
+
+              settings.deadbandError = Serial.read();
+			  settings.deadbandError *= 0.01;
+              
               settings.switchAtFlowError = Serial.read();
+			  settings.switchAtFlowError *= 0.01;
 
               settings.isBypass = Serial.read();
 

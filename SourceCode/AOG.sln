@@ -16,8 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ESPBasic", "..\..\..\ESPBasic\ESPBasic.vcxproj", "{6C303604-2440-CE62-5EC7-0C1CB2BB2809}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		All|Any CPU = All|Any CPU
@@ -130,52 +128,16 @@ Global
 		{5AB4B997-F34C-4992-BF61-CA8F5239D198}.Release|ARM64.Build.0 = Release|Any CPU
 		{5AB4B997-F34C-4992-BF61-CA8F5239D198}.Release|x86.ActiveCfg = Release|Any CPU
 		{5AB4B997-F34C-4992-BF61-CA8F5239D198}.Release|x86.Build.0 = Release|Any CPU
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.All|Any CPU.ActiveCfg = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.All|Any CPU.Build.0 = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.All|Any CPU.Deploy.0 = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.All|ARM.ActiveCfg = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.All|ARM.Build.0 = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.All|ARM.Deploy.0 = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.All|ARM64.ActiveCfg = Debug|ARM64
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.All|ARM64.Build.0 = Debug|ARM64
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.All|ARM64.Deploy.0 = Debug|ARM64
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.All|x86.ActiveCfg = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.All|x86.Build.0 = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.All|x86.Deploy.0 = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Debug|Any CPU.ActiveCfg = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Debug|Any CPU.Build.0 = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Debug|Any CPU.Deploy.0 = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Debug|ARM.ActiveCfg = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Debug|ARM.Build.0 = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Debug|ARM.Deploy.0 = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Debug|ARM64.ActiveCfg = Debug|ARM64
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Debug|ARM64.Build.0 = Debug|ARM64
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Debug|ARM64.Deploy.0 = Debug|ARM64
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Debug|x86.ActiveCfg = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Debug|x86.Build.0 = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Debug|x86.Deploy.0 = Debug|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Release|Any CPU.ActiveCfg = Release|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Release|Any CPU.Build.0 = Release|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Release|Any CPU.Deploy.0 = Release|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Release|ARM.ActiveCfg = Release|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Release|ARM.Build.0 = Release|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Release|ARM.Deploy.0 = Release|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Release|ARM64.ActiveCfg = Release|ARM64
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Release|ARM64.Build.0 = Release|ARM64
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Release|ARM64.Deploy.0 = Release|ARM64
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Release|x86.ActiveCfg = Release|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Release|x86.Build.0 = Release|ARM
-		{6C303604-2440-CE62-5EC7-0C1CB2BB2809}.Release|x86.Deploy.0 = Release|ARM
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ConfirmAddLanguageFile = True
-		RESX_NeutralResourcesLanguage = en-US
-		RESX_SortFileContentOnSave = True
-		RESX_ShowErrorsInErrorList = False
-		SolutionGuid = {31C86FEF-A77A-49A7-9088-8E0D8AD2ACA5}
 		RESX_ResXSortingComparison = Ordinal
+		SolutionGuid = {31C86FEF-A77A-49A7-9088-8E0D8AD2ACA5}
+		RESX_ShowErrorsInErrorList = False
+		RESX_SortFileContentOnSave = True
+		RESX_NeutralResourcesLanguage = en-US
+		RESX_ConfirmAddLanguageFile = True
 	EndGlobalSection
 EndGlobal

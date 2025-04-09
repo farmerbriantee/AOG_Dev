@@ -52,6 +52,7 @@ namespace AOG
             PGN_225.pgn[PGN_225.auto] = 1;
             PGN_225.pgn[PGN_225.up] = 0;
             PGN_225.pgn[PGN_225.dn] = 0;
+            PGN_225.pgn[PGN_225.rate] = 50;
         }
     }
 
@@ -309,7 +310,7 @@ namespace AOG
     public static class PGN_226
     {
         public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 226, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-        public static int flowCaLo = 5;
+        public static int flowCalLo = 5;
         public static int flowCalHi = 6;
         public static int pressureCalLo = 7;
         public static int pressureCalHi = 8;
@@ -335,6 +336,7 @@ namespace AOG
         public static int auto = 7;
         public static int up = 8;
         public static int dn = 9;
+        public static int rate = 10;
     }
 
     // Tool Steer ------------------------------------------------------------------------------

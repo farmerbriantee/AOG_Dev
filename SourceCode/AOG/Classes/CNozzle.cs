@@ -114,10 +114,14 @@
 
         public double rateAlarmPercent = 0.1;
 
+        //manual function up down rate
+        public byte manualRate = 50;
+
         public bool isBypass = false;
 
         public double volumeApplied = 0;
         public int volumeTankStart = 0;
+        
 
         public string unitsApplied = "Gallons";
         public string unitsPerArea = "GPA";

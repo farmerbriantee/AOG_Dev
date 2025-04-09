@@ -121,11 +121,8 @@ namespace AOG
 
                 int vol = (int)nudZeroVolume.Value;
 
-                PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(vol >> 8));
-                PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(vol));
-
-                PGN_225.pgn[PGN_225.zeroTankVolumeLo] = 1;
-                PGN_225.pgn[PGN_225.zeroTankVolumeHi] = 0;
+                PGN_225.pgn[PGN_225.zeroTankVolumeLo] = unchecked((byte)(vol >> 8));
+                PGN_225.pgn[PGN_225.zeroTankVolumeHi] = unchecked((byte)(vol));
 
                 mf.SendPgnToLoop(PGN_225.pgn);
 

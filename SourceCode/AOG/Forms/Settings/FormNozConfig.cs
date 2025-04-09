@@ -67,7 +67,7 @@ namespace AOG
             Settings.Tool.setNozz.flowCal = (int)nudSprayFlowCal.Value;
 
             PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(Settings.Tool.setNozz.flowCal >> 8));
-            PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(Settings.Tool.setNozz.flowCal));
+            PGN_226.pgn[PGN_226.flowCalLo] = unchecked((byte)(Settings.Tool.setNozz.flowCal));
 
             mf.SendPgnToLoop(PGN_226.pgn);
         }
@@ -121,11 +121,11 @@ namespace AOG
         private void nudManualPWM_ValueChanged(object sender, EventArgs e)
         {
             //Manual PWM up and down value
-            Settings.Tool.setNozz.Kp = (byte)nudManualPWM.Value;
+            Settings.Tool.setNozz.manualRate = (byte)nudManualPWM.Value;
 
-            PGN_226.pgn[PGN_226.Kp] = unchecked((byte)(Settings.Tool.setNozz.Kp));
+            PGN_225.pgn[PGN_225.rate] = unchecked((byte)(Settings.Tool.setNozz.manualRate));
 
-            mf.SendPgnToLoop(PGN_226.pgn);
+            mf.SendPgnToLoop(PGN_225.pgn);
         }
 
         private void cboxSectionValve3Wire_Click(object sender, EventArgs e)

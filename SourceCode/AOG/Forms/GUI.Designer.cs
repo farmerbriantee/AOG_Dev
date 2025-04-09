@@ -353,7 +353,7 @@ namespace AOG
             //if (Settings.Vehicle.setApp_isNozzleApp)
             {
                 PGN_226.pgn[PGN_226.flowCalHi] = unchecked((byte)(Settings.Tool.setNozz.flowCal >> 8)); ;
-                PGN_226.pgn[PGN_226.flowCaLo] = unchecked((byte)(Settings.Tool.setNozz.flowCal));
+                PGN_226.pgn[PGN_226.flowCalLo] = unchecked((byte)(Settings.Tool.setNozz.flowCal));
                 PGN_226.pgn[PGN_226.pressureCalHi] = unchecked((byte)(Settings.Tool.setNozz.pressureCal >> 8));
                 PGN_226.pgn[PGN_226.pressureCalLo] = unchecked((byte)(Settings.Tool.setNozz.pressureCal));
                 PGN_226.pgn[PGN_226.Kp] = Settings.Tool.setNozz.Kp;
@@ -368,6 +368,9 @@ namespace AOG
                     PGN_226.pgn[PGN_226.isBypass] = 1;
                 else
                     PGN_226.pgn[PGN_226.isBypass] = 0;
+
+                //manual rate setting
+                PGN_225.pgn[PGN_225.rate] = Settings.Tool.setNozz.manualRate;
 
                 //units
                 if (cboxRate1Rate2Select.Checked)

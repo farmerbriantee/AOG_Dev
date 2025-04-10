@@ -43,5 +43,5 @@ void DoPID(void)
 
 void DoManualPID(void)
 {
-    SetPWM(pwmDrive);
+    SetPWM(abs(pwmDrive));
 }

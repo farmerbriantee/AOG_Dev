@@ -47,7 +47,7 @@ void UDP_Receive(void)
                 settings.pressureCalFactor = (udpData[7] | udpData[8] << 8);
                 settings.pressureCalFactor *= 0.1;
 
-                //used for Manual PWM level
+                //Kp and Ki not used
                 settings.Kp = udpData[9];
 
                 settings.Ki = udpData[10];
@@ -80,6 +80,8 @@ void UDP_Receive(void)
 
                 //Reset serial Watchdog  
                 serialResetTimer = 0;
+
+                Serial.println("Spray Settings");
             }
 
             else if (udpData[3] == 225) // Spray Functions (E1)
@@ -99,18 +101,21 @@ void UDP_Receive(void)
 
                 autoMode = udpData[7];
 
+                settings.manualRate = udpData[10];
+                settings.manualRate = ((float)(settings.manualRate)) * 2.5;
+
                 manualUp = udpData[8];
                 if (manualUp)
                 {
                     manualCounter = 2;
-                    pwmDrive = settings.Kp;
+                    pwmDrive = settings.manualRate;
                 }
 
                 manualDn = udpData[9];
                 if (manualDn)
                 {
                     manualCounter = 2;
-                    pwmDrive = -settings.Kp;
+                    pwmDrive = -settings.manualRate;
                 }
 
                 //reset watchdog
@@ -118,6 +123,8 @@ void UDP_Receive(void)
 
                 //Reset serial Watchdog  
                 serialResetTimer = 0;
+
+                Serial.println("Spray Functions");
             }
         }
     }

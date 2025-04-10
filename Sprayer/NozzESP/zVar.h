@@ -15,8 +15,7 @@
   int16_t tempHeader = 0;
 
   //pgn 224 or E0 data return;
-  uint8_t AOG[] = {0x80,0x81, 0x7f, 224, 8, 0, 0, 0, 0, 0,0,0,0, 0xCC };
-  
+  uint8_t AOG[] = {0x80,0x81, 0x7f, 224, 10, 0, 0, 0, 0, 0,0,0,0,0,0, 0xCC };  
     
   uint8_t flipFlop = 0;
 
@@ -65,7 +64,9 @@
   float integral = 0;
 
   //Variables for settings stored in EEPROM
-   struct Storage {
+  struct Storage {
+
+      //stored spray settings 
       uint8_t Kp = 60;  //proportional gain
       float Ki = 0.1;  //integral gain      
       float pressureCalFactor = 1.0;  //pressure gauge gain
@@ -77,36 +78,39 @@
       float switchAtFlowError = 0.25;
       uint8_t isBypass = 0;
       uint8_t is3Wire = 1;
-};  Storage settings;
 
-   void IRAM_ATTR isr_Flow()
-   {
-       isr_currentTime = micros();
-       isr_flowTime = isr_currentTime - isr_lastTime;
-       isr_lastTime = isr_currentTime;
+      //spray functions - sets manual up down rate pwm
+      uint8_t manualRate = 125;
+  };  Storage settings;
 
-       //either way too long or way too short
-       if (isr_flowTime > 300000UL || isr_flowTime < 3000UL)
-       {
-           isr_lastTime = isr_currentTime;
-           isr_isFlowing = 0;
-           return;
-       }
+  void IRAM_ATTR isr_Flow()
+  {
+      isr_currentTime = micros();
+      isr_flowTime = isr_currentTime - isr_lastTime;
+      isr_lastTime = isr_currentTime;
 
-       //counts for total volume
-       isr_flowCountThisLoop = isr_flowCountThisLoop + 1;
-       isr_isFlowing = 1;
+      //either way too long or way too short
+      if (isr_flowTime > 300000UL || isr_flowTime < 3000UL)
+      {
+          isr_lastTime = isr_currentTime;
+          isr_isFlowing = 0;
+          return;
+      }
 
-       //use ring counter
-       isr_flowTimeArr[ringPos] = isr_flowTime;
-       ringPos++;
-       if (ringPos > 15) ringPos = 0;
-       isr_flowTime = (isr_flowTimeArr[0] + isr_flowTimeArr[1] + isr_flowTimeArr[2] + isr_flowTimeArr[3] +
-           isr_flowTimeArr[4] + isr_flowTimeArr[5] + isr_flowTimeArr[6] + isr_flowTimeArr[7] +
-           isr_flowTimeArr[8] + isr_flowTimeArr[9] + isr_flowTimeArr[10] + isr_flowTimeArr[11] +
-           isr_flowTimeArr[12] + isr_flowTimeArr[13] + isr_flowTimeArr[14] + isr_flowTimeArr[15]);
-	   isr_flowTime = isr_flowTime / 16;
-   }
+      //counts for total volume
+      isr_flowCountThisLoop = isr_flowCountThisLoop + 1;
+      isr_isFlowing = 1;
+
+      //use ring counter
+      isr_flowTimeArr[ringPos] = isr_flowTime;
+      ringPos++;
+      if (ringPos > 15) ringPos = 0;
+      isr_flowTime = (isr_flowTimeArr[0] + isr_flowTimeArr[1] + isr_flowTimeArr[2] + isr_flowTimeArr[3] +
+          isr_flowTimeArr[4] + isr_flowTimeArr[5] + isr_flowTimeArr[6] + isr_flowTimeArr[7] +
+          isr_flowTimeArr[8] + isr_flowTimeArr[9] + isr_flowTimeArr[10] + isr_flowTimeArr[11] +
+          isr_flowTimeArr[12] + isr_flowTimeArr[13] + isr_flowTimeArr[14] + isr_flowTimeArr[15]);
+      isr_flowTime = isr_flowTime / 16;
+  }
 
 
   //////////

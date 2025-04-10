@@ -1,8 +1,3 @@
-/*
- *  This sketch sends random data over UDP on a ESP32 device
- *
- */
-
  //Spray module
 
 #include <EEPROM.h> 
@@ -124,17 +119,6 @@ void setup() {
 
 void loop()
 {
-
-    uint16_t len = udp.parsePacket();
-    if (len > 6)
-    {
-        displayIPaddress(udp.remoteIP(), udp.remotePort());
-        byte PGNlength;
-        byte Data[255];
-        udp.read(Data, 255);
-        uint16_t PGN = Data[1] << 8 | Data[0];
-    }
-    ////////////////////////////////////////////////////////////////////////////////////////
   //Loop triggers every 200 msec
     currentTime = millis();
 
@@ -236,6 +220,15 @@ void loop()
             if (pwmDrive < 0) syne = 0;
             AOG[11] = (int8_t)(abs(pwmDrive));
             AOG[12] = syne;
+
+			float bob = (float)(isr_flowTime) / 1000.0;
+			bob = 1 / bob;
+            bob = bob * 1000;
+
+            AOG[13] = (byte)(bob);
+            AOG[14] = 0;
+
+			//Serial.println(bob);
 
             //add the checksum
             int16_t CK_A = 0;

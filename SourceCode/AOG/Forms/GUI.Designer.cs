@@ -248,9 +248,9 @@ namespace AOG
                 {
                     //nozz.tankVolumeTotal += 1;
                     if (Settings.Tool.setNozz.isAppliedUnitsNotTankDisplayed)
-                        btnSprayVolumeTotal.Text = Settings.Tool.setNozz.volumeApplied.ToString("N1");
+                        btnSprayVolumeTotal.Text = Settings.Tool.setNozz.volumeApplied.ToString("#0.0");
                     else
-                        btnSprayVolumeTotal.Text = (Settings.Tool.setNozz.volumeTankStart - Settings.Tool.setNozz.volumeApplied).ToString("N1");
+                        btnSprayVolumeTotal.Text = (Settings.Tool.setNozz.volumeTankStart - Settings.Tool.setNozz.volumeApplied).ToString("#0.0");
 
                     //pressure reading
                     btnSprayPSI.Text = nozz.pressureActual.ToString();
@@ -384,7 +384,7 @@ namespace AOG
                     nozz.volumePerAreaSetSelected = Settings.Tool.setNozz.volumePerAreaSet1;
                 }
 
-                btnSprayVolumeTotal.Text = Settings.Tool.setNozz.volumeApplied.ToString();
+                btnSprayVolumeTotal.Text = Settings.Tool.setNozz.volumeApplied.ToString("#0.0");
 
                 if (!Settings.Tool.setNozz.isAppliedUnitsNotTankDisplayed)
                     lbl_Volume.Text = "Tank " + Settings.Tool.setNozz.unitsApplied;

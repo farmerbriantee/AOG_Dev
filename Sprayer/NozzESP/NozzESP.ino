@@ -226,9 +226,9 @@ void loop()
             bob = bob * 1000;
 
             AOG[13] = (byte)(bob);
-            AOG[14] = 0;
+            AOG[14] = (byte)(((uint16_t)bob >> 8));
 
-			//Serial.println(bob);
+			//Serial.println(isr_flowTime);
 
             //add the checksum
             int16_t CK_A = 0;
@@ -287,8 +287,7 @@ void DoRelays()
     Wire.write(mcpOutA); // value for port A
     Wire.write(mcpOutB); // value for port B
     Wire.endTransmission();
-}
-  
+}  
 
 
 void connectToWiFi(const char* ssid, const char* pwd) {

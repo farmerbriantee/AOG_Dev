@@ -90,7 +90,7 @@
       isr_lastTime = isr_currentTime;
 
       //either way too long or way too short
-      if (isr_flowTime > 300000UL || isr_flowTime < 3000UL)
+      if (isr_flowTime > 200000UL || isr_flowTime < 2000UL)
       {
           isr_lastTime = isr_currentTime;
           isr_isFlowing = 0;

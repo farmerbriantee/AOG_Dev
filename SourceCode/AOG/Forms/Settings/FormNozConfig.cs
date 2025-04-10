@@ -190,11 +190,11 @@ namespace AOG
             unoChart.Series["S"].Points.AddXY(nextX, unitsSet);
             unoChart.Series["PWM"].Points.AddXY(nextX5, unitsActual);
 
-            while (s.Points.Count > 100)
+            while (s.Points.Count > 50)
             {
                 s.Points.RemoveAt(0);
             }
-            while (w.Points.Count > 100)
+            while (w.Points.Count > 50)
             {
                 w.Points.RemoveAt(0);
             }

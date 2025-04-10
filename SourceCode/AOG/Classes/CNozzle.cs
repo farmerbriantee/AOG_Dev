@@ -13,6 +13,7 @@
 
         public int volumePerMinuteSet = 0;
         public int volumePerMinuteActual = 0;
+        public double frequency = 0;
 
         public int pressureActual = 0;
 

@@ -355,6 +355,9 @@ namespace AOG
                             nozz.pwmDriveActual = data[11];
                             if (data[12] == 0) nozz.pwmDriveActual *= -1;
 
+                            nozz.frequency = (int)(data[13]);
+
+
                             break;
                         }
 

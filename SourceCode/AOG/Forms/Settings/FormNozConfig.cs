@@ -168,7 +168,8 @@ namespace AOG
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            btnSprayAcres.Text = mf.nozz.pwmDriveActual.ToString();
+            btnPWM.Text = mf.nozz.pwmDriveActual.ToString();
+            btnFreq.Text = mf.nozz.frequency.ToString();
             DrawChart();
         }
 

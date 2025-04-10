@@ -955,7 +955,7 @@ namespace AOG
                                 return;
                             }
 
-                            if (!Settings.Vehicle.setVehicle_isStanleyUsed && Settings.User.setFeatures.isUTurnOn)
+                            if ( Settings.User.setFeatures.isUTurnOn)
                             {
                                 //manual uturn triggering
                                 middle = centerX - oglMain.Width / 4;

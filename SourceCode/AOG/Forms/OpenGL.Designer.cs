@@ -1665,7 +1665,7 @@ namespace AOG
 
             int bottomSide = 90;
 
-            if (!Settings.Vehicle.setVehicle_isStanleyUsed && Settings.User.setFeatures.isUTurnOn)
+            if ( Settings.User.setFeatures.isUTurnOn)
             {
                 GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.TurnManual]);        // Select Our Texture
                 GL.Color3(0.90f, 0.90f, 0.293f);

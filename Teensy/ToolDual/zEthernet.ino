@@ -23,7 +23,7 @@ void EthernetStart()
     Eth_myip[0] = networkAddress.ipOne;
     Eth_myip[1] = networkAddress.ipTwo;
     Eth_myip[2] = networkAddress.ipThree;
-    Eth_myip[3] = 126;  //126 is steer module, with or without GPS
+    Eth_myip[3] = 226;  //226 is tool steer
 
     Ethernet.setLocalIP(Eth_myip);  // Change IP address to IP set by user
     Serial.println("\r\nEthernet status OK");

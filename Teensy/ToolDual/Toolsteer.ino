@@ -97,6 +97,7 @@ float gpsSpeed = 0;
 //steering variables
 float steerAngleActual = 0;
 
+
 //from AgOpen
 float toolXTE_AOG = 0; //tool XTE from AgOpen
 float vehicleXTE_AOG = 0; //vehicle XTE from AgOpen
@@ -279,43 +280,46 @@ void toolsteerLoop()
         switchByte |= (steerSwitch << 1);   //put steerswitch status in bit 1 position
         switchByte |= workSwitch;
 
-        //get steering position
-        if (steerConfig.SingleInputWAS)   //Single Input ADS
+        if (toolConfig.isSteer) //is slide not steer
         {
-            adc.setMux(ADS1115_REG_CONFIG_MUX_SINGLE_0);
-            steeringPosition = adc.getConversion();
-            adc.triggerConversion();//ADS1115 Single Mode
+            //get steering position
+            if (steerConfig.SingleInputWAS)   //Single Input ADS
+            {
+                adc.setMux(ADS1115_REG_CONFIG_MUX_SINGLE_0);
+                steeringPosition = adc.getConversion();
+                adc.triggerConversion();//ADS1115 Single Mode
 
-            steeringPosition = (steeringPosition >> 1); //bit shift by 2  0 to 13610 is 0 to 5v
-            helloSteerPosition = steeringPosition - 6800;
+                steeringPosition = (steeringPosition >> 1); //bit shift by 2  0 to 13610 is 0 to 5v
+                helloSteerPosition = steeringPosition - 6800;
+            }
+            else    //ADS1115 Differential Mode
+            {
+                adc.setMux(ADS1115_REG_CONFIG_MUX_DIFF_0_1);
+                steeringPosition = adc.getConversion();
+                adc.triggerConversion();
+
+                steeringPosition = (steeringPosition >> 1); //bit shift by 2  0 to 13610 is 0 to 5v
+                helloSteerPosition = steeringPosition - 6800;
+            }
+
+            //DETERMINE ACTUAL STEERING POSITION
+
+            //convert position to steer angle. 32 counts per degree of steer pot position in my case
+            //  ***** make sure that negative steer angle makes a left turn and positive value is a right turn *****
+            if (toolConfig.invertWAS)
+            {
+                steeringPosition = (steeringPosition - 6805 - toolSettings.wasOffset);   // 1/2 of full scale
+                steerAngleActual = (float)(steeringPosition) / -toolSettings.steerSensorCounts;
+            }
+            else
+            {
+                steeringPosition = (steeringPosition - 6805 + toolSettings.wasOffset);   // 1/2 of full scale
+                steerAngleActual = (float)(steeringPosition) / toolSettings.steerSensorCounts;
+            }
+
+            //Ackerman fix
+            if (steerAngleActual < 0) steerAngleActual = (steerAngleActual * toolSettings.AckermanFix);
         }
-        else    //ADS1115 Differential Mode
-        {
-            adc.setMux(ADS1115_REG_CONFIG_MUX_DIFF_0_1);
-            steeringPosition = adc.getConversion();
-            adc.triggerConversion();
-
-            steeringPosition = (steeringPosition >> 1); //bit shift by 2  0 to 13610 is 0 to 5v
-            helloSteerPosition = steeringPosition - 6800;
-        }
-
-        //DETERMINE ACTUAL STEERING POSITION
-
-        //convert position to steer angle. 32 counts per degree of steer pot position in my case
-        //  ***** make sure that negative steer angle makes a left turn and positive value is a right turn *****
-        if (toolConfig.invertWAS)
-        {
-            steeringPosition = (steeringPosition - 6805 - toolSettings.wasOffset);   // 1/2 of full scale
-            steerAngleActual = (float)(steeringPosition) / -toolSettings.steerSensorCounts;
-        }
-        else
-        {
-            steeringPosition = (steeringPosition - 6805 + toolSettings.wasOffset);   // 1/2 of full scale
-            steerAngleActual = (float)(steeringPosition) / toolSettings.steerSensorCounts;
-        }
-
-        //Ackerman fix
-        if (steerAngleActual < 0) steerAngleActual = (steerAngleActual * toolSettings.AckermanFix);
 
         if (watchdogTimer < WATCHDOG_THRESHOLD && guidanceStatus == 1)
         {
@@ -333,11 +337,10 @@ void toolsteerLoop()
             }
             else digitalWrite(DIR1_RL_ENABLE, 1);
 
-            if (!toolConfig.isSteer) //is slide not steer
-              toolCorrectionError = ((float)(toolXTE_AOG) * 0.1);   //calculate the error
+            toolCorrectionError = ((float)(toolXTE_AOG) * 0.1);   //calculate the error
 
-            else
-              toolCorrectionError = steerAngleActual - steerAngleSetPoint;
+            if (toolConfig.isSteer) //is slide not steer
+              toolCorrectionError = steerAngleActual - toolCorrectionError;
 
             calcSteeringPID();  //do the pid
             motorDrive();       //out to motors the pwm value
@@ -440,8 +443,15 @@ void ReceiveUdp()
 
                 //----------------------------------------------------------------------------
                 //Serial Send to agopenGPS
-
-                int16_t sa = (int16_t)(steerAngleActual * 100);
+                int16_t sa;
+                if (toolConfig.isSteer) //is slide not steer
+                {
+                    sa = (int16_t)(steerAngleActual * 100);
+                }
+                else
+                {
+                    sa = toolCorrectionError * 100;
+                }
 
                 PGN_230[5] = (uint8_t)sa;
                 PGN_230[6] = sa >> 8;

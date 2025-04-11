@@ -32,7 +32,7 @@ const char *networkName = "JohnDeere";
 //IP address to send UDP data to:
 // either use the ip address of the server or
 // a network broadcast address
-const char *udpAddress = "192.168.5.255";
+const char *udpAddress = "192.168.1.255";
 const int udpPort = 8888;
 
 #define maxReadBuffer 100	// bytes

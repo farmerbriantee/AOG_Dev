@@ -15,33 +15,15 @@ BNO_rvcData bnoData;
 
 void setup() {
   Serial.begin(115200);     // For print()
-  delay(1000);
+  delay(500);
   Serial1.begin(115200);  // For communication with the Motion Module
-  delay(1000);
-
-  HardwareSerial* SerialIMU = &Serial2;
-  SerialIMU->begin(115200); // This is the baud rate specified by the BNO datasheet
-  delay(1000);
-  rvc.begin(SerialIMU);
+  delay(500);
 }
 
 void loop() 
 {
   SerialRX(); //call the function
-  
-    if (rvc.read(&bnoData) )
-    {
-      toSend++;
-      if (toSend > 1)
-      {
-        toSend = 0;        
-    
-        //the roll x10
-        Serial.print(bnoData.rollX10+17);
-        Serial.print(",");
-        Serial.println(rollTM+2.3);
-      }
-    }
+  delay(5);   
 }
 
 void SerialRX() {
@@ -92,7 +74,7 @@ void SerialRX() {
                 // Display the data:
                 rollTM = roll;
                 //Serial.print("Roll:");  
-                //Serial.println(roll); 
+                Serial.println(roll); 
                 //Serial.print(" Pitch:");Serial.print(pitch); 
                 //Serial.print(" Yaw");   Serial.print(yaw); 
                 //Serial.print("  TimeStamp:");      Serial.print(timeStamp);

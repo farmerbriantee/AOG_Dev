@@ -16,6 +16,9 @@
 
   //pgn 224 or E0 data return;
   uint8_t AOG[] = {0x80,0x81, 0x7f, 224, 10, 0, 0, 0, 0, 0,0,0,0,0,0, 0xCC };  
+
+  //hello from AgIO
+  uint8_t helloFromMachine[] = { 128, 129, 123, 123, 5, 0, 0, 0, 0, 0, 71 };
     
   uint8_t flipFlop = 0;
 

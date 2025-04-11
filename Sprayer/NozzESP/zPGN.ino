@@ -39,6 +39,23 @@ void UDP_Receive(void)
                 serialResetTimer = 0;
             }
 
+            else if (udpData[3] == 200) // Hello from AgIO
+            {
+                if (udpData[7] == 1)
+                {
+                    relayLo -= 255;
+                    relayHi -= 255;
+                    watchdogTimer = 0;
+                }
+
+                helloFromMachine[5] = relayLo;
+                helloFromMachine[6] = relayHi;
+
+                udp.beginPacket(udpAddress, 9999);
+                udp.write(helloFromMachine, sizeof(helloFromMachine));
+                udp.endPacket();
+            }
+
             else if (udpData[3] == 226) // Spray setttings (E2)   16 bytes
             {
                 settings.flowCalFactor = (float)(udpData[5] | udpData[6] << 8);

@@ -26,13 +26,13 @@ byte ErrorCount;
 #include <NetworkUdp.h>
 
 // WiFi network name and password:
-const char *networkName = "Skynet";
-const char *networkPswd = "bookworm";
+const char *networkName = "JohnDeere";
+//const char *networkPswd = "bookworm";
 
 //IP address to send UDP data to:
 // either use the ip address of the server or
 // a network broadcast address
-const char *udpAddress = "192.168.1.255";
+const char *udpAddress = "192.168.5.255";
 const int udpPort = 8888;
 
 #define maxReadBuffer 100	// bytes
@@ -114,7 +114,7 @@ void setup() {
     }
 
     //Connect to the WiFi network
-    connectToWiFi(networkName, networkPswd);
+    connectToWiFi(networkName);
 }
 
 void loop()
@@ -153,7 +153,7 @@ void loop()
         DoRelays();
 
         //if (isPressureLow || watchdogTimer > 29)
-        if (watchdogTimer > 29)
+        if (watchdogTimer > 29 && setGPM > 50)
         {
             //make sure flow control doesn't move
             relayLo = 0;
@@ -290,35 +290,46 @@ void DoRelays()
 }  
 
 
-void connectToWiFi(const char* ssid, const char* pwd) {
+void connectToWiFi(const char* ssid) {
     Serial.println("Connecting to WiFi network: " + String(ssid));
 
     // delete old config
     WiFi.disconnect(true);
     //register event handler
-    WiFi.onEvent(WiFiEvent);  // Will call WiFiEvent() from another thread.
+    WiFi.onEvent(WiFiEvent, WiFiEvent_t::ARDUINO_EVENT_WIFI_STA_GOT_IP);  // Will call WiFiEvent() from another thread.
 
     //Initiate connection
-    WiFi.begin(ssid, pwd);
+    WiFi.begin(ssid);
 
     Serial.println("Waiting for WIFI connection...");
 }
 
 // WARNING: WiFiEvent is called from a separate FreeRTOS task (thread)!
-void WiFiEvent(WiFiEvent_t event) {
-    switch (event) {
+void WiFiEvent(WiFiEvent_t event, WiFiEventInfo_t info) {
+    switch (event)
+    {
+
     case ARDUINO_EVENT_WIFI_STA_GOT_IP:
         //When connected set
         Serial.print("WiFi connected! IP address: ");
         Serial.println(WiFi.localIP());
+        Serial.println(WiFi.RSSI());
+
         //initializes the UDP state
-        //This initializes the transfer buffer
         udp.begin(WiFi.localIP(), udpPort);
         connected = true;
         break;
+
     case ARDUINO_EVENT_WIFI_STA_DISCONNECTED:
         Serial.println("WiFi lost connection");
-        connected = false;
+        Serial.println(info.wifi_sta_disconnected.reason);
+
+        //Try to reconnect
+        WiFi.disconnect(true);
+        WiFi.begin(networkName);
+        Serial.print("WiFi RECONNECT! IP address: ");
+        Serial.println(WiFi.localIP());
+
         break;
     default: break;
     }

@@ -333,9 +333,11 @@ void toolsteerLoop()
             }
             else digitalWrite(DIR1_RL_ENABLE, 1);
 
-            toolCorrectionError = ((float)(toolXTE_AOG) * 0.1);   //calculate the error
+            if (!toolConfig.isSteer) //is slide not steer
+              toolCorrectionError = ((float)(toolXTE_AOG) * 0.1);   //calculate the error
 
-            //if (abs(steerAngleError)< steerSettings.lowPWM) steerAngleError = 0;
+            else
+              toolCorrectionError = steerAngleActual - steerAngleSetPoint;
 
             calcSteeringPID();  //do the pid
             motorDrive();       //out to motors the pwm value

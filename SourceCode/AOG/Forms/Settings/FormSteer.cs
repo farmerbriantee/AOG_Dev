@@ -422,6 +422,9 @@ namespace AOG
                 if (cboxInvertWAS_Tool.Checked) PGN_231.pgn[PGN_231.invertWAS] = 1;
                 else PGN_231.pgn[PGN_231.invertWAS] = 0;
 
+                if (cboxIsSteerNotSlide_Tool.Checked) PGN_231.pgn[PGN_231.isSteer] = 1;
+                else PGN_231.pgn[PGN_231.isSteer] = 0;
+
                 mf.SendPgnToLoopTool(PGN_231.pgn);
 
                 toolCounterConfig = 0;

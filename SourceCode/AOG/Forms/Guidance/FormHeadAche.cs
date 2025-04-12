@@ -39,7 +39,7 @@ namespace AOG
             this.Text = "1: Set distance, 2: Tap Build, 3: Create Clip Lines";
 
             mf.hdl.idx = -1;
-
+            nudSetDistance.Value = 0;
             mf.FileLoadHeadLines();
             FixLabelsCurve();
 

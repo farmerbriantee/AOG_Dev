@@ -38,11 +38,11 @@ namespace AOG
         private void FormHeadLine_Load(object sender, EventArgs e)
         {
             this.Text = "1: Set distance, 2: Tap Build, 3: Create Clip Lines";
-            mf.hdl.idx = -1;
             //label3.Text = glm.unitsFtM +"       Tool: ";
 
             lblToolWidth.Text = "( " + glm.unitsFtM + " )           Tool: " + ((Settings.Tool.toolWidth - Settings.Tool.overlap) * glm.m2FtOrM).ToString("N1") + " " + glm.unitsFtM;
 
+            nudSetDistance.Value = 0;
             start = -1; end = -1;
             isA = true;
             sliceArr?.Clear();
@@ -117,12 +117,6 @@ namespace AOG
 
         private void FormHeadLine_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (sliceArr.Count > 0)
-            {
-                mf.hdl.idx = 0;
-            }
-            else mf.hdl.idx = -1;
-
             Settings.User.setWindow_HeadlineSize = Size;
         }
 

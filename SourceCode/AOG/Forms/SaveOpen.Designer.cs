@@ -774,10 +774,6 @@ namespace AOG
                 }
             }
 
-            //get the file of previous AB Lines
-            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
-            { Directory.CreateDirectory(directoryName); }
-
             if (!File.Exists(filename))
             {
                 TimedMessageBox(2000, gStr.Get(gs.gsFileError), "Missing Headlines File");
@@ -785,9 +781,9 @@ namespace AOG
             }
             else
             {
-                using (StreamReader reader = new StreamReader(filename))
+                try
                 {
-                    try
+                    using (StreamReader reader = new StreamReader(filename))
                     {
                         string line;
 
@@ -829,32 +825,24 @@ namespace AOG
                             }
                         }
                     }
+                }
+                catch (Exception er)
+                {
+                    hdl.tracksArr?.Clear();
 
-                    catch (Exception er)
+                    TimedMessageBox(2000, "Headline Error", "Lines Deleted");
+
+                    using (StreamWriter writer = new StreamWriter(filename, false))
                     {
-                        hdl.tracksArr?.Clear();
-
-                        TimedMessageBox(2000, "Headline Error", "Lines Deleted");
-
-                        directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
-
-                        if (!string.IsNullOrEmpty(directoryName) && (!Directory.Exists(directoryName)))
-                        { Directory.CreateDirectory(directoryName); }
-
-                        filename = Path.Combine(directoryName, "Headlines.txt");
-
-                        using (StreamWriter writer = new StreamWriter(filename, false))
+                        try
                         {
-                            try
-                            {
-                                writer.WriteLine("$Headlines");
-                                return;
+                            writer.WriteLine("$Headlines");
+                            return;
 
-                            }
-                            catch { }
                         }
-                        Log.EventWriter("Load Head Lines" + er.ToString());
+                        catch { }
                     }
+                    Log.EventWriter("Load Head Lines" + er.ToString());
                 }
             }
         }

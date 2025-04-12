@@ -930,7 +930,7 @@ namespace AOG
 
                 if (isFieldStarted)
                 {
-                    if ( !ct.isContourBtnOn && trk.currentGuidanceTrack.Count > 0)
+                    if (yt.isYouTurnBtnOn && !ct.isContourBtnOn && trk.currentGuidanceTrack.Count > 1)
                     {
                         //uturn and swap uturn direction
                         if (point.Y < 150 && point.Y > 90)

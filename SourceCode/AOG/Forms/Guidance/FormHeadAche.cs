@@ -39,7 +39,7 @@ namespace AOG
             this.Text = "1: Set distance, 2: Tap Build, 3: Create Clip Lines";
 
             mf.hdl.idx = -1;
-
+            nudSetDistance.Value = 0;
             mf.FileLoadHeadLines();
             FixLabelsCurve();
 
@@ -329,41 +329,13 @@ namespace AOG
                     }
 
                     //who knows which way it actually goes
-                    mf.trk.CalculateHeadings(ref mf.hdl.tracksArr[mf.hdl.idx].trackPts);
-
-                    int ptCnt = mf.hdl.tracksArr[mf.hdl.idx].trackPts.Count - 1;
-
-                    for (int i = 1; i < 30; i++)
-                    {
-                        vec3 pnt = new vec3(mf.hdl.tracksArr[mf.hdl.idx].trackPts[ptCnt]);
-                        pnt.easting += (Math.Sin(pnt.heading) * i);
-                        pnt.northing += (Math.Cos(pnt.heading) * i);
-                        mf.hdl.tracksArr[mf.hdl.idx].trackPts.Add(pnt);
-                    }
-
-                    vec3 stat = new vec3(mf.hdl.tracksArr[mf.hdl.idx].trackPts[0]);
-
-                    for (int i = 1; i < 30; i++)
-                    {
-                        vec3 pnt = new vec3(stat);
-                        pnt.easting -= (Math.Sin(pnt.heading) * i);
-                        pnt.northing -= (Math.Cos(pnt.heading) * i);
-                        mf.hdl.tracksArr[mf.hdl.idx].trackPts.Insert(0, pnt);
-                    }
+                    mf.hdl.tracksArr[mf.hdl.idx].trackPts.CalculateHeadings(false);
 
                     //create a name
                     mf.hdl.tracksArr[mf.hdl.idx].name = mf.hdl.idx.ToString() + " Cu " + DateTime.Now.ToString("mm:ss", CultureInfo.InvariantCulture);
 
-                    mf.hdl.tracksArr[mf.hdl.idx].moveDistance = 0;
+                    mf.hdl.tracksArr[mf.hdl.idx].mode = TrackMode.Curve;
 
-                    mf.hdl.tracksArr[mf.hdl.idx].mode = (int)TrackMode.Curve;
-
-                    mf.FileSaveHeadLines();
-
-                    //update the arrays
-                    start = 99999; end = 99999;
-
-                    FixLabelsCurve();
                     btnExit.Focus();
                 }
                 else if (rbtnLine.Checked)
@@ -420,91 +392,31 @@ namespace AOG
                         mf.hdl.tracksArr[mf.hdl.idx].trackPts.Add(ptC);
                     }
 
-                    int ptCnt = mf.hdl.tracksArr[mf.hdl.idx].trackPts.Count - 1;
-
-                    for (int i = 1; i < 30; i++)
-                    {
-                        vec3 pnt = new vec3(mf.hdl.tracksArr[mf.hdl.idx].trackPts[ptCnt]);
-                        pnt.easting += (Math.Sin(pnt.heading) * i);
-                        pnt.northing += (Math.Cos(pnt.heading) * i);
-                        mf.hdl.tracksArr[mf.hdl.idx].trackPts.Add(pnt);
-                    }
-
-                    vec3 stat = new vec3(mf.hdl.tracksArr[mf.hdl.idx].trackPts[0]);
-
-                    for (int i = 1; i < 30; i++)
-                    {
-                        vec3 pnt = new vec3(stat);
-                        pnt.easting -= (Math.Sin(pnt.heading) * i);
-                        pnt.northing -= (Math.Cos(pnt.heading) * i);
-                        mf.hdl.tracksArr[mf.hdl.idx].trackPts.Insert(0, pnt);
-                    }
-
                     //create a name
                     mf.hdl.tracksArr[mf.hdl.idx].name = mf.hdl.idx.ToString() + " AB " + DateTime.Now.ToString("hh:mm:ss", CultureInfo.InvariantCulture);
 
-                    mf.hdl.tracksArr[mf.hdl.idx].moveDistance = 0;
-
-                    mf.hdl.tracksArr[mf.hdl.idx].mode = (int)TrackMode.AB;
-
-                    mf.FileSaveHeadLines();
-
-                    FixLabelsCurve();
-                    start = 99999; end = 99999;
+                    mf.hdl.tracksArr[mf.hdl.idx].mode = TrackMode.AB;
                 }
 
+                mf.trk.AddFirstLastPoints(ref mf.hdl.tracksArr[mf.hdl.idx].trackPts, 30);
+                mf.hdl.tracksArr[mf.hdl.idx].moveDistance = 0;
+
+                //update the arrays
+                start = 99999; end = 99999;
                 //mf.bnd.buildList[0].hdLine?.Clear();
-                mf.hdl.desList?.Clear();
 
                 if (mf.hdl.tracksArr.Count < 1 || mf.hdl.idx == -1) return;
 
                 double distAway = nudSetDistance.Value;
                 mf.hdl.tracksArr[mf.hdl.idx].moveDistance += distAway;
 
-                double distSqAway = (distAway * distAway) - 0.01;
-                vec3 point;
+                var desList = mf.hdl.tracksArr[mf.hdl.idx].trackPts.OffsetLine(distAway, 1, mf.hdl.tracksArr[mf.hdl.idx].mode > TrackMode.Curve);
 
-                int refCount = mf.hdl.tracksArr[mf.hdl.idx].trackPts.Count;
-                for (int i = 0; i < refCount; i++)
-                {
-                    point = new vec3(
-                    mf.hdl.tracksArr[mf.hdl.idx].trackPts[i].easting - (Math.Sin(glm.PIBy2 + mf.hdl.tracksArr[mf.hdl.idx].trackPts[i].heading) * distAway),
-                    mf.hdl.tracksArr[mf.hdl.idx].trackPts[i].northing - (Math.Cos(glm.PIBy2 + mf.hdl.tracksArr[mf.hdl.idx].trackPts[i].heading) * distAway),
-                    mf.hdl.tracksArr[mf.hdl.idx].trackPts[i].heading);
-                    bool Add = true;
+                mf.hdl.tracksArr[mf.hdl.idx].trackPts = desList;
 
-                    for (int t = 0; t < refCount; t++)
-                    {
-                        double dist = ((point.easting - mf.hdl.tracksArr[mf.hdl.idx].trackPts[t].easting) * (point.easting - mf.hdl.tracksArr[mf.hdl.idx].trackPts[t].easting))
-                            + ((point.northing - mf.hdl.tracksArr[mf.hdl.idx].trackPts[t].northing) * (point.northing - mf.hdl.tracksArr[mf.hdl.idx].trackPts[t].northing));
-                        if (dist < distSqAway)
-                        {
-                            Add = false;
-                            break;
-                        }
-                    }
+                mf.FileSaveHeadLines();
 
-                    if (Add)
-                    {
-                        if (mf.hdl.desList.Count > 0)
-                        {
-                            double dist = ((point.easting - mf.hdl.desList[mf.hdl.desList.Count - 1].easting) * (point.easting - mf.hdl.desList[mf.hdl.desList.Count - 1].easting))
-                                + ((point.northing - mf.hdl.desList[mf.hdl.desList.Count - 1].northing) * (point.northing - mf.hdl.desList[mf.hdl.desList.Count - 1].northing));
-                            if (dist > 1)
-                                mf.hdl.desList.Add(point);
-                        }
-                        else mf.hdl.desList.Add(point);
-                    }
-                }
-
-                mf.hdl.tracksArr[mf.hdl.idx].trackPts.Clear();
-
-                for (int i = 0; i < mf.hdl.desList.Count; i++)
-                {
-                    mf.hdl.tracksArr[mf.hdl.idx].trackPts.Add(new vec3(mf.hdl.desList[i]));
-                }
-
-                mf.hdl.desList?.Clear();
+                FixLabelsCurve();
             }
         }
 
@@ -530,12 +442,7 @@ namespace AOG
                 else
                     GL.Color3(0.50f, 0.25f, 0.10f);
 
-                GL.Begin(PrimitiveType.Lines);
-                for (int i = 0; i < mf.bnd.bndList[j].fenceLine.Count; i++)
-                {
-                    GL.Vertex3(mf.bnd.bndList[j].fenceLine[i].easting, mf.bnd.bndList[j].fenceLine[i].northing, 0);
-                }
-                GL.End();
+                mf.bnd.bndList[j].fenceLine.DrawPolygon(PrimitiveType.Lines);
             }
 
             //the vehicle
@@ -586,7 +493,7 @@ namespace AOG
 
                 for (int i = 0; i < mf.hdl.tracksArr.Count; i++)
                 {
-                    if (mf.hdl.tracksArr[i].mode == (int)TrackMode.AB)
+                    if (mf.hdl.tracksArr[i].mode == TrackMode.AB)
                     {
                         GL.Color3(0.973f, 0.9f, 0.10f);
                     }
@@ -594,13 +501,7 @@ namespace AOG
                     {
                         GL.Color3(0.3f, 0.99f, 0.20f);
                     }
-
-                    GL.Begin(PrimitiveType.Points);
-                    foreach (vec3 item in mf.hdl.tracksArr[i].trackPts)
-                    {
-                        GL.Vertex3(item.easting, item.northing, 0);
-                    }
-                    GL.End();
+                    mf.hdl.tracksArr[i].trackPts.DrawPolygon(PrimitiveType.Points);
                 }
 
                 //GL.Disable(EnableCap.LineStipple);
@@ -610,19 +511,13 @@ namespace AOG
                     GL.LineWidth(6);
                     GL.Color3(1.0f, 0.0f, 1.0f);
 
-                    GL.Begin(PrimitiveType.LineStrip);
-                    foreach (vec3 item in mf.hdl.tracksArr[mf.hdl.idx].trackPts)
-                    {
-                        GL.Vertex3(item.easting, item.northing, 0);
-                    }
-                    GL.End();
+                    mf.hdl.tracksArr[mf.hdl.idx].trackPts.DrawPolygon(PrimitiveType.LineStrip);
 
                     int cnt = mf.hdl.tracksArr[mf.hdl.idx].trackPts.Count - 1;
                     GL.PointSize(28);
                     GL.Color3(0, 0, 0);
                     GL.Begin(PrimitiveType.Points);
                     GL.Vertex3(mf.hdl.tracksArr[mf.hdl.idx].trackPts[0].easting, mf.hdl.tracksArr[mf.hdl.idx].trackPts[0].northing, 0);
-                    GL.Color3(0, 0, 0);
                     GL.Vertex3(mf.hdl.tracksArr[mf.hdl.idx].trackPts[cnt].easting, mf.hdl.tracksArr[mf.hdl.idx].trackPts[cnt].northing, 0);
                     GL.End();
 
@@ -638,13 +533,7 @@ namespace AOG
 
             GL.LineWidth(8);
             GL.Color3(0.93f, 0.899f, 0.50f);
-            GL.Begin(PrimitiveType.LineStrip);
-
-            for (int i = 0; i < mf.bnd.bndList[0].hdLine.Count; i++)
-            {
-                GL.Vertex3(mf.bnd.bndList[0].hdLine[i].easting, mf.bnd.bndList[0].hdLine[i].northing, 0);
-            }
-            GL.End();
+            mf.bnd.bndList[0].hdLine.DrawPolygon(PrimitiveType.LineStrip);
         }
 
         private void DrawABTouchLine()
@@ -696,7 +585,6 @@ namespace AOG
         }
 
         // Returns 1 if the lines intersect, otherwis
-        public double iE = 0, iN = 0;
 
         public List<int> crossings = new List<int>(1);
 
@@ -704,7 +592,6 @@ namespace AOG
         {
             start = 99999; end = 99999;
             isA = true;
-            mf.hdl.desList?.Clear();
             mf.bnd.bndList[0].hdLine?.Clear();
 
             //int ptCount = mf.bnd.buildList[0].fenceLine.Count;
@@ -748,18 +635,13 @@ namespace AOG
                 {
                     for (int k = 0; k < mf.hdl.tracksArr[nextLine].trackPts.Count - 2; k++)
                     {
-                        int res = GetLineIntersection(
-                        mf.hdl.tracksArr[lineNum].trackPts[i].easting,
-                        mf.hdl.tracksArr[lineNum].trackPts[i].northing,
-                        mf.hdl.tracksArr[lineNum].trackPts[i + 1].easting,
-                        mf.hdl.tracksArr[lineNum].trackPts[i + 1].northing,
+                        bool res = glm.GetLineIntersection(
+                        mf.hdl.tracksArr[lineNum].trackPts[i],
+                        mf.hdl.tracksArr[lineNum].trackPts[i + 1],
 
-                        mf.hdl.tracksArr[nextLine].trackPts[k].easting,
-                        mf.hdl.tracksArr[nextLine].trackPts[k].northing,
-                        mf.hdl.tracksArr[nextLine].trackPts[k + 1].easting,
-                        mf.hdl.tracksArr[nextLine].trackPts[k + 1].northing,
-                        ref iE, ref iN);
-                        if (res == 1)
+                        mf.hdl.tracksArr[nextLine].trackPts[k],
+                        mf.hdl.tracksArr[nextLine].trackPts[k + 1], out _, out _, out _);
+                        if (res)
                         {
                             if (isStart == 0) i++;
                             crossings.Add(i);
@@ -929,7 +811,6 @@ namespace AOG
             start = 99999; end = 99999;
             isA = true;
             FixLabelsCurve();
-            mf.trk.designPtsList?.Clear();
             zoom = 1;
             sX = 0;
             sY = 0;
@@ -940,35 +821,6 @@ namespace AOG
         private void cboxIsZoom_CheckedChanged(object sender, EventArgs e)
         {
             zoomToggle = false;
-        }
-
-        public int GetLineIntersection(double p0x, double p0y, double p1x, double p1y,
-        double p2x, double p2y, double p3x, double p3y, ref double iEast, ref double iNorth)
-        {
-            double s1x, s1y, s2x, s2y;
-            s1x = p1x - p0x;
-            s1y = p1y - p0y;
-
-            s2x = p3x - p2x;
-            s2y = p3y - p2y;
-
-            double s, t;
-            s = (-s1y * (p0x - p2x) + s1x * (p0y - p2y)) / (-s2x * s1y + s1x * s2y);
-
-            if (s >= 0 && s <= 1)
-            {
-                //check oher side
-                t = (s2x * (p0y - p2y) - s2y * (p0x - p2x)) / (-s2x * s1y + s1x * s2y);
-                if (t >= 0 && t <= 1)
-                {
-                    // Collision detected
-                    iEast = p0x + (t * s1x);
-                    iNorth = p0y + (t * s1y);
-                    return 1;
-                }
-            }
-
-            return 0; // No collision
         }
 
         private void oglSelf_Load(object sender, EventArgs e)

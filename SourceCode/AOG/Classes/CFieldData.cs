@@ -97,6 +97,8 @@ namespace AOG
 
         public void UpdateFieldBoundaryGUIAreas()
         {
+            mf.btnABDraw.Visible = mf.bnd.bndList.Count > 0;
+
             if (mf.bnd.bndList.Count > 0)
             {
                 areaOuterBoundary = mf.bnd.bndList[0].area;

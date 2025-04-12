@@ -101,17 +101,17 @@ namespace AOG
             return result;
         }
 
-        public static void DrawPolygon(this List<vec3> polygon)
+        public static void DrawPolygon(this List<vec3> polygon, PrimitiveType type = PrimitiveType.LineLoop)
         {
             if (polygon.Count > 2)
             {
-                GL.Begin(PrimitiveType.LineLoop);
+                GL.Begin(type);
                 for (int i = 0; i < polygon.Count; i++)
                 {
                     GL.Vertex3(polygon[i].easting, polygon[i].northing, 0);
                 }
                 GL.End();
-
+                
                 //GL.PointSize(4.0f);
                 //GL.Begin(PrimitiveType.Points);
                 //GL.Color3(1.0f, 1.0f, 0.50f);
@@ -124,11 +124,36 @@ namespace AOG
             }
         }
 
-        public static void DrawPolygon(this List<vec2> polygon)
+        public static void DrawPolygon(this List<vec3> polygon, int mipmap, int start, PrimitiveType type = PrimitiveType.TriangleStrip)
         {
             if (polygon.Count > 2)
             {
-                GL.Begin(PrimitiveType.LineLoop);
+                int count2 = polygon.Count;
+                GL.Begin(type);
+                //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
+                if (count2 >= (mipmap + 2))
+                {
+                    int step = mipmap;
+                    for (int i = start; i < count2; i += step)
+                    {
+                        GL.Vertex3(polygon[i].easting, polygon[i].northing, 0); i++;
+                        GL.Vertex3(polygon[i].easting, polygon[i].northing, 0); i++;
+                        if (count2 - i <= (mipmap + 2)) step = 0;//too small to mipmap it
+                    }
+                }
+                else
+                {
+                    for (int i = start; i < count2; i++) GL.Vertex3(polygon[i].easting, polygon[i].northing, 0);
+                }
+                GL.End();
+            }
+        }
+
+        public static void DrawPolygon(this List<vec2> polygon, PrimitiveType type = PrimitiveType.LineLoop)
+        {
+            if (polygon.Count > 2)
+            {
+                GL.Begin(type);
                 for (int i = 0; i < polygon.Count; i++)
                 {
                     GL.Vertex3(polygon[i].easting, polygon[i].northing, 0);
@@ -144,6 +169,21 @@ namespace AOG
                 //}
                 //GL.End();
                 //GL.PointSize(1.0f);
+            }
+        }
+
+        public static void DrawPolygon(this List<Triangle> polygon, PrimitiveType type = PrimitiveType.Triangles)
+        {
+            if (polygon.Count > 2)
+            {
+                GL.Begin(type);
+                for (int i = 0; i < polygon.Count; i++)
+                {
+                    GL.Vertex3(polygon[i].polygonPts[0].easting, polygon[i].polygonPts[0].northing, 0);
+                    GL.Vertex3(polygon[i].polygonPts[1].easting, polygon[i].polygonPts[1].northing, 0);
+                    GL.Vertex3(polygon[i].polygonPts[2].easting, polygon[i].polygonPts[2].northing, 0);
+                }
+                GL.End();
             }
         }
 
@@ -211,6 +251,60 @@ namespace AOG
 
             //return (0.5 * (a + (t * b) + (t * t * c) + (t * t * t * d)));
             //
+        }
+
+        private const double Epsilon = 1.0E-15;
+
+        public static bool GetLineIntersection(vec2 PointAA, vec2 PointAB, vec2 PointBA, vec2 PointBB, out vec2 Crossing, out double TimeA, out double TimeB, bool Limit = false, bool enableEnd = false)
+        {
+            TimeA = -1;
+            TimeB = -1;
+            Crossing = new vec2();
+            double denominator = (PointAB.northing - PointAA.northing) * (PointBB.easting - PointBA.easting) - (PointBB.northing - PointBA.northing) * (PointAB.easting - PointAA.easting);
+
+            if (denominator < -0.00000001 || denominator > 0.00000001)
+            {
+                TimeA = ((PointBB.northing - PointBA.northing) * (PointAA.easting - PointBA.easting) - (PointAA.northing - PointBA.northing) * (PointBB.easting - PointBA.easting)) / denominator;
+
+                if (Limit || (enableEnd && (TimeA > 0.0 - Epsilon || TimeA < 1.0 + Epsilon)) || (TimeA > Epsilon && TimeA < 1.0 - Epsilon))
+                {
+                    TimeB = ((PointAB.northing - PointAA.northing) * (PointAA.easting - PointBA.easting) - (PointAA.northing - PointBA.northing) * (PointAB.easting - PointAA.easting)) / denominator;
+                    if (Limit || (enableEnd && (TimeB == 0.0 || TimeB == 1.0)) || (TimeB > 0.0 && TimeB < 1.0))
+                    {
+                        Crossing = PointAA + (PointAB - PointAA) * TimeA;
+                        return true;
+                    }
+                    else return false;
+                }
+                else return false;
+            }
+            return false;
+        }
+
+        public static bool GetLineIntersection(vec3 PointAA, vec3 PointAB, vec3 PointBA, vec3 PointBB, out vec3 Crossing, out double TimeA, out double TimeB, bool Limit = false, bool enableEnd = false)
+        {
+            TimeA = -1;
+            TimeB = -1;
+            Crossing = new vec3();
+            double denominator = (PointAB.northing - PointAA.northing) * (PointBB.easting - PointBA.easting) - (PointBB.northing - PointBA.northing) * (PointAB.easting - PointAA.easting);
+
+            if (denominator < -0.00000001 || denominator > 0.00000001)
+            {
+                TimeA = ((PointBB.northing - PointBA.northing) * (PointAA.easting - PointBA.easting) - (PointAA.northing - PointBA.northing) * (PointBB.easting - PointBA.easting)) / denominator;
+
+                if (Limit || (enableEnd && (TimeA > 0.0 - Epsilon || TimeA < 1.0 + Epsilon)) || (TimeA > Epsilon && TimeA < 1.0 - Epsilon))
+                {
+                    TimeB = ((PointAB.northing - PointAA.northing) * (PointAA.easting - PointBA.easting) - (PointAA.northing - PointBA.northing) * (PointAB.easting - PointAA.easting)) / denominator;
+                    if (Limit || (enableEnd && (TimeB == 0.0 || TimeB == 1.0)) || (TimeB > 0.0 && TimeB < 1.0))
+                    {
+                        Crossing = PointAA + (PointAB - PointAA) * TimeA;
+                        return true;
+                    }
+                    else return false;
+                }
+                else return false;
+            }
+            return false;
         }
 
         //Regex file expression

@@ -216,15 +216,13 @@ namespace AOG
                 for (int i = 0; i < bingLine.Count; i++)
                 {
                     mf.pn.ConvertWGS84ToLocal(bingLine[i].Latitude, bingLine[i].Longitude, out double nort, out double east);
-                    vec3 v = new vec3(east, nort, 0);
-                    newBnd.fenceLine.Add(v);
+                    newBnd.fenceLine.Add(new vec3(east, nort, 0));
                 }
 
                 mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
 
                 //turn lines made from boundaries
                 mf.FileSaveBoundary();
-                mf.btnABDraw.Visible = true;
             }
 
             cboxEnableLineDraw.Checked = false;
@@ -268,7 +266,6 @@ namespace AOG
 
                 mf.FileSaveBoundary();
                 mf.FileSaveHeadland();
-                mf.btnABDraw.Visible = false;
                 //clean up line
                 mapControl.Markers.Clear();
                 bingLine.Clear();

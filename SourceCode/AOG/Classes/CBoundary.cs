@@ -1,7 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace AOG
 {
@@ -182,11 +181,7 @@ namespace AOG
                 vec3 pivot = mf.pivotAxlePos;
                 GL.LineWidth(Settings.User.setDisplay_lineWidth);
                 GL.Color3(0.825f, 0.22f, 0.90f);
-                GL.Begin(PrimitiveType.LineStrip);
-                for (int h = 0; h < fenceBeingMadePts.Count; h++) GL.Vertex3(fenceBeingMadePts[h].easting, fenceBeingMadePts[h].northing, 0);
-                GL.Color3(0.295f, 0.972f, 0.290f);
-                GL.Vertex3(fenceBeingMadePts[0].easting, fenceBeingMadePts[0].northing, 0);
-                GL.End();
+                fenceBeingMadePts.DrawPolygon(PrimitiveType.LineStrip);
 
                 //line from last point to pivot marker
                 GL.Color3(0.825f, 0.842f, 0.0f);
@@ -234,9 +229,7 @@ namespace AOG
                 //boundary points
                 GL.Color3(0.0f, 0.95f, 0.95f);
                 GL.PointSize(6.0f);
-                GL.Begin(PrimitiveType.Points);
-                for (int h = 0; h < fenceBeingMadePts.Count; h++) GL.Vertex3(fenceBeingMadePts[h].easting, fenceBeingMadePts[h].northing, 0);
-                GL.End();
+                fenceBeingMadePts.DrawPolygon(PrimitiveType.Points);
             }
         }
     }

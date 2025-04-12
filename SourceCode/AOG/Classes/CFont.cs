@@ -27,7 +27,7 @@ namespace AOG
             isFontOn = true;
         }
 
-        public void DrawText3D(double x1, double y1, string text, double sizeF = 1.0)
+        public void DrawText3D(double x1, double y1, string text, bool changeWithCam, double sizeF = 1.0)
         {
             double x = 0, y = 0;
             double size = 1;
@@ -35,20 +35,23 @@ namespace AOG
 
             GL.Translate(x1, y1, 0);
 
-            if (Settings.User.setDisplay_camPitch < -45)
+            if (changeWithCam)
             {
-                GL.Rotate(90, 1, 0, 0);
-                if (mf.camera.camFollowing) GL.Rotate(-mf.camHeading, 0, 1, 0);
-                size = -mf.camera.camSetDistance;
-                size = Math.Pow(size, 0.8);
-                size /= 800;
-            }
-            else
-            {
-                if (mf.camera.camFollowing) GL.Rotate(-mf.camHeading, 0, 0, 1);
-                size = -mf.camera.camSetDistance;
-                size = Math.Pow(size, 0.85);
-                size /= 1000;
+                if (Settings.User.setDisplay_camPitch < -45)
+                {
+                    GL.Rotate(90, 1, 0, 0);
+                    if (mf.camera.camFollowing) GL.Rotate(-mf.camHeading, 0, 1, 0);
+                    size = -mf.camera.camSetDistance;
+                    size = Math.Pow(size, 0.8);
+                    size /= 800;
+                }
+                else
+                {
+                    if (mf.camera.camFollowing) GL.Rotate(-mf.camHeading, 0, 0, 1);
+                    size = -mf.camera.camSetDistance;
+                    size = Math.Pow(size, 0.85);
+                    size /= 1000;
+                }
             }
 
             size *= sizeF;

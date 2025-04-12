@@ -718,7 +718,7 @@ namespace AOG
                 smooList.Add(arr[i]);
             }
 
-            mf.trk.CalculateHeadings(ref smooList);
+            smooList.CalculateHeadings(true);
 
             List<vec3> smList = new List<vec3>();
 
@@ -763,7 +763,7 @@ namespace AOG
                 }
             }
 
-            mf.trk.CalculateHeadings(ref smooList);
+            smooList.CalculateHeadings(true);
 
             btnMakeBoundary.Enabled = true;
         }
@@ -1008,20 +1008,11 @@ namespace AOG
             for (int i = bndSelect; i < mf.bnd.bndList.Count; i++)
             {
                 if (i < 0) continue;
-                GL.Begin(PrimitiveType.LineLoop);
-                for (int j = 0; j < mf.bnd.bndList[i].fenceLine.Count; j++)
-                {
-                    GL.Vertex3(mf.bnd.bndList[i].fenceLine[j].easting, mf.bnd.bndList[i].fenceLine[j].northing, 0);
-                }
-                GL.End();
+                mf.bnd.bndList[i].fenceLine.DrawPolygon(PrimitiveType.LineLoop);
 
                 GL.PointSize(4);
-                GL.Begin(PrimitiveType.Points);
-                for (int j = 0; j < mf.bnd.bndList[i].fenceLine.Count; j++)
-                {
-                    GL.Vertex3(mf.bnd.bndList[i].fenceLine[j].easting, mf.bnd.bndList[i].fenceLine[j].northing, 0);
-                }
-                GL.End();
+                mf.bnd.bndList[i].fenceLine.DrawPolygon(PrimitiveType.Points);
+
                 if (bndSelect >= 0) break;
             }
 
@@ -1030,29 +1021,15 @@ namespace AOG
             {
                 GL.LineWidth(2);
                 GL.Color3(0.90f, 0.25f, 0.10f);
-                GL.Begin(PrimitiveType.LineStrip);
-                for (int i = 0; i < bndList.Count; i++)
-                {
-                    GL.Vertex3(bndList[i].easting, bndList[i].northing, 0);
-                }
-                GL.End();
+
+                bndList.DrawPolygon(PrimitiveType.LineStrip);
 
                 GL.PointSize(4);
                 GL.Color3(0.90f, 0.25f, 0.910f);
-                GL.Begin(PrimitiveType.Points);
-                for (int i = 0; i < bndList.Count; i++)
-                {
-                    GL.Vertex3(bndList[i].easting, bndList[i].northing, 0);
-                }
-                GL.End();
+                bndList.DrawPolygon(PrimitiveType.Points);
 
                 GL.Color3(0.82f, 0.835f, 0.5f);
-                GL.Begin(PrimitiveType.LineLoop);
-                for (int j = 0; j < smooList.Count; j++)
-                {
-                    GL.Vertex3(smooList[j].easting, smooList[j].northing, 0);
-                }
-                GL.End();
+                smooList.DrawPolygon(PrimitiveType.LineLoop);
             }
 
             //the section grid if loaded
@@ -1063,18 +1040,7 @@ namespace AOG
                     GL.Color3(0.64f, 0.64f, 0.6);
                 else
                     GL.Color3(1.0f, 1.0f, 0);
-
-                GL.Begin(PrimitiveType.Points);
-
-                for (int j = 0; j < secList.Count; j++)
-                    GL.Vertex3(secList[j].easting, secList[j].northing, 0);
-                GL.End();
-
-                //GL.PointSize(24);
-                //GL.Color3(0.90f, 0.25f, 0.910f);
-                //GL.Begin(PrimitiveType.Points);
-                //    GL.Vertex3(0,0, 0);
-                //GL.End();
+                secList.DrawPolygon(PrimitiveType.Points);
             }
 
             //draw the line building graphics

@@ -349,8 +349,6 @@ namespace AOG
                                     }
                                     mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
 
-                                    mf.btnABDraw.Visible = true;
-
                                     coordinates = "";
                                 }
                                 else
@@ -365,7 +363,6 @@ namespace AOG
                             }
                         }
                         mf.FileSaveBoundary();
-                        mf.btnABDraw.Visible = true;
                         UpdateChart();
                     }
                     catch (Exception ed)

@@ -22,14 +22,35 @@ namespace AOG
         private bool isRefRightSide = true; //left side 0 middle 1 right 2
 
         private bool isOn = true;
-
-        public FormBuildTracks(Form _mf)
+        private bool quick = false;
+        public FormBuildTracks(Form _mf, bool quick)
         {
             mf = _mf as FormGPS;
+            this.quick = quick;
             InitializeComponent();
 
             //btnPausePlay.Text = gStr.Get(gs.gsPause;
             this.Text = "Tracks";
+        }
+
+        private void SetPanelVisible(Panel panel)
+        {
+            panelEditName.Visible = false;
+            panelMain.Visible = false;
+            panelChoose2.Visible = false;
+            panelCurve.Visible = false;
+            panelName.Visible = false;
+            panelKML.Visible = false;
+            panelChoose.Visible = false;
+            panelABLine.Visible = false;
+            panelAPlus.Visible = false;
+            panelLatLonPlus.Visible = false;
+            panelLatLonLatLon.Visible = false;
+            panelPivot.Visible = false;
+            panelPivot3Pt.Visible = false;
+
+            ClientSize = new System.Drawing.Size(panel.Width + 6, panel.Height + 6);
+            panel.Visible = true;
         }
 
         private void FormBuildTracks_Load(object sender, EventArgs e)
@@ -52,29 +73,26 @@ namespace AOG
             panelKML.Top = 3; panelKML.Left = 3;
             panelEditName.Top = 3; panelEditName.Left = 3;
             panelChoose.Top = 3; panelChoose.Left = 3;
+            panelChoose2.Top = 3; panelChoose2.Left = 3;
             panelABLine.Top = 3; panelABLine.Left = 3;
             panelAPlus.Top = 3; panelAPlus.Left = 3;
             panelLatLonPlus.Top = 3; panelLatLonPlus.Left = 3;
             panelLatLonLatLon.Top = 3; panelLatLonLatLon.Left = 3;
             panelPivot.Top = 3; panelPivot.Left = 3;
             panelPivot3Pt.Top = 3; panelPivot3Pt.Left = 3;
+            
+            SetPanelVisible(quick ? panelChoose2 : panelMain);
 
-            panelEditName.Visible = false;
-            panelMain.Visible = true;
-            panelCurve.Visible = false;
-            panelName.Visible = false;
-            panelKML.Visible = false;
-            panelChoose.Visible = false;
-            panelABLine.Visible = false;
-            panelAPlus.Visible = false;
-            panelLatLonPlus.Visible = false;
-            panelLatLonLatLon.Visible = false;
-            panelPivot.Visible = false;
-            panelPivot3Pt.Visible = false;
 
-            this.Size = new System.Drawing.Size(650, 480);
-
-            Location = Settings.User.setWindow_buildTracksLocation;
+            if (quick)
+            {
+                Location = Settings.User.setWindow_QuickABLocation;
+                mf.trk.designPtsList?.Clear();
+            }
+            else
+            {
+                Location = Settings.User.setWindow_buildTracksLocation;
+            }
 
 
             nudLatitudeA.Value = mf.pn.latitude;
@@ -111,11 +129,14 @@ namespace AOG
             }
             else
             {
-                mf.trk.gArr = gTemp;
+                mf.trk.SetTracks(gTemp);
                 mf.trk.currTrk = originalLine;//test this!
             }
 
-            Settings.User.setWindow_buildTracksLocation = Location;
+            if (quick)
+                Settings.User.setWindow_QuickABLocation = Location;
+            else
+                Settings.User.setWindow_buildTracksLocation = Location;
 
             mf.PanelUpdateRightAndBottom();
         }
@@ -204,7 +225,7 @@ namespace AOG
         {
             if (sender is Button b && b.Tag is CTrk track)
             {
-                int line = mf.trk.gArr.IndexOf(track);
+                int line = mf.trk.TrackIndex(track);
                 track.isVisible = !track.isVisible;
 
                 for (int i = 0; i < mf.trk.gArr.Count; i++)
@@ -222,7 +243,7 @@ namespace AOG
         {
             if (sender is TextBox t && t.Tag is CTrk track)
             {
-                int line = mf.trk.gArr.IndexOf(track);
+                int line = mf.trk.TrackIndex(track);
                 int numLines = mf.trk.gArr.Count;
 
                 //un highlight selected item
@@ -242,12 +263,7 @@ namespace AOG
 
         private void btnMoveUPGN_Click(object sender, EventArgs e)
         {
-            int index = mf.trk.gArr.IndexOf(selectedItem);
-            if (selectedItem == null || index == 0)
-                return;
-
-            mf.trk.gArr.Reverse(index - 1, 2);
-
+            mf.trk.MoveTrackUp(selectedItem);
             int scrollPixels = flp.VerticalScroll.Value;
 
             scrollPixels -= 45;
@@ -262,12 +278,7 @@ namespace AOG
 
         private void btnMoveDn_Click(object sender, EventArgs e)
         {
-            int index = mf.trk.gArr.IndexOf(selectedItem);
-
-            if (selectedItem == null || index == (mf.trk.gArr.Count - 1))
-                return;
-
-            mf.trk.gArr.Reverse(index, 2);
+            mf.trk.MoveTrackDn(selectedItem);
 
             int scrollPixels = flp.VerticalScroll.Value;
 
@@ -340,23 +351,15 @@ namespace AOG
 
         private void btnNewTrack_Click(object sender, EventArgs e)
         {
-            panelChoose.Visible = false;
-            panelMain.Visible = false;
-            panelCurve.Visible = false;
-            panelName.Visible = false;
-            panelABLine.Visible = false;
-            panelAPlus.Visible = false;
-            panelKML.Visible = false;
-
             mf.trk.designPtsList?.Clear();
-            panelChoose.Visible = true;
+            SetPanelVisible(panelChoose);
         }
 
         private void btnListDelete_Click(object sender, EventArgs e)
         {
             if (selectedItem != null)
             {
-                mf.trk.gArr.Remove(selectedItem);
+                mf.trk.RemoveTrack(selectedItem);
                 selectedItem = null;
 
                 UpdateTable();
@@ -368,14 +371,12 @@ namespace AOG
         {
             if (selectedItem != null)
             {
-                panelMain.Visible = false;
-                panelName.Visible = true;
-                this.Size = new System.Drawing.Size(270, 360);
-
                 selectedItem = new CTrk(selectedItem);
-                mf.trk.gArr.Add(selectedItem);
+                mf.trk.AddTrack(selectedItem);
 
                 textBox1.Text = selectedItem.name + " Copy";
+
+                SetPanelVisible(panelName);
             }
         }
 
@@ -385,10 +386,7 @@ namespace AOG
             {
                 textBox2.Text = selectedItem.name;
 
-                panelMain.Visible = false;
-                panelEditName.Visible = true;
-
-                this.Size = new System.Drawing.Size(270, 360);
+                SetPanelVisible(panelEditName);
             }
         }
 
@@ -398,50 +396,39 @@ namespace AOG
 
         private void btnzABCurve_Click(object sender, EventArgs e)
         {
-            panelChoose.Visible = false;
-            panelCurve.Visible = true;
-
             btnACurve.Enabled = true;
             btnBCurve.Enabled = false;
             btnPausePlay.Enabled = false;
             mf.trk.designPtsList?.Clear();
 
-            this.Size = new System.Drawing.Size(270, 360);
+            SetPanelVisible(panelCurve);
             mf.Activate();
         }
 
         private void btnzAPlus_Click(object sender, EventArgs e)
         {
-            panelChoose.Visible = false;
-            panelAPlus.Visible = true;
-
             btnAPlus.Enabled = true;
             mf.trk.designPtsList?.Clear();
             nudHeading.Enabled = false;
 
-            this.Size = new System.Drawing.Size(270, 360);
+            SetPanelVisible(panelAPlus);
             mf.Activate();
         }
 
         private void btnzABLine_Click(object sender, EventArgs e)
         {
-            panelChoose.Visible = false;
-            panelABLine.Visible = true;
-
             btnALine.Enabled = true;
             btnBLine.Enabled = false;
             btnPausePlay.Enabled = false;
             mf.trk.designPtsList?.Clear();
 
-            this.Size = new System.Drawing.Size(270, 360);
+            SetPanelVisible(panelABLine);
             mf.Activate();
         }
 
         private void btnzLatLonPlusHeading_Click(object sender, EventArgs e)
         {
-            panelChoose.Visible = false;
-            panelLatLonPlus.Visible = true;
-            this.Size = new System.Drawing.Size(370, 460);
+            SetPanelVisible(panelLatLonPlus);
 
             nudLatitudePlus.Value = mf.pn.latitude;
             nudLongitudePlus.Value = mf.pn.longitude;
@@ -450,17 +437,13 @@ namespace AOG
 
         private void btnzLatLon_Click(object sender, EventArgs e)
         {
-            panelChoose.Visible = false;
-            panelLatLonLatLon.Visible = true;
-            this.Size = new System.Drawing.Size(370, 460);
+            SetPanelVisible(panelLatLonLatLon);
             mf.Activate();
         }
 
         private void btnLatLonPivot_Click(object sender, EventArgs e)
         {
-            panelChoose.Visible = false;
-            panelPivot.Visible = true;
-            this.Size = new System.Drawing.Size(370, 360);
+            SetPanelVisible(panelPivot);
 
             nudLatitudePivot.Value = mf.pn.latitude;
             nudLongitudePivot.Value = mf.pn.longitude;
@@ -469,14 +452,11 @@ namespace AOG
 
         private void btnPivot3Pt_Click(object sender, EventArgs e)
         {
-            panelChoose.Visible = false;
-            panelPivot3Pt.Visible = true;
-
             mf.trk.designPtsList?.Clear();
             mf.trk.designPtA.easting = 20000;
             mf.trk.designPtB.easting = 20000;
 
-            this.Size = new System.Drawing.Size(270, 360);
+            SetPanelVisible(panelPivot3Pt);
             mf.Activate();
         }
 
@@ -494,7 +474,7 @@ namespace AOG
 
         private void btnACurve_Click(object sender, System.EventArgs e)
         {
-            if (mf.trk.isMakingCurveTrack)
+            if (mf.trk.isMakingTrack)
             {
                 mf.trk.designPtsList.Add(new vec3(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing, mf.pivotAxlePos.heading));
                 btnBCurve.Enabled = mf.trk.designPtsList.Count > 3;
@@ -513,7 +493,7 @@ namespace AOG
                 btnPausePlay.Enabled = true;
                 btnPausePlay.Visible = true;
 
-                mf.trk.isMakingCurveTrack = true;
+                mf.trk.isMakingTrack = true;
                 mf.trk.isRecordingCurveTrack = true;
             }
             mf.Activate();
@@ -521,17 +501,18 @@ namespace AOG
 
         private void btnBCurve_Click(object sender, System.EventArgs e)
         {
-            mf.trk.isMakingCurveTrack = false;
+            mf.trk.isMakingTrack = false;
             mf.trk.isRecordingCurveTrack = false;
-            panelCurve.Visible = false;
-            panelName.Visible = true;
+
+            //mf.trk.designPtB.easting = mf.pivotAxlePos.easting;
+            //mf.trk.designPtB.northing = mf.pivotAxlePos.northing;
 
             int cnt = mf.trk.designPtsList.Count;
             if (cnt > 3)
             {
                 //make sure point distance isn't too big
                 mf.trk.MakePointMinimumSpacing(ref mf.trk.designPtsList, 1.6);
-                mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
+                mf.trk.designPtsList.CalculateHeadings(false);
 
                 var track = new CTrk(TrackMode.Curve);
 
@@ -550,7 +531,7 @@ namespace AOG
                 track.heading = aveLineHeading;
 
                 mf.trk.SmoothAB(ref mf.trk.designPtsList, 4, false);
-                mf.trk.CalculateHeadings(ref mf.trk.designPtsList);
+                mf.trk.designPtsList.CalculateHeadings(false);
 
                 //write out the Curve Points
                 foreach (vec3 item in mf.trk.designPtsList)
@@ -569,24 +550,21 @@ namespace AOG
                 track.ptB = new vec2(track.curvePts[track.curvePts.Count - 1]);
 
                 //build the tail extensions
-                mf.trk.AddFirstLastPoints(ref track.curvePts, 100);
+                mf.trk.AddFirstLastPoints(ref track.curvePts, 200);
 
-                mf.trk.gArr.Add(track);
+                mf.trk.AddTrack(track);
                 selectedItem = track;
 
-                panelCurve.Visible = false;
-                panelName.Visible = true;
+                SetPanelVisible(panelName);
             }
             else
             {
-                panelMain.Visible = true;
-                panelCurve.Visible = false;
-                panelName.Visible = false;
-                panelChoose.Visible = false;
-                this.Size = new System.Drawing.Size(650, 480);
+                if (quick)
+                    Close();
+                else
+                    SetPanelVisible(panelMain);
             }
 
-            mf.trk.designPtsList?.Clear();
             mf.Activate();
         }
 
@@ -624,7 +602,7 @@ namespace AOG
 
         private void btnALine_Click(object sender, EventArgs e)
         {
-            mf.trk.isMakingABLine = true;
+            mf.trk.isMakingTrack = true;
             btnALine.Enabled = false;
 
             mf.trk.designPtA = new vec2(mf.pivotAxlePos);
@@ -676,15 +654,14 @@ namespace AOG
         private void btnEnter_AB_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
-            mf.trk.isMakingABLine = false;
+            mf.trk.isMakingTrack = false;
 
-            mf.trk.CreateDesignedABTrack(isRefRightSide);
+            selectedItem = mf.trk.CreateDesignedABTrack(isRefRightSide);
 
             textBox1.Text = "AB: " +
                 (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
 
-            panelABLine.Visible = false;
-            panelName.Visible = true;
+            SetPanelVisible(panelName);
             mf.Activate();
         }
 
@@ -702,7 +679,7 @@ namespace AOG
 
         private void btnAPlus_Click(object sender, EventArgs e)
         {
-            mf.trk.isMakingABLine = true;
+            mf.trk.isMakingTrack = true;
 
             mf.trk.designPtA = new vec2(mf.pivotAxlePos);
 
@@ -749,15 +726,14 @@ namespace AOG
         {
             timer1.Enabled = false;
 
-            mf.trk.isMakingABLine = false;
+            mf.trk.isMakingTrack = false;
 
-            mf.trk.CreateDesignedABTrack(isRefRightSide);
+            selectedItem = mf.trk.CreateDesignedABTrack(isRefRightSide);
 
             textBox1.Text = "A+" +
                 (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
 
-            panelAPlus.Visible = false;
-            panelName.Visible = true;
+            SetPanelVisible(panelName);
             mf.Activate();
         }
 
@@ -782,10 +758,7 @@ namespace AOG
 
         private void btnLoadABFromKML_Click(object sender, EventArgs e)
         {
-            panelChoose.Visible = false;
-            panelKML.Visible = true;
-
-            this.Size = new System.Drawing.Size(270, 360);
+            SetPanelVisible(panelKML);
 
             string fileAndDirectory;
             {
@@ -800,7 +773,11 @@ namespace AOG
                 };
 
                 //was a file selected
-                if (ofd.ShowDialog(this) == DialogResult.Cancel) return;
+                if (ofd.ShowDialog(this) == DialogResult.Cancel)
+                {
+                    SetPanelVisible(panelMain);
+                    return;
+                }
                 else fileAndDirectory = ofd.FileName;
             }
 
@@ -870,16 +847,16 @@ namespace AOG
                         else trackName = "AB: " +
                             (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
 
-                        mf.trk.CreateDesignedABTrack(isRefRightSide);
+                        selectedItem = mf.trk.CreateDesignedABTrack(isRefRightSide);
 
                         //create a name
-                        mf.trk.gArr[mf.trk.gArr.Count - 1].name = trackName;
+                        selectedItem.name = trackName;
                     }
                     else if (designPtsList.Count > 2)
                     {
                         //make sure point distance isn't too big
                         mf.trk.MakePointMinimumSpacing(ref designPtsList, 1.6);
-                        mf.trk.CalculateHeadings(ref designPtsList);
+                        designPtsList.CalculateHeadings(false);
 
                         var track = new CTrk(TrackMode.Curve);
 
@@ -900,9 +877,8 @@ namespace AOG
                         track.heading = aveLineHeading;
 
                         //build the tail extensions
-                        mf.trk.AddFirstLastPoints(ref designPtsList, 100);
+                        mf.trk.AddFirstLastPoints(ref designPtsList, 200);
                         //mf.trk.SmoothAB(ref designPtsList, 4, false);
-                        mf.trk.CalculateHeadings(ref designPtsList);
 
                         //write out the Curve Points
                         track.curvePts = designPtsList;
@@ -916,7 +892,7 @@ namespace AOG
 
                         track.name = trackName;
 
-                        mf.trk.gArr.Add(track);
+                        mf.trk.AddTrack(track);
                         selectedItem = track;
                     }
                     else
@@ -931,11 +907,7 @@ namespace AOG
                 return;
             }
 
-            panelKML.Visible = false;
-            panelName.Visible = false;
-            panelMain.Visible = true;
-
-            this.Size = new System.Drawing.Size(650, 480);
+            SetPanelVisible(panelMain);
 
             UpdateTable();
             flp.Focus();
@@ -986,17 +958,14 @@ namespace AOG
         {
             CalcHeadingAB();
 
-            mf.trk.isMakingABLine = false;
+            mf.trk.isMakingTrack = false;
 
-            mf.trk.CreateDesignedABTrack(isRefRightSide);
+            selectedItem = mf.trk.CreateDesignedABTrack(isRefRightSide);
 
             textBox1.Text = "AB: " +
                 (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
 
-            panelLatLonLatLon.Visible = false;
-            panelName.Visible = true;
-
-            this.Size = new System.Drawing.Size(270, 360);
+            SetPanelVisible(panelName);
         }
 
         #endregion LatLon LatLon
@@ -1025,17 +994,14 @@ namespace AOG
         {
             CalcHeadingAPlus();
 
-            mf.trk.isMakingABLine = false;
+            mf.trk.isMakingTrack = false;
 
-            mf.trk.CreateDesignedABTrack(isRefRightSide);
+            selectedItem = mf.trk.CreateDesignedABTrack(isRefRightSide);
 
             textBox1.Text = "A+" +
                 (Math.Round(glm.toDegrees(mf.trk.designHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
 
-            panelLatLonPlus.Visible = false;
-            panelName.Visible = true;
-
-            this.Size = new System.Drawing.Size(270, 360);
+            SetPanelVisible(panelName);
         }
 
         #endregion LatLon +
@@ -1046,7 +1012,7 @@ namespace AOG
         private void btnPivot1_Click(object sender, EventArgs e)
         {
             mf.trk.designPtA = new vec2(mf.pivotAxlePos);
-            mf.trk.isMakingABLine = true;
+            mf.trk.isMakingTrack = true;
             btnPivot2.Enabled = true;
             btnPivot1.Enabled = false;
 
@@ -1061,13 +1027,13 @@ namespace AOG
 
         private void btnPivot3_Click(object sender, EventArgs e)
         {
-            mf.trk.isMakingABLine = false;
+            mf.trk.isMakingTrack = false;
 
             var track = new CTrk(TrackMode.waterPivot);
 
             track.ptA = FindCircleCenter(mf.pivotAxlePos, mf.trk.designPtA, mf.trk.designPtB);
 
-            mf.trk.gArr.Add(track);
+            mf.trk.AddTrack(track);
             selectedItem = track;
 
             textBox1.Text = "Piv";
@@ -1076,10 +1042,7 @@ namespace AOG
             btnPivot2.Enabled = false;
             btnPivot3.Enabled = false;
 
-            panelPivot3Pt.Visible = false;
-            panelName.Visible = true;
-
-            this.Size = new System.Drawing.Size(270, 360);
+            SetPanelVisible(panelName);
             mf.Activate();
         }
 
@@ -1127,15 +1090,12 @@ namespace AOG
 
             track.ptA = new vec2(east, nort);
 
-            mf.trk.gArr.Add(track);
+            mf.trk.AddTrack(track);
             selectedItem = track;
 
             textBox1.Text = "Piv";
 
-            panelPivot.Visible = false;
-            panelName.Visible = true;
-
-            this.Size = new System.Drawing.Size(270, 360);
+            SetPanelVisible(panelName);
             mf.Activate();
         }
 
@@ -1149,24 +1109,18 @@ namespace AOG
 
         private void btnCancelCurve_Click(object sender, EventArgs e)
         {
-            mf.trk.isMakingCurveTrack = false;
+            mf.trk.isMakingTrack = false;
             mf.trk.isRecordingCurveTrack = false;
             mf.trk.designPtsList?.Clear();
-            mf.trk.isMakingABLine = false;
 
-            panelMain.Visible = true;
-            panelEditName.Visible = false;
-            panelName.Visible = false;
-            panelChoose.Visible = false;
-            panelCurve.Visible = false;
-            panelABLine.Visible = false;
-            panelAPlus.Visible = false;
-            panelLatLonLatLon.Visible = false;
-            panelLatLonPlus.Visible = false;
-            panelKML.Visible = false;
-            panelPivot.Visible = false;
-
-            this.Size = new System.Drawing.Size(650, 480);
+            if (quick)
+            {
+                Close();
+            }
+            else
+            {
+                SetPanelVisible(panelMain);
+            }
             mf.Activate();
         }
 
@@ -1178,20 +1132,22 @@ namespace AOG
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text.Length == 0) textBox2.Text = "No Name " + DateTime.Now.ToString("hh:mm:ss", CultureInfo.InvariantCulture);
+            if (textBox1.Text.Length == 0) textBox1.Text = "No Name " + DateTime.Now.ToString("hh:mm:ss", CultureInfo.InvariantCulture);
 
-            int idx = mf.trk.gArr.Count - 1;
-            if (idx >= 0)
-                mf.trk.gArr[idx].name = textBox1.Text.Trim();
+            if (selectedItem != null)
+                selectedItem.name = textBox1.Text.Trim();
 
-            panelMain.Visible = true;
-            panelName.Visible = false;
-
-            this.Size = new System.Drawing.Size(650, 480);
-
-            mf.trk.designPtsList?.Clear();
-            UpdateTable();
-            mf.Activate();
+            if (quick)
+            {
+                isSaving = true;
+                Close();
+            }
+            else
+            {
+                SetPanelVisible(panelMain);
+                UpdateTable();
+                mf.Activate();
+            }
         }
 
         private void btnAddTime_Click(object sender, EventArgs e)
@@ -1210,14 +1166,10 @@ namespace AOG
         {
             if (textBox2.Text.Trim() == "") textBox2.Text = "No Name " + DateTime.Now.ToString("hh:mm:ss", CultureInfo.InvariantCulture);
 
-            panelEditName.Visible = false;
-            panelMain.Visible = true;
-
-            mf.trk.designPtsList?.Clear();
             if (selectedItem != null)
                 selectedItem.name = textBox2.Text.Trim();
 
-            this.Size = new System.Drawing.Size(650, 480);
+            SetPanelVisible(panelMain);
 
             UpdateTable();
             flp.Focus();

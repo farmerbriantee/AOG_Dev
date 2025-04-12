@@ -9,17 +9,6 @@ namespace AOG
 {
     public partial class FormBoundaryLines : Form
     {
-        public const int GlyphsPerLine = 16;
-        public const int GlyphLineCount = 16;
-        public const int GlyphWidth = 16;
-        public const int GlyphHeight = 32;
-        public const int CharXSpacing = 16;
-
-        //int FontTextureID;
-        public const int textureWidth = 256;
-
-        public const int textureHeight = 256;
-
         //access to the main GPS form and all its variables
         private readonly FormGPS mf = null;
 
@@ -33,8 +22,6 @@ namespace AOG
 
         // temp bnd list
         private List<vec3> buildList = new List<vec3>();
-
-        public double iE = 0, iN = 0;
 
         public FormBoundaryLines(Form callingForm)
         {
@@ -105,36 +92,6 @@ namespace AOG
         }
 
         #region Functions
-
-        // Returns 1 if the lines intersect, otherwise
-        public int GetLineIntersection(double p0x, double p0y, double p1x, double p1y,
-        double p2x, double p2y, double p3x, double p3y, ref double iEast, ref double iNorth)
-        {
-            double s1x, s1y, s2x, s2y;
-            s1x = p1x - p0x;
-            s1y = p1y - p0y;
-
-            s2x = p3x - p2x;
-            s2y = p3y - p2y;
-
-            double s, t;
-            s = (-s1y * (p0x - p2x) + s1x * (p0y - p2y)) / (-s2x * s1y + s1x * s2y);
-
-            if (s >= 0 && s <= 1)
-            {
-                //check oher side
-                t = (s2x * (p0y - p2y) - s2y * (p0x - p2x)) / (-s2x * s1y + s1x * s2y);
-                if (t >= 0 && t <= 1)
-                {
-                    // Collision detected
-                    iEast = p0x + (t * s1x);
-                    iNorth = p0y + (t * s1y);
-                    return 1;
-                }
-            }
-
-            return 0; // No collision
-        }
 
         //reverse the point built lines - both AB and Curve since AB is segmented
         private void ReverseLine(int idx)
@@ -432,12 +389,7 @@ namespace AOG
                     GL.Color3(0.52 * viz, 0.982 * viz, 0.50 * viz);
                 }
 
-                GL.Begin(PrimitiveType.Points);
-                foreach (vec3 pts in gTemp[i].curvePts)
-                {
-                    GL.Vertex3(pts.easting, pts.northing, 0);
-                }
-                GL.End();
+                gTemp[i].curvePts.DrawPolygon(PrimitiveType.Points);
 
                 int ptIndex = gTemp[i].curvePts.Count / 2 - gTemp[i].curvePts.Count / 15;
                 double length = gTemp[i].curvePts.Count / 20;
@@ -478,20 +430,20 @@ namespace AOG
                 GL.Enable(EnableCap.Blend);
 
                 GL.Color3(1.0f * viz, 1.0f * viz, 0.0f * viz);
-                DrawText3D(gTemp[i].curvePts[0].easting,
-                            gTemp[i].curvePts[0].northing, "A", fontSize);
+                mf.font.DrawText3D(gTemp[i].curvePts[0].easting,
+                            gTemp[i].curvePts[0].northing, "A", false, fontSize);
 
                 GL.Color3(0.4f * viz, 0.75f * viz, 1.0f * viz);
-                DrawText3D(gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].easting,
-                            gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].northing, "B", fontSize);
+                mf.font.DrawText3D(gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].easting,
+                            gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].northing, "B", false, fontSize);
 
                 GL.Color3(1.0f * viz, 1.0f * viz, 1.0f * viz);
 
                 int drawSpot = gTemp[i].curvePts.Count / 2;
                 drawSpot = drawSpot * 5 / 8;
 
-                DrawText3D(gTemp[i].curvePts[drawSpot].easting,
-                            gTemp[i].curvePts[drawSpot].northing, (i + 1).ToString(), fontSize);
+                mf.font.DrawText3D(gTemp[i].curvePts[drawSpot].easting,
+                            gTemp[i].curvePts[drawSpot].northing, (i + 1).ToString(), false, fontSize);
 
                 GL.Disable(EnableCap.Blend);
             }
@@ -503,12 +455,7 @@ namespace AOG
             {
                 GL.Color3(1.0f, 1.0f, 0.0f);
                 GL.LineWidth(4);
-                GL.Begin(PrimitiveType.LineStrip);
-                foreach (vec3 pts in buildList)
-                {
-                    GL.Vertex3(pts.easting, pts.northing, 0);
-                }
-                GL.End();
+                buildList.DrawPolygon(PrimitiveType.LineStrip);
             }
         }
 
@@ -516,49 +463,6 @@ namespace AOG
         {
             oglSelf.Refresh();
         }
-
-        public void DrawText3D(double x1, double y1, string text, double size = 1.0)
-        {
-            double x = 0, y = 0;
-
-            GL.PushMatrix();
-
-            GL.Translate(x1, y1, 0);
-
-            GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.Font]);
-            GL.Enable(EnableCap.Texture2D);
-            GL.Begin(PrimitiveType.TriangleStrip);
-
-            double u_step = GlyphWidth / (double)textureWidth;
-            double v_step = GlyphHeight / (double)textureHeight;
-
-            for (int n = 0; n < text.Length; n++)
-            {
-                char idx = text[n];
-                double u = idx % GlyphsPerLine * u_step;
-                double v = idx / GlyphsPerLine * v_step;
-
-                GL.TexCoord2(u + u_step, v);
-                GL.Vertex2(x + GlyphWidth * size, y + GlyphHeight * size);
-
-                GL.TexCoord2(u, v);
-                GL.Vertex2(x, y + GlyphHeight * size);
-
-                GL.TexCoord2(u + u_step, v + v_step);
-                GL.Vertex2(x + GlyphWidth * size, y);
-
-                GL.TexCoord2(u, v + v_step);
-                GL.Vertex2(x, y);
-
-                x += CharXSpacing * size;
-            }
-
-            GL.End();
-            GL.Disable(EnableCap.Texture2D);
-
-            GL.PopMatrix();
-        }
-
         #endregion OGL
 
         private void btnBuildBnd_Click(object sender, EventArgs e)
@@ -590,18 +494,13 @@ namespace AOG
                     //look for crossing with next line
                     for (int k = 0; k < gTemp[crossingLine].curvePts.Count - 2; k++)
                     {
-                        int res = GetLineIntersection(
-                        gTemp[startLine].curvePts[i].easting,
-                        gTemp[startLine].curvePts[i].northing,
-                        gTemp[startLine].curvePts[i + 1].easting,
-                        gTemp[startLine].curvePts[i + 1].northing,
+                        bool res = glm.GetLineIntersection(
+                        gTemp[startLine].curvePts[i],
+                        gTemp[startLine].curvePts[i + 1],
 
-                        gTemp[crossingLine].curvePts[k].easting,
-                        gTemp[crossingLine].curvePts[k].northing,
-                        gTemp[crossingLine].curvePts[k + 1].easting,
-                        gTemp[crossingLine].curvePts[k + 1].northing,
-                        ref iE, ref iN);
-                        if (res == 1)
+                        gTemp[crossingLine].curvePts[k],
+                        gTemp[crossingLine].curvePts[k + 1], out _, out _, out _);
+                        if (res)
                         {
                             isCross++;
 
@@ -651,26 +550,20 @@ namespace AOG
                     //lines to look for crossings
                     for (int j = 0; j < gTemp[crossingLine].curvePts.Count - 2; j++)
                     {
-                        int res = GetLineIntersection(
-                        gTemp[startLine].curvePts[i].easting,
-                        gTemp[startLine].curvePts[i].northing,
-                        gTemp[startLine].curvePts[i + 1].easting,
-                        gTemp[startLine].curvePts[i + 1].northing,
+                        bool res = glm.GetLineIntersection(
+                        gTemp[startLine].curvePts[i],
+                        gTemp[startLine].curvePts[i + 1],
 
-                        gTemp[crossingLine].curvePts[j].easting,
-                        gTemp[crossingLine].curvePts[j].northing,
-                        gTemp[crossingLine].curvePts[j + 1].easting,
-                        gTemp[crossingLine].curvePts[j + 1].northing,
-                        ref iE, ref iN);
+                        gTemp[crossingLine].curvePts[j],
+                        gTemp[crossingLine].curvePts[j + 1], out var crossing, out _, out _);
 
-                        if (res == 1)
+                        if (res)
                         {
                             isCross++;
 
                             if (isCross == 1)
                             {
-                                vec3 pt = new vec3(iE, iN, 0);
-                                buildList.Add(pt);
+                                buildList.Add(crossing);
                                 startPt = i + 1;
                                 goto nextStartPts;
                             }
@@ -742,7 +635,6 @@ namespace AOG
                 mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
 
                 mf.FileSaveBoundary();
-                mf.btnABDraw.Visible = true;
 
                 Log.EventWriter("Guidance Line Boundary Created");
             }

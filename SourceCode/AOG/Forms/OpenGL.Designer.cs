@@ -183,7 +183,7 @@ namespace AOG
                                 GL.Vertex3(field.start.easting, field.start.northing, 0);
                                 GL.End();
 
-                                font.DrawText3D(field.start.easting, field.start.northing, field.name, 2);
+                                font.DrawText3D(field.start.easting, field.start.northing, field.name, true, 2);
 
                                 break;
                             }
@@ -197,26 +197,12 @@ namespace AOG
                             //draw whole outer field polygon
                             GL.Color4(0.1, 0.1, 0.351, 0.25);
 
-                            GL.Begin(PrimitiveType.Triangles);
-                            for (int i = 0; i < bnd.bndList[0].fenceTriangleList.Count; i++)
-                            {
-                                GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[0].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[0].northing, 0);
-                                GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[1].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[1].northing, 0);
-                                GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[2].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[2].northing, 0);
-                            }
-                            GL.End();
+                            bnd.bndList[0].fenceTriangleList.DrawPolygon(PrimitiveType.Triangles);
 
                             //draw headland polygon
                             GL.Color4(0.1, 0.3, 0.1, 0.25);
 
-                            GL.Begin(PrimitiveType.Triangles);
-                            for (int i = 0; i < bnd.bndList[0].hdLineTriangleList.Count; i++)
-                            {
-                                GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].northing, 0);
-                                GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].northing, 0);
-                                GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].northing, 0);
-                            }
-                            GL.End();
+                            bnd.bndList[0].hdLineTriangleList.DrawPolygon(PrimitiveType.Triangles);
 
                             //if we would have inner boundary headline draw them here
                         }
@@ -225,31 +211,17 @@ namespace AOG
                             //draw outer field polygon (fence)
                             GL.Color4(0.1, 0.3, 0.1, 0.25);
 
-                            GL.Begin(PrimitiveType.Triangles);
-                            for (int i = 0; i < bnd.bndList[0].fenceTriangleList.Count; i++)
-                            {
-                                GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[0].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[0].northing, 0);
-                                GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[1].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[1].northing, 0);
-                                GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[2].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[2].northing, 0);
-                            }
-                            GL.End();
+                            bnd.bndList[0].fenceTriangleList.DrawPolygon(PrimitiveType.Triangles);
                         }
 
                         //draw red in inner boundary of field
                         if (bnd.bndList.Count > 1)
                         {
                             GL.Color4(0.351, 0.1, 0.1, 0.32);
-                            GL.Begin(PrimitiveType.Triangles);
                             for (int a = 1; a < bnd.bndList.Count; a++)
                             {
-                                for (int i = 0; i < bnd.bndList[a].fenceTriangleList.Count; i++)
-                                {
-                                    GL.Vertex3(bnd.bndList[a].fenceTriangleList[i].polygonPts[0].easting, bnd.bndList[a].fenceTriangleList[i].polygonPts[0].northing, 0);
-                                    GL.Vertex3(bnd.bndList[a].fenceTriangleList[i].polygonPts[1].easting, bnd.bndList[a].fenceTriangleList[i].polygonPts[1].northing, 0);
-                                    GL.Vertex3(bnd.bndList[a].fenceTriangleList[i].polygonPts[2].easting, bnd.bndList[a].fenceTriangleList[i].polygonPts[2].northing, 0);
-                                }
+                                bnd.bndList[a].fenceTriangleList.DrawPolygon(PrimitiveType.Triangles);
                             }
-                            GL.End();
                         }
                     }
 
@@ -301,58 +273,19 @@ namespace AOG
 
                         if (isDraw)
                         {
-                            count2 = triList.Count;
-                            GL.Begin(PrimitiveType.TriangleStrip);
-
                             if (Settings.User.setDisplay_isDayMode) GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)152);
                             else GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)(152 * 0.5));
 
-                            //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
-                            if (count2 >= (mipmap + 2))
-                            {
-                                int step = mipmap;
-                                for (int i = 1; i < count2; i += step)
-                                {
-                                    GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
-                                    GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
-                                    if (count2 - i <= (mipmap + 2)) step = 0;//too small to mipmap it
-                                }
-                            }
-                            else { for (int i = 1; i < count2; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
-                            GL.End();
+
+                            triList.DrawPolygon(mipmap, 1, PrimitiveType.TriangleStrip);
 
                             if (Settings.User.setDisplay_isSectionLinesOn)
                             {
                                 //highlight lines
                                 GL.Color4(0.2, 0.2, 0.2, 1.0);
-                                GL.Begin(PrimitiveType.LineStrip);
 
-                                //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
-                                if (count2 >= (mipmap + 2))
-                                {
-                                    int step = mipmap;
-                                    for (int i = 1; i < count2; i += step + 2)
-                                    {
-                                        GL.Vertex3(triList[i].easting, triList[i].northing, 0);
-                                        if (count2 - i <= (mipmap + 2)) step = 0;//too small to mipmap it
-                                    }
-                                }
-                                else { for (int i = 1; i < count2; i += 2) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
-                                GL.End();
-
-                                GL.Begin(PrimitiveType.LineStrip);
-                                //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
-                                if (count2 >= (mipmap + 2))
-                                {
-                                    int step = mipmap;
-                                    for (int i = 2; i < count2; i += step + 2)
-                                    {
-                                        GL.Vertex3(triList[i].easting, triList[i].northing, 0);
-                                        if (count2 - i <= (mipmap + 2)) step = 0;//too small to mipmap it
-                                    }
-                                }
-                                else { for (int i = 2; i < count2; i += 2) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
-                                GL.End();
+                                triList.DrawPolygon(mipmap, 1, PrimitiveType.LineStrip);
+                                triList.DrawPolygon(mipmap, 2, PrimitiveType.LineStrip);
                             }
 
 
@@ -461,9 +394,7 @@ namespace AOG
                     }
 
                     //draw line creations
-                    if (trk.isMakingCurveTrack) trk.DrawNewTrack();
-
-                    if (trk.isMakingABLine) trk.DrawABLineNew();
+                    if (trk.isMakingTrack) trk.DrawNewTrack();
 
                     #endregion
 
@@ -954,8 +885,6 @@ namespace AOG
             GL.ColorMask(false, true, false, false); //Draw only in green
             GL.Color3((byte)0, (byte)bbColors.section, (byte)0);
 
-            //to draw or not the triangle patch
-            bool isDraw;
 
             double pivEplus = toolPos.easting + 50;
             double pivEminus = toolPos.easting - 50;
@@ -965,7 +894,6 @@ namespace AOG
             //for every new chunk of patch
             foreach (var triList in patchList)
             {
-                isDraw = false;
                 int count2 = triList.Count;
                 for (int i = 1; i < count2; i += 3)
                 {
@@ -980,16 +908,8 @@ namespace AOG
                         continue;
 
                     //point is in frustum so draw the entire patch
-                    isDraw = true;
+                    triList.DrawPolygon(PrimitiveType.TriangleStrip);
                     break;
-                }
-
-                if (isDraw)
-                {
-                    //draw the triangles in each triangle strip
-                    GL.Begin(PrimitiveType.TriangleStrip);
-                    for (int i = 1; i < count2; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0);
-                    GL.End();
                 }
             }
 
@@ -1014,12 +934,8 @@ namespace AOG
                 if (tram.displayMode == 1 || tram.displayMode == 3)
                 {
                     //boundary tram list
-                    GL.Begin(PrimitiveType.LineStrip);
-                    for (int h = 0; h < tram.tramBndOuterArr.Count; h++)
-                        GL.Vertex3(tram.tramBndOuterArr[h].easting, tram.tramBndOuterArr[h].northing, 0);
-                    for (int h = 0; h < tram.tramBndInnerArr.Count; h++)
-                        GL.Vertex3(tram.tramBndInnerArr[h].easting, tram.tramBndInnerArr[h].northing, 0);
-                    GL.End();
+                    tram.tramBndOuterArr.DrawPolygon(PrimitiveType.LineStrip);
+                    tram.tramBndInnerArr.DrawPolygon(PrimitiveType.LineStrip);
                 }
             }
 
@@ -2029,7 +1945,7 @@ namespace AOG
                     GL.Vertex3(flagPts[f].easting, flagPts[f].northing, 0);
                     GL.End();
 
-                    font.DrawText3D(flagPts[f].easting, flagPts[f].northing, flagColor + flagPts[f].notes);
+                    font.DrawText3D(flagPts[f].easting, flagPts[f].northing, flagColor + flagPts[f].notes, true);
                     //else
                     //    font.DrawText3D(flagPts[f].easting, flagPts[f].northing, "&");
                 }
@@ -2804,11 +2720,10 @@ namespace AOG
             //min max of the boundary
             if (bnd.bndList.Count > 0)
             {
-                int bndCnt = bnd.bndList[0].fenceLine.Count;
-                for (int i = 0; i < bndCnt; i++)
+                foreach (vec3 point in bnd.bndList[0].fenceLine)
                 {
-                    double x = bnd.bndList[0].fenceLine[i].easting;
-                    double y = bnd.bndList[0].fenceLine[i].northing;
+                    double x = point.easting;
+                    double y = point.northing;
 
                     //also tally the max/min of field x and z
                     if (minFieldX > x) minFieldX = x;
@@ -2816,7 +2731,6 @@ namespace AOG
                     if (minFieldY > y) minFieldY = y;
                     if (maxFieldY < y) maxFieldY = y;
                 }
-
             }
             else
             {

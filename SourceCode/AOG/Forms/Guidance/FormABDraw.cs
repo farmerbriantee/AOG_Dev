@@ -72,7 +72,7 @@ namespace AOG
             if (!isCancel)
             {
                 //load tracks from temp
-                mf.trk.gArr = gTemp;
+                mf.trk.SetTracks(gTemp);
                 mf.FileSaveTracks();
 
                 if (selectedLine != null && selectedLine.isVisible)
@@ -109,8 +109,6 @@ namespace AOG
             isA = true;
 
             FixLabelsCurve();
-
-            mf.trk.designPtsList?.Clear();
 
             zoom = 1;
             sX = 0;
@@ -228,7 +226,7 @@ namespace AOG
 
                     //make sure point distance isn't too big
                     mf.trk.MakePointMinimumSpacing(ref designPtsList, 1.6);
-                    mf.trk.CalculateHeadings(ref designPtsList);
+                    designPtsList.CalculateHeadings(true);
 
                     //create a name
                     track.name = q == 0 ? "Boundary Curve" : "Inner Boundary Curve " + q.ToString();
@@ -302,7 +300,7 @@ namespace AOG
 
                 //make sure point distance isn't too big
                 mf.trk.MakePointMinimumSpacing(ref designPtsList, 1.6);
-                mf.trk.CalculateHeadings(ref designPtsList);
+                designPtsList.CalculateHeadings(false);
 
                 //calculate average heading of line
                 double x = 0, y = 0;
@@ -318,9 +316,8 @@ namespace AOG
                 if (track.heading < 0) track.heading += glm.twoPI;
 
                 //build the tail extensions
-                mf.trk.AddFirstLastPoints(ref designPtsList, 100);
+                mf.trk.AddFirstLastPoints(ref designPtsList, 200);
                 //mf.trk.SmoothAB(ref designPtsList, 2, false);
-                mf.trk.CalculateHeadings(ref designPtsList);
 
                 //create a name
                 track.name = "Cu " +
@@ -400,7 +397,7 @@ namespace AOG
             }
 
             //build the tail extensions
-            mf.trk.AddFirstLastPoints(ref track.curvePts, 50);
+            mf.trk.AddFirstLastPoints(ref track.curvePts, 100);
 
             //create a name
             track.name = "AB: " +
@@ -517,7 +514,16 @@ namespace AOG
             //translate to that spot in the world
             GL.Translate(-mf.fieldCenterX + sX * mf.maxFieldDistance, -mf.fieldCenterY + sY * mf.maxFieldDistance, 0);
 
-            if (isDrawSections) DrawSections();
+            if (isDrawSections)
+            {
+                GL.Color3(0.9f, 0.9f, 0.8f);
+
+                //for every new chunk of patch
+                foreach (var triList in mf.patchList)
+                {
+                    triList.DrawPolygon(8, 1, PrimitiveType.TriangleStrip);
+                }
+            }
 
             GL.LineWidth(3);
 
@@ -528,12 +534,7 @@ namespace AOG
                 else
                     GL.Color3(0.62f, 0.635f, 0.635f);
 
-                GL.Begin(PrimitiveType.LineLoop);
-                for (int i = 0; i < mf.bnd.bndList[j].fenceLineEar.Count; i++)
-                {
-                    GL.Vertex3(mf.bnd.bndList[j].fenceLineEar[i].easting, mf.bnd.bndList[j].fenceLineEar[i].northing, 0);
-                }
-                GL.End();
+                mf.bnd.bndList[j].fenceLineEar.DrawPolygon(PrimitiveType.LineLoop);
             }
 
             //the vehicle
@@ -583,12 +584,7 @@ namespace AOG
                 if (track.mode == TrackMode.AB) GL.Color3(1.0f, 0.20f, 0.20f);
                 if (track.mode == TrackMode.bndCurve) GL.Color3(0.70f, 0.5f, 0.2f);
 
-                GL.Begin(PrimitiveType.LineStrip);
-                foreach (vec3 pts in track.curvePts)
-                {
-                    GL.Vertex3(pts.easting, pts.northing, 0);
-                }
-                GL.End();
+                track.curvePts.DrawPolygon(PrimitiveType.LineStrip);
 
                 GL.Disable(EnableCap.LineStipple);
 
@@ -740,39 +736,6 @@ namespace AOG
             GL.Enable(EnableCap.CullFace);
             GL.CullFace(CullFaceMode.Back);
             GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        }
-
-        private void DrawSections()
-        {
-            int cnt, step;
-            int mipmap = 8;
-
-            GL.Color3(0.9f, 0.9f, 0.8f);
-
-            //for every new chunk of patch
-            foreach (var triList in mf.patchList)
-            {
-                //draw the triangle in each triangle strip
-                GL.Begin(PrimitiveType.TriangleStrip);
-                cnt = triList.Count;
-
-                //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
-                if (cnt >= (mipmap))
-                {
-                    step = mipmap;
-                    for (int i = 1; i < cnt; i += step)
-                    {
-                        GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
-                        GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
-
-                        //too small to mipmap it
-                        if (cnt - i <= (mipmap + 2))
-                            step = 0;
-                    }
-                }
-                else { for (int i = 1; i < cnt; i++) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
-                GL.End();
-            }
         }
     }
 }

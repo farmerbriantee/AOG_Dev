@@ -537,8 +537,6 @@ namespace AOG
 
                         CalculateSectionPatchesMinMax();
                         fd.UpdateFieldBoundaryGUIAreas();
-
-                        if (bnd.bndList.Count > 0) btnABDraw.Visible = true;
                     }
                     catch (Exception e)
                     {
@@ -776,10 +774,6 @@ namespace AOG
                 }
             }
 
-            //get the file of previous AB Lines
-            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
-            { Directory.CreateDirectory(directoryName); }
-
             if (!File.Exists(filename))
             {
                 TimedMessageBox(2000, gStr.Get(gs.gsFileError), "Missing Headlines File");
@@ -787,9 +781,9 @@ namespace AOG
             }
             else
             {
-                using (StreamReader reader = new StreamReader(filename))
+                try
                 {
-                    try
+                    using (StreamReader reader = new StreamReader(filename))
                     {
                         string line;
 
@@ -798,29 +792,25 @@ namespace AOG
 
                         while (!reader.EndOfStream)
                         {
-
-                            hdl.tracksArr.Add(new CHeadPath());
-                            hdl.idx = hdl.tracksArr.Count - 1;
+                            var headPath = new CHeadPath();
 
                             //read header $CurveLine
-                            hdl.tracksArr[hdl.idx].name = reader.ReadLine();
+                            headPath.name = reader.ReadLine();
 
                             line = reader.ReadLine();
-                            hdl.tracksArr[hdl.idx].moveDistance = double.Parse(line, CultureInfo.InvariantCulture);
+                            headPath.moveDistance = double.Parse(line, CultureInfo.InvariantCulture);
 
                             line = reader.ReadLine();
-                            hdl.tracksArr[hdl.idx].mode = int.Parse(line, CultureInfo.InvariantCulture);
+                            headPath.mode = (TrackMode)int.Parse(line, CultureInfo.InvariantCulture);
 
                             line = reader.ReadLine();
-                            hdl.tracksArr[hdl.idx].a_point = int.Parse(line, CultureInfo.InvariantCulture);
+                            headPath.a_point = int.Parse(line, CultureInfo.InvariantCulture);
 
                             line = reader.ReadLine();
                             int numPoints = int.Parse(line);
 
                             if (numPoints > 3)
                             {
-                                hdl.tracksArr[hdl.idx].trackPts?.Clear();
-
                                 for (int i = 0; i < numPoints; i++)
                                 {
                                     line = reader.ReadLine();
@@ -828,48 +818,33 @@ namespace AOG
                                     vec3 vecPt = new vec3(double.Parse(words[0], CultureInfo.InvariantCulture),
                                         double.Parse(words[1], CultureInfo.InvariantCulture),
                                         double.Parse(words[2], CultureInfo.InvariantCulture));
-                                    hdl.tracksArr[hdl.idx].trackPts.Add(vecPt);
+                                    headPath.trackPts.Add(vecPt);
                                 }
-                            }
-                            else
-                            {
-                                if (hdl.tracksArr.Count > 0)
-                                {
-                                    hdl.tracksArr.RemoveAt(hdl.idx);
-                                }
+
+                                hdl.tracksArr.Add(headPath);
                             }
                         }
-                    }
-
-                    catch (Exception er)
-                    {
-                        hdl.tracksArr?.Clear();
-
-                        TimedMessageBox(2000, "Headline Error", "Lines Deleted");
-
-                        directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
-
-                        if (!string.IsNullOrEmpty(directoryName) && (!Directory.Exists(directoryName)))
-                        { Directory.CreateDirectory(directoryName); }
-
-                        filename = Path.Combine(directoryName, "Headlines.txt");
-
-                        using (StreamWriter writer = new StreamWriter(filename, false))
-                        {
-                            try
-                            {
-                                writer.WriteLine("$Headlines");
-                                return;
-
-                            }
-                            catch { }
-                        }
-                        Log.EventWriter("Load Head Lines" + er.ToString());
                     }
                 }
-            }
+                catch (Exception er)
+                {
+                    hdl.tracksArr?.Clear();
 
-            hdl.idx = -1;
+                    TimedMessageBox(2000, "Headline Error", "Lines Deleted");
+
+                    using (StreamWriter writer = new StreamWriter(filename, false))
+                    {
+                        try
+                        {
+                            writer.WriteLine("$Headlines");
+                            return;
+
+                        }
+                        catch { }
+                    }
+                    Log.EventWriter("Load Head Lines" + er.ToString());
+                }
+            }
         }
 
         public void FileLoadContour(string dir)
@@ -998,7 +973,7 @@ namespace AOG
 
         public void FileLoadTracks()
         {
-            trk.gArr?.Clear();
+            trk.ResetTrack();
 
             //get the directory and make sure it exists, create if not
             string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
@@ -1101,10 +1076,10 @@ namespace AOG
                                     track.curvePts.Add(P1);
                                 }
 
-                                trk.AddFirstLastPoints(ref track.curvePts, 50);
+                                trk.AddFirstLastPoints(ref track.curvePts, 100);
                             }
 
-                            trk.gArr.Add(track);
+                            trk.AddTrack(track);
                         }
 
                         trk.GetNextTrack();
@@ -1187,19 +1162,20 @@ namespace AOG
                                 {
                                     line = reader.ReadLine();
                                     numPoints = int.Parse(line);
-
-                                    tram.tramArr = new List<vec2>();
-                                    tram.tramList.Add(tram.tramArr);
-
-                                    for (int i = 0; i < numPoints; i++)
+                                    if (numPoints > 1)
                                     {
-                                        line = reader.ReadLine();
-                                        string[] words = line.Split(',');
-                                        vec2 vecPt = new vec2(
-                                        double.Parse(words[0], CultureInfo.InvariantCulture),
-                                        double.Parse(words[1], CultureInfo.InvariantCulture));
+                                        var tram = new List<vec2>(numPoints);
+                                        for (int i = 0; i < numPoints; i++)
+                                        {
+                                            line = reader.ReadLine();
+                                            string[] words = line.Split(',');
+                                            vec2 vecPt = new vec2(
+                                            double.Parse(words[0], CultureInfo.InvariantCulture),
+                                            double.Parse(words[1], CultureInfo.InvariantCulture));
 
-                                        tram.tramArr.Add(vecPt);
+                                            tram.Add(vecPt);
+                                        }
+                                        this.tram.tramList.Add(tram);
                                     }
                                 }
                             }
@@ -1799,19 +1775,13 @@ namespace AOG
             {
                 writer.WriteLine("$Headland");
 
-                if (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0)
+                foreach (var boundary in bnd.bndList)
                 {
-                    for (int i = 0; i < bnd.bndList.Count; i++)
-                    {
-                        writer.WriteLine(bnd.bndList[i].hdLine.Count.ToString(CultureInfo.InvariantCulture));
-                        if (bnd.bndList[0].hdLine.Count > 0)
-                        {
-                            for (int j = 0; j < bnd.bndList[i].hdLine.Count; j++)
-                                writer.WriteLine(Math.Round(bnd.bndList[i].hdLine[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                    Math.Round(bnd.bndList[i].hdLine[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
-                                                    Math.Round(bnd.bndList[i].hdLine[j].heading, 3).ToString(CultureInfo.InvariantCulture));
-                        }
-                    }
+                    writer.WriteLine(boundary.hdLine.Count.ToString(CultureInfo.InvariantCulture));
+                    for (int j = 0; j < boundary.hdLine.Count; j++)
+                        writer.WriteLine(Math.Round(boundary.hdLine[j].easting, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                         Math.Round(boundary.hdLine[j].northing, 3).ToString(CultureInfo.InvariantCulture) + "," +
+                                         Math.Round(boundary.hdLine[j].heading, 3).ToString(CultureInfo.InvariantCulture));
                 }
             }
         }
@@ -1824,8 +1794,6 @@ namespace AOG
             { Directory.CreateDirectory(directoryName); }
 
             string filename = Path.Combine(directoryName, "Headlines.txt");
-
-            int cnt = hdl.tracksArr.Count;
 
             using (StreamWriter writer = new StreamWriter(filename, false))
             {
@@ -1842,7 +1810,7 @@ namespace AOG
                         writer.WriteLine(headPath.moveDistance.ToString(CultureInfo.InvariantCulture));
 
                         //write out the mode
-                        writer.WriteLine(headPath.mode.ToString(CultureInfo.InvariantCulture));
+                        writer.WriteLine(((int)headPath.mode).ToString(CultureInfo.InvariantCulture));
 
                         //write out the A_Point index
                         writer.WriteLine(headPath.a_point.ToString(CultureInfo.InvariantCulture));
@@ -2086,7 +2054,7 @@ namespace AOG
                 kml.WriteStartElement("coordinates");
                 string bndPts = "";
                 if (bnd.bndList[i].fenceLine.Count > 3)
-                    bndPts = GetBoundaryPointsLatLon(i);
+                    bndPts = GetBoundaryPointsLatLon(bnd.bndList[i].fenceLine);
                 kml.WriteRaw(bndPts);
                 kml.WriteEndElement(); // <coordinates>
 
@@ -2320,16 +2288,16 @@ namespace AOG
             kml.Close();
         }
 
-        public string GetBoundaryPointsLatLon(int bndNum)
+        public string GetBoundaryPointsLatLon(List<vec3> points)
         {
             StringBuilder sb = new StringBuilder();
 
-            for (int i = 0; i < bnd.bndList[bndNum].fenceLine.Count; i++)
+            foreach (vec3 point in points)
             {
                 double lat = 0;
                 double lon = 0;
 
-                pn.ConvertLocalToWGS84(bnd.bndList[bndNum].fenceLine[i].northing, bnd.bndList[bndNum].fenceLine[i].easting, out lat, out lon);
+                pn.ConvertLocalToWGS84(point.northing, point.easting, out lat, out lon);
 
                 sb.Append(lon.ToString("N7", CultureInfo.InvariantCulture) + ',' + lat.ToString("N7", CultureInfo.InvariantCulture) + ",0 ");
             }

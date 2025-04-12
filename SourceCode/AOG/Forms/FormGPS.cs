@@ -684,7 +684,6 @@ namespace AOG
             startCounter = 0;
 
             btnTrack.Enabled = true;
-            btnABDraw.Enabled = true;
             btnCycleLines.Image = Properties.Resources.ABLineCycle;
             btnCycleLinesBk.Image = Properties.Resources.ABLineCycleBk;
 
@@ -820,12 +819,9 @@ namespace AOG
 
             //clean up tram
             tram.displayMode = 0;
-            tram.generateMode = 0;
             tram.tramBndInnerArr?.Clear();
             tram.tramBndOuterArr?.Clear();
 
-            btnABDraw.Enabled = false;
-            btnABDraw.Visible = false;
             btnCycleLines.Image = Properties.Resources.ABLineCycle;
             btnCycleLinesBk.Image = Properties.Resources.ABLineCycleBk;
 

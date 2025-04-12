@@ -468,7 +468,7 @@ namespace AOG
                                     }
 
                                     //build the boundary, make sure is clockwise for outer counter clockwise for inner
-                                    mf.trk.CalculateHeadings(ref desList);
+                                    desList.CalculateHeadings(true);
 
                                     mf.bnd.bndList[0].hdLine = desList;
                                 }
@@ -484,7 +484,6 @@ namespace AOG
             }
 
             mf.bnd.isOkToAddPoints = false;
-            mf.trk.designPtsList?.Clear();
 
             //load lines GGC ------------------------------------------------------------------------
             /*
@@ -535,7 +534,7 @@ namespace AOG
                                         track.ptB.northing - track.ptA.northing);
                                     if (track.heading < 0) track.heading += glm.twoPI;
 
-                                    mf.trk.gArr.Add(track);
+                                    mf.trk.AddTrack(track);
                                 }
                             } //LSG
                         }
@@ -583,7 +582,7 @@ namespace AOG
 
                                             //make sure point distance isn't too big
                                             mf.trk.MakePointMinimumSpacing(ref designPtsList, 1.6);
-                                            mf.trk.CalculateHeadings(ref designPtsList);
+                                            designPtsList.CalculateHeadings(false);
 
                                             //calculate average heading of line
                                             double x = 0, y = 0;
@@ -599,8 +598,7 @@ namespace AOG
                                             if (track.heading < 0) track.heading += glm.twoPI;
 
                                             //build the tail extensions
-                                            mf.trk.AddFirstLastPoints(ref designPtsList, 100);
-                                            mf.trk.CalculateHeadings(ref designPtsList);
+                                            mf.trk.AddFirstLastPoints(ref designPtsList, 200);
 
                                             if (string.IsNullOrEmpty(designName))
                                             {
@@ -616,7 +614,7 @@ namespace AOG
                                             //write out the trk Points
                                             track.curvePts = designPtsList;
 
-                                            mf.trk.gArr.Add(track);
+                                            mf.trk.AddTrack(track);
                                         }
                                     }
                                 }
@@ -673,7 +671,7 @@ namespace AOG
                                 track.ptB.northing - track.ptA.northing);
                             if (track.heading < 0) track.heading += glm.twoPI;
 
-                            mf.trk.gArr.Add(track);
+                            mf.trk.AddTrack(track);
                         }
                         //curve ------------------------------------------------------------------
                         else if (nodePart.Attributes["A"].Value == "5" && nodePart.ChildNodes.Count > 2) //Guidance Pattern
@@ -714,7 +712,7 @@ namespace AOG
 
                                     //make sure point distance isn't too big
                                     mf.trk.MakePointMinimumSpacing(ref designPtsList, 1.6);
-                                    mf.trk.CalculateHeadings(ref designPtsList);
+                                    designPtsList.CalculateHeadings(false);
 
                                     //calculate average heading of line
                                     double x = 0, y = 0;
@@ -730,8 +728,7 @@ namespace AOG
                                     if (track.heading < 0) track.heading += glm.twoPI;
 
                                     //build the tail extensions
-                                    mf.trk.AddFirstLastPoints(ref designPtsList, 100);
-                                    mf.trk.CalculateHeadings(ref designPtsList);
+                                    mf.trk.AddFirstLastPoints(ref designPtsList, 200);
 
                                     //array number is 1 less since it starts at zero
 
@@ -746,7 +743,7 @@ namespace AOG
                                     //write out the Curve Points
                                     track.curvePts = designPtsList;
 
-                                    mf.trk.gArr.Add(track);
+                                    mf.trk.AddTrack(track);
                                 }
                             }
                         }
@@ -763,9 +760,6 @@ namespace AOG
             mf.FileSaveHeadland();
 
             mf.FileSaveTracks();
-
-            //close out window
-            if (mf.bnd.bndList.Count > 0) mf.btnABDraw.Visible = true;
 
             mf.FieldMenuButtonEnableDisable(mf.bnd.bndList[0].hdLine.Count > 0);
 

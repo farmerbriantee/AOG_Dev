@@ -160,13 +160,13 @@
             this.label55 = new System.Windows.Forms.Label();
             this.lblInvertWAS = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnExpand = new RepeatButton();
+            this.btnExpand = new AOG.RepeatButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnStartSA = new System.Windows.Forms.Button();
             this.btnFreeDriveZero = new System.Windows.Forms.Button();
-            this.btnSteerAngleUp = new RepeatButton();
+            this.btnSteerAngleUp = new AOG.RepeatButton();
             this.btnFreeDrive = new System.Windows.Forms.Button();
-            this.btnSteerAngleDown = new RepeatButton();
+            this.btnSteerAngleDown = new AOG.RepeatButton();
             this.hsbarSensor = new System.Windows.Forms.HScrollBar();
             this.lblhsbarSensor = new System.Windows.Forms.Label();
             this.lblResetToDefaults = new System.Windows.Forms.Label();
@@ -269,6 +269,11 @@
             this.button2 = new System.Windows.Forms.Button();
             this.pboxSendSteer = new System.Windows.Forms.PictureBox();
             this.btnSendSteerConfigPGN = new System.Windows.Forms.Button();
+            this.nudAntennaHeight_Tool = new AOG.NudlessNumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.nudAntennaOffset_Tool = new AOG.NudlessNumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPP.SuspendLayout();
             this.tabStan.SuspendLayout();
@@ -1685,7 +1690,7 @@
             // 
             this.lblIntegral_Tool.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIntegral_Tool.ForeColor = System.Drawing.Color.Black;
-            this.lblIntegral_Tool.Location = new System.Drawing.Point(320, 407);
+            this.lblIntegral_Tool.Location = new System.Drawing.Point(320, 406);
             this.lblIntegral_Tool.Name = "lblIntegral_Tool";
             this.lblIntegral_Tool.Size = new System.Drawing.Size(60, 35);
             this.lblIntegral_Tool.TabIndex = 352;
@@ -2649,7 +2654,7 @@
             this.nudMinSteerSpeed.DecimalPlaces = 1;
             this.nudMinSteerSpeed.Location = new System.Drawing.Point(112, 354);
             this.nudMinSteerSpeed.Maximum = 10D;
-            this.nudMinSteerSpeed.Mode = UnitMode.Speed;
+            this.nudMinSteerSpeed.Mode = AOG.UnitMode.Speed;
             this.nudMinSteerSpeed.Name = "nudMinSteerSpeed";
             this.nudMinSteerSpeed.Size = new System.Drawing.Size(110, 52);
             this.nudMinSteerSpeed.TabIndex = 505;
@@ -2659,7 +2664,7 @@
             // 
             this.nudMaxSteerSpeed.Location = new System.Drawing.Point(302, 354);
             this.nudMaxSteerSpeed.Maximum = 50D;
-            this.nudMaxSteerSpeed.Mode = UnitMode.Speed;
+            this.nudMaxSteerSpeed.Mode = AOG.UnitMode.Speed;
             this.nudMaxSteerSpeed.Name = "nudMaxSteerSpeed";
             this.nudMaxSteerSpeed.Size = new System.Drawing.Size(110, 52);
             this.nudMaxSteerSpeed.TabIndex = 501;
@@ -2669,7 +2674,7 @@
             // 
             this.nudGuidanceSpeedLimit.Location = new System.Drawing.Point(207, 140);
             this.nudGuidanceSpeedLimit.Maximum = 20D;
-            this.nudGuidanceSpeedLimit.Mode = UnitMode.Speed;
+            this.nudGuidanceSpeedLimit.Mode = AOG.UnitMode.Speed;
             this.nudGuidanceSpeedLimit.Name = "nudGuidanceSpeedLimit";
             this.nudGuidanceSpeedLimit.Size = new System.Drawing.Size(110, 52);
             this.nudGuidanceSpeedLimit.TabIndex = 492;
@@ -2987,7 +2992,7 @@
             // 
             this.nudSnapDistance.Location = new System.Drawing.Point(475, 47);
             this.nudSnapDistance.Maximum = 10D;
-            this.nudSnapDistance.Mode = UnitMode.Small;
+            this.nudSnapDistance.Mode = AOG.UnitMode.Small;
             this.nudSnapDistance.Name = "nudSnapDistance";
             this.nudSnapDistance.Size = new System.Drawing.Size(78, 46);
             this.nudSnapDistance.TabIndex = 516;
@@ -3007,6 +3012,11 @@
             // tabTool
             // 
             this.tabTool.BackColor = System.Drawing.Color.LightBlue;
+            this.tabTool.Controls.Add(this.label4);
+            this.tabTool.Controls.Add(this.label3);
+            this.tabTool.Controls.Add(this.nudAntennaOffset_Tool);
+            this.tabTool.Controls.Add(this.label2);
+            this.tabTool.Controls.Add(this.nudAntennaHeight_Tool);
             this.tabTool.Controls.Add(this.label74);
             this.tabTool.Controls.Add(this.cboxIsSteerNotSlide_Tool);
             this.tabTool.Controls.Add(this.lblIntegral_Tool);
@@ -3089,7 +3099,7 @@
             this.label96.AutoSize = true;
             this.label96.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label96.ForeColor = System.Drawing.Color.Black;
-            this.label96.Location = new System.Drawing.Point(430, 304);
+            this.label96.Location = new System.Drawing.Point(430, 314);
             this.label96.Name = "label96";
             this.label96.Size = new System.Drawing.Size(124, 19);
             this.label96.TabIndex = 577;
@@ -3100,7 +3110,7 @@
             // 
             this.lblMaxSteerAngle_Tool.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMaxSteerAngle_Tool.ForeColor = System.Drawing.Color.Black;
-            this.lblMaxSteerAngle_Tool.Location = new System.Drawing.Point(328, 324);
+            this.lblMaxSteerAngle_Tool.Location = new System.Drawing.Point(328, 331);
             this.lblMaxSteerAngle_Tool.Name = "lblMaxSteerAngle_Tool";
             this.lblMaxSteerAngle_Tool.Size = new System.Drawing.Size(52, 35);
             this.lblMaxSteerAngle_Tool.TabIndex = 569;
@@ -3112,7 +3122,7 @@
             this.label98.AutoSize = true;
             this.label98.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label98.ForeColor = System.Drawing.Color.Black;
-            this.label98.Location = new System.Drawing.Point(448, 220);
+            this.label98.Location = new System.Drawing.Point(448, 235);
             this.label98.Name = "label98";
             this.label98.Size = new System.Drawing.Size(89, 19);
             this.label98.TabIndex = 576;
@@ -3124,7 +3134,7 @@
             this.label99.AutoSize = true;
             this.label99.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label99.ForeColor = System.Drawing.Color.Black;
-            this.label99.Location = new System.Drawing.Point(422, 137);
+            this.label99.Location = new System.Drawing.Point(422, 163);
             this.label99.Name = "label99";
             this.label99.Size = new System.Drawing.Size(141, 19);
             this.label99.TabIndex = 575;
@@ -3134,7 +3144,7 @@
             // hsbarAckermann_Tool
             // 
             this.hsbarAckermann_Tool.LargeChange = 1;
-            this.hsbarAckermann_Tool.Location = new System.Drawing.Point(387, 243);
+            this.hsbarAckermann_Tool.Location = new System.Drawing.Point(387, 258);
             this.hsbarAckermann_Tool.Maximum = 200;
             this.hsbarAckermann_Tool.Minimum = 1;
             this.hsbarAckermann_Tool.Name = "hsbarAckermann_Tool";
@@ -3146,7 +3156,7 @@
             // hsbarMaxSteerAngle_Tool
             // 
             this.hsbarMaxSteerAngle_Tool.LargeChange = 1;
-            this.hsbarMaxSteerAngle_Tool.Location = new System.Drawing.Point(387, 326);
+            this.hsbarMaxSteerAngle_Tool.Location = new System.Drawing.Point(387, 336);
             this.hsbarMaxSteerAngle_Tool.Maximum = 80;
             this.hsbarMaxSteerAngle_Tool.Minimum = 10;
             this.hsbarMaxSteerAngle_Tool.Name = "hsbarMaxSteerAngle_Tool";
@@ -3159,7 +3169,7 @@
             // 
             this.lblAckermann_Tool.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAckermann_Tool.ForeColor = System.Drawing.Color.Black;
-            this.lblAckermann_Tool.Location = new System.Drawing.Point(325, 241);
+            this.lblAckermann_Tool.Location = new System.Drawing.Point(325, 256);
             this.lblAckermann_Tool.Name = "lblAckermann_Tool";
             this.lblAckermann_Tool.Size = new System.Drawing.Size(55, 35);
             this.lblAckermann_Tool.TabIndex = 574;
@@ -3174,7 +3184,7 @@
             this.btnZeroWAS_Tool.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnZeroWAS_Tool.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnZeroWAS_Tool.Image = global::AOG.Properties.Resources.SteerZero;
-            this.btnZeroWAS_Tool.Location = new System.Drawing.Point(454, 12);
+            this.btnZeroWAS_Tool.Location = new System.Drawing.Point(454, 40);
             this.btnZeroWAS_Tool.Name = "btnZeroWAS_Tool";
             this.btnZeroWAS_Tool.Size = new System.Drawing.Size(70, 30);
             this.btnZeroWAS_Tool.TabIndex = 572;
@@ -3184,7 +3194,7 @@
             // hsbarCPD_Tool
             // 
             this.hsbarCPD_Tool.LargeChange = 1;
-            this.hsbarCPD_Tool.Location = new System.Drawing.Point(387, 160);
+            this.hsbarCPD_Tool.Location = new System.Drawing.Point(387, 186);
             this.hsbarCPD_Tool.Maximum = 255;
             this.hsbarCPD_Tool.Minimum = 1;
             this.hsbarCPD_Tool.Name = "hsbarCPD_Tool";
@@ -3198,7 +3208,7 @@
             this.label101.AutoSize = true;
             this.label101.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label101.ForeColor = System.Drawing.Color.Black;
-            this.label101.Location = new System.Drawing.Point(452, 54);
+            this.label101.Location = new System.Drawing.Point(452, 82);
             this.label101.Name = "label101";
             this.label101.Size = new System.Drawing.Size(80, 19);
             this.label101.TabIndex = 566;
@@ -3209,7 +3219,7 @@
             // 
             this.lblCPD_Tool.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCPD_Tool.ForeColor = System.Drawing.Color.Black;
-            this.lblCPD_Tool.Location = new System.Drawing.Point(325, 158);
+            this.lblCPD_Tool.Location = new System.Drawing.Point(325, 181);
             this.lblCPD_Tool.Name = "lblCPD_Tool";
             this.lblCPD_Tool.Size = new System.Drawing.Size(55, 35);
             this.lblCPD_Tool.TabIndex = 571;
@@ -3219,7 +3229,7 @@
             // hsbarZeroWAS_Tool
             // 
             this.hsbarZeroWAS_Tool.LargeChange = 20;
-            this.hsbarZeroWAS_Tool.Location = new System.Drawing.Point(387, 77);
+            this.hsbarZeroWAS_Tool.Location = new System.Drawing.Point(387, 105);
             this.hsbarZeroWAS_Tool.Maximum = 4000;
             this.hsbarZeroWAS_Tool.Minimum = -4000;
             this.hsbarZeroWAS_Tool.Name = "hsbarZeroWAS_Tool";
@@ -3232,7 +3242,7 @@
             // 
             this.lblZeroWAS_Tool.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblZeroWAS_Tool.ForeColor = System.Drawing.Color.Black;
-            this.lblZeroWAS_Tool.Location = new System.Drawing.Point(310, 75);
+            this.lblZeroWAS_Tool.Location = new System.Drawing.Point(310, 106);
             this.lblZeroWAS_Tool.Name = "lblZeroWAS_Tool";
             this.lblZeroWAS_Tool.Size = new System.Drawing.Size(70, 35);
             this.lblZeroWAS_Tool.TabIndex = 567;
@@ -3246,7 +3256,7 @@
             this.label84.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label84.ForeColor = System.Drawing.Color.Black;
             this.label84.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label84.Location = new System.Drawing.Point(65, 315);
+            this.label84.Location = new System.Drawing.Point(65, 329);
             this.label84.Name = "label84";
             this.label84.Size = new System.Drawing.Size(21, 16);
             this.label84.TabIndex = 564;
@@ -3260,7 +3270,7 @@
             this.label85.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label85.ForeColor = System.Drawing.Color.Black;
             this.label85.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label85.Location = new System.Drawing.Point(65, 225);
+            this.label85.Location = new System.Drawing.Point(65, 249);
             this.label85.Name = "label85";
             this.label85.Size = new System.Drawing.Size(28, 16);
             this.label85.TabIndex = 563;
@@ -3274,7 +3284,7 @@
             this.label86.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label86.ForeColor = System.Drawing.Color.Black;
             this.label86.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label86.Location = new System.Drawing.Point(65, 135);
+            this.label86.Location = new System.Drawing.Point(65, 168);
             this.label86.Name = "label86";
             this.label86.Size = new System.Drawing.Size(21, 16);
             this.label86.TabIndex = 562;
@@ -3286,7 +3296,7 @@
             this.label87.AutoSize = true;
             this.label87.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label87.ForeColor = System.Drawing.Color.Black;
-            this.label87.Location = new System.Drawing.Point(105, 259);
+            this.label87.Location = new System.Drawing.Point(105, 273);
             this.label87.Name = "label87";
             this.label87.Size = new System.Drawing.Size(136, 19);
             this.label87.TabIndex = 561;
@@ -3298,7 +3308,7 @@
             this.label88.AutoSize = true;
             this.label88.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label88.ForeColor = System.Drawing.Color.Black;
-            this.label88.Location = new System.Drawing.Point(109, 169);
+            this.label88.Location = new System.Drawing.Point(109, 193);
             this.label88.Name = "label88";
             this.label88.Size = new System.Drawing.Size(118, 19);
             this.label88.TabIndex = 560;
@@ -3310,7 +3320,7 @@
             this.label89.AutoSize = true;
             this.label89.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label89.ForeColor = System.Drawing.Color.Black;
-            this.label89.Location = new System.Drawing.Point(104, 79);
+            this.label89.Location = new System.Drawing.Point(104, 112);
             this.label89.Name = "label89";
             this.label89.Size = new System.Drawing.Size(133, 19);
             this.label89.TabIndex = 559;
@@ -3320,7 +3330,7 @@
             // hsbarMinPWM_Tool
             // 
             this.hsbarMinPWM_Tool.LargeChange = 1;
-            this.hsbarMinPWM_Tool.Location = new System.Drawing.Point(65, 282);
+            this.hsbarMinPWM_Tool.Location = new System.Drawing.Point(65, 296);
             this.hsbarMinPWM_Tool.Maximum = 200;
             this.hsbarMinPWM_Tool.Name = "hsbarMinPWM_Tool";
             this.hsbarMinPWM_Tool.Size = new System.Drawing.Size(202, 30);
@@ -3331,7 +3341,7 @@
             // hsbarPGain_Tool
             // 
             this.hsbarPGain_Tool.LargeChange = 1;
-            this.hsbarPGain_Tool.Location = new System.Drawing.Point(65, 102);
+            this.hsbarPGain_Tool.Location = new System.Drawing.Point(65, 135);
             this.hsbarPGain_Tool.Maximum = 200;
             this.hsbarPGain_Tool.Minimum = 1;
             this.hsbarPGain_Tool.Name = "hsbarPGain_Tool";
@@ -3344,7 +3354,7 @@
             // 
             this.lblPGain_Tool.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPGain_Tool.ForeColor = System.Drawing.Color.Black;
-            this.lblPGain_Tool.Location = new System.Drawing.Point(5, 100);
+            this.lblPGain_Tool.Location = new System.Drawing.Point(5, 133);
             this.lblPGain_Tool.Name = "lblPGain_Tool";
             this.lblPGain_Tool.Size = new System.Drawing.Size(61, 35);
             this.lblPGain_Tool.TabIndex = 554;
@@ -3355,7 +3365,7 @@
             // 
             this.lblHighPWM_Tool.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHighPWM_Tool.ForeColor = System.Drawing.Color.Black;
-            this.lblHighPWM_Tool.Location = new System.Drawing.Point(5, 189);
+            this.lblHighPWM_Tool.Location = new System.Drawing.Point(5, 213);
             this.lblHighPWM_Tool.Name = "lblHighPWM_Tool";
             this.lblHighPWM_Tool.Size = new System.Drawing.Size(61, 35);
             this.lblHighPWM_Tool.TabIndex = 556;
@@ -3366,7 +3376,7 @@
             // 
             this.lblMinPWM_Tool.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMinPWM_Tool.ForeColor = System.Drawing.Color.Black;
-            this.lblMinPWM_Tool.Location = new System.Drawing.Point(5, 279);
+            this.lblMinPWM_Tool.Location = new System.Drawing.Point(5, 293);
             this.lblMinPWM_Tool.Name = "lblMinPWM_Tool";
             this.lblMinPWM_Tool.Size = new System.Drawing.Size(61, 35);
             this.lblMinPWM_Tool.TabIndex = 558;
@@ -3376,7 +3386,7 @@
             // hsbarHighPWM_Tool
             // 
             this.hsbarHighPWM_Tool.LargeChange = 2;
-            this.hsbarHighPWM_Tool.Location = new System.Drawing.Point(65, 192);
+            this.hsbarHighPWM_Tool.Location = new System.Drawing.Point(65, 216);
             this.hsbarHighPWM_Tool.Maximum = 255;
             this.hsbarHighPWM_Tool.Name = "hsbarHighPWM_Tool";
             this.hsbarHighPWM_Tool.Size = new System.Drawing.Size(202, 30);
@@ -3459,11 +3469,11 @@
             this.cboxGPSTool.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboxGPSTool.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxGPSTool.ForeColor = System.Drawing.Color.Black;
-            this.cboxGPSTool.Location = new System.Drawing.Point(75, 16);
+            this.cboxGPSTool.Location = new System.Drawing.Point(12, 17);
             this.cboxGPSTool.Name = "cboxGPSTool";
-            this.cboxGPSTool.Size = new System.Drawing.Size(170, 47);
+            this.cboxGPSTool.Size = new System.Drawing.Size(120, 47);
             this.cboxGPSTool.TabIndex = 485;
-            this.cboxGPSTool.Text = "Tool GPS";
+            this.cboxGPSTool.Text = "Tool On";
             this.cboxGPSTool.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxGPSTool.UseVisualStyleBackColor = false;
             this.cboxGPSTool.Click += new System.EventHandler(this.cboxGPSTool_Click);
@@ -3548,6 +3558,61 @@
             this.btnSendSteerConfigPGN.TabIndex = 501;
             this.btnSendSteerConfigPGN.UseVisualStyleBackColor = false;
             this.btnSendSteerConfigPGN.Click += new System.EventHandler(this.btnSendSteerConfigPGN_Click);
+            // 
+            // nudAntennaHeight_Tool
+            // 
+            this.nudAntennaHeight_Tool.Location = new System.Drawing.Point(162, 17);
+            this.nudAntennaHeight_Tool.Maximum = 4D;
+            this.nudAntennaHeight_Tool.Mode = AOG.UnitMode.Small;
+            this.nudAntennaHeight_Tool.Name = "nudAntennaHeight_Tool";
+            this.nudAntennaHeight_Tool.Size = new System.Drawing.Size(120, 47);
+            this.nudAntennaHeight_Tool.TabIndex = 580;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(163, 65);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(119, 19);
+            this.label2.TabIndex = 581;
+            this.label2.Text = "Antenna Height";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(297, 65);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(115, 19);
+            this.label3.TabIndex = 583;
+            this.label3.Text = "Antenna Offset";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nudAntennaOffset_Tool
+            // 
+            this.nudAntennaOffset_Tool.Location = new System.Drawing.Point(294, 17);
+            this.nudAntennaOffset_Tool.Maximum = 0.5D;
+            this.nudAntennaOffset_Tool.Minimum = -0.5D;
+            this.nudAntennaOffset_Tool.Mode = AOG.UnitMode.Small;
+            this.nudAntennaOffset_Tool.Name = "nudAntennaOffset_Tool";
+            this.nudAntennaOffset_Tool.Size = new System.Drawing.Size(120, 47);
+            this.nudAntennaOffset_Tool.TabIndex = 582;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(32, 67);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 38);
+            this.label4.TabIndex = 584;
+            this.label4.Text = "Tool Steer \r\nOn/Off";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormSteer
             // 
@@ -3858,5 +3923,10 @@
         private System.Windows.Forms.Label lblZeroWAS_Tool;
         private System.Windows.Forms.Label label74;
         private System.Windows.Forms.CheckBox cboxIsSteerNotSlide_Tool;
+        private System.Windows.Forms.Label label2;
+        private NudlessNumericUpDown nudAntennaHeight_Tool;
+        private System.Windows.Forms.Label label3;
+        private NudlessNumericUpDown nudAntennaOffset_Tool;
+        private System.Windows.Forms.Label label4;
     }
 }

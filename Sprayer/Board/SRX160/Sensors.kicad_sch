@@ -2560,7 +2560,7 @@
 				)
 			)
 		)
-		(property "Footprint" "RC17Footprints:SOIC127P600X175-8N"
+		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
 			(at 119.38 158.75 0)
 			(effects
 				(font
@@ -2578,7 +2578,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "C7377"
 			(at 119.38 158.75 0)
 			(effects
 				(font
@@ -2920,7 +2920,7 @@
 				)
 			)
 		)
-		(property "Footprint" "RC17Footprints:SOIC127P600X175-8N"
+		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
 			(at 96.52 46.99 0)
 			(effects
 				(font
@@ -3140,7 +3140,7 @@
 				)
 			)
 		)
-		(property "Footprint" "RC17Footprints:SOIC127P600X175-8N"
+		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
 			(at 97.79 137.16 0)
 			(effects
 				(font
@@ -3158,7 +3158,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "C7377"
 			(at 97.79 137.16 0)
 			(effects
 				(font
@@ -3783,7 +3783,7 @@
 				)
 			)
 		)
-		(property "Footprint" "RC17Footprints:SOIC127P600X175-8N"
+		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
 			(at 118.11 68.58 0)
 			(effects
 				(font
@@ -3935,7 +3935,7 @@
 				)
 			)
 		)
-		(property "Footprint" "RC17Footprints:SOIC127P600X175-8N"
+		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
 			(at 60.96 66.04 0)
 			(effects
 				(font
@@ -4492,7 +4492,7 @@
 				)
 			)
 		)
-		(property "Footprint" "RC17Footprints:SOIC127P600X175-8N"
+		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
 			(at 62.23 156.21 0)
 			(effects
 				(font
@@ -4510,7 +4510,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "C7377"
 			(at 62.23 156.21 0)
 			(effects
 				(font

@@ -136,14 +136,21 @@ namespace AOG
                     int step = mipmap;
                     for (int i = start; i < count2; i += step)
                     {
-                        GL.Vertex3(polygon[i].easting, polygon[i].northing, 0); i++;
-                        GL.Vertex3(polygon[i].easting, polygon[i].northing, 0); i++;
+                        GL.Vertex3(polygon[i].easting, polygon[i].northing, 0);
+                        i++;
+
+                        if (type != PrimitiveType.LineStrip)
+                            GL.Vertex3(polygon[i].easting, polygon[i].northing, 0);
+                        i++;
                         if (count2 - i <= (mipmap + 2)) step = 0;//too small to mipmap it
                     }
                 }
                 else
                 {
-                    for (int i = start; i < count2; i++) GL.Vertex3(polygon[i].easting, polygon[i].northing, 0);
+                    if (type != PrimitiveType.LineStrip)
+                        for (int i = start; i < count2; i++) GL.Vertex3(polygon[i].easting, polygon[i].northing, 0);
+                    else
+                        for (int i = start; i < count2; i += 2) GL.Vertex3(polygon[i].easting, polygon[i].northing, 0);
                 }
                 GL.End();
             }

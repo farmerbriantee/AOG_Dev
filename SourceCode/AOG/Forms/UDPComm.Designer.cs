@@ -571,6 +571,12 @@ namespace AOG
                                     ahrsTool.imuRoll = ahrsTool.imuRoll * Settings.Vehicle.setIMU_rollFilter + rollK * (1 - Settings.Vehicle.setIMU_rollFilter);
                                 }
 
+                                if (Settings.Tool.setToolSteer.antennaOffset != 0)
+                                {
+                                    pnTool.fix.easting += Math.Cos(fixHeading) * Settings.Tool.setToolSteer.antennaOffset;
+                                    pnTool.fix.northing -= Math.Sin(fixHeading) * Settings.Tool.setToolSteer.antennaOffset;
+                                }
+
                                 if (ahrsTool.imuRoll != 0 && Settings.Tool.setToolSteer.antennaHeight != 0)
                                 {
                                     //change for roll to the right is positive times -1

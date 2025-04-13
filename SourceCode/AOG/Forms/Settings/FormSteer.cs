@@ -773,6 +773,10 @@ namespace AOG
 
             //config
             lblMaxSteerAngle_Tool.Text = hsbarMaxSteerAngle_Tool.Value.ToString();
+
+            //antenna
+            nudAntennaHeight_Tool.Value = Settings.Tool.setToolSteer.antennaHeight;
+            nudAntennaOffset_Tool.Value = Settings.Tool.setToolSteer.antennaOffset;
         }
 
         private void tabTool_Leave(object sender, EventArgs e)
@@ -785,6 +789,9 @@ namespace AOG
             Settings.Tool.setToolSteer.countsPerDegree = (byte)hsbarCPD_Tool.Value;
             Settings.Tool.setToolSteer.ackermann = (byte)hsbarAckermann_Tool.Value;
             Settings.Tool.setToolSteer.wasOffset = hsbarZeroWAS_Tool.Value;
+
+            Settings.Tool.setToolSteer.antennaHeight = nudAntennaHeight_Tool.Value;
+            Settings.Tool.setToolSteer.antennaOffset = nudAntennaOffset_Tool.Value;
 
             //config
             Settings.Tool.setToolSteer.maxSteerAngle = (byte)hsbarMaxSteerAngle_Tool.Value;

@@ -85,6 +85,9 @@
         public byte isInvertSteer = 0;
         public byte isSteerNotSlide = 1;
 
+        public double antennaHeight = 0;
+        public double antennaOffset = 0;
+
         public CToolSteerSettings(CToolSteerSettings _setting)
         {
             isGPSToolActive = _setting.isGPSToolActive;
@@ -102,6 +105,9 @@
             isInvertSteer = _setting.isInvertSteer;
             maxSteerAngle = _setting.maxSteerAngle;
             isSteerNotSlide = _setting.isSteerNotSlide;
+
+            antennaHeight = _setting.antennaHeight;
+            antennaOffset = _setting.antennaOffset;
         }
     }
 }

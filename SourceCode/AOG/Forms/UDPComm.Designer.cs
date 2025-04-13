@@ -571,6 +571,15 @@ namespace AOG
                                     ahrsTool.imuRoll = ahrsTool.imuRoll * Settings.Vehicle.setIMU_rollFilter + rollK * (1 - Settings.Vehicle.setIMU_rollFilter);
                                 }
 
+                                if (ahrsTool.imuRoll != 0 && Settings.Tool.setToolSteer.antennaHeight != 0)
+                                {
+                                    //change for roll to the right is positive times -1
+                                    rollCorrectionDistance = Math.Sin(glm.toRadians((ahrsTool.imuRoll))) * -Settings.Tool.setToolSteer.antennaHeight;
+
+                                    pnTool.fix.easting = (Math.Cos(-fixHeading) * rollCorrectionDistance) + pnTool.fix.easting;
+                                    pnTool.fix.northing = (Math.Sin(-fixHeading) * rollCorrectionDistance) + pnTool.fix.northing;
+                                }
+
                                 short imuPich = BitConverter.ToInt16(data, 52);
                                 if (imuPich != short.MaxValue)
                                 {

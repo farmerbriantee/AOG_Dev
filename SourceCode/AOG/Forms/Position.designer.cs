@@ -863,11 +863,19 @@ namespace AOG
                 toolPivotPos.easting = pnTool.fix.easting * 0.5 + toolPivotPos.easting * 0.5;
                 toolPivotPos.northing = pnTool.fix.northing * 0.5 + toolPivotPos.northing * 0.5;
 
-                toolPivotPos.heading = Math.Atan2(tankPos.easting - toolPivotPos.easting, tankPos.northing - toolPivotPos.northing);
+                if (Settings.Tool.setToolSteer.isSteerNotSlide == 1)
+                {
+                    toolPivotPos.heading = Math.Atan2(tankPos.easting - toolPivotPos.easting, tankPos.northing - toolPivotPos.northing);
 
-                if (toolPivotPos.heading < 0) toolPivotPos.heading += glm.twoPI;
+                    if (toolPivotPos.heading < 0) toolPivotPos.heading += glm.twoPI;
+                }
+                else
+                {
+                    toolPivotPos.heading = fixHeading;
+                }
 
                 toolPos.heading = toolPivotPos.heading;
+
                 toolPos.easting = toolPivotPos.easting +
                     (Math.Sin(toolPivotPos.heading) * (Settings.Tool.trailingToolToPivotLength));
                 toolPos.northing = toolPivotPos.northing +
@@ -935,9 +943,9 @@ namespace AOG
                 }
 
                 toolPos.heading = toolPivotPos.heading;
-                toolPos.easting = tankPos.easting + 
+                toolPos.easting = tankPos.easting +
                     (Math.Sin(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength - Settings.Tool.trailingToolToPivotLength));
-                toolPos.northing = tankPos.northing + 
+                toolPos.northing = tankPos.northing +
                     (Math.Cos(toolPivotPos.heading) * (Settings.Tool.toolTrailingHitchLength - Settings.Tool.trailingToolToPivotLength));
             }
 

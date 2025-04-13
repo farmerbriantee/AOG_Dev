@@ -380,6 +380,9 @@ namespace AOG
 
             PGN_239.pgn[PGN_239.speed] = unchecked((byte)(avgSpeed * 10));
             PGN_239.pgn[PGN_239.tram] = unchecked((byte)tram.controlByte);
+
+            SendPgnToLoop(PGN_229.pgn);
+            SendPgnToLoop(PGN_239.pgn);
         }
 
         private void DoRemoteSwitches()

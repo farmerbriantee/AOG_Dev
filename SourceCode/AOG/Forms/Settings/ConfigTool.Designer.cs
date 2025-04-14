@@ -476,8 +476,6 @@ namespace AOG
                 nudNumberOfSections.Visible = false;
                 cboxNumSections.Visible = true;
 
-                int i = numberOfSections;
-
                 foreach (var item in tabTSections.Controls)
                 {
                     if (item is NudlessNumericUpDown numeric)
@@ -487,9 +485,9 @@ namespace AOG
                             //grab the number from nudSection01
                             string bob = numeric.Name.Substring(10, 2);
                             int nudNum = Convert.ToInt32(bob);
-                            if (nudNum <= i)
+                            if (nudNum >= 0 && nudNum <= 16)
                             {
-                                numeric.Value = Settings.Tool.setSection_Widths[i-1];
+                                numeric.Value = Settings.Tool.setSection_Widths[nudNum - 1];
                             }
                         }
                     }
@@ -1034,7 +1032,7 @@ namespace AOG
                 }                
             }
 
-            lblVehicleToolWidth.Text = Convert.ToString((int)toolWidth);
+            lblVehicleToolWidth.Text = (toolWidth * glm.m2InchOrCm).ToString("0");
 
             SectionFeetInchesTotalWidthLabelUpdate();
         }
@@ -1045,14 +1043,13 @@ namespace AOG
             if (Settings.User.isMetric)
             {
                 lblUnits.Text = "Metric";
-                lblSecTotalWidthMeters.Text = ((int)(Settings.Tool.toolWidth * 100)).ToString() + " cm";
+                lblSecTotalWidthMeters.Text = (Settings.Tool.toolWidth * 100).ToString("0") + " cm";
                 lblSummaryWidth.Text = Settings.Tool.toolWidth.ToString("N2") + " m";
             }
             else
             {
                 lblUnits.Text = "Imperial";
-
-                double toFeet = (Convert.ToDouble(lblVehicleToolWidth.Text) * 0.08334);
+                double toFeet = (Settings.Tool.toolWidth * glm.m2InchOrCm) * 0.08334;
                 double temp = Math.Round((toFeet - Math.Truncate(toFeet)) * 12, 0);
                 lblSecTotalWidthMeters.Text = Convert.ToString((int)toFeet) + "'   " + Convert.ToString(temp) + '"';
                 lblSummaryWidth.Text = lblSecTotalWidthMeters.Text;

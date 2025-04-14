@@ -824,28 +824,12 @@ namespace AOG
                     //draw red in whole outer field polygon
                     GL.Color3((byte)bbColors.fence, (byte)0, (byte)0);
 
-                    GL.Begin(PrimitiveType.Triangles);
-                    for (int i = 0; i < bnd.bndList[0].fenceTriangleList.Count; i++)
-                    {
-                        GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[0].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[0].northing, 0);
-                        GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[1].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[1].northing, 0);
-                        GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[2].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[2].northing, 0);
-                    }
-                    GL.End();
+                    bnd.bndList[0].fenceTriangleList.DrawPolygon(PrimitiveType.Triangles);
 
                     //draw red in headland polygon
                     GL.Color3((byte)bbColors.headland, (byte)0, (byte)0);
 
-                    GL.Begin(PrimitiveType.Triangles);
-                    for (int i = 0; i < bnd.bndList[0].hdLineTriangleList.Count; i++)
-                    {
-                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[0].northing, 0);
-                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[1].northing, 0);
-                        GL.Vertex3(bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].easting, bnd.bndList[0].hdLineTriangleList[i].polygonPts[2].northing, 0);
-                    }
-                    GL.End();
-
-
+                    bnd.bndList[0].hdLineTriangleList.DrawPolygon(PrimitiveType.Triangles);
                     //if we would have inner boundary headline draw them here
                 }
                 else //no headland excists
@@ -853,31 +837,17 @@ namespace AOG
                     //draw  red in whole outer field polygon, whole field represents headland
                     GL.Color3((byte)bbColors.headland, (byte)0, (byte)0);
 
-                    GL.Begin(PrimitiveType.Triangles);
-                    for (int i = 0; i < bnd.bndList[0].fenceTriangleList.Count; i++)
-                    {
-                        GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[0].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[0].northing, 0);
-                        GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[1].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[1].northing, 0);
-                        GL.Vertex3(bnd.bndList[0].fenceTriangleList[i].polygonPts[2].easting, bnd.bndList[0].fenceTriangleList[i].polygonPts[2].northing, 0);
-                    }
-                    GL.End();
+                    bnd.bndList[0].fenceTriangleList.DrawPolygon(PrimitiveType.Triangles);
                 }
 
                 //draw red in inner boundary of field
                 if (bnd.bndList.Count > 1)
                 {
                     GL.Color3((byte)bbColors.innerFence, (byte)0, (byte)0);
-                    GL.Begin(PrimitiveType.Triangles);
                     for (int a = 1; a < bnd.bndList.Count; a++)
                     {
-                        for (int i = 0; i < bnd.bndList[a].fenceTriangleList.Count; i++)
-                        {
-                            GL.Vertex3(bnd.bndList[a].fenceTriangleList[i].polygonPts[0].easting, bnd.bndList[a].fenceTriangleList[i].polygonPts[0].northing, 0);
-                            GL.Vertex3(bnd.bndList[a].fenceTriangleList[i].polygonPts[1].easting, bnd.bndList[a].fenceTriangleList[i].polygonPts[1].northing, 0);
-                            GL.Vertex3(bnd.bndList[a].fenceTriangleList[i].polygonPts[2].easting, bnd.bndList[a].fenceTriangleList[i].polygonPts[2].northing, 0);
-                        }
+                        bnd.bndList[a].fenceTriangleList.DrawPolygon(PrimitiveType.Triangles);
                     }
-                    GL.End();
                 }
             }
 
@@ -908,7 +878,7 @@ namespace AOG
                         continue;
 
                     //point is in frustum so draw the entire patch
-                    triList.DrawPolygon(PrimitiveType.TriangleStrip);
+                    triList.DrawPolygon(0, 1, PrimitiveType.TriangleStrip);
                     break;
                 }
             }

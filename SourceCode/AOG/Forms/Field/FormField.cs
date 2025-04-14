@@ -166,6 +166,11 @@ namespace AOG
                 }
             }
 
+            mf.FieldMenuButtonEnableDisable(mf.isJobStarted);
+
+            mf.toolStripBtnFieldTools.Enabled = mf.isJobStarted;
+
+
             Close();
         }
 

@@ -793,11 +793,9 @@ namespace AOG
             panelSim.Width = 700;
 
 
-            panelRight.Visible = isFieldStarted;
-            panelBottom.Visible = isFieldStarted && !isPanelBottomHidden;
+            panelRight.Visible = isJobStarted;
+            panelBottom.Visible = isJobStarted && !isPanelBottomHidden;
             panelLeft.Visible = !isPanelBottomHidden;
-
-
 
             PanelSizeRightAndBottom();
         }

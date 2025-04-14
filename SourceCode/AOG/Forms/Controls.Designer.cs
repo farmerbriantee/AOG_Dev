@@ -632,9 +632,9 @@ namespace AOG
                 }
             }
 
-            FieldMenuButtonEnableDisable(isFieldStarted);
+            FieldMenuButtonEnableDisable(isJobStarted);
 
-            toolStripBtnFieldTools.Enabled = isFieldStarted;
+            toolStripBtnFieldTools.Enabled = isJobStarted;
 
             bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
 

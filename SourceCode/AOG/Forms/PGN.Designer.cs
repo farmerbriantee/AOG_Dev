@@ -297,12 +297,13 @@ namespace AOG
     //Spray Data
     public static class PGN_227
     {
-        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xE3, 5, 0, 0, 0, 0, 0, 0xCC };
+        public static byte[] pgn = new byte[] { 0x80, 0x81, 0x7f, 0xE3, 6, 0, 0, 0, 0, 0, 0, 0xCC };
         public static int sec1to8 = 5;
         public static int sec9to16 = 6;
         public static int volumePerMinuteSetLo = 7;
         public static int volumePerMinuteSetHi = 8;
         public static int percentWidthBypass = 9;
+        public static int speed = 10;
 
     }
 

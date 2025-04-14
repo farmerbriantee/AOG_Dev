@@ -227,6 +227,12 @@ namespace AOG
                 {
                     if (trackMethodPanelCounter-- < 1) flp1.Visible = false;
                 }
+
+                if (Settings.Vehicle.setApp_isNozzleApp)
+                {
+                    if (nozz.isFlowingFlag) lblIsFlowing.BackColor = Color.LightGreen;
+                    else lblIsFlowing.BackColor = Color.Orange;
+                }
             }
 
             //every half of a second update all status  ////////////////    0.5  0.5   0.5    0.5    /////////////////
@@ -787,11 +793,9 @@ namespace AOG
             panelSim.Width = 700;
 
 
-            panelRight.Visible = isFieldStarted;
-            panelBottom.Visible = isFieldStarted && !isPanelBottomHidden;
+            panelRight.Visible = isJobStarted;
+            panelBottom.Visible = isJobStarted && !isPanelBottomHidden;
             panelLeft.Visible = !isPanelBottomHidden;
-
-
 
             PanelSizeRightAndBottom();
         }

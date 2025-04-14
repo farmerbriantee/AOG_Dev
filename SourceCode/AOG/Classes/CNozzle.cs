@@ -17,7 +17,7 @@
 
         public int pressureActual = 0;
 
-        public int isFlowingFlag = 0;
+        public bool isFlowingFlag = false;
 
         public int pwmDriveActual = 0;
         public bool isSprayAutoMode = true;
@@ -83,6 +83,9 @@
 
             PGN_227.pgn[PGN_227.sec1to8] = PGN_254.pgn[PGN_254.sc1to8];
             PGN_227.pgn[PGN_227.sec9to16] = PGN_254.pgn[PGN_254.sc9to16];
+            
+            PGN_227.pgn[PGN_227.speed] = (byte)(mf.avgSpeed * 10);
+
 
             mf.SendPgnToLoop(PGN_227.pgn);
         }

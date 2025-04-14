@@ -191,6 +191,7 @@
             this.btnSprayRateDn = new System.Windows.Forms.Button();
             this.btnNozConfig = new System.Windows.Forms.Button();
             this.lblGPM_Set = new System.Windows.Forms.Label();
+            this.lblIsFlowing = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripFlag.SuspendLayout();
             this.statusStripLeft.SuspendLayout();
@@ -547,7 +548,7 @@
             this.toolStripMenuFlagForm.Image = global::AOG.Properties.Resources.FileEditName;
             this.toolStripMenuFlagForm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuFlagForm.Name = "toolStripMenuFlagForm";
-            this.toolStripMenuFlagForm.Size = new System.Drawing.Size(228, 70);
+            this.toolStripMenuFlagForm.Size = new System.Drawing.Size(267, 70);
             this.toolStripMenuFlagForm.Text = "toolStripMenuItem3";
             this.toolStripMenuFlagForm.Click += new System.EventHandler(this.toolStripMenuFlagForm_Click);
             // 
@@ -653,7 +654,7 @@
             this.oglMain.Location = new System.Drawing.Point(250, 50);
             this.oglMain.Margin = new System.Windows.Forms.Padding(0);
             this.oglMain.Name = "oglMain";
-            this.oglMain.Size = new System.Drawing.Size(675, 600);
+            this.oglMain.Size = new System.Drawing.Size(675, 601);
             this.oglMain.TabIndex = 180;
             this.oglMain.VSync = false;
             this.oglMain.Load += new System.EventHandler(this.oglMain_Load);
@@ -877,7 +878,7 @@
             this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 148F));
+            this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.panelSim.Controls.Add(this.btnSpeedDn, 5, 0);
             this.panelSim.Controls.Add(this.btnSimSpeedUp, 7, 0);
             this.panelSim.Controls.Add(this.btnResetSim, 0, 0);
@@ -902,7 +903,7 @@
             this.btnSpeedDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSpeedDn.Location = new System.Drawing.Point(342, 4);
             this.btnSpeedDn.Name = "btnSpeedDn";
-            this.btnSpeedDn.Size = new System.Drawing.Size(18, 37);
+            this.btnSpeedDn.Size = new System.Drawing.Size(17, 37);
             this.btnSpeedDn.TabIndex = 533;
             this.btnSpeedDn.UseVisualStyleBackColor = false;
             this.btnSpeedDn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSpeedDn_MouseDown);
@@ -915,9 +916,9 @@
             this.btnSimSpeedUp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSimSpeedUp.FlatAppearance.BorderSize = 0;
             this.btnSimSpeedUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSimSpeedUp.Location = new System.Drawing.Point(443, 4);
+            this.btnSimSpeedUp.Location = new System.Drawing.Point(442, 4);
             this.btnSimSpeedUp.Name = "btnSimSpeedUp";
-            this.btnSimSpeedUp.Size = new System.Drawing.Size(18, 37);
+            this.btnSimSpeedUp.Size = new System.Drawing.Size(17, 37);
             this.btnSimSpeedUp.TabIndex = 532;
             this.btnSimSpeedUp.UseVisualStyleBackColor = false;
             this.btnSimSpeedUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSimSpeedUPGN_MouseDown);
@@ -930,7 +931,7 @@
             this.btnSimSetSpeedToZero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimSetSpeedToZero.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.btnSimSetSpeedToZero.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSimSetSpeedToZero.Location = new System.Drawing.Point(367, 4);
+            this.btnSimSetSpeedToZero.Location = new System.Drawing.Point(366, 4);
             this.btnSimSetSpeedToZero.Name = "btnSimSetSpeedToZero";
             this.btnSimSetSpeedToZero.Size = new System.Drawing.Size(69, 34);
             this.btnSimSetSpeedToZero.TabIndex = 453;
@@ -946,7 +947,7 @@
             this.btnSimReverseDirection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimReverseDirection.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.btnSimReverseDirection.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSimReverseDirection.Location = new System.Drawing.Point(522, 5);
+            this.btnSimReverseDirection.Location = new System.Drawing.Point(521, 5);
             this.btnSimReverseDirection.Name = "btnSimReverseDirection";
             this.btnSimReverseDirection.Size = new System.Drawing.Size(35, 34);
             this.btnSimReverseDirection.TabIndex = 537;
@@ -2392,6 +2393,7 @@
             this.tlpNozzle.Controls.Add(this.btnSprayRateDn, 1, 7);
             this.tlpNozzle.Controls.Add(this.btnNozConfig, 1, 9);
             this.tlpNozzle.Controls.Add(this.lblGPM_Set, 0, 0);
+            this.tlpNozzle.Controls.Add(this.lblIsFlowing, 0, 5);
             this.tlpNozzle.Location = new System.Drawing.Point(75, 50);
             this.tlpNozzle.Name = "tlpNozzle";
             this.tlpNozzle.RowCount = 10;
@@ -2665,6 +2667,19 @@
             this.lblGPM_Set.Text = "Flow";
             this.lblGPM_Set.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblIsFlowing
+            // 
+            this.lblIsFlowing.AutoSize = true;
+            this.lblIsFlowing.BackColor = System.Drawing.Color.Orange;
+            this.lblIsFlowing.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblIsFlowing.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIsFlowing.Location = new System.Drawing.Point(3, 197);
+            this.lblIsFlowing.Name = "lblIsFlowing";
+            this.tlpNozzle.SetRowSpan(this.lblIsFlowing, 2);
+            this.lblIsFlowing.Size = new System.Drawing.Size(6, 153);
+            this.lblIsFlowing.TabIndex = 617;
+            this.lblIsFlowing.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // FormGPS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -2718,6 +2733,7 @@
             this.panelRight.ResumeLayout(false);
             this.panelControlBox.ResumeLayout(false);
             this.tlpNozzle.ResumeLayout(false);
+            this.tlpNozzle.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2882,6 +2898,7 @@
         private System.Windows.Forms.ToolStripMenuItem tramsMultiMenuField;
         private System.Windows.Forms.ToolStripMenuItem menuLanguageSerbian;
         private System.Windows.Forms.ToolStripMenuItem menuGenerateLanguageReference;
+        private System.Windows.Forms.Label lblIsFlowing;
     }
 }
 

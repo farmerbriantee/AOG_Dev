@@ -1,7 +1,49 @@
+#include <WiFi.h>
+#include <WifiUDP.h>
+
+const char* ssid     = "SRX160AP";
+const char* password = "1122334455";
+
+IPAddress local_ip(192,168,0,1);
+IPAddress gateway(192,168,0,1);
+IPAddress subnet(255,255,255,0);
+
+const char* udpAddress = "192.168.0.255";
+const int udpPort = 8888;
+
+//The udp library class
+WiFiUDP udp;
+
+void setup()
+{
+    Serial.begin(115200);
+    Serial.println("\n[*] Creating AP");
+
+    WiFi.mode(WIFI_AP);
+    WiFi.softAPConfig(local_ip, gateway, subnet);
+    WiFi.softAP(ssid, NULL);
+
+    Serial.print("[+] AP Created with IP Gateway ");
+    Serial.println(WiFi.softAPIP());
+
+    udp.begin(WiFi.localIP(), udpPort);
+}
+
+void loop()
+{
+    udp.beginPacket(udpAddress, 9999);
+    udp.printf("Seconds since boot: %lu", millis() / 1000);
+    udp.endPacket();
+
+    delay(1000);
+}
+
+
+
 /*
  *  This sketch sends random data over UDP on a ESP32 device
  *
- */
+ 
 #include <WiFi.h>
 #include <NetworkUdp.h>
 
@@ -36,6 +78,8 @@ void loop() {
     udp.beginPacket(udpAddress, 9999);
     udp.printf("Seconds since boot: %lu", millis() / 1000);
     udp.endPacket();
+
+    displayIPaddress(udpAddress, udpPort);
   }
   //Wait for 1 second
   delay(1000);
@@ -95,3 +139,4 @@ void WiFiEvent(WiFiEvent_t event) {
     default: break;
   }
 }
+*/

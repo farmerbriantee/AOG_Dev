@@ -350,9 +350,10 @@ namespace AOG
 
                             nozz.pressureActual = data[9];
 
-                            nozz.isFlowingFlag = data[10];
+                            if (data[10] == 0) nozz.isFlowingFlag = false;
+                            else nozz.isFlowingFlag = true;
 
-                            nozz.pwmDriveActual = data[11];
+                                nozz.pwmDriveActual = data[11];
                             if (data[12] == 0) nozz.pwmDriveActual *= -1;
 
                             nozz.frequency = (Int16)((data[14] << 8) + data[13]);

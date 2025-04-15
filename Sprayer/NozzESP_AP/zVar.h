@@ -31,9 +31,7 @@ float sectionWidthPercent = 1;
 volatile uint8_t isr_isFlowing = 0; //have we updated since last loop
 volatile uint16_t isr_flowCountThisLoop = 0; //the total count of flowmeter pulses from loop to loop
 volatile uint32_t isr_flowTime = 1000UL; //the usec of count
-volatile uint32_t isr_flowTimeArr[] = { 5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,
-										5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,5000UL,5000UL
-}; //the usec of count avergaged
+volatile uint32_t isr_flowTimeArr[] = { 150000UL,150000UL,150000UL,150000UL,150000UL,150000UL,150000UL,150000UL}; //the usec of count avergaged
 
 uint32_t isr_flowCount = 1UL; //the total count of flowmeter pulses
 uint8_t ringPos = 0;
@@ -106,10 +104,8 @@ void IRAM_ATTR isr_Flow()
 	//use ring counter
 	isr_flowTimeArr[ringPos] = isr_flowTime;
 	ringPos++;
-	if (ringPos > 15) ringPos = 0;
-	isr_flowTime = (isr_flowTimeArr[0] + isr_flowTimeArr[1] + isr_flowTimeArr[2] + isr_flowTimeArr[3] +
-		isr_flowTimeArr[4] + isr_flowTimeArr[5] + isr_flowTimeArr[6] + isr_flowTimeArr[7] +
-		isr_flowTimeArr[8] + isr_flowTimeArr[9] + isr_flowTimeArr[10] + isr_flowTimeArr[11] +
-		isr_flowTimeArr[12] + isr_flowTimeArr[13] + isr_flowTimeArr[14] + isr_flowTimeArr[15]);
-	isr_flowTime = isr_flowTime / 16;
+	if (ringPos > 7) ringPos = 0;
+	isr_flowTime = isr_flowTimeArr[0] + isr_flowTimeArr[1] + isr_flowTimeArr[2] + isr_flowTimeArr[3] +
+		isr_flowTimeArr[4] + isr_flowTimeArr[5] + isr_flowTimeArr[6] + isr_flowTimeArr[7];
+	isr_flowTime = isr_flowTime / 8;
 }

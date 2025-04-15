@@ -57,7 +57,7 @@
         pinMode(Motor1, OUTPUT);
         pinMode(Motor2, OUTPUT);
 
-        attachInterrupt(32, isr_Flow, HIGH);  //Configures interrupt 0 (pin 2 on the Arduino Uno) to run the isr
+        attachInterrupt(32, isr_Flow, RISING);  //Configures interrupt 0 (pin 2 on the Arduino Uno) to run the isr
 
         EEPROM.get(0, EEread);              // read identifier
 

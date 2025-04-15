@@ -485,7 +485,7 @@ namespace AOG
                             //grab the number from nudSection01
                             string bob = numeric.Name.Substring(10, 2);
                             int nudNum = Convert.ToInt32(bob);
-                            if (nudNum >= 0 && nudNum <= 16)
+                            if (nudNum >= 0 && nudNum <= 15 && nudNum <= Settings.Tool.numSections)
                             {
                                 numeric.Value = Settings.Tool.setSection_Widths[nudNum - 1];
                             }

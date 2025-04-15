@@ -844,8 +844,6 @@ namespace AOG
 
                     curList.Add(arr[cnt - 2]);
                     curList.Add(arr[cnt - 1]);
-
-                    curList.CalculateHeadings(track.mode > TrackMode.Curve);
                 }
             }
             else
@@ -882,6 +880,7 @@ namespace AOG
                 track.ptB.northing = (track.curvePts[bClose].northing);
             }
 
+            curList.CalculateHeadings(track.mode > TrackMode.Curve);
             track.curvePts = curList;
         }
 

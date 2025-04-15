@@ -883,6 +883,30 @@ namespace AOG
                 }
             }
 
+            //Draw currently being made patch
+            if (patchCounter > 0)
+            {
+                foreach (var patch in triStrip)
+                {
+                    if (patch.isDrawing)
+                    {
+                        try
+                        {
+                            //draw the triangle in each triangle strip
+                            GL.Begin(PrimitiveType.TriangleStrip);
+
+                            for (int i = 1; i < patch.triangleList.Count; i++)
+                                GL.Vertex3(patch.triangleList[i].easting, patch.triangleList[i].northing, 0);
+
+                            GL.End();
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+            }
+
             //tram tracks
             GL.Color3((byte)0, (byte)bbColors.tram, (byte)0);
 

@@ -585,7 +585,7 @@
             series1.BorderWidth = 2;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
-            series1.Color = System.Drawing.Color.LightSalmon;
+            series1.Color = System.Drawing.Color.Lime;
             series1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             series1.Legend = "Legend1";
             series1.MarkerBorderWidth = 2;
@@ -593,7 +593,7 @@
             series2.BorderWidth = 2;
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
-            series2.Color = System.Drawing.Color.Lime;
+            series2.Color = System.Drawing.Color.Salmon;
             series2.IsVisibleInLegend = false;
             series2.Legend = "Legend1";
             series2.Name = "PWM";
@@ -608,8 +608,8 @@
             this.lblUnitsActual.AutoSize = true;
             this.lblUnitsActual.BackColor = System.Drawing.Color.Transparent;
             this.lblUnitsActual.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUnitsActual.ForeColor = System.Drawing.Color.Lime;
-            this.lblUnitsActual.Location = new System.Drawing.Point(43, -1);
+            this.lblUnitsActual.ForeColor = System.Drawing.Color.LightSalmon;
+            this.lblUnitsActual.Location = new System.Drawing.Point(354, 5);
             this.lblUnitsActual.Name = "lblUnitsActual";
             this.lblUnitsActual.Size = new System.Drawing.Size(54, 22);
             this.lblUnitsActual.TabIndex = 615;
@@ -621,8 +621,8 @@
             this.lblUnitsSet.AutoSize = true;
             this.lblUnitsSet.BackColor = System.Drawing.Color.Transparent;
             this.lblUnitsSet.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUnitsSet.ForeColor = System.Drawing.Color.LightSalmon;
-            this.lblUnitsSet.Location = new System.Drawing.Point(159, -1);
+            this.lblUnitsSet.ForeColor = System.Drawing.Color.Lime;
+            this.lblUnitsSet.Location = new System.Drawing.Point(229, 5);
             this.lblUnitsSet.Name = "lblUnitsSet";
             this.lblUnitsSet.Size = new System.Drawing.Size(54, 22);
             this.lblUnitsSet.TabIndex = 628;
@@ -634,8 +634,8 @@
             this.label15.AutoSize = true;
             this.label15.BackColor = System.Drawing.Color.Transparent;
             this.label15.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.LightSalmon;
-            this.label15.Location = new System.Drawing.Point(120, -1);
+            this.label15.ForeColor = System.Drawing.Color.Lime;
+            this.label15.Location = new System.Drawing.Point(190, 5);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(47, 22);
             this.label15.TabIndex = 629;
@@ -647,8 +647,8 @@
             this.label16.AutoSize = true;
             this.label16.BackColor = System.Drawing.Color.Transparent;
             this.label16.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.Lime;
-            this.label16.Location = new System.Drawing.Point(1, -1);
+            this.label16.ForeColor = System.Drawing.Color.LightSalmon;
+            this.label16.Location = new System.Drawing.Point(312, 5);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(47, 22);
             this.label16.TabIndex = 630;

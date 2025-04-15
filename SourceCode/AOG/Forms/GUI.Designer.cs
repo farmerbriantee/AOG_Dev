@@ -232,6 +232,9 @@ namespace AOG
                 {
                     if (nozz.isFlowingFlag) lblIsFlowing.BackColor = Color.LightGreen;
                     else lblIsFlowing.BackColor = Color.Orange;
+
+                    lblPWM_Nozz.Text = nozz.pwmDriveActual.ToString();
+                    lblFlowHz_Nozz.Text = nozz.frequency.ToString() + " Hz";
                 }
             }
 

@@ -152,11 +152,6 @@ namespace AOG
             }
         }
 
-
-
-
-
-
         //cycle thru states - Off,Auto,On
         private btnStates GetNextState(btnStates state)
         {

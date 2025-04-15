@@ -35,8 +35,8 @@
     const char* ssid = "SRX160AP";
     //const char* password = "1122334455";
 
-    IPAddress local_ip(192, 168, 0, 1);
-    IPAddress gateway(192, 168, 0, 1);
+    IPAddress local_ip(192, 168, 1, 1);
+    IPAddress gateway(192, 168, 1, 1);
     IPAddress subnet(255, 255, 255, 0);
 
     const char* udpAddress = "192.168.1.255";
@@ -162,6 +162,9 @@
             //turn sections on/off          
             DoRelays();
 
+            //Volume x 10
+            totalVolume = (isr_flowCount * 10) / settings.flowCalFactor;
+
             //if (isPressureLow || watchdogTimer > 29)
             if (watchdogTimer > 29 || setGPM < 50 || speed < 1.0)
             {
@@ -176,9 +179,6 @@
             }
             else
             {
-                //Volume x 10
-                totalVolume = (isr_flowCount * 10) / settings.flowCalFactor;
-
                 //Two modes, Manual and Auto
                 if (autoMode)
                 {
@@ -213,6 +213,9 @@
 
             if (flipFlop > 1)
             {
+                //Volume x 10
+                totalVolume = (uint16_t)((((float)(isr_flowCount)) / settings.flowCalFactor) * 10);
+
                 flipFlop = 0;
 
                 AOG[5] = (byte)(totalVolume);

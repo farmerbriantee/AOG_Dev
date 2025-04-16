@@ -160,6 +160,19 @@ struct Tool_Settings {
     float AckermanFix = 1;        // sent as percent
 };  Tool_Settings toolSettings;      // 11 bytes
 
+union _udpPacket {
+    byte udpData[512];    // Incoming Buffer
+    struct {
+        uint16_t AOGID;
+        byte MajorPGN;
+        byte MinorPGN;
+        byte data[508];
+    };
+};
+
+_udpPacket udpPacket;
+
+
 // 9 bytes
 
 void steerConfigInit()
@@ -401,11 +414,11 @@ void ReceiveUdp()
     // Check for len > 4, because we check byte 0, 1, 3 and 3
     if (len > 4)
     {
-        Eth_udpToolSteer.read(toolSteerUdpData, UDP_TX_PACKET_MAX_SIZE);
+        Eth_udpToolSteer.read(udpPacket.udpData, UDP_TX_PACKET_MAX_SIZE);
 
-        if (toolSteerUdpData[0] == 0x80 && toolSteerUdpData[1] == 0x81 && toolSteerUdpData[2] == 0x7F) //Data
+        if (udpPacket.AOGID == 0x8180 && udpPacket.MajorPGN == 0x7F) //Data
         {
-            if (toolSteerUdpData[3] == 233)  //tool steer data
+            if (udpPacket.MinorPGN == PGNs::ToolSteer)  //tool steer data
             {
                 // xteLo = 5;
                 // xteHi = 6;
@@ -417,17 +430,17 @@ void ReceiveUdp()
                 // headHi = 12;
 
                 //Bit 5,6   Tool XTE from AOG * 100 is sent
-                toolXTE_AOG = ((float)(toolSteerUdpData[5] | ((int8_t)toolSteerUdpData[6]) << 8)) * 0.01; //low high bytes
+                toolXTE_AOG = ((float)(udpPacket.udpData[toolIDs::xteLo] | ((int8_t)udpPacket.udpData[toolIDs::xteHi]) << 8)) * 0.01; //low high bytes
                 
-                guidanceStatus = toolSteerUdpData[7];
+                guidanceStatus = udpPacket.udpData[toolIDs::status];
 
                 //Bit 8,9   Tool XTE from AOG * 100 is sent
-                vehicleXTE_AOG = ((float)(toolSteerUdpData[8] | ((int8_t)toolSteerUdpData[9]) << 8)) * 0.01; //low high bytes
+                vehicleXTE_AOG = ((float)(udpPacket.udpData[toolIDs::xteVehLo] | ((int8_t)udpPacket.udpData[toolIDs::xteVehHi]) << 8)) * 0.01; //low high bytes
 
-                gpsSpeed = ((float)(toolSteerUdpData[10])) * 0.1;
+                gpsSpeed = ((float)(udpPacket.udpData[toolIDs::speed10])) * 0.1;
 
                 //Bit 11,12   Tool XTE from AOG * 100 is sent
-                vehicleHeading_AOG = ((float)(toolSteerUdpData[11] | ((int8_t)toolSteerUdpData[12]) << 8)) * 0.01; //low high bytes
+                vehicleHeading_AOG = ((float)(udpPacket.udpData[toolIDs::headLo] | ((int8_t)udpPacket.udpData[toolIDs::headHi]) << 8)) * 0.01; //low high bytes
 
                 //Serial.print("steerAngleSetPoint: ");//Serial.println(steerAngleSetPoint); //Serial.println(gpsSpeed);
 
@@ -482,7 +495,7 @@ void ReceiveUdp()
             }
 
             //steer settings
-            else if (toolSteerUdpData[3] == 232) 
+            else if (udpPacket.MinorPGN == PGNs::ToolSteerSettings)
             {
                 // gainP = 5;
                 // integral = 6;
@@ -494,23 +507,23 @@ void ReceiveUdp()
                 // ackerman = 12;
 
                 //PID values
-                toolSettings.Kp = ((float)toolSteerUdpData[5]);   // read Kp from AgOpenGPS
+                toolSettings.Kp = ((float)udpPacket.udpData[toolSteerIDs::gainP]);   // read Kp from AgOpenGPS
 
-                toolSettings.Ki = toolSteerUdpData[6]; // read high pwm
+                toolSettings.Ki = udpPacket.udpData[toolSteerIDs::integral]; // read high pwm
 
-                toolSettings.minPWM = toolSteerUdpData[7]; //read the minimum amount of PWM for instant on
+                toolSettings.minPWM = udpPacket.udpData[toolSteerIDs::minPWM]; //read the minimum amount of PWM for instant on
 
                 float temp = (float)toolSettings.minPWM * 1.2;
                 toolSettings.lowPWM = (byte)temp;
 
-                toolSettings.highPWM = toolSteerUdpData[8]; // read high pwm
+                toolSettings.highPWM = udpPacket.udpData[toolSteerIDs::highPWM]; // read high pwm
 
-                toolSettings.steerSensorCounts = toolSteerUdpData[9]; //sent as setting displayed in AOG
+                toolSettings.steerSensorCounts = udpPacket.udpData[toolSteerIDs::countsPerDegree]; //sent as setting displayed in AOG
 
-                toolSettings.wasOffset = (toolSteerUdpData[10]);  //read was zero offset Lo
-                toolSettings.wasOffset |= (toolSteerUdpData[11] << 8);  //read was zero offset Hi
+                toolSettings.wasOffset = udpPacket.udpData[toolSteerIDs::wasOffsetLo];  //read was zero offset Lo
+                toolSettings.wasOffset |= (udpPacket.udpData[toolSteerIDs::wasOffsetHi] << 8);  //read was zero offset Hi
 
-                toolSettings.AckermanFix = (float)toolSteerUdpData[12] * 0.01;
+                toolSettings.AckermanFix = (float)udpPacket.udpData[toolSteerIDs::ackerman] * 0.01;
 
                 //crc
                 //autoSteerUdpData[13];
@@ -522,21 +535,21 @@ void ReceiveUdp()
                 toolSettingsInit();
             }
 
-            else if (toolSteerUdpData[3] == 231)  //Tool Steer Config
+            else if (udpPacket.MinorPGN == PGNs::ToolSteerConfig)  //Tool Steer Config
             {
                 // invertWAS = 5;
                 // invertSteer = 6;
                 // maxSteerAngle = 7;
                 // isSteer = 8;
 
-                toolConfig.invertWAS = toolSteerUdpData[5]; 
+                toolConfig.invertWAS = udpPacket.udpData[toolSteerConfig::invertWAS];
 
-                toolConfig.invertSteer = toolSteerUdpData[6];
+                toolConfig.invertSteer = udpPacket.udpData[toolSteerConfig::invertSteer];
 
-                toolConfig.maxSteerAngle = toolSteerUdpData[7]; 
+                toolConfig.maxSteerAngle = udpPacket.udpData[toolSteerConfig::maxSteerAngle];
 
                 //for steering or sliding, not sure if it is needes
-                toolConfig.isSteer = toolSteerUdpData[8]; 
+                toolConfig.isSteer = udpPacket.udpData[toolSteerConfig::isSteer];
                 
                 EEPROM.put(40, steerConfig);
 
@@ -544,7 +557,7 @@ void ReceiveUdp()
                 steerConfigInit();
 
             }//end FB
-            else if (toolSteerUdpData[3] == 200) // Hello from AgIO
+            else if (udpPacket.MinorPGN == PGNs::AgIOHello) // Hello from AgIO
             {
                 int16_t sa = (int16_t)(steerAngleActual * 100);
 
@@ -558,7 +571,7 @@ void ReceiveUdp()
                 SendUdp(helloFromAutoSteer, sizeof(helloFromAutoSteer), Eth_ipDestination, portDestination);
             }
 
-            else if (toolSteerUdpData[3] == 201)
+            else if (udpPacket.MinorPGN == PGNs::SubnetChange)
             {
                 //make really sure this is the subnet pgn
                 if (toolSteerUdpData[4] == 5 && toolSteerUdpData[5] == 201 && toolSteerUdpData[6] == 201)
@@ -574,7 +587,7 @@ void ReceiveUdp()
             }//end 201
 
             //whoami
-            else if (toolSteerUdpData[3] == 202)
+            else if (udpPacket.MinorPGN == PGNs::SubnetRequest)
             {
                 //make really sure this is the reply pgn
                 if (toolSteerUdpData[4] == 3 && toolSteerUdpData[5] == 202 && toolSteerUdpData[6] == 202)

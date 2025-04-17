@@ -782,7 +782,8 @@ namespace AOG
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
             GL.Viewport(0, 0, 500, 300);
-            Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView(0.06f, 1.6666666666f, 50.0f, 520.0f);
+            Matrix4 mat = Matrix4.CreateOrthographicOffCenter(-25, 25, 0, 30, -1, 1);
+            //Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView(0.06f, 1.6666666666f, 50.0f, 520.0f);
             GL.LoadMatrix(ref mat);
             GL.MatrixMode(MatrixMode.Modelview);
 
@@ -801,14 +802,12 @@ namespace AOG
             GL.LoadIdentity();                  // Reset The View
 
             //back the camera up
-            GL.Translate(0, 0, -500);
+            //GL.Translate(0, 0, -500);
 
             //rotate camera so heading matched fix heading in the world
             GL.Rotate(glm.toDegrees(toolPos.heading), 0, 0, 1);
 
-            GL.Translate(-toolPos.easting - Math.Sin(toolPos.heading) * 15,
-                -toolPos.northing - Math.Cos(toolPos.heading) * 15,
-                0);
+            GL.Translate(-toolPos.easting, -toolPos.northing, 0);
 
             #endregion
 
@@ -1007,8 +1006,8 @@ namespace AOG
 
 
             //Paint to context for troubleshooting qqq
-            //oglBack.BringToFront()));
-            //oglBack.SwapBuffers()));
+            //oglBack.BringToFront();
+            //oglBack.SwapBuffers();
             #endregion
 
             #region Tram Painting

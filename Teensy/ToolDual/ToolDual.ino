@@ -56,6 +56,7 @@ uint32_t gpsReadyTime = 0;        //Used for GGA timeout
 /*****************************************************************/
 
 // Ethernet Options
+#include "PGNs.h"
 #include <NativeEthernet.h>
 #include <NativeEthernetUdp.h>
 

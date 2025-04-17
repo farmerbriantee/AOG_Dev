@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35828.75
+VisualStudioVersion = 17.13.35919.96
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NozzNano", "NozzNano.vcxproj", "{CF24D31E-4577-2CDF-0045-96F120C97A1D}"
 EndProject
@@ -30,6 +30,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E75A0308-B31F-468D-90DA-7E41F180B8D8}
+		SolutionGuid = {BCFE0744-9536-4733-AA12-F8ADB0F0D24A}
 	EndGlobalSection
 EndGlobal

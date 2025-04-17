@@ -1,7 +1,5 @@
     //Spray module
 
-    //Spray module
-
 #include <EEPROM.h> 
 
 //all the program variables
@@ -23,10 +21,6 @@
 
         //D2 is interrupt 0 for flowmeter
         pinMode(FLOWPIN, INPUT_PULLUP);           //Sets the pin as an input, pullup
-
-        //pinMode(PWM, OUTPUT); //flow valve open      
-        //TCCR2B = TCCR2B & B11111000 | B00000010;    // D3, D11 set timer 2 to 8 for PWM frequency of  3921.16 Hz
-        //TCCR2B = TCCR2B & B11111000 | B00000110;    // set timer 2 to 256 for PWM frequency of   122.55 Hz
 
         //pin D4,D5 is direction for PWM, 
         pinMode(Motor1, OUTPUT); //pwm     

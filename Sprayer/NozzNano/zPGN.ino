@@ -27,8 +27,6 @@ void DoSerialReceive(void)
         idx = 0;
     }
 
-
-
     //The data package
     if (Serial.available() > dataLength && isHeaderFound && isPGNFound)
     {
@@ -66,6 +64,10 @@ void DoSerialReceive(void)
 
                 //Reset serial Watchdog  
                 serialResetTimer = 0;
+
+                isHeaderFound = isPGNFound = false;
+                pgn = dataLength = 0;
+
             }
 
         //else if (pgn == 200) // Hello from AgIO
@@ -130,6 +132,10 @@ void DoSerialReceive(void)
             serialResetTimer = 0;
 
             Serial.println("Spray Settings");
+
+            isHeaderFound = isPGNFound = false;
+            pgn = dataLength = 0;
+
         }
 
         else if (pgn == 225) // Spray Functions (E1)
@@ -177,6 +183,10 @@ void DoSerialReceive(void)
             serialResetTimer = 0;
 
             Serial.println("Spray Functions");
+
+            isHeaderFound = isPGNFound = false;
+            pgn = dataLength = 0;
+
         }
 
         else //nothing found, clean up

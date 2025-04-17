@@ -58,22 +58,24 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.nudSlowPWM = new AOG.NudlessNumericUpDown();
-            this.nudFastPWM = new AOG.NudlessNumericUpDown();
-            this.nudSwitchAtFlowError = new AOG.NudlessNumericUpDown();
-            this.nudManualPWM = new AOG.NudlessNumericUpDown();
-            this.nudDeadbandError = new AOG.NudlessNumericUpDown();
             this.tabUnits = new System.Windows.Forms.TabPage();
-            this.nudSprayPressureCal = new AOG.NudlessNumericUpDown();
-            this.nudSprayFlowCal = new AOG.NudlessNumericUpDown();
             this.tabGain = new System.Windows.Forms.TabPage();
-            this.nudMaxHz = new AOG.NudlessNumericUpDown();
-            this.nudMinHz = new AOG.NudlessNumericUpDown();
             this.unoChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lblUnitsActual = new System.Windows.Forms.Label();
             this.lblUnitsSet = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.lblFlowError = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.nudSlowPWM = new AOG.NudlessNumericUpDown();
+            this.nudFastPWM = new AOG.NudlessNumericUpDown();
+            this.nudSwitchAtFlowError = new AOG.NudlessNumericUpDown();
+            this.nudManualPWM = new AOG.NudlessNumericUpDown();
+            this.nudDeadbandError = new AOG.NudlessNumericUpDown();
+            this.nudSprayPressureCal = new AOG.NudlessNumericUpDown();
+            this.nudSprayFlowCal = new AOG.NudlessNumericUpDown();
+            this.nudMaxHz = new AOG.NudlessNumericUpDown();
+            this.nudMinHz = new AOG.NudlessNumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabFlow.SuspendLayout();
             this.tabUnits.SuspendLayout();
@@ -344,12 +346,12 @@
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tabControl1.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.ItemSize = new System.Drawing.Size(126, 48);
-            this.tabControl1.Location = new System.Drawing.Point(0, 185);
+            this.tabControl1.Location = new System.Drawing.Point(0, 193);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(429, 348);
+            this.tabControl1.Size = new System.Drawing.Size(414, 348);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 626;
             // 
@@ -377,7 +379,7 @@
             this.tabFlow.ImageIndex = 3;
             this.tabFlow.Location = new System.Drawing.Point(4, 52);
             this.tabFlow.Name = "tabFlow";
-            this.tabFlow.Size = new System.Drawing.Size(421, 292);
+            this.tabFlow.Size = new System.Drawing.Size(406, 292);
             this.tabFlow.TabIndex = 16;
             this.tabFlow.Text = "Gain";
             // 
@@ -435,6 +437,170 @@
             this.label18.Text = "Look Ahead";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // tabUnits
+            // 
+            this.tabUnits.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tabUnits.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.tabUnits.Controls.Add(this.tboxUnitsPerArea);
+            this.tabUnits.Controls.Add(this.cboxBypass);
+            this.tabUnits.Controls.Add(this.cboxSectionValve3Wire);
+            this.tabUnits.Controls.Add(this.tboxUnitsApplied);
+            this.tabUnits.Controls.Add(this.label5);
+            this.tabUnits.Controls.Add(this.label7);
+            this.tabUnits.Controls.Add(this.label10);
+            this.tabUnits.Controls.Add(this.label8);
+            this.tabUnits.Controls.Add(this.label2);
+            this.tabUnits.Controls.Add(this.label1);
+            this.tabUnits.Controls.Add(this.nudSprayPressureCal);
+            this.tabUnits.Controls.Add(this.nudSprayFlowCal);
+            this.tabUnits.ImageIndex = 2;
+            this.tabUnits.Location = new System.Drawing.Point(4, 52);
+            this.tabUnits.Name = "tabUnits";
+            this.tabUnits.Size = new System.Drawing.Size(406, 292);
+            this.tabUnits.TabIndex = 15;
+            this.tabUnits.Text = "Cal";
+            // 
+            // tabGain
+            // 
+            this.tabGain.AutoScroll = true;
+            this.tabGain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tabGain.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.tabGain.Controls.Add(this.nudMaxHz);
+            this.tabGain.Controls.Add(this.nudMinHz);
+            this.tabGain.Controls.Add(this.label13);
+            this.tabGain.Controls.Add(this.label14);
+            this.tabGain.ImageIndex = 1;
+            this.tabGain.Location = new System.Drawing.Point(4, 52);
+            this.tabGain.Name = "tabGain";
+            this.tabGain.Size = new System.Drawing.Size(406, 292);
+            this.tabGain.TabIndex = 13;
+            this.tabGain.Text = "Limits";
+            // 
+            // unoChart
+            // 
+            this.unoChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.unoChart.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.None;
+            this.unoChart.BackColor = System.Drawing.Color.Black;
+            chartArea1.AxisX.LabelAutoFitMaxFontSize = 8;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.AxisY.LineWidth = 2;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.BackColor = System.Drawing.Color.Black;
+            chartArea1.BorderWidth = 0;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
+            this.unoChart.ChartAreas.Add(chartArea1);
+            this.unoChart.Location = new System.Drawing.Point(-11, 27);
+            this.unoChart.Margin = new System.Windows.Forms.Padding(0);
+            this.unoChart.Name = "unoChart";
+            this.unoChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            series1.BackSecondaryColor = System.Drawing.Color.White;
+            series1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            series1.BorderWidth = 2;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
+            series1.Color = System.Drawing.Color.Lime;
+            series1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series1.Legend = "Legend1";
+            series1.MarkerBorderWidth = 2;
+            series1.Name = "S";
+            series2.BorderWidth = 2;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
+            series2.Color = System.Drawing.Color.Salmon;
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.Name = "PWM";
+            this.unoChart.Series.Add(series1);
+            this.unoChart.Series.Add(series2);
+            this.unoChart.Size = new System.Drawing.Size(421, 162);
+            this.unoChart.TabIndex = 627;
+            this.unoChart.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.SystemDefault;
+            // 
+            // lblUnitsActual
+            // 
+            this.lblUnitsActual.AutoSize = true;
+            this.lblUnitsActual.BackColor = System.Drawing.Color.Transparent;
+            this.lblUnitsActual.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUnitsActual.ForeColor = System.Drawing.Color.LightSalmon;
+            this.lblUnitsActual.Location = new System.Drawing.Point(172, 5);
+            this.lblUnitsActual.Name = "lblUnitsActual";
+            this.lblUnitsActual.Size = new System.Drawing.Size(54, 22);
+            this.lblUnitsActual.TabIndex = 615;
+            this.lblUnitsActual.Text = "2700";
+            this.lblUnitsActual.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblUnitsSet
+            // 
+            this.lblUnitsSet.AutoSize = true;
+            this.lblUnitsSet.BackColor = System.Drawing.Color.Transparent;
+            this.lblUnitsSet.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUnitsSet.ForeColor = System.Drawing.Color.Lime;
+            this.lblUnitsSet.Location = new System.Drawing.Point(47, 5);
+            this.lblUnitsSet.Name = "lblUnitsSet";
+            this.lblUnitsSet.Size = new System.Drawing.Size(54, 22);
+            this.lblUnitsSet.TabIndex = 628;
+            this.lblUnitsSet.Text = "0300";
+            this.lblUnitsSet.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.Transparent;
+            this.label15.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.Lime;
+            this.label15.Location = new System.Drawing.Point(8, 5);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(47, 22);
+            this.label15.TabIndex = 629;
+            this.label15.Text = "Set:";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.Transparent;
+            this.label16.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.LightSalmon;
+            this.label16.Location = new System.Drawing.Point(130, 5);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(47, 22);
+            this.label16.TabIndex = 630;
+            this.label16.Text = "Act:";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFlowError
+            // 
+            this.lblFlowError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFlowError.AutoSize = true;
+            this.lblFlowError.BackColor = System.Drawing.Color.Transparent;
+            this.lblFlowError.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFlowError.ForeColor = System.Drawing.Color.Cyan;
+            this.lblFlowError.Location = new System.Drawing.Point(356, 168);
+            this.lblFlowError.Name = "lblFlowError";
+            this.lblFlowError.Size = new System.Drawing.Size(54, 22);
+            this.lblFlowError.TabIndex = 617;
+            this.lblFlowError.Text = "2700";
+            this.lblFlowError.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label19
+            // 
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label19.AutoSize = true;
+            this.label19.BackColor = System.Drawing.Color.Transparent;
+            this.label19.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.ForeColor = System.Drawing.Color.Cyan;
+            this.label19.Location = new System.Drawing.Point(293, 167);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(66, 22);
+            this.label19.TabIndex = 631;
+            this.label19.Text = "Error:";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // nudSlowPWM
             // 
             this.nudSlowPWM.Location = new System.Drawing.Point(16, 108);
@@ -481,29 +647,6 @@
             this.nudDeadbandError.TabIndex = 598;
             this.nudDeadbandError.ValueChanged += new System.EventHandler(this.nudDeadbandError_ValueChanged);
             // 
-            // tabUnits
-            // 
-            this.tabUnits.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.tabUnits.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.tabUnits.Controls.Add(this.tboxUnitsPerArea);
-            this.tabUnits.Controls.Add(this.cboxBypass);
-            this.tabUnits.Controls.Add(this.cboxSectionValve3Wire);
-            this.tabUnits.Controls.Add(this.tboxUnitsApplied);
-            this.tabUnits.Controls.Add(this.label5);
-            this.tabUnits.Controls.Add(this.label7);
-            this.tabUnits.Controls.Add(this.label10);
-            this.tabUnits.Controls.Add(this.label8);
-            this.tabUnits.Controls.Add(this.label2);
-            this.tabUnits.Controls.Add(this.label1);
-            this.tabUnits.Controls.Add(this.nudSprayPressureCal);
-            this.tabUnits.Controls.Add(this.nudSprayFlowCal);
-            this.tabUnits.ImageIndex = 2;
-            this.tabUnits.Location = new System.Drawing.Point(4, 52);
-            this.tabUnits.Name = "tabUnits";
-            this.tabUnits.Size = new System.Drawing.Size(421, 292);
-            this.tabUnits.TabIndex = 15;
-            this.tabUnits.Text = "Cal";
-            // 
             // nudSprayPressureCal
             // 
             this.nudSprayPressureCal.Location = new System.Drawing.Point(17, 201);
@@ -524,22 +667,6 @@
             this.nudSprayFlowCal.TabIndex = 579;
             this.nudSprayFlowCal.ValueChanged += new System.EventHandler(this.nudSprayFlowCal_ValueChanged);
             // 
-            // tabGain
-            // 
-            this.tabGain.AutoScroll = true;
-            this.tabGain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.tabGain.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.tabGain.Controls.Add(this.nudMaxHz);
-            this.tabGain.Controls.Add(this.nudMinHz);
-            this.tabGain.Controls.Add(this.label13);
-            this.tabGain.Controls.Add(this.label14);
-            this.tabGain.ImageIndex = 1;
-            this.tabGain.Location = new System.Drawing.Point(4, 52);
-            this.tabGain.Name = "tabGain";
-            this.tabGain.Size = new System.Drawing.Size(421, 292);
-            this.tabGain.TabIndex = 13;
-            this.tabGain.Text = "Limits";
-            // 
             // nudMaxHz
             // 
             this.nudMaxHz.Location = new System.Drawing.Point(217, 21);
@@ -558,103 +685,6 @@
             this.nudMinHz.Size = new System.Drawing.Size(155, 46);
             this.nudMinHz.TabIndex = 624;
             // 
-            // unoChart
-            // 
-            this.unoChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.unoChart.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.None;
-            this.unoChart.BackColor = System.Drawing.Color.Black;
-            chartArea1.AxisX.LabelAutoFitMaxFontSize = 8;
-            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray;
-            chartArea1.AxisY.LineWidth = 2;
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray;
-            chartArea1.BackColor = System.Drawing.Color.Black;
-            chartArea1.BorderWidth = 0;
-            chartArea1.Name = "ChartArea1";
-            chartArea1.Position.Auto = false;
-            chartArea1.Position.Height = 100F;
-            chartArea1.Position.Width = 100F;
-            this.unoChart.ChartAreas.Add(chartArea1);
-            this.unoChart.Location = new System.Drawing.Point(-35, 9);
-            this.unoChart.Margin = new System.Windows.Forms.Padding(0);
-            this.unoChart.Name = "unoChart";
-            this.unoChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series1.BackSecondaryColor = System.Drawing.Color.White;
-            series1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            series1.BorderWidth = 2;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
-            series1.Color = System.Drawing.Color.Lime;
-            series1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series1.Legend = "Legend1";
-            series1.MarkerBorderWidth = 2;
-            series1.Name = "S";
-            series2.BorderWidth = 2;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
-            series2.Color = System.Drawing.Color.Salmon;
-            series2.IsVisibleInLegend = false;
-            series2.Legend = "Legend1";
-            series2.Name = "PWM";
-            this.unoChart.Series.Add(series1);
-            this.unoChart.Series.Add(series2);
-            this.unoChart.Size = new System.Drawing.Size(468, 194);
-            this.unoChart.TabIndex = 627;
-            this.unoChart.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.SystemDefault;
-            // 
-            // lblUnitsActual
-            // 
-            this.lblUnitsActual.AutoSize = true;
-            this.lblUnitsActual.BackColor = System.Drawing.Color.Transparent;
-            this.lblUnitsActual.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUnitsActual.ForeColor = System.Drawing.Color.LightSalmon;
-            this.lblUnitsActual.Location = new System.Drawing.Point(354, 5);
-            this.lblUnitsActual.Name = "lblUnitsActual";
-            this.lblUnitsActual.Size = new System.Drawing.Size(54, 22);
-            this.lblUnitsActual.TabIndex = 615;
-            this.lblUnitsActual.Text = "2700";
-            this.lblUnitsActual.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblUnitsSet
-            // 
-            this.lblUnitsSet.AutoSize = true;
-            this.lblUnitsSet.BackColor = System.Drawing.Color.Transparent;
-            this.lblUnitsSet.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUnitsSet.ForeColor = System.Drawing.Color.Lime;
-            this.lblUnitsSet.Location = new System.Drawing.Point(229, 5);
-            this.lblUnitsSet.Name = "lblUnitsSet";
-            this.lblUnitsSet.Size = new System.Drawing.Size(54, 22);
-            this.lblUnitsSet.TabIndex = 628;
-            this.lblUnitsSet.Text = "0300";
-            this.lblUnitsSet.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.Transparent;
-            this.label15.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.Lime;
-            this.label15.Location = new System.Drawing.Point(190, 5);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(47, 22);
-            this.label15.TabIndex = 629;
-            this.label15.Text = "Set:";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.Transparent;
-            this.label16.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.LightSalmon;
-            this.label16.Location = new System.Drawing.Point(312, 5);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(47, 22);
-            this.label16.TabIndex = 630;
-            this.label16.Text = "Act:";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // FormNozConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -662,7 +692,9 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(45)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(429, 533);
+            this.ClientSize = new System.Drawing.Size(414, 541);
+            this.Controls.Add(this.lblFlowError);
+            this.Controls.Add(this.label19);
             this.Controls.Add(this.lblUnitsSet);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label16);
@@ -676,7 +708,7 @@
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(508, 768);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(408, 449);
+            this.MinimumSize = new System.Drawing.Size(430, 535);
             this.Name = "FormNozConfig";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -737,5 +769,7 @@
         private System.Windows.Forms.Label label16;
         public System.Windows.Forms.Button btnFreq;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label lblFlowError;
+        private System.Windows.Forms.Label label19;
     }
 }

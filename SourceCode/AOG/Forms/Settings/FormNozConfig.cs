@@ -177,6 +177,9 @@ namespace AOG
         {
             unitsSet = lblUnitsSet.Text = mf.nozz.volumePerMinuteSet.ToString();
             unitsActual = lblUnitsActual.Text = mf.nozz.volumePerMinuteActual.ToString();
+
+            lblFlowError.Text = (mf.nozz.volumePerMinuteSet - mf.nozz.volumePerMinuteActual).ToString();
+
             //chart data
             Series s = unoChart.Series["S"];
             Series w = unoChart.Series["PWM"];

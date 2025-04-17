@@ -273,7 +273,7 @@ namespace AOG
                 //build the next line to add sequencelines
                 double widthMinusOverlap = Settings.Tool.toolWidth - Settings.Tool.overlap;
 
-                double distAway = widthMinusOverlap * (mf.trk.howManyPathsAway + (isTurnLeft ^ mf.trk.isHeadingSameWay ? rowSkipsWidth : -rowSkipsWidth)) + (mf.trk.isHeadingSameWay ? -Settings.Tool.offset : Settings.Tool.offset) + track.nudgeDistance;
+                double distAway = widthMinusOverlap * (mf.trk.howManyPathsAway + (isTurnLeft ^ mf.trk.isHeadingSameWay ? rowSkipsWidth : -rowSkipsWidth)) + (mf.trk.isHeadingSameWay ? Settings.Tool.offset : -Settings.Tool.offset) + track.nudgeDistance;
 
                 distAway += 0.5 * widthMinusOverlap;
 

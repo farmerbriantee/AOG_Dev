@@ -282,7 +282,7 @@ namespace AOG
 
         private void tabToolOffset_Leave(object sender, EventArgs e)
         {
-            
+            mf.SectionSetPosition();
         }
 
         private void nudOffset_ValueChanged(object sender, EventArgs e)
@@ -290,12 +290,7 @@ namespace AOG
             if (!rbtnToolRightPositive.Checked && !rbtnLeftNegative.Checked)
                 rbtnToolRightPositive.Checked = true;
 
-            if (rbtnToolRightPositive.Checked)
-                Settings.Tool.offset = nudOffset.Value;
-            else
-                Settings.Tool.offset = -nudOffset.Value;
-
-            Settings.Tool.offset = Settings.Tool.offset;
+            Settings.Tool.offset = rbtnToolRightPositive.Checked ? nudOffset.Value : nudOffset.Value;
 
             rbtnToolRightPositive.Checked = false;
             rbtnLeftNegative.Checked = false;
@@ -310,16 +305,11 @@ namespace AOG
             rbtnLeftNegative.Checked = false;
 
             Settings.Tool.offset = 0;
-            Settings.Tool.offset = Settings.Tool.offset;
         }
 
         private void rbtnToolRightPositive_Click(object sender, EventArgs e)
         {
-            if (rbtnToolRightPositive.Checked)
-                Settings.Tool.offset = nudOffset.Value;
-            else
-                Settings.Tool.offset = -nudOffset.Value;
-            Settings.Tool.offset = Settings.Tool.offset;
+            Settings.Tool.offset = rbtnToolRightPositive.Checked ? nudOffset.Value : nudOffset.Value;
 
             rbtnToolRightPositive.Checked = false;
             rbtnLeftNegative.Checked = false;

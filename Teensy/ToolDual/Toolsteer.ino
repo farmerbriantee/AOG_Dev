@@ -59,10 +59,10 @@ ADS1115_lite adc(ADS1115_DEFAULT_ADDRESS);     // Use this for the 16-bit versio
 #include <NativeEthernetUdp.h>
 #endif
 
-#ifdef ARDUINO_TEENSY41
-//uint8_t Ethernet::buffer[200]; // udp send and receive buffer
-uint8_t toolSteerUdpData[UDP_TX_PACKET_MAX_SIZE];  // Buffer For Receiving UDP Data
-#endif
+//#ifdef ARDUINO_TEENSY41
+////uint8_t Ethernet::buffer[200]; // udp send and receive buffer
+//uint8_t toolSteerUdpData[UDP_TX_PACKET_MAX_SIZE];  // Buffer For Receiving UDP Data
+//#endif
 
 //loop time variables in microseconds
 const uint16_t LOOP_TIME = 25;  //40Hz
@@ -420,15 +420,6 @@ void ReceiveUdp()
         {
             if (udpPacket.MinorPGN == PGNs::ToolSteer)  //tool steer data
             {
-                // xteLo = 5;
-                // xteHi = 6;
-                // status = 7;
-                // xteVehLo = 8;
-                // xteVehHi = 9;
-                // speed10 = 10;
-                // headLo = 11;
-                // headHi = 12;
-
                 //Bit 5,6   Tool XTE from AOG * 100 is sent
                 toolXTE_AOG = ((float)(udpPacket.udpData[toolIDs::xteLo] | ((int8_t)udpPacket.udpData[toolIDs::xteHi]) << 8)) * 0.01; //low high bytes
                 
@@ -574,11 +565,11 @@ void ReceiveUdp()
             else if (udpPacket.MinorPGN == PGNs::SubnetChange)
             {
                 //make really sure this is the subnet pgn
-                if (toolSteerUdpData[4] == 5 && toolSteerUdpData[5] == 201 && toolSteerUdpData[6] == 201)
+                if (udpPacket.udpData[4] == 5 && udpPacket.udpData[5] == 201 && udpPacket.udpData[6] == 201)
                 {
-                    networkAddress.ipOne = toolSteerUdpData[7];
-                    networkAddress.ipTwo = toolSteerUdpData[8];
-                    networkAddress.ipThree = toolSteerUdpData[9];
+                    networkAddress.ipOne = udpPacket.udpData[7];
+                    networkAddress.ipTwo = udpPacket.udpData[8];
+                    networkAddress.ipThree = udpPacket.udpData[9];
 
                     //save in EEPROM and restart
                     EEPROM.put(60, networkAddress);
@@ -590,7 +581,7 @@ void ReceiveUdp()
             else if (udpPacket.MinorPGN == PGNs::SubnetRequest)
             {
                 //make really sure this is the reply pgn
-                if (toolSteerUdpData[4] == 3 && toolSteerUdpData[5] == 202 && toolSteerUdpData[6] == 202)
+                if (udpPacket.udpData[4] == 3 && udpPacket.udpData[5] == 202 && udpPacket.udpData[6] == 202)
                 {
                     IPAddress rem_ip = Eth_udpToolSteer.remoteIP();
 

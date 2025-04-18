@@ -345,8 +345,8 @@
             this.tabControl1.Controls.Add(this.tabGain);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tabControl1.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.ItemSize = new System.Drawing.Size(126, 48);
-            this.tabControl1.Location = new System.Drawing.Point(0, 193);
+            this.tabControl1.ItemSize = new System.Drawing.Size(134, 48);
+            this.tabControl1.Location = new System.Drawing.Point(0, 235);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
@@ -517,7 +517,7 @@
             series2.Name = "PWM";
             this.unoChart.Series.Add(series1);
             this.unoChart.Series.Add(series2);
-            this.unoChart.Size = new System.Drawing.Size(421, 162);
+            this.unoChart.Size = new System.Drawing.Size(421, 204);
             this.unoChart.TabIndex = 627;
             this.unoChart.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.SystemDefault;
             // 
@@ -527,7 +527,7 @@
             this.lblUnitsActual.BackColor = System.Drawing.Color.Transparent;
             this.lblUnitsActual.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUnitsActual.ForeColor = System.Drawing.Color.LightSalmon;
-            this.lblUnitsActual.Location = new System.Drawing.Point(172, 5);
+            this.lblUnitsActual.Location = new System.Drawing.Point(346, 5);
             this.lblUnitsActual.Name = "lblUnitsActual";
             this.lblUnitsActual.Size = new System.Drawing.Size(54, 22);
             this.lblUnitsActual.TabIndex = 615;
@@ -540,7 +540,7 @@
             this.lblUnitsSet.BackColor = System.Drawing.Color.Transparent;
             this.lblUnitsSet.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUnitsSet.ForeColor = System.Drawing.Color.Lime;
-            this.lblUnitsSet.Location = new System.Drawing.Point(47, 5);
+            this.lblUnitsSet.Location = new System.Drawing.Point(221, 5);
             this.lblUnitsSet.Name = "lblUnitsSet";
             this.lblUnitsSet.Size = new System.Drawing.Size(54, 22);
             this.lblUnitsSet.TabIndex = 628;
@@ -553,7 +553,7 @@
             this.label15.BackColor = System.Drawing.Color.Transparent;
             this.label15.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.Lime;
-            this.label15.Location = new System.Drawing.Point(8, 5);
+            this.label15.Location = new System.Drawing.Point(182, 5);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(47, 22);
             this.label15.TabIndex = 629;
@@ -566,7 +566,7 @@
             this.label16.BackColor = System.Drawing.Color.Transparent;
             this.label16.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.LightSalmon;
-            this.label16.Location = new System.Drawing.Point(130, 5);
+            this.label16.Location = new System.Drawing.Point(304, 5);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(47, 22);
             this.label16.TabIndex = 630;
@@ -580,11 +580,11 @@
             this.lblFlowError.BackColor = System.Drawing.Color.Transparent;
             this.lblFlowError.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFlowError.ForeColor = System.Drawing.Color.Cyan;
-            this.lblFlowError.Location = new System.Drawing.Point(356, 168);
+            this.lblFlowError.Location = new System.Drawing.Point(349, 210);
             this.lblFlowError.Name = "lblFlowError";
-            this.lblFlowError.Size = new System.Drawing.Size(54, 22);
+            this.lblFlowError.Size = new System.Drawing.Size(65, 22);
             this.lblFlowError.TabIndex = 617;
-            this.lblFlowError.Text = "2700";
+            this.lblFlowError.Text = "38.9%";
             this.lblFlowError.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label19
@@ -594,7 +594,7 @@
             this.label19.BackColor = System.Drawing.Color.Transparent;
             this.label19.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.Color.Cyan;
-            this.label19.Location = new System.Drawing.Point(293, 167);
+            this.label19.Location = new System.Drawing.Point(288, 209);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(66, 22);
             this.label19.TabIndex = 631;
@@ -692,7 +692,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(45)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(414, 541);
+            this.ClientSize = new System.Drawing.Size(414, 583);
             this.Controls.Add(this.lblFlowError);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.lblUnitsSet);

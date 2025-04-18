@@ -178,7 +178,7 @@ namespace AOG
             unitsSet = lblUnitsSet.Text = mf.nozz.volumePerMinuteSet.ToString();
             unitsActual = lblUnitsActual.Text = mf.nozz.volumePerMinuteActual.ToString();
 
-            lblFlowError.Text = (mf.nozz.volumePerMinuteSet - mf.nozz.volumePerMinuteActual).ToString();
+            lblFlowError.Text = (((double)(mf.nozz.volumePerMinuteSet - mf.nozz.volumePerMinuteActual)/ (double)mf.nozz.volumePerMinuteSet)*-100).ToString("N1") + "%";
 
             //chart data
             Series s = unoChart.Series["S"];

@@ -13,9 +13,9 @@ namespace AgIO
         //B5,62,7F,PGN_ID,Length
         private int totalHeaderByteCount = 5;
 
-        public  static int baudRateIMU = 38400;
+        public  static int baudRateIMU = 115200;
         public  static int baudRateSteerModule = 38400;
-        public  static int baudRateMachineModule = 38400;
+        public  static int baudRateMachineModule = 115200;
 
         //used to decide to autoconnect section arduino this run
         public string recvGPSSentence = "GPS";

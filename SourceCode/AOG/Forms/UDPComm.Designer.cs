@@ -228,7 +228,7 @@ namespace AOG
                         {
                             if (data.Length != 14)
                                 break;
-                            if (ahrs.imuRoll > 25 || ahrs.imuRoll < -25) ahrs.imuRoll = 0;
+                            if (ahrs.imuRoll > 2500 || ahrs.imuRoll < -2500) ahrs.imuRoll = 0;
                             //Heading
                             ahrs.imuHeading = (Int16)((data[6] << 8) + data[5]);
                             ahrs.imuHeading *= 0.1;
@@ -236,8 +236,8 @@ namespace AOG
                             //Roll
                             double rollK = (Int16)((data[8] << 8) + data[7]);
 
-                            if (Settings.Vehicle.setIMU_invertRoll) rollK *= -0.1;
-                            else rollK *= 0.1;
+                            if (Settings.Vehicle.setIMU_invertRoll) rollK *= -0.01;
+                            else rollK *= 0.01;
                             rollK -= Settings.Vehicle.setIMU_rollZero;                           
                             ahrs.imuRoll = ahrs.imuRoll * Settings.Vehicle.setIMU_rollFilter + rollK * (1 - Settings.Vehicle.setIMU_rollFilter);
 

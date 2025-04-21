@@ -39,7 +39,7 @@ namespace AOG
             nudSwitchAtFlowError.Value = Settings.Tool.setNozz.switchAtFlowError;
             
             nudKp.Value = Settings.Tool.setNozz.Kp;
-            nudKi.Value = Settings.Tool.setNozz.Ki;
+            //nudKi.Value = Settings.Tool.setNozz.Ki;
 
             cboxBypass.Checked = Settings.Tool.setNozz.isBypass;
             if (cboxBypass.Checked)
@@ -72,6 +72,21 @@ namespace AOG
             else
             {
                 cboxSectionValve3Wire.Text = "Reverse";
+            }
+
+            if(Settings.Tool.setNozz.isMeter)
+            {
+                nudFastPWM.Enabled = false;
+                nudSlowPWM.Enabled = false;
+                nudSwitchAtFlowError.Enabled = false;
+                nudKp.Enabled = true;
+            }
+            else
+            {
+                nudFastPWM.Enabled = true;
+                nudSlowPWM.Enabled = true;
+                nudSwitchAtFlowError.Enabled = true;
+                nudKp.Enabled = false;
             }
         }
 
@@ -149,14 +164,14 @@ namespace AOG
             mf.SendPgnToLoop(PGN_226.pgn);
         }
 
-        private void nudKi_ValueChanged(object sender, EventArgs e)
-        {
-            Settings.Tool.setNozz.Ki = (byte)(nudKi.Value);
+        ////private void nudKi_ValueChanged(object sender, EventArgs e)
+        ////{
+        ////    Settings.Tool.setNozz.Ki = (byte)(nudKi.Value);
 
-            PGN_226.pgn[PGN_226.Ki] = unchecked((byte)(Settings.Tool.setNozz.Ki));
+        ////    PGN_226.pgn[PGN_226.Ki] = unchecked((byte)(Settings.Tool.setNozz.Ki));
 
-            mf.SendPgnToLoop(PGN_226.pgn);
-        }
+        ////    mf.SendPgnToLoop(PGN_226.pgn);
+        ////}
 
         private void cboxSectionValve3Wire_Click(object sender, EventArgs e)
         {
@@ -240,6 +255,21 @@ namespace AOG
                 PGN_226.pgn[PGN_226.isBypass] += 2;
 
             mf.SendPgnToLoop(PGN_226.pgn);
+
+            if (Settings.Tool.setNozz.isMeter)
+            {
+                nudFastPWM.Enabled = false;
+                nudSlowPWM.Enabled = false;
+                nudSwitchAtFlowError.Enabled = false;
+                nudKp.Enabled = true;
+            }
+            else
+            {
+                nudFastPWM.Enabled = true;
+                nudSlowPWM.Enabled = true;
+                nudSwitchAtFlowError.Enabled = true;
+                nudKp.Enabled = false;
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)

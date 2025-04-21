@@ -18,6 +18,7 @@ namespace AOG
         public btnStates workState = btnStates.Off;
 
         public List<Button> sectionButtons = new List<Button>();
+        public List<Label> sectionLbls = new List<Label>();
 
         public void SetNumOfSectionButtons(int numOfButtons)
         {
@@ -26,7 +27,9 @@ namespace AOG
                 for (int j = sectionButtons.Count - 1; j >= numOfButtons; j--)
                 {
                     this.oglMain.Controls.Remove(sectionButtons[j]);
+                    this.oglMain.Controls.Remove(sectionLbls[j]);
                     sectionButtons.RemoveAt(j);
+                    sectionLbls.RemoveAt(j);
                 }
                 SetSectionButtonPositions();
             }
@@ -60,7 +63,35 @@ namespace AOG
                     btn.UseVisualStyleBackColor = false;
                     btn.Anchor = AnchorStyles.Bottom;
                     sectionButtons.Add(btn);
+
+                    //labels
+                    var lbl = new Label();
+                    this.oglMain.Controls.Add(lbl);
+                    lbl.BringToFront();
+                    lbl.Visible = isJobStarted;
+
+                    if (Settings.User.setDisplay_isDayMode)
+                    {
+                        lbl.ForeColor = Color.Black;
+                        lbl.BackColor = Color.Red;
+                    }
+                    else
+                    {
+                        lbl.BackColor = Color.Crimson;
+                        lbl.ForeColor = Color.White;
+                    }
+
+                    //lbl.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
+                    //btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+                    //btn.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    //btn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+                    lbl.Size = new System.Drawing.Size(34, 25);
+                    lbl.BorderStyle = BorderStyle.FixedSingle;
+                    //btn.UseVisualStyleBackColor = false;
+                    lbl.Anchor = AnchorStyles.Bottom;
+                    sectionLbls.Add(lbl);
                 }
+
                 SetSectionButtonPositions();
             }
         }
@@ -82,9 +113,12 @@ namespace AOG
             for (int j = 0; j < sectionButtons.Count; j++)
             {
                 sectionButtons[j].Top = top;
+                sectionLbls[j].Top = top-18;
                 sectionButtons[j].Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                sectionLbls[j].Size = new System.Drawing.Size(buttonWidth, buttonHeight/2);
 
                 sectionButtons[j].Left = Left;
+                sectionLbls[j].Left = Left;
                 Left += buttonWidth;
             }
         }
@@ -94,6 +128,7 @@ namespace AOG
             for (int j = 0; j < sectionButtons.Count; j++)
             {
                 sectionButtons[j].Visible = visible;
+                sectionLbls[j].Visible = visible;
             }
         }
 

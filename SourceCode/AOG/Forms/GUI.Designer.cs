@@ -236,6 +236,7 @@ namespace AOG
                     lblPWM_Nozz.Text = nozz.pwmDriveActual.ToString();
                     lblFlowHz_Nozz.Text = nozz.frequency.ToString() + " Hz";
                 }
+
             }
 
             //every half of a second update all status  ////////////////    0.5  0.5   0.5    0.5    /////////////////
@@ -317,6 +318,29 @@ namespace AOG
                 {
                     btnStartAgIO.Text = mc.actualToolAngleDegrees.ToString("N1") + "°";
                 }
+
+                for (int j = 0; j < sectionButtons.Count; j++)
+                {
+                    //if section is on, green, if off, red color
+                    if (section[j].isSectionOn)
+                    {
+                        if (section[j].sectionBtnState == btnStates.Auto)
+                        {
+                            //GL.Color3(0.0f, 0.9f, 0.0f);
+                            if (section[j].isMappingOn) sectionLbls[j].BackColor = Color.Lime;
+                            else sectionLbls[j].BackColor = Color.HotPink;
+                        }
+                        else sectionLbls[j].BackColor = Color.Yellow;
+                    }
+                    else
+                    {
+                        if (!section[j].isMappingOn) sectionLbls[j].BackColor = Color.OrangeRed;
+                        else sectionLbls[j].BackColor = Color.RoyalBlue;
+                        //GL.Color3(0.7f, 0.2f, 0.2f);
+                    }
+
+                }
+
 
             } //end every 1/2 second
 

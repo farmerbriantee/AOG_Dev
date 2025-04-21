@@ -11,7 +11,7 @@
     #define MCP1 0x20
   
     // if not in eeprom, overwrite 
-    #define EEP_Ident 5109
+    #define EEP_Ident 5115
     #define EEPROM_SIZE 512
     //PWM for flow motor control
 

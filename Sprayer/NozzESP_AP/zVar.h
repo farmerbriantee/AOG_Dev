@@ -67,10 +67,10 @@ float integral = 0;
 //Variables for settings stored in EEPROM
 struct Storage {
 	//stored spray settings
-	uint8_t Kp = 60;  //proportional gain
-	float Ki = 0.1;  //integral gain
+	float Kp = 0;  //proportional gain
+	float Ki = 0.0;  //integral gain
 	float pressureCalFactor = 10.0;  //pressure gauge gain
-	float flowCalFactor = 330; //counts per 10 us gallon sent - but used counts per gallon
+	float flowCalFactor = 330.0; //counts per 10 us gallon sent - but used counts per gallon
 	uint8_t minPressurePSI = 0;
 	uint8_t fastPWM = 100;
 	uint8_t slowPWM = 75;
@@ -78,6 +78,7 @@ struct Storage {
 	float switchAtFlowError = 0.25;
 	uint8_t isBypass = 0;
 	uint8_t is3Wire = 1;
+	uint8_t isMeter = 1;
 
 	//spray functions - sets manual up down rate pwm
 	uint8_t manualRate = 125;

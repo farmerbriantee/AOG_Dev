@@ -67,9 +67,11 @@ void UDP_Receive(void)
                 settings.pressureCalFactor = (udpData[7] | udpData[8] << 8);
                 settings.pressureCalFactor *= 0.1;
 
-                //Kp and Ki not used
+                //Kp setting goes from 1 to 100
                 settings.Kp = udpData[9];
+                settings.Kp *= 0.01;
 
+				//Ki goes from 0.01 to 1
                 settings.Ki = udpData[10];
                 settings.Ki = 1 / settings.Ki;
 
@@ -87,7 +89,8 @@ void UDP_Receive(void)
                 settings.switchAtFlowError = udpData[15];
                 settings.switchAtFlowError *= 0.01;
 
-                settings.isBypass = udpData[16];
+                settings.isBypass = udpData[16] & 1;
+                settings.isMeter = udpData[16] & 2;
 
                 settings.is3Wire = udpData[17];
 

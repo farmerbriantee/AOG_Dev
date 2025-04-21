@@ -12,33 +12,62 @@ void SetPWM(double PWM)
     }
 }
 
+double NewPWM = 0;
+const double Scaling = 0.0001;
+const double SampleTime = 50;   // ms
+uint32_t LastCheck;
+
+
 void DoPID(void)
 {
-    flowError = (setGPM - actualGPM);
-
-    if (abs(flowError) < (settings.deadbandError * setGPM))
+    if (settings.isMeter)
     {
-        pwmDrive = 0;
+        flowError = (setGPM - actualGPM);
+        if (abs(flowError) > (settings.deadbandError * setGPM))
+        {
+            flowError = constrain(flowError, setGPM * -1, setGPM);
+            if (abs(flowError) < (settings.switchAtFlowError * setGPM))
+            {
+                flowError *= 0.001;
+                NewPWM += (double)settings.slowPWM * flowError * (double)settings.Kp;
+            }
+            else
+            {
+                flowError *= 0.001;
+                NewPWM += (double)settings.fastPWM * flowError * (double)settings.Kp;
+            }
+
+            NewPWM = constrain(NewPWM, 0, 255);
+            pwmDrive = NewPWM;
+        }
     }
     else
     {
-        if (abs(flowError) < (settings.switchAtFlowError * setGPM))
+        flowError = (setGPM - actualGPM);
+
+        if (abs(flowError) < (settings.deadbandError * setGPM))
         {
-            pwmDrive = settings.slowPWM;
+            pwmDrive = 0;
         }
         else
         {
-            pwmDrive = settings.fastPWM;
-        }
+            if (abs(flowError) < (settings.switchAtFlowError * setGPM))
+            {
+                pwmDrive = settings.slowPWM;
+            }
+            else
+            {
+                pwmDrive = settings.fastPWM;
+            }
 
-        if (flowError < 0)
-        {
-            pwmDrive = -pwmDrive;
+            if (flowError < 0)
+            {
+                pwmDrive = -pwmDrive;
+            }
         }
     }
 
     SetPWM(abs(pwmDrive));
-
 }
 
 void DoManualPID(void)

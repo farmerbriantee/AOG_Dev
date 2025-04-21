@@ -378,6 +378,12 @@ namespace AOG
                 else
                     PGN_226.pgn[PGN_226.isBypass] = 0;
 
+                if (Settings.Tool.setNozz.isMeter)
+                    PGN_226.pgn[PGN_226.isBypass] += 2;
+                else
+                    PGN_226.pgn[PGN_226.isBypass] = 0;
+
+
                 //manual rate setting
                 PGN_225.pgn[PGN_225.rate] = Settings.Tool.setNozz.manualRate;
 

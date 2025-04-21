@@ -37,6 +37,9 @@ namespace AOG
             nudSlowPWM.Value = Settings.Tool.setNozz.slowPWM;
             nudDeadbandError.Value = Settings.Tool.setNozz.deadbandError;
             nudSwitchAtFlowError.Value = Settings.Tool.setNozz.switchAtFlowError;
+            
+            nudKp.Value = Settings.Tool.setNozz.Kp;
+            nudKi.Value = Settings.Tool.setNozz.Ki;
 
             cboxBypass.Checked = Settings.Tool.setNozz.isBypass;
             if (cboxBypass.Checked)
@@ -46,6 +49,16 @@ namespace AOG
             else
             {
                 cboxBypass.Text = "Closed";
+            }
+
+            cboxMeteringOrFlow.Checked = Settings.Tool.setNozz.isMeter;
+            if (cboxMeteringOrFlow.Checked)
+            {
+                cboxMeteringOrFlow.Text = "Metering";
+            }
+            else
+            {
+                cboxMeteringOrFlow.Text = "Flow";
             }
 
             tboxUnitsApplied.Text = Settings.Tool.setNozz.unitsApplied.Trim();
@@ -127,6 +140,23 @@ namespace AOG
 
             mf.SendPgnToLoop(PGN_225.pgn);
         }
+        private void nudKp_ValueChanged(object sender, EventArgs e)
+        {
+            Settings.Tool.setNozz.Kp = (byte)(nudKp.Value);
+
+            PGN_226.pgn[PGN_226.Kp] = unchecked((byte)(Settings.Tool.setNozz.Kp));
+
+            mf.SendPgnToLoop(PGN_226.pgn);
+        }
+
+        private void nudKi_ValueChanged(object sender, EventArgs e)
+        {
+            Settings.Tool.setNozz.Ki = (byte)(nudKi.Value);
+
+            PGN_226.pgn[PGN_226.Ki] = unchecked((byte)(Settings.Tool.setNozz.Ki));
+
+            mf.SendPgnToLoop(PGN_226.pgn);
+        }
 
         private void cboxSectionValve3Wire_Click(object sender, EventArgs e)
         {
@@ -154,14 +184,60 @@ namespace AOG
             {
                 cboxBypass.Text = "Bypass";
                 Settings.Tool.setNozz.isBypass = true;
-                PGN_226.pgn[PGN_226.isBypass] = 1;
+
+                if (Settings.Tool.setNozz.isBypass)
+                    PGN_226.pgn[PGN_226.isBypass] = 1;
+                else
+                    PGN_226.pgn[PGN_226.isBypass] = 0;
+
+                if (Settings.Tool.setNozz.isMeter)
+                    PGN_226.pgn[PGN_226.isBypass] += 2;
             }
             else
             {
                 cboxBypass.Text = "Closed";
                 Settings.Tool.setNozz.isBypass = false;
-                PGN_226.pgn[PGN_226.isBypass] = 0;
             }
+
+            if (Settings.Tool.setNozz.isBypass)
+                PGN_226.pgn[PGN_226.isBypass] = 1;
+            else
+                PGN_226.pgn[PGN_226.isBypass] = 0;
+
+            if (Settings.Tool.setNozz.isMeter)
+                PGN_226.pgn[PGN_226.isBypass] += 2;
+
+            mf.SendPgnToLoop(PGN_226.pgn);
+        }
+
+        private void cboxMeteringOrFlow_Click(object sender, EventArgs e)
+        {
+            if (cboxMeteringOrFlow.Checked)
+            {
+                cboxMeteringOrFlow.Text = "Metering";
+                Settings.Tool.setNozz.isMeter = true;
+
+                if (Settings.Tool.setNozz.isBypass)
+                    PGN_226.pgn[PGN_226.isBypass] = 1;
+                else
+                    PGN_226.pgn[PGN_226.isBypass] = 0;
+
+                if (Settings.Tool.setNozz.isMeter)
+                    PGN_226.pgn[PGN_226.isBypass] += 2;
+            }
+            else
+            {
+                cboxMeteringOrFlow.Text = "Flow";
+                Settings.Tool.setNozz.isMeter = false;
+            }
+
+            if (Settings.Tool.setNozz.isBypass)
+                PGN_226.pgn[PGN_226.isBypass] = 1;
+            else
+                PGN_226.pgn[PGN_226.isBypass] = 0;
+
+            if (Settings.Tool.setNozz.isMeter)
+                PGN_226.pgn[PGN_226.isBypass] += 2;
 
             mf.SendPgnToLoop(PGN_226.pgn);
         }
@@ -178,7 +254,11 @@ namespace AOG
             unitsSet = lblUnitsSet.Text = mf.nozz.volumePerMinuteSet.ToString();
             unitsActual = lblUnitsActual.Text = mf.nozz.volumePerMinuteActual.ToString();
 
-            lblFlowError.Text = (((double)(mf.nozz.volumePerMinuteSet - mf.nozz.volumePerMinuteActual)/ (double)mf.nozz.volumePerMinuteSet)*-100).ToString("N1") + "%";
+            double errorText = (((double)(mf.nozz.volumePerMinuteSet - mf.nozz.volumePerMinuteActual) / (double)mf.nozz.volumePerMinuteSet) * -100);
+            if (mf.nozz.volumePerMinuteSet > 0.05)
+                lblFlowError.Text = errorText.ToString("N1") + "%";
+            else
+                lblFlowError.Text = "Off";
 
             //chart data
             Series s = unoChart.Series["S"];
@@ -221,5 +301,6 @@ namespace AOG
             else
                 mf.lbl_Volume.Text = "App " + Settings.Tool.setNozz.unitsApplied;
         }
+
     }
 }

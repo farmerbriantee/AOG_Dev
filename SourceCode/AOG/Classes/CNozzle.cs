@@ -103,11 +103,11 @@
         public int pressureMax = 100;
         public int pressureMin = 10;
 
-        public int flowCal = 200;
+        public int flowCal = 3300;
         public int pressureCal = 1;
 
-        public byte Kp = 80;
-        public byte Ki = 100;
+        public byte Kp = 1;
+        public byte Ki = 1;
 
         public byte fastPWM = 100;
         public byte slowPWM = 50;
@@ -122,6 +122,7 @@
         public byte manualRate = 50;
 
         public bool isBypass = false;
+        public bool isMeter = false;
 
         public double volumeApplied = 0;
         public int volumeTankStart = 0;

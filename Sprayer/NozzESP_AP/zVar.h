@@ -47,7 +47,7 @@ uint16_t totalVolume = 0;
 
 //Set point for the flow control in gal/min
 uint16_t setGPM = 0;
-float actualGPM;    // Actual calculated flow rate
+double actualGPM;    // Actual calculated flow rate
 
 //Pressure sensor
 float pressureActual;
@@ -61,21 +61,21 @@ uint16_t zeroTankVolume = 0;
 
 //PWM Control
 int16_t pwmDrive = 0;
-float flowError = 0;
-float integral = 0;
+double flowError = 0;
+double integral = 0;
 
 //Variables for settings stored in EEPROM
 struct Storage {
 	//stored spray settings
-	float Kp = 0;  //proportional gain
-	float Ki = 0.0;  //integral gain
-	float pressureCalFactor = 10.0;  //pressure gauge gain
-	float flowCalFactor = 330.0; //counts per 10 us gallon sent - but used counts per gallon
+	double Kp = 0;  //proportional gain
+	double Ki = 0.0;  //integral gain
+	double pressureCalFactor = 10.0;  //pressure gauge gain
+	double flowCalFactor = 330.0; //counts per 10 us gallon sent - but used counts per gallon
 	uint8_t minPressurePSI = 0;
 	uint8_t fastPWM = 100;
 	uint8_t slowPWM = 75;
-	float deadbandError = 0.05;
-	float switchAtFlowError = 0.25;
+	double deadbandError = 0.05;
+	double switchAtFlowError = 0.25;
 	uint8_t isBypass = 0;
 	uint8_t is3Wire = 1;
 	uint8_t isMeter = 1;

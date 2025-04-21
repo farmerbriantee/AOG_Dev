@@ -28,13 +28,13 @@ void DoPID(void)
             flowError = constrain(flowError, setGPM * -1, setGPM);
             if (abs(flowError) < (settings.switchAtFlowError * setGPM))
             {
-                flowError *= 0.001;
-                NewPWM += (double)settings.slowPWM * flowError * (double)settings.Kp;
+                flowError *= 0.1;
+                NewPWM += flowError * (double)settings.Kp * (double)settings.Ki;
             }
             else
             {
-                flowError *= 0.001;
-                NewPWM += (double)settings.fastPWM * flowError * (double)settings.Kp;
+                flowError *= 0.1;
+                NewPWM += 3 * flowError * (double)settings.Kp * (double)settings.Ki;
             }
 
             NewPWM = constrain(NewPWM, 0, 255);

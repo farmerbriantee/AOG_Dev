@@ -53,23 +53,14 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabFlow = new System.Windows.Forms.TabPage();
             this.btnFreq = new System.Windows.Forms.Button();
-            this.nudKp = new AOG.NudlessNumericUpDown();
-            this.nudKi = new AOG.NudlessNumericUpDown();
             this.label20 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
-            this.nudSlowPWM = new AOG.NudlessNumericUpDown();
             this.label22 = new System.Windows.Forms.Label();
-            this.nudFastPWM = new AOG.NudlessNumericUpDown();
-            this.nudSwitchAtFlowError = new AOG.NudlessNumericUpDown();
-            this.nudManualPWM = new AOG.NudlessNumericUpDown();
-            this.nudDeadbandError = new AOG.NudlessNumericUpDown();
             this.tabUnits = new System.Windows.Forms.TabPage();
             this.cboxMeteringOrFlow = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.nudSprayPressureCal = new AOG.NudlessNumericUpDown();
-            this.nudSprayFlowCal = new AOG.NudlessNumericUpDown();
             this.unoChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lblUnitsActual = new System.Windows.Forms.Label();
             this.lblUnitsSet = new System.Windows.Forms.Label();
@@ -77,6 +68,15 @@
             this.label16 = new System.Windows.Forms.Label();
             this.lblFlowError = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.nudKp = new AOG.NudlessNumericUpDown();
+            this.nudKi = new AOG.NudlessNumericUpDown();
+            this.nudSlowPWM = new AOG.NudlessNumericUpDown();
+            this.nudFastPWM = new AOG.NudlessNumericUpDown();
+            this.nudSwitchAtFlowError = new AOG.NudlessNumericUpDown();
+            this.nudManualPWM = new AOG.NudlessNumericUpDown();
+            this.nudDeadbandError = new AOG.NudlessNumericUpDown();
+            this.nudSprayPressureCal = new AOG.NudlessNumericUpDown();
+            this.nudSprayFlowCal = new AOG.NudlessNumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabFlow.SuspendLayout();
             this.tabUnits.SuspendLayout();
@@ -383,25 +383,6 @@
             this.btnFreq.Text = "0";
             this.btnFreq.UseVisualStyleBackColor = false;
             // 
-            // nudKp
-            // 
-            this.nudKp.Location = new System.Drawing.Point(244, 207);
-            this.nudKp.Minimum = 1D;
-            this.nudKp.Name = "nudKp";
-            this.nudKp.Size = new System.Drawing.Size(155, 46);
-            this.nudKp.TabIndex = 630;
-            this.nudKp.ValueChanged += new System.EventHandler(this.nudKp_ValueChanged);
-            // 
-            // nudKi
-            // 
-            this.nudKi.Enabled = false;
-            this.nudKi.Location = new System.Drawing.Point(244, 295);
-            this.nudKi.Minimum = 1D;
-            this.nudKi.Name = "nudKi";
-            this.nudKi.Size = new System.Drawing.Size(155, 46);
-            this.nudKi.TabIndex = 629;
-            this.nudKi.ValueChanged += new System.EventHandler(this.nudKi_ValueChanged);
-            // 
             // label20
             // 
             this.label20.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -448,15 +429,6 @@
             this.label21.Text = "Kp %";
             this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // nudSlowPWM
-            // 
-            this.nudSlowPWM.Location = new System.Drawing.Point(14, 112);
-            this.nudSlowPWM.Minimum = 10D;
-            this.nudSlowPWM.Name = "nudSlowPWM";
-            this.nudSlowPWM.Size = new System.Drawing.Size(155, 46);
-            this.nudSlowPWM.TabIndex = 595;
-            this.nudSlowPWM.ValueChanged += new System.EventHandler(this.nudSlowPWM_ValueChanged);
-            // 
             // label22
             // 
             this.label22.BackColor = System.Drawing.Color.Transparent;
@@ -468,43 +440,6 @@
             this.label22.TabIndex = 628;
             this.label22.Text = "Ki %";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // nudFastPWM
-            // 
-            this.nudFastPWM.Location = new System.Drawing.Point(14, 22);
-            this.nudFastPWM.Minimum = 10D;
-            this.nudFastPWM.Name = "nudFastPWM";
-            this.nudFastPWM.Size = new System.Drawing.Size(155, 46);
-            this.nudFastPWM.TabIndex = 593;
-            this.nudFastPWM.ValueChanged += new System.EventHandler(this.nudFastPWM_ValueChanged);
-            // 
-            // nudSwitchAtFlowError
-            // 
-            this.nudSwitchAtFlowError.Location = new System.Drawing.Point(14, 207);
-            this.nudSwitchAtFlowError.Minimum = 1D;
-            this.nudSwitchAtFlowError.Name = "nudSwitchAtFlowError";
-            this.nudSwitchAtFlowError.Size = new System.Drawing.Size(155, 46);
-            this.nudSwitchAtFlowError.TabIndex = 600;
-            this.nudSwitchAtFlowError.ValueChanged += new System.EventHandler(this.nudSwitchAtFlowError_ValueChanged);
-            // 
-            // nudManualPWM
-            // 
-            this.nudManualPWM.Location = new System.Drawing.Point(244, 111);
-            this.nudManualPWM.Maximum = 90D;
-            this.nudManualPWM.Minimum = 30D;
-            this.nudManualPWM.Name = "nudManualPWM";
-            this.nudManualPWM.Size = new System.Drawing.Size(155, 46);
-            this.nudManualPWM.TabIndex = 587;
-            this.nudManualPWM.ValueChanged += new System.EventHandler(this.nudManualPWM_ValueChanged);
-            // 
-            // nudDeadbandError
-            // 
-            this.nudDeadbandError.Location = new System.Drawing.Point(244, 19);
-            this.nudDeadbandError.Minimum = 1D;
-            this.nudDeadbandError.Name = "nudDeadbandError";
-            this.nudDeadbandError.Size = new System.Drawing.Size(155, 46);
-            this.nudDeadbandError.TabIndex = 598;
-            this.nudDeadbandError.ValueChanged += new System.EventHandler(this.nudDeadbandError_ValueChanged);
             // 
             // tabUnits
             // 
@@ -562,26 +497,6 @@
             this.label13.TabIndex = 623;
             this.label13.Text = "Control Style";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // nudSprayPressureCal
-            // 
-            this.nudSprayPressureCal.Location = new System.Drawing.Point(22, 243);
-            this.nudSprayPressureCal.Maximum = 200D;
-            this.nudSprayPressureCal.Minimum = 1D;
-            this.nudSprayPressureCal.Name = "nudSprayPressureCal";
-            this.nudSprayPressureCal.Size = new System.Drawing.Size(154, 46);
-            this.nudSprayPressureCal.TabIndex = 584;
-            this.nudSprayPressureCal.ValueChanged += new System.EventHandler(this.nudSprayPressureCal_ValueChanged);
-            // 
-            // nudSprayFlowCal
-            // 
-            this.nudSprayFlowCal.Location = new System.Drawing.Point(22, 138);
-            this.nudSprayFlowCal.Maximum = 20000D;
-            this.nudSprayFlowCal.Minimum = 100D;
-            this.nudSprayFlowCal.Name = "nudSprayFlowCal";
-            this.nudSprayFlowCal.Size = new System.Drawing.Size(154, 46);
-            this.nudSprayFlowCal.TabIndex = 579;
-            this.nudSprayFlowCal.ValueChanged += new System.EventHandler(this.nudSprayFlowCal_ValueChanged);
             // 
             // unoChart
             // 
@@ -707,6 +622,90 @@
             this.label19.TabIndex = 631;
             this.label19.Text = "Error:";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nudKp
+            // 
+            this.nudKp.Location = new System.Drawing.Point(244, 207);
+            this.nudKp.Minimum = 1D;
+            this.nudKp.Name = "nudKp";
+            this.nudKp.Size = new System.Drawing.Size(155, 46);
+            this.nudKp.TabIndex = 630;
+            this.nudKp.ValueChanged += new System.EventHandler(this.nudKp_ValueChanged);
+            // 
+            // nudKi
+            // 
+            this.nudKi.Location = new System.Drawing.Point(244, 295);
+            this.nudKi.Minimum = 1D;
+            this.nudKi.Name = "nudKi";
+            this.nudKi.Size = new System.Drawing.Size(155, 46);
+            this.nudKi.TabIndex = 629;
+            this.nudKi.ValueChanged += new System.EventHandler(this.nudKi_ValueChanged);
+            // 
+            // nudSlowPWM
+            // 
+            this.nudSlowPWM.Location = new System.Drawing.Point(14, 112);
+            this.nudSlowPWM.Minimum = 10D;
+            this.nudSlowPWM.Name = "nudSlowPWM";
+            this.nudSlowPWM.Size = new System.Drawing.Size(155, 46);
+            this.nudSlowPWM.TabIndex = 595;
+            this.nudSlowPWM.ValueChanged += new System.EventHandler(this.nudSlowPWM_ValueChanged);
+            // 
+            // nudFastPWM
+            // 
+            this.nudFastPWM.Location = new System.Drawing.Point(14, 22);
+            this.nudFastPWM.Minimum = 10D;
+            this.nudFastPWM.Name = "nudFastPWM";
+            this.nudFastPWM.Size = new System.Drawing.Size(155, 46);
+            this.nudFastPWM.TabIndex = 593;
+            this.nudFastPWM.ValueChanged += new System.EventHandler(this.nudFastPWM_ValueChanged);
+            // 
+            // nudSwitchAtFlowError
+            // 
+            this.nudSwitchAtFlowError.Location = new System.Drawing.Point(14, 207);
+            this.nudSwitchAtFlowError.Minimum = 1D;
+            this.nudSwitchAtFlowError.Name = "nudSwitchAtFlowError";
+            this.nudSwitchAtFlowError.Size = new System.Drawing.Size(155, 46);
+            this.nudSwitchAtFlowError.TabIndex = 600;
+            this.nudSwitchAtFlowError.ValueChanged += new System.EventHandler(this.nudSwitchAtFlowError_ValueChanged);
+            // 
+            // nudManualPWM
+            // 
+            this.nudManualPWM.Location = new System.Drawing.Point(244, 111);
+            this.nudManualPWM.Maximum = 90D;
+            this.nudManualPWM.Minimum = 30D;
+            this.nudManualPWM.Name = "nudManualPWM";
+            this.nudManualPWM.Size = new System.Drawing.Size(155, 46);
+            this.nudManualPWM.TabIndex = 587;
+            this.nudManualPWM.ValueChanged += new System.EventHandler(this.nudManualPWM_ValueChanged);
+            // 
+            // nudDeadbandError
+            // 
+            this.nudDeadbandError.Location = new System.Drawing.Point(244, 19);
+            this.nudDeadbandError.Minimum = 1D;
+            this.nudDeadbandError.Name = "nudDeadbandError";
+            this.nudDeadbandError.Size = new System.Drawing.Size(155, 46);
+            this.nudDeadbandError.TabIndex = 598;
+            this.nudDeadbandError.ValueChanged += new System.EventHandler(this.nudDeadbandError_ValueChanged);
+            // 
+            // nudSprayPressureCal
+            // 
+            this.nudSprayPressureCal.Location = new System.Drawing.Point(22, 243);
+            this.nudSprayPressureCal.Maximum = 200D;
+            this.nudSprayPressureCal.Minimum = 1D;
+            this.nudSprayPressureCal.Name = "nudSprayPressureCal";
+            this.nudSprayPressureCal.Size = new System.Drawing.Size(154, 46);
+            this.nudSprayPressureCal.TabIndex = 584;
+            this.nudSprayPressureCal.ValueChanged += new System.EventHandler(this.nudSprayPressureCal_ValueChanged);
+            // 
+            // nudSprayFlowCal
+            // 
+            this.nudSprayFlowCal.Location = new System.Drawing.Point(22, 138);
+            this.nudSprayFlowCal.Maximum = 20000D;
+            this.nudSprayFlowCal.Minimum = 100D;
+            this.nudSprayFlowCal.Name = "nudSprayFlowCal";
+            this.nudSprayFlowCal.Size = new System.Drawing.Size(154, 46);
+            this.nudSprayFlowCal.TabIndex = 579;
+            this.nudSprayFlowCal.ValueChanged += new System.EventHandler(this.nudSprayFlowCal_ValueChanged);
             // 
             // FormNozConfig
             // 

@@ -73,7 +73,7 @@ void UDP_Receive(void)
 
 				//Ki goes from 0.01 to 1
                 settings.Ki = udpData[10];
-                settings.Ki = 1 / settings.Ki;
+                settings.Ki *= 0.01;
 
                 settings.minPressurePSI = udpData[11];
 

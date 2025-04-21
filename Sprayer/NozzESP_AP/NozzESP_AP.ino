@@ -127,6 +127,8 @@
         Serial.println(WiFi.softAPIP());
 
         udp.begin(WiFi.localIP(), udpPort);
+
+        gainPWM = pow(1.1, ((120 - settings.Kp) * -1) );
     }
 
     void loop()
@@ -174,7 +176,6 @@
 
                 flowError = 0;
                 pwmDrive = 0;
-                integral = 0;
                 DoManualPID();
             }
             else
@@ -186,7 +187,6 @@
                     {
                         flowError = 0;
                         pwmDrive = 0;
-                        integral = 0;
                         DoManualPID();
                     }
                     else

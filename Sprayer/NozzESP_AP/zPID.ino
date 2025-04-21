@@ -29,12 +29,12 @@ void DoPID(void)
             if (abs(flowError) < (settings.switchAtFlowError * setGPM))
             {
                 flowError *= 0.1;
-                NewPWM += flowError * (double)settings.Kp * (double)settings.Ki;
+                NewPWM += flowError * gainPWM;
             }
             else
             {
                 flowError *= 0.1;
-                NewPWM += 3 * flowError * (double)settings.Kp * (double)settings.Ki;
+                NewPWM += 2 * flowError * gainPWM;
             }
 
             NewPWM = constrain(NewPWM, 0, 255);

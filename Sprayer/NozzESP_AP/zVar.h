@@ -62,7 +62,7 @@ uint16_t zeroTankVolume = 0;
 //PWM Control
 int16_t pwmDrive = 0;
 double flowError = 0;
-double integral = 0;
+double gainPWM = 0;
 
 //Variables for settings stored in EEPROM
 struct Storage {

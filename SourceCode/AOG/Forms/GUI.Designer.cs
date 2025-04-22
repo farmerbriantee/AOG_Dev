@@ -327,14 +327,14 @@ namespace AOG
                         if (section[j].sectionBtnState == btnStates.Auto)
                         {
                             //GL.Color3(0.0f, 0.9f, 0.0f);
-                            if (section[j].isMappingOn) sectionLbls[j].BackColor = Color.Lime;
-                            else sectionLbls[j].BackColor = Color.HotPink;
+                            if (section[j].isMappingOn) sectionLbls[j].BackColor = Settings.User.setDisplay_isDayMode ? Color.Lime : Color.ForestGreen; 
+                            else sectionLbls[j].BackColor = Color.DeepPink;
                         }
-                        else sectionLbls[j].BackColor = Color.Yellow;
+                        else sectionLbls[j].BackColor = Settings.User.setDisplay_isDayMode ? Color.Yellow : Color.DarkGoldenrod;
                     }
                     else
                     {
-                        if (!section[j].isMappingOn) sectionLbls[j].BackColor = Color.OrangeRed;
+                        if (!section[j].isMappingOn) sectionLbls[j].BackColor = Settings.User.setDisplay_isDayMode ? Color.Red : Color.Crimson;
                         else sectionLbls[j].BackColor = Color.RoyalBlue;
                         //GL.Color3(0.7f, 0.2f, 0.2f);
                     }

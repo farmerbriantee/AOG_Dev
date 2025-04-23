@@ -202,6 +202,11 @@ namespace AOG
         {
         }
 
+        private void cboxDataInvertRoll_Click(object sender, EventArgs e)
+        {
+            Settings.Vehicle.setIMU_invertRoll = !Settings.Vehicle.setIMU_invertRoll;
+        }
+
         private void hsbarRollFilter_ValueChanged(object sender, EventArgs e)
         {
             lblRollFilterPercent.Text = hsbarRollFilter.Value.ToString();

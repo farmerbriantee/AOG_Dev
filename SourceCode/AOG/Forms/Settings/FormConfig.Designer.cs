@@ -1943,7 +1943,7 @@
             this.rbtnBrand4WDAog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtnBrand4WDAog.Image = global::AOG.Properties.Resources.AoG;
             this.rbtnBrand4WDAog.Location = new System.Drawing.Point(8, 6);
-            this.rbtnBrand4WDAog.Name = "rbtnBrand4WDAgOpenGPS";
+            this.rbtnBrand4WDAog.Name = "rbtnBrand4WDAog";
             this.rbtnBrand4WDAog.Size = new System.Drawing.Size(64, 64);
             this.rbtnBrand4WDAog.TabIndex = 131;
             this.rbtnBrand4WDAog.UseVisualStyleBackColor = true;
@@ -2056,7 +2056,7 @@
             this.rbtnBrandHAog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtnBrandHAog.Image = global::AOG.Properties.Resources.AoG;
             this.rbtnBrandHAog.Location = new System.Drawing.Point(8, 6);
-            this.rbtnBrandHAog.Name = "rbtnBrandHAgOpenGPS";
+            this.rbtnBrandHAog.Name = "rbtnBrandHAog";
             this.rbtnBrandHAog.Size = new System.Drawing.Size(64, 64);
             this.rbtnBrandHAog.TabIndex = 127;
             this.rbtnBrandHAog.UseVisualStyleBackColor = true;
@@ -2166,7 +2166,7 @@
             this.rbtnBrandTAog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtnBrandTAog.Image = global::AOG.Properties.Resources.AoG;
             this.rbtnBrandTAog.Location = new System.Drawing.Point(112, 6);
-            this.rbtnBrandTAog.Name = "rbtnBrandTAgOpenGPS";
+            this.rbtnBrandTAog.Name = "rbtnBrandTAog";
             this.rbtnBrandTAog.Size = new System.Drawing.Size(64, 64);
             this.rbtnBrandTAog.TabIndex = 126;
             this.rbtnBrandTAog.UseVisualStyleBackColor = true;
@@ -4856,7 +4856,7 @@
             this.lblAlarmStopsAutoSteer.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.lblAlarmStopsAutoSteer.ForeColor = System.Drawing.Color.Black;
             this.lblAlarmStopsAutoSteer.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblAlarmStopsAutoSteer.Location = new System.Drawing.Point(209, 392);
+            this.lblAlarmStopsAutoSteer.Location = new System.Drawing.Point(209, 418);
             this.lblAlarmStopsAutoSteer.Name = "lblAlarmStopsAutoSteer";
             this.lblAlarmStopsAutoSteer.Size = new System.Drawing.Size(171, 53);
             this.lblAlarmStopsAutoSteer.TabIndex = 478;
@@ -4898,7 +4898,7 @@
             this.lblRTKFixAlarm.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.lblRTKFixAlarm.ForeColor = System.Drawing.Color.Black;
             this.lblRTKFixAlarm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblRTKFixAlarm.Location = new System.Drawing.Point(34, 392);
+            this.lblRTKFixAlarm.Location = new System.Drawing.Point(34, 418);
             this.lblRTKFixAlarm.Name = "lblRTKFixAlarm";
             this.lblRTKFixAlarm.Size = new System.Drawing.Size(127, 55);
             this.lblRTKFixAlarm.TabIndex = 471;
@@ -5218,7 +5218,7 @@
             this.cboxIsRTK_KillAutoSteer.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsRTK_KillAutoSteer.ForeColor = System.Drawing.Color.Black;
             this.cboxIsRTK_KillAutoSteer.Image = global::AOG.Properties.Resources.AutoSteerOff;
-            this.cboxIsRTK_KillAutoSteer.Location = new System.Drawing.Point(241, 451);
+            this.cboxIsRTK_KillAutoSteer.Location = new System.Drawing.Point(241, 477);
             this.cboxIsRTK_KillAutoSteer.Name = "cboxIsRTK_KillAutoSteer";
             this.cboxIsRTK_KillAutoSteer.Size = new System.Drawing.Size(103, 69);
             this.cboxIsRTK_KillAutoSteer.TabIndex = 477;
@@ -5235,7 +5235,7 @@
             this.cboxIsRTK.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsRTK.ForeColor = System.Drawing.Color.Black;
             this.cboxIsRTK.Image = global::AOG.Properties.Resources.Con_SourcesRTKAlarm;
-            this.cboxIsRTK.Location = new System.Drawing.Point(46, 451);
+            this.cboxIsRTK.Location = new System.Drawing.Point(46, 477);
             this.cboxIsRTK.Name = "cboxIsRTK";
             this.cboxIsRTK.Size = new System.Drawing.Size(103, 69);
             this.cboxIsRTK.TabIndex = 309;
@@ -5497,6 +5497,7 @@
             this.cboxDataInvertRoll.TabIndex = 452;
             this.cboxDataInvertRoll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxDataInvertRoll.UseVisualStyleBackColor = false;
+            this.cboxDataInvertRoll.Click += new System.EventHandler(this.cboxDataInvertRoll_Click);
             // 
             // tabUTurn
             // 

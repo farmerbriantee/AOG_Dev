@@ -206,7 +206,7 @@ namespace ModSim
         int relayHiM = 0;
 
         //Spray Controller
-        static byte[] PGN_224 = { 0x80, 0x81, 0x7f, 224, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
+        static byte[] PGN_224 = { 0x80, 0x81, 0x7f, 224, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
         int PGN_224_Size = PGN_224.Length - 1;
         double volumePerMinuteSet=0;
         double totalVolume = 0;
@@ -216,7 +216,6 @@ namespace ModSim
         {
             try
             {
-                //Hello and scan reply
                 if (data[0] == 0x80 && data[1] == 0x81 && data[2] == 0x7F)
                 {
                     switch (data[3])
@@ -233,6 +232,7 @@ namespace ModSim
                                 //send back 224
                                 totalVolume += ((volumePerMinuteSet / 300) * sectionPercent);
                                 lblTotalVolume.Text = totalVolume.ToString("N1");
+
                                 int sa = (int)((totalVolume) * 10);
 
                                 //total volume
@@ -251,9 +251,13 @@ namespace ModSim
                                 //isFlowing
                                 PGN_224[10] = unchecked((byte)((int)(1) >> 8));
 
-                                //PWM +13
+                                //PWM -13
                                 PGN_224[11] = (byte)13;
-                                PGN_224[12] = (byte)1;
+                                PGN_224[12] = (byte)0;
+
+                                //Hz = 256
+                                PGN_224[13] = (byte)1;
+                                PGN_224[14] = (byte)1;
 
                                 //checksum
                                 int CK_A = 0;

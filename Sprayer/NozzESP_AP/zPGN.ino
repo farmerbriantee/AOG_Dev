@@ -69,7 +69,7 @@ void UDP_Receive(void)
 
                 //Kp setting goes from 1 to 100
                 settings.Kp = udpData[9];
-                gainPWM = pow(1.1, ((120 - settings.Kp) * -1) );
+                gainPWM = pow(1.09, ((105 - settings.Kp) * -1));
 
 				        //Ki goes from 0.01 to 1
                 settings.Ki = udpData[10];

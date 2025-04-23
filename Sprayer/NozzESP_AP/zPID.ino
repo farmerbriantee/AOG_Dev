@@ -26,14 +26,14 @@ void DoPID(void)
         if (abs(flowError) > (settings.deadbandError * setGPM))
         {
             flowError = constrain(flowError, setGPM * -1, setGPM);
-            if (abs(flowError) < (settings.switchAtFlowError * setGPM))
+            if (abs(flowError) < (0.5 * setGPM))
             {
-                flowError *= 0.1;
+                //flowError *= 0.1;
                 NewPWM += flowError * gainPWM;
             }
             else
             {
-                flowError *= 0.1;
+                //flowError *= 0.1;
                 NewPWM += 2 * flowError * gainPWM;
             }
 

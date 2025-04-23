@@ -128,7 +128,7 @@
 
         udp.begin(WiFi.localIP(), udpPort);
 
-        gainPWM = pow(1.1, ((120 - settings.Kp) * -1) );
+        gainPWM = pow(1.09, ((105 - settings.Kp) * -1) );
     }
 
     void loop()
@@ -259,6 +259,8 @@
             }
 
             if (isr_isFlowing == 1) isr_isFlowing = 0;
+
+            //Serial.println(gainPWM * 1000);
 
         }//end of timed loop
 

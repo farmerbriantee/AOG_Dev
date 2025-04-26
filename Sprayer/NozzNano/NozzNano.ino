@@ -44,6 +44,8 @@
         {
             EEPROM.get(4, settings);     // read the Settings
         }
+
+        gainPWM = pow(1.09, ((105 - settings.Kp) * -1));
     }
 
     void loop()
@@ -91,7 +93,6 @@
 
                 flowError = 0;
                 pwmDrive = 0;
-                integral = 0;
                 DoManualPID();
             }
             else
@@ -103,7 +104,6 @@
                     {
                         flowError = 0;
                         pwmDrive = 0;
-                        integral = 0;
                         DoManualPID();
                     }
                     else

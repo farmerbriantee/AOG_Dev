@@ -97,6 +97,7 @@ void DoSerialReceive(void)
 
             //Kp and Ki not used
             settings.Kp = Serial.read();
+            gainPWM = pow(1.09, ((105 - settings.Kp) * -1));
 
             settings.Ki = Serial.read();
             settings.Ki = 1 / settings.Ki;
@@ -115,7 +116,9 @@ void DoSerialReceive(void)
             settings.switchAtFlowError = (float)Serial.read();
             settings.switchAtFlowError *= 0.01;
 
-            settings.isBypass = Serial.read();
+            settings.isBypass = Serial.read() & 1;
+            
+            settings.isMeter = Serial.read() & 2;
 
             settings.is3Wire = Serial.read();
 
@@ -131,7 +134,7 @@ void DoSerialReceive(void)
             //Reset serial Watchdog  
             serialResetTimer = 0;
 
-            Serial.println("Spray Settings");
+            //Serial.println("Spray Settings");
 
             isHeaderFound = isPGNFound = false;
             pgn = dataLength = 0;
@@ -182,7 +185,7 @@ void DoSerialReceive(void)
             //Reset serial Watchdog  
             serialResetTimer = 0;
 
-            Serial.println("Spray Functions");
+            //Serial.println("Spray Functions");
 
             isHeaderFound = isPGNFound = false;
             pgn = dataLength = 0;

@@ -292,6 +292,9 @@ namespace AOG
 
             if (!state && reason != "" && (isBtnAutoSteerOn || triggerstate))
                 TimedMessageBox(2000, gStr.Get(gs.gsGuidanceStopped), reason);
+
+            if (ct.isContourBtnOn)
+                ct.SetLockToLine();
         }
 
         private void btnAutoYouTurn_Click(object sender, EventArgs e)

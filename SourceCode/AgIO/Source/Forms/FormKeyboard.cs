@@ -38,7 +38,10 @@ namespace AgIO
             }
             else
             {
-                RegistrySettings.culture = regKey.GetValue("Language").ToString();
+                //Language Registry Key
+                RegistrySettings.culture = regKey.GetValue("Language", "en").ToString();
+                if (RegistrySettings.culture == "") RegistrySettings.culture = "en";
+
                 regKey.Close();
             }
 

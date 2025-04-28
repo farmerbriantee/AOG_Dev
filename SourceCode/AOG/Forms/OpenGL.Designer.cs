@@ -485,9 +485,9 @@ namespace AOG
                     }
 
                     //Draw gps points and corrected
-                    GL.LineWidth(2);
+                    GL.LineWidth(4);
                     GL.Begin(PrimitiveType.LineStrip);
-                    GL.Color3(1.0, 0.3, 0.0);
+                    GL.Color3(1.0, 0.6, 0.3);
 
                     for (int i = 0; i < gpsPts.Count; i++)
                     {
@@ -498,7 +498,7 @@ namespace AOG
                     if (gpsPts.Count > 100)
                         gpsPts.RemoveRange(0, 20);
 
-                    GL.LineWidth(2);
+                    GL.LineWidth(4);
                     GL.Begin(PrimitiveType.LineStrip);
                     GL.Color3(0.30, 1.0, 0.0);
 
@@ -635,7 +635,6 @@ namespace AOG
                         GL.End();                       // Done Building Triangle Strip
                         GL.Disable(EnableCap.Texture2D);
                     }
-
 
                     //just in case
                     GL.Disable(EnableCap.LineStipple);
@@ -2464,6 +2463,10 @@ namespace AOG
             GL.Disable(EnableCap.Texture2D);
             GL.Color3(0.9852f, 0.982f, 0.983f);
             font.DrawText(oglMain.Width / 2 - lenth, 10, strHeading, 1);
+
+            //angular velocity
+            strHeading = ahrs.angVel.ToString("N3");
+            font.DrawText(center, 80, strHeading, 1);
 
             //GPS Step
             if (distanceCurrentStepFixDisplay < 0.03 * 100)

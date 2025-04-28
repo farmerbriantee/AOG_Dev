@@ -7,7 +7,7 @@ EasyProfile          eP(&eOD);
 
 
 // PGN - 211
-  uint8_t data[] = {0x80,0x81,0x7D,0xD3,8, 0,0,0,0, 0,0,0,0, 15};
+  uint8_t data[] = {0x80,0x81,0x7D, 211, 6, 0,0,0,0, 0,0, 15};
   int16_t dataSize = sizeof(data);
 
   uint8_t toSend = 0;
@@ -28,7 +28,7 @@ EasyProfile          eP(&eOD);
   
   void loop()
   {
-      if (toSend >= 5)
+      if (toSend >= 10)
       {
           toSend = 0;
 
@@ -101,4 +101,3 @@ EasyProfile          eP(&eOD);
           }
       }
   }
-

@@ -1,0 +1,514 @@
+﻿using OpenTK;
+using OpenTK.Graphics.OpenGL;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
+using System.Windows.Forms;
+
+namespace AOG
+{
+    public partial class FormEdgeAB : Form
+    {
+        //access to the main GPS form and all its variables
+        private readonly FormGPS mf = null;
+
+        private Point fixPt;
+
+        private bool isA = true;
+        private int start = 99999, end = 99999;
+        private int bndSelect = 0;
+        private CTrk selectedLine;
+        private bool isCancel = false;
+
+        private bool zoomToggle;
+
+        private double zoom = 1, sX = 0, sY = 0;
+
+        public vec3 pint = new vec3(0.0, 1.0, 0.0);
+
+        private bool isDrawSections = false;
+
+        public FormEdgeAB(Form callingForm)
+        {
+            //get copy of the calling main form
+            mf = callingForm as FormGPS;
+
+            InitializeComponent();
+        }
+
+        private void FormABDraw_Load(object sender, EventArgs e)
+        {
+            FixLabelsCurve();
+
+            cboxIsZoom.Checked = false;
+            zoomToggle = false;
+
+            Size = Settings.User.setWindow_abDrawSize;
+
+            Screen myScreen = Screen.FromControl(this);
+            Rectangle area = myScreen.WorkingArea;
+
+            this.Top = (area.Height - this.Height) / 2;
+            this.Left = (area.Width - this.Width) / 2;
+            FormABDraw_ResizeEnd(this, e);
+
+            if (!mf.IsOnScreen(Location, Size, 1))
+            {
+                Top = 0;
+                Left = 0;
+            }
+        }
+
+        private void FormABDraw_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!isCancel)
+            {
+                mf.FileSaveTracks();
+
+                if (selectedLine != null && selectedLine.isVisible)
+                {
+                    mf.trk.currTrk = selectedLine;
+                }
+            }
+            Settings.User.setWindow_abDrawSize = Size;
+        }
+
+        private void cboxIsZoom_CheckedChanged(object sender, EventArgs e)
+        {
+            zoomToggle = false;
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            isCancel = false;
+            Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            isCancel = true;
+            Close();
+        }
+
+        private void btnCancelTouch_Click(object sender, EventArgs e)
+        {
+            //update the arrays
+            btnMakeABLine.Enabled = false;
+            start = 99999; end = 99999;
+            isA = true;
+
+            FixLabelsCurve();
+
+            zoom = 1;
+            sX = 0;
+            sY = 0;
+            zoomToggle = false;
+
+            btnExit.Focus();
+        }
+
+        private void FixLabelsCurve()
+        {
+            if (selectedLine != null)
+            {
+                tboxNameCurve.Text = selectedLine.name;
+                tboxNameCurve.Enabled = true;
+            }
+            else
+            {
+                tboxNameCurve.Text = "***";
+                tboxNameCurve.Enabled = false;
+            }
+        }
+
+        private void btnDeleteCurve_Click(object sender, EventArgs e)
+        {
+            if (selectedLine != null)
+            {
+                //gTemp.Remove(selectedLine);
+                //mf.trk.GetNextTrack(selectedLine, gTemp, true, true);
+                //FixLabelsCurve();
+            }
+        }
+
+        private void btnDrawSections_Click(object sender, EventArgs e)
+        {
+            isDrawSections = !isDrawSections;
+            btnDrawSections.Image = isDrawSections ? Properties.Resources.MappingOn : Properties.Resources.MappingOff;
+        }
+
+        private void tboxNameCurve_Leave(object sender, EventArgs e)
+        {
+            if (selectedLine != null)
+                selectedLine.name = tboxNameCurve.Text.Trim();
+            btnExit.Focus();
+        }
+
+        private void tboxNameCurve_Enter(object sender, EventArgs e)
+        {
+            if (Settings.User.setDisplay_isKeyboardOn)
+            {
+                mf.KeyboardToText((System.Windows.Forms.TextBox)sender, this);
+
+                if (selectedLine != null)
+                    selectedLine.name = tboxNameCurve.Text.Trim();
+                btnExit.Focus();
+            }
+        }
+
+        private void btnAddTime_Click(object sender, EventArgs e)
+        {
+            if (selectedLine != null)
+            {
+                selectedLine.name += DateTime.Now.ToString(" hh:mm:ss", CultureInfo.InvariantCulture);
+                FixLabelsCurve();
+            }
+        }
+
+        private void BtnMakeABLine_Click(object sender, EventArgs e)
+        {
+            //if more then half way around, it crosses start finish
+            if ((Math.Abs(start - end)) <= (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
+            {
+                if (start < end)
+                {
+                    (end, start) = (start, end);
+                }
+            }
+            else
+            {
+                if (start > end)
+                {
+                    (end, start) = (start, end);
+                }
+            }
+
+            //calculate the AB Heading
+            double abHead = Math.Atan2(
+                mf.bnd.bndList[bndSelect].fenceLine[start].easting - mf.bnd.bndList[bndSelect].fenceLine[end].easting,
+                mf.bnd.bndList[bndSelect].fenceLine[start].northing - mf.bnd.bndList[bndSelect].fenceLine[end].northing);
+            if (abHead < 0) abHead += glm.twoPI;
+
+            var track = new CTrk(TrackMode.AB);
+
+            track.heading = abHead;
+            double hsin = Math.Sin(abHead);
+            double hcos = Math.Cos(abHead);
+
+            //calculate the new points for the reference line and points
+            track.ptA.easting = mf.bnd.bndList[bndSelect].fenceLine[end].easting;
+            track.ptA.northing = mf.bnd.bndList[bndSelect].fenceLine[end].northing;
+
+            track.ptB.easting = mf.bnd.bndList[bndSelect].fenceLine[start].easting;
+            track.ptB.northing = mf.bnd.bndList[bndSelect].fenceLine[start].northing;
+
+            //determine farthest outside point
+
+            //fill in the dots between A and B
+            double len = glm.Distance(track.ptA, track.ptB);
+            if (len < 20)
+            {
+                track.ptB.easting = track.ptA.easting + (Math.Sin(abHead) * 30);
+                track.ptB.northing = track.ptA.northing + (Math.Cos(abHead) * 30);
+            }
+            len = glm.Distance(track.ptA, track.ptB);
+
+            vec3 P1 = new vec3();
+            for (int i = 0; i < (int)len; i += 1)
+            {
+                P1.easting = (hsin * i) + track.ptA.easting;
+                P1.northing = (hcos * i) + track.ptA.northing;
+                P1.heading = abHead;
+                track.curvePts.Add(P1);
+            }
+
+            //build the tail extensions
+            mf.trk.AddFirstLastPoints(ref track.curvePts, 100);
+
+            //create a name
+            track.name = "AB: " +
+                Math.Round(glm.toDegrees(track.heading), 1).ToString(CultureInfo.InvariantCulture) + "\u00B0";
+
+            //clean up gui
+            btnMakeABLine.Enabled = false;
+
+            start = 99999; end = 99999;
+
+            mf.trk.AddTrack(track);
+
+            selectedLine = track;
+
+            FixLabelsCurve();
+        }
+
+        private void oglSelf_MouseDown(object sender, MouseEventArgs e)
+        {
+            Point pt = oglSelf.PointToClient(Cursor.Position);
+
+            int wid = oglSelf.Width;
+            int halfWid = oglSelf.Width / 2;
+            double scale = (double)wid * 0.903;
+
+            if (cboxIsZoom.Checked && !zoomToggle)
+            {
+                sX = ((halfWid - (double)pt.X) / wid) * 1.1;
+                sY = ((halfWid - (double)pt.Y) / -wid) * 1.1;
+                zoom = 0.1;
+                zoomToggle = true;
+                return;
+            }
+
+            zoomToggle = false;
+            btnMakeABLine.Enabled = false;
+
+            //Convert to Origin in the center of window, 800 pixels
+            fixPt.X = pt.X - halfWid;
+            fixPt.Y = (wid - pt.Y - halfWid);
+            vec3 plotPt = new vec3
+            {
+                //convert screen coordinates to field coordinates
+                easting = fixPt.X * mf.maxFieldDistance / scale * zoom,
+                northing = fixPt.Y * mf.maxFieldDistance / scale * zoom,
+                heading = 0
+            };
+
+            plotPt.easting += mf.fieldCenterX + mf.maxFieldDistance * -sX;
+            plotPt.northing += mf.fieldCenterY + mf.maxFieldDistance * -sY;
+
+            pint.easting = plotPt.easting;
+            pint.northing = plotPt.northing;
+
+            zoom = 1;
+            sX = 0;
+            sY = 0;
+
+            if (isA)
+            {
+                double minDistA = double.MaxValue;
+                start = 99999; end = 99999;
+
+                for (int j = 0; j < mf.bnd.bndList.Count; j++)
+                {
+                    for (int i = 0; i < mf.bnd.bndList[j].fenceLine.Count; i++)
+                    {
+                        double dist = ((pint.easting - mf.bnd.bndList[j].fenceLine[i].easting) * (pint.easting - mf.bnd.bndList[j].fenceLine[i].easting))
+                                        + ((pint.northing - mf.bnd.bndList[j].fenceLine[i].northing) * (pint.northing - mf.bnd.bndList[j].fenceLine[i].northing));
+                        if (dist < minDistA)
+                        {
+                            minDistA = dist;
+                            bndSelect = j;
+                            start = i;
+                        }
+                    }
+                }
+
+                isA = false;
+            }
+            else
+            {
+                double minDistA = double.MaxValue;
+                int j = bndSelect;
+
+                for (int i = 0; i < mf.bnd.bndList[j].fenceLine.Count; i++)
+                {
+                    double dist = ((pint.easting - mf.bnd.bndList[j].fenceLine[i].easting) * (pint.easting - mf.bnd.bndList[j].fenceLine[i].easting))
+                                    + ((pint.northing - mf.bnd.bndList[j].fenceLine[i].northing) * (pint.northing - mf.bnd.bndList[j].fenceLine[i].northing));
+                    if (dist < minDistA)
+                    {
+                        minDistA = dist;
+                        end = i;
+                    }
+                }
+
+                isA = true;
+
+                btnMakeABLine.Enabled = true;
+            }
+        }
+
+        private void oglSelf_Paint(object sender, PaintEventArgs e)
+        {
+            oglSelf.MakeCurrent();
+
+            GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
+            GL.LoadIdentity();                  // Reset The View
+
+            //back the camera up
+            GL.Translate(0, 0, -mf.maxFieldDistance * zoom);
+
+            //translate to that spot in the world
+            GL.Translate(-mf.fieldCenterX + sX * mf.maxFieldDistance, -mf.fieldCenterY + sY * mf.maxFieldDistance, 0);
+
+            if (isDrawSections)
+            {
+                GL.Color3(0.9f, 0.9f, 0.8f);
+
+                //for every new chunk of patch
+                foreach (var triList in mf.patchList)
+                {
+                    triList.DrawPolygon(8, 1, PrimitiveType.TriangleStrip);
+                }
+            }
+
+            GL.LineWidth(3);
+
+            for (int j = 0; j < mf.bnd.bndList.Count; j++)
+            {
+                if (j == bndSelect)
+                    GL.Color3(1.0f, 1.0f, 1.0f);
+                else
+                    GL.Color3(0.62f, 0.635f, 0.635f);
+
+                mf.bnd.bndList[j].fenceLineEar.DrawPolygon(PrimitiveType.LineLoop);
+            }
+
+            //the vehicle
+            GL.PointSize(16.0f);
+            GL.Begin(PrimitiveType.Points);
+            GL.Color3(1.0f, 0.00f, 0.0f);
+            GL.Vertex3(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing, 0.0);
+            GL.End();
+
+            GL.PointSize(8.0f);
+            GL.Begin(PrimitiveType.Points);
+            GL.Color3(0.00f, 0.0f, 0.0f);
+            GL.Vertex3(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing, 0.0);
+            GL.End();
+
+            //draw the line building graphics
+            if (start != 99999 || end != 99999) DrawABTouchPoints();
+
+            //draw the actual built lines
+            if (start == 99999 && end == 99999)
+            {
+                DrawBuiltLines();
+            }
+
+            GL.Flush();
+            oglSelf.SwapBuffers();
+        }
+
+        private void DrawBuiltLines()
+        {
+            GL.LineStipple(1, 0x0707);
+            foreach (var track in gTemp)
+            {
+                GL.Enable(EnableCap.LineStipple);
+                GL.LineWidth(5);
+
+                if (track.mode == TrackMode.bndCurve) GL.LineStipple(1, 0x0007);
+                else GL.LineStipple(1, 0x0707);
+
+                if (track == selectedLine)
+                {
+                    GL.LineWidth(8);
+                    GL.Disable(EnableCap.LineStipple);
+                }
+
+                GL.Color3(0.30f, 0.97f, 0.30f);
+                if (track.mode == TrackMode.AB) GL.Color3(1.0f, 0.20f, 0.20f);
+                if (track.mode == TrackMode.bndCurve) GL.Color3(0.70f, 0.5f, 0.2f);
+
+                track.curvePts.DrawPolygon(PrimitiveType.LineStrip);
+
+                GL.Disable(EnableCap.LineStipple);
+
+                if (track == selectedLine) GL.PointSize(16);
+                else GL.PointSize(8);
+
+                GL.Color3(1.0f, 0.75f, 0.350f);
+                GL.Begin(PrimitiveType.Points);
+
+                GL.Vertex3(track.curvePts[0].easting, track.curvePts[0].northing, 0);
+
+                GL.Color3(0.5f, 0.5f, 1.0f);
+                GL.Vertex3(track.curvePts[track.curvePts.Count - 1].easting,
+                            track.curvePts[track.curvePts.Count - 1].northing,
+                            0);
+                GL.End();
+            }
+        }
+
+        private void DrawABTouchPoints()
+        {
+            GL.Color3(0.65, 0.650, 0.0);
+            GL.PointSize(24);
+            GL.Begin(PrimitiveType.Points);
+
+            GL.Color3(0, 0, 0);
+            if (start != 99999) GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[start].easting, mf.bnd.bndList[bndSelect].fenceLine[start].northing, 0);
+            if (end != 99999) GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[end].easting, mf.bnd.bndList[bndSelect].fenceLine[end].northing, 0);
+            GL.End();
+
+            GL.PointSize(16);
+            GL.Begin(PrimitiveType.Points);
+
+            GL.Color3(1.0f, 0.75f, 0.350f);
+            if (start != 99999) GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[start].easting, mf.bnd.bndList[bndSelect].fenceLine[start].northing, 0);
+
+            GL.Color3(0.5f, 0.5f, 1.0f);
+            if (end != 99999) GL.Vertex3(mf.bnd.bndList[bndSelect].fenceLine[end].easting, mf.bnd.bndList[bndSelect].fenceLine[end].northing, 0);
+            GL.End();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            oglSelf.Refresh();
+
+        }
+
+        private void FormABDraw_ResizeEnd(object sender, EventArgs e)
+        {
+            Width = (Height * 4 / 3);
+
+            oglSelf.Height = oglSelf.Width = Height - 50;
+
+            oglSelf.Left = 2;
+            oglSelf.Top = 2;
+
+            oglSelf.MakeCurrent();
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadIdentity();
+
+            //58 degrees view
+            GL.Viewport(0, 0, oglSelf.Width, oglSelf.Height);
+            Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView(1.01f, 1.0f, 1.0f, 20000);
+            GL.LoadMatrix(ref mat);
+
+            GL.MatrixMode(MatrixMode.Modelview);
+
+            tlp1.Width = Width - oglSelf.Width - 4;
+            tlp1.Left = oglSelf.Width;
+
+            Screen myScreen = Screen.FromControl(this);
+            Rectangle area = myScreen.WorkingArea;
+
+            this.Top = (area.Height - this.Height) / 2;
+            this.Left = (area.Width - this.Width) / 2;
+        }
+
+        private void oglSelf_Resize(object sender, EventArgs e)
+        {
+            oglSelf.MakeCurrent();
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadIdentity();
+
+            //58 degrees view
+            GL.Viewport(0, 0, oglSelf.Width, oglSelf.Height);
+
+            Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView(1.01f, 1.0f, 1.0f, 20000);
+            GL.LoadMatrix(ref mat);
+
+            GL.MatrixMode(MatrixMode.Modelview);
+        }
+
+        private void oglSelf_Load(object sender, EventArgs e)
+        {
+            oglSelf.MakeCurrent();
+            GL.Enable(EnableCap.CullFace);
+            GL.CullFace(CullFaceMode.Back);
+            GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        }
+    }
+}

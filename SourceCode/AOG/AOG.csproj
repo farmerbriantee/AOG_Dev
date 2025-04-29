@@ -124,12 +124,6 @@
     <Compile Include="Classes\CNozzle.cs" />
     <Compile Include="Classes\CPolygon.cs" />
     <Compile Include="Classes\CPatches.cs" />
-    <Compile Include="Forms\Guidance\FormEdgeAB.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Guidance\FormEdgeAB.Designer.cs">
-      <DependentUpon>FormEdgeAB.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\CRegistrySettings.cs" />
     <Compile Include="Classes\CSettings.cs" />
     <Compile Include="Classes\CSound.cs" />
@@ -571,10 +565,6 @@
     <EmbeddedResource Include="Forms\FormYes.resx">
       <DependentUpon>FormYes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Guidance\FormEdgeAB.resx">
-      <DependentUpon>FormEdgeAB.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Guidance\FormTramLine.resx">
       <DependentUpon>FormTramLine.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -766,6 +756,7 @@
     <None Include="btnImages\IncrementPlus.png" />
     <None Include="btnImages\ABPivotCircle.png" />
     <Content Include="AOG.ico" />
+    <None Include="btnImages\ABTrackEdgeAB.png" />
     <Content Include="btnImages\Shift.png" />
     <Content Include="btnImages\ZoomOut.png" />
     <Content Include="License.txt">

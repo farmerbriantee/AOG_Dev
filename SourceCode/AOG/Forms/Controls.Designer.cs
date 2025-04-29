@@ -1637,25 +1637,6 @@ namespace AOG
             }
         }        
         
-        private void edgeABToolStrip_Click(object sender, EventArgs e)
-        {
-            if (bnd.bndList.Count == 0)
-            {
-                TimedMessageBox(2000, gStr.Get(gs.gsNoBoundary), gStr.Get(gs.gsCreateABoundaryFirst));
-                return;
-            }
-
-            SetContourButton(false);
-
-            using (var form = new FormEdgeAB(this))
-            {
-                form.ShowDialog(this);
-            }
-
-            PanelUpdateRightAndBottom();
-        }
-
-
         private void SmoothABtoolStripMenu_Click(object sender, EventArgs e)
         {
             if (isFieldStarted && trk.currTrk != null && trk.currTrk.mode > TrackMode.AB)

@@ -670,6 +670,8 @@ namespace AOG
             FieldMenuButtonEnableDisable(false);
             displayFieldName = gStr.Get(gs.gsNone);
 
+            ExportFieldAs_ISOXMLv3();
+            ExportFieldAs_ISOXMLv4();
             JobClose();
             FieldClose();
 
@@ -771,9 +773,6 @@ namespace AOG
                 Log.EventWriter("** Closed **   " + currentFieldDirectory + "   "
                     + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
 
-                //ExportFieldAs_KML();
-                //ExportFieldAs_ISOXMLv3();
-                //ExportFieldAs_ISOXMLv4();
             }
 
             sbElevationString.Clear();

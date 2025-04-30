@@ -9,6 +9,7 @@ using System.IO;
 using System.Globalization;
 using System.Xml;
 using System.Text;
+using System.Diagnostics;
 
 using AOG.Classes;
 
@@ -1204,20 +1205,26 @@ namespace AOG
             //if (bnd.bndList.Count < 1) return;//If no Bnd, Quit
 
             //get the directory and make sure it exists, create if not
-            string dirField = RegistrySettings.fieldsDirectory + currentFieldDirectory + "\\zISOXML\\v3\\";
+            string dirField = Path.Combine(
+                RegistrySettings.fieldsDirectory,
+                currentFieldDirectory,
+                "zISOXML",
+                "v3"
+                );
 
-            string directoryName = Path.GetDirectoryName(dirField);
-            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
-            { Directory.CreateDirectory(directoryName); }
+            if (!Directory.Exists(dirField))
+            {
+                Directory.CreateDirectory(dirField);
+            }
 
-            string myFileName = "TASKDATA.xml";
+            string myFileName = Path.Combine(dirField, "TASKDATA.xml");
 
             try
             {
                 XmlWriterSettings settings = new XmlWriterSettings();
                 settings.Indent = true;
                 settings.IndentChars = "  ";
-                XmlWriter xml = XmlWriter.Create(dirField + myFileName, settings);
+                XmlWriter xml = XmlWriter.Create(myFileName, settings);
 
                 xml.WriteStartElement("ISO11783_TaskData");//Settings
                 xml.WriteAttributeString("DataTransferOrigin", "1");
@@ -1397,20 +1404,26 @@ namespace AOG
             int lineCounter = 0;
 
             //get the directory and make sure it exists, create if not
-            string dirField = RegistrySettings.fieldsDirectory + currentFieldDirectory + "\\zISOXML\\v4\\";
+            string dirField = Path.Combine(
+                RegistrySettings.fieldsDirectory,
+                currentFieldDirectory,
+                "zISOXML",
+                "v4"
+                );
 
-            string directoryName = Path.GetDirectoryName(dirField);
-            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
-            { Directory.CreateDirectory(directoryName); }
+            if (!Directory.Exists(dirField))
+            {
+                Directory.CreateDirectory(dirField);
+            }
 
-            string myFileName = "TASKDATA.xml";
+            string myFileName = Path.Combine(dirField, "TASKDATA.xml");
 
             try
             {
                 XmlWriterSettings settings = new XmlWriterSettings();
                 settings.Indent = true;
                 settings.IndentChars = "  ";
-                XmlWriter xml = XmlWriter.Create(dirField + myFileName, settings);
+                XmlWriter xml = XmlWriter.Create(myFileName, settings);
 
                 xml.WriteStartElement("ISO11783_TaskData");//Settings
                 xml.WriteAttributeString("DataTransferOrigin", "1");

@@ -11,7 +11,7 @@ namespace AOG
         {
             //heading
             if (Settings.Vehicle.setGPS_headingFromWhichSource == "Fix") rbtnHeadingFix.Checked = true;
-            //else if (Properties.Settings.Default.setGPS_headingFromWhichSource == "VTG") rbtnHeadingGPS.Checked = true;
+            else if (Settings.Vehicle.setGPS_headingFromWhichSource == "VTG") rbtnHeadingVTG.Checked = true;
             else if (Settings.Vehicle.setGPS_headingFromWhichSource == "Dual") rbtnHeadingHDT.Checked = true;
             
             if (rbtnHeadingHDT.Checked)
@@ -91,10 +91,9 @@ namespace AOG
             {
                 Settings.Vehicle.setF_minHeadingStepDistance = 0.5;
                 Settings.Vehicle.setGPS_minimumStepLimit = 0.05;
-            }
-
-            
+            }            
         }
+
         private void rbtnHeadingFix_CheckedChanged(object sender, EventArgs e)
         {
             var checkedButton = headingGroupBox.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);

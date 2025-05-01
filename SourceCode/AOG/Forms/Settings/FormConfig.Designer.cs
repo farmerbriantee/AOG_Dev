@@ -338,6 +338,7 @@
             this.lblFixToFixDistance = new System.Windows.Forms.Label();
             this.lblMinGPSStep = new System.Windows.Forms.Label();
             this.headingGroupBox = new System.Windows.Forms.GroupBox();
+            this.rbtnHeadingVTG = new System.Windows.Forms.RadioButton();
             this.rbtnHeadingHDT = new System.Windows.Forms.RadioButton();
             this.rbtnHeadingFix = new System.Windows.Forms.RadioButton();
             this.cboxIsRTK_KillAutoSteer = new System.Windows.Forms.CheckBox();
@@ -5161,16 +5162,35 @@
             // headingGroupBox
             // 
             this.headingGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.headingGroupBox.Controls.Add(this.rbtnHeadingVTG);
             this.headingGroupBox.Controls.Add(this.rbtnHeadingHDT);
             this.headingGroupBox.Controls.Add(this.rbtnHeadingFix);
             this.headingGroupBox.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.headingGroupBox.ForeColor = System.Drawing.Color.Black;
             this.headingGroupBox.Location = new System.Drawing.Point(63, -26);
             this.headingGroupBox.Name = "headingGroupBox";
-            this.headingGroupBox.Size = new System.Drawing.Size(675, 132);
+            this.headingGroupBox.Size = new System.Drawing.Size(820, 132);
             this.headingGroupBox.TabIndex = 85;
             this.headingGroupBox.TabStop = false;
             this.headingGroupBox.Text = "Antenna Type";
+            // 
+            // rbtnHeadingVTG
+            // 
+            this.rbtnHeadingVTG.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbtnHeadingVTG.BackColor = System.Drawing.Color.AliceBlue;
+            this.rbtnHeadingVTG.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
+            this.rbtnHeadingVTG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbtnHeadingVTG.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbtnHeadingVTG.ForeColor = System.Drawing.Color.Black;
+            this.rbtnHeadingVTG.Image = global::AOG.Properties.Resources.Con_SourcesGPSSingle;
+            this.rbtnHeadingVTG.Location = new System.Drawing.Point(471, 44);
+            this.rbtnHeadingVTG.Name = "rbtnHeadingGPS";
+            this.rbtnHeadingVTG.Size = new System.Drawing.Size(117, 82);
+            this.rbtnHeadingVTG.TabIndex = 3;
+            this.rbtnHeadingVTG.Text = "VTG";
+            this.rbtnHeadingVTG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbtnHeadingVTG.UseVisualStyleBackColor = false;
+            this.rbtnHeadingVTG.CheckedChanged += new System.EventHandler(this.rbtnHeadingFix_CheckedChanged);
             // 
             // rbtnHeadingHDT
             // 
@@ -5199,7 +5219,7 @@
             this.rbtnHeadingFix.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbtnHeadingFix.ForeColor = System.Drawing.Color.Black;
             this.rbtnHeadingFix.Image = global::AOG.Properties.Resources.Con_SourcesGPSSingle;
-            this.rbtnHeadingFix.Location = new System.Drawing.Point(453, 44);
+            this.rbtnHeadingFix.Location = new System.Drawing.Point(637, 44);
             this.rbtnHeadingFix.Name = "rbtnHeadingFix";
             this.rbtnHeadingFix.Size = new System.Drawing.Size(117, 82);
             this.rbtnHeadingFix.TabIndex = 0;
@@ -9443,5 +9463,6 @@
         private System.Windows.Forms.Label lblSumWheelbase;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblSumLookAheadOff;
+        private System.Windows.Forms.RadioButton rbtnHeadingVTG;
     }
 }

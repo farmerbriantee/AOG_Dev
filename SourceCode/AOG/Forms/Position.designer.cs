@@ -63,6 +63,8 @@ namespace AOG
 
         //individual points for the flags in a list
         public List<CFlag> flagPts = new List<CFlag>();
+        public List<vec2> gpsPts = new List<vec2>(256);
+        public List<vec2> gpsPtsCorr = new List<vec2>(256);
 
         //tally counters for display
         //public double totalSquareMetersWorked = 0, totalUserSquareMeters = 0, userSquareMetersAlarm = 0;
@@ -158,7 +160,10 @@ namespace AOG
             {
                 //calculate current heading only when moving, otherwise use last
                 case "Fix":
-                    
+
+                    //save for step 
+                    vec2 tempFix = (pn.fix);
+
                     if (isFirstHeadingSet)
                         AddRoll();
 
@@ -169,8 +174,9 @@ namespace AOG
 
                     if (distanceCurrentStepFix > Settings.Vehicle.setGPS_minimumStepLimit)// 0.1 or 0.05 
                     {
-                        //save a copy of previous for jump test
-                        //jumpFix.easting = stepFixPts[0].easting; jumpFix.northing = stepFixPts[0].northing;
+                        //plotting of fix and corrected fix
+                        gpsPts.Add(tempFix);
+                        gpsPtsCorr.Add(pn.fix);
 
                         if ((fd.distanceUser += distanceCurrentStepFix) > 9999) fd.distanceUser = 0;
 

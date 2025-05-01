@@ -336,6 +336,9 @@ namespace AOG
 
             //Application rate controller
             nozz = new CNozzle(this);
+            vec2 b = new vec2(0,0);
+            gpsPtsCorr.Add(b);
+            gpsPts.Add(b);
         }
 
         private void FormGPS_Load(object sender, EventArgs e)
@@ -936,7 +939,7 @@ namespace AOG
         //take the distance from object and convert to camera data
         public void SetZoom()
         {
-            if (Settings.User.setDisplay_camZoom < 4.0) Settings.User.setDisplay_camZoom = 4.0;
+            if (Settings.User.setDisplay_camZoom < 2.0) Settings.User.setDisplay_camZoom = 2.0;
             if (Settings.User.setDisplay_camZoom > 120) Settings.User.setDisplay_camZoom = 120;
             camera.camSetDistance = Settings.User.setDisplay_camZoom * Settings.User.setDisplay_camZoom * -1;
 

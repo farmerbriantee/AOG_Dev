@@ -1635,7 +1635,8 @@ namespace AOG
                     form.ShowDialog(this);
                 }
             }
-        }
+        }        
+        
         private void SmoothABtoolStripMenu_Click(object sender, EventArgs e)
         {
             if (isFieldStarted && trk.currTrk != null && trk.currTrk.mode > TrackMode.AB)

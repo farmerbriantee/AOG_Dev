@@ -226,7 +226,7 @@ namespace AOG
 
                     case 0xD3: //external IMU
                         {
-                            if (data.Length != 14)
+                            if (data.Length != 12)
                                 break;
                             if (ahrs.imuRoll > 2500 || ahrs.imuRoll < -2500) ahrs.imuRoll = 0;
                             //Heading
@@ -238,12 +238,13 @@ namespace AOG
 
                             if (Settings.Vehicle.setIMU_invertRoll) rollK *= -0.01;
                             else rollK *= 0.01;
+
                             rollK -= Settings.Vehicle.setIMU_rollZero;                           
                             ahrs.imuRoll = ahrs.imuRoll * Settings.Vehicle.setIMU_rollFilter + rollK * (1 - Settings.Vehicle.setIMU_rollFilter);
 
                             //Angular velocity
                             ahrs.angVel = (Int16)((data[10] << 8) + data[9]);
-                            ahrs.angVel /= -2;
+                            //ahrs.angVel /= -2;
 
                             break;
                         }

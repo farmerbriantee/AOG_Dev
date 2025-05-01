@@ -756,6 +756,7 @@
     <None Include="btnImages\IncrementPlus.png" />
     <None Include="btnImages\ABPivotCircle.png" />
     <Content Include="AOG.ico" />
+    <None Include="btnImages\ABTrackEdgeAB.png" />
     <Content Include="btnImages\Shift.png" />
     <Content Include="btnImages\ZoomOut.png" />
     <Content Include="License.txt">

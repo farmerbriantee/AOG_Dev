@@ -29,7 +29,7 @@ namespace AOG
 
         public vec3 pint = new vec3(0.0, 1.0, 0.0);
 
-        private bool isDrawSections = false;
+        private bool isDrawSections = true;
 
         public FormABDraw(Form callingForm)
         {
@@ -104,6 +104,7 @@ namespace AOG
         {
             //update the arrays
             btnMakeABLine.Enabled = false;
+            btnEdgeAB.Enabled = false;
             btnMakeCurve.Enabled = false;
             start = 99999; end = 99999;
             isA = true;
@@ -172,7 +173,7 @@ namespace AOG
         private void btnDrawSections_Click(object sender, EventArgs e)
         {
             isDrawSections = !isDrawSections;
-            btnDrawSections.Image = isDrawSections ? Properties.Resources.MappingOn : Properties.Resources.MappingOff;
+            //btnDrawSections.Image = isDrawSections ? Properties.Resources.MappingOn : Properties.Resources.MappingOff;
         }
 
         private void tboxNameCurve_Leave(object sender, EventArgs e)
@@ -243,6 +244,7 @@ namespace AOG
 
             //update the arrays
             btnMakeABLine.Enabled = false;
+            btnEdgeAB.Enabled = false;
             btnMakeCurve.Enabled = false;
             start = 99999; end = 99999;
 
@@ -251,7 +253,7 @@ namespace AOG
             btnExit.Focus();
         }
 
-        private void BtnMakeCurve_Click(object sender, EventArgs e)
+        private void btnMakeCurve_Click(object sender, EventArgs e)
         {
             bool isLoop = false;
             int limit = end;
@@ -329,6 +331,7 @@ namespace AOG
 
                 //update the arrays
                 btnMakeABLine.Enabled = false;
+                btnEdgeAB.Enabled = false;
                 btnMakeCurve.Enabled = false;
                 start = 99999; end = 99999;
 
@@ -341,7 +344,7 @@ namespace AOG
             btnExit.Focus();
         }
 
-        private void BtnMakeABLine_Click(object sender, EventArgs e)
+        private void btnMakeABLine_Click(object sender, EventArgs e)
         {
             //if more then half way around, it crosses start finish
             if ((Math.Abs(start - end)) <= (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
@@ -405,7 +408,127 @@ namespace AOG
 
             //clean up gui
             btnMakeABLine.Enabled = false;
+            btnEdgeAB.Enabled = false;
             btnMakeCurve.Enabled = false;
+
+            start = 99999; end = 99999;
+
+            gTemp.Add(track);
+            selectedLine = track;
+            FixLabelsCurve();
+        }
+
+        private void btnEdgeAB_Click(object sender, EventArgs e)
+        {
+            bool isLoop = false;
+            int limit = end;
+
+            if ((Math.Abs(start - end)) > (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
+            {
+                isLoop = true;
+                if (start < end)
+                {
+                    (end, start) = (start, end);
+                }
+
+                limit = end;
+                end = mf.bnd.bndList[bndSelect].fenceLine.Count;
+            }
+            else //normal
+            {
+                if (start > end)
+                {
+                    (end, start) = (start, end);
+                }
+            }
+
+            var designPtsList = new List<vec3>();
+
+            for (int i = start; i < end; i++)
+            {
+                //calculate the point inside the boundary
+                designPtsList.Add(new vec3(mf.bnd.bndList[bndSelect].fenceLine[i]));
+
+                if (isLoop && i == mf.bnd.bndList[bndSelect].fenceLine.Count - 1)
+                {
+                    i = -1;
+                    isLoop = false;
+                    end = limit;
+                }
+            }
+
+            //calculate the AB Heading
+            double abHead = Math.Atan2(
+                mf.bnd.bndList[bndSelect].fenceLine[end].easting - mf.bnd.bndList[bndSelect].fenceLine[start].easting,
+                mf.bnd.bndList[bndSelect].fenceLine[end].northing - mf.bnd.bndList[bndSelect].fenceLine[start].northing);
+            if (abHead < 0) abHead += glm.twoPI;
+
+            var track = new CTrk(TrackMode.AB);
+
+            track.heading = abHead;
+            double hsin = Math.Sin(abHead);
+            double hcos = Math.Cos(abHead);
+
+            //calculate the new points for the reference line and points
+            track.ptA.easting = mf.bnd.bndList[bndSelect].fenceLine[start].easting;
+            track.ptA.northing = mf.bnd.bndList[bndSelect].fenceLine[start].northing;
+
+            track.ptB.easting = mf.bnd.bndList[bndSelect].fenceLine[end].easting;
+            track.ptB.northing = mf.bnd.bndList[bndSelect].fenceLine[end].northing;
+
+            //get the pivot distance from currently active AB segment   ///////////  Pivot  ////////////
+            double dx = track.ptB.easting - track.ptA.easting;
+            double dy = track.ptB.northing - track.ptA.northing;
+            if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dy) < Double.Epsilon) 
+                return;
+
+            double maxDistance = double.MaxValue;
+
+            for (int i = 0; i < designPtsList.Count; i++)
+            {
+                //how far from current AB Line is fix
+                double distanceFromBnd = ((dy * designPtsList[i].easting) - (dx * designPtsList[i].northing) + (track.ptB.easting
+                            * track.ptA.northing) - (track.ptB.northing * track.ptA.easting))
+                                / Math.Sqrt((dy * dy) + (dx * dx));
+
+                if (distanceFromBnd < maxDistance)
+                    maxDistance = distanceFromBnd;
+            }
+
+            track.ptA.easting += (Math.Sin(abHead + glm.PIBy2) * maxDistance);
+            track.ptB.easting += (Math.Sin(abHead + glm.PIBy2) * maxDistance);
+            track.ptA.northing += (Math.Cos(abHead + glm.PIBy2) * maxDistance);
+            track.ptB.northing += (Math.Cos(abHead + glm.PIBy2) * maxDistance);
+
+            //fill in the dots between A and B
+            double len = glm.Distance(track.ptA, track.ptB);
+            if (len < 20)
+            {
+                track.ptB.easting = track.ptA.easting + (Math.Sin(abHead) * 30);
+                track.ptB.northing = track.ptA.northing + (Math.Cos(abHead) * 30);
+            }
+            len = glm.Distance(track.ptA, track.ptB);
+
+            vec3 P1 = new vec3();
+            for (int i = 0; i < (int)len; i += 1)
+            {
+                P1.easting = (hsin * i) + track.ptA.easting;
+                P1.northing = (hcos * i) + track.ptA.northing;
+                P1.heading = abHead;
+                track.curvePts.Add(P1);
+            }
+
+            //build the tail extensions
+            mf.trk.AddFirstLastPoints(ref track.curvePts, 100);
+
+            //create a name
+            track.name = "AB: " +
+                Math.Round(glm.toDegrees(track.heading), 1).ToString(CultureInfo.InvariantCulture) + "\u00B0";
+
+            //clean up gui
+            btnMakeABLine.Enabled = false;
+            btnMakeCurve.Enabled = false;
+            btnEdgeAB.Enabled = false;
 
             start = 99999; end = 99999;
 
@@ -434,6 +557,7 @@ namespace AOG
             zoomToggle = false;
             btnMakeABLine.Enabled = false;
             btnMakeCurve.Enabled = false;
+            btnEdgeAB.Enabled = false;
 
             //Convert to Origin in the center of window, 800 pixels
             fixPt.X = pt.X - halfWid;
@@ -498,6 +622,8 @@ namespace AOG
 
                 btnMakeABLine.Enabled = true;
                 btnMakeCurve.Enabled = true;
+                btnEdgeAB.Enabled = true;
+
             }
         }
 
@@ -516,7 +642,7 @@ namespace AOG
 
             if (isDrawSections)
             {
-                GL.Color3(0.9f, 0.9f, 0.8f);
+                GL.Color3(0.2f, 0.2f, 0.2f);
 
                 //for every new chunk of patch
                 foreach (var triList in mf.patchList)

@@ -481,9 +481,35 @@ namespace AOG
                             GL.Color3(0.920, 0.978, 0.2);
                             GL.Vertex3(steerAxlePos.easting, steerAxlePos.northing, 0.0);
                             GL.End();
-
                         }
                     }
+
+                    //Draw gps points and corrected
+                    GL.LineWidth(4);
+                    GL.Begin(PrimitiveType.LineStrip);
+                    GL.Color3(1.0, 0.6, 0.3);
+
+                    for (int i = 0; i < gpsPts.Count; i++)
+                    {
+                        GL.Vertex3(gpsPts[i].easting, gpsPts[i].northing, 0.0);
+                    }
+                    GL.End();
+
+                    if (gpsPts.Count > 100)
+                        gpsPts.RemoveRange(0, 20);
+
+                    GL.LineWidth(4);
+                    GL.Begin(PrimitiveType.LineStrip);
+                    GL.Color3(0.30, 1.0, 0.0);
+
+                    for (int i = 0; i < gpsPtsCorr.Count; i++)
+                    {
+                        GL.Vertex3(gpsPtsCorr[i].easting, gpsPtsCorr[i].northing, 0.0);
+                    }
+                    GL.End();
+
+                    if (gpsPtsCorr.Count > 100)
+                        gpsPtsCorr.RemoveRange(0, 20);
 
                     #endregion
 
@@ -609,7 +635,6 @@ namespace AOG
                         GL.End();                       // Done Building Triangle Strip
                         GL.Disable(EnableCap.Texture2D);
                     }
-
 
                     //just in case
                     GL.Disable(EnableCap.LineStipple);
@@ -2438,6 +2463,10 @@ namespace AOG
             GL.Disable(EnableCap.Texture2D);
             GL.Color3(0.9852f, 0.982f, 0.983f);
             font.DrawText(oglMain.Width / 2 - lenth, 10, strHeading, 1);
+
+            //angular velocity
+            strHeading = ahrs.angVel.ToString("N3");
+            font.DrawText(center, 80, strHeading, 1);
 
             //GPS Step
             if (distanceCurrentStepFixDisplay < 0.03 * 100)

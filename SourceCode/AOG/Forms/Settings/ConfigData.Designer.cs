@@ -13,11 +13,22 @@ namespace AOG
             if (Settings.Vehicle.setGPS_headingFromWhichSource == "Fix") rbtnHeadingFix.Checked = true;
             else if (Settings.Vehicle.setGPS_headingFromWhichSource == "VTG") rbtnHeadingVTG.Checked = true;
             else if (Settings.Vehicle.setGPS_headingFromWhichSource == "Dual") rbtnHeadingHDT.Checked = true;
-            
+
             if (rbtnHeadingHDT.Checked)
             {
-                gboxSingle.Enabled = false;
-                gboxDual.Enabled = true;
+                if (Settings.Vehicle.setAutoSwitchDualFixOn)
+                {
+                    rbtnHeadingFix.Enabled = false;
+                    rbtnHeadingVTG.Enabled = false;
+
+                    gboxSingle.Enabled = true;
+                    gboxDual.Enabled = true;
+                }
+                else
+                {
+                    gboxSingle.Enabled = false;
+                    gboxDual.Enabled = true;
+                }
             }
             else
             {
@@ -28,14 +39,15 @@ namespace AOG
             nudDualHeadingOffset.Value = Settings.Vehicle.setGPS_dualHeadingOffset;
             nudDualReverseDistance.Value = Settings.Vehicle.setGPS_dualReverseDetectionDistance;
 
+            nudAutoSwitchDualFixSpeed.Value = Settings.Vehicle.setAutoSwitchDualFixSpeed;
+            cboxIsAutoSwitchDualFixOn.Checked = Settings.Vehicle.setAutoSwitchDualFixOn;
+
             hsbarFusion.Value = (int)(Settings.Vehicle.setIMU_fusionWeight2 * 500);
             lblFusion.Text = (hsbarFusion.Value).ToString();
             lblFusionIMU.Text = (100 - hsbarFusion.Value).ToString();
 
             cboxIsRTK.Checked = Settings.Vehicle.setGPS_isRTK;
             cboxIsRTK_KillAutoSteer.Checked = Settings.Vehicle.setGPS_isRTK_KillAutoSteer;
-
-            nudFixJumpDistance.Value = Settings.Vehicle.setGPS_jumpFixAlarmDistance;
 
             cboxIsReverseOn.Checked = Settings.Vehicle.setIMU_isReverseOn;
 
@@ -111,10 +123,29 @@ namespace AOG
             }
         }
 
-        private void nudFixJumpDistance_ValueChanged(object sender, EventArgs e)
+        private void cboxIsAutoSwitchDualFixOn_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Vehicle.setGPS_jumpFixAlarmDistance = ((int)nudFixJumpDistance.Value);
-            //mf.jumpDistanceAlarm = Properties.Settings.Default.setGPS_dualHeadingOffset;
+            if (cboxIsAutoSwitchDualFixOn.Checked)
+            {
+                rbtnHeadingFix.Enabled = false;
+                rbtnHeadingVTG.Enabled = false;
+                gboxSingle.Enabled = true;
+                gboxDual.Enabled = true;
+            }
+            else
+            {
+                rbtnHeadingFix.Enabled = true;
+                rbtnHeadingVTG.Enabled = true;
+                gboxSingle.Enabled = false;
+                gboxDual.Enabled = true;
+            }
+
+            Settings.Vehicle.setAutoSwitchDualFixOn = cboxIsAutoSwitchDualFixOn.Checked;
+        }
+
+        private void nudAutoSwitchDualFixSpeed_Click(object sender, EventArgs e)
+        {
+                Settings.Vehicle.setAutoSwitchDualFixSpeed = nudAutoSwitchDualFixSpeed.Value;
         }
 
         private void nudDualHeadingOffset_ValueChanged(object sender, EventArgs e)
@@ -126,14 +157,7 @@ namespace AOG
         {
             Settings.Vehicle.setGPS_dualReverseDetectionDistance = nudDualReverseDistance.Value;
         }
-        //private void nudMinimumFrameTime_Click(object sender, EventArgs e)
-        //{
-        //    if (mf.KeypadToNUD((NudlessNumericUpDown)sender, this))
-        //    {
-        //        Properties.Settings.Default.SetGPS_udpWatchMsec = ((int)nudMinimumFrameTime.Value);
-        //        mf.udpWatchLimit = Properties.Settings.Default.SetGPS_udpWatchMsec;
-        //    }
-        //}
+
         private void cboxMinGPSStePGN_Click(object sender, EventArgs e)
         {
             if (cboxMinGPSStep.Checked)

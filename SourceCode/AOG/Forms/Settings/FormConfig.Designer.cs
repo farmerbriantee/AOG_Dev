@@ -319,8 +319,11 @@
             this.label113 = new System.Windows.Forms.Label();
             this.lblRTKFixAlarm = new System.Windows.Forms.Label();
             this.gboxDual = new System.Windows.Forms.GroupBox();
-            this.lblReverseDistance = new System.Windows.Forms.Label();
+            this.labelAutoSwitchDualFixSpeed = new System.Windows.Forms.Label();
+            this.nudAutoSwitchDualFixSpeed = new AOG.NudlessNumericUpDown();
+            this.cboxIsAutoSwitchDualFixOn = new System.Windows.Forms.CheckBox();
             this.nudDualReverseDistance = new AOG.NudlessNumericUpDown();
+            this.lblReverseDistance = new System.Windows.Forms.Label();
             this.pictureBox13 = new System.Windows.Forms.PictureBox();
             this.nudDualHeadingOffset = new AOG.NudlessNumericUpDown();
             this.lblHeadingOffset = new System.Windows.Forms.Label();
@@ -343,7 +346,6 @@
             this.rbtnHeadingFix = new System.Windows.Forms.RadioButton();
             this.cboxIsRTK_KillAutoSteer = new System.Windows.Forms.CheckBox();
             this.cboxIsRTK = new System.Windows.Forms.CheckBox();
-            this.nudFixJumpDistance = new AOG.NudlessNumericUpDown();
             this.tabDRoll = new System.Windows.Forms.TabPage();
             this.btnRollOffsetUp = new AOG.RepeatButton();
             this.btnRollOffsetDown = new AOG.RepeatButton();
@@ -4843,7 +4845,6 @@
             this.tabDHeading.Controls.Add(this.headingGroupBox);
             this.tabDHeading.Controls.Add(this.cboxIsRTK_KillAutoSteer);
             this.tabDHeading.Controls.Add(this.cboxIsRTK);
-            this.tabDHeading.Controls.Add(this.nudFixJumpDistance);
             this.tabDHeading.Location = new System.Drawing.Point(4, 44);
             this.tabDHeading.Name = "tabDHeading";
             this.tabDHeading.Size = new System.Drawing.Size(907, 584);
@@ -4857,9 +4858,9 @@
             this.lblAlarmStopsAutoSteer.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.lblAlarmStopsAutoSteer.ForeColor = System.Drawing.Color.Black;
             this.lblAlarmStopsAutoSteer.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblAlarmStopsAutoSteer.Location = new System.Drawing.Point(209, 418);
+            this.lblAlarmStopsAutoSteer.Location = new System.Drawing.Point(209, 475);
             this.lblAlarmStopsAutoSteer.Name = "lblAlarmStopsAutoSteer";
-            this.lblAlarmStopsAutoSteer.Size = new System.Drawing.Size(171, 53);
+            this.lblAlarmStopsAutoSteer.Size = new System.Drawing.Size(228, 27);
             this.lblAlarmStopsAutoSteer.TabIndex = 478;
             this.lblAlarmStopsAutoSteer.Text = "Alarm Stops Autosteer";
             this.lblAlarmStopsAutoSteer.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -4899,9 +4900,9 @@
             this.lblRTKFixAlarm.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.lblRTKFixAlarm.ForeColor = System.Drawing.Color.Black;
             this.lblRTKFixAlarm.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblRTKFixAlarm.Location = new System.Drawing.Point(34, 418);
+            this.lblRTKFixAlarm.Location = new System.Drawing.Point(34, 475);
             this.lblRTKFixAlarm.Name = "lblRTKFixAlarm";
-            this.lblRTKFixAlarm.Size = new System.Drawing.Size(127, 55);
+            this.lblRTKFixAlarm.Size = new System.Drawing.Size(127, 29);
             this.lblRTKFixAlarm.TabIndex = 471;
             this.lblRTKFixAlarm.Text = "RTK Fix Alarm";
             this.lblRTKFixAlarm.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -4909,37 +4910,68 @@
             // gboxDual
             // 
             this.gboxDual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.gboxDual.Controls.Add(this.lblReverseDistance);
+            this.gboxDual.Controls.Add(this.labelAutoSwitchDualFixSpeed);
+            this.gboxDual.Controls.Add(this.nudAutoSwitchDualFixSpeed);
+            this.gboxDual.Controls.Add(this.cboxIsAutoSwitchDualFixOn);
             this.gboxDual.Controls.Add(this.nudDualReverseDistance);
+            this.gboxDual.Controls.Add(this.lblReverseDistance);
             this.gboxDual.Controls.Add(this.pictureBox13);
             this.gboxDual.Controls.Add(this.nudDualHeadingOffset);
             this.gboxDual.Controls.Add(this.lblHeadingOffset);
             this.gboxDual.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gboxDual.Location = new System.Drawing.Point(3, 116);
             this.gboxDual.Name = "gboxDual";
-            this.gboxDual.Size = new System.Drawing.Size(385, 279);
+            this.gboxDual.Size = new System.Drawing.Size(417, 346);
             this.gboxDual.TabIndex = 471;
             this.gboxDual.TabStop = false;
             this.gboxDual.Text = "Dual Antenna Settings";
             // 
-            // lblReverseDistance
+            // labelAutoSwitchDualFixSpeed
             // 
-            this.lblReverseDistance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblReverseDistance.BackColor = System.Drawing.Color.Transparent;
-            this.lblReverseDistance.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.lblReverseDistance.ForeColor = System.Drawing.Color.Black;
-            this.lblReverseDistance.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblReverseDistance.Location = new System.Drawing.Point(173, 155);
-            this.lblReverseDistance.Name = "lblReverseDistance";
-            this.lblReverseDistance.Size = new System.Drawing.Size(186, 60);
-            this.lblReverseDistance.TabIndex = 473;
-            this.lblReverseDistance.Text = "Reverse Distance (m)";
-            this.lblReverseDistance.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.labelAutoSwitchDualFixSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelAutoSwitchDualFixSpeed.BackColor = System.Drawing.Color.Transparent;
+            this.labelAutoSwitchDualFixSpeed.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.labelAutoSwitchDualFixSpeed.ForeColor = System.Drawing.Color.Black;
+            this.labelAutoSwitchDualFixSpeed.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.labelAutoSwitchDualFixSpeed.Location = new System.Drawing.Point(39, 301);
+            this.labelAutoSwitchDualFixSpeed.Name = "labelAutoSwitchDualFixSpeed";
+            this.labelAutoSwitchDualFixSpeed.Size = new System.Drawing.Size(184, 23);
+            this.labelAutoSwitchDualFixSpeed.TabIndex = 501;
+            this.labelAutoSwitchDualFixSpeed.Text = "Switch speed";
+            this.labelAutoSwitchDualFixSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // nudAutoSwitchDualFixSpeed
+            // 
+            this.nudAutoSwitchDualFixSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.nudAutoSwitchDualFixSpeed.Location = new System.Drawing.Point(229, 294);
+            this.nudAutoSwitchDualFixSpeed.Maximum = 8D;
+            this.nudAutoSwitchDualFixSpeed.Minimum = 1D;
+            this.nudAutoSwitchDualFixSpeed.Mode = AOG.UnitMode.Speed;
+            this.nudAutoSwitchDualFixSpeed.Name = "nudAutoSwitchDualFixSpeed";
+            this.nudAutoSwitchDualFixSpeed.Size = new System.Drawing.Size(127, 42);
+            this.nudAutoSwitchDualFixSpeed.TabIndex = 500;
+            // 
+            // cboxIsAutoSwitchDualFixOn
+            // 
+            this.cboxIsAutoSwitchDualFixOn.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cboxIsAutoSwitchDualFixOn.BackColor = System.Drawing.Color.AliceBlue;
+            this.cboxIsAutoSwitchDualFixOn.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
+            this.cboxIsAutoSwitchDualFixOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboxIsAutoSwitchDualFixOn.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxIsAutoSwitchDualFixOn.ForeColor = System.Drawing.Color.Black;
+            this.cboxIsAutoSwitchDualFixOn.Location = new System.Drawing.Point(30, 246);
+            this.cboxIsAutoSwitchDualFixOn.Name = "cboxIsAutoSwitchDualFixOn";
+            this.cboxIsAutoSwitchDualFixOn.Size = new System.Drawing.Size(326, 33);
+            this.cboxIsAutoSwitchDualFixOn.TabIndex = 484;
+            this.cboxIsAutoSwitchDualFixOn.Text = "Auto Dual <-> Fix";
+            this.cboxIsAutoSwitchDualFixOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cboxIsAutoSwitchDualFixOn.UseVisualStyleBackColor = false;
+            this.cboxIsAutoSwitchDualFixOn.CheckedChanged += new System.EventHandler(this.cboxIsAutoSwitchDualFixOn_CheckedChanged);
             // 
             // nudDualReverseDistance
             // 
             this.nudDualReverseDistance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudDualReverseDistance.Location = new System.Drawing.Point(191, 218);
+            this.nudDualReverseDistance.Location = new System.Drawing.Point(212, 164);
             this.nudDualReverseDistance.Maximum = 0.9D;
             this.nudDualReverseDistance.Minimum = 0.1D;
             this.nudDualReverseDistance.Mode = AOG.UnitMode.Small;
@@ -4948,11 +4980,25 @@
             this.nudDualReverseDistance.TabIndex = 472;
             this.nudDualReverseDistance.ValueChanged += new System.EventHandler(this.nudDualReverseDistance_ValueChanged);
             // 
+            // lblReverseDistance
+            // 
+            this.lblReverseDistance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblReverseDistance.BackColor = System.Drawing.Color.Transparent;
+            this.lblReverseDistance.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.lblReverseDistance.ForeColor = System.Drawing.Color.Black;
+            this.lblReverseDistance.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lblReverseDistance.Location = new System.Drawing.Point(35, 157);
+            this.lblReverseDistance.Name = "lblReverseDistance";
+            this.lblReverseDistance.Size = new System.Drawing.Size(186, 60);
+            this.lblReverseDistance.TabIndex = 473;
+            this.lblReverseDistance.Text = "Reverse Distance (m)";
+            this.lblReverseDistance.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
             // pictureBox13
             // 
             this.pictureBox13.BackgroundImage = global::AOG.Properties.Resources.Con_SourcesHead;
             this.pictureBox13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox13.Location = new System.Drawing.Point(19, 52);
+            this.pictureBox13.Location = new System.Drawing.Point(19, 34);
             this.pictureBox13.Name = "pictureBox13";
             this.pictureBox13.Size = new System.Drawing.Size(130, 109);
             this.pictureBox13.TabIndex = 471;
@@ -4962,7 +5008,7 @@
             // 
             this.nudDualHeadingOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudDualHeadingOffset.DecimalPlaces = 1;
-            this.nudDualHeadingOffset.Location = new System.Drawing.Point(191, 90);
+            this.nudDualHeadingOffset.Location = new System.Drawing.Point(212, 82);
             this.nudDualHeadingOffset.Minimum = -100D;
             this.nudDualHeadingOffset.Name = "nudDualHeadingOffset";
             this.nudDualHeadingOffset.Size = new System.Drawing.Size(144, 52);
@@ -4976,9 +5022,9 @@
             this.lblHeadingOffset.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.lblHeadingOffset.ForeColor = System.Drawing.Color.Black;
             this.lblHeadingOffset.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblHeadingOffset.Location = new System.Drawing.Point(173, 28);
+            this.lblHeadingOffset.Location = new System.Drawing.Point(191, 30);
             this.lblHeadingOffset.Name = "lblHeadingOffset";
-            this.lblHeadingOffset.Size = new System.Drawing.Size(186, 60);
+            this.lblHeadingOffset.Size = new System.Drawing.Size(186, 46);
             this.lblHeadingOffset.TabIndex = 469;
             this.lblHeadingOffset.Text = "Heading Offset (Degree)";
             this.lblHeadingOffset.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -5184,7 +5230,7 @@
             this.rbtnHeadingVTG.ForeColor = System.Drawing.Color.Black;
             this.rbtnHeadingVTG.Image = global::AOG.Properties.Resources.Con_SourcesGPSSingle;
             this.rbtnHeadingVTG.Location = new System.Drawing.Point(471, 44);
-            this.rbtnHeadingVTG.Name = "rbtnHeadingGPS";
+            this.rbtnHeadingVTG.Name = "rbtnHeadingVTG";
             this.rbtnHeadingVTG.Size = new System.Drawing.Size(117, 82);
             this.rbtnHeadingVTG.TabIndex = 3;
             this.rbtnHeadingVTG.Text = "VTG";
@@ -5238,7 +5284,7 @@
             this.cboxIsRTK_KillAutoSteer.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsRTK_KillAutoSteer.ForeColor = System.Drawing.Color.Black;
             this.cboxIsRTK_KillAutoSteer.Image = global::AOG.Properties.Resources.AutoSteerOff;
-            this.cboxIsRTK_KillAutoSteer.Location = new System.Drawing.Point(241, 477);
+            this.cboxIsRTK_KillAutoSteer.Location = new System.Drawing.Point(273, 508);
             this.cboxIsRTK_KillAutoSteer.Name = "cboxIsRTK_KillAutoSteer";
             this.cboxIsRTK_KillAutoSteer.Size = new System.Drawing.Size(103, 69);
             this.cboxIsRTK_KillAutoSteer.TabIndex = 477;
@@ -5255,22 +5301,12 @@
             this.cboxIsRTK.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxIsRTK.ForeColor = System.Drawing.Color.Black;
             this.cboxIsRTK.Image = global::AOG.Properties.Resources.Con_SourcesRTKAlarm;
-            this.cboxIsRTK.Location = new System.Drawing.Point(46, 477);
+            this.cboxIsRTK.Location = new System.Drawing.Point(46, 508);
             this.cboxIsRTK.Name = "cboxIsRTK";
             this.cboxIsRTK.Size = new System.Drawing.Size(103, 69);
             this.cboxIsRTK.TabIndex = 309;
             this.cboxIsRTK.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxIsRTK.UseVisualStyleBackColor = false;
-            // 
-            // nudFixJumpDistance
-            // 
-            this.nudFixJumpDistance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudFixJumpDistance.Location = new System.Drawing.Point(965, 279);
-            this.nudFixJumpDistance.Maximum = 1000D;
-            this.nudFixJumpDistance.Name = "nudFixJumpDistance";
-            this.nudFixJumpDistance.Size = new System.Drawing.Size(144, 52);
-            this.nudFixJumpDistance.TabIndex = 474;
-            this.nudFixJumpDistance.ValueChanged += new System.EventHandler(this.nudFixJumpDistance_ValueChanged);
             // 
             // tabDRoll
             // 
@@ -9414,7 +9450,6 @@
         private System.Windows.Forms.CheckBox cboxShutdownWhenNoPower;
         private System.Windows.Forms.CheckBox cboxHardwareMessages;
         private System.Windows.Forms.Label label113;
-        private NudlessNumericUpDown nudFixJumpDistance;
         private System.Windows.Forms.Label label118;
         private System.Windows.Forms.CheckBox cboxIsRTK_KillAutoSteer;
         private System.Windows.Forms.Label lblAlarmStopsAutoSteer;
@@ -9464,5 +9499,8 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblSumLookAheadOff;
         private System.Windows.Forms.RadioButton rbtnHeadingVTG;
+        private System.Windows.Forms.CheckBox cboxIsAutoSwitchDualFixOn;
+        private System.Windows.Forms.Label labelAutoSwitchDualFixSpeed;
+        private NudlessNumericUpDown nudAutoSwitchDualFixSpeed;
     }
 }

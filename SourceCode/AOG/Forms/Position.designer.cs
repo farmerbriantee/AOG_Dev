@@ -38,7 +38,6 @@ namespace AOG
 
         //history
         public vec2 prevFix = new vec2(0, 0);
-        public vec2 prevJumpFix = new vec2(0, 0);
         public vec2 prevDistFix = new vec2(0, 0);
         public vec2 lastReverseFix = new vec2(0, 0);
 
@@ -117,11 +116,6 @@ namespace AOG
                 hsbarSteerAngle.Value = (int)(10 * _steerAngleScrollBar) + 400;
             }
         }
-
-        //public vec2 jumpFix = new vec2(0, 0);
-        //public double jumpDistance = 0, jumpDistanceMax;
-        //public double jumpDistanceAlarm = 20;
-        //public int jumpCounter = 0;
 
         public void UpdateFixPosition()
         {
@@ -345,42 +339,6 @@ namespace AOG
 
             if (fixHeading > glm.twoPI) fixHeading -= glm.twoPI;
             if (fixHeading < 0) fixHeading += glm.twoPI;
-
-            //vec2 ptA = new vec2(jumpFix.easting - (Math.Sin(gpsHeading) * 10), jumpFix.northing - (Math.Cos(gpsHeading) * 10));
-            //vec2 ptB = new vec2(jumpFix.easting + (Math.Sin(gpsHeading) * 10), jumpFix.northing + (Math.Cos(gpsHeading) * 10));
-
-            //double dx = ptB.easting - ptA.easting;
-            ////z2-z1
-            //double dy = ptB.northing - ptA.northing;
-
-            ////how far from current AB Line is fix
-            //jumpDistance = ((dy * pn.fix.easting) - (dx * pn.fix.northing) 
-            //                + (ptB.easting * ptA.northing) - (ptB.northing * ptA.easting))
-            //                / Math.Sqrt((dy * dy) + (dx * dx));
-
-            //jumpDistance = Math.Abs(jumpDistance) * 100;
-
-            //if (jumpDistance > jumpDistanceMax) jumpDistanceMax = jumpDistance;
-
-            //if (jumpCounter++ > 200)
-            //{
-            //    jumpDistanceMax = jumpCounter = 0;
-            //    lblJumpDistanceMax.Text = "*";
-            //}
-
-            //if (jumpDistance > 200) jumpDistance = 0;
-
-            //if (isFirstHeadingSet && jumpDistanceAlarm > 0 && jumpDistance > jumpDistanceAlarm)
-            //{
-            //    Log.EventWriter(": " + jumpDistance.ToString("N0") + " cm");
-
-            //    SetAutoSteerButton(false, "Big Jump in GPS position:" + jumpDistance.ToString("N0") + " cm");
-            //    Log.EventWriter("Autosteer Off, Jump in GPS position: " + jumpDistance.ToString("N0") + " cm");
-
-            //}
-
-            //jumpFix.easting = pn.fix.easting;
-            //jumpFix.northing = pn.fix.northing;
 
             #endregion
 
@@ -665,12 +623,6 @@ namespace AOG
                 nozz.BuildRatePGN();
             }
 
-            //if (isGPSToolActive)
-            //{
-            //    //send to tool steer
-            //    SendPgnToLoopTool(PGN_233.pgn);
-            //}
-
             //stop the timer and calc how long it took to do calcs and draw
             frameTimeRough = (double)(swFrame.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency;
 
@@ -680,7 +632,6 @@ namespace AOG
             //Don't care about time from here on - update main window
             oglMain.Refresh();
 
-            //Albin - get the section control started here already. 
             //end of UppdateFixPosition
         }
 

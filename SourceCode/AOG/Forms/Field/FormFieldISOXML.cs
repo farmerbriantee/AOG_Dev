@@ -540,86 +540,58 @@ namespace AOG
                         }
 
                         //curve ------------------------------------------------------------------
-                        else if (nodePart.ChildNodes[0].Attributes["C"].Value == "3") //curve
+                        else if (nodePart.ChildNodes.Count > 0 &&
+                                 nodePart.ChildNodes[0]?.Attributes?["C"]?.Value == "3" && // Curve
+                                 nodePart.ChildNodes[0].ChildNodes.Count > 0 &&
+                                 nodePart.ChildNodes[0].ChildNodes[0]?.Name == "LSG" &&
+                                 nodePart.ChildNodes[0].ChildNodes[0]?.Attributes?["A"]?.Value == "5")
                         {
-                            if (nodePart.ChildNodes[0].ChildNodes[0].Name == "LSG")
+                            var designName = nodePart.ChildNodes[0].Attributes?["B"]?.Value;
+
+                            if (nodePart.ChildNodes[0].ChildNodes[0].ChildNodes.Count > 0)
                             {
-                                if (nodePart.ChildNodes[0].ChildNodes[0].Attributes["A"].Value == "5") //Guidance Pattern
+                                var designPtsList = new List<vec3>();
+                                foreach (XmlNode pnt in nodePart.ChildNodes[0].ChildNodes[0].ChildNodes)
                                 {
-                                    //get the name
-                                    var designName = nodePart.ChildNodes[0].Attributes["B"].Value;
-
-                                    double.TryParse(nodePart.ChildNodes[0].ChildNodes[0].ChildNodes[0].Attributes["C"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
-                                    double.TryParse(nodePart.ChildNodes[0].ChildNodes[0].ChildNodes[0].Attributes["D"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
-
+                                    double.TryParse(pnt.Attributes?["C"]?.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
+                                    double.TryParse(pnt.Attributes?["D"]?.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
                                     mf.pn.ConvertWGS84ToLocal(latK, lonK, out norting, out easting);
 
-                                    if (nodePart.ChildNodes[0].ChildNodes[0].ChildNodes.Count > 2)
-                                    {
-                                        var designPtsList = new List<vec3>();
-                                        //GGP / GPN / LSG / PNT
-                                        int cnt = nodePart.ChildNodes[0].ChildNodes[0].ChildNodes.Count;
-
-                                        for (int i = 0; i < cnt; i++)
-                                        {
-                                            vec3 pt3;
-                                            //calculate the point inside the boundary
-                                            double.TryParse(nodePart.ChildNodes[0].ChildNodes[0].ChildNodes[i].Attributes["C"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
-                                            double.TryParse(nodePart.ChildNodes[0].ChildNodes[0].ChildNodes[i].Attributes["D"].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
-                                            mf.pn.ConvertWGS84ToLocal(latK, lonK, out norting, out easting);
-
-                                            pt3.easting = easting;
-                                            pt3.northing = norting;
-                                            pt3.heading = 0;
-
-                                            designPtsList.Add(pt3);
-                                        }
-
-                                        cnt = designPtsList.Count;
-                                        if (cnt > 3)
-                                        {
-                                            var track = new CTrk(TrackMode.Curve);
-
-                                            //make sure point distance isn't too big
-                                            mf.trk.MakePointMinimumSpacing(ref designPtsList, 1.6);
-                                            designPtsList.CalculateHeadings(false);
-
-                                            //calculate average heading of line
-                                            double x = 0, y = 0;
-
-                                            foreach (vec3 pt in designPtsList)
-                                            {
-                                                x += Math.Cos(pt.heading);
-                                                y += Math.Sin(pt.heading);
-                                            }
-                                            x /= designPtsList.Count;
-                                            y /= designPtsList.Count;
-                                            track.heading = Math.Atan2(y, x);
-                                            if (track.heading < 0) track.heading += glm.twoPI;
-
-                                            //build the tail extensions
-                                            mf.trk.AddFirstLastPoints(ref designPtsList, 200);
-
-                                            if (string.IsNullOrEmpty(designName))
-                                            {
-                                                //create a name
-                                                track.name = (Math.Round(glm.toDegrees(track.heading), 1)).ToString(CultureInfo.InvariantCulture)
-                                                     + "\u00B0" + DateTime.Now.ToString("hh:mm:ss", CultureInfo.InvariantCulture);
-                                            }
-                                            else
-                                            {
-                                                track.name = designName;
-                                            }
-
-                                            //write out the trk Points
-                                            track.curvePts = designPtsList;
-
-                                            mf.trk.AddTrack(track);
-                                        }
-                                    }
+                                    designPtsList.Add(new vec3(easting, norting, 0));
                                 }
-                            } //LSG
+
+                                if (designPtsList.Count > 3)
+                                {
+                                    var track = new CTrk(TrackMode.Curve);
+
+                                    mf.trk.MakePointMinimumSpacing(ref designPtsList, 1.6);
+                                    designPtsList.CalculateHeadings(false);
+
+                                    // gemiddelde heading
+                                    double x = 0, y = 0;
+                                    foreach (var pt in designPtsList)
+                                    {
+                                        x += Math.Cos(pt.heading);
+                                        y += Math.Sin(pt.heading);
+                                    }
+                                    x /= designPtsList.Count;
+                                    y /= designPtsList.Count;
+                                    track.heading = Math.Atan2(y, x);
+                                    if (track.heading < 0) track.heading += glm.twoPI;
+
+                                    mf.trk.AddFirstLastPoints(ref designPtsList, 200);
+                                    track.name = !string.IsNullOrEmpty(designName)
+                                        ? designName
+                                        : (Math.Round(glm.toDegrees(track.heading), 1)).ToString(CultureInfo.InvariantCulture)
+                                            + "\u00B0"
+                                            + DateTime.Now.ToString("hh:mm:ss", CultureInfo.InvariantCulture);
+
+                                    track.curvePts = designPtsList;
+                                    mf.trk.AddTrack(track);
+                                }
+                            }
                         }
+
                     }//is GGP
                 }
             }

@@ -15,6 +15,12 @@ namespace AOG
         public string Name { get; set; }
         public bool IsPublic { get; set; }
     }
+    public class CoordinateDto
+    {
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+    }
+    
 
     public class CAgShareUploader
     {
@@ -41,7 +47,6 @@ namespace AOG
 
                 // Step 2: Check if field exists in the cloud
                 bool isPublic = false;
-
                 try
                 {
                     string json = await client.DownloadFieldAsync(fieldId);
@@ -53,19 +58,35 @@ namespace AOG
                     // Not found or invalid → isPublic remains false
                 }
 
-                // Step 3: Build payload
+                // Step 3: Fix boundary
+                if (gps.bnd.bndList == null || gps.bnd.bndList.Count == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("Upload gestopt: geen boundary aanwezig.");
+                    return;
+                }
+
+                gps.bnd.bndList[0].FixFenceLine(0);
+                var boundary = GetBoundary();
+
+                if (boundary == null || boundary.Count < 3)
+                {
+                    System.Windows.Forms.MessageBox.Show("Upload gestopt: boundary is leeg of ongeldig.");
+                    return;
+                }
+
+                // Step 4: Build payload
                 var payload = new
                 {
                     name = Path.GetFileName(fieldDirectory),
                     isPublic = isPublic,
                     origin = GetOrigin(),
-                    boundary = GetBoundary(),
+                    boundary = boundary,
                     abLines = GetAbLines(),
                     convergence = GetConvergence(),
                     sourceId = (string)null
                 };
 
-                // Step 4: Upload
+                // Step 5: Upload
                 var (ok, message) = await client.UploadFieldAsync(fieldId, payload);
                 if (!ok)
                 {
@@ -73,16 +94,18 @@ namespace AOG
                     return;
                 }
 
-                // Step 5: Write agshare.txt
+                // Step 6: Save agshare.txt
                 File.WriteAllText(idPath, fieldId.ToString());
 
-                System.Windows.Forms.MessageBox.Show("Upload complete!");
+                System.Windows.Forms.MessageBox.Show("Upload voltooid!");
             }
             catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show("Upload error: " + ex.Message);
             }
         }
+
+
 
         private object GetOrigin()
         {
@@ -114,18 +137,28 @@ namespace AOG
             }
         }
 
-        private List<object> GetBoundary()
+        private List<CoordinateDto> GetBoundary()
         {
-            var result = new List<object>();
-            foreach (var b in gps.bnd.bndList)
+            var coords = new List<CoordinateDto>();
+
+            foreach (var pt in gps.bnd.bndList[0].fenceLine)
             {
-                foreach (var pt in b.fenceLine)
+                gps.pn.ConvertLocalToWGS84(pt.northing, pt.easting, out double lat, out double lon);
+                coords.Add(new CoordinateDto { Latitude = lat, Longitude = lon });
+            }
+
+            // Sluit de ring als nodig
+            if (coords.Count > 1)
+            {
+                var first = coords[0];
+                var last = coords[coords.Count - 1];
+                if (first.Latitude != last.Latitude || first.Longitude != last.Longitude)
                 {
-                    gps.pn.ConvertLocalToWGS84(pt.northing, pt.easting, out double lat, out double lon);
-                    result.Add(new { latitude = lat, longitude = lon });
+                    coords.Add(new CoordinateDto { Latitude = first.Latitude, Longitude = first.Longitude });
                 }
             }
-            return result;
+
+            return coords;
         }
 
         private List<object> GetAbLines()

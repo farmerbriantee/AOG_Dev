@@ -78,10 +78,15 @@ namespace AOG
         {
             try
             {
-                var json = JsonConvert.SerializeObject(fieldPayload);
+                var json = JsonConvert.SerializeObject(fieldPayload, Formatting.Indented);
+
+
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 var response = await client.PutAsync($"{baseUrl}/api/fields/{fieldId}", content);
+                var error = await response.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine("Response body:");
+                System.Diagnostics.Debug.WriteLine(error);
 
                 if (response.IsSuccessStatusCode)
                     return (true, "Upload successful");

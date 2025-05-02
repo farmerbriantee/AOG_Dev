@@ -1,4 +1,4 @@
-﻿using AOG.Classes;
+using AOG.Classes;
 using AOG.Properties;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -652,7 +652,7 @@ namespace AOG
             }
         }
 
-        public void FileSaveEverythingBeforeClosingField()
+        public async void FileSaveEverythingBeforeClosingField()
         {
             FieldMenuButtonEnableDisable(false);
             displayFieldName = gStr.Get(gs.gsNone);
@@ -663,16 +663,13 @@ namespace AOG
             string path = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
             var uploader = new CAgShareUploader(agShareClient, path, this);
 
-            Task.Run(async () =>
-            {
-                await uploader.UploadAsync();
-            });
-
+            await uploader.UploadAsync(); // Upload to Agshare Async without blocking
             JobClose();
             FieldClose();
 
             this.Text = "AOG";
         }
+
 
         public void FieldNew()
         {

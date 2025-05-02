@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace AOG
 {
@@ -201,6 +202,8 @@ namespace AOG
         /// Nozzle class
         /// </summary>
         public CNozzle nozz;
+
+        private AgShareClient agShareClient;
 
         #endregion // Class Props and instances
 
@@ -479,6 +482,10 @@ namespace AOG
                     form.ShowDialog(this);
                 }
             }
+
+            //Init AgShareClient
+            agShareClient = new AgShareClient(Settings.User.AgShareServer, Settings.User.AgShareApiKey);
+
         }
 
         private void FormGPS_FormClosing(object sender, FormClosingEventArgs e)
@@ -652,6 +659,15 @@ namespace AOG
 
             ExportFieldAs_ISOXMLv3();
             ExportFieldAs_ISOXMLv4();
+
+            string path = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            var uploader = new CAgShareUploader(agShareClient, path, this);
+
+            Task.Run(async () =>
+            {
+                await uploader.UploadAsync();
+            });
+
             JobClose();
             FieldClose();
 
@@ -840,6 +856,7 @@ namespace AOG
                 GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, 9729);
             }
         }
+
 
         // Return True if a certain percent of a rectangle is shown across the total screen area of all monitors, otherwise return False.
         public bool IsOnScreen(System.Drawing.Point RecLocation, System.Drawing.Size RecSize, double MinPercentOnScreen = 0.8)

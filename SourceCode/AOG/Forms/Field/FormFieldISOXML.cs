@@ -203,11 +203,19 @@ namespace AOG
 
         private void btnBuildFields_Click(object sender, EventArgs e)
         {
+            // Validate selected index
+            if (idxFieldSelected < 0 || idxFieldSelected >= pfd.Count || pfd[idxFieldSelected] == null)
+            {
+                MessageBox.Show("No valid field selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Get the current field name and build the output directory path
             mf.currentFieldDirectory = tboxFieldName.Text.Trim();
             string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
 
-            //create new field files.
-            if ((!string.IsNullOrEmpty(directoryName)) && (Directory.Exists(directoryName)))
+            // Check if the directory already exists
+            if (!string.IsNullOrEmpty(directoryName) && Directory.Exists(directoryName))
             {
                 MessageBox.Show(gStr.Get(gs.gsChooseADifferentName), gStr.Get(gs.gsDirectoryExists), MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 mf.currentFieldDirectory = "";

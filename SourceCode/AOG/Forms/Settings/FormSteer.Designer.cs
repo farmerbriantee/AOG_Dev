@@ -134,8 +134,6 @@
             this.label47 = new System.Windows.Forms.Label();
             this.label54 = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
-            this.nudDeadZoneDelay = new AOG.NudlessNumericUpDown();
-            this.nudDeadZoneHeading = new AOG.NudlessNumericUpDown();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.lblIntegral_Tool = new System.Windows.Forms.Label();
             this.hsbarIntegral_Tool = new System.Windows.Forms.HScrollBar();
@@ -160,13 +158,10 @@
             this.label55 = new System.Windows.Forms.Label();
             this.lblInvertWAS = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnExpand = new AOG.RepeatButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnStartSA = new System.Windows.Forms.Button();
             this.btnFreeDriveZero = new System.Windows.Forms.Button();
-            this.btnSteerAngleUp = new AOG.RepeatButton();
             this.btnFreeDrive = new System.Windows.Forms.Button();
-            this.btnSteerAngleDown = new AOG.RepeatButton();
             this.hsbarSensor = new System.Windows.Forms.HScrollBar();
             this.lblhsbarSensor = new System.Windows.Forms.Label();
             this.lblResetToDefaults = new System.Windows.Forms.Label();
@@ -175,7 +170,6 @@
             this.label34 = new System.Windows.Forms.Label();
             this.tabSteerSettings = new System.Windows.Forms.TabControl();
             this.tabSensors = new System.Windows.Forms.TabPage();
-            this.nudMaxCounts = new AOG.NudlessNumericUpDown();
             this.cboxCurrentSensor = new System.Windows.Forms.CheckBox();
             this.cboxEncoder = new System.Windows.Forms.CheckBox();
             this.cboxPressureSensor = new System.Windows.Forms.CheckBox();
@@ -203,9 +197,6 @@
             this.pictureBox17 = new System.Windows.Forms.PictureBox();
             this.pictureBox16 = new System.Windows.Forms.PictureBox();
             this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.nudMinSteerSpeed = new AOG.NudlessNumericUpDown();
-            this.nudMaxSteerSpeed = new AOG.NudlessNumericUpDown();
-            this.nudGuidanceSpeedLimit = new AOG.NudlessNumericUpDown();
             this.tabOnTheLine = new System.Windows.Forms.TabPage();
             this.lblLineWidth = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
@@ -226,11 +217,10 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.nudcmPerPixel = new AOG.NudlessNumericUpDown();
-            this.nudLineWidth = new AOG.NudlessNumericUpDown();
-            this.nudSnapDistance = new AOG.NudlessNumericUpDown();
-            this.nudGuidanceLookAhead = new AOG.NudlessNumericUpDown();
             this.tabTool = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.cboxIsSteerNotSlide_Tool = new System.Windows.Forms.CheckBox();
             this.label96 = new System.Windows.Forms.Label();
@@ -269,11 +259,21 @@
             this.button2 = new System.Windows.Forms.Button();
             this.pboxSendSteer = new System.Windows.Forms.PictureBox();
             this.btnSendSteerConfigPGN = new System.Windows.Forms.Button();
-            this.nudAntennaHeight_Tool = new AOG.NudlessNumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.nudMaxCounts = new AOG.NudlessNumericUpDown();
+            this.nudMinSteerSpeed = new AOG.NudlessNumericUpDown();
+            this.nudMaxSteerSpeed = new AOG.NudlessNumericUpDown();
+            this.nudGuidanceSpeedLimit = new AOG.NudlessNumericUpDown();
+            this.nudcmPerPixel = new AOG.NudlessNumericUpDown();
+            this.nudLineWidth = new AOG.NudlessNumericUpDown();
+            this.nudSnapDistance = new AOG.NudlessNumericUpDown();
+            this.nudGuidanceLookAhead = new AOG.NudlessNumericUpDown();
             this.nudAntennaOffset_Tool = new AOG.NudlessNumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
+            this.nudAntennaHeight_Tool = new AOG.NudlessNumericUpDown();
+            this.btnExpand = new AOG.RepeatButton();
+            this.btnSteerAngleUp = new AOG.RepeatButton();
+            this.btnSteerAngleDown = new AOG.RepeatButton();
+            this.nudDeadZoneDelay = new AOG.NudlessNumericUpDown();
+            this.nudDeadZoneHeading = new AOG.NudlessNumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabPP.SuspendLayout();
             this.tabStan.SuspendLayout();
@@ -1655,27 +1655,6 @@
             this.label49.Text = "Heading (Degree)";
             this.label49.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
-            // nudDeadZoneDelay
-            // 
-            this.nudDeadZoneDelay.Location = new System.Drawing.Point(224, 37);
-            this.nudDeadZoneDelay.Maximum = 10D;
-            this.nudDeadZoneDelay.Minimum = 1D;
-            this.nudDeadZoneDelay.Name = "nudDeadZoneDelay";
-            this.nudDeadZoneDelay.Size = new System.Drawing.Size(107, 36);
-            this.nudDeadZoneDelay.TabIndex = 542;
-            this.nudDeadZoneDelay.ValueChanged += new System.EventHandler(this.nudDeadZoneDelay_ValueChanged);
-            // 
-            // nudDeadZoneHeading
-            // 
-            this.nudDeadZoneHeading.DecimalPlaces = 1;
-            this.nudDeadZoneHeading.Location = new System.Drawing.Point(56, 38);
-            this.nudDeadZoneHeading.Maximum = 5D;
-            this.nudDeadZoneHeading.Minimum = 0.1D;
-            this.nudDeadZoneHeading.Name = "nudDeadZoneHeading";
-            this.nudDeadZoneHeading.Size = new System.Drawing.Size(107, 36);
-            this.nudDeadZoneHeading.TabIndex = 538;
-            this.nudDeadZoneHeading.ValueChanged += new System.EventHandler(this.nudDeadZoneHeading_ValueChanged);
-            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
@@ -1975,23 +1954,6 @@
             this.panel2.Size = new System.Drawing.Size(365, 43);
             this.panel2.TabIndex = 324;
             // 
-            // btnExpand
-            // 
-            this.btnExpand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnExpand.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnExpand.FlatAppearance.BorderColor = System.Drawing.SystemColors.AppWorkspace;
-            this.btnExpand.FlatAppearance.BorderSize = 0;
-            this.btnExpand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExpand.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExpand.Image = global::AOG.Properties.Resources.ArrowRight;
-            this.btnExpand.Location = new System.Drawing.Point(299, 3);
-            this.btnExpand.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.btnExpand.Name = "btnExpand";
-            this.btnExpand.Size = new System.Drawing.Size(62, 37);
-            this.btnExpand.TabIndex = 329;
-            this.btnExpand.UseVisualStyleBackColor = true;
-            this.btnExpand.Click += new System.EventHandler(this.expandWindow_Click);
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
@@ -2042,23 +2004,6 @@
             this.btnFreeDriveZero.UseVisualStyleBackColor = false;
             this.btnFreeDriveZero.Click += new System.EventHandler(this.btnFreeDriveZero_Click);
             // 
-            // btnSteerAngleUp
-            // 
-            this.btnSteerAngleUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSteerAngleUp.BackColor = System.Drawing.Color.White;
-            this.btnSteerAngleUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSteerAngleUp.FlatAppearance.BorderColor = System.Drawing.SystemColors.AppWorkspace;
-            this.btnSteerAngleUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSteerAngleUp.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSteerAngleUp.Image = global::AOG.Properties.Resources.ArrowRight;
-            this.btnSteerAngleUp.Location = new System.Drawing.Point(186, 17);
-            this.btnSteerAngleUp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.btnSteerAngleUp.Name = "btnSteerAngleUp";
-            this.btnSteerAngleUp.Size = new System.Drawing.Size(73, 56);
-            this.btnSteerAngleUp.TabIndex = 315;
-            this.btnSteerAngleUp.UseVisualStyleBackColor = false;
-            this.btnSteerAngleUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSteerAngleUPGN_MouseDown);
-            // 
             // btnFreeDrive
             // 
             this.btnFreeDrive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -2074,23 +2019,6 @@
             this.btnFreeDrive.TabIndex = 228;
             this.btnFreeDrive.UseVisualStyleBackColor = false;
             this.btnFreeDrive.Click += new System.EventHandler(this.btnFreeDrive_Click);
-            // 
-            // btnSteerAngleDown
-            // 
-            this.btnSteerAngleDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSteerAngleDown.BackColor = System.Drawing.Color.White;
-            this.btnSteerAngleDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSteerAngleDown.FlatAppearance.BorderColor = System.Drawing.SystemColors.AppWorkspace;
-            this.btnSteerAngleDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSteerAngleDown.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSteerAngleDown.Image = global::AOG.Properties.Resources.ArrowLeft;
-            this.btnSteerAngleDown.Location = new System.Drawing.Point(95, 17);
-            this.btnSteerAngleDown.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.btnSteerAngleDown.Name = "btnSteerAngleDown";
-            this.btnSteerAngleDown.Size = new System.Drawing.Size(73, 56);
-            this.btnSteerAngleDown.TabIndex = 314;
-            this.btnSteerAngleDown.UseVisualStyleBackColor = false;
-            this.btnSteerAngleDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSteerAngleDown_MouseDown);
             // 
             // hsbarSensor
             // 
@@ -2212,15 +2140,6 @@
             this.tabSensors.Padding = new System.Windows.Forms.Padding(3);
             this.tabSensors.Size = new System.Drawing.Size(596, 463);
             this.tabSensors.TabIndex = 0;
-            // 
-            // nudMaxCounts
-            // 
-            this.nudMaxCounts.Location = new System.Drawing.Point(61, 207);
-            this.nudMaxCounts.Maximum = 255D;
-            this.nudMaxCounts.Name = "nudMaxCounts";
-            this.nudMaxCounts.Size = new System.Drawing.Size(107, 52);
-            this.nudMaxCounts.TabIndex = 493;
-            this.nudMaxCounts.ValueChanged += new System.EventHandler(this.nudMaxCounts_ValueChanged);
             // 
             // cboxCurrentSensor
             // 
@@ -2649,37 +2568,6 @@
             this.pictureBox10.TabIndex = 493;
             this.pictureBox10.TabStop = false;
             // 
-            // nudMinSteerSpeed
-            // 
-            this.nudMinSteerSpeed.DecimalPlaces = 1;
-            this.nudMinSteerSpeed.Location = new System.Drawing.Point(112, 354);
-            this.nudMinSteerSpeed.Maximum = 10D;
-            this.nudMinSteerSpeed.Mode = AOG.UnitMode.Speed;
-            this.nudMinSteerSpeed.Name = "nudMinSteerSpeed";
-            this.nudMinSteerSpeed.Size = new System.Drawing.Size(110, 52);
-            this.nudMinSteerSpeed.TabIndex = 505;
-            this.nudMinSteerSpeed.ValueChanged += new System.EventHandler(this.nudMinSteerSpeed_ValueChanged);
-            // 
-            // nudMaxSteerSpeed
-            // 
-            this.nudMaxSteerSpeed.Location = new System.Drawing.Point(302, 354);
-            this.nudMaxSteerSpeed.Maximum = 50D;
-            this.nudMaxSteerSpeed.Mode = AOG.UnitMode.Speed;
-            this.nudMaxSteerSpeed.Name = "nudMaxSteerSpeed";
-            this.nudMaxSteerSpeed.Size = new System.Drawing.Size(110, 52);
-            this.nudMaxSteerSpeed.TabIndex = 501;
-            this.nudMaxSteerSpeed.ValueChanged += new System.EventHandler(this.nudMaxSteerSpeed_ValueChanged);
-            // 
-            // nudGuidanceSpeedLimit
-            // 
-            this.nudGuidanceSpeedLimit.Location = new System.Drawing.Point(207, 140);
-            this.nudGuidanceSpeedLimit.Maximum = 20D;
-            this.nudGuidanceSpeedLimit.Mode = AOG.UnitMode.Speed;
-            this.nudGuidanceSpeedLimit.Name = "nudGuidanceSpeedLimit";
-            this.nudGuidanceSpeedLimit.Size = new System.Drawing.Size(110, 52);
-            this.nudGuidanceSpeedLimit.TabIndex = 492;
-            this.nudGuidanceSpeedLimit.ValueChanged += new System.EventHandler(this.nudGuidanceSpeedLimit_ValueChanged);
-            // 
             // tabOnTheLine
             // 
             this.tabOnTheLine.BackColor = System.Drawing.Color.Gainsboro;
@@ -2969,46 +2857,6 @@
             this.pictureBox5.TabIndex = 521;
             this.pictureBox5.TabStop = false;
             // 
-            // nudcmPerPixel
-            // 
-            this.nudcmPerPixel.Location = new System.Drawing.Point(475, 193);
-            this.nudcmPerPixel.Minimum = 1D;
-            this.nudcmPerPixel.Name = "nudcmPerPixel";
-            this.nudcmPerPixel.Size = new System.Drawing.Size(78, 46);
-            this.nudcmPerPixel.TabIndex = 524;
-            this.nudcmPerPixel.ValueChanged += new System.EventHandler(this.nudcmPerPixel_ValueChanged);
-            // 
-            // nudLineWidth
-            // 
-            this.nudLineWidth.Location = new System.Drawing.Point(191, 47);
-            this.nudLineWidth.Maximum = 8D;
-            this.nudLineWidth.Minimum = 1D;
-            this.nudLineWidth.Name = "nudLineWidth";
-            this.nudLineWidth.Size = new System.Drawing.Size(78, 46);
-            this.nudLineWidth.TabIndex = 520;
-            this.nudLineWidth.ValueChanged += new System.EventHandler(this.nudLineWidth_ValueChanged);
-            // 
-            // nudSnapDistance
-            // 
-            this.nudSnapDistance.Location = new System.Drawing.Point(475, 47);
-            this.nudSnapDistance.Maximum = 10D;
-            this.nudSnapDistance.Mode = AOG.UnitMode.Small;
-            this.nudSnapDistance.Name = "nudSnapDistance";
-            this.nudSnapDistance.Size = new System.Drawing.Size(78, 46);
-            this.nudSnapDistance.TabIndex = 516;
-            this.nudSnapDistance.ValueChanged += new System.EventHandler(this.nudSnapDistance_ValueChanged);
-            // 
-            // nudGuidanceLookAhead
-            // 
-            this.nudGuidanceLookAhead.DecimalPlaces = 1;
-            this.nudGuidanceLookAhead.Location = new System.Drawing.Point(180, 196);
-            this.nudGuidanceLookAhead.Maximum = 10D;
-            this.nudGuidanceLookAhead.Minimum = 0.1D;
-            this.nudGuidanceLookAhead.Name = "nudGuidanceLookAhead";
-            this.nudGuidanceLookAhead.Size = new System.Drawing.Size(100, 46);
-            this.nudGuidanceLookAhead.TabIndex = 512;
-            this.nudGuidanceLookAhead.ValueChanged += new System.EventHandler(this.nudGuidanceLookAhead_ValueChanged);
-            // 
             // tabTool
             // 
             this.tabTool.BackColor = System.Drawing.Color.LightBlue;
@@ -3059,6 +2907,42 @@
             this.tabTool.TabIndex = 5;
             this.tabTool.Enter += new System.EventHandler(this.tabTool_Enter);
             this.tabTool.Leave += new System.EventHandler(this.tabTool_Leave);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(32, 67);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 38);
+            this.label4.TabIndex = 584;
+            this.label4.Text = "Tool Steer \r\nOn/Off";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(297, 65);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(115, 19);
+            this.label3.TabIndex = 583;
+            this.label3.Text = "Antenna Offset";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(163, 65);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(119, 19);
+            this.label2.TabIndex = 581;
+            this.label2.Text = "Antenna Height";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label74
             // 
@@ -3559,60 +3443,176 @@
             this.btnSendSteerConfigPGN.UseVisualStyleBackColor = false;
             this.btnSendSteerConfigPGN.Click += new System.EventHandler(this.btnSendSteerConfigPGN_Click);
             // 
-            // nudAntennaHeight_Tool
+            // nudMaxCounts
             // 
-            this.nudAntennaHeight_Tool.Location = new System.Drawing.Point(162, 17);
-            this.nudAntennaHeight_Tool.Maximum = 4D;
-            this.nudAntennaHeight_Tool.Mode = AOG.UnitMode.Small;
-            this.nudAntennaHeight_Tool.Name = "nudAntennaHeight_Tool";
-            this.nudAntennaHeight_Tool.Size = new System.Drawing.Size(120, 47);
-            this.nudAntennaHeight_Tool.TabIndex = 580;
+            this.nudMaxCounts.Location = new System.Drawing.Point(61, 207);
+            this.nudMaxCounts.Maximum = 255D;
+            this.nudMaxCounts.Name = "nudMaxCounts";
+            this.nudMaxCounts.Size = new System.Drawing.Size(107, 52);
+            this.nudMaxCounts.TabIndex = 493;
+            this.nudMaxCounts.ValueChanged += new System.EventHandler(this.nudMaxCounts_ValueChanged);
             // 
-            // label2
+            // nudMinSteerSpeed
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(163, 65);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(119, 19);
-            this.label2.TabIndex = 581;
-            this.label2.Text = "Antenna Height";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.nudMinSteerSpeed.DecimalPlaces = 1;
+            this.nudMinSteerSpeed.Location = new System.Drawing.Point(112, 354);
+            this.nudMinSteerSpeed.Maximum = 10D;
+            this.nudMinSteerSpeed.Mode = AOG.UnitMode.Speed;
+            this.nudMinSteerSpeed.Name = "nudMinSteerSpeed";
+            this.nudMinSteerSpeed.Size = new System.Drawing.Size(110, 52);
+            this.nudMinSteerSpeed.TabIndex = 505;
+            this.nudMinSteerSpeed.ValueChanged += new System.EventHandler(this.nudMinSteerSpeed_ValueChanged);
             // 
-            // label3
+            // nudMaxSteerSpeed
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(297, 65);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(115, 19);
-            this.label3.TabIndex = 583;
-            this.label3.Text = "Antenna Offset";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.nudMaxSteerSpeed.Location = new System.Drawing.Point(302, 354);
+            this.nudMaxSteerSpeed.Maximum = 50D;
+            this.nudMaxSteerSpeed.Mode = AOG.UnitMode.Speed;
+            this.nudMaxSteerSpeed.Name = "nudMaxSteerSpeed";
+            this.nudMaxSteerSpeed.Size = new System.Drawing.Size(110, 52);
+            this.nudMaxSteerSpeed.TabIndex = 501;
+            this.nudMaxSteerSpeed.ValueChanged += new System.EventHandler(this.nudMaxSteerSpeed_ValueChanged);
+            // 
+            // nudGuidanceSpeedLimit
+            // 
+            this.nudGuidanceSpeedLimit.Location = new System.Drawing.Point(207, 140);
+            this.nudGuidanceSpeedLimit.Maximum = 20D;
+            this.nudGuidanceSpeedLimit.Mode = AOG.UnitMode.Speed;
+            this.nudGuidanceSpeedLimit.Name = "nudGuidanceSpeedLimit";
+            this.nudGuidanceSpeedLimit.Size = new System.Drawing.Size(110, 52);
+            this.nudGuidanceSpeedLimit.TabIndex = 492;
+            this.nudGuidanceSpeedLimit.ValueChanged += new System.EventHandler(this.nudGuidanceSpeedLimit_ValueChanged);
+            // 
+            // nudcmPerPixel
+            // 
+            this.nudcmPerPixel.Location = new System.Drawing.Point(475, 193);
+            this.nudcmPerPixel.Minimum = 1D;
+            this.nudcmPerPixel.Name = "nudcmPerPixel";
+            this.nudcmPerPixel.Size = new System.Drawing.Size(78, 46);
+            this.nudcmPerPixel.TabIndex = 524;
+            this.nudcmPerPixel.ValueChanged += new System.EventHandler(this.nudcmPerPixel_ValueChanged);
+            // 
+            // nudLineWidth
+            // 
+            this.nudLineWidth.Location = new System.Drawing.Point(191, 47);
+            this.nudLineWidth.Maximum = 8D;
+            this.nudLineWidth.Minimum = 1D;
+            this.nudLineWidth.Name = "nudLineWidth";
+            this.nudLineWidth.Size = new System.Drawing.Size(78, 46);
+            this.nudLineWidth.TabIndex = 520;
+            this.nudLineWidth.ValueChanged += new System.EventHandler(this.nudLineWidth_ValueChanged);
+            // 
+            // nudSnapDistance
+            // 
+            this.nudSnapDistance.Location = new System.Drawing.Point(475, 47);
+            this.nudSnapDistance.Maximum = 10D;
+            this.nudSnapDistance.Mode = AOG.UnitMode.Small;
+            this.nudSnapDistance.Name = "nudSnapDistance";
+            this.nudSnapDistance.Size = new System.Drawing.Size(78, 46);
+            this.nudSnapDistance.TabIndex = 516;
+            this.nudSnapDistance.ValueChanged += new System.EventHandler(this.nudSnapDistance_ValueChanged);
+            // 
+            // nudGuidanceLookAhead
+            // 
+            this.nudGuidanceLookAhead.DecimalPlaces = 1;
+            this.nudGuidanceLookAhead.Location = new System.Drawing.Point(180, 196);
+            this.nudGuidanceLookAhead.Maximum = 10D;
+            this.nudGuidanceLookAhead.Minimum = 0.1D;
+            this.nudGuidanceLookAhead.Name = "nudGuidanceLookAhead";
+            this.nudGuidanceLookAhead.Size = new System.Drawing.Size(100, 46);
+            this.nudGuidanceLookAhead.TabIndex = 512;
+            this.nudGuidanceLookAhead.ValueChanged += new System.EventHandler(this.nudGuidanceLookAhead_ValueChanged);
             // 
             // nudAntennaOffset_Tool
             // 
             this.nudAntennaOffset_Tool.Location = new System.Drawing.Point(294, 17);
-            this.nudAntennaOffset_Tool.Maximum = 0.5D;
-            this.nudAntennaOffset_Tool.Minimum = -0.5D;
+            this.nudAntennaOffset_Tool.Maximum = 2D;
+            this.nudAntennaOffset_Tool.Minimum = -2D;
             this.nudAntennaOffset_Tool.Mode = AOG.UnitMode.Small;
             this.nudAntennaOffset_Tool.Name = "nudAntennaOffset_Tool";
             this.nudAntennaOffset_Tool.Size = new System.Drawing.Size(120, 47);
             this.nudAntennaOffset_Tool.TabIndex = 582;
             // 
-            // label4
+            // nudAntennaHeight_Tool
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(32, 67);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(87, 38);
-            this.label4.TabIndex = 584;
-            this.label4.Text = "Tool Steer \r\nOn/Off";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.nudAntennaHeight_Tool.Location = new System.Drawing.Point(162, 17);
+            this.nudAntennaHeight_Tool.Maximum = 5D;
+            this.nudAntennaHeight_Tool.Mode = AOG.UnitMode.Small;
+            this.nudAntennaHeight_Tool.Name = "nudAntennaHeight_Tool";
+            this.nudAntennaHeight_Tool.Size = new System.Drawing.Size(120, 47);
+            this.nudAntennaHeight_Tool.TabIndex = 580;
+            // 
+            // btnExpand
+            // 
+            this.btnExpand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnExpand.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnExpand.FlatAppearance.BorderColor = System.Drawing.SystemColors.AppWorkspace;
+            this.btnExpand.FlatAppearance.BorderSize = 0;
+            this.btnExpand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExpand.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExpand.Image = global::AOG.Properties.Resources.ArrowRight;
+            this.btnExpand.Location = new System.Drawing.Point(299, 3);
+            this.btnExpand.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnExpand.Name = "btnExpand";
+            this.btnExpand.Size = new System.Drawing.Size(62, 37);
+            this.btnExpand.TabIndex = 329;
+            this.btnExpand.UseVisualStyleBackColor = true;
+            this.btnExpand.Click += new System.EventHandler(this.expandWindow_Click);
+            // 
+            // btnSteerAngleUp
+            // 
+            this.btnSteerAngleUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSteerAngleUp.BackColor = System.Drawing.Color.White;
+            this.btnSteerAngleUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnSteerAngleUp.FlatAppearance.BorderColor = System.Drawing.SystemColors.AppWorkspace;
+            this.btnSteerAngleUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSteerAngleUp.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSteerAngleUp.Image = global::AOG.Properties.Resources.ArrowRight;
+            this.btnSteerAngleUp.Location = new System.Drawing.Point(186, 17);
+            this.btnSteerAngleUp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnSteerAngleUp.Name = "btnSteerAngleUp";
+            this.btnSteerAngleUp.Size = new System.Drawing.Size(73, 56);
+            this.btnSteerAngleUp.TabIndex = 315;
+            this.btnSteerAngleUp.UseVisualStyleBackColor = false;
+            this.btnSteerAngleUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSteerAngleUPGN_MouseDown);
+            // 
+            // btnSteerAngleDown
+            // 
+            this.btnSteerAngleDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSteerAngleDown.BackColor = System.Drawing.Color.White;
+            this.btnSteerAngleDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnSteerAngleDown.FlatAppearance.BorderColor = System.Drawing.SystemColors.AppWorkspace;
+            this.btnSteerAngleDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSteerAngleDown.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSteerAngleDown.Image = global::AOG.Properties.Resources.ArrowLeft;
+            this.btnSteerAngleDown.Location = new System.Drawing.Point(95, 17);
+            this.btnSteerAngleDown.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnSteerAngleDown.Name = "btnSteerAngleDown";
+            this.btnSteerAngleDown.Size = new System.Drawing.Size(73, 56);
+            this.btnSteerAngleDown.TabIndex = 314;
+            this.btnSteerAngleDown.UseVisualStyleBackColor = false;
+            this.btnSteerAngleDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSteerAngleDown_MouseDown);
+            // 
+            // nudDeadZoneDelay
+            // 
+            this.nudDeadZoneDelay.Location = new System.Drawing.Point(224, 37);
+            this.nudDeadZoneDelay.Maximum = 10D;
+            this.nudDeadZoneDelay.Minimum = 1D;
+            this.nudDeadZoneDelay.Name = "nudDeadZoneDelay";
+            this.nudDeadZoneDelay.Size = new System.Drawing.Size(107, 36);
+            this.nudDeadZoneDelay.TabIndex = 542;
+            this.nudDeadZoneDelay.ValueChanged += new System.EventHandler(this.nudDeadZoneDelay_ValueChanged);
+            // 
+            // nudDeadZoneHeading
+            // 
+            this.nudDeadZoneHeading.DecimalPlaces = 1;
+            this.nudDeadZoneHeading.Location = new System.Drawing.Point(56, 38);
+            this.nudDeadZoneHeading.Maximum = 5D;
+            this.nudDeadZoneHeading.Minimum = 0.1D;
+            this.nudDeadZoneHeading.Name = "nudDeadZoneHeading";
+            this.nudDeadZoneHeading.Size = new System.Drawing.Size(107, 36);
+            this.nudDeadZoneHeading.TabIndex = 538;
+            this.nudDeadZoneHeading.ValueChanged += new System.EventHandler(this.nudDeadZoneHeading_ValueChanged);
             // 
             // FormSteer
             // 

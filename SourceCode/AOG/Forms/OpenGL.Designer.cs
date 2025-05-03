@@ -485,31 +485,31 @@ namespace AOG
                     }
 
                     //Draw gps points and corrected
-                    GL.LineWidth(4);
-                    GL.Begin(PrimitiveType.LineStrip);
-                    GL.Color3(1.0, 0.6, 0.3);
+                    //GL.LineWidth(4);
+                    //GL.Begin(PrimitiveType.LineStrip);
+                    //GL.Color3(1.0, 0.6, 0.3);
 
-                    for (int i = 0; i < gpsPts.Count; i++)
-                    {
-                        GL.Vertex3(gpsPts[i].easting, gpsPts[i].northing, 0.0);
-                    }
-                    GL.End();
+                    //for (int i = 0; i < gpsPts.Count; i++)
+                    //{
+                    //    GL.Vertex3(gpsPts[i].easting, gpsPts[i].northing, 0.0);
+                    //}
+                    //GL.End();
 
-                    if (gpsPts.Count > 100)
-                        gpsPts.RemoveRange(0, 20);
+                    //if (gpsPts.Count > 100)
+                    //    gpsPts.RemoveRange(0, 20);
 
-                    GL.LineWidth(4);
-                    GL.Begin(PrimitiveType.LineStrip);
-                    GL.Color3(0.30, 1.0, 0.0);
+                    //GL.LineWidth(4);
+                    //GL.Begin(PrimitiveType.LineStrip);
+                    //GL.Color3(0.30, 1.0, 0.0);
 
-                    for (int i = 0; i < gpsPtsCorr.Count; i++)
-                    {
-                        GL.Vertex3(gpsPtsCorr[i].easting, gpsPtsCorr[i].northing, 0.0);
-                    }
-                    GL.End();
+                    //for (int i = 0; i < gpsPtsCorr.Count; i++)
+                    //{
+                    //    GL.Vertex3(gpsPtsCorr[i].easting, gpsPtsCorr[i].northing, 0.0);
+                    //}
+                    //GL.End();
 
-                    if (gpsPtsCorr.Count > 100)
-                        gpsPtsCorr.RemoveRange(0, 20);
+                    //if (gpsPtsCorr.Count > 100)
+                    //    gpsPtsCorr.RemoveRange(0, 20);
 
                     #endregion
 

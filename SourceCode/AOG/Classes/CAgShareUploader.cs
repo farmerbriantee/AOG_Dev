@@ -61,7 +61,7 @@ namespace AOG
                 // Step 3: Fix boundary
                 if (gps.bnd.bndList == null || gps.bnd.bndList.Count == 0)
                 {
-                    System.Windows.Forms.MessageBox.Show("Upload gestopt: geen boundary aanwezig.");
+                    gps.TimedMessageBox(2000, "AgShare", "Upload stopped: No boundary.");
                     return;
                 }
 
@@ -70,7 +70,7 @@ namespace AOG
 
                 if (boundary == null || boundary.Count < 3)
                 {
-                    System.Windows.Forms.MessageBox.Show("Upload gestopt: boundary is leeg of ongeldig.");
+                    gps.TimedMessageBox(2000, "AgShare", "Upload Failed: boundary is empty or corrupt.");
                     return;
                 }
 
@@ -90,18 +90,18 @@ namespace AOG
                 var (ok, message) = await client.UploadFieldAsync(fieldId, payload);
                 if (!ok)
                 {
-                    System.Windows.Forms.MessageBox.Show("Upload failed: " + message);
+                    gps.TimedMessageBox(2000,"AgShare","Upload failed: " + message);
                     return;
                 }
 
                 // Step 6: Save agshare.txt
                 File.WriteAllText(idPath, fieldId.ToString());
 
-                System.Windows.Forms.MessageBox.Show("Upload voltooid!");
+                gps.TimedMessageBox(2000, "AgShare", "Upload Success!");
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("Upload error: " + ex.Message);
+                gps.TimedMessageBox(2000, "AgShare", "Upload error: " + ex.Message);
             }
         }
 

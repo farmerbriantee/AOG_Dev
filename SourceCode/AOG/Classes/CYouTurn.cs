@@ -282,7 +282,7 @@ namespace AOG
 
 
                 bool isTurnLineSameWay = !isTurnRight ^ movePoint.turnLineNum == 0;
-                if (!FindCurveOutTurnPoint(mf.trk, ref nextCurve, exitPoint, isTurnLineSameWay))
+                if (!FindCurveOutTurnPoint(mf.trk, exitPoint, isTurnLineSameWay))
                 {
                     //error
                     FailCreate();
@@ -458,18 +458,18 @@ namespace AOG
 
         #region FindTurnPoint
 
-        public bool FindCurveOutTurnPoint(CTracks thisCurve, ref List<vec3> nextCurve, CClose inPt, bool isTurnLineSameWay)
+        public bool FindCurveOutTurnPoint(CTracks thisCurve, CClose inPt, bool isTurnLineCW)
         {
-            int a = isTurnLineSameWay ? 1 : -1;
+            int a = isTurnLineCW ? 1 : -1;
 
             int turnLineNum = inPt.turnLineNum;
             var turnLine = mf.bnd.bndList[turnLineNum].turnLine;
-            int stopTurnLineIndex = isTurnLineSameWay ? inPt.turnLineIndex : inPt.turnLineIndex + 1;
+            int stopTurnLineIndex = isTurnLineCW ? inPt.turnLineIndex : inPt.turnLineIndex + 1;
             vec3 from = new vec3(inPt.closePt);
             entryPoint = new CClose();
 
-
-            for (int turnLineIndex = isTurnLineSameWay ? inPt.turnLineIndex + 1 : inPt.turnLineIndex; turnLineIndex != stopTurnLineIndex; turnLineIndex += a)
+            bool first = true;
+            for (int turnLineIndex = isTurnLineCW ? inPt.turnLineIndex + 1 : inPt.turnLineIndex; turnLineIndex != stopTurnLineIndex; turnLineIndex += a)
             {
                 if (turnLineIndex < 0) turnLineIndex = turnLine.Count - 1; //AAA could be less than 0???
                 if (turnLineIndex >= turnLine.Count) turnLineIndex = 0;
@@ -492,7 +492,7 @@ namespace AOG
                         }
                     }
                 }
-
+                
                 for (int i = 0; i < thisCurve.currentGuidanceTrack.Count - 2; i++)
                 {
                     if (glm.GetLineIntersection(from, turnLine[turnLineIndex], thisCurve.currentGuidanceTrack[i], thisCurve.currentGuidanceTrack[i + 1], out vec3 _crossing, out double time_, out _))
@@ -501,7 +501,7 @@ namespace AOG
                         {
                             return false; //hitting the curve behind us
                         }
-                        else if (time_ < time)
+                        else if ((!first || time_ > 0.00001) && time_ < time)
                         {
                             time = time_;
                             entryPoint.closePt = _crossing;
@@ -512,7 +512,7 @@ namespace AOG
                         }
                     }
                 }
-
+                first = false;
                 if (time <= 1)
                 {
                     if (isGoingStraightThrough)
@@ -748,6 +748,7 @@ namespace AOG
             ytList?.Clear();
             PGN_239.pgn[PGN_239.uturn] = 0;
             isGoingStraightThrough = false;
+            nextCurve = new List<vec3>();
         }
 
         public void FailCreate()
@@ -823,6 +824,17 @@ namespace AOG
         public void DrawYouTurn()
         {
             if (ytList.Count < 3) return;
+            if (!isGoingStraightThrough && youTurnPhase > 70)
+            {
+                GL.LineWidth(Settings.User.setDisplay_lineWidth * 4);
+                GL.Color3(0, 0, 0);
+                nextCurve.DrawPolygon(PrimitiveType.LineStrip);
+
+                GL.LineWidth(Settings.User.setDisplay_lineWidth);
+                GL.Color3(0.0f, 1.0f, 1.0f);
+                nextCurve.DrawPolygon(PrimitiveType.LineStrip);
+            }
+
 
             GL.PointSize(Settings.User.setDisplay_lineWidth + 2);
 
@@ -842,16 +854,6 @@ namespace AOG
                 ytList2.DrawPolygon(PrimitiveType.LineStrip);
             }
 
-            /*
-            GL.Color3(0.0f, 1.0f, 1.0f);
-            GL.Begin(PrimitiveType.Points);
-            for (int i = 0; i < nextCurve.Count; i++)
-            {
-                GL.Vertex3(nextCurve[i].easting, nextCurve[i].northing, 0);
-            }
-            GL.End();
-            */
-
             //GL.PointSize(12.0f);
             //GL.Begin(PrimitiveType.Points);
             //GL.Color3(0.95f, 0.73f, 1.0f);
@@ -860,29 +862,6 @@ namespace AOG
             //GL.Vertex3(outClosestTurnPt.closePt.easting, outClosestTurnPt.closePt.northing, 0);
             //GL.End();
             //GL.PointSize(1.0f);
-
-            //if (nextCurve != null)
-            //{
-            //    GL.Begin(PrimitiveType.Points);
-            //    GL.Color3(0.95f, 0.41f, 0.980f);
-            //    for (int i = 0; i < nextCurve.currentGuidanceTrack.Count; i++)
-            //    {
-            //        GL.Vertex3(nextCurve.currentGuidanceTrack[i].easting, nextCurve.currentGuidanceTrack[i].northing, 0);
-            //    }
-            //    GL.End();
-            //}
-
-            //if (ytList2?.Count > 0)
-            //{
-            //    GL.PointSize(Settings.User.setDisplay_lineWidth + 2);
-            //    GL.Color3(0.3f, 0.941f, 0.980f);
-            //    GL.Begin(PrimitiveType.Points);
-            //    for (int i = 0; i < ytList2.Count; i++)
-            //    {
-            //        GL.Vertex3(ytList2[i].easting, ytList2[i].northing, 0);
-            //    }
-            //    GL.End();
-            //}
         }
 
         public class CClose

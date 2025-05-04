@@ -827,6 +827,8 @@
     <None Include="btnImages\ABTrackEdgeAB.png" />
     <Content Include="btnImages\Shift.png" />
     <None Include="btnImages\ToolSteer.png" />
+    <None Include="btnImages\UploadOff.png" />
+    <None Include="btnImages\UploadOn.png" />
     <Content Include="btnImages\ZoomOut.png" />
     <Content Include="License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

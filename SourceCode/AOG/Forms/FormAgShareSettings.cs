@@ -15,7 +15,6 @@ namespace AOG
         {
             _agShareClient = agShareClient;
             _userSettings = userSettings;
-
             InitializeComponent();
         }
 
@@ -23,6 +22,8 @@ namespace AOG
         {
             textBoxServer.Text = _userSettings.AgShareServer;
             textBoxApiKey.Text = _userSettings.AgShareApiKey;
+            UpdateAgShareToggleButton();
+
         }
 
         private async void buttonTestConnection_Click(object sender, EventArgs e)
@@ -57,5 +58,27 @@ namespace AOG
             _userSettings.AgShareApiKey = textBoxApiKey.Text;
             Settings.User.Save();
         }
+        private void UpdateAgShareToggleButton()
+        {
+            if (Settings.User.AgShareUploadEnabled)
+            {
+                btnToggleUpload.Image = Properties.Resources.UploadOn;
+                btnToggleUpload.Text = "Activated";
+            }
+            else
+            {
+                btnToggleUpload.Image = Properties.Resources.UploadOff;
+                btnToggleUpload.Text = "Deactivated";
+                buttonSave.Enabled = true;
+            }
+        }
+
+        private void btnToggleUpload_Click(object sender, EventArgs e)
+        {
+            Settings.User.AgShareUploadEnabled = !Settings.User.AgShareUploadEnabled;
+            UpdateAgShareToggleButton();
+            Settings.User.Save();
+        }
+
     }
 }

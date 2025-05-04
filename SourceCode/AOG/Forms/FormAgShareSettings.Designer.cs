@@ -30,12 +30,13 @@
         {
             this.textBoxApiKey = new System.Windows.Forms.TextBox();
             this.buttonTestConnection = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelApiKey = new System.Windows.Forms.Label();
-            this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxServer = new System.Windows.Forms.TextBox();
+            this.btnToggleUpload = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxApiKey
@@ -51,7 +52,7 @@
             // buttonTestConnection
             // 
             this.buttonTestConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonTestConnection.Location = new System.Drawing.Point(168, 125);
+            this.buttonTestConnection.Location = new System.Drawing.Point(168, 104);
             this.buttonTestConnection.Name = "buttonTestConnection";
             this.buttonTestConnection.Size = new System.Drawing.Size(243, 35);
             this.buttonTestConnection.TabIndex = 1;
@@ -59,29 +60,10 @@
             this.buttonTestConnection.UseVisualStyleBackColor = true;
             this.buttonTestConnection.Click += new System.EventHandler(this.buttonTestConnection_Click);
             // 
-            // buttonSave
-            // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonSave.Enabled = false;
-            this.buttonSave.FlatAppearance.BorderSize = 0;
-            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSave.Image = global::AOG.Properties.Resources.OK64;
-            this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonSave.Location = new System.Drawing.Point(492, 199);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(80, 92);
-            this.buttonSave.TabIndex = 2;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonSave.UseVisualStyleBackColor = false;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
             // labelStatus
             // 
             this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelStatus.Location = new System.Drawing.Point(20, 173);
+            this.labelStatus.Location = new System.Drawing.Point(20, 152);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(543, 25);
             this.labelStatus.TabIndex = 4;
@@ -98,23 +80,6 @@
             this.labelApiKey.TabIndex = 5;
             this.labelApiKey.Text = "API Key:";
             this.labelApiKey.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.FlatAppearance.BorderSize = 0;
-            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCancel.Image = global::AOG.Properties.Resources.Cancel64;
-            this.buttonCancel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonCancel.Location = new System.Drawing.Point(406, 199);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(80, 92);
-            this.buttonCancel.TabIndex = 3;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonCancel.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -138,13 +103,64 @@
             this.textBoxServer.Size = new System.Drawing.Size(441, 30);
             this.textBoxServer.TabIndex = 7;
             // 
+            // btnToggleUpload
+            // 
+            this.btnToggleUpload.FlatAppearance.BorderSize = 0;
+            this.btnToggleUpload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnToggleUpload.Image = global::AOG.Properties.Resources.UploadOff;
+            this.btnToggleUpload.Location = new System.Drawing.Point(223, 184);
+            this.btnToggleUpload.Name = "btnToggleUpload";
+            this.btnToggleUpload.Size = new System.Drawing.Size(128, 128);
+            this.btnToggleUpload.TabIndex = 8;
+            this.btnToggleUpload.Text = "Activate";
+            this.btnToggleUpload.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnToggleUpload.UseVisualStyleBackColor = true;
+            this.btnToggleUpload.Click += new System.EventHandler(this.btnToggleUpload_Click);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.FlatAppearance.BorderSize = 0;
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCancel.Image = global::AOG.Properties.Resources.Cancel64;
+            this.buttonCancel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonCancel.Location = new System.Drawing.Point(406, 199);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(80, 92);
+            this.buttonCancel.TabIndex = 3;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonCancel.UseVisualStyleBackColor = false;
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonSave.Enabled = false;
+            this.buttonSave.FlatAppearance.BorderSize = 0;
+            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSave.Image = global::AOG.Properties.Resources.OK64;
+            this.buttonSave.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonSave.Location = new System.Drawing.Point(492, 199);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(80, 92);
+            this.buttonSave.TabIndex = 2;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonSave.UseVisualStyleBackColor = false;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
             // FormAgShareSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(584, 309);
+            this.ClientSize = new System.Drawing.Size(584, 324);
             this.ControlBox = false;
+            this.Controls.Add(this.btnToggleUpload);
             this.Controls.Add(this.textBoxServer);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelApiKey);
@@ -175,5 +191,6 @@
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxServer;
+        private System.Windows.Forms.Button btnToggleUpload;
     }
 }

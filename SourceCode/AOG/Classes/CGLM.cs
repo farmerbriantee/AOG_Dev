@@ -299,10 +299,10 @@ namespace AOG
             {
                 TimeA = ((PointBB.northing - PointBA.northing) * (PointAA.easting - PointBA.easting) - (PointAA.northing - PointBA.northing) * (PointBB.easting - PointBA.easting)) / denominator;
 
-                if (Limit || (enableEnd && (TimeA > 0.0 - Epsilon || TimeA < 1.0 + Epsilon)) || (TimeA > Epsilon && TimeA < 1.0 - Epsilon))
+                if (Limit || (enableEnd && (TimeA > 0.0 - Epsilon && TimeA < 1.0 + Epsilon)) || (TimeA > Epsilon && TimeA < 1.0 - Epsilon))
                 {
                     TimeB = ((PointAB.northing - PointAA.northing) * (PointAA.easting - PointBA.easting) - (PointAA.northing - PointBA.northing) * (PointAB.easting - PointAA.easting)) / denominator;
-                    if (Limit || (enableEnd && (TimeB == 0.0 || TimeB == 1.0)) || (TimeB > 0.0 && TimeB < 1.0))
+                    if (Limit || (enableEnd && (TimeB > 0.0 - Epsilon && TimeB < 1.0 + Epsilon)) || (TimeB > Epsilon && TimeB < 1.0 - Epsilon))
                     {
                         Crossing = PointAA + (PointAB - PointAA) * TimeA;
                         return true;

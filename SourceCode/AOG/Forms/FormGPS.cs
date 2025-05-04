@@ -25,6 +25,9 @@ namespace AOG
         [System.Runtime.InteropServices.DllImport("User32.dll")]
         private static extern bool ShowWindow(IntPtr hWind, int nCmdShow);
 
+        private Task agShareUploadTask = null;
+
+
         #region // Class Props and instances
 
         //maximum sections available
@@ -488,7 +491,7 @@ namespace AOG
 
         }
 
-        private void FormGPS_FormClosing(object sender, FormClosingEventArgs e)
+        private async void FormGPS_FormClosing(object sender, FormClosingEventArgs e)
         {
             Form f = Application.OpenForms["FormGPSData"];
 
@@ -544,6 +547,23 @@ namespace AOG
                 SetWorkState(btnStates.Off);
 
                 FileSaveEverythingBeforeClosingField();
+                if (agShareUploadTask != null && !agShareUploadTask.IsCompleted)
+                {
+                    e.Cancel = true;
+
+                    TimedMessageBox(3000, "Waiting for AgShare upload...", "Please wait");
+
+                    try
+                    {
+                        await agShareUploadTask; // Wait non-blocking
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.EventWriter("AgShare upload error during shutdown: " + ex.Message);
+                    }
+
+                }
+
             }
 
             SaveFormGPSWindowSettings();
@@ -663,7 +683,9 @@ namespace AOG
             string path = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
             var uploader = new CAgShareUploader(agShareClient, path, this);
 
-            await uploader.UploadAsync(); // Upload to Agshare Async without blocking
+            agShareUploadTask = uploader.UploadAsync(); 
+            await agShareUploadTask;
+
             JobClose();
             FieldClose();
 

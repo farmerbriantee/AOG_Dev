@@ -492,7 +492,7 @@ namespace AOG
                         }
                     }
                 }
-
+                
                 for (int i = 0; i < thisCurve.currentGuidanceTrack.Count - 2; i++)
                 {
                     if (glm.GetLineIntersection(from, turnLine[turnLineIndex], thisCurve.currentGuidanceTrack[i], thisCurve.currentGuidanceTrack[i + 1], out vec3 _crossing, out double time_, out _))
@@ -824,14 +824,16 @@ namespace AOG
         public void DrawYouTurn()
         {
             if (ytList.Count < 3) return;
+            if (!isGoingStraightThrough && youTurnPhase > 70)
+            {
+                GL.LineWidth(Settings.User.setDisplay_lineWidth * 4);
+                GL.Color3(0, 0, 0);
+                nextCurve.DrawPolygon(PrimitiveType.LineStrip);
 
-            GL.LineWidth(Settings.User.setDisplay_lineWidth * 4);
-            GL.Color3(0, 0, 0);
-            nextCurve.DrawPolygon(PrimitiveType.LineStrip);
-
-            GL.LineWidth(Settings.User.setDisplay_lineWidth);
-            GL.Color3(0.0f, 1.0f, 1.0f);
-            nextCurve.DrawPolygon(PrimitiveType.LineStrip);
+                GL.LineWidth(Settings.User.setDisplay_lineWidth);
+                GL.Color3(0.0f, 1.0f, 1.0f);
+                nextCurve.DrawPolygon(PrimitiveType.LineStrip);
+            }
 
 
             GL.PointSize(Settings.User.setDisplay_lineWidth + 2);

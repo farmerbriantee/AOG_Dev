@@ -154,7 +154,7 @@ namespace AOG
                                 if (timeA < time)
                                 {
                                     time = timeA;
-                                    exitPoint = new CClose(_Crossing, j, i, k);
+                                    exitPoint = new CClose(_Crossing, j, i - (mf.trk.isHeadingSameWay ? Count : 0), k);
                                 }
                             }
                             k = l;
@@ -385,7 +385,7 @@ namespace AOG
 
                 int upDownCount = mf.trk.isHeadingSameWay ? -1 : 1;
 
-                int currIdx = movePoint.curveIndex + (mf.trk.isHeadingSameWay ? 0 : + 1);
+                int currIdx = movePoint.curveIndex + (mf.trk.isHeadingSameWay ? 0 : 1);
                 var curList = mf.trk.currentGuidanceTrack;
 
                 AddCurveSequenceLines(curList, ytList[0], currIdx, upDownCount, Settings.Vehicle.set_youTurnExtensionLength, true);
@@ -477,7 +477,7 @@ namespace AOG
 
                 double time = 2;
 
-                for (int i = 0; i < nextCurve.Count - 2; i++)
+                for (int i = 0; i < nextCurve.Count - 1; i++)
                 {
                     if (glm.GetLineIntersection(from, turnLine[turnLineIndex], nextCurve[i], nextCurve[i + 1], out vec3 _crossing, out double time_, out _))
                     {
@@ -493,7 +493,7 @@ namespace AOG
                     }
                 }
                 
-                for (int i = 0; i < thisCurve.currentGuidanceTrack.Count - 2; i++)
+                for (int i = 0; i < thisCurve.currentGuidanceTrack.Count - 1; i++)
                 {
                     if (glm.GetLineIntersection(from, turnLine[turnLineIndex], thisCurve.currentGuidanceTrack[i], thisCurve.currentGuidanceTrack[i + 1], out vec3 _crossing, out double time_, out _))
                     {
@@ -685,12 +685,14 @@ namespace AOG
             ytList?.Clear();
 
             //calculate new headings on smoothed line
-            for (int i = 1; i < cnt - 1; i++)
+            for (int i = 0; i < cnt - 1; i++)
             {
                 arr[i].heading = Math.Atan2(arr[i + 1].easting - arr[i].easting, arr[i + 1].northing - arr[i].northing);
                 if (arr[i].heading < 0) arr[i].heading += glm.twoPI;
                 ytList.Add(arr[i]);
             }
+
+            ytList.Add(arr[cnt - 1]);
         }
 
         //called to initiate turn

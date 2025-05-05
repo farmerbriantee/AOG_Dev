@@ -345,69 +345,22 @@ namespace AOG
 
                     newCurList.CalculateHeadings(loops);
 
-                    if (mf.bnd.bndList.Count > 0 && !loops)
+                    if (!loops)
                     {
-                        int ptCnt = newCurList.Count - 1;
-                        int iStep = (int)step;
+                        vec3 pt1 = new vec3(newCurList[0]);
+                        pt1.easting -= (Math.Sin(pt1.heading) * 10000);
+                        pt1.northing -= (Math.Cos(pt1.heading) * 10000);
 
-                        bool isAdding = false;
-                        //end
-                        while (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(newCurList[newCurList.Count - 1]))
-                        {
-                            isAdding = true;
-                            for (int i = 1; i < 10; i++)
-                            {
-                                vec3 pt = new vec3(newCurList[ptCnt]);
-                                pt.easting += (Math.Sin(pt.heading) * i * iStep);
-                                pt.northing += (Math.Cos(pt.heading) * i * iStep);
-                                newCurList.Add(pt);
-                            }
-                            ptCnt = newCurList.Count - 1;
+                        newCurList.Insert(0, pt1);
+
+                        vec3 pt2 = new vec3(newCurList[newCurList.Count - 1]);
+                        pt2.easting += (Math.Sin(pt2.heading) * 10000);
+                        pt2.northing += (Math.Cos(pt2.heading) * 10000);
+
+                        newCurList.Add(pt2);
                         }
-
-                        if (isAdding)
-                        {
-                            vec3 pt = new vec3(newCurList[newCurList.Count - 1]);
-                            for (int i = 1; i < 5; i++)
-                            {
-                                pt.easting += (Math.Sin(pt.heading) * iStep);
-                                pt.northing += (Math.Cos(pt.heading) * iStep);
-                                newCurList.Add(pt);
                             }
                         }
-
-                        isAdding = false;
-
-                        //and the beginning
-                        vec3 pt3 = new vec3(newCurList[0]);
-
-                        while (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(newCurList[0]))
-                        {
-                            isAdding = true;
-                            pt3 = new vec3(newCurList[0]);
-
-                            for (int i = 1; i < 10; i++)
-                            {
-                                vec3 pt = new vec3(pt3);
-                                pt.easting -= (Math.Sin(pt.heading) * i * iStep);
-                                pt.northing -= (Math.Cos(pt.heading) * i * iStep);
-                                newCurList.Insert(0, pt);
-                            }
-                        }
-
-                        if (isAdding)
-                        {
-                            vec3 pt = new vec3(newCurList[0]);
-                            for (int i = 1; i < 5; i++)
-                            {
-                                pt.easting -= (Math.Sin(pt.heading) * iStep);
-                                pt.northing -= (Math.Cos(pt.heading) * iStep);
-                                newCurList.Insert(0, pt);
-                            }
-                        }
-                    }
-                }
-            }
             catch (Exception e)
             {
                 Log.EventWriter("Exception Build new offset curve" + e.ToString());

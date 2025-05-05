@@ -814,8 +814,8 @@ namespace AOG
                         end = limit;
                     }
                 }
-
-                arr[start] = new vec3(pint);
+                if (isC)
+                    arr[start] = new vec3(pint);
 
                 mf.bnd.bndList[bndSelect].fenceLine.Clear();
 

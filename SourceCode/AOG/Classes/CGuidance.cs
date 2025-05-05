@@ -44,7 +44,7 @@ namespace AOG
         {
             bool completeUturn = !Uturn;
             var vec2point = new vec2(Settings.Vehicle.setVehicle_isStanleyUsed ? steer : pivot);
-
+            /*
             //close call hit
             int cc = FindGlobalRoughNearest(vec2point, curList, 5, Uturn);
 
@@ -62,6 +62,7 @@ namespace AOG
                     cc += 100;
                 }
             }
+            */
 
             if (mf.gyd.FindClosestSegment(curList, false, vec2point, out A, out B))// cc - 10, cc + 10))
             {

@@ -103,7 +103,7 @@ namespace AOG
 
         public static void DrawPolygon(this List<vec3> polygon, PrimitiveType type = PrimitiveType.LineLoop)
         {
-            if (polygon.Count > 2)
+            if (polygon.Count > 1)
             {
                 GL.Begin(type);
                 for (int i = 0; i < polygon.Count; i++)

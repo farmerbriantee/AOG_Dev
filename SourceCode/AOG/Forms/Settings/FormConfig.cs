@@ -78,7 +78,6 @@ namespace AOG
             lblInvertRoll.Text = gStr.Get(gs.gsInvertRoll);
 
             lblUturnExtension.Text = gStr.Get(gs.gsUturnExtension);
-            lblUturnSmoothing.Text = gStr.Get(gs.gsUturnSmooth);
 
             lblMachineModule.Text = gStr.Get(gs.gsMachineModule);
             groupBox4.Text = gStr.Get(gs.gsHydraulicLiftConfig);

@@ -488,8 +488,6 @@ namespace AOG
 
             fd.workedAreaTotalUser = Settings.Vehicle.setF_UserTotalArea;
 
-            yt.uTurnSmoothing = Settings.Vehicle.setAS_uTurnSmoothing;
-
             if (Settings.User.setDisplay_isStartFullScreen)
             {
                 this.WindowState = FormWindowState.Maximized;

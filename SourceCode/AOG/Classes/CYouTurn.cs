@@ -22,7 +22,7 @@ namespace AOG
 
         public double youTurnRadius, totalUTurnLength;
 
-        public int rowSkipsWidth = 1, uTurnSmoothing;
+        public int rowSkipsWidth = 1;
 
         public bool alternateSkips = false, previousBigSkip = true;
         public int rowSkipsWidth2 = 3, turnSkips = 2;
@@ -88,8 +88,6 @@ namespace AOG
             youTurnRadius = Settings.Vehicle.set_youTurnRadius;
 
             uTurnStyle = Settings.Vehicle.set_uTurnStyle;
-
-            uTurnSmoothing = Settings.Vehicle.setAS_uTurnSmoothing;
         }
 
 
@@ -401,8 +399,8 @@ namespace AOG
             }
             else if (youTurnPhase == 240)
             {
-                if (uTurnSmoothing > 0)
-                    SmoothYouTurn(6);// uTurnSmoothing????
+                //if (uTurnSmoothing > 0)
+                //    SmoothYouTurn(6);// uTurnSmoothing????
                 youTurnPhase = 255;
             }
         }

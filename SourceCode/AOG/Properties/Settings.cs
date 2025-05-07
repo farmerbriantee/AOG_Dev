@@ -217,7 +217,6 @@ namespace AOG
             public int setAS_deadZoneDistance = 1;
             public int setAS_deadZoneHeading = 10;
             public int setAS_numGuideLines = 10;
-            public int setAS_uTurnSmoothing = 14;
             public int setAS_wasOffset = 3;
 
             public bool setBnd_isDrawPivot = true;

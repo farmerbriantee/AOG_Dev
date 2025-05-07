@@ -400,8 +400,6 @@ namespace AOG
         {
             UpdateUturnText();
 
-            lblSmoothing.Text = mf.yt.uTurnSmoothing.ToString();
-
             nudTurnDistanceFromBoundary.Value = Settings.Vehicle.set_youTurnDistanceFromBoundary;
 
             nudYouTurnRadius.Value = Settings.Vehicle.set_youTurnRadius;
@@ -411,12 +409,10 @@ namespace AOG
 
         private void tabUTurn_Leave(object sender, EventArgs e)
         {
-            if (Settings.Vehicle.setAS_uTurnSmoothing != mf.yt.uTurnSmoothing ||
-                Settings.Vehicle.set_youTurnExtensionLength != mf.yt.youTurnStartOffset ||
+            if (Settings.Vehicle.set_youTurnExtensionLength != mf.yt.youTurnStartOffset ||
                 Settings.Vehicle.set_youTurnRadius != mf.yt.youTurnRadius ||
                 Settings.Vehicle.set_youTurnDistanceFromBoundary != mf.yt.uturnDistanceFromBoundary)
             {
-                Settings.Vehicle.setAS_uTurnSmoothing = mf.yt.uTurnSmoothing;
                 Settings.Vehicle.set_youTurnExtensionLength = mf.yt.youTurnStartOffset;
                 Settings.Vehicle.set_youTurnRadius = mf.yt.youTurnRadius;
 
@@ -460,19 +456,6 @@ namespace AOG
         {
             if (mf.yt.youTurnStartOffset++ > 49) mf.yt.youTurnStartOffset = 50;
             UpdateUturnText();
-        }
-        private void btnTurnSmoothingDown_Click(object sender, EventArgs e)
-        {
-            mf.yt.uTurnSmoothing -= 2;
-            if (mf.yt.uTurnSmoothing < 0) mf.yt.uTurnSmoothing = 0;
-            lblSmoothing.Text = mf.yt.uTurnSmoothing.ToString();
-        }
-
-        private void btnTurnSmoothingUPGN_Click(object sender, EventArgs e)
-        {
-            mf.yt.uTurnSmoothing += 2;
-            if (mf.yt.uTurnSmoothing > 50) mf.yt.uTurnSmoothing = 50;
-            lblSmoothing.Text = mf.yt.uTurnSmoothing.ToString();
         }
 
         #endregion

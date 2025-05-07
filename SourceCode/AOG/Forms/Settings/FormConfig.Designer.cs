@@ -364,18 +364,13 @@
             this.btnRemoveZeroOffset = new System.Windows.Forms.Button();
             this.cboxDataInvertRoll = new System.Windows.Forms.CheckBox();
             this.tabUTurn = new System.Windows.Forms.TabPage();
-            this.lblUturnSmoothing = new System.Windows.Forms.Label();
             this.lblUturnExtension = new System.Windows.Forms.Label();
             this.lblFtMTurnRadius = new System.Windows.Forms.Label();
             this.lblFtMUTurn = new System.Windows.Forms.Label();
-            this.lblSmoothing = new System.Windows.Forms.Label();
             this.lblDistance = new System.Windows.Forms.Label();
             this.label64 = new System.Windows.Forms.Label();
-            this.label59 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
             this.lblWhenTrig = new System.Windows.Forms.Label();
-            this.btnTurnSmoothingUp = new AOG.RepeatButton();
-            this.btnTurnSmoothingDown = new AOG.RepeatButton();
             this.btnDistanceUp = new AOG.RepeatButton();
             this.btnDistanceDn = new AOG.RepeatButton();
             this.nudYouTurnRadius = new AOG.NudlessNumericUpDown();
@@ -5558,18 +5553,13 @@
             // tabUTurn
             // 
             this.tabUTurn.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabUTurn.Controls.Add(this.lblUturnSmoothing);
             this.tabUTurn.Controls.Add(this.lblUturnExtension);
             this.tabUTurn.Controls.Add(this.lblFtMTurnRadius);
             this.tabUTurn.Controls.Add(this.lblFtMUTurn);
-            this.tabUTurn.Controls.Add(this.lblSmoothing);
             this.tabUTurn.Controls.Add(this.lblDistance);
             this.tabUTurn.Controls.Add(this.label64);
-            this.tabUTurn.Controls.Add(this.label59);
             this.tabUTurn.Controls.Add(this.label58);
             this.tabUTurn.Controls.Add(this.lblWhenTrig);
-            this.tabUTurn.Controls.Add(this.btnTurnSmoothingUp);
-            this.tabUTurn.Controls.Add(this.btnTurnSmoothingDown);
             this.tabUTurn.Controls.Add(this.btnDistanceUp);
             this.tabUTurn.Controls.Add(this.btnDistanceDn);
             this.tabUTurn.Controls.Add(this.nudYouTurnRadius);
@@ -5579,17 +5569,6 @@
             this.tabUTurn.Size = new System.Drawing.Size(907, 584);
             this.tabUTurn.TabIndex = 18;
             this.tabUTurn.Text = "uTurn";
-            // 
-            // lblUturnSmoothing
-            // 
-            this.lblUturnSmoothing.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUturnSmoothing.ForeColor = System.Drawing.Color.Black;
-            this.lblUturnSmoothing.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblUturnSmoothing.Location = new System.Drawing.Point(298, 389);
-            this.lblUturnSmoothing.Name = "lblUturnSmoothing";
-            this.lblUturnSmoothing.Size = new System.Drawing.Size(170, 125);
-            this.lblUturnSmoothing.TabIndex = 474;
-            this.lblUturnSmoothing.Text = "Set Smoothing to 3 or 4x Radius";
             // 
             // lblUturnExtension
             // 
@@ -5608,7 +5587,7 @@
             this.lblFtMTurnRadius.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFtMTurnRadius.ForeColor = System.Drawing.Color.Black;
             this.lblFtMTurnRadius.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblFtMTurnRadius.Location = new System.Drawing.Point(645, 209);
+            this.lblFtMTurnRadius.Location = new System.Drawing.Point(444, 373);
             this.lblFtMTurnRadius.Name = "lblFtMTurnRadius";
             this.lblFtMTurnRadius.Size = new System.Drawing.Size(36, 25);
             this.lblFtMTurnRadius.TabIndex = 472;
@@ -5620,24 +5599,11 @@
             this.lblFtMUTurn.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFtMUTurn.ForeColor = System.Drawing.Color.Black;
             this.lblFtMUTurn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblFtMUTurn.Location = new System.Drawing.Point(645, 489);
+            this.lblFtMUTurn.Location = new System.Drawing.Point(713, 372);
             this.lblFtMUTurn.Name = "lblFtMUTurn";
             this.lblFtMUTurn.Size = new System.Drawing.Size(36, 25);
             this.lblFtMUTurn.TabIndex = 469;
             this.lblFtMUTurn.Text = "FF";
-            // 
-            // lblSmoothing
-            // 
-            this.lblSmoothing.AutoSize = true;
-            this.lblSmoothing.BackColor = System.Drawing.Color.Transparent;
-            this.lblSmoothing.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSmoothing.ForeColor = System.Drawing.Color.Black;
-            this.lblSmoothing.Location = new System.Drawing.Point(323, 274);
-            this.lblSmoothing.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblSmoothing.Name = "lblSmoothing";
-            this.lblSmoothing.Size = new System.Drawing.Size(95, 45);
-            this.lblSmoothing.TabIndex = 464;
-            this.lblSmoothing.Text = "XXX";
             // 
             // lblDistance
             // 
@@ -5657,31 +5623,19 @@
             this.label64.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label64.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label64.Image = global::AOG.Properties.Resources.ConU_UturnRadius;
-            this.label64.Location = new System.Drawing.Point(602, 27);
+            this.label64.Location = new System.Drawing.Point(401, 191);
             this.label64.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label64.Name = "label64";
             this.label64.Size = new System.Drawing.Size(109, 107);
             this.label64.TabIndex = 470;
             this.label64.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
-            // label59
-            // 
-            this.label59.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label59.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label59.Image = global::AOG.Properties.Resources.ConU_UTurnSmooth;
-            this.label59.Location = new System.Drawing.Point(313, 141);
-            this.label59.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(109, 120);
-            this.label59.TabIndex = 467;
-            this.label59.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
             // label58
             // 
             this.label58.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label58.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label58.Image = global::AOG.Properties.Resources.ConU_UturnDistance;
-            this.label58.Location = new System.Drawing.Point(602, 308);
+            this.label58.Location = new System.Drawing.Point(670, 191);
             this.label58.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(109, 119);
@@ -5699,38 +5653,6 @@
             this.lblWhenTrig.Size = new System.Drawing.Size(116, 133);
             this.lblWhenTrig.TabIndex = 458;
             this.lblWhenTrig.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // btnTurnSmoothingUp
-            // 
-            this.btnTurnSmoothingUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnTurnSmoothingUp.FlatAppearance.BorderSize = 0;
-            this.btnTurnSmoothingUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTurnSmoothingUp.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTurnSmoothingUp.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTurnSmoothingUp.Image = global::AOG.Properties.Resources.UpArrow64;
-            this.btnTurnSmoothingUp.Location = new System.Drawing.Point(387, 317);
-            this.btnTurnSmoothingUp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.btnTurnSmoothingUp.Name = "btnTurnSmoothingUp";
-            this.btnTurnSmoothingUp.Size = new System.Drawing.Size(59, 69);
-            this.btnTurnSmoothingUp.TabIndex = 466;
-            this.btnTurnSmoothingUp.UseVisualStyleBackColor = true;
-            this.btnTurnSmoothingUp.Click += new System.EventHandler(this.btnTurnSmoothingUPGN_Click);
-            // 
-            // btnTurnSmoothingDown
-            // 
-            this.btnTurnSmoothingDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnTurnSmoothingDown.FlatAppearance.BorderSize = 0;
-            this.btnTurnSmoothingDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTurnSmoothingDown.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTurnSmoothingDown.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTurnSmoothingDown.Image = global::AOG.Properties.Resources.DnArrow64;
-            this.btnTurnSmoothingDown.Location = new System.Drawing.Point(294, 317);
-            this.btnTurnSmoothingDown.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.btnTurnSmoothingDown.Name = "btnTurnSmoothingDown";
-            this.btnTurnSmoothingDown.Size = new System.Drawing.Size(59, 69);
-            this.btnTurnSmoothingDown.TabIndex = 465;
-            this.btnTurnSmoothingDown.UseVisualStyleBackColor = true;
-            this.btnTurnSmoothingDown.Click += new System.EventHandler(this.btnTurnSmoothingDown_Click);
             // 
             // btnDistanceUp
             // 
@@ -5767,7 +5689,7 @@
             // nudYouTurnRadius
             // 
             this.nudYouTurnRadius.DecimalPlaces = 2;
-            this.nudYouTurnRadius.Location = new System.Drawing.Point(582, 154);
+            this.nudYouTurnRadius.Location = new System.Drawing.Point(381, 318);
             this.nudYouTurnRadius.Minimum = 0.02D;
             this.nudYouTurnRadius.Mode = AOG.UnitMode.Large;
             this.nudYouTurnRadius.Name = "nudYouTurnRadius";
@@ -5778,7 +5700,7 @@
             // nudTurnDistanceFromBoundary
             // 
             this.nudTurnDistanceFromBoundary.DecimalPlaces = 2;
-            this.nudTurnDistanceFromBoundary.Location = new System.Drawing.Point(582, 434);
+            this.nudTurnDistanceFromBoundary.Location = new System.Drawing.Point(650, 317);
             this.nudTurnDistanceFromBoundary.Mode = AOG.UnitMode.Large;
             this.nudTurnDistanceFromBoundary.Name = "nudTurnDistanceFromBoundary";
             this.nudTurnDistanceFromBoundary.Size = new System.Drawing.Size(160, 52);
@@ -9107,10 +9029,6 @@
         private RepeatButton btnDistanceDn;
         private System.Windows.Forms.Label lblWhenTrig;
         private System.Windows.Forms.Label lblDistance;
-        private RepeatButton btnTurnSmoothingUp;
-        private RepeatButton btnTurnSmoothingDown;
-        private System.Windows.Forms.Label label59;
-        private System.Windows.Forms.Label lblSmoothing;
         private NudlessNumericUpDown nudLowerTime;
         private NudlessNumericUpDown nudRaiseTime;
         private System.Windows.Forms.CheckBox cboxIsHydOn;
@@ -9288,7 +9206,6 @@
         private System.Windows.Forms.Label lblFtMTurnRadius;
         private NudlessNumericUpDown nudYouTurnRadius;
         private System.Windows.Forms.Label label64;
-        private System.Windows.Forms.Label lblUturnSmoothing;
         private System.Windows.Forms.Label lblUturnExtension;
         private System.Windows.Forms.Label lblOpacityPercent;
         private System.Windows.Forms.Label label70;

@@ -1066,16 +1066,8 @@ namespace AOG
                                     track.ptB.easting = track.ptA.easting + (Math.Sin(designHeading) * 30);
                                     track.ptB.northing = track.ptA.northing + (Math.Cos(designHeading) * 30);
                                 }
-                                len = glm.Distance(track.ptA, track.ptB);
-
-                                vec3 P1 = new vec3();
-                                for (int i = 0; i < (int)len; i += 1)
-                                {
-                                    P1.easting = (hsin * i) + track.ptA.easting;
-                                    P1.northing = (hcos * i) + track.ptA.northing;
-                                    P1.heading = designHeading;
-                                    track.curvePts.Add(P1);
-                                }
+                                track.curvePts.Add(new vec3(track.ptA, designHeading));
+                                track.curvePts.Add(new vec3(track.ptB, designHeading));
 
                                 trk.AddFirstLastPoints(ref track.curvePts, 100);
                             }

@@ -371,8 +371,6 @@ namespace AOG
             var track = new CTrk(TrackMode.AB);
 
             track.heading = abHead;
-            double hsin = Math.Sin(abHead);
-            double hcos = Math.Cos(abHead);
 
             //calculate the new points for the reference line and points
             track.ptA.easting = mf.bnd.bndList[bndSelect].fenceLine[end].easting;
@@ -388,16 +386,9 @@ namespace AOG
                 track.ptB.easting = track.ptA.easting + (Math.Sin(abHead) * 30);
                 track.ptB.northing = track.ptA.northing + (Math.Cos(abHead) * 30);
             }
-            len = glm.Distance(track.ptA, track.ptB);
 
-            vec3 P1 = new vec3();
-            for (int i = 0; i < (int)len; i += 1)
-            {
-                P1.easting = (hsin * i) + track.ptA.easting;
-                P1.northing = (hcos * i) + track.ptA.northing;
-                P1.heading = abHead;
-                track.curvePts.Add(P1);
-            }
+            track.curvePts.Add(new vec3(track.ptA, abHead));
+            track.curvePts.Add(new vec3(track.ptB, abHead));
 
             //build the tail extensions
             mf.trk.AddFirstLastPoints(ref track.curvePts, 100);
@@ -466,8 +457,6 @@ namespace AOG
             var track = new CTrk(TrackMode.AB);
 
             track.heading = abHead;
-            double hsin = Math.Sin(abHead);
-            double hcos = Math.Cos(abHead);
 
             //calculate the new points for the reference line and points
             track.ptA.easting = mf.bnd.bndList[bndSelect].fenceLine[start].easting;
@@ -479,7 +468,7 @@ namespace AOG
             //get the pivot distance from currently active AB segment   ///////////  Pivot  ////////////
             double dx = track.ptB.easting - track.ptA.easting;
             double dy = track.ptB.northing - track.ptA.northing;
-            if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dy) < Double.Epsilon) 
+            if (Math.Abs(dx) < Double.Epsilon && Math.Abs(dy) < Double.Epsilon)
                 return;
 
             double maxDistance = double.MaxValue;
@@ -507,16 +496,9 @@ namespace AOG
                 track.ptB.easting = track.ptA.easting + (Math.Sin(abHead) * 30);
                 track.ptB.northing = track.ptA.northing + (Math.Cos(abHead) * 30);
             }
-            len = glm.Distance(track.ptA, track.ptB);
 
-            vec3 P1 = new vec3();
-            for (int i = 0; i < (int)len; i += 1)
-            {
-                P1.easting = (hsin * i) + track.ptA.easting;
-                P1.northing = (hcos * i) + track.ptA.northing;
-                P1.heading = abHead;
-                track.curvePts.Add(P1);
-            }
+            track.curvePts.Add(new vec3(track.ptA, abHead));
+            track.curvePts.Add(new vec3(track.ptB, abHead));
 
             //build the tail extensions
             mf.trk.AddFirstLastPoints(ref track.curvePts, 100);

@@ -358,9 +358,9 @@ namespace AOG
                         pt2.northing += (Math.Cos(pt2.heading) * 10000);
 
                         newCurList.Add(pt2);
-                        }
-                            }
-                        }
+                    }
+                }
+            }
             catch (Exception e)
             {
                 Log.EventWriter("Exception Build new offset curve" + e.ToString());
@@ -491,7 +491,7 @@ namespace AOG
                 }
 
                 currentGuidanceTrack.DrawPolygon(currTrk.mode <= TrackMode.Curve ? PrimitiveType.LineStrip : PrimitiveType.LineLoop);
-                
+
                 mf.yt.DrawYouTurn();
 
                 /*
@@ -633,9 +633,6 @@ namespace AOG
         {
             var track = new CTrk(TrackMode.AB);
 
-            double hsin = Math.Sin(designHeading);
-            double hcos = Math.Cos(designHeading);
-
             //fill in the dots between A and B
             double len = glm.Distance(designPtA, designPtB);
             if (len < 20)
@@ -643,17 +640,9 @@ namespace AOG
                 designPtB.easting = designPtA.easting + (Math.Sin(designHeading) * 30);
                 designPtB.northing = designPtA.northing + (Math.Cos(designHeading) * 30);
             }
-            len = glm.Distance(designPtA, designPtB);
 
-            vec3 P1 = new vec3();
-            for (int i = 0; i < (int)len; i += 1)
-            {
-                P1.easting = (hsin * i) + designPtA.easting;
-                P1.northing = (hcos * i) + designPtA.northing;
-                P1.heading = designHeading;
-                track.curvePts.Add(P1);
-            }
-
+            track.curvePts.Add(new vec3(designPtA, designHeading));
+            track.curvePts.Add(new vec3(designPtB, designHeading));
             track.heading = designHeading;
 
             double dist = (Settings.Tool.toolWidth - Settings.Tool.overlap) * (isRefRightSide ? 0.5 : -0.5) + Settings.Tool.offset;
@@ -751,7 +740,7 @@ namespace AOG
             if (track.mode != TrackMode.AB)
             {
                 //curList.CalculateHeadings(track.mode > TrackMode.Curve);
-                
+
                 int cnt = curList.Count;
                 if (cnt > 6)
                 {
@@ -877,8 +866,6 @@ namespace AOG
         public bool isVisible;
         public vec2 ptA;
         public vec2 ptB;
-        public vec2 endPtA;
-        public vec2 endPtB;
         public TrackMode mode;
         public double nudgeDistance;
 
@@ -890,8 +877,6 @@ namespace AOG
             isVisible = true;
             ptA = new vec2();
             ptB = new vec2();
-            endPtA = new vec2();
-            endPtB = new vec2();
             mode = _mode;
             nudgeDistance = 0;
         }
@@ -904,8 +889,6 @@ namespace AOG
             isVisible = _trk.isVisible;
             ptA = _trk.ptA;
             ptB = _trk.ptB;
-            endPtA = new vec2();
-            endPtB = new vec2();
             mode = _trk.mode;
             nudgeDistance = _trk.nudgeDistance;
         }

@@ -30,7 +30,7 @@ namespace AOG
         public double easting;
         public double northing;
         public double heading;
-        
+
         public vec3(double easting, double northing, double heading = 0)
         {
             this.easting = easting;
@@ -43,6 +43,13 @@ namespace AOG
             easting = v.easting;
             northing = v.northing;
             heading = v.heading;
+        }
+
+        public vec3(vec2 v, double heading = 0)
+        {
+            easting = v.easting;
+            northing = v.northing;
+            this.heading = heading;
         }
 
         public double HeadingXZ()
@@ -86,6 +93,10 @@ namespace AOG
         }
 
         public static vec3 operator *(vec3 self, double s)
+        {
+            return new vec3(self.easting * s, self.northing * s);
+        }
+        public static vec3 operator *(double s, vec3 self)
         {
             return new vec3(self.easting * s, self.northing * s);
         }

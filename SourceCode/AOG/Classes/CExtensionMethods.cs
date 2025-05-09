@@ -623,10 +623,6 @@ namespace AOG
                 var easting = points[i].easting + (Math.Cos(points[i].heading) * distance);
                 var northing = points[i].northing - (Math.Sin(points[i].heading) * distance);
 
-                //var easting = points[i].easting - (Math.Sin(glm.PIBy2 + points[i].heading) * distance);
-
-                //var northing = points[i].northing - (Math.Cos(glm.PIBy2 + points[i].heading) * distance);
-
                 bool Add = true;
 
                 for (int j = 0; j < count; j++)

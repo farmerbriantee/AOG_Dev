@@ -267,24 +267,8 @@ namespace AOG
 
                 double abHeading = gTemp[k].heading;
 
-                double hsin = Math.Sin(abHeading);
-                double hcos = Math.Cos(abHeading);
-
-                gTemp[k].endPtA.easting = gTemp[k].ptA.easting - (Math.Sin(abHeading));
-                gTemp[k].endPtA.northing = gTemp[k].ptA.northing - (Math.Cos(abHeading));
-
-                gTemp[k].endPtB.easting = gTemp[k].ptB.easting + (Math.Sin(abHeading));
-                gTemp[k].endPtB.northing = gTemp[k].ptB.northing + (Math.Cos(abHeading));
-
-                double len = glm.Distance(gTemp[k].endPtA, gTemp[k].endPtB);
-                vec3 P1 = new vec3();
-                for (int i = 0; i < (int)len; i += 1)
-                {
-                    P1.easting = (hsin * i) + gTemp[k].endPtA.easting;
-                    P1.northing = (hcos * i) + gTemp[k].endPtA.northing;
-                    P1.heading = abHeading;
-                    gTemp[k].curvePts.Add(P1);
-                }
+                gTemp[k].curvePts.Add(new vec3(gTemp[k].ptA, abHeading));
+                gTemp[k].curvePts.Add(new vec3(gTemp[k].ptB, abHeading));
             }
         }
 

@@ -662,6 +662,8 @@
             this.oglMain.Load += new System.EventHandler(this.oglMain_Load);
             this.oglMain.Paint += new System.Windows.Forms.PaintEventHandler(this.oglMain_Paint);
             this.oglMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.oglMain_MouseDown);
+            this.oglMain.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OglMain_MouseMove);
+            this.oglMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.oglMain_MouseUp);
             this.oglMain.Resize += new System.EventHandler(this.oglMain_Resize);
             // 
             // oglBack

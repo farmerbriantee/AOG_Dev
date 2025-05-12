@@ -493,9 +493,9 @@ namespace AOG
                 
                 for (int i = 0; i < thisCurve.currentGuidanceTrack.Count - 1; i++)
                 {
-                    if (glm.GetLineIntersection(from, turnLine[turnLineIndex], thisCurve.currentGuidanceTrack[i], thisCurve.currentGuidanceTrack[i + 1], out vec3 _crossing, out double time_, out _))
+                    if (glm.GetLineIntersection(from, turnLine[turnLineIndex], thisCurve.currentGuidanceTrack[i], thisCurve.currentGuidanceTrack[i + 1], out vec3 _crossing, out double time_, out double time2))
                     {
-                        if ((i + time_ < mf.gyd.rTimeTrk && thisCurve.isHeadingSameWay) || (i + time_ > mf.gyd.rTimeTrk && !thisCurve.isHeadingSameWay))
+                        if ((i + time2 < mf.gyd.rTimeTrk && thisCurve.isHeadingSameWay) || (i + time2 > mf.gyd.rTimeTrk && !thisCurve.isHeadingSameWay))
                         {
                             return false; //hitting the curve behind us
                         }
@@ -864,6 +864,7 @@ namespace AOG
             //GL.PointSize(1.0f);
         }
 
+        [System.Diagnostics.DebuggerDisplay("{ToString()}")]
         public class CClose
         {
             public vec3 closePt = new vec3();
@@ -897,7 +898,7 @@ namespace AOG
 
             public override string ToString()
             {
-                return "east:" + closePt.easting.ToString("0.0") + ", north:" + closePt.northing.ToString("0.0");
+                return closePt.ToString();
             }
         }
     }

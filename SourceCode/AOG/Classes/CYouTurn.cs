@@ -864,6 +864,7 @@ namespace AOG
             //GL.PointSize(1.0f);
         }
 
+        [System.Diagnostics.DebuggerDisplay("{ToString()}")]
         public class CClose
         {
             public vec3 closePt = new vec3();
@@ -897,7 +898,7 @@ namespace AOG
 
             public override string ToString()
             {
-                return "east:" + closePt.easting.ToString("0.0") + ", north:" + closePt.northing.ToString("0.0");
+                return closePt.ToString();
             }
         }
     }

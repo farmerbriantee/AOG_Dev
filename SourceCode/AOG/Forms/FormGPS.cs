@@ -38,7 +38,7 @@ namespace AOG
         //current fields
         public string currentFieldDirectory, displayFieldName, currentJobDirectory, displayJobName;
 
-        private bool leftMouseDownOnOpenGL; //mousedown event in opengl window
+        private bool leftMouseDownOnOpenGL, rightMouseDown; //mousedown event in opengl window
         public int flagNumberPicked = 0;
 
         //bool for whether or not a Field and job is active

@@ -1133,6 +1133,52 @@ namespace AOG
 
                 leftMouseDownOnOpenGL = true;
             }
+            else if (e.Button == MouseButtons.Right)
+            {
+                if (!isPanFormVisible)
+                {
+                    isPanFormVisible = true;
+                    Form f = Application.OpenForms["FormPan"];
+
+                    if (f != null)
+                    {
+                        f.Focus();
+                        return;
+                    }
+
+                    Form form = new FormPan(this);
+                    form.Show(this);
+
+                    form.Top = this.Height / 3 + this.Top;
+                    form.Left = this.Width - 400 + this.Left;
+                }
+                    
+                rightMouseDown = true;
+                _iPrevMoveX = e.X;
+                _iPrevMoveY = e.Y;
+            }
+        }
+
+        private int _iPrevMoveX, _iPrevMoveY;
+        private void OglMain_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (rightMouseDown)
+            {
+                int distanceX = e.X - _iPrevMoveX;
+                int distanceY = e.Y - _iPrevMoveY;
+
+                _iPrevMoveX = e.X;
+                _iPrevMoveY = e.Y;
+
+                camera.panX += distanceX * (Settings.User.setDisplay_camZoom / 100);
+                camera.panY -= distanceY * (Settings.User.setDisplay_camZoom / 100);
+            }
+        }
+
+        private void oglMain_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+                rightMouseDown = false;
         }
 
         private void SpeedLimitExceeded()

@@ -34,21 +34,21 @@
             this.lblCurveSelected = new System.Windows.Forms.Label();
             this.tboxNameCurve = new System.Windows.Forms.TextBox();
             this.tlp1 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnEdgeAB = new System.Windows.Forms.Button();
             this.btnBLength = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.btnALength = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
-            this.btnMakeCurve = new System.Windows.Forms.Button();
-            this.btnMakeABLine = new System.Windows.Forms.Button();
             this.cboxIsZoom = new System.Windows.Forms.CheckBox();
             this.cboxIsVisible = new System.Windows.Forms.CheckBox();
-            this.btnMakeBoundaryCurve = new System.Windows.Forms.Button();
             this.btnSelectCurveBk = new System.Windows.Forms.Button();
-            this.btnSelectCurve = new System.Windows.Forms.Button();
             this.btnAddTime = new System.Windows.Forms.Button();
-            this.btnCancelTouch = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.btnDeleteCurve = new System.Windows.Forms.Button();
+            this.btnMakeCurve = new System.Windows.Forms.Button();
+            this.btnMakeABLine = new System.Windows.Forms.Button();
+            this.btnSelectCurve = new System.Windows.Forms.Button();
+            this.btnCancelTouch = new System.Windows.Forms.Button();
+            this.btnEdgeAB = new System.Windows.Forms.Button();
+            this.btnMakeBoundaryCurve = new System.Windows.Forms.Button();
             this.btnMakeAPlus = new System.Windows.Forms.Button();
             this.tlp1.SuspendLayout();
             this.SuspendLayout();
@@ -128,8 +128,8 @@
             this.tlp1.Controls.Add(this.btnSelectCurve, 2, 4);
             this.tlp1.Controls.Add(this.btnCancelTouch, 1, 3);
             this.tlp1.Controls.Add(this.btnEdgeAB, 1, 1);
-            this.tlp1.Controls.Add(this.btnMakeBoundaryCurve, 1, 0);
             this.tlp1.Controls.Add(this.btnMakeAPlus, 2, 1);
+            this.tlp1.Controls.Add(this.btnMakeBoundaryCurve, 2, 0);
             this.tlp1.Location = new System.Drawing.Point(705, 2);
             this.tlp1.Name = "tlp1";
             this.tlp1.RowCount = 8;
@@ -144,25 +144,6 @@
             this.tlp1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlp1.Size = new System.Drawing.Size(441, 700);
             this.tlp1.TabIndex = 564;
-            // 
-            // btnEdgeAB
-            // 
-            this.btnEdgeAB.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnEdgeAB.BackColor = System.Drawing.Color.Transparent;
-            this.btnEdgeAB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnEdgeAB.Enabled = false;
-            this.btnEdgeAB.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.btnEdgeAB.FlatAppearance.BorderSize = 0;
-            this.btnEdgeAB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEdgeAB.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnEdgeAB.Image = global::AOG.Properties.Resources.ABTrackEdgeAB;
-            this.btnEdgeAB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnEdgeAB.Location = new System.Drawing.Point(174, 98);
-            this.btnEdgeAB.Name = "btnEdgeAB";
-            this.btnEdgeAB.Size = new System.Drawing.Size(90, 87);
-            this.btnEdgeAB.TabIndex = 564;
-            this.btnEdgeAB.UseVisualStyleBackColor = false;
-            this.btnEdgeAB.Click += new System.EventHandler(this.btnEdgeAB_Click);
             // 
             // btnBLength
             // 
@@ -184,24 +165,6 @@
             this.btnBLength.UseVisualStyleBackColor = false;
             this.btnBLength.Click += new System.EventHandler(this.btnBLength_Click);
             // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCancel.BackColor = System.Drawing.Color.Transparent;
-            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.FlatAppearance.BorderSize = 0;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancel.Image = global::AOG.Properties.Resources.Cancel64;
-            this.btnCancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnCancel.Location = new System.Drawing.Point(175, 619);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(88, 56);
-            this.btnCancel.TabIndex = 469;
-            this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // btnALength
             // 
             this.btnALength.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -221,62 +184,6 @@
             this.btnALength.TabIndex = 352;
             this.btnALength.UseVisualStyleBackColor = false;
             this.btnALength.Click += new System.EventHandler(this.btnALength_Click);
-            // 
-            // btnExit
-            // 
-            this.btnExit.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnExit.BackColor = System.Drawing.Color.Transparent;
-            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnExit.FlatAppearance.BorderSize = 0;
-            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnExit.Image = global::AOG.Properties.Resources.OK64;
-            this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnExit.Location = new System.Drawing.Point(323, 619);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(88, 56);
-            this.btnExit.TabIndex = 0;
-            this.btnExit.UseVisualStyleBackColor = false;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // btnMakeCurve
-            // 
-            this.btnMakeCurve.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnMakeCurve.BackColor = System.Drawing.Color.Transparent;
-            this.btnMakeCurve.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnMakeCurve.Enabled = false;
-            this.btnMakeCurve.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.btnMakeCurve.FlatAppearance.BorderSize = 0;
-            this.btnMakeCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMakeCurve.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnMakeCurve.Image = global::AOG.Properties.Resources.ABTrackCurve;
-            this.btnMakeCurve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnMakeCurve.Location = new System.Drawing.Point(322, 199);
-            this.btnMakeCurve.Name = "btnMakeCurve";
-            this.btnMakeCurve.Size = new System.Drawing.Size(90, 87);
-            this.btnMakeCurve.TabIndex = 2;
-            this.btnMakeCurve.UseVisualStyleBackColor = false;
-            this.btnMakeCurve.Click += new System.EventHandler(this.btnMakeCurve_Click);
-            // 
-            // btnMakeABLine
-            // 
-            this.btnMakeABLine.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnMakeABLine.BackColor = System.Drawing.Color.Transparent;
-            this.btnMakeABLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnMakeABLine.Enabled = false;
-            this.btnMakeABLine.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.btnMakeABLine.FlatAppearance.BorderSize = 0;
-            this.btnMakeABLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMakeABLine.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnMakeABLine.Image = global::AOG.Properties.Resources.ABTrackAB;
-            this.btnMakeABLine.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnMakeABLine.Location = new System.Drawing.Point(322, 309);
-            this.btnMakeABLine.Name = "btnMakeABLine";
-            this.btnMakeABLine.Size = new System.Drawing.Size(90, 87);
-            this.btnMakeABLine.TabIndex = 3;
-            this.btnMakeABLine.UseVisualStyleBackColor = false;
-            this.btnMakeABLine.Click += new System.EventHandler(this.btnMakeABLine_Click);
             // 
             // cboxIsZoom
             // 
@@ -320,24 +227,6 @@
             this.cboxIsVisible.UseVisualStyleBackColor = false;
             this.cboxIsVisible.Click += new System.EventHandler(this.cboxIsVisible_Click);
             // 
-            // btnMakeBoundaryCurve
-            // 
-            this.btnMakeBoundaryCurve.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnMakeBoundaryCurve.BackColor = System.Drawing.Color.Transparent;
-            this.btnMakeBoundaryCurve.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnMakeBoundaryCurve.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.btnMakeBoundaryCurve.FlatAppearance.BorderSize = 0;
-            this.btnMakeBoundaryCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMakeBoundaryCurve.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnMakeBoundaryCurve.Image = global::AOG.Properties.Resources.BoundaryCurveLine;
-            this.btnMakeBoundaryCurve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnMakeBoundaryCurve.Location = new System.Drawing.Point(174, 3);
-            this.btnMakeBoundaryCurve.Name = "btnMakeBoundaryCurve";
-            this.btnMakeBoundaryCurve.Size = new System.Drawing.Size(90, 84);
-            this.btnMakeBoundaryCurve.TabIndex = 4;
-            this.btnMakeBoundaryCurve.UseVisualStyleBackColor = false;
-            this.btnMakeBoundaryCurve.Click += new System.EventHandler(this.btnMakeBoundaryCurve_Click);
-            // 
             // btnSelectCurveBk
             // 
             this.btnSelectCurveBk.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -355,24 +244,6 @@
             this.btnSelectCurveBk.TabIndex = 472;
             this.btnSelectCurveBk.UseVisualStyleBackColor = false;
             this.btnSelectCurveBk.Click += new System.EventHandler(this.btnSelectCurveBk_Click);
-            // 
-            // btnSelectCurve
-            // 
-            this.btnSelectCurve.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnSelectCurve.BackColor = System.Drawing.Color.Transparent;
-            this.btnSelectCurve.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSelectCurve.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.btnSelectCurve.FlatAppearance.BorderSize = 0;
-            this.btnSelectCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSelectCurve.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnSelectCurve.Image = global::AOG.Properties.Resources.ABLineCycle;
-            this.btnSelectCurve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSelectCurve.Location = new System.Drawing.Point(303, 424);
-            this.btnSelectCurve.Name = "btnSelectCurve";
-            this.btnSelectCurve.Size = new System.Drawing.Size(128, 68);
-            this.btnSelectCurve.TabIndex = 5;
-            this.btnSelectCurve.UseVisualStyleBackColor = false;
-            this.btnSelectCurve.Click += new System.EventHandler(this.btnSelectCurve_Click);
             // 
             // btnAddTime
             // 
@@ -393,23 +264,41 @@
             this.btnAddTime.UseVisualStyleBackColor = false;
             this.btnAddTime.Click += new System.EventHandler(this.btnAddTime_Click);
             // 
-            // btnCancelTouch
+            // btnExit
             // 
-            this.btnCancelTouch.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCancelTouch.BackColor = System.Drawing.Color.Transparent;
-            this.btnCancelTouch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnCancelTouch.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
-            this.btnCancelTouch.FlatAppearance.BorderSize = 0;
-            this.btnCancelTouch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelTouch.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnCancelTouch.Image = global::AOG.Properties.Resources.HeadlandDeletePoints;
-            this.btnCancelTouch.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnCancelTouch.Location = new System.Drawing.Point(183, 321);
-            this.btnCancelTouch.Name = "btnCancelTouch";
-            this.btnCancelTouch.Size = new System.Drawing.Size(72, 63);
-            this.btnCancelTouch.TabIndex = 470;
-            this.btnCancelTouch.UseVisualStyleBackColor = false;
-            this.btnCancelTouch.Click += new System.EventHandler(this.btnCancelTouch_Click);
+            this.btnExit.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnExit.BackColor = System.Drawing.Color.Transparent;
+            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnExit.Image = global::AOG.Properties.Resources.OK64;
+            this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnExit.Location = new System.Drawing.Point(323, 619);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(88, 56);
+            this.btnExit.TabIndex = 0;
+            this.btnExit.UseVisualStyleBackColor = false;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnCancel.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.btnCancel.Image = global::AOG.Properties.Resources.Cancel64;
+            this.btnCancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnCancel.Location = new System.Drawing.Point(175, 619);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(88, 56);
+            this.btnCancel.TabIndex = 469;
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnDeleteCurve
             // 
@@ -428,6 +317,117 @@
             this.btnDeleteCurve.TabIndex = 6;
             this.btnDeleteCurve.UseVisualStyleBackColor = false;
             this.btnDeleteCurve.Click += new System.EventHandler(this.btnDeleteCurve_Click);
+            // 
+            // btnMakeCurve
+            // 
+            this.btnMakeCurve.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnMakeCurve.BackColor = System.Drawing.Color.Transparent;
+            this.btnMakeCurve.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnMakeCurve.Enabled = false;
+            this.btnMakeCurve.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.btnMakeCurve.FlatAppearance.BorderSize = 0;
+            this.btnMakeCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMakeCurve.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.btnMakeCurve.Image = global::AOG.Properties.Resources.ABTrackCurve;
+            this.btnMakeCurve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnMakeCurve.Location = new System.Drawing.Point(322, 199);
+            this.btnMakeCurve.Name = "btnMakeCurve";
+            this.btnMakeCurve.Size = new System.Drawing.Size(90, 87);
+            this.btnMakeCurve.TabIndex = 2;
+            this.btnMakeCurve.UseVisualStyleBackColor = false;
+            this.btnMakeCurve.Click += new System.EventHandler(this.btnMakeCurve_Click);
+            // 
+            // btnMakeABLine
+            // 
+            this.btnMakeABLine.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnMakeABLine.BackColor = System.Drawing.Color.Transparent;
+            this.btnMakeABLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnMakeABLine.Enabled = false;
+            this.btnMakeABLine.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.btnMakeABLine.FlatAppearance.BorderSize = 0;
+            this.btnMakeABLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMakeABLine.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.btnMakeABLine.Image = global::AOG.Properties.Resources.ABTrackAB;
+            this.btnMakeABLine.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnMakeABLine.Location = new System.Drawing.Point(322, 309);
+            this.btnMakeABLine.Name = "btnMakeABLine";
+            this.btnMakeABLine.Size = new System.Drawing.Size(90, 87);
+            this.btnMakeABLine.TabIndex = 3;
+            this.btnMakeABLine.UseVisualStyleBackColor = false;
+            this.btnMakeABLine.Click += new System.EventHandler(this.btnMakeABLine_Click);
+            // 
+            // btnSelectCurve
+            // 
+            this.btnSelectCurve.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnSelectCurve.BackColor = System.Drawing.Color.Transparent;
+            this.btnSelectCurve.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnSelectCurve.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.btnSelectCurve.FlatAppearance.BorderSize = 0;
+            this.btnSelectCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSelectCurve.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.btnSelectCurve.Image = global::AOG.Properties.Resources.ABLineCycle;
+            this.btnSelectCurve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnSelectCurve.Location = new System.Drawing.Point(303, 424);
+            this.btnSelectCurve.Name = "btnSelectCurve";
+            this.btnSelectCurve.Size = new System.Drawing.Size(128, 68);
+            this.btnSelectCurve.TabIndex = 5;
+            this.btnSelectCurve.UseVisualStyleBackColor = false;
+            this.btnSelectCurve.Click += new System.EventHandler(this.btnSelectCurve_Click);
+            // 
+            // btnCancelTouch
+            // 
+            this.btnCancelTouch.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnCancelTouch.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancelTouch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnCancelTouch.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.btnCancelTouch.FlatAppearance.BorderSize = 0;
+            this.btnCancelTouch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelTouch.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.btnCancelTouch.Image = global::AOG.Properties.Resources.HeadlandDeletePoints;
+            this.btnCancelTouch.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnCancelTouch.Location = new System.Drawing.Point(183, 321);
+            this.btnCancelTouch.Name = "btnCancelTouch";
+            this.btnCancelTouch.Size = new System.Drawing.Size(72, 63);
+            this.btnCancelTouch.TabIndex = 470;
+            this.btnCancelTouch.UseVisualStyleBackColor = false;
+            this.btnCancelTouch.Click += new System.EventHandler(this.btnCancelTouch_Click);
+            // 
+            // btnEdgeAB
+            // 
+            this.btnEdgeAB.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnEdgeAB.BackColor = System.Drawing.Color.Transparent;
+            this.btnEdgeAB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnEdgeAB.Enabled = false;
+            this.btnEdgeAB.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.btnEdgeAB.FlatAppearance.BorderSize = 0;
+            this.btnEdgeAB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEdgeAB.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.btnEdgeAB.Image = global::AOG.Properties.Resources.ABTrackEdgeAB;
+            this.btnEdgeAB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnEdgeAB.Location = new System.Drawing.Point(174, 98);
+            this.btnEdgeAB.Name = "btnEdgeAB";
+            this.btnEdgeAB.Size = new System.Drawing.Size(90, 87);
+            this.btnEdgeAB.TabIndex = 564;
+            this.btnEdgeAB.UseVisualStyleBackColor = false;
+            this.btnEdgeAB.Click += new System.EventHandler(this.btnEdgeAB_Click);
+            // 
+            // btnMakeBoundaryCurve
+            // 
+            this.btnMakeBoundaryCurve.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnMakeBoundaryCurve.BackColor = System.Drawing.Color.Transparent;
+            this.btnMakeBoundaryCurve.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnMakeBoundaryCurve.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
+            this.btnMakeBoundaryCurve.FlatAppearance.BorderSize = 0;
+            this.btnMakeBoundaryCurve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMakeBoundaryCurve.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.btnMakeBoundaryCurve.Image = global::AOG.Properties.Resources.BoundaryCurveLine;
+            this.btnMakeBoundaryCurve.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnMakeBoundaryCurve.Location = new System.Drawing.Point(322, 3);
+            this.btnMakeBoundaryCurve.Name = "btnMakeBoundaryCurve";
+            this.btnMakeBoundaryCurve.Size = new System.Drawing.Size(90, 84);
+            this.btnMakeBoundaryCurve.TabIndex = 4;
+            this.btnMakeBoundaryCurve.UseVisualStyleBackColor = false;
+            this.btnMakeBoundaryCurve.Click += new System.EventHandler(this.btnMakeBoundaryCurve_Click);
             // 
             // btnMakeAPlus
             // 
@@ -453,7 +453,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1150, 707);
+            this.ClientSize = new System.Drawing.Size(1150, 731);
             this.ControlBox = false;
             this.Controls.Add(this.tlp1);
             this.Controls.Add(this.oglSelf);

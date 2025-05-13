@@ -446,6 +446,7 @@ namespace AOG
             form.ShowDialog(this);
 
             double len = glm.Distance(mf.bnd.bndList[bndSelect].fenceLine[end], mf.bnd.bndList[bndSelect].fenceLine[start]);
+            
             if (len < 20)
             {
                 len = 30;
@@ -534,14 +535,32 @@ namespace AOG
 
             var track = new CTrk(TrackMode.AB);
 
-            track.heading = abHead;
+            var form = new FormABDrawHeading(this, abHead);
+            form.ShowDialog(this);
+
+            double len = glm.Distance(mf.bnd.bndList[bndSelect].fenceLine[end], mf.bnd.bndList[bndSelect].fenceLine[start]);
+
+            if (len < 20)
+            {
+                len = 30;
+            }
+            if (remoteHeading != -1)
+            {
+                abHead = remoteHeading;
+            }
 
             //calculate the new points for the reference line and points
-            track.ptA.easting = mf.bnd.bndList[bndSelect].fenceLine[start].easting;
-            track.ptA.northing = mf.bnd.bndList[bndSelect].fenceLine[start].northing;
+            track.ptA.easting = mf.bnd.bndList[bndSelect].fenceLine[end].easting;
+            track.ptA.northing = mf.bnd.bndList[bndSelect].fenceLine[end].northing;
 
-            track.ptB.easting = mf.bnd.bndList[bndSelect].fenceLine[end].easting;
-            track.ptB.northing = mf.bnd.bndList[bndSelect].fenceLine[end].northing;
+            track.ptB.easting = track.ptA.easting + (Math.Sin(abHead) * len);
+            track.ptB.northing = track.ptA.northing + (Math.Cos(abHead) * len);
+
+            track.heading = abHead;
+
+
+
+
 
             //get the pivot distance from currently active AB segment   ///////////  Pivot  ////////////
             double dx = track.ptB.easting - track.ptA.easting;
@@ -567,14 +586,6 @@ namespace AOG
             track.ptB.easting += (Math.Sin(abHead + glm.PIBy2) * maxDistance);
             track.ptA.northing += (Math.Cos(abHead + glm.PIBy2) * maxDistance);
             track.ptB.northing += (Math.Cos(abHead + glm.PIBy2) * maxDistance);
-
-            //fill in the dots between A and B
-            double len = glm.Distance(track.ptA, track.ptB);
-            if (len < 20)
-            {
-                track.ptB.easting = track.ptA.easting + (Math.Sin(abHead) * 30);
-                track.ptB.northing = track.ptA.northing + (Math.Cos(abHead) * 30);
-            }
 
             track.curvePts.Add(new vec3(track.ptA, abHead));
             track.curvePts.Add(new vec3(track.ptB, abHead));

@@ -124,6 +124,12 @@
     <Compile Include="Classes\CNozzle.cs" />
     <Compile Include="Classes\CPolygon.cs" />
     <Compile Include="Classes\CPatches.cs" />
+    <Compile Include="Forms\Guidance\FormABDrawHeading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Guidance\FormABDrawHeading.designer.cs">
+      <DependentUpon>FormABDrawHeading.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\CRegistrySettings.cs" />
     <Compile Include="Classes\CSettings.cs" />
     <Compile Include="Classes\CSound.cs" />
@@ -571,6 +577,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Guidance\FormGrid.resx">
       <DependentUpon>FormGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Guidance\FormABDrawHeading.resx">
+      <DependentUpon>FormABDrawHeading.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Pickers\FormJobPicker.resx">
       <DependentUpon>FormJobPicker.cs</DependentUpon>

@@ -169,8 +169,8 @@ namespace AOG
                     if (distanceCurrentStepFix > Settings.Vehicle.setGPS_minimumStepLimit)// 0.1 or 0.05 
                     {
                         //plotting of fix and corrected fix
-                        //gpsPts.Add(tempFix);
-                        //gpsPtsCorr.Add(pn.fix);
+                        gpsPts.Add(tempFix);
+                        gpsPtsCorr.Add(pn.fix);
 
                         if ((fd.distanceUser += distanceCurrentStepFix) > 9999) fd.distanceUser = 0;
 

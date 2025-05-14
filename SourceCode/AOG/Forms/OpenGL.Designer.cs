@@ -497,9 +497,6 @@ namespace AOG
                         }
                         GL.End();
 
-                        if (gpsPts.Count > 100)
-                            gpsPts.RemoveRange(0, 20);
-
                         GL.LineWidth(4);
                         GL.Begin(PrimitiveType.LineStrip);
                         GL.Color3(0.30, 1.0, 0.0);
@@ -510,8 +507,11 @@ namespace AOG
                         }
                         GL.End();
 
-                        if (gpsPtsCorr.Count > 100)
-                            gpsPtsCorr.RemoveRange(0, 20);
+                        if (gpsPtsCorr.Count > 50)
+                        {
+                            gpsPtsCorr.RemoveRange(0, 10);
+                            gpsPts.RemoveRange(0, 10);
+                        }
                     }
 
                     #endregion

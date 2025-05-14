@@ -32,52 +32,58 @@ namespace AOG
         private void DrawChart()
         {
             {
-                roll = (mf.correctionDistanceGraph * 20).ToString("N2", CultureInfo.InvariantCulture);
-                east = (mf.pn.fix.easting * 20).ToString("N2", CultureInfo.InvariantCulture);
-                ost = (mf.uncorrectedEastingGraph * 20).ToString("N2", CultureInfo.InvariantCulture);
+                //roll = (mf.correctionDistanceGraph).ToString("N2", CultureInfo.InvariantCulture);
+                roll = (mf.ahrs.imuRoll*1).ToString();
+                //east = (mf.pn.fix.easting * 20).ToString("N2", CultureInfo.InvariantCulture);
+                //ost = (mf.uncorrectedEastingGraph * 20).ToString("N2", CultureInfo.InvariantCulture);
 
-                if (!isPole) roll = ((mf.correctionDistanceGraph + mf.uncorrectedEastingGraph) * 20).ToString("N2", CultureInfo.InvariantCulture);
+                //if (!isPole) roll = ((mf.correctionDistanceGraph + mf.uncorrectedEastingGraph) * 20).ToString("N2", CultureInfo.InvariantCulture);
 
-                lblCorrectionDistance.Text = (mf.correctionDistanceGraph).ToString("N2", CultureInfo.InvariantCulture); ;
-                lblEast.Text = (mf.pn.fix.easting).ToString("N2", CultureInfo.InvariantCulture); ;
-                lblOst.Text = (mf.uncorrectedEastingGraph).ToString("N2", CultureInfo.InvariantCulture);
+                //lblCorrectionDistance.Text = (mf.correctionDistanceGraph).ToString("N2", CultureInfo.InvariantCulture); ;
+                //lblEast.Text = (mf.pn.fix.easting).ToString("N2", CultureInfo.InvariantCulture); ;
+                //lblOst.Text = (mf.uncorrectedEastingGraph).ToString("N2", CultureInfo.InvariantCulture);
                 lblRollDegrees.Text = (mf.RollInDegrees);
-                lblEastOnGraph.Text = ((int)(mf.pn.fix.easting * 100)).ToString(CultureInfo.InvariantCulture);
+                //lblEastOnGraph.Text = ((int)(mf.pn.fix.easting * 100)).ToString(CultureInfo.InvariantCulture);
+
+                rollChart.ChartAreas[0].AxisY.Minimum = -10;
+                rollChart.ChartAreas[0].AxisY.Maximum = 10;
+                rollChart.ResetAutoValues();
+
             }
 
             if (isScroll)
             {
                 //chart data
                 Series r = rollChart.Series["Ro"];
-                Series t = rollChart.Series["Ze"];
-                Series u = rollChart.Series["Oe"];
+                //Series t = rollChart.Series["Ze"];
+                //Series u = rollChart.Series["Oe"];
 
                 double nextx6 = 1;
-                double nextx7 = 1;
-                double nextx8 = 1;
+                //double nextx7 = 1;
+                //double nextx8 = 1;
 
                 if (r.Points.Count > 0) nextx6 = r.Points[r.Points.Count - 1].XValue + 1;
-                if (t.Points.Count > 0) nextx7 = t.Points[t.Points.Count - 1].XValue + 1;
-                if (u.Points.Count > 0) nextx8 = u.Points[u.Points.Count - 1].XValue + 1;
+                //if (t.Points.Count > 0) nextx7 = t.Points[t.Points.Count - 1].XValue + 1;
+                //if (u.Points.Count > 0) nextx8 = u.Points[u.Points.Count - 1].XValue + 1;
 
                 rollChart.Series["Ro"].Points.AddXY(nextx6, roll);
-                rollChart.Series["Ze"].Points.AddXY(nextx7, east);
-                rollChart.Series["Oe"].Points.AddXY(nextx8, ost);
+                //rollChart.Series["Ze"].Points.AddXY(nextx7, east);
+                //rollChart.Series["Oe"].Points.AddXY(nextx8, ost);
 
-                while (r.Points.Count > 50)
+                while (r.Points.Count > 100)
                 {
                     r.Points.RemoveAt(0);
                 }
-                while (t.Points.Count > 50)
-                {
-                    t.Points.RemoveAt(0);
-                }
-                while (u.Points.Count > 50)
-                {
-                    u.Points.RemoveAt(0);
-                }
+                //while (t.Points.Count > 50)
+                //{
+                //    t.Points.RemoveAt(0);
+                //}
+                //while (u.Points.Count > 50)
+                //{
+                //    u.Points.RemoveAt(0);
+                //}
                 //rollChart.ChartAreas[0].RecalculateAxesScale();
-                rollChart.ResetAutoValues();
+                //rollChart.ResetAutoValues();
             }
         }
 

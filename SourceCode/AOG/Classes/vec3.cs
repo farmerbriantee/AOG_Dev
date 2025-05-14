@@ -24,7 +24,7 @@ namespace AOG
     /// Represents a three dimensional vector.
     /// </summary>
     ///
-
+    [System.Diagnostics.DebuggerDisplay("{ToString()}")]
     public struct vec3
     {
         public double easting;
@@ -110,6 +110,11 @@ namespace AOG
         //{
         //    return (lhs.x != rhs.x && lhs.z != rhs.z && lhs.h != rhs.h);
         //}
+
+        public override string ToString()
+        {
+            return "east:" + easting.ToString("0.000") + ", north:" + northing.ToString("0.000");
+        }
     }
 
     public struct vecFix2Fix
@@ -140,6 +145,7 @@ namespace AOG
         }
     }
 
+    [System.Diagnostics.DebuggerDisplay("{ToString()}")]
     public struct vec2
     {
         public double easting; //easting
@@ -218,6 +224,11 @@ namespace AOG
         public static vec2 operator +(vec2 lhs, vec2 rhs)
         {
             return new vec2(lhs.easting + rhs.easting, lhs.northing + rhs.northing);
+        }
+
+        public override string ToString()
+        {
+            return "east:" + easting.ToString("0.000") + ", north:" + northing.ToString("0.000");
         }
     }
 

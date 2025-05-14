@@ -1,6 +1,8 @@
 void SetPWM(double PWM)
 {
     // Dir + PWM Signal
+    if (flipFlopPWM > 1) PWM /=4;
+    
     if (pwmDrive >= 0)
     {
         analogWrite(Motor2, 0);
@@ -18,6 +20,7 @@ double NewPWM = 0;
 
 void DoPID(void)
 {
+  /*
     if (settings.isMeter)
     {
         flowError = (setGPM - actualGPM);
@@ -41,6 +44,7 @@ void DoPID(void)
     }
     else
     {
+      */
         flowError = (setGPM - actualGPM);
 
         if (abs(flowError) < (settings.deadbandError * setGPM))
@@ -63,7 +67,7 @@ void DoPID(void)
                 pwmDrive = -pwmDrive;
             }
         }
-    }
+    //}
 
     SetPWM(abs(pwmDrive));
 }

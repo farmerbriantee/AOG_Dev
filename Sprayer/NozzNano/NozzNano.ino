@@ -17,7 +17,7 @@
     void setup() 
     {
         //set the baud rate
-        Serial.begin(38400);
+        Serial.begin(115200);
 
         //D2 is interrupt 0 for flowmeter
         pinMode(FLOWPIN, INPUT_PULLUP);           //Sets the pin as an input, pullup
@@ -85,7 +85,7 @@
             totalVolume = (isr_flowCount * 10) / settings.flowCalFactor;
 
             //if (isPressureLow || watchdogTimer > 29)
-            if (watchdogTimer > 29 || setGPM < 50 || speed < 1.0)
+            if ((watchdogTimer > 29 || setGPM < 50 || speed < 1.0) && autoMode)
             {
                 //make sure flow control doesn't move
                 relayLo = 0;
@@ -126,8 +126,11 @@
                 }
             }
 
+            flipFlopPWM++;
+            if (flipFlopPWM > 5) flipFlopPWM = 0;
+            
             flipFlop++;
-
+            
             if (flipFlop > 1)
             {
                 //Volume x 10
@@ -138,6 +141,11 @@
                 AOG[5] = (byte)(totalVolume);
                 AOG[6] = (byte)(totalVolume >> 8);
 
+                if (speed < 1.0) 
+                {
+                  actualGPM = 0;
+                  isr_isFlowing = 0;
+                }
                 uint16_t aGPM = actualGPM;
                 AOG[7] = (uint8_t)aGPM;
                 AOG[8] = (uint8_t)(aGPM >> 8);

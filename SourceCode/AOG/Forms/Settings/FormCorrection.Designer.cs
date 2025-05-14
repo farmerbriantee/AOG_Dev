@@ -112,6 +112,7 @@
             this.lblCorrectionDistance.TabIndex = 245;
             this.lblCorrectionDistance.Text = "label5";
             this.lblCorrectionDistance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblCorrectionDistance.Visible = false;
             // 
             // lblEast
             // 
@@ -126,6 +127,7 @@
             this.lblEast.TabIndex = 247;
             this.lblEast.Text = "label5";
             this.lblEast.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblEast.Visible = false;
             // 
             // label5
             // 
@@ -140,6 +142,7 @@
             this.label5.TabIndex = 249;
             this.label5.Text = "Corrected Easting";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label5.Visible = false;
             // 
             // label1
             // 
@@ -154,6 +157,7 @@
             this.label1.TabIndex = 250;
             this.label1.Text = "Correction Distance";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label1.Visible = false;
             // 
             // lblOst
             // 
@@ -168,6 +172,7 @@
             this.lblOst.TabIndex = 251;
             this.lblOst.Text = "label5";
             this.lblOst.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblOst.Visible = false;
             // 
             // label3
             // 
@@ -182,6 +187,7 @@
             this.label3.TabIndex = 252;
             this.label3.Text = "Antenna";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label3.Visible = false;
             // 
             // label6
             // 
@@ -252,6 +258,7 @@
             this.btnPoleOrMoving.TabIndex = 259;
             this.btnPoleOrMoving.Text = "Pole";
             this.btnPoleOrMoving.UseVisualStyleBackColor = false;
+            this.btnPoleOrMoving.Visible = false;
             this.btnPoleOrMoving.Click += new System.EventHandler(this.btnPoleOrMoving_Click);
             // 
             // FormCorrection

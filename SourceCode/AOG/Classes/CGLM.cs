@@ -103,24 +103,32 @@ namespace AOG
 
         public static void DrawPolygon(this List<vec3> polygon, PrimitiveType type = PrimitiveType.LineLoop)
         {
-            if (polygon.Count > 1)
+            try
             {
-                GL.Begin(type);
-                for (int i = 0; i < polygon.Count; i++)
+                if (polygon.Count > 1)
                 {
-                    GL.Vertex3(polygon[i].easting, polygon[i].northing, 0);
+                    GL.Begin(type);
+                    for (int i = 0; i < polygon.Count; i++)
+                    {
+                        GL.Vertex3(polygon[i].easting, polygon[i].northing, 0);
+                    }
+                    GL.End();
+
+                    //GL.PointSize(4.0f);
+                    //GL.Begin(PrimitiveType.Points);
+                    //GL.Color3(1.0f, 1.0f, 0.50f);
+                    //for (int i = 0; i < polygon.Count; i++)
+                    //{
+                    //    GL.Vertex3(polygon[i].easting, polygon[i].northing, 0);
+                    //}
+                    //GL.End();
+                    //GL.PointSize(1.0f);
                 }
-                GL.End();
-                
-                //GL.PointSize(4.0f);
-                //GL.Begin(PrimitiveType.Points);
-                //GL.Color3(1.0f, 1.0f, 0.50f);
-                //for (int i = 0; i < polygon.Count; i++)
-                //{
-                //    GL.Vertex3(polygon[i].easting, polygon[i].northing, 0);
-                //}
-                //GL.End();
-                //GL.PointSize(1.0f);
+
+            }
+            catch (Exception)
+            {
+
             }
         }
 

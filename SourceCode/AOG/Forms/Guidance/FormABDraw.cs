@@ -457,11 +457,11 @@ namespace AOG
             }
 
             //calculate the new points for the reference line and points
-            track.ptA.easting = mf.bnd.bndList[bndSelect].fenceLine[end].easting;
-            track.ptA.northing = mf.bnd.bndList[bndSelect].fenceLine[end].northing;
+            track.ptA.easting = mf.bnd.bndList[bndSelect].fenceLine[start].easting;
+            track.ptA.northing = mf.bnd.bndList[bndSelect].fenceLine[start].northing;
 
-            track.ptB.easting = track.ptA.easting + (Math.Sin(abHead) * len);
-            track.ptB.northing = track.ptA.northing + (Math.Cos(abHead) * len);
+            track.ptB.easting = track.ptA.easting - (Math.Sin(abHead) * len);
+            track.ptB.northing = track.ptA.northing - (Math.Cos(abHead) * len);
 
             track.heading = abHead;
 
@@ -550,17 +550,13 @@ namespace AOG
             }
 
             //calculate the new points for the reference line and points
-            track.ptA.easting = mf.bnd.bndList[bndSelect].fenceLine[end].easting;
-            track.ptA.northing = mf.bnd.bndList[bndSelect].fenceLine[end].northing;
+            track.ptA.easting = mf.bnd.bndList[bndSelect].fenceLine[start].easting;
+            track.ptA.northing = mf.bnd.bndList[bndSelect].fenceLine[start].northing;
 
             track.ptB.easting = track.ptA.easting + (Math.Sin(abHead) * len);
             track.ptB.northing = track.ptA.northing + (Math.Cos(abHead) * len);
 
             track.heading = abHead;
-
-
-
-
 
             //get the pivot distance from currently active AB segment   ///////////  Pivot  ////////////
             double dx = track.ptB.easting - track.ptA.easting;

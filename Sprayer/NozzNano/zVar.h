@@ -70,7 +70,7 @@ struct Storage {
 	//stored spray settings
 	float Kp = 60;  //proportional gain
 	float Ki = 0.0;  //integral gain
-	float pressureCalFactor = 10.0;  //pressure gauge gain
+	float pressureCalFactor = 100.0;  //pressure gauge gain
 	float flowCalFactor = 330; //counts per 10 us gallon sent - but used counts per gallon
 	uint8_t minPressurePSI = 0;
 	uint8_t fastPWM = 100;
@@ -107,7 +107,7 @@ void isr_Flow()
 	isr_flowTimeArr[ringPos] = isr_flowTime;
 	ringPos++;
 	if (ringPos > 7) ringPos = 0;
-	isr_flowTime = isr_flowTimeArr[0] + isr_flowTimeArr[1] + isr_flowTimeArr[2] + isr_flowTimeArr[3]; 
-	//+ isr_flowTimeArr[4] + isr_flowTimeArr[5] + isr_flowTimeArr[6] + isr_flowTimeArr[7];
-	isr_flowTime = isr_flowTime / 4;
+	isr_flowTime = isr_flowTimeArr[0] + isr_flowTimeArr[1] + isr_flowTimeArr[2] + isr_flowTimeArr[3] 
+	    + isr_flowTimeArr[4] + isr_flowTimeArr[5] + isr_flowTimeArr[6] + isr_flowTimeArr[7];
+	isr_flowTime = isr_flowTime / 8;
 }

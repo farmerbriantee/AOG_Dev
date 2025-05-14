@@ -92,7 +92,7 @@ void DoSerialReceive(void)
             settings.flowCalFactor = (float)(Serial.read() | Serial.read() << 8);
             settings.flowCalFactor *= 0.1;
 
-            settings.pressureCalFactor = (Serial.read() | Serial.read() << 8);
+            settings.pressureCalFactor = (float)(Serial.read() | Serial.read() << 8);
             settings.pressureCalFactor *= 0.1;
 
             //Kp and Ki not used

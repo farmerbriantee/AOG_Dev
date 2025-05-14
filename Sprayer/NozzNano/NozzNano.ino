@@ -13,6 +13,7 @@
 #define Motor2 10 
 
 #define FLOWPIN 2    //This is the input pin on the Arduino for flow meter
+#define PRESSURE A0
 
     void setup() 
     {
@@ -21,6 +22,7 @@
 
         //D2 is interrupt 0 for flowmeter
         pinMode(FLOWPIN, INPUT_PULLUP);           //Sets the pin as an input, pullup
+        pinMode (A0, INPUT);
 
         //pin D4,D5 is direction for PWM, 
         pinMode(Motor1, OUTPUT); //pwm     
@@ -63,10 +65,8 @@
 
             //read pressure and be above the min
             pressureActual = (float)analogRead(A0);
-            pressureActual /= 10;
-
-            //////////////    Fix me  ***********
-            pressureActual = 20;
+            pressureActual -= 102;
+            pressureActual /= settings.pressureCalFactor;
 
             if (isr_isFlowing)
             {

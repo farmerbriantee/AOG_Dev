@@ -1,7 +1,7 @@
 void SetPWM(double PWM)
 {
     // Dir + PWM Signal
-    if (flipFlopPWM > 1) PWM /=4;
+    if (flipFlopPWM > 2 && autoMode) PWM /=4;
     
     if (pwmDrive >= 0)
     {

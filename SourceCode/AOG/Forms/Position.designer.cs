@@ -1066,44 +1066,15 @@ namespace AOG
             {
                 if (bnd.isDrawAtPivot)
                 {
-                    if (bnd.isDrawRightSide)
-                    {
-                        //Right side
-                        vec3 point = new vec3(
-                            pivotAxlePos.easting + (Math.Sin(pivotAxlePos.heading - glm.PIBy2) * -bnd.createFenceOffset),
-                            pivotAxlePos.northing + (Math.Cos(pivotAxlePos.heading - glm.PIBy2) * -bnd.createFenceOffset),
-                            pivotAxlePos.heading);
-                        bnd.fenceBeingMadePts.Add(point);
-                    }
-
-                    //draw on left side
-                    else
-                    {
-                        //Right side
-                        vec3 point = new vec3(
-                            pivotAxlePos.easting + (Math.Sin(pivotAxlePos.heading - glm.PIBy2) * bnd.createFenceOffset),
-                            pivotAxlePos.northing + (Math.Cos(pivotAxlePos.heading - glm.PIBy2) * bnd.createFenceOffset),
-                            pivotAxlePos.heading);
-                        bnd.fenceBeingMadePts.Add(point);
-                    }
+                    vec2 point = new vec2(
+                        pivotAxlePos.easting + (Math.Cos(pivotAxlePos.heading) * bnd.createFenceOffset * (bnd.isDrawRightSide ? 1 : -1)),
+                        pivotAxlePos.northing - (Math.Sin(pivotAxlePos.heading) * bnd.createFenceOffset * (bnd.isDrawRightSide ? 1 : -1)));
+                    bnd.fenceBeingMadePts.Add(point);
                 }
                 else
                 {
-                    //draw at tool
-                    if (bnd.isDrawRightSide)
-                    {
-                        //Right side
-                        vec3 point = new vec3(section[tool.numOfSections-1].rightPoint.easting, section[tool.numOfSections - 1].rightPoint.northing, 0);
-                        bnd.fenceBeingMadePts.Add(point);
-                    }
-
-                    //draw on left side
-                    else
-                    {
-                        //Right side
-                        vec3 point = new vec3(section[0].leftPoint.easting, section[0].leftPoint.northing, 0);
-                        bnd.fenceBeingMadePts.Add(point);
-                    }
+                    vec2 point = new vec2(bnd.isDrawRightSide ? section[tool.numOfSections - 1].rightPoint : section[0].leftPoint);
+                    bnd.fenceBeingMadePts.Add(point);
                 }
             }
         }

@@ -17,7 +17,7 @@ namespace AOG
 {
     public class CFieldFile
     {
-        public List<vec3> bndPts = new List<vec3>();
+        public List<vec2> bndPts = new List<vec2>();
         public vec2 start;
         public string name;
     }
@@ -450,7 +450,7 @@ namespace AOG
                                                         string[] words = line.Split(',');
                                                         pn.GetLocalToLocal(double.Parse(words[0], CultureInfo.InvariantCulture), double.Parse(words[1], CultureInfo.InvariantCulture), mPerDegreeLat, latStart, lonStart, out double nort, out double east);
 
-                                                        fieldFilesList.fieldArr[idx].bndPts.Add(new vec3(east, nort,0));
+                                                        fieldFilesList.fieldArr[idx].bndPts.Add(new vec2(east, nort));
                                                     }
                                                 }
                                             }

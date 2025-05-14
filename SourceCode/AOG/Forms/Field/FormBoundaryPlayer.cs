@@ -110,7 +110,7 @@ namespace AOG
 
                     for (int i = 0; i < mf.bnd.fenceBeingMadePts.Count; i++)
                     {
-                        newBnd.fenceLine.Add(mf.bnd.fenceBeingMadePts[i]);
+                        newBnd.fenceLine.Add(new vec3(mf.bnd.fenceBeingMadePts[i]));
                     }
 
                     mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);

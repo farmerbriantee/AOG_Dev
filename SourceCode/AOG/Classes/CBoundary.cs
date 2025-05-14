@@ -13,7 +13,7 @@ namespace AOG
         public List<CBoundaryList> bndList = new List<CBoundaryList>();
 
         //create a new fence and show it
-        public List<vec3> fenceBeingMadePts = new List<vec3>(128);
+        public List<vec2> fenceBeingMadePts = new List<vec2>(128);
 
         //boundary record properties
         public double createFenceOffset;

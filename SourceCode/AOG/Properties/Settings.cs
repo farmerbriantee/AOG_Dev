@@ -125,6 +125,7 @@ namespace AOG
             public bool isSimulatorOn = true;
             public bool isSkyOn = true;
             public bool isSpeedoOn = false;
+            public bool isGPSCorrectionLineOn = false;
 
             public bool sound_isAutoSteerOn = true;
             public bool sound_isHydLiftOn = true;

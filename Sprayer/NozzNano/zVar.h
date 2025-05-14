@@ -21,6 +21,7 @@ uint8_t AOG[] = { 0x80,0x81, 0x7f, 224, 10, 0, 0, 0, 0, 0,0,0,0,0,0, 0xCC };
 uint8_t helloFromMachine[] = { 128, 129, 123, 123, 5, 0, 0, 0, 0, 0, 71 };
 
 uint8_t flipFlop = 0;
+uint8_t flipFlopPWM = 0;
 
 //The variables used for sections
 uint8_t relayLo = 0;
@@ -106,7 +107,7 @@ void isr_Flow()
 	isr_flowTimeArr[ringPos] = isr_flowTime;
 	ringPos++;
 	if (ringPos > 7) ringPos = 0;
-	isr_flowTime = isr_flowTimeArr[0] + isr_flowTimeArr[1] + isr_flowTimeArr[2] + isr_flowTimeArr[3] +
-		isr_flowTimeArr[4] + isr_flowTimeArr[5] + isr_flowTimeArr[6] + isr_flowTimeArr[7];
-	isr_flowTime = isr_flowTime / 8;
+	isr_flowTime = isr_flowTimeArr[0] + isr_flowTimeArr[1] + isr_flowTimeArr[2] + isr_flowTimeArr[3]; 
+	//+ isr_flowTimeArr[4] + isr_flowTimeArr[5] + isr_flowTimeArr[6] + isr_flowTimeArr[7];
+	isr_flowTime = isr_flowTime / 4;
 }

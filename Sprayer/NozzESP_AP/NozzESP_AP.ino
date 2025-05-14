@@ -168,7 +168,7 @@
             totalVolume = (isr_flowCount * 10) / settings.flowCalFactor;
 
             //if (isPressureLow || watchdogTimer > 29)
-            if (watchdogTimer > 29 || setGPM < 50 || speed < 1.0)
+            if ((watchdogTimer > 29 || setGPM < 50 || speed < 1.0) && !autoMode)
             {
                 //make sure flow control doesn't move
                 relayLo = 0;

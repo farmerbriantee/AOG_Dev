@@ -891,12 +891,11 @@ namespace AOG
             //Convert to Origin in the center of window, 800 pixels
             fixPt.X = ptt.X - halfWid;
             fixPt.Y = (wid - ptt.Y - halfWid);
-            vec3 plotPt = new vec3
+            vec2 plotPt = new vec2
             {
                 //convert screen coordinates to field coordinates
                 easting = fixPt.X * mf.maxFieldDistance / scale * zoom,
-                northing = fixPt.Y * mf.maxFieldDistance / scale * zoom,
-                heading = 0
+                northing = fixPt.Y * mf.maxFieldDistance / scale * zoom
             };
 
             plotPt.easting += mf.fieldCenterX + mf.maxFieldDistance * -sX;

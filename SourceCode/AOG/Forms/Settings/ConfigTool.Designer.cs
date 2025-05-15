@@ -500,7 +500,7 @@ namespace AOG
                 nudNumberOfSections.Value = numberOfSections;
 
                 defaultSectionWidth = Settings.Tool.sectionWidthMulti;
-                nudDefaultSectionWidth.Value = Math.Round(defaultSectionWidth,1);
+                nudDefaultSectionWidth.Value = defaultSectionWidth;
 
                 SetNudZoneMinMax();
 
@@ -910,9 +910,10 @@ namespace AOG
             if (!cboxIsUnique.Checked)
                 Settings.Tool.defaultSectionWidth = defaultSectionWidth;
             else
+            {
                 Settings.Tool.sectionWidthMulti = defaultSectionWidth;
-
-            //lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * glm.m2InchOrCm));
+                lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * glm.m2InchOrCm));
+            }
             //SectionFeetInchesTotalWidthLabelUpdate();
         }
 

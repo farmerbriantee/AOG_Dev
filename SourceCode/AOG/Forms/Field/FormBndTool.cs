@@ -86,6 +86,26 @@ namespace AOG
                 Top = 0;
                 Left = 0;
             }
+
+            if (mf.bnd.bndList.Count > 0)
+            {
+                DialogResult result3 = MessageBox.Show(gStr.Get(gs.gsDeleteBoundaryMapping),
+                    gStr.Get(gs.gsDeleteForSure),
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2);
+                if (result3 == DialogResult.Yes)
+                {
+                    mf.bnd.bndList.Clear();
+                    mf.FileSaveHeadland();
+                }
+                else
+                {
+                    Close();
+                }
+            }
+
+            Reset();
         }
 
         private void FormBndTool_FormClosing(object sender, FormClosingEventArgs e)
@@ -337,7 +357,7 @@ namespace AOG
             btnAddPoints.Enabled = false;
         }
 
-        private void btnResetReduce_Click(object sender, EventArgs e)
+        private void Reset()
         {
             cboxIsZoom.Visible = false;
             btnSlice.Visible = false;
@@ -356,10 +376,10 @@ namespace AOG
             sX = 0;
             sY = 0;
 
-            btnStartStop.Enabled = false;
-            cboxPointDistance.Enabled = false;
-            cboxSmooth.Enabled = false;
-            btnMakeBoundary.Enabled = false;
+            btnStartStop.Enabled = true;
+            //cboxPointDistance.Enabled = false;
+            //cboxSmooth.Enabled = false;
+            //btnMakeBoundary.Enabled = false;
 
 
             isStep = false;
@@ -381,101 +401,29 @@ namespace AOG
                 }
             }
 
-            lblReducedPoints.Text = secList.Count.ToString();
-
             rA = rB = rC = rD = rE = rF = rG = firstPoint = currentPoint = 0;
             bndList?.Clear();
 
-            btnStartStop.BackColor = Color.OrangeRed;
+            btnStartStop.BackColor = Color.LightGreen;
 
             cboxPointDistance.Enabled = true;
 
             cboxPointDistance.SelectedIndexChanged -= cboxPointDistance_SelectedIndexChanged;
-            cboxPointDistance.Text = "?";
+            cboxPointDistance.SelectedIndex = Settings.User.bndToolSpacing;
             cboxPointDistance.SelectedIndexChanged += cboxPointDistance_SelectedIndexChanged;
 
             cboxSmooth.SelectedIndexChanged -= cboxSmooth_SelectedIndexChanged;
-            cboxSmooth.Text = "?";
+            cboxSmooth.SelectedIndex = Settings.User.bndToolSmooth;
             cboxSmooth.SelectedIndexChanged += cboxSmooth_SelectedIndexChanged;
         }
 
-        private void btnMakeBoundary_Click(object sender, EventArgs e)
+        private void btnResetReduce_Click(object sender, EventArgs e)
         {
-            if (smooList.Count == 0) return;
-
-            if (smooList.Count > 5)
-            {
-                secList?.Clear();
-
-                CBoundaryList newBnd = new CBoundaryList();
-
-                for (int i = 0; i < smooList.Count; i++)
-                {
-                    newBnd.fenceLine.Add(new vec3(smooList[i]));
-                }
-
-                if (mf.bnd.bndList.Count > 0)
-                {
-                    DialogResult result3 = MessageBox.Show(gStr.Get(gs.gsDeleteBoundaryMapping),
-                        gStr.Get(gs.gsDeleteForSure),
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question,
-                        MessageBoxDefaultButton.Button2);
-                    if (result3 == DialogResult.Yes)
-                    {
-                        mf.bnd.bndList.Clear();
-                        mf.FileSaveHeadland();
-                    }
-                }
-
-                mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
-
-                smooList.Clear();
-                bndList?.Clear();
-
-                mf.FileSaveBoundary();
-            }
-
-            btnStartStop.Enabled = false;
-            cboxPointDistance.Enabled = false;
-            cboxSmooth.Enabled = false;
-            btnMakeBoundary.Enabled = false;
-
-            cboxIsZoom.Visible = true;
-            btnSlice.Visible = true;
-            btnCenterOGL.Visible = true;
-            btnCancelTouch.Visible = true;
-            btnZoomIn.Visible = true;
-            btnZoomOut.Visible = true;
-
-            btnMoveDn.Visible = false;
-            btnMoveUp.Visible = false;
-            btnMoveLeft.Visible = false;
-            btnMoveRight.Visible = false;
+            Reset();
         }
 
-        private void cboxSmooth_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cboxSmooth.SelectedIndex == 6) return;
 
-            smPtsChoose = cboxSmooth.SelectedIndex;
-
-            if (smPtsChoose == 0)
-            {
-                smPts = 0;
-                cboxSmooth.Text = smPts.ToString();
-            }
-            else
-            {
-                smPts = 2;
-                for (int i = 1; i <= smPtsChoose; i++)
-                    smPts *= 2;
-                cboxSmooth.Text = smPts.ToString();
-            }
-            SmoothList();
-        }
-
-        private void cboxPointDistance_SelectedIndexChanged(object sender, EventArgs e)
+        private void Spacing()
         {
             if (cboxPointDistance.SelectedIndex == 10) return;
             timer1.Interval = 500;
@@ -486,28 +434,6 @@ namespace AOG
             minDistSq = minDistDisp * minDistDisp;
 
             rA = rB = rC = rD = rE = rF = rG = firstPoint = currentPoint = 0;
-
-            //secList?.Clear();
-
-            //for (int j = 0; j < mf.triStrip.Count; j++)
-            //{
-            //    //every time the section turns off and on is a new patch
-            //    int patchCount = mf.triStrip[j].patchList.Count;
-
-            //    if (patchCount > 0)
-            //    {
-            //        //for every new chunk of patch
-            //        foreach (var triList in mf.triStrip[j].patchList)
-            //        {
-            //            for (int i = 1; i < triList.Count; i++)
-            //            {
-            //                vec3 bob = new vec3(triList[i].easting, triList[i].northing, 0);
-
-            //                secList.Add(bob);
-            //            }
-            //        }
-            //    }
-            //}
 
             vec3[] arr = new vec3[secList.Count];
             secList.CopyTo(arr);
@@ -562,8 +488,6 @@ namespace AOG
                 if (item.heading == 2) secList.Add(new vec3(item.easting, item.northing, 0));
             }
 
-            lblReducedPoints.Text = secList.Count.ToString();
-
             //Find most South point
             double minny = double.MaxValue;
 
@@ -580,43 +504,7 @@ namespace AOG
             btnStartStop.Enabled = true;
         }
 
-        private void btnZoomOut_Click(object sender, EventArgs e)
-        {
-            zoom += 0.1;
-            if (zoom > 1) zoom = 1;
-        }
-
-        private void btnMoveDn_Click(object sender, EventArgs e)
-        {
-            if (zoom == 0.1)
-                sY += 0.01;
-        }
-
-        private void btnMoveUPGN_Click(object sender, EventArgs e)
-        {
-            if (zoom == 0.1)
-                sY -= 0.01;
-        }
-
-        private void btnMoveLeft_Click(object sender, EventArgs e)
-        {
-            if (zoom == 0.1)
-                sX += 0.01;
-        }
-
-        private void btnMoveRight_Click(object sender, EventArgs e)
-        {
-            if (zoom == 0.1)
-                sX -= 0.01;
-        }
-
-        private void btnZoomIn_Click(object sender, EventArgs e)
-        {
-            zoom -= 0.1;
-            if (zoom < 0.1) zoom = 0.1;
-        }
-
-        private void btnStartStoPGN_Click(object sender, EventArgs e)
+        private void PacMan()
         {
             btnStartStop.Enabled = false;
             if (secList.Count < 20)
@@ -654,7 +542,129 @@ namespace AOG
             else timer1.Interval = 500;
             btnStartStop.BackColor = Color.WhiteSmoke;
             //btnStartStop.Enabled = false;
+        }
+
+        private void Smooth()
+        {
+            if (cboxSmooth.SelectedIndex == 6) return;
+
+            smPtsChoose = cboxSmooth.SelectedIndex;
+
+            if (smPtsChoose == 0)
+            {
+                smPts = 0;
+                cboxSmooth.Text = smPts.ToString();
+            }
+            else
+            {
+                smPts = 2;
+                for (int i = 1; i <= smPtsChoose; i++)
+                    smPts *= 2;
+                cboxSmooth.Text = smPts.ToString();
+            }
+            SmoothList();
+        }
+
+        private void BuildBnd()
+        {
+            if (smooList.Count == 0) return;
+
+            if (smooList.Count > 5)
+            {
+                secList?.Clear();
+
+                CBoundaryList newBnd = new CBoundaryList();
+
+                for (int i = 0; i < smooList.Count; i++)
+                {
+                    newBnd.fenceLine.Add(new vec3(smooList[i]));
+                }
+
+                mf.bnd.AddToBoundList(newBnd, mf.bnd.bndList.Count);
+
+                smooList.Clear();
+                bndList?.Clear();
+
+                mf.FileSaveBoundary();
+            }
+
+            btnStartStop.Enabled = false;
+            cboxPointDistance.Enabled = false;
             cboxSmooth.Enabled = false;
+            btnMakeBoundary.Enabled = false;
+
+            cboxIsZoom.Visible = true;
+            btnSlice.Visible = true;
+            btnCenterOGL.Visible = true;
+            btnCancelTouch.Visible = true;
+            btnZoomIn.Visible = true;
+            btnZoomOut.Visible = true;
+
+            btnMoveDn.Visible = false;
+            btnMoveUp.Visible = false;
+            btnMoveLeft.Visible = false;
+            btnMoveRight.Visible = false;
+        }
+
+
+        private void btnStartStoPGN_Click(object sender, EventArgs e)
+        {
+            Spacing();
+
+            PacMan();
+        }
+
+        private void btnMakeBoundary_Click(object sender, EventArgs e)
+        {
+            Smooth();
+
+            BuildBnd();
+        }
+
+        private void cboxSmooth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Settings.User.bndToolSmooth = cboxSmooth.SelectedIndex;
+        }
+
+        private void cboxPointDistance_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Settings.User.bndToolSpacing = cboxPointDistance.SelectedIndex;
+        }
+
+        private void btnZoomOut_Click(object sender, EventArgs e)
+        {
+            zoom += 0.1;
+            if (zoom > 1) zoom = 1;
+        }
+
+        private void btnMoveDn_Click(object sender, EventArgs e)
+        {
+            if (zoom == 0.1)
+                sY += 0.01;
+        }
+
+        private void btnMoveUPGN_Click(object sender, EventArgs e)
+        {
+            if (zoom == 0.1)
+                sY -= 0.01;
+        }
+
+        private void btnMoveLeft_Click(object sender, EventArgs e)
+        {
+            if (zoom == 0.1)
+                sX += 0.01;
+        }
+
+        private void btnMoveRight_Click(object sender, EventArgs e)
+        {
+            if (zoom == 0.1)
+                sX -= 0.01;
+        }
+
+        private void btnZoomIn_Click(object sender, EventArgs e)
+        {
+            zoom -= 0.1;
+            if (zoom < 0.1) zoom = 0.1;
         }
 
         private void SmoothList()

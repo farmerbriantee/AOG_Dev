@@ -135,7 +135,7 @@ namespace AOG
             sb.AppendLine();
             sb.AppendFormat("Tool Width: {0}", Settings.Tool.toolWidth);
             sb.AppendLine();
-            sb.AppendFormat("Sections: {0}", mf.tool.numOfSections);
+            sb.AppendFormat("Sections: {0}", mf.section.Count);
             sb.AppendLine();
             sb.AppendFormat("Section Overlap: {0}", Settings.Tool.overlap);
             sb.AppendLine();

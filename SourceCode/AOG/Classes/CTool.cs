@@ -16,13 +16,6 @@ namespace AOG
         public double lookAheadDistanceOnPixelsLeft, lookAheadDistanceOnPixelsRight;
         public double lookAheadDistanceOffPixelsLeft, lookAheadDistanceOffPixelsRight;
 
-        //how many individual sections
-        public int numOfSections;
-
-        public bool areAllSectionBtnsOn = true;
-
-        public bool isLeftSideInHeadland = true, isRightSideInHeadland = true;
-
         //read pixel values
         public int rpXPosition;
 
@@ -43,11 +36,6 @@ namespace AOG
 
         public void LoadSettings()
         {
-            if (Settings.Tool.isSectionsNotZones)
-                numOfSections = Settings.Tool.numSections;
-            else
-                numOfSections = Settings.Tool.numSectionsMulti;
-
             secColors[0] = Settings.Tool.setColor_sec01;
             secColors[1] = Settings.Tool.setColor_sec02;
             secColors[2] = Settings.Tool.setColor_sec03;
@@ -73,7 +61,7 @@ namespace AOG
                 zoneRanges[i] = int.Parse(words[i]);
             }
 
-            mf.SetNumOfSectionButtons(Settings.Tool.isSectionsNotZones ? numOfSections : zones);
+            mf.SetNumOfControlButtons(Settings.Tool.isSectionsNotZones ? Settings.Tool.numSections : zones);
 
             //Set width of section and positions for each section
             mf.SectionSetPosition();
@@ -212,11 +200,11 @@ namespace AOG
                     GL.Vertex3(mf.tool.farLeftPosition, (mf.tool.lookAheadDistanceOffPixelsLeft) * 0.1 + trailingTool, 0);
                     GL.Vertex3(mf.tool.farRightPosition, (mf.tool.lookAheadDistanceOffPixelsRight) * 0.1 + trailingTool, 0);
 
-                    if (mf.vehicle.isHydLiftOn)
+                    if (mf.vehicle.isHydLiftOn && mf.section.Count > 0)
                     {
                         GL.Color3(0.70f, 0.2f, 0.72f);
                         GL.Vertex3(mf.section[0].positionLeft, (mf.vehicle.hydLiftLookAheadDistanceLeft * 0.1) + trailingTool, 0);
-                        GL.Vertex3(mf.section[mf.tool.numOfSections - 1].positionRight, (mf.vehicle.hydLiftLookAheadDistanceRight * 0.1) + trailingTool, 0);
+                        GL.Vertex3(mf.section[mf.section.Count - 1].positionRight, (mf.vehicle.hydLiftLookAheadDistanceRight * 0.1) + trailingTool, 0);
                     }
 
                     GL.End();
@@ -233,7 +221,7 @@ namespace AOG
                 //TooDoo
                 hite = 0.2;
 
-                for (int j = 0; j < numOfSections; j++)
+                for (int j = 0; j < mf.section.Count; j++)
                 {
                     //if section is on, green, if off, red color
                     if (mf.section[j].isSectionOn)
@@ -294,8 +282,11 @@ namespace AOG
                     for (int i = 1; i < zones; i++)
                     {
                         GL.Color3(0.5f, 0.80f, 0.950f);
-                        GL.Vertex3(mf.section[zoneRanges[i]].positionLeft, trailingTool - 0.4, 0);
-                        GL.Vertex3(mf.section[zoneRanges[i]].positionLeft, trailingTool + 0.2, 0);
+                        if (zoneRanges[i] < mf.section.Count)
+                        {
+                            GL.Vertex3(mf.section[zoneRanges[i]].positionLeft, trailingTool - 0.4, 0);
+                            GL.Vertex3(mf.section[zoneRanges[i]].positionLeft, trailingTool + 0.2, 0);
+                        }
                     }
 
                     GL.End();
@@ -370,11 +361,11 @@ namespace AOG
                 GL.Vertex3(mf.tool.farLeftPosition, (mf.tool.lookAheadDistanceOffPixelsLeft) * 0.1, 0);
                 GL.Vertex3(mf.tool.farRightPosition, (mf.tool.lookAheadDistanceOffPixelsRight) * 0.1, 0);
 
-                if (mf.vehicle.isHydLiftOn)
+                if (mf.vehicle.isHydLiftOn && mf.section.Count > 0)
                 {
                     GL.Color3(0.70f, 0.2f, 0.72f);
                     GL.Vertex3(mf.section[0].positionLeft, (mf.vehicle.hydLiftLookAheadDistanceLeft * 0.1), 0);
-                    GL.Vertex3(mf.section[mf.tool.numOfSections - 1].positionRight, (mf.vehicle.hydLiftLookAheadDistanceRight * 0.1), 0);
+                    GL.Vertex3(mf.section[mf.section.Count - 1].positionRight, (mf.vehicle.hydLiftLookAheadDistanceRight * 0.1), 0);
                 }
 
                 GL.End();
@@ -389,7 +380,7 @@ namespace AOG
                 //TooDoo
                 hite = 0.2;
 
-                for (int j = 0; j < numOfSections; j++)
+                for (int j = 0; j < mf.section.Count; j++)
                 {
                     //if section is on, green, if off, red color
                     if (mf.section[j].isSectionOn)

@@ -27,13 +27,7 @@ namespace AOG
         #region // Class Props and instances
 
         //maximum sections available
-        public const int MAXSECTIONS = 64;
-
-        //How many boundaries allowed
-        public const int MAXBOUNDARIES = 6;
-
-        //How many headlands allowed
-        public const int MAXHEADS = 6;
+        public const int MAXSECTIONS = 256;
 
         //current fields
         public string currentFieldDirectory, displayFieldName, currentJobDirectory, displayJobName;
@@ -43,9 +37,6 @@ namespace AOG
 
         //bool for whether or not a Field and job is active
         public bool isFieldStarted = false, isJobStarted = false, isBtnAutoSteerOn;
-
-        //if we are saving a file
-        public bool isSavingFile = false;
 
         //texture holders
         public uint[] texture;
@@ -117,15 +108,9 @@ namespace AOG
         public CNMEA pnTool;
 
         /// <summary>
-        /// an array of sections
-        /// </summary>
-        public CSection[] section;
-
-        /// <summary>
         /// a List of patches to draw
         /// </summary>
-        //public CPatches[] triStrip;
-        public List<CPatches> triStrip;
+        public List<CPatches> triStrip = new List<CPatches>();
 
         /// <summary>
         /// TramLine class for boundary and settings
@@ -271,14 +256,6 @@ namespace AOG
             vehicle = new CVehicle(this);
 
             tool = new CTool(this);
-
-            //create a new section and set left and right positions
-            //created whether used or not, saves restarting program
-
-            section = new CSection[MAXSECTIONS];
-            for (int j = 0; j < MAXSECTIONS; j++) section[j] = new CSection();
-
-            triStrip = new List<CPatches>();
 
             //our NMEA parser
             pn = new CNMEA(this);

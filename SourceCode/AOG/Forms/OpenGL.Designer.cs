@@ -47,9 +47,28 @@ namespace AOG
         AutoResetEvent pauseOglBack = new AutoResetEvent(false);
 
         //mapping change occured
-        private ulong number = 0, lastNumber = 0;
+        private ulong[] number = new ulong[4], lastNumber = new ulong[4];
 
         private double aTime;
+
+        void SetBit(int bitIndex, bool value = true)
+        {
+            int index = bitIndex / 64;
+            int offset = bitIndex % 64;
+            if (value)
+                number[index] |= (1UL << offset);
+            else
+                number[index] &= ~(1UL << offset);
+        }
+        bool HasChanged()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (number[i] != lastNumber[i])
+                    return true;
+            }
+            return false;
+        }
 
         public void StartATimer()
         {
@@ -79,7 +98,7 @@ namespace AOG
         private void oglMain_Resize(object sender, EventArgs e)
         {
             ChangePerspective(true);
-            SetSectionButtonPositions();
+            SetControlButtonPositions();
             if (Settings.User.setDisplay_isLineSmooth) GL.Enable(EnableCap.LineSmooth);
             else GL.Disable(EnableCap.LineSmooth);
         }
@@ -716,9 +735,6 @@ namespace AOG
                             if (Settings.User.isLogElevation && sbElevationString.Length > 0) FileSaveElevation();
                         }
 
-                        //set saving flag off
-                        isSavingFile = false;
-
                         //go see if data ready for draw and position updates
                         tmrWatchdog.Enabled = true;
 
@@ -1137,13 +1153,12 @@ namespace AOG
             int onCount = 0, offCount = 0;
 
             //loop thru each section for section control
-            for (int j = 0; j < tool.numOfSections; j++)
+            for (int j = 0; j < section.Count; j++)
             {
                 // Manual on, force the section On
                 if (section[j].sectionBtnState == btnStates.On)
                 {
                     section[j].sectionOnRequest = true;
-                    section[j].sectionOffRequest = false;
                     continue;
                 }
 
@@ -1151,7 +1166,6 @@ namespace AOG
                 if (section[j].sectionBtnState == btnStates.Off || avgSpeed < Settings.Tool.slowSpeedCutoff || section[j].speedPixels < 0)
                 {
                     section[j].sectionOnRequest = false;
-                    section[j].sectionOffRequest = true;
                     continue;
                 }
 
@@ -1224,10 +1238,6 @@ namespace AOG
                     if (onCount == 0 && offCount == (end - start + 1))
                         section[j].sectionOnRequest = false;
                 }
-
-                //set off requests - used for timing of mapping and section delay
-                section[j].sectionOffRequest = !section[j].sectionOnRequest;
-
             } // end of go thru all sections "for"
 
             #endregion
@@ -1237,7 +1247,7 @@ namespace AOG
             int mappingFactor = (int)(gpsHz / 9 * 2);
 
             //Set all the on and off times based from on off section requests
-            for (int j = 0; j < tool.numOfSections; j++)
+            for (int j = 0; j < section.Count; j++)
             {
                 //SECTION timers
 
@@ -1247,18 +1257,18 @@ namespace AOG
                 //turn off delay
                 if (Settings.Tool.offDelay > 0)
                 {
-                    if (!section[j].sectionOffRequest) section[j].sectionOffTimer = (int)(gpsHz * Settings.Tool.offDelay);
+                    if (section[j].sectionOnRequest) section[j].sectionOffTimer = (int)(gpsHz * Settings.Tool.offDelay);
 
                     if (section[j].sectionOffTimer > 0) section[j].sectionOffTimer--;
 
-                    if (section[j].sectionOffRequest && section[j].sectionOffTimer == 0)
+                    if (!section[j].sectionOnRequest && section[j].sectionOffTimer == 0)
                     {
                         if (section[j].isSectionOn) section[j].isSectionOn = false;
                     }
                 }
                 else
                 {
-                    if (section[j].sectionOffRequest)
+                    if (!section[j].sectionOnRequest)
                         section[j].isSectionOn = false;
                 }
 
@@ -1275,14 +1285,14 @@ namespace AOG
 
                 if (Settings.Tool.lookAheadOff > 0)
                 {
-                    if (section[j].sectionOffRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
+                    if (!section[j].sectionOnRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
                     {
                         section[j].mappingOffTimer = (int)(Settings.Tool.lookAheadOff * gpsHz) + mappingFactor;
                     }
                 }
                 else if (Settings.Tool.offDelay > 0)
                 {
-                    if (section[j].sectionOffRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
+                    if (!section[j].sectionOnRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
                         section[j].mappingOffTimer = (int)(Settings.Tool.offDelay * gpsHz)+ mappingFactor;
                 }
                 else
@@ -1301,8 +1311,7 @@ namespace AOG
                         section[j].isMappingOn = true;
                     }
                 }
-
-                if (section[j].sectionOffRequest)
+                else if (!section[j].sectionOnRequest)
                 {
                     section[j].mappingOnTimer = 0;
                     if (section[j].mappingOffTimer > 1)
@@ -1326,23 +1335,25 @@ namespace AOG
             #region Combine section patches
 
             // check if any sections have changed status
-            number = 0;
+            number = new ulong[4];
+            bool atLeastOne = false;
 
-            for (int j = 0; j < tool.numOfSections; j++)
+            for (int j = 0; j < section.Count; j++)
             {
                 if (section[j].isMappingOn)
                 {
-                    number |= 1ul << j;
+                    atLeastOne = true;
+                    SetBit(j);
                 }
             }
 
             //there has been a status change of section on/off
-            if (number != lastNumber)
+            if (HasChanged())
             {
                 int sectionOnOffZones = 0, patchingZones = 0;
 
                 //everything off
-                if (number == 0)
+                if (!atLeastOne)
                 {
                     foreach (var patch in triStrip)
                     {
@@ -1353,7 +1364,7 @@ namespace AOG
                 else if (!Settings.Tool.setColor_isMultiColorSections)
                 {
                     //set the start and end positions from section points
-                    for (int j = 0; j < tool.numOfSections; j++)
+                    for (int j = 0; j < section.Count; j++)
                     {
                         //skip till first mapping section
                         if (!section[j].isMappingOn) continue;
@@ -1365,7 +1376,7 @@ namespace AOG
                         //set this strip start edge to edge of this section
                         triStrip[sectionOnOffZones].newStartSectionNum = j;
 
-                        while ((j + 1) < tool.numOfSections && section[j + 1].isMappingOn)
+                        while ((j + 1) < section.Count && section[j + 1].isMappingOn)
                         {
                             j++;
                         }
@@ -1401,11 +1412,8 @@ namespace AOG
                             if (triStrip[j].newStartSectionNum != triStrip[j].currentStartSectionNum
                                 || triStrip[j].newEndSectionNum != triStrip[j].currentEndSectionNum)
                             {
-                                //if (Settings.Tool.isSectionsNotZones)
-                                {
-                                    triStrip[j].AddMappingPoint();
-                                }
-
+                                triStrip[j].AddMappingPoint();
+                                
                                 triStrip[j].currentStartSectionNum = triStrip[j].newStartSectionNum;
                                 triStrip[j].currentEndSectionNum = triStrip[j].newEndSectionNum;
                                 triStrip[j].AddMappingPoint();
@@ -1432,7 +1440,7 @@ namespace AOG
                 else if (Settings.Tool.setColor_isMultiColorSections) //could be else only but this is more clear
                 {
                     //set the start and end positions from section points
-                    for (int j = 0; j < tool.numOfSections; j++)
+                    for (int j = 0; j < section.Count; j++)
                     {
                         //do we need more patches created
                         if (triStrip.Count < sectionOnOffZones + 1)

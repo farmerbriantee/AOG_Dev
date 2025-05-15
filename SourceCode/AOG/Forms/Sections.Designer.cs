@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using AOG.Properties;
-using System.Globalization;
-using System.IO;
-using System.Media;
-using System.Collections.Generic;
 
 namespace AOG
 {
@@ -17,25 +12,30 @@ namespace AOG
         //Off, Manual, and Auto, 3 states possible
         public btnStates workState = btnStates.Off;
 
-        public List<Button> sectionButtons = new List<Button>();
-        public List<Label> sectionLbls = new List<Label>();
+        public List<Button> controlButtons = new List<Button>();
+        public List<Label> controlLbls = new List<Label>();
 
-        public void SetNumOfSectionButtons(int numOfButtons)
+        /// <summary>
+        /// list of sections
+        /// </summary>
+        public List<CSection> section = new List<CSection>();
+
+        public void SetNumOfControlButtons(int numOfButtons)
         {
-            if (sectionButtons.Count > numOfButtons)
+            if (controlButtons.Count > numOfButtons)
             {
-                for (int j = sectionButtons.Count - 1; j >= numOfButtons; j--)
+                for (int j = controlButtons.Count - 1; j >= numOfButtons; j--)
                 {
-                    this.oglMain.Controls.Remove(sectionButtons[j]);
-                    this.oglMain.Controls.Remove(sectionLbls[j]);
-                    sectionButtons.RemoveAt(j);
-                    sectionLbls.RemoveAt(j);
+                    this.oglMain.Controls.Remove(controlButtons[j]);
+                    this.oglMain.Controls.Remove(controlLbls[j]);
+                    controlButtons.RemoveAt(j);
+                    controlLbls.RemoveAt(j);
                 }
-                SetSectionButtonPositions();
+                SetControlButtonPositions();
             }
-            else if (sectionButtons.Count < numOfButtons)
+            else if (controlButtons.Count < numOfButtons)
             {
-                for (int j = sectionButtons.Count; j < numOfButtons; j++)
+                for (int j = controlButtons.Count; j < numOfButtons; j++)
                 {
                     var btn = new Button();
                     btn.Click += Butt_Click;
@@ -62,7 +62,7 @@ namespace AOG
                     btn.Size = new System.Drawing.Size(34, 25);
                     btn.UseVisualStyleBackColor = false;
                     btn.Anchor = AnchorStyles.Bottom;
-                    sectionButtons.Add(btn);
+                    controlButtons.Add(btn);
 
                     //labels
                     var lbl = new Label();
@@ -89,46 +89,46 @@ namespace AOG
                     lbl.BorderStyle = BorderStyle.FixedSingle;
                     //btn.UseVisualStyleBackColor = false;
                     lbl.Anchor = AnchorStyles.Bottom;
-                    sectionLbls.Add(lbl);
+                    controlLbls.Add(lbl);
                 }
 
-                SetSectionButtonPositions();
+                SetControlButtonPositions();
             }
         }
 
-        public void SetSectionButtonPositions()
+        public void SetControlButtonPositions()
         {
-            if (sectionButtons.Count == 0) return;
+            if (controlButtons.Count == 0) return;
             int top = oglMain.Height - (panelSim.Visible ? 100 : 40);
 
             int oglButtonWidth = oglMain.Width * 3 / 4;
             int oglCenter = oglMain.Width / 2;
 
             int buttonMaxWidth = 360, buttonHeight = 35;
-            int buttonWidth = oglButtonWidth / sectionButtons.Count;
+            int buttonWidth = oglButtonWidth / controlButtons.Count;
             if (buttonWidth > buttonMaxWidth) buttonWidth = buttonMaxWidth;
 
-            int Left = oglCenter - (sectionButtons.Count * buttonWidth) / 2;
+            int Left = oglCenter - (controlButtons.Count * buttonWidth) / 2;
 
-            for (int j = 0; j < sectionButtons.Count; j++)
+            for (int j = 0; j < controlButtons.Count; j++)
             {
-                sectionButtons[j].Top = top;
-                sectionLbls[j].Top = top-18;
-                sectionButtons[j].Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-                sectionLbls[j].Size = new System.Drawing.Size(buttonWidth, buttonHeight/2);
+                controlButtons[j].Top = top;
+                controlLbls[j].Top = top-18;
+                controlButtons[j].Size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                controlLbls[j].Size = new System.Drawing.Size(buttonWidth, buttonHeight/2);
 
-                sectionButtons[j].Left = Left;
-                sectionLbls[j].Left = Left;
+                controlButtons[j].Left = Left;
+                controlLbls[j].Left = Left;
                 Left += buttonWidth;
             }
         }
 
         public void SetSectionButtonVisible(bool visible)
         {
-            for (int j = 0; j < sectionButtons.Count; j++)
+            for (int j = 0; j < controlButtons.Count; j++)
             {
-                sectionButtons[j].Visible = visible;
-                sectionLbls[j].Visible = visible;
+                controlButtons[j].Visible = visible;
+                controlLbls[j].Visible = visible;
             }
         }
 
@@ -139,15 +139,12 @@ namespace AOG
                 if (Settings.Tool.isSectionsNotZones)
                 {
                     btnStates state = GetNextState(section[val - 1].sectionBtnState);
-                    IndividualSectionAndButonToState(state, val - 1, butt);
+                    IndividualZoneAndButtonToState(state, val - 1, val, butt);
                 }
-                else
+                else if (tool.zoneRanges[val] != 0)
                 {
-                    if (tool.zoneRanges[val] != 0)//???
-                    {
-                        btnStates state = GetNextState(section[tool.zoneRanges[val] - 1].sectionBtnState);
-                        IndividualZoneAndButtonToState(state, val == 1 ? 0 : tool.zoneRanges[val - 1], tool.zoneRanges[val], butt);
-                    }
+                    btnStates state = GetNextState(section[tool.zoneRanges[val] - 1].sectionBtnState);
+                    IndividualZoneAndButtonToState(state, val == 1 ? 0 : tool.zoneRanges[val - 1], tool.zoneRanges[val], butt);
                 }
             }
         }
@@ -178,12 +175,8 @@ namespace AOG
                 btnSectionMasterManual.Image = state == btnStates.On ? Properties.Resources.ManualOn : Properties.Resources.ManualOff;
                 btnSectionMasterAuto.Image = state == btnStates.Auto ? Properties.Resources.SectionMasterOn : Properties.Resources.SectionMasterOff;
 
-
                 //go set the butons and section states
-                if (Settings.Tool.isSectionsNotZones)
-                    AllSectionsAndButtonsToState(workState);
-                else
-                    AllZonesAndButtonsToState(workState);
+                AllZonesAndButtonsToState(workState);
             }
         }
 
@@ -203,33 +196,18 @@ namespace AOG
             else return btnStates.Auto;
         }
 
-        //Section buttons************************8
-        public void AllSectionsAndButtonsToState(btnStates state)
-        {
-            for (int j = 0; j < sectionButtons.Count; j++)
-            {
-                IndividualSectionAndButonToState(state, j, sectionButtons[j]);
-            }
-        }
-
-        private void IndividualSectionAndButonToState(btnStates state, int sectNumber, Button btn)
-        {
-            section[sectNumber].sectionBtnState = state;
-
-            SetSectionButtonColor(state, btn);
-        }
-
         //Zone buttons ************************************
         public void AllZonesAndButtonsToState(btnStates state)
         {
-            for (int j = 0; j < sectionButtons.Count; j++)
+            for (int j = 0; j < controlButtons.Count; j++)
             {
-                if (int.TryParse(sectionButtons[j].Text, out int val))
+                if (Settings.Tool.isSectionsNotZones)
                 {
-                    if (tool.zoneRanges[val] != 0)//???
-                    {
-                        IndividualZoneAndButtonToState(state, val == 1 ? 0 : tool.zoneRanges[val - 1], tool.zoneRanges[val], sectionButtons[j]);
-                    }
+                    IndividualZoneAndButtonToState(state, j, j + 1, controlButtons[j]);
+                }
+                else
+                {
+                    IndividualZoneAndButtonToState(state, j == 0 ? 0 : tool.zoneRanges[j], tool.zoneRanges[j+1], controlButtons[j]);
                 }
             }
         }
@@ -238,17 +216,13 @@ namespace AOG
         {
             for (int i = sectionStartNumber; i < sectionEndNumber; i++)
             {
-                section[i].sectionBtnState = state;
+                if (i < section.Count)
+                    section[i].sectionBtnState = state;
             }
 
-            SetSectionButtonColor(state, btn);
-        }
-
-        private void SetSectionButtonColor(btnStates state, Button btn)
-        {
             btn.ForeColor = Settings.User.setDisplay_isDayMode ? Color.Black : Color.White;
 
-            //update zone buttons
+            //set control button color
             switch (state)
             {
                 case btnStates.Auto:
@@ -264,16 +238,14 @@ namespace AOG
                     break;
             }
         }
-
         public void TurnOffSectionsSafely()
         {
             SetWorkState(btnStates.Off);
 
             //turn off all the sections
-            for (int j = 0; j < tool.numOfSections; j++)
+            for (int j = 0; j < section.Count; j++)
             {
-                section[j].isSectionOn = false; ;
-                section[j].sectionOffRequest = true;
+                section[j].isSectionOn = false;
                 section[j].sectionOnRequest = false;
                 section[j].sectionOffTimer = 0;
                 section[j].isMappingOn = false;
@@ -291,9 +263,26 @@ namespace AOG
         //function to set section positions
         public void SectionSetPosition()
         {
+            int sectionsCount = Settings.Tool.isSectionsNotZones ? Settings.Tool.numSections : Settings.Tool.numSectionsMulti;
+
+            if (section.Count > sectionsCount)
+            {
+                for (int j = section.Count - 1; j >= sectionsCount; j--)
+                {
+                    section.RemoveAt(j);
+                }
+            }
+            else if (section.Count < sectionsCount)
+            {
+                for (int j = section.Count; j < sectionsCount; j++)
+                {
+                    section.Add(new CSection());
+                }
+            }
+            
             if (Settings.Tool.isSectionsNotZones)
             {
-                int count = tool.numOfSections;
+                int count = section.Count;
                 double position = 0;
                 for (int j = 0; j < count; j++)
                 {
@@ -317,7 +306,7 @@ namespace AOG
                 //update the widths of sections and tool width in main
                 //Calculate total width and each section width
                 //calculate tool width based on extreme right and left values
-                Settings.Tool.toolWidth = (section[tool.numOfSections - 1].positionRight) - (section[0].positionLeft);
+                Settings.Tool.toolWidth = (section[count - 1].positionRight) - (section[0].positionLeft);
             }
             else
             {
@@ -325,7 +314,7 @@ namespace AOG
 
                 double defaultSectionWidth = Settings.Tool.sectionWidthMulti;
 
-                for (int i = 0; i < tool.numOfSections; i++)
+                for (int i = 0; i < section.Count; i++)
                 {
                     section[i].positionLeft = position;
                     position += defaultSectionWidth;
@@ -337,8 +326,11 @@ namespace AOG
             }
 
             //left and right tool position
-            tool.farLeftPosition = section[0].positionLeft;
-            tool.farRightPosition = section[tool.numOfSections - 1].positionRight;
+            if (section.Count > 0)
+            {
+                tool.farLeftPosition = section[0].positionLeft;
+                tool.farRightPosition = section[section.Count - 1].positionRight;
+            }
 
             //find the right side pixel position
             tool.rpXPosition = 250 + (int)(Math.Round(tool.farLeftPosition * 10, 0, MidpointRounding.AwayFromZero));
@@ -353,20 +345,17 @@ namespace AOG
                 PGN_254.pgn[PGN_254.sc9to16] = 0;
 
                 int number = 0;
+                int number2 = 0;
                 for (int j = 0; j < 8; j++)
                 {
-                    if (section[j].isSectionOn)
+                    if (j < section.Count && section[j].isSectionOn)
                         number |= 1 << j;
+
+                    if (j + 8 < section.Count && section[j + 8].isSectionOn)
+                        number2 |= 1 << (j);
                 }
                 PGN_254.pgn[PGN_254.sc1to8] = unchecked((byte)number);
-                number = 0;
-
-                for (int j = 8; j < 16; j++)
-                {
-                    if (section[j].isSectionOn)
-                        number |= 1 << (j-8);
-                }
-                PGN_254.pgn[PGN_254.sc9to16] = unchecked((byte)number);
+                PGN_254.pgn[PGN_254.sc9to16] = unchecked((byte)number2);
 
                 //machine pgn
                 PGN_239.pgn[PGN_239.sc1to8] = PGN_254.pgn[PGN_254.sc1to8];
@@ -378,22 +367,15 @@ namespace AOG
             }
             else
             {
-                //zero all the bytes - set only if on
-                for (int i = 5; i < 13; i++)
-                {
-                    PGN_229.pgn[i] = 0;
-                }
-
-                int number = 0;
                 for (int k = 0; k < 8; k++)
                 {
+                    int number = 0;
                     for (int j = 0; j < 8; j++)
                     {
-                        if (section[j + k * 8].isSectionOn)
+                        if (j + k * 8 < section.Count && section[j + k * 8].isSectionOn)
                             number |= 1 << j;
                     }
                     PGN_229.pgn[5 + k] = unchecked((byte)number);
-                    number = 0;
                 }
 
                 //tool speed to calc ramp
@@ -438,114 +420,48 @@ namespace AOG
                     mc.ssP[mc.swMain] = mc.ss[mc.swMain];
                 }  //Main or shpList SW
 
-                int Bit;
-
-                if (Settings.Tool.isSectionsNotZones)
+                if (mc.ss[mc.swOnGr0] != mc.ssP[mc.swOnGr0])
                 {
-                    #region NoZones
-                    if (mc.ss[mc.swOnGr0] != 0)
-                    {
-                        // ON Signal from Arduino 
-                        RemoteClickButtons(btnStates.On, 0, mc.ss[mc.swOnGr0]);
-                        mc.ssP[mc.swOnGr0] = mc.ss[mc.swOnGr0];
-                    } //if swONLo != 0 
-                    else { if (mc.ssP[mc.swOnGr0] != 0) { mc.ssP[mc.swOnGr0] = 0; } }
-
-                    if (mc.ss[mc.swOnGr1] != 0)
-                    {
-                        // ON Signal from Arduino 
-                        RemoteClickButtons(btnStates.On, 8, mc.ss[mc.swOnGr1]);
-                        mc.ssP[mc.swOnGr1] = mc.ss[mc.swOnGr1];
-                    } //if swONHi != 0   
-                    else { if (mc.ssP[mc.swOnGr1] != 0) { mc.ssP[mc.swOnGr1] = 0; } }
-
-                    // Switches have changed
-                    if (mc.ss[mc.swOffGr0] != mc.ssP[mc.swOffGr0])
-                    {
-                        //if Main = Auto then change section to Auto if Off signal from Arduino stopped
-                        if (workState == btnStates.Auto)
-                        {
-                            RemoteClickButtons2(0, mc.ssP[mc.swOffGr0], mc.ss[mc.swOffGr0]);
-                        }
-                        mc.ssP[mc.swOffGr0] = mc.ss[mc.swOffGr0];
-                    }
-
-                    if (mc.ss[mc.swOffGr1] != mc.ssP[mc.swOffGr1])
-                    {
-                        //if Main = Auto then change section to Auto if Off signal from Arduino stopped
-                        if (workState == btnStates.Auto)
-                        {
-                            RemoteClickButtons2(8, mc.ssP[mc.swOffGr1], mc.ss[mc.swOffGr1]);
-                        }
-                        mc.ssP[mc.swOffGr1] = mc.ss[mc.swOffGr1];
-                    }
-
-                    // OFF Signal from Arduino
-                    if (mc.ss[mc.swOffGr0] != 0)
-                    {
-                        //if section SW in Arduino is switched to OFF; check always, if switch is locked to off GUI should not change
-                        RemoteClickButtons(btnStates.Off, 0, mc.ss[mc.swOffGr0]);
-                    } // if swOFFLo !=0
-                    if (mc.ss[mc.swOffGr1] != 0)
-                    {
-                        //if section SW in Arduino is switched to OFF; check always, if switch is locked to off GUI should not change
-                        RemoteClickButtons(btnStates.Off, 8, mc.ss[mc.swOffGr1]);
-                    } // if swOFFHi !=0
-                    #endregion
+                    // ON Signal from Arduino
+                    RemoteClickButtons(btnStates.On, 0, mc.ss[mc.swOnGr0]);
+                    mc.ssP[mc.swOnGr0] = mc.ss[mc.swOnGr0];
                 }
-                else
+
+                if (mc.ss[mc.swOnGr1] != mc.ssP[mc.swOnGr1])
                 {
-                    // zones to on
-                    if (mc.ss[mc.swOnGr0] != 0)
-                    {
-                        for (int i = 0; i < 8; i++)
-                        {
-                            Bit = (int)Math.Pow(2, i);
-                            if ((tool.zoneRanges[i + 1] > 0) && ((mc.ss[mc.swOnGr0] & Bit) == Bit))
-                            {
-                                if (section[tool.zoneRanges[i + 1] - 1].sectionBtnState != btnStates.Auto) section[tool.zoneRanges[i + 1] - 1].sectionBtnState = btnStates.Auto;
-                                sectionButtons[i].PerformClick();
-                            }
-                        }
-
-                        mc.ssP[mc.swOnGr0] = mc.ss[mc.swOnGr0];
-                    }
-                    else { if (mc.ssP[mc.swOnGr0] != 0) { mc.ssP[mc.swOnGr0] = 0; } }
-
-                    // zones to auto
-                    if (mc.ss[mc.swOffGr0] != mc.ssP[mc.swOffGr0])
-                    {
-                        if (workState == btnStates.Auto)
-                        {
-                            for (int i = 0; i < 8; i++)
-                            {
-                                Bit = (int)Math.Pow(2, i);
-                                if ((tool.zoneRanges[i + 1] > 0) && ((mc.ssP[mc.swOffGr0] & Bit) == Bit)
-                                    && ((mc.ss[mc.swOffGr0] & Bit) != Bit) && (section[tool.zoneRanges[i + 1] - 1].sectionBtnState == btnStates.Off))
-                                {
-                                    sectionButtons[i].PerformClick();
-                                }
-                            }
-                        }
-                        mc.ssP[mc.swOffGr0] = mc.ss[mc.swOffGr0];
-                    }
-
-                    // zones to off
-                    if (mc.ss[mc.swOffGr0] != 0)
-                    {
-                        for (int i = 0; i < 8; i++)
-                        {
-                            Bit = (int)Math.Pow(2, i);
-                            if ((tool.zoneRanges[i + 1] > 0) && ((mc.ss[mc.swOffGr0] & Bit) == Bit) && (section[tool.zoneRanges[i + 1] - 1].sectionBtnState != btnStates.Off))
-                            {
-                                section[tool.zoneRanges[i + 1] - 1].sectionBtnState = btnStates.On;
-
-                                sectionButtons[i].PerformClick();
-                            }
-                        }
-                    }
+                    // ON Signal from Arduino
+                    RemoteClickButtons(btnStates.On, 8, mc.ss[mc.swOnGr1]);
+                    mc.ssP[mc.swOnGr1] = mc.ss[mc.swOnGr1];
                 }
-            }//if serial or udp port open
+
+                // Switches have changed
+                if (mc.ss[mc.swOffGr0] != mc.ssP[mc.swOffGr0])
+                {
+                    //if Main = Auto then change section to Auto if Off signal from Arduino stopped
+                    if (workState == btnStates.Auto)
+                    {
+                        RemoteClickButtons2(0, mc.ssP[mc.swOffGr0], mc.ss[mc.swOffGr0]);
+                    }
+
+                    //if section SW in Arduino is switched to OFF; check always, if switch is locked to off GUI should not change
+                    RemoteClickButtons(btnStates.Off, 0, mc.ss[mc.swOffGr0]);
+                    mc.ssP[mc.swOffGr0] = mc.ss[mc.swOffGr0];
+                }
+
+                if (mc.ss[mc.swOffGr1] != mc.ssP[mc.swOffGr1])
+                {
+                    //if Main = Auto then change section to Auto if Off signal from Arduino stopped
+                    if (workState == btnStates.Auto)
+                    {
+                        RemoteClickButtons2(8, mc.ssP[mc.swOffGr1], mc.ss[mc.swOffGr1]);
+                    }
+
+                    //if section SW in Arduino is switched to OFF; check always, if switch is locked to off GUI should not change
+                    RemoteClickButtons(btnStates.Off, 8, mc.ss[mc.swOffGr1]);
+
+                    mc.ssP[mc.swOffGr1] = mc.ss[mc.swOffGr1];
+                }
+            }
         }
 
         private void RemoteClickButtons(btnStates state,  int offset, byte value)
@@ -553,10 +469,12 @@ namespace AOG
             for (int i = 0; i < 8; i++)
             {
                 byte Bit = (byte)Math.Pow(2, i);
-                if ((value & Bit) == Bit && section[offset + i].sectionBtnState != state)
+                var index = Settings.Tool.isSectionsNotZones ? offset + i : (tool.zoneRanges.Length > offset + i ? tool.zoneRanges[offset + i] : 999);
+
+                if ((value & Bit) == Bit && index < section.Count && section[index].sectionBtnState != state)
                 {
-                    section[offset + i].sectionBtnState = GetPrevState(state);
-                    sectionButtons[offset + i].PerformClick();
+                    section[index].sectionBtnState = GetPrevState(state);
+                    controlButtons[offset + i].PerformClick();
                 }
             }
         }
@@ -566,10 +484,12 @@ namespace AOG
             for (int i = 0; i < 8; i++)
             {
                 byte Bit = (byte)Math.Pow(2, i);
-                if ((value & Bit) == Bit && (value2 & Bit) != Bit && section[offset + i].sectionBtnState == btnStates.Off)
+                var index = Settings.Tool.isSectionsNotZones ? offset + i : (tool.zoneRanges.Length > offset + i ? tool.zoneRanges[offset + i] : 999);
+
+                if ((value & Bit) == Bit && (value2 & Bit) != Bit && index < section.Count && section[index].sectionBtnState == btnStates.Off)
                 {
                     section[offset + i].sectionBtnState = GetPrevState(btnStates.Auto);
-                    sectionButtons[offset + i].PerformClick();
+                    controlButtons[offset + i].PerformClick();
                 }
             }
         }

@@ -12,7 +12,6 @@ namespace AOG
         public bool isSectionOn = false;
 
         public bool sectionOnRequest = false;
-        public bool sectionOffRequest = false;
 
         public int sectionOnTimer = 0;
         public int sectionOffTimer = 0;

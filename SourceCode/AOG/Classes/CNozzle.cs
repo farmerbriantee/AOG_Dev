@@ -38,7 +38,7 @@
             mf.nozz.volumePerMinuteSet = 0;
             mf.nozz.currentSectionsWidthMeters = 0;
 
-            for (int i = 0; i < mf.tool.numOfSections; i++)
+            for (int i = 0; i < mf.section.Count; i++)
             {
                 //calculate gallons per minute - GPM = GPA X MPH X Width (in inches)/ 5,940
                 if (mf.section[i].isSectionOn)

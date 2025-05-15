@@ -3152,7 +3152,7 @@
             this.rbtnLeftNegative.Size = new System.Drawing.Size(166, 218);
             this.rbtnLeftNegative.TabIndex = 479;
             this.rbtnLeftNegative.UseVisualStyleBackColor = false;
-            this.rbtnLeftNegative.Click += new System.EventHandler(this.rbtnToolRightPositive_Click);
+            this.rbtnLeftNegative.Click += new System.EventHandler(this.rbtnToolLeftNegative_Click);
             // 
             // rbtnToolRightPositive
             // 
@@ -3382,19 +3382,17 @@
             this.panelSymmetricSections.Controls.Add(this.label104);
             this.panelSymmetricSections.Controls.Add(this.label7);
             this.panelSymmetricSections.Controls.Add(this.label6);
-            this.panelSymmetricSections.Location = new System.Drawing.Point(6, 11);
+            this.panelSymmetricSections.Location = new System.Drawing.Point(4, 11);
             this.panelSymmetricSections.Name = "panelSymmetricSections";
-            this.panelSymmetricSections.Size = new System.Drawing.Size(898, 274);
+            this.panelSymmetricSections.Size = new System.Drawing.Size(900, 274);
             this.panelSymmetricSections.TabIndex = 495;
             // 
             // nudZone8To
             // 
             this.nudZone8To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone8To.Location = new System.Drawing.Point(794, 186);
-            this.nudZone8To.Maximum = 50D;
-            this.nudZone8To.Minimum = 1D;
+            this.nudZone8To.Location = new System.Drawing.Point(809, 190);
             this.nudZone8To.Name = "nudZone8To";
-            this.nudZone8To.Size = new System.Drawing.Size(87, 43);
+            this.nudZone8To.Size = new System.Drawing.Size(90, 40);
             this.nudZone8To.TabIndex = 509;
             this.nudZone8To.ValueChanged += new System.EventHandler(this.nudZone8To_ValueChanged);
             // 
@@ -3405,12 +3403,12 @@
             this.lblZoneStart8.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblZoneStart8.ForeColor = System.Drawing.Color.Black;
             this.lblZoneStart8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblZoneStart8.Location = new System.Drawing.Point(713, 186);
+            this.lblZoneStart8.Location = new System.Drawing.Point(699, 190);
             this.lblZoneStart8.Name = "lblZoneStart8";
-            this.lblZoneStart8.Size = new System.Drawing.Size(55, 42);
+            this.lblZoneStart8.Size = new System.Drawing.Size(75, 40);
             this.lblZoneStart8.TabIndex = 511;
-            this.lblZoneStart8.Text = "99 ->";
-            this.lblZoneStart8.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblZoneStart8.Text = "999";
+            this.lblZoneStart8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label157
             // 
@@ -3428,25 +3426,23 @@
             // label158
             // 
             this.label158.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label158.AutoSize = true;
-            this.label158.BackColor = System.Drawing.Color.Transparent;
             this.label158.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label158.ForeColor = System.Drawing.Color.Black;
             this.label158.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label158.Location = new System.Drawing.Point(764, 194);
+            this.label158.Location = new System.Drawing.Point(774, 190);
             this.label158.Name = "label158";
-            this.label158.Size = new System.Drawing.Size(31, 23);
+            this.label158.Size = new System.Drawing.Size(35, 40);
             this.label158.TabIndex = 512;
             this.label158.Text = "->";
+            this.label158.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // nudZone7To
             // 
             this.nudZone7To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone7To.Location = new System.Drawing.Point(566, 189);
-            this.nudZone7To.Maximum = 50D;
+            this.nudZone7To.Location = new System.Drawing.Point(581, 190);
             this.nudZone7To.Minimum = 1D;
             this.nudZone7To.Name = "nudZone7To";
-            this.nudZone7To.Size = new System.Drawing.Size(87, 43);
+            this.nudZone7To.Size = new System.Drawing.Size(90, 40);
             this.nudZone7To.TabIndex = 505;
             this.nudZone7To.ValueChanged += new System.EventHandler(this.nudZone7To_ValueChanged);
             // 
@@ -3457,12 +3453,12 @@
             this.lblZoneStart7.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblZoneStart7.ForeColor = System.Drawing.Color.Black;
             this.lblZoneStart7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblZoneStart7.Location = new System.Drawing.Point(485, 189);
+            this.lblZoneStart7.Location = new System.Drawing.Point(466, 190);
             this.lblZoneStart7.Name = "lblZoneStart7";
-            this.lblZoneStart7.Size = new System.Drawing.Size(55, 42);
+            this.lblZoneStart7.Size = new System.Drawing.Size(75, 40);
             this.lblZoneStart7.TabIndex = 507;
-            this.lblZoneStart7.Text = "99 ->";
-            this.lblZoneStart7.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblZoneStart7.Text = "999";
+            this.lblZoneStart7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label154
             // 
@@ -3480,80 +3476,73 @@
             // label155
             // 
             this.label155.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label155.AutoSize = true;
-            this.label155.BackColor = System.Drawing.Color.Transparent;
             this.label155.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label155.ForeColor = System.Drawing.Color.Black;
             this.label155.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label155.Location = new System.Drawing.Point(536, 197);
+            this.label155.Location = new System.Drawing.Point(546, 190);
             this.label155.Name = "label155";
-            this.label155.Size = new System.Drawing.Size(31, 23);
+            this.label155.Size = new System.Drawing.Size(35, 40);
             this.label155.TabIndex = 508;
             this.label155.Text = "->";
+            this.label155.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // nudZone6To
             // 
             this.nudZone6To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone6To.Location = new System.Drawing.Point(325, 188);
-            this.nudZone6To.Maximum = 50D;
+            this.nudZone6To.Location = new System.Drawing.Point(348, 190);
             this.nudZone6To.Minimum = 1D;
             this.nudZone6To.Name = "nudZone6To";
-            this.nudZone6To.Size = new System.Drawing.Size(87, 43);
+            this.nudZone6To.Size = new System.Drawing.Size(90, 40);
             this.nudZone6To.TabIndex = 480;
             this.nudZone6To.ValueChanged += new System.EventHandler(this.nudZone6To_ValueChanged);
             // 
             // nudZone4To
             // 
             this.nudZone4To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone4To.Location = new System.Drawing.Point(794, 68);
-            this.nudZone4To.Maximum = 50D;
+            this.nudZone4To.Location = new System.Drawing.Point(809, 75);
             this.nudZone4To.Minimum = 1D;
             this.nudZone4To.Name = "nudZone4To";
-            this.nudZone4To.Size = new System.Drawing.Size(87, 43);
+            this.nudZone4To.Size = new System.Drawing.Size(90, 40);
             this.nudZone4To.TabIndex = 476;
             this.nudZone4To.ValueChanged += new System.EventHandler(this.nudZone4To_ValueChanged);
             // 
             // nudZone1To
             // 
             this.nudZone1To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone1To.Location = new System.Drawing.Point(81, 69);
-            this.nudZone1To.Maximum = 50D;
+            this.nudZone1To.Location = new System.Drawing.Point(110, 75);
             this.nudZone1To.Minimum = 1D;
             this.nudZone1To.Name = "nudZone1To";
-            this.nudZone1To.Size = new System.Drawing.Size(87, 43);
+            this.nudZone1To.Size = new System.Drawing.Size(90, 40);
             this.nudZone1To.TabIndex = 461;
             this.nudZone1To.ValueChanged += new System.EventHandler(this.nudZone1To_ValueChanged);
             // 
             // nudZone5To
             // 
             this.nudZone5To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone5To.Location = new System.Drawing.Point(81, 187);
-            this.nudZone5To.Maximum = 50D;
+            this.nudZone5To.Location = new System.Drawing.Point(110, 190);
             this.nudZone5To.Minimum = 1D;
             this.nudZone5To.Name = "nudZone5To";
-            this.nudZone5To.Size = new System.Drawing.Size(87, 43);
+            this.nudZone5To.Size = new System.Drawing.Size(90, 40);
             this.nudZone5To.TabIndex = 478;
             this.nudZone5To.ValueChanged += new System.EventHandler(this.nudZone5To_ValueChanged);
             // 
             // nudZone3To
             // 
             this.nudZone3To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone3To.Location = new System.Drawing.Point(566, 70);
-            this.nudZone3To.Maximum = 50D;
+            this.nudZone3To.Location = new System.Drawing.Point(581, 75);
             this.nudZone3To.Minimum = 1D;
             this.nudZone3To.Name = "nudZone3To";
-            this.nudZone3To.Size = new System.Drawing.Size(87, 43);
+            this.nudZone3To.Size = new System.Drawing.Size(90, 40);
             this.nudZone3To.TabIndex = 467;
             this.nudZone3To.ValueChanged += new System.EventHandler(this.nudZone3To_ValueChanged);
             // 
             // nudZone2To
             // 
             this.nudZone2To.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudZone2To.Location = new System.Drawing.Point(325, 70);
-            this.nudZone2To.Maximum = 50D;
+            this.nudZone2To.Location = new System.Drawing.Point(348, 75);
             this.nudZone2To.Minimum = 1D;
             this.nudZone2To.Name = "nudZone2To";
-            this.nudZone2To.Size = new System.Drawing.Size(87, 43);
+            this.nudZone2To.Size = new System.Drawing.Size(90, 40);
             this.nudZone2To.TabIndex = 464;
             this.nudZone2To.ValueChanged += new System.EventHandler(this.nudZone2To_ValueChanged);
             // 
@@ -3564,11 +3553,11 @@
             this.lblZoneStart6.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblZoneStart6.ForeColor = System.Drawing.Color.Black;
             this.lblZoneStart6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblZoneStart6.Location = new System.Drawing.Point(244, 188);
+            this.lblZoneStart6.Location = new System.Drawing.Point(233, 190);
             this.lblZoneStart6.Name = "lblZoneStart6";
-            this.lblZoneStart6.Size = new System.Drawing.Size(55, 42);
+            this.lblZoneStart6.Size = new System.Drawing.Size(75, 40);
             this.lblZoneStart6.TabIndex = 499;
-            this.lblZoneStart6.Text = "99";
+            this.lblZoneStart6.Text = "999";
             this.lblZoneStart6.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblZoneStart5
@@ -3578,11 +3567,11 @@
             this.lblZoneStart5.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblZoneStart5.ForeColor = System.Drawing.Color.Black;
             this.lblZoneStart5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblZoneStart5.Location = new System.Drawing.Point(1, 189);
+            this.lblZoneStart5.Location = new System.Drawing.Point(0, 190);
             this.lblZoneStart5.Name = "lblZoneStart5";
-            this.lblZoneStart5.Size = new System.Drawing.Size(55, 42);
+            this.lblZoneStart5.Size = new System.Drawing.Size(75, 40);
             this.lblZoneStart5.TabIndex = 498;
-            this.lblZoneStart5.Text = "99 ->";
+            this.lblZoneStart5.Text = "999";
             this.lblZoneStart5.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblZoneStart4
@@ -3592,12 +3581,12 @@
             this.lblZoneStart4.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblZoneStart4.ForeColor = System.Drawing.Color.Black;
             this.lblZoneStart4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblZoneStart4.Location = new System.Drawing.Point(714, 70);
+            this.lblZoneStart4.Location = new System.Drawing.Point(699, 75);
             this.lblZoneStart4.Name = "lblZoneStart4";
-            this.lblZoneStart4.Size = new System.Drawing.Size(55, 42);
+            this.lblZoneStart4.Size = new System.Drawing.Size(75, 40);
             this.lblZoneStart4.TabIndex = 497;
-            this.lblZoneStart4.Text = "99 ->";
-            this.lblZoneStart4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblZoneStart4.Text = "999";
+            this.lblZoneStart4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblZoneStart3
             // 
@@ -3606,12 +3595,12 @@
             this.lblZoneStart3.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblZoneStart3.ForeColor = System.Drawing.Color.Black;
             this.lblZoneStart3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblZoneStart3.Location = new System.Drawing.Point(485, 70);
+            this.lblZoneStart3.Location = new System.Drawing.Point(466, 75);
             this.lblZoneStart3.Name = "lblZoneStart3";
-            this.lblZoneStart3.Size = new System.Drawing.Size(55, 42);
+            this.lblZoneStart3.Size = new System.Drawing.Size(75, 40);
             this.lblZoneStart3.TabIndex = 496;
-            this.lblZoneStart3.Text = "99 ->";
-            this.lblZoneStart3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblZoneStart3.Text = "999";
+            this.lblZoneStart3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblZoneStart2
             // 
@@ -3620,12 +3609,12 @@
             this.lblZoneStart2.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblZoneStart2.ForeColor = System.Drawing.Color.Black;
             this.lblZoneStart2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblZoneStart2.Location = new System.Drawing.Point(244, 71);
+            this.lblZoneStart2.Location = new System.Drawing.Point(233, 75);
             this.lblZoneStart2.Name = "lblZoneStart2";
-            this.lblZoneStart2.Size = new System.Drawing.Size(55, 42);
+            this.lblZoneStart2.Size = new System.Drawing.Size(75, 40);
             this.lblZoneStart2.TabIndex = 495;
-            this.lblZoneStart2.Text = "99 ->";
-            this.lblZoneStart2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblZoneStart2.Text = "999";
+            this.lblZoneStart2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblZoneStart1
             // 
@@ -3634,12 +3623,12 @@
             this.lblZoneStart1.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblZoneStart1.ForeColor = System.Drawing.Color.Black;
             this.lblZoneStart1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblZoneStart1.Location = new System.Drawing.Point(1, 70);
+            this.lblZoneStart1.Location = new System.Drawing.Point(0, 75);
             this.lblZoneStart1.Name = "lblZoneStart1";
-            this.lblZoneStart1.Size = new System.Drawing.Size(55, 42);
+            this.lblZoneStart1.Size = new System.Drawing.Size(75, 40);
             this.lblZoneStart1.TabIndex = 494;
-            this.lblZoneStart1.Text = "1 ->";
-            this.lblZoneStart1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblZoneStart1.Text = "0";
+            this.lblZoneStart1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblZone1
             // 
@@ -3722,86 +3711,83 @@
             // label152
             // 
             this.label152.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label152.AutoSize = true;
-            this.label152.BackColor = System.Drawing.Color.Transparent;
             this.label152.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label152.ForeColor = System.Drawing.Color.Black;
             this.label152.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label152.Location = new System.Drawing.Point(295, 196);
+            this.label152.Location = new System.Drawing.Point(313, 190);
             this.label152.Name = "label152";
-            this.label152.Size = new System.Drawing.Size(31, 23);
+            this.label152.Size = new System.Drawing.Size(35, 40);
             this.label152.TabIndex = 504;
             this.label152.Text = "->";
+            this.label152.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label117
             // 
             this.label117.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label117.AutoSize = true;
-            this.label117.BackColor = System.Drawing.Color.Transparent;
             this.label117.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label117.ForeColor = System.Drawing.Color.Black;
             this.label117.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label117.Location = new System.Drawing.Point(52, 197);
+            this.label117.Location = new System.Drawing.Point(75, 190);
             this.label117.Name = "label117";
-            this.label117.Size = new System.Drawing.Size(31, 23);
+            this.label117.Size = new System.Drawing.Size(35, 40);
             this.label117.TabIndex = 503;
             this.label117.Text = "->";
+            this.label117.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label116
             // 
             this.label116.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label116.AutoSize = true;
             this.label116.BackColor = System.Drawing.Color.Transparent;
             this.label116.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label116.ForeColor = System.Drawing.Color.Black;
             this.label116.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label116.Location = new System.Drawing.Point(765, 78);
+            this.label116.Location = new System.Drawing.Point(774, 75);
             this.label116.Name = "label116";
-            this.label116.Size = new System.Drawing.Size(31, 23);
+            this.label116.Size = new System.Drawing.Size(35, 40);
             this.label116.TabIndex = 502;
             this.label116.Text = "->";
+            this.label116.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label104
             // 
             this.label104.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label104.AutoSize = true;
             this.label104.BackColor = System.Drawing.Color.Transparent;
             this.label104.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label104.ForeColor = System.Drawing.Color.Black;
             this.label104.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label104.Location = new System.Drawing.Point(52, 78);
+            this.label104.Location = new System.Drawing.Point(75, 75);
             this.label104.Name = "label104";
-            this.label104.Size = new System.Drawing.Size(31, 23);
+            this.label104.Size = new System.Drawing.Size(35, 40);
             this.label104.TabIndex = 501;
             this.label104.Text = "->";
+            this.label104.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
             this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label7.Location = new System.Drawing.Point(536, 78);
+            this.label7.Location = new System.Drawing.Point(546, 75);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(31, 23);
+            this.label7.Size = new System.Drawing.Size(35, 40);
             this.label7.TabIndex = 500;
             this.label7.Text = "->";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label6
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
             this.label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label6.Location = new System.Drawing.Point(296, 79);
+            this.label6.Location = new System.Drawing.Point(313, 75);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(31, 23);
+            this.label6.Size = new System.Drawing.Size(35, 40);
             this.label6.TabIndex = 497;
             this.label6.Text = "->";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label178
             // 
@@ -4824,7 +4810,6 @@
             this.nudLookAhead.DecimalPlaces = 1;
             this.nudLookAhead.Location = new System.Drawing.Point(108, 404);
             this.nudLookAhead.Maximum = 22D;
-            this.nudLookAhead.Minimum = 0.2D;
             this.nudLookAhead.Name = "nudLookAhead";
             this.nudLookAhead.Size = new System.Drawing.Size(114, 52);
             this.nudLookAhead.TabIndex = 117;

@@ -966,7 +966,7 @@ namespace AOG
             double meterPerSecPerPixel = Math.Abs(avgSpeed) * 4.5;
 
             //now loop all the section rights and the one extreme left
-            for (int j = 0; j < tool.numOfSections; j++)
+            for (int j = 0; j < section.Count; j++)
             {
                 if (j == 0)
                 {
@@ -1035,7 +1035,7 @@ namespace AOG
                     if (sped < 0.1) sped = 0.1;
                     tool.farLeftSpeed = tool.farLeftSpeed * 0.7 + sped * 0.3;
                 }
-                if (j == tool.numOfSections - 1)
+                if (j == section.Count - 1)
                 {
                     sped = (rightSpeed * 0.1);
                     if (sped < 0.1) sped = 0.1;
@@ -1062,7 +1062,7 @@ namespace AOG
 
             //build the boundary line
 
-            if (bnd.isOkToAddPoints && (!bnd.isRecFenceWhenSectionOn || (bnd.isRecFenceWhenSectionOn && (workState == btnStates.On || workState == btnStates.Auto))))
+            if (bnd.isOkToAddPoints && (!bnd.isRecFenceWhenSectionOn || (bnd.isRecFenceWhenSectionOn && workState != btnStates.Off)))
             {
                 if (bnd.isDrawAtPivot)
                 {
@@ -1071,9 +1071,9 @@ namespace AOG
                         pivotAxlePos.northing - (Math.Sin(pivotAxlePos.heading) * bnd.createFenceOffset * (bnd.isDrawRightSide ? 1 : -1)));
                     bnd.fenceBeingMadePts.Add(point);
                 }
-                else
+                else if (section.Count > 0)
                 {
-                    vec2 point = new vec2(bnd.isDrawRightSide ? section[tool.numOfSections - 1].rightPoint : section[0].leftPoint);
+                    vec2 point = new vec2(bnd.isDrawRightSide ? section[section.Count - 1].rightPoint : section[0].leftPoint);
                     bnd.fenceBeingMadePts.Add(point);
                 }
             }

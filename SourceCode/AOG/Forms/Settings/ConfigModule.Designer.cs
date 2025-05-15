@@ -288,40 +288,20 @@ namespace AOG
             mf.SendPgnToLoop(PGN_236.pgn);
 
 
-            PGN_235.pgn[PGN_235.sec0Lo] = unchecked((byte)(mf.section[0].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec0Hi] = unchecked((byte)((int)((mf.section[0].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec1Lo] = unchecked((byte)(mf.section[1].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec1Hi] = unchecked((byte)((int)((mf.section[1].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec2Lo] = unchecked((byte)(mf.section[2].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec2Hi] = unchecked((byte)((int)((mf.section[2].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec3Lo] = unchecked((byte)(mf.section[3].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec3Hi] = unchecked((byte)((int)((mf.section[3].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec4Lo] = unchecked((byte)(mf.section[4].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec4Hi] = unchecked((byte)((int)((mf.section[4].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec5Lo] = unchecked((byte)(mf.section[5].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec5Hi] = unchecked((byte)((int)((mf.section[5].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec6Lo] = unchecked((byte)(mf.section[6].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec6Hi] = unchecked((byte)((int)((mf.section[6].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec7Lo] = unchecked((byte)(mf.section[7].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec7Hi] = unchecked((byte)((int)((mf.section[7].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec8Lo] = unchecked((byte)(mf.section[8].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec8Hi] = unchecked((byte)((int)((mf.section[8].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec9Lo] = unchecked((byte)(mf.section[9].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec9Hi] = unchecked((byte)((int)((mf.section[9].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec10Lo] = unchecked((byte)(mf.section[10].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec10Hi] = unchecked((byte)((int)((mf.section[10].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec11Lo] = unchecked((byte)(mf.section[11].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec11Hi] = unchecked((byte)((int)((mf.section[11].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec12Lo] = unchecked((byte)(mf.section[12].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec12Hi] = unchecked((byte)((int)((mf.section[12].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec13Lo] = unchecked((byte)(mf.section[13].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec13Hi] = unchecked((byte)((int)((mf.section[13].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec14Lo] = unchecked((byte)(mf.section[14].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec14Hi] = unchecked((byte)((int)((mf.section[14].sectionWidth * 100)) >> 8));
-            PGN_235.pgn[PGN_235.sec15Lo] = unchecked((byte)(mf.section[15].sectionWidth * 100));
-            PGN_235.pgn[PGN_235.sec15Hi] = unchecked((byte)((int)((mf.section[15].sectionWidth * 100)) >> 8));
-
-            PGN_235.pgn[PGN_235.numSections] = (byte)mf.tool.numOfSections;
+            for (int i = 0; i < 16; i++)
+            {
+                if (mf.section.Count > i)
+                {
+                    PGN_235.pgn[PGN_235.sec0Lo + i * 2] = unchecked((byte)(mf.section[i].sectionWidth * 100));
+                    PGN_235.pgn[PGN_235.sec0Hi + i * 2] = unchecked((byte)((int)((mf.section[i].sectionWidth * 100)) >> 8));
+                }
+                else
+                {
+                    PGN_235.pgn[PGN_235.sec0Lo + i * 2] = 0;
+                    PGN_235.pgn[PGN_235.sec0Hi + i * 2] = 0;
+                }
+            }
+            PGN_235.pgn[PGN_235.numSections] = (byte)mf.section.Count;
 
             mf.SendPgnToLoop(PGN_235.pgn);
         }

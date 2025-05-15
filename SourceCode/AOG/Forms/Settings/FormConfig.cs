@@ -162,7 +162,7 @@ namespace AOG
                 (Settings.Vehicle.setVehicle_wheelbase * glm.m2InchOrCm).ToString("N0"))
                 + glm.unitsInCm;
 
-            lblSumNumSections.Text = mf.tool.numOfSections.ToString();
+            lblSumNumSections.Text = mf.section.Count.ToString();
 
             string snapDist = Settings.User.isMetric ?
                 Settings.Vehicle.setAS_snapDistance.ToString() :

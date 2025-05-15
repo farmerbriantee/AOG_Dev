@@ -208,12 +208,12 @@ namespace AOG
                         GL.Vertex3(fenceBeingMadePts[fenceBeingMadePts.Count - 1].easting, fenceBeingMadePts[fenceBeingMadePts.Count - 1].northing, 0);
                     }
                 }
-                else //draw from tool
+                else if (mf.section.Count > 0) //draw from tool
                 {
                     if (isDrawRightSide)
                     {
                         GL.Vertex3(fenceBeingMadePts[0].easting, fenceBeingMadePts[0].northing, 0);
-                        GL.Vertex3(mf.section[mf.tool.numOfSections - 1].rightPoint.easting, mf.section[mf.tool.numOfSections - 1].rightPoint.northing, 0);
+                        GL.Vertex3(mf.section[mf.section.Count - 1].rightPoint.easting, mf.section[mf.section.Count - 1].rightPoint.northing, 0);
                         GL.Vertex3(fenceBeingMadePts[fenceBeingMadePts.Count - 1].easting, fenceBeingMadePts[fenceBeingMadePts.Count - 1].northing, 0);
                     }
                     else

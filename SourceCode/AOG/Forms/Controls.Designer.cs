@@ -1203,7 +1203,7 @@ namespace AOG
             isFirstHeadingSet = false;
             startCounter = 0;
 
-            SetSectionButtonPositions();
+            SetControlButtonPositions();
 
             Settings.User.isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
         }

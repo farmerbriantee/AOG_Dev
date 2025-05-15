@@ -319,7 +319,7 @@ namespace AOG
                     btnStartAgIO.Text = mc.actualToolAngleDegrees.ToString("N1") + "°";
                 }
 
-                for (int j = 0; j < sectionButtons.Count; j++)
+                for (int j = 0; j < controlButtons.Count; j++)
                 {
                     //if section is on, green, if off, red color
                     if (section[j].isSectionOn)
@@ -327,15 +327,15 @@ namespace AOG
                         if (section[j].sectionBtnState == btnStates.Auto)
                         {
                             //GL.Color3(0.0f, 0.9f, 0.0f);
-                            if (section[j].isMappingOn) sectionLbls[j].BackColor = Settings.User.setDisplay_isDayMode ? Color.Lime : Color.ForestGreen; 
-                            else sectionLbls[j].BackColor = Color.DeepPink;
+                            if (section[j].isMappingOn) controlLbls[j].BackColor = Settings.User.setDisplay_isDayMode ? Color.Lime : Color.ForestGreen; 
+                            else controlLbls[j].BackColor = Color.DeepPink;
                         }
-                        else sectionLbls[j].BackColor = Settings.User.setDisplay_isDayMode ? Color.Yellow : Color.DarkGoldenrod;
+                        else controlLbls[j].BackColor = Settings.User.setDisplay_isDayMode ? Color.Yellow : Color.DarkGoldenrod;
                     }
                     else
                     {
-                        if (!section[j].isMappingOn) sectionLbls[j].BackColor = Settings.User.setDisplay_isDayMode ? Color.Red : Color.Crimson;
-                        else sectionLbls[j].BackColor = Color.RoyalBlue;
+                        if (!section[j].isMappingOn) controlLbls[j].BackColor = Settings.User.setDisplay_isDayMode ? Color.Red : Color.Crimson;
+                        else controlLbls[j].BackColor = Color.RoyalBlue;
                         //GL.Color3(0.7f, 0.2f, 0.2f);
                     }
 

@@ -263,16 +263,10 @@ namespace AOG
         private void tabToolOffset_Enter(object sender, EventArgs e)
         {
             nudOffset.Value = Math.Abs(Settings.Tool.offset);
-
-            rbtnToolRightPositive.Checked = false;
-            rbtnLeftNegative.Checked = false;
             rbtnToolRightPositive.Checked = Settings.Tool.offset > 0;
             rbtnLeftNegative.Checked = Settings.Tool.offset < 0;
 
             nudOverlap.Value = Math.Abs(Settings.Tool.overlap);
-
-            rbtnToolOverlap.Checked = false;
-            rbtnToolGap.Checked = false;
             rbtnToolOverlap.Checked = Settings.Tool.overlap > 0;
             rbtnToolGap.Checked = Settings.Tool.overlap < 0;
 
@@ -282,20 +276,17 @@ namespace AOG
 
         private void tabToolOffset_Leave(object sender, EventArgs e)
         {
-            mf.SectionSetPosition();
+            if (Settings.Tool.offset != (rbtnToolRightPositive.Checked ? nudOffset.Value : -nudOffset.Value))
+            {
+                Settings.Tool.offset = rbtnToolRightPositive.Checked ? nudOffset.Value : -nudOffset.Value;
+                mf.SectionSetPosition();
+            }
         }
 
         private void nudOffset_ValueChanged(object sender, EventArgs e)
         {
             if (!rbtnToolRightPositive.Checked && !rbtnLeftNegative.Checked)
                 rbtnToolRightPositive.Checked = true;
-
-            Settings.Tool.offset = rbtnToolRightPositive.Checked ? nudOffset.Value : nudOffset.Value;
-
-            rbtnToolRightPositive.Checked = false;
-            rbtnLeftNegative.Checked = false;
-            rbtnToolRightPositive.Checked = Settings.Tool.offset > 0;
-            rbtnLeftNegative.Checked = Settings.Tool.offset < 0;
         }
 
         private void btnZeroToolOffset_Click(object sender, EventArgs e)
@@ -303,18 +294,18 @@ namespace AOG
             nudOffset.Value = 0;
             rbtnToolRightPositive.Checked = false;
             rbtnLeftNegative.Checked = false;
-
-            Settings.Tool.offset = 0;
         }
 
         private void rbtnToolRightPositive_Click(object sender, EventArgs e)
         {
-            Settings.Tool.offset = rbtnToolRightPositive.Checked ? nudOffset.Value : nudOffset.Value;
-
-            rbtnToolRightPositive.Checked = false;
+            rbtnToolRightPositive.Checked = nudOffset.Value > 0;
             rbtnLeftNegative.Checked = false;
-            rbtnToolRightPositive.Checked = Settings.Tool.offset > 0;
-            rbtnLeftNegative.Checked = Settings.Tool.offset < 0;
+        }
+
+        private void rbtnToolLeftNegative_Click(object sender, EventArgs e)
+        {
+            rbtnToolRightPositive.Checked = false;
+            rbtnLeftNegative.Checked = nudOffset.Value > 0;
         }
 
         private void nudOverlaPGN_ValueChanged(object sender, EventArgs e)
@@ -448,7 +439,7 @@ namespace AOG
 
             label178.Text = glm.unitsInCm;
             cboxIsUnique.Checked = !Settings.Tool.isSectionsNotZones;
-            nudDefaultSectionWidth.DecimalPlaces = cboxIsUnique.Checked ? 1 : 0;
+            nudDefaultSectionWidth.DecimalPlaces = 1;
 
             if (!cboxIsUnique.Checked)
             {
@@ -475,7 +466,7 @@ namespace AOG
                             //grab the number from nudSection01
                             string bob = numeric.Name.Substring(10, 2);
                             int nudNum = Convert.ToInt32(bob);
-                            if (nudNum >= 0 && nudNum <= 15 && nudNum <= Settings.Tool.numSections)
+                            if (nudNum > 0 && nudNum <= 16 && nudNum <= Settings.Tool.numSections)
                             {
                                 numeric.Value = Settings.Tool.setSection_Widths[nudNum - 1];
                             }
@@ -536,30 +527,19 @@ namespace AOG
                 //Settings.Tool.isSectionOffWhenOut = cboxSectionBoundaryControl.Checked;
 
                 Settings.Tool.setSection_Widths = sectionWidthArr;
-                                                                    
-                mf.tool.numOfSections = numberOfSections;
 
-                Settings.Tool.numSections = mf.tool.numOfSections;
+                Settings.Tool.numSections = numberOfSections;
 
-                //update the sections to newly configured widths and positions in main
-                mf.SectionSetPosition();
-                mf.tram.IsTramOuterOrInner();
-
-                SendRelaySettingsToMachineModule();
             }
             else
             {
                 //no multi color zones
                 Settings.Tool.setColor_isMultiColorSections = false;
 
-                mf.tool.numOfSections = numberOfSections;
-                Settings.Tool.numSectionsMulti = mf.tool.numOfSections;
+                Settings.Tool.numSectionsMulti = numberOfSections;
 
                 Settings.Tool.toolWidth = numberOfSections * defaultSectionWidth;
-
-                mf.tram.IsTramOuterOrInner();                
-
-                mf.SectionSetPosition();
+        
 
                 for (int i = 0; i < 9; i++)
                 {
@@ -628,11 +608,15 @@ namespace AOG
                 String str = "";
                 str = String.Join(",",mf.tool.zoneRanges);
                 Settings.Tool.zones = str;
-
-                //mf.LineUpAllZoneButtons();
             }
 
-            mf.SetNumOfSectionButtons(!cboxIsUnique.Checked ? mf.tool.numOfSections : mf.tool.zones);
+
+            //update the sections to newly configured widths and positions in main
+            mf.SectionSetPosition();
+            mf.tram.IsTramOuterOrInner();
+            SendRelaySettingsToMachineModule();
+
+            mf.SetNumOfControlButtons(!cboxIsUnique.Checked ? numberOfSections : mf.tool.zones);
         }
 
         private void nudZone1To_ValueChanged(object sender, EventArgs e)

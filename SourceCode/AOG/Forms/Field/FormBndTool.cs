@@ -295,7 +295,6 @@ namespace AOG
                     isStep = false;
                     timer1.Interval = 500;
                     timer1.Enabled = true;
-                    cboxSmooth.Enabled = true;
 
                     int bndCount = bndList.Count;
 
@@ -377,10 +376,6 @@ namespace AOG
             sY = 0;
 
             btnStartStop.Enabled = true;
-            //cboxPointDistance.Enabled = false;
-            //cboxSmooth.Enabled = false;
-            //btnMakeBoundary.Enabled = false;
-
 
             isStep = false;
             timer1.Interval = 500;
@@ -406,8 +401,6 @@ namespace AOG
 
             btnStartStop.BackColor = Color.LightGreen;
 
-            cboxPointDistance.Enabled = true;
-
             cboxPointDistance.SelectedIndexChanged -= cboxPointDistance_SelectedIndexChanged;
             cboxPointDistance.SelectedIndex = Settings.User.bndToolSpacing;
             cboxPointDistance.SelectedIndexChanged += cboxPointDistance_SelectedIndexChanged;
@@ -428,7 +421,6 @@ namespace AOG
             if (cboxPointDistance.SelectedIndex == 10) return;
             timer1.Interval = 500;
             isStep = false;
-            cboxPointDistance.Enabled = false;
 
             minDistDisp = (double)(cboxPointDistance.SelectedIndex + 1);
             minDistSq = minDistDisp * minDistDisp;
@@ -589,8 +581,6 @@ namespace AOG
             }
 
             btnStartStop.Enabled = false;
-            cboxPointDistance.Enabled = false;
-            cboxSmooth.Enabled = false;
             btnMakeBoundary.Enabled = false;
 
             cboxIsZoom.Visible = true;

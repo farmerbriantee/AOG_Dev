@@ -46,21 +46,21 @@
             this.btnZoomOut = new System.Windows.Forms.Button();
             this.btnZoomIn = new System.Windows.Forms.Button();
             this.tlp1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.btnMoveUp = new System.Windows.Forms.Button();
             this.btnMoveLeft = new System.Windows.Forms.Button();
             this.btnMoveRight = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.btnMoveDn = new System.Windows.Forms.Button();
             this.btnAddPoints = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.lblPointToProcess = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblI = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.tlp1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -142,7 +142,6 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tlp1.SetColumnSpan(this.label1, 3);
-            this.label1.Enabled = false;
             this.label1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(12, 71);
@@ -170,8 +169,6 @@
             this.cboxIsZoom.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.cboxIsZoom.Appearance = System.Windows.Forms.Appearance.Button;
             this.cboxIsZoom.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cboxIsZoom.Checked = true;
-            this.cboxIsZoom.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tlp1.SetColumnSpan(this.cboxIsZoom, 3);
             this.cboxIsZoom.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.cboxIsZoom.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(255)))), ((int)(((byte)(160)))));
@@ -412,18 +409,31 @@
             this.tlp1.Size = new System.Drawing.Size(299, 700);
             this.tlp1.TabIndex = 572;
             // 
-            // label7
+            // label9
             // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tlp1.SetColumnSpan(this.label7, 3);
-            this.label7.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(161, 191);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(130, 23);
-            this.label7.TabIndex = 574;
-            this.label7.Text = "Add Points";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tlp1.SetColumnSpan(this.label9, 3);
+            this.label9.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.Black;
+            this.label9.Location = new System.Drawing.Point(161, 311);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(130, 23);
+            this.label9.TabIndex = 579;
+            this.label9.Text = "Save";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tlp1.SetColumnSpan(this.label8, 3);
+            this.label8.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(12, 311);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(130, 23);
+            this.label8.TabIndex = 578;
+            this.label8.Text = "Build";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnMoveUp
             // 
@@ -479,6 +489,19 @@
             this.btnMoveRight.UseVisualStyleBackColor = false;
             this.btnMoveRight.Click += new System.EventHandler(this.btnMoveRight_Click);
             // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tlp1.SetColumnSpan(this.label2, 3);
+            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(12, 191);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(130, 23);
+            this.label2.TabIndex = 572;
+            this.label2.Text = "Reset";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // btnMoveDn
             // 
             this.btnMoveDn.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -517,18 +540,18 @@
             this.btnAddPoints.UseVisualStyleBackColor = false;
             this.btnAddPoints.Click += new System.EventHandler(this.btnAddPoints_Click);
             // 
-            // label2
+            // label7
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tlp1.SetColumnSpan(this.label2, 3);
-            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(12, 191);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 23);
-            this.label2.TabIndex = 572;
-            this.label2.Text = "Reset";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tlp1.SetColumnSpan(this.label7, 3);
+            this.label7.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(161, 191);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(130, 23);
+            this.label7.TabIndex = 574;
+            this.label7.Text = "Add Points";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
@@ -598,38 +621,12 @@
             this.label5.Text = "Points:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label8
-            // 
-            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tlp1.SetColumnSpan(this.label8, 3);
-            this.label8.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(12, 311);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(130, 23);
-            this.label8.TabIndex = 578;
-            this.label8.Text = "Build";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label9
-            // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tlp1.SetColumnSpan(this.label9, 3);
-            this.label9.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(161, 311);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(130, 23);
-            this.label9.TabIndex = 579;
-            this.label9.Text = "Save";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // FormBndTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(1011, 702);
+            this.ClientSize = new System.Drawing.Size(1011, 726);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tlp1);

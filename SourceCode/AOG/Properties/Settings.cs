@@ -132,6 +132,9 @@ namespace AOG
             public bool sound_isSectionsOn = true;
             public bool sound_isUturnOn = true;
 
+            public int bndToolSpacing = 1;
+            public int bndToolSmooth = 1;
+
             public string hotkeys = "ACFGMNPTYVW12345678";
 
             public LoadResult Load()

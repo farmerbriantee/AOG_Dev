@@ -1,7 +1,7 @@
 void calcSteeringPID(void)
 {
     //Proportional only
-    pValue = toolSettings.Kp * toolCorrectionError;
+    pValue = toolSettings.Kp * toolCorrectionError * 10;
     pwmDrive = (int16_t)pValue;
 
     errorAbs = abs(toolCorrectionError);

@@ -2476,7 +2476,7 @@ namespace AOG
             font.DrawText(oglMain.Width / 2 - lenth, 10, strHeading, 1);
 
             //angular velocity
-            strHeading = ahrs.angVel.ToString("N3");
+            strHeading = ahrs.angVel.ToString();
             font.DrawText(center, 80, strHeading, 1);
 
             //GPS Step

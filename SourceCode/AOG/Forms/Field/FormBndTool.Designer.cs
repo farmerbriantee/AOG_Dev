@@ -254,9 +254,9 @@
             this.btnStartStop.Font = new System.Drawing.Font("Tahoma", 14.25F);
             this.btnStartStop.Image = global::AOG.Properties.Resources.BoundaryReduce;
             this.btnStartStop.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnStartStop.Location = new System.Drawing.Point(39, 237);
+            this.btnStartStop.Location = new System.Drawing.Point(27, 237);
             this.btnStartStop.Name = "btnStartStop";
-            this.btnStartStop.Size = new System.Drawing.Size(76, 71);
+            this.btnStartStop.Size = new System.Drawing.Size(100, 71);
             this.btnStartStop.TabIndex = 544;
             this.btnStartStop.UseVisualStyleBackColor = false;
             this.btnStartStop.Click += new System.EventHandler(this.btnStartStoPGN_Click);

@@ -13,9 +13,6 @@ namespace AOG
         //chart data
         private string roll = "0.1";
 
-        private string east = "0";
-        private string ost = "0";
-
         private bool isScroll = true;
 
         public FormCorrection(Form callingForm)

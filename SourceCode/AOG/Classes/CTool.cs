@@ -184,7 +184,7 @@ namespace AOG
                     trailingTool -= Settings.Tool.trailingToolToPivotLength;
                 }
 
-                if (mf.isFieldStarted)
+                if (!Settings.Tool.isRemoteSectionControl)
                 {
                     //look ahead lines
                     GL.LineWidth(3);
@@ -208,7 +208,6 @@ namespace AOG
                     }
 
                     GL.End();
-
                 }
 
                 //draw the sections

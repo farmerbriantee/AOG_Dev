@@ -64,7 +64,7 @@ namespace AOG
             }
             */
 
-            if (mf.gyd.FindClosestSegment(curList, false, vec2point, out A, out B))// cc - 10, cc + 10))
+            if (mf.gyd.FindClosestSegment(curList, false, vec2point, out A, out B))
             {
                 distanceFromCurrentLine = FindDistanceToSegment(vec2point, curList[A], curList[B], out vec3 point, out double time, true, false, false);
 
@@ -265,30 +265,6 @@ namespace AOG
                                     i = 0;
                             }
                         }
-                        /*
-                        if (mf.trk.gArr[mf.trk.idx].mode <= TrackMode.Curve)
-                        {
-                            if (mf.isBtnAutoSteerOn && !mf.isReverse)
-                            {
-                                if (mf.trk.isHeadingSameWay)
-                                {
-                                    if (glm.Distance(goalPointTrk, curList[(curList.Count - 1)]) < 0.5)
-                                    {
-                                        mf.SetAutoSteerButton(false, gStr.Get(gs.gsPastEndOfCurve));
-                                        Log.EventWriter("Autosteer Stop, Past End of Curve");
-                                    }
-                                }
-                                else
-                                {
-                                    if (glm.Distance(goalPointTrk, curList[0]) < 0.5)
-                                    {
-                                        mf.SetAutoSteerButton(false, gStr.Get(gs.gsPastEndOfCurve));
-                                        Log.EventWriter("Autosteer Stop, Past End of Curve");
-                                    }
-                                }
-                            }
-                        }
-                        */
                     }
 
                     //calc "D" the distance from pivot axle to lookahead point
@@ -305,7 +281,7 @@ namespace AOG
                     if (Uturn)
                         steerAngle *= mf.vehicle.uturnCompensation;
 
-                    double steerHeadingError = (pivot.heading - curList[A].heading);
+                    double steerHeadingError = pivot.heading - Math.Atan2(curList[B].easting - curList[A].easting, curList[B].northing - curList[A].northing);
                     //Fix the circular error
                     if (steerHeadingError > Math.PI)
                         steerHeadingError -= Math.PI;

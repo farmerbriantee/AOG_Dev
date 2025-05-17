@@ -208,7 +208,6 @@ namespace AOG
                     }
 
                     GL.End();
-
                 }
 
                 //draw the sections

@@ -1006,12 +1006,12 @@ namespace AOG
 
             if (Settings.Tool.lookAheadDistanceOff != 0)
             {
-                tool.lookAheadDistanceOffPixelsLeft =  Settings.Tool.lookAheadDistanceOff * 10;
+                tool.lookAheadDistanceOffPixelsLeft = Settings.Tool.lookAheadDistanceOff * 10;
                 tool.lookAheadDistanceOffPixelsRight = Settings.Tool.lookAheadDistanceOff * 10;
             }
             if (Settings.Tool.lookAheadDistanceOn != 0)
             {
-                tool.lookAheadDistanceOnPixelsLeft =  Settings.Tool.lookAheadDistanceOn * 10;
+                tool.lookAheadDistanceOnPixelsLeft = Settings.Tool.lookAheadDistanceOn * 10;
                 tool.lookAheadDistanceOnPixelsRight = Settings.Tool.lookAheadDistanceOn * 10;
             }
 
@@ -1080,33 +1080,26 @@ namespace AOG
             ///////////////////////////////////////////  Hydraulic control  ///////////////////////////////////////////
 
             //determine if headland is in read pixel buffer left middle and right. 
-            int start = 0, end = 0;
+            int start = 0, end = tool.rpWidth;
 
             //the lookahead on and off lines
             int dwnHeight = 1, upHeight = 1;
 
             bnd.isToolInHeadland = true;
 
-            //determine if in or out of headland, do hydraulics if on *Todo
-            if (bnd.isHeadlandOn && bnd.isSectionControlledByHeadland)
-            {
                 //calculate the slope
                 double m = (vehicle.hydLiftLookAheadDistanceRight - vehicle.hydLiftLookAheadDistanceLeft) / tool.rpWidth;
 
-                start = 0;
-                end = tool.rpWidth;
                 for (int pos = start; pos <= end; pos++)
                 {
                     dwnHeight = (int)(vehicle.hydLiftLookAheadDistanceLeft + (m * pos)) * tool.rpWidth + pos;
                     upHeight = pos;
-
+                if (bnd.isHeadlandOn && bnd.isSectionControlledByHeadland)
+                {
                     if (redPixels[dwnHeight] == (byte)bbColors.headland || redPixels[upHeight] == (byte)bbColors.headland)
-                        goto toolInWorkArea;
-
-                }
-            toolInWorkArea:
                 {
                     bnd.isToolInHeadland = false;
+                        break;
                 }
             }
             else
@@ -1115,25 +1108,13 @@ namespace AOG
                 //Maybe when we are not using headland we should lower the tool if there are som unaplied area?
                 //For example when we are driving the headland
 
-                //calculate the slope
-                double m = (vehicle.hydLiftLookAheadDistanceRight - vehicle.hydLiftLookAheadDistanceLeft) / tool.rpWidth;
-
-                start = 0;
-                end = tool.rpWidth;
-                for (int pos = start; pos <= end; pos++)
-                {
-                    dwnHeight = (int)(vehicle.hydLiftLookAheadDistanceLeft + (m * pos)) * tool.rpWidth + pos;
-                    upHeight = pos;
-
                     if (redPixels[dwnHeight] == (byte)bbColors.headland && grnPixels[dwnHeight] != (byte)bbColors.section
                     || redPixels[upHeight] == (byte)bbColors.headland && grnPixels[upHeight] != (byte)bbColors.section)
-                        goto toolInWorkArea;
-
-                }
-            toolInWorkArea:
                 {
                     bnd.isToolInHeadland = false;
+                        break;
                 }
+            }
             }
 
             bnd.SetHydPosition();
@@ -1170,57 +1151,16 @@ namespace AOG
                 }
 
                 //AutoSection - If any nowhere applied, send OnRequest, if its all green send an offRequest
-                //section[j].sectionOnRequest = true;
 
                 //calculate the slopes of the lines
                 mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
                 mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
 
-                //logic if in or out of boundaries or headland
-                //Has a fence and... a headland but headland not control sections OR no headland. No headland was drawn
-                if (bnd.bndList.Count > 0)
-                {
                     start = section[j].rpSectionPosition - section[0].rpSectionPosition;
                     end = section[j].rpSectionWidth - 1 + start;
 
-                    if (end >= tool.rpWidth)
-                        end = tool.rpWidth - 1;
-
-                    offCount = onCount = 0;
-
-                    for (int pos = start; pos <= end; pos++)
-                    {
-                        offHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
-                        onHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
-
-                        if (redPixels[onHeight] == (byte)bbColors.headland && grnPixels[onHeight] == 0)
-                            onCount++;
-                        if (redPixels[offHeight] != (byte)bbColors.headland ||
-                            (grnPixels[offHeight] == (byte)bbColors.section || grnPixels[offHeight] == (byte)bbColors.tram))
-                            offCount++;
-                    }
-
-                    //check for off
-                    int coverage = (end - start + 1) - ((end - start + 1) * Settings.Tool.minCoverage) / 100;
-
-                    if (onCount > coverage) section[j].sectionOnRequest = true;
-                    else section[j].sectionOnRequest = false;
-
-                    coverage = ((end - start + 1) * Settings.Tool.minCoverage) / 100;
-                    if (offCount < (coverage) && section[j].sectionOnRequest == false)
-                        section[j].sectionOnRequest = true;
-                }
-
-                ////no bnds - check if already applied and turn off section - if within headlands and fence
-                else
-                {
-                    section[j].sectionOnRequest = true;
-
-                    start = section[j].rpSectionPosition - section[0].rpSectionPosition;
-                    end = section[j].rpSectionWidth - 1 + start;
-
-                    if (end >= tool.rpWidth)
-                        end = tool.rpWidth - 1;
+                    if (end > tool.rpWidth)
+                        end = tool.rpWidth;
 
                     offCount = 0;
                     onCount = 0;
@@ -1230,13 +1170,31 @@ namespace AOG
                         offHeight = (int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth + pos;
                         onHeight = (int)(tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * tool.rpWidth + pos;
 
-                        if (grnPixels[onHeight] == 0) onCount++;
-                        if (grnPixels[offHeight] == (byte)bbColors.section) offCount++;
+                        //logic if in or out of boundaries or headland
+                        //Has a fence and... a headland but headland not control sections OR no headland. No headland was drawn
+                        if (bnd.bndList.Count > 0)
+                        {
+                        if (redPixels[onHeight] == (byte)bbColors.headland && grnPixels[onHeight] == 0)
+                            onCount++;
+                            if (redPixels[offHeight] == 0)//outside everything!
+                                offCount++;//this should force everything off don't wait for delayOff if above threshold!!!
+                    }
+                else
+                {
+                            if (grnPixels[onHeight] == 0) onCount++;
+                        }
                     }
 
-                    //determine if meeting minimum coverage todo
-                    if (onCount == 0 && offCount == (end - start + 1))
-                        section[j].sectionOnRequest = false;
+                    //check for off
+
+
+
+                    int coverage = (end - start + 1) - ((end - start + 1) * Settings.Tool.minCoverage) / 100;
+
+                    if (onCount > coverage) section[j].sectionOnRequest = true;
+                    else section[j].sectionOnRequest = false;
+
+                } // end of go thru all sections "for"
                 }
             } // end of go thru all sections "for"
 
@@ -1293,7 +1251,7 @@ namespace AOG
                 else if (Settings.Tool.offDelay > 0)
                 {
                     if (!section[j].sectionOnRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
-                        section[j].mappingOffTimer = (int)(Settings.Tool.offDelay * gpsHz)+ mappingFactor;
+                            section[j].mappingOffTimer = (int)(Settings.Tool.offDelay * gpsHz) + mappingFactor;
                 }
                 else
                 {
@@ -1610,7 +1568,7 @@ namespace AOG
 
             int bottomSide = 90;
 
-            if ( Settings.User.setFeatures.isUTurnOn)
+            if (Settings.User.setFeatures.isUTurnOn)
             {
                 GL.BindTexture(TextureTarget.Texture2D, texture[(int)FormGPS.textures.TurnManual]);        // Select Our Texture
                 GL.Color3(0.90f, 0.90f, 0.293f);
@@ -2494,7 +2452,7 @@ namespace AOG
         private void DrawCompass()
         {
             //Heading text
-            int center = oglMain.Width / 2 -48;
+            int center = oglMain.Width / 2 - 48;
 
             GL.PushMatrix();
             GL.Enable(EnableCap.Texture2D);

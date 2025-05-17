@@ -1920,19 +1920,26 @@ namespace AOG
         double lastSimGuidanceAngle = 0;
         private void timerSim_Tick(object sender, EventArgs e)
         {
-            if (isBtnAutoSteerOn && !double.IsNaN(guidanceLineDistanceOff))
+            try
             {
-                if (vehicle.isInDeadZone)
+                if (isBtnAutoSteerOn && !double.IsNaN(guidanceLineDistanceOff))
                 {
-                    sim.DoSimTick(lastSimGuidanceAngle);
+                    if (vehicle.isInDeadZone)
+                    {
+                        sim.DoSimTick(lastSimGuidanceAngle);
+                    }
+                    else
+                    {
+                        lastSimGuidanceAngle = guidanceLineSteerAngle * 0.9;
+                        sim.DoSimTick(lastSimGuidanceAngle);
+                    }
                 }
-                else
-                {
-                    lastSimGuidanceAngle = guidanceLineSteerAngle * 0.9;
-                    sim.DoSimTick(lastSimGuidanceAngle);
-                }
+                else sim.DoSimTick(steerAngleScrollBar);
             }
-            else sim.DoSimTick(steerAngleScrollBar);
+            catch (Exception ex)
+            {
+                Log.EventWriter($"Catch timerSim_Tick error: {ex.Message}");
+            }
         }
         private void btnSimReverseDirection_Click(object sender, EventArgs e)
         {

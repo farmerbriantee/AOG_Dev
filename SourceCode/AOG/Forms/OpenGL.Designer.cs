@@ -1087,34 +1087,34 @@ namespace AOG
 
             bnd.isToolInHeadland = true;
 
-                //calculate the slope
-                double m = (vehicle.hydLiftLookAheadDistanceRight - vehicle.hydLiftLookAheadDistanceLeft) / tool.rpWidth;
+            //calculate the slope
+            double m = (vehicle.hydLiftLookAheadDistanceRight - vehicle.hydLiftLookAheadDistanceLeft) / tool.rpWidth;
 
-                for (int pos = start; pos <= end; pos++)
-                {
-                    dwnHeight = (int)(vehicle.hydLiftLookAheadDistanceLeft + (m * pos)) * tool.rpWidth + pos;
-                    upHeight = pos;
+            for (int pos = start; pos <= end; pos++)
+            {
+                dwnHeight = (int)(vehicle.hydLiftLookAheadDistanceLeft + (m * pos)) * tool.rpWidth + pos;
+                upHeight = pos;
                 if (bnd.isHeadlandOn && bnd.isSectionControlledByHeadland)
                 {
                     if (redPixels[dwnHeight] == (byte)bbColors.headland || redPixels[upHeight] == (byte)bbColors.headland)
-                {
-                    bnd.isToolInHeadland = false;
+                    {
+                        bnd.isToolInHeadland = false;
                         break;
+                    }
                 }
-            }
-            else
-            {
-                //TODO
-                //Maybe when we are not using headland we should lower the tool if there are som unaplied area?
-                //For example when we are driving the headland
+                else
+                {
+                    //TODO
+                    //Maybe when we are not using headland we should lower the tool if there are som unaplied area?
+                    //For example when we are driving the headland
 
                     if (redPixels[dwnHeight] == (byte)bbColors.headland && grnPixels[dwnHeight] != (byte)bbColors.section
-                    || redPixels[upHeight] == (byte)bbColors.headland && grnPixels[upHeight] != (byte)bbColors.section)
-                {
-                    bnd.isToolInHeadland = false;
+                        || redPixels[upHeight] == (byte)bbColors.headland && grnPixels[upHeight] != (byte)bbColors.section)
+                    {
+                        bnd.isToolInHeadland = false;
                         break;
+                    }
                 }
-            }
             }
 
             bnd.SetHydPosition();
@@ -1133,28 +1133,30 @@ namespace AOG
             //headland and boundary counts
             int onCount = 0, offCount = 0;
 
-            //loop thru each section for section control
-            for (int j = 0; j < section.Count; j++)
+            if (!Settings.Tool.isRemoteSectionControl)
             {
-                // Manual on, force the section On
-                if (section[j].sectionBtnState == btnStates.On)
+                //loop thru each section for section control
+                for (int j = 0; j < section.Count; j++)
                 {
-                    section[j].sectionOnRequest = true;
-                    continue;
-                }
+                    // Manual on, force the section On
+                    if (section[j].sectionBtnState == btnStates.On)
+                    {
+                        section[j].sectionOnRequest = true;
+                        continue;
+                    }
 
-                //Off or too slow or going backwards
-                if (section[j].sectionBtnState == btnStates.Off || avgSpeed < Settings.Tool.slowSpeedCutoff || section[j].speedPixels < 0)
-                {
-                    section[j].sectionOnRequest = false;
-                    continue;
-                }
+                    //Off or too slow or going backwards
+                    if (section[j].sectionBtnState == btnStates.Off || avgSpeed < Settings.Tool.slowSpeedCutoff || section[j].speedPixels < 0)
+                    {
+                        section[j].sectionOnRequest = false;
+                        continue;
+                    }
 
-                //AutoSection - If any nowhere applied, send OnRequest, if its all green send an offRequest
+                    //AutoSection - If any nowhere applied, send OnRequest, if its all green send an offRequest
 
-                //calculate the slopes of the lines
-                mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
-                mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
+                    //calculate the slopes of the lines
+                    mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
+                    mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
 
                     start = section[j].rpSectionPosition - section[0].rpSectionPosition;
                     end = section[j].rpSectionWidth - 1 + start;
@@ -1174,13 +1176,13 @@ namespace AOG
                         //Has a fence and... a headland but headland not control sections OR no headland. No headland was drawn
                         if (bnd.bndList.Count > 0)
                         {
-                        if (redPixels[onHeight] == (byte)bbColors.headland && grnPixels[onHeight] == 0)
-                            onCount++;
+                            if (redPixels[onHeight] == (byte)bbColors.headland && grnPixels[onHeight] == 0)
+                                onCount++;
                             if (redPixels[offHeight] == 0)//outside everything!
                                 offCount++;//this should force everything off don't wait for delayOff if above threshold!!!
-                    }
-                else
-                {
+                        }
+                        else
+                        {
                             if (grnPixels[onHeight] == 0) onCount++;
                         }
                     }
@@ -1195,9 +1197,7 @@ namespace AOG
                     else section[j].sectionOnRequest = false;
 
                 } // end of go thru all sections "for"
-                }
-            } // end of go thru all sections "for"
-
+            }
             #endregion
 
             #region Section delays and mapping
@@ -1209,53 +1209,56 @@ namespace AOG
             {
                 //SECTION timers
 
-                if (section[j].sectionOnRequest)
-                    section[j].isSectionOn = true;
-
-                //turn off delay
-                if (Settings.Tool.offDelay > 0)
+                if (!Settings.Tool.isRemoteSectionControl)
                 {
-                    if (section[j].sectionOnRequest) section[j].sectionOffTimer = (int)(gpsHz * Settings.Tool.offDelay);
+                    if (section[j].sectionOnRequest)
+                        section[j].isSectionOn = true;
 
-                    if (section[j].sectionOffTimer > 0) section[j].sectionOffTimer--;
-
-                    if (!section[j].sectionOnRequest && section[j].sectionOffTimer == 0)
+                    //turn off delay
+                    if (Settings.Tool.offDelay > 0)
                     {
-                        if (section[j].isSectionOn) section[j].isSectionOn = false;
+                        if (section[j].sectionOnRequest) section[j].sectionOffTimer = (int)(gpsHz * Settings.Tool.offDelay);
+
+                        if (section[j].sectionOffTimer > 0) section[j].sectionOffTimer--;
+
+                        if (!section[j].sectionOnRequest && section[j].sectionOffTimer == 0)
+                        {
+                            if (section[j].isSectionOn) section[j].isSectionOn = false;
+                        }
                     }
-                }
-                else
-                {
-                    if (!section[j].sectionOnRequest)
-                        section[j].isSectionOn = false;
-                }
-
-                //Mapping timers
-                if (section[j].sectionOnRequest && !section[j].isMappingOn && section[j].mappingOnTimer == 0)
-                {
-                    section[j].mappingOnTimer = (int)(Settings.Tool.lookAheadOn * gpsHz) - mappingFactor;
-                }
-                else if (section[j].sectionOnRequest && section[j].isMappingOn && section[j].mappingOffTimer > 1)
-                {
-                    section[j].mappingOffTimer = 0;
-                    section[j].mappingOnTimer = (int)(Settings.Tool.lookAheadOn * gpsHz) - mappingFactor;
-                }
-
-                if (Settings.Tool.lookAheadOff > 0)
-                {
-                    if (!section[j].sectionOnRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
+                    else
                     {
-                        section[j].mappingOffTimer = (int)(Settings.Tool.lookAheadOff * gpsHz) + mappingFactor;
+                        if (!section[j].sectionOnRequest)
+                            section[j].isSectionOn = false;
                     }
-                }
-                else if (Settings.Tool.offDelay > 0)
-                {
-                    if (!section[j].sectionOnRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
+
+                    //Mapping timers
+                    if (section[j].sectionOnRequest && !section[j].isMappingOn && section[j].mappingOnTimer == 0)
+                    {
+                        section[j].mappingOnTimer = (int)(Settings.Tool.lookAheadOn * gpsHz) - mappingFactor;
+                    }
+                    else if (section[j].sectionOnRequest && section[j].isMappingOn && section[j].mappingOffTimer > 1)
+                    {
+                        section[j].mappingOffTimer = 0;
+                        section[j].mappingOnTimer = (int)(Settings.Tool.lookAheadOn * gpsHz) - mappingFactor;
+                    }
+
+                    if (Settings.Tool.lookAheadOff > 0)
+                    {
+                        if (!section[j].sectionOnRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
+                        {
+                            section[j].mappingOffTimer = (int)(Settings.Tool.lookAheadOff * gpsHz) + mappingFactor;
+                        }
+                    }
+                    else if (Settings.Tool.offDelay > 0)
+                    {
+                        if (!section[j].sectionOnRequest && section[j].isMappingOn && section[j].mappingOffTimer == 0)
                             section[j].mappingOffTimer = (int)(Settings.Tool.offDelay * gpsHz) + mappingFactor;
-                }
-                else
-                {
-                    section[j].mappingOffTimer = 0;
+                    }
+                    else
+                    {
+                        section[j].mappingOffTimer = 0;
+                    }
                 }
 
                 //MAPPING - Not the making of triangle patches - only status - on or off
@@ -1371,7 +1374,7 @@ namespace AOG
                                 || triStrip[j].newEndSectionNum != triStrip[j].currentEndSectionNum)
                             {
                                 triStrip[j].AddMappingPoint();
-                                
+
                                 triStrip[j].currentStartSectionNum = triStrip[j].newStartSectionNum;
                                 triStrip[j].currentEndSectionNum = triStrip[j].newEndSectionNum;
                                 triStrip[j].AddMappingPoint();

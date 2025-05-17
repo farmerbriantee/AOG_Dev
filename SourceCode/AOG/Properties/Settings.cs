@@ -343,6 +343,7 @@ namespace AOG
 
             public bool isDisplayTramControl = true;
             public bool isSectionsNotZones = true;
+            public bool isRemoteSectionControl = false;
             public bool isToolFront = false;
             public bool isToolRearFixed = false;
             public bool isToolTBT = false;

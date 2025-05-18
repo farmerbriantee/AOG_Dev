@@ -1178,8 +1178,9 @@ namespace AOG
                         {
                             if (redPixels[onHeight] == (byte)bbColors.headland && grnPixels[onHeight] == 0)
                                 onCount++;
-                            if (redPixels[offHeight] == 0)//outside everything!
-                                offCount++;//this should force everything off don't wait for delayOff if above threshold!!!
+                            if (redPixels[offHeight] != (byte)bbColors.headland ||
+                                (grnPixels[offHeight] == (byte)bbColors.section || grnPixels[offHeight] == (byte)bbColors.tram))
+                                offCount++;
                         }
                         else
                         {
@@ -1188,14 +1189,14 @@ namespace AOG
                     }
 
                     //check for off
-
-
-
                     int coverage = (end - start + 1) - ((end - start + 1) * Settings.Tool.minCoverage) / 100;
 
                     if (onCount > coverage) section[j].sectionOnRequest = true;
                     else section[j].sectionOnRequest = false;
 
+                    coverage = ((end - start + 1) * Settings.Tool.minCoverage) / 100;
+                    if (offCount < (coverage) && section[j].sectionOnRequest == false)
+                        section[j].sectionOnRequest = true;
                 } // end of go thru all sections "for"
             }
             #endregion

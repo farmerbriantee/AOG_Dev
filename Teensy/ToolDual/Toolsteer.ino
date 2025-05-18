@@ -9,7 +9,7 @@
 ////////////////// User Settings /////////////////////////
 
 //How many degrees before decreasing Max PWM
-#define LOW_HIGH_DEGREES 3.0
+#define LOW_HIGH_DEGREES 1.0
 
 /*  PWM Frequency ->
      490hz (default) = 0

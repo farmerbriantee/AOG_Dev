@@ -28,10 +28,10 @@ EasyProfile          eP(&eOD);
   
   void loop()
   {
-      if (toSend >= 10)
+      if (toSend >= 9)
       {
           toSend = 0;
-
+          sendAV = (int16_t)(angVel);
           data[5] = (uint8_t)yaw;
           data[6] = yaw >> 8;
 
@@ -92,9 +92,8 @@ EasyProfile          eP(&eOD);
                       yaw = ep_RPY.yaw * 10;
                       toSend++;
 
-                      angVel = ((ep_RPY.yaw*100) - lastYaw*100)*10;
-                      lastYaw = ep_RPY.yaw;
-					  sendAV = (int16_t)angVel;
+                      angVel += ((ep_RPY.yaw*100) - lastYaw*100);
+                      lastYaw = ep_RPY.yaw;					  
                   }
                   break;
               }

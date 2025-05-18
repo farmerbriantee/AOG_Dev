@@ -408,6 +408,8 @@ namespace AOG
             cboxSmooth.SelectedIndexChanged -= cboxSmooth_SelectedIndexChanged;
             cboxSmooth.SelectedIndex = Settings.User.bndToolSmooth;
             cboxSmooth.SelectedIndexChanged += cboxSmooth_SelectedIndexChanged;
+
+            btnMakeBoundary.Enabled = false;
         }
 
         private void btnResetReduce_Click(object sender, EventArgs e)
@@ -602,6 +604,8 @@ namespace AOG
             Spacing();
 
             PacMan();
+
+            btnMakeBoundary.Enabled = true;
         }
 
         private void btnMakeBoundary_Click(object sender, EventArgs e)

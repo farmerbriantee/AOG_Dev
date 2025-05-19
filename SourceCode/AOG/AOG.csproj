@@ -130,6 +130,12 @@
     <Compile Include="Forms\Guidance\FormABDrawHeading.designer.cs">
       <DependentUpon>FormABDrawHeading.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Settings\FormToolSteer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\FormToolSteer.Designer.cs">
+      <DependentUpon>FormToolSteer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\CRegistrySettings.cs" />
     <Compile Include="Classes\CSettings.cs" />
     <Compile Include="Classes\CSound.cs" />
@@ -708,6 +714,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormWebCam.resx">
       <DependentUpon>FormWebCam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Settings\FormToolSteer.resx">
+      <DependentUpon>FormToolSteer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings\FormSteer.resx">
       <DependentUpon>FormSteer.cs</DependentUpon>

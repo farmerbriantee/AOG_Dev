@@ -850,6 +850,13 @@ namespace AOG
             this.Activate();
 
         }
+
+        private void toolSteerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
         private void btnConfig_Click(object sender, EventArgs e)
         {
             using (FormConfig form = new FormConfig(this))

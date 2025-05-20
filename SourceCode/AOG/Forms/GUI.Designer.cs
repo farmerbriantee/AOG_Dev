@@ -307,10 +307,6 @@ namespace AOG
                         {
                             btnSprayGalPerAcre.BackColor = Color.DarkGreen;
                         }
-
-                        //flow error
-                        //lblFlowError.Text = (((double)(nozz.volumePerMinuteSet - nozz.volumePerMinuteActual) 
-                        //    / (double)(nozz.volumePerMinuteSet)) * 100).ToString("N0") + "%";
                     }
                 }
 
@@ -338,9 +334,7 @@ namespace AOG
                         else controlLbls[j].BackColor = Color.RoyalBlue;
                         //GL.Color3(0.7f, 0.2f, 0.2f);
                     }
-
                 }
-
 
             } //end every 1/2 second
 

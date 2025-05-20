@@ -119,6 +119,7 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSteerSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolSteerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripAllSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripWorkingDirectories = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripGPSData = new System.Windows.Forms.ToolStripMenuItem();
@@ -194,7 +195,6 @@
             this.btnSprayGalPerMinActual = new System.Windows.Forms.Button();
             this.lblPWM_Nozz = new System.Windows.Forms.Label();
             this.lblFlowHz_Nozz = new System.Windows.Forms.Label();
-            this.toolSteerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStripFlag.SuspendLayout();
             this.statusStripLeft.SuspendLayout();
@@ -883,7 +883,7 @@
             this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 166F));
+            this.panelSim.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 168F));
             this.panelSim.Controls.Add(this.btnSpeedDn, 5, 0);
             this.panelSim.Controls.Add(this.btnSimSpeedUp, 7, 0);
             this.panelSim.Controls.Add(this.btnResetSim, 0, 0);
@@ -908,7 +908,7 @@
             this.btnSpeedDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSpeedDn.Location = new System.Drawing.Point(342, 4);
             this.btnSpeedDn.Name = "btnSpeedDn";
-            this.btnSpeedDn.Size = new System.Drawing.Size(9, 37);
+            this.btnSpeedDn.Size = new System.Drawing.Size(8, 37);
             this.btnSpeedDn.TabIndex = 533;
             this.btnSpeedDn.UseVisualStyleBackColor = false;
             this.btnSpeedDn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSpeedDn_MouseDown);
@@ -921,9 +921,9 @@
             this.btnSimSpeedUp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSimSpeedUp.FlatAppearance.BorderSize = 0;
             this.btnSimSpeedUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSimSpeedUp.Location = new System.Drawing.Point(434, 4);
+            this.btnSimSpeedUp.Location = new System.Drawing.Point(433, 4);
             this.btnSimSpeedUp.Name = "btnSimSpeedUp";
-            this.btnSimSpeedUp.Size = new System.Drawing.Size(9, 37);
+            this.btnSimSpeedUp.Size = new System.Drawing.Size(8, 37);
             this.btnSimSpeedUp.TabIndex = 532;
             this.btnSimSpeedUp.UseVisualStyleBackColor = false;
             this.btnSimSpeedUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSimSpeedUPGN_MouseDown);
@@ -936,7 +936,7 @@
             this.btnSimSetSpeedToZero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimSetSpeedToZero.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.btnSimSetSpeedToZero.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSimSetSpeedToZero.Location = new System.Drawing.Point(358, 4);
+            this.btnSimSetSpeedToZero.Location = new System.Drawing.Point(357, 4);
             this.btnSimSetSpeedToZero.Name = "btnSimSetSpeedToZero";
             this.btnSimSetSpeedToZero.Size = new System.Drawing.Size(69, 34);
             this.btnSimSetSpeedToZero.TabIndex = 453;
@@ -952,7 +952,7 @@
             this.btnSimReverseDirection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSimReverseDirection.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.btnSimReverseDirection.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSimReverseDirection.Location = new System.Drawing.Point(513, 5);
+            this.btnSimReverseDirection.Location = new System.Drawing.Point(512, 5);
             this.btnSimReverseDirection.Name = "btnSimReverseDirection";
             this.btnSimReverseDirection.Size = new System.Drawing.Size(35, 34);
             this.btnSimReverseDirection.TabIndex = 537;
@@ -1292,6 +1292,14 @@
             this.toolStripSteerSettings.Size = new System.Drawing.Size(463, 66);
             this.toolStripSteerSettings.Text = "Auto Steer";
             this.toolStripSteerSettings.Click += new System.EventHandler(this.btnAutoSteerConfig_Click);
+            // 
+            // toolSteerToolStripMenuItem
+            // 
+            this.toolSteerToolStripMenuItem.Image = global::AOG.Properties.Resources.ToolSteer;
+            this.toolSteerToolStripMenuItem.Name = "toolSteerToolStripMenuItem";
+            this.toolSteerToolStripMenuItem.Size = new System.Drawing.Size(463, 66);
+            this.toolSteerToolStripMenuItem.Text = "Tool Steer";
+            this.toolSteerToolStripMenuItem.Click += new System.EventHandler(this.toolSteerToolStripMenuItem_Click);
             // 
             // toolStripAllSettings
             // 
@@ -2716,13 +2724,6 @@
             this.lblFlowHz_Nozz.TabIndex = 619;
             this.lblFlowHz_Nozz.Text = "Hz";
             this.lblFlowHz_Nozz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // toolSteerToolStripMenuItem
-            // 
-            this.toolSteerToolStripMenuItem.Name = "toolSteerToolStripMenuItem";
-            this.toolSteerToolStripMenuItem.Size = new System.Drawing.Size(463, 66);
-            this.toolSteerToolStripMenuItem.Text = "Tool Steer";
-            this.toolSteerToolStripMenuItem.Click += new System.EventHandler(this.toolSteerToolStripMenuItem_Click);
             // 
             // FormGPS
             // 

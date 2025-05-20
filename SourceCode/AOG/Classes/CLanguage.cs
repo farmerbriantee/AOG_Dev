@@ -476,6 +476,7 @@ namespace AOG.Classes
         public static string gsToolOffset = "gsToolOffset";
         public static string gsToolRight = "gsToolRight";
         public static string gsToolsMenu = "gsToolsMenu";
+        public static string gsToolSteerConfiguration = "gsToolSteerConfiguration";
         public static string gsTopFieldView = "gsTopFieldView";
         public static string gsTotal = "gsTotal";
         public static string gsTrack = "gsTrack";

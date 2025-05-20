@@ -621,7 +621,7 @@ namespace AOG
                             mc.actualToolAngleDegrees = (double)mc.actualToolAngleChart * 0.01;
 
                             //Actual PWM
-                            mc.pwmDisplay = data[12];
+                            mc.pwmToolDisplay = data[12];
                             //Heading
                             //double head253 = (Int16)((data[8] << 8) + data[7]);
                             //if (head253 != 9999)

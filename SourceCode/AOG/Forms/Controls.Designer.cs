@@ -853,7 +853,19 @@ namespace AOG
 
         private void toolSteerToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //check if window already exists
+            Form fc = Application.OpenForms["FormToolSteer"];
 
+            if (fc != null)
+            {
+                fc.Focus();
+                fc.Close();
+                return;
+            }
+
+            Form form = new FormToolSteer(this);
+            form.Show(this);
+            this.Activate();
         }
 
 

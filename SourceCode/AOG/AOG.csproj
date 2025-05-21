@@ -776,6 +776,7 @@
     <Content Include="AOG.ico" />
     <None Include="btnImages\ABTrackEdgeAB.png" />
     <Content Include="btnImages\Shift.png" />
+    <None Include="btnImages\ToolSteer.png" />
     <Content Include="btnImages\ZoomOut.png" />
     <Content Include="License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

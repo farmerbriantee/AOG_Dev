@@ -838,19 +838,19 @@ namespace AOG
 
             if (selectedLine != null && selectedLine.mode != TrackMode.Curve)
             {
-                btnALength.Enabled = false;
-                btnBLength.Enabled = false;
+                btnALength.Enabled = true;
+                btnBLength.Enabled = true;
             }
             else
             {
-                btnALength.Enabled = true;
-                btnBLength.Enabled = true;
+                btnALength.Enabled = false;
+                btnBLength.Enabled = false;
             }
         }
 
         private void btnALength_Click(object sender, EventArgs e)
         {
-            if (selectedLine != null && selectedLine.mode == TrackMode.Curve)
+            if (selectedLine != null && (selectedLine.mode == TrackMode.Curve || selectedLine.mode == TrackMode.AB))
             {
                 //and the beginning
                 vec3 start = new vec3(selectedLine.curvePts[0]);
@@ -862,12 +862,14 @@ namespace AOG
                     pt.northing -= (Math.Cos(pt.heading) * i);
                     selectedLine.curvePts.Insert(0, pt);
                 }
+
+                selectedLine.ptA = new vec2(selectedLine.curvePts[0]);
             }
         }
 
         private void btnBLength_Click(object sender, EventArgs e)
         {
-            if (selectedLine != null && selectedLine.mode == TrackMode.Curve)
+            if (selectedLine != null && (selectedLine.mode == TrackMode.Curve || selectedLine.mode == TrackMode.AB))
             {
                 int ptCnt = selectedLine.curvePts.Count - 1;
 
@@ -878,6 +880,8 @@ namespace AOG
                     pt.northing += (Math.Cos(pt.heading) * i);
                     selectedLine.curvePts.Add(pt);
                 }
+
+                selectedLine.ptB = new vec2(selectedLine.curvePts[selectedLine.curvePts.Count - 1]);
             }
         }
 

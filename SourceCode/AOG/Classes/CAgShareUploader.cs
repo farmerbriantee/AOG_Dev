@@ -8,19 +8,18 @@ using AOG.Classes;
 
 namespace AOG
 {
-    // DTO for reading cloud field info
     public class AgShareFieldDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public bool IsPublic { get; set; }
     }
+
     public class CoordinateDto
     {
         public double Latitude { get; set; }
         public double Longitude { get; set; }
     }
-    
 
     public class CAgShareUploader
     {
@@ -39,13 +38,11 @@ namespace AOG
         {
             try
             {
-                // Step 1: Get or create field ID
                 string idPath = Path.Combine(fieldDirectory, "agshare.txt");
                 Guid fieldId = File.Exists(idPath)
                     ? Guid.Parse(File.ReadAllText(idPath).Trim())
                     : Guid.NewGuid();
 
-                // Step 2: Check if field exists in the cloud
                 bool isPublic = false;
                 try
                 {
@@ -55,10 +52,9 @@ namespace AOG
                 }
                 catch
                 {
-                    // Not found or invalid → isPublic remains false
+                    // Field does not exist yet
                 }
 
-                // Step 3: Fix boundary
                 if (gps.bnd.bndList == null || gps.bnd.bndList.Count == 0)
                 {
                     gps.TimedMessageBox(2000, "AgShare", "Upload stopped: No boundary.");
@@ -74,29 +70,25 @@ namespace AOG
                     return;
                 }
 
-                // Step 4: Build payload
                 var payload = new
                 {
                     name = Path.GetFileName(fieldDirectory),
                     isPublic = isPublic,
                     origin = GetOrigin(),
                     boundary = boundary,
-                    abLines = GetAbLines(),
+                    abLines = BuildAbLinesAsDto(),
                     convergence = GetConvergence(),
                     sourceId = (string)null
                 };
 
-                // Step 5: Upload
                 var (ok, message) = await client.UploadFieldAsync(fieldId, payload);
                 if (!ok)
                 {
-                    gps.TimedMessageBox(2000,"AgShare","Upload failed: " + message);
+                    gps.TimedMessageBox(2000, "AgShare", "Upload failed: " + message);
                     return;
                 }
 
-                // Step 6: Save agshare.txt
                 File.WriteAllText(idPath, fieldId.ToString());
-
                 gps.TimedMessageBox(2000, "AgShare", "Upload Success!");
             }
             catch (Exception ex)
@@ -105,8 +97,6 @@ namespace AOG
             }
         }
 
-
-
         private object GetOrigin()
         {
             string fieldTxt = Path.Combine(fieldDirectory, "Field.txt");
@@ -114,7 +104,7 @@ namespace AOG
 
             using (var reader = new StreamReader(fieldTxt))
             {
-                for (int i = 0; i < 8; i++) reader.ReadLine(); // skip to startfix line
+                for (int i = 0; i < 8; i++) reader.ReadLine();
                 var parts = reader.ReadLine()?.Split(',');
                 return new
                 {
@@ -131,7 +121,7 @@ namespace AOG
 
             using (var reader = new StreamReader(fieldTxt))
             {
-                for (int i = 0; i < 6; i++) reader.ReadLine(); // skip to convergence
+                for (int i = 0; i < 6; i++) reader.ReadLine();
                 string value = reader.ReadLine();
                 return double.Parse(value, CultureInfo.InvariantCulture);
             }
@@ -147,7 +137,6 @@ namespace AOG
                 coords.Add(new CoordinateDto { Latitude = lat, Longitude = lon });
             }
 
-            // Sluit de ring als nodig
             if (coords.Count > 1)
             {
                 var first = coords[0];
@@ -161,9 +150,10 @@ namespace AOG
             return coords;
         }
 
-        private List<object> GetAbLines()
+        private List<object> BuildAbLinesAsDto()
         {
             var result = new List<object>();
+
             foreach (var ab in gps.trk.gArr)
             {
                 if (ab.mode == TrackMode.AB)
@@ -175,11 +165,11 @@ namespace AOG
                     {
                         name = ab.name,
                         type = "AB",
-                        coords = new[]
-                        {
-                            new { latitude = latA, longitude = lonA },
-                            new { latitude = latB, longitude = lonB }
-                        }
+                        coords = new List<object>
+                {
+                    new { latitude = latA, longitude = lonA },
+                    new { latitude = latB, longitude = lonB }
+                }
                     });
                 }
                 else if (ab.mode == TrackMode.Curve)
@@ -199,7 +189,9 @@ namespace AOG
                     });
                 }
             }
+
             return result;
         }
+
     }
 }

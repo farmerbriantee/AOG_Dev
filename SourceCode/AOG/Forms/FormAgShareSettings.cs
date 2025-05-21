@@ -51,8 +51,8 @@ namespace AOG
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            //_agShareClient.SetServer(textBoxServer.Text);
-            //_agShareClient.SetApiKey(textBoxApiKey.Text);
+            _agShareClient.SetBaseUrl(textBoxServer.Text);
+            _agShareClient.SetApiKey(textBoxApiKey.Text);
 
             _userSettings.AgShareServer = textBoxServer.Text;
             _userSettings.AgShareApiKey = textBoxApiKey.Text;

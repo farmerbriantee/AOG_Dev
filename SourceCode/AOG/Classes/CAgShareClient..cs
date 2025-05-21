@@ -14,9 +14,18 @@ namespace AOG
         private string baseUrl;
         private string apiKey;
 
+        private void RebuildClient()
+        {
+            client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("ApiKey", apiKey);
+        }
+
+
         public AgShareClient(string serverUrl, string key)
         {
-            baseUrl = serverUrl.TrimEnd('/');
+            baseUrl = serverUrl.TrimEnd('/');   
             apiKey = key;
 
             client = new HttpClient();
@@ -27,12 +36,13 @@ namespace AOG
         public void SetApiKey(string key)
         {
             apiKey = key;
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("ApiKey", apiKey);
+            RebuildClient();
         }
 
         public void SetBaseUrl(string url)
         {
             baseUrl = url.TrimEnd('/');
+            RebuildClient();
         }
 
         public async Task<(bool ok, string message)> CheckApiAsync()
@@ -82,11 +92,8 @@ namespace AOG
 
 
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-
                 var response = await client.PutAsync($"{baseUrl}/api/fields/{fieldId}", content);
                 var error = await response.Content.ReadAsStringAsync();
-                System.Diagnostics.Debug.WriteLine("Response body:");
-                System.Diagnostics.Debug.WriteLine(error);
 
                 if (response.IsSuccessStatusCode)
                     return (true, "Upload successful");

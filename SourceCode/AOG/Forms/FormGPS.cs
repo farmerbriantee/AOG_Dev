@@ -683,8 +683,11 @@ namespace AOG
             string path = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
             var uploader = new CAgShareUploader(agShareClient, path, this);
 
-            agShareUploadTask = uploader.UploadAsync(); 
-            await agShareUploadTask;
+            if (Settings.User.AgShareUploadEnabled)
+            {
+                agShareUploadTask = uploader.UploadAsync(); 
+                await agShareUploadTask;
+            }
 
             JobClose();
             FieldClose();

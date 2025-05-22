@@ -37,6 +37,8 @@ namespace AOG
             string directoryFieldName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
 
             string fileAndDirectory = Path.Combine(directoryFieldName, "Field.txt");
+            if (mf.isFieldStarted)
+                mf.AgShareSnapshot();
 
             if (!File.Exists(fileAndDirectory))
             {
@@ -176,7 +178,11 @@ namespace AOG
 
         private void btnFieldClose_Click(object sender, EventArgs e)
         {
-            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
+            if (mf.isFieldStarted)
+            {
+                mf.FileSaveEverythingBeforeClosingField();
+                mf.AgShareUpload();
+            }
             //back to FormGPS
             DialogResult = DialogResult.OK;
             Close();

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Windows.Forms;
 using System.Threading.Tasks;
+using static AOG.CAgShareUploader;
 
 namespace AOG
 {
@@ -488,7 +489,6 @@ namespace AOG
 
             //Init AgShareClient
             agShareClient = new AgShareClient(Settings.User.AgShareServer, Settings.User.AgShareApiKey);
-
         }
 
         private async void FormGPS_FormClosing(object sender, FormClosingEventArgs e)
@@ -545,24 +545,11 @@ namespace AOG
             if (isFieldStarted)
             {
                 SetWorkState(btnStates.Off);
-
                 FileSaveEverythingBeforeClosingField();
-                if (agShareUploadTask != null && !agShareUploadTask.IsCompleted)
-                {
-                    e.Cancel = true;
 
-                    TimedMessageBox(3000, "Waiting for AgShare upload...", "Please wait");
-
-                    try
-                    {
-                        await agShareUploadTask; // Wait non-blocking
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.EventWriter("AgShare upload error during shutdown: " + ex.Message);
-                    }
-
-                }
+                agShareUploadTask = CAgShareUploader.UploadAsync(snapshot, agShareClient);
+                await agShareUploadTask;
+                Debug.WriteLine($"AgShare upload completed: {snapshot.FieldName}, ID: {snapshot.FieldId}");
 
             }
 
@@ -672,7 +659,7 @@ namespace AOG
             }
         }
 
-        public async void FileSaveEverythingBeforeClosingField()
+        public void FileSaveEverythingBeforeClosingField()
         {
             FieldMenuButtonEnableDisable(false);
             displayFieldName = gStr.Get(gs.gsNone);
@@ -680,19 +667,26 @@ namespace AOG
             ExportFieldAs_ISOXMLv3();
             ExportFieldAs_ISOXMLv4();
 
-            string path = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
-            var uploader = new CAgShareUploader(agShareClient, path, this);
-
-            if (Settings.User.AgShareUploadEnabled)
-            {
-                agShareUploadTask = uploader.UploadAsync(); 
-                await agShareUploadTask;
-            }
-
             JobClose();
             FieldClose();
 
             this.Text = "AOG";
+        }
+
+        public void AgShareSnapshot()
+        {
+            if (!isFieldStarted) return;
+
+            snapshot = CAgShareUploader.CreateSnapshot(this);
+        }
+
+
+        private FieldSnapshot snapshot;
+        public void AgShareUpload()
+        {
+            if (!isFieldStarted || snapshot == null) return;
+
+            agShareUploadTask = CAgShareUploader.UploadAsync(snapshot, agShareClient);
         }
 
 
@@ -787,6 +781,7 @@ namespace AOG
             if (isFieldStarted)
             {
                 FileSaveTracks();
+                AgShareUpload();
 
                 Log.EventWriter("** Closed **   " + currentFieldDirectory + "   "
                     + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));

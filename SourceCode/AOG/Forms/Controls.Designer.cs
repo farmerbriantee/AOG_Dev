@@ -523,6 +523,11 @@ namespace AOG
                 Log.EventWriter("No GPS Position, Field Closed");
                 return;
             }
+            //Agshare Snapshot
+            if (isFieldStarted) 
+            { 
+                var snapshot = CAgShareUploader.CreateSnapshot(this); 
+            }
 
             Form f = Application.OpenForms["FormGPSData"];
 
@@ -562,7 +567,7 @@ namespace AOG
 
             if (this.OwnedForms.Any())
             {
-                TimedMessageBox(2000, gStr.Get(gs.gsWindowsStillOpen), gStr.Get(gs.gsCloseAllWindowsFirst));
+                TimedMessageBox(1000, gStr.Get(gs.gsWindowsStillOpen), gStr.Get(gs.gsCloseAllWindowsFirst));
                 return;
             }
 

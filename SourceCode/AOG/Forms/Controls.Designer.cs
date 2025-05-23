@@ -562,7 +562,7 @@ namespace AOG
 
             if (this.OwnedForms.Any())
             {
-                TimedMessageBox(2000, gStr.Get(gs.gsWindowsStillOpen), gStr.Get(gs.gsCloseAllWindowsFirst));
+                TimedMessageBox(1000, gStr.Get(gs.gsWindowsStillOpen), gStr.Get(gs.gsCloseAllWindowsFirst));
                 return;
             }
 
@@ -1089,7 +1089,7 @@ namespace AOG
         #region File Menu
 
         //File drop down items
-
+        
         private void flagByLatLonToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var form = new FormEnterFlag(this))
@@ -1166,6 +1166,13 @@ namespace AOG
             nozzleAppToolStripMenuItem.Checked = Settings.Vehicle.setApp_isNozzleApp;
 
             PanelsAndOGLSize();
+        }
+        private void agShareToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FormAgShareSettings(new AgShareClient(Settings.User.AgShareServer, Settings.User.AgShareApiKey), Settings.User);
+            {
+                form.ShowDialog(this);
+            }
         }
 
         private void kioskModeToolStriPGN_Click(object sender, EventArgs e)

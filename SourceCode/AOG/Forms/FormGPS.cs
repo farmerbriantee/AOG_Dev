@@ -1,4 +1,4 @@
-﻿using AOG.Classes;
+using AOG.Classes;
 using AOG.Properties;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -11,6 +11,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using System.Threading.Tasks;
+using static AOG.CAgShareUploader;
 
 namespace AOG
 {
@@ -23,6 +25,9 @@ namespace AOG
 
         [System.Runtime.InteropServices.DllImport("User32.dll")]
         private static extern bool ShowWindow(IntPtr hWind, int nCmdShow);
+
+        private Task agShareUploadTask = null;
+
 
         #region // Class Props and instances
 
@@ -201,6 +206,8 @@ namespace AOG
         /// Nozzle class
         /// </summary>
         public CNozzle nozz;
+
+        private AgShareClient agShareClient;
 
         #endregion // Class Props and instances
 
@@ -479,109 +486,138 @@ namespace AOG
                     form.ShowDialog(this);
                 }
             }
+
+            //Init AgShareClient
+            agShareClient = new AgShareClient(Settings.User.AgShareServer, Settings.User.AgShareApiKey);
+
         }
 
-        private void FormGPS_FormClosing(object sender, FormClosingEventArgs e)
+        #region Shutdown Handling
+
+        // Centralized shutdown coordinator for AgOpenGPS
+        private bool isShuttingDown = false;
+
+        private async void FormGPS_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Form f = Application.OpenForms["FormGPSData"];
-
-            if (f != null)
+            if (isShuttingDown)
             {
-                f.Focus();
-                f.Close();
+                return;
             }
 
-            f = Application.OpenForms["FormFieldData"];
+            isShuttingDown = true;
 
-            if (f != null)
+            // Attempt to close subforms cleanly
+            string[] formNames = { "FormGPSData", "FormFieldData", "FormPan", "FormTimedMessage" };
+            foreach (string name in formNames)
             {
-                f.Focus();
-                f.Close();
+                Form f = Application.OpenForms[name];
+                if (f != null && !f.IsDisposed)
+                {
+                    try { f.Close(); } catch { }
+                }
             }
 
-            f = Application.OpenForms["FormPan"];
-
-            if (f != null)
-            {
-                isPanFormVisible = false;
-                f.Focus();
-                f.Close();
-            }
-
-            f = Application.OpenForms["FormTimedMessage"];
-
-            if (f != null)
-            {
-                f.Focus();
-                f.Close();
-            }
-
+            // Cancel shutdown if owned forms are still open
             if (this.OwnedForms.Any())
             {
                 TimedMessageBox(2000, gStr.Get(gs.gsWindowsStillOpen), gStr.Get(gs.gsCloseAllWindowsFirst));
+                isShuttingDown = false;
                 e.Cancel = true;
                 return;
             }
 
+            // Get user choice for shutdown behavior
             int choice = SaveOrNot();
-
-            //simple cancel return to AOG
             if (choice == 1)
             {
+                isShuttingDown = false;
                 e.Cancel = true;
                 return;
             }
 
+            // Save and upload field data if applicable
             if (isFieldStarted)
             {
                 SetWorkState(btnStates.Off);
+                
+                if (Settings.User.AgShareUploadEnabled)
+                {
+                    TimedMessageBox(5000, "AgShare", "Uploading field to AgShare...\nPlease wait and get a beer.");
+                    agShareUploadTask = CAgShareUploader.UploadAsync(snapshot, agShareClient);
 
+                    e.Cancel = true;
+                    await DelayedShutdownAfterUpload(choice);                  
+                    return;
+                }
+                isAgShareUploadStarted = true;
                 FileSaveEverythingBeforeClosingField();
             }
 
+            // No upload required, finalize shutdown
+            FinishShutdown(choice);
+        }
+
+        private async Task DelayedShutdownAfterUpload(int choice)
+        {
+            try
+            {
+                await agShareUploadTask;
+                agShareUploadTask = null;               
+            }
+            catch (Exception) { }
+
+            FinishShutdown(choice);
+        }
+
+        private void FinishShutdown(int choice)
+        {
             SaveFormGPSWindowSettings();
 
             double minutesSinceStart = ((DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds) / 60;
-            if (minutesSinceStart < 1)
-            {
-                minutesSinceStart = 1;
-            }
+            if (minutesSinceStart < 1) minutesSinceStart = 1;
 
             Log.EventWriter("Missed Sentence Counter Total: " + missedSentenceCount.ToString()
                 + "   Missed Per Minute: " + ((double)missedSentenceCount / minutesSinceStart).ToString("N4"));
 
             Log.EventWriter("Program Exit: " + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)) + "\r");
 
-            //stop back buffer thread
+            // Abort backbuffer thread if alive
             if (thread_oglBack != null && thread_oglBack.IsAlive)
-                thread_oglBack.Abort();
-
-            //save current vehicle
-            Settings.Vehicle.Save();
-
-            //save current Tool
-            Settings.Tool.Save();
-
-            //save current User
-            Settings.User.Save();
-
-            //write the log file
-            FileSaveSystemEvents();
-
-            if (displayBrightness.isWmiMonitor)
-                displayBrightness.SetBrightness(Settings.User.setDisplay_brightnessSystem);
-
-            if (choice == 2)
             {
-                Process[] processName = Process.GetProcessesByName("AgIO");
-                if (processName.Length != 0)
-                {
-                    processName[0].CloseMainWindow();
-                }
-
-                Process.Start("shutdown", "/s /t 0");
+                try { thread_oglBack.Abort(); } catch { }
             }
 
+            // Save application settings
+            Settings.Vehicle.Save();
+            Settings.Tool.Save();
+            Settings.User.Save();
+            FileSaveSystemEvents();
+
+            // Restore display brightness
+            if (displayBrightness.isWmiMonitor)
+            {
+                try { displayBrightness.SetBrightness(Settings.User.setDisplay_brightnessSystem); }
+                catch { }
+            }
+
+            // Perform Windows shutdown if user selected it
+            if (choice == 2)
+            {
+                try
+                {
+                    Process[] agio = Process.GetProcessesByName("AgIO");
+                    if (agio.Length > 0) agio[0].CloseMainWindow();
+                }
+                catch { }
+
+                try 
+                {
+                    Process.Start("shutdown", "/s /t 0");
+                }
+                catch { }
+            }
+
+            // Close loopback socket if active
             if (loopBackSocket != null)
             {
                 try
@@ -590,18 +626,24 @@ namespace AOG
                     loopBackSocket.Close();
                 }
                 catch { }
-                finally { }
             }
 
+            // Auto close AgIO process if enabled
             if (Settings.User.isAutoOffAgIO)
             {
-                Process[] processName = Process.GetProcessesByName("AgIO");
-                if (processName.Length != 0)
+                try
                 {
-                    processName[0].CloseMainWindow();
+                    Process[] agio = Process.GetProcessesByName("AgIO");
+                    if (agio.Length > 0) agio[0].CloseMainWindow();
                 }
+                catch { }
             }
+
+            // Close the main application form
+            try { Close(); }
+            catch (ObjectDisposedException) { }
         }
+        #endregion
 
         public int SaveOrNot()
         {
@@ -652,11 +694,31 @@ namespace AOG
 
             ExportFieldAs_ISOXMLv3();
             ExportFieldAs_ISOXMLv4();
+
             JobClose();
             FieldClose();
 
             this.Text = "AOG";
         }
+        private bool isAgShareUploadStarted = false;
+        public void AgShareSnapshot()
+        {
+            if (!isFieldStarted) return;
+
+            snapshot = CAgShareUploader.CreateSnapshot(this);
+        }
+
+
+        private FieldSnapshot snapshot;
+        public void AgShareUpload()
+        {
+            if (!isFieldStarted || snapshot == null || isAgShareUploadStarted) return;
+
+            isAgShareUploadStarted = true;
+            agShareUploadTask = CAgShareUploader.UploadAsync(snapshot, agShareClient);
+        }
+
+
 
         public void FieldNew()
         {
@@ -749,6 +811,7 @@ namespace AOG
             if (isFieldStarted)
             {
                 FileSaveTracks();
+                AgShareUpload();
 
                 Log.EventWriter("** Closed **   " + currentFieldDirectory + "   "
                     + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)));
@@ -840,6 +903,7 @@ namespace AOG
                 GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, 9729);
             }
         }
+
 
         // Return True if a certain percent of a rectangle is shown across the total screen area of all monitors, otherwise return False.
         public bool IsOnScreen(System.Drawing.Point RecLocation, System.Drawing.Size RecSize, double MinPercentOnScreen = 0.8)

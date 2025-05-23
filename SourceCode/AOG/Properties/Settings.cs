@@ -136,6 +136,9 @@ namespace AOG
             public int bndToolSmooth = 1;
 
             public string hotkeys = "ACFGMNPTYVW12345678";
+            public string AgShareServer = "https://agshare.agopengps.com";
+            public string AgShareApiKey = "";
+            public bool AgShareUploadEnabled = false;
 
             public LoadResult Load()
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace AOG
 {
@@ -9,10 +10,11 @@ namespace AOG
 
         private int countExit = 2;
         private int countShutdown = 10;
+        
 
         public FormSaveOrNot()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private void FormSaveOrNot_Load(object sender, EventArgs e)
@@ -24,6 +26,11 @@ namespace AOG
 
             lblExitCtr.Text = countExit.ToString();
             lblShutCtr.Text = countShutdown.ToString();
+            if (Owner is FormGPS gps && gps.isFieldStarted)
+            {
+                gps.AgShareSnapshot();
+            }
+            
         }
 
         //exit to windows

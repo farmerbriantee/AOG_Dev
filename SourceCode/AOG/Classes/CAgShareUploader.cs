@@ -118,7 +118,7 @@ namespace AOG
                 {
                     File.WriteAllText(Path.Combine(snapshot.FieldDirectory, "agshare.txt"), snapshot.FieldId.ToString());
                 }
-                Debug.WriteLine("AgShare Uploaded Successfully");
+                //Debug.WriteLine("AgShare Uploaded Successfully");
                 snapshot = null;
             }
             catch (Exception)

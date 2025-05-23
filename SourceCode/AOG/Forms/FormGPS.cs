@@ -539,9 +539,7 @@ namespace AOG
             if (isFieldStarted)
             {
                 SetWorkState(btnStates.Off);
-                isAgShareUploadStarted = true;
-                FileSaveEverythingBeforeClosingField();
-
+                
                 if (Settings.User.AgShareUploadEnabled)
                 {
                     TimedMessageBox(5000, "AgShare", "Uploading field to AgShare...\nPlease wait and get a beer.");
@@ -551,6 +549,8 @@ namespace AOG
                     await DelayedShutdownAfterUpload(choice);                  
                     return;
                 }
+                isAgShareUploadStarted = true;
+                FileSaveEverythingBeforeClosingField();
             }
 
             // No upload required, finalize shutdown
@@ -562,7 +562,7 @@ namespace AOG
             try
             {
                 await agShareUploadTask;
-                agShareUploadTask = null;
+                agShareUploadTask = null;               
             }
             catch (Exception) { }
 
@@ -610,7 +610,10 @@ namespace AOG
                 }
                 catch { }
 
-                try { Process.Start("shutdown", "/s /t 0"); }
+                try 
+                {
+                    Process.Start("shutdown", "/s /t 0");
+                }
                 catch { }
             }
 

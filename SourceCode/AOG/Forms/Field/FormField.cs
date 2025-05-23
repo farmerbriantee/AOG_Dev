@@ -37,8 +37,8 @@ namespace AOG
             string directoryFieldName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
 
             string fileAndDirectory = Path.Combine(directoryFieldName, "Field.txt");
-            if (mf.isFieldStarted)
-                mf.AgShareSnapshot();
+
+            if (mf.isFieldStarted) mf.AgShareSnapshot();
 
             if (!File.Exists(fileAndDirectory))
             {

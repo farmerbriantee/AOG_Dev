@@ -523,11 +523,6 @@ namespace AOG
                 Log.EventWriter("No GPS Position, Field Closed");
                 return;
             }
-            //Agshare Snapshot
-            if (isFieldStarted) 
-            { 
-                var snapshot = CAgShareUploader.CreateSnapshot(this); 
-            }
 
             Form f = Application.OpenForms["FormGPSData"];
 

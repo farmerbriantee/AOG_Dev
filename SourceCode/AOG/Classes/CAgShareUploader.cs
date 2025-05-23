@@ -72,8 +72,6 @@ namespace AOG
                 Tracks = tracks,
                 Converter = gps.pn
             };
-            Debug.WriteLine($"FieldSnapshot created: {snapshot.FieldName}, ID: {snapshot.FieldId}");
-
             return snapshot;
         }
 
@@ -99,7 +97,10 @@ namespace AOG
                         isPublic = field.IsPublic;
                     }
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"AgShare upload failed during DownloadField: {ex.Message}");
+                }
 
                 var payload = new
                 {
@@ -118,6 +119,7 @@ namespace AOG
                     File.WriteAllText(Path.Combine(snapshot.FieldDirectory, "agshare.txt"), snapshot.FieldId.ToString());
                 }
                 Debug.WriteLine("AgShare Uploaded Successfully");
+                snapshot = null;
             }
             catch (Exception)
             {

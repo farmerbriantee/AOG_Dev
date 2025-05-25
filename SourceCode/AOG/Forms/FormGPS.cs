@@ -494,7 +494,7 @@ namespace AOG
 
         #region Shutdown Handling
 
-        // Centralized shutdown coordinator for AgOpenGPS
+        // Centralized shutdown coordinator
         private bool isShuttingDown = false;
 
         private async void FormGPS_FormClosing(object sender, FormClosingEventArgs e)
@@ -503,7 +503,7 @@ namespace AOG
             {
                 return;
             }
-
+            //set the shutdown flag to true to prevent re-entrance
             isShuttingDown = true;
 
             // Attempt to close subforms cleanly
@@ -534,7 +534,6 @@ namespace AOG
                 e.Cancel = true;
                 return;
             }
-
             // Save and upload field data if applicable
             if (isFieldStarted)
             {
@@ -543,17 +542,16 @@ namespace AOG
                 if (Settings.User.AgShareUploadEnabled)
                 {
                     TimedMessageBox(5000, "AgShare", "Uploading field to AgShare...\nPlease wait and get a beer.");
+                    isAgShareUploadStarted = true;
                     agShareUploadTask = CAgShareUploader.UploadAsync(snapshot, agShareClient);
 
                     e.Cancel = true;
                     await DelayedShutdownAfterUpload(choice);                  
                     return;
                 }
-                isAgShareUploadStarted = true;
                 FileSaveEverythingBeforeClosingField();
             }
-
-            // No upload required, finalize shutdown
+            // No upload required, skip DelayedShutDown and finalize shutdown
             FinishShutdown(choice);
         }
 
@@ -565,7 +563,6 @@ namespace AOG
                 agShareUploadTask = null;               
             }
             catch (Exception) { }
-
             FinishShutdown(choice);
         }
 
@@ -700,7 +697,11 @@ namespace AOG
 
             this.Text = "AOG";
         }
+
+        #region AgShare Upload
+
         private bool isAgShareUploadStarted = false;
+        //this method is called to create a snapshot of the field for AgShare so we can close the field to speed up close and re-open
         public void AgShareSnapshot()
         {
             if (!isFieldStarted) return;
@@ -712,12 +713,16 @@ namespace AOG
         private FieldSnapshot snapshot;
         public void AgShareUpload()
         {
-            if (!isFieldStarted || snapshot == null || isAgShareUploadStarted) return;
+            //check if we're already uploading by closing a field or are we shutting down
+            if (!isFieldStarted || snapshot == null || isAgShareUploadStarted || isShuttingDown)
+                return;
 
+            //set bool to true so we don't start another upload by double clicking or something.
             isAgShareUploadStarted = true;
             agShareUploadTask = CAgShareUploader.UploadAsync(snapshot, agShareClient);
         }
 
+        #endregion
 
 
         public void FieldNew()

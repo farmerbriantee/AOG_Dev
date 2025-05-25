@@ -9,26 +9,21 @@ namespace AOG
     public partial class FormAgShareSettings : Form
     {
         private readonly AgShareClient _agShareClient;
-        private Settings.UserSettings _userSettings;
-
-        public FormAgShareSettings(AgShareClient agShareClient, Settings.UserSettings userSettings)
+        public FormAgShareSettings()
         {
-            _agShareClient = agShareClient;
-            _userSettings = userSettings;
+            _agShareClient = new AgShareClient(Settings.User.AgShareServer, Settings.User.AgShareApiKey);
             InitializeComponent();
         }
 
         private void FormAgShareSettings_Load(object sender, EventArgs e)
         {
-            textBoxServer.Text = _userSettings.AgShareServer;
-            textBoxApiKey.Text = _userSettings.AgShareApiKey;
+            textBoxServer.Text = Settings.User.AgShareServer;
+            textBoxApiKey.Text = Settings.User.AgShareApiKey;
             UpdateAgShareToggleButton();
-
         }
 
         private async void buttonTestConnection_Click(object sender, EventArgs e)
         {
-            
             labelStatus.Text = "Connecting...";
             labelStatus.ForeColor = Color.Gray;
             _agShareClient.SetBaseUrl(textBoxServer.Text);
@@ -54,10 +49,11 @@ namespace AOG
             _agShareClient.SetBaseUrl(textBoxServer.Text);
             _agShareClient.SetApiKey(textBoxApiKey.Text);
 
-            _userSettings.AgShareServer = textBoxServer.Text;
-            _userSettings.AgShareApiKey = textBoxApiKey.Text;
+            Settings.User.AgShareServer = textBoxServer.Text;
+            Settings.User.AgShareApiKey = textBoxApiKey.Text;
             Settings.User.Save();
         }
+
         private void UpdateAgShareToggleButton()
         {
             if (Settings.User.AgShareUploadEnabled)
@@ -79,6 +75,5 @@ namespace AOG
             UpdateAgShareToggleButton();
             Settings.User.Save();
         }
-
     }
 }

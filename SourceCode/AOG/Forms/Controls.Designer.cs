@@ -1169,7 +1169,7 @@ namespace AOG
         }
         private void agShareToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new FormAgShareSettings(new AgShareClient(Settings.User.AgShareServer, Settings.User.AgShareApiKey), Settings.User);
+            var form = new FormAgShareSettings();
             {
                 form.ShowDialog(this);
             }

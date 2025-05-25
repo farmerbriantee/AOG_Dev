@@ -896,6 +896,7 @@ namespace AOG
             worldGrid.isGeoMap = false;
 
             PanelUpdateRightAndBottom();
+            isAgShareUploadStarted = false;
 
             using (Bitmap bitmap = Properties.Resources.z_bingMap)
             {

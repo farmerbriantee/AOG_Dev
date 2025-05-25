@@ -123,6 +123,7 @@
   </data>
   <data name="ABTrackEdgeAB" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\ABTrackEdgeAB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ImplementSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\ImplementSettings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1436,6 +1437,7 @@
   </data>
   <data name="ToolSteer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\ToolSteer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="UploadOn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\btnImages\UploadOn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

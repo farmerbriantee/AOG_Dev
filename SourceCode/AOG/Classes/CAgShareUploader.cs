@@ -20,7 +20,7 @@ namespace AOG
             public double OriginLat { get; set; }
             public double OriginLon { get; set; }
             public double Convergence { get; set; }
-            public List<vec3> Boundary { get; set; }
+            public List<List<vec3>> Boundaries { get; set; }
             public List<CTrk> Tracks { get; set; }
             public CNMEA Converter { get; set; }
         }
@@ -54,9 +54,11 @@ namespace AOG
                 fieldId = Guid.NewGuid();
             }
 
-            List<vec3> boundary = gps.bnd.bndList.Count > 0
-                ? gps.bnd.bndList[0].fenceLine.ToList()
-                : new List<vec3>();
+            List<List<vec3>> boundaries = new List<List<vec3>>();
+            foreach (var b in gps.bnd.bndList)
+            {
+                boundaries.Add(b.fenceLine.ToList());
+            }
 
             List<CTrk> tracks = gps.trk.gArr.ToList();
 
@@ -68,21 +70,33 @@ namespace AOG
                 OriginLat = CNMEA.latStart,
                 OriginLon = CNMEA.lonStart,
                 Convergence = 0,
-                Boundary = boundary,
+                Boundaries = boundaries,
                 Tracks = tracks,
                 Converter = gps.pn
             };
             return snapshot;
         }
 
+        // Upload snapshot to AgShare using boundary with holes
         public static async Task UploadAsync(FieldSnapshot snapshot, AgShareClient client)
         {
             try
             {
-                List<CoordinateDto> boundary = ConvertBoundary(snapshot.Boundary, snapshot.Converter);
-                if (boundary == null || boundary.Count < 3)
-                {
+                if (snapshot.Boundaries == null || snapshot.Boundaries.Count == 0)
                     return;
+
+                // First ring = outer
+                List<CoordinateDto> outer = ConvertBoundary(snapshot.Boundaries[0], snapshot.Converter);
+
+                if (outer == null || outer.Count < 3)
+                    return;
+
+                // Remaining = holes
+                List<List<CoordinateDto>> holes = new List<List<CoordinateDto>>();
+                for (int i = 1; i < snapshot.Boundaries.Count; i++)
+                {
+                    var hole = ConvertBoundary(snapshot.Boundaries[i], snapshot.Converter);
+                    if (hole.Count >= 4) holes.Add(hole);
                 }
 
                 List<object> abLines = ConvertAbLines(snapshot.Tracks, snapshot.Converter);
@@ -92,15 +106,19 @@ namespace AOG
                 {
                     string json = await client.DownloadFieldAsync(snapshot.FieldId);
                     AgShareFieldDto field = JsonConvert.DeserializeObject<AgShareFieldDto>(json);
-                    if (field != null)
-                    {
-                        isPublic = field.IsPublic;
-                    }
+                    if (field != null) isPublic = field.IsPublic;
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine($"AgShare upload failed during DownloadField: {ex.Message}");
                 }
+
+                // Prepare boundary object with outer and holes
+                var boundary = new
+                {
+                    outer = outer,
+                    holes = holes
+                };
 
                 var payload = new
                 {
@@ -118,12 +136,14 @@ namespace AOG
                 {
                     File.WriteAllText(Path.Combine(snapshot.FieldDirectory, "agshare.txt"), snapshot.FieldId.ToString());
                 }
-                //Debug.WriteLine("AgShare Uploaded Successfully");
+
                 snapshot = null;
+                Debug.WriteLine("AgShare Upload Success");
+                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Optional: log or notify
+                Debug.WriteLine("AgShare upload error: " + ex.Message);
             }
         }
 

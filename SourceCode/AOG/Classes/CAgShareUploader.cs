@@ -108,9 +108,9 @@ namespace AOG
                     AgShareFieldDto field = JsonConvert.DeserializeObject<AgShareFieldDto>(json);
                     if (field != null) isPublic = field.IsPublic;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    Debug.WriteLine($"AgShare upload failed during DownloadField: {ex.Message}");
+                    Log.EventWriter("Failed to check field visibility on AgShare, defaulting to private.");
                 }
 
                 // Prepare boundary object with outer and holes
@@ -132,20 +132,22 @@ namespace AOG
                 };
 
                 var (ok, message) = await client.UploadFieldAsync(snapshot.FieldId, payload);
+
                 if (ok)
                 {
-                    File.WriteAllText(Path.Combine(snapshot.FieldDirectory, "agshare.txt"), snapshot.FieldId.ToString());
+                    string txtPath = Path.Combine(snapshot.FieldDirectory, "agshare.txt");
+                    File.WriteAllText(txtPath, snapshot.FieldId.ToString());
                 }
 
                 snapshot = null;
-                Debug.WriteLine("AgShare Upload Success");
-                
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("AgShare upload error: " + ex.Message);
+                Log.EventWriter("Error uploading field to AgShare: " + ex.Message);
             }
         }
+
+
 
         private static List<CoordinateDto> ConvertBoundary(List<vec3> localFence, CNMEA converter)
         {

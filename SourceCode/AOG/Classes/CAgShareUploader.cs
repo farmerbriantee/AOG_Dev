@@ -4,39 +4,15 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using AOG.Classes;
 using System.Linq;
 using System.Diagnostics;
+using AOG.Classes;
 
 namespace AOG
 {
     public class CAgShareUploader
     {
-        public class FieldSnapshot
-        {
-            public string FieldName { get; set; }
-            public string FieldDirectory { get; set; }
-            public Guid FieldId { get; set; }
-            public double OriginLat { get; set; }
-            public double OriginLon { get; set; }
-            public double Convergence { get; set; }
-            public List<List<vec3>> Boundaries { get; set; }
-            public List<CTrk> Tracks { get; set; }
-            public CNMEA Converter { get; set; }
-        }
-
-        private class CoordinateDto
-        {
-            public double Latitude { get; set; }
-            public double Longitude { get; set; }
-        }
-
-        private class AgShareFieldDto
-        {
-            public Guid Id { get; set; }
-            public string Name { get; set; }
-            public bool IsPublic { get; set; }
-        }
+        
 
         public static FieldSnapshot CreateSnapshot(FormGPS gps)
         {
@@ -99,8 +75,8 @@ namespace AOG
                     if (hole.Count >= 4) holes.Add(hole);
                 }
 
-                List<object> abLines = ConvertAbLines(snapshot.Tracks, snapshot.Converter);
-
+                var abLines = ConvertAbLines(snapshot.Tracks, snapshot.Converter);
+                    
                 bool isPublic = false;
                 try
                 {
@@ -176,49 +152,50 @@ namespace AOG
             return coords;
         }
 
-        private static List<object> ConvertAbLines(List<CTrk> tracks, CNMEA converter)
+        private static List<AbLineUploadDto> ConvertAbLines(List<CTrk> tracks, CNMEA converter)
         {
-            List<object> result = new List<object>();
+            var result = new List<AbLineUploadDto>();
 
-            for (int i = 0; i < tracks.Count; i++)
+            foreach (var ab in tracks)
             {
-                CTrk ab = tracks[i];
-
                 if (ab.mode == TrackMode.AB)
                 {
                     converter.ConvertLocalToWGS84(ab.ptA.northing, ab.ptA.easting, out double latA, out double lonA);
                     converter.ConvertLocalToWGS84(ab.ptB.northing, ab.ptB.easting, out double latB, out double lonB);
 
-                    result.Add(new
+                    result.Add(new AbLineUploadDto
                     {
-                        ab.name,
-                        type = "AB",
-                        coords = new[]
-                        {
-                            new { latitude = latA, longitude = lonA },
-                            new { latitude = latB, longitude = lonB }
-                        }
+                        Name = ab.name,
+                        Type = "AB",
+                        Coords = new List<CoordinateDto>
+                {
+                    new CoordinateDto { Latitude = latA, Longitude = lonA },
+                    new CoordinateDto { Latitude = latB, Longitude = lonB }
+                }
                     });
                 }
-                else if (ab.mode == TrackMode.Curve)
+                else if (ab.mode == TrackMode.Curve && ab.curvePts.Count >= 2)
                 {
-                    List<object> coords = new List<object>();
-                    for (int j = 0; j < ab.curvePts.Count; j++)
+                    var coords = new List<CoordinateDto>();
+                    foreach (var pt in ab.curvePts)
                     {
-                        converter.ConvertLocalToWGS84(ab.curvePts[j].northing, ab.curvePts[j].easting, out double lat, out double lon);
-                        coords.Add(new { latitude = lat, longitude = lon });
+                        converter.ConvertLocalToWGS84(pt.northing, pt.easting, out double lat, out double lon);
+                        coords.Add(new CoordinateDto { Latitude = lat, Longitude = lon });
                     }
 
-                    result.Add(new
+                    result.Add(new AbLineUploadDto
                     {
-                        ab.name,
-                        type = "Curve",
-                        coords
+                        Name = ab.name,
+                        Type = "Curve",
+                        Coords = coords
                     });
                 }
             }
 
             return result;
         }
+
+
+
     }
 }

@@ -2456,5 +2456,12 @@ namespace AOG
         }
 
         #endregion
+        public void FileNewFromAgShare()
+        {
+            FileCreateField();
+            FileCreateBoundary();
+            FileCreateFlags();
+            FileSaveTracks();
+        }
     }
 }

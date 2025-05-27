@@ -154,6 +154,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\CAgShareClient..cs" />
+    <Compile Include="Classes\CAgShareDownloader.cs" />
+    <Compile Include="Classes\CAgShareDTO.cs" />
     <Compile Include="Classes\CAgShareUploader.cs" />
     <Compile Include="Classes\CBrightness.cs" />
     <Compile Include="Classes\CExtensionMethods.cs" />
@@ -165,6 +167,12 @@
     <Compile Include="Classes\CNozzle.cs" />
     <Compile Include="Classes\CPolygon.cs" />
     <Compile Include="Classes\CPatches.cs" />
+    <Compile Include="Forms\Field\FormAgShareDownloader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Field\FormAgShareDownloader.Designer.cs">
+      <DependentUpon>FormAgShareDownloader.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Guidance\FormABDrawHeading.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -587,6 +595,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\Field\FormAgShareDownloader.resx">
+      <DependentUpon>FormAgShareDownloader.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Field\FormEnterFlag.resx">
       <DependentUpon>FormEnterFlag.cs</DependentUpon>
     </EmbeddedResource>

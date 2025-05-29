@@ -12,7 +12,7 @@ namespace AOG
         //Off, Manual, and Auto, 3 states possible
         public btnStates workState = btnStates.Off;
 
-        public List<Button> controlButtons = new List<Button>();
+        public List<SectionButton> controlButtons = new List<SectionButton>();
         public List<Label> controlLbls = new List<Label>();
 
         /// <summary>
@@ -20,16 +20,14 @@ namespace AOG
         /// </summary>
         public List<CSection> section = new List<CSection>();
 
-        public void SetNumOfControlButtons(int numOfButtons)
+        public void SetNumOfControlButtons(int numOfButtons, int numOfSections)
         {
             if (controlButtons.Count > numOfButtons)
             {
                 for (int j = controlButtons.Count - 1; j >= numOfButtons; j--)
                 {
                     this.oglMain.Controls.Remove(controlButtons[j]);
-                    this.oglMain.Controls.Remove(controlLbls[j]);
                     controlButtons.RemoveAt(j);
-                    controlLbls.RemoveAt(j);
                 }
                 SetControlButtonPositions();
             }
@@ -37,9 +35,10 @@ namespace AOG
             {
                 for (int j = controlButtons.Count; j < numOfButtons; j++)
                 {
-                    var btn = new Button();
+                    var btn = new SectionButton();
                     btn.Click += Butt_Click;
                     btn.Text = (j + 1).ToString();
+                    btn.Index = j + 1;
                     this.oglMain.Controls.Add(btn);
                     btn.BringToFront();
                     btn.Visible = isJobStarted;
@@ -63,7 +62,25 @@ namespace AOG
                     btn.UseVisualStyleBackColor = false;
                     btn.Anchor = AnchorStyles.Bottom;
                     controlButtons.Add(btn);
+                }
 
+                SetControlButtonPositions();
+            }
+
+
+            if (controlLbls.Count > numOfSections)
+            {
+                for (int j = controlLbls.Count - 1; j >= numOfSections; j--)
+                {
+                    this.oglMain.Controls.Remove(controlLbls[j]);
+                    controlLbls.RemoveAt(j);
+                }
+                SetControlLabelPositions();
+            }
+            else if (controlLbls.Count < numOfSections)
+            {
+                for (int j = controlLbls.Count; j < numOfSections; j++)
+                {
                     //labels
                     var lbl = new Label();
                     this.oglMain.Controls.Add(lbl);
@@ -81,18 +98,13 @@ namespace AOG
                         lbl.ForeColor = Color.White;
                     }
 
-                    //lbl.FlatAppearance.BorderColor = System.Drawing.SystemColors.ActiveCaptionText;
-                    //btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-                    //btn.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    //btn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
                     lbl.Size = new System.Drawing.Size(34, 25);
                     lbl.BorderStyle = BorderStyle.FixedSingle;
-                    //btn.UseVisualStyleBackColor = false;
                     lbl.Anchor = AnchorStyles.Bottom;
                     controlLbls.Add(lbl);
                 }
 
-                SetControlButtonPositions();
+                SetControlLabelPositions();
             }
         }
 
@@ -113,11 +125,31 @@ namespace AOG
             for (int j = 0; j < controlButtons.Count; j++)
             {
                 controlButtons[j].Top = top;
-                controlLbls[j].Top = top-18;
                 controlButtons[j].Size = new System.Drawing.Size(buttonWidth, buttonHeight);
-                controlLbls[j].Size = new System.Drawing.Size(buttonWidth, buttonHeight/2);
 
                 controlButtons[j].Left = Left;
+                Left += buttonWidth;
+            }
+        }
+        public void SetControlLabelPositions()
+        {
+            if (controlLbls.Count == 0) return;
+            int top = oglMain.Height - (panelSim.Visible ? 118 : 58);
+
+            int oglButtonWidth = oglMain.Width * 3 / 4;
+            int oglCenter = oglMain.Width / 2;
+
+            int buttonMaxWidth = 360, buttonHeight = 35;
+            int buttonWidth = oglButtonWidth / controlLbls.Count;
+            if (buttonWidth > buttonMaxWidth) buttonWidth = buttonMaxWidth;
+
+            int Left = oglCenter - (controlLbls.Count * buttonWidth) / 2;
+
+            for (int j = 0; j < controlLbls.Count; j++)
+            {
+                controlLbls[j].Top = top;
+                controlLbls[j].Size = new System.Drawing.Size(buttonWidth, buttonHeight / 2);
+
                 controlLbls[j].Left = Left;
                 Left += buttonWidth;
             }
@@ -128,22 +160,26 @@ namespace AOG
             for (int j = 0; j < controlButtons.Count; j++)
             {
                 controlButtons[j].Visible = visible;
+            }
+            for (int j = 0; j < controlLbls.Count; j++)
+            {
                 controlLbls[j].Visible = visible;
             }
         }
 
         private void Butt_Click(object sender, EventArgs e)
         {
-            if (sender is Button butt && int.TryParse(butt.Text, out int val))
+            if (sender is SectionButton butt)
             {
+                int val = butt.Index;
+                btnStates state = GetNextState(butt.state);
+
                 if (Settings.Tool.isSectionsNotZones)
                 {
-                    btnStates state = GetNextState(section[val - 1].sectionBtnState);
                     IndividualZoneAndButtonToState(state, val - 1, val, butt);
                 }
                 else if (tool.zoneRanges[val] != 0)
                 {
-                    btnStates state = GetNextState(section[tool.zoneRanges[val] - 1].sectionBtnState);
                     IndividualZoneAndButtonToState(state, val == 1 ? 0 : tool.zoneRanges[val - 1], tool.zoneRanges[val], butt);
                 }
             }
@@ -207,19 +243,19 @@ namespace AOG
                 }
                 else
                 {
-                    IndividualZoneAndButtonToState(state, j == 0 ? 0 : tool.zoneRanges[j], tool.zoneRanges[j+1], controlButtons[j]);
+                    IndividualZoneAndButtonToState(state, j == 0 ? 0 : tool.zoneRanges[j], tool.zoneRanges[j + 1], controlButtons[j]);
                 }
             }
         }
 
-        private void IndividualZoneAndButtonToState(btnStates state, int sectionStartNumber, int sectionEndNumber, Button btn)
+        private void IndividualZoneAndButtonToState(btnStates state, int sectionStartNumber, int sectionEndNumber, SectionButton btn)
         {
             for (int i = sectionStartNumber; i < sectionEndNumber; i++)
             {
                 if (i < section.Count)
                     section[i].sectionBtnState = state;
             }
-
+            btn.state = state;
             btn.ForeColor = Settings.User.setDisplay_isDayMode ? Color.Black : Color.White;
 
             //set control button color
@@ -279,7 +315,7 @@ namespace AOG
                     section.Add(new CSection());
                 }
             }
-            
+
             if (Settings.Tool.isSectionsNotZones)
             {
                 int count = section.Count;
@@ -464,7 +500,7 @@ namespace AOG
             }
         }
 
-        private void RemoteClickButtons(btnStates state,  int offset, byte value)
+        private void RemoteClickButtons(btnStates state, int offset, byte value)
         {
             for (int i = 0; i < 8; i++)
             {
@@ -492,6 +528,14 @@ namespace AOG
                     controlButtons[offset + i].PerformClick();
                 }
             }
+        }
+    }
+    public class SectionButton : Button
+    {
+        public btnStates state = btnStates.Off;
+        public int Index = 0;
+        public SectionButton()
+        {
         }
     }
 }

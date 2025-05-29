@@ -618,7 +618,7 @@ namespace AOG
             mf.tram.IsTramOuterOrInner();
             SendRelaySettingsToMachineModule();
 
-            mf.SetNumOfControlButtons(!cboxIsUnique.Checked ? numberOfSections : mf.tool.zones);
+            mf.SetNumOfControlButtons(!cboxIsUnique.Checked ? numberOfSections : mf.tool.zones, numberOfSections);
         }
 
         private void nudZone1To_ValueChanged(object sender, EventArgs e)

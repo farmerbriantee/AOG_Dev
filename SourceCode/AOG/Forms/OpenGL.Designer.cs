@@ -99,6 +99,7 @@ namespace AOG
         {
             ChangePerspective(true);
             SetControlButtonPositions();
+            SetControlLabelPositions();
             if (Settings.User.setDisplay_isLineSmooth) GL.Enable(EnableCap.LineSmooth);
             else GL.Disable(EnableCap.LineSmooth);
         }

@@ -61,7 +61,7 @@ namespace AOG
                 zoneRanges[i] = int.Parse(words[i]);
             }
 
-            mf.SetNumOfControlButtons(Settings.Tool.isSectionsNotZones ? Settings.Tool.numSections : zones);
+            mf.SetNumOfControlButtons(Settings.Tool.isSectionsNotZones ? Settings.Tool.numSections : zones, Settings.Tool.isSectionsNotZones ? Settings.Tool.numSections : Settings.Tool.numSectionsMulti);
 
             //Set width of section and positions for each section
             mf.SectionSetPosition();

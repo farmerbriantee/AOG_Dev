@@ -28,6 +28,7 @@ namespace AOG
         public int zones;
         public int[] zoneRanges = new int[9];
 
+        public bool remoteSectionControl = true;
         //Constructor called by FormGPS
         public CTool(FormGPS _f)
         {
@@ -36,6 +37,8 @@ namespace AOG
 
         public void LoadSettings()
         {
+            remoteSectionControl = false;
+
             secColors[0] = Settings.Tool.setColor_sec01;
             secColors[1] = Settings.Tool.setColor_sec02;
             secColors[2] = Settings.Tool.setColor_sec03;
@@ -184,7 +187,7 @@ namespace AOG
                     trailingTool -= Settings.Tool.trailingToolToPivotLength;
                 }
 
-                if (!Settings.Tool.isRemoteSectionControl)
+                if (!remoteSectionControl)
                 {
                     //look ahead lines
                     GL.LineWidth(3);

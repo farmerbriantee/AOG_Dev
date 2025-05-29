@@ -1134,7 +1134,7 @@ namespace AOG
             //headland and boundary counts
             int onCount = 0, offCount = 0;
 
-            if (!Settings.Tool.isRemoteSectionControl)
+            if (!tool.remoteSectionControl)
             {
                 //loop thru each section for section control
                 for (int j = 0; j < section.Count; j++)
@@ -1211,7 +1211,7 @@ namespace AOG
             {
                 //SECTION timers
 
-                if (!Settings.Tool.isRemoteSectionControl)
+                if (!tool.remoteSectionControl)
                 {
                     if (section[j].sectionOnRequest)
                         section[j].isSectionOn = true;

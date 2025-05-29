@@ -206,7 +206,6 @@
             this.rbtnPivotAheadNeg = new System.Windows.Forms.RadioButton();
             this.nudTrailingToolToPivotLength = new AOG.NudlessNumericUpDown();
             this.tabTSections = new System.Windows.Forms.TabPage();
-            this.cboxRemoteSectionControl = new System.Windows.Forms.CheckBox();
             this.panelSymmetricSections = new System.Windows.Forms.Panel();
             this.nudZone8To = new AOG.NudlessNumericUpDown();
             this.lblZoneStart8 = new System.Windows.Forms.Label();
@@ -3291,7 +3290,6 @@
             // tabTSections
             // 
             this.tabTSections.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabTSections.Controls.Add(this.cboxRemoteSectionControl);
             this.tabTSections.Controls.Add(this.panelSymmetricSections);
             this.tabTSections.Controls.Add(this.label178);
             this.tabTSections.Controls.Add(this.lblTurnOffBelowUnits);
@@ -3348,26 +3346,6 @@
             this.tabTSections.Size = new System.Drawing.Size(907, 584);
             this.tabTSections.TabIndex = 7;
             this.tabTSections.Text = "tSect";
-            // 
-            // cboxRemoteSectionControl
-            // 
-            this.cboxRemoteSectionControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cboxRemoteSectionControl.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxRemoteSectionControl.BackColor = System.Drawing.Color.AliceBlue;
-            this.cboxRemoteSectionControl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.cboxRemoteSectionControl.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.cboxRemoteSectionControl.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.cboxRemoteSectionControl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxRemoteSectionControl.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxRemoteSectionControl.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxRemoteSectionControl.Location = new System.Drawing.Point(256, 464);
-            this.cboxRemoteSectionControl.Name = "cboxRemoteSectionControl";
-            this.cboxRemoteSectionControl.Size = new System.Drawing.Size(165, 110);
-            this.cboxRemoteSectionControl.TabIndex = 505;
-            this.cboxRemoteSectionControl.Text = "Remote Section Control";
-            this.cboxRemoteSectionControl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cboxRemoteSectionControl.UseVisualStyleBackColor = false;
-            this.cboxRemoteSectionControl.Click += new System.EventHandler(this.cboxRemoteSectionControl_Click);
             // 
             // panelSymmetricSections
             // 
@@ -9464,6 +9442,5 @@
         private NudlessNumericUpDown nudAutoSwitchDualFixSpeed;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox chkGPSCorrection;
-        private System.Windows.Forms.CheckBox cboxRemoteSectionControl;
     }
 }

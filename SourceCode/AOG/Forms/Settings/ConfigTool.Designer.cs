@@ -437,8 +437,6 @@ namespace AOG
 
             nudMinCoverage.Value = Settings.Tool.minCoverage;
 
-            cboxRemoteSectionControl.Checked = Settings.Tool.isRemoteSectionControl;
-
             label178.Text = glm.unitsInCm;
             cboxIsUnique.Checked = !Settings.Tool.isSectionsNotZones;
             nudDefaultSectionWidth.DecimalPlaces = 1;
@@ -859,7 +857,6 @@ namespace AOG
                 lblZoneStart8.Text = (nudZone7To.Value + 1).ToString();
                 if (mf.tool.zones == 8) nudZone8To.Enabled = false;
             }
-
         }
 
         private void cboxIsUnique_Click(object sender, EventArgs e)
@@ -867,11 +864,6 @@ namespace AOG
             Settings.Tool.isSectionsNotZones = !cboxIsUnique.Checked;
             tabTSections_Enter(null, null);
             tabTSections_Leave(null, null);
-        }
-
-        private void cboxRemoteSectionControl_Click(object sender, EventArgs e)
-        {
-            Settings.Tool.isRemoteSectionControl = cboxRemoteSectionControl.Checked;
         }
 
         private void nudNumberOfSections_ValueChanged(object sender, EventArgs e)

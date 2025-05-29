@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using AOG.Classes;
+using System.Collections.Generic;
 
 namespace AOG
 {
@@ -104,6 +106,16 @@ namespace AOG
                 return (false, $"Exception: {ex.Message}");
             }
         }
+        public async Task<List<AgShareGetOwnFieldDto>> GetOwnFieldsAsync()
+        {
+            var url = $"{baseUrl}/api/fields/";
+            var response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            string json = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<AgShareGetOwnFieldDto>>(json);
+        }
+
 
         public async Task<string> DownloadFieldAsync(Guid fieldId)
         {

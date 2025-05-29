@@ -30,17 +30,17 @@
         {
             this.lbFields = new System.Windows.Forms.ListView();
             this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chArea = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnOpen = new System.Windows.Forms.Button();
             this.glControl1 = new OpenTK.GLControl();
+            this.button1 = new System.Windows.Forms.Button();
+            this.lblSelectedField = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbFields
             // 
-            this.lbFields.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lbFields.BackColor = System.Drawing.Color.LightGreen;
             this.lbFields.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chName,
-            this.chArea});
+            this.chName});
             this.lbFields.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbFields.FullRowSelect = true;
             this.lbFields.GridLines = true;
@@ -49,31 +49,30 @@
             this.lbFields.Location = new System.Drawing.Point(12, 12);
             this.lbFields.MultiSelect = false;
             this.lbFields.Name = "lbFields";
-            this.lbFields.Size = new System.Drawing.Size(477, 495);
+            this.lbFields.Size = new System.Drawing.Size(492, 567);
             this.lbFields.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lbFields.TabIndex = 1;
             this.lbFields.UseCompatibleStateImageBehavior = false;
             this.lbFields.View = System.Windows.Forms.View.Details;
+            this.lbFields.SelectedIndexChanged += new System.EventHandler(this.lbFields_SelectedIndexChanged);
             // 
             // chName
             // 
             this.chName.Text = "Field";
-            this.chName.Width = 375;
+            this.chName.Width = 480;
             // 
-            // chArea
+            // btnOpen
             // 
-            this.chArea.Text = "Area";
-            this.chArea.Width = 100;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button1.Location = new System.Drawing.Point(841, 581);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(144, 57);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Download and Open";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnOpen.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnOpen.FlatAppearance.BorderSize = 0;
+            this.btnOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpen.Image = global::AOG.Properties.Resources.FileSave;
+            this.btnOpen.Location = new System.Drawing.Point(936, 581);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(64, 64);
+            this.btnOpen.TabIndex = 2;
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // glControl1
             // 
@@ -81,9 +80,32 @@
             this.glControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.glControl1.Location = new System.Drawing.Point(510, 12);
             this.glControl1.Name = "glControl1";
-            this.glControl1.Size = new System.Drawing.Size(480, 494);
+            this.glControl1.Size = new System.Drawing.Size(654, 567);
             this.glControl1.TabIndex = 3;
             this.glControl1.VSync = false;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Image = global::AOG.Properties.Resources.OK64;
+            this.button1.Location = new System.Drawing.Point(1100, 581);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(64, 64);
+            this.button1.TabIndex = 4;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // lblSelectedField
+            // 
+            this.lblSelectedField.AutoSize = true;
+            this.lblSelectedField.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelectedField.Location = new System.Drawing.Point(12, 592);
+            this.lblSelectedField.Name = "lblSelectedField";
+            this.lblSelectedField.Size = new System.Drawing.Size(209, 31);
+            this.lblSelectedField.TabIndex = 5;
+            this.lblSelectedField.Text = "Selected Field:";
             // 
             // FormAgShareDownloader
             // 
@@ -92,20 +114,24 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.ClientSize = new System.Drawing.Size(1004, 661);
-            this.Controls.Add(this.glControl1);
+            this.ClientSize = new System.Drawing.Size(1176, 661);
+            this.ControlBox = false;
+            this.Controls.Add(this.lblSelectedField);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.glControl1);
+            this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.lbFields);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormAgShareDownloader";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "FormAgShareDownloader";
+            this.Text = "Download Fields From AgShare";
             this.Load += new System.EventHandler(this.FormAgShareDownloader_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -113,8 +139,9 @@
 
         private System.Windows.Forms.ListView lbFields;
         private System.Windows.Forms.ColumnHeader chName;
-        private System.Windows.Forms.ColumnHeader chArea;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnOpen;
         private OpenTK.GLControl glControl1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label lblSelectedField;
     }
 }

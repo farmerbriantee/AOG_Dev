@@ -28,6 +28,7 @@ namespace AOG
             btnFromISOXML.Text = "From ISOXML";
             btnFieldClose.Text = gStr.Get(gs.gsClose);
             this.Text = gStr.Get(gs.gsStartNewField);
+            btnFromAgShare.Enabled = Settings.User.AgShareUploadEnabled;
         }
 
         private void FormField_Load(object sender, EventArgs e)
@@ -237,6 +238,15 @@ namespace AOG
             //back to FormGPS
             DialogResult = DialogResult.Retry;
             Close();
+        }
+        private void btnFromAgShare_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+            using (var form = new AOG.Forms.Field.FormAgShareDownloader(mf))
+            {
+                form.ShowDialog(this);
+            }
         }
 
         #endregion

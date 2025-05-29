@@ -82,7 +82,7 @@ namespace AOG
             timerSim.Enabled = false;
             simulatorOnToolStripMenuItem.Checked = false;
             Settings.User.isSimulatorOn = simulatorOnToolStripMenuItem.Checked;
-            
+
             return;
         }
 
@@ -364,7 +364,24 @@ namespace AOG
                                 break;
                             }
 
+                        case 150:
+                            {
+                                tool.remoteSectionControl = true;
+                                int dataLength = Length - 5;
 
+                                //loop thru each section for section control
+                                for (int j = 0; j < section.Count && j < dataLength * 8; j++)
+                                {
+                                    int byteIndex = j / 8;
+                                    int bitIndex = 7 - (j % 8);
+
+                                    section[j].sectionOnRequest = (data[5 + byteIndex] & (1 << bitIndex)) != 0;
+                                    section[j].sectionBtnState = section[j].sectionOnRequest ? btnStates.On : btnStates.Off;
+                                    section[j].isSectionOn = section[j].sectionOnRequest;
+                                }
+                            }
+
+                            break;
 
                         #region Remote Switches
                         case 234://MTZ8302 Feb 2020

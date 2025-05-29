@@ -234,6 +234,7 @@ namespace AOG
 
         private void btnFromISOXML_Click(object sender, EventArgs e)
         {
+            if (mf.isFieldStarted) mf.FileSaveEverythingBeforeClosingField();
             //back to FormGPS
             DialogResult = DialogResult.Retry;
             Close();

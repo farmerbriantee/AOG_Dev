@@ -153,10 +153,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\CAgShareClient..cs" />
-    <Compile Include="Classes\CAgShareDownloader.cs" />
-    <Compile Include="Classes\CAgShareDTO.cs" />
-    <Compile Include="Classes\CAgShareUploader.cs" />
+    <Compile Include="Classes\AgShare\CAgShareDownloader.cs" />
+    <Compile Include="Classes\AgShare\CAgShareClient..cs" />
+    <Compile Include="Classes\AgShare\CAgShareDTO.cs" />
+    <Compile Include="Classes\AgShare\CAgShareUploader.cs" />
+    <Compile Include="Classes\AgShare\Helpers\FieldParser.cs" />
+    <Compile Include="Classes\AgShare\Helpers\GeoConverter.cs" />
+    <Compile Include="Classes\AgShare\Helpers\LocalFieldModel.cs" />
     <Compile Include="Classes\CBrightness.cs" />
     <Compile Include="Classes\CExtensionMethods.cs" />
     <Compile Include="Classes\CBoundary.cs" />
@@ -1222,7 +1225,9 @@
     <None Include="btnImages\FileDelete.png" />
     <None Include="btnImages\FileUse.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

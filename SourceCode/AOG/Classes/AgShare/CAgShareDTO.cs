@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
-namespace AOG.Classes
+namespace AOG
 {
     public class FieldSnapshot
     {
@@ -38,13 +40,32 @@ namespace AOG.Classes
 
     public class FieldDownloadDto
     {
-        public Guid Id;
-        public string Name;
-        public double OriginLat;
-        public double OriginLon;
-        public double Convergence;
-        public List<CoordinateDto> OuterBoundary;
-        public List<List<CoordinateDto>> InnerBoundaries;
-        public List<AbLineUploadDto> AbLines;
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+
+        [JsonProperty("latitude")]
+        public double OriginLat { get; set; }
+
+        [JsonProperty("longitude")]
+        public double OriginLon { get; set; }
+
+        [JsonProperty("boundary")]
+        public string BoundaryGeoJson { get; set; }
+
+        [JsonProperty("abLines")]
+        public JObject AbLinesRaw { get; set; }
     }
+
+    public class AgShareGetOwnFieldDto
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public List<CoordinateDto> OuterBoundary { get; set; }
+        public double AreaHa => GeoUtils.CalculateAreaInHa(OuterBoundary);
+
+    }
+
 }
+
+
+

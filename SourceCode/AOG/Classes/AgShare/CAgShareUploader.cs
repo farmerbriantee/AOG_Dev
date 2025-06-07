@@ -12,7 +12,7 @@ namespace AOG
 {
     public class CAgShareUploader
     {
-        
+        private readonly FormGPS gps;
 
         public static FieldSnapshot CreateSnapshot(FormGPS gps)
         {
@@ -54,7 +54,7 @@ namespace AOG
         }
 
         // Upload snapshot to AgShare using boundary with holes
-        public static async Task UploadAsync(FieldSnapshot snapshot, AgShareClient client)
+        public static async Task UploadAsync(FieldSnapshot snapshot, AgShareClient client, FormGPS gps)
         {
             try
             {
@@ -113,6 +113,9 @@ namespace AOG
                 {
                     string txtPath = Path.Combine(snapshot.FieldDirectory, "agshare.txt");
                     File.WriteAllText(txtPath, snapshot.FieldId.ToString());
+                    gps.TimedMessageBox(1000, "AgShare", "Upload Succesfully");
+                    
+                    
                 }
 
                 snapshot = null;

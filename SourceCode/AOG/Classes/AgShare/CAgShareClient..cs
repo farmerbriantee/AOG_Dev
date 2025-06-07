@@ -15,6 +15,7 @@ namespace AOG
         private HttpClient client;
         private string baseUrl;
         private string apiKey;
+        private readonly FormGPS gps;
 
         private void RebuildClient()
         {

@@ -1,88 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 using AOG.Classes;
 
 namespace AOG.Logic
 {
     public static class AgShareFieldParser
     {
-        public static LocalFieldModel Parse(FieldDownloadDto dto)
+        public static LocalFieldModel Parse(AgShareFieldDto dto)
         {
             var result = new LocalFieldModel
             {
                 FieldId = dto.Id,
                 Name = dto.Name,
-                Origin = new Wgs84(dto.OriginLat, dto.OriginLon),
+                Origin = new Wgs84(dto.Latitude, dto.Longitude),
                 Boundaries = new List<List<LocalPoint>>(),
                 AbLines = new List<AbLineLocal>()
             };
 
-            var converter = new GeoConverter(dto.OriginLat, dto.OriginLon);
+            var converter = new GeoConverter(dto.Latitude, dto.Longitude);
 
-            // Parse GeoJSON boundary
-            if (!string.IsNullOrWhiteSpace(dto.BoundaryGeoJson))
+            // Boundaries (outer + holes)
+            foreach (var ring in dto.Boundaries)
             {
-                var geoJson = JObject.Parse(dto.BoundaryGeoJson);
-                var coordsArray = geoJson["coordinates"] as JArray;
-
-                if (geoJson["type"]?.ToString() == "Polygon" && coordsArray != null)
+                var ringList = new List<LocalPoint>();
+                foreach (var point in ring)
                 {
-                    foreach (var ring in coordsArray)
-                    {
-                        var ringList = new List<LocalPoint>();
-                        foreach (var point in ring)
-                        {
-                            double lon = point[0].Value<double>();
-                            double lat = point[1].Value<double>();
-                            var vec = converter.ToLocal(lat, lon);
-                            ringList.Add(new LocalPoint(vec.Easting, vec.Northing));
-                        }
-                        result.Boundaries.Add(ringList);
-                    }
+                    var local = converter.ToLocal(point.Latitude, point.Longitude);
+                    ringList.Add(new LocalPoint(local.Easting, local.Northing));
                 }
+                result.Boundaries.Add(ringList);
             }
 
-            // Parse AB lines FeatureCollection
-            if (dto.AbLinesRaw != null)
+            // AB-lines & curves
+            foreach (var ab in dto.AbLines)
             {
-                var fc = dto.AbLinesRaw;
-                if (fc["type"]?.ToString() == "FeatureCollection" && fc["features"] is JArray features)
+                if (ab.Coords == null || ab.Coords.Count < 2) continue;
+
+                var vA = converter.ToLocal(ab.Coords[0].Latitude, ab.Coords[0].Longitude);
+                var vB = converter.ToLocal(ab.Coords[1].Latitude, ab.Coords[1].Longitude);
+                double heading = GeoConverter.HeadingFromPoints(vA, vB);
+
+                var abLine = new AbLineLocal
                 {
-                    foreach (var feature in features)
+                    Name = ab.Name ?? "Unnamed",
+                    Heading = heading,
+                    PtA = new LocalPoint(vA.Easting, vA.Northing),
+                    PtB = new LocalPoint(vB.Easting, vB.Northing),
+                    CurvePoints = new List<LocalPoint>()
+                };
+
+                if (ab.Coords.Count > 2)
+                {
+                    var rawCurve = new List<vec3>();
+                    for (int i = 2; i < ab.Coords.Count; i++)
                     {
-                        var geom = feature["geometry"];
-                        if (geom?["type"]?.ToString() != "LineString") continue;
-                        var coords = geom["coordinates"] as JArray;
-                        if (coords == null || coords.Count < 2) continue;
+                        var p = ab.Coords[i];
+                        var local = converter.ToLocal(p.Latitude, p.Longitude);
+                        rawCurve.Add(new vec3(local.Easting, local.Northing));
+                    }
 
-                        var ptA = coords[0];
-                        var ptB = coords[1];
-
-                        var vA = converter.ToLocal(ptA[1].Value<double>(), ptA[0].Value<double>());
-                        var vB = converter.ToLocal(ptB[1].Value<double>(), ptB[0].Value<double>());
-                        double heading = GeoConverter.HeadingFromPoints(vA, vB);
-
-                        var ab = new AbLineLocal
-                        {
-                            Name = feature["properties"]?["name"]?.ToString() ?? "Unnamed",
-                            Heading = heading,
-                            PtA = new LocalPoint(vA.Easting, vA.Northing),
-                            PtB = new LocalPoint(vB.Easting, vB.Northing),
-                            CurvePoints = new List<LocalPoint>()
-                        };
-
-                        // Parse optional curve points (after PtB)
-                        for (int i = 2; i < coords.Count; i++)
-                        {
-                            var pt = coords[i];
-                            var v = converter.ToLocal(pt[1].Value<double>(), pt[0].Value<double>());
-                            ab.CurvePoints.Add(new LocalPoint(v.Easting, v.Northing));
-                        }
-
-                        result.AbLines.Add(ab);
+                    var computed = CurveHelper.CalculateHeadings(rawCurve);
+                    foreach (var pt in computed)
+                    {
+                        abLine.CurvePoints.Add(new LocalPoint(pt.easting, pt.northing, pt.heading));
                     }
                 }
+
+                Debug.WriteLine($"Parsed AB '{ab.Name}', type: {(ab.Coords.Count > 2 ? "Curve" : "AB")}, points: {ab.Coords.Count}");
+                result.AbLines.Add(abLine);
             }
 
             return result;

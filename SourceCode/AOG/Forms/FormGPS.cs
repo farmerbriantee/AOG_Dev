@@ -543,7 +543,7 @@ namespace AOG
                 {
                     TimedMessageBox(5000, "AgShare", "Uploading field to AgShare...\nPlease wait and get a beer.");
                     isAgShareUploadStarted = true;
-                    agShareUploadTask = CAgShareUploader.UploadAsync(snapshot, agShareClient);
+                    agShareUploadTask = CAgShareUploader.UploadAsync(snapshot, agShareClient, this);
 
                     e.Cancel = true;
                     await DelayedShutdownAfterUpload(choice);                  
@@ -719,7 +719,7 @@ namespace AOG
 
             //set bool to true so we don't start another upload by double clicking or something.
             isAgShareUploadStarted = true;
-            agShareUploadTask = CAgShareUploader.UploadAsync(snapshot, agShareClient);
+            agShareUploadTask = CAgShareUploader.UploadAsync(snapshot, agShareClient, this);
         }
 
         #endregion

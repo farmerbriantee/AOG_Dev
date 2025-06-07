@@ -63,6 +63,37 @@ namespace AOG
             Northing = n;
         }
     }
+    public static class CurveHelper
+    {
+        /// <summary>
+        /// Calculate Heading for CurvePoints   
+        /// </summary>
+            public static List<vec3> CalculateHeadings(List<vec3> inputPoints)
+            {
+                var output = new List<vec3>();
+
+                if (inputPoints == null || inputPoints.Count < 2)
+                    return output;
+
+                for (int i = 0; i < inputPoints.Count - 1; i++)
+                {
+                    var p1 = inputPoints[i];
+                    var p2 = inputPoints[i + 1];
+
+                    var dx = p2.easting - p1.easting;
+                    var dy = p2.northing - p1.northing;
+
+                    var heading = Math.Atan2(dx, dy);
+
+                    output.Add(new vec3(p1.easting, p1.northing, heading));
+                }
+                var last = inputPoints[inputPoints.Count - 1];
+                var lastHeading = output[output.Count - 1].heading;
+                output.Add(new vec3(last.easting, last.northing, lastHeading));
+
+                return output;
+            }
+    }
     public static class GeoUtils
     {
         // Calculates approximate area of a lat/lon polygon in hectares

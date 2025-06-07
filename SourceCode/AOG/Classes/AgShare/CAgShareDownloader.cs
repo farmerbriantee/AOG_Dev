@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using AOG.Logic;
 using AOG.Classes;
 using System.Diagnostics;
+using AOG;
 
 namespace AOG
 {
@@ -25,8 +26,8 @@ namespace AOG
             try
             {
                 string json = await client.DownloadFieldAsync(fieldId);
-                var field = JsonConvert.DeserializeObject<FieldDownloadDto>(json);
-                var model = AgShareFieldParser.Parse(field); // now gives LocalFieldModel
+                var dto = JsonConvert.DeserializeObject<AgShareFieldDto>(json);
+                var model = AgShareFieldParser.Parse(dto);
                 string fieldDir = Path.Combine(RegistrySettings.fieldsDirectory, model.Name);
                 FieldFileWriter.WriteAllFiles(model, fieldDir);
 
@@ -45,10 +46,10 @@ namespace AOG
         }
 
         // Download full DTO (for preview purposes)
-        public async Task<FieldDownloadDto> DownloadFieldPreviewAsync(Guid fieldId)
+        public async Task<AgShareFieldDto> DownloadFieldPreviewAsync(Guid fieldId)
         {
             string json = await client.DownloadFieldAsync(fieldId);
-            return JsonConvert.DeserializeObject<FieldDownloadDto>(json);
+            return JsonConvert.DeserializeObject<AgShareFieldDto>(json);
         }
     }
 }
@@ -126,19 +127,42 @@ public static class FieldFileWriter
         foreach (var ab in abLines)
         {
             lines.Add(ab.Name ?? "Unnamed");
-            lines.Add(ab.Heading.ToString("0.###", CultureInfo.InvariantCulture));
-            lines.Add($"{ab.PtA.Easting.ToString("0.###", CultureInfo.InvariantCulture)},{ab.PtA.Northing.ToString("0.###", CultureInfo.InvariantCulture)}");
-            lines.Add($"{ab.PtB.Easting.ToString("0.###", CultureInfo.InvariantCulture)},{ab.PtB.Northing.ToString("0.###", CultureInfo.InvariantCulture)}");
+
+            bool isCurve = ab.CurvePoints != null && ab.CurvePoints.Count > 1;
+
+            LocalPoint ptA = ab.PtA;
+            LocalPoint ptB = ab.PtB;
+            double heading = ab.Heading;
+
+            if (isCurve)
+            {
+                // Gebruik 1e en laatste punt van de curve als PtA en PtB
+                ptA = ab.CurvePoints[0];
+                ptB = ab.CurvePoints[ab.CurvePoints.Count - 1];
+                heading = GeoConverter.HeadingFromPoints(
+                    new Vec2(ptA.Easting, ptA.Northing),
+                    new Vec2(ptB.Easting, ptB.Northing)
+                );
+            }
+
+            lines.Add(heading.ToString("0.###", CultureInfo.InvariantCulture));
+            lines.Add($"{ptA.Easting.ToString("0.###", CultureInfo.InvariantCulture)},{ptA.Northing.ToString("0.###", CultureInfo.InvariantCulture)}");
+            lines.Add($"{ptB.Easting.ToString("0.###", CultureInfo.InvariantCulture)},{ptB.Northing.ToString("0.###", CultureInfo.InvariantCulture)}");
             lines.Add("0"); // nudge
 
-            if (ab.CurvePoints != null && ab.CurvePoints.Count > 0)
+            if (isCurve)
             {
-                lines.Add("4"); //   Mode = Curve
+                lines.Add("4"); // Mode = Curve
                 lines.Add("True");
                 lines.Add(ab.CurvePoints.Count.ToString());
+
                 foreach (var pt in ab.CurvePoints)
                 {
-                    lines.Add($"{pt.Easting.ToString("0.###", CultureInfo.InvariantCulture)},{pt.Northing.ToString("0.###", CultureInfo.InvariantCulture)}");
+                    lines.Add(
+                        $"{pt.Easting.ToString("0.###", CultureInfo.InvariantCulture)}," +
+                        $"{pt.Northing.ToString("0.###", CultureInfo.InvariantCulture)}," +
+                        $"{pt.Heading.ToString("0.#####", CultureInfo.InvariantCulture)}"
+                    );
                 }
             }
             else
@@ -148,6 +172,8 @@ public static class FieldFileWriter
                 lines.Add("0");
             }
         }
+
+
 
 
         File.WriteAllLines(Path.Combine(fieldDir, "TrackLines.txt"), lines);

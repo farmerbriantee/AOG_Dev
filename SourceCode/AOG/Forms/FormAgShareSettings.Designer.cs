@@ -40,6 +40,7 @@
             this.btnPaste = new System.Windows.Forms.Button();
             this.linkRegister = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnDevelop = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxApiKey
@@ -191,6 +192,18 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "Register here to use AgShare";
             // 
+            // btnDevelop
+            // 
+            this.btnDevelop.BackColor = System.Drawing.Color.Transparent;
+            this.btnDevelop.FlatAppearance.BorderSize = 0;
+            this.btnDevelop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDevelop.Location = new System.Drawing.Point(12, 338);
+            this.btnDevelop.Name = "btnDevelop";
+            this.btnDevelop.Size = new System.Drawing.Size(22, 23);
+            this.btnDevelop.TabIndex = 12;
+            this.btnDevelop.UseVisualStyleBackColor = false;
+            this.btnDevelop.Click += new System.EventHandler(this.btnDevelop_Click);
+            // 
             // FormAgShareSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
@@ -198,6 +211,7 @@
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(584, 373);
             this.ControlBox = false;
+            this.Controls.Add(this.btnDevelop);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.linkRegister);
             this.Controls.Add(this.btnPaste);
@@ -236,5 +250,6 @@
         private System.Windows.Forms.Button btnPaste;
         private System.Windows.Forms.LinkLabel linkRegister;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnDevelop;
     }
 }

@@ -32,7 +32,7 @@
             this.chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnOpen = new System.Windows.Forms.Button();
             this.glControl1 = new OpenTK.GLControl();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.lblSelectedField = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -84,18 +84,18 @@
             this.glControl1.TabIndex = 3;
             this.glControl1.VSync = false;
             // 
-            // button1
+            // btnClose
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = global::AOG.Properties.Resources.OK64;
-            this.button1.Location = new System.Drawing.Point(1100, 581);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(64, 64);
-            this.button1.TabIndex = 4;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnClose.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Image = global::AOG.Properties.Resources.OK64;
+            this.btnClose.Location = new System.Drawing.Point(1100, 581);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(64, 64);
+            this.btnClose.TabIndex = 4;
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // lblSelectedField
             // 
@@ -114,10 +114,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.ClientSize = new System.Drawing.Size(1176, 661);
+            this.ClientSize = new System.Drawing.Size(1172, 657);
             this.ControlBox = false;
             this.Controls.Add(this.lblSelectedField);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.glControl1);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.lbFields);
@@ -141,7 +141,7 @@
         private System.Windows.Forms.ColumnHeader chName;
         private System.Windows.Forms.Button btnOpen;
         private OpenTK.GLControl glControl1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblSelectedField;
     }
 }

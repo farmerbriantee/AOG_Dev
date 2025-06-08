@@ -6,13 +6,15 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-
 namespace AOG.Forms.Field
 {
+    /// <summary>
+    /// Form that allows the user to preview and download their own AgShare fields,
+    /// with OpenGL rendering of boundaries and AB lines.
+    /// </summary>
     public partial class FormAgShareDownloader : Form
     {
         private readonly FormGPS gps;
-        private AgShareClient client;
         private readonly CAgShareDownloader downloader;
 
         public FormAgShareDownloader(FormGPS gpsContext)
@@ -22,6 +24,7 @@ namespace AOG.Forms.Field
             downloader = new CAgShareDownloader();
         }
 
+        // Initializes the form and loads field list
         private async void FormAgShareDownloader_Load(object sender, EventArgs e)
         {
             glControl1.MakeCurrent();
@@ -35,8 +38,7 @@ namespace AOG.Forms.Field
                 lbFields.BeginUpdate();
                 foreach (var field in fields)
                 {
-                    var item = new ListViewItem(field.Name);
-                    item.Tag = field;
+                    var item = new ListViewItem(field.Name) { Tag = field };
                     lbFields.Items.Add(item);
                 }
                 lbFields.EndUpdate();
@@ -46,27 +48,28 @@ namespace AOG.Forms.Field
             }
             catch
             {
-                gps.TimedMessageBox(3000, "AgShare", "Failed to load fields.");
+                gps.TimedMessageBox(3000, "AgShare", "Failed to load field list.");
             }
         }
+
+        // Called when the user selects a field from the list
         private async void lbFields_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbFields.SelectedItems.Count == 0) return;
 
             var dto = lbFields.SelectedItems[0].Tag as AgShareGetOwnFieldDto;
             if (dto == null) return;
-            
+
             lblSelectedField.Text = "Selected Field: " + dto.Name;
-            lblSelectedField.ForeColor = System.Drawing.Color.Red;
+            lblSelectedField.ForeColor = Color.Red;
 
             var previewDto = await downloader.DownloadFieldPreviewAsync(dto.Id);
-            var localModel = AgShareFieldParser.Parse(previewDto); // bevat al NE-coordinaten
+            var localModel = AgShareFieldParser.Parse(previewDto); // already converted to NE
 
-            // Roep nu render aan
             RenderField(localModel);
         }
 
-
+        // Called when the user clicks the download/open button
         private async void btnOpen_Click(object sender, EventArgs e)
         {
             if (lbFields.SelectedItems.Count == 0)
@@ -83,29 +86,30 @@ namespace AOG.Forms.Field
             }
 
             bool success = await downloader.DownloadAndSaveAsync(selected.Id);
-            if (success)
-                gps.TimedMessageBox(2000, "AgShare", "Field downloaded and saved.");
-            else
-                gps.TimedMessageBox(3000, "AgShare", "Field download failed.");
+            gps.TimedMessageBox(2000, "AgShare", success
+                ? "Field downloaded and saved."
+                : "Field download failed.");
         }
-        private void button1_Click(object sender, EventArgs e)
+
+        // Closes the form
+        private void btnClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
+
         #region OpenGL
+
+        // Renders the selected field using OpenGL
         private void RenderField(LocalFieldModel field)
         {
             glControl1.MakeCurrent();
 
-            // Clear the screen (color and depth buffer)
             GL.ClearColor(0.12f, 0.12f, 0.12f, 1f); // anthracite background
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            // Enable alpha blending for transparency
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
-            // Auto-scale viewport to fit the field boundaries
             GetBounds(field.Boundaries, out double minX, out double minY, out double maxX, out double maxY);
 
             GL.MatrixMode(MatrixMode.Projection);
@@ -117,9 +121,8 @@ namespace AOG.Forms.Field
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
 
-            // Draw boundaries as solid lime green loops
-            GL.Color4(0f, 1f, 0f, 0.8f); // RGBA
-
+            // Draw boundaries (lime green)
+            GL.Color4(0f, 1f, 0f, 0.8f);
             foreach (var ring in field.Boundaries)
             {
                 GL.Begin(PrimitiveType.LineLoop);
@@ -128,17 +131,17 @@ namespace AOG.Forms.Field
                 GL.End();
             }
 
-            // Draw AB lines and Curves as semi-transparent dashed lines
+            // Draw AB lines and Curves
             foreach (var ab in field.AbLines)
             {
                 GL.Enable(EnableCap.LineStipple);
-                GL.LineStipple(1, 0x0F0F); // dashed line pattern
+                GL.LineStipple(1, 0x0F0F);
+                GL.LineWidth(3.5f);
 
                 if (ab.CurvePoints != null && ab.CurvePoints.Count > 0)
                 {
-                    // Curve → red dashed line with alpha
+                    // Curve → red dashed line
                     GL.Color4(1f, 0f, 0f, 0.9f);
-                    GL.LineWidth(3.5f);
                     GL.Begin(PrimitiveType.LineStrip);
                     foreach (var pt in ab.CurvePoints)
                         GL.Vertex2(pt.Easting, pt.Northing);
@@ -146,10 +149,8 @@ namespace AOG.Forms.Field
                 }
                 else
                 {
-                    // AB line → orange dashed line with alpha
+                    // AB line → orange dashed line
                     GL.Color4(1f, 0.65f, 0f, 0.9f);
-                    GL.LineWidth(3.5f); 
-
                     GL.Begin(PrimitiveType.Lines);
                     GL.Vertex2(ab.PtA.Easting, ab.PtA.Northing);
                     GL.Vertex2(ab.PtB.Easting, ab.PtB.Northing);
@@ -159,13 +160,10 @@ namespace AOG.Forms.Field
                 GL.Disable(EnableCap.LineStipple);
             }
 
-            // Swap buffers to display the frame
             glControl1.SwapBuffers();
         }
 
-
-
-
+        // Computes min/max NE values for auto-scaling the viewport
         private void GetBounds(List<List<LocalPoint>> boundaries, out double minX, out double minY, out double maxX, out double maxY)
         {
             minX = minY = double.MaxValue;
@@ -184,6 +182,5 @@ namespace AOG.Forms.Field
         }
 
         #endregion
-
     }
 }

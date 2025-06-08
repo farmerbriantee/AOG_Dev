@@ -1,23 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using System.Diagnostics;
 using AOG.Classes;
-using System.Collections.Generic;
 
 namespace AOG
 {
+    /// <summary>
+    /// HTTP client for communicating with the AgShare API using API key authentication.
+    /// Supports field upload, download, status checks, and querying both public and own fields.
+    /// </summary>
     public class AgShareClient
     {
         private HttpClient client;
         private string baseUrl;
         private string apiKey;
-        private readonly FormGPS gps;
 
-        private void RebuildClient()
+        // Constructs client with base URL and API key
+        public AgShareClient(string serverUrl, string key)
+        {
+            baseUrl = serverUrl.TrimEnd('/');
+            apiKey = key;
+            BuildClient();
+        }
+
+        // Rebuilds the HttpClient with updated headers
+        private void BuildClient()
         {
             client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Clear();
@@ -25,29 +37,21 @@ namespace AOG
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("ApiKey", apiKey);
         }
 
-
-        public AgShareClient(string serverUrl, string key)
-        {
-            baseUrl = serverUrl.TrimEnd('/');   
-            apiKey = key;
-
-            client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("ApiKey", apiKey);
-        }
-
+        // Updates the API key
         public void SetApiKey(string key)
         {
             apiKey = key;
-            RebuildClient();
+            BuildClient();
         }
 
+        // Updates the base URL
         public void SetBaseUrl(string url)
         {
             baseUrl = url.TrimEnd('/');
-            RebuildClient();
+            BuildClient();
         }
 
+        // Checks if the API key and connection are valid
         public async Task<(bool ok, string message)> CheckApiAsync()
         {
             try
@@ -58,20 +62,8 @@ namespace AOG
                     tempClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("ApiKey", apiKey);
 
                     string requestUrl = $"{baseUrl}/api/fields";
-
-                    //Debug.WriteLine("----- API CHECK START -----");
-                    //Debug.WriteLine("Request URL: " + requestUrl);
-                    //Debug.WriteLine("Authorization: ApiKey " + apiKey);
-                    //Debug.WriteLine("Accept: application/json");
-
                     var response = await tempClient.GetAsync(requestUrl);
-
-                    //Debug.WriteLine("StatusCode: " + (int)response.StatusCode);
-                    //Debug.WriteLine("ReasonPhrase: " + response.ReasonPhrase);
-
                     string responseBody = await response.Content.ReadAsStringAsync();
-                    //Debug.WriteLine("Response body: " + responseBody);
-                    //Debug.WriteLine("----- API CHECK END -----");
 
                     if (response.IsSuccessStatusCode)
                         return (true, "Connection OK");
@@ -87,15 +79,14 @@ namespace AOG
             }
         }
 
+        // Uploads a field by ID with JSON payload
         public async Task<(bool ok, string message)> UploadFieldAsync(Guid fieldId, object fieldPayload)
         {
             try
             {
                 var json = JsonConvert.SerializeObject(fieldPayload, Formatting.Indented);
-
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await client.PutAsync($"{baseUrl}/api/fields/{fieldId}", content);
-                var error = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode)
                     return (true, "Upload successful");
@@ -107,6 +98,8 @@ namespace AOG
                 return (false, $"Exception: {ex.Message}");
             }
         }
+
+        // Retrieves a list of fields owned by the current user
         public async Task<List<AgShareGetOwnFieldDto>> GetOwnFieldsAsync()
         {
             var url = $"{baseUrl}/api/fields/";
@@ -117,7 +110,7 @@ namespace AOG
             return JsonConvert.DeserializeObject<List<AgShareGetOwnFieldDto>>(json);
         }
 
-
+        // Downloads a specific field as raw JSON string
         public async Task<string> DownloadFieldAsync(Guid fieldId)
         {
             var response = await client.GetAsync($"{baseUrl}/api/fields/{fieldId}");
@@ -125,6 +118,8 @@ namespace AOG
             return await response.Content.ReadAsStringAsync();
         }
 
+        // Queries public fields within a given radius around a lat/lon
+        // !!! This is not implemented yet !!!
         public async Task<string> GetPublicFieldsAsync(double lat, double lon, double radius = 50)
         {
             var url = $"{baseUrl}/api/fields/public?lat={lat}&lon={lon}&radius={radius}";

@@ -6,19 +6,21 @@ using AOG.Classes;
 
 namespace AOG
 {
+    /// <summary>
+    /// Form to configure AgShare server URL and API key, with live connection test and clipboard support.
+    /// </summary>
     public partial class FormAgShareSettings : Form
     {
         private readonly AgShareClient _agShareClient;
         private Timer clipboardCheckTimer;
 
-        // Constructor: initialize AgShareClient with current user settings
         public FormAgShareSettings()
         {
             _agShareClient = new AgShareClient(Settings.User.AgShareServer, Settings.User.AgShareApiKey);
             InitializeComponent();
         }
 
-        // Load current settings into form and start clipboard monitoring
+        // Load current settings and start clipboard monitoring
         private void FormAgShareSettings_Load(object sender, EventArgs e)
         {
             textBoxServer.Text = Settings.User.AgShareServer;
@@ -26,21 +28,41 @@ namespace AOG
 
             UpdateAgShareToggleButton();
 
-            // Start clipboard check timer to enable/disable paste button
             btnPaste.Enabled = Clipboard.ContainsText();
             clipboardCheckTimer = new Timer();
             clipboardCheckTimer.Interval = 500;
             clipboardCheckTimer.Tick += ClipboardCheckTimer_Tick;
             clipboardCheckTimer.Start();
+
+            // Event handlers to enable Save on text change
+            textBoxApiKey.TextChanged += textBoxAnySetting_TextChanged;
+            textBoxServer.TextChanged += textBoxAnySetting_TextChanged;
+
+            // Disable TextboxServer for now until it's released
+            textBoxServer.Enabled = false;
+        }
+
+        // Dispose timer when form closes
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            if (clipboardCheckTimer != null)
+            {
+                clipboardCheckTimer.Stop();
+                clipboardCheckTimer.Dispose();
+                clipboardCheckTimer = null;
+            }
+            base.OnFormClosed(e);
         }
 
         // Enable or disable the paste button based on clipboard content
         private void ClipboardCheckTimer_Tick(object sender, EventArgs e)
         {
-            btnPaste.Enabled = Clipboard.ContainsText();
+            bool hasText = Clipboard.ContainsText();
+            if (btnPaste.Enabled != hasText)
+                btnPaste.Enabled = hasText;
         }
 
-        // Test the current server and API key by contacting the AgShare API
+        // Test connection with current input values
         private async void buttonTestConnection_Click(object sender, EventArgs e)
         {
             labelStatus.Text = "Connecting...";
@@ -64,7 +86,7 @@ namespace AOG
             }
         }
 
-        // Save the updated server and API key to user settings
+        // Save current values to settings
         private void buttonSave_Click(object sender, EventArgs e)
         {
             _agShareClient.SetBaseUrl(textBoxServer.Text);
@@ -73,9 +95,18 @@ namespace AOG
             Settings.User.AgShareServer = textBoxServer.Text;
             Settings.User.AgShareApiKey = textBoxApiKey.Text;
             Settings.User.Save();
+
+            labelStatus.Text = "✔ Settings saved";
+            labelStatus.ForeColor = Color.Blue;
         }
 
-        // Update the toggle upload button UI based on current setting
+        // Mark Save button active when text is edited
+        private void textBoxAnySetting_TextChanged(object sender, EventArgs e)
+        {
+            buttonSave.Enabled = true;
+        }
+
+        // Update toggle button for upload-on/off
         private void UpdateAgShareToggleButton()
         {
             if (Settings.User.AgShareUploadEnabled)
@@ -91,7 +122,7 @@ namespace AOG
             }
         }
 
-        // Toggle AgShare upload setting and update UI
+        // Toggle upload enabled state
         private void btnToggleUpload_Click(object sender, EventArgs e)
         {
             Settings.User.AgShareUploadEnabled = !Settings.User.AgShareUploadEnabled;
@@ -99,31 +130,32 @@ namespace AOG
             Settings.User.Save();
         }
 
-        // Paste clipboard content into the API key textbox
+        // Paste API key from clipboard
         private void btnPaste_Click(object sender, EventArgs e)
         {
             if (Clipboard.ContainsText())
             {
                 textBoxApiKey.Text = Clipboard.GetText();
                 Clipboard.Clear();
+                btnPaste.Enabled = false;
             }
         }
-        // Show onscreen keyboard when textBoxServer is clicked (if enabled in settings)
+
+        // Show onscreen keyboard for textBoxServer if enabled
         private void textBoxServer_Click(object sender, EventArgs e)
         {
             if (Settings.User.setDisplay_isKeyboardOn)
             {
-                // Attempt to cast owner form to FormGPS
                 FormGPS mf = this.Owner as FormGPS;
                 if (mf != null)
                 {
-                    mf.KeyboardToText((TextBox)sender, this); // Open onscreen keyboard
-                    btnPaste.Focus(); // Move focus to avoid key capture overlap
+                    mf.KeyboardToText((TextBox)sender, this);
+                    btnPaste.Focus();
                 }
             }
         }
 
-        // Open registration URL in default browser
+        // Open register link in default browser
         private void linkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(new ProcessStartInfo
@@ -133,5 +165,9 @@ namespace AOG
             });
         }
 
+        private void btnDevelop_Click(object sender, EventArgs e)
+        {
+            textBoxServer.Enabled = true;
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace AOG
 {
+    // DTO for Downloading and Uploading Fields From and to AgShare
     public class FieldSnapshot
     {
         public string FieldName { get; set; }

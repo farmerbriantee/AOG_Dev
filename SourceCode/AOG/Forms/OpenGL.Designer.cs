@@ -1186,6 +1186,9 @@ namespace AOG
                         else
                         {
                             if (grnPixels[onHeight] == 0) onCount++;
+
+                            if (grnPixels[offHeight] == (byte)bbColors.section)
+                                offCount++;
                         }
                     }
 

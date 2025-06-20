@@ -375,59 +375,28 @@ namespace AOG
 
         private void BuildMachineByte()
         {
-            if (Settings.Tool.isSectionsNotZones)
+            for (int k = 0; k < 8; k++)
             {
-                PGN_254.pgn[PGN_254.sc1to8] = 0;
-                PGN_254.pgn[PGN_254.sc9to16] = 0;
-
                 int number = 0;
-                int number2 = 0;
                 for (int j = 0; j < 8; j++)
                 {
-                    if (j < section.Count && section[j].isSectionOn)
+                    if (j + k * 8 < section.Count && section[j + k * 8].isSectionOn)
                         number |= 1 << j;
-
-                    if (j + 8 < section.Count && section[j + 8].isSectionOn)
-                        number2 |= 1 << (j);
                 }
-                PGN_254.pgn[PGN_254.sc1to8] = unchecked((byte)number);
-                PGN_254.pgn[PGN_254.sc9to16] = unchecked((byte)number2);
-
-                //machine pgn
-                PGN_239.pgn[PGN_239.sc1to8] = PGN_254.pgn[PGN_254.sc1to8];
-                PGN_239.pgn[PGN_239.sc9to16] = PGN_254.pgn[PGN_254.sc9to16];
-                PGN_229.pgn[PGN_229.sc1to8] = PGN_254.pgn[PGN_254.sc1to8];
-                PGN_229.pgn[PGN_229.sc9to16] = PGN_254.pgn[PGN_254.sc9to16];
-                PGN_229.pgn[PGN_229.toolLSpeed] = unchecked((byte)(tool.farLeftSpeed * 10));
-                PGN_229.pgn[PGN_229.toolRSpeed] = unchecked((byte)(tool.farRightSpeed * 10));
+                PGN_229.pgn[5 + k] = unchecked((byte)number);
             }
-            else
-            {
-                for (int k = 0; k < 8; k++)
-                {
-                    int number = 0;
-                    for (int j = 0; j < 8; j++)
-                    {
-                        if (j + k * 8 < section.Count && section[j + k * 8].isSectionOn)
-                            number |= 1 << j;
-                    }
-                    PGN_229.pgn[5 + k] = unchecked((byte)number);
-                }
 
-                //tool speed to calc ramp
-                PGN_229.pgn[PGN_229.toolLSpeed] = unchecked((byte)(tool.farLeftSpeed * 10));
-                PGN_229.pgn[PGN_229.toolRSpeed] = unchecked((byte)(tool.farRightSpeed * 10));
-
-                PGN_239.pgn[PGN_239.sc1to8] = PGN_229.pgn[PGN_229.sc1to8];
-                PGN_239.pgn[PGN_239.sc9to16] = PGN_229.pgn[PGN_229.sc9to16];
-
-                PGN_254.pgn[PGN_254.sc1to8] = PGN_229.pgn[PGN_229.sc1to8];
-                PGN_254.pgn[PGN_254.sc9to16] = PGN_229.pgn[PGN_229.sc9to16];
-
-            }
+            //tool speed to calc ramp
+            PGN_229.pgn[PGN_229.toolLSpeed] = unchecked((byte)(tool.farLeftSpeed * 10));
+            PGN_229.pgn[PGN_229.toolRSpeed] = unchecked((byte)(tool.farRightSpeed * 10));
 
             PGN_239.pgn[PGN_239.speed] = unchecked((byte)(avgSpeed * 10));
             PGN_239.pgn[PGN_239.tram] = unchecked((byte)tram.controlByte);
+            PGN_239.pgn[PGN_239.sc1to8] = PGN_229.pgn[PGN_229.sc1to8];
+            PGN_239.pgn[PGN_239.sc9to16] = PGN_229.pgn[PGN_229.sc9to16];
+
+            PGN_254.pgn[PGN_254.sc1to8] = PGN_229.pgn[PGN_229.sc1to8];
+            PGN_254.pgn[PGN_254.sc9to16] = PGN_229.pgn[PGN_229.sc9to16];
 
             SendPgnToLoop(PGN_229.pgn);
             SendPgnToLoop(PGN_239.pgn);
@@ -505,11 +474,10 @@ namespace AOG
             for (int i = 0; i < 8; i++)
             {
                 byte Bit = (byte)Math.Pow(2, i);
-                var index = Settings.Tool.isSectionsNotZones ? offset + i : (tool.zoneRanges.Length > offset + i ? tool.zoneRanges[offset + i] : 999);
 
-                if ((value & Bit) == Bit && index < section.Count && section[index].sectionBtnState != state)
+                if ((value & Bit) == Bit && offset + i < controlButtons.Count && controlButtons[offset + i].state != state)
                 {
-                    section[index].sectionBtnState = GetPrevState(state);
+                    controlButtons[offset + i].state = GetPrevState(state);
                     controlButtons[offset + i].PerformClick();
                 }
             }
@@ -520,11 +488,10 @@ namespace AOG
             for (int i = 0; i < 8; i++)
             {
                 byte Bit = (byte)Math.Pow(2, i);
-                var index = Settings.Tool.isSectionsNotZones ? offset + i : (tool.zoneRanges.Length > offset + i ? tool.zoneRanges[offset + i] : 999);
 
-                if ((value & Bit) == Bit && (value2 & Bit) != Bit && index < section.Count && section[index].sectionBtnState == btnStates.Off)
+                if ((value & Bit) == Bit && (value2 & Bit) != Bit && offset + i < controlButtons.Count && controlButtons[offset + i].state == btnStates.Off)
                 {
-                    section[offset + i].sectionBtnState = GetPrevState(btnStates.Auto);
+                    controlButtons[offset + i].state = GetPrevState(btnStates.Auto);
                     controlButtons[offset + i].PerformClick();
                 }
             }

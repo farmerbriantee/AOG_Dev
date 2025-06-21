@@ -133,7 +133,7 @@ namespace AgIO
                 UDPSocketTool = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
                 UDPSocketTool.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
                 UDPSocketTool.Bind(new IPEndPoint(IPAddress.Any, 19999));
-                UDPSocketTool.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref endPointUDP,
+                UDPSocketTool.BeginReceiveFrom(bufferTool, 0, bufferTool.Length, SocketFlags.None, ref endPointUDPTool,
                     new AsyncCallback(ReceiveDataUDPAsyncTool), null);
 
                 isUDPNetworkConnectedTool = true;
@@ -601,10 +601,10 @@ namespace AgIO
                 int msgLen = loopBackSocketTool.EndReceiveFrom(asyncResult, ref endPointLoopBackTool);
 
                 byte[] localMsg = new byte[msgLen];
-                Array.Copy(buffer, localMsg, msgLen);
+                Array.Copy(bufferTool, localMsg, msgLen);
 
                 // Listen for more connections again...
-                loopBackSocketTool.BeginReceiveFrom(buffer, 0, buffer.Length, SocketFlags.None, ref endPointLoopBackTool,
+                loopBackSocketTool.BeginReceiveFrom(bufferTool, 0, bufferTool.Length, SocketFlags.None, ref endPointLoopBackTool,
                     new AsyncCallback(ReceiveDataLoopAsyncTool), null);
 
                 BeginInvoke((MethodInvoker)(() => ReceiveFromLoopBackTool(localMsg)));

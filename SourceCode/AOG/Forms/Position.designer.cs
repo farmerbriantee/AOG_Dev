@@ -23,6 +23,7 @@ namespace AOG
         // autosteer variables for sending serial
         public double guidanceLineDistanceOff;
         public double guidanceLineSteerAngle;
+        public double guidanceLineAngularVelocity;
 
         public double setAngVel, actAngVel;
 
@@ -472,7 +473,8 @@ namespace AOG
 
                 if (!vehicle.isInDeadZone)
                 {
-                    var angleX100 = (Int16)(guidanceLineSteerAngle * 100);
+                    //var angleX100 = (Int16)(guidanceLineSteerAngle * 100);
+                    var angleX100 = (Int16)(guidanceLineAngularVelocity * 100);
 
                     PGN_254.pgn[PGN_254.steerAngleHi] = unchecked((byte)(angleX100 >> 8));
                     PGN_254.pgn[PGN_254.steerAngleLo] = unchecked((byte)(angleX100));

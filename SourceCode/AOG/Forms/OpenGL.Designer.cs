@@ -2438,12 +2438,18 @@ namespace AOG
             int lenth = 18 * strHeading.Length;
 
             GL.Disable(EnableCap.Texture2D);
-            GL.Color3(0.9852f, 0.982f, 0.983f);
+            GL.Color3(0.9852f, 0.982f, 0.0083f);
             font.DrawText(oglMain.Width / 2 - lenth, 10, strHeading, 1);
 
+            //set angular velocity
+            strHeading = "Set: " + guidanceLineAngularVelocity.ToString("N1");
+            font.DrawText(center, 110, strHeading, 1.2);
+
+            GL.Color3(0.49852f, 0.982f, 0.83f);
             //angular velocity
-            strHeading = ahrs.angVel.ToString();
-            font.DrawText(center, 80, strHeading, 1);
+            strHeading = "Act: " + ahrs.angVel.ToString();
+            font.DrawText(center, 150, strHeading, 1.2);
+
 
             //GPS Step
             if (distanceCurrentStepFixDisplay < 0.03 * 100)

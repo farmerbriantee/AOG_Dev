@@ -12,7 +12,7 @@ namespace AOG
         //private int rA, rB;
 
         public double distanceFromCurrentLine, distanceFromCurrentLineTool;
-        public double steerAngle;
+        public double steerAngle, steerAngularVelocity;
 
         public vec2 goalPoint = new vec2();
 
@@ -258,7 +258,7 @@ namespace AOG
 
                                     //goalPointDistance is longer than remaining u-turn
                                     completeUturn = true;
-                                    
+
                                     break;
                                 }
                                 else
@@ -325,11 +325,15 @@ namespace AOG
                 if (steerAngle < -mf.vehicle.maxSteerAngle) steerAngle = -mf.vehicle.maxSteerAngle;
                 if (steerAngle > mf.vehicle.maxSteerAngle) steerAngle = mf.vehicle.maxSteerAngle;
 
+                //calc angular velocity in rads/sec = 2PI * m/sec * radians/meters
+                steerAngularVelocity = glm.twoPI * 0.277777 * mf.avgSpeed * (Math.Tan(glm.toRadians(steerAngle))) / mf.vehicle.wheelbase;
+
                 //used for acquire/hold mode
                 //used for smooth mode
                 mf.vehicle.modeActualXTE = distanceFromCurrentLine;
                 mf.guidanceLineDistanceOff = distanceFromCurrentLine;
                 mf.guidanceLineSteerAngle = steerAngle;
+                mf.guidanceLineAngularVelocity = steerAngularVelocity;
             }
             else
             {
@@ -341,6 +345,7 @@ namespace AOG
             }
             if (Uturn && completeUturn)
                 mf.yt.CompleteYouTurn();
+
         }
 
         public bool FindClosestSegment(List<vec3> points, bool loop, vec2 point, out int AA, out int BB, int start = 0, int end = int.MaxValue)

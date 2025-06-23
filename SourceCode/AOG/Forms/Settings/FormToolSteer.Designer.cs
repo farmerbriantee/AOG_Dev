@@ -91,25 +91,25 @@
             this.nudDeadZoneHeading = new AOG.NudlessNumericUpDown();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblPWMDisplay = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.btnExpand = new AOG.RepeatButton();
             this.tabSteerSettings = new System.Windows.Forms.TabControl();
-            this.tabConfig = new System.Windows.Forms.TabPage();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cboxIsSteerNotSlide_Tool = new System.Windows.Forms.CheckBox();
-            this.label83 = new System.Windows.Forms.Label();
-            this.cboxGPSTool = new System.Windows.Forms.CheckBox();
-            this.cboxInvertWAS_Tool = new System.Windows.Forms.CheckBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.cboxInvertSteer_Tool = new System.Windows.Forms.CheckBox();
-            this.label74 = new System.Windows.Forms.Label();
             this.tabOnTheLine = new System.Windows.Forms.TabPage();
+            this.cboxIsSteerNotSlide_Tool = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.nudAntennaHeight_Tool = new AOG.NudlessNumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label74 = new System.Windows.Forms.Label();
             this.nudAntennaOffset_Tool = new AOG.NudlessNumericUpDown();
+            this.cboxGPSTool = new System.Windows.Forms.CheckBox();
+            this.tabConfig = new System.Windows.Forms.TabPage();
+            this.label83 = new System.Windows.Forms.Label();
+            this.cboxInvertWAS_Tool = new System.Windows.Forms.CheckBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.cboxInvertSteer_Tool = new System.Windows.Forms.CheckBox();
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
-            this.lblPWMDisplay = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabGain.SuspendLayout();
             this.tabSteer.SuspendLayout();
@@ -117,8 +117,8 @@
             this.tabPPAdv.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabSteerSettings.SuspendLayout();
-            this.tabConfig.SuspendLayout();
             this.tabOnTheLine.SuspendLayout();
+            this.tabConfig.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -903,6 +903,32 @@
             this.panel2.Size = new System.Drawing.Size(366, 100);
             this.panel2.TabIndex = 324;
             // 
+            // lblPWMDisplay
+            // 
+            this.lblPWMDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblPWMDisplay.BackColor = System.Drawing.Color.Transparent;
+            this.lblPWMDisplay.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPWMDisplay.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblPWMDisplay.Location = new System.Drawing.Point(64, 17);
+            this.lblPWMDisplay.Name = "lblPWMDisplay";
+            this.lblPWMDisplay.Size = new System.Drawing.Size(61, 23);
+            this.lblPWMDisplay.TabIndex = 330;
+            this.lblPWMDisplay.Text = "255";
+            this.lblPWMDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label9.Location = new System.Drawing.Point(9, 17);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(61, 23);
+            this.label9.TabIndex = 331;
+            this.label9.Text = "PWM:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // btnExpand
             // 
             this.btnExpand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -935,31 +961,26 @@
             this.tabSteerSettings.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabSteerSettings.TabIndex = 528;
             // 
-            // tabConfig
+            // tabOnTheLine
             // 
-            this.tabConfig.BackColor = System.Drawing.Color.LightGray;
-            this.tabConfig.Controls.Add(this.label83);
-            this.tabConfig.Controls.Add(this.cboxInvertWAS_Tool);
-            this.tabConfig.Controls.Add(this.label31);
-            this.tabConfig.Controls.Add(this.cboxInvertSteer_Tool);
-            this.tabConfig.ImageIndex = 3;
-            this.tabConfig.Location = new System.Drawing.Point(4, 58);
-            this.tabConfig.Name = "tabConfig";
-            this.tabConfig.Padding = new System.Windows.Forms.Padding(3);
-            this.tabConfig.Size = new System.Drawing.Size(508, 440);
-            this.tabConfig.TabIndex = 1;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(85, 49);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(87, 38);
-            this.label4.TabIndex = 584;
-            this.label4.Text = "Tool Steer \r\nOn/Off";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.tabOnTheLine.BackColor = System.Drawing.Color.Gainsboro;
+            this.tabOnTheLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabOnTheLine.Controls.Add(this.cboxIsSteerNotSlide_Tool);
+            this.tabOnTheLine.Controls.Add(this.label4);
+            this.tabOnTheLine.Controls.Add(this.nudAntennaHeight_Tool);
+            this.tabOnTheLine.Controls.Add(this.label2);
+            this.tabOnTheLine.Controls.Add(this.label3);
+            this.tabOnTheLine.Controls.Add(this.label74);
+            this.tabOnTheLine.Controls.Add(this.nudAntennaOffset_Tool);
+            this.tabOnTheLine.Controls.Add(this.cboxGPSTool);
+            this.tabOnTheLine.ImageIndex = 1;
+            this.tabOnTheLine.Location = new System.Drawing.Point(4, 58);
+            this.tabOnTheLine.Name = "tabOnTheLine";
+            this.tabOnTheLine.Padding = new System.Windows.Forms.Padding(3);
+            this.tabOnTheLine.Size = new System.Drawing.Size(508, 440);
+            this.tabOnTheLine.TabIndex = 4;
+            this.tabOnTheLine.Enter += new System.EventHandler(this.tabOnTheLine_Enter);
+            this.tabOnTheLine.Leave += new System.EventHandler(this.tabOnTheLine_Leave);
             // 
             // cboxIsSteerNotSlide_Tool
             // 
@@ -983,17 +1004,74 @@
             this.cboxIsSteerNotSlide_Tool.UseVisualStyleBackColor = false;
             this.cboxIsSteerNotSlide_Tool.Click += new System.EventHandler(this.cboxIsSteerNotSlide_Click);
             // 
-            // label83
+            // label4
             // 
-            this.label83.AutoSize = true;
-            this.label83.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label83.ForeColor = System.Drawing.Color.Black;
-            this.label83.Location = new System.Drawing.Point(184, 306);
-            this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(68, 32);
-            this.label83.TabIndex = 518;
-            this.label83.Text = "Invert \r\nMotor Dir";
-            this.label83.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(85, 49);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 38);
+            this.label4.TabIndex = 584;
+            this.label4.Text = "Tool Steer \r\nOn/Off";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nudAntennaHeight_Tool
+            // 
+            this.nudAntennaHeight_Tool.Location = new System.Drawing.Point(53, 324);
+            this.nudAntennaHeight_Tool.Maximum = 5D;
+            this.nudAntennaHeight_Tool.Mode = AOG.UnitMode.Small;
+            this.nudAntennaHeight_Tool.Name = "nudAntennaHeight_Tool";
+            this.nudAntennaHeight_Tool.Size = new System.Drawing.Size(143, 56);
+            this.nudAntennaHeight_Tool.TabIndex = 580;
+            this.nudAntennaHeight_Tool.ValueChanged += new System.EventHandler(this.nudAntennaHeight_Tool_ValueChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(68, 301);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(119, 19);
+            this.label2.TabIndex = 581;
+            this.label2.Text = "Antenna Height";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(308, 301);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(115, 19);
+            this.label3.TabIndex = 583;
+            this.label3.Text = "Antenna Offset";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label74.ForeColor = System.Drawing.Color.Black;
+            this.label74.Location = new System.Drawing.Point(329, 35);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(74, 32);
+            this.label74.TabIndex = 579;
+            this.label74.Text = "Steering\r\nNot Sliding";
+            this.label74.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nudAntennaOffset_Tool
+            // 
+            this.nudAntennaOffset_Tool.Location = new System.Drawing.Point(305, 324);
+            this.nudAntennaOffset_Tool.Maximum = 5D;
+            this.nudAntennaOffset_Tool.Minimum = -5D;
+            this.nudAntennaOffset_Tool.Mode = AOG.UnitMode.Small;
+            this.nudAntennaOffset_Tool.Name = "nudAntennaOffset_Tool";
+            this.nudAntennaOffset_Tool.Size = new System.Drawing.Size(143, 56);
+            this.nudAntennaOffset_Tool.TabIndex = 582;
+            this.nudAntennaOffset_Tool.ValueChanged += new System.EventHandler(this.nudAntennaOffset_Tool_ValueChanged);
             // 
             // cboxGPSTool
             // 
@@ -1013,6 +1091,32 @@
             this.cboxGPSTool.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxGPSTool.UseVisualStyleBackColor = false;
             this.cboxGPSTool.Click += new System.EventHandler(this.cboxGPSTool_Click);
+            // 
+            // tabConfig
+            // 
+            this.tabConfig.BackColor = System.Drawing.Color.LightGray;
+            this.tabConfig.Controls.Add(this.label83);
+            this.tabConfig.Controls.Add(this.cboxInvertWAS_Tool);
+            this.tabConfig.Controls.Add(this.label31);
+            this.tabConfig.Controls.Add(this.cboxInvertSteer_Tool);
+            this.tabConfig.ImageIndex = 3;
+            this.tabConfig.Location = new System.Drawing.Point(4, 58);
+            this.tabConfig.Name = "tabConfig";
+            this.tabConfig.Padding = new System.Windows.Forms.Padding(3);
+            this.tabConfig.Size = new System.Drawing.Size(508, 440);
+            this.tabConfig.TabIndex = 1;
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label83.ForeColor = System.Drawing.Color.Black;
+            this.label83.Location = new System.Drawing.Point(184, 306);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(68, 32);
+            this.label83.TabIndex = 518;
+            this.label83.Text = "Invert \r\nMotor Dir";
+            this.label83.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // cboxInvertWAS_Tool
             // 
@@ -1067,84 +1171,6 @@
             this.cboxInvertSteer_Tool.UseVisualStyleBackColor = false;
             this.cboxInvertSteer_Tool.Click += new System.EventHandler(this.cboxInvertSteer_Tool_Click);
             // 
-            // label74
-            // 
-            this.label74.AutoSize = true;
-            this.label74.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label74.ForeColor = System.Drawing.Color.Black;
-            this.label74.Location = new System.Drawing.Point(329, 35);
-            this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(74, 32);
-            this.label74.TabIndex = 579;
-            this.label74.Text = "Steering\r\nNot Sliding";
-            this.label74.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tabOnTheLine
-            // 
-            this.tabOnTheLine.BackColor = System.Drawing.Color.Gainsboro;
-            this.tabOnTheLine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tabOnTheLine.Controls.Add(this.cboxIsSteerNotSlide_Tool);
-            this.tabOnTheLine.Controls.Add(this.label4);
-            this.tabOnTheLine.Controls.Add(this.nudAntennaHeight_Tool);
-            this.tabOnTheLine.Controls.Add(this.label2);
-            this.tabOnTheLine.Controls.Add(this.label3);
-            this.tabOnTheLine.Controls.Add(this.label74);
-            this.tabOnTheLine.Controls.Add(this.nudAntennaOffset_Tool);
-            this.tabOnTheLine.Controls.Add(this.cboxGPSTool);
-            this.tabOnTheLine.ImageIndex = 1;
-            this.tabOnTheLine.Location = new System.Drawing.Point(4, 58);
-            this.tabOnTheLine.Name = "tabOnTheLine";
-            this.tabOnTheLine.Padding = new System.Windows.Forms.Padding(3);
-            this.tabOnTheLine.Size = new System.Drawing.Size(508, 440);
-            this.tabOnTheLine.TabIndex = 4;
-            this.tabOnTheLine.Enter += new System.EventHandler(this.tabOnTheLine_Enter);
-            this.tabOnTheLine.Leave += new System.EventHandler(this.tabOnTheLine_Leave);
-            // 
-            // nudAntennaHeight_Tool
-            // 
-            this.nudAntennaHeight_Tool.Location = new System.Drawing.Point(53, 324);
-            this.nudAntennaHeight_Tool.Maximum = 5D;
-            this.nudAntennaHeight_Tool.Mode = AOG.UnitMode.Small;
-            this.nudAntennaHeight_Tool.Name = "nudAntennaHeight_Tool";
-            this.nudAntennaHeight_Tool.Size = new System.Drawing.Size(143, 56);
-            this.nudAntennaHeight_Tool.TabIndex = 580;
-            this.nudAntennaHeight_Tool.ValueChanged += new System.EventHandler(this.nudAntennaHeight_Tool_ValueChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(68, 301);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(119, 19);
-            this.label2.TabIndex = 581;
-            this.label2.Text = "Antenna Height";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(308, 301);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(115, 19);
-            this.label3.TabIndex = 583;
-            this.label3.Text = "Antenna Offset";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // nudAntennaOffset_Tool
-            // 
-            this.nudAntennaOffset_Tool.Location = new System.Drawing.Point(305, 324);
-            this.nudAntennaOffset_Tool.Maximum = 2D;
-            this.nudAntennaOffset_Tool.Minimum = -2D;
-            this.nudAntennaOffset_Tool.Mode = AOG.UnitMode.Small;
-            this.nudAntennaOffset_Tool.Name = "nudAntennaOffset_Tool";
-            this.nudAntennaOffset_Tool.Size = new System.Drawing.Size(143, 56);
-            this.nudAntennaOffset_Tool.TabIndex = 582;
-            this.nudAntennaOffset_Tool.ValueChanged += new System.EventHandler(this.nudAntennaOffset_Tool_ValueChanged);
-            // 
             // imageList2
             // 
             this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
@@ -1155,32 +1181,6 @@
             this.imageList2.Images.SetKeyName(3, "ConS_Pins.png");
             this.imageList2.Images.SetKeyName(4, "Sensors.png");
             this.imageList2.Images.SetKeyName(5, "Con_ImplementMenu.png");
-            // 
-            // lblPWMDisplay
-            // 
-            this.lblPWMDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblPWMDisplay.BackColor = System.Drawing.Color.Transparent;
-            this.lblPWMDisplay.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPWMDisplay.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblPWMDisplay.Location = new System.Drawing.Point(64, 17);
-            this.lblPWMDisplay.Name = "lblPWMDisplay";
-            this.lblPWMDisplay.Size = new System.Drawing.Size(61, 23);
-            this.lblPWMDisplay.TabIndex = 330;
-            this.lblPWMDisplay.Text = "255";
-            this.lblPWMDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label9.BackColor = System.Drawing.Color.Transparent;
-            this.label9.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label9.Location = new System.Drawing.Point(9, 17);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(61, 23);
-            this.label9.TabIndex = 331;
-            this.label9.Text = "PWM:";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // FormToolSteer
             // 
@@ -1211,10 +1211,10 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.tabSteerSettings.ResumeLayout(false);
-            this.tabConfig.ResumeLayout(false);
-            this.tabConfig.PerformLayout();
             this.tabOnTheLine.ResumeLayout(false);
             this.tabOnTheLine.PerformLayout();
+            this.tabConfig.ResumeLayout(false);
+            this.tabConfig.PerformLayout();
             this.ResumeLayout(false);
 
         }

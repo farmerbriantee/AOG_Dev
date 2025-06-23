@@ -2442,25 +2442,23 @@ namespace AOG
             font.DrawText(oglMain.Width / 2 - lenth, 10, strHeading, 1);
 
             //set angular velocity
-            strHeading = "Set: " + guidanceLineAngularVelocity.ToString("N1");
+            strHeading = "Set: " + (guidanceLineAngularVelocity*100).ToString("N0");
             font.DrawText(center, 110, strHeading, 1.2);
 
             GL.Color3(0.49852f, 0.982f, 0.83f);
-            //angular velocity
-            strHeading = "Act: " + ahrs.angVel.ToString();
+            //required angular velocity
+            strHeading = "Act: " + (ahrs.angVel).ToString();
             font.DrawText(center, 150, strHeading, 1.2);
 
+            GL.Color3(0.9852f, 0.4982f, 0.83f);
+            //angular velocity
+            strHeading = "Err: " + ((guidanceLineAngularVelocity - ahrs.angVel)*100).ToString("N0");
+            font.DrawText(center, 190, strHeading, 1.2);
 
             //GPS Step
             if (distanceCurrentStepFixDisplay < 0.03 * 100)
                 GL.Color3(0.98f, 0.82f, 0.653f);
             font.DrawText(center, 10, distanceCurrentStepFixDisplay.ToString("N1") + "cm", 1);
-
-            if (isMaxAngularVelocity)
-            {
-                GL.Color3(0.98f, 0.4f, 0.4f);
-                font.DrawText(center - 10, oglMain.Height - 260, "*", 2);
-            }
         }
 
         private void DrawCompass()

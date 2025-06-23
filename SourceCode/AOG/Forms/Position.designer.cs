@@ -97,8 +97,6 @@ namespace AOG
         double frameTimeRough = 3;
         public double timeSliceOfLastFix = 0;
 
-        public bool isMaxAngularVelocity = false;
-
         public int minSteerSpeedTimer = 0;
 
         private double _steerAngleScrollBar;
@@ -405,8 +403,11 @@ namespace AOG
             if (!vehicle.isInFreeDriveMode)
             {
                 //fill up0 the appropriate arrays with new values
-                PGN_254.pgn[PGN_254.speedHi] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0) >> 8));
-                PGN_254.pgn[PGN_254.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
+                //PGN_254.pgn[PGN_254.speedHi] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0) >> 8));
+                //PGN_254.pgn[PGN_254.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
+
+                PGN_254.pgn[PGN_254.speedHi] = unchecked((byte)((int)((guidanceLineAngularVelocity - ahrs.angVel) * 100) >> 8));
+                PGN_254.pgn[PGN_254.speedLo] = unchecked((byte)((int)((guidanceLineAngularVelocity - ahrs.angVel) * 100)));
                 //mc.machineControlData[mc.cnSpeed] = mc.autoSteerData[mc.sdSpeed];
 
                 //convert to cm from mm and divide by 2 - lightbar

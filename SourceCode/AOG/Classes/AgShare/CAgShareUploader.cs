@@ -12,8 +12,6 @@ namespace AOG
 {
     public class CAgShareUploader
     {
-        private readonly FormGPS gps;
-
         public static FieldSnapshot CreateSnapshot(FormGPS gps)
         {
             string dir = Path.Combine(RegistrySettings.fieldsDirectory, gps.currentFieldDirectory);
@@ -113,7 +111,6 @@ namespace AOG
                 {
                     string txtPath = Path.Combine(snapshot.FieldDirectory, "agshare.txt");
                     File.WriteAllText(txtPath, snapshot.FieldId.ToString());
-                    gps.TimedMessageBox(1000, "AgShare", "Upload Succesfully");
                     
                     
                 }

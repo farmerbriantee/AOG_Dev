@@ -497,16 +497,14 @@ namespace AOG
         // Centralized shutdown coordinator
         private bool isShuttingDown = false;
 
-        private async void FormGPS_FormClosing(object sender, FormClosingEventArgs e)
+        private void FormGPS_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (isShuttingDown)
-            {
-                return;
-            }
-            //set the shutdown flag to true to prevent re-entrance
+            if (isShuttingDown) return;
             isShuttingDown = true;
 
-            // Attempt to close subforms cleanly
+            e.Cancel = true; // prevent immediate exit
+
+            // Close child forms
             string[] formNames = { "FormGPSData", "FormFieldData", "FormPan", "FormTimedMessage" };
             foreach (string name in formNames)
             {
@@ -517,7 +515,7 @@ namespace AOG
                 }
             }
 
-            // Cancel shutdown if owned forms are still open
+            // Abort shutdown if any owned forms are still open
             if (this.OwnedForms.Any())
             {
                 TimedMessageBox(2000, gStr.Get(gs.gsWindowsStillOpen), gStr.Get(gs.gsCloseAllWindowsFirst));
@@ -526,7 +524,7 @@ namespace AOG
                 return;
             }
 
-            // Get user choice for shutdown behavior
+            // Ask user what to do
             int choice = SaveOrNot();
             if (choice == 1)
             {
@@ -534,37 +532,85 @@ namespace AOG
                 e.Cancel = true;
                 return;
             }
-            // Save and upload field data if applicable
+
             if (isFieldStarted)
             {
                 SetWorkState(btnStates.Off);
-                
-                if (Settings.User.AgShareUploadEnabled)
-                {
-                    TimedMessageBox(5000, "AgShare", "Uploading field to AgShare...\nPlease wait and get a beer.");
-                    isAgShareUploadStarted = true;
-                    agShareUploadTask = CAgShareUploader.UploadAsync(snapshot, agShareClient, this);
-
-                    e.Cancel = true;
-                    await DelayedShutdownAfterUpload(choice);                  
-                    return;
-                }
-                FileSaveEverythingBeforeClosingField();
             }
-            // No upload required, skip DelayedShutDown and finalize shutdown
-            FinishShutdown(choice);
+
+            // Begin visual save progress (with optional AgShare upload)
+            BeginInvoke(new Func<Task>(async () => await ShowSavingFormAndShutdown(choice)));
         }
 
-        private async Task DelayedShutdownAfterUpload(int choice)
+
+        private async Task ShowSavingFormAndShutdown(int choice)
         {
-            try
+            using (FormSaving savingForm = new FormSaving())
             {
-                await agShareUploadTask;
-                agShareUploadTask = null;               
+                savingForm.InitializeSteps(isFieldStarted);
+                savingForm.Show();
+
+                await Task.Delay(300);
+
+                if (isFieldStarted)
+                {
+                    savingForm.UpdateStep(0, ShutdownSteps.ParamsDone);
+
+                    bool agShareInserted = false;
+                    int fieldSaveIndex = 1;
+
+                    if (Settings.User.AgShareUploadEnabled && !isAgShareUploadStarted)
+                    {
+                        agShareInserted = true;
+                        isAgShareUploadStarted = true;
+
+                        savingForm.InsertStep(1, ShutdownSteps.UploadAgShare);
+                        try
+                        {
+                            agShareUploadTask = CAgShareUploader.UploadAsync(snapshot, agShareClient, this);
+                            await agShareUploadTask;
+                            savingForm.UpdateStep(1, ShutdownSteps.UploadDone);
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.EventWriter("AgShare upload error during shutdown: " + ex.Message);
+                            savingForm.UpdateStep(1, ShutdownSteps.UploadFailed);
+                        }
+
+                        fieldSaveIndex = 2;
+                    }
+
+                    savingForm.UpdateStep(fieldSaveIndex, ShutdownSteps.SaveField);
+                    await FileSaveEverythingBeforeClosingField();
+                    savingForm.UpdateStep(fieldSaveIndex, ShutdownSteps.FieldSaved);
+
+                    int settingsIndex = agShareInserted ? 3 : 2;
+                    await Task.Delay(300);
+                    savingForm.UpdateStep(settingsIndex, ShutdownSteps.SettingsSaved);
+
+                    int finalIndex = agShareInserted ? 4 : 3;
+                    await Task.Delay(500);
+                    savingForm.UpdateStep(finalIndex, ShutdownSteps.AllDone);
+                    await Task.Delay(750);
+                    savingForm.AddFinalMessage();
+                }
+                else
+                {
+                    await Task.Delay(300);
+                    savingForm.UpdateStep(0, ShutdownSteps.SettingsSaved);
+                    await Task.Delay(300);
+                    savingForm.UpdateStep(1, ShutdownSteps.AllDone);
+                    await Task.Delay(750);
+                    savingForm.AddFinalMessage();
+                }
+
+                await Task.Delay(2000);
+                savingForm.Close();
             }
-            catch (Exception) { }
+
             FinishShutdown(choice);
         }
+
 
         private void FinishShutdown(int choice)
         {
@@ -684,7 +730,7 @@ namespace AOG
             }
         }
 
-        public void FileSaveEverythingBeforeClosingField()
+        public Task FileSaveEverythingBeforeClosingField()
         {
             FieldMenuButtonEnableDisable(false);
             displayFieldName = gStr.Get(gs.gsNone);
@@ -696,7 +742,10 @@ namespace AOG
             FieldClose();
 
             this.Text = "AOG";
+
+            return Task.CompletedTask;
         }
+
 
         #region AgShare Upload
 

@@ -547,7 +547,6 @@ namespace AOG
 
                     e.Cancel = true;
                     await DelayedShutdownAfterUpload(choice);                  
-                    return;
                 }
                 FileSaveEverythingBeforeClosingField();
             }

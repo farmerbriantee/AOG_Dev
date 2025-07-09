@@ -984,7 +984,7 @@ namespace AOG
                                 return;
                             }
 
-                            if ( Settings.User.setFeatures.isUTurnOn)
+                            if ( Settings.User.setFeatures.isUTurnOn && isBtnAutoSteerOn)
                             {
                                 //manual uturn triggering
                                 middle = centerX - oglMain.Width / 4;
@@ -1011,7 +1011,7 @@ namespace AOG
                         }
 
                         //lateral
-                        else if (Settings.User.setFeatures.isLateralOn && point.Y < 240 && point.Y > 170)
+                        else if (Settings.User.setFeatures.isLateralOn && isBtnAutoSteerOn && point.Y < 240 && point.Y > 170)
                         {
                             int middle = centerX - oglMain.Width / 4;
                             if (point.X > middle - 100 && point.X < middle + 100)

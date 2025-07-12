@@ -373,7 +373,7 @@ namespace AOG
                 CExtensionMethods.SetProgressNoAnimation(pbarLeft, (int)-actAng);
             }
 
-            lblSteerAngle.Text = mf.SetSteerAngle;
+            lblSteerAngle.Text = mf.vehicle.driveFreeSteerAngle.ToString("N1");
             lblSteerAngleActual.Text = mf.mc.actualSteerAngleDegrees.ToString("N1") + "\u00B0";
             lblActualSteerAngleUpper.Text = lblSteerAngleActual.Text;
             double err = mf.mc.actualSteerAngleDegrees - mf.guidanceLineSteerAngle;

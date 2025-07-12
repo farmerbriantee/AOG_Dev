@@ -2442,7 +2442,7 @@ namespace AOG
             font.DrawText(oglMain.Width / 2 - lenth, 10, strHeading, 1);
 
             //set angular velocity
-            strHeading = "Set: " + (guidanceLineAngularVelocity*100).ToString("N0");
+            strHeading = "Set: " + (guidanceLineAngularVelocity*100).ToString("N1");
             font.DrawText(center, 110, strHeading, 1.2);
 
             GL.Color3(0.49852f, 0.982f, 0.83f);
@@ -2452,8 +2452,16 @@ namespace AOG
 
             GL.Color3(0.9852f, 0.4982f, 0.83f);
             //angular velocity
-            strHeading = "Err: " + ((guidanceLineAngularVelocity - ahrs.angVel)*100).ToString("N0");
+            strHeading = "Err: " + ((guidanceLineAngularVelocity - ahrs.angVel)*100).ToString("N1");
             font.DrawText(center, 190, strHeading, 1.2);
+
+            double vehicleAngularVelocity = glm.twoPI * 0.277777 * avgSpeed * (Math.Tan(glm.toRadians(mc.actualSteerAngleDegrees))) / vehicle.wheelbase;
+
+            GL.Color3(0.49852f, 0.982f, 0.483f);
+            //angular velocity
+            strHeading = "Veh: " + ((vehicleAngularVelocity) * 100).ToString("N1");
+            font.DrawText(center, 240, strHeading, 1.2);
+
 
             //GPS Step
             if (distanceCurrentStepFixDisplay < 0.03 * 100)

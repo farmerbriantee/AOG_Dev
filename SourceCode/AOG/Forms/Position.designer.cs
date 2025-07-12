@@ -403,11 +403,9 @@ namespace AOG
             if (!vehicle.isInFreeDriveMode)
             {
                 //fill up0 the appropriate arrays with new values
-                //PGN_254.pgn[PGN_254.speedHi] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0) >> 8));
-                //PGN_254.pgn[PGN_254.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
+                PGN_254.pgn[PGN_254.speedHi] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0) >> 8));
+                PGN_254.pgn[PGN_254.speedLo] = unchecked((byte)((int)(Math.Abs(avgSpeed) * 10.0)));
 
-                PGN_254.pgn[PGN_254.speedHi] = unchecked((byte)((int)((guidanceLineAngularVelocity - ahrs.angVel) * 100) >> 8));
-                PGN_254.pgn[PGN_254.speedLo] = unchecked((byte)((int)((guidanceLineAngularVelocity - ahrs.angVel) * 100)));
                 //mc.machineControlData[mc.cnSpeed] = mc.autoSteerData[mc.sdSpeed];
 
                 //convert to cm from mm and divide by 2 - lightbar
@@ -458,24 +456,26 @@ namespace AOG
                 }
 
                 // delay on dead zone.
-                if (PGN_254.pgn[PGN_254.status] == 1 && !isReverse
-                    && Math.Abs(guidanceLineSteerAngle - mc.actualSteerAngleDegrees) < vehicle.deadZoneHeading)
-                {
-                    if (vehicle.deadZoneDelayCounter > vehicle.deadZoneDelay)
-                    {
-                        vehicle.isInDeadZone = true;
-                    }
-                }
-                else
-                {
-                    vehicle.deadZoneDelayCounter = 0;
-                    vehicle.isInDeadZone = false;
-                }
+                //if (PGN_254.pgn[PGN_254.status] == 1 && !isReverse
+                //    && Math.Abs(guidanceLineSteerAngle - mc.actualSteerAngleDegrees) < vehicle.deadZoneHeading)
+                //{
+                //    if (vehicle.deadZoneDelayCounter > vehicle.deadZoneDelay)
+                //    {
+                //        vehicle.isInDeadZone = true;
+                //    }
+                //}
+                //else
+                //{
+                //    vehicle.deadZoneDelayCounter = 0;
+                //    vehicle.isInDeadZone = false;
+                //}
+
+                vehicle.isInDeadZone = false;
 
                 if (!vehicle.isInDeadZone)
                 {
                     //var angleX100 = (Int16)(guidanceLineSteerAngle * 100);
-                    var angleX100 = (Int16)(guidanceLineAngularVelocity * 100);
+                    var angleX100 = (Int16)((guidanceLineAngularVelocity - ahrs.angVel) * 100);
 
                     PGN_254.pgn[PGN_254.steerAngleHi] = unchecked((byte)(angleX100 >> 8));
                     PGN_254.pgn[PGN_254.steerAngleLo] = unchecked((byte)(angleX100));
@@ -522,7 +522,7 @@ namespace AOG
                 PGN_254.pgn[PGN_254.status] = 1;
 
                 //send the steer angle
-                var angleX100 = (Int16)(vehicle.driveFreeSteerAngle * 100);
+                var angleX100 = (Int16)((vehicle.driveFreeSteerAngle - ahrs.angVel) * 100);
 
                 PGN_254.pgn[PGN_254.steerAngleHi] = unchecked((byte)(angleX100 >> 8));
                 PGN_254.pgn[PGN_254.steerAngleLo] = unchecked((byte)(angleX100));

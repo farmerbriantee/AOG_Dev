@@ -14,9 +14,14 @@ EasyProfile          eP(&eOD);
 
   int16_t roll = 0, yaw = 0;
 
-  float angVel = 0.0;
+  float angVel = 0.0, ang1, ang2;
   int16_t sendAV;
   float lastYaw;
+
+   //loop time variables in microseconds  
+ const uint16_t LOOP_TIME = 20;  //50Hz    
+ uint32_t lastTime = LOOP_TIME;
+ uint32_t currentTime = LOOP_TIME;
     
   void setup()
   {
@@ -30,15 +35,25 @@ EasyProfile          eP(&eOD);
   {
       if (toSend >= 9)
       {
+          currentTime = millis();          
+          float deltaTime = currentTime - lastTime;
+          deltaTime *= 0.01;    
+          lastTime = currentTime;
+          
           toSend = 0;
-          sendAV = (int16_t)(angVel);
+          double avgAngVel = 0.5*angVel + 0.3*ang1 + 0.2*ang2;
+          ang2 = ang1;
+          ang1 = angVel;
+          sendAV = (int16_t)((avgAngVel - lastYaw) * deltaTime * 10);
+          lastYaw = avgAngVel;
+          
           data[5] = (uint8_t)yaw;
           data[6] = yaw >> 8;
 
           //the roll x10
           data[7] = (uint8_t)roll;
-          data[8] = roll >> 8;
-
+          data[8] = roll >> 8;     
+                      
           //the roll x10
           data[9] = (uint8_t)sendAV;
           data[10] = sendAV >> 8;
@@ -90,10 +105,8 @@ EasyProfile          eP(&eOD);
                   {
                       roll = ep_RPY.roll * 100;
                       yaw = ep_RPY.yaw * 10;
-                      toSend++;
-
-                      angVel += ((ep_RPY.yaw*100) - lastYaw*100);
-                      lastYaw = ep_RPY.yaw;					  
+                      angVel = ep_RPY.yaw*130;
+                      toSend++;	  
                   }
                   break;
               }

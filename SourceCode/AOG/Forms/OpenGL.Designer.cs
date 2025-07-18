@@ -2452,7 +2452,7 @@ namespace AOG
 
             GL.Color3(0.9852f, 0.4982f, 0.83f);
             //angular velocity
-            strHeading = "Err: " + ((guidanceLineAngularVelocity - ahrs.angVel)*100).ToString("N1");
+            strHeading = "Err: " + (guidanceLineAngularVelocity - ahrs.angVel).ToString("N1");
             font.DrawText(center, 190, strHeading, 1.2);
 
             double vehicleAngularVelocity = glm.twoPI * 0.277777 * avgSpeed * (Math.Tan(glm.toRadians(mc.actualSteerAngleDegrees))) / vehicle.wheelbase;

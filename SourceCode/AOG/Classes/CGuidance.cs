@@ -326,7 +326,7 @@ namespace AOG
                 if (steerAngle > mf.vehicle.maxSteerAngle) steerAngle = mf.vehicle.maxSteerAngle;
 
                 //calc angular velocity in rads/sec = 2PI * m/sec * radians/meters
-                steerAngularVelocity = glm.twoPI * 0.277777 * mf.avgSpeed * (Math.Tan(glm.toRadians(steerAngle))) / mf.vehicle.wheelbase;
+                steerAngularVelocity = glm.twoPI * 2.77777 * mf.avgSpeed * (Math.Tan(glm.toRadians(steerAngle))) / mf.vehicle.wheelbase;
 
                 //used for acquire/hold mode
                 //used for smooth mode

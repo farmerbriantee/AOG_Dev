@@ -735,8 +735,10 @@ namespace AOG
             FieldMenuButtonEnableDisable(false);
             displayFieldName = gStr.Get(gs.gsNone);
 
+            //should this be a setting?
             ExportFieldAs_ISOXMLv3();
             ExportFieldAs_ISOXMLv4();
+            ExportFieldAs_KML();
 
             JobClose();
             FieldClose();

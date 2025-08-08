@@ -1,56 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace AOG
 {
     public partial class FormSaving : Form
     {
+        private Label lastlbl;
+        int idx = 0;
         public FormSaving()
         {
             InitializeComponent();
         }
 
-        public void InitializeSteps(bool isJobStarted)
+        public void UpdateStep(string text)
         {
-            lstSteps.Items.Clear();
-
-            if (isJobStarted)
-            {
-                lstSteps.Items.Add(ShutdownSteps.SaveParams);
-                lstSteps.Items.Add(ShutdownSteps.SaveField);
-                lstSteps.Items.Add(ShutdownSteps.SaveSettings);
-                lstSteps.Items.Add(ShutdownSteps.Finalizing);
-            }
-            else
-            {
-                lstSteps.Items.Add(ShutdownSteps.SaveSettings);
-                lstSteps.Items.Add(ShutdownSteps.Finalizing);
-            }
+            if (lastlbl != null)
+                lastlbl.Text = text;
         }
 
-        public void UpdateStep(int index, string text)
+        public void AddStep(string text)
         {
-            if (index >= 0 && index < lstSteps.Items.Count)
-                lstSteps.Items[index] = text;
-        }
+            if (idx == 0)
+                lastlbl = label1;
+            else if (idx == 1)
+                lastlbl = label2;
+            else if (idx == 2)
+                lastlbl = label3;
+            else if (idx == 3)
+                lastlbl = label4;
+            else if (idx == 4)
+                lastlbl = label5;
+            else if (idx == 5)
+                lastlbl = label6;
 
-        public void InsertStep(int index, string text)
-        {
-            if (index >= 0 && index <= lstSteps.Items.Count)
-                lstSteps.Items.Insert(index, text);
-        }
-
-        public void AddFinalMessage()
-        {
-            lstSteps.Items.Add("");
-            lstSteps.Items.Add(ShutdownSteps.Beer);
+            idx++;
+            lastlbl.Text = text;
         }
     }
 }

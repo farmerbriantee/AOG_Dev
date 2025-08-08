@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Linq;
-using System.Diagnostics;
-using AOG.Classes;
 
 namespace AOG
 {
@@ -52,18 +49,21 @@ namespace AOG
         }
 
         // Upload snapshot to AgShare using boundary with holes
-        public static async Task UploadAsync(FieldSnapshot snapshot, AgShareClient client, FormGPS gps)
+        public static async Task<bool> UploadAsync(FieldSnapshot snapshot)
         {
             try
             {
+                //Init AgShareClient
+                var client = new AgShareClient(Settings.User.AgShareServer, Settings.User.AgShareApiKey);
+
                 if (snapshot.Boundaries == null || snapshot.Boundaries.Count == 0)
-                    return;
+                    return false;
 
                 // First ring = outer
                 List<CoordinateDto> outer = ConvertBoundary(snapshot.Boundaries[0], snapshot.Converter);
 
                 if (outer == null || outer.Count < 3)
-                    return;
+                    return false;
 
                 // Remaining = holes
                 List<List<CoordinateDto>> holes = new List<List<CoordinateDto>>();
@@ -111,19 +111,17 @@ namespace AOG
                 {
                     string txtPath = Path.Combine(snapshot.FieldDirectory, "agshare.txt");
                     File.WriteAllText(txtPath, snapshot.FieldId.ToString());
-                    
-                    
                 }
-
+                
                 snapshot = null;
+                return ok;
             }
             catch (Exception ex)
             {
                 Log.EventWriter("Error uploading field to AgShare: " + ex.Message);
             }
+            return false;
         }
-
-
 
         private static List<CoordinateDto> ConvertBoundary(List<vec3> localFence, CNMEA converter)
         {

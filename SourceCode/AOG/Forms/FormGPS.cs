@@ -12,7 +12,6 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Windows.Forms;
 using System.Threading.Tasks;
-using static AOG.CAgShareUploader;
 
 namespace AOG
 {
@@ -26,7 +25,7 @@ namespace AOG
         [System.Runtime.InteropServices.DllImport("User32.dll")]
         private static extern bool ShowWindow(IntPtr hWind, int nCmdShow);
 
-        private Task agShareUploadTask = null;
+        private Task<bool> agShareUploadTask = Task.FromResult(false);
 
 
         #region // Class Props and instances
@@ -206,8 +205,6 @@ namespace AOG
         /// Nozzle class
         /// </summary>
         public CNozzle nozz;
-
-        private AgShareClient agShareClient;
 
         #endregion // Class Props and instances
 
@@ -486,10 +483,6 @@ namespace AOG
                     form.ShowDialog(this);
                 }
             }
-
-            //Init AgShareClient
-            agShareClient = new AgShareClient(Settings.User.AgShareServer, Settings.User.AgShareApiKey);
-
         }
 
         #region Shutdown Handling
@@ -533,11 +526,6 @@ namespace AOG
                 return;
             }
 
-            if (isFieldStarted)
-            {
-                SetWorkState(btnStates.Off);
-            }
-
             // Begin visual save progress (with optional AgShare upload)
             BeginInvoke(new Func<Task>(async () => await ShowSavingFormAndShutdown(choice)));
         }
@@ -547,64 +535,45 @@ namespace AOG
         {
             using (FormSaving savingForm = new FormSaving())
             {
-                savingForm.InitializeSteps(isFieldStarted);
                 savingForm.Show();
-
-                await Task.Delay(300);
 
                 if (isFieldStarted)
                 {
-                    savingForm.UpdateStep(0, ShutdownSteps.ParamsDone);
-
-                    bool agShareInserted = false;
-                    int fieldSaveIndex = 1;
-
-                    if (Settings.User.AgShareUploadEnabled && !isAgShareUploadStarted)
-                    {
-                        agShareInserted = true;
-                        isAgShareUploadStarted = true;
-
-                        savingForm.InsertStep(1, ShutdownSteps.UploadAgShare);
-                        try
-                        {
-                            agShareUploadTask = CAgShareUploader.UploadAsync(snapshot, agShareClient, this);
-                            await agShareUploadTask;
-                            savingForm.UpdateStep(1, ShutdownSteps.UploadDone);
-                        }
-                        catch (Exception ex)
-                        {
-                            Log.EventWriter("AgShare upload error during shutdown: " + ex.Message);
-                            savingForm.UpdateStep(1, ShutdownSteps.UploadFailed);
-                        }
-
-                        fieldSaveIndex = 2;
-                    }
-
-                    savingForm.UpdateStep(fieldSaveIndex, ShutdownSteps.SaveField);
+                    savingForm.AddStep(ShutdownSteps.SaveField);
                     await FileSaveEverythingBeforeClosingField();
-                    savingForm.UpdateStep(fieldSaveIndex, ShutdownSteps.FieldSaved);
+                    savingForm.UpdateStep(ShutdownSteps.FieldSaved);
 
-                    int settingsIndex = agShareInserted ? 3 : 2;
-                    await Task.Delay(300);
-                    savingForm.UpdateStep(settingsIndex, ShutdownSteps.SettingsSaved);
+                    if (Settings.User.AgShareUploadEnabled)
+                    {
+                        savingForm.AddStep(ShutdownSteps.UploadAgShare);
 
-                    int finalIndex = agShareInserted ? 4 : 3;
-                    await Task.Delay(500);
-                    savingForm.UpdateStep(finalIndex, ShutdownSteps.AllDone);
-                    await Task.Delay(750);
-                    savingForm.AddFinalMessage();
-                }
-                else
-                {
-                    await Task.Delay(300);
-                    savingForm.UpdateStep(0, ShutdownSteps.SettingsSaved);
-                    await Task.Delay(300);
-                    savingForm.UpdateStep(1, ShutdownSteps.AllDone);
-                    await Task.Delay(750);
-                    savingForm.AddFinalMessage();
+                        bool succes = await agShareUploadTask;//wait for the upload to complete
+
+                        if (succes)
+                            savingForm.UpdateStep(ShutdownSteps.UploadDone);
+                        else
+                            savingForm.UpdateStep(ShutdownSteps.UploadFailed);
+                    }
                 }
 
-                await Task.Delay(2000);
+                savingForm.AddStep(ShutdownSteps.SaveSettings);
+
+                // Save application settings
+                SaveFormGPSWindowSettings();
+
+                Settings.Vehicle.Save();
+                Settings.Tool.Save();
+                Settings.User.Save();
+
+                //await Task.Delay(300);
+                savingForm.UpdateStep(ShutdownSteps.SettingsSaved);
+                savingForm.AddStep(ShutdownSteps.Finalizing);
+                //await Task.Delay(300);
+                savingForm.UpdateStep(ShutdownSteps.AllDone);
+                //await Task.Delay(750);
+                savingForm.AddStep("");
+                savingForm.AddStep(ShutdownSteps.Beer);
+                await Task.Delay(3000);
                 savingForm.Close();
             }
 
@@ -614,8 +583,6 @@ namespace AOG
 
         private void FinishShutdown(int choice)
         {
-            SaveFormGPSWindowSettings();
-
             double minutesSinceStart = ((DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds) / 60;
             if (minutesSinceStart < 1) minutesSinceStart = 1;
 
@@ -630,10 +597,6 @@ namespace AOG
                 try { thread_oglBack.Abort(); } catch { }
             }
 
-            // Save application settings
-            Settings.Vehicle.Save();
-            Settings.Tool.Save();
-            Settings.User.Save();
             FileSaveSystemEvents();
 
             // Restore display brightness
@@ -751,26 +714,15 @@ namespace AOG
 
         #region AgShare Upload
 
-        private bool isAgShareUploadStarted = false;
         //this method is called to create a snapshot of the field for AgShare so we can close the field to speed up close and re-open
-        public void AgShareSnapshot()
-        {
-            if (!isFieldStarted) return;
-
-            snapshot = CAgShareUploader.CreateSnapshot(this);
-        }
-
-
-        private FieldSnapshot snapshot;
         public void AgShareUpload()
         {
-            //check if we're already uploading by closing a field or are we shutting down
-            if (!isFieldStarted || snapshot == null || isAgShareUploadStarted || isShuttingDown)
-                return;
-
-            //set bool to true so we don't start another upload by double clicking or something.
-            isAgShareUploadStarted = true;
-            agShareUploadTask = CAgShareUploader.UploadAsync(snapshot, agShareClient, this);
+            //check if we're already uploading
+            if (Settings.User.AgShareUploadEnabled && agShareUploadTask.IsCompleted)
+            {
+                var snapshot = CAgShareUploader.CreateSnapshot(this);
+                agShareUploadTask = CAgShareUploader.UploadAsync(snapshot);
+            }
         }
 
         #endregion
@@ -947,7 +899,6 @@ namespace AOG
             worldGrid.isGeoMap = false;
 
             PanelUpdateRightAndBottom();
-            isAgShareUploadStarted = false;
 
             using (Bitmap bitmap = Properties.Resources.z_bingMap)
             {

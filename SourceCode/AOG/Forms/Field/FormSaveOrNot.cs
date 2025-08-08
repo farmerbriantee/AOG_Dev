@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace AOG
 {
@@ -26,11 +25,6 @@ namespace AOG
 
             lblExitCtr.Text = countExit.ToString();
             lblShutCtr.Text = countShutdown.ToString();
-            if (Owner is FormGPS gps && gps.isFieldStarted)
-            {
-                gps.AgShareSnapshot();
-            }
-            
         }
 
         //exit to windows

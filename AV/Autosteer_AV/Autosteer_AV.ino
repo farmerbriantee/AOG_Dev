@@ -127,28 +127,30 @@
   void(* resetFunc) (void) = 0;
 
   void setup()
-  { 
-    //keep pulled high and drag low to activate, noise free safe   
-    pinMode(WORKSW_PIN, INPUT_PULLUP); 
-    pinMode(STEERSW_PIN, INPUT_PULLUP); 
-    pinMode(REMOTE_PIN, INPUT_PULLUP); 
-    pinMode(DIR1_RL_ENABLE, OUTPUT);
-    
-    if (steerConfig.CytronDriver) pinMode(PWM2_RPWM, OUTPUT); 
-    
-    EEPROM.get(0, EEread);              // read identifier
-      
-    if (EEread != EEP_Ident)   // check on first start and write EEPROM
-    {           
-      EEPROM.put(0, EEP_Ident);
-      EEPROM.put(10, steerSettings);   
-      EEPROM.put(40, steerConfig);
-    }
-    else 
-    { 
-      EEPROM.get(10, steerSettings);     // read the Settings
-      EEPROM.get(40, steerConfig);
-    }
+  {
+      Serial.begin(38400);
+
+      //keep pulled high and drag low to activate, noise free safe   
+      pinMode(WORKSW_PIN, INPUT_PULLUP);
+      pinMode(STEERSW_PIN, INPUT_PULLUP);
+      pinMode(REMOTE_PIN, INPUT_PULLUP);
+      pinMode(DIR1_RL_ENABLE, OUTPUT);
+
+      if (steerConfig.CytronDriver) pinMode(PWM2_RPWM, OUTPUT);
+
+      EEPROM.get(0, EEread);              // read identifier
+
+      if (EEread != EEP_Ident)   // check on first start and write EEPROM
+      {
+          EEPROM.put(0, EEP_Ident);
+          EEPROM.put(10, steerSettings);
+          EEPROM.put(40, steerConfig);
+      }
+      else
+      {
+          EEPROM.get(10, steerSettings);     // read the Settings
+          EEPROM.get(40, steerConfig);
+      }
   }// End of Setup
 
   void loop()
@@ -204,7 +206,7 @@
               angularVelocityError *= -1;
           }
 
-          if (watchdogTimer > WATCHDOG_LIMIT || (bitRead(guidanceStatus, 0) == 0) || (gpsSpeed < 0.1) || (steerSwitch == 1))
+          if (watchdogTimer > WATCHDOG_LIMIT || (bitRead(guidanceStatus, 0) == 0) || (gpsSpeed < 2) || (steerSwitch == 1))
           {
               //we've lost the comm to AgOpenGPS, or just stop request, or slow
               //Disable H Bridge for IBT2, hyd aux, etc for cytron

@@ -2452,15 +2452,15 @@ namespace AOG
 
             GL.Color3(0.9852f, 0.4982f, 0.83f);
             //angular velocity
-            strHeading = "Err: " + (guidanceLineAngularVelocity - ahrs.angVel).ToString("N1");
+            strHeading = "Err: " + ((guidanceLineAngularVelocity*100 - ahrs.angVel)).ToString("N1");
             font.DrawText(center, 190, strHeading, 1.2);
 
-            double vehicleAngularVelocity = glm.twoPI * 2.77777 * avgSpeed * (Math.Tan(glm.toRadians(mc.actualSteerAngleDegrees))) / vehicle.wheelbase;
+            //double vehicleAngularVelocity = glm.twoPI * 2.77777 * avgSpeed * (Math.Tan(glm.toRadians(mc.actualSteerAngleDegrees))) / vehicle.wheelbase;
 
-            GL.Color3(0.49852f, 0.982f, 0.483f);
-            //angular velocity
-            strHeading = "Veh: " + ((vehicleAngularVelocity) * 100).ToString("N1");
-            font.DrawText(center, 240, strHeading, 1.2);
+            //GL.Color3(0.49852f, 0.982f, 0.483f);
+            ////angular velocity
+            //strHeading = "Veh: " + ((vehicleAngularVelocity) * 100).ToString("N1");
+            //font.DrawText(center, 240, strHeading, 1.2);
 
 
             //GPS Step

@@ -4,6 +4,9 @@ void calcSteeringPID(void)
     pValue = steerSettings.Kp * angularVelocityError;
     pwmDrive = (int16_t)pValue;
 
+    if (pwmDrive < 0) pwmDrive -= steerSettings.minPWM;
+    else if (pwmDrive > 0) pwmDrive += steerSettings.minPWM;
+
     //limit the pwm drive
     if (pwmDrive > steerSettings.highPWM) pwmDrive = steerSettings.highPWM;
     if (pwmDrive < -steerSettings.highPWM) pwmDrive = -steerSettings.highPWM;

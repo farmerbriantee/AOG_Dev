@@ -41,9 +41,10 @@ EasyProfile          eP(&eOD);
           lastTime = currentTime;
           
           toSend = 0;
-          double avgAngVel = 0.5*angVel + 0.3*ang1 + 0.2*ang2;
-          ang2 = ang1;
-          ang1 = angVel;
+          //double avgAngVel = 0.5*angVel + 0.3*ang1 + 0.2*ang2;
+          double avgAngVel = angVel;
+          //ang2 = ang1;
+          //ang1 = angVel;
           sendAV = (int16_t)((avgAngVel - lastYaw) * deltaTime * 10);
           lastYaw = avgAngVel;
           

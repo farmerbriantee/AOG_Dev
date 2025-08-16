@@ -475,7 +475,7 @@ namespace AOG
                 if (!vehicle.isInDeadZone)
                 {
                     //var angleX100 = (Int16)(guidanceLineSteerAngle * 100);
-                    var angleX100 = (Int16)((guidanceLineAngularVelocity - ahrs.angVel) * 100);
+                    var angleX100 = (Int16)((guidanceLineAngularVelocity*100 - ahrs.angVel) * 1);
 
                     PGN_254.pgn[PGN_254.steerAngleHi] = unchecked((byte)(angleX100 >> 8));
                     PGN_254.pgn[PGN_254.steerAngleLo] = unchecked((byte)(angleX100));

@@ -179,7 +179,7 @@ namespace AOG
         {
             double widthMinusOverlap = Settings.Tool.toolWidth - Settings.Tool.overlap;
 
-            if (!isTrackValid || ((mf.secondsSinceStart - lastSecond) > 3 && (!mf.isBtnAutoSteerOn || mf.mc.steerSwitchHigh)))
+            if (!isTrackValid || ((mf.secondsSinceStart - lastSecond) > 2 && (!mf.isBtnAutoSteerOn || mf.mc.steerSwitchHigh)))
             {
                 double distanceFromRefLine = 0;
                 lastSecond = mf.secondsSinceStart;

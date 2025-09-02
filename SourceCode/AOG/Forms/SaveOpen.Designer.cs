@@ -39,6 +39,9 @@ namespace AOG
         //list of the list of patch data individual triangles for that entire section activity
         public List<List<vec3>> patchList = new List<List<vec3>>();
 
+        //list of the list of patch data individual triangles for background
+        public List<List<vec3>> patchListLayer = new List<List<vec3>>();
+
         public CFieldFiles fieldFilesList = new CFieldFiles();
 
         #region Create Files

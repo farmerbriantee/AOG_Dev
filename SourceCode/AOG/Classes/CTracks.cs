@@ -199,7 +199,9 @@ namespace AOG
                         distanceFromRefLine = mf.gyd.FindDistanceToSegment(mf.guidanceLookPos, track.curvePts[rA], track.curvePts[rB], out vec3 point, out _, true, false, false);
 
                         //same way as line creation or not
-                        isHeadingSameWay = Math.PI - Math.Abs(Math.Abs(pivot.heading - track.curvePts[rA].heading) - Math.PI) < glm.PIBy2;
+                        isHeadingSameWay = Math.PI - Math.Abs(Math.Abs(pivot.heading 
+                            + glm.toRadians(mf.mc.actualSteerAngleDegrees) - track.curvePts[rA].heading) 
+                            - Math.PI) < glm.PIBy2;
                     }
                 }
                 else //pivot guide list

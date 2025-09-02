@@ -176,6 +176,12 @@
     <Compile Include="Forms\Field\FormAgShareDownloader.Designer.cs">
       <DependentUpon>FormAgShareDownloader.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Field\FormLayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Field\FormLayer.Designer.cs">
+      <DependentUpon>FormLayer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormSaving.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -620,6 +626,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Field\FormFieldISOXML.resx">
       <DependentUpon>FormFieldISOXML.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Field\FormLayer.resx">
+      <DependentUpon>FormLayer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Field\FormJobNew.resx">
       <DependentUpon>FormJobNew.cs</DependentUpon>

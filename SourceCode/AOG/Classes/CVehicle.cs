@@ -88,12 +88,6 @@ namespace AOG
             double LoekiAheadHold = goalPointLookAheadHold;
             double LoekiAheadAcquire = goalPointLookAheadHold * goalPointAcquireFactor;
 
-            if (!mf.isBtnAutoSteerOn)
-            {
-                LoekiAheadHold = 5;
-                LoekiAheadAcquire = LoekiAheadHold * goalPointAcquireFactor;
-            }
-
             if (xTE <= 0.1)
             {
                 goalPointDistance *= LoekiAheadHold;

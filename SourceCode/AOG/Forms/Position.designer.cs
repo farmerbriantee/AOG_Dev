@@ -806,8 +806,8 @@ namespace AOG
             //guidance look ahead distance based on time or tool width at least 
             
             double guidanceLookDist = (Math.Max(Settings.Tool.toolWidth * 0.5, avgSpeed * 0.277777 * Settings.Vehicle.setAS_guidanceLookAheadTime));
-            guidanceLookPos.easting = pivotAxlePos.easting + (Math.Sin(fixHeading) * guidanceLookDist);
-            guidanceLookPos.northing = pivotAxlePos.northing + (Math.Cos(fixHeading) * guidanceLookDist);
+            guidanceLookPos.easting = pivotAxlePos.easting + (Math.Sin(fixHeading + glm.toRadians(mc.actualSteerAngleDegrees)) * guidanceLookDist);
+            guidanceLookPos.northing = pivotAxlePos.northing + (Math.Cos(fixHeading + glm.toRadians(mc.actualSteerAngleDegrees)) * guidanceLookDist);
             
             //determine where the rigid vehicle hitch ends
             hitchPos.easting = pivotAxlePos.easting + Math.Sin(fixHeading) * Settings.Tool.hitchLength;

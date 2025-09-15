@@ -260,6 +260,59 @@ namespace AOG
                     if (camera.camSetDistance < -2400) mipmap = 8;
                     if (camera.camSetDistance < -5000) mipmap = 16;
 
+                    if (patchListLayer.Count > 0)
+                    {
+
+                        //for every new chunk of patch
+                        foreach (var triList in patchListLayer)
+                        {
+                            //check for even
+                            if (triList.Count % 2 == 0)
+                                break;
+
+                            bool isDraw = false;
+                            int count2 = triList.Count;
+                            for (int i = 1; i < count2; i += 3)
+                            {
+                                //determine if point is in frustum or not, if < 0, its outside so abort, z always is 0                            
+                                if (frustum[0] * triList[i].easting + frustum[1] * triList[i].northing + frustum[3] <= 0)
+                                    continue;//right
+                                if (frustum[4] * triList[i].easting + frustum[5] * triList[i].northing + frustum[7] <= 0)
+                                    continue;//left
+                                if (frustum[16] * triList[i].easting + frustum[17] * triList[i].northing + frustum[19] <= 0)
+                                    continue;//bottom
+                                if (frustum[20] * triList[i].easting + frustum[21] * triList[i].northing + frustum[23] <= 0)
+                                    continue;//top
+                                if (frustum[8] * triList[i].easting + frustum[9] * triList[i].northing + frustum[11] <= 0)
+                                    continue;//far
+                                if (frustum[12] * triList[i].easting + frustum[13] * triList[i].northing + frustum[15] <= 0)
+                                    continue;//near
+
+                                //point is in frustum so draw the entire patch. The downside of triangle strips.
+                                isDraw = true;
+                                break;
+                            }
+
+                            if (isDraw)
+                            {
+                                if (Settings.User.setDisplay_isDayMode) GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)70);
+                                else GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)(35));
+
+
+                                triList.DrawPolygon(mipmap, 1, PrimitiveType.TriangleStrip);
+
+                                if (Settings.User.setDisplay_isSectionLinesOn)
+                                {
+                                    //highlight lines
+                                    GL.Color4(0.2, 0.2, 0.2, 1.0);
+
+                                    triList.DrawPolygon(mipmap, 1, PrimitiveType.LineStrip);
+                                    triList.DrawPolygon(mipmap, 2, PrimitiveType.LineStrip);
+                                }
+
+                            }
+                        }
+                    }
 
                     //for every new chunk of patch
                     foreach (var triList in patchList)
@@ -385,7 +438,11 @@ namespace AOG
                         }
                     }
 
-                    if (tram.displayMode != 0) tram.DrawTram();
+
+
+
+
+                   if (tram.displayMode != 0) tram.DrawTram();
 
                     GL.PolygonMode(MaterialFace.Front, PolygonMode.Fill);
 

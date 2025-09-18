@@ -138,7 +138,11 @@ namespace AgIO
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Close();
+            using (FormYesNo form = new FormYesNo("Are You Sure You Want To Exit?"))
+            {
+                DialogResult result = form.ShowDialog(this);
+                if (result == DialogResult.OK) Close();       //Exit to windows
+            }       
         }
 
         private void btnRadio_Click(object sender, EventArgs e)

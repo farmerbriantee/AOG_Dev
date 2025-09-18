@@ -327,25 +327,11 @@ namespace AOG
                     GL.Enable(EnableCap.Texture2D);
                     GL.Color4(mf.vehicleColor.R, mf.vehicleColor.G, mf.vehicleColor.B, mf.vehicleOpacityByte);
 
-                    GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.FourWDRear]);        // Select Our Texture
-
-                    GL.PushMatrix();
-                    GL.Translate(0, -wheelbase * 0.5, 0);
-                    GL.Rotate(modelSteerAngle, 0, 0, 1);
-
-                    GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
-                    GL.TexCoord2(1, 0); GL.Vertex2(trackWidth, wheelbase * 0.65); // Top Right
-                    GL.TexCoord2(0, 0); GL.Vertex2(-trackWidth, wheelbase * 0.65); // Top Left
-                    GL.TexCoord2(1, 1); GL.Vertex2(trackWidth, -wheelbase * 0.65); // Bottom Right
-                    GL.TexCoord2(0, 1); GL.Vertex2(-trackWidth, -wheelbase * 0.65); // Bottom Left
-                    GL.End();                       // Done Building Triangle Strip
-
-                    GL.PopMatrix();
 
                     GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.FourWDFront]);        // Select Our Texture
 
                     GL.PushMatrix();
-                    GL.Translate(0, wheelbase * 0.5, 0);
+                    //GL.Translate(0, wheelbase * 0.5, 0);
                     GL.Rotate(-modelSteerAngle, 0, 0, 1);
 
                     GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
@@ -356,6 +342,22 @@ namespace AOG
                     GL.End();                       // Done Building Triangle Strip
 
                     GL.PopMatrix();
+
+                    GL.BindTexture(TextureTarget.Texture2D, mf.texture[(int)FormGPS.textures.FourWDRear]);        // Select Our Texture
+
+                    GL.PushMatrix();
+                    GL.Translate(0, -wheelbase*1.25, 0);
+                    GL.Rotate(modelSteerAngle, 0, 0, 1);
+
+                    GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
+                    GL.TexCoord2(1, 0); GL.Vertex2(trackWidth, wheelbase *  0.65); // Top Right
+                    GL.TexCoord2(0, 0); GL.Vertex2(-trackWidth, wheelbase * 0.65); // Top Left
+                    GL.TexCoord2(1, 1); GL.Vertex2(trackWidth, -wheelbase * 0.65); // Bottom Right
+                    GL.TexCoord2(0, 1); GL.Vertex2(-trackWidth, -wheelbase *0.65); // Bottom Left
+                    GL.End();                       // Done Building Triangle Strip
+
+                    GL.PopMatrix();
+
                     GL.Disable(EnableCap.Texture2D);
                 }
             }

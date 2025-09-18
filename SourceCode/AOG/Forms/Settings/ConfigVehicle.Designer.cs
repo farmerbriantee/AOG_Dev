@@ -541,8 +541,10 @@ namespace AOG
         private void tabVAntenna_Enter(object sender, EventArgs e)
         {
             nudAntennaHeight.Value = Settings.Vehicle.setVehicle_antennaHeight;
-            nudAntennaPivot.Value = Settings.Vehicle.setVehicle_antennaPivot;
+            
+            nudAntennaPivot.Value = Math.Abs(Settings.Vehicle.setVehicle_antennaPivot);
             //negative is to the right
+
             nudAntennaOffset.Value = Math.Abs(Settings.Vehicle.setVehicle_antennaOffset);
 
             rbtnAntennaLeft.Checked = Settings.Vehicle.setVehicle_antennaOffset > 0;
@@ -600,6 +602,8 @@ namespace AOG
         private void nudAntennaPivot_ValueChanged(object sender, EventArgs e)
         {
             Settings.Vehicle.setVehicle_antennaPivot = nudAntennaPivot.Value;
+
+            if (mf.vehicle.vehicleType == 2) Settings.Vehicle.setVehicle_antennaPivot = nudAntennaPivot.Value * -1;
             mf.vehicle.antennaPivot = Settings.Vehicle.setVehicle_antennaPivot;
         }
 

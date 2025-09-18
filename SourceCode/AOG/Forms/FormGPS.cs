@@ -527,9 +527,10 @@ namespace AOG
             }
 
             // Begin visual save progress (with optional AgShare upload)
-            BeginInvoke(new Func<Task>(async () => await ShowSavingFormAndShutdown(choice)));
-        }
+            //BeginInvoke(new Func<Task>(async () => await ShowSavingFormAndShutdown(choice)));
 
+            FinishShutdown(choice);
+        }
 
         private async Task ShowSavingFormAndShutdown(int choice)
         {
